@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>דף עבודה אינטראקטיבי</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#16233F; --ink-2:#223256; --paper:#FBF7EE; --paper-card:#FFFFFF; --paper-2:#F1EADA;
+  --gold:#A87424; --gold-light:#D9B36C; --teal:#285C58; --border:#E3DCC9;
+  --text:#23283A; --text-soft:#545B72; --focus:#1857C4; --radius:10px;
+  --font-display:"Frank Ruhl Libre",serif; --font-body:"Heebo",sans-serif;
+}
+*,*::before,*::after{ box-sizing:border-box; }
+body{ margin:0; background:var(--paper); color:var(--text); font-family:var(--font-body); line-height:1.65; }
+h1,h2,h3{ font-family:var(--font-display); color:var(--ink); margin:0; }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
+  outline:3px solid var(--focus); outline-offset:2px;
+}
+
+/* ===== מזהה/הגדרות התבנית - ערוך כאן לכל דף עבודה חדש ===== */
+/* WORKSHEET_ID: מזהה ייחודי לכל דף (חשוב לשמירה נפרדת בדפדפן) */
+/* WORKSHEET_TITLE, WORKSHEET_SUBTITLE: הכותרות שיוצגו בראש הדף */
+/* TEACHER_EMAIL, GOOGLE_FORM_URL: פרטי הגשה - מולאים בהמשך הקובץ */
+
+header.top{ background:var(--ink); color:#F4EFE2; padding:1.5rem 1.25rem; }
+.top-inner{ max-width:760px; margin:0 auto; }
+.eyebrow{ color:var(--gold-light); font-weight:600; font-size:0.85rem; margin:0 0 0.4rem; }
+header.top h1{ color:#fff; font-size:1.6rem; }
+.top-sub{ color:#D6D0BE; margin:0.4rem 0 0; font-size:0.95rem; }
+
+main{ max-width:760px; margin:0 auto; padding:1.75rem 1.25rem 4rem; }
+
+.name-card{
+  background:var(--paper-card); border:1.5px solid var(--gold); border-radius:var(--radius);
+  padding:1rem 1.2rem; margin-bottom:1.5rem; display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
+}
+.name-card label{ font-weight:700; color:var(--ink); }
+.name-card input{ flex:1; min-width:180px; padding:0.55rem 0.7rem; border:1.5px solid var(--border); border-radius:8px; font-size:1rem; }
+
+.progress-wrap{ margin-bottom:2rem; }
+.progress-label{ display:flex; justify-content:space-between; font-size:0.85rem; color:var(--text-soft); margin-bottom:0.35rem; }
+.progress-bar{ height:10px; background:var(--paper-2); border-radius:99px; overflow:hidden; }
+.progress-fill{ height:100%; background:var(--gold); width:0%; transition:width .3s; }
+
+.save-indicator{ font-size:0.8rem; color:var(--teal); margin-top:0.4rem; min-height:1.1em; }
+
+.question{
+  background:var(--paper-card); border:1px solid var(--border); border-radius:var(--radius);
+  padding:1.2rem 1.3rem; margin-bottom:1.1rem;
+}
+.question h3{ font-size:1.05rem; margin-bottom:0.7rem; }
+.question .q-num{ color:var(--gold); }
+.question textarea, .question input[type="text"]{
+  width:100%; padding:0.65rem 0.8rem; border:1.5px solid var(--border); border-radius:8px;
+  font-family:inherit; font-size:1rem; resize:vertical;
+}
+.question textarea{ min-height:90px; }
+.choice-list{ display:flex; flex-direction:column; gap:0.5rem; }
+.choice-list label{ display:flex; align-items:center; gap:0.6rem; cursor:pointer; }
+
+.btn{
+  display:inline-flex; align-items:center; gap:0.5rem; padding:0.7rem 1.3rem;
+  border-radius:8px; font-weight:700; font-size:1rem; cursor:pointer; border:1.5px solid transparent;
+  text-decoration:none; min-height:44px;
+}
+.btn-primary{ background:var(--ink); color:#fff; }
+.btn-primary:hover{ background:var(--gold); }
+.btn-outline{ background:transparent; color:var(--ink); border-color:var(--ink); }
+.btn-outline:hover{ border-color:var(--gold); color:var(--gold); }
+.btn-reset{ background:transparent; color:#8A2E2E; border-color:#D9B7B7; font-weight:500; font-size:0.9rem; padding:0.5rem 1rem; }
+
+.action-row{ display:flex; gap:0.8rem; flex-wrap:wrap; margin:2rem 0; }
+
+.submit-section{
+  border-top:2.5px solid var(--gold); padding-top:1.5rem; margin-top:2.5rem;
+}
+.submit-section h2{ font-size:1.3rem; margin-bottom:0.5rem; }
+.submit-section p{ color:var(--text-soft); margin:0 0 1.1rem; }
+.submit-options{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+.submit-card{ background:var(--paper-card); border:1px solid var(--border); border-radius:var(--radius); padding:1.1rem 1.2rem; }
+.submit-card h4{ font-family:var(--font-display); font-size:1.05rem; margin-bottom:0.4rem; }
+.submit-card p{ font-size:0.9rem; margin:0 0 0.8rem; }
+
+@media (max-width:600px){ .submit-options{ grid-template-columns:1fr; } }
+
+/* מסך הדפסה - מוצג רק בעת שמירה/ייצוא ל-PDF */
+@media print{
+  header.top{ background:#fff !important; color:#000 !important; }
+  header.top h1, .eyebrow, .top-sub{ color:#000 !important; }
+  .action-row, .submit-section, .save-indicator, .btn-reset{ display:none !important; }
+  body{ background:#fff; }
+  .question, .name-card{ border:1px solid #999; break-inside:avoid; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <p class="eyebrow">בית המדרש הדיגיטלי &middot; דף עבודה אינטראקטיבי</p>
+    <h1 id="ws-title">ספר יונה - פרק א׳: המפגש הראשון</h1>
+    <p class="top-sub" id="ws-subtitle">ענו על השאלות ישירות בדף. התשובות נשמרות אוטומטית בדפדפן שלכם.</p>
+  </div>
+</header>
+
+<main>
+
+  <div class="name-card">
+    <label for="student-name">שם התלמיד/ה:</label>
+    <input type="text" id="student-name" placeholder="הקלידו כאן את שמכם המלא" autocomplete="off">
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label"><span>התקדמות במילוי</span><span id="progress-text">0%</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <p class="save-indicator" id="save-indicator" role="status" aria-live="polite"></p>
+  </div>
+
+  <!-- ============ שאלות לדוגמה - יש להחליף בתוכן האמיתי של דף העבודה ============ -->
+
+  <div class="question">
+    <h3><span class="q-num">1.</span> מה גרם ליונה לברוח מהמשימה שה' הטיל עליו?</h3>
+    <textarea data-field="q1" placeholder="כתבו את תשובתכם כאן..."></textarea>
+  </div>
+
+  <div class="question">
+    <h3><span class="q-num">2.</span> לאן יונה ניסה לברוח, ולמה דווקא לשם?</h3>
+    <input type="text" data-field="q2" placeholder="תשובה קצרה...">
+  </div>
+
+  <div class="question">
+    <h3><span class="q-num">3.</span> איזה מהמאפיינים הבאים הכי בולט בהתנהגות יונה בפרק זה?</h3>
+    <div class="choice-list">
+      <label><input type="radio" name="q3" value="a" data-field="q3"> פחד</label>
+      <label><input type="radio" name="q3" value="b" data-field="q3"> עקשנות</label>
+      <label><input type="radio" name="q3" value="c" data-field="q3"> אחריות</label>
+      <label><input type="radio" name="q3" value="d" data-field="q3"> ענווה</label>
+    </div>
+  </div>
+
+  <div class="question">
+    <h3><span class="q-num">4.</span> נמקו את בחירתכם בשאלה הקודמת בהתבסס על הפסוקים.</h3>
+    <textarea data-field="q4" placeholder="כתבו את נימוקכם כאן..."></textarea>
+  </div>
+
+  <!-- ============ סוף אזור השאלות ============ -->
+
+  <div class="action-row">
+    <button class="btn btn-primary" id="export-pdf">
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M14 2v5h5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+      שמירה כ-PDF להגשה
+    </button>
+    <button class="btn btn-reset" id="reset-answers">איפוס תשובות</button>
+  </div>
+
+  <section class="submit-section">
+    <h2>הגשת המשימה</h2>
+    <p>אחרי שמירת הדף כ-PDF (הכפתור למעלה), בחרו איך להגיש למורה:</p>
+    <div class="submit-options">
+      <div class="submit-card">
+        <h4>הגשה בטופס</h4>
+        <p>לחיצה תפתח טופס הגשה מקוון. העלו אליו את קובץ ה-PDF ששמרתם.</p>
+        <a class="btn btn-outline" id="submit-form-link" href="#" target="_blank" rel="noopener">פתיחת טופס הגשה</a>
+      </div>
+      <div class="submit-card">
+        <h4>הגשה במייל</h4>
+        <p>לחיצה תפתח הודעת מייל מוכנה למורה. יש לצרף אליה את קובץ ה-PDF.</p>
+        <a class="btn btn-outline" id="submit-email-link" href="#">שליחה במייל</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============ הגדרות - ערכו כאן לכל דף עבודה חדש ============ */
+  var WORKSHEET_ID = "yonah-perek-1";                 // מזהה ייחודי - שנו לכל דף עבודה חדש
+  var TEACHER_EMAIL = "your-email@example.com";       // כתובת המייל שלך
+  var GOOGLE_FORM_URL = "";                            // קישור לטופס הגשה ב-Google Forms (השאירו ריק אם אין עדיין)
+  /* ============================================================= */
+
+  var STORAGE_KEY = "worksheet-answers-" + WORKSHEET_ID;
+  var fields = document.querySelectorAll("[data-field]");
+  var nameInput = document.getElementById("student-name");
+  var saveIndicator = document.getElementById("save-indicator");
+  var progressFill = document.getElementById("progress-fill");
+  var progressText = document.getElementById("progress-text");
+
+  function getAnswers(){
+    var data = {};
+    fields.forEach(function(el){
+      var key = el.getAttribute("data-field");
+      if(el.type === "radio"){
+        if(el.checked) data[key] = el.value;
+      } else {
+        data[key] = el.value;
+      }
+    });
+    data._studentName = nameInput.value;
+    return data;
+  }
+
+  function saveAnswers(){
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(getAnswers()));
+      saveIndicator.textContent = "✓ נשמר אוטומטית";
+      setTimeout(function(){ saveIndicator.textContent = ""; }, 2000);
+    }catch(e){ /* localStorage לא זמין - ממשיכים בלי שמירה */ }
+    updateProgress();
+  }
+
+  function restoreAnswers(){
+    var raw;
+    try{ raw = localStorage.getItem(STORAGE_KEY); }catch(e){ return; }
+    if(!raw) return;
+    var data;
+    try{ data = JSON.parse(raw); }catch(e){ return; }
+    fields.forEach(function(el){
+      var key = el.getAttribute("data-field");
+      if(!(key in data)) return;
+      if(el.type === "radio"){
+        el.checked = (el.value === data[key]);
+      } else {
+        el.value = data[key];
+      }
+    });
+    if(data._studentName) nameInput.value = data._studentName;
+    updateProgress();
+  }
+
+  function updateProgress(){
+    var uniqueKeys = {};
+    fields.forEach(function(el){ uniqueKeys[el.getAttribute("data-field")] = true; });
+    var total = Object.keys(uniqueKeys).length;
+    var answers = getAnswers();
+    var filled = 0;
+    Object.keys(uniqueKeys).forEach(function(k){
+      if(answers[k] && String(answers[k]).trim()) filled++;
+    });
+    var pct = total ? Math.round((filled/total)*100) : 0;
+    progressFill.style.width = pct + "%";
+    progressText.textContent = pct + "%";
+  }
+
+  fields.forEach(function(el){
+    el.addEventListener("input", saveAnswers);
+    el.addEventListener("change", saveAnswers);
+  });
+  nameInput.addEventListener("input", saveAnswers);
+
+  document.getElementById("reset-answers").addEventListener("click", function(){
+    if(!confirm("לאפס את כל התשובות שמילאתם? לא ניתן לשחזר לאחר מכן.")) return;
+    fields.forEach(function(el){
+      if(el.type === "radio"){ el.checked = false; } else { el.value = ""; }
+    });
+    try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+    updateProgress();
+  });
+
+  document.getElementById("export-pdf").addEventListener("click", function(){
+    window.print();
+  });
+
+  /* קישורי הגשה */
+  var formLink = document.getElementById("submit-form-link");
+  if(GOOGLE_FORM_URL){
+    formLink.href = GOOGLE_FORM_URL;
+  } else {
+    formLink.addEventListener("click", function(e){
+      e.preventDefault();
+      alert("טרם הוגדר טופס הגשה עבור דף זה. אפשר להגיש כרגע במייל.");
+    });
+  }
+
+  var emailLink = document.getElementById("submit-email-link");
+  emailLink.addEventListener("click", function(e){
+    e.preventDefault();
+    var title = document.getElementById("ws-title").textContent.trim();
+    var name = nameInput.value.trim() || "(לא הוזן שם)";
+    var subject = encodeURIComponent("הגשת מטלה: " + title + " - " + name);
+    var body = encodeURIComponent(
+      "שלום,\n\nמצורף בזאת דף העבודה שמילאתי: " + title + "\nשם: " + name +
+      "\n\n[נא לצרף כאן את קובץ ה-PDF ששמרתם לפני השליחה]"
+    );
+    window.location.href = "mailto:" + TEACHER_EMAIL + "?subject=" + subject + "&body=" + body;
+  });
+
+  restoreAnswers();
+})();
+</script>
+</body>
+</html>
