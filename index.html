@@ -57,6 +57,11 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   border-radius: 4px;
 }
 
+.visually-hidden{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+
 /* ===== Skip link ===== */
 .skip-link{
   position:absolute; right:1rem; top:-60px;
@@ -101,33 +106,44 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 
 /* ===== Hero ===== */
 .hero{ background:linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%); color:#F4EFE2; }
-.hero-inner{ max-width:800px; margin:0 auto; padding:3.2rem 1.25rem 3.6rem; text-align:center; }
-.eyebrow{ color:var(--gold-light); font-weight:600; letter-spacing:0.03em; margin:0 0 0.6rem; font-size:0.95rem; }
-.hero h2{ color:#fff; font-size:2.1rem; line-height:1.35; margin:0 0 1rem; }
-.hero-desc{ color:#D6D0BE; font-size:1.05rem; max-width:600px; margin:0 auto; }
+.hero-inner{ max-width:700px; margin:0 auto; padding:2.2rem 1.25rem 2.4rem; text-align:center; }
+.hero h2{ color:#fff; font-size:1.6rem; line-height:1.35; margin:0; }
 
 /* ===== Controls ===== */
 .controls{ background:var(--paper-2); border-bottom:1px solid var(--border); }
-.controls-inner{ max-width:1100px; margin:0 auto; padding:1.1rem 1.25rem; }
+.controls-inner{ max-width:1100px; margin:0 auto; padding:1rem 1.25rem; display:flex; flex-wrap:wrap; align-items:center; gap:0.9rem; }
 
-.tabgroup{ display:flex; gap:0.5rem; margin-bottom:1rem; flex-wrap:wrap; }
+.tabgroup{ display:flex; gap:0.5rem; flex-wrap:wrap; }
 .tab{
   background:var(--paper-card); border:1.5px solid var(--border); color:var(--ink);
-  padding:0.6rem 1.2rem; border-radius:999px; cursor:pointer; font-weight:600;
+  padding:0.55rem 1.1rem; border-radius:999px; cursor:pointer; font-weight:600;
   min-height:44px;
 }
 .tab[aria-selected="true"]{ background:var(--ink); color:#fff; border-color:var(--ink); }
 .tab:hover{ border-color:var(--gold); }
 
-.filters-row{ display:flex; gap:1.1rem; flex-wrap:wrap; align-items:flex-end; }
+.search-field{ flex:1 1 220px; min-width:200px; }
+.search-field input{
+  width:100%; border:1.5px solid var(--border); border-radius:999px; padding:0.6rem 1rem;
+  background:var(--paper-card); color:var(--text); min-height:44px;
+}
+
+.more-filters{ flex-basis:100%; order:3; }
+.more-filters summary{
+  cursor:pointer; color:var(--text-soft); font-weight:600; font-size:0.9rem;
+  list-style:none; display:inline-flex; align-items:center; gap:0.3rem; padding:0.3rem 0;
+}
+.more-filters summary::-webkit-details-marker{ display:none; }
+.more-filters summary .chev{ transition:transform .15s ease; }
+.more-filters[open] summary .chev{ transform:rotate(180deg); }
+.more-filters summary:hover{ color:var(--ink); }
+.filters-row{ display:flex; gap:1.1rem; flex-wrap:wrap; align-items:flex-end; padding-top:0.8rem; }
 .field{ display:flex; flex-direction:column; gap:0.3rem; }
 .field label{ font-size:0.85rem; color:var(--text-soft); font-weight:600; }
-.field select, .field input{
+.field select{
   border:1.5px solid var(--border); border-radius:8px; padding:0.6rem 0.8rem;
   background:var(--paper-card); color:var(--text); min-height:44px; min-width:180px;
 }
-.search-field{ flex-grow:1; min-width:220px; }
-.search-field input{ width:100%; min-width:0; }
 
 /* ===== Results ===== */
 .results-wrap{ max-width:1100px; margin:0 auto; padding:1.75rem 1.25rem 4rem; }
@@ -209,14 +225,13 @@ body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; 
       </div>
     </div>
 
-    <div style="display:flex; align-items:center; gap:0.6rem;">
+    <div style="display:flex; align-items:center; gap:0.5rem;">
       <a href="submit.html" class="a11y-toggle" style="text-decoration:none;">
-        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
         הגשת מטלה
       </a>
-      <button id="a11y-toggle" class="a11y-toggle" aria-expanded="false" aria-controls="a11y-panel">
-        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="5" r="2.3" fill="currentColor"/><path d="M4 9.5c3.2 1.2 5.6 1.6 8 1.6s4.8-.4 8-1.6M12 11v10M8.5 21l1.7-6M15.5 21l-1.7-6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
-        נגישות
+      <button id="a11y-toggle" class="a11y-toggle" aria-expanded="false" aria-controls="a11y-panel" aria-label="נגישות">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="5" r="2.3" fill="currentColor"/><path d="M4 9.5c3.2 1.2 5.6 1.6 8 1.6s4.8-.4 8-1.6M12 11v10M8.5 21l1.7-6M15.5 21l-1.7-6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
       </button>
     </div>
   </div>
@@ -245,10 +260,7 @@ body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; 
 
   <section class="hero">
     <div class="hero-inner">
-      <p class="eyebrow">כל חומרי הכיתה, במקום אחד, נגיש לכולם</p>
-      <h2>כל דף עבודה, כל חוברת, כל מצגת — כאן</h2>
-      <!-- ניתן לערוך את הפסקה הבאה להודעה אישית לתלמידים (בהשראת מורים אחרים שכותבים היכרות קצרה) -->
-      <p class="hero-desc">האתר מתעדכן ישירות ממחברת חומרי הלימוד. אין צורך לחפש בקבוצות ווטסאפ ישנות — כל מה שנלמד בכיתה זמין להורדה בכל זמן ומכל מכשיר.</p>
+      <h2>כל חומרי הכיתה, במקום אחד</h2>
     </div>
   </section>
 
@@ -256,42 +268,45 @@ body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; 
     <div class="controls-inner">
 
       <div class="tabgroup" role="tablist" aria-label="בחירת כיתה">
-        <button class="tab" role="tab" aria-selected="true" data-class="all" id="tab-all">כל הכיתות</button>
-        <button class="tab" role="tab" aria-selected="false" data-class="יא" id="tab-ya">כיתה י"א</button>
-        <button class="tab" role="tab" aria-selected="false" data-class="יב" id="tab-yb">כיתה י"ב</button>
+        <button class="tab" role="tab" aria-selected="true" data-class="all" id="tab-all">הכל</button>
+        <button class="tab" role="tab" aria-selected="false" data-class="יא" id="tab-ya">י"א</button>
+        <button class="tab" role="tab" aria-selected="false" data-class="יב" id="tab-yb">י"ב</button>
       </div>
 
-      <div class="filters-row">
-        <div class="field">
-          <label for="subject-filter">מקצוע</label>
-          <select id="subject-filter">
-            <option value="all">כל המקצועות</option>
-            <option value="תנך">תנ"ך</option>
-            <option value="תושבע">תושב"ע</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="type-filter">סוג חומר</label>
-          <select id="type-filter">
-            <option value="all">כל הסוגים</option>
-            <option value="חוברת">חוברת</option>
-            <option value="דף עבודה">דף עבודה</option>
-            <option value="דף חזרה">דף חזרה</option>
-            <option value="דף אינטראקטיבי">דף אינטראקטיבי</option>
-            <option value="מצגת">מצגת</option>
-            <option value="סרטון">סרטון</option>
-            <option value="משחק/חידון">משחק/חידון</option>
-            <option value="סיכום">סיכום</option>
-            <option value="אחר">אחר</option>
-          </select>
-        </div>
-
-        <div class="field search-field">
-          <label for="search-box">חיפוש חופשי</label>
-          <input type="search" id="search-box" placeholder="לדוגמה: יונה, פרק ב, תפילה...">
-        </div>
+      <div class="field search-field">
+        <label for="search-box" class="visually-hidden">חיפוש חופשי</label>
+        <input type="search" id="search-box" placeholder="חיפוש: יונה, פרק ב, תפילה...">
       </div>
+
+      <details class="more-filters">
+        <summary>סינון נוסף <svg class="chev" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="filters-row">
+          <div class="field">
+            <label for="subject-filter">מקצוע</label>
+            <select id="subject-filter">
+              <option value="all">כל המקצועות</option>
+              <option value="תנך">תנ"ך</option>
+              <option value="תושבע">תושב"ע</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="type-filter">סוג חומר</label>
+            <select id="type-filter">
+              <option value="all">כל הסוגים</option>
+              <option value="חוברת">חוברת</option>
+              <option value="דף עבודה">דף עבודה</option>
+              <option value="דף חזרה">דף חזרה</option>
+              <option value="דף אינטראקטיבי">דף אינטראקטיבי</option>
+              <option value="מצגת">מצגת</option>
+              <option value="סרטון">סרטון</option>
+              <option value="משחק/חידון">משחק/חידון</option>
+              <option value="סיכום">סיכום</option>
+              <option value="אחר">אחר</option>
+            </select>
+          </div>
+        </div>
+      </details>
     </div>
   </section>
 
