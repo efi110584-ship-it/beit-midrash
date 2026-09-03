@@ -110,7 +110,13 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 
 <div class="form-wrap">
   <div class="card">
-    <form id="submit-form" enctype="multipart/form-data">
+    <form id="submit-form" method="POST" enctype="multipart/form-data"
+          action="https://formsubmit.co/1002220223@edu-haifa.org.il">
+      <input type="hidden" name="_subject" id="subjectField" value="הגשת מטלה - בית המדרש הדיגיטלי">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" id="nextField" value="submit-thanks.html">
+
       <div class="field">
         <label for="studentName">שם מלא</label>
         <input type="text" id="studentName" name="name" required autocomplete="name">
@@ -152,57 +158,39 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 (function(){
   "use strict";
 
-  /* >>> כדי לשנות את היעד שאליו מגיעות ההגשות, ערכו כאן את הכתובת <<< */
-  var SUBMIT_EMAIL = "1002220223@edu-haifa.org.il";
+  /* חשוב: הטופס נשלח כאן כ-POST רגיל (לא AJAX/fetch) בכוונה - השרת של
+     FormSubmit לא מצרף קבצים כשהשליחה נעשית דרך נקודת הקצה ה-AJAX שלו,
+     רק בשליחת טופס רגילה (עם ניווט לדף אחר). לכן לא עושים preventDefault
+     כשהכל תקין - רק כשצריך לעצור בגלל קובץ גדול מדי. */
 
   var form = document.getElementById("submit-form");
   var submitBtn = document.getElementById("submitBtn");
   var statusMsg = document.getElementById("statusMsg");
+  var subjectField = document.getElementById("subjectField");
+  var nextField = document.getElementById("nextField");
+  var topicInput = document.getElementById("topic");
 
   var MAX_FILE_BYTES = 5 * 1024 * 1024; // 5MB
   var fileInput = document.getElementById("fileInput");
 
-  form.addEventListener("submit", function(e){
-    e.preventDefault();
+  /* _next חייב להיות כתובת מלאה כדי ש-FormSubmit ידע לאן להפנות בחזרה */
+  nextField.value = location.href.replace(/submit\.html.*$/, "submit-thanks.html");
 
+  form.addEventListener("submit", function(e){
     var file = fileInput.files[0];
     if(file && file.size > MAX_FILE_BYTES){
+      e.preventDefault();
       statusMsg.className = "status-msg show error";
       statusMsg.textContent = "הקובץ גדול מדי (מעל 5MB). נסו לשמור אותו בפורמט קטן יותר או לצלם באיכות נמוכה יותר.";
       return;
     }
 
+    subjectField.value = "הגשת מטלה - " + (topicInput.value || "בית המדרש הדיגיטלי");
     submitBtn.disabled = true;
     submitBtn.textContent = "שולח...";
     statusMsg.className = "status-msg";
     statusMsg.textContent = "";
-
-    var formData = new FormData(form);
-    formData.append("_subject", "הגשת מטלה - " + formData.get("topic"));
-
-    fetch("https://formsubmit.co/ajax/" + encodeURIComponent(SUBMIT_EMAIL), {
-      method: "POST",
-      headers: { "Accept": "application/json" },
-      body: formData
-    })
-    .then(function(res){ return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
-    .then(function(result){
-      if(result.ok){
-        statusMsg.className = "status-msg show success";
-        statusMsg.textContent = "המטלה נשלחה בהצלחה! תודה.";
-        form.reset();
-      } else {
-        throw new Error("שגיאה בשליחה");
-      }
-    })
-    .catch(function(){
-      statusMsg.className = "status-msg show error";
-      statusMsg.textContent = "משהו השתבש בשליחה. נסו שוב, או שלחו את התשובות ישירות למורה.";
-    })
-    .finally(function(){
-      submitBtn.disabled = false;
-      submitBtn.textContent = "שליחה";
-    });
+    /* אין עוד קוד אחרי זה - הדפדפן ממשיך בשליחה הרגילה של הטופס */
   });
 })();
 </script>
