@@ -111,11 +111,11 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 <div class="form-wrap">
   <div class="card">
     <form id="submit-form" method="POST" enctype="multipart/form-data"
-          action="https://formsubmit.co/1002220223@edu-haifa.org.il">
-      <input type="hidden" name="_subject" id="subjectField" value="הגשת מטלה - בית המדרש הדיגיטלי">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_next" id="nextField" value="submit-thanks.html">
+          action="https://api.web3forms.com/submit">
+      <input type="hidden" name="access_key" value="9798d17a-a799-49c8-b264-cc309ec85a1e">
+      <input type="hidden" name="subject" id="subjectField" value="הגשת מטלה - בית המדרש הדיגיטלי">
+      <input type="hidden" name="redirect" id="nextField" value="submit-thanks.html">
+      <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
 
       <div class="field">
         <label for="studentName">שם מלא</label>
@@ -158,10 +158,9 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 (function(){
   "use strict";
 
-  /* חשוב: הטופס נשלח כאן כ-POST רגיל (לא AJAX/fetch) בכוונה - השרת של
-     FormSubmit לא מצרף קבצים כשהשליחה נעשית דרך נקודת הקצה ה-AJAX שלו,
-     רק בשליחת טופס רגילה (עם ניווט לדף אחר). לכן לא עושים preventDefault
-     כשהכל תקין - רק כשצריך לעצור בגלל קובץ גדול מדי. */
+  /* הטופס נשלח כ-POST רגיל (לא AJAX/fetch) לשירות Web3Forms - כך גם
+     קובץ מצורף עובר בוודאות. לא עושים preventDefault כשהכל תקין -
+     רק כשצריך לעצור בגלל קובץ גדול מדי. */
 
   var form = document.getElementById("submit-form");
   var submitBtn = document.getElementById("submitBtn");
