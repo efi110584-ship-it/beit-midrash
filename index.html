@@ -345,6 +345,19 @@ const SITE_CONFIG = {
     { class:"יא", subject:"תנך", topic:"ספר יונה - פרק ד׳", type:"דף אינטראקטיבי", title:"דף עבודה אינטראקטיבי - יונה פרק ד׳", url:"yonah-4.html", note:"" }
   ];
 
+  /* אם אותו נושא/סוג חומר מופיע גם ברשימה המקומית וגם בגיליון (למשל שורה ישנה
+     שמצביעה על קישור שבור בדרייב), שומרים רק את המופע הראשון - כלומר את הקובץ
+     שמתארח ישירות באתר ועובד. */
+  function dedupeByTopic(rows){
+    var seen = {};
+    return rows.filter(function(r){
+      var key = [r.class, r.subject, r.type, r.topic].join("|");
+      if(seen[key]) return false;
+      seen[key] = true;
+      return true;
+    });
+  }
+
   var state = { activeClass:"all", subject:"all", type:"all", query:"" };
   var allRows = [];
 
@@ -368,7 +381,7 @@ const SITE_CONFIG = {
       skipEmptyLines:true,
       complete:function(results){
         var sheetRows = (results.data || []).map(mapRow).filter(function(r){ return r.title; });
-        allRows = LOCAL_MATERIALS.concat(sheetRows);
+        allRows = dedupeByTopic(LOCAL_MATERIALS.concat(sheetRows));
         render();
       },
       error:function(){
