@@ -349,17 +349,37 @@ const SITE_CONFIG = {
     { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "אהבת ישראל" (מצוה רמ"ג)', url:"ahavat-israel.html", note:"" }
   ];
 
-  /* אם אותו נושא/סוג חומר מופיע גם ברשימה המקומית וגם בגיליון (למשל שורה ישנה
-     שמצביעה על קישור שבור בדרייב), שומרים רק את המופע הראשון - כלומר את הקובץ
-     שמתארח ישירות באתר ועובד. */
-  function dedupeByTopic(rows){
-    var seen = {};
+  /* קישורים לדפים אינטראקטיביים/דפי עבודה שמצביעים ישירות ל-Google Drive או
+     Google Docs לא נפתחים כמו שצריך (דרייב/דוקס מציגים קוד גולמי או עורך מסורבל
+     במקום את הדף עצמו) - לכן שורות כאלה שמגיעות מהגיליון מוסרות אוטומטית.
+     חומר תקין תמיד יתארח כקובץ באתר עצמו (ברשימת LOCAL_MATERIALS). */
+  function dropBrokenDriveLinks(rows){
+    var interactiveTypes = { "דף אינטראקטיבי": true, "דף עבודה": true };
     return rows.filter(function(r){
-      var key = [r.class, r.subject, r.type, r.topic].join("|");
-      if(seen[key]) return false;
-      seen[key] = true;
+      if(!interactiveTypes[r.type]) return true;
+      return !/drive\.google\.com|docs\.google\.com/i.test(r.url || "");
+    });
+  }
+
+  /* אם אותו נושא/סוג חומר מופיע גם ברשימה המקומית וגם בגיליון (למשל שורה ישנה
+     שמצביעה על קישור שבור בדרייב), שומרים רק את הגרסה המקומית שעובדת.
+     שימו לב: כל החומרים המקומיים תמיד נשארים - הבדיקה חלה רק על שורות
+     שמגיעות מהגיליון, כדי לא למחוק בטעות כמה חומרים שונים ששייכים לאותו נושא
+     (למשל כמה דפי עבודה תחת "לקט מצוות"). */
+  function topicKey(r){ return [r.class, r.subject, r.type, r.topic].join("|"); }
+  function dedupeByTopic(localRows, sheetRows){
+    var localTopics = {};
+    localRows.forEach(function(r){ localTopics[topicKey(r)] = true; });
+    var seenSheetTitles = {};
+    var filteredSheet = sheetRows.filter(function(r){
+      /* נושא שכבר מכוסה על ידי קובץ מקומי - השורה מהגיליון נחשבת ישנה/כפולה */
+      if(localTopics[topicKey(r)]) return false;
+      var titleKey = topicKey(r) + "|" + r.title;
+      if(seenSheetTitles[titleKey]) return false;
+      seenSheetTitles[titleKey] = true;
       return true;
     });
+    return localRows.concat(filteredSheet);
   }
 
   var state = { activeClass:"all", subject:"all", type:"all", query:"" };
@@ -384,8 +404,8 @@ const SITE_CONFIG = {
       header:true,
       skipEmptyLines:true,
       complete:function(results){
-        var sheetRows = (results.data || []).map(mapRow).filter(function(r){ return r.title; });
-        allRows = dedupeByTopic(LOCAL_MATERIALS.concat(sheetRows));
+        var sheetRows = dropBrokenDriveLinks((results.data || []).map(mapRow).filter(function(r){ return r.title; }));
+        allRows = dedupeByTopic(LOCAL_MATERIALS, sheetRows);
         render();
       },
       error:function(){
