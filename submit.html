@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>הגשת מטלה | בית המדרש הדיגיטלי</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink: #16233F;
+  --ink-2: #223256;
+  --paper: #FBF7EE;
+  --paper-card: #FFFFFF;
+  --paper-2: #F1EADA;
+  --gold: #A87424;
+  --gold-light: #D9B36C;
+  --teal: #285C58;
+  --text: #23283A;
+  --text-soft: #545B72;
+  --border: #E3DCC9;
+  --focus: #1857C4;
+  --radius: 10px;
+  --font-display: "Frank Ruhl Libre", "David Libre", serif;
+  --font-body: "Heebo", "Arial Hebrew", sans-serif;
+}
+*, *::before, *::after{ box-sizing:border-box; }
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--text);
+  font-family:var(--font-body);
+  line-height:1.6;
+}
+h1,h2{ font-family:var(--font-display); color:var(--ink); margin:0; }
+a{ color:var(--gold); }
+button, select, input, textarea{ font-family:inherit; font-size:1rem; }
+a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible{
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+.site-header{ background:var(--ink); color:#F4EFE2; }
+.header-inner{
+  max-width:700px; margin:0 auto; padding:0.9rem 1.25rem;
+  display:flex; align-items:center; justify-content:space-between; gap:1rem;
+}
+.brand{ display:flex; align-items:center; gap:0.8rem; }
+.brand-text h1{ color:#fff; font-size:1.25rem; margin:0; }
+.brand-sub{ margin:0.15rem 0 0; font-size:0.82rem; color:#C9C2AE; }
+.back-link{ color:#F4EFE2; text-decoration:none; font-weight:600; font-size:0.9rem; white-space:nowrap; }
+.back-link:hover{ color:var(--gold-light); }
+
+.hero{ background:linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%); color:#F4EFE2; }
+.hero-inner{ max-width:700px; margin:0 auto; padding:2.4rem 1.25rem 2.6rem; text-align:center; }
+.hero h2{ color:#fff; font-size:1.7rem; line-height:1.35; margin:0 0 0.7rem; }
+.hero-desc{ color:#D6D0BE; font-size:1rem; max-width:520px; margin:0 auto; }
+
+.form-wrap{ max-width:640px; margin:0 auto; padding:2rem 1.25rem 4rem; }
+.card{
+  background:var(--paper-card); border:1px solid var(--border); border-radius:var(--radius);
+  padding:1.5rem; box-shadow:0 1px 3px rgba(22,35,63,0.06);
+}
+.field{ display:flex; flex-direction:column; gap:0.35rem; margin-bottom:1.1rem; }
+.field label{ font-size:0.92rem; color:var(--text); font-weight:600; }
+.field .hint{ font-size:0.8rem; color:var(--text-soft); font-weight:400; margin-top:-0.15rem; }
+.field input, .field select, .field textarea{
+  border:1.5px solid var(--border); border-radius:8px; padding:0.65rem 0.8rem;
+  background:var(--paper); color:var(--text); min-height:44px; width:100%;
+}
+.field textarea{ min-height:220px; resize:vertical; line-height:1.6; font-family:inherit; }
+.field input:focus, .field select:focus, .field textarea:focus{ border-color:var(--gold); }
+
+.submit-btn{
+  width:100%; background:var(--ink); color:#fff; border:none; border-radius:8px;
+  padding:0.9rem 1rem; font-weight:700; font-size:1.02rem; cursor:pointer; min-height:48px;
+}
+.submit-btn:hover{ background:var(--gold); }
+.submit-btn:disabled{ opacity:0.6; cursor:not-allowed; }
+
+.status-msg{ margin-top:1rem; padding:0.9rem 1rem; border-radius:8px; font-weight:600; text-align:center; display:none; }
+.status-msg.show{ display:block; }
+.status-msg.success{ background:var(--paper-2); color:var(--teal); border:1.5px solid var(--teal); }
+.status-msg.error{ background:#F8E6E2; color:#8B4A34; border:1.5px solid #8B4A34; }
+
+.site-footer{ text-align:center; padding:1.6rem 1rem; color:var(--text-soft); font-size:0.85rem; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-text">
+        <h1>הגשת מטלה</h1>
+        <p class="brand-sub">בית המדרש הדיגיטלי</p>
+      </div>
+    </div>
+    <a class="back-link" href="index.html">&rarr; חזרה לאתר</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h2>הגישו כאן את המטלה שלכם</h2>
+    <p class="hero-desc">מלאו את הפרטים והתשובות, ולחצו על "שליחה". המטלה תגיע ישירות למורה - אין צורך בכתובת מייל משלכם.</p>
+  </div>
+</section>
+
+<div class="form-wrap">
+  <div class="card">
+    <form id="submit-form">
+      <div class="field">
+        <label for="studentName">שם מלא</label>
+        <input type="text" id="studentName" name="name" required autocomplete="name">
+      </div>
+
+      <div class="field">
+        <label for="studentClass">כיתה</label>
+        <input type="text" id="studentClass" name="class" required placeholder='לדוגמה: י"א 3'>
+      </div>
+
+      <div class="field">
+        <label for="topic">איזו מטלה / דף עבודה?</label>
+        <input type="text" id="topic" name="topic" required placeholder='לדוגמה: יונה פרק ג, לא תסור...'>
+      </div>
+
+      <div class="field">
+        <label for="answers">התשובות שלכם</label>
+        <span class="hint">אפשר להעתיק לכאן את התשובות ישירות מדף העבודה</span>
+        <textarea id="answers" name="answers" required placeholder="כתבו כאן את התשובות שלכם..."></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">שליחה</button>
+
+      <div class="status-msg" id="statusMsg" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <p>בית המדרש הדיגיטלי &middot; מתעדכן ע"י הרב אפרים</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* >>> כדי לשנות את היעד שאליו מגיעות ההגשות, ערכו כאן את הכתובת <<< */
+  var SUBMIT_EMAIL = "1002220223@edu-haifa.org.il";
+
+  var form = document.getElementById("submit-form");
+  var submitBtn = document.getElementById("submitBtn");
+  var statusMsg = document.getElementById("statusMsg");
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "שולח...";
+    statusMsg.className = "status-msg";
+    statusMsg.textContent = "";
+
+    var formData = new FormData(form);
+    formData.append("_subject", "הגשת מטלה - " + formData.get("topic"));
+
+    fetch("https://formsubmit.co/ajax/" + encodeURIComponent(SUBMIT_EMAIL), {
+      method: "POST",
+      headers: { "Accept": "application/json" },
+      body: formData
+    })
+    .then(function(res){ return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
+    .then(function(result){
+      if(result.ok){
+        statusMsg.className = "status-msg show success";
+        statusMsg.textContent = "המטלה נשלחה בהצלחה! תודה.";
+        form.reset();
+      } else {
+        throw new Error("שגיאה בשליחה");
+      }
+    })
+    .catch(function(){
+      statusMsg.className = "status-msg show error";
+      statusMsg.textContent = "משהו השתבש בשליחה. נסו שוב, או שלחו את התשובות ישירות למורה.";
+    })
+    .finally(function(){
+      submitBtn.disabled = false;
+      submitBtn.textContent = "שליחה";
+    });
+  });
+})();
+</script>
+</body>
+</html>
