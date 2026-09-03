@@ -172,12 +172,17 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .card h4{ font-family:var(--font-display); font-size:1.1rem; margin:0; color:var(--ink); line-height:1.4; }
 .card p.note{ margin:0; color:var(--text-soft); font-size:0.9rem; }
 
+.card-actions{ margin-top:auto; display:flex; flex-direction:column; gap:0.5rem; }
 .card-link{
-  margin-top:auto; display:inline-flex; align-items:center; justify-content:center; gap:0.4rem;
+  display:inline-flex; align-items:center; justify-content:center; gap:0.4rem;
   background:var(--ink); color:#fff !important; text-decoration:none; font-weight:600;
   padding:0.65rem 1rem; border-radius:8px; min-height:44px;
 }
 .card-link:hover{ background:var(--gold); }
+.card-link.card-link-secondary{
+  background:transparent; color:var(--ink) !important; border:1.5px solid var(--border);
+}
+.card-link.card-link-secondary:hover{ background:var(--paper-2); border-color:var(--gold); }
 
 /* ===== Footer ===== */
 .site-footer{ text-align:center; padding:1.6rem 1rem; color:var(--text-soft); font-size:0.85rem; border-top:1px solid var(--border); }
@@ -359,15 +364,22 @@ const SITE_CONFIG = {
      כדי להוסיף חומר חדש: העלו את קובץ ה-HTML שלו לאותה תיקייה באתר,
      ואז העתיקו שורה קיימת למטה ועדכנו את הפרטים (class / subject / topic / type / title / url).
      url הוא פשוט שם הקובץ (או הנתיב היחסי אליו) כפי שהעליתם אותו.
+
+     אם לדף עבודה יש מצגת נלווית שהתלמיד ממלא לפיה, מוסיפים
+     presentationUrl (ואפשר גם presentationLabel) - הכרטיסייה תציג
+     כפתור נוסף לצפייה במצגת, לצד הכפתור לדף העבודה.
      ======================================================== */
   var LOCAL_MATERIALS = [
     { class:"יא", subject:"תנך", topic:"ספר יונה - פרקים א׳-ב׳", type:"דף אינטראקטיבי", title:"דף עבודה אינטראקטיבי - יונה פרקים א׳-ב׳", url:"yonah-1-2.html", note:"" },
     { class:"יא", subject:"תנך", topic:"ספר יונה - פרק ג׳", type:"דף אינטראקטיבי", title:"דף עבודה אינטראקטיבי - יונה פרק ג׳", url:"yonah-3.html", note:"" },
     { class:"יא", subject:"תנך", topic:"ספר יונה - פרק ד׳", type:"דף אינטראקטיבי", title:"דף עבודה אינטראקטיבי - יונה פרק ד׳", url:"yonah-4.html", note:"" },
-    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "לא תסור" (מצוה תצ"ו)', url:"lo-tasur.html", note:"" },
-    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "אהבת הגרים" (מצוה תל"א)', url:"ahavat-gerim.html", note:"" },
+    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "לא תסור" (מצוה תצ"ו)', url:"lo-tasur.html", note:"",
+      presentationUrl:"lo-tasur-presentation.pdf" },
+    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "אהבת הגרים" (מצוה תל"א)', url:"ahavat-gerim.html", note:"",
+      presentationUrl:"ahavat-gerim-presentation.pptx", presentationLabel:"הורדת מצגת (PowerPoint)" },
     { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "קידוש החודש" (רמב"ם, עשה קנ"ג)', url:"kidush-hachodesh.html", note:"" },
-    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "אהבת ישראל" (מצוה רמ"ג)', url:"ahavat-israel.html", note:"" }
+    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "אהבת ישראל" (מצוה רמ"ג)', url:"ahavat-israel.html", note:"",
+      presentationUrl:"ahavat-israel-presentation.pptx", presentationLabel:"הורדת מצגת (PowerPoint)" }
   ];
 
   /* קישורים לדפים אינטראקטיביים/דפי עבודה שמצביעים ישירות ל-Google Drive או
@@ -524,6 +536,16 @@ const SITE_CONFIG = {
     var noteHtml = row.note ? '<p class="note">' + escapeHtml(row.note) + '</p>' : "";
     var linkHref = row.url || "#";
 
+    var presentationHtml = "";
+    if(row.presentationUrl){
+      var presLabel = escapeHtml(row.presentationLabel || "צפייה במצגת");
+      presentationHtml =
+        '<a class="card-link card-link-secondary" href="' + escapeAttr(row.presentationUrl) + '" target="_blank" rel="noopener" aria-label="' + presLabel + ' - ' + titleLabel + '">' +
+          '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="13" rx="1.5" stroke="currentColor" stroke-width="2" fill="none"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
+          presLabel +
+        '</a>';
+    }
+
     return (
       '<article class="card">' +
         '<div class="card-tags">' +
@@ -532,10 +554,13 @@ const SITE_CONFIG = {
         '</div>' +
         '<h4>' + titleLabel + '</h4>' +
         noteHtml +
-        '<a class="card-link" href="' + escapeAttr(linkHref) + '" target="_blank" rel="noopener" aria-label="הורדת ' + titleLabel + '">' +
-          'צפייה / הורדה' +
-          '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
-        '</a>' +
+        '<div class="card-actions">' +
+          presentationHtml +
+          '<a class="card-link" href="' + escapeAttr(linkHref) + '" target="_blank" rel="noopener" aria-label="הורדת ' + titleLabel + '">' +
+            'צפייה / הורדה' +
+            '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+          '</a>' +
+        '</div>' +
       '</article>'
     );
   }
