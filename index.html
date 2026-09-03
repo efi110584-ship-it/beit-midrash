@@ -209,10 +209,16 @@ body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; 
       </div>
     </div>
 
-    <button id="a11y-toggle" class="a11y-toggle" aria-expanded="false" aria-controls="a11y-panel">
-      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="5" r="2.3" fill="currentColor"/><path d="M4 9.5c3.2 1.2 5.6 1.6 8 1.6s4.8-.4 8-1.6M12 11v10M8.5 21l1.7-6M15.5 21l-1.7-6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
-      נגישות
-    </button>
+    <div style="display:flex; align-items:center; gap:0.6rem;">
+      <a href="submit.html" class="a11y-toggle" style="text-decoration:none;">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        הגשת מטלה
+      </a>
+      <button id="a11y-toggle" class="a11y-toggle" aria-expanded="false" aria-controls="a11y-panel">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="5" r="2.3" fill="currentColor"/><path d="M4 9.5c3.2 1.2 5.6 1.6 8 1.6s4.8-.4 8-1.6M12 11v10M8.5 21l1.7-6M15.5 21l-1.7-6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
+        נגישות
+      </button>
+    </div>
   </div>
 
   <div id="a11y-panel" class="a11y-panel" hidden>
