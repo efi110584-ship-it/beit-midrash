@@ -307,18 +307,20 @@ body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; 
 /* ==========================================================
    קובץ ההגדרות של האתר
    ==========================================================
-   זהו קובץ ההגדרות היחיד שצריך לגעת בו כדי לחבר את האתר
-   לגיליון Google Sheets שבו מנוהלים חומרי הלימוד.
+   הדרך הפשוטה ביותר להוסיף חומרים היא ברשימת LOCAL_MATERIALS
+   שבהמשך הקובץ - פשוט מעלים את קובץ ה-HTML לתיקיית האתר
+   ומוסיפים עליו שורה שם. אין צורך בגיליון Google Sheets בכלל.
 
-   הוראות מלאות נמצאות בקובץ README-הוראות-הפעלה.md
-   שסופק יחד עם האתר.
+   מי שכן רוצה לנהל רשימה גדולה מחוץ לאתר יכול, בנוסף, לחבר
+   גיליון Google Sheets - חומריו יתווספו לרשימה המקומית (לא יחליפו אותה).
+   הוראות מלאות נמצאות בקובץ README-הוראות-הפעלה.md שסופק יחד עם האתר.
 
    שלב 1: פרסם את הגיליון שלך כ-CSV (קובץ > שתף > פרסם לאינטרנט > CSV)
    שלב 2: הדבק כאן את הקישור שקיבלת, בין המרכאות למטה
    שלב 3: שמור את הקובץ - האתר יתעדכן אוטומטית
    ========================================================== */
 
-// >>> כדי לחבר את האתר לגיליון החומרים שלך, הדבק כאן למטה את קישור ה-CSV (ראה README) <<<
+// >>> אופציונלי: כדי לחבר גם גיליון Google Sheets, הדבק כאן למטה את קישור ה-CSV (ראה README). אפשר להשאיר ריק. <<<
 const SITE_CONFIG = {
   SHEET_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vS1gnNQGsTFr7_WA8PE1zN2TVsCcN19mgyDciXNP9UjFx4A7h0wZI7L9gvdlUdDG46cyI9ElTPe50pD/pub?output=csv",
   SITE_TITLE: "בית המדרש הדיגיטלי",
@@ -330,15 +332,15 @@ const SITE_CONFIG = {
 (function(){
   "use strict";
 
-  /* ============ תוכן לדוגמה (מוצג רק אם עדיין לא חיברת גיליון Google Sheets) ============ */
-  var DEMO_DATA = [
-    { class:"יא", subject:"תנך", topic:'ספר יונה - פרק א׳', type:"דף עבודה", title:"דף עבודה תלמיד - יונה פרק א", url:"#", note:"דוגמה בלבד" },
-    { class:"יא", subject:"תנך", topic:'ספר יונה - פרק א׳', type:"חוברת", title:"חוברת רקע והקשר לספר יונה", url:"#", note:"דוגמה בלבד" },
-    { class:"יא", subject:"תנך", topic:'ספר יונה - פרק א׳', type:"סרטון", title:"סרטון הסבר - רקע לספר יונה", url:"#", note:"דוגמה בלבד" },
-    { class:"יא", subject:"תנך", topic:'ספר יונה - פרק א׳', type:"משחק/חידון", title:"חידון אינטראקטיבי - פרק א", url:"#", note:"דוגמה בלבד" },
-    { class:"יא", subject:"תושבע", topic:'תפילה כמפגש - שער ב׳', type:"חוברת", title:"חוברת תפילה כמפגש", url:"#", note:"דוגמה בלבד" },
-    { class:"יב", subject:"תנך", topic:'ספר בראשית - יוסף', type:"דף עבודה", title:"דף עבודה - מכירת יוסף", url:"#", note:"דוגמה בלבד" },
-    { class:"יב", subject:"תושבע", topic:'מכינה לחיים', type:"מצגת", title:"מצגת פתיחה - מכינה לחיים", url:"#", note:"דוגמה בלבד" }
+  /* ============ חומרי הלימוד המקומיים ============
+     אלו החומרים שנמצאים באתר עצמו (בתוך אותה תיקייה) ומוצגים תמיד,
+     בלי צורך בגיליון Google Sheets.
+     כדי להוסיף חומר חדש: העלו את קובץ ה-HTML שלו לאותה תיקייה באתר,
+     ואז העתיקו שורה קיימת למטה ועדכנו את הפרטים (class / subject / topic / type / title / url).
+     url הוא פשוט שם הקובץ (או הנתיב היחסי אליו) כפי שהעליתם אותו.
+     ======================================================== */
+  var LOCAL_MATERIALS = [
+    { class:"יא", subject:"תנך", topic:"ספר יונה - פרקים א׳-ב׳", type:"דף אינטראקטיבי", title:"דף עבודה אינטראקטיבי - יונה פרקים א׳-ב׳", url:"yonah-1-2.html", note:"" }
   ];
 
   var state = { activeClass:"all", subject:"all", type:"all", query:"" };
@@ -353,8 +355,7 @@ const SITE_CONFIG = {
     var url = cfg.SHEET_CSV_URL ? cfg.SHEET_CSV_URL.trim() : "";
 
     if(!url){
-      allRows = DEMO_DATA;
-      statusLine.textContent = "מוצג תוכן לדוגמה. חברו גיליון Google Sheets בקובץ config.js כדי להציג את חומרי הלימוד האמיתיים.";
+      allRows = LOCAL_MATERIALS;
       render();
       return;
     }
@@ -364,18 +365,14 @@ const SITE_CONFIG = {
       header:true,
       skipEmptyLines:true,
       complete:function(results){
-        allRows = (results.data || []).map(mapRow).filter(function(r){ return r.title; });
-        if(allRows.length === 0){
-          contentRoot.innerHTML = '<p class="empty-msg">לא נמצאו חומרים בגיליון. ודאו שהכותרות בשורה הראשונה תואמות להוראות (README).</p>';
-          statusLine.textContent = "";
-          return;
-        }
+        var sheetRows = (results.data || []).map(mapRow).filter(function(r){ return r.title; });
+        allRows = LOCAL_MATERIALS.concat(sheetRows);
         render();
       },
       error:function(){
-        allRows = DEMO_DATA;
-        statusLine.textContent = "לא הצלחנו לטעון את הגיליון. מוצג תוכן לדוגמה עד לבדיקת הקישור בקובץ config.js.";
+        allRows = LOCAL_MATERIALS;
         render();
+        statusLine.textContent += " (לא הצלחנו לטעון את גיליון ה-Google Sheets הנוסף - מוצגים רק החומרים שנמצאים ישירות באתר)";
       }
     });
   }
