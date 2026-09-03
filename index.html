@@ -398,15 +398,20 @@ const SITE_CONFIG = {
      לנושא כזה מוסרת לגמרי, כדי שלא יופיעו כאן חומרים ישנים/כפולים
      מהגיליון (למשל מצגות בודדות בלי דף עבודה תואם). */
   var LOCAL_ONLY_TOPICS = { "לקט מצוות": true };
-  /* מילות מפתח שאם מופיעות בנושא/כותרת של שורה מהגיליון, השורה מוסרת -
-     כי כבר יש קובץ מקומי תקין לאותו חומר, בלי תלות בניסוח המדויק בגיליון. */
-  var LOCAL_ONLY_KEYWORDS = ["יונה"];
+  /* מילות מפתח שאם מופיעות בנושא/כותרת של שורה מהגיליון, מציגים מהגיליון
+     רק סוגי חומר מסוימים (השאר מוסר) - כי כבר יש קבצים מקומיים תקינים
+     לחומר האינטראקטיבי, בלי תלות בניסוח המדויק בגיליון. */
+  var KEYWORD_ALLOWED_TYPES = {
+    "יונה": { "דף אינטראקטיבי": true, "דף חזרה": true }
+  };
   function dropLocalOnlyTopics(rows){
     return rows.filter(function(r){
       if(LOCAL_ONLY_TOPICS[r.topic]) return false;
       var hay = (r.topic + " " + r.title);
-      for(var i = 0; i < LOCAL_ONLY_KEYWORDS.length; i++){
-        if(hay.indexOf(LOCAL_ONLY_KEYWORDS[i]) !== -1) return false;
+      for(var keyword in KEYWORD_ALLOWED_TYPES){
+        if(hay.indexOf(keyword) !== -1){
+          return !!KEYWORD_ALLOWED_TYPES[keyword][r.type];
+        }
       }
       return true;
     });
