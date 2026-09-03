@@ -104,13 +104,13 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 <section class="hero">
   <div class="hero-inner">
     <h2>הגישו כאן את המטלה שלכם</h2>
-    <p class="hero-desc">מלאו את הפרטים והתשובות, ולחצו על "שליחה". המטלה תגיע ישירות למורה - אין צורך בכתובת מייל משלכם.</p>
+    <p class="hero-desc">מלאו את הפרטים וצרפו את הקובץ שלכם, ולחצו על "שליחה". המטלה תגיע ישירות למורה - אין צורך בכתובת מייל משלכם.</p>
   </div>
 </section>
 
 <div class="form-wrap">
   <div class="card">
-    <form id="submit-form">
+    <form id="submit-form" enctype="multipart/form-data">
       <div class="field">
         <label for="studentName">שם מלא</label>
         <input type="text" id="studentName" name="name" required autocomplete="name">
@@ -127,9 +127,14 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
       </div>
 
       <div class="field">
-        <label for="answers">התשובות שלכם</label>
-        <span class="hint">אפשר להעתיק לכאן את התשובות ישירות מדף העבודה</span>
-        <textarea id="answers" name="answers" required placeholder="כתבו כאן את התשובות שלכם..."></textarea>
+        <label for="fileInput">קובץ המטלה</label>
+        <span class="hint">שמרו את הקובץ שלכם (PDF / Word / תמונה) ואז צרפו אותו כאן. גודל מקסימלי: 5MB.</span>
+        <input type="file" id="fileInput" name="attachment" required accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.heic">
+      </div>
+
+      <div class="field">
+        <label for="note">הערה (לא חובה)</label>
+        <textarea id="note" name="note" placeholder="רוצים להוסיף משהו למורה? כתבו כאן..." style="min-height:100px;"></textarea>
       </div>
 
       <button type="submit" class="submit-btn" id="submitBtn">שליחה</button>
@@ -154,8 +159,18 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   var submitBtn = document.getElementById("submitBtn");
   var statusMsg = document.getElementById("statusMsg");
 
+  var MAX_FILE_BYTES = 5 * 1024 * 1024; // 5MB
+  var fileInput = document.getElementById("fileInput");
+
   form.addEventListener("submit", function(e){
     e.preventDefault();
+
+    var file = fileInput.files[0];
+    if(file && file.size > MAX_FILE_BYTES){
+      statusMsg.className = "status-msg show error";
+      statusMsg.textContent = "הקובץ גדול מדי (מעל 5MB). נסו לשמור אותו בפורמט קטן יותר או לצלם באיכות נמוכה יותר.";
+      return;
+    }
 
     submitBtn.disabled = true;
     submitBtn.textContent = "שולח...";
