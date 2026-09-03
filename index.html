@@ -394,6 +394,14 @@ const SITE_CONFIG = {
     });
   }
 
+  /* נושאים שמנוהלים אך ורק דרך LOCAL_MATERIALS - כל שורה מהגיליון ששייכת
+     לנושא כזה מוסרת לגמרי, כדי שלא יופיעו כאן חומרים ישנים/כפולים
+     מהגיליון (למשל מצגות בודדות בלי דף עבודה תואם). */
+  var LOCAL_ONLY_TOPICS = { "לקט מצוות": true };
+  function dropLocalOnlyTopics(rows){
+    return rows.filter(function(r){ return !LOCAL_ONLY_TOPICS[r.topic]; });
+  }
+
   /* אם אותו נושא/סוג חומר מופיע גם ברשימה המקומית וגם בגיליון (למשל שורה ישנה
      שמצביעה על קישור שבור בדרייב), שומרים רק את הגרסה המקומית שעובדת.
      שימו לב: כל החומרים המקומיים תמיד נשארים - הבדיקה חלה רק על שורות
@@ -437,7 +445,7 @@ const SITE_CONFIG = {
       header:true,
       skipEmptyLines:true,
       complete:function(results){
-        var sheetRows = dropBrokenDriveLinks((results.data || []).map(mapRow).filter(function(r){ return r.title; }));
+        var sheetRows = dropLocalOnlyTopics(dropBrokenDriveLinks((results.data || []).map(mapRow).filter(function(r){ return r.title; })));
         allRows = dedupeByTopic(LOCAL_MATERIALS, sheetRows);
         render();
       },
