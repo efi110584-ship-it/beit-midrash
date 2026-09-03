@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר יונה — דף עבודה אינטראקטיבי (פרק ג׳)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #EFE6D0;
+    --paper-card: #F7F1E1;
+    --paper-line: #D8C9A3;
+    --ink: #1F3A4D;
+    --ink-soft: #4B6577;
+    --gold: #A9752E;
+    --gold-soft: #C99A4C;
+    --teal: #3F6E66;
+    --teal-soft: #E4EEEA;
+    --rust: #8B4A34;
+    --rust-soft: #F1E2DA;
+    --shadow: 0 2px 10px rgba(31,58,77,0.08);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at 15% -10%, rgba(169,117,46,0.10), transparent 45%),
+      radial-gradient(ellipse at 90% 0%, rgba(63,110,102,0.10), transparent 40%),
+      var(--paper);
+    font-family: 'Heebo', sans-serif;
+    color: var(--ink);
+    direction: rtl;
+  }
+
+  /* ===== Header ===== */
+  header{
+    position: relative;
+    padding: 3rem 1.5rem 2.2rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  header .eyebrow{
+    font-family:'Heebo',sans-serif;
+    font-weight:600;
+    letter-spacing: .12em;
+    font-size: .78rem;
+    color: var(--gold);
+    text-transform: none;
+    margin-bottom: .6rem;
+  }
+  header h1{
+    font-family:'Frank Ruhl Libre', serif;
+    font-weight: 900;
+    font-size: clamp(1.9rem, 4.2vw, 3rem);
+    margin: 0 0 .5rem;
+    color: var(--ink);
+    line-height: 1.15;
+  }
+  header p.sub{
+    font-size: 1rem;
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  .wave{
+    width:100%;
+    height:34px;
+    margin-top: 1.6rem;
+    display:block;
+  }
+
+  /* ===== Student info bar ===== */
+  .student-bar{
+    max-width: 760px;
+    margin: 0 auto 1.4rem;
+    padding: 0 1.5rem;
+    display:flex;
+    justify-content:center;
+    gap: 1.6rem;
+    flex-wrap: wrap;
+  }
+  .student-bar label{
+    font-size: .88rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    display:flex;
+    align-items:center;
+    gap: .4rem;
+  }
+  .student-bar input{
+    font-family:'Heebo',sans-serif;
+    font-size: .92rem;
+    padding: .3rem .6rem;
+    border: 1.5px solid var(--paper-line);
+    border-radius: 7px;
+    background: #fff;
+    color: var(--ink);
+    direction: rtl;
+    min-width: 10rem;
+  }
+  .student-bar input:focus{
+    outline:none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(169,117,46,0.18);
+  }
+
+  /* ===== Progress bar ===== */
+  .progress-wrap{
+    max-width: 760px;
+    margin: 0 auto 1.6rem;
+    padding: 0 1.5rem;
+    display:flex;
+    align-items:center;
+    gap: .9rem;
+  }
+  .progress-track{
+    flex:1;
+    height: 10px;
+    background: var(--paper-line);
+    border-radius: 999px;
+    overflow:hidden;
+    box-shadow: inset 0 1px 2px rgba(31,58,77,0.15);
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background: linear-gradient(90deg, var(--teal), var(--gold));
+    border-radius: 999px;
+    transition: width .4s ease;
+  }
+  .progress-label{
+    font-size: .85rem;
+    font-weight:600;
+    color: var(--ink-soft);
+    white-space:nowrap;
+  }
+  .save-note{
+    text-align:center;
+    font-size: .78rem;
+    color: var(--teal);
+    min-height: 1.2rem;
+    margin-bottom: .4rem;
+    opacity: 0;
+    transition: opacity .3s ease;
+  }
+  .save-note.show{ opacity: 1; }
+
+  /* ===== Grid ===== */
+  main{
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+  }
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.4rem;
+    align-items: start;
+  }
+  @media (max-width: 1180px){ .grid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px){ .grid{ grid-template-columns: 1fr; } }
+
+  /* ===== Topic card ===== */
+  .card{
+    background: var(--paper-card);
+    border: 1px solid var(--paper-line);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display:flex;
+    flex-direction: column;
+  }
+  .card-head{
+    padding: 1rem 1.2rem .85rem;
+    border-bottom: 1px solid var(--paper-line);
+    background: linear-gradient(180deg, rgba(169,117,46,0.10), transparent);
+  }
+  .card-tag{
+    display:inline-block;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing:.06em;
+    color: var(--gold);
+    background: rgba(169,117,46,0.14);
+    border-radius: 999px;
+    padding: .18rem .65rem;
+    margin-bottom: .5rem;
+  }
+  .card-title{
+    font-family:'Frank Ruhl Libre', serif;
+    font-weight: 700;
+    font-size: 1.12rem;
+    line-height: 1.35;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .card-body{ padding: 1rem 1.2rem 1.2rem; display:flex; flex-direction:column; gap: .85rem; }
+
+  .pasuk-block{
+    background: var(--teal-soft);
+    border-right: 3px solid var(--teal);
+    border-radius: 6px;
+    padding: .55rem .75rem;
+    font-size: .86rem;
+    line-height: 1.55;
+    color: #234943;
+  }
+  .pasuk-block b{ color: var(--teal); font-weight: 700; }
+
+  .meforesh-block{
+    background: var(--rust-soft);
+    border-right: 3px solid var(--rust);
+    border-radius: 6px;
+    padding: .55rem .75rem;
+    font-size: .84rem;
+    line-height: 1.55;
+    color: #5c3324;
+  }
+  .meforesh-block .src{
+    display:block;
+    font-weight: 700;
+    color: var(--rust);
+    margin-bottom: .15rem;
+    font-size: .78rem;
+  }
+  .meforesh-block q{ font-style: italic; }
+
+  .question-block{
+    border-top: 1px dashed var(--paper-line);
+    padding-top: .8rem;
+    margin-top: .1rem;
+  }
+  .question-row{
+    display:flex;
+    gap: .5rem;
+    align-items:flex-start;
+    margin-bottom: .5rem;
+  }
+  .q-num{
+    flex: none;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper-card);
+    font-size: .8rem;
+    font-weight: 700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .q-text{
+    font-size: .95rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--ink);
+    padding-top: .1rem;
+  }
+  textarea.answer{
+    width:100%;
+    min-height: 64px;
+    resize: vertical;
+    font-family:'Heebo',sans-serif;
+    font-size: .92rem;
+    line-height: 1.6;
+    padding: .55rem .7rem;
+    border: 1.5px solid var(--paper-line);
+    border-radius: 8px;
+    background:
+      repeating-linear-gradient(var(--paper) 0 27px, var(--paper-line) 27px 28px);
+    background-color: #fff;
+    color: var(--ink);
+    direction: rtl;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  textarea.answer:focus{
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(169,117,46,0.18);
+  }
+  textarea.answer.filled{ border-color: var(--teal); }
+
+  /* ===== Footer bar ===== */
+  .toolbar{
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem 2.5rem;
+    display:flex;
+    justify-content:center;
+    gap: .8rem;
+    flex-wrap: wrap;
+  }
+  .btn{
+    font-family:'Heebo',sans-serif;
+    font-size: .88rem;
+    font-weight: 600;
+    padding: .6rem 1.3rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    cursor:pointer;
+    transition: all .2s ease;
+  }
+  .btn:hover{ background: var(--ink); color: var(--paper-card); }
+  .btn.danger{ border-color: var(--rust); color: var(--rust); }
+  .btn.danger:hover{ background: var(--rust); color: #fff; }
+
+  footer.credit{
+    text-align:center;
+    font-size: .75rem;
+    color: var(--ink-soft);
+    padding-bottom: 2rem;
+    opacity: .7;
+  }
+
+  .print-only{ display:none; }
+
+  @media print{
+    *{
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
+    @page{ margin: 14mm 12mm; }
+
+    .toolbar, .save-note, .progress-wrap, .wave, .eyebrow, .student-bar, #printHelp{ display:none !important; }
+    .print-only{ display:block; }
+
+    body{
+      background: var(--paper) !important;
+    }
+
+    header{ padding: 0 0 .5rem; text-align:center; }
+    header h1{ font-size: 1.7rem; }
+    header p.sub{ display:none; }
+    #printNameLine{
+      font-size: 1rem !important;
+      font-weight: 700 !important;
+      color: var(--ink) !important;
+      border: 1.4px solid var(--gold);
+      border-radius: 8px;
+      display: inline-block;
+      padding: .3rem 1.1rem;
+      margin-top: .5rem !important;
+      background: var(--paper-card) !important;
+    }
+
+    main{ padding: 0; max-width: none; }
+    .grid{ display:block; }
+
+    .grid > .card{
+      grid-column: auto !important;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      margin-bottom: .85rem;
+      box-shadow:none;
+      border: 1.4px solid var(--paper-line) !important;
+      background: var(--paper-card) !important;
+    }
+    .card-head{
+      background: linear-gradient(180deg, rgba(169,117,46,0.16), transparent) !important;
+      border-bottom: 1.2px solid var(--paper-line) !important;
+    }
+    .card-tag{
+      background: rgba(169,117,46,0.20) !important;
+      color: var(--gold) !important;
+    }
+    .card-title{ font-size: 1.05rem; }
+    .card-body{ padding: .75rem 1rem .85rem; gap: .7rem; }
+
+    .pasuk-block{
+      background: var(--teal-soft) !important;
+      border-right: 3px solid var(--teal) !important;
+      color: #234943 !important;
+    }
+    .meforesh-block{
+      background: var(--rust-soft) !important;
+      border-right: 3px solid var(--rust) !important;
+      color: #5c3324 !important;
+    }
+    .q-num{
+      background: var(--ink) !important;
+      color: var(--paper-card) !important;
+    }
+    .q-text{ font-size: .95rem; }
+
+    textarea.answer{
+      background:
+        repeating-linear-gradient(var(--paper-card) 0 27px, var(--paper-line) 27px 28px) !important;
+      border: 1.3px solid var(--paper-line) !important;
+      overflow: hidden;
+      resize: none;
+      color: var(--ink) !important;
+    }
+
+    footer.credit{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">ספר יונה · חוברת תלמיד דיגיטלית</div>
+  <h1>ספר יונה — דף עבודה אינטראקטיבי (פרק ג׳)</h1>
+  <p class="sub">השאלות מסודרות כאן לפי סדר הופעתן בפרק, ממוספרות 1–13. קראו את הפסוקים ודברי הפרשנים, וכתבו את תשובותיכם ישירות בתיבות — הכול נשמר אוטומטית במכשיר שלכם.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 13 שאלות</span>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote">✓ נשמר</div>
+
+<main>
+  <div class="grid" id="grid">
+<section class="card" style="grid-column: span 2;">
+      <div class="card-head">
+        <span class="card-tag">פרק א׳ מול פרק ג׳</span>
+        <h2 class="card-title">פתיחת שתי השליחויות</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">
+          <b>פרק א׳, פסוק א׳:</b> וַיְהִי דְּבַר־יְהוָה אֶל־יוֹנָה בֶן־אֲמִתַּי לֵאמֹר.<br>
+          <b>פרק א׳, פסוק ב׳:</b> קוּם לֵךְ אֶל־נִינְוֵה הָעִיר הַגְּדוֹלָה — וּקְרָא עָלֶיהָ: כִּי־עָלְתָה רָעָתָם לְפָנָי.<br>
+          <b>פרק א׳, פסוק ג׳:</b> וַיָּקָם יוֹנָה לִבְרֹחַ תַּרְשִׁישָׁה מִלִּפְנֵי יְהוָה; וַיֵּרֶד יָפוֹ וַיִּמְצָא אֳנִיָּה בָּאָה תַרְשִׁישׁ, וַיִּתֵּן שְׂכָרָהּ וַיֵּרֶד בָּהּ לָבוֹא עִמָּהֶם תַּרְשִׁישָׁה מִלִּפְנֵי יְהוָה.<br>
+          <b>פרק ג׳, פסוק א׳:</b> וַיְהִי דְבַר־יְהוָה אֶל־יוֹנָה שֵׁנִית לֵאמֹר.<br>
+          <b>פרק ג׳, פסוק ב׳:</b> קוּם לֵךְ אֶל־נִינְוֵה הָעִיר הַגְּדוֹלָה; וּקְרָא אֵלֶיהָ אֶת־הַקְּרִיאָה אֲשֶׁר אָנֹכִי דֹּבֵר אֵלֶיךָ.<br>
+          <b>פרק ג׳, פסוק ג׳:</b> וַיָּקָם יוֹנָה וַיֵּלֶךְ אֶל־נִינְוֵה כִּדְבַר יְהוָה; וְנִינְוֵה הָיְתָה עִיר־גְּדוֹלָה לֵאלֹהִים מַהֲלַךְ שְׁלֹשֶׁת יָמִים.
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">1</span><span class="q-text">העתיקו מכל שליחות את הציווי ואת תגובת יונה.</span></div>
+          <textarea class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">פרק א׳ מול פרק ג׳</span>
+        <h2 class="card-title">הדומה והשונה בציווי</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">
+          <b>פרק א׳, פסוק א׳:</b> וַיְהִי דְּבַר־יְהוָה אֶל־יוֹנָה בֶן־אֲמִתַּי לֵאמֹר.<br>
+          <b>פרק א׳, פסוק ב׳:</b> קוּם לֵךְ אֶל־נִינְוֵה הָעִיר הַגְּדוֹלָה — וּקְרָא עָלֶיהָ: כִּי־עָלְתָה רָעָתָם לְפָנָי.<br>
+          <b>פרק ג׳, פסוק א׳:</b> וַיְהִי דְבַר־יְהוָה אֶל־יוֹנָה שֵׁנִית לֵאמֹר.<br>
+          <b>פרק ג׳, פסוק ב׳:</b> קוּם לֵךְ אֶל־נִינְוֵה הָעִיר הַגְּדוֹלָה; וּקְרָא אֵלֶיהָ אֶת־הַקְּרִיאָה אֲשֶׁר אָנֹכִי דֹּבֵר אֵלֶיךָ.
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">2</span><span class="q-text">מה דומה ומה שונה בין הציווי בפרק א׳ לבין הציווי בפרק ג׳?</span></div>
+          <textarea class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..." style="min-height:110px;"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">פרק א׳ מול פרק ג׳</span>
+        <h2 class="card-title">תגובתו השונה של יונה</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">
+          <b>פרק א׳, פסוק ג׳:</b> וַיָּקָם יוֹנָה לִבְרֹחַ תַּרְשִׁישָׁה מִלִּפְנֵי יְהוָה; וַיֵּרֶד יָפוֹ וַיִּמְצָא אֳנִיָּה בָּאָה תַרְשִׁישׁ, וַיִּתֵּן שְׂכָרָהּ וַיֵּרֶד בָּהּ לָבוֹא עִמָּהֶם תַּרְשִׁישָׁה מִלִּפְנֵי יְהוָה.<br>
+          <b>פרק ג׳, פסוק ג׳:</b> וַיָּקָם יוֹנָה וַיֵּלֶךְ אֶל־נִינְוֵה כִּדְבַר יְהוָה; וְנִינְוֵה הָיְתָה עִיר־גְּדוֹלָה לֵאלֹהִים מַהֲלַךְ שְׁלֹשֶׁת יָמִים.
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">3</span><span class="q-text">מהו ההבדל בין תגובת יונה בפרק א׳ לתגובתו בפרק ג׳?</span></div>
+          <textarea class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..." style="min-height:80px;"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">פרק ג׳ · פס׳ ג׳–ד׳</span>
+        <h2 class="card-title">ביצוע השליחות במידה המועטה ביותר</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">
+          <b>פרק ג׳, פסוק ג׳:</b> וַיָּקָם יוֹנָה וַיֵּלֶךְ אֶל־נִינְוֵה כִּדְבַר יְהוָה; וְנִינְוֵה הָיְתָה עִיר־גְּדוֹלָה לֵאלֹהִים מַהֲלַךְ שְׁלֹשֶׁת יָמִים.<br>
+          <b>פרק ג׳, פסוק ד׳:</b> וַיָּחֶל יוֹנָה לָבוֹא בָעִיר מַהֲלַךְ יוֹם אֶחָד; וַיִּקְרָא וַיֹּאמַר, עוֹד אַרְבָּעִים יוֹם וְנִינְוֵה נֶהְפָּכֶת.
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">4</span><span class="q-text">הוכיחו באמצעות שני פרטים שיונה מילא את צו ה׳ במידה המועטה ביותר.</span></div>
+          <textarea class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..." style="min-height:95px;"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">פרק ג׳ · פס׳ ד׳</span>
+        <h2 class="card-title">משמעות ׳נינוה נהפכת׳</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">
+          <b>פרק ג׳, פסוק ד׳:</b> וַיָּחֶל יוֹנָה לָבוֹא בָעִיר מַהֲלַךְ יוֹם אֶחָד; וַיִּקְרָא וַיֹּאמַר, עוֹד אַרְבָּעִים יוֹם וְנִינְוֵה נֶהְפָּכֶת.
+        </div>
+        <div class="meforesh-block">
+          <span class="src">רד״ק:</span>
+          <q>עוד ארבעים יום ונינוה נהפכת — רוצה לומר כמהפכת סדום ועמורה, כי מעשיה היו כמעשיהם.</q>
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">5</span><span class="q-text">לפי רד״ק, מה פירוש המילים ׳נינוה נהפכת׳ ומהו הבסיס לפירושו?</span></div>
+          <textarea class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..." style="min-height:85px;"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">פרק ג׳ · פס׳ ה׳–ט׳</span>
+        <h2 class="card-title">תהליך התשובה מן הכלל אל הפרט ובחזרה לכלל</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">
+          <b>פרק ג׳, פסוק ה׳:</b> וַיַּאֲמִינוּ אַנְשֵׁי נִינְוֵה בֵּאלֹהִים; וַיִּקְרְאוּ־צוֹם וַיִּלְבְּשׁוּ שַׂקִּים, מִגְּדוֹלָם וְעַד־קְטַנָּם.<br>
+          <b>פרק ג׳, פסוק ו׳:</b> וַיִּגַּע הַדָּבָר אֶל־מֶלֶךְ נִינְוֵה, וַיָּקָם מִכִּסְאוֹ וַיַּעֲבֵר אַדַּרְתּוֹ מֵעָלָיו; וַיְכַס שַׂק וַיֵּשֶׁב עַל־הָאֵפֶר.<br>
+          <b>פרק ג׳, פסוק ז׳:</b> וַיַּזְעֵק וַיֹּאמֶר בְּנִינְוֵה, מִטַּעַם הַמֶּלֶךְ וּגְדֹלָיו לֵאמֹר: הָאָדָם וְהַבְּהֵמָה הַבָּקָר וְהַצֹּאן, אַל־יִטְעֲמוּ מְאוּמָה — אַל־יִרְעוּ וּמַיִם אַל־יִשְׁתּוּ.<br>
+          <b>פרק ג׳, פסוק ח׳:</b> וְיִתְכַּסּוּ שַׂקִּים הָאָדָם וְהַבְּהֵמָה, וְיִקְרְאוּ אֶל־אֱלֹהִים בְּחָזְקָה; וְיָשֻׁבוּ אִישׁ מִדַּרְכּוֹ הָרָעָה, וּמִן־הֶחָמָס אֲשֶׁר בְּכַפֵּיהֶם.<br>
+          <b>פרק ג׳, פסוק ט׳:</b> מִי־יוֹדֵעַ יָשׁוּב וְנִחַם הָאֱלֹהִים; וְשָׁב מֵחֲרוֹן אַפּוֹ וְלֹא נֹאבֵד.
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">6</span><span class="q-text">תארו בקצרה את תהליך תשובת אנשי נינווה: מן העם אל המלך ובחזרה לכלל העיר.</span></div>
+          <textarea class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..." style="min-height:105px;"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">פרק ג׳ · פס׳ ה׳–ט׳</span>
+        <h2 class="card-title">הבדלים בין שני הצומות</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">
+          <b>פרק ג׳, פסוק ה׳:</b> וַיַּאֲמִינוּ אַנְשֵׁי נִינְוֵה בֵּאלֹהִים; וַיִּקְרְאוּ־צוֹם וַיִּלְבְּשׁוּ שַׂקִּים, מִגְּדוֹלָם וְעַד־קְטַנָּם.<br>
+          <b>פרק ג׳, פסוק ו׳:</b> וַיִּגַּע הַדָּבָר אֶל־מֶלֶךְ נִינְוֵה, וַיָּקָם מִכִּסְאוֹ וַיַּעֲבֵר אַדַּרְתּוֹ מֵעָלָיו; וַיְכַס שַׂק וַיֵּשֶׁב עַל־הָאֵפֶר.<br>
+          <b>פרק ג׳, פסוק ז׳:</b> וַיַּזְעֵק וַיֹּאמֶר בְּנִינְוֵה, מִטַּעַם הַמֶּלֶךְ וּגְדֹלָיו לֵאמֹר: הָאָדָם וְהַבְּהֵמָה הַבָּקָר וְהַצֹּאן, אַל־יִטְעֲמוּ מְאוּמָה — אַל־יִרְעוּ וּמַיִם אַל־יִשְׁתּוּ.<br>
+          <b>פרק ג׳, פסוק ח׳:</b> וְיִתְכַּסּוּ שַׂקִּים הָאָדָם וְהַבְּהֵמָה, וְיִקְרְאוּ אֶל־אֱלֹהִים בְּחָזְקָה; וְיָשֻׁבוּ אִישׁ מִדַּרְכּוֹ הָרָעָה, וּמִן־הֶחָמָס אֲשֶׁר בְּכַפֵּיהֶם.<br>
+          <b>פרק ג׳, פסוק ט׳:</b> מִי־יוֹדֵעַ יָשׁוּב וְנִחַם הָאֱלֹהִים; וְשָׁב מֵחֲרוֹן אַפּוֹ וְלֹא נֹאבֵד.
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">7</span><span class="q-text">ציינו שני הבדלים בין הצום שהכריז העם לבין הצום שעליו גזר המלך.</span></div>
+          <textarea class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">פרק ג׳ · פס׳ ז׳–ט׳</span>
+        <h2 class="card-title">שתי דרישות נוספות של המלך</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">
+          <b>פרק ג׳, פסוק ז׳:</b> וַיַּזְעֵק וַיֹּאמֶר בְּנִינְוֵה, מִטַּעַם הַמֶּלֶךְ וּגְדֹלָיו לֵאמֹר: הָאָדָם וְהַבְּהֵמָה הַבָּקָר וְהַצֹּאן, אַל־יִטְעֲמוּ מְאוּמָה — אַל־יִרְעוּ וּמַיִם אַל־יִשְׁתּוּ.<br>
+          <b>פרק ג׳, פסוק ח׳:</b> וְיִתְכַּסּוּ שַׂקִּים הָאָדָם וְהַבְּהֵמָה, וְיִקְרְאוּ אֶל־אֱלֹהִים בְּחָזְקָה; וְיָשֻׁבוּ אִישׁ מִדַּרְכּוֹ הָרָעָה, וּמִן־הֶחָמָס אֲשֶׁר בְּכַפֵּיהֶם.<br>
+          <b>פרק ג׳, פסוק ט׳:</b> מִי־יוֹדֵעַ יָשׁוּב וְנִחַם הָאֱלֹהִים; וְשָׁב מֵחֲרוֹן אַפּוֹ וְלֹא נֹאבֵד.
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">8</span><span class="q-text">מלבד הצום, אילו שני דברים נוספים דורש המלך? בססו על הכתוב.</span></div>
+          <textarea class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: span 2;">
+      <div class="card-head">
+        <span class="card-tag">פרק א׳ מול פרק ג׳</span>
+        <h2 class="card-title">אנשי נינווה לעומת מלחי האונייה</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">
+          <b>פרק א׳, פסוק ה׳:</b> וַיִּירְאוּ הַמַּלָּחִים וַיִּזְעֲקוּ אִישׁ אֶל־אֱלֹהָיו, וַיָּטִלוּ אֶת־הַכֵּלִים אֲשֶׁר בָּאֳנִיָּה אֶל־הַיָּם לְהָקֵל מֵעֲלֵיהֶם.<br>
+          <b>פרק א׳, פסוק ו׳:</b> וַיִּקְרַב אֵלָיו רַב הַחֹבֵל, וַיֹּאמֶר לוֹ מַה־לְּךָ נִרְדָּם; קוּם קְרָא אֶל־אֱלֹהֶיךָ — אוּלַי יִתְעַשֵּׁת הָאֱלֹהִים לָנוּ וְלֹא נֹאבֵד.<br>
+          <b>פרק א׳, פסוק י״ד:</b> וַיִּקְרְאוּ אֶל־יְהוָה וַיֹּאמְרוּ, אָנָּה יְהוָה אַל־נָא נֹאבְדָה בְּנֶפֶשׁ הָאִישׁ הַזֶּה, וְאַל־תִּתֵּן עָלֵינוּ דָּם נָקִיא.<br>
+          <b>פרק א׳, פסוק ט״ז:</b> וַיִּירְאוּ הָאֲנָשִׁים יִרְאָה גְדוֹלָה אֶת־יְהוָה; וַיִּזְבְּחוּ־זֶבַח לַיהוָה, וַיִּדְּרוּ נְדָרִים.<br>
+          <b>פרק ג׳, פסוק ה׳:</b> וַיַּאֲמִינוּ אַנְשֵׁי נִינְוֵה בֵּאלֹהִים; וַיִּקְרְאוּ־צוֹם וַיִּלְבְּשׁוּ שַׂקִּים, מִגְּדוֹלָם וְעַד־קְטַנָּם.<br>
+          <b>פרק ג׳, פסוק ו׳:</b> וַיִּגַּע הַדָּבָר אֶל־מֶלֶךְ נִינְוֵה, וַיָּקָם מִכִּסְאוֹ וַיַּעֲבֵר אַדַּרְתּוֹ מֵעָלָיו; וַיְכַס שַׂק וַיֵּשֶׁב עַל־הָאֵפֶר.
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">9</span><span class="q-text">ציינו שני קווי דמיון בין תגובת מלחי האונייה לבין תגובת אנשי נינווה.</span></div>
+          <textarea class="answer" data-id="q9" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">פרק ג׳ · פס׳ י׳</span>
+        <h2 class="card-title">האם תשובת אנשי נינווה הייתה אמיתית?</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">
+          <b>פרק ג׳, פסוק י׳:</b> וַיַּרְא הָאֱלֹהִים אֶת־מַעֲשֵׂיהֶם כִּי־שָׁבוּ מִדַּרְכָּם הָרָעָה; וַיִּנָּחֶם הָאֱלֹהִים עַל־הָרָעָה אֲשֶׁר־דִּבֶּר לַעֲשׂוֹת־לָהֶם, וְלֹא עָשָׂה.
+        </div>
+        <div class="meforesh-block">
+          <span class="src">משנה, תענית:</span>
+          <q>לא נאמר באנשי נינוה: וירא האלהים את שקם ואת תעניתם, אלא: וירא האלהים את מעשיהם כי שבו מדרכם הרעה. (ומנגד נאמר: תשובה של רמאות עשו אנשי נינווה — החזירו את החמס שבידיהם, אך לא את מה שכבר הסתירו.)</q>
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">10</span><span class="q-text">הציגו את שתי הדרכים להערכת תשובת אנשי נינווה.</span></div>
+          <textarea class="answer" data-id="q10" placeholder="כתבו כאן את התשובה..." style="min-height:110px;"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">שאלת בגרות</span>
+        <h2 class="card-title">הצומות — פסוקים ו׳–ט׳</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">
+          <b>פרק ג׳, פסוק ה׳:</b> וַיַּאֲמִינוּ אַנְשֵׁי נִינְוֵה בֵּאלֹהִים; וַיִּקְרְאוּ־צוֹם וַיִּלְבְּשׁוּ שַׂקִּים, מִגְּדוֹלָם וְעַד־קְטַנָּם.<br>
+          <b>פרק ג׳, פסוק ו׳:</b> וַיִּגַּע הַדָּבָר אֶל־מֶלֶךְ נִינְוֵה, וַיָּקָם מִכִּסְאוֹ וַיַּעֲבֵר אַדַּרְתּוֹ מֵעָלָיו; וַיְכַס שַׂק וַיֵּשֶׁב עַל־הָאֵפֶר.<br>
+          <b>פרק ג׳, פסוק ז׳:</b> וַיַּזְעֵק וַיֹּאמֶר בְּנִינְוֵה, מִטַּעַם הַמֶּלֶךְ וּגְדֹלָיו לֵאמֹר: הָאָדָם וְהַבְּהֵמָה הַבָּקָר וְהַצֹּאן, אַל־יִטְעֲמוּ מְאוּמָה — אַל־יִרְעוּ וּמַיִם אַל־יִשְׁתּוּ.<br>
+          <b>פרק ג׳, פסוק ח׳:</b> וְיִתְכַּסּוּ שַׂקִּים הָאָדָם וְהַבְּהֵמָה, וְיִקְרְאוּ אֶל־אֱלֹהִים בְּחָזְקָה; וְיָשֻׁבוּ אִישׁ מִדַּרְכּוֹ הָרָעָה, וּמִן־הֶחָמָס אֲשֶׁר בְּכַפֵּיהֶם.<br>
+          <b>פרק ג׳, פסוק ט׳:</b> מִי־יוֹדֵעַ יָשׁוּב וְנִחַם הָאֱלֹהִים; וְשָׁב מֵחֲרוֹן אַפּוֹ וְלֹא נֹאבֵד.
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">11</span><span class="q-text">בפרק ג׳, פסוקים ו׳–ט׳, ציינו שני הבדלים בין הצום של אנשי נינווה לבין הצום שעליו גזר המלך.</span></div>
+          <textarea class="answer" data-id="q11" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">שאלת בגרות</span>
+        <h2 class="card-title">גזרות המלך</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">
+          <b>פרק ג׳, פסוק ז׳:</b> וַיַּזְעֵק וַיֹּאמֶר בְּנִינְוֵה, מִטַּעַם הַמֶּלֶךְ וּגְדֹלָיו לֵאמֹר: הָאָדָם וְהַבְּהֵמָה הַבָּקָר וְהַצֹּאן, אַל־יִטְעֲמוּ מְאוּמָה — אַל־יִרְעוּ וּמַיִם אַל־יִשְׁתּוּ.<br>
+          <b>פרק ג׳, פסוק ח׳:</b> וְיִתְכַּסּוּ שַׂקִּים הָאָדָם וְהַבְּהֵמָה, וְיִקְרְאוּ אֶל־אֱלֹהִים בְּחָזְקָה; וְיָשֻׁבוּ אִישׁ מִדַּרְכּוֹ הָרָעָה, וּמִן־הֶחָמָס אֲשֶׁר בְּכַפֵּיהֶם.<br>
+          <b>פרק ג׳, פסוק ט׳:</b> מִי־יוֹדֵעַ יָשׁוּב וְנִחַם הָאֱלֹהִים; וְשָׁב מֵחֲרוֹן אַפּוֹ וְלֹא נֹאבֵד.
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">12</span><span class="q-text">ציינו שני דברים שגזר מלך נינווה לעשות מלבד הצום, ובססו את תשובתכם על הפסוקים.</span></div>
+          <textarea class="answer" data-id="q12" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">שאלת בגרות</span>
+        <h2 class="card-title">ביצוע מצומצם של השליחות</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">
+          <b>פרק ג׳, פסוק ג׳:</b> וַיָּקָם יוֹנָה וַיֵּלֶךְ אֶל־נִינְוֵה כִּדְבַר יְהוָה; וְנִינְוֵה הָיְתָה עִיר־גְּדוֹלָה לֵאלֹהִים מַהֲלַךְ שְׁלֹשֶׁת יָמִים.<br>
+          <b>פרק ג׳, פסוק ד׳:</b> וַיָּחֶל יוֹנָה לָבוֹא בָעִיר מַהֲלַךְ יוֹם אֶחָד; וַיִּקְרָא וַיֹּאמַר, עוֹד אַרְבָּעִים יוֹם וְנִינְוֵה נֶהְפָּכֶת.
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">13</span><span class="q-text">הוכיחו באמצעות דיוק אחד בפסוקים ג׳–ד׳ שיונה מילא את צו ה׳ במידה המועטה ביותר. הסבירו.</span></div>
+          <textarea class="answer" data-id="q13" placeholder="כתבו כאן את התשובה..." style="min-height:95px;"></textarea>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<div class="toolbar">
+  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
+  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
+</p>
+
+<footer class="credit">ספר יונה, פרק ג׳ · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'jonah-ch3-answers';
+const NAME_KEY = 'jonah-ch3-student';
+const textareas = Array.from(document.querySelectorAll('textarea.answer'));
+const progressFill = document.getElementById('progressFill');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{
+    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      nameInput.value = data.name || '';
+      classInput.value = data.cls || '';
+    }
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  progressFill.style.width = (filled / textareas.length * 100) + '%';
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    flashSaved();
+  }catch(e){
+    console.error('שגיאת שמירה', e);
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => {
+        if(data[t.dataset.id]){
+          t.value = data[t.dataset.id];
+          markFilled(t);
+        }
+      });
+    }
+  }catch(e){
+    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
+  }
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות שכתבתם? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){
+    nameInput.focus();
+    alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.');
+    return;
+  }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => {
+  inp.addEventListener('input', saveStudentInfo);
+});
+
+let originalHeights = [];
+window.addEventListener('beforeprint', () => {
+  originalHeights = textareas.map(t => t.style.height);
+  textareas.forEach(t => { t.style.height = 'auto'; t.style.height = (t.scrollHeight + 4) + 'px'; });
+});
+window.addEventListener('afterprint', () => {
+  textareas.forEach((t, i) => { t.style.height = originalHeights[i] || ''; });
+});
+
+loadStudentInfo();
+loadAnswers();
+</script>
+
+</body>
+</html>
