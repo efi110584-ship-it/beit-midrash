@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר החינוך — דף עבודה אינטראקטיבי (מצוות תפילה, מצוה תל"ג)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #EFE6D0;
+    --paper-card: #F7F1E1;
+    --paper-line: #D8C9A3;
+    --ink: #1F3A4D;
+    --ink-soft: #4B6577;
+    --gold: #A9752E;
+    --gold-soft: #C99A4C;
+    --teal: #3F6E66;
+    --teal-soft: #E4EEEA;
+    --rust: #8B4A34;
+    --rust-soft: #F1E2DA;
+    --shadow: 0 2px 10px rgba(31,58,77,0.08);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at 15% -10%, rgba(169,117,46,0.10), transparent 45%),
+      radial-gradient(ellipse at 90% 0%, rgba(63,110,102,0.10), transparent 40%),
+      var(--paper);
+    font-family: 'Heebo', sans-serif;
+    color: var(--ink);
+    direction: rtl;
+  }
+
+  header{
+    position: relative;
+    padding: 3rem 1.5rem 2.2rem;
+    text-align: center;
+    overflow: hidden;
+  }
+  header .eyebrow{
+    font-family:'Heebo',sans-serif;
+    font-weight:600;
+    letter-spacing: .12em;
+    font-size: .78rem;
+    color: var(--gold);
+    text-transform: none;
+    margin-bottom: .6rem;
+  }
+  header h1{
+    font-family:'Frank Ruhl Libre', serif;
+    font-weight: 900;
+    font-size: clamp(1.9rem, 4.2vw, 3rem);
+    margin: 0 0 .5rem;
+    color: var(--ink);
+    line-height: 1.15;
+  }
+  header p.sub{
+    font-size: 1rem;
+    color: var(--ink-soft);
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  .wave{
+    width:100%;
+    height:34px;
+    margin-top: 1.6rem;
+    display:block;
+  }
+
+  .student-bar{
+    max-width: 760px;
+    margin: 0 auto 1.4rem;
+    padding: 0 1.5rem;
+    display:flex;
+    justify-content:center;
+    gap: 1.6rem;
+    flex-wrap: wrap;
+  }
+  .student-bar label{
+    font-size: .88rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    display:flex;
+    align-items:center;
+    gap: .4rem;
+  }
+  .student-bar input{
+    font-family:'Heebo',sans-serif;
+    font-size: .92rem;
+    padding: .3rem .6rem;
+    border: 1.5px solid var(--paper-line);
+    border-radius: 7px;
+    background: #fff;
+    color: var(--ink);
+    direction: rtl;
+    min-width: 10rem;
+  }
+  .student-bar input:focus{
+    outline:none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(169,117,46,0.18);
+  }
+
+  .progress-wrap{
+    max-width: 760px;
+    margin: 0 auto 1.6rem;
+    padding: 0 1.5rem;
+    display:flex;
+    align-items:center;
+    gap: .9rem;
+  }
+  .progress-track{
+    flex:1;
+    height: 10px;
+    background: var(--paper-line);
+    border-radius: 999px;
+    overflow:hidden;
+    box-shadow: inset 0 1px 2px rgba(31,58,77,0.15);
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background: linear-gradient(90deg, var(--teal), var(--gold));
+    border-radius: 999px;
+    transition: width .4s ease;
+  }
+  .progress-label{
+    font-size: .85rem;
+    font-weight:600;
+    color: var(--ink-soft);
+    white-space:nowrap;
+  }
+  .save-note{
+    text-align:center;
+    font-size: .78rem;
+    color: var(--teal);
+    min-height: 1.2rem;
+    margin-bottom: .4rem;
+    opacity: 0;
+    transition: opacity .3s ease;
+  }
+  .save-note.show{ opacity: 1; }
+
+  main{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem 4rem;
+  }
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.4rem;
+    align-items: start;
+  }
+  @media (max-width: 780px){ .grid{ grid-template-columns: 1fr; } }
+
+  .card{
+    background: var(--paper-card);
+    border: 1px solid var(--paper-line);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display:flex;
+    flex-direction: column;
+  }
+  .card-head{
+    padding: 1rem 1.2rem .85rem;
+    border-bottom: 1px solid var(--paper-line);
+    background: linear-gradient(180deg, rgba(169,117,46,0.10), transparent);
+  }
+  .card-tag{
+    display:inline-block;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing:.06em;
+    color: var(--gold);
+    background: rgba(169,117,46,0.14);
+    border-radius: 999px;
+    padding: .18rem .65rem;
+    margin-bottom: .5rem;
+  }
+  .card-title{
+    font-family:'Frank Ruhl Libre', serif;
+    font-weight: 700;
+    font-size: 1.12rem;
+    line-height: 1.35;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .card-body{ padding: 1rem 1.2rem 1.2rem; display:flex; flex-direction:column; gap: .85rem; }
+
+  .pasuk-block{
+    background: var(--teal-soft);
+    border-right: 3px solid var(--teal);
+    border-radius: 6px;
+    padding: .55rem .75rem;
+    font-size: .86rem;
+    line-height: 1.55;
+    color: #234943;
+  }
+  .pasuk-block b{ color: var(--teal); font-weight: 700; }
+
+  .meforesh-block{
+    background: var(--rust-soft);
+    border-right: 3px solid var(--rust);
+    border-radius: 6px;
+    padding: .55rem .75rem;
+    font-size: .84rem;
+    line-height: 1.55;
+    color: #5c3324;
+  }
+  .meforesh-block .src{
+    display:block;
+    font-weight: 700;
+    color: var(--rust);
+    margin-bottom: .15rem;
+    font-size: .78rem;
+  }
+  .meforesh-block q{ font-style: italic; }
+
+  .question-block{
+    border-top: 1px dashed var(--paper-line);
+    padding-top: .8rem;
+    margin-top: .1rem;
+  }
+  .question-row{
+    display:flex;
+    gap: .5rem;
+    align-items:flex-start;
+    margin-bottom: .5rem;
+  }
+  .q-num{
+    flex: none;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper-card);
+    font-size: .8rem;
+    font-weight: 700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .q-text{
+    font-size: .95rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: var(--ink);
+    padding-top: .1rem;
+  }
+  textarea.answer, input.answer{
+    width:100%;
+    min-height: 64px;
+    resize: vertical;
+    font-family:'Heebo',sans-serif;
+    font-size: .92rem;
+    line-height: 1.6;
+    padding: .55rem .7rem;
+    border: 1.5px solid var(--paper-line);
+    border-radius: 8px;
+    background:
+      repeating-linear-gradient(var(--paper) 0 27px, var(--paper-line) 27px 28px);
+    background-color: #fff;
+    color: var(--ink);
+    direction: rtl;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  input.answer{ min-height: auto; background: #fff; }
+  textarea.answer:focus, input.answer:focus{
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(169,117,46,0.18);
+  }
+  textarea.answer.filled, input.answer.filled{ border-color: var(--teal); }
+
+  .fill-table{ display:flex; flex-direction:column; gap:.6rem; }
+  .fill-row{ display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; }
+  .fill-row .fill-label{ flex: 0 0 9rem; font-weight:700; font-size:.88rem; color: var(--ink); }
+  .fill-row input.answer{ flex: 1 1 12rem; }
+
+  .toolbar{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem 2.5rem;
+    display:flex;
+    justify-content:center;
+    gap: .8rem;
+    flex-wrap: wrap;
+  }
+  .btn{
+    font-family:'Heebo',sans-serif;
+    font-size: .88rem;
+    font-weight: 600;
+    padding: .6rem 1.3rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    cursor:pointer;
+    transition: all .2s ease;
+  }
+  .btn:hover{ background: var(--ink); color: var(--paper-card); }
+  .btn.danger{ border-color: var(--rust); color: var(--rust); }
+  .btn.danger:hover{ background: var(--rust); color: #fff; }
+
+  footer.credit{
+    text-align:center;
+    font-size: .75rem;
+    color: var(--ink-soft);
+    padding-bottom: 2rem;
+    opacity: .7;
+  }
+
+  .print-only{ display:none; }
+
+  @media print{
+    *{
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
+    }
+    @page{ margin: 14mm 12mm; }
+
+    .toolbar, .save-note, .progress-wrap, .wave, .eyebrow, .student-bar, #printHelp{ display:none !important; }
+    .print-only{ display:block; }
+
+    body{ background: var(--paper) !important; }
+
+    header{ padding: 0 0 .5rem; text-align:center; }
+    header h1{ font-size: 1.7rem; }
+    header p.sub{ display:none; }
+    #printNameLine{
+      font-size: 1rem !important;
+      font-weight: 700 !important;
+      color: var(--ink) !important;
+      border: 1.4px solid var(--gold);
+      border-radius: 8px;
+      display: inline-block;
+      padding: .3rem 1.1rem;
+      margin-top: .5rem !important;
+      background: var(--paper-card) !important;
+    }
+
+    main{ padding: 0; max-width: none; }
+    .grid{ display:block; }
+
+    .grid > .card{
+      grid-column: auto !important;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      margin-bottom: .85rem;
+      box-shadow:none;
+      border: 1.4px solid var(--paper-line) !important;
+      background: var(--paper-card) !important;
+    }
+    .card-head{
+      background: linear-gradient(180deg, rgba(169,117,46,0.16), transparent) !important;
+      border-bottom: 1.2px solid var(--paper-line) !important;
+    }
+    .card-tag{
+      background: rgba(169,117,46,0.20) !important;
+      color: var(--gold) !important;
+    }
+    .card-title{ font-size: 1.05rem; }
+    .card-body{ padding: .75rem 1rem .85rem; gap: .7rem; }
+
+    .pasuk-block{
+      background: var(--teal-soft) !important;
+      border-right: 3px solid var(--teal) !important;
+      color: #234943 !important;
+    }
+    .meforesh-block{
+      background: var(--rust-soft) !important;
+      border-right: 3px solid var(--rust) !important;
+      color: #5c3324 !important;
+    }
+    .q-num{
+      background: var(--ink) !important;
+      color: var(--paper-card) !important;
+    }
+    .q-text{ font-size: .95rem; }
+
+    textarea.answer, input.answer{
+      background:
+        repeating-linear-gradient(var(--paper-card) 0 27px, var(--paper-line) 27px 28px) !important;
+      border: 1.3px solid var(--paper-line) !important;
+      overflow: hidden;
+      resize: none;
+      color: var(--ink) !important;
+    }
+
+    footer.credit{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">לקט מצוות · תושב"ע · חוברת תלמיד דיגיטלית</div>
+  <h1>מצוות תפילה — ספר החינוך, מצוה תל"ג</h1>
+  <p class="sub">השאלות מסודרות כאן לפי סדר הופעתן בלקט. קראו את המקורות וכתבו את תשובותיכם ישירות בתיבות — הכול נשמר אוטומטית במכשיר שלכם.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 19 שאלות</span>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote">✓ נשמר</div>
+
+<main>
+  <div class="grid" id="grid">
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">מבנה ספר החינוך - חימום</span>
+        <h2 class="card-title">לפני שמתחילים: מבנה ספר החינוך</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">ספר החינוך מחולק למצוות על-פי סדר הפרשות בתורה, ובנוי מתרי"ג מצוות. כל מצווה בספר בנויה ממבנה קבוע של ארבעה סעיפים. לפני שניגשים למצווה הנלמדת היום, השלימו במילה או שתיים מה נלמד בכל סעיף:</div>
+        <div class="fill-table">
+          <div class="fill-row"><span class="fill-label">הגדרת המצווה</span><input type="text" class="answer" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label">שורש המצווה</span><input type="text" class="answer" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label">דיני המצווה</span><input type="text" class="answer" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label">למעשה</span><input type="text" class="answer" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">הגדרת המצווה</span>
+        <h2 class="card-title">הגדרת המצווה</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">הגדרת המצווה על פי הרמב"ם: לעבוד את ה'. זוהי "מצווה כוללת" — מצווה שאינה מתייחסת למעשה מסוים אחד, אלא כוללת כמה מעשים ומצוות: "לעבוד את ה'" משמעו לקיים את כל המצוות. התפילה היא "מצווה פרטית" — פרט מתוך הכלל של עבודת ה'. בספרי נדרש על "ולעבדו בכל לבבכם": מהי עבודה שבלב? זוהי תפילה.</div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">1</span><span class="q-text">מהו ההבדל, על פי הרמב"ם, בין "מצווה כוללת" ל"מצווה פרטית"? הראה כיצד "לעבוד את ה'" ו"תפילה" מבטאים הבדל זה.</span></div>
+          <textarea class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">הגדרת המצווה (המשך)</span>
+        <h2 class="card-title">הגדרת המצווה (המשך)</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">הגדרת המצווה על פי הרמב"ם: לעבוד את ה'. זוהי "מצווה כוללת" — מצווה שאינה מתייחסת למעשה מסוים אחד, אלא כוללת כמה מעשים ומצוות: "לעבוד את ה'" משמעו לקיים את כל המצוות. התפילה היא "מצווה פרטית" — פרט מתוך הכלל של עבודת ה'. בספרי נדרש על "ולעבדו בכל לבבכם": מהי עבודה שבלב? זוהי תפילה.</div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">2</span><span class="q-text">מהי "עבודה שבלב" על פי מדרש הספרי, ומדוע היא מזוהה עם התפילה?</span></div>
+          <textarea class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">שורש המצווה</span>
+        <h2 class="card-title">שורש המצווה</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">שורש המצווה - כלל בספר החינוך: הטובות והברכות יחולו על בני אדם כפי פעולתם וטוב לבבם וכושר מחשבתם, ואדון הכל שבראם חפץ בטובתם, והדריכם והצליחם במצוותיו היקרות שיזכו בהן.</div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">3</span><span class="q-text">מהו הכלל שמנוסח בספר החינוך לגבי היחס בין מעשי האדם לשפע הטוב שהוא מקבל מה', וכיצד כלל זה מסביר את מטרת מתן המצוות?</span></div>
+          <textarea class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">תועלת התפילה</span>
+        <h2 class="card-title">תועלת התפילה</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">תועלת מעשית: התפילה היא דרך לאדם להשיג את משאלות ליבו — הוא מבקש מבוראו, שבידו היכולת לענות לכל מי שקורא אליו באמת. תועלת רוחנית - חיזוק האמונה: על ידי התפילה מתחזקת בליבנו האמונה שה' הוא מלך העולם ומקור הטוב, משגיח על מעשינו וקשוב תמיד לפנייתנו.</div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">4</span><span class="q-text">הסבר מהי "התועלת המעשית" שבתפילה, על פי הקטע.</span></div>
+          <textarea class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">תועלת התפילה (המשך)</span>
+        <h2 class="card-title">תועלת התפילה (המשך)</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">תועלת מעשית: התפילה היא דרך לאדם להשיג את משאלות ליבו — הוא מבקש מבוראו, שבידו היכולת לענות לכל מי שקורא אליו באמת. תועלת רוחנית - חיזוק האמונה: על ידי התפילה מתחזקת בליבנו האמונה שה' הוא מלך העולם ומקור הטוב, משגיח על מעשינו וקשוב תמיד לפנייתנו.</div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">5</span><span class="q-text">הסבר מהי "התועלת הרוחנית" שבתפילה, וכיצד היא קשורה לחיזוק האמונה.</span></div>
+          <textarea class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">תפילה מדאורייתא או מדרבנן?</span>
+        <h2 class="card-title">תפילה מדאורייתא או מדרבנן?</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">האם חיוב התפילה הוא מדאורייתא או מדרבנן? לדעת הרמב"ם, יש חובה מהתורה להתפלל בכל יום, אלא שאין מהתורה זמן קבוע, מספר קבוע, או נוסח קבוע לתפילה. לדעת הרמב"ן, אין חובה מהתורה להתפלל כלל - כל חיוב התפילה מדרבנן, מלבד זמן צרה, שאז יש חובה מהתורה (בספק) לפנות אל ה'.</div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">6</span><span class="q-text">מהי עמדת הרמב"ם לגבי חיוב התפילה מהתורה, ומה, על פי דעתו, אינו קבוע מהתורה?</span></div>
+          <textarea class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">תפילה מדאורייתא או מדרבנן? (המשך)</span>
+        <h2 class="card-title">תפילה מדאורייתא או מדרבנן? (המשך)</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">האם חיוב התפילה הוא מדאורייתא או מדרבנן? לדעת הרמב"ם, יש חובה מהתורה להתפלל בכל יום, אלא שאין מהתורה זמן קבוע, מספר קבוע, או נוסח קבוע לתפילה. לדעת הרמב"ן, אין חובה מהתורה להתפלל כלל - כל חיוב התפילה מדרבנן, מלבד זמן צרה, שאז יש חובה מהתורה (בספק) לפנות אל ה'.</div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">7</span><span class="q-text">מהי עמדת הרמב"ן, ובאיזה מצב בכל זאת קיימת לדעתו חובת תפילה מהתורה?</span></div>
+          <textarea class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">שלוש תפילות ביום כנגד הקרבנות</span>
+        <h2 class="card-title">שלוש תפילות ביום כנגד הקרבנות</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">מדיני המצווה: חובה להתפלל שלוש פעמים ביום, והתפילות נתקנו כנגד הקרבנות. תפילת שחרית — כנגד קורבן התמיד של שחר; תפילת מנחה — כנגד קורבן התמיד של בין הערביים; תפילת ערבית — כנגד שיירי הקורבנות, שהיו ממשיכים להישרף על המזבח בלילה.</div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">8</span><span class="q-text">מנה את שלוש התפילות היומיות, וציין כנגד איזה קורבן נתקנה כל אחת מהן.</span></div>
+          <textarea class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">שלוש תפילות ביום כנגד הקרבנות (המשך)</span>
+        <h2 class="card-title">שלוש תפילות ביום כנגד הקרבנות (המשך)</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">מלכתחילה, מאחר שתפילת ערבית נקבעה כנגד שיירי הקורבנות - שלא תמיד היו - תפילת ערבית אינה חובה, וכל אחד יכול לבחור אם להתפלל אותה. למרות זאת, נהגו ישראל בכל מקום להתפלל תפילת ערבית בקביעות בכל לילה, ומאחר שקיבלו זאת על עצמם כחובה, חייב כל אחד מישראל להתפלל ערבית בכל מקרה.</div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">9</span><span class="q-text">מדוע תפילת ערבית לא הייתה חובה מלכתחילה, וכיצד בכל זאת הפכה לחובה בפועל?</span></div>
+          <textarea class="answer" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">תפילות נוספות ונוסח התפילה</span>
+        <h2 class="card-title">תפילות נוספות ונוסח התפילה</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">בשבתות, מועדים וראשי חודשים מוסיפים תפילת מוסף, כנגד קורבנות המוספים - סך הכול ארבע תפילות. ביום הכיפורים מוסיפים גם תפילת נעילה, בשל קדושת היום ובקשת הסליחה - סך הכול חמש תפילות.</div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">10</span><span class="q-text">אילו תפילות מתווספות בשבתות ובמועדים, ואילו תפילות מתווספות ביום הכיפורים? כמה תפילות יש בסך הכול בכל מקרה?</span></div>
+          <textarea class="answer" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">תפילות נוספות ונוסח התפילה (המשך)</span>
+        <h2 class="card-title">תפילות נוספות ונוסח התפילה (המשך)</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">נוסח התפילה: עזרא ובית דינו, אנשי כנסת הגדולה, חיברו את נוסח התפילה בזמן שיבת ציון, לפני בניית בית המקדש השני. לאחר חורבן בית שני הוסיף שמואל הקטן את ברכת המינים. מאוחר יותר סידר שמעון הפקולי מחדש את סדר התפילה כפי שקבעו עזרא ובית דינו, לאחר שסדרם המדויק נשכח.</div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">11</span><span class="q-text">מי חיבר את נוסח התפילה, ומתי? ציין תרומה נוספת אחת שנוספה לנוסח התפילה מאוחר יותר, ומי הוסיף אותה.</span></div>
+          <textarea class="answer" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">מבנה תפילת העמידה</span>
+        <h2 class="card-title">מבנה תפילת העמידה</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">מבנה תפילת העמידה: ביום חול יש בה 19 ברכות - שלוש ברכות שבח (אבות, גבורות, קדושת ה'), שלוש-עשרה בקשות (בינה, תשובה, סליחה, גאולה, רפואה, ברכת השנים, קיבוץ גלויות, השבת המשפט, ברכת המינים, הצדיקים, בנין ירושלים, מלכות בית דוד, שומע תפילה), ושים שלום. בשבתות ובמועדים, כדי שלא להטריח את הציבור ביום שמחתם, מברכים רק שבע ברכות - ברכות השבח, קדושת היום, וברכות ההודאה - ואין אומרים את הברכות העוסקות בבקשת צרכים.</div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">12</span><span class="q-text">ממה מורכבת תפילת העמידה ביום חול, וכמה ברכות יש בה בסך הכול?</span></div>
+          <textarea class="answer" data-id="q12" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">מבנה תפילת העמידה (המשך)</span>
+        <h2 class="card-title">מבנה תפילת העמידה (המשך)</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">מבנה תפילת העמידה: ביום חול יש בה 19 ברכות - שלוש ברכות שבח (אבות, גבורות, קדושת ה'), שלוש-עשרה בקשות (בינה, תשובה, סליחה, גאולה, רפואה, ברכת השנים, קיבוץ גלויות, השבת המשפט, ברכת המינים, הצדיקים, בנין ירושלים, מלכות בית דוד, שומע תפילה), ושים שלום. בשבתות ובמועדים, כדי שלא להטריח את הציבור ביום שמחתם, מברכים רק שבע ברכות - ברכות השבח, קדושת היום, וברכות ההודאה - ואין אומרים את הברכות העוסקות בבקשת צרכים.</div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">13</span><span class="q-text">מדוע בשבתות ובמועדים משמיטים את הברכות העוסקות בבקשת צרכים?</span></div>
+          <textarea class="answer" data-id="q13" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">כוונה בתפילה וזמני התפילה</span>
+        <h2 class="card-title">כוונה בתפילה וזמני התפילה</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">כוונה בתפילה: שייתן האדם אל לבו שלפני ה' הוא מתפלל ואליו הוא קורא, ויפנה מחשבתו מכל שאר מחשבות העולם וייחד אותה על זה. יש להקפיד על כוונת התפילה במיוחד בברכה הראשונה - ברכת אבות; ואם לא התכוון, כיום להלכה נפסק שלא חוזרים לתחילת שמונה עשרה.</div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">14</span><span class="q-text">מהי הכוונה הנדרשת בעת התפילה, ובאיזו ברכה יש להקפיד עליה במיוחד?</span></div>
+          <textarea class="answer" data-id="q14" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </section>
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">נוהגת</span>
+        <h2 class="card-title">נוהגת</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">נוהגת: בכל מקום, ובכל זמן, בזכרים ונקבות. מי עובר על המצווה? הרמב"ם - אדם שעבר עליו יום ולילה בלי תפילה, ביטל עשה. הרמב"ן - מי שצר לו ולא פנה אל ה' להושיעו, ביטל עשה זה. העובר על מצווה זו עונשו גדול מאד, שהוא כמסיר השגחת השם מעליו.</div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">15</span><span class="q-text">על מי ובאילו תנאים חלה מצוות התפילה? הבדל בין דעת הרמב"ם לרמב"ן לגבי מי שנחשב עובר על המצווה.</span></div>
+          <textarea class="answer" data-id="q15" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<div class="toolbar">
+  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
+  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
+</p>
+
+<footer class="credit">לקט מצוות · "מצוות תפילה" · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'mitzvot-tefila-answers';
+const NAME_KEY = 'mitzvot-tefila-student';
+const textareas = Array.from(document.querySelectorAll('.answer'));
+const progressFill = document.getElementById('progressFill');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{
+    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      nameInput.value = data.name || '';
+      classInput.value = data.cls || '';
+    }
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  progressFill.style.width = (filled / textareas.length * 100) + '%';
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    flashSaved();
+  }catch(e){
+    console.error('שגיאת שמירה', e);
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => {
+        if(data[t.dataset.id]){
+          t.value = data[t.dataset.id];
+          markFilled(t);
+        }
+      });
+    }
+  }catch(e){
+    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
+  }
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות שכתבתם? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){
+    nameInput.focus();
+    alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.');
+    return;
+  }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => {
+  inp.addEventListener('input', saveStudentInfo);
+});
+
+let originalHeights = [];
+window.addEventListener('beforeprint', () => {
+  originalHeights = textareas.map(t => t.style.height);
+  textareas.forEach(t => { if(t.tagName === 'TEXTAREA'){ t.style.height = 'auto'; t.style.height = (t.scrollHeight + 4) + 'px'; } });
+});
+window.addEventListener('afterprint', () => {
+  textareas.forEach((t, i) => { t.style.height = originalHeights[i] || ''; });
+});
+
+loadStudentInfo();
+loadAnswers();
+</script>
+
+</body>
+</html>
