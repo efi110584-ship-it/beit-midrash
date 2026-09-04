@@ -379,7 +379,29 @@ const SITE_CONFIG = {
       presentationUrl:"ahavat-gerim-presentation.pptx", presentationLabel:"הורדת מצגת (PowerPoint)" },
     { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "קידוש החודש" (רמב"ם, עשה קנ"ג)', url:"kidush-hachodesh.html", note:"" },
     { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "אהבת ישראל" (מצוה רמ"ג)', url:"ahavat-israel.html", note:"",
-      presentationUrl:"ahavat-israel-presentation.pptx", presentationLabel:"הורדת מצגת (PowerPoint)" }
+      presentationUrl:"ahavat-israel-presentation.pptx", presentationLabel:"הורדת מצגת (PowerPoint)" },
+    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "כיבוד הורים" (מצוה ל"ג)', url:"kibud-avot.html", note:"",
+      presentationUrl:"kibud-avot-presentation.pptx", presentationLabel:"הורדת מצגת (PowerPoint)" },
+    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "מצוות תוכחה" (מצוה רל"ט)', url:"tochacha.html", note:"",
+      presentationUrl:"tochacha-presentation.pptx", presentationLabel:"הורדת מצגת (PowerPoint)" },
+    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "תלמוד תורה" (מצוה תי"ט)', url:"talmud-torah.html", note:"",
+      presentationUrl:"talmud-torah-presentation.pptx", presentationLabel:"הורדת מצגת (PowerPoint)" },
+    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "כיבוד חכמים" (מצוה רנ"ז)', url:"kibud-chachamim.html", note:"",
+      presentationUrl:"kibud-chachamim-presentation.pptx", presentationLabel:"הורדת מצגת (PowerPoint)" },
+    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "אונאת דברים" (מצוה של"ח)', url:"onaat-dvarim.html", note:"",
+      presentationUrl:"onaat-dvarim-presentation.pptx", presentationLabel:"הורדת מצגת (PowerPoint)" },
+    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "מצוות הלוואה" (מצוה ס"ז)', url:"halvaa.html", note:"",
+      presentationUrl:"halvaa-presentation.pptx", presentationLabel:"הורדת מצגת (PowerPoint)" },
+    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "קידוש השבת בדברים" (מצוה ל"א)', url:"kidush-shabbat.html", note:"",
+      presentationUrl:"kidush-shabbat-presentation.pptm", presentationLabel:"הורדת מצגת (PowerPoint)" },
+    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "מצוות תפילה" (מצוה תל"ג)', url:"tefila.html", note:"",
+      presentationUrl:"tefila-presentation.pptx", presentationLabel:"הורדת מצגת (PowerPoint)" },
+    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "שלא לשבור עצם בפסח" (מצוה ט"ז)', url:"korban-pesach.html", note:"",
+      presentationUrl:"korban-pesach-presentation.pptx", presentationLabel:"הורדת מצגת (PowerPoint)" },
+    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "קריאת שמע" (מצוה ת"כ)', url:"kriat-shema.html", note:"",
+      presentationUrl:"kriat-shema-presentation.pptx", presentationLabel:"הורדת מצגת (PowerPoint)" },
+    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "לא תעשוק ושכר שכיר" (מצוה רכ"ח, ר"ל)', url:"lo-taashok-schar-sachir.html", note:"",
+      presentationUrl:"lo-taashok-presentation.pptx", presentationLabel:"הורדת מצגת - לא תעשוק (PowerPoint)" }
   ];
 
   /* קישורים לדפים אינטראקטיביים/דפי עבודה שמצביעים ישירות ל-Google Drive או
@@ -402,7 +424,9 @@ const SITE_CONFIG = {
      רק סוגי חומר מסוימים (השאר מוסר) - כי כבר יש קבצים מקומיים תקינים
      לחומר האינטראקטיבי, בלי תלות בניסוח המדויק בגיליון. */
   var KEYWORD_ALLOWED_TYPES = {
-    "יונה": { "דף אינטראקטיבי": true, "דף חזרה": true }
+    "יונה": { "דף אינטראקטיבי": true, "דף חזרה": true },
+    "תלמוד תורה": {},
+    "לימוד תורה": {}
   };
   function dropLocalOnlyTopics(rows){
     return rows.filter(function(r){
