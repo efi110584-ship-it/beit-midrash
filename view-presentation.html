@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>צפייה במצגת | בית המדרש הדיגיטלי</title>
+<style>
+:root{
+  --ink: #16233F;
+  --paper: #FBF7EE;
+  --gold: #A87424;
+  --border: #E3DCC9;
+  --text-soft: #545B72;
+  --focus: #1857C4;
+}
+*, *::before, *::after{ box-sizing:border-box; }
+html, body{ height:100%; }
+body{
+  margin:0; display:flex; flex-direction:column;
+  background:var(--paper); color:#23283A;
+  font-family:"Heebo","Arial Hebrew",sans-serif;
+}
+a{ color:var(--gold); }
+a:focus-visible, button:focus-visible{ outline:3px solid var(--focus); outline-offset:2px; }
+header{
+  background:var(--ink); color:#F4EFE2;
+  padding:0.75rem 1.25rem; display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  flex-wrap:wrap;
+}
+header h1{ font-size:1rem; margin:0; font-weight:600; }
+header a{ color:#F4EFE2 !important; text-decoration:none; font-weight:600; font-size:0.9rem; white-space:nowrap; }
+header a:hover{ color:#D9B36C !important; }
+.viewer-wrap{ flex:1; position:relative; background:#e9e2cf; }
+iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.fallback{
+  max-width:520px; margin:2.5rem auto; text-align:center; padding:1.5rem;
+  background:#fff; border:1px solid var(--border); border-radius:10px;
+  display:none;
+}
+.fallback.show{ display:block; }
+.fallback p{ color:var(--text-soft); line-height:1.6; }
+.fallback a.dl{
+  display:inline-block; margin-top:0.6rem; background:var(--ink); color:#fff !important;
+  text-decoration:none; font-weight:600; padding:0.6rem 1.2rem; border-radius:8px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1 id="pageTitle">צפייה במצגת</h1>
+  <a href="index.html">&rarr; חזרה לאתר</a>
+</header>
+
+<div class="viewer-wrap">
+  <iframe id="viewerFrame" title="מצגת" allowfullscreen></iframe>
+</div>
+
+<div class="fallback" id="fallback">
+  <p>לא ניתן לטעון את המצגת לצפייה ישירה כרגע (למשל אם הדף נפתח מהמחשב ולא מהאתר החי, או שאין חיבור לאינטרנט).</p>
+  <a class="dl" id="fallbackLink" href="#">פתיחת קובץ המצגת</a>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var params = new URLSearchParams(location.search);
+  var file = params.get("file");
+  var titleParam = params.get("title");
+  var fallback = document.getElementById("fallback");
+  var fallbackLink = document.getElementById("fallbackLink");
+  var frame = document.getElementById("viewerFrame");
+
+  if(!file){
+    fallback.classList.add("show");
+    fallbackLink.style.display = "none";
+    fallback.querySelector("p").textContent = "לא צוין קובץ מצגת לצפייה.";
+    return;
+  }
+
+  if(titleParam){
+    document.title = titleParam + " | בית המדרש הדיגיטלי";
+    document.getElementById("pageTitle").textContent = titleParam;
+  }
+
+  var absoluteUrl = new URL(file, location.href).href;
+  fallbackLink.href = absoluteUrl;
+
+  if(location.protocol === "file:"){
+    /* שירות הצפייה מרחוק לא יכול לגשת לקובץ שנפתח ישירות מהמחשב - רק לאתר חי */
+    fallback.classList.add("show");
+  } else {
+    var viewerUrl = "https://view.officeapps.live.com/op/embed.aspx?src=" + encodeURIComponent(absoluteUrl);
+    frame.src = viewerUrl;
+  }
+})();
+</script>
+
+</body>
+</html>
