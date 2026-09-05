@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>דף עבודה אינטראקטיבי - יחידת הפתיחה (ספר דברים)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #EFE6D0;
+    --paper-card: #F7F1E1;
+    --paper-line: #D8C9A3;
+    --ink: #1F3A4D;
+    --ink-soft: #4B6577;
+    --gold: #A9752E;
+    --gold-soft: #C99A4C;
+    --teal: #3F6E66;
+    --teal-soft: #E4EEEA;
+    --rust: #8B4A34;
+    --rust-soft: #F1E2DA;
+    --shadow: 0 2px 10px rgba(31,58,77,0.08);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at 15% -10%, rgba(169,117,46,0.10), transparent 45%),
+      radial-gradient(ellipse at 90% 0%, rgba(63,110,102,0.10), transparent 40%),
+      var(--paper);
+    font-family: 'Heebo', sans-serif;
+    color: var(--ink);
+    direction: rtl;
+  }
+
+  header{ position: relative; padding: 2.6rem 1.5rem 1.6rem; text-align: center; overflow: hidden; }
+  header .eyebrow{ font-weight:600; letter-spacing: .12em; font-size: .78rem; color: var(--gold); margin-bottom: .6rem; }
+  header h1{ font-family:'Frank Ruhl Libre', serif; font-weight: 900; font-size: clamp(1.9rem, 4.2vw, 3rem); margin: 0 0 .5rem; color: var(--ink); line-height: 1.15; }
+  header p.sub{ font-size: 1rem; color: var(--ink-soft); max-width: 680px; margin: 0 auto; line-height: 1.6; }
+  .wave{ width:100%; height:30px; margin-top: 1.2rem; display:block; }
+
+  .student-bar{ max-width: 760px; margin: 0 auto 1.1rem; padding: 0 1.5rem; display:flex; justify-content:center; gap: 1.6rem; flex-wrap: wrap; }
+  .student-bar label{ font-size: .88rem; font-weight: 600; color: var(--ink-soft); display:flex; align-items:center; gap: .4rem; }
+  .student-bar input{ font-family:'Heebo',sans-serif; font-size: .92rem; padding: .3rem .6rem; border: 1.5px solid var(--paper-line); border-radius: 7px; background: #fff; color: var(--ink); direction: rtl; min-width: 10rem; }
+  .student-bar input:focus{ outline:none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(169,117,46,0.18); }
+
+  .progress-wrap{ max-width: 760px; margin: 0 auto 1rem; padding: 0 1.5rem; display:flex; align-items:center; gap: .9rem; }
+  .progress-track{ flex:1; height: 10px; background: var(--paper-line); border-radius: 999px; overflow:hidden; box-shadow: inset 0 1px 2px rgba(31,58,77,0.15); }
+  .progress-fill{ height:100%; width:0%; background: linear-gradient(90deg, var(--teal), var(--gold)); border-radius: 999px; transition: width .4s ease; }
+  .progress-label{ font-size: .85rem; font-weight:600; color: var(--ink-soft); white-space:nowrap; }
+  .save-note{ text-align:center; font-size: .78rem; color: var(--teal); min-height: 1.2rem; margin-bottom: .3rem; opacity: 0; transition: opacity .3s ease; }
+  .save-note.show{ opacity: 1; }
+
+  /* ---------- ניווט נושאים דביק ---------- */
+  .topic-nav{
+    position: sticky; top: 0; z-index: 40;
+    display:flex; gap:.55rem; overflow-x:auto; -webkit-overflow-scrolling:touch;
+    padding: .7rem 1.2rem; margin-bottom: 1.6rem;
+    background: rgba(239,230,208,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1.5px solid var(--paper-line);
+    scrollbar-width: thin;
+  }
+  .topic-nav::-webkit-scrollbar{ height:6px; }
+  .topic-nav::-webkit-scrollbar-thumb{ background: var(--paper-line); border-radius:4px; }
+  .topic-pill{
+    flex: none;
+    display:flex; align-items:center; gap:.4rem;
+    padding: .4rem .85rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--acc);
+    color: var(--acc);
+    background: #fff;
+    text-decoration:none;
+    font-size: .82rem;
+    font-weight: 700;
+    white-space:nowrap;
+    transition: all .2s ease;
+  }
+  .topic-pill .pill-icon{ font-size: .95rem; }
+  .topic-pill .pill-num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:1.15rem; height:1.15rem; border-radius:50%;
+    background: var(--acc); color:#fff; font-size:.65rem;
+  }
+  .topic-pill.active{ background: var(--acc); color:#fff; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+  .topic-pill.active .pill-num{ background:#fff; color: var(--acc); }
+  .topic-pill.done{ opacity:.75; }
+
+  main{ max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 2rem; }
+
+  .topic-section{ margin-bottom: 2.6rem; scroll-margin-top: 4.6rem; }
+  .topic-banner{
+    display:flex; align-items:center; gap:1rem;
+    background: linear-gradient(90deg, var(--acc-soft), transparent);
+    border-right: 5px solid var(--acc);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+  .topic-icon{ font-size: 2rem; flex:none; }
+  .topic-eyebrow{ font-size:.72rem; font-weight:700; letter-spacing:.08em; color: var(--acc); text-transform:none; }
+  .topic-title{ font-family:'Frank Ruhl Libre', serif; font-weight:800; font-size:1.5rem; margin:.1rem 0; color: var(--ink); }
+  .topic-subtitle{ margin:0; font-size:.88rem; color: var(--ink-soft); }
+  .topic-counter{
+    margin-right:auto; flex:none;
+    font-size:.85rem; font-weight:700; color: var(--acc);
+    background:#fff; border:1.5px solid var(--acc); border-radius:999px;
+    padding:.3rem .7rem;
+  }
+
+  .grid{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; align-items: start; }
+  @media (max-width: 780px){ .grid{ grid-template-columns: 1fr; } }
+
+  .card{
+    background: var(--paper-card);
+    border: 1px solid var(--paper-line);
+    border-top: 3px solid var(--acc);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display:flex; flex-direction: column;
+  }
+  .card-head{ padding: 1rem 1.2rem .85rem; border-bottom: 1px solid var(--paper-line); background: linear-gradient(180deg, var(--acc-soft), transparent); }
+  .card-tag{ display:inline-block; font-size: .68rem; font-weight: 700; letter-spacing:.06em; color: var(--acc); background: rgba(0,0,0,0.05); border-radius: 999px; padding: .18rem .65rem; margin-bottom: .5rem; }
+  .card-title{ font-family:'Frank Ruhl Libre', serif; font-weight: 700; font-size: 1.08rem; line-height: 1.35; color: var(--ink); margin: 0; }
+  .card-body{ padding: 1rem 1.2rem 1.2rem; display:flex; flex-direction:column; gap: .85rem; }
+
+  .pasuk-block{ background: var(--teal-soft); border-right: 3px solid var(--teal); border-radius: 6px; padding: .55rem .75rem; font-size: .9rem; line-height: 1.65; color: #234943; font-family:'Frank Ruhl Libre', serif; }
+  .pasuk-block b{ color: var(--teal); font-weight: 700; font-family:'Heebo',sans-serif; font-size:.78rem; }
+  .pasuk-block-note{ font-size:.86rem; line-height:1.6; color: var(--ink-soft); }
+
+  .meforesh-block{ background: var(--rust-soft); border-right: 3px solid var(--rust); border-radius: 6px; padding: .55rem .75rem; font-size: .84rem; line-height: 1.55; color: #5c3324; }
+  .meforesh-block .src{ display:block; font-weight: 700; color: var(--rust); margin-bottom: .15rem; font-size: .78rem; }
+
+  .question-block{ border-top: 1px dashed var(--paper-line); padding-top: .8rem; margin-top: .1rem; }
+  .question-block.sub-q{ border-top:none; padding-top:.3rem; margin-top:0; }
+  .question-row{ display:flex; gap: .5rem; align-items:flex-start; margin-bottom: .5rem; }
+  .q-num{ flex: none; min-width: 1.6rem; height: 1.6rem; padding: 0 .25rem; border-radius: 999px; background: var(--acc); color: #fff; font-size: .78rem; font-weight: 700; display:flex; align-items:center; justify-content:center; }
+  .q-num.small{ min-width:1.3rem; height:1.3rem; font-size:.68rem; }
+  .q-text{ font-size: .93rem; font-weight: 600; line-height: 1.5; color: var(--ink); padding-top: .1rem; }
+  .q-sub{ font-size:.76rem; color: var(--ink-soft); margin-top:.15rem; }
+  .hint-note{ font-size:.78rem; color: var(--ink-soft); background:rgba(0,0,0,.03); border-radius:6px; padding:.4rem .6rem; }
+  .table-intro{ font-size:.85rem; color: var(--ink-soft); }
+
+  textarea.answer, input.answer{
+    width:100%; min-height: 60px; resize: vertical;
+    font-family:'Heebo',sans-serif; font-size: .9rem; line-height: 1.6;
+    padding: .55rem .7rem; border: 1.5px solid var(--paper-line); border-radius: 8px;
+    background: repeating-linear-gradient(var(--paper) 0 27px, var(--paper-line) 27px 28px);
+    background-color: #fff; color: var(--ink); direction: rtl;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  textarea.answer:focus, input.answer:focus{ outline: none; border-color: var(--acc); box-shadow: 0 0 0 3px rgba(0,0,0,0.08); }
+  textarea.answer.filled, input.answer.filled{ border-color: var(--teal); }
+
+  .table-wrap{ overflow-x:auto; }
+  table.fill-grid{ width:100%; border-collapse: collapse; font-size:.82rem; }
+  table.fill-grid th, table.fill-grid td{ border: 1px solid var(--paper-line); padding: .35rem; vertical-align: top; }
+  table.fill-grid thead th{ background: var(--acc-soft); color: var(--ink); font-size:.78rem; font-weight:700; }
+  table.fill-grid th.row-label{ background: rgba(0,0,0,.03); font-weight:700; white-space:nowrap; font-size:.78rem; }
+  table.fill-grid td textarea.answer.table-cell{ min-height:44px; font-size:.8rem; padding:.3rem .4rem; }
+
+  .toolbar{ max-width: 1100px; margin: 0 auto; padding: 0 1.5rem 2.5rem; display:flex; justify-content:center; gap: .8rem; flex-wrap: wrap; }
+  .btn{ font-family:'Heebo',sans-serif; font-size: .88rem; font-weight: 600; padding: .6rem 1.3rem; border-radius: 999px; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); cursor:pointer; transition: all .2s ease; }
+  .btn:hover{ background: var(--ink); color: var(--paper-card); }
+  .btn.danger{ border-color: var(--rust); color: var(--rust); }
+  .btn.danger:hover{ background: var(--rust); color: #fff; }
+
+  footer.credit{ text-align:center; font-size: .75rem; color: var(--ink-soft); padding-bottom: 2rem; opacity: .7; }
+  .print-only{ display:none; }
+
+  @media print{
+    *{ -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    @page{ margin: 14mm 12mm; }
+    .toolbar, .save-note, .progress-wrap, .wave, .eyebrow, .student-bar, #printHelp, .topic-nav, .topic-counter{ display:none !important; }
+    .print-only{ display:block; }
+    body{ background: var(--paper) !important; }
+    header{ padding: 0 0 .5rem; text-align:center; }
+    header h1{ font-size: 1.7rem; }
+    header p.sub{ display:none; }
+    #printNameLine{ font-size: 1rem !important; font-weight: 700 !important; color: var(--ink) !important; border: 1.4px solid var(--gold); border-radius: 8px; display: inline-block; padding: .3rem 1.1rem; margin-top: .5rem !important; background: var(--paper-card) !important; }
+    main{ padding: 0; max-width: none; }
+    .grid{ display:block; }
+    .topic-section{ margin-bottom: 1.2rem; }
+    .grid > .card{ grid-column: auto !important; break-inside: avoid; page-break-inside: avoid; margin-bottom: .85rem; box-shadow:none; border: 1.4px solid var(--paper-line) !important; background: var(--paper-card) !important; }
+    footer.credit{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">ספר דברים · יחידת תנ"ך לכיתה י"ב · חוברת תלמיד דיגיטלית</div>
+  <h1>יחידת הפתיחה</h1>
+  <p class="sub">חומש דברים - נאומו האחרון של משה רבנו לעם ישראל לפני הכניסה לארץ. עברו נושא-נושא, קראו את המקורות וכתבו את תשובותיכם - הכול נשמר אוטומטית במכשיר שלכם.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+  <svg class="wave" viewBox="0 0 1200 30" preserveAspectRatio="none">
+    <path d="M0 18 Q 50 4, 100 18 T 200 18 T 300 18 T 400 18 T 500 18 T 600 18 T 700 18 T 800 18 T 900 18 T 1000 18 T 1100 18 T 1200 18" fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 24 Q 50 10, 100 24 T 200 24 T 300 24 T 400 24 T 500 24 T 600 24 T 700 24 T 800 24 T 900 24 T 1000 24 T 1100 24 T 1200 24" fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 78 שאלות</span>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote">✓ נשמר</div>
+
+<nav class="topic-nav" id="topicNav">
+<a href="#topic-hakdama" class="topic-pill" data-topic="topic-hakdama" style="--acc:#A9752E;--acc-soft:#F3E7D2;"><span class="pill-icon">📜</span><span class="pill-num">1</span><span class="pill-title">הקדמה</span></a>
+<a href="#topic-aseret" class="topic-pill" data-topic="topic-aseret" style="--acc:#3F6E66;--acc-soft:#E4EEEA;"><span class="pill-icon">🪨</span><span class="pill-num">2</span><span class="pill-title">עשרת הדברות</span></a>
+<a href="#topic-shema" class="topic-pill" data-topic="topic-shema" style="--acc:#8B4A34;--acc-soft:#F1E2DA;"><span class="pill-icon">🕯️</span><span class="pill-num">3</span><span class="pill-title">פרשת שמע</span></a>
+<a href="#topic-vehaya" class="topic-pill" data-topic="topic-vehaya" style="--acc:#7A4A73;--acc-soft:#EFE3EC;"><span class="pill-icon">⚖️</span><span class="pill-num">4</span><span class="pill-title">פרשת והיה אם שמוע</span></a>
+<a href="#topic-aretz-tova" class="topic-pill" data-topic="topic-aretz-tova" style="--acc:#6B7A34;--acc-soft:#E9EDDC;"><span class="pill-icon">🌾</span><span class="pill-num">5</span><span class="pill-title">הארץ הטובה</span></a>
+<a href="#topic-mitzrayim" class="topic-pill" data-topic="topic-mitzrayim" style="--acc:#3E5A8C;--acc-soft:#E2E7F2;"><span class="pill-icon">🌊</span><span class="pill-num">6</span><span class="pill-title">ארץ ישראל מול מצרים</span></a>
+</nav>
+
+<main>
+
+  <section class="topic-section" id="topic-hakdama" style="--acc:#A9752E;--acc-soft:#F3E7D2;">
+    <div class="topic-banner">
+      <span class="topic-icon">📜</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 6</div>
+        <h2 class="topic-title">הקדמה</h2>
+        <p class="topic-subtitle">לקראת הכניסה לארץ ישראל</p>
+      </div>
+      <div class="topic-counter" data-topic-counter="topic-hakdama">0/0</div>
+    </div>
+    <div class="grid">
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">הקדמה לחומש דברים</span>
+        <h3 class="card-title">פתיחתו של הנאום האחרון</h3>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">“אֵלֶּה הַדְּבָרִים אֲשֶׁר דִּבֶּר מֹשֶׁה אֶל כָּל יִשְׂרָאֵל בְּעֵבֶר הַיַּרְדֵּן” <b>(דברים א, א)</b></div><div class="pasuk-block-note">חומש דברים הוא נאום ארוך של משה רבנו בימיו האחרונים, טרם הכניסה לארץ ישראל - נדרש להתמודד עם האתגר העצום של קיום עבודת ה' לעם שעומד ליישב את ארץ ישראל, על פי חמישה חומשי תורה.</div><div class="question-block">
+          <div class="question-row"><span class="q-num">1</span><div><span class="q-text">מתי והיכן נאמר חומש דברים, ומי אמר אותו?</span></div></div>
+          <textarea class="answer" data-id="f1" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">2א</span><span class="q-text">לפי המסורת, באיזה תאריך נפטר משה רבנו?</span></div>
+          <textarea class="answer" data-id="f2" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">2ב</span><span class="q-text">מהי אם כן מסגרת הזמן שנפרשת בספר דברים כולו?</span></div>
+          <textarea class="answer" data-id="f3" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">לקראת הכניסה לארץ ישראל</span>
+        <h3 class="card-title">מהמדבר אל הארץ</h3>
+      </div>
+      <div class="card-body">
+        <div class="meforesh-block"><span class="src">מדרש רבה ויקרא (תרגום מקוצר):</span>אמר רבי לוי: תרנגולת זו, כשהיא מפרחת עם אפרוחיה, היא כונסת אותם צעירים, ושוהה אותם תחת כנפיה, ומחממת אותם. וכיוון שהם גדלים, וכאשר רוצה אחד מהם להתקרב אליה, היא מנקרת בו ואומרת לו: לך ועשה מלאכתך! כך אמר משה: כל אחד ואחד מכם, יטעון מכיוונו, ויוצא ונטיע לו כרם, כמו שכתוב: "כי תבואו אל הארץ ונטעתם".</div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">3א</span><span class="q-text">כיצד באה השגחת ה’ לידי ביטוי במדבר, ובמה היא שונה מהשגחתו בארץ ישראל?</span></div>
+          <textarea class="answer" data-id="f4" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">3ב</span><span class="q-text">מדוע נדרשה תקופת המדבר לפני הכניסה לארץ, ומה מאפשרת הארץ שהמדבר לא איפשר?</span></div>
+          <textarea class="answer" data-id="f5" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">3ג</span><span class="q-text">מהי התכלית שלשמה ניתנה הארץ, על פי הקטע?</span></div>
+          <textarea class="answer" data-id="f6" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">משה מכין את העם</span>
+        <h3 class="card-title">מנדודים להתיישבות של קבע</h3>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">“וְנָתַתִּי לְךָ וּלְזַרְעֲךָ אַחֲרֶיךָ אֵת אֶרֶץ מְגֻרֶיךָ אֵת כָּל אֶרֶץ כְּנַעַן לַאֲחֻזַּת עוֹלָם” <b>(בראשית יז, ח)</b></div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">4א</span><span class="q-text">אילו שינויים משמעותיים עומדים לפני עם ישראל עם הכניסה לארץ?</span></div>
+          <textarea class="answer" data-id="f7" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">4ב</span><span class="q-text">איזו סכנה רוחנית טמונה בשפע שיהיה לעם ישראל בארץ (על פי דברים ח)?</span></div>
+          <textarea class="answer" data-id="f8" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">סוגי המצוות בספר דברים</span>
+        <h3 class="card-title">מצווה מחודשת ומצווה מבוארת</h3>
+      </div>
+      <div class="card-body">
+        <div class="meforesh-block"><span class="src">שני סוגי מצוות בספר דברים:</span><b>מצווה מחודשת</b> - מצווה שעדיין לא הובאה בחומשים הקודמים, וקשורות אליה מצוות רבות (לדוגמה, מצוות הקשורות להתנהלות של צבא יהודי בעת מלחמה). <b>מצווה מבוארת</b> - מצווה שהובאה כבר בחומשים הקודמים, ובחומש דברים הן מתבארות מחדש. בדרך כלל הביאור מדייק היבטים של המצווה הקשורים לחיי האומה בארץ ישראל (לדוגמה, במצוות המועדים הוא מזכיר שיש להעלות את קרבנות החג לבית המקדש).</div><div class="question-block">
+          <div class="question-row"><span class="q-num">5</span><div><span class="q-text">מה ההבדל בין “מצווה מחודשת” ל“מצווה מבוארת” בספר דברים?</span></div></div>
+          <textarea class="answer" data-id="f9" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">השוואה: מדבר וארץ</span>
+        <h3 class="card-title">שני עולמות של מציאות רוחנית</h3>
+      </div>
+      <div class="card-body">
+        <div class="table-intro">מלאו כיצד באו לידי ביטוי התחומים הבאים בשני העולמות:</div><div class="table-wrap"><table class="fill-grid"><thead><tr><th></th><th>החיים במדבר</th><th>החיים בארץ ישראל</th></tr></thead><tbody><tr><th class="row-label">מגורים</th><td><textarea class="answer table-cell" data-id="f10"></textarea></td><td><textarea class="answer table-cell" data-id="f11"></textarea></td></tr><tr><th class="row-label">שכנים</th><td><textarea class="answer table-cell" data-id="f12"></textarea></td><td><textarea class="answer table-cell" data-id="f13"></textarea></td></tr><tr><th class="row-label">פרנסה</th><td><textarea class="answer table-cell" data-id="f14"></textarea></td><td><textarea class="answer table-cell" data-id="f15"></textarea></td></tr><tr><th class="row-label">מים</th><td><textarea class="answer table-cell" data-id="f16"></textarea></td><td><textarea class="answer table-cell" data-id="f17"></textarea></td></tr><tr><th class="row-label">ביטחון</th><td><textarea class="answer table-cell" data-id="f18"></textarea></td><td><textarea class="answer table-cell" data-id="f19"></textarea></td></tr><tr><th class="row-label">הנהגה</th><td><textarea class="answer table-cell" data-id="f20"></textarea></td><td><textarea class="answer table-cell" data-id="f21"></textarea></td></tr><tr><th class="row-label">הקרבה למשכן</th><td><textarea class="answer table-cell" data-id="f22"></textarea></td><td><textarea class="answer table-cell" data-id="f23"></textarea></td></tr><tr><th class="row-label">הנהגת ה’</th><td><textarea class="answer table-cell" data-id="f24"></textarea></td><td><textarea class="answer table-cell" data-id="f25"></textarea></td></tr></tbody></table></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">מסקנה</span>
+        <h3 class="card-title">מהמדבר לארץ - מה נשאר תקף?</h3>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">6</span><div><span class="q-text">על סמך ההשוואה שמילאתם, כתבו כלל אחד הנובע מן האמונה שיסייע לעם ישראל להתמודד עם דרך החיים החדשה בארץ.</span></div></div>
+          <textarea class="answer" data-id="f26" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    </div>
+  </section>
+
+  <section class="topic-section" id="topic-aseret" style="--acc:#3F6E66;--acc-soft:#E4EEEA;">
+    <div class="topic-banner">
+      <span class="topic-icon">🪨</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 6</div>
+        <h2 class="topic-title">עשרת הדברות</h2>
+        <p class="topic-subtitle">בניין האמונה, פרק ה</p>
+      </div>
+      <div class="topic-counter" data-topic-counter="topic-aseret">0/0</div>
+    </div>
+    <div class="grid">
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">עשרת הדברות - מבנה הנאום</span>
+        <h3 class="card-title">פרק ה, פסוקים ו-יח</h3>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">“אָנֹכִי ה’ אֱלֹהֶיךָ אֲשֶׁר הוֹצֵאתִיךָ מֵאֶרֶץ מִצְרַיִם מִבֵּית עֲבָדִים. לֹא יִהְיֶה לְךָ אֱלֹהִים אֲחֵרִים עַל פָּנָי” <b>(דברים ה, ו-ז)</b></div><div class="meforesh-block"><span class="src">רש&quot;י, על פי חז&quot;ל:</span>עשרת הדברות הם כללים הכוללים בתוכם את כל תרי&quot;ג המצוות; לכל דיבר ודיבר קשורות מצוות רבות המסתעפות ממנו וממנו נלמדות.</div><div class="question-block">
+          <div class="question-row"><span class="q-num">1</span><div><span class="q-text">לפי רש&quot;י, מהו הבסיס לכך שדווקא עשרת הדברות הללו נבחרו לשמש בסיס לכל התרי&quot;ג מצוות?</span></div></div>
+          <textarea class="answer" data-id="f27" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">אבן הבניין של הברית</span>
+        <h3 class="card-title">עשרת הדברות</h3>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">2</span><div><span class="q-text">כתבו לפניכם פסוק המלמד שעשרת הדברות עצמם נקראים “ברית” (דברים ד, יג).</span><div class="q-sub">רמז: עיין בפרק ד’, פס’ יג</div></div></div>
+          <textarea class="answer" data-id="f28" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">האם “אנכי” היא אחת מן הדברות?</span>
+        <h3 class="card-title">מחלוקת הרמב”ם והאברבנאל</h3>
+      </div>
+      <div class="card-body">
+        <div class="meforesh-block"><span class="src">רמב”ם, ספר המצוות, מצוות עשה א’:</span>היא הציווי אשר צוונו בהאמנת האלוהות, והוא שנאמין שיש עילה וסיבה הוא פועל לכל הנמצאים, והוא אמרו “אנכי ה’ אלוהיך”.</div><div class="meforesh-block"><span class="src">אברבנאל, שמות כ, א:</span>“אנכי” אינה מצווה בפני עצמה, אלא הקדמה למצוות ולאזהרות שייאמרו בהמשך, ועניינה להודיע מי הוא הנותן את המצוות שיבואו אחריה.</div><div class="question-block">
+          <div class="question-row"><span class="q-num">3</span><div><span class="q-text">האם “אנכי ה’ אלוקיך” היא אחת מן הדברות, או הקדמה בלבד? מה טוענים הרמב”ם והאברבנאל?</span></div></div>
+          <textarea class="answer" data-id="f29" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">אבנה הדברות</span>
+        <h3 class="card-title">מיון עשרת הדברות לקבוצות</h3>
+      </div>
+      <div class="card-body">
+        <div class="meforesh-block"><span class="src">מדרש שיר השירים רבה, פרשה א:</span>רבי יהושע בן לוי ורבנן. רבי יהושע בן לוי אומר: כל עשרת הדברות מפי הקב”ה נאמרו. ורבנן אמרי: משה מפי הגבורה שמע “אנכי” ו”לא יהיה לך”, ושאר הדברות מפי משה.</div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">4</span><span class="q-text">יש מספר אפשרויות למיון עשרת הדברות לקבוצות שונות. כתבו לפניכם חלוקה אחת אפשרית לשתי קבוצות, ומהו הדיבר המקשר ביניהן?</span></div>
+          <textarea class="answer" data-id="f30" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">שני חמישיות</span>
+        <h3 class="card-title">כבוד הבורא וטובת האדם</h3>
+      </div>
+      <div class="card-body">
+        <div class="meforesh-block"><span class="src">רמב”ן, שמות כ, יג:</span>והנה עשרת הדברות חמשה מהם בכבוד הבורא, וחמשה בטובת האדם: כי כבד את אביך ואת אמך, כי לכבוד הבורא צוה בו, כי אביו ואמו הם סיבת הווייתו, ונשארו חמשה לאדם לצרכו וטובתו.</div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">5א</span><span class="q-text">לפי המדרש, אילו דברות שמעו ישראל ישירות מפי הקב”ה, ואילו באמצעות משה?</span></div>
+          <textarea class="answer" data-id="f31" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">5ב</span><span class="q-text">שימו לב לגוף הדיבור בעשרת הדברות (ראשון: “אנכי”, “על פני”, לעומת שלישי: “שם ה’ אלוקיך”). היכן חל המעבר?</span></div>
+          <textarea class="answer" data-id="f32" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">כיבוד הורים - חוליית החיבור</span>
+        <h3 class="card-title">בין אדם למקום לבין אדם לחברו</h3>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">6</span><div><span class="q-text">מה הקשר, לפי הרמב”ן, בין כיבוד הורים לבין חמשת הדברות הראשונים העוסקים בכבוד ה’?</span></div></div>
+          <textarea class="answer" data-id="f33" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    </div>
+  </section>
+
+  <section class="topic-section" id="topic-shema" style="--acc:#8B4A34;--acc-soft:#F1E2DA;">
+    <div class="topic-banner">
+      <span class="topic-icon">🕯️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 6</div>
+        <h2 class="topic-title">פרשת שמע</h2>
+        <p class="topic-subtitle">פרק ו, פסוקים ד-ט</p>
+      </div>
+      <div class="topic-counter" data-topic-counter="topic-shema">0/0</div>
+    </div>
+    <div class="grid">
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">שמע ישראל</span>
+        <h3 class="card-title">פרק ו, פסוק ד</h3>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">“שְׁמַע יִשְׂרָאֵל ה’ אֱלֹהֵינוּ ה’ אֶחָד” <b>(דברים ו, ד)</b></div><div class="meforesh-block"><span class="src">רש”י:</span>ה’ אלוקינו עתה ולא אלוהי האומות, הוא עתיד להיות ה’ אחד, שנאמר “כי אז אהפוך אל עמים שפה ברורה לקרוא כולם בשם ה’” (צפניה ג), ונאמר “ביום ההוא יהיה ה’ אחד ושמו אחד” (זכריה יד).</div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">1א</span><span class="q-text">מה מלמדת המילה “אלוקינו” על היחס הנוכחי בין ה’ לעם ישראל?</span></div>
+          <textarea class="answer" data-id="f34" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">1ב</span><span class="q-text">מה מלמדת המילה “אחד” על העתיד?</span></div>
+          <textarea class="answer" data-id="f35" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">1ג</span><span class="q-text">מהי התקווה הגלומה בפסוק “שמע ישראל” ביחס לעתיד האנושות כולה?</span></div>
+          <textarea class="answer" data-id="f36" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">שורש האמונה</span>
+        <h3 class="card-title">יסוד לכל המצוות</h3>
+      </div>
+      <div class="card-body">
+        <div class="meforesh-block"><span class="src">רמב”ן:</span>שמע ישראל ה’ אלוקינו - גם בזה מצווה שיבאר, כי בדבור “אנכי ה’ אלוקיך” יהיה הייחוד כמו שאמרו במכילתא: רבי נתן אומר מכאן תשובה למינין [לכופרים], שהן אומרים: שתי רשויות [בעולם], שכשעמד הקדוש ברוך הוא על הר סיני ואמר “אנכי ה’ אלוקיך” (שמות כ, ב), מי מיחה כנגדו?! אבל בא לבאר המצווה הזו, והזכיר אותה אחר עשרת הדברות, לפי שהוא שורש האמונה, וכל מי שאינו מודה בה כופר בעיקר.</div><div class="question-block">
+          <div class="question-row"><span class="q-num">2</span><div><span class="q-text">כיצד קושר הרמב”ן בין הפסוק “אנכי ה’ אלוקיך” (שבעשרת הדברות) לבין הפסוק “ה’ אחד”?</span></div></div>
+          <textarea class="answer" data-id="f37" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div><div class="question-block">
+          <div class="question-row"><span class="q-num">3</span><div><span class="q-text">מדוע, לדעתכם, פרשת שמע - שעניינה אחדות ה’ - פותחת את נאום המצוות (ולא מצווה מסוימת אחרת)?</span></div></div>
+          <textarea class="answer" data-id="f38" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">ואהבת</span>
+        <h3 class="card-title">פרק ו, פסוק ה</h3>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">“וְאָהַבְתָּ אֵת ה’ אֱלֹהֶיךָ בְּכָל לְבָבְךָ וּבְכָל נַפְשְׁךָ וּבְכָל מְאֹדֶךָ” <b>(דברים ו, ה)</b></div><div class="meforesh-block"><span class="src">רש”י:</span>ואהבת - עשה דבריו מאהבה, אינו דומה עושה מאהבה לעושה מיראה. העושה אצל רבו מיראה, כשהוא מטריח עליו מניחו והולך לו. בכל לבבך - בשני יצריך, דבר אחר: בכל לבבך שלא יהיה לבך חלוק על המקום. ובכל נפשך - אפילו הוא נוטל את נפשך. ובכל מאדך - בכל ממונך, יש לך אדם שממונו חביב עליו מגופו, לכך נאמר “ובכל מאדך”.</div><div class="question-block">
+          <div class="question-row"><span class="q-num">4</span><div><span class="q-text">מהי דרך העבודה הרצויה, על פי פירוש רש”י למילים “בכל לבבך”?</span></div></div>
+          <textarea class="answer" data-id="f39" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">שלושת הביטויים</span>
+        <h3 class="card-title">לב, נפש, ממון</h3>
+      </div>
+      <div class="card-body">
+        <div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">5א</span><span class="q-text">“בכל לבבך” - הסבירו במילים שלכם.</span></div>
+          <textarea class="answer" data-id="f40" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">5ב</span><span class="q-text">“בכל נפשך” - הסבירו במילים שלכם.</span></div>
+          <textarea class="answer" data-id="f41" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">5ג</span><span class="q-text">“ובכל מאודך” - הסבירו במילים שלכם.</span></div>
+          <textarea class="answer" data-id="f42" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">חינוך לאהבת ה’</span>
+        <h3 class="card-title">הביטוי המעשי לאהבת ה’</h3>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">“וְהָיוּ הַדְּבָרִים הָאֵלֶּה אֲשֶׁר אָנֹכִי מְצַוְּךָ הַיּוֹם עַל לְבָבֶךָ. וְשִׁנַּנְתָּם לְבָנֶיךָ וְדִבַּרְתָּ בָּם בְּשִׁבְתְּךָ בְּבֵיתֶךָ וּבְלֶכְתְּךָ בַדֶּרֶךְ וּבְשָׁכְבְּךָ וּבְקוּמֶךָ. וּקְשַׁרְתָּם לְאוֹת עַל יָדֶךָ וְהָיוּ לְטֹטָפֹת בֵּין עֵינֶיךָ. וּכְתַבְתָּם עַל מְזֻזוֹת בֵּיתֶךָ וּבִשְׁעָרֶיךָ” <b>(דברים ו, ו-ט)</b></div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">6</span><span class="q-text">מנו את חמש המצוות המעשיות שמצווה עלינו פרשת “ואהבת” כדי להטמיע את אהבת ה’ (שימת הדברים על הלב, ועוד ארבע נוספות).</span></div>
+          <textarea class="answer" data-id="f43" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div><div class="hint-note">רמז: שימת הדברים על הלב, שינון לבנים, דיבור בהם, תפילין, מזוזה.</div>
+      </div>
+    </article>
+    </div>
+  </section>
+
+  <section class="topic-section" id="topic-vehaya" style="--acc:#7A4A73;--acc-soft:#EFE3EC;">
+    <div class="topic-banner">
+      <span class="topic-icon">⚖️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 4 מתוך 6</div>
+        <h2 class="topic-title">פרשת והיה אם שמוע</h2>
+        <p class="topic-subtitle">פרק יא, פסוקים יג-כא</p>
+      </div>
+      <div class="topic-counter" data-topic-counter="topic-vehaya">0/0</div>
+    </div>
+    <div class="grid">
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">והיה אם שמוע</span>
+        <h3 class="card-title">פרק יא, פסוקים יג-כא</h3>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">“וְהָיָה אִם שָׁמֹעַ תִּשְׁמְעוּ אֶל מִצְוֹתַי אֲשֶׁר אָנֹכִי מְצַוֶּה אֶתְכֶם הַיּוֹם לְאַהֲבָה אֶת ה’ אֱלֹהֵיכֶם וּלְעָבְדוֹ בְּכָל לְבַבְכֶם וּבְכָל נַפְשְׁכֶם. וְנָתַתִּי מְטַר אַרְצְכֶם בְּעִתּוֹ יוֹרֶה וּמַלְקוֹשׁ וְאָסַפְתָּ דְגָנֶךָ וְתִירֹשְׁךָ וְיִצְהָרֶךָ” <b>(דברים יא, יג-יד)</b></div><div class="question-block">
+          <div class="question-row"><span class="q-num">1</span><div><span class="q-text">ערכו השוואה: אילו דברים משותפים לפרשת שמע ולפרשת והיה אם שמוע? ומהו ההבדל הלשוני הבולט ביניהן (לשון יחיד מול לשון רבים)?</span></div></div>
+          <textarea class="answer" data-id="f44" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">מה נוסף כאן?</span>
+        <h3 class="card-title">אחריות ציבורית, שכר ועונש</h3>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">2</span><div><span class="q-text">אילו רעיונות חדשים - שלא הופיעו בפרשת שמע - מוסיפה כאן פרשת “והיה אם שמוע”?</span></div></div>
+          <textarea class="answer" data-id="f45" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div><div class="question-block">
+          <div class="question-row"><span class="q-num">3</span><div><span class="q-text">מהו ההבדל המרכזי במניע לקיום המצוות בין שתי הפרשיות (פרשת שמע לעומת והיה אם שמוע)?</span></div></div>
+          <textarea class="answer" data-id="f46" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">עול מלכות שמים ועול מצוות</span>
+        <h3 class="card-title">הסדר הנכון</h3>
+      </div>
+      <div class="card-body">
+        <div class="meforesh-block"><span class="src">משנה, ברכות פרק ב, משנה ב:</span>אמר רבי יהושע בן קרחה: למה קדמה “שמע” ל“והיה אם שמוע”? כדי שיקבל עליו עול מלכות שמים תחילה, ואחר כך יקבל עליו עול מצוות.</div><div class="meforesh-block"><span class="src">ירושלמי, ברכות פרק ב, הלכה יב:</span>אמר רבי עילא: הראשון ליחיד והשני לציבור, הראשון ללימוד והשני למעשה.</div><div class="question-block">
+          <div class="question-row"><span class="q-num">4</span><div><span class="q-text">הסבירו במילים שלכם את המושגים “עול מלכות שמים” ו“עול מצוות”, ומדוע חייבים לקבל את הראשון לפני השני?</span></div></div>
+          <textarea class="answer" data-id="f47" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">סיכום ההבדלים</span>
+        <h3 class="card-title">שמע מול והיה אם שמוע</h3>
+      </div>
+      <div class="card-body">
+        <div class="table-wrap"><table class="fill-grid"><thead><tr><th></th><th>פרשת שמע</th><th>פרשת והיה אם שמוע</th></tr></thead><tbody><tr><th class="row-label">לשון (יחיד/רבים)</th><td><textarea class="answer table-cell" data-id="f48"></textarea></td><td><textarea class="answer table-cell" data-id="f49"></textarea></td></tr><tr><th class="row-label">מוקד הפרשה</th><td><textarea class="answer table-cell" data-id="f50"></textarea></td><td><textarea class="answer table-cell" data-id="f51"></textarea></td></tr><tr><th class="row-label">המניע לקיום המצוות</th><td><textarea class="answer table-cell" data-id="f52"></textarea></td><td><textarea class="answer table-cell" data-id="f53"></textarea></td></tr><tr><th class="row-label">תוצאה</th><td><textarea class="answer table-cell" data-id="f54"></textarea></td><td><textarea class="answer table-cell" data-id="f55"></textarea></td></tr></tbody></table></div>
+      </div>
+    </article>
+    </div>
+  </section>
+
+  <section class="topic-section" id="topic-aretz-tova" style="--acc:#6B7A34;--acc-soft:#E9EDDC;">
+    <div class="topic-banner">
+      <span class="topic-icon">🌾</span>
+      <div>
+        <div class="topic-eyebrow">נושא 5 מתוך 6</div>
+        <h2 class="topic-title">הארץ הטובה</h2>
+        <p class="topic-subtitle">שמירת המצוות כתנאי, פרק ח</p>
+      </div>
+      <div class="topic-counter" data-topic-counter="topic-aretz-tova">0/0</div>
+    </div>
+    <div class="grid">
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">הארץ הטובה</span>
+        <h3 class="card-title">פרק ח, תיאור הארץ</h3>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">“כִּי ה’ אֱלֹהֶיךָ מְבִיאֲךָ אֶל אֶרֶץ טוֹבָה אֶרֶץ נַחֲלֵי מָיִם עֲיָנֹת וּתְהֹמֹת יֹצְאִים בַּבִּקְעָה וּבָהָר. אֶרֶץ חִטָּה וּשְׂעֹרָה וְגֶפֶן וּתְאֵנָה וְרִמּוֹן אֶרֶץ זֵית שֶׁמֶן וּדְבָשׁ. אֶרֶץ אֲשֶׁר לֹא בְמִסְכֵּנֻת תֹּאכַל בָּהּ לֶחֶם לֹא תֶחְסַר כֹּל בָּהּ אֶרֶץ אֲשֶׁר אֲבָנֶיהָ בַרְזֶל וּמֵהֲרָרֶיהָ תַּחְצֹב נְחֹשֶׁת. וְאָכַלְתָּ וְשָׂבָעְתָּ וּבֵרַכְתָּ אֶת ה’ אֱלֹהֶיךָ עַל הָאָרֶץ הַטֹּבָה אֲשֶׁר נָתַן לָךְ” <b>(דברים ח, ז-י)</b></div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">1א</span><span class="q-text">אילו שני פעלים חוזרים ונשנים לאורך הפרק (“זכור” מול “שכח”), ומה הם מלמדים על המסר המרכזי של הפרק?</span></div>
+          <textarea class="answer" data-id="f56" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">1ב</span><span class="q-text">איזו מילה חוזרת שוב ושוב בפסוקים אלה ומעניקה לקטע את שמו (“ארץ טובה”)?</span></div>
+          <textarea class="answer" data-id="f57" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">ספורנו על פסוק ז’</span>
+        <h3 class="card-title">חמישה סוגי טוב</h3>
+      </div>
+      <div class="card-body">
+        <div class="meforesh-block"><span class="src">ספורנו, פסוק ז’ (מקוצר):</span>וספר חמשת מיני היעוד הטוב: ...וּבְכָל אֵלֶּה יֶשׁ אֶרֶץ הַיֹּעוּד”הראשון, ארץ נחלי מים...השני, ארץ חיטה ושעורה...השלישי הוא ארץ זית שמן ודבש, שהם מעדנים... הרביעי, ארץ אשר לא במסכנות תאכל בה לחם...החמישי הוא ארץ אשר אבניה ברזל, שיהיה בה חומר לבניין ולכלים.</div><div class="question-block">
+          <div class="question-row"><span class="q-num">2</span><div><span class="q-text">על פי ספורנו, מנו את חמשת סוגי ה“טוב” שיש בארץ (מים, מזון בסיסי, מעדנים, שפע ללא מחסור, וחומרי בניין).</span><div class="q-sub">השלימו את חמשת הפרטים</div></div></div>
+          <textarea class="answer" data-id="f58" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">סיכום ביניים</span>
+        <h3 class="card-title">מה מאפשרת הארץ הטובה?</h3>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">3</span><div><span class="q-text">סכמו: באילו תחומים הארץ “טובה”, ואילו אורח חיים היא מאפשרת לעם ישראל?</span></div></div>
+          <textarea class="answer" data-id="f59" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">ואכלת ושבעת וברכת</span>
+        <h3 class="card-title">חיוב ברכת המזון</h3>
+      </div>
+      <div class="card-body">
+        <div class="meforesh-block"><span class="src">רמב”ן, פסוק י (מקוצר):</span>ואמר “ואכלת ושבעת וברכת” - כי תזכור עבודת מצרים ועיני המדבר, וכאשר תאכל ותשבע בארץ הטובה תברך עליה את השם. ורבותינו קבלו שזו מצות עשה, ולכן הוסיפו וצוונו, וטעמו את ה’ אלוהיך...</div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">4</span><span class="q-text">הביאו שני פירושים אפשריים לחיוב “ואכלת ושבעת וברכת” - האם החיוב לברך חל דווקא כשיש שובע?</span></div>
+          <textarea class="answer" data-id="f60" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">הרהרת שכחת ה’</span>
+        <h3 class="card-title">פסוקים יא-יח</h3>
+      </div>
+      <div class="card-body">
+        <div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">5א</span><span class="q-text">איזה ביטוי דומה ל“ואכלת ושבעת” מופיע כבר בפרשה הקודמת (פרשת ואהבת)?</span></div>
+          <textarea class="answer" data-id="f61" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">5ב</span><span class="q-text">מה משמעות המילה “פן” החוזרת בהמשך הפרק (“פן תאכל ושבעת...ורם לבבך”)?</span></div>
+          <textarea class="answer" data-id="f62" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">שלבי ההידרדרות</span>
+        <h3 class="card-title">מהשובע ועד לעזיבת המצוות</h3>
+      </div>
+      <div class="card-body">
+        <div class="table-intro">מפו את ארבעת שלבי ההידרדרות הרוחנית המתוארים בפסוקים (מהשובע ועד עזיבת המצוות):</div><div class="table-wrap"><table class="fill-grid"><thead><tr><th></th><th>תיאור השלב</th></tr></thead><tbody><tr><th class="row-label">שלב 1</th><td><textarea class="answer table-cell" data-id="f63"></textarea></td></tr><tr><th class="row-label">שלב 2</th><td><textarea class="answer table-cell" data-id="f64"></textarea></td></tr><tr><th class="row-label">שלב 3</th><td><textarea class="answer table-cell" data-id="f65"></textarea></td></tr><tr><th class="row-label">שלב 4</th><td><textarea class="answer table-cell" data-id="f66"></textarea></td></tr></tbody></table></div>
+      </div>
+    </article>
+    </div>
+  </section>
+
+  <section class="topic-section" id="topic-mitzrayim" style="--acc:#3E5A8C;--acc-soft:#E2E7F2;">
+    <div class="topic-banner">
+      <span class="topic-icon">🌊</span>
+      <div>
+        <div class="topic-eyebrow">נושא 6 מתוך 6</div>
+        <h2 class="topic-title">ארץ ישראל מול מצרים</h2>
+        <p class="topic-subtitle">פרק יא, פסוקים י-כא</p>
+      </div>
+      <div class="topic-counter" data-topic-counter="topic-mitzrayim">0/0</div>
+    </div>
+    <div class="grid">
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">לא כארץ מצרים</span>
+        <h3 class="card-title">פרק יא, פסוקים י-יב</h3>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">“כִּי הָאָרֶץ אֲשֶׁר אַתָּה בָא שָׁמָּה לְרִשְׁתָּהּ לֹא כְאֶרֶץ מִצְרַיִם הִוא אֲשֶׁר יְצָאתֶם מִשָּׁם אֲשֶׁר תִּזְרַע אֶת זַרְעֲךָ וְהִשְׁקִיתָ בְרַגְלְךָ כְּגַן הַיָּרָק. וְהָאָרֶץ אֲשֶׁר אַתֶּם עֹבְרִים שָׁמָּה לְרִשְׁתָּהּ אֶרֶץ הָרִים וּבְקָעֹת לִמְטַר הַשָּׁמַיִם תִּשְׁתֶּה מָּיִם. אֶרֶץ אֲשֶׁר ה’ אֱלֹהֶיךָ דֹּרֵשׁ אֹתָהּ תָּמִיד עֵינֵי ה’ אֱלֹהֶיךָ בָּהּ מֵרֵשִׁית הַשָּׁנָה וְעַד אַחֲרִית שָׁנָה” <b>(דברים יא, י-יב)</b></div><div class="question-block">
+          <div class="question-row"><span class="q-num">1</span><div><span class="q-text">מהי ההשוואה בין מקור המים של מצרים לבין מקור המים של ארץ ישראל?</span></div></div>
+          <textarea class="answer" data-id="f67" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div><div class="question-block">
+          <div class="question-row"><span class="q-num">2</span><div><span class="q-text">מה נדרש מהעם בעקבות תלותה של הארץ בגשם השמים?</span></div></div>
+          <textarea class="answer" data-id="f68" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">עמלו של החקלאי</span>
+        <h3 class="card-title">מצרים מול ארץ ישראל</h3>
+      </div>
+      <div class="card-body">
+        <div class="meforesh-block"><span class="src">רש”י (פס’ י):</span>והשקית ברגלך - ארץ מצרים היתה צריכה להביא מים ברגלך מנילוס ולהשקותה, וצריך אתה לנדד משנתך ולעמול ולעשות תעלות, והנמוך שותה, אבל זו (פסוק יא) לשמים תשתה מים - אתה ישן על מיטתך, והקדוש ברוך הוא משקה נמוך וגבוה כאחד.</div><div class="table-wrap"><table class="fill-grid"><thead><tr><th></th><th>ארץ ישראל</th><th>מצרים</th></tr></thead><tbody><tr><th class="row-label">עמלו של החקלאי</th><td><textarea class="answer table-cell" data-id="f69"></textarea></td><td><textarea class="answer table-cell" data-id="f70"></textarea></td></tr><tr><th class="row-label">יתרונו של הגשם על השקאה מנהר</th><td><textarea class="answer table-cell" data-id="f71"></textarea></td><td><textarea class="answer table-cell" data-id="f72"></textarea></td></tr></tbody></table></div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">הרמב”ן על התלות בגשם</span>
+        <h3 class="card-title">אזהרה ולא רק שבח</h3>
+      </div>
+      <div class="card-body">
+        <div class="meforesh-block"><span class="src">רמב”ן (מקוצר):</span>וצריכה שידרשו ה’ אותה במטר תמיד, כי היא ארץ צמאה מאד וצריכה מטר כל השנה, ואם תעברו על רצונו ולא ידרוש אותה בגשמי רצון, הנה היא רעה מאד, לא תזרע ולא תצמיח ולא יעלה בה כל עשב בהריה.</div><div class="question-block">
+          <div class="question-row"><span class="q-num">3</span><div><span class="q-text">כיצד מפרש הרמב”ן את ההשוואה בין הארץ למצרים, ובמה שונה דגשו מדגשו של רש”י?</span></div></div>
+          <textarea class="answer" data-id="f73" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">מבנה הפרק</span>
+        <h3 class="card-title">מצאו את הקשר בין שלושת חלקי הפרק</h3>
+      </div>
+      <div class="card-body">
+        <div class="hint-note">חלקו את הפרק לשלושה קטעים, וכתבו במילה או שתיים את נושא כל קטע (שמירת המצוות כתנאי לירושת הארץ / תלות הארץ בגשם / אזהרה מעצירת גשמים וגלות).</div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">4א</span><span class="q-text">פסוקים א’-ט’:</span></div>
+          <textarea class="answer" data-id="f74" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">4ב</span><span class="q-text">פסוקים י’-י”ב:</span></div>
+          <textarea class="answer" data-id="f75" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div><div class="question-block sub-q">
+          <div class="question-row"><span class="q-num small">4ג</span><span class="q-text">פסוקים י”ג-כ”א:</span></div>
+          <textarea class="answer" data-id="f76" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">שכר ועונש</span>
+        <h3 class="card-title">פסוקים יג-יז</h3>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">5</span><div><span class="q-text">מה יקרה “אם שמוע תשמעו”, ומה יקרה אם “יפתה לבבכם וסרתם”?</span></div></div>
+          <textarea class="answer" data-id="f77" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="card-tag">אבן עזרא - לקח למעשה</span>
+        <h3 class="card-title">פסוק כח</h3>
+      </div>
+      <div class="card-body">
+        <div class="meforesh-block"><span class="src">אבן עזרא (פס’ יז):</span>ואבדתם מהרה - שיגלו ממנה כאובדים ברעב, אחר שהיתה טובה, על כן אתם חייבים שתשימו אלה הדברים על לבבכם.</div><div class="pasuk-block">“וְשַׂמְתֶּם אֶת דְּבָרַי אֵלֶּה עַל לְבַבְכֶם וְעַל נַפְשְׁכֶם” <b>(דברים יא, יח)</b></div><div class="question-block">
+          <div class="question-row"><span class="q-num">6</span><div><span class="q-text">כיצד מפרש אבן עזרא את הקשר בין עצירת הגשמים לגלות? ומה, לדעתו, צריך לקחת מכך למעשה?</span></div></div>
+          <textarea class="answer" data-id="f78" placeholder="כתבו כאן את התשובה..."></textarea>
+        </div>
+      </div>
+    </article>
+    </div>
+  </section>
+</main>
+
+<div class="toolbar">
+  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
+  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
+</p>
+
+<footer class="credit">יחידת הפתיחה · ספר דברים · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'petichah-answers';
+const NAME_KEY = 'petichah-student';
+const textareas = Array.from(document.querySelectorAll('.answer'));
+const progressFill = document.getElementById('progressFill');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+const topicSections = Array.from(document.querySelectorAll('.topic-section'));
+const topicPills = Array.from(document.querySelectorAll('.topic-pill'));
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{ localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value })); }catch(e){}
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){ const data = JSON.parse(raw); nameInput.value = data.name || ''; classInput.value = data.cls || ''; }
+  }catch(e){}
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  progressFill.style.width = (filled / textareas.length * 100) + '%';
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
+
+  topicSections.forEach(sec => {
+    const fields = Array.from(sec.querySelectorAll('.answer'));
+    const done = fields.filter(t => t.value.trim().length > 0).length;
+    const counter = sec.querySelector('.topic-counter');
+    if(counter) counter.textContent = done + '/' + fields.length;
+    const pill = document.querySelector('.topic-pill[data-topic="' + sec.id + '"]');
+    if(pill){ pill.classList.toggle('done', fields.length > 0 && done === fields.length); }
+  });
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); flashSaved(); }catch(e){ console.error(e); }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => { if(data[t.dataset.id]){ t.value = data[t.dataset.id]; markFilled(t); } });
+    }
+  }catch(e){}
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות שכתבתם? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
+
+let originalHeights = [];
+window.addEventListener('beforeprint', () => {
+  originalHeights = textareas.map(t => t.style.height);
+  textareas.forEach(t => { if(t.tagName === 'TEXTAREA'){ t.style.height = 'auto'; t.style.height = (t.scrollHeight + 4) + 'px'; } });
+});
+window.addEventListener('afterprint', () => {
+  textareas.forEach((t, i) => { t.style.height = originalHeights[i] || ''; });
+});
+
+/* ---------- ניווט: הדגשת הנושא הפעיל בגלילה ---------- */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    const pill = document.querySelector('.topic-pill[data-topic="' + entry.target.id + '"]');
+    if(!pill) return;
+    if(entry.isIntersecting) pill.classList.add('active');
+    else pill.classList.remove('active');
+  });
+}, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+topicSections.forEach(sec => observer.observe(sec));
+
+loadStudentInfo();
+loadAnswers();
+</script>
+
+</body>
+</html>
