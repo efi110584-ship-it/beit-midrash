@@ -11,22 +11,26 @@
 <style>
 /* ===== Design tokens ===== */
 :root{
-  --ink: #16233F;
-  --ink-2: #223256;
-  --ink-soft: #3A4A72;
-  --paper: #FBF7EE;
-  --paper-card: #FFFFFF;
-  --paper-2: #F1EADA;
-  --gold: #A87424;
-  --gold-light: #D9B36C;
-  --teal: #285C58;
-  --teal-light: #DCEAE8;
-  --gold-tag-bg: #F3E6CC;
-  --text: #23283A;
-  --text-soft: #545B72;
-  --border: #E3DCC9;
+  /* אותם טוקנים בדיוק כמו בכל דפי העבודה (ראו assets/worksheet-theme.css) -
+     כדי שדף הבית ירגיש כחלק מאותו אתר, לא כעמוד נפרד עם עיצוב משלו. */
+  --ink: #1F3A4D;
+  --ink-2: #2C4A60;
+  --ink-soft: #4B6577;
+  --paper: #EFE6D0;
+  --paper-card: #F7F1E1;
+  --paper-2: #E9DEC3;
+  --gold: #A9752E;
+  --gold-light: #C99A4C;
+  --teal: #3F6E66;
+  --teal-light: #E4EEEA;
+  --gold-tag-bg: #F3E7D2;
+  --text: #1F3A4D;
+  --text-soft: #4B6577;
+  --border: #D8C9A3;
   --focus: #1857C4;
   --radius: 10px;
+  --shadow: 0 2px 10px rgba(31,58,77,0.08);
+  --shadow-hover: 0 8px 22px rgba(31,58,77,0.14);
   --font-display: "Frank Ruhl Libre", "David Libre", serif;
   --font-body: "Heebo", "Arial Hebrew", sans-serif;
   --font-scale: 1;
@@ -39,7 +43,10 @@ html{ font-size: calc(100% * var(--font-scale)); scroll-behavior: smooth; }
 *, *::before, *::after{ box-sizing:border-box; }
 body{
   margin:0;
-  background:var(--paper);
+  background:
+    radial-gradient(ellipse at 15% -10%, rgba(169,117,46,0.10), transparent 45%),
+    radial-gradient(ellipse at 90% 0%, rgba(63,110,102,0.10), transparent 40%),
+    var(--paper);
   color:var(--text);
   font-family:var(--font-body);
   letter-spacing:var(--letter-extra);
@@ -106,21 +113,45 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 
 /* ===== Hero ===== */
 .hero{ background:linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%); color:#F4EFE2; }
-.hero-inner{ max-width:700px; margin:0 auto; padding:2.2rem 1.25rem 2.4rem; text-align:center; }
+.hero-inner{ max-width:700px; margin:0 auto; padding:2.2rem 1.25rem 1.4rem; text-align:center; }
 .hero h2{ color:#fff; font-size:1.6rem; line-height:1.35; margin:0; }
+.hero-wave{ display:block; width:100%; height:26px; }
+
+/* ===== "המשך ללמוד" ===== */
+.continue-wrap{ max-width:1100px; margin:0 auto; padding:1.25rem 1.25rem 0; }
+.continue-card{
+  display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
+  background: linear-gradient(90deg, var(--gold-tag-bg), var(--paper-card));
+  border:1.5px solid var(--gold-light); border-radius:var(--radius);
+  padding:1rem 1.25rem; box-shadow:var(--shadow);
+}
+.continue-card .continue-icon{ font-size:1.7rem; flex:none; }
+.continue-card .continue-text{ flex:1 1 260px; }
+.continue-card .continue-label{ font-size:.78rem; font-weight:700; color:var(--gold); letter-spacing:.04em; }
+.continue-card .continue-title{ font-family:var(--font-display); font-weight:700; font-size:1.15rem; color:var(--ink); margin:.15rem 0; }
+.continue-card .continue-progress{ font-size:.85rem; color:var(--text-soft); }
+.continue-card .continue-progress-track{ display:inline-block; width:120px; height:7px; border-radius:999px; background:var(--border); overflow:hidden; vertical-align:middle; margin-inline-start:.4rem; }
+.continue-card .continue-progress-fill{ height:100%; background:linear-gradient(90deg, var(--teal), var(--gold)); }
 
 /* ===== Controls ===== */
 .controls{ background:var(--paper-2); border-bottom:1px solid var(--border); }
 .controls-inner{ max-width:1100px; margin:0 auto; padding:1rem 1.25rem; display:flex; flex-wrap:wrap; align-items:center; gap:0.9rem; }
 
-.tabgroup{ display:flex; gap:0.5rem; flex-wrap:wrap; }
+.tabgroup{ display:flex; gap:0.7rem; flex-wrap:wrap; }
 .tab{
-  background:var(--paper-card); border:1.5px solid var(--border); color:var(--ink);
-  padding:0.55rem 1.1rem; border-radius:999px; cursor:pointer; font-weight:600;
-  min-height:44px;
+  background:var(--paper-card); border:2px solid var(--border); color:var(--ink);
+  padding:0.7rem 1.6rem; border-radius:999px; cursor:pointer; font-weight:700;
+  font-size:1.05rem; font-family:var(--font-display);
+  min-height:48px;
+  transition: background .2s ease, color .2s ease, border-color .2s ease, transform .15s ease, box-shadow .2s ease;
 }
-.tab[aria-selected="true"]{ background:var(--ink); color:#fff; border-color:var(--ink); }
-.tab:hover{ border-color:var(--gold); }
+.tab:hover{ border-color:var(--gold); transform: translateY(-1px); }
+.tab[aria-selected="true"]{
+  background: linear-gradient(135deg, var(--ink), var(--ink-2));
+  color:#fff; border-color:var(--ink);
+  box-shadow: 0 4px 14px rgba(31,58,77,0.28);
+}
+.tab.tab-all{ font-size:0.92rem; font-weight:600; font-family:var(--font-body); opacity:.85; }
 
 .search-field{ flex:1 1 220px; min-width:200px; }
 .search-field input{
@@ -158,11 +189,17 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 
 .card-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:1rem; }
 
+@keyframes cardIn{ from{ opacity:0; transform: translateY(8px); } to{ opacity:1; transform: translateY(0); } }
+
 .card{
-  background:var(--paper-card); border:1px solid var(--border); border-radius:var(--radius);
+  background:var(--paper-card); border:1px solid var(--border); border-top:3px solid var(--gold);
+  border-radius:var(--radius);
   padding:1.1rem 1.2rem; display:flex; flex-direction:column; gap:0.6rem;
-  box-shadow:0 1px 3px rgba(22,35,63,0.06);
+  box-shadow:var(--shadow);
+  transition: box-shadow .25s ease, transform .25s ease;
+  animation: cardIn .4s ease backwards;
 }
+.card:hover{ box-shadow:var(--shadow-hover); transform: translateY(-2px); }
 .card-tags{ display:flex; gap:0.4rem; flex-wrap:wrap; }
 .tag{ font-size:0.75rem; font-weight:700; padding:0.2rem 0.6rem; border-radius:999px; }
 .tag.subject-tnk{ background:var(--teal-light); color:var(--teal); }
@@ -267,15 +304,20 @@ body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; 
     <div class="hero-inner">
       <h2>כל חומרי הכיתה, במקום אחד</h2>
     </div>
+    <svg class="hero-wave" viewBox="0 0 1200 26" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 16 Q 50 4, 100 16 T 200 16 T 300 16 T 400 16 T 500 16 T 600 16 T 700 16 T 800 16 T 900 16 T 1000 16 T 1100 16 T 1200 16" fill="none" stroke="#D9B36C" stroke-width="2" opacity="0.6"/>
+    </svg>
   </section>
+
+  <div id="continue-wrap" class="continue-wrap" hidden></div>
 
   <section class="controls" aria-label="סינון וחיפוש חומרים">
     <div class="controls-inner">
 
       <div class="tabgroup" role="tablist" aria-label="בחירת כיתה">
-        <button class="tab" role="tab" aria-selected="true" data-class="all" id="tab-all">הכל</button>
-        <button class="tab" role="tab" aria-selected="false" data-class="יא" id="tab-ya">י"א</button>
-        <button class="tab" role="tab" aria-selected="false" data-class="יב" id="tab-yb">י"ב</button>
+        <button class="tab" role="tab" aria-selected="true" data-class="יא" id="tab-ya">כיתה י"א</button>
+        <button class="tab" role="tab" aria-selected="false" data-class="יב" id="tab-yb">כיתה י"ב</button>
+        <button class="tab tab-all" role="tab" aria-selected="false" data-class="all" id="tab-all">כל הכיתות</button>
       </div>
 
       <div class="field search-field">
@@ -370,9 +412,9 @@ const SITE_CONFIG = {
      כפתור נוסף לצפייה במצגת, לצד הכפתור לדף העבודה.
      ======================================================== */
   var LOCAL_MATERIALS = [
-    { class:"יא", subject:"תנך", topic:"ספר יונה - פרקים א׳-ב׳", type:"דף אינטראקטיבי", title:"דף עבודה אינטראקטיבי - יונה פרקים א׳-ב׳", url:"yonah-1-2.html", note:"" },
-    { class:"יא", subject:"תנך", topic:"ספר יונה - פרק ג׳", type:"דף אינטראקטיבי", title:"דף עבודה אינטראקטיבי - יונה פרק ג׳", url:"yonah-3.html", note:"" },
-    { class:"יא", subject:"תנך", topic:"ספר יונה - פרק ד׳", type:"דף אינטראקטיבי", title:"דף עבודה אינטראקטיבי - יונה פרק ד׳", url:"yonah-4.html", note:"" },
+    { class:"יא", subject:"תנך", topic:"ספר יונה", type:"דף אינטראקטיבי", title:"דף עבודה אינטראקטיבי - יונה פרקים א׳-ב׳", url:"yonah-1-2.html", note:"" },
+    { class:"יא", subject:"תנך", topic:"ספר יונה", type:"דף אינטראקטיבי", title:"דף עבודה אינטראקטיבי - יונה פרק ג׳", url:"yonah-3.html", note:"" },
+    { class:"יא", subject:"תנך", topic:"ספר יונה", type:"דף אינטראקטיבי", title:"דף עבודה אינטראקטיבי - יונה פרק ד׳", url:"yonah-4.html", note:"" },
     { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "לא תסור" (מצוה תצ"ו)', url:"lo-tasur.html", note:"",
       presentationUrl:"lo-tasur-presentation.pdf" },
     { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "אהבת הגרים" (מצוה תל"א)', url:"ahavat-gerim.html", note:"",
@@ -402,15 +444,8 @@ const SITE_CONFIG = {
       presentationUrl:"view-presentation.html?file=kriat-shema-presentation.pptx&title=" + encodeURIComponent('מצגת - "קריאת שמע"'), presentationLabel:"צפייה במצגת" },
     { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "לא תעשוק ושכר שכיר" (מצוה רכ"ח, ר"ל)', url:"lo-taashok-schar-sachir.html", note:"",
       presentationUrl:"view-presentation.html?file=lo-taashok-presentation.pptx&title=" + encodeURIComponent('מצגת - "לא תעשוק"'), presentationLabel:"צפייה במצגת - לא תעשוק" },
-    { class:"יב", subject:"תושבע", topic:'פתוח תפתח', type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - מבוא: עקרונות מנחים כלפי העני', url:"ptp-mavo.html", note:"" },
-    { class:"יב", subject:"תושבע", topic:'פתוח תפתח', type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - שמיטת כספים', url:"ptp-shmitat-ksafim.html", note:"" },
-    { class:"יב", subject:"תושבע", topic:'פתוח תפתח', type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - צדקה והלוואה', url:"ptp-tzedaka-halvaa.html", note:"" },
-    { class:"יב", subject:"תושבע", topic:'פתוח תפתח', type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - מצוות הענקה', url:"ptp-hanaka.html", note:"" },
-    { class:"יב", subject:"תושבע", topic:'פתוח תפתח', type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - איסור ריבית', url:"ptp-ribit.html", note:"" },
-    { class:"יב", subject:"תושבע", topic:'פתוח תפתח', type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - דיני משכון', url:"ptp-mashkon.html", note:"" },
-    { class:"יב", subject:"תושבע", topic:'פתוח תפתח', type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - הלנת שכר', url:"ptp-halanat-sachar.html", note:"" },
-    { class:"יב", subject:"תושבע", topic:'פתוח תפתח', type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - מתנות עניים', url:"ptp-matnot-aniyim.html", note:"" },
-    { class:"יב", subject:"תנך", topic:'יחידת הפתיחה', type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - יחידת הפתיחה (ספר דברים)', url:"petichah.html", note:"" }
+    { class:"יב", subject:"תושבע", topic:'פתוח תפתח', type:"דף אינטראקטיבי", title:'יחידת פתוח תפתח - כל נושאי המצוות בעמוד אחד עם לשוניות', url:"ptp-hub.html", note:"מבוא, שמיטת כספים, צדקה והלוואה, הענקה לעבד עברי, איסור ריבית, משכון, הלנת שכר ומתנות לעניים" },
+    { class:"יב", subject:"תנך", topic:'ספר דברים', type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - יחידת הפתיחה', url:"petichah.html", note:"" }
   ];
 
   /* קישורים לדפים אינטראקטיביים/דפי עבודה שמצביעים ישירות ל-Google Drive או
@@ -428,12 +463,16 @@ const SITE_CONFIG = {
   /* נושאים שמנוהלים אך ורק דרך LOCAL_MATERIALS - כל שורה מהגיליון ששייכת
      לנושא כזה מוסרת לגמרי, כדי שלא יופיעו כאן חומרים ישנים/כפולים
      מהגיליון (למשל מצגות בודדות בלי דף עבודה תואם). */
-  var LOCAL_ONLY_TOPICS = { "לקט מצוות": true, "פתוח תפתח": true, "יחידת הפתיחה": true };
+  var LOCAL_ONLY_TOPICS = { "לקט מצוות": true, "פתוח תפתח": true, "ספר דברים": true };
   /* מילות מפתח שאם מופיעות בנושא/כותרת של שורה מהגיליון, מציגים מהגיליון
      רק סוגי חומר מסוימים (השאר מוסר) - כי כבר יש קבצים מקומיים תקינים
-     לחומר האינטראקטיבי, בלי תלות בניסוח המדויק בגיליון. */
+     לחומר האינטראקטיבי, בלי תלות בניסוח המדויק בגיליון.
+     "יונה" הוסר לגמרי (רשימה ריקה) כי כל שלושת הפרקים כבר קיימים
+     כדפים אינטראקטיביים מקומיים תקינים - כל שורה מהגיליון שמזכירה
+     "יונה" (למשל גרסה ישנה עם ניסוח נושא שונה במקצת) הייתה עלולה
+     ליצור כפילות, ולכן אין צורך/טעם להשאיר ממנה שום דבר. */
   var KEYWORD_ALLOWED_TYPES = {
-    "יונה": { "דף אינטראקטיבי": true, "דף חזרה": true },
+    "יונה": {},
     /* כל אחת מהמצוות הבאות כבר קיימת כדף עבודה אינטראקטיבי מקומי תקין
        (ברשימת LOCAL_MATERIALS למעלה) - כל שורה מהגיליון שמזכירה אותן
        (למשל גרסה ישנה עם קישור שבור לדרייב) מוסרת לגמרי, בלי תלות
@@ -473,6 +512,25 @@ const SITE_CONFIG = {
     });
   }
 
+  /* רשימה סגורה (allowlist) של היחידות שמותר להציג בכל כיתה - בלי קשר
+     לניסוח המדויק בגיליון. כל שורה מהגיליון ששייכת לכיתה יא/יב אך לא
+     תואמת אחת מהיחידות המאושרות (למשל "דיני מלחמה" או כל יחידה אחרת
+     שלא נלמדת) מוסרת אוטומטית - כדי שכיתה יא תציג רק לקט מצוות וספר
+     יונה, וכיתה יב תציג רק ספר דברים ופתוח תפתח, גם אם בעתיד יתווספו
+     לגיליון שורות נוספות. חומר מקומי (LOCAL_MATERIALS) תמיד מאושר -
+     הבדיקה הזו חלה רק על שורות שמגיעות מהגיליון. */
+  var APPROVED_TOPICS_BY_CLASS = {
+    "יא": function(topic){ return topic === "לקט מצוות" || topic.indexOf("ספר יונה") === 0; },
+    "יב": function(topic){ return topic === "פתוח תפתח" || topic.indexOf("ספר דברים") === 0; }
+  };
+  function dropUnapprovedClassTopics(rows){
+    return rows.filter(function(r){
+      var isApproved = APPROVED_TOPICS_BY_CLASS[r.class];
+      if(!isApproved) return true; // כיתה שאינה יא/יב - לא מוגבלת בכלל הזה
+      return isApproved(r.topic || "");
+    });
+  }
+
   /* אם אותו נושא/סוג חומר מופיע גם ברשימה המקומית וגם בגיליון (למשל שורה ישנה
      שמצביעה על קישור שבור בדרייב), שומרים רק את הגרסה המקומית שעובדת.
      שימו לב: כל החומרים המקומיים תמיד נשארים - הבדיקה חלה רק על שורות
@@ -494,7 +552,7 @@ const SITE_CONFIG = {
     return localRows.concat(filteredSheet);
   }
 
-  var state = { activeClass:"all", subject:"all", type:"all", query:"" };
+  var state = { activeClass:"יא", subject:"all", type:"all", query:"" };
   var allRows = [];
 
   var contentRoot = document.getElementById("content-root");
@@ -516,7 +574,7 @@ const SITE_CONFIG = {
       header:true,
       skipEmptyLines:true,
       complete:function(results){
-        var sheetRows = dropLocalOnlyTopics(dropBrokenDriveLinks((results.data || []).map(mapRow).filter(function(r){ return r.title; })));
+        var sheetRows = dropUnapprovedClassTopics(dropLocalOnlyTopics(dropBrokenDriveLinks((results.data || []).map(mapRow).filter(function(r){ return r.title; }))));
         allRows = dedupeByTopic(LOCAL_MATERIALS, sheetRows);
         render();
       },
@@ -662,6 +720,12 @@ const SITE_CONFIG = {
     });
   });
 
+  /* קישור ישיר מדף עבודה בחזרה לכיתה הנכונה, למשל index.html#tab-yb */
+  (function applyHashTab(){
+    var id = (location.hash || "").replace("#", "");
+    if(id){ var el = document.getElementById(id); if(el && el.classList.contains("tab")) el.click(); }
+  })();
+
   document.getElementById("subject-filter").addEventListener("change", function(e){
     state.subject = e.target.value; render();
   });
@@ -718,6 +782,43 @@ const SITE_CONFIG = {
     if(localStorage.getItem("a11y-contrast") === "1"){ contrastToggle.click(); }
     if(localStorage.getItem("a11y-letterspace") === "1"){ dyslexiaToggle.click(); }
   })();
+
+  /* ============ כרטיס "המשך ללמוד" ============
+     כל דף עבודה (ראו assets/progress-tracker.js) שומר רשומה קטנה על
+     כמה הוא מלא, בלי לגעת במנגנון השמירה הפרטי שלו. כאן קוראים את
+     הרשומה המשותפת הזו ומציגים כרטיס לחומר האחרון שבו הייתה התקדמות -
+     רק אם התלמיד באמת התחיל למלא משהו (0% לא נחשב "המשך"). */
+  function renderContinueCard(){
+    var wrap = document.getElementById("continue-wrap");
+    if(!wrap) return;
+    var registry;
+    try{ registry = JSON.parse(localStorage.getItem("site-progress-v1") || "{}"); }
+    catch(e){ return; }
+
+    var best = null;
+    Object.keys(registry).forEach(function(url){
+      var entry = registry[url];
+      if(!entry || !entry.percent) return;
+      if(!best || entry.updatedAt > best.updatedAt){ best = Object.assign({ url: url }, entry); }
+    });
+    if(!best) return;
+
+    var statusText = best.percent >= 100 ? "הושלם! אפשר לחזור ולשפר תשובות" : (best.percent + "% הושלמו");
+    wrap.hidden = false;
+    wrap.innerHTML =
+      '<div class="continue-card">' +
+        '<span class="continue-icon" aria-hidden="true">\u{1F4D6}</span>' +
+        '<div class="continue-text">' +
+          '<div class="continue-label">המשך ללמוד מהמקום שבו עצרת</div>' +
+          '<div class="continue-title">' + escapeHtml(best.title) + '</div>' +
+          '<div class="continue-progress">' + statusText +
+            '<span class="continue-progress-track"><span class="continue-progress-fill" style="width:' + Math.min(100, best.percent) + '%"></span></span>' +
+          '</div>' +
+        '</div>' +
+        '<a class="card-link" href="' + escapeAttr(best.url) + '">להמשיך<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a>' +
+      '</div>';
+  }
+  renderContinueCard();
 
   loadData();
 })();

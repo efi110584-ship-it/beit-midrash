@@ -1,0 +1,287 @@
+/* ============================================================
+   בית המדרש הדיגיטלי - עיצוב משותף לכל הדפים האינטראקטיביים
+   ============================================================
+   קובץ זה הוא מקור העיצוב היחיד לכל דפי העבודה (יונה, לקט מצוות,
+   פתוח תפתח, יחידת הפתיחה). כל דף מקשר אליו ב-<link>, ולא מגדיר
+   מחדש את אותם הכללים - כך שכל שינוי עיצובי כאן משפיע על כל האתר
+   בבת אחת, והדפים ממשיכים "להרגיש" כמו אתר אחד.
+
+   שימו לב: הקובץ הזה קובע רק מראה (צבעים, גופנים, ריווח, אנימציות).
+   שום תוכן לימודי, מזהה (id), או מנגנון שמירה/JS לא תלוי כאן -
+   הם ממשיכים לחיות כרגיל בכל דף בנפרד.
+   ============================================================ */
+
+:root{
+  --paper: #EFE6D0;
+  --paper-card: #F7F1E1;
+  --paper-line: #D8C9A3;
+  --ink: #1F3A4D;
+  --ink-soft: #4B6577;
+  --gold: #A9752E;
+  --gold-soft: #C99A4C;
+  --teal: #3F6E66;
+  --teal-soft: #E4EEEA;
+  --rust: #8B4A34;
+  --rust-soft: #F1E2DA;
+  --shadow: 0 2px 10px rgba(31,58,77,0.08);
+  --shadow-hover: 0 8px 22px rgba(31,58,77,0.14);
+  --focus-ring: #1857C4;
+
+  /* צבע-נושא ברירת מחדל לדפים שאין בהם כמה נושאים (רוב דפי העבודה) -
+     מיוצג פעם אחת כאן, ורכיבי הדף (תגיות, מספרי שאלות, מסגרת הכרטיס...)
+     כולם נשענים עליו. דף עם כמה נושאים (כמו יחידת הפתיחה) יכול לדרוס
+     אותו per-section עם style="--acc:...;--acc-soft:...;". */
+  --acc: var(--gold);
+  --acc-soft: #F3E7D2;
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *, *::before, *::after{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important; }
+}
+
+body{
+  margin:0;
+  background:
+    radial-gradient(ellipse at 15% -10%, rgba(169,117,46,0.10), transparent 45%),
+    radial-gradient(ellipse at 90% 0%, rgba(63,110,102,0.10), transparent 40%),
+    var(--paper);
+  font-family: 'Heebo', sans-serif;
+  color: var(--ink);
+  direction: rtl;
+}
+
+/* פוקוס נגיש - חובה לניווט מקלדת, בנוסף לעיצוב ה-hover/focus הרגיל */
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+header{ position: relative; padding: 2.6rem 1.5rem 1.6rem; text-align: center; overflow: hidden; }
+header .eyebrow{ font-weight:600; letter-spacing: .12em; font-size: .78rem; color: var(--gold); margin-bottom: .6rem; }
+header h1{ font-family:'Frank Ruhl Libre', serif; font-weight: 900; font-size: clamp(1.9rem, 4.2vw, 3rem); margin: 0 0 .5rem; color: var(--ink); line-height: 1.15; }
+header p.sub{ font-size: 1rem; color: var(--ink-soft); max-width: 680px; margin: 0 auto; line-height: 1.6; }
+.wave{ width:100%; height:30px; margin-top: 1.2rem; display:block; }
+
+.breadcrumbs{
+  max-width: 1100px; margin: 0 auto .6rem; padding: 0 1.5rem;
+  display:flex; align-items:center; gap:.4rem; flex-wrap:wrap;
+  font-size:.82rem; color: var(--ink-soft);
+}
+.breadcrumbs a{ color: var(--ink-soft); text-decoration:none; border-bottom:1px dotted var(--ink-soft); }
+.breadcrumbs a:hover{ color: var(--gold); border-color: var(--gold); }
+.breadcrumbs .sep{ opacity:.5; }
+.breadcrumbs .current{ color: var(--ink); font-weight:700; }
+
+.student-bar{ max-width: 760px; margin: 0 auto 1.1rem; padding: 0 1.5rem; display:flex; justify-content:center; gap: 1.6rem; flex-wrap: wrap; }
+.student-bar label{ font-size: .88rem; font-weight: 600; color: var(--ink-soft); display:flex; align-items:center; gap: .4rem; }
+.student-bar input{ font-family:'Heebo',sans-serif; font-size: .92rem; padding: .3rem .6rem; border: 1.5px solid var(--paper-line); border-radius: 7px; background: #fff; color: var(--ink); direction: rtl; min-width: 10rem; }
+.student-bar input:focus{ outline:none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(169,117,46,0.18); }
+
+.progress-wrap{ max-width: 760px; margin: 0 auto 1rem; padding: 0 1.5rem; display:flex; align-items:center; gap: .9rem; }
+.progress-track{ flex:1; height: 10px; background: var(--paper-line); border-radius: 999px; overflow:hidden; box-shadow: inset 0 1px 2px rgba(31,58,77,0.15); }
+.progress-fill{ height:100%; width:0%; background: linear-gradient(90deg, var(--teal), var(--gold)); border-radius: 999px; transition: width .5s cubic-bezier(.4,0,.2,1); }
+.progress-label{ font-size: .85rem; font-weight:600; color: var(--ink-soft); white-space:nowrap; }
+.save-note{ text-align:center; font-size: .78rem; color: var(--teal); min-height: 1.2rem; margin-bottom: .3rem; opacity: 0; transform: translateY(-3px); transition: opacity .3s ease, transform .3s ease; }
+.save-note.show{ opacity: 1; transform: translateY(0); }
+
+/* ---------- ניווט נושאים/לשוניות דביק (יחידת הפתיחה, פתוח תפתח) ---------- */
+.topic-nav{
+  position: sticky; top: 0; z-index: 40;
+  display:flex; gap:.55rem; overflow-x:auto; -webkit-overflow-scrolling:touch;
+  padding: .7rem 1.2rem; margin-bottom: 1.6rem;
+  background: rgba(239,230,208,0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1.5px solid var(--paper-line);
+  scrollbar-width: thin;
+}
+.topic-nav::-webkit-scrollbar{ height:6px; }
+.topic-nav::-webkit-scrollbar-thumb{ background: var(--paper-line); border-radius:4px; }
+.topic-pill{
+  flex: none;
+  display:flex; align-items:center; gap:.4rem;
+  padding: .4rem .85rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--acc);
+  color: var(--acc);
+  background: #fff;
+  text-decoration:none;
+  font-size: .82rem;
+  font-weight: 700;
+  white-space:nowrap;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, box-shadow .2s ease, transform .15s ease;
+}
+.topic-pill:hover{ transform: translateY(-1px); }
+.topic-pill .pill-icon{ font-size: .95rem; }
+.topic-pill .pill-num{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:1.15rem; height:1.15rem; border-radius:50%;
+  background: var(--acc); color:#fff; font-size:.65rem;
+}
+.topic-pill.active{ background: var(--acc); color:#fff; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+.topic-pill.active .pill-num{ background:#fff; color: var(--acc); }
+.topic-pill.done{ opacity:.75; }
+
+main{ max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 2rem; }
+
+.topic-section{ margin-bottom: 2.6rem; scroll-margin-top: 4.6rem; }
+.topic-section[hidden]{ display:none; }
+.topic-banner{
+  display:flex; align-items:center; gap:1rem;
+  background: linear-gradient(90deg, var(--acc-soft), transparent);
+  border-right: 5px solid var(--acc);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.2rem;
+}
+.topic-icon{ font-size: 2rem; flex:none; }
+.topic-eyebrow{ font-size:.72rem; font-weight:700; letter-spacing:.08em; color: var(--acc); text-transform:none; }
+.topic-title{ font-family:'Frank Ruhl Libre', serif; font-weight:800; font-size:1.5rem; margin:.1rem 0; color: var(--ink); }
+.topic-subtitle{ margin:0; font-size:.88rem; color: var(--ink-soft); }
+.topic-counter{
+  margin-right:auto; flex:none;
+  font-size:.85rem; font-weight:700; color: var(--acc);
+  background:#fff; border:1.5px solid var(--acc); border-radius:999px;
+  padding:.3rem .7rem;
+}
+
+.grid{ display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.4rem; align-items: start; }
+@media (max-width: 620px){ .grid{ grid-template-columns: 1fr; } }
+
+@keyframes cardIn{ from{ opacity:0; transform: translateY(10px); } to{ opacity:1; transform: translateY(0); } }
+
+.card{
+  background: var(--paper-card);
+  border: 1px solid var(--paper-line);
+  border-top: 3px solid var(--acc);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display:flex; flex-direction: column;
+  transition: box-shadow .25s ease, transform .25s ease;
+  animation: cardIn .45s ease backwards;
+}
+.card:hover{ box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+.grid > .card:nth-child(1){ animation-delay: .02s; }
+.grid > .card:nth-child(2){ animation-delay: .07s; }
+.grid > .card:nth-child(3){ animation-delay: .12s; }
+.grid > .card:nth-child(4){ animation-delay: .17s; }
+.grid > .card:nth-child(n+5){ animation-delay: .2s; }
+
+.card-head{ padding: 1rem 1.2rem .85rem; border-bottom: 1px solid var(--paper-line); background: linear-gradient(180deg, var(--acc-soft), transparent); }
+.card-tag{ display:inline-block; font-size: .68rem; font-weight: 700; letter-spacing:.06em; color: var(--acc); background: rgba(0,0,0,0.05); border-radius: 999px; padding: .18rem .65rem; margin-bottom: .5rem; }
+.card-title{ font-family:'Frank Ruhl Libre', serif; font-weight: 700; font-size: 1.08rem; line-height: 1.35; color: var(--ink); margin: 0; }
+.card-body{ padding: 1rem 1.2rem 1.2rem; display:flex; flex-direction:column; gap: .85rem; }
+
+.pasuk-block{ background: var(--teal-soft); border-right: 3px solid var(--teal); border-radius: 6px; padding: .55rem .75rem; font-size: .9rem; line-height: 1.65; color: #234943; font-family:'Frank Ruhl Libre', serif; }
+.pasuk-block b{ color: var(--teal); font-weight: 700; font-family:'Heebo',sans-serif; font-size:.78rem; }
+.pasuk-block-note{ font-size:.86rem; line-height:1.6; color: var(--ink-soft); }
+.pasuk-block q{ font-style: italic; }
+
+.meforesh-block{ background: var(--rust-soft); border-right: 3px solid var(--rust); border-radius: 6px; padding: .55rem .75rem; font-size: .84rem; line-height: 1.55; color: #5c3324; }
+.meforesh-block .src{ display:block; font-weight: 700; color: var(--rust); margin-bottom: .15rem; font-size: .78rem; }
+.meforesh-block q{ font-style: italic; }
+
+/* "חשוב לזכור" / "לקראת הבגרות" - תיבות הבלטה ייעודיות, בשימוש איפה שרלוונטי */
+.remember-block{ background: #FBEFD1; border-right: 3px solid var(--gold); border-radius: 6px; padding: .55rem .75rem; font-size: .84rem; line-height: 1.55; color: #5a4212; }
+.remember-block .src{ display:flex; align-items:center; gap:.35rem; font-weight: 700; color: var(--gold); margin-bottom: .2rem; font-size: .78rem; }
+.bagrut-block{ background: #E4EEEA; border-right: 3px solid var(--teal); border-radius: 6px; padding: .55rem .75rem; font-size: .84rem; line-height: 1.55; color: #1d3d38; }
+.bagrut-block .src{ display:flex; align-items:center; gap:.35rem; font-weight: 700; color: var(--teal); margin-bottom: .2rem; font-size: .78rem; }
+
+.question-block{ border-top: 1px dashed var(--paper-line); padding-top: .8rem; margin-top: .1rem; }
+.question-block.sub-q{ border-top:none; padding-top:.3rem; margin-top:0; }
+.question-row{ display:flex; gap: .5rem; align-items:flex-start; margin-bottom: .5rem; }
+.q-num{ flex: none; min-width: 1.6rem; height: 1.6rem; padding: 0 .25rem; border-radius: 999px; background: var(--acc); color: #fff; font-size: .78rem; font-weight: 700; display:flex; align-items:center; justify-content:center; }
+.q-num.small{ min-width:1.3rem; height:1.3rem; font-size:.68rem; }
+.q-text{ font-size: .93rem; font-weight: 600; line-height: 1.5; color: var(--ink); padding-top: .1rem; }
+.q-sub{ font-size:.76rem; color: var(--ink-soft); margin-top:.15rem; }
+.hint-note{ font-size:.78rem; color: var(--ink-soft); background:rgba(0,0,0,.03); border-radius:6px; padding:.4rem .6rem; }
+.table-intro{ font-size:.85rem; color: var(--ink-soft); }
+
+.fill-table{ display:flex; flex-direction:column; gap:.6rem; }
+.fill-row{ display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; }
+.fill-row .fill-label{ flex: 0 0 9rem; font-weight:700; font-size:.88rem; color: var(--ink); }
+.fill-row input.answer{ flex: 1 1 12rem; }
+
+/* משוב חזותי עדין כשתשובה נענתה - לא מוסיף תוכן, רק מסמן */
+@keyframes popIn{ 0%{ transform: scale(.6); opacity:0; } 70%{ transform: scale(1.15); } 100%{ transform: scale(1); opacity:1; } }
+.answer-check{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:1.3rem; height:1.3rem; border-radius:50%; background: var(--teal); color:#fff;
+  font-size:.75rem; margin-inline-start:.4rem; animation: popIn .3s ease;
+}
+
+textarea.answer, input.answer{
+  width:100%; min-height: 60px; resize: vertical;
+  font-family:'Heebo',sans-serif; font-size: .9rem; line-height: 1.6;
+  padding: .55rem .7rem; border: 1.5px solid var(--paper-line); border-radius: 8px;
+  background: repeating-linear-gradient(var(--paper) 0 27px, var(--paper-line) 27px 28px);
+  background-color: #fff; color: var(--ink); direction: rtl;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+textarea.answer:focus, input.answer:focus{ outline: none; border-color: var(--acc); box-shadow: 0 0 0 3px rgba(0,0,0,0.08); }
+textarea.answer.filled, input.answer.filled{ border-color: var(--teal); }
+
+.table-wrap{ overflow-x:auto; }
+table.fill-grid{ width:100%; border-collapse: collapse; font-size:.82rem; }
+table.fill-grid th, table.fill-grid td{ border: 1px solid var(--paper-line); padding: .35rem; vertical-align: top; }
+table.fill-grid thead th{ background: var(--acc-soft); color: var(--ink); font-size:.78rem; font-weight:700; }
+table.fill-grid th.row-label{ background: rgba(0,0,0,.03); font-weight:700; white-space:nowrap; font-size:.78rem; }
+table.fill-grid td textarea.answer.table-cell{ min-height:44px; font-size:.8rem; padding:.3rem .4rem; }
+
+.toolbar{ max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 2.5rem; display:flex; justify-content:center; gap: .8rem; flex-wrap: wrap; }
+.btn{ font-family:'Heebo',sans-serif; font-size: .88rem; font-weight: 600; padding: .6rem 1.3rem; border-radius: 999px; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); cursor:pointer; transition: all .2s ease; }
+.btn:hover{ background: var(--ink); color: var(--paper-card); transform: translateY(-1px); }
+.btn:active{ transform: translateY(0); }
+.btn.danger{ border-color: var(--rust); color: var(--rust); }
+.btn.danger:hover{ background: var(--rust); color: #fff; }
+.btn.primary{ background: var(--acc); border-color: var(--acc); color: #fff; }
+.btn.primary:hover{ background: var(--ink); border-color: var(--ink); }
+
+/* ניווט בין פרקים/דפים ("לפרק הבא/הקודם", חזרה ליחידה) - לשימוש איפה שרלוונטי */
+.chapter-nav{ max-width: 1200px; margin: 0 auto 1.5rem; padding: 0 1.5rem; display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; }
+.chapter-nav a{
+  display:inline-flex; align-items:center; gap:.4rem;
+  font-size:.85rem; font-weight:700; color: var(--ink); text-decoration:none;
+  padding:.5rem 1rem; border-radius:999px; border:1.5px solid var(--paper-line); background:#fff;
+  transition: border-color .2s ease, transform .15s ease;
+}
+.chapter-nav a:hover{ border-color: var(--gold); transform: translateY(-1px); }
+
+/* כפתור "חזרה למעלה" צף */
+.to-top-btn{
+  position: fixed; bottom: 1.4rem; left: 1.4rem; z-index: 60;
+  width: 2.8rem; height: 2.8rem; border-radius: 50%;
+  background: var(--ink); color:#fff; border:none; cursor:pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,.25);
+  display:flex; align-items:center; justify-content:center;
+  opacity: 0; pointer-events: none; transform: translateY(8px);
+  transition: opacity .25s ease, transform .25s ease;
+}
+.to-top-btn.show{ opacity: 1; pointer-events: auto; transform: translateY(0); }
+.to-top-btn:hover{ background: var(--gold); }
+
+footer.credit{ text-align:center; font-size: .75rem; color: var(--ink-soft); padding-bottom: 2rem; opacity: .7; }
+.print-only{ display:none; }
+
+@media print{
+  *{ -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  @page{ margin: 14mm 12mm; }
+  .toolbar, .save-note, .progress-wrap, .wave, .eyebrow, .student-bar, #printHelp, .topic-nav, .topic-counter, .to-top-btn, .breadcrumbs, .chapter-nav{ display:none !important; }
+  .print-only{ display:block; }
+  body{ background: var(--paper) !important; }
+  header{ padding: 0 0 .5rem; text-align:center; }
+  header h1{ font-size: 1.7rem; }
+  header p.sub{ display:none; }
+  #printNameLine{ font-size: 1rem !important; font-weight: 700 !important; color: var(--ink) !important; border: 1.4px solid var(--gold); border-radius: 8px; display: inline-block; padding: .3rem 1.1rem; margin-top: .5rem !important; background: var(--paper-card) !important; }
+  main{ padding: 0; max-width: none; }
+  .grid{ display:block; }
+  .topic-section{ margin-bottom: 1.2rem; }
+  .topic-section[hidden]{ display:block !important; }
+  .grid > .card{ grid-column: auto !important; break-inside: avoid; page-break-inside: avoid; margin-bottom: .85rem; box-shadow:none; border: 1.4px solid var(--paper-line) !important; background: var(--paper-card) !important; animation:none !important; }
+  footer.credit{ display:none; }
+}
