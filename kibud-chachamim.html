@@ -40,12 +40,13 @@
   <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
   <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
 </div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
   <span class="progress-label" id="progressLabel">0 / 17 שאלות</span>
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
 </div>
-<div class="save-note" id="saveNote">✓ נשמר</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main>
   <div class="grid" id="grid">
@@ -57,10 +58,10 @@
       <div class="card-body">
         <div class="pasuk-block">ספר החינוך מחולק למצוות על-פי סדר הפרשות בתורה, ובנוי מתרי"ג מצוות. כל מצווה בספר בנויה ממבנה קבוע של ארבעה סעיפים. לפני שניגשים למצווה הנלמדת היום, השלימו במילה או שתיים מה נלמד בכל סעיף:</div>
         <div class="fill-table">
-          <div class="fill-row"><span class="fill-label">הגדרת המצווה</span><input type="text" class="answer" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">שורש המצווה</span><input type="text" class="answer" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">דיני המצווה</span><input type="text" class="answer" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">למעשה</span><input type="text" class="answer" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-1">הגדרת המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-1" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-2">שורש המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-2" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-3">דיני המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-3" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-4">למעשה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-4" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
         </div>
       </div>
     </section>
@@ -72,8 +73,8 @@
       <div class="card-body">
         <div class="pasuk-block">המקור בתורה: "מִפְּנֵי שֵׂיבָה תָּקוּם וְהָדַרְתָּ פְּנֵי זָקֵן" (ויקרא יט, לב). את הפסוק הזה רגילים לראות בתחבורה הציבורית — כדי לעורר את מודעות הנוסעים לקום ולפנות מקום ישיבה למבוגרים מהם.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">1</span><span class="q-text">מה נדרש מהאדם, על פי פשט הפסוק "מפני שיבה תקום והדרת פני זקן"?</span></div>
-          <textarea class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-5">מה נדרש מהאדם, על פי פשט הפסוק "מפני שיבה תקום והדרת פני זקן"?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -85,8 +86,8 @@
       <div class="card-body">
         <div class="pasuk-block">המקור בתורה: "מִפְּנֵי שֵׂיבָה תָּקוּם וְהָדַרְתָּ פְּנֵי זָקֵן" (ויקרא יט, לב). את הפסוק הזה רגילים לראות בתחבורה הציבורית — כדי לעורר את מודעות הנוסעים לקום ולפנות מקום ישיבה למבוגרים מהם.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">2</span><span class="q-text">לדעתך, האם קימה מפני זקן בתחבורה הציבורית היא אכן כוונת הציווי המלאה? נמק בקצרה (לשאלה זו נשוב בהמשך הדף).</span></div>
-          <textarea class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-6">לדעתך, האם קימה מפני זקן בתחבורה הציבורית היא אכן כוונת הציווי המלאה? נמק בקצרה (לשאלה זו נשוב בהמשך הדף).</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -98,8 +99,8 @@
       <div class="card-body">
         <div class="pasuk-block">אונקלוס מתרגם את הפסוק ואומר: "מן קדם דסבר באורייתא תקום" — מלפני מי שלמד תורה תקום. כלומר: "שיבה" (כפשוטו) = אדם שלמד תורה; "זקן" = מי שקנה חכמה, שנאמר: "אין 'זקן' אלא מי שקנה חכמה".</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">3</span><span class="q-text">כיצד מתרגם אונקלוס את המילה "זקן" בפסוק, ומיהו, לפי זה, ה"זקן" שיש לקום מפניו?</span></div>
-          <textarea class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-7">כיצד מתרגם אונקלוס את המילה "זקן" בפסוק, ומיהו, לפי זה, ה"זקן" שיש לקום מפניו?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -111,8 +112,8 @@
       <div class="card-body">
         <div class="pasuk-block">"שניים מקרא ואחד תרגום" היא תקנה הלכתית המעידה על גדלות הפירוש: תרגום אונקלוס הוא תרגום מילולי המשלב פרשנות המבוססת על דברי רבותיו.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">4</span><span class="q-text">מהי "שניים מקרא ואחד תרגום", ומה ניתן ללמוד מכך על מעמדו של תרגום אונקלוס?</span></div>
-          <textarea class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-8">מהי "שניים מקרא ואחד תרגום", ומה ניתן ללמוד מכך על מעמדו של תרגום אונקלוס?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -124,8 +125,8 @@
       <div class="card-body">
         <div class="pasuk-block">וכי איננו מכירים צעירים מאוד חכמים — בדיינות, ברבנות, בתארים אקדמיים, בלימוד לשמה? וכי איננו מכירים אנשים מבוגרים וזקנים, פחות חכמים ומלומדים — מי שיושב בטל, לא למד ולא שנה, אינו יודע קרוא וכתוב, או עבד כל ימיו בעבודת כפיים ולא היה לו זמן ללמוד?</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">5</span><span class="q-text">הבא דוגמה לאדם צעיר שנחשב "זקן" במובן ההלכתי, ודוגמה לאדם מבוגר שאינו נחשב "זקן" במובן זה.</span></div>
-          <textarea class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-9">הבא דוגמה לאדם צעיר שנחשב "זקן" במובן ההלכתי, ודוגמה לאדם מבוגר שאינו נחשב "זקן" במובן זה.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -137,8 +138,8 @@
       <div class="card-body">
         <div class="pasuk-block">מדוע הצעיר החכם נקרא "זקן"? יש שתי דרכים להשגת אותה מטרה — הכרת הבורא וגדולתו: דרך אחת היא גיל וניסיון חיים, ודרך שנייה היא לימוד תורה. הבחור החכם ראה בחוכמתו מה שראה הזקן ברוב שנותיו — שניהם השיגו את אותה מטרה, ולכן חייבים בכבוד שניהם.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">6</span><span class="q-text">מהן שתי הדרכים להשגת המטרה שאליה נועד האדם בעולם, ומדוע שתיהן מזַכות בכבוד?</span></div>
-          <textarea class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-10">מהן שתי הדרכים להשגת המטרה שאליה נועד האדם בעולם, ומדוע שתיהן מזַכות בכבוד?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-10" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -150,8 +151,8 @@
       <div class="card-body">
         <div class="pasuk-block">שורש המצווה: שהותו של האדם בעולם נועדה להכרת הקב"ה וגדולתו — מטרה שניתן להשיגה באמצעות החכמה: או חוכמת חיים (ניסיון), או חכמה של לימוד. אם זו המטרה, ראוי שנכבד את מי שהשיג אותה; אחרים יראו את הכבוד שמקבל מי שהשיג את המטרה, "יקנאו" קנאת סופרים, ו"יעריכו" - ירצו גם הם להשיג אותה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">7</span><span class="q-text">מהו שורש המצווה לפי ספר החינוך, ומדוע כיבוד מי שהשיג את המטרה (הכרת הבורא) גורם לאחרים לשאוף להשיג אותה בעצמם?</span></div>
-          <textarea class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-11">מהו שורש המצווה לפי ספר החינוך, ומדוע כיבוד מי שהשיג את המטרה (הכרת הבורא) גורם לאחרים לשאוף להשיג אותה בעצמם?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-11" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -163,8 +164,8 @@
       <div class="card-body">
         <div class="pasuk-block">הלכה זו נכונה גם ביחס ל"זקן אשמאי" שאינו חכם בתורה, מפני שברוב שנותיו ראה והבין קצת במעשי ה' ונפלאותיו. וכך נהגו הלכה למעשה: רבי יוחנן היה עומד מלפני זקנים גויים ואמר, כמה הרפתקאות עברו עליהם (קידושין לג); רבא לא היה קם לפניהם, אך אמר שהידור (כבוד) יש לתת להם.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">8</span><span class="q-text">מדוע יש לכבד גם "זקן אשמאי" שאינו חכם בתורה? הבא דוגמה מהקטע (רבי יוחנן או רבא).</span></div>
-          <textarea class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-12">מדוע יש לכבד גם "זקן אשמאי" שאינו חכם בתורה? הבא דוגמה מהקטע (רבי יוחנן או רבא).</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-12" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -176,8 +177,8 @@
       <div class="card-body">
         <div class="pasuk-block">מדיני המצווה: חכם חייב בכבוד חכם - תלמידי חכמים שבבבל היו עומדים זה בפני זה. התלמיד חייב לכבד את תלמיד החכם, שהוא גם רבו, יותר מחכם שאינו רבו. ועל כבוד הרב נאמר "יהי מורא רבך כמורא שמים" (אבות ד) - בעיקר "רב מובהק", הרב שממנו למד את עיקר תורתו.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">9</span><span class="q-text">מיהו החכם שהתלמיד חייב לכבדו יותר מכל, ומהו הביטוי המלמד על היראה המיוחדת שיש לירוא מפני הרב?</span></div>
-          <textarea class="answer" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-13">מיהו החכם שהתלמיד חייב לכבדו יותר מכל, ומהו הביטוי המלמד על היראה המיוחדת שיש לירוא מפני הרב?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-13" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -189,8 +190,8 @@
       <div class="card-body">
         <div class="pasuk-block">"החולק על רבו, כחולק על השכינה" - והרי קורח ועדתו לא חלקו על ה', אלא חלקו על משה?! ואם אביו חכם בתורה, גם אם לא כרבו המובהק - אביו קודם בכל.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">10</span><span class="q-text">מה לומדים מסיפורם של קורח ועדתו על חומרת החולק על רבו? ובמה קודם אב חכם לרב שאינו מובהק?</span></div>
-          <textarea class="answer" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">10</span><span class="q-text" id="a11y-lbl-14">מה לומדים מסיפורם של קורח ועדתו על חומרת החולק על רבו? ובמה קודם אב חכם לרב שאינו מובהק?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-14" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -202,8 +203,8 @@
       <div class="card-body">
         <div class="pasuk-block">כבוד = מה לעשות. יראה = מה לא לעשות. מדיני היראה מרבו: לא ישב במקומו. לא יכריע דבריו. לא יסתור דבריו. לא יורה הלכה בפניו, לעולם - אפילו לא במרחק 12 מיל (כ-12 ק"מ).</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">11</span><span class="q-text">מהו ההבדל בין "כבוד" ל"יראה" כלפי חכם, ומנה שניים מארבעת הדברים שאסור לתלמיד לעשות מפני רבו.</span></div>
-          <textarea class="answer" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">11</span><span class="q-text" id="a11y-lbl-15">מהו ההבדל בין "כבוד" ל"יראה" כלפי חכם, ומנה שניים מארבעת הדברים שאסור לתלמיד לעשות מפני רבו.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-15" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -215,8 +216,8 @@
       <div class="card-body">
         <div class="pasuk-block">ממה פטורים חכמים, בשל כבודם ומוראם? מעבודות ציבוריות שנעשות בגוף, ומתשלום מיסים - הן מס הקצוב על כל בני העיר יחד, והן מס הקצוב לפרט. הסיבה: "גם כי יתנו בגויים עתה אקבצם, ויחלו מעט ממשא מלך השרים" (הושע ח) - הסיבה שישראל בגלות ונתונים תחת שלטון הגויים היא מיעוט לימוד התורה ואי שמירת מצוות. החכם אינו אשם בהטלת המס - לימודו מזכה את עם ישראל.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">12</span><span class="q-text">ממה פטור חכם בשל כבודו? ומדוע, למרות שישראל נענשים בגלות ובמיסים, החכם עצמו אינו נתפס כאשם בכך?</span></div>
-          <textarea class="answer" data-id="q12" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">12</span><span class="q-text" id="a11y-lbl-16">ממה פטור חכם בשל כבודו? ומדוע, למרות שישראל נענשים בגלות ובמיסים, החכם עצמו אינו נתפס כאשם בכך?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-16" data-id="q12" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -228,8 +229,8 @@
       <div class="card-body">
         <div class="pasuk-block">נוהגת מצווה זו: בכל מקום. בכל זמן. בזכרים ונקבות - זו אינה "מצוות עשה שהזמן גרמא". העובר עליה ביטל עשה, ועונשו גדול, כי "מפני שיבה תקום והדרת פני זקן" הוא יסוד חזק בדת.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">13</span><span class="q-text">על מי ובאילו תנאים חלה מצוות כיבוד חכמים? ומדוע עונשו של העובר עליה חמור?</span></div>
-          <textarea class="answer" data-id="q13" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">13</span><span class="q-text" id="a11y-lbl-17">על מי ובאילו תנאים חלה מצוות כיבוד חכמים? ומדוע עונשו של העובר עליה חמור?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-17" data-id="q13" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -251,6 +252,7 @@ const STORAGE_KEY = 'mitzvot-kibud-chachamim-answers';
 const NAME_KEY = 'mitzvot-kibud-chachamim-student';
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
 const saveNote = document.getElementById('saveNote');
 const nameInput = document.getElementById('studentName');
@@ -287,7 +289,9 @@ function loadStudentInfo(){
 
 function updateProgress(){
   const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  progressFill.style.width = (filled / textareas.length * 100) + '%';
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
   progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
 }
 

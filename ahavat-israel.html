@@ -40,12 +40,13 @@
   <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
   <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
 </div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
   <span class="progress-label" id="progressLabel">0 / 14 שאלות</span>
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
 </div>
-<div class="save-note" id="saveNote">✓ נשמר</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main>
   <div class="grid" id="grid">
@@ -57,10 +58,10 @@
       <div class="card-body">
         <div class="pasuk-block">ספר החינוך מחולק למצוות על-פי סדר הפרשות בתורה, ובנוי מתרי"ג מצוות. כל מצווה בספר בנויה ממבנה קבוע של ארבעה סעיפים. לפני שניגשים למצווה הנלמדת היום, השלימו במילה או שתיים מה נלמד בכל סעיף:</div>
         <div class="fill-table">
-          <div class="fill-row"><span class="fill-label">הגדרת המצווה</span><input type="text" class="answer" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">שורש המצווה</span><input type="text" class="answer" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">דיני המצווה</span><input type="text" class="answer" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">למעשה</span><input type="text" class="answer" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-1">הגדרת המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-1" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-2">שורש המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-2" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-3">דיני המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-3" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-4">למעשה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-4" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
         </div>
       </div>
     </section>
@@ -72,8 +73,8 @@
       <div class="card-body">
         <div class="pasuk-block">"וְאָהַבְתָּ לְרֵעֲךָ כָּמוֹךָ" (ויקרא יט, יח)</div><div class="pasuk-block">לאהוב כל אחד מישראל אהבת נפש, כלומר שנחמול על ישראל ועל ממונו כמו שאדם חומל על עצמו וממונו, שנאמר (ויקרא יט, יח) "ואהבת לרעך כמוך". ואמרו זכרונם לברכה (שבת לא, א): דעלך סני לחברך לא תעביד - את מה ששנוא עליך, לחברך לא תעשה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">1</span><span class="q-text">נסח במילים שלך את המצווה: מהי הדרישה מהאדם כלפי כל אחד מישראל, ומהו הפסוק המהווה מקור למצווה?</span></div>
-          <textarea class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-5">נסח במילים שלך את המצווה: מהי הדרישה מהאדם כלפי כל אחד מישראל, ומהו הפסוק המהווה מקור למצווה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -85,8 +86,8 @@
       <div class="card-body">
         <div class="pasuk-block">"וְאָהַבְתָּ לְרֵעֲךָ כָּמוֹךָ" (ויקרא יט, יח)</div><div class="pasuk-block">לאהוב כל אחד מישראל אהבת נפש, כלומר שנחמול על ישראל ועל ממונו כמו שאדם חומל על עצמו וממונו, שנאמר (ויקרא יט, יח) "ואהבת לרעך כמוך". ואמרו זכרונם לברכה (שבת לא, א): דעלך סני לחברך לא תעביד - את מה ששנוא עליך, לחברך לא תעשה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">2</span><span class="q-text">מהו הכלל "דעלך סני לחברך לא תעביד", וכיצד הוא מסביר באופן מעשי את מצוות אהבת ישראל?</span></div>
-          <textarea class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-6">מהו הכלל "דעלך סני לחברך לא תעביד", וכיצד הוא מסביר באופן מעשי את מצוות אהבת ישראל?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -98,8 +99,8 @@
       <div class="card-body">
         <div class="pasuk-block">ואמרו בספרא (קדושים ד, יב): "אמר רבי עקיבא, זה כלל גדול בתורה", כלומר, שהרבה מצוות שבתורה תלויות בכך, שהאוהב חברו כנפשו לא יגנוב ממונו, ולא ינאף את אשתו, ולא יונהו בממון ולא בדברים, ולא יסיג גבולו, ולא יזיק לו בשום צד. וכן כמה מצוות אחרות תלויות בזה. ידוע הדבר לכל בן דעת.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">3</span><span class="q-text">מדוע אמר רבי עקיבא שאהבת ישראל היא "כלל גדול בתורה"? ציין לפחות שלוש מצוות אחרות שתלויות, לפי הקטע, באהבת הרֵע.</span></div>
-          <textarea class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-7">מדוע אמר רבי עקיבא שאהבת ישראל היא "כלל גדול בתורה"? ציין לפחות שלוש מצוות אחרות שתלויות, לפי הקטע, באהבת הרֵע.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -111,8 +112,8 @@
       <div class="card-body">
         <div class="pasuk-block">שורש המצוה ידוע: כי כמו שיעשה הוא בחברו, כן יעשה חברו בו, ובזה היה שלום בין הבריות.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">4</span><span class="q-text">מהו שורש המצווה, וכיצד הוא מסביר את הקשר שבין התנהגות האדם כלפי הזולת ובין קיום השלום בין הבריות?</span></div>
-          <textarea class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-8">מהו שורש המצווה, וכיצד הוא מסביר את הקשר שבין התנהגות האדם כלפי הזולת ובין קיום השלום בין הבריות?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -124,8 +125,8 @@
       <div class="card-body">
         <div class="pasuk-block">ודיני מצוה זו כלולים הם בתוך המצוה, שכלל הכל הוא שיתנהג האדם עם חברו כמו שיתנהג האדם עצמו - לשמור ממונו ולהרחיק ממנו כל נזק. ואם יספר עליו דברים, יספרם לשבח ויחוס על כבודו ולא יתכבד בקלונו, וכמו שאמרו זכרונם לברכה: המתכבד בקלון חברו אין לו חלק לעולם הבא.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">5</span><span class="q-text">פרט שלוש דוגמאות מעשיות לקיום מצוות אהבת ישראל, כפי שהן עולות מהקטע.</span></div>
-          <textarea class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-9">פרט שלוש דוגמאות מעשיות לקיום מצוות אהבת ישראל, כפי שהן עולות מהקטע.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -137,8 +138,8 @@
       <div class="card-body">
         <div class="pasuk-block">ודיני מצוה זו כלולים הם בתוך המצוה, שכלל הכל הוא שיתנהג האדם עם חברו כמו שיתנהג האדם עצמו - לשמור ממונו ולהרחיק ממנו כל נזק. ואם יספר עליו דברים, יספרם לשבח ויחוס על כבודו ולא יתכבד בקלונו, וכמו שאמרו זכרונם לברכה: המתכבד בקלון חברו אין לו חלק לעולם הבא.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">6</span><span class="q-text">מיהו "המתכבד בקלון חברו", ומדוע לדעתך אמרו חז"ל שאין לו חלק לעולם הבא?</span></div>
-          <textarea class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-10">מיהו "המתכבד בקלון חברו", ומדוע לדעתך אמרו חז"ל שאין לו חלק לעולם הבא?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-10" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -150,8 +151,8 @@
       <div class="card-body">
         <div class="pasuk-block">ונוהגת מצוה זו בכל מקום ובכל זמן. והעובר עליה ולא נזהר בממון חברו לשומרו, וכל שכן אם הזיק אותו בממון או צערו בשום דבר לדעת, ביטל עשה זה - מלבד החיוב שבו לפי העניין שהזיקו, כמו שמפורש במקומו.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">7</span><span class="q-text">על מי ובאילו תנאים (מקום וזמן) חלה מצווה זו?</span></div>
-          <textarea class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-11">על מי ובאילו תנאים (מקום וזמן) חלה מצווה זו?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-11" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -163,8 +164,8 @@
       <div class="card-body">
         <div class="pasuk-block">ונוהגת מצוה זו בכל מקום ובכל זמן. והעובר עליה ולא נזהר בממון חברו לשומרו, וכל שכן אם הזיק אותו בממון או צערו בשום דבר לדעת, ביטל עשה זה - מלבד החיוב שבו לפי העניין שהזיקו, כמו שמפורש במקומו.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">8</span><span class="q-text">מה קורה, לפי הקטע, למי שמזיק לחברו בממון או מצער אותו בכוונה - מעבר לביטול מצוות העשה?</span></div>
-          <textarea class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-12">מה קורה, לפי הקטע, למי שמזיק לחברו בממון או מצער אותו בכוונה - מעבר לביטול מצוות העשה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-12" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -176,8 +177,8 @@
       <div class="card-body">
         <div class="pasuk-block">עלינו להשתדל שיתברר ויתאמת אצל האדם איכותו של ה"אני" שלו, כי בזה תימדד מעלת כל אדם לפי מדרגתו: האיש הגס והשפל - כל ה"אני" שלו מצומצם רק בחומרו ובגופו; למעלה ממנו - מי שמרגיש שה"אני" שלו מורכב מגוף ונפש; ולמעלה מזה - מי שמכניס ל"אני" שלו את בני ביתו ומשפחתו; והאיש ההולך על פי דרכי התורה - ה"אני" שלו כולל את כל עם ישראל, שבאמת כל איש ישראל הוא רק כאבר מגוף האומה הישראלית. והאיש השלם ראוי להשריש בנפשו ולהרגיש שכל העולמות כולם הוא ה"אני" שלו, והוא בעצמו רק כאבר קטן בתוך הבריאה כולה - ואז גם רגש אהבת עצמו עוזר לו לאהוב את כל עם ישראל, ואת כל הבריאה כולה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">9</span><span class="q-text">לפי הרב שמעון שקופ, מנה את שלבי מעלת ה"אני" של האדם, מהנמוך ביותר ועד הגבוה ביותר.</span></div>
-          <textarea class="answer" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-13">לפי הרב שמעון שקופ, מנה את שלבי מעלת ה"אני" של האדם, מהנמוך ביותר ועד הגבוה ביותר.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-13" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -189,8 +190,8 @@
       <div class="card-body">
         <div class="pasuk-block">עלינו להשתדל שיתברר ויתאמת אצל האדם איכותו של ה"אני" שלו, כי בזה תימדד מעלת כל אדם לפי מדרגתו: האיש הגס והשפל - כל ה"אני" שלו מצומצם רק בחומרו ובגופו; למעלה ממנו - מי שמרגיש שה"אני" שלו מורכב מגוף ונפש; ולמעלה מזה - מי שמכניס ל"אני" שלו את בני ביתו ומשפחתו; והאיש ההולך על פי דרכי התורה - ה"אני" שלו כולל את כל עם ישראל, שבאמת כל איש ישראל הוא רק כאבר מגוף האומה הישראלית. והאיש השלם ראוי להשריש בנפשו ולהרגיש שכל העולמות כולם הוא ה"אני" שלו, והוא בעצמו רק כאבר קטן בתוך הבריאה כולה - ואז גם רגש אהבת עצמו עוזר לו לאהוב את כל עם ישראל, ואת כל הבריאה כולה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">10</span><span class="q-text">כיצד, לפי הקטע, אהבת האדם את עצמו יכולה להוביל דווקא לאהבת כלל ישראל וכל הבריאה?</span></div>
-          <textarea class="answer" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">10</span><span class="q-text" id="a11y-lbl-14">כיצד, לפי הקטע, אהבת האדם את עצמו יכולה להוביל דווקא לאהבת כלל ישראל וכל הבריאה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-14" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -212,6 +213,7 @@ const STORAGE_KEY = 'mitzvot-ahavat-israel-answers';
 const NAME_KEY = 'mitzvot-ahavat-israel-student';
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
 const saveNote = document.getElementById('saveNote');
 const nameInput = document.getElementById('studentName');
@@ -248,7 +250,9 @@ function loadStudentInfo(){
 
 function updateProgress(){
   const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  progressFill.style.width = (filled / textareas.length * 100) + '%';
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
   progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
 }
 

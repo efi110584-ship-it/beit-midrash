@@ -40,12 +40,13 @@
   <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
   <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
 </div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
   <span class="progress-label" id="progressLabel">0 / 13 שאלות</span>
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
 </div>
-<div class="save-note" id="saveNote">✓ נשמר</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main>
   <div class="grid" id="grid">
@@ -57,10 +58,10 @@
       <div class="card-body">
         <div class="pasuk-block">ספר החינוך מחולק למצוות על-פי סדר הפרשות בתורה, ובנוי מתרי"ג מצוות. כל מצווה בספר בנויה ממבנה קבוע של ארבעה סעיפים. לפני שניגשים למצווה הנלמדת היום, השלימו במילה או שתיים מה נלמד בכל סעיף:</div>
         <div class="fill-table">
-          <div class="fill-row"><span class="fill-label">הגדרת המצווה</span><input type="text" class="answer" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">שורש המצווה</span><input type="text" class="answer" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">דיני המצווה</span><input type="text" class="answer" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">למעשה</span><input type="text" class="answer" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-1">הגדרת המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-1" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-2">שורש המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-2" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-3">דיני המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-3" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-4">למעשה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-4" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
         </div>
       </div>
     </section>
@@ -72,8 +73,8 @@
       <div class="card-body">
         <div class="pasuk-block">"זָכוֹר אֶת יוֹם הַשַּׁבָּת לְקַדְּשׁוֹ" (שמות כ, ח). מקור: לדבר דברים ביום שבת בכניסתו וכן ביציאתו, שיהיה בהם זכר גדולת היום. ובפירוש אמרו לנו חכמינו (פסחים קי.) שדברים אלו מצווים אנו לאמרן על היין: נותנים בכוס רביעית יין חי או מזוג. וכן ביציאת שבת מברכים על היין - ברכת "הבדלה".</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">1</span><span class="q-text">נסחו במילים שלכם את המצווה: מהי הפעולה הנדרשת, ובאילו שני זמנים ביום השבת היא מתקיימת?</span></div>
-          <textarea class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-5">נסחו במילים שלכם את המצווה: מהי הפעולה הנדרשת, ובאילו שני זמנים ביום השבת היא מתקיימת?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -85,8 +86,8 @@
       <div class="card-body">
         <div class="pasuk-block">"זָכוֹר אֶת יוֹם הַשַּׁבָּת לְקַדְּשׁוֹ" (שמות כ, ח). מקור: לדבר דברים ביום שבת בכניסתו וכן ביציאתו, שיהיה בהם זכר גדולת היום. ובפירוש אמרו לנו חכמינו (פסחים קי.) שדברים אלו מצווים אנו לאמרן על היין: נותנים בכוס רביעית יין חי או מזוג. וכן ביציאת שבת מברכים על היין - ברכת "הבדלה".</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">2</span><span class="q-text">באיזה אמצעי מקיימים את הזכירה, ומהם הכללים לגבי כמות היין וסוגו (חי או מזוג)?</span></div>
-          <textarea class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-6">באיזה אמצעי מקיימים את הזכירה, ומהם הכללים לגבי כמות היין וסוגו (חי או מזוג)?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -98,8 +99,8 @@
       <div class="card-body">
         <div class="pasuk-block">"לְפִי הִתְעוֹרְרוּת הָאָדָם וּמַעֲשֵֹהוּ, יִתְפָּעֵל אֶל הַדְּבָרִים לְעוֹלָם". משרשי מצוה זו: כדי שנתעורר מתוך מעשה זה לזכור גדולת היום ונקבע בלבבנו אמונת חידוש העולם. ועל כן נתחייבנו לעשות המעשה עם היין, לפי שטבע האדם מתעורר בו הרבה. ומזה השורש אמרו בגמרא (פסחים קו:) שאם הפת חביב על האדם יותר, שיקדש על הפת.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">3</span><span class="q-text">מהו הכלל שמנסח בעל ספר החינוך לגבי השפעת מעשיו של האדם על פנימיותו, ומדוע יין מתאים לקיים בו את הקידוש לפי כלל זה?</span></div>
-          <textarea class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-7">מהו הכלל שמנסח בעל ספר החינוך לגבי השפעת מעשיו של האדם על פנימיותו, ומדוע יין מתאים לקיים בו את הקידוש לפי כלל זה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -111,8 +112,8 @@
       <div class="card-body">
         <div class="pasuk-block">"לְפִי הִתְעוֹרְרוּת הָאָדָם וּמַעֲשֵֹהוּ, יִתְפָּעֵל אֶל הַדְּבָרִים לְעוֹלָם". משרשי מצוה זו: כדי שנתעורר מתוך מעשה זה לזכור גדולת היום ונקבע בלבבנו אמונת חידוש העולם. ועל כן נתחייבנו לעשות המעשה עם היין, לפי שטבע האדם מתעורר בו הרבה. ומזה השורש אמרו בגמרא (פסחים קו:) שאם הפת חביב על האדם יותר, שיקדש על הפת.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">4</span><span class="q-text">על פי הגמרא בפסחים, מי רשאי לקדש על הפת במקום על היין, ומדוע?</span></div>
-          <textarea class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-8">על פי הגמרא בפסחים, מי רשאי לקדש על הפת במקום על היין, ומדוע?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -124,8 +125,8 @@
       <div class="card-body">
         <div class="pasuk-block">ואף על פי שביציאת היום לא אמרו כן אלא שחייבו להבדיל ביין, על כל פנים גם בזה צדקו - כי רוב העולם יתאוו אל השתייה במוצאי שבת יותר מן האכילה, לפי שכבר קבעו סעודה גדולה ביום לכבוד השבת.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">5</span><span class="q-text">מדוע בהבדלה חייבו חכמים להבדיל דווקא על יין, ולא נתנו את האפשרות להבדיל על פת כמו בקידוש?</span></div>
-          <textarea class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-9">מדוע בהבדלה חייבו חכמים להבדיל דווקא על יין, ולא נתנו את האפשרות להבדיל על פת כמו בקידוש?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -137,8 +138,8 @@
       <div class="card-body">
         <div class="pasuk-block">ואין צורך לתת טעם על חיובם אותנו שיהיה בכוס רביעית, דפחות מזה השיעור אינו ראוי ולא תעורר לב אדם עליו. ואשר חייבונו בהדחת הכוס, ושלא לטעום כלום עד שיקדש, ושיקדש במקום סעודה — כל זה ענפי שורש התעוררות שאמרתי.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">6</span><span class="q-text">בחרו שתיים מההלכות המוזכרות בקטע (שיעור הכוס, הדחת הכוס, איסור טעימה לפני הקידוש, קידוש במקום הסעודה) והסבירו כיצד הן מבטאות את הרעיון "לפי התעוררות האדם ומעשהו יתפעל אל הדברים".</span></div>
-          <textarea class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-10">בחרו שתיים מההלכות המוזכרות בקטע (שיעור הכוס, הדחת הכוס, איסור טעימה לפני הקידוש, קידוש במקום הסעודה) והסבירו כיצד הן מבטאות את הרעיון "לפי התעוררות האדם ומעשהו יתפעל אל הדברים".</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-10" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -150,8 +151,8 @@
       <div class="card-body">
         <div class="pasuk-block">דיני המצוה כגון נוסח הקידוש וההבדלה איזהו, ואיזה יין ראוי לקדש עליו ואיזה אינו ראוי, ואם מקדשין או מבדילין בשכר, והאוכל בערב שבת וקדש עליו שבת. וכן דיני הברכה שאנו חייבין לברך על הנר במוצאי שבת, ודיני הברכה שאנו חייבים לברך על הבשמים.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">7</span><span class="q-text">ציינו שלושה נושאים הלכתיים הקשורים לקידוש ולהבדלה הנזכרים בקטע.</span></div>
-          <textarea class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-11">ציינו שלושה נושאים הלכתיים הקשורים לקידוש ולהבדלה הנזכרים בקטע.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-11" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -163,8 +164,8 @@
       <div class="card-body">
         <div class="pasuk-block">ונוהגת בכל מקום ובכל זמן בזכרים ונקבות, ואף על פי שהיא מן המצוות שהזמן גרמא, שכן למדנו רבותינו זכרונם לברכה שהנשים חייבות בקידוש ובהבדלה. והעובר עליה ולא קידש השבת בדברים, ביטל מצות עשה. ואם קידשו בדברים בלא יין או בלא פת, דיעבד יצא ידי תורה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">8</span><span class="q-text">על מי חלה מצוות הקידוש וההבדלה, ומהו החידוש בקטע לגבי חיוב הנשים במצווה זו?</span></div>
-          <textarea class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-12">על מי חלה מצוות הקידוש וההבדלה, ומהו החידוש בקטע לגבי חיוב הנשים במצווה זו?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-12" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -176,8 +177,8 @@
       <div class="card-body">
         <div class="pasuk-block">ונוהגת בכל מקום ובכל זמן בזכרים ונקבות, ואף על פי שהיא מן המצוות שהזמן גרמא, שכן למדנו רבותינו זכרונם לברכה שהנשים חייבות בקידוש ובהבדלה. והעובר עליה ולא קידש השבת בדברים, ביטל מצות עשה. ואם קידשו בדברים בלא יין או בלא פת, דיעבד יצא ידי תורה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">9</span><span class="q-text">מה הדין למי שקידש רק בדברים, בלא יין ובלא פת? ומה הדין למי שלא קידש כלל?</span></div>
-          <textarea class="answer" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-13">מה הדין למי שקידש רק בדברים, בלא יין ובלא פת? ומה הדין למי שלא קידש כלל?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-13" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -199,6 +200,7 @@ const STORAGE_KEY = 'mitzvot-kidush-shabbat-answers';
 const NAME_KEY = 'mitzvot-kidush-shabbat-student';
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
 const saveNote = document.getElementById('saveNote');
 const nameInput = document.getElementById('studentName');
@@ -235,7 +237,9 @@ function loadStudentInfo(){
 
 function updateProgress(){
   const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  progressFill.style.width = (filled / textareas.length * 100) + '%';
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
   progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
 }
 

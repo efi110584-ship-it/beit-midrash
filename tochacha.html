@@ -40,12 +40,13 @@
   <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
   <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
 </div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
   <span class="progress-label" id="progressLabel">0 / 14 שאלות</span>
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
 </div>
-<div class="save-note" id="saveNote">✓ נשמר</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main>
   <div class="grid" id="grid">
@@ -57,10 +58,10 @@
       <div class="card-body">
         <div class="pasuk-block">ספר החינוך מחולק למצוות על-פי סדר הפרשות בתורה, ובנוי מתרי"ג מצוות. כל מצווה בספר בנויה ממבנה קבוע של ארבעה סעיפים. לפני שניגשים למצווה הנלמדת היום, השלימו במילה או שתיים מה נלמד בכל סעיף:</div>
         <div class="fill-table">
-          <div class="fill-row"><span class="fill-label">הגדרת המצווה</span><input type="text" class="answer" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">שורש המצווה</span><input type="text" class="answer" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">דיני המצווה</span><input type="text" class="answer" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">למעשה</span><input type="text" class="answer" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-1">הגדרת המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-1" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-2">שורש המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-2" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-3">דיני המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-3" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-4">למעשה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-4" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
         </div>
       </div>
     </section>
@@ -72,8 +73,8 @@
       <div class="card-body">
         <div class="pasuk-block">להוכיח אחד מישראל שאינו מתנהג כשורה — בין אדם לחברו, בין אדם למקום.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">1</span><span class="q-text">מהי הגדרת מצוות תוכחה, ובאילו שני תחומים היא חלה?</span></div>
-          <textarea class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-5">מהי הגדרת מצוות תוכחה, ובאילו שני תחומים היא חלה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -85,8 +86,8 @@
       <div class="card-body">
         <div class="pasuk-block">שנאמר: "הוכח תוכיח את עמיתך ולא תשא עליו חטא" (ויקרא יט, יז). יש להיזהר שלא להוכיח בצורה שמביישת את החוטא. גם אם הוכחנו כבר מישהו, אם הוא ממשיך לחטוא — יש להוכיחו שוב ושוב.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">2</span><span class="q-text">מהו הפסוק ממנו לומדים את מצוות התוכחה, וכיצד יש לנהוג בפעמים הראשונות?</span></div>
-          <textarea class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-6">מהו הפסוק ממנו לומדים את מצוות התוכחה, וכיצד יש לנהוג בפעמים הראשונות?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -98,8 +99,8 @@
       <div class="card-body">
         <div class="pasuk-block">שנאמר: "הוכח תוכיח את עמיתך ולא תשא עליו חטא" (ויקרא יט, יז). יש להיזהר שלא להוכיח בצורה שמביישת את החוטא. גם אם הוכחנו כבר מישהו, אם הוא ממשיך לחטוא — יש להוכיחו שוב ושוב.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">3</span><span class="q-text">מה הדין אם התוכחה בסתר ובעדינות לא הועילה?</span></div>
-          <textarea class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-7">מה הדין אם התוכחה בסתר ובעדינות לא הועילה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -111,8 +112,8 @@
       <div class="card-body">
         <div class="pasuk-block">שורש המצווה: לפי שיש בזה שלום וטובה בין אנשים, כי כשיחטא איש לאיש ויוכיחנו במסתרים — יתנצל לפניו ויקבל התנצלותו וישלם עמו. ואם לא יוכיחנו — ישטמנו (ישנאנו) בלבו ויזיק אליו, לפי שעה או לזמן מן הזמנים.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">4</span><span class="q-text">מהו שורש מצוות תוכחה — כיצד היא מביאה לשלום בין אנשים, ומה קורה כשלא מוכיחים?</span></div>
-          <textarea class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-8">מהו שורש מצוות תוכחה — כיצד היא מביאה לשלום בין אנשים, ומה קורה כשלא מוכיחים?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -124,8 +125,8 @@
       <div class="card-body">
         <div class="pasuk-block">כמו שנאמר ברשעים (שמואל ב יג, כב): "ולא דבר אבשלום עם אמנון...".</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">5</span><span class="q-text">איזו דוגמה מביא ספר החינוך לרשעים שלא נהגו במצוות תוכחה? כיצד היא ממחישה את שורש המצווה (סעיף הקודם)?</span></div>
-          <textarea class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-9">איזו דוגמה מביא ספר החינוך לרשעים שלא נהגו במצוות תוכחה? כיצד היא ממחישה את שורש המצווה (סעיף הקודם)?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -137,8 +138,8 @@
       <div class="card-body">
         <div class="pasuk-block">שחיוב מצוה זו "עד הכאה" — כלומר, שחייב המוכיח להרבות תוכחותיו אל החוטא, עד כדי שיהיה קרוב החוטא להכות את המוכיח.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">6</span><span class="q-text">עד היכן מגיע חיוב מצוות תוכחה, לפי הביטוי "עד הכאה"?</span></div>
-          <textarea class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-10">עד היכן מגיע חיוב מצוות תוכחה, לפי הביטוי "עד הכאה"?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-10" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -151,8 +152,8 @@
         <div class="pasuk-block">שחיוב מצוה זו "עד הכאה" — כלומר, שחייב המוכיח להרבות תוכחותיו אל החוטא, עד כדי שיהיה קרוב החוטא להכות את המוכיח.</div>
         <div class="pasuk-block">אין מצווה להוכיח אדם רשע ביותר שברור לגמרי שלא ישמע לדברי התוכחה ולא תצא מכך תועלת. אין מצווה להוכיח אדם שיש חשש שבתגובה לתוכחה הוא עלול להרוג את מי שמוכיח אותו.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">7</span><span class="q-text">מהם שני המקרים שבהם אין מצווה להוכיח אדם?</span></div>
-          <textarea class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-11">מהם שני המקרים שבהם אין מצווה להוכיח אדם?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-11" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -164,8 +165,8 @@
       <div class="card-body">
         <div class="pasuk-block">"כשם שמצוה לומר דבר הנשמע, כך מצוה לשתוק במקום שאין הדבר נשמע." מטרת התוכחה - להועיל לחוטא ולשנות דרכו. חשוב שאדם לא ימנע מלהוכיח בגלל כל חשש קטן - אם הוא חושב שיכולה להיות תועלת מהתוכחה, עליו לקיים את המצווה ולבטוח בה' שישמור עליו, ואם אכן יצליח בתוכחתו - שכרו גדול מאוד.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">8</span><span class="q-text">מהי מטרת התוכחה, וכיצד יש לנהוג כאשר חוששים מקיומה?</span></div>
-          <textarea class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-12">מהי מטרת התוכחה, וכיצד יש לנהוג כאשר חוששים מקיומה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-12" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -177,8 +178,8 @@
       <div class="card-body">
         <div class="pasuk-block">ונוהגת מצוה זו בכל זמן ובכל מקום, בזכרים ובנקבות. ומי שנמנע מלהוכיח ביטל עשה — ולדברי ספר החינוך הוא שייך ל"כת הרשעים".</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">9</span><span class="q-text">על מי ובאילו תנאים (מקום וזמן) חלה מצוות תוכחה?</span></div>
-          <textarea class="answer" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-13">על מי ובאילו תנאים (מקום וזמן) חלה מצוות תוכחה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-13" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -190,8 +191,8 @@
       <div class="card-body">
         <div class="pasuk-block">ונוהגת מצוה זו בכל זמן ובכל מקום, בזכרים ובנקבות. ומי שנמנע מלהוכיח ביטל עשה — ולדברי ספר החינוך הוא שייך ל"כת הרשעים".</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">10</span><span class="q-text">מה אומר ספר החינוך על מי שנמנע מלהוכיח את חברו, אף שהיה יכול?</span></div>
-          <textarea class="answer" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">10</span><span class="q-text" id="a11y-lbl-14">מה אומר ספר החינוך על מי שנמנע מלהוכיח את חברו, אף שהיה יכול?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-14" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -213,6 +214,7 @@ const STORAGE_KEY = 'mitzvot-tochacha-answers';
 const NAME_KEY = 'mitzvot-tochacha-student';
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
 const saveNote = document.getElementById('saveNote');
 const nameInput = document.getElementById('studentName');
@@ -249,7 +251,9 @@ function loadStudentInfo(){
 
 function updateProgress(){
   const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  progressFill.style.width = (filled / textareas.length * 100) + '%';
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
   progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
 }
 

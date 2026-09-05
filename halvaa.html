@@ -40,12 +40,13 @@
   <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
   <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
 </div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
   <span class="progress-label" id="progressLabel">0 / 11 שאלות</span>
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
 </div>
-<div class="save-note" id="saveNote">✓ נשמר</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main>
   <div class="grid" id="grid">
@@ -57,10 +58,10 @@
       <div class="card-body">
         <div class="pasuk-block">ספר החינוך מחולק למצוות על-פי סדר הפרשות בתורה, ובנוי מתרי"ג מצוות. כל מצווה בספר בנויה ממבנה קבוע של ארבעה סעיפים. לפני שניגשים למצווה הנלמדת היום, השלימו במילה או שתיים מה נלמד בכל סעיף:</div>
         <div class="fill-table">
-          <div class="fill-row"><span class="fill-label">הגדרת המצווה</span><input type="text" class="answer" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">שורש המצווה</span><input type="text" class="answer" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">דיני המצווה</span><input type="text" class="answer" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">למעשה</span><input type="text" class="answer" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-1">הגדרת המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-1" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-2">שורש המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-2" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-3">דיני המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-3" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-4">למעשה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-4" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
         </div>
       </div>
     </section>
@@ -72,8 +73,8 @@
       <div class="card-body">
         <div class="pasuk-block">"להלוות לעני, כהשגת היד, כפי מה שצריך לו, למען הרחיב לו ולהקל מעליו אנחתו."</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">1</span><span class="q-text">מהי הגדרת המצווה לפי ספר החינוך? הסבירו את שני הביטויים "כהשגת היד" ו"כפי מה שצריך לו".</span></div>
-          <textarea class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-5">מהי הגדרת המצווה לפי ספר החינוך? הסבירו את שני הביטויים "כהשגת היד" ו"כפי מה שצריך לו".</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -85,8 +86,8 @@
       <div class="card-body">
         <div class="pasuk-block">"וזאת המצוה של הלוואה היא יותר חזקה ומחוייבת ממצות נתינת הצדקה... ואם יהיה לו מעט סעד של הלוואה... אולי לא יצטרך לבא לשאלה לעולם."</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">2</span><span class="q-text">מדוע מצוות ההלוואה לעני גדולה וחשובה יותר ממצוות נתינת צדקה? ציינו לפחות שתי סיבות.</span></div>
-          <textarea class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-6">מדוע מצוות ההלוואה לעני גדולה וחשובה יותר ממצוות נתינת צדקה? ציינו לפחות שתי סיבות.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -98,8 +99,8 @@
       <div class="card-body">
         <div class="pasuk-block">"אם כסף תלוה את עמי" (שמות כב) — "כל אם ואם שבתורה רשות, חוץ משלשה שהם חובה" (מכילתא).</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">3</span><span class="q-text">מדוע ניתן היה לחשוב שמצוות ההלוואה היא רשות (התנהגות רצויה אך לא חובה), ומניין לומדים שבכל זאת מדובר בחובה גמורה?</span></div>
-          <textarea class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-7">מדוע ניתן היה לחשוב שמצוות ההלוואה היא רשות (התנהגות רצויה אך לא חובה), ומניין לומדים שבכל זאת מדובר בחובה גמורה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -111,8 +112,8 @@
       <div class="card-body">
         <div class="pasuk-block">"שרצה הקב''ה להיות ברואיו מורגלים במידת החסד והרחמים, כי היא מידה משובחת. ומתוך הכשר גופם במידות הטובות, יהיו ראויים לקבלת הטובה."</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">4</span><span class="q-text">מהי הסיבה (הטעם) שנותן ספר החינוך לקיום מצוות ההלוואה (וכן מצוות צדקה בכלל)?</span></div>
-          <textarea class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-8">מהי הסיבה (הטעם) שנותן ספר החינוך לקיום מצוות ההלוואה (וכן מצוות צדקה בכלל)?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -124,8 +125,8 @@
       <div class="card-body">
         <div class="pasuk-block">"אם טובת העני היתה לנגד עיניו של הקב''ה, היה נותן לו כל צרכו מבלי שיזדקק לבריות. אלא שרצה הקב''ה לזכות אותנו, שנהיה שלוחים לדבר מצווה."</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">5</span><span class="q-text">אם ה' אוהב עניים ודואג להם, מדוע אינו מפרנס אותם בעצמו באופן ישיר, אלא נותן לבני אדם לעשות זאת? כתבו את הסיבה הנוגעת לנותן ההלוואה.</span></div>
-          <textarea class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-9">אם ה' אוהב עניים ודואג להם, מדוע אינו מפרנס אותם בעצמו באופן ישיר, אלא נותן לבני אדם לעשות זאת? כתבו את הסיבה הנוגעת לנותן ההלוואה.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -137,8 +138,8 @@
       <div class="card-body">
         <div class="pasuk-block">לצד הטעם שנוגע לנותן הצדקה או ההלוואה, מסביר ספר החינוך גם טעם נוסף, הנוגע דווקא לעני המקבל: בגלל גודל חטאו, "בקבלת הבושת מאשר כגילו", ובצמצום מזונו.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">6</span><span class="q-text">מהי הסיבה השנייה לכך שה' אינו מפרנס את העני בעצמו, הפעם מנקודת המבט של העני עצמו? (מהם ה"עונשים" שהוא חש?)</span></div>
-          <textarea class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-10">מהי הסיבה השנייה לכך שה' אינו מפרנס את העני בעצמו, הפעם מנקודת המבט של העני עצמו? (מהם ה"עונשים" שהוא חש?)</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-10" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -150,8 +151,8 @@
       <div class="card-body">
         <div class="pasuk-block">"...כגון איזה עני קודם במצוה זו, והאזהרות הרבה שהזהירונו זכרונם לברכה עליה, שאמרו: שהאדם מרוחק ונמאס ונתעב ונאלח ומשוקץ... אם יש לו ומושך ידו ממצוה זו, וכמה נחמד ונאהב ומרוחם ומתברך בכמה ברכות המחזיק בה."</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">7</span><span class="q-text">מה אמרו חכמים על מי שיש ביכולתו להלוות ואינו עושה כן, לעומת מי שכן מקיים את המצווה?</span></div>
-          <textarea class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-11">מה אמרו חכמים על מי שיש ביכולתו להלוות ואינו עושה כן, לעומת מי שכן מקיים את המצווה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-11" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -173,6 +174,7 @@ const STORAGE_KEY = 'mitzvot-halvaa-answers';
 const NAME_KEY = 'mitzvot-halvaa-student';
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
 const saveNote = document.getElementById('saveNote');
 const nameInput = document.getElementById('studentName');
@@ -209,7 +211,9 @@ function loadStudentInfo(){
 
 function updateProgress(){
   const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  progressFill.style.width = (filled / textareas.length * 100) + '%';
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
   progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
 }
 

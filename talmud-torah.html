@@ -40,12 +40,13 @@
   <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
   <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
 </div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
   <span class="progress-label" id="progressLabel">0 / 18 שאלות</span>
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
 </div>
-<div class="save-note" id="saveNote">✓ נשמר</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main>
   <div class="grid" id="grid">
@@ -57,10 +58,10 @@
       <div class="card-body">
         <div class="pasuk-block">ספר החינוך מחולק למצוות על-פי סדר הפרשות בתורה, ובנוי מתרי"ג מצוות. כל מצווה בספר בנויה ממבנה קבוע של ארבעה סעיפים. לפני שניגשים למצווה הנלמדת היום, השלימו במילה או שתיים מה נלמד בכל סעיף:</div>
         <div class="fill-table">
-          <div class="fill-row"><span class="fill-label">הגדרת המצווה</span><input type="text" class="answer" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">שורש המצווה</span><input type="text" class="answer" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">דיני המצווה</span><input type="text" class="answer" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">למעשה</span><input type="text" class="answer" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-1">הגדרת המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-1" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-2">שורש המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-2" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-3">דיני המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-3" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-4">למעשה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-4" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
         </div>
       </div>
     </section>
@@ -72,8 +73,8 @@
       <div class="card-body">
         <div class="pasuk-block">מצות עשה ללמוד חכמת התורה וללמדה, כלומר כיצד נעשה המצוות, ונשמר ממה שמנענו האל ממנו, ולדעת גם כן משפטי התורה על כיוון האמת.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">1</span><span class="q-text">מהי המצווה, ומהן שתי המטרות שלשמן יש ללמוד תורה על פי ההגדרה?</span></div>
-          <textarea class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-5">מהי המצווה, ומהן שתי המטרות שלשמן יש ללמוד תורה על פי ההגדרה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -85,8 +86,8 @@
       <div class="card-body">
         <div class="pasuk-block">ועל כל זה נאמר "ושננתם לבניך" (דברים ו, ז), ואמרו רבותינו זכרונם לברכה: בניך — אלו תלמידיך, וכן אתה מוצא שהתלמידים קרויים בנים, שנאמר "ויצאו בני הנביאים" (מלכים ב ב, ג). ושם נאמר "ושננתם" — שיהיו מסודרים בתוך פיך, כשאדם שואלך דבר אל תהא מגמגם לו, אלא תהא אומר לו מיד.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">2</span><span class="q-text">מדוע התלמידים נקראים "בנים", ומה המשמעות ההלכתית של המילה "ושננתם"?</span></div>
-          <textarea class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-6">מדוע התלמידים נקראים "בנים", ומה המשמעות ההלכתית של המילה "ושננתם"?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -98,8 +99,8 @@
       <div class="card-body">
         <div class="pasuk-block">שרש מצוה זו ידוע: כי בלימוד ידע האדם דרכי השם יתברך, וזולתו לא ידע ולא יבין, ונחשב כבהמה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">3</span><span class="q-text">מהו שורש המצווה, ומה קורה, לפי הקטע, למי שאינו לומד?</span></div>
-          <textarea class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-7">מהו שורש המצווה, ומה קורה, לפי הקטע, למי שאינו לומד?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -111,8 +112,8 @@
       <div class="card-body">
         <div class="pasuk-block">מדיני המצוה: מה שאמרו זכרונם לברכה (סוכה מב.): מאימתי מתחיל האב ללמד את בנו תורה? משיתחיל לדבר — מלמדו "תורה צוה לנו משה" (דברים לג, ד) ופסוק ראשון מקריאת שמע, שהוא "שמע ישראל", ואחר כך מלמדו מעט מעט מפסוקי התורה עד שיהא בן שש או בן שבע, שמוליכו אצל מלמדי תינוקות.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">4</span><span class="q-text">מאימתי מתחיל האב ללמד את בנו תורה, ומה סדר הלימוד עד גיל שש-שבע?</span></div>
-          <textarea class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-8">מאימתי מתחיל האב ללמד את בנו תורה, ומה סדר הלימוד עד גיל שש-שבע?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -124,8 +125,8 @@
       <div class="card-body">
         <div class="pasuk-block">וראוי לכל בן דעת, שיתן לבו שלא להכביד על הילד בלימוד בעודנו רך האברים ורך הלבב, עד שיגדל ויתחזק כח לבו ותקף אבריו... ואולם, אחר התחזק כוחו ויאורו עיניו להבין לקול מוריו, אז ראוי וכשר הדבר ומחייב להביא צווארו בעולה של תורה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">5</span><span class="q-text">מדוע אין להכביד על ילד קטן בלימוד, ומה משתנה כאשר הוא מתחזק ומתבגר?</span></div>
-          <textarea class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-9">מדוע אין להכביד על ילד קטן בלימוד, ומה משתנה כאשר הוא מתחזק ומתבגר?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -137,8 +138,8 @@
       <div class="card-body">
         <div class="pasuk-block">וכן מענין המצוה, מה שאמרו זכרונם לברכה (קידושין ל.): עד היכן חייב אדם ללמד את בנו תורה? אמר רב יהודה אמר שמואל: כגון זבולון בן דן — אדם שהיה בדורם ששמו כן, שלמדו אבי אביו מקרא, משנה, תלמוד, הלכות, ואגדות.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">6</span><span class="q-text">עד היכן חייב אדם ללמד את בנו תורה על פי חובת המצווה הבסיסית, ובמה נבדל ממנו זבולון בן דן?</span></div>
-          <textarea class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-10">עד היכן חייב אדם ללמד את בנו תורה על פי חובת המצווה הבסיסית, ובמה נבדל ממנו זבולון בן דן?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-10" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -150,8 +151,8 @@
       <div class="card-body">
         <div class="pasuk-block">ומי שלא למדו אותו אבותיו שהם חייבין בזה, כגון אביו ואבי אביו, חייב ללמד עצמו כשיהיה גדול ויכיר בדבר. ואם היו האב והבן צריכין ללמוד, ואין בידו של אב שיוכלו שניהם ללמוד תמיד — הוא קודם לבנו; ואם בנו נבון ממנו ותלמודו מתקיים בידו יותר ממנו — בנו קודמו.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">7</span><span class="q-text">מה דינו של מי שלא לימדוהו אבותיו? ובמה קודם אב לבנו בלימוד כאשר אין ביכולתם ללמוד שניהם יחד?</span></div>
-          <textarea class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-11">מה דינו של מי שלא לימדוהו אבותיו? ובמה קודם אב לבנו בלימוד כאשר אין ביכולתם ללמוד שניהם יחד?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-11" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -163,8 +164,8 @@
       <div class="card-body">
         <div class="pasuk-block">ועד אימתי חייב כל אדם ללמד תורה? עד יום מותו, שנאמר "ופן יסורו מלבבך כל ימי חייך" (דברים ד, ט). ועוד הפליגו חכמים בדבר, ואמרו (שבת פג:) שאפילו בשעת מיתה חייב אדם ללמד תורה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">8</span><span class="q-text">עד מתי חייב אדם ללמוד תורה, ומה החידוש בעניין זה לגבי שעת המיתה?</span></div>
-          <textarea class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-12">עד מתי חייב אדם ללמוד תורה, ומה החידוש בעניין זה לגבי שעת המיתה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-12" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -176,8 +177,8 @@
       <div class="card-body">
         <div class="pasuk-block">וכל אחד מישראל חייב בתלמוד תורה (יומא לה:), בין עני בין עשיר, בין בריא בין בעל ייסורין. וכבר אמרו זכרונם לברכה (עירובין נד.), שבעסק התורה יתרפאו כל האברים. ואפילו עני המחזר על הפתחים, ואפילו בעל אשה ובנים — הכל חייבים לקבע עתים לתורה ביום ובלילה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">9</span><span class="q-text">על מי חלה חובת תלמוד תורה, ומה אומרים חז"ל על הקשר בין עיסוק בתורה לרפואת הגוף?</span></div>
-          <textarea class="answer" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-13">על מי חלה חובת תלמוד תורה, ומה אומרים חז"ל על הקשר בין עיסוק בתורה לרפואת הגוף?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-13" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -189,8 +190,8 @@
       <div class="card-body">
         <div class="pasuk-block">ותחילת דינו של אדם אחר המוות, הוא על שנתבטל מן הלמוד, וכמו שדרשו זכרונם לברכה מדכתיב: "פוטר מים ראשית מדון" (משלי יז, יד) — מי שפוטר עצמו מן המים (התורה), ראשית קטטה הוא לנפשו אחר שימות.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">10</span><span class="q-text">על מה נשאל אדם תחילה בדינו שלאחר המוות, וכיצד מוסבר הדימוי בין תורה למים?</span></div>
-          <textarea class="answer" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">10</span><span class="q-text" id="a11y-lbl-14">על מה נשאל אדם תחילה בדינו שלאחר המוות, וכיצד מוסבר הדימוי בין תורה למים?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-14" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -202,8 +203,8 @@
       <div class="card-body">
         <div class="pasuk-block">וכן מה שאמרו זכרונם לברכה (קידושין ל.), שחייב אדם לחלק זמנו לשלשה חלקים: שליש בעסק תורה שבכתב, ושליש בעסק תורה שבעל פה — כלומר להיות בקי בגרסת המשניות והבריתות, ושליש להבין העניינים משורש.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">11</span><span class="q-text">לאילו שלושה חלקים יש לחלק את זמן הלימוד, לפי הקטע?</span></div>
-          <textarea class="answer" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">11</span><span class="q-text" id="a11y-lbl-15">לאילו שלושה חלקים יש לחלק את זמן הלימוד, לפי הקטע?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-15" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -215,8 +216,8 @@
       <div class="card-body">
         <div class="pasuk-block">וכן מה שאמרו (בבא בתרא כא:), שחייב הצבור שבכל מקום ומקום להושיב מלמדי תינוקות, ועיר שאין בה תינוקות של בית רבן תחרב, ועשרים וחמשה תינוקות מושיבין אצל מלמד אחד.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">12</span><span class="q-text">מה חייב הציבור לעשות בכל מקום, ומה הדין לגבי עיר שאין בה מלמדי תינוקות?</span></div>
-          <textarea class="answer" data-id="q12" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">12</span><span class="q-text" id="a11y-lbl-16">מה חייב הציבור לעשות בכל מקום, ומה הדין לגבי עיר שאין בה מלמדי תינוקות?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-16" data-id="q12" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -228,8 +229,8 @@
       <div class="card-body">
         <div class="pasuk-block">ומה שאמרו (אבות פ"ב מ"ד), שלא יאמר אדם: "לכשאפנה אשנה" שמא לא יפנה לעולם, כי לא ידע האדם מה ילד יום... וכל שעושה כן וחפץ בברכה, מן השמים מסייעין אותו ומקילין מעליו טרדות העולם המבהילות.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">13</span><span class="q-text">מדוע אין לומר "לכשאפנה אשנה" (כשיהיה לי פנאי אלמד), ומה קורה למי שדוחק עצמו ללמוד בכל זאת?</span></div>
-          <textarea class="answer" data-id="q13" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">13</span><span class="q-text" id="a11y-lbl-17">מדוע אין לומר "לכשאפנה אשנה" (כשיהיה לי פנאי אלמד), ומה קורה למי שדוחק עצמו ללמוד בכל זאת?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-17" data-id="q13" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -241,8 +242,8 @@
       <div class="card-body">
         <div class="pasuk-block">ונוהגת מצוה זו בכל מקום ובכל זמן, בזכרים אבל לא בנקבות, שנאמר "בניכם" (דברים יא, יט) - ולא בנותיכם.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">14</span><span class="q-text">על מי ובאילו תנאים (מקום וזמן) חלה מצוות תלמוד תורה במובנה זה?</span></div>
-          <textarea class="answer" data-id="q14" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">14</span><span class="q-text" id="a11y-lbl-18">על מי ובאילו תנאים (מקום וזמן) חלה מצוות תלמוד תורה במובנה זה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-18" data-id="q14" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -264,6 +265,7 @@ const STORAGE_KEY = 'mitzvot-talmud-torah-answers';
 const NAME_KEY = 'mitzvot-talmud-torah-student';
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
 const saveNote = document.getElementById('saveNote');
 const nameInput = document.getElementById('studentName');
@@ -300,7 +302,9 @@ function loadStudentInfo(){
 
 function updateProgress(){
   const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  progressFill.style.width = (filled / textareas.length * 100) + '%';
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
   progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
 }
 

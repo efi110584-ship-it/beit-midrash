@@ -29,12 +29,13 @@
   <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
   <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
 </div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
   <span class="progress-label" id="progressLabel">0 / 8 שאלות</span>
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
 </div>
-<div class="save-note" id="saveNote">✓ נשמר</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main>
   <div class="grid" id="grid">
@@ -57,8 +58,8 @@
         <div class="pasuk-block">"כִּי יִמָּכֵר לְךָ אָחִיךָ הָעִבְרִי אוֹ הָעִבְרִיָּה וַעֲבָדְךָ שֵׁשׁ שָׁנִים וּבַשָּׁנָה הַשְּׁבִיעִת תְּשַׁלְּחֶנּוּ חָפְשִׁי מֵעִמָּךְ. וְכִי תְשַׁלְּחֶנּוּ חָפְשִׁי מֵעִמָּךְ לֹא תְשַׁלְּחֶנּוּ רֵיקָם" (דברים טו, יב-יג)</div>
         <div class="meforesh-block"><span class="src">רש"י (פס' יב):</span>כי ימכר לך - על ידי אחרים, שמכרוהו בית דין בגנבתו הכתוב מדבר. והרי כבר נאמר (שמות כא, ב) "כי תקנה עבד עברי", ובמכרוהו בית דין הכתוב מדבר! אלא מפני שני דברים שנתחדשו כאן: אחד שכתוב "או העבריה" - אף האשה הנמכרת בגנבתה יוצאת בשש, מה שאין כן במכרה אביה; ולמדנו כאן ששש שנים יוצאת קודם סימנים. ועוד חידש כאן (פסוק יד) "הענק תעניק".</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">1</span><span class="q-text">מדוע דין עבד עברי, שכבר נאמר בספר שמות, חוזר ונשנה כאן בספר דברים?</span></div>
-          <textarea class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מדוע דין עבד עברי, שכבר נאמר בספר שמות, חוזר ונשנה כאן בספר דברים?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -71,8 +72,8 @@
         <div class="pasuk-block">"כִּי יִמָּכֵר לְךָ אָחִיךָ הָעִבְרִי אוֹ הָעִבְרִיָּה וַעֲבָדְךָ שֵׁשׁ שָׁנִים וּבַשָּׁנָה הַשְּׁבִיעִת תְּשַׁלְּחֶנּוּ חָפְשִׁי מֵעִמָּךְ. וְכִי תְשַׁלְּחֶנּוּ חָפְשִׁי מֵעִמָּךְ לֹא תְשַׁלְּחֶנּוּ רֵיקָם" (דברים טו, יב-יג)</div>
         <div class="meforesh-block"><span class="src">רש"י (פס' יב):</span>כי ימכר לך - על ידי אחרים, שמכרוהו בית דין בגנבתו הכתוב מדבר. והרי כבר נאמר (שמות כא, ב) "כי תקנה עבד עברי", ובמכרוהו בית דין הכתוב מדבר! אלא מפני שני דברים שנתחדשו כאן: אחד שכתוב "או העבריה" - אף האשה הנמכרת בגנבתה יוצאת בשש, מה שאין כן במכרה אביה; ולמדנו כאן ששש שנים יוצאת קודם סימנים. ועוד חידש כאן (פסוק יד) "הענק תעניק".</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">2</span><span class="q-text">מנה שני דברים שהתחדשו כאן ביחס למה שכבר נאמר בשמות: א. ____ ב. ____</span></div>
-          <textarea class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מנה שני דברים שהתחדשו כאן ביחס למה שכבר נאמר בשמות: א. ____ ב. ____</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -85,8 +86,8 @@
         <div class="pasuk-block">"הַעֲנֵיק תַּעֲנִיק לוֹ מִצֹּאנְךָ וּמִגָּרְנְךָ וּמִיִּקְבֶךָ אֲשֶׁר בֵּרַכְךָ ה' אֱלֹהֶיךָ תִּתֶּן לוֹ" (דברים טו, יד)</div>
         <div class="meforesh-block"><span class="src">רש"י (פס' יד):</span>מצאנך ומגרנך ומיקבך - יכול אין לי אלא אלו בלבד? תלמוד לומר: "אשר ברכך" - מכל מה שברכך; מכל שהוא בכלל ברכה אף כל שהוא בכלל ברכה, יצאו פרדות שאינו מדבר בכלל ברכה כלל.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">3</span><span class="q-text">ממה צריך להעניק לעבד המשתחרר, וכיצד לומדים זאת מהמילה "אשר ברכך"?</span></div>
-          <textarea class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">ממה צריך להעניק לעבד המשתחרר, וכיצד לומדים זאת מהמילה "אשר ברכך"?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -99,8 +100,8 @@
         <div class="pasuk-block">"וְזָכַרְתָּ כִּי עֶבֶד הָיִיתָ בְּאֶרֶץ מִצְרַיִם וַיִּפְדְּךָ ה' אֱלֹהֶיךָ עַל כֵּן אָנֹכִי מְצַוְּךָ אֶת הַדָּבָר הַזֶּה הַיּוֹם" (דברים טו, טו)</div>
         <div class="meforesh-block"><span class="src">רש"י (פס' טו):</span>וזכרת כי עבד היית - והענקתי ושניתי לך [בשנית] מביזת מצרים וביזת הים, אף אתה הענק ושנה לו.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">4</span><span class="q-text">כיצד קושר הפסוק בין זכירת יציאת מצרים לבין מצוות ההענקה לעבד המשתחרר?</span></div>
-          <textarea class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">כיצד קושר הפסוק בין זכירת יציאת מצרים לבין מצוות ההענקה לעבד המשתחרר?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -113,8 +114,8 @@
         <div class="pasuk-block">"וְלָקַחְתָּ אֶת הַמַּרְצֵעַ וְנָתַתָּה בְאָזְנוֹ וּבַדֶּלֶת וְהָיָה לְךָ עֶבֶד עוֹלָם וְאַף לַאֲמָתְךָ תַּעֲשֶׂה כֵּן" (דברים טו, יז)</div>
         <div class="meforesh-block"><span class="src">רש"י (פס' יז):</span>עבד עולם - יכול כמשמעו? תלמוד לומר (ויקרא כה, מא) "ויצא... ושב אל משפחתו" - הא למדת שאין "עולם" זה אלא עולמו של יובל.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">5</span><span class="q-text">עבד שבחר להישאר אצל אדונו ונרצע ("עבד עולם") - עד מתי בכל זאת הוא משתחרר?</span></div>
-          <textarea class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">עבד שבחר להישאר אצל אדונו ונרצע ("עבד עולם") - עד מתי בכל זאת הוא משתחרר?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -127,8 +128,8 @@
         <div class="meforesh-block"><span class="src">רקע:</span>אדם נמכר לעבד בגלל מעמדו הכלכלי. כדי לתת לעבד המשתחרר להתחיל ממקום טוב יותר, מצווה התורה את האדון להעניק לו מתנה בעת שחרורו.</div>
         <div class="meforesh-block"><span class="src">"החוק מול מציאותנו" - פרופ' עמוס פריש:</span>אף על פי שמדובר בעבדות שבטלה, החידוש שבחוק תקף גם בחיינו, וכאן ניתן לדבר על השפעה ממש. דין ההענקה הוא למעשה תשלום פיצויי פיטורין לעובד עם סיום עבודתו. הראשון שיישם דין זה על שכיר הוא, ככל הידוע, בעל ספר החינוך, שכתב: "ומכל מקום, אף בזמן הזה ישמש חכם ויוסיף לקח, שאם שכר אחד מבני ישראל ועבדו זמן מרובה או מעט, שיעניק לו בצאתו מעמו מאשר ברכו השם" (מצווה תפ"ב). עם זאת, הענקה זו לשכיר היא בגדר "חובה מוסרית", ולא חובה משפטית ממש. מונח נוסף, הקרוב יותר לחוק התורה (ולכן נקטנו אותו בכותרת תת-הפרק), הוא "מענק השחרור" - מענק שמקבל החייל בתום שירותו הצבאי, כדי לאפשר לו בסיס כלכלי לראשית צעדיו האזרחיים. נזכיר עוד שני יישומים שניתן למצוא בחוק במציאות ימינו: א. רעיון שיתוף העובד ברווחים, כפי שהסביר בעל ספר החינוך (כנזכר לעיל בביאור לפסוק יד); ב. תשלום גמלאות למי שמפסיק לעבוד בהגיעו לגיל מסוים.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">6</span><span class="q-text">מהו היסוד המוסרי שבמצוות הענקה?</span></div>
-          <textarea class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">מהו היסוד המוסרי שבמצוות הענקה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -140,8 +141,8 @@
       <div class="card-body">
         <div class="meforesh-block"><span class="src">"החוק מול מציאותנו" - פרופ' עמוס פריש:</span>אף על פי שמדובר בעבדות שבטלה, החידוש שבחוק תקף גם בחיינו, וכאן ניתן לדבר על השפעה ממש. דין ההענקה הוא למעשה תשלום פיצויי פיטורין לעובד עם סיום עבודתו. הראשון שיישם דין זה על שכיר הוא, ככל הידוע, בעל ספר החינוך, שכתב: "ומכל מקום, אף בזמן הזה ישמש חכם ויוסיף לקח, שאם שכר אחד מבני ישראל ועבדו זמן מרובה או מעט, שיעניק לו בצאתו מעמו מאשר ברכו השם" (מצווה תפ"ב). עם זאת, הענקה זו לשכיר היא בגדר "חובה מוסרית", ולא חובה משפטית ממש. מונח נוסף, הקרוב יותר לחוק התורה (ולכן נקטנו אותו בכותרת תת-הפרק), הוא "מענק השחרור" - מענק שמקבל החייל בתום שירותו הצבאי, כדי לאפשר לו בסיס כלכלי לראשית צעדיו האזרחיים. נזכיר עוד שני יישומים שניתן למצוא בחוק במציאות ימינו: א. רעיון שיתוף העובד ברווחים, כפי שהסביר בעל ספר החינוך (כנזכר לעיל בביאור לפסוק יד); ב. תשלום גמלאות למי שמפסיק לעבוד בהגיעו לגיל מסוים.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">7</span><span class="q-text">באילו דרכים מתבטאת מצוות הענקה בחוק הישראלי המודרני? ציין לפחות שתיים.</span></div>
-          <textarea class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">באילו דרכים מתבטאת מצוות הענקה בחוק הישראלי המודרני? ציין לפחות שתיים.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -154,8 +155,8 @@
         <div class="pasuk-block">"כִּי יִמָּכֵר לְךָ אָחִיךָ הָעִבְרִי אוֹ הָעִבְרִיָּה וַעֲבָדְךָ שֵׁשׁ שָׁנִים וּבַשָּׁנָה הַשְּׁבִיעִת תְּשַׁלְּחֶנּוּ חָפְשִׁי מֵעִמָּךְ. וְכִי תְשַׁלְּחֶנּוּ חָפְשִׁי מֵעִמָּךְ לֹא תְשַׁלְּחֶנּוּ רֵיקָם" (דברים טו, יב-יג)</div>
         <div class="meforesh-block"><span class="src">הרב דב ברקוביץ:</span>במציאות החברתית-כלכלית בעת העתיקה, אצל משפחות ללא בסיס כלכלי יציב, רווח נוהג של מכירת נערה צעירה לאָמָה, לשם השגת שני יעדים: הקלה במצבה הכלכלי של המשפחה, וביסוס מצבה של הבת בבית משפחה אמידה. במבט ראשון פרשה זו נראית כשוללת את יסוד גאולת האדם מן השעבוד... אך במקרה של בת שנמכרה לאמה, עיקר עיסוקה של התורה הוא באופן שחרורה: "לא תצא כצאת העבדים" (שמות כא, ז) - אסור להשאירה בשעבוד בת עד השנה השביעית כמו עבד זכר. האדון חייב לבחור באחד משני מסלולים: או שיהפוך את "קנייתה" למערכת יחסי אישות תקנית לכל דבר, או שישחררה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">8</span><span class="q-text">על מה מגינה התורה בדין אמה עבריה, ובאילו שתי דרכים חייב האדון לפתור את מצבה?</span></div>
-          <textarea class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">על מה מגינה התורה בדין אמה עבריה, ובאילו שתי דרכים חייב האדון לפתור את מצבה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -177,6 +178,7 @@ const STORAGE_KEY = 'ptp-hanaka-answers';
 const NAME_KEY = 'ptp-hanaka-student';
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
 const saveNote = document.getElementById('saveNote');
 const nameInput = document.getElementById('studentName');
@@ -213,7 +215,9 @@ function loadStudentInfo(){
 
 function updateProgress(){
   const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  progressFill.style.width = (filled / textareas.length * 100) + '%';
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
   progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
 }
 

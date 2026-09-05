@@ -29,12 +29,13 @@
   <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
   <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
 </div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
   <span class="progress-label" id="progressLabel">0 / 7 שאלות</span>
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
 </div>
-<div class="save-note" id="saveNote">✓ נשמר</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main>
   <div class="grid" id="grid">
@@ -60,8 +61,8 @@
         <div class="pasuk-block">"כִּי תַחְבֹּט זֵיתְךָ לֹא תְפַאֵר אַחֲרֶיךָ לַגֵּר לַיָּתוֹם וְלָאַלְמָנָה יִהְיֶה" (דברים כד, כ)</div>
         <div class="pasuk-block">"כִּי תִבְצֹר כַּרְמְךָ לֹא תְעוֹלֵל אַחֲרֶיךָ לַגֵּר לַיָּתוֹם וְלָאַלְמָנָה יִהְיֶה" (דברים כד, כא)</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">1</span><span class="q-text">אילו מצוות נזכרות כאן בפסוקים? מנו אותן.</span></div>
-          <textarea class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">אילו מצוות נזכרות כאן בפסוקים? מנו אותן.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -75,8 +76,8 @@
         <div class="pasuk-block">"כִּי תַחְבֹּט זֵיתְךָ לֹא תְפַאֵר אַחֲרֶיךָ לַגֵּר לַיָּתוֹם וְלָאַלְמָנָה יִהְיֶה" (דברים כד, כ)</div>
         <div class="pasuk-block">"כִּי תִבְצֹר כַּרְמְךָ לֹא תְעוֹלֵל אַחֲרֶיךָ לַגֵּר לַיָּתוֹם וְלָאַלְמָנָה יִהְיֶה" (דברים כד, כא)</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">2</span><span class="q-text">מדוע נסמכות מצוות אלה דווקא לפרשת הכניסה לארץ?</span></div>
-          <textarea class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מדוע נסמכות מצוות אלה דווקא לפרשת הכניסה לארץ?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -89,8 +90,8 @@
         <div class="pasuk-block">"כִּי תִקְצֹר קְצִירְךָ בְשָׂדֶךָ וְשָׁכַחְתָּ עֹמֶר בַּשָּׂדֶה לֹא תָשׁוּב לְקַחְתּוֹ לַגֵּר לַיָּתוֹם וְלָאַלְמָנָה יִהְיֶה לְמַעַן יְבָרֶכְךָ ה' אֱלֹהֶיךָ בְּכֹל מַעֲשֵׂה יָדֶיךָ" (דברים כד, יט)</div>
         <div class="meforesh-block"><span class="src">רש"י (פס' יט):</span>ושכחת עמר - ולא גדיש: בשדה - לרבות שכחת קמה: לא תשוב לקחתו - מכאן אמרו: שכחו עצמו, שלפניו אינו שכחה, שאינו בבל תשוב: למען יברכך - ואף על פי שלא שבת לידו שלא במתכוון, קל וחומר לעושה לעושה במתכוון. אמור מעתה: נפלה סלע מידו ומצאה עני ונתפרנס בה, הרי הוא מתברך עליה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">3</span><span class="q-text">מה מתחדש כאן ביחס למילים "עומר בשדה" (לעומת גדיש)? ומה מתחדש בביטוי "לא תשוב לקחתו"?</span></div>
-          <textarea class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מה מתחדש כאן ביחס למילים "עומר בשדה" (לעומת גדיש)? ומה מתחדש בביטוי "לא תשוב לקחתו"?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -103,8 +104,8 @@
         <div class="pasuk-block">"כִּי תִקְצֹר קְצִירְךָ בְשָׂדֶךָ וְשָׁכַחְתָּ עֹמֶר בַּשָּׂדֶה לֹא תָשׁוּב לְקַחְתּוֹ לַגֵּר לַיָּתוֹם וְלָאַלְמָנָה יִהְיֶה לְמַעַן יְבָרֶכְךָ ה' אֱלֹהֶיךָ בְּכֹל מַעֲשֵׂה יָדֶיךָ" (דברים כד, יט)</div>
         <div class="meforesh-block"><span class="src">רש"י (פס' יט):</span>ושכחת עמר - ולא גדיש: בשדה - לרבות שכחת קמה: לא תשוב לקחתו - מכאן אמרו: שכחו עצמו, שלפניו אינו שכחה, שאינו בבל תשוב: למען יברכך - ואף על פי שלא שבת לידו שלא במתכוון, קל וחומר לעושה לעושה במתכוון. אמור מעתה: נפלה סלע מידו ומצאה עני ונתפרנס בה, הרי הוא מתברך עליה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">4</span><span class="q-text">האם מצווה שנעשתה בלי כוונה (שִׁכחה בפועל) מזכה בברכה? הביאו את ההוכחה מדברי רש"י.</span></div>
-          <textarea class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">האם מצווה שנעשתה בלי כוונה (שִׁכחה בפועל) מזכה בברכה? הביאו את ההוכחה מדברי רש"י.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -117,8 +118,8 @@
         <div class="pasuk-block">"כִּי תַחְבֹּט זֵיתְךָ לֹא תְפַאֵר אַחֲרֶיךָ לַגֵּר לַיָּתוֹם וְלָאַלְמָנָה יִהְיֶה" (דברים כד, כ)</div>
         <div class="meforesh-block"><span class="src">רש"י (פס' כ'):</span>לא תפאר - לא תיטול תפארתו (יופיו) ממנו; מכאן שמניחים פאה לאילן: אחריך - זו שכחה:</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">5</span><span class="q-text">אילו מצוות נוהגות באילן על פי הפסוק, ומהי כל אחת מהן?</span></div>
-          <textarea class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">אילו מצוות נוהגות באילן על פי הפסוק, ומהי כל אחת מהן?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -131,8 +132,8 @@
         <div class="pasuk-block">"כִּי תִבְצֹר כַּרְמְךָ לֹא תְעוֹלֵל אַחֲרֶיךָ לַגֵּר לַיָּתוֹם וְלָאַלְמָנָה יִהְיֶה" (דברים כד, כא)</div>
         <div class="meforesh-block"><span class="src">רש"י (פס' כא):</span>לא תעולל - אם מצאת בו עוללות, לא תיקחנה [עוללות - אשכול שאין לו 'כתף' ו'נטף', כלומר אשכול קטן ולא מפותח]:</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">6</span><span class="q-text">מהי משמעות הציווי "לא תעולל", ולמי מיועדות אותן עוללות?</span></div>
-          <textarea class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">מהי משמעות הציווי "לא תעולל", ולמי מיועדות אותן עוללות?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -144,8 +145,8 @@
       <div class="card-body">
         <div class="meforesh-block"><span class="src">סיכום דיני מתנות העניים:</span>הנותן אינו בוחר את מי שיקבל, ואינו מוסר את המתנה בידיו - העני עצמו אוסף אותה מן השדה, הכרם או הזית. כך נשמרים עצמאותו וכבודו של העני, ומתוך כך נבנית גם אחריות חברתית רחבה יותר.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">7</span><span class="q-text">מה משותף לכל מצוות מתנות העניים שלמדנו, ואיזה קשר יש בין אופן הנתינה (איסוף עצמי) לבין כבודו ועצמאותו של העני?</span></div>
-          <textarea class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">מה משותף לכל מצוות מתנות העניים שלמדנו, ואיזה קשר יש בין אופן הנתינה (איסוף עצמי) לבין כבודו ועצמאותו של העני?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -167,6 +168,7 @@ const STORAGE_KEY = 'ptp-matnot-aniyim-answers';
 const NAME_KEY = 'ptp-matnot-aniyim-student';
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
 const saveNote = document.getElementById('saveNote');
 const nameInput = document.getElementById('studentName');
@@ -203,7 +205,9 @@ function loadStudentInfo(){
 
 function updateProgress(){
   const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  progressFill.style.width = (filled / textareas.length * 100) + '%';
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
   progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
 }
 

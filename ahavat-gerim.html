@@ -40,12 +40,13 @@
   <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
   <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
 </div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
   <span class="progress-label" id="progressLabel">0 / 12 שאלות</span>
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
 </div>
-<div class="save-note" id="saveNote">✓ נשמר</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main>
   <div class="grid" id="grid">
@@ -57,8 +58,8 @@
       <div class="card-body">
         <div class="pasuk-block">ספר החינוך מחולק למצוות על-פי סדר הפרשות בתורה, ובנוי מתרי"ג מצוות. כל מצווה בספר בנויה ממבנה קבוע של ארבעה סעיפים: הגדרת המצווה, שורש המצווה, דיני המצווה, ולמעשה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">1</span><span class="q-text">מהי המצווה הנלמדת היום בלקט זה, ומהו מספרה בספר החינוך?</span></div>
-          <textarea class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מהי המצווה הנלמדת היום בלקט זה, ומהו מספרה בספר החינוך?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -70,8 +71,8 @@
       <div class="card-body">
         <div class="pasuk-block">שנצטוינו לאהב הגרים, כלומר, שנזהר שלא לצער אותם בשום דבר, אבל נעשה להם טובה ונגמל אותם חסד כפי הראוי והיכלת.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">2</span><span class="q-text">באילו שני אופנים צריכה לבוא לידי ביטוי האהבה לגר? פרט מהו כל אחד מהם.</span></div>
-          <textarea class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">באילו שני אופנים צריכה לבוא לידי ביטוי האהבה לגר? פרט מהו כל אחד מהם.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -83,8 +84,8 @@
       <div class="card-body">
         <div class="pasuk-block">והגרים הם, כל מי שנתחבר אלינו משאר האמות שהניח דתו ונכנס בדתנו, ועליהם נאמר (דברים י, יט): "ואהבתם את הגר... כי גרים הייתם בארץ מצרים".</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">3</span><span class="q-text">מי הם הגרים שמצווה אותנו התורה לאהוב אותם?</span></div>
-          <textarea class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מי הם הגרים שמצווה אותנו התורה לאהוב אותם?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -96,8 +97,8 @@
       <div class="card-body">
         <div class="pasuk-block">ואף על פי שיכללהו כמו כן הצווי בישראל, שנאמר עליו "ואהבת לרעך כמוך" (מצוה רמ"ג)... הוסיף לנו השם בו מצוה מיוחדת לו באהבתו. וכמו כן הדבר במניעה מלרמותו, שאף על פי שהיה בכלל "ולא תונו איש את עמיתו" (מצוה של"ח), הוסיף לנו הכתוב בו מניעה מיוחדת לו, באמרו "וגר לא תונה" (מצוה כ"ג). ואמרו בגמרא (בבא מציעא נ"ט, ב) שהמאנה הגר עובר משום "לא תונו וגו'", ומשום "וגר לא תונה", וכמו כן מבטל מצות "ואהבת לרעך", ומצות "ואהבתם את הגר".</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">4</span><span class="q-text">אדם שמצער (מאנה) את הגר - על אילו איסורים הוא עובר, ואילו מצוות עשה הוא מבטל?</span></div>
-          <textarea class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">אדם שמצער (מאנה) את הגר - על אילו איסורים הוא עובר, ואילו מצוות עשה הוא מבטל?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -109,8 +110,8 @@
       <div class="card-body">
         <div class="pasuk-block">כי השם בחר בישראל להיות לו לעם קדוש ורצה לזכותם, ולכן הדריכם וצום על דרכי החנינה והחמלה, והזהירם להתעטר בכל מדה חמודה ויקרה למצא חן בעיני כל רואיהם, ויאמרו (יחזקאל לו, כ) "עם ה' אלה". ובהיותנו זוכים למדות טובות הללו תחול טובת האל עלינו ותדבק בנו, כי הטובה תתפשט בטובים, והפכה ברעים.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">5</span><span class="q-text">מהו שורש המצווה - מדוע ציווה אותנו ה' לנהוג באהבה וחמלה כלפי הגר?</span></div>
-          <textarea class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מהו שורש המצווה - מדוע ציווה אותנו ה' לנהוג באהבה וחמלה כלפי הגר?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -122,8 +123,8 @@
       <div class="card-body">
         <div class="pasuk-block">כי השם בחר בישראל להיות לו לעם קדוש ורצה לזכותם, ולכן הדריכם וצום על דרכי החנינה והחמלה, והזהירם להתעטר בכל מדה חמודה ויקרה למצא חן בעיני כל רואיהם, ויאמרו (יחזקאל לו, כ) "עם ה' אלה". ובהיותנו זוכים למדות טובות הללו תחול טובת האל עלינו ותדבק בנו, כי הטובה תתפשט בטובים, והפכה ברעים.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">6</span><span class="q-text">למה זוכה אדם המקיים מצווה זו ומתחסד עם הגר?</span></div>
-          <textarea class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">למה זוכה אדם המקיים מצווה זו ומתחסד עם הגר?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -135,8 +136,8 @@
       <div class="card-body">
         <div class="pasuk-block">מה שאמרו זכרונם לברכה (בבא מציעא נ"ח, ב) שלא יאמר אדם לגר "זכור מעשיך הראשונים". ומה שאמרו (סנהדרין צ"ד, א): "גיורא עד עשרה דרי לא תבזי ארמאה באנפיה" - גר, עד עשרה דורות, אין לבזות בפניו את הגוי (מוצאו). וכל זה שלא לצערו בשום ענין.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">7</span><span class="q-text">ספר החינוך מוסיף שני דברים בעניין ההתנהגות כלפי הגר. מהם?</span></div>
-          <textarea class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">ספר החינוך מוסיף שני דברים בעניין ההתנהגות כלפי הגר. מהם?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -148,8 +149,8 @@
       <div class="card-body">
         <div class="pasuk-block">והפלגת האהבה שהפליגו בהם עד שאמרו, שהשוה הכתוב אהבתם לאהבת המקום - שבהם נאמר "ואהבתם", ובאהבת המקום "ואהבת (את ה' אלוקיך)" וגו'.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">8</span><span class="q-text">למה השוו חז"ל את אהבת הגר לאהבת המקום? וכיצד הם למדו זאת?</span></div>
-          <textarea class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">למה השוו חז"ל את אהבת הגר לאהבת המקום? וכיצד הם למדו זאת?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -161,8 +162,8 @@
       <div class="card-body">
         <div class="pasuk-block">ונוהגת מצוה זו בכל מקום ובכל זמן, בזכרים ונקבות. והעובר עליה ומצער אותם, או שמתרשל בהצלתם, או בהצלת ממונם, או שמקל בכבודם מצד שהם גרים ואין להם עוזר באומה - בטל עשה זה. וענשו גדול מאד, שהרי בכמה מקומות הזהירה תורה עליהם.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">9</span><span class="q-text">מי מחויב במצווה זו, וכיצד מוכיח ספר החינוך שעונשו של העובר עליה חמור?</span></div>
-          <textarea class="answer" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-9">מי מחויב במצווה זו, וכיצד מוכיח ספר החינוך שעונשו של העובר עליה חמור?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -174,8 +175,8 @@
       <div class="card-body">
         <div class="pasuk-block">ונוהגת מצוה זו בכל מקום ובכל זמן, בזכרים ונקבות. והעובר עליה ומצער אותם, או שמתרשל בהצלתם, או בהצלת ממונם, או שמקל בכבודם מצד שהם גרים ואין להם עוזר באומה - בטל עשה זה. וענשו גדול מאד, שהרי בכמה מקומות הזהירה תורה עליהם.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">10</span><span class="q-text">מהן הדוגמאות שמביא ספר החינוך לאופן שבו אדם מבטל מצווה זו?</span></div>
-          <textarea class="answer" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">10</span><span class="q-text" id="a11y-lbl-10">מהן הדוגמאות שמביא ספר החינוך לאופן שבו אדם מבטל מצווה זו?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-10" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -187,8 +188,8 @@
       <div class="card-body">
         <div class="pasuk-block">ויש לנו ללמד מן המצווה היקרה הזאת לרחם על אדם שהוא בעיר שאינה ארץ מולדתו ומקום משפחות אבותיו, ולא נעביר עליו הדרך במוצאנו אותו יחידי ורחקו מעליו עוזריו... והכתוב רמז טעם הציווי באמרו "כי גרים הייתם בארץ מצרים" - הזכיר לנו שכבר נכווינו בצער הגדול הזה שיש לכל איש הרואה עצמו בתוך אנשים זרים ובארץ נכרייה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">11</span><span class="q-text">מהו הלימוד הנוסף שלומד ספר החינוך ממצוות אהבת הגר, מעבר לגר הצדק עצמו?</span></div>
-          <textarea class="answer" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">11</span><span class="q-text" id="a11y-lbl-11">מהו הלימוד הנוסף שלומד ספר החינוך ממצוות אהבת הגר, מעבר לגר הצדק עצמו?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-11" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -200,8 +201,8 @@
       <div class="card-body">
         <div class="pasuk-block">ויש לנו ללמד מן המצווה היקרה הזאת לרחם על אדם שהוא בעיר שאינה ארץ מולדתו ומקום משפחות אבותיו, ולא נעביר עליו הדרך במוצאנו אותו יחידי ורחקו מעליו עוזריו... והכתוב רמז טעם הציווי באמרו "כי גרים הייתם בארץ מצרים" - הזכיר לנו שכבר נכווינו בצער הגדול הזה שיש לכל איש הרואה עצמו בתוך אנשים זרים ובארץ נכרייה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">12</span><span class="q-text">מהו הטעם הנוסף שמביא ספר החינוך למצווה זו, ומהיכן הוא לומד אותו?</span></div>
-          <textarea class="answer" data-id="q12" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">12</span><span class="q-text" id="a11y-lbl-12">מהו הטעם הנוסף שמביא ספר החינוך למצווה זו, ומהיכן הוא לומד אותו?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-12" data-id="q12" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -223,6 +224,7 @@ const STORAGE_KEY = 'mitzvot-ahavat-gerim-answers';
 const NAME_KEY = 'mitzvot-ahavat-gerim-student';
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
 const saveNote = document.getElementById('saveNote');
 const nameInput = document.getElementById('studentName');
@@ -259,7 +261,9 @@ function loadStudentInfo(){
 
 function updateProgress(){
   const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  progressFill.style.width = (filled / textareas.length * 100) + '%';
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
   progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
 }
 

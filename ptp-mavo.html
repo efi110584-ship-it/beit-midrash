@@ -29,12 +29,13 @@
   <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
   <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
 </div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
   <span class="progress-label" id="progressLabel">0 / 1 שאלות</span>
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
 </div>
-<div class="save-note" id="saveNote">✓ נשמר</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main>
   <div class="grid" id="grid">
@@ -56,8 +57,8 @@
       <div class="card-body">
         <div class="meforesh-block"><span class="src">הלכות מתנות עניים לרמב"ם (פרק י'):</span>שמונה מעלות יש בצדקה, זו למעלה מזו: 1. מעלה גדולה שאין למעלה ממנה - זה המחזיק בידי ישראל שמך, ונותן לו מתנה או הלוואה, או עושה עמו שותפות, או ממציא לו מלאכה, כדי לחזק את ידו עד שלא יצטרך לבריות ולא ישאל; ועל זה נאמר "והחזקת בו, גר ותושב וחי עמך" (ויקרא כה, לה), כלומר החזק בו שלא יפול ויצטרך. 2. פחות מזה - הנותן צדקה לעניים, ולא ידע למי נתן, ולא ידע העני ממי לקח, שהרי זו מצוה לשמה: כגון לשכת חשאים שהייתה במקדש, שהיו הצדיקים נותנים בה בחשאי והעניים נוטלים בני טובים מתפרנסים ממנה בחשאי. וקרוב לזה - הנותן לתוך קופה של צדקה; ולא ייתן אדם לתוך קופה של צדקה אלא אם כן יודע שהממונה נאמן וחכם ויודע לנהוג בה כשורה, כרבי חנניה בן תרדיון. 3. פחות מזה - שידע הנותן למי ייתן, ולא ידע העני ממי לקח: כגון גדולי החכמים שהיו הולכים בסתר ומשליכים המעות בפתחי העניים, וכזה ראוי לעשות ומעלה טובה היא, אם אין הממונים נוהגים בצדקה כשורה. 4. פחות מזה - שידע העני ממי נטל, ולא ידע הנותן: כגון גדולי החכמים שהיו צוררים המעות בסדינים ומפשילים לאחוריהם, ובאים העניים ונוטלים, כדי שלא יהיה להם בושה. 5. פחות מזה - שייתן לעני בידו, קודם שישאל. 6. פחות מזה - שייתן לו אחר שישאל. 7. פחות מזה - שייתן לו פחות מן הראוי, בסבר פנים יפות. 8. פחות מזה - שייתן לו בעצב.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">1</span><span class="q-text">ציין 3 עקרונות מנחים לצדקה שנלמדים מדברי הרמב"ם:</span></div>
-          <textarea class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">ציין 3 עקרונות מנחים לצדקה שנלמדים מדברי הרמב"ם:</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -88,6 +89,7 @@ const STORAGE_KEY = 'ptp-mavo-answers';
 const NAME_KEY = 'ptp-mavo-student';
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
 const saveNote = document.getElementById('saveNote');
 const nameInput = document.getElementById('studentName');
@@ -124,7 +126,9 @@ function loadStudentInfo(){
 
 function updateProgress(){
   const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  progressFill.style.width = (filled / textareas.length * 100) + '%';
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
   progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
 }
 

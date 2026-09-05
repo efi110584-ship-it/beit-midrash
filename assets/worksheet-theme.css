@@ -18,6 +18,7 @@
   --ink: #1F3A4D;
   --ink-soft: #4B6577;
   --gold: #A9752E;
+  --gold-text: #8A5C21; /* גוון זהב כהה יותר, לשימוש בטקסט קטן - עומד ביחס ניגודיות 4.5:1+ מול הנייר (WCAG AA) */
   --gold-soft: #C99A4C;
   --teal: #3F6E66;
   --teal-soft: #E4EEEA;
@@ -31,7 +32,7 @@
      מיוצג פעם אחת כאן, ורכיבי הדף (תגיות, מספרי שאלות, מסגרת הכרטיס...)
      כולם נשענים עליו. דף עם כמה נושאים (כמו יחידת הפתיחה) יכול לדרוס
      אותו per-section עם style="--acc:...;--acc-soft:...;". */
-  --acc: var(--gold);
+  --acc: var(--gold-text);
   --acc-soft: #F3E7D2;
 }
 
@@ -61,7 +62,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
 }
 
 header{ position: relative; padding: 2.6rem 1.5rem 1.6rem; text-align: center; overflow: hidden; }
-header .eyebrow{ font-weight:600; letter-spacing: .12em; font-size: .78rem; color: var(--gold); margin-bottom: .6rem; }
+header .eyebrow{ font-weight:600; letter-spacing: .12em; font-size: .78rem; color: var(--gold-text); margin-bottom: .6rem; }
 header h1{ font-family:'Frank Ruhl Libre', serif; font-weight: 900; font-size: clamp(1.9rem, 4.2vw, 3rem); margin: 0 0 .5rem; color: var(--ink); line-height: 1.15; }
 header p.sub{ font-size: 1rem; color: var(--ink-soft); max-width: 680px; margin: 0 auto; line-height: 1.6; }
 .wave{ width:100%; height:30px; margin-top: 1.2rem; display:block; }
@@ -72,7 +73,7 @@ header p.sub{ font-size: 1rem; color: var(--ink-soft); max-width: 680px; margin:
   font-size:.82rem; color: var(--ink-soft);
 }
 .breadcrumbs a{ color: var(--ink-soft); text-decoration:none; border-bottom:1px dotted var(--ink-soft); }
-.breadcrumbs a:hover{ color: var(--gold); border-color: var(--gold); }
+.breadcrumbs a:hover{ color: var(--gold-text); border-color: var(--gold); }
 .breadcrumbs .sep{ opacity:.5; }
 .breadcrumbs .current{ color: var(--ink); font-weight:700; }
 
@@ -80,6 +81,8 @@ header p.sub{ font-size: 1rem; color: var(--ink-soft); max-width: 680px; margin:
 .student-bar label{ font-size: .88rem; font-weight: 600; color: var(--ink-soft); display:flex; align-items:center; gap: .4rem; }
 .student-bar input{ font-family:'Heebo',sans-serif; font-size: .92rem; padding: .3rem .6rem; border: 1.5px solid var(--paper-line); border-radius: 7px; background: #fff; color: var(--ink); direction: rtl; min-width: 10rem; }
 .student-bar input:focus{ outline:none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(169,117,46,0.18); }
+.privacy-note{ max-width: 640px; margin: -.3rem auto 1rem; padding: 0 1.5rem; text-align:center; font-size: .78rem; line-height:1.5; color: var(--ink-soft); }
+.privacy-note .icon{ margin-inline-end:.25rem; }
 
 .progress-wrap{ max-width: 760px; margin: 0 auto 1rem; padding: 0 1.5rem; display:flex; align-items:center; gap: .9rem; }
 .progress-track{ flex:1; height: 10px; background: var(--paper-line); border-radius: 999px; overflow:hidden; box-shadow: inset 0 1px 2px rgba(31,58,77,0.15); }
@@ -89,10 +92,20 @@ header p.sub{ font-size: 1rem; color: var(--ink-soft); max-width: 680px; margin:
 .save-note.show{ opacity: 1; transform: translateY(0); }
 
 /* ---------- ניווט נושאים/לשוניות דביק (יחידת הפתיחה, פתוח תפתח) ---------- */
-.topic-nav{
+.topic-nav-wrap{
   position: sticky; top: 0; z-index: 40;
+  margin-bottom: 1.6rem;
+}
+.topic-nav-wrap::before, .topic-nav-wrap::after{
+  content:""; position:absolute; top:0; bottom:0; width:2.2rem; pointer-events:none; z-index:2;
+}
+/* דהייה עדינה בקצוות - רמז חזותי שיש עוד לשוניות מחוץ למסך (מימין ומשמאל, בלי תלות בכיוון) */
+.topic-nav-wrap::before{ right:0; background: linear-gradient(to left, rgba(239,230,208,0.95), transparent); }
+.topic-nav-wrap::after{ left:0; background: linear-gradient(to right, rgba(239,230,208,0.95), transparent); }
+.topic-nav{
+  position: relative; top: 0; z-index: 1;
   display:flex; gap:.55rem; overflow-x:auto; -webkit-overflow-scrolling:touch;
-  padding: .7rem 1.2rem; margin-bottom: 1.6rem;
+  padding: .7rem 1.2rem; scroll-snap-type: x proximity;
   background: rgba(239,230,208,0.92);
   backdrop-filter: blur(6px);
   border-bottom: 1.5px solid var(--paper-line);
@@ -104,6 +117,7 @@ header p.sub{ font-size: 1rem; color: var(--ink-soft); max-width: 680px; margin:
   flex: none;
   display:flex; align-items:center; gap:.4rem;
   padding: .4rem .85rem;
+  min-height: 44px;
   border-radius: 999px;
   border: 1.5px solid var(--acc);
   color: var(--acc);
@@ -113,6 +127,7 @@ header p.sub{ font-size: 1rem; color: var(--ink-soft); max-width: 680px; margin:
   font-weight: 700;
   white-space:nowrap;
   cursor: pointer;
+  scroll-snap-align: start;
   transition: background .2s ease, color .2s ease, box-shadow .2s ease, transform .15s ease;
 }
 .topic-pill:hover{ transform: translateY(-1px); }
@@ -188,7 +203,7 @@ main{ max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 2rem; }
 
 /* "חשוב לזכור" / "לקראת הבגרות" - תיבות הבלטה ייעודיות, בשימוש איפה שרלוונטי */
 .remember-block{ background: #FBEFD1; border-right: 3px solid var(--gold); border-radius: 6px; padding: .55rem .75rem; font-size: .84rem; line-height: 1.55; color: #5a4212; }
-.remember-block .src{ display:flex; align-items:center; gap:.35rem; font-weight: 700; color: var(--gold); margin-bottom: .2rem; font-size: .78rem; }
+.remember-block .src{ display:flex; align-items:center; gap:.35rem; font-weight: 700; color: var(--gold-text); margin-bottom: .2rem; font-size: .78rem; }
 .bagrut-block{ background: #E4EEEA; border-right: 3px solid var(--teal); border-radius: 6px; padding: .55rem .75rem; font-size: .84rem; line-height: 1.55; color: #1d3d38; }
 .bagrut-block .src{ display:flex; align-items:center; gap:.35rem; font-weight: 700; color: var(--teal); margin-bottom: .2rem; font-size: .78rem; }
 
@@ -239,6 +254,7 @@ table.fill-grid td textarea.answer.table-cell{ min-height:44px; font-size:.8rem;
 .btn:active{ transform: translateY(0); }
 .btn.danger{ border-color: var(--rust); color: var(--rust); }
 .btn.danger:hover{ background: var(--rust); color: #fff; }
+a.btn{ display:inline-flex; align-items:center; text-decoration:none; }
 .btn.primary{ background: var(--acc); border-color: var(--acc); color: #fff; }
 .btn.primary:hover{ background: var(--ink); border-color: var(--ink); }
 
@@ -271,7 +287,7 @@ footer.credit{ text-align:center; font-size: .75rem; color: var(--ink-soft); pad
 @media print{
   *{ -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   @page{ margin: 14mm 12mm; }
-  .toolbar, .save-note, .progress-wrap, .wave, .eyebrow, .student-bar, #printHelp, .topic-nav, .topic-counter, .to-top-btn, .breadcrumbs, .chapter-nav{ display:none !important; }
+  .toolbar, .save-note, .progress-wrap, .wave, .eyebrow, .student-bar, .privacy-note, #printHelp, .topic-nav, .topic-counter, .to-top-btn, .breadcrumbs, .chapter-nav{ display:none !important; }
   .print-only{ display:block; }
   body{ background: var(--paper) !important; }
   header{ padding: 0 0 .5rem; text-align:center; }
