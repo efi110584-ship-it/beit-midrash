@@ -40,12 +40,13 @@
   <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
   <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
 </div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
   <span class="progress-label" id="progressLabel">0 / 20 שאלות</span>
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
 </div>
-<div class="save-note" id="saveNote">✓ נשמר</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main>
   <div class="grid" id="grid">
@@ -57,10 +58,10 @@
       <div class="card-body">
         <div class="pasuk-block">ספר החינוך מחולק למצוות על-פי סדר הפרשות בתורה, ובנוי מתרי"ג מצוות. כל מצווה בספר בנויה ממבנה קבוע של ארבעה סעיפים. לפני שניגשים למצווה הנלמדת היום, השלימו במילה או שתיים מה נלמד בכל סעיף:</div>
         <div class="fill-table">
-          <div class="fill-row"><span class="fill-label">הגדרת המצווה</span><input type="text" class="answer" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">שורש המצווה</span><input type="text" class="answer" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">דיני המצווה</span><input type="text" class="answer" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">למעשה</span><input type="text" class="answer" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-1">הגדרת המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-1" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-2">שורש המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-2" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-3">דיני המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-3" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-4">למעשה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-4" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
         </div>
       </div>
     </section>
@@ -72,8 +73,8 @@
       <div class="card-body">
         <div class="pasuk-block">"לֹא תַעֲשֹׁק אֶת רֵעֲךָ וְלֹא תִגְזֹל, לֹא תָלִין פְּעֻלַּת שָׂכִיר אִתְּךָ עַד בֹּקֶר" (ויקרא יט, יג)</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">1</span><span class="q-text">בפסוק אחד מזכירה התורה שלושה איסורים: עושק, גזל, והלנת שכר שכיר. איזה חלק בפסוק שייך לאיסור עושק וגזל, ואיזה חלק שייך לאיסור הלנת שכר?</span></div>
-          <textarea class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-5">בפסוק אחד מזכירה התורה שלושה איסורים: עושק, גזל, והלנת שכר שכיר. איזה חלק בפסוק שייך לאיסור עושק וגזל, ואיזה חלק שייך לאיסור הלנת שכר?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -94,8 +95,8 @@
       <div class="card-body">
         <div class="pasuk-block">הגדרת המצווה: שלא נחזיק במה שיהיה בידינו מזולתנו. לכך שייכים מקרים שונים: גניבה, גזל, שוד, אונס וכוח - שבהם הרכוש נלקח בתחילה בניגוד לרצון בעליו; לעומת עושק, כובש שכר שכיר, ודחיית תשלום או החזר חובות - שבהם הכסף או הרכוש ניתן או נמצא בתחילה כהוגן בידי מי שמחזיק בו, אלא שאינו מחזיר אותו.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">2</span><span class="q-text">מהו ההבדל בין "עושק" ל"גזל", לפי החלוקה שבקטע (מבחינת האופן שבו הגיע הרכוש לידי מי שמחזיק בו)?</span></div>
-          <textarea class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-6">מהו ההבדל בין "עושק" ל"גזל", לפי החלוקה שבקטע (מבחינת האופן שבו הגיע הרכוש לידי מי שמחזיק בו)?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -107,8 +108,8 @@
       <div class="card-body">
         <div class="pasuk-block">רבא אמר: "זהו עושק זהו גזל, ולמה חילקן הכתוב? לעבור עליו בשני לאוין" (בבא מציעא קיא, א). הטעם לריבוי האיסורים: (1) להרחיק את האדם מן העבירה. (2) לזכות את ישראל בשכר - "רצה המקום לזכות את ישראל, ולפיכך הרבה להם מצוות". המקפיד שלא לעבור על איסור זה, יקבל שכר הן על כך שנמנע מאיסור עושק והן על כך שנמנע מאיסור גזל.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">3</span><span class="q-text">מדוע, לדעת רבא, מזכירה התורה גם "עושק" וגם "גזל" בנפרד, אף שמדובר באותה מהות?</span></div>
-          <textarea class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-7">מדוע, לדעת רבא, מזכירה התורה גם "עושק" וגם "גזל" בנפרד, אף שמדובר באותה מהות?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -120,8 +121,8 @@
       <div class="card-body">
         <div class="pasuk-block">רבא אמר: "זהו עושק זהו גזל, ולמה חילקן הכתוב? לעבור עליו בשני לאוין" (בבא מציעא קיא, א). הטעם לריבוי האיסורים: (1) להרחיק את האדם מן העבירה. (2) לזכות את ישראל בשכר - "רצה המקום לזכות את ישראל, ולפיכך הרבה להם מצוות". המקפיד שלא לעבור על איסור זה, יקבל שכר הן על כך שנמנע מאיסור עושק והן על כך שנמנע מאיסור גזל.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">4</span><span class="q-text">מהם שני הטעמים המובאים בקטע לריבוי האיסורים (עושק וגזל) על אותה מהות?</span></div>
-          <textarea class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-8">מהם שני הטעמים המובאים בקטע לריבוי האיסורים (עושק וגזל) על אותה מהות?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -133,8 +134,8 @@
       <div class="card-body">
         <div class="pasuk-block">שורש המצווה: "ידוע, כי היא מן המצוות שהשכל מחייב אותן" - כלומר, אין לקחת את כספו של האחר ללא רשותו, ואין צורך להאריך בהסבר, שכן הדברים ברורים לכל בר דעת.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">5</span><span class="q-text">מהו שורש המצווה, ומדוע ספר החינוך אינו מרחיב בהסברו?</span></div>
-          <textarea class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-9">מהו שורש המצווה, ומדוע ספר החינוך אינו מרחיב בהסברו?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -146,8 +147,8 @@
       <div class="card-body">
         <div class="pasuk-block">"לאו הניתק לעשה" - לאו שהעובר עליו מתחייב במצוות עשה על מנת לתקנו. דוגמה: "לא תותירו ממנו עד בוקר" (בשר קרבן פסח) - אם אדם השאיר בשר, יש לו אפשרות לתקן: "והנותר ממנו עד בוקר, באש תשרופו". וכן לענייננו - "לא תעשוק את רעך ולא תגזול": אם עשקת או גזלת, יש לך אפשרות לתקן על ידי מצוות עשה: "והשיב את הגזילה", ולבקש מחילה מהניזוק.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">6</span><span class="q-text">הגדר במילים שלך את המושג "לאו הניתק לעשה", והסבר מדוע איסור עושק וגזל נחשב ל"לאו הניתק לעשה".</span></div>
-          <textarea class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-10">הגדר במילים שלך את המושג "לאו הניתק לעשה", והסבר מדוע איסור עושק וגזל נחשב ל"לאו הניתק לעשה".</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-10" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -159,8 +160,8 @@
       <div class="card-body">
         <div class="pasuk-block">חלוקת המצוות: הסמ"ג מונה עושק וגזילה כמצווה אחת, לפי דברי רבא "עושק וגזילה חד הוא". בעל ספר החינוך מונה אותן כשתי מצוות נפרדות, בשל המאפיינים השונים שביניהן - אך מסכים שהעובר על עושק או על גזל מתחייב בשני לאוין.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">7</span><span class="q-text">מהי מחלוקת הסמ"ג ובעל ספר החינוך לגבי מניין המצוות של עושק וגזל?</span></div>
-          <textarea class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-11">מהי מחלוקת הסמ"ג ובעל ספר החינוך לגבי מניין המצוות של עושק וגזל?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-11" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -172,8 +173,8 @@
       <div class="card-body">
         <div class="pasuk-block">ונוהגת בכל מקום - בארץ ישראל ובחו"ל; בכל זמן - בזמן שיש בית מקדש, וכשאין בית מקדש; ומי חייב? גברים ונשים, שכן זו אינה מצוות עשה שהזמן גרמא.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">8</span><span class="q-text">על מי ובאילו זמן ומקום חלה מצוות איסור עושק?</span></div>
-          <textarea class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-12">על מי ובאילו זמן ומקום חלה מצוות איסור עושק?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-12" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -194,8 +195,8 @@
       <div class="card-body">
         <div class="pasuk-block">הגדרת המצווה: לא לאחר תשלום שכרו של שכיר.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">9</span><span class="q-text">נסחו במילים שלכם את הגדרת המצווה.</span></div>
-          <textarea class="answer" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-13">נסחו במילים שלכם את הגדרת המצווה.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-13" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -207,8 +208,8 @@
       <div class="card-body">
         <div class="pasuk-block">"לֹא תָלִין פְּעֻלַּת שָׂכִיר אִתְּךָ עַד בֹּקֶר" (ויקרא יט, יג) | "בְּיוֹמוֹ תִתֵּן שְׂכָרוֹ וְלֹא תָבוֹא עָלָיו הַשֶּׁמֶשׁ" (דברים כד, טו). שכיר יום - זמן התשלום עד שקיעה. שכיר לילה - זמן התשלום עד הבוקר.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">10</span><span class="q-text">מהם שני הפסוקים המשמשים מקור לאיסור, ומהיכן בתורה כל אחד מהם?</span></div>
-          <textarea class="answer" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">10</span><span class="q-text" id="a11y-lbl-14">מהם שני הפסוקים המשמשים מקור לאיסור, ומהיכן בתורה כל אחד מהם?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-14" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -220,8 +221,8 @@
       <div class="card-body">
         <div class="pasuk-block">"לֹא תָלִין פְּעֻלַּת שָׂכִיר אִתְּךָ עַד בֹּקֶר" (ויקרא יט, יג) | "בְּיוֹמוֹ תִתֵּן שְׂכָרוֹ וְלֹא תָבוֹא עָלָיו הַשֶּׁמֶשׁ" (דברים כד, טו). שכיר יום - זמן התשלום עד שקיעה. שכיר לילה - זמן התשלום עד הבוקר.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">11</span><span class="q-text">מהו זמן התשלום ל"שכיר יום", ומהו זמן התשלום ל"שכיר לילה"?</span></div>
-          <textarea class="answer" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">11</span><span class="q-text" id="a11y-lbl-15">מהו זמן התשלום ל"שכיר יום", ומהו זמן התשלום ל"שכיר לילה"?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-15" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -233,8 +234,8 @@
       <div class="card-body">
         <div class="pasuk-block">"לפי שהשם ברוך הוא חפץ בקיום האדם אשר ברא, וידוע כי באיחור המזונות יאבד הגוף. ועל כן ציוונו לתת שכר שכיר, כי אליו הוא נושא את נפשו להתפרנס בו." (דברים כד, טו)</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">12</span><span class="q-text">מהו שורש המצווה (הטעם) המוסבר בקטע? הסבירו את הביטוי "ואליו הוא נושא את נפשו".</span></div>
-          <textarea class="answer" data-id="q12" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">12</span><span class="q-text" id="a11y-lbl-16">מהו שורש המצווה (הטעם) המוסבר בקטע? הסבירו את הביטוי "ואליו הוא נושא את נפשו".</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-16" data-id="q12" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -246,8 +247,8 @@
       <div class="card-body">
         <div class="pasuk-block">"נתן טליתו לאמן, גמרה והודיעו, כל זמן שהטלית ביד אמן, אינו עובר; נתנה לו ולא פרעו ביום שנתנה לו — עובר, שהקבלנות כשכירות." (מדיני המצווה)</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">13</span><span class="q-text">אדם נתן בגד לאומן לתיקון, והאומן סיים את מלאכתו — כל עוד הבגד עדיין ברשות האומן ולא הוחזר לבעליו, האם המעסיק כבר עובר על האיסור? ממתי מתחילה חובת התשלום במקרה של קבלנות?</span></div>
-          <textarea class="answer" data-id="q13" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">13</span><span class="q-text" id="a11y-lbl-17">אדם נתן בגד לאומן לתיקון, והאומן סיים את מלאכתו — כל עוד הבגד עדיין ברשות האומן ולא הוחזר לבעליו, האם המעסיק כבר עובר על האיסור? ממתי מתחילה חובת התשלום במקרה של קבלנות?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-17" data-id="q13" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -259,8 +260,8 @@
       <div class="card-body">
         <div class="pasuk-block">מתי אינו עובר על איסור בל תלין? (1) אם הפועל אינו דורש כעת את התשלום. (2) אם הוא דורש כעת את התשלום ואין לבעל הבית שום אפשרות לשלם לו. (3) אם בעל הבית מינה מישהו לשלם את השכר לפועל, בהסכמת הפועל, ואותו ממונה התעכב בהעברת הכסף.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">14</span><span class="q-text">רשמו את שלושת המקרים שבהם בעל הבית אינו עובר על איסור "בל תלין", למרות שהתשלום התעכב מעבר לזמנו.</span></div>
-          <textarea class="answer" data-id="q14" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">14</span><span class="q-text" id="a11y-lbl-18">רשמו את שלושת המקרים שבהם בעל הבית אינו עובר על איסור "בל תלין", למרות שהתשלום התעכב מעבר לזמנו.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-18" data-id="q14" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -272,8 +273,8 @@
       <div class="card-body">
         <div class="pasuk-block">ונוהגת בכל מקום ובכל זמן. והעובר עליה ועיכב שכר שכיר עד אחר הזמן המגבל - ביטל עשה ועובר על לאו. ואין לוקין על לאו זה, לפי שנתן להשבון - שהרי חייב הוא לשלם שכרו בכל עת, ואפשר וצריך להשיב ולשלם את השכר, ובכך לתקן את האיסור (במקום ללקות).</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">15</span><span class="q-text">על מי ובאילו זמן ומקום נוהגת המצווה? מדוע אין לוקים על איסור זה, אף שהוא לאו שבתורה?</span></div>
-          <textarea class="answer" data-id="q15" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">15</span><span class="q-text" id="a11y-lbl-19">על מי ובאילו זמן ומקום נוהגת המצווה? מדוע אין לוקים על איסור זה, אף שהוא לאו שבתורה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-19" data-id="q15" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -285,8 +286,8 @@
       <div class="card-body">
         <div class="pasuk-block">עוד אמרו זכרונם לברכה בכובש שכר שכיר, על דרך האזהרה, שעובר משום בל תעשוק, בל תגזל, בל תלין, ומשום לא תבוא עליו השמש. לעומת זאת, כשמדובר ב"גר תושב" או ב"בן נח" ישנה מצוות עשה בלבד לשלם בזמן, אך אין איסור לא תעשה למי שאיחר לשלם.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">16</span><span class="q-text">רשמו את ארבעת האיסורים שעליהם עובר, על פי חז"ל, מי שכובש (מעכב) את שכר השכיר. מה ההבדל בדין בין ישראל לבין "גר תושב" או "בן נח" בעניין זה?</span></div>
-          <textarea class="answer" data-id="q16" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">16</span><span class="q-text" id="a11y-lbl-20">רשמו את ארבעת האיסורים שעליהם עובר, על פי חז"ל, מי שכובש (מעכב) את שכר השכיר. מה ההבדל בדין בין ישראל לבין "גר תושב" או "בן נח" בעניין זה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-20" data-id="q16" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -308,6 +309,7 @@ const STORAGE_KEY = 'mitzvot-lo-taashok-answers';
 const NAME_KEY = 'mitzvot-lo-taashok-student';
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
 const saveNote = document.getElementById('saveNote');
 const nameInput = document.getElementById('studentName');
@@ -344,7 +346,9 @@ function loadStudentInfo(){
 
 function updateProgress(){
   const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  progressFill.style.width = (filled / textareas.length * 100) + '%';
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
   progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
 }
 

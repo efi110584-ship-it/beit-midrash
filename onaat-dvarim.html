@@ -40,12 +40,13 @@
   <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
   <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
 </div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
   <span class="progress-label" id="progressLabel">0 / 16 שאלות</span>
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
 </div>
-<div class="save-note" id="saveNote">✓ נשמר</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main>
   <div class="grid" id="grid">
@@ -57,10 +58,10 @@
       <div class="card-body">
         <div class="pasuk-block">ספר החינוך מחולק למצוות על-פי סדר הפרשות בתורה, ובנוי מתרי"ג מצוות. כל מצווה בספר בנויה ממבנה קבוע של ארבעה סעיפים. לפני שניגשים למצווה הנלמדת היום, השלימו במילה או שתיים מה נלמד בכל סעיף:</div>
         <div class="fill-table">
-          <div class="fill-row"><span class="fill-label">הגדרת המצווה</span><input type="text" class="answer" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">שורש המצווה</span><input type="text" class="answer" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">דיני המצווה</span><input type="text" class="answer" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">למעשה</span><input type="text" class="answer" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-1">הגדרת המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-1" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-2">שורש המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-2" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-3">דיני המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-3" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-4">למעשה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-4" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
         </div>
       </div>
     </section>
@@ -72,8 +73,8 @@
       <div class="card-body">
         <div class="pasuk-block">הגדרת המצווה: שלא להונות אחד מישראל בדברים. שנאמר (ויקרא כה, יז): "וְלֹא תוֹנוּ אִישׁ אֶת עֲמִיתוֹ וְיָרֵאתָ מֵאֱלֹהֶיךָ כִּי אֲנִי ה' אֱלֹהֵיכֶם".</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">1</span><span class="q-text">מהי המצווה, ומהו הפסוק המהווה מקור לה?</span></div>
-          <textarea class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-5">מהי המצווה, ומהו הפסוק המהווה מקור לה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -85,8 +86,8 @@
       <div class="card-body">
         <div class="pasuk-block">אם היה בעל תשובה, לא יאמר לו: "זכור מעשיך הראשונים". היו חוליים באים עליו, לא יאמר לו שהדבר נובע מחיסרון ביראת שמים. ראה חמרים מבקשים תבואה, לא יאמר להם: "לכו אצל פלוני" - והוא יודע שאין לו. ולא יאמר לתגר: "בכמה חפץ זה?" והוא אינו רוצה לקנות.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">2</span><span class="q-text">פרט שלוש דוגמאות לאונאת דברים המופיעות בקטע.</span></div>
-          <textarea class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-6">פרט שלוש דוגמאות לאונאת דברים המופיעות בקטע.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -98,8 +99,8 @@
       <div class="card-body">
         <div class="pasuk-block">אם היה בעל תשובה, לא יאמר לו: "זכור מעשיך הראשונים". היו חוליים באים עליו, לא יאמר לו שהדבר נובע מחיסרון ביראת שמים. ראה חמרים מבקשים תבואה, לא יאמר להם: "לכו אצל פלוני" - והוא יודע שאין לו. ולא יאמר לתגר: "בכמה חפץ זה?" והוא אינו רוצה לקנות.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">3</span><span class="q-text">מה משותף, לדעתך, לכל הדוגמאות שהובאו בקטע?</span></div>
-          <textarea class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-7">מה משותף, לדעתך, לכל הדוגמאות שהובאו בקטע?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -111,8 +112,8 @@
       <div class="card-body">
         <div class="pasuk-block">שורש המצווה: וקשה המחלוקת, כמה קללות וכמה תקלות תלויות בה. כי הוא (השלום) לתת שלום בין הבריות, וגדול השלום — שבו הברכה מצויה בעולם.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">4</span><span class="q-text">מהו שורש המצווה, ומדוע מודגש כאן דווקא ערך השלום?</span></div>
-          <textarea class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-8">מהו שורש המצווה, ומדוע מודגש כאן דווקא ערך השלום?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -124,8 +125,8 @@
       <div class="card-body">
         <div class="pasuk-block">דיני המצווה: כמה אזהרות וכמה זרוזים שהזהירונו זכרונם לברכה בעניין זה, שלא להכאיב הבריות בשום דבר ולא לביישם. והפליגו בדבר עד שאמרו: שלא יתלה עיניו על המקח בשעה שאין לו דמים (כסף), וראוי להיזהר שאפילו ברמז דבריו לא יישמע חירוף לבני אדם.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">5</span><span class="q-text">ציין שתי אזהרות המפורטות בקטע לגבי אופן קיום המצווה.</span></div>
-          <textarea class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-9">ציין שתי אזהרות המפורטות בקטע לגבי אופן קיום המצווה.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -137,8 +138,8 @@
       <div class="card-body">
         <div class="pasuk-block">כי התורה הקפידה הרבה באונאת דברים, לפי שהוא דבר קשה מאוד ללב הבריות, והרבה מבני אדם יקפידו עליהם יותר מעל הממון. "גדולה אונאת דברים מאונאת ממון, שבאונאת דברים הוא אומר: 'ויראת מאלהיך'" — כי האדם יראה לעיניים, והוא (הקב"ה) יראה ללבב.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">6</span><span class="q-text">מדוע "גדולה אונאת דברים מאונאת ממון", לפי הקטע?</span></div>
-          <textarea class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-10">מדוע "גדולה אונאת דברים מאונאת ממון", לפי הקטע?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-10" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -150,8 +151,8 @@
       <div class="card-body">
         <div class="pasuk-block">ונוהגת מצווה זו בכל מקום, בנשים ובגברים, ואפילו בקטנים - ראוי להיזהר שלא להכאיבם בדברים יותר מדי, זולתי במה שצריכים הרבה כדי שיקחו מוסר. ואפילו בבניו ובנותיו בני ביתו של אדם, והמקל בהם שלא לצערם, ימצא חיים ברכה וכבוד.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">7</span><span class="q-text">על מי ובאילו תנאים חלה מצווה זו? התייחס בתשובתך גם לדין קטנים (ילדים).</span></div>
-          <textarea class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-11">על מי ובאילו תנאים חלה מצווה זו? התייחס בתשובתך גם לדין קטנים (ילדים).</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-11" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -163,8 +164,8 @@
       <div class="card-body">
         <div class="pasuk-block">והעובר על זה, והכאיב את חברו בדברים באותן שפירשו חכמינו זכרונם לברכה - בבעל תשובה, ובחולה, וכיוצא בהן - עבר על לאו זה, אבל אין לוקין עליו, לפי שאין בו מעשה. וכמה מלקויות מבלי רצועה של עגל יש ביד האדון המצווה על זה, יתעלה ויתברך.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">8</span><span class="q-text">מדוע העובר על איסור זה אינו לוקה (מלקות) בבית דין, ומה בכל זאת דינו?</span></div>
-          <textarea class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-12">מדוע העובר על איסור זה אינו לוקה (מלקות) בבית דין, ומה בכל זאת דינו?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-12" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -176,8 +177,8 @@
       <div class="card-body">
         <div class="pasuk-block">אין מצווה זו מחייבת לשתוק כאשר משהו פוגע בך ומעליב אותך ללא סיבה, שאי אפשר להיות האדם כאבן שאין לה הופכין - דומם ואדיש. ובאמת, לא תצווה התורה להיות האדם כאבן, שותק למחרפיו כמו למברכיו, אבל תצווה אותנו שנתרחק מן המידה הזאת ושלא נתחיל להתקוטט ולחרף בני אדם.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">9</span><span class="q-text">מדוע, לפי הקטע, אין חובה לשתוק לחלוטין מול מי שמעליב אותנו ללא סיבה?</span></div>
-          <textarea class="answer" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-13">מדוע, לפי הקטע, אין חובה לשתוק לחלוטין מול מי שמעליב אותנו ללא סיבה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-13" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -189,8 +190,8 @@
       <div class="card-body">
         <div class="pasuk-block">ואם אולי יכריחנו מחרף מבני אדם להשיב על דבריו, ראוי לחכם שישיב לו דרך סלסול ונעימות, ולא יכעס הרבה, כי "כעס בחיק כסילים ינוח" (קהלת ז, ט). ויינצל עצמו אל השומעים מחירופיו, ויַשְׁלִיך את המשא על המחרף - זהו דרך הטובים שבבני אדם.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">10</span><span class="q-text">כיצד, לפי הקטע, ראוי להגיב למי שמחרף אותנו, אם בכל זאת יש צורך להשיב לו?</span></div>
-          <textarea class="answer" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">10</span><span class="q-text" id="a11y-lbl-14">כיצד, לפי הקטע, ראוי להגיב למי שמחרף אותנו, אם בכל זאת יש צורך להשיב לו?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-14" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -202,8 +203,8 @@
       <div class="card-body">
         <div class="pasuk-block">ויש לנו ללמד דבר זה שמותר לנו לענות כסיל, לפי הדומה מאשר התירה התורה לבא במחתרת להקדים ולהורגו (שמות כב, א) - "הבא להורגך השכם להורגו". שאין ספק שלא נתחייב האדם לסבול הנזקים מיד חברו, כי יש לו רשות להינצל מידו, וכן מדברי פיהו אשר מלא מרמות ותוך.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">11</span><span class="q-text">לאיזו הלכה אחרת (הבא במחתרת) מדמה ספר החינוך את הזכות להשיב למחרף, ומה ניתן ללמוד מכך?</span></div>
-          <textarea class="answer" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">11</span><span class="q-text" id="a11y-lbl-15">לאיזו הלכה אחרת (הבא במחתרת) מדמה ספר החינוך את הזכות להשיב למחרף, ומה ניתן ללמוד מכך?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-15" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -215,8 +216,8 @@
       <div class="card-body">
         <div class="pasuk-block">ואולם יש כת מבני אדם שעולה חסידותם כל כך, שלא ירצו להכניס עצמם בהוראה זו להשיב חורפיהם דבר, פן יגבר עליהם הכעס. ועליהם אמרו זכרונם לברכה: "הנעלבין ואינם עולבים, שומעין חרפתם ואינם משיבין" (שבת פח, ב). עליהם הכתוב אומר: "ואוהביו כצאת השמש בגבורתו" (שופטים ה, לא).</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">12</span><span class="q-text">מיהם "הנעלבין ואינם עולבים", ומדוע ספר החינוך רואה בהם מידת חסידות מיוחדת, למרות שיש להם זכות להשיב?</span></div>
-          <textarea class="answer" data-id="q12" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">12</span><span class="q-text" id="a11y-lbl-16">מיהם "הנעלבין ואינם עולבים", ומדוע ספר החינוך רואה בהם מידת חסידות מיוחדת, למרות שיש להם זכות להשיב?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-16" data-id="q12" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -238,6 +239,7 @@ const STORAGE_KEY = 'mitzvot-onaat-dvarim-answers';
 const NAME_KEY = 'mitzvot-onaat-dvarim-student';
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
 const saveNote = document.getElementById('saveNote');
 const nameInput = document.getElementById('studentName');
@@ -274,7 +276,9 @@ function loadStudentInfo(){
 
 function updateProgress(){
   const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  progressFill.style.width = (filled / textareas.length * 100) + '%';
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
   progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
 }
 

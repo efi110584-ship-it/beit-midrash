@@ -29,12 +29,13 @@
   <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
   <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
 </div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
   <span class="progress-label" id="progressLabel">0 / 7 שאלות</span>
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
 </div>
-<div class="save-note" id="saveNote">✓ נשמר</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main>
   <div class="grid" id="grid">
@@ -57,8 +58,8 @@
         <div class="pasuk-block">"לֹא יַחֲבֹל רֵחַיִם וָרָכֶב כִּי נֶפֶשׁ הוּא חֹבֵל" (דברים כד, ו)</div>
         <div class="meforesh-block"><span class="src">רש"י (פס' ו'):</span>לא יחבל - אם בא למשכנו על חובו בבית דין, לא ימשכננו בדברים שעושים בהם אוכל נפש:</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">1</span><span class="q-text">האם אסור לקחת כל משכון? הסבר על פי הפסוק.</span></div>
-          <textarea class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">האם אסור לקחת כל משכון? הסבר על פי הפסוק.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -72,8 +73,8 @@
         <div class="pasuk-block">"וְאִם אִישׁ עָנִי הוּא לֹא תִשְׁכַּב בַּעֲבֹטוֹ" (דברים כד, יב)</div>
         <div class="meforesh-block"><span class="src">רש"י (פס' יב):</span>לא תשכב בעבוטו - לא תשכב ועבוטו (המשכון) אצלך:</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">2</span><span class="q-text">הסבר את הפסוק במילים שלכם.</span></div>
-          <textarea class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">הסבר את הפסוק במילים שלכם.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -86,8 +87,8 @@
         <div class="pasuk-block">"הָשֵׁב תָּשִׁיב לוֹ אֶת הַעֲבוֹט כְּבֹא הַשֶּׁמֶשׁ וְשָׁכַב בְּשַׂלְמָתוֹ וּבֵרֲכֶךָּ וּלְךָ תִּהְיֶה צְדָקָה לִפְנֵי ה' אֱלֹהֶיךָ" (דברים כד, יג)</div>
         <div class="meforesh-block"><span class="src">רש"י (פס' יג):</span>כבוא השמש - אם כסות לילה הוא [יש להחזירו לפני השקיעה]. ואם כסות יום הוא, וכבר כתוב באלה המשפטים (שמות כב, כה) "עד בוא השמש תשיבנו לו" - כל היום תשיבנו לו, וכבוא השמש תיקחנו. וברכך - ואם אינו מברכך, מכל מקום "ולך תהיה צדקה".</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">3</span><span class="q-text">כיצד יש להחזיר משכון שהוא כסות לילה, וכיצד משכון שהוא כסות יום?</span></div>
-          <textarea class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">כיצד יש להחזיר משכון שהוא כסות לילה, וכיצד משכון שהוא כסות יום?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -100,8 +101,8 @@
         <div class="pasuk-block">"הָשֵׁב תָּשִׁיב לוֹ אֶת הַעֲבוֹט כְּבֹא הַשֶּׁמֶשׁ וְשָׁכַב בְּשַׂלְמָתוֹ וּבֵרֲכֶךָּ וּלְךָ תִּהְיֶה צְדָקָה לִפְנֵי ה' אֱלֹהֶיךָ" (דברים כד, יג)</div>
         <div class="meforesh-block"><span class="src">רש"י (פס' יג):</span>כבוא השמש - אם כסות לילה הוא [יש להחזירו לפני השקיעה]. ואם כסות יום הוא, וכבר כתוב באלה המשפטים (שמות כב, כה) "עד בוא השמש תשיבנו לו" - כל היום תשיבנו לו, וכבוא השמש תיקחנו. וברכך - ואם אינו מברכך, מכל מקום "ולך תהיה צדקה".</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">4</span><span class="q-text">"וברכך" ו"ולך תהיה צדקה" - איזה חלק מהפסוק תלוי בהתנהגות הלווה, ואיזה מתקיים בכל מקרה?</span></div>
-          <textarea class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">"וברכך" ו"ולך תהיה צדקה" - איזה חלק מהפסוק תלוי בהתנהגות הלווה, ואיזה מתקיים בכל מקרה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -112,9 +113,9 @@
       </div>
       <div class="card-body">
         <div class="fill-table">
-          <div class="fill-row"><span class="fill-label">א. חשיבות הנתינה</span><input type="text" class="answer" data-id="q5a" placeholder="כיצד באה לידי ביטוי בדיני משכון? (בעבור הנותן)"></div>
-          <div class="fill-row"><span class="fill-label">ב. קיום/שיקום העני</span><input type="text" class="answer" data-id="q5b" placeholder="כיצד באה לידי ביטוי בדיני משכון?"></div>
-          <div class="fill-row"><span class="fill-label">ג. כבוד העני</span><input type="text" class="answer" data-id="q5c" placeholder="כיצד באה לידי ביטוי בדיני משכון?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-5">א. חשיבות הנתינה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-5" data-id="q5a" placeholder="כיצד באה לידי ביטוי בדיני משכון? (בעבור הנותן)"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-6">ב. קיום/שיקום העני</span><input type="text" class="answer" aria-labelledby="a11y-lbl-6" data-id="q5b" placeholder="כיצד באה לידי ביטוי בדיני משכון?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-7">ג. כבוד העני</span><input type="text" class="answer" aria-labelledby="a11y-lbl-7" data-id="q5c" placeholder="כיצד באה לידי ביטוי בדיני משכון?"></div>
         </div>
       </div>
     </section>
@@ -136,6 +137,7 @@ const STORAGE_KEY = 'ptp-mashkon-answers';
 const NAME_KEY = 'ptp-mashkon-student';
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
 const saveNote = document.getElementById('saveNote');
 const nameInput = document.getElementById('studentName');
@@ -172,7 +174,9 @@ function loadStudentInfo(){
 
 function updateProgress(){
   const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  progressFill.style.width = (filled / textareas.length * 100) + '%';
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
   progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
 }
 

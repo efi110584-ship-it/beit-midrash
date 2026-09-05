@@ -20,6 +20,7 @@
   --paper-card: #F7F1E1;
   --paper-2: #E9DEC3;
   --gold: #A9752E;
+  --gold-text: #8A5C21;
   --gold-light: #C99A4C;
   --teal: #3F6E66;
   --teal-light: #E4EEEA;
@@ -54,7 +55,7 @@ body{
 }
 h1,h2,h3{ font-family:var(--font-display); color:var(--ink); margin:0; }
 
-a{ color:var(--gold); }
+a{ color:var(--gold-text); }
 button, select, input{ font-family:inherit; font-size:1rem; }
 
 /* Focus visibility - critical for accessibility */
@@ -108,7 +109,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   background:#2E3E64; color:#fff; border:1px solid #4B5C86;
   padding:0.45rem 0.9rem; border-radius:8px; cursor:pointer; margin-inline-end:0.35rem;
 }
-.a11y-group button[aria-pressed="true"]{ background:var(--gold); border-color:var(--gold); }
+.a11y-group button[aria-pressed="true"]{ background:var(--gold-text); border-color:var(--gold-text); }
 .a11y-group button:hover{ border-color:var(--gold-light); }
 
 /* ===== Hero ===== */
@@ -127,7 +128,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 }
 .continue-card .continue-icon{ font-size:1.7rem; flex:none; }
 .continue-card .continue-text{ flex:1 1 260px; }
-.continue-card .continue-label{ font-size:.78rem; font-weight:700; color:var(--gold); letter-spacing:.04em; }
+.continue-card .continue-label{ font-size:.78rem; font-weight:700; color:var(--gold-text); letter-spacing:.04em; }
 .continue-card .continue-title{ font-family:var(--font-display); font-weight:700; font-size:1.15rem; color:var(--ink); margin:.15rem 0; }
 .continue-card .continue-progress{ font-size:.85rem; color:var(--text-soft); }
 .continue-card .continue-progress-track{ display:inline-block; width:120px; height:7px; border-radius:999px; background:var(--border); overflow:hidden; vertical-align:middle; margin-inline-start:.4rem; }
@@ -153,30 +154,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 }
 .tab.tab-all{ font-size:0.92rem; font-weight:600; font-family:var(--font-body); opacity:.85; }
 
-.search-field{ flex:1 1 220px; min-width:200px; }
-.search-field input{
-  width:100%; border:1.5px solid var(--border); border-radius:999px; padding:0.6rem 1rem;
-  background:var(--paper-card); color:var(--text); min-height:44px;
-}
-
-.more-filters{ flex-basis:100%; order:3; }
-.more-filters summary{
-  cursor:pointer; color:var(--text-soft); font-weight:600; font-size:0.9rem;
-  list-style:none; display:inline-flex; align-items:center; gap:0.3rem; padding:0.3rem 0;
-}
-.more-filters summary::-webkit-details-marker{ display:none; }
-.more-filters summary .chev{ transition:transform .15s ease; }
-.more-filters[open] summary .chev{ transform:rotate(180deg); }
-.more-filters summary:hover{ color:var(--ink); }
-.filters-row{ display:flex; gap:1.1rem; flex-wrap:wrap; align-items:flex-end; padding-top:0.8rem; }
-.field{ display:flex; flex-direction:column; gap:0.3rem; }
-.field label{ font-size:0.85rem; color:var(--text-soft); font-weight:600; }
-.field select{
-  border:1.5px solid var(--border); border-radius:8px; padding:0.6rem 0.8rem;
-  background:var(--paper-card); color:var(--text); min-height:44px; min-width:180px;
-}
-
-/* ===== Results ===== */
+/* ===== Results (ארבע יחידות הלימוד) ===== */
 .results-wrap{ max-width:1100px; margin:0 auto; padding:1.75rem 1.25rem 4rem; }
 .status-line{ color:var(--text-soft); margin-bottom:1.1rem; font-size:0.95rem; }
 .loading-msg, .empty-msg{ color:var(--text-soft); padding:2.5rem 0; text-align:center; font-size:1.05rem; }
@@ -184,17 +162,14 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .class-section{ margin-bottom:2.5rem; }
 .class-section > h2{ font-size:1.5rem; border-bottom:2.5px solid var(--gold); padding-bottom:0.5rem; margin-bottom:1.3rem; }
 
-.topic-group{ margin-bottom:1.6rem; }
-.topic-group h3{ font-size:1.15rem; color:var(--teal); margin-bottom:0.7rem; display:flex; align-items:center; gap:0.5rem; }
-
-.card-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:1rem; }
+.unit-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:1.3rem; }
 
 @keyframes cardIn{ from{ opacity:0; transform: translateY(8px); } to{ opacity:1; transform: translateY(0); } }
 
 .card{
   background:var(--paper-card); border:1px solid var(--border); border-top:3px solid var(--gold);
   border-radius:var(--radius);
-  padding:1.1rem 1.2rem; display:flex; flex-direction:column; gap:0.6rem;
+  padding:1.3rem 1.4rem; display:flex; flex-direction:column; gap:0.7rem;
   box-shadow:var(--shadow);
   transition: box-shadow .25s ease, transform .25s ease;
   animation: cardIn .4s ease backwards;
@@ -203,19 +178,27 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .card-tags{ display:flex; gap:0.4rem; flex-wrap:wrap; }
 .tag{ font-size:0.75rem; font-weight:700; padding:0.2rem 0.6rem; border-radius:999px; }
 .tag.subject-tnk{ background:var(--teal-light); color:var(--teal); }
-.tag.subject-tsb{ background:var(--gold-tag-bg); color:var(--gold); }
-.tag.type-tag{ background:var(--paper-2); color:var(--text-soft); }
+.tag.subject-tsb{ background:var(--gold-tag-bg); color:#8A5C21; }
 
-.card h4{ font-family:var(--font-display); font-size:1.1rem; margin:0; color:var(--ink); line-height:1.4; }
-.card p.note{ margin:0; color:var(--text-soft); font-size:0.9rem; }
+.unit-card-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:0.6rem; }
+.unit-icon{ font-size:2.1rem; line-height:1; }
+.card h3{ font-family:var(--font-display); font-size:1.3rem; margin:0; color:var(--ink); line-height:1.35; }
+.card p.note{ margin:0; color:var(--text-soft); font-size:0.92rem; line-height:1.55; }
+.unit-meta{ margin:0; color:var(--text-soft); font-size:0.82rem; font-weight:600; }
 
-.card-actions{ margin-top:auto; display:flex; flex-direction:column; gap:0.5rem; }
+.unit-progress{ display:flex; align-items:center; gap:0.5rem; }
+.unit-progress-track{ flex:1; display:inline-block; height:8px; border-radius:999px; background:var(--border); overflow:hidden; }
+.unit-progress-fill{ display:block; height:100%; background:linear-gradient(90deg, var(--teal), var(--gold)); border-radius:999px; }
+.unit-progress-label{ font-size:0.78rem; font-weight:700; color:var(--teal); white-space:nowrap; }
+
+.card-actions{ margin-top:auto; display:flex; flex-direction:column; gap:0.5rem; padding-top:0.3rem; }
 .card-link{
   display:inline-flex; align-items:center; justify-content:center; gap:0.4rem;
-  background:var(--ink); color:#fff !important; text-decoration:none; font-weight:600;
-  padding:0.65rem 1rem; border-radius:8px; min-height:44px;
+  background:var(--ink); color:#fff !important; text-decoration:none; font-weight:700;
+  padding:0.75rem 1rem; border-radius:8px; min-height:48px; font-size:1rem;
+  transition: background .2s ease, transform .15s ease;
 }
-.card-link:hover{ background:var(--gold); }
+.card-link:hover{ background:var(--gold-text); transform: translateY(-1px); }
 .card-link.card-link-secondary{
   background:transparent; color:var(--ink) !important; border:1.5px solid var(--border);
 }
@@ -228,10 +211,10 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 body.high-contrast{
   --paper:#FFFFFF; --paper-card:#FFFFFF; --paper-2:#FFFFFF; --border:#000000;
   --text:#000000; --text-soft:#000000; --ink:#000000; --ink-2:#000000;
-  --gold:#7A4E00; --gold-light:#7A4E00; --teal:#003C39; --teal-light:#FFFFFF;
+  --gold:#7A4E00; --gold-text:#7A4E00; --gold-light:#7A4E00; --teal:#003C39; --teal-light:#FFFFFF;
   --gold-tag-bg:#FFFFFF;
 }
-body.high-contrast .card, body.high-contrast .tab, body.high-contrast .field select, body.high-contrast .field input{
+body.high-contrast .card, body.high-contrast .tab{
   border:2px solid #000 !important;
 }
 body.high-contrast .tag{ border:2px solid currentColor; }
@@ -242,7 +225,7 @@ body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; 
 @media (max-width:640px){
   .hero h2{ font-size:1.6rem; }
   .header-inner{ flex-wrap:wrap; }
-  .card-grid{ grid-template-columns:1fr; }
+  .unit-grid{ grid-template-columns:1fr; }
 }
 
 </style>
@@ -311,7 +294,7 @@ body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; 
 
   <div id="continue-wrap" class="continue-wrap" hidden></div>
 
-  <section class="controls" aria-label="סינון וחיפוש חומרים">
+  <section class="controls" aria-label="בחירת כיתה">
     <div class="controls-inner">
 
       <div class="tabgroup" role="tablist" aria-label="בחירת כיתה">
@@ -319,47 +302,12 @@ body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; 
         <button class="tab" role="tab" aria-selected="false" data-class="יב" id="tab-yb">כיתה י"ב</button>
         <button class="tab tab-all" role="tab" aria-selected="false" data-class="all" id="tab-all">כל הכיתות</button>
       </div>
-
-      <div class="field search-field">
-        <label for="search-box" class="visually-hidden">חיפוש חופשי</label>
-        <input type="search" id="search-box" placeholder="חיפוש: יונה, פרק ב, תפילה...">
-      </div>
-
-      <details class="more-filters">
-        <summary>סינון נוסף <svg class="chev" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
-        <div class="filters-row">
-          <div class="field">
-            <label for="subject-filter">מקצוע</label>
-            <select id="subject-filter">
-              <option value="all">כל המקצועות</option>
-              <option value="תנך">תנ"ך</option>
-              <option value="תושבע">תושב"ע</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="type-filter">סוג חומר</label>
-            <select id="type-filter">
-              <option value="all">כל הסוגים</option>
-              <option value="חוברת">חוברת</option>
-              <option value="דף עבודה">דף עבודה</option>
-              <option value="דף חזרה">דף חזרה</option>
-              <option value="דף אינטראקטיבי">דף אינטראקטיבי</option>
-              <option value="מצגת">מצגת</option>
-              <option value="סרטון">סרטון</option>
-              <option value="משחק/חידון">משחק/חידון</option>
-              <option value="סיכום">סיכום</option>
-              <option value="אחר">אחר</option>
-            </select>
-          </div>
-        </div>
-      </details>
     </div>
   </section>
 
   <section class="results-wrap">
     <div id="status-line" class="status-line" role="status" aria-live="polite"></div>
-    <div id="content-root" class="content-root">
+    <div id="content-root" class="content-root" role="tabpanel" aria-labelledby="tab-ya">
       <p class="loading-msg">טוען חומרי לימוד…</p>
     </div>
   </section>
@@ -370,280 +318,58 @@ body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; 
   <p>בית המדרש הדיגיטלי &middot; מתעדכן ע"י הרב אפרים</p>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-<script>
-/* ==========================================================
-   קובץ ההגדרות של האתר
-   ==========================================================
-   הדרך הפשוטה ביותר להוסיף חומרים היא ברשימת LOCAL_MATERIALS
-   שבהמשך הקובץ - פשוט מעלים את קובץ ה-HTML לתיקיית האתר
-   ומוסיפים עליו שורה שם. אין צורך בגיליון Google Sheets בכלל.
-
-   מי שכן רוצה לנהל רשימה גדולה מחוץ לאתר יכול, בנוסף, לחבר
-   גיליון Google Sheets - חומריו יתווספו לרשימה המקומית (לא יחליפו אותה).
-   הוראות מלאות נמצאות בקובץ README-הוראות-הפעלה.md שסופק יחד עם האתר.
-
-   שלב 1: פרסם את הגיליון שלך כ-CSV (קובץ > שתף > פרסם לאינטרנט > CSV)
-   שלב 2: הדבק כאן את הקישור שקיבלת, בין המרכאות למטה
-   שלב 3: שמור את הקובץ - האתר יתעדכן אוטומטית
-   ========================================================== */
-
-// >>> אופציונלי: כדי לחבר גם גיליון Google Sheets, הדבק כאן למטה את קישור ה-CSV (ראה README). אפשר להשאיר ריק. <<<
-const SITE_CONFIG = {
-  SHEET_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vS1gnNQGsTFr7_WA8PE1zN2TVsCcN19mgyDciXNP9UjFx4A7h0wZI7L9gvdlUdDG46cyI9ElTPe50pD/pub?output=csv",
-  SITE_TITLE: "בית המדרש הדיגיטלי",
-};
-// >>> סוף אזור העריכה - מכאן והלאה אין צורך לגעת בקובץ <<<
-
-</script>
 <script>
 (function(){
   "use strict";
 
-  /* ============ חומרי הלימוד המקומיים ============
-     אלו החומרים שנמצאים באתר עצמו (בתוך אותה תיקייה) ומוצגים תמיד,
-     בלי צורך בגיליון Google Sheets.
-     כדי להוסיף חומר חדש: העלו את קובץ ה-HTML שלו לאותה תיקייה באתר,
-     ואז העתיקו שורה קיימת למטה ועדכנו את הפרטים (class / subject / topic / type / title / url).
-     url הוא פשוט שם הקובץ (או הנתיב היחסי אליו) כפי שהעליתם אותו.
-
-     אם לדף עבודה יש מצגת נלווית שהתלמיד ממלא לפיה, מוסיפים
-     presentationUrl (ואפשר גם presentationLabel) - הכרטיסייה תציג
-     כפתור נוסף לצפייה במצגת, לצד הכפתור לדף העבודה.
-     ======================================================== */
-  var LOCAL_MATERIALS = [
-    { class:"יא", subject:"תנך", topic:"ספר יונה", type:"דף אינטראקטיבי", title:"דף עבודה אינטראקטיבי - יונה פרקים א׳-ב׳", url:"yonah-1-2.html", note:"" },
-    { class:"יא", subject:"תנך", topic:"ספר יונה", type:"דף אינטראקטיבי", title:"דף עבודה אינטראקטיבי - יונה פרק ג׳", url:"yonah-3.html", note:"" },
-    { class:"יא", subject:"תנך", topic:"ספר יונה", type:"דף אינטראקטיבי", title:"דף עבודה אינטראקטיבי - יונה פרק ד׳", url:"yonah-4.html", note:"" },
-    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "לא תסור" (מצוה תצ"ו)', url:"lo-tasur.html", note:"",
-      presentationUrl:"lo-tasur-presentation.pdf" },
-    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "אהבת הגרים" (מצוה תל"א)', url:"ahavat-gerim.html", note:"",
-      presentationUrl:"view-presentation.html?file=ahavat-gerim-presentation.pptx&title=" + encodeURIComponent('מצגת - "אהבת הגרים"'), presentationLabel:"צפייה במצגת" },
-    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "קידוש החודש" (רמב"ם, עשה קנ"ג)', url:"kidush-hachodesh.html", note:"" },
-    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "אהבת ישראל" (מצוה רמ"ג)', url:"ahavat-israel.html", note:"",
-      presentationUrl:"view-presentation.html?file=ahavat-israel-presentation.pptx&title=" + encodeURIComponent('מצגת - "אהבת ישראל"'), presentationLabel:"צפייה במצגת" },
-    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "כיבוד הורים" (מצוה ל"ג)', url:"kibud-avot.html", note:"",
-      presentationUrl:"view-presentation.html?file=kibud-avot-presentation.pptx&title=" + encodeURIComponent('מצגת - "כיבוד הורים"'), presentationLabel:"צפייה במצגת" },
-    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "מצוות תוכחה" (מצוה רל"ט)', url:"tochacha.html", note:"",
-      presentationUrl:"view-presentation.html?file=tochacha-presentation.pptx&title=" + encodeURIComponent('מצגת - "מצוות תוכחה"'), presentationLabel:"צפייה במצגת" },
-    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "תלמוד תורה" (מצוה תי"ט)', url:"talmud-torah.html", note:"",
-      presentationUrl:"view-presentation.html?file=talmud-torah-presentation.pptx&title=" + encodeURIComponent('מצגת - "תלמוד תורה"'), presentationLabel:"צפייה במצגת" },
-    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "כיבוד חכמים" (מצוה רנ"ז)', url:"kibud-chachamim.html", note:"",
-      presentationUrl:"view-presentation.html?file=kibud-chachamim-presentation.pptx&title=" + encodeURIComponent('מצגת - "כיבוד חכמים"'), presentationLabel:"צפייה במצגת" },
-    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "אונאת דברים" (מצוה של"ח)', url:"onaat-dvarim.html", note:"",
-      presentationUrl:"view-presentation.html?file=onaat-dvarim-presentation.pptx&title=" + encodeURIComponent('מצגת - "אונאת דברים"'), presentationLabel:"צפייה במצגת" },
-    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "מצוות הלוואה" (מצוה ס"ז)', url:"halvaa.html", note:"",
-      presentationUrl:"view-presentation.html?file=halvaa-presentation.pptx&title=" + encodeURIComponent('מצגת - "מצוות הלוואה"'), presentationLabel:"צפייה במצגת" },
-    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "קידוש השבת בדברים" (מצוה ל"א)', url:"kidush-shabbat.html", note:"",
-      presentationUrl:"view-presentation.html?file=kidush-shabbat-presentation.pptm&title=" + encodeURIComponent('מצגת - "קידוש השבת בדברים"'), presentationLabel:"צפייה במצגת" },
-    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "מצוות תפילה" (מצוה תל"ג)', url:"tefila.html", note:"",
-      presentationUrl:"view-presentation.html?file=tefila-presentation.pptx&title=" + encodeURIComponent('מצגת - "מצוות תפילה"'), presentationLabel:"צפייה במצגת" },
-    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "שלא לשבור עצם בפסח" (מצוה ט"ז)', url:"korban-pesach.html", note:"",
-      presentationUrl:"view-presentation.html?file=korban-pesach-presentation.pptx&title=" + encodeURIComponent('מצגת - "שלא לשבור עצם בפסח"'), presentationLabel:"צפייה במצגת" },
-    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "קריאת שמע" (מצוה ת"כ)', url:"kriat-shema.html", note:"",
-      presentationUrl:"view-presentation.html?file=kriat-shema-presentation.pptx&title=" + encodeURIComponent('מצגת - "קריאת שמע"'), presentationLabel:"צפייה במצגת" },
-    { class:"יא", subject:"תושבע", topic:"לקט מצוות", type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - "לא תעשוק ושכר שכיר" (מצוה רכ"ח, ר"ל)', url:"lo-taashok-schar-sachir.html", note:"",
-      presentationUrl:"view-presentation.html?file=lo-taashok-presentation.pptx&title=" + encodeURIComponent('מצגת - "לא תעשוק"'), presentationLabel:"צפייה במצגת - לא תעשוק" },
-    { class:"יב", subject:"תושבע", topic:'פתוח תפתח', type:"דף אינטראקטיבי", title:'יחידת פתוח תפתח - כל נושאי המצוות בעמוד אחד עם לשוניות', url:"ptp-hub.html", note:"מבוא, שמיטת כספים, צדקה והלוואה, הענקה לעבד עברי, איסור ריבית, משכון, הלנת שכר ומתנות לעניים" },
-    { class:"יב", subject:"תנך", topic:'ספר דברים', type:"דף אינטראקטיבי", title:'דף עבודה אינטראקטיבי - יחידת הפתיחה', url:"petichah.html", note:"" }
+  /* ============ ארבע יחידות הלימוד ============
+     האתר מציג בכוונה רק ארבע יחידות לימוד מרכזיות (שתיים לכל כיתה) -
+     לא כרטיס נפרד לכל פרק/מצווה. הכניסה לפרקים/למצוות הספציפיים
+     מתבצעת מתוך עמוד-המרכז (ה-hub) של כל יחידה. כדי להוסיף/לשנות
+     יחידה, עורכים את הרשימה הזו בלבד. */
+  var UNITS = [
+    { key:"yonah", class:"יא", subject:"תנך",
+      icon:"\u{1F30A}", title:"ספר יונה",
+      desc:"מסע קריאה בארבעה פרקי הספר - שאלות, פרשנים והעמקה, פרק אחר פרק.",
+      chapters:3, chaptersLabel:"פרקים", url:"yonah-hub.html" },
+    { key:"leket", class:"יא", subject:"תושבע",
+      icon:"\u{1F4DC}", title:"לקט מצוות",
+      desc:"קובץ המצוות הנלמדות השנה - הגדרה, שורש, דינים ולמעשה לכל מצווה.",
+      chapters:15, chaptersLabel:"מצוות", url:"leket-mitzvot-hub.html" },
+    { key:"devarim", class:"יב", subject:"תנך",
+      icon:"\u{1F4D6}", title:"ספר דברים",
+      desc:"נאומו האחרון של משה רבנו לעם ישראל - יחידת הפתיחה לספר דברים.",
+      chapters:1, chaptersLabel:"יחידות", url:"petichah.html" },
+    { key:"ptp", class:"יב", subject:"תושבע",
+      icon:"\u2696\uFE0F", title:"פתוח תפתח",
+      desc:"יחידת המצוות שבספר דברים - שמיטת כספים, צדקה, ריבית, משכון ועוד.",
+      chapters:8, chaptersLabel:"נושאים", url:"ptp-hub.html" }
   ];
 
-  /* קישורים לדפים אינטראקטיביים/דפי עבודה שמצביעים ישירות ל-Google Drive או
-     Google Docs לא נפתחים כמו שצריך (דרייב/דוקס מציגים קוד גולמי או עורך מסורבל
-     במקום את הדף עצמו) - לכן שורות כאלה שמגיעות מהגיליון מוסרות אוטומטית.
-     חומר תקין תמיד יתארח כקובץ באתר עצמו (ברשימת LOCAL_MATERIALS). */
-  function dropBrokenDriveLinks(rows){
-    var interactiveTypes = { "דף אינטראקטיבי": true, "דף עבודה": true };
-    return rows.filter(function(r){
-      if(!interactiveTypes[r.type]) return true;
-      return !/drive\.google\.com|docs\.google\.com/i.test(r.url || "");
-    });
-  }
-
-  /* נושאים שמנוהלים אך ורק דרך LOCAL_MATERIALS - כל שורה מהגיליון ששייכת
-     לנושא כזה מוסרת לגמרי, כדי שלא יופיעו כאן חומרים ישנים/כפולים
-     מהגיליון (למשל מצגות בודדות בלי דף עבודה תואם). */
-  var LOCAL_ONLY_TOPICS = { "לקט מצוות": true, "פתוח תפתח": true, "ספר דברים": true };
-  /* מילות מפתח שאם מופיעות בנושא/כותרת של שורה מהגיליון, מציגים מהגיליון
-     רק סוגי חומר מסוימים (השאר מוסר) - כי כבר יש קבצים מקומיים תקינים
-     לחומר האינטראקטיבי, בלי תלות בניסוח המדויק בגיליון.
-     "יונה" הוסר לגמרי (רשימה ריקה) כי כל שלושת הפרקים כבר קיימים
-     כדפים אינטראקטיביים מקומיים תקינים - כל שורה מהגיליון שמזכירה
-     "יונה" (למשל גרסה ישנה עם ניסוח נושא שונה במקצת) הייתה עלולה
-     ליצור כפילות, ולכן אין צורך/טעם להשאיר ממנה שום דבר. */
-  var KEYWORD_ALLOWED_TYPES = {
-    "יונה": {},
-    /* כל אחת מהמצוות הבאות כבר קיימת כדף עבודה אינטראקטיבי מקומי תקין
-       (ברשימת LOCAL_MATERIALS למעלה) - כל שורה מהגיליון שמזכירה אותן
-       (למשל גרסה ישנה עם קישור שבור לדרייב) מוסרת לגמרי, בלי תלות
-       בניסוח המדויק של הנושא בגיליון. */
-    "לא תסור": {},
-    "אהבת הגרים": {},
-    "קידוש החודש": {},
-    "אהבת ישראל": {},
-    "כיבוד הורים": {},
-    "כיבוד אב ואם": {},
-    "מצוות תוכחה": {},
-    "תוכחה לישראל": {},
-    "תלמוד תורה": {},
-    "לימוד תורה": {},
-    "כיבוד חכמים": {},
-    "אונאת דברים": {},
-    "הונאת דברים": {},
-    "מצוות הלוואה": {},
-    "הלוואה לעני": {},
-    "קידוש השבת בדברים": {},
-    "מצוות תפילה": {},
-    "לשבור עצם": {},
-    "קריאת שמע": {},
-    "לא תעשוק": {},
-    "שכר שכיר": {}
-  };
-  function dropLocalOnlyTopics(rows){
-    return rows.filter(function(r){
-      if(LOCAL_ONLY_TOPICS[r.topic]) return false;
-      var hay = (r.topic + " " + r.title);
-      for(var keyword in KEYWORD_ALLOWED_TYPES){
-        if(hay.indexOf(keyword) !== -1){
-          return !!KEYWORD_ALLOWED_TYPES[keyword][r.type];
-        }
-      }
-      return true;
-    });
-  }
-
-  /* רשימה סגורה (allowlist) של היחידות שמותר להציג בכל כיתה - בלי קשר
-     לניסוח המדויק בגיליון. כל שורה מהגיליון ששייכת לכיתה יא/יב אך לא
-     תואמת אחת מהיחידות המאושרות (למשל "דיני מלחמה" או כל יחידה אחרת
-     שלא נלמדת) מוסרת אוטומטית - כדי שכיתה יא תציג רק לקט מצוות וספר
-     יונה, וכיתה יב תציג רק ספר דברים ופתוח תפתח, גם אם בעתיד יתווספו
-     לגיליון שורות נוספות. חומר מקומי (LOCAL_MATERIALS) תמיד מאושר -
-     הבדיקה הזו חלה רק על שורות שמגיעות מהגיליון. */
-  var APPROVED_TOPICS_BY_CLASS = {
-    "יא": function(topic){ return topic === "לקט מצוות" || topic.indexOf("ספר יונה") === 0; },
-    "יב": function(topic){ return topic === "פתוח תפתח" || topic.indexOf("ספר דברים") === 0; }
-  };
-  function dropUnapprovedClassTopics(rows){
-    return rows.filter(function(r){
-      var isApproved = APPROVED_TOPICS_BY_CLASS[r.class];
-      if(!isApproved) return true; // כיתה שאינה יא/יב - לא מוגבלת בכלל הזה
-      return isApproved(r.topic || "");
-    });
-  }
-
-  /* אם אותו נושא/סוג חומר מופיע גם ברשימה המקומית וגם בגיליון (למשל שורה ישנה
-     שמצביעה על קישור שבור בדרייב), שומרים רק את הגרסה המקומית שעובדת.
-     שימו לב: כל החומרים המקומיים תמיד נשארים - הבדיקה חלה רק על שורות
-     שמגיעות מהגיליון, כדי לא למחוק בטעות כמה חומרים שונים ששייכים לאותו נושא
-     (למשל כמה דפי עבודה תחת "לקט מצוות"). */
-  function topicKey(r){ return [r.class, r.subject, r.type, r.topic].join("|"); }
-  function dedupeByTopic(localRows, sheetRows){
-    var localTopics = {};
-    localRows.forEach(function(r){ localTopics[topicKey(r)] = true; });
-    var seenSheetTitles = {};
-    var filteredSheet = sheetRows.filter(function(r){
-      /* נושא שכבר מכוסה על ידי קובץ מקומי - השורה מהגיליון נחשבת ישנה/כפולה */
-      if(localTopics[topicKey(r)]) return false;
-      var titleKey = topicKey(r) + "|" + r.title;
-      if(seenSheetTitles[titleKey]) return false;
-      seenSheetTitles[titleKey] = true;
-      return true;
-    });
-    return localRows.concat(filteredSheet);
-  }
-
-  var state = { activeClass:"יא", subject:"all", type:"all", query:"" };
-  var allRows = [];
-
+  var CLASS_ORDER = ["יא","יב"];
+  var state = { activeClass:"יא" };
   var contentRoot = document.getElementById("content-root");
   var statusLine = document.getElementById("status-line");
 
-  /* ============ טעינת נתונים ============ */
-  function loadData(){
-    var cfg = (typeof SITE_CONFIG !== "undefined") ? SITE_CONFIG : {};
-    var url = cfg.SHEET_CSV_URL ? cfg.SHEET_CSV_URL.trim() : "";
-
-    if(!url){
-      allRows = LOCAL_MATERIALS;
-      render();
-      return;
-    }
-
-    Papa.parse(url, {
-      download:true,
-      header:true,
-      skipEmptyLines:true,
-      complete:function(results){
-        var sheetRows = dropUnapprovedClassTopics(dropLocalOnlyTopics(dropBrokenDriveLinks((results.data || []).map(mapRow).filter(function(r){ return r.title; }))));
-        allRows = dedupeByTopic(LOCAL_MATERIALS, sheetRows);
-        render();
-      },
-      error:function(){
-        allRows = LOCAL_MATERIALS;
-        render();
-        statusLine.textContent += " (לא הצלחנו לטעון את גיליון ה-Google Sheets הנוסף - מוצגים רק החומרים שנמצאים ישירות באתר)";
-      }
-    });
+  function getProgressRegistry(){
+    try{ return JSON.parse(localStorage.getItem("site-progress-v1") || "{}"); }
+    catch(e){ return {}; }
   }
 
-  function normSubject(s){
-    s = (s||"").trim();
-    if(s.indexOf('תנ') === 0) return "תנך";
-    if(s.indexOf('תוש') === 0) return "תושבע";
-    return s;
-  }
-
-  function mapRow(row){
-    // תומך בכותרות עמודות בעברית מהגיליון
-    return {
-      class: (row["כיתה"]||"").trim(),
-      subject: normSubject(row["מקצוע"]),
-      subjectLabel: (row["מקצוע"]||"").trim(),
-      topic: (row["פרק/נושא"]||row["נושא"]||"כללי").trim(),
-      type: (row["סוג"]||"אחר").trim(),
-      title: (row["שם החומר"]||"").trim(),
-      url: (row["קישור להורדה"]||row["קישור"]||"").trim(),
-      note: (row["הערה"]||"").trim()
-    };
-  }
-
-  /* ============ סינון ותצוגה ============ */
-  function matchesFilters(row){
-    if(state.activeClass !== "all" && row.class !== state.activeClass) return false;
-    if(state.subject !== "all" && row.subject !== state.subject) return false;
-    if(state.type !== "all" && row.type !== state.type) return false;
-    if(state.query){
-      var hay = (row.title + " " + row.topic + " " + row.note).toLowerCase();
-      if(hay.indexOf(state.query.toLowerCase()) === -1) return false;
-    }
-    return true;
-  }
-
-  function groupRows(rows){
-    var byClass = {};
-    rows.forEach(function(r){
-      var cls = r.class || "ללא שיוך";
-      if(!byClass[cls]) byClass[cls] = {};
-      var topic = r.topic || "כללי";
-      if(!byClass[cls][topic]) byClass[cls][topic] = [];
-      byClass[cls][topic].push(r);
-    });
-    return byClass;
-  }
-
-  var CLASS_ORDER = ["יא","יב"];
-
-  function render(){
-    var filtered = allRows.filter(matchesFilters);
-    statusLine.textContent = filtered.length + " חומרים נמצאו";
+  function renderUnits(){
+    var filtered = UNITS.filter(function(u){ return state.activeClass === "all" || u.class === state.activeClass; });
+    statusLine.textContent = filtered.length + (filtered.length === 1 ? " יחידת לימוד" : " יחידות לימוד");
 
     if(filtered.length === 0){
-      contentRoot.innerHTML = '<p class="empty-msg">לא נמצאו חומרים התואמים את הסינון. נסו לשנות את החיפוש או הסינון.</p>';
+      contentRoot.innerHTML = '<p class="empty-msg">לא נמצאו יחידות לימוד.</p>';
       return;
     }
 
-    var grouped = groupRows(filtered);
-    var classKeys = Object.keys(grouped).sort(function(a,b){
+    var registry = getProgressRegistry();
+    var byClass = {};
+    filtered.forEach(function(u){ (byClass[u.class] = byClass[u.class] || []).push(u); });
+
+    var classKeys = Object.keys(byClass).sort(function(a,b){
       var ia = CLASS_ORDER.indexOf(a), ib = CLASS_ORDER.indexOf(b);
       if(ia === -1) ia = 99; if(ib === -1) ib = 99;
       return ia - ib;
@@ -653,54 +379,48 @@ const SITE_CONFIG = {
     classKeys.forEach(function(cls){
       html += '<section class="class-section">';
       html += '<h2>' + (CLASS_ORDER.indexOf(cls) !== -1 ? 'כיתה ' + escapeHtml(cls) + '\u200f' : escapeHtml(cls)) + '</h2>';
-      var topics = grouped[cls];
-      Object.keys(topics).forEach(function(topic){
-        html += '<div class="topic-group"><h3>' + escapeHtml(topic) + '</h3><div class="card-grid">';
-        topics[topic].forEach(function(row){ html += cardHtml(row); });
-        html += '</div></div>';
-      });
-      html += '</section>';
+      html += '<div class="unit-grid">';
+      byClass[cls].forEach(function(u){ html += unitCardHtml(u, registry); });
+      html += '</div></section>';
     });
 
     contentRoot.innerHTML = html;
   }
 
-  function cardHtml(row){
-    var subjTagClass = row.subject === "תנך" ? "subject-tnk" : (row.subject === "תושבע" ? "subject-tsb" : "type-tag");
-    var subjLabel = escapeHtml(row.subjectLabel || row.subject);
-    var typeLabel = escapeHtml(row.type);
-    var titleLabel = escapeHtml(row.title);
-    var noteHtml = row.note ? '<p class="note">' + escapeHtml(row.note) + '</p>' : "";
-    var linkHref = row.url || "#";
+  function unitCardHtml(u, registry){
+    var entry = registry[u.url];
+    var pct = (entry && entry.percent) ? entry.percent : 0;
+    var subjTagClass = u.subject === "תנך" ? "subject-tnk" : "subject-tsb";
+    var subjLabel = u.subject === "תנך" ? 'תנ"ך' : 'תושב"ע';
+    var titleLabel = escapeHtml(u.title);
+    var cta = pct >= 100 ? "חזרה ליחידה - הושלמה" : (pct > 0 ? "המשיכו ללמוד" : "התחילו ללמוד");
 
-    var presentationHtml = "";
-    if(row.presentationUrl){
-      var presLabel = escapeHtml(row.presentationLabel || "צפייה במצגת");
-      presentationHtml =
-        '<a class="card-link card-link-secondary" href="' + escapeAttr(row.presentationUrl) + '" target="_blank" rel="noopener" aria-label="' + presLabel + ' - ' + titleLabel + '">' +
-          '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="13" rx="1.5" stroke="currentColor" stroke-width="2" fill="none"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
-          presLabel +
-        '</a>';
-    }
+    var progressHtml = pct > 0 ?
+      ('<div class="unit-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + Math.min(100,pct) + '" aria-label="התקדמות ב' + titleLabel + '">' +
+        '<span class="unit-progress-track"><span class="unit-progress-fill" style="width:' + Math.min(100,pct) + '%"></span></span>' +
+        '<span class="unit-progress-label">' + pct + '% הושלם</span>' +
+      '</div>') : "";
 
     return (
-      '<article class="card">' +
-        '<div class="card-tags">' +
-          (subjLabel ? '<span class="tag ' + subjTagClass + '">' + subjLabel + '</span>' : '') +
-          '<span class="tag type-tag">' + typeLabel + '</span>' +
+      '<article class="card unit-card">' +
+        '<div class="unit-card-top">' +
+          '<span class="unit-icon" aria-hidden="true">' + u.icon + '</span>' +
+          '<div class="card-tags"><span class="tag ' + subjTagClass + '">' + subjLabel + '</span></div>' +
         '</div>' +
-        '<h4>' + titleLabel + '</h4>' +
-        noteHtml +
+        '<h3>' + titleLabel + '</h3>' +
+        '<p class="note">' + escapeHtml(u.desc) + '</p>' +
+        '<p class="unit-meta">' + u.chapters + ' ' + escapeHtml(u.chaptersLabel) + '</p>' +
+        progressHtml +
         '<div class="card-actions">' +
-          presentationHtml +
-          '<a class="card-link" href="' + escapeAttr(linkHref) + '" target="_blank" rel="noopener" aria-label="הורדת ' + titleLabel + '">' +
-            'צפייה / הורדה' +
-            '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+          '<a class="card-link" href="' + escapeAttr(u.url) + '" aria-label="' + cta + ' - ' + titleLabel + '">' +
+            cta +
+            '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
           '</a>' +
         '</div>' +
       '</article>'
     );
   }
+
 
   function escapeHtml(str){
     return String(str||"").replace(/[&<>"']/g, function(c){
@@ -709,35 +429,49 @@ const SITE_CONFIG = {
   }
   function escapeAttr(str){ return escapeHtml(str); }
 
-  /* ============ בקרות סינון ============ */
-  var tabs = document.querySelectorAll(".tab");
-  tabs.forEach(function(tab){
-    tab.addEventListener("click", function(){
-      tabs.forEach(function(t){ t.setAttribute("aria-selected","false"); });
-      tab.setAttribute("aria-selected","true");
-      state.activeClass = tab.getAttribute("data-class");
-      render();
+  /* ============ בקרת כיתה ============ */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
+  var tabgroup = document.querySelector(".tabgroup");
+
+  function selectTab(tab, opts){
+    opts = opts || {};
+    tabs.forEach(function(t){
+      var active = t === tab;
+      t.setAttribute("aria-selected", active ? "true" : "false");
+      t.tabIndex = active ? 0 : -1;
     });
+    contentRoot.setAttribute("aria-labelledby", tab.id);
+    state.activeClass = tab.getAttribute("data-class");
+    renderUnits();
+    if(opts.focus) tab.focus();
+  }
+
+  tabs.forEach(function(tab, i){
+    tab.tabIndex = tab.getAttribute("aria-selected") === "true" ? 0 : -1;
+    tab.addEventListener("click", function(){ selectTab(tab); });
   });
+
+  if(tabgroup){
+    tabgroup.addEventListener("keydown", function(e){
+      var current = tabs.findIndex(function(t){ return t.tabIndex === 0; });
+      if(current === -1) current = 0;
+      var next = null;
+      if(e.key === "ArrowRight") next = (current - 1 + tabs.length) % tabs.length; /* RTL: ימינה = הקודם */
+      else if(e.key === "ArrowLeft") next = (current + 1) % tabs.length;
+      else if(e.key === "Home") next = 0;
+      else if(e.key === "End") next = tabs.length - 1;
+      if(next !== null){
+        e.preventDefault();
+        selectTab(tabs[next], { focus:true });
+      }
+    });
+  }
 
   /* קישור ישיר מדף עבודה בחזרה לכיתה הנכונה, למשל index.html#tab-yb */
   (function applyHashTab(){
     var id = (location.hash || "").replace("#", "");
     if(id){ var el = document.getElementById(id); if(el && el.classList.contains("tab")) el.click(); }
   })();
-
-  document.getElementById("subject-filter").addEventListener("change", function(e){
-    state.subject = e.target.value; render();
-  });
-  document.getElementById("type-filter").addEventListener("change", function(e){
-    state.type = e.target.value; render();
-  });
-  var searchBox = document.getElementById("search-box");
-  var searchTimer;
-  searchBox.addEventListener("input", function(e){
-    clearTimeout(searchTimer);
-    searchTimer = setTimeout(function(){ state.query = e.target.value.trim(); render(); }, 200);
-  });
 
   /* ============ בקרות נגישות ============ */
   var a11yToggle = document.getElementById("a11y-toggle");
@@ -815,12 +549,12 @@ const SITE_CONFIG = {
             '<span class="continue-progress-track"><span class="continue-progress-fill" style="width:' + Math.min(100, best.percent) + '%"></span></span>' +
           '</div>' +
         '</div>' +
-        '<a class="card-link" href="' + escapeAttr(best.url) + '">להמשיך<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a>' +
+        '<a class="card-link" href="' + escapeAttr(best.url) + '">להמשיך<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a>' +
       '</div>';
   }
   renderContinueCard();
 
-  loadData();
+  renderUnits();
 })();
 
 </script>

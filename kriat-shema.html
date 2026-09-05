@@ -40,12 +40,13 @@
   <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
   <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
 </div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
   <span class="progress-label" id="progressLabel">0 / 15 שאלות</span>
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
 </div>
-<div class="save-note" id="saveNote">✓ נשמר</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main>
   <div class="grid" id="grid">
@@ -57,10 +58,10 @@
       <div class="card-body">
         <div class="pasuk-block">ספר החינוך מחולק למצוות על-פי סדר הפרשות בתורה, ובנוי מתרי"ג מצוות. כל מצווה בספר בנויה ממבנה קבוע של ארבעה סעיפים. לפני שניגשים למצווה הנלמדת היום, השלימו במילה או שתיים מה נלמד בכל סעיף:</div>
         <div class="fill-table">
-          <div class="fill-row"><span class="fill-label">הגדרת המצווה</span><input type="text" class="answer" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">שורש המצווה</span><input type="text" class="answer" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">דיני המצווה</span><input type="text" class="answer" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
-          <div class="fill-row"><span class="fill-label">למעשה</span><input type="text" class="answer" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-1">הגדרת המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-1" data-id="q0-def" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-2">שורש המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-2" data-id="q0-shoresh" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-3">דיני המצווה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-3" data-id="q0-dinim" placeholder="מה נלמד בסעיף הזה?"></div>
+          <div class="fill-row"><span class="fill-label" id="a11y-lbl-4">למעשה</span><input type="text" class="answer" aria-labelledby="a11y-lbl-4" data-id="q0-lemaase" placeholder="מה נלמד בסעיף הזה?"></div>
         </div>
       </div>
     </section>
@@ -72,8 +73,8 @@
       <div class="card-body">
         <div class="pasuk-block">הגדרת המצווה: הציווי מן התורה לקרוא בכל יום, ערב ובוקר, את הפסוק "שְׁמַע יִשְׂרָאֵל ה' אֱלֹהֵינוּ ה' אֶחָד" (דברים ו, ד).</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">1</span><span class="q-text">מהי המצווה, ומהו הפסוק שיש לקוראו על פיה?</span></div>
-          <textarea class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-5">מהי המצווה, ומהו הפסוק שיש לקוראו על פיה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -85,8 +86,8 @@
       <div class="card-body">
         <div class="pasuk-block">"וְדִבַּרְתָּ בָּם בְּשִׁבְתְּךָ בְּבֵיתֶךָ וּבְלֶכְתְּךָ בַדֶּרֶךְ וּבְשָׁכְבְּךָ וּבְקוּמֶךָ". "בשכבך" — בשעה שבני אדם שוכבין (ישנים), כלומר כל הלילה עד שיעלה עמוד השחר. המילים הללו מציינות את זמן הקריאה, ולא את אופן הקריאה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">2</span><span class="q-text">מה מציינות המילים "בשכבך" ו"ובקומך" — זמן הקריאה או אופן הקריאה? הסבר במילים שלך.</span></div>
-          <textarea class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-6">מה מציינות המילים "בשכבך" ו"ובקומך" — זמן הקריאה או אופן הקריאה? הסבר במילים שלך.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -98,8 +99,8 @@
       <div class="card-body">
         <div class="pasuk-block">מניין שהכוונה ב"בשכבך" היא לכל זמן השכיבה? לשון "שכיבה" מתייחסת למצב השינה ולא רק לפעולת המעבר לשכיבה, כפי שמוכח מן הפסוקים "ושכבתם ואין מחריד" ו"לא ישכב עד יאכל טרף". ולכן כל הלילה נקרא זמן שכיבה, וזמן תחילת קריאת שמע של ערבית הוא מצאת הכוכבים עד שיעלה עמוד השחר.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">3</span><span class="q-text">מניין לומדים שהכוונה במילה "בשכבך" היא לכל משך זמן השינה, ולא רק לרגע ההשכבה? מהו זמן תחילת קריאת שמע של ערבית לפי זה?</span></div>
-          <textarea class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-7">מניין לומדים שהכוונה במילה "בשכבך" היא לכל משך זמן השינה, ולא רק לרגע ההשכבה? מהו זמן תחילת קריאת שמע של ערבית לפי זה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -111,8 +112,8 @@
       <div class="card-body">
         <div class="pasuk-block">"ובקומך" — בזמן שבני אדם קמים, בתחילת היום, מהשעה שבה אדם יכול לזהות את חברו במרחק ארבע אמות, עד סוף שלוש שעות זמניות. מי שלא קרא קריאת שמע של שחרית עד סוף שלוש שעות, יכול לקרוא עד סוף היום, כולל אמירת הברכות (הרמב"ם).</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">4</span><span class="q-text">מהו זמן קריאת שמע של שחרית לכתחילה, ומה הדין למי שלא הספיק לקרוא עד סוף שלוש שעות, לדעת הרמב"ם?</span></div>
-          <textarea class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-8">מהו זמן קריאת שמע של שחרית לכתחילה, ומה הדין למי שלא הספיק לקרוא עד סוף שלוש שעות, לדעת הרמב"ם?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -124,8 +125,8 @@
       <div class="card-body">
         <div class="pasuk-block">משורשי המצווה: ה' רצה לזכות את עמו, שיקבלו עליהם את מלכותו ויחודו בכל יום ולילה. ביום — כדי שהדבר ישפיע על מעשינו; בלילה — כדי לשמור אותנו מן החטא, שכן האדם חומרי ונמשך אחר הבלי העולם הזה.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">5</span><span class="q-text">מהו שורש המצווה, ומה התפקיד השונה של קריאת שמע ביום לעומת קריאתה בלילה?</span></div>
-          <textarea class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-9">מהו שורש המצווה, ומה התפקיד השונה של קריאת שמע ביום לעומת קריאתה בלילה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -137,8 +138,8 @@
       <div class="card-body">
         <div class="pasuk-block">קריאת שמע היא זיכרון תמידי: יחוד ה', מלכות ה', השגחת ה', ויכולתו על הכל. הזיכרון התמידי הזה שומר על האדם מפני החטא.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">6</span><span class="q-text">אילו ארבעה עניינים כוללת קריאת שמע כ"זיכרון תמידי", וכיצד זיכרון זה שומר את האדם מן החטא?</span></div>
-          <textarea class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-10">אילו ארבעה עניינים כוללת קריאת שמע כ"זיכרון תמידי", וכיצד זיכרון זה שומר את האדם מן החטא?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-10" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -150,8 +151,8 @@
       <div class="card-body">
         <div class="pasuk-block">יש לומר בכוונת הלב את הפסוק "שמע ישראל ה' אלוהינו ה' אחד" — להמליך את הקב"ה בשמים, בארץ ובארבע רוחות העולם, ולזכור ששולט ומושל בכל העולם כולו. השכר: "כל המאריך באחד מאריכין לו ימיו ושנותיו" — ובלבד שיאריך בדל"ת, אך לא יחטוף (יבלע) בחי"ת.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">7</span><span class="q-text">מהי הכוונה הנדרשת בעת אמירת "שמע ישראל ה' אלוהינו ה' אחד"?</span></div>
-          <textarea class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-11">מהי הכוונה הנדרשת בעת אמירת "שמע ישראל ה' אלוהינו ה' אחד"?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-11" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -163,8 +164,8 @@
       <div class="card-body">
         <div class="pasuk-block">מדיני המצווה: החיוב מן התורה הוא קריאת הפסוק הראשון בלבד. החיוב מדרבנן הוא קריאת שלוש פרשיות: שמע, והיה אם שמוע, ויאמר. סדר הקריאה: מקדימים לקרוא את פרשת שמע, הכוללת את המצוות שהן יסוד התורה - יחוד השם, אהבת ה', ותלמוד תורה; אחריה - והיה אם שמוע, שיש בה ציווי על שמירת כל המצוות; ואחריה - פרשת ציצית.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">8</span><span class="q-text">מה החיוב מן התורה בקריאת שמע, ומה החיוב מדרבנן? מהו סדר קריאת שלוש הפרשיות, ומדוע נקבע דווקא סדר זה?</span></div>
-          <textarea class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-12">מה החיוב מן התורה בקריאת שמע, ומה החיוב מדרבנן? מהו סדר קריאת שלוש הפרשיות, ומדוע נקבע דווקא סדר זה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-12" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -176,8 +177,8 @@
       <div class="card-body">
         <div class="pasuk-block">ברכות קריאת שמע הן מדרבנן — עזרא ובית דינו תקנו אותן. בבוקר, לפני ואחרי קריאת שמע, יש שלוש ברכות: יוצר אור, אהבה, ואמת ויציב. בערב יש ארבע ברכות: מעריב ערבים, אהבה, אמת ואמונה, והשכיבנו.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">9</span><span class="q-text">כמה ברכות יש בקריאת שמע של שחרית, וכמה בקריאת שמע של ערבית? מי תיקן ברכות אלו?</span></div>
-          <textarea class="answer" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-13">כמה ברכות יש בקריאת שמע של שחרית, וכמה בקריאת שמע של ערבית? מי תיקן ברכות אלו?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-13" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -189,8 +190,8 @@
       <div class="card-body">
         <div class="pasuk-block">אופן הקריאה: לכתחילה צריך הקורא להשמיע לאוזנו את מה שמוציא מפיו. חובה להזכיר את כל התיבות והאותיות. מלכתחילה יש לדקדק באותיות: כאשר מילה מסתיימת באות מסוימת והמילה הבאה אחריה מתחילה באותה אות, יש לתת רווח ביניהן (כגון "בכל לבבך", "עשב בשדך"); יש להתיז את הזי"ן במילה "תזכרו"; ויש להאריך את הדל"ת כראוי.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">10</span><span class="q-text">ציין שני כללים לדקדוק בקריאה הנזכרים בקטע (מלבד השמעה לאוזן).</span></div>
-          <textarea class="answer" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">10</span><span class="q-text" id="a11y-lbl-14">ציין שני כללים לדקדוק בקריאה הנזכרים בקטע (מלבד השמעה לאוזן).</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-14" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -202,8 +203,8 @@
       <div class="card-body">
         <div class="pasuk-block">נוֹהֶגֶת: בכל מקום, בכל זמן, בזכרים - לא בנקבות, שכן זוהי מצוות עשה שהזמן גרמא. מי שלא קרא קריאת שמע באחד מן הזמנים שנקבעו - ביטל מצוות עשה. הרמב"ן מנה את מצוות קריאת שמע כשתי מצוות: קריאת שמע ביום, וקריאת שמע בלילה - מפני שזמניהן שונים, וזו אינה מעכבת זו.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">11</span><span class="q-text">על מי ובאילו תנאים חלה מצוות קריאת שמע? ומדוע, לדעת הרמב"ן, יש למנותה כשתי מצוות נפרדות?</span></div>
-          <textarea class="answer" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
+          <div class="question-row"><span class="q-num">11</span><span class="q-text" id="a11y-lbl-15">על מי ובאילו תנאים חלה מצוות קריאת שמע? ומדוע, לדעת הרמב"ן, יש למנותה כשתי מצוות נפרדות?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-15" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
     </section>
@@ -225,6 +226,7 @@ const STORAGE_KEY = 'mitzvot-kriat-shema-answers';
 const NAME_KEY = 'mitzvot-kriat-shema-student';
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
 const saveNote = document.getElementById('saveNote');
 const nameInput = document.getElementById('studentName');
@@ -261,7 +263,9 @@ function loadStudentInfo(){
 
 function updateProgress(){
   const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  progressFill.style.width = (filled / textareas.length * 100) + '%';
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
   progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
 }
 

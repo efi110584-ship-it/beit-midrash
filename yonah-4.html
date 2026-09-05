@@ -40,12 +40,13 @@
   <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
   <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
 </div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
   <span class="progress-label" id="progressLabel">0 / 14 שאלות</span>
-  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
 </div>
-<div class="save-note" id="saveNote">✓ נשמר</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main>
   <div class="grid" id="grid">
@@ -60,8 +61,8 @@
           <b>פרק ד׳, פסוק א׳:</b> וַיֵּרַע אֶל־יוֹנָה רָעָה גְדוֹלָה; וַיִּחַר לוֹ.
         </div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">1</span><span class="q-text">הסבירו את שלוש המשמעויות: א. ׳דרכם הרעה׳; ב. ׳הרעה אשר דיבר׳; ג. ׳וירע אל יונה׳.</span></div>
-          <textarea class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
+          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">הסבירו את שלוש המשמעויות: א. ׳דרכם הרעה׳; ב. ׳הרעה אשר דיבר׳; ג. ׳וירע אל יונה׳.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
         </div>
       </div>
     </section>
@@ -78,8 +79,8 @@
           <b>פרק ד׳, פסוק ב׳:</b> וַיִּתְפַּלֵּל אֶל־יְהוָה וַיֹּאמַר, אָנָּה יְהוָה הֲלוֹא־זֶה דְבָרִי עַד־הֱיוֹתִי עַל־אַדְמָתִי — עַל־כֵּן קִדַּמְתִּי לִבְרֹחַ תַּרְשִׁישָׁה: כִּי יָדַעְתִּי כִּי אַתָּה אֵל־חַנּוּן וְרַחוּם, אֶרֶךְ אַפַּיִם וְרַב־חֶסֶד, וְנִחָם עַל־הָרָעָה.
         </div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">2</span><span class="q-text">מדוע הספר אינו מסתיים בפרק ג׳, לאחר שאנשי נינווה חוזרים בתשובה?</span></div>
-          <textarea class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
+          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מדוע הספר אינו מסתיים בפרק ג׳, לאחר שאנשי נינווה חוזרים בתשובה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
         </div>
       </div>
     </section>
@@ -99,8 +100,8 @@
           <q>יונה ידע שהגויים קרובים לתשובה; הוא חשש שהם ישובו, והדבר יביא לכך שה׳ יעניש את ישראל שאינם שבים למרות תוכחות הנביאים.</q>
         </div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">3</span><span class="q-text">לפי הירושלמי, מדוע חרה ליונה על תשובת אנשי נינווה?</span></div>
-          <textarea class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
+          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">לפי הירושלמי, מדוע חרה ליונה על תשובת אנשי נינווה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
         </div>
       </div>
     </section>
@@ -119,8 +120,8 @@
           <q>שאלו לחכמה: חוטא מהו עונשו? אמרה: חטאים תרדף רעה. שאלו לנבואה: אמרה: הנפש החוטאת היא תמות. שאלו לקדוש ברוך הוא: אמר להם: יעשה תשובה ויתכפר לו.</q>
         </div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">4</span><span class="q-text">מהי המחלוקת בין גישת החכמה והנבואה לבין גישתו של הקב״ה?</span></div>
-          <textarea class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
+          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">מהי המחלוקת בין גישת החכמה והנבואה לבין גישתו של הקב״ה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
         </div>
       </div>
     </section>
@@ -136,8 +137,8 @@
           <b>שמות ל״ד, פסוק ו׳:</b> וַיַּעֲבֹר יְהוָה עַל־פָּנָיו וַיִּקְרָא: יְהוָה יְהוָה, אֵל רַחוּם וְחַנּוּן, אֶרֶךְ אַפַּיִם וְרַב־חֶסֶד וֶאֱמֶת.
         </div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">5</span><span class="q-text">א. איזו מילה מי״ג מידות הרחמים משמיט יונה? ב. כיצד הדבר מתקשר להשמטת הכינוי ׳בן אמיתי׳ בתחילת פרק ג׳?</span></div>
-          <textarea class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..." style="min-height:110px;"></textarea>
+          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">א. איזו מילה מי״ג מידות הרחמים משמיט יונה? ב. כיצד הדבר מתקשר להשמטת הכינוי ׳בן אמיתי׳ בתחילת פרק ג׳?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..." style="min-height:110px;"></textarea>
         </div>
       </div>
     </section>
@@ -153,8 +154,8 @@
           <b>פרק ד׳, פסוק ג׳:</b> וְעַתָּה יְהוָה, קַח־נָא אֶת־נַפְשִׁי מִמֶּנִּי: כִּי טוֹב מוֹתִי מֵחַיָּי.
         </div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">6</span><span class="q-text">מה מבקש יונה בפסוק ג׳, ומדוע תגובתו קיצונית כל כך?</span></div>
-          <textarea class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
+          <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">מה מבקש יונה בפסוק ג׳, ומדוע תגובתו קיצונית כל כך?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
         </div>
       </div>
     </section>
@@ -174,8 +175,8 @@
           <q>עוד אראך אות שאינו מן הדין שיחרה לך על סליחתי לשבים.</q>
         </div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">7</span><span class="q-text">כיצד מכינה שאלת ה׳ ׳ההיטב חרה לך׳ את תוכחת הקיקיון?</span></div>
-          <textarea class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
+          <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">כיצד מכינה שאלת ה׳ ׳ההיטב חרה לך׳ את תוכחת הקיקיון?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
         </div>
       </div>
     </section>
@@ -191,8 +192,8 @@
           <b>פרק ד׳, פסוק ו׳:</b> וַיְמַן יְהוָה־אֱלֹהִים קִיקָיוֹן וַיַּעַל מֵעַל לְיוֹנָה, לִהְיוֹת צֵל עַל־רֹאשׁוֹ, לְהַצִּיל לוֹ מֵרָעָתוֹ; וַיִּשְׂמַח יוֹנָה עַל־הַקִּיקָיוֹן שִׂמְחָה גְדוֹלָה.
         </div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">8</span><span class="q-text">מהי התוכחה הרמוזה בהשוואה בין ׳שמחה גדולה׳ על הקיקיון לבין ׳רעה גדולה׳ על הצלת נינווה?</span></div>
-          <textarea class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..." style="min-height:110px;"></textarea>
+          <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">מהי התוכחה הרמוזה בהשוואה בין ׳שמחה גדולה׳ על הקיקיון לבין ׳רעה גדולה׳ על הצלת נינווה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q8" placeholder="כתבו כאן את התשובה..." style="min-height:110px;"></textarea>
         </div>
       </div>
     </section>
@@ -211,8 +212,8 @@
           <b>פרק ד׳, פסוק ח׳:</b> וַיְהִי כִּזְרֹחַ הַשֶּׁמֶשׁ, וַיְמַן אֱלֹהִים רוּחַ קָדִים חֲרִישִׁית, וַתַּךְ הַשֶּׁמֶשׁ עַל־רֹאשׁ יוֹנָה וַיִּתְעַלָּף; וַיִּשְׁאַל אֶת־נַפְשׁוֹ לָמוּת, וַיֹּאמֶר, טוֹב מוֹתִי מֵחַיָּי.
         </div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">9</span><span class="q-text">באיזה הקשר מבקש יונה למות בכל פעם, ומהו ההבדל בין שני המקרים?</span></div>
-          <textarea class="answer" data-id="q9" placeholder="כתבו כאן את התשובה..." style="min-height:110px;"></textarea>
+          <div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-9">באיזה הקשר מבקש יונה למות בכל פעם, ומהו ההבדל בין שני המקרים?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q9" placeholder="כתבו כאן את התשובה..." style="min-height:110px;"></textarea>
         </div>
       </div>
     </section>
@@ -229,8 +230,8 @@
           <b>פרק ד׳, פסוק ח׳:</b> וַיְהִי כִּזְרֹחַ הַשֶּׁמֶשׁ, וַיְמַן אֱלֹהִים רוּחַ קָדִים חֲרִישִׁית, וַתַּךְ הַשֶּׁמֶשׁ עַל־רֹאשׁ יוֹנָה וַיִּתְעַלָּף; וַיִּשְׁאַל אֶת־נַפְשׁוֹ לָמוּת, וַיֹּאמֶר, טוֹב מוֹתִי מֵחַיָּי.
         </div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">10</span><span class="q-text">מדוע ה׳ מזמן תחילה את הקיקיון ולאחר מכן את התולעת ואת רוח הקדים?</span></div>
-          <textarea class="answer" data-id="q10" placeholder="כתבו כאן את התשובה..." style="min-height:105px;"></textarea>
+          <div class="question-row"><span class="q-num">10</span><span class="q-text" id="a11y-lbl-10">מדוע ה׳ מזמן תחילה את הקיקיון ולאחר מכן את התולעת ואת רוח הקדים?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-10" data-id="q10" placeholder="כתבו כאן את התשובה..." style="min-height:105px;"></textarea>
         </div>
       </div>
     </section>
@@ -247,8 +248,8 @@
           <b>פרק ד׳, פסוק י״א:</b> וַאֲנִי לֹא אָחוּס עַל־נִינְוֵה הָעִיר הַגְּדוֹלָה — אֲשֶׁר יֶשׁ־בָּהּ הַרְבֵּה מִשְּׁתֵּים־עֶשְׂרֵה רִבּוֹ אָדָם, אֲשֶׁר לֹא־יָדַע בֵּין־יְמִינוֹ לִשְׂמֹאלוֹ, וּבְהֵמָה רַבָּה.
         </div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">11</span><span class="q-text">הסבירו את הקל וחומר שבדברי ה׳.</span></div>
-          <textarea class="answer" data-id="q11" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
+          <div class="question-row"><span class="q-num">11</span><span class="q-text" id="a11y-lbl-11">הסבירו את הקל וחומר שבדברי ה׳.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-11" data-id="q11" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
         </div>
       </div>
     </section>
@@ -269,8 +270,8 @@
           <q>אף על פי שלא חס על הקיקיון אלא מפני צערו, כן האל יתברך חס על נינוה מפני כבודו, כי הנבראים הם כבודו... וכל שכן מין האדם.</q>
         </div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">12</span><span class="q-text">לפי רד״ק, על מי חס יונה באמת ומדוע ה׳ חס על נינווה?</span></div>
-          <textarea class="answer" data-id="q12" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
+          <div class="question-row"><span class="q-num">12</span><span class="q-text" id="a11y-lbl-12">לפי רד״ק, על מי חס יונה באמת ומדוע ה׳ חס על נינווה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-12" data-id="q12" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
         </div>
       </div>
     </section>
@@ -291,8 +292,8 @@
           <q>באותה שעה נפל על פניו ואמר: הנהג עולמך במדת רחמים, דכתיב לה׳ אלוקינו הרחמים והסליחות.</q>
         </div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">13</span><span class="q-text">מה למד יונה בסיום התהליך לפי המדרש?</span></div>
-          <textarea class="answer" data-id="q13" placeholder="כתבו כאן את התשובה..." style="min-height:90px;"></textarea>
+          <div class="question-row"><span class="q-num">13</span><span class="q-text" id="a11y-lbl-13">מה למד יונה בסיום התהליך לפי המדרש?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-13" data-id="q13" placeholder="כתבו כאן את התשובה..." style="min-height:90px;"></textarea>
         </div>
       </div>
     </section>
@@ -312,8 +313,8 @@
           <b>פרק ג׳, פסוק י׳:</b> וַיַּרְא הָאֱלֹהִים אֶת־מַעֲשֵׂיהֶם כִּי־שָׁבוּ מִדַּרְכָּם הָרָעָה; וַיִּנָּחֶם הָאֱלֹהִים עַל־הָרָעָה אֲשֶׁר־דִּבֶּר לַעֲשׂוֹת־לָהֶם, וְלֹא עָשָׂה.
         </div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">14</span><span class="q-text">כתבו בקצרה על שלושה ממהלכי התשובה המתוארים בספר יונה.</span></div>
-          <textarea class="answer" data-id="q14" placeholder="כתבו כאן את התשובה..." style="min-height:110px;"></textarea>
+          <div class="question-row"><span class="q-num">14</span><span class="q-text" id="a11y-lbl-14">כתבו בקצרה על שלושה ממהלכי התשובה המתוארים בספר יונה.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-14" data-id="q14" placeholder="כתבו כאן את התשובה..." style="min-height:110px;"></textarea>
         </div>
       </div>
     </section>
@@ -340,6 +341,7 @@ const STORAGE_KEY = 'jonah-ch4-answers';
 const NAME_KEY = 'jonah-ch4-student';
 const textareas = Array.from(document.querySelectorAll('textarea.answer'));
 const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
 const saveNote = document.getElementById('saveNote');
 const nameInput = document.getElementById('studentName');
@@ -376,7 +378,9 @@ function loadStudentInfo(){
 
 function updateProgress(){
   const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  progressFill.style.width = (filled / textareas.length * 100) + '%';
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
   progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
 }
 

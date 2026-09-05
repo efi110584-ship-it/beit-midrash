@@ -9,17 +9,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink: #16233F;
-  --ink-2: #223256;
-  --paper: #FBF7EE;
-  --paper-card: #FFFFFF;
-  --paper-2: #F1EADA;
-  --gold: #A87424;
-  --gold-light: #D9B36C;
-  --teal: #285C58;
-  --text: #23283A;
-  --text-soft: #545B72;
-  --border: #E3DCC9;
+  --ink: #1F3A4D;
+  --ink-2: #2C4A61;
+  --paper: #EFE6D0;
+  --paper-card: #F7F1E1;
+  --paper-2: #E9DEC3;
+  --gold: #A9752E;
+  --gold-text: #8A5C21;
+  --gold-light: #C99A4C;
+  --teal: #3F6E66;
+  --text: #1F3A4D;
+  --text-soft: #4B6577;
+  --border: #D8C9A3;
   --focus: #1857C4;
   --radius: 10px;
   --font-display: "Frank Ruhl Libre", "David Libre", serif;
@@ -34,7 +35,7 @@ body{
   line-height:1.6;
 }
 h1,h2{ font-family:var(--font-display); color:var(--ink); margin:0; }
-a{ color:var(--gold); }
+a{ color:var(--gold-text); }
 button, select, input, textarea{ font-family:inherit; font-size:1rem; }
 a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible{
   outline: 3px solid var(--focus);
@@ -58,6 +59,11 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .hero-desc{ color:#D6D0BE; font-size:1rem; max-width:520px; margin:0 auto; }
 
 .form-wrap{ max-width:640px; margin:0 auto; padding:2rem 1.25rem 4rem; }
+.context-note{
+  background:var(--paper-2); border:1.5px solid var(--gold-light); border-radius:8px;
+  padding:.7rem 1rem; margin:0 0 1.2rem; font-size:.9rem; color:var(--ink); text-align:center;
+}
+.context-note b{ color:var(--gold-text); }
 .card{
   background:var(--paper-card); border:1px solid var(--border); border-radius:var(--radius);
   padding:1.5rem; box-shadow:0 1px 3px rgba(22,35,63,0.06);
@@ -76,7 +82,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   width:100%; background:var(--ink); color:#fff; border:none; border-radius:8px;
   padding:0.9rem 1rem; font-weight:700; font-size:1.02rem; cursor:pointer; min-height:48px;
 }
-.submit-btn:hover{ background:var(--gold); }
+.submit-btn:hover{ background:var(--gold-text); }
 .submit-btn:disabled{ opacity:0.6; cursor:not-allowed; }
 
 .status-msg{ margin-top:1rem; padding:0.9rem 1rem; border-radius:8px; font-weight:600; text-align:center; display:none; }
@@ -109,6 +115,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 </section>
 
 <div class="form-wrap">
+  <p class="context-note" id="contextNote" hidden></p>
   <div class="card">
     <form id="submit-form" method="POST" enctype="multipart/form-data"
           action="https://api.web3forms.com/submit">
@@ -171,9 +178,33 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 
   var MAX_FILE_BYTES = 5 * 1024 * 1024; // 5MB
   var fileInput = document.getElementById("fileInput");
+  var nameInput = document.getElementById("studentName");
+  var classInput = document.getElementById("studentClass");
+  var contextNote = document.getElementById("contextNote");
 
   /* _next חייב להיות כתובת מלאה כדי ש-FormSubmit ידע לאן להפנות בחזרה */
   nextField.value = location.href.replace(/submit\.html.*$/, "submit-thanks.html");
+
+  /* מילוי מראש בהגעה מקישור "הגשת מטלה" מתוך דף עבודה ספציפי -
+     ?unit=...&topic=...&name=...&cls=... - וכן משם/כיתה שנשמרו בעבר. */
+  (function prefillFromContext(){
+    var params = new URLSearchParams(location.search);
+    var unit = (params.get("unit") || "").trim();
+    var topic = (params.get("topic") || "").trim();
+    var name = (params.get("name") || "").trim();
+    var cls = (params.get("cls") || "").trim();
+
+    if(unit || topic){
+      topicInput.value = [unit, topic].filter(Boolean).join(" - ");
+      contextNote.innerHTML = "מגישים מטלה עבור: <b>" + [unit, topic].filter(Boolean)
+        .map(function(s){ return s.replace(/[<>&]/g, function(c){ return ({"<":"&lt;",">":"&gt;","&":"&amp;"})[c]; }); })
+        .join(" · ") + "</b>";
+      contextNote.hidden = false;
+    }
+
+    if(name) nameInput.value = name;
+    if(cls) classInput.value = cls;
+  })();
 
   form.addEventListener("submit", function(e){
     var file = fileInput.files[0];
