@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר יונה — שאלות אמריקאיות (חזרה על כל הספר)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="yonah-hub.html">ספר יונה</a>
+  <span class="sep">›</span>
+  <span class="current">שאלות אמריקאיות - חזרה על כל הספר</span>
+</nav>
+
+<header>
+  <div class="eyebrow">ספר יונה · חזרה ותרגול</div>
+  <h1>שאלות אמריקאיות — חזרה על כל הספר</h1>
+  <p class="sub">23 שאלות בחירה מתשובות על פרקים א׳-ד׳, לפי סדר הספר. לוחצים על תשובה ומקבלים מיד משוב אם היא נכונה. אפשר לנסות שוב עד שמוצאים את התשובה הנכונה - הציון למטה סופר רק תשובות שנבחרו נכון בניסיון הראשון.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 23 נענו · ציון: 0 / 23</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בשאלון"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main>
+  <div class="grid" id="grid">
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">פרק א׳</span>
+        <h2 class="card-title">יונה בורח מהשליחות</h2>
+      </div>
+      <div class="card-body">
+
+        <div class="question-block" data-item="q1">
+          <div class="question-row"><span class="q-num">1</span><span class="q-text">מהו שמו המלא של הנביא, לפי הפסוק הראשון בספר?</span></div>
+          <div class="mc-group" data-qid="q1">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q1"> יונה בן מתי</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q1"> יונה בן אמיתי</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q1"> עמוס בן אמיתי</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q2">
+          <div class="question-row"><span class="q-num">2</span><span class="q-text">מה ה׳ מבקש מיונה לעשות בתחילת הספר?</span></div>
+          <div class="mc-group" data-qid="q2">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q2"> לברוח לתרשיש</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q2"> ללכת לנינווה ולקרוא עליה תוכחה</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q2"> לבנות אונייה</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q3">
+          <div class="question-row"><span class="q-num">3</span><span class="q-text">לפי רד״ק, מדוע יונה חשש ללכת לנינווה?</span></div>
+          <div class="mc-group" data-qid="q3">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q3"> חשש שאנשי נינווה ישובו בתשובה, וזה יבייש את עם ישראל שאינו שב</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q3"> חשש מהים הסוער</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q3"> לא ידע את הדרך לנינווה</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q4">
+          <div class="question-row"><span class="q-num">4</span><span class="q-text">איזה שורש חוזר בתיאור המלחים באונייה (יראת ה׳ שהולכת וגוברת)?</span></div>
+          <div class="mc-group" data-qid="q4">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q4"> י-ר-א (יראה)</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q4"> י-ר-ד (ירידה)</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q5">
+          <div class="question-row"><span class="q-num">5</span><span class="q-text">לפי המדרש (פרקי דרבי אליעזר), מה עשו המלחים לפני שהשליכו את יונה לים?</span></div>
+          <div class="mc-group" data-qid="q5">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q5"> מיד השליכו אותו, בלי לנסות שום דבר אחר</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q5"> ניסו כמה דרכים אחרות קודם - גורל, השלכת כלים, חתירה ליבשה</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q5"> שאלו את יונה אם הוא מסכים</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q6">
+          <div class="question-row"><span class="q-num">6</span><span class="q-text">מה עשו אנשי האונייה לאחר שהים נרגע, בסוף פרק א׳?</span></div>
+          <div class="mc-group" data-qid="q6">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q6"> יראו יראה גדולה את ה׳, זבחו זבח ונדרו נדרים</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q6"> שכחו מיד את מה שקרה</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q6"> כעסו על יונה</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">פרק ב׳</span>
+        <h2 class="card-title">יונה במעי הדג</h2>
+      </div>
+      <div class="card-body">
+
+        <div class="question-block" data-item="q7">
+          <div class="question-row"><span class="q-num">7</span><span class="q-text">מי מציל את יונה מטביעה בים?</span></div>
+          <div class="mc-group" data-qid="q7">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q7"> ספינה שחלפה במקרה</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q7"> דג גדול שה׳ מזמן לבלוע אותו</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q7"> אחד המלחים</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q8">
+          <div class="question-row"><span class="q-num">8</span><span class="q-text">כמה זמן שהה יונה במעי הדג?</span></div>
+          <div class="mc-group" data-qid="q8">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q8"> יום אחד ולילה אחד</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q8"> שלושה ימים ושלושה לילות</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q8"> ארבעים יום</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q9">
+          <div class="question-row"><span class="q-num">9</span><span class="q-text">כיצד מסתיים פרק ב׳?</span></div>
+          <div class="mc-group" data-qid="q9">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q9"> ה׳ אומר לדג, והוא מקיא את יונה אל היבשה</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q9"> הדג טובע יחד עם יונה</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q9"> יונה יוצא מהדג בעצמו</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">פרק ג׳</span>
+        <h2 class="card-title">תשובת נינווה</h2>
+      </div>
+      <div class="card-body">
+
+        <div class="question-block" data-item="q10">
+          <div class="question-row"><span class="q-num">10</span><span class="q-text">מה מלמדת המילה "שנית" בפתיחת פרק ג׳ ("ויהי דבר ה׳ אל יונה שנית")?</span></div>
+          <div class="mc-group" data-qid="q10">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q10"> שזו הפעם השנייה שה׳ פונה ליונה עם אותה שליחות</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q10"> שיונה חיכה שנתיים</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q10"> ששני נביאים נשלחו</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q11">
+          <div class="question-row"><span class="q-num">11</span><span class="q-text">מה ההבדל בין תגובת יונה לשליחות בפרק א׳ לתגובתו בפרק ג׳?</span></div>
+          <div class="mc-group" data-qid="q11">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q11"> בפרק א׳ ברח לתרשיש, ואילו בפרק ג׳ הלך לנינווה כדבר ה׳</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q11"> בשני הפרקים הוא ברח באותה צורה</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q11"> בפרק ג׳ הוא סירב לגמרי</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q12">
+          <div class="question-row"><span class="q-num">12</span><span class="q-text">נינווה הייתה עיר "מהלך שלושה ימים" - כמה מתוכם הלך יונה בפועל, לפי הפסוק?</span></div>
+          <div class="mc-group" data-qid="q12">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q12"> יום אחד בלבד</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q12"> את כל שלושת הימים</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q12"> לא נכנס לעיר בכלל</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q13">
+          <div class="question-row"><span class="q-num">13</span><span class="q-text">מה עשו אנשי נינווה כששמעו את קריאת יונה?</span></div>
+          <div class="mc-group" data-qid="q13">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q13"> האמינו באלוקים, קראו צום ולבשו שקים</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q13"> גירשו את יונה מהעיר</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q13"> התעלמו לגמרי</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q14">
+          <div class="question-row"><span class="q-num">14</span><span class="q-text">מי הצטרף לצום ולתשובה אחרי שהעם כבר החל?</span></div>
+          <div class="mc-group" data-qid="q14">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q14"> מלך נינווה, שקם מכיסאו ולבש שק</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q14"> מלך אשור הגדול, שהיה בעיר אחרת</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q14"> לא הצטרף אף אחד נוסף</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q15">
+          <div class="question-row"><span class="q-num">15</span><span class="q-text">מלבד הצום, מה עוד גזר המלך על העם?</span></div>
+          <div class="mc-group" data-qid="q15">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q15"> לשוב איש מדרכו הרעה ומן החמס אשר בכפיהם</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q15"> לעזוב את העיר לגמרי</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q15"> לבנות מזבח חדש</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q16">
+          <div class="question-row"><span class="q-num">16</span><span class="q-text">איך מגיב ה׳ לתשובת אנשי נינווה, לפי סוף פרק ג׳?</span></div>
+          <div class="mc-group" data-qid="q16">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q16"> ראה את מעשיהם, וניחם על הרעה ולא עשה אותה</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q16"> החריב את העיר בכל זאת</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q16"> שלח נביא נוסף לבדוק</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">פרק ד׳</span>
+        <h2 class="card-title">כעסו של יונה והקיקיון</h2>
+      </div>
+      <div class="card-body">
+
+        <div class="question-block" data-item="q17">
+          <div class="question-row"><span class="q-num">17</span><span class="q-text">איך מגיב יונה לכך שה׳ לא החריב את נינווה?</span></div>
+          <div class="mc-group" data-qid="q17">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q17"> "וירע אל יונה רעה גדולה ויחר לו" - הוא כועס וכואב מכך</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q17"> הוא שמח מאוד ומודה לה׳</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q17"> הוא לא מגיב כלל</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q18">
+          <div class="question-row"><span class="q-num">18</span><span class="q-text">מה מבקש יונה מה׳ בתפילתו בתחילת פרק ד׳?</span></div>
+          <div class="mc-group" data-qid="q18">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q18"> לקחת את נפשו - "כי טוב מותי מחיי"</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q18"> להחריב את נינווה מיד</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q18"> לשלוח אותו הביתה</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q19">
+          <div class="question-row"><span class="q-num">19</span><span class="q-text">מה מזמן ה׳ כדי לתת צל לראשו של יונה?</span></div>
+          <div class="mc-group" data-qid="q19">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q19"> קיקיון</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q19"> סוכה גדולה</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q19"> ענן</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q20">
+          <div class="question-row"><span class="q-num">20</span><span class="q-text">מה קורה לקיקיון למחרת בעלות השחר?</span></div>
+          <div class="mc-group" data-qid="q20">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q20"> ה׳ מזמן תולעת שמכה אותו, והוא מתייבש</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q20"> הוא גדל עוד יותר</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q20"> יונה עוקר אותו בעצמו</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q21">
+          <div class="question-row"><span class="q-num">21</span><span class="q-text">מלבד יובש הקיקיון, מה עוד גורם ליונה לסבול וליפול לתעלוף?</span></div>
+          <div class="mc-group" data-qid="q21">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q21"> רוח קדים חרישית והשמש המכה על ראשו</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q21"> גשם וברד</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q21"> אנשי נינווה שתקפו אותו</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q22">
+          <div class="question-row"><span class="q-num">22</span><span class="q-text">מהו הקל וחומר שה׳ מלמד את יונה בסוף הספר?</span></div>
+          <div class="mc-group" data-qid="q22">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q22"> אם אתה חס על קיקיון שלא עמלת בו, קל וחומר שה׳ חס על נינווה ותושביה</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q22"> אם אתה חס על קיקיון, קל וחומר שתחוס גם על עצמך</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q22"> אין קשר בין הקיקיון לנינווה</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+        <div class="question-block sub-q" data-item="q23">
+          <div class="question-row"><span class="q-num">23</span><span class="q-text">לפי הפסוק האחרון בספר, כמה בני אדם היו בנינווה?</span></div>
+          <div class="mc-group" data-qid="q23">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q23"> כמה מאות בלבד</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q23"> יותר משתים-עשרה ריבוא (יותר מ-120,000)</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q23"> מיליון איש</label>
+          </div>
+          <div class="mc-feedback" aria-live="polite"></div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <span></span>
+  <a href="yonah-hub.html">↺ חזרה ליחידה</a>
+  <span></span>
+</nav>
+<div class="toolbar">
+  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
+  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
+</p>
+
+<footer class="credit">ספר יונה · שאלות אמריקאיות · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'yonah-quiz-answers';
+const NAME_KEY = 'yonah-quiz-student';
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+const mcGroups = Array.from(document.querySelectorAll('.mc-group'));
+const ITEM_IDS = mcGroups.map(g => g.dataset.qid);
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{ localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value })); }catch(e){}
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){ const data = JSON.parse(raw); nameInput.value = data.name || ''; classInput.value = data.cls || ''; }
+  }catch(e){}
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  let answered = 0, correct = 0;
+  mcGroups.forEach(group => {
+    const checked = group.querySelector('input[type="radio"]:checked');
+    if(checked){
+      answered++;
+      if(checked.closest('.mc-option').dataset.correct === 'true') correct++;
+    }
+  });
+  const pct = ITEM_IDS.length ? Math.round(answered / ITEM_IDS.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = answered + ' / ' + ITEM_IDS.length + ' נענו · ציון: ' + correct + ' / ' + ITEM_IDS.length;
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAll(){
+  const data = {};
+  mcGroups.forEach(group => {
+    const checked = group.querySelector('input[type="radio"]:checked');
+    if(checked){ data[group.dataset.qid] = checked.closest('.mc-option').dataset.value; }
+  });
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    flashSaved();
+  }catch(e){ console.error('שגיאת שמירה', e); }
+}
+
+function applyMcVisual(option, correct){
+  const group = option.closest('.mc-group');
+  group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong'));
+  option.classList.add(correct ? 'is-correct' : 'is-wrong');
+  const feedback = group.closest('.question-block').querySelector('.mc-feedback');
+  if(feedback){
+    feedback.textContent = correct ? '✓ נכון!' : 'לא בדיוק - נסו שוב';
+    feedback.className = 'mc-feedback ' + (correct ? 'correct' : 'wrong');
+  }
+}
+
+function loadAll(){
+  let data = {};
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) data = JSON.parse(raw);
+  }catch(e){}
+
+  mcGroups.forEach(group => {
+    const v = data[group.dataset.qid];
+    if(v){
+      const option = group.querySelector('.mc-option[data-value="' + v + '"]');
+      if(option){
+        option.querySelector('input[type="radio"]').checked = true;
+        applyMcVisual(option, option.dataset.correct === 'true');
+      }
+    }
+  });
+  updateProgress();
+}
+
+mcGroups.forEach(group => {
+  group.querySelectorAll('.mc-option').forEach(option => {
+    option.addEventListener('click', () => {
+      const radio = option.querySelector('input[type="radio"]');
+      radio.checked = true;
+      applyMcVisual(option, option.dataset.correct === 'true');
+      updateProgress();
+      saveAll();
+    });
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות שכתבתם? אי אפשר לשחזר לאחר מכן.')) return;
+  mcGroups.forEach(group => {
+    group.querySelectorAll('input[type="radio"]').forEach(r => { r.checked = false; });
+    group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong'));
+    const feedback = group.closest('.question-block').querySelector('.mc-feedback');
+    if(feedback){ feedback.textContent = ''; feedback.className = 'mc-feedback'; }
+  });
+  updateProgress();
+  saveAll();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){
+    nameInput.focus();
+    alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.');
+    return;
+  }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => {
+  inp.addEventListener('input', saveStudentInfo);
+});
+
+loadStudentInfo();
+loadAll();
+</script>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<script>
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+<script src="assets/progress-tracker.js"></script>
+</body>
+</html>
