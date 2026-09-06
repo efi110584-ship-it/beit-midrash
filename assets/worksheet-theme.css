@@ -154,6 +154,37 @@ main{ max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 2rem; }
   margin-bottom: 1.2rem;
 }
 .topic-icon{ font-size: 2rem; flex:none; }
+
+.topic-extra-link{ margin: -0.5rem 0 1.4rem; }
+.chip-link{
+  display:inline-flex; align-items:center; gap:.45rem;
+  background: var(--acc-soft); color: var(--acc) !important;
+  border: 1.5px solid var(--acc); border-radius: 999px;
+  padding: .55rem 1.15rem; min-height:44px;
+  font-weight:700; font-size:.88rem; text-decoration:none;
+  transition: background .2s ease, color .2s ease, transform .15s ease;
+}
+.chip-link:hover{ background: var(--acc); color:#fff !important; transform: translateY(-1px); }
+.chip-link:focus-visible{ outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+.chip-link .chip-icon{ font-size:1rem; }
+
+/* ---------- ניווט נושאים בעמודות (לקט מצוות - הרבה לשוניות, בלי גלילה אופקית) ---------- */
+.topic-nav-wrap.grid-nav{ position: static; margin-bottom: 1.8rem; }
+.topic-nav-wrap.grid-nav::before, .topic-nav-wrap.grid-nav::after{ display:none; }
+.topic-nav-wrap.grid-nav .topic-nav{
+  display:grid; grid-template-columns: repeat(3, 1fr); gap:.6rem;
+  overflow:visible; background:transparent; backdrop-filter:none; border-bottom:none;
+  padding: .5rem 1.5rem 1.2rem; max-width:1200px; margin:0 auto; box-sizing:border-box;
+}
+.topic-nav-wrap.grid-nav .topic-pill{
+  white-space:normal; justify-content:center; text-align:center; line-height:1.25;
+}
+@media (max-width:900px){
+  .topic-nav-wrap.grid-nav .topic-nav{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width:420px){
+  .topic-nav-wrap.grid-nav .topic-nav{ padding-inline: .8rem; }
+}
 .topic-eyebrow{ font-size:.72rem; font-weight:700; letter-spacing:.08em; color: var(--acc); text-transform:none; }
 .topic-title{ font-family:'Frank Ruhl Libre', serif; font-weight:800; font-size:1.5rem; margin:.1rem 0; color: var(--ink); }
 .topic-subtitle{ margin:0; font-size:.88rem; color: var(--ink-soft); }
