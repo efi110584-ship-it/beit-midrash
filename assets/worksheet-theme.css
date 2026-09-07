@@ -246,6 +246,14 @@ main{ max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 2rem; }
 .question-block{ border-top: 1px dashed var(--paper-line); padding-top: .8rem; margin-top: .1rem; }
 .question-block.sub-q{ border-top:none; padding-top:.3rem; margin-top:0; }
 
+/* ---------- יחידות נושאיות: פרק מחולק לחלקים, כל חלק ניתן לסימון כ"הושלם" ---------- */
+.unit-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:.7rem; flex-wrap:wrap; }
+.unit-done{ display:inline-flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:700; color: var(--acc); background: var(--acc-soft); border-radius:999px; padding:.4rem .85rem; cursor:pointer; white-space:nowrap; margin-top:.15rem; }
+.unit-done input{ width:1.2rem; height:1.2rem; accent-color: var(--acc); flex:none; }
+.card.unit.completed{ border-top-color: var(--teal); }
+.card.unit.completed .unit-done{ background: var(--teal-soft); color: var(--teal); }
+.unit-subhead{ font-family:'Heebo',sans-serif; font-weight:700; font-size:.85rem; color: var(--acc); margin: .2rem 0 -.3rem; }
+
 /* ---------- גרסת תרגול נגישה: בחירה מרובה, מילוי מודרך, רמזים ---------- */
 .mc-group{ display:flex; flex-direction:column; gap:.55rem; margin:.5rem 0 .3rem; }
 .mc-option{
