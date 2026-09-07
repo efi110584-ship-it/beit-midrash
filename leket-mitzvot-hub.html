@@ -3072,6 +3072,40 @@ document.getElementById('printBtn').addEventListener('click', () => {
 
 [nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
 
+document.querySelectorAll('.hint-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.nextElementSibling;
+    if(!box) return;
+    const showing = box.hidden;
+    box.hidden = !showing;
+    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  });
+});
+
+const UNIT_KEY = 'leket-hub-units';
+const unitChecks = Array.from(document.querySelectorAll('.unit-check'));
+function saveUnits(){
+  const done = {};
+  unitChecks.forEach(cb => { done[cb.dataset.unitId] = cb.checked; });
+  try{ localStorage.setItem(UNIT_KEY, JSON.stringify(done)); }catch(e){}
+}
+function loadUnits(){
+  try{
+    const raw = localStorage.getItem(UNIT_KEY);
+    const done = raw ? JSON.parse(raw) : {};
+    unitChecks.forEach(cb => {
+      if(done[cb.dataset.unitId]){ cb.checked = true; cb.closest('.unit').classList.add('completed'); }
+    });
+  }catch(e){}
+}
+unitChecks.forEach(cb => {
+  cb.addEventListener('change', () => {
+    cb.closest('.unit').classList.toggle('completed', cb.checked);
+    saveUnits();
+  });
+});
+loadUnits();
+
 let originalHeights = [];
 window.addEventListener('beforeprint', () => {
   originalHeights = textareas.map(t => t.style.height);
