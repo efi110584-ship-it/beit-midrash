@@ -147,7 +147,7 @@
 
   <header>
     <h1>🧩 לא תסור — משחק התאמה: שאלה ותשובה</h1>
-    <p class="sub">התאימו כל שאלה לתשובה הנכונה שלה - הקבוצה שמסיימת מקבלת פרס! ואז לומדים ביחד.</p>
+    <p class="sub">אפשר לשחק בקבוצה או ביחיד. התאימו כל שאלה לתשובה הנכונה שלה - מי שמסיים מקבל פרס! ואז לומדים ביחד.</p>
   </header>
 
   <div class="game-nav"><a href="lo-tasur.html">→ חזרה לדף העבודה "לא תסור"</a></div>
@@ -161,7 +161,7 @@
   <section id="gameScreen" class="screen">
     <button class="back-btn" id="toTopicsBtn" type="button">→ בחירת נושא אחר</button>
     <div class="team-bar">
-      <div><label>שם הקבוצה: </label><input type="text" id="teamName" placeholder="לדוגמה: קבוצה 1"></div>
+      <div><label>שם הקבוצה / שם התלמיד: </label><input type="text" id="teamName" placeholder="לדוגמה: קבוצה 1, או השם שלך"></div>
       <div class="stat">ניסיונות: <span id="triesCount">0</span></div>
       <div class="stat">✓ <span id="matchedCount">0</span> / 4</div>
     </div>
@@ -182,9 +182,9 @@
     <div class="trophy">🏆🎉🏆</div>
     <h2 id="winTeamLine">כל הכבוד!</h2>
     <p id="winTriesLine" style="font-size:1.05rem;"></p>
-    <div class="prize-box">🎁 הקבוצה מקבלת פרס מהמורה!</div>
+    <div class="prize-box">🎁 מקבלים פרס מהמורה!</div>
     <div class="btn-row">
-      <button class="primary-btn" id="nextTeamBtn" type="button">↺ תור לקבוצה הבאה (אותו נושא)</button>
+      <button class="primary-btn" id="nextTeamBtn" type="button">↺ עוד סיבוב באותו נושא</button>
       <button class="secondary-btn" id="toReviewBtn" type="button">📖 בואו נלמד את זה ביחד</button>
     </div>
   </section>
@@ -402,8 +402,9 @@ function selectCard(el, side, index){
 }
 
 function showWin(){
-  const teamName = lastTeamName || "הקבוצה";
-  document.getElementById("winTeamLine").textContent = `${teamName} - כל הכבוד!`;
+  document.getElementById("winTeamLine").textContent = lastTeamName
+    ? `${lastTeamName} - כל הכבוד!`
+    : `כל הכבוד!`;
   document.getElementById("winTriesLine").textContent = `התאמתם את כל 4 הזוגות ב-${tries} ניסיונות.`;
   showScreen(winScreen);
 }
