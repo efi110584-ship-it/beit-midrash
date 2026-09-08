@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>לא תסור — משחק התאמה: שאלה ותשובה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@600;800&family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF6EE; --card:#FFFFFF; --ink:#2B2419; --ink-soft:#5A5142;
+    --navy:#1E2761; --navy-soft:#E7E9F5;
+    --gold:#8A5C21; --gold-soft:#F4ECE1;
+    --green:#1F7A4D; --green-soft:#E4EEEA;
+    --red:#B03A2E; --red-soft:#FBE4E0;
+    --border:#E4DACB;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
+  .wrap{ max-width:1000px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  header{ text-align:center; padding:1rem 0 .4rem; }
+  h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
+  .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; }
+
+  .screen{ display:none; }
+  .screen.active{ display:block; }
+
+  /* topic picker */
+  .topic-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1rem; margin-top:1.2rem; }
+  .topic-tile{
+    border:none; border-radius:16px; padding:1.3rem 1.1rem; cursor:pointer; text-align:right; color:#fff;
+    font-family:'Heebo',sans-serif; box-shadow:0 4px 14px rgba(0,0,0,.12); min-height:110px;
+    transition:transform .15s ease;
+  }
+  .topic-tile:hover{ transform:translateY(-3px); }
+  .topic-tile .icon{ font-size:2rem; display:block; margin-bottom:.3rem; }
+  .topic-tile .name{ font-weight:800; font-size:1.08rem; }
+
+  /* team bar */
+  .team-bar{
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.8rem;
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px; padding:.9rem 1.1rem; margin:1rem 0;
+  }
+  .team-bar label{ font-weight:700; font-size:.95rem; }
+  .team-bar input{
+    font-family:'Heebo',sans-serif; font-size:1rem; padding:.4rem .7rem; border:1.5px solid var(--border);
+    border-radius:8px; width:9rem;
+  }
+  .stat{ font-weight:800; color:var(--navy); font-size:1.05rem; }
+  .back-btn{
+    display:inline-flex; align-items:center; gap:.4rem; background:none; border:2px solid var(--navy);
+    color:var(--navy); border-radius:999px; padding:.45rem 1rem; font-weight:700; cursor:pointer;
+    font-family:'Heebo',sans-serif; font-size:.9rem;
+  }
+  .back-btn:hover{ background:var(--navy-soft); }
+
+  /* board */
+  .board{ display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:1rem; }
+  @media (max-width:640px){ .board{ grid-template-columns:1fr; } }
+  .col-label{ font-weight:800; color:var(--ink-soft); font-size:.85rem; text-align:center; margin-bottom:.4rem; letter-spacing:.05em; }
+  .match-card{
+    background:var(--card); border:2px solid var(--border); border-radius:12px;
+    padding:.85rem 1rem; margin-bottom:.7rem; cursor:pointer; font-size:.98rem; font-weight:600;
+    transition:all .15s ease; min-height:3.4rem; display:flex; align-items:center;
+  }
+  .match-card:hover{ border-color:var(--navy); }
+  .match-card:focus-visible{ outline:3px solid var(--navy); outline-offset:2px; }
+  .match-card.selected{ border-color:var(--gold); background:var(--gold-soft); }
+  .match-card.correct{ border-color:var(--green); background:var(--green-soft); color:var(--green); cursor:default; }
+  .match-card.wrong{ border-color:var(--red); background:var(--red-soft); animation:shake .3s ease; }
+  @keyframes shake{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-6px);} 75%{transform:translateX(6px);} }
+  .match-card .qnum{
+    display:inline-flex; align-items:center; justify-content:center; width:1.6rem; height:1.6rem;
+    border-radius:50%; background:var(--navy-soft); color:var(--navy); font-weight:800; font-size:.85rem;
+    margin-left:.6rem; flex:none;
+  }
+  .match-card.correct .qnum{ background:var(--green); color:#fff; }
+
+  /* win screen */
+  #winScreen{ text-align:center; padding:1.5rem 1rem; }
+  #winScreen .trophy{ font-size:3rem; }
+  #winScreen h2{ font-family:'Frank Ruhl Libre',serif; color:var(--navy); font-size:1.7rem; margin:.3rem 0; }
+  .prize-box{
+    background:var(--gold-soft); border:2px dashed var(--gold); border-radius:14px;
+    padding:1rem 1.4rem; max-width:420px; margin:1rem auto; font-weight:700; color:var(--gold); font-size:1.1rem;
+  }
+  .btn-row{ display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap; margin-top:1.2rem; }
+  .primary-btn{
+    background:var(--navy); color:#fff; border:none; border-radius:999px; padding:.8rem 1.6rem;
+    font-size:1rem; font-weight:800; cursor:pointer; font-family:'Heebo',sans-serif;
+  }
+  .primary-btn:hover{ background:#141b47; }
+  .secondary-btn{
+    background:#fff; color:var(--navy); border:2px solid var(--navy); border-radius:999px; padding:.75rem 1.5rem;
+    font-size:1rem; font-weight:800; cursor:pointer; font-family:'Heebo',sans-serif;
+  }
+  .secondary-btn:hover{ background:var(--navy-soft); }
+
+  /* review screen */
+  .review-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin-bottom:1rem; box-shadow:0 2px 8px rgba(0,0,0,.04);
+  }
+  .review-q{ font-weight:700; font-size:1.05rem; display:flex; gap:.5rem; align-items:flex-start; }
+  .review-a{ background:var(--green-soft); border:1.5px solid #9FC4B7; border-radius:10px; padding:.7rem 1rem; margin-top:.6rem; font-size:.98rem; color:#1D3F37; }
+  .review-a b{ color:var(--green); }
+
+  .breadcrumbs{ max-width:1000px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs a{ color:var(--navy); text-decoration:none; }
+  .breadcrumbs a:hover{ text-decoration:underline; }
+  .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
+  .breadcrumbs .current{ color:var(--ink-soft); }
+
+  .game-nav{ text-align:center; margin:.6rem 0 0; }
+  .game-nav a{
+    display:inline-flex; align-items:center; gap:.4rem; color:var(--navy); text-decoration:none;
+    font-size:.9rem; font-weight:700; border:1.5px solid var(--navy); border-radius:999px; padding:.4rem 1rem;
+  }
+  .game-nav a:hover{ background:var(--navy-soft); }
+
+  .site-footer{ text-align:center; color:var(--ink-soft); font-size:.85rem; margin-top:2rem; }
+
+  .to-top-btn{
+    position:fixed; bottom:1.2rem; left:1.2rem; width:2.8rem; height:2.8rem; border-radius:50%;
+    background:var(--navy); color:#fff; border:none; font-size:1.2rem; cursor:pointer; opacity:0;
+    pointer-events:none; transition:opacity .2s ease; box-shadow:0 3px 10px rgba(0,0,0,.2);
+  }
+  .to-top-btn.show{ opacity:1; pointer-events:auto; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">לקט מצוות</a>
+  <span class="sep">›</span>
+  <a href="lo-tasur.html">"לא תסור"</a>
+  <span class="sep">›</span>
+  <span class="current">משחק התאמה</span>
+</nav>
+
+<div class="wrap">
+
+  <header>
+    <h1>🧩 לא תסור — משחק התאמה: שאלה ותשובה</h1>
+    <p class="sub">התאימו כל שאלה לתשובה הנכונה שלה - הקבוצה שמסיימת מקבלת פרס! ואז לומדים ביחד.</p>
+  </header>
+
+  <div class="game-nav"><a href="lo-tasur.html">→ חזרה לדף העבודה "לא תסור"</a></div>
+
+  <!-- topic picker -->
+  <section id="topicScreen" class="screen active">
+    <div class="topic-grid" id="topicGrid"></div>
+  </section>
+
+  <!-- game board -->
+  <section id="gameScreen" class="screen">
+    <button class="back-btn" id="toTopicsBtn" type="button">→ בחירת נושא אחר</button>
+    <div class="team-bar">
+      <div><label>שם הקבוצה: </label><input type="text" id="teamName" placeholder="לדוגמה: קבוצה 1"></div>
+      <div class="stat">ניסיונות: <span id="triesCount">0</span></div>
+      <div class="stat">✓ <span id="matchedCount">0</span> / 4</div>
+    </div>
+    <div class="board">
+      <div>
+        <div class="col-label">שאלות</div>
+        <div id="qCol"></div>
+      </div>
+      <div>
+        <div class="col-label">תשובות</div>
+        <div id="aCol"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- win screen -->
+  <section id="winScreen" class="screen">
+    <div class="trophy">🏆🎉🏆</div>
+    <h2 id="winTeamLine">כל הכבוד!</h2>
+    <p id="winTriesLine" style="font-size:1.05rem;"></p>
+    <div class="prize-box">🎁 הקבוצה מקבלת פרס מהמורה!</div>
+    <div class="btn-row">
+      <button class="primary-btn" id="nextTeamBtn" type="button">↺ תור לקבוצה הבאה (אותו נושא)</button>
+      <button class="secondary-btn" id="toReviewBtn" type="button">📖 בואו נלמד את זה ביחד</button>
+    </div>
+  </section>
+
+  <!-- review screen -->
+  <section id="reviewScreen" class="screen">
+    <button class="back-btn" id="toTopicsBtn2" type="button">→ בחירת נושא אחר</button>
+    <h2 style="font-family:'Frank Ruhl Libre',serif; color:var(--navy);" id="reviewTitle"></h2>
+    <div id="reviewList"></div>
+  </section>
+
+</div>
+
+<script>
+const TOPICS = [
+{
+  key:"s1", name:"מהתורה למצווה", icon:"📜", color:"#8A5C21",
+  qa:[
+    ["היכן נמצא בית הדין הגדול שאליו הולכים במקרה של ספק?",
+     "בית הדין הגדול נמצא \"במקום אשר יבחר ה'\" - במקום שה' בחר לו, שזה ירושלים."],
+    ["מה מצווה התורה על מי שהולך לבית הדין?",
+     "התורה מצווה לעשות בדיוק כמו שבית הדין אומר, ולא לסטות מדבריו - לא ימינה ולא שמאלה."],
+    ["מה קורה לאדם שמחליט לעשות בניגוד לפסיקת בית הדין, בכוונה?",
+     "העונש שלו הוא מיתה. חז\"ל קוראים לו \"זקן ממרא\", כי הוא ממרה - כלומר מתנגד - לבית הדין הגדול."],
+    ["מהי הגדרת המצווה \"לא תסור\" לפי ספר החינוך?",
+     "המצווה היא: לא לחלוק על חכמינו (בעלי הקבלה) ולא לשנות את דבריהם, אלא לשמוע להם בכל דיני התורה."],
+  ]
+},
+{
+  key:"s2", name:"למה לשמוע לחכמים - גם כשהם טועים", icon:"🤔", color:"#1E2761",
+  qa:[
+    ["מהם שני החלקים של מצוות \"לא תסור\"?",
+     "חלק 1: ללכת לפי הפירוש המקובל של חכמי הדורות הקודמים. חלק 2: בכל דור, לשמוע לחכמים החיים באותו הדור."],
+    ["למה בכלל יש מצווה כזאת - למה אסור שכל אחד יפרש את התורה לבד?",
+     "לבני אדם יש דעות שונות. אם כל אחד היה מפרש את התורה לפי דעתו - היו יוצאות הרבה מחלוקות. ה' רצה תורה אחת, ולכן ציווה לשמוע לחכמים."],
+    ["מה לומדים חכמים מהפסוק \"לא תסור... ימין ושמאל\"?",
+     "אפילו אם חכמי הסנהדרין יטעו, ויגידו על ימין שהוא שמאל - צריך לשמוע להם ולא לחלוק עליהם."],
+    ["למה עדיף לשמוע לחכמים גם אם הם טועים?",
+     "כי אם כל אחד ינהג כפי דעתו שלו - זה עלול להביא לפירוד ולהרס בעם. עדיף לסבול טעות אחת ולשמור על האחדות."],
+  ]
+},
+{
+  key:"s3", name:"תנורו של עכנאי - מי צדק?", icon:"🔥", color:"#9C4221",
+  qa:[
+    ["איזו מצווה נוספת (מספר שמות) דומה לסיבה של \"לא תסור\"?",
+     "המצווה \"אחרי רבים להטות\" - ללכת אחרי דעת הרוב."],
+    ["מהי המחלוקת המפורסמת בין רבי אליעזר לחכמים?",
+     "המחלוקת: תנור שחתכו לחלקים ושמו ביניהם חול - רבי אליעזר אמר שהוא טהור, וחכמים אמרו שהוא טמא."],
+    ["לפי כל האותות מהשמים (חרוב, מים, כתלים, בת קול) - כמו מי ההלכה?",
+     "לפי כל האותות מהשמים - ההלכה כרבי אליעזר. הוא היה זה שצדק!"],
+    ["אז למה בכל זאת החכמים לא הלכו לפי רבי אליעזר?",
+     "כי הולכים תמיד אחרי דעת רוב החכמים, ולא אחרי אותות ובת קול - התורה כבר ניתנה בהר סיני, ומאז פוסקים \"אחרי רבים להטות\"."],
+  ]
+},
+{
+  key:"s4", name:"נצחוני בני, ומי זה זקן ממרא", icon:"😄", color:"#1D5C4C",
+  qa:[
+    ["למה הקב\"ה שמח כששמע שהחכמים הלכו אחרי הרוב?",
+     "הקב\"ה שמח כי בניו (עם ישראל) הלכו בדרך שהתורה ציוותה - \"אחרי רבים להטות\", גם כשזה קשה."],
+    ["מה פירוש האמירה \"נצחוני בני\"? האם באמת אפשר לנצח את ה'?",
+     "לא ניתן באמת לנצח את ה'. הכוונה: האמת הייתה עם רבי אליעזר, אבל החכמים פסקו לפי הרוב כמו שהתורה ציוותה - ולכן יצא כאילו האמת \"הפסידה\" הפעם."],
+    ["מהם ארבעת התנאים שהופכים חכם ל\"זקן ממרא\"?",
+     "1. הוא חכם גדול. 2. הוא חולק על בית הדין הגדול. 3. המחלוקת בעניין חמור מאוד. 4. הוא עשה מעשה בפועל, ולא רק דיבר."],
+    ["מהם שני המקרים שבהם זקן ממרא יהיה פטור ממיתה?",
+     "1. אם הוא תלמיד שעדיין לא הגיע לדרגת חכם. 2. אם הוא חלק על בית הדין במקום אחר, ולא בירושלים."],
+  ]
+},
+{
+  key:"s5", name:"לומדים מהפסוקים, ומקרים חמורים", icon:"⚖️", color:"#6B4C2A",
+  qa:[
+    ["מה לומדים מהמילה \"יפלא\" בפסוק \"כי יפלא ממך דבר\"?",
+     "לומדים שרק חכם גדול, שלא ברור לו אלא דבר קשה במיוחד (\"מופלא\"), יכול להתחייב כזקן ממרא. תלמיד רגיל שטעה - פטור."],
+    ["מה לומדים מהמילה \"המקום\" בפסוק \"וקמת ועלית אל המקום\"?",
+     "לומדים שדווקא המקום (לשכת הגזית בירושלים) גורם לחיוב המיתה - רק שם הוא מתחייב, לא במקום אחר."],
+    ["תנו דוגמה למחלוקת שעונשה כרת ממש.",
+     "לדוגמה: מחלוקת אם אישה מסוימת נחשבת \"ערווה\" (איסור עריות) - זה עניין חמור מאוד."],
+    ["תנו דוגמה למחלוקת שיכולה להביא לידי כרת.",
+     "לדוגמה: מחלוקת בקביעת עיבור השנה - שעלולה לגרום לאכילת חמץ בפסח בטעות."],
+  ]
+},
+{
+  key:"s6", name:"לסיכום - איך ולמה", icon:"🏛️", color:"#8A5C21",
+  qa:[
+    ["למה מחלוקת בכסף (ממון) יכולה להביא לידי כרת?",
+     "כי אם אדם מקדש אישה בכסף שיש מחלוקת עליו (למשל אם הוא גזול) - יוצא שלפי דעה אחת היא מקודשת ולפי דעה שנייה לא, ומישהו עלול לטעות באיסור חמור."],
+    ["מתי נוהג העונש של \"זקן ממרא\", ומתי נוהגת החובה לשמוע לחכמים?",
+     "העונש של \"זקן ממרא\" - רק כשבית המקדש היה קיים. החובה לשמוע לחכמים - תמיד, בכל מקום ובכל זמן, לכולם."],
+    ["על מה עובר אדם שלא מקבל את פירוש החכמים לתורה?",
+     "הוא עובר על הלאו \"לא תסור\", ובנוסף לא מקיים את מצוות העשה \"ועשית ככל אשר יורוך\"."],
+    ["למה אדם שעבר על \"לא תסור\" לא מקבל גם מלקות?",
+     "כי על עבירה אחת נותנים רק עונש אחד. הלאו הזה כבר \"שייך\" לעונש חמור יותר (מיתה, במקרה של זקן ממרא) - ולכן לא מוסיפים גם מלקות."],
+  ]
+},
+];
+
+const topicScreen = document.getElementById("topicScreen");
+const gameScreen = document.getElementById("gameScreen");
+const winScreen = document.getElementById("winScreen");
+const reviewScreen = document.getElementById("reviewScreen");
+const teamNameInput = document.getElementById("teamName");
+const triesCountEl = document.getElementById("triesCount");
+const matchedCountEl = document.getElementById("matchedCount");
+const qCol = document.getElementById("qCol");
+const aCol = document.getElementById("aCol");
+
+let currentTopic = null;
+let tries = 0;
+let matched = 0;
+let selectedQ = null;
+let selectedA = null;
+let lastTeamName = "";
+
+function showScreen(el){
+  [topicScreen, gameScreen, winScreen, reviewScreen].forEach(s => s.classList.remove("active"));
+  el.classList.add("active");
+}
+
+function renderTopics(){
+  const grid = document.getElementById("topicGrid");
+  grid.innerHTML = "";
+  TOPICS.forEach(t => {
+    const btn = document.createElement("button");
+    btn.className = "topic-tile";
+    btn.type = "button";
+    btn.style.background = t.color;
+    btn.innerHTML = `<span class="icon" aria-hidden="true">${t.icon}</span><span class="name">${t.name}</span>`;
+    btn.addEventListener("click", () => startGame(t.key));
+    grid.appendChild(btn);
+  });
+}
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startGame(key){
+  currentTopic = TOPICS.find(t => t.key === key);
+  tries = 0;
+  matched = 0;
+  selectedQ = null;
+  selectedA = null;
+  triesCountEl.textContent = "0";
+  matchedCountEl.textContent = "0";
+  teamNameInput.value = lastTeamName;
+
+  const order = shuffle([0, 1, 2, 3]);
+  const qOrder = shuffle([0, 1, 2, 3]);
+
+  qCol.innerHTML = "";
+  aCol.innerHTML = "";
+
+  qOrder.forEach(i => {
+    const div = document.createElement("div");
+    div.className = "match-card";
+    div.dataset.index = i;
+    div.dataset.side = "q";
+    div.innerHTML = `<span class="qnum">${i + 1}</span><span>${currentTopic.qa[i][0]}</span>`;
+    div.addEventListener("click", () => selectCard(div, "q", i));
+    qCol.appendChild(div);
+  });
+  order.forEach(i => {
+    const div = document.createElement("div");
+    div.className = "match-card";
+    div.dataset.index = i;
+    div.dataset.side = "a";
+    div.textContent = currentTopic.qa[i][1];
+    div.addEventListener("click", () => selectCard(div, "a", i));
+    aCol.appendChild(div);
+  });
+
+  showScreen(gameScreen);
+}
+
+function selectCard(el, side, index){
+  if(el.classList.contains("correct")) return;
+  if(side === "q"){
+    if(selectedQ) selectedQ.el.classList.remove("selected");
+    selectedQ = { el, index };
+    el.classList.add("selected");
+  } else {
+    if(selectedA) selectedA.el.classList.remove("selected");
+    selectedA = { el, index };
+    el.classList.add("selected");
+  }
+  if(selectedQ && selectedA){
+    tries++;
+    triesCountEl.textContent = String(tries);
+    if(selectedQ.index === selectedA.index){
+      selectedQ.el.classList.remove("selected");
+      selectedA.el.classList.remove("selected");
+      selectedQ.el.classList.add("correct");
+      selectedA.el.classList.add("correct");
+      matched++;
+      matchedCountEl.textContent = String(matched);
+      selectedQ = null; selectedA = null;
+      if(matched === 4){
+        lastTeamName = teamNameInput.value.trim();
+        setTimeout(showWin, 500);
+      }
+    } else {
+      const qEl = selectedQ.el, aEl = selectedA.el;
+      qEl.classList.add("wrong"); aEl.classList.add("wrong");
+      setTimeout(() => {
+        qEl.classList.remove("selected", "wrong");
+        aEl.classList.remove("selected", "wrong");
+      }, 500);
+      selectedQ = null; selectedA = null;
+    }
+  }
+}
+
+function showWin(){
+  const teamName = lastTeamName || "הקבוצה";
+  document.getElementById("winTeamLine").textContent = `${teamName} - כל הכבוד!`;
+  document.getElementById("winTriesLine").textContent = `התאמתם את כל 4 הזוגות ב-${tries} ניסיונות.`;
+  showScreen(winScreen);
+}
+
+function showReview(){
+  document.getElementById("reviewTitle").textContent = `${currentTopic.icon} ${currentTopic.name} - לומדים ביחד`;
+  const list = document.getElementById("reviewList");
+  list.innerHTML = "";
+  currentTopic.qa.forEach((pair, i) => {
+    const div = document.createElement("div");
+    div.className = "review-card";
+    div.innerHTML = `
+      <div class="review-q"><span class="qnum" style="display:inline-flex;align-items:center;justify-content:center;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--navy-soft);color:var(--navy);font-weight:800;font-size:.85rem;flex:none;">${i + 1}</span><span>${pair[0]}</span></div>
+      <div class="review-a"><b>✓ תשובה:</b> ${pair[1]}</div>
+    `;
+    list.appendChild(div);
+  });
+  showScreen(reviewScreen);
+}
+
+document.getElementById("toTopicsBtn").addEventListener("click", () => showScreen(topicScreen));
+document.getElementById("toTopicsBtn2").addEventListener("click", () => showScreen(topicScreen));
+document.getElementById("nextTeamBtn").addEventListener("click", () => startGame(currentTopic.key));
+document.getElementById("toReviewBtn").addEventListener("click", showReview);
+
+renderTopics();
+</script>
+
+<footer class="site-footer">לקט מצוות · "לא תסור" · משחק התאמה כיתתי</footer>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<script>
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>
