@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר יונה — חדר בריחה: נמלטים מבטן הדג</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@600;800&family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#0F1830; --card:#FFFFFF; --ink:#2B2419; --ink-soft:#5A5142;
+    --navy:#1E2761; --navy-soft:#E7E9F5;
+    --gold:#C9A227; --gold-soft:#F4ECE1;
+    --green:#1F7A4D; --green-soft:#E4EEEA;
+    --red:#B03A2E; --red-soft:#FBE4E0;
+    --border:#E4DACB;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6;
+    background:
+      radial-gradient(ellipse at 20% 0%, rgba(201,162,39,0.12), transparent 45%),
+      radial-gradient(ellipse at 85% 100%, rgba(63,110,102,0.18), transparent 45%),
+      var(--paper);
+    min-height:100vh;
+  }
+  .wrap{ max-width:820px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  header{ text-align:center; padding:1rem 0 .4rem; }
+  h1{ font-family:'Frank Ruhl Libre',serif; font-size:1.9rem; margin:.2rem 0; color:#fff; }
+  .sub{ color:#C7CBE0; font-size:1rem; margin:0; }
+
+  .breadcrumbs{ max-width:820px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:#9AA1C2; }
+  .breadcrumbs a{ color:#D9C173; text-decoration:none; }
+  .breadcrumbs a:hover{ text-decoration:underline; }
+  .breadcrumbs .sep{ margin:0 .35rem; color:#4A5079; }
+  .breadcrumbs .current{ color:#9AA1C2; }
+
+  .game-nav{ text-align:center; margin:.6rem 0 0; }
+  .game-nav a{
+    display:inline-flex; align-items:center; gap:.4rem; color:#D9C173; text-decoration:none;
+    font-size:.9rem; font-weight:700; border:1.5px solid #D9C173; border-radius:999px; padding:.4rem 1rem;
+  }
+  .game-nav a:hover{ background:rgba(217,193,115,.12); }
+
+  .screen{ display:none; }
+  .screen.active{ display:block; }
+
+  /* intro screen */
+  .intro-card{
+    background:rgba(255,255,255,.06); border:1.5px solid rgba(217,193,115,.35); border-radius:18px;
+    padding:1.6rem 1.4rem; margin-top:1.2rem; text-align:center; color:#EDEFFB;
+  }
+  .intro-card .big-icon{ font-size:3rem; }
+  .team-bar{ display:flex; align-items:center; justify-content:center; gap:.6rem; flex-wrap:wrap; margin:1.1rem 0; }
+  .team-bar label{ font-weight:700; font-size:.95rem; color:#EDEFFB; }
+  .team-bar input{
+    font-family:'Heebo',sans-serif; font-size:1rem; padding:.45rem .7rem; border:1.5px solid rgba(217,193,115,.5);
+    border-radius:8px; width:11rem; background:rgba(255,255,255,.92); color:var(--ink);
+  }
+  .start-btn{
+    background:var(--gold); color:#241C05; border:none; border-radius:999px; padding:.9rem 2rem;
+    font-size:1.08rem; font-weight:800; cursor:pointer; font-family:'Heebo',sans-serif; margin-top:.6rem;
+    box-shadow:0 4px 16px rgba(201,162,39,.35);
+  }
+  .start-btn:hover{ background:#DDB53B; }
+
+  /* progress dots */
+  .progress-row{ display:flex; align-items:center; justify-content:center; gap:1.4rem; margin:1.2rem 0; flex-wrap:wrap; }
+  .stopwatch{ color:#D9C173; font-weight:800; font-size:1.15rem; font-variant-numeric:tabular-nums; }
+  .door-dots{ display:flex; gap:.5rem; }
+  .door-dot{
+    width:1.6rem; height:1.6rem; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-size:.8rem; font-weight:800; background:rgba(255,255,255,.1); color:#9AA1C2; border:1.5px solid rgba(255,255,255,.25);
+  }
+  .door-dot.solved{ background:var(--green); color:#fff; border-color:var(--green); }
+  .door-dot.current{ background:var(--gold); color:#241C05; border-color:var(--gold); }
+
+  .letters-bar{
+    display:flex; gap:.5rem; justify-content:center; margin:0 0 1.4rem; flex-wrap:wrap;
+  }
+  .letter-slot{
+    width:2.4rem; height:2.4rem; border-radius:8px; display:flex; align-items:center; justify-content:center;
+    font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.3rem; color:#241C05;
+    background:rgba(255,255,255,.12); border:1.5px dashed rgba(217,193,115,.5);
+  }
+  .letter-slot.filled{ background:var(--gold); border-style:solid; }
+
+  /* door card */
+  .door-card{
+    background:#fff; border-radius:18px; padding:1.4rem 1.3rem; box-shadow:0 10px 30px rgba(0,0,0,.35);
+    position:relative; overflow:hidden;
+  }
+  .door-card.shake{ animation:shake .35s ease; }
+  @keyframes shake{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-8px);} 75%{transform:translateX(8px);} }
+  .door-tag{ display:inline-block; font-size:.75rem; font-weight:800; color:var(--gold-text,#8A5C21); background:var(--gold-soft); border-radius:999px; padding:.25rem .8rem; margin-bottom:.7rem; }
+  .door-question{ font-weight:800; font-size:1.15rem; color:var(--navy); margin-bottom:1rem; line-height:1.5; }
+  .option-grid{ display:grid; grid-template-columns:1fr 1fr; gap:.7rem; }
+  @media (max-width:520px){ .option-grid{ grid-template-columns:1fr; } }
+  .option-btn{
+    background:#F7F5EF; border:2px solid var(--border); border-radius:12px; padding:.8rem .9rem;
+    font-size:.98rem; font-weight:600; cursor:pointer; text-align:right; font-family:'Heebo',sans-serif;
+    transition:all .15s ease;
+  }
+  .option-btn:hover{ border-color:var(--navy); }
+  .option-btn.correct{ background:var(--green-soft); border-color:var(--green); color:var(--green); }
+  .option-btn.wrong{ background:var(--red-soft); border-color:var(--red); color:var(--red); }
+  .option-btn:disabled{ cursor:default; }
+  .feedback-line{ margin-top:.9rem; font-weight:700; font-size:.95rem; min-height:1.4rem; }
+  .feedback-line.ok{ color:var(--green); }
+  .feedback-line.no{ color:var(--red); }
+
+  /* win screen */
+  #winScreen{ text-align:center; padding:1.6rem 1rem; }
+  #winScreen .trophy{ font-size:3.2rem; }
+  #winScreen h2{ font-family:'Frank Ruhl Libre',serif; color:#fff; font-size:1.8rem; margin:.3rem 0; }
+  #winScreen p{ color:#C7CBE0; }
+  .secret-word{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; font-weight:800; color:var(--gold); letter-spacing:.15em; margin:.6rem 0; }
+  .prize-box{
+    background:var(--gold-soft); border:2px dashed var(--gold); border-radius:14px;
+    padding:1rem 1.4rem; max-width:420px; margin:1rem auto; font-weight:700; color:#8A5C21; font-size:1.1rem;
+  }
+  .btn-row{ display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap; margin-top:1.2rem; }
+  .primary-btn{
+    background:var(--gold); color:#241C05; border:none; border-radius:999px; padding:.8rem 1.6rem;
+    font-size:1rem; font-weight:800; cursor:pointer; font-family:'Heebo',sans-serif;
+  }
+  .primary-btn:hover{ background:#DDB53B; }
+  .secondary-btn{
+    background:transparent; color:#EDEFFB; border:2px solid #EDEFFB; border-radius:999px; padding:.75rem 1.5rem;
+    font-size:1rem; font-weight:800; cursor:pointer; font-family:'Heebo',sans-serif;
+  }
+  .secondary-btn:hover{ background:rgba(255,255,255,.1); }
+
+  /* review screen */
+  .review-card{
+    background:#fff; border-radius:14px; padding:1.1rem 1.3rem; margin-bottom:1rem; box-shadow:0 2px 8px rgba(0,0,0,.15);
+  }
+  .review-q{ font-weight:700; font-size:1.02rem; color:var(--navy); }
+  .review-a{ background:var(--green-soft); border:1.5px solid #9FC4B7; border-radius:10px; padding:.7rem 1rem; margin-top:.6rem; font-size:.95rem; color:#1D3F37; }
+  .review-a b{ color:var(--green); }
+
+  .site-footer{ text-align:center; color:#8890B5; font-size:.85rem; margin-top:2rem; }
+
+  .to-top-btn{
+    position:fixed; bottom:1.2rem; left:1.2rem; width:2.8rem; height:2.8rem; border-radius:50%;
+    background:var(--gold); color:#241C05; border:none; font-size:1.2rem; cursor:pointer; opacity:0;
+    pointer-events:none; transition:opacity .2s ease; box-shadow:0 3px 10px rgba(0,0,0,.3);
+  }
+  .to-top-btn.show{ opacity:1; pointer-events:auto; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">ספר יונה</a>
+  <span class="sep">›</span>
+  <a href="yonah-1-2.html">פרקים א׳-ב׳</a>
+  <span class="sep">›</span>
+  <span class="current">חדר בריחה</span>
+</nav>
+
+<div class="wrap">
+
+  <header>
+    <h1>🔓 נמלטים מבטן הדג - חדר בריחה על פרק א׳</h1>
+    <p class="sub">פתחו שישה מנעולים לפי סדר העלילה בפרק, וגלו את המילה הסודית לפני שנגמר הזמן שלכם בבטן הדג!</p>
+  </header>
+
+  <div class="game-nav"><a href="yonah-1-2.html">→ חזרה לדף העבודה - פרקים א׳-ב׳</a></div>
+
+  <!-- INTRO -->
+  <section id="introScreen" class="screen active">
+    <div class="intro-card">
+      <div class="big-icon" aria-hidden="true">🐋🔒</div>
+      <p>יונה בורח מה׳, ומוצא את עצמו בבטן הדג. כדי לצאת משם צריך לפתוח שישה מנעולים - כל מנעול נפתח בתשובה נכונה על מה שקרה בפרק א׳. בכל פעם שתפתחו מנעול, תקבלו אות. בסוף - האותיות יגלו לכם מילה סודית!</p>
+      <div class="team-bar">
+        <label for="teamName">שם הקבוצה / שם התלמיד: </label>
+        <input type="text" id="teamName" placeholder="לדוגמה: קבוצה 1, או השם שלך">
+      </div>
+      <button class="start-btn" id="startBtn" type="button">🔓 התחילו לפתוח את המנעולים</button>
+    </div>
+  </section>
+
+  <!-- GAME -->
+  <section id="gameScreen" class="screen">
+    <div class="progress-row">
+      <div class="stopwatch">⏱️ <span id="timerText">00:00</span></div>
+      <div class="door-dots" id="doorDots"></div>
+    </div>
+    <div class="letters-bar" id="lettersBar"></div>
+    <div class="door-card" id="doorCard">
+      <span class="door-tag" id="doorTag"></span>
+      <div class="door-question" id="doorQuestion"></div>
+      <div class="option-grid" id="optionGrid"></div>
+      <div class="feedback-line" id="feedbackLine"></div>
+    </div>
+  </section>
+
+  <!-- WIN -->
+  <section id="winScreen" class="screen">
+    <div class="trophy">🎉🔓🎉</div>
+    <h2 id="winTeamLine"></h2>
+    <p id="winTimeLine"></p>
+    <p>המילה הסודית שגיליתם:</p>
+    <div class="secret-word" id="secretWordDisplay"></div>
+    <div class="prize-box">🎁 יצאתם מבטן הדג - מקבלים פרס מהמורה!</div>
+    <div class="btn-row">
+      <button class="primary-btn" id="playAgainBtn" type="button">↺ עוד סיבוב</button>
+      <button class="secondary-btn" id="toReviewBtn" type="button">📖 בואו נלמד את זה ביחד</button>
+    </div>
+  </section>
+
+  <!-- REVIEW -->
+  <section id="reviewScreen" class="screen">
+    <h2 style="font-family:'Frank Ruhl Libre',serif; color:#fff; text-align:center;">כל שישה המנעולים - לומדים ביחד</h2>
+    <div id="reviewList"></div>
+    <div class="btn-row">
+      <button class="secondary-btn" id="backToWinBtn" type="button">→ חזרה למסך הניצחון</button>
+    </div>
+  </section>
+
+</div>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+
+<footer class="site-footer">ספר יונה · פרקים א׳-ב׳ · חדר בריחה כיתתי</footer>
+
+<script>
+const DOORS = [
+  {
+    tag: "מנעול 1 · מבוא",
+    q: "מי היה יונה בן אמיתי?",
+    options: ["כהן מירושלים", "נביא מהעיר גת החפר", "מלך נינווה", "חכם מבבל"],
+    correct: 1,
+    letter: "נ",
+    explain: "יונה בן אמיתי היה נביא מהעיר גת החפר, שפעל בתקופת המלך ירבעם בן יואש."
+  },
+  {
+    tag: "מנעול 2 · השליחות",
+    q: "למה ה׳ שולח את יונה לנינווה?",
+    options: ["ללמד אותם תורה", "להוכיח אותם, כי חטאיהם רבו", "לבנות שם מקדש", "לסחור עם אנשי העיר"],
+    correct: 1,
+    letter: "י",
+    explain: "ה׳ שולח את יונה לנינווה (עיר גדולה של גויים) להוכיח אותה, כי \"עלתה רעתם\" - המעשים הרעים שלה הגיעו לשיא."
+  },
+  {
+    tag: "מנעול 3 · הבריחה",
+    q: "מה עושה יונה במקום למלא את השליחות?",
+    options: ["הולך לנינווה מיד", "מסתתר בבית המדרש", "בורח לתרשיש, בכיוון הפוך", "מבקש עזרה מהמלך"],
+    correct: 2,
+    letter: "נ",
+    explain: "יונה בורח בכיוון ההפוך מנינווה - יורד ליפו ועולה על ספינה לתרשיש."
+  },
+  {
+    tag: "מנעול 4 · הסערה",
+    q: "מה עושים המלחים כדי לגלות מי אשם בסערה?",
+    options: ["שואלים את יונה ישירות", "מפילים גורל", "קוראים בכוכבים", "מחכים שהסערה תיפסק"],
+    correct: 1,
+    letter: "ו",
+    explain: "המלחים המבוהלים מפילים גורל, והגורל נופל על יונה - כך הם מגלים שהוא הגורם לסערה."
+  },
+  {
+    tag: "מנעול 5 · הניגוד",
+    q: "אילו שני שורשים חוזרים ומנוגדים בפרק - אצל המלחים ואצל יונה?",
+    options: ["אמונה מול ספק", "יראה (מלחים) מול ירידה (יונה)", "שמחה מול עצב", "אור מול חושך"],
+    correct: 1,
+    letter: "ו",
+    explain: "בתיאור המלחים חוזר השורש י־ר־א (יראה), ובתיאור יונה חוזר השורש י־ר־ד (יורד). בזמן שהמלחים מתקרבים לה׳ מתוך יראה, יונה יורד ומתרחק."
+  },
+  {
+    tag: "מנעול 6 · הסוף",
+    q: "מה קורה אחרי שיונה מושלך לים?",
+    options: ["הים ממשיך לסעור", "הים נרגע מיד, והמלחים יראים מה׳", "יונה טובע מיד", "הספינה שוקעת"],
+    correct: 1,
+    letter: "ה",
+    explain: "לבקשתו של יונה עצמו, המלחים משליכים אותו לים - והים נרגע מיד. המלחים יראים מה׳ יראה גדולה, זובחים זבח ונודרים נדרים."
+  },
+];
+
+let currentDoor = 0;
+let lastTeamName = "";
+let startTime = null;
+let elapsedAtWin = 0;
+let timerInterval = null;
+let locked = false;
+
+const introScreen = document.getElementById("introScreen");
+const gameScreen = document.getElementById("gameScreen");
+const winScreen = document.getElementById("winScreen");
+const reviewScreen = document.getElementById("reviewScreen");
+const teamNameInput = document.getElementById("teamName");
+const timerText = document.getElementById("timerText");
+const doorDots = document.getElementById("doorDots");
+const lettersBar = document.getElementById("lettersBar");
+const doorCard = document.getElementById("doorCard");
+const doorTag = document.getElementById("doorTag");
+const doorQuestion = document.getElementById("doorQuestion");
+const optionGrid = document.getElementById("optionGrid");
+const feedbackLine = document.getElementById("feedbackLine");
+
+function showScreen(el){
+  [introScreen, gameScreen, winScreen, reviewScreen].forEach(s => s.classList.remove("active"));
+  el.classList.add("active");
+}
+
+function formatTime(ms){
+  const totalSec = Math.floor(ms / 1000);
+  const m = Math.floor(totalSec / 60);
+  const s = totalSec % 60;
+  return String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+}
+
+function renderDots(){
+  doorDots.innerHTML = "";
+  DOORS.forEach((d, i) => {
+    const dot = document.createElement("div");
+    dot.className = "door-dot" + (i < currentDoor ? " solved" : (i === currentDoor ? " current" : ""));
+    dot.textContent = i < currentDoor ? "✓" : String(i + 1);
+    doorDots.appendChild(dot);
+  });
+}
+
+function renderLetters(){
+  lettersBar.innerHTML = "";
+  DOORS.forEach((d, i) => {
+    const slot = document.createElement("div");
+    slot.className = "letter-slot" + (i < currentDoor ? " filled" : "");
+    slot.textContent = i < currentDoor ? d.letter : "";
+    lettersBar.appendChild(slot);
+  });
+}
+
+function renderDoor(){
+  locked = false;
+  const d = DOORS[currentDoor];
+  doorCard.classList.remove("shake");
+  doorTag.textContent = d.tag;
+  doorQuestion.textContent = d.q;
+  feedbackLine.textContent = "";
+  feedbackLine.className = "feedback-line";
+  optionGrid.innerHTML = "";
+  d.options.forEach((opt, idx) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "option-btn";
+    btn.textContent = opt;
+    btn.addEventListener("click", () => selectOption(idx, btn));
+    optionGrid.appendChild(btn);
+  });
+  renderDots();
+  renderLetters();
+}
+
+function selectOption(idx, btn){
+  if(locked) return;
+  const d = DOORS[currentDoor];
+  if(idx === d.correct){
+    locked = true;
+    btn.classList.add("correct");
+    feedbackLine.textContent = "✓ נכון! המנעול נפתח - קיבלתם את האות \"" + d.letter + "\".";
+    feedbackLine.classList.add("ok");
+    Array.from(optionGrid.children).forEach(b => b.disabled = true);
+    setTimeout(() => {
+      currentDoor++;
+      if(currentDoor >= DOORS.length){
+        finishGame();
+      } else {
+        renderDoor();
+      }
+    }, 1100);
+  } else {
+    btn.classList.add("wrong");
+    doorCard.classList.remove("shake");
+    void doorCard.offsetWidth;
+    doorCard.classList.add("shake");
+    feedbackLine.textContent = "✗ לא בדיוק - נסו שוב.";
+    feedbackLine.classList.remove("ok");
+    feedbackLine.classList.add("no");
+    setTimeout(() => { btn.classList.remove("wrong"); }, 500);
+  }
+}
+
+function tick(){
+  timerText.textContent = formatTime(Date.now() - startTime);
+}
+
+function startGame(){
+  lastTeamName = teamNameInput.value.trim();
+  currentDoor = 0;
+  startTime = Date.now();
+  clearInterval(timerInterval);
+  timerInterval = setInterval(tick, 500);
+  tick();
+  showScreen(gameScreen);
+  renderDoor();
+}
+
+function finishGame(){
+  clearInterval(timerInterval);
+  elapsedAtWin = Date.now() - startTime;
+  renderDots();
+  renderLetters();
+  const word = DOORS.map(d => d.letter).join("");
+  document.getElementById("winTeamLine").textContent = lastTeamName
+    ? lastTeamName + " - יצאתם החוצה!"
+    : "יצאתם החוצה!";
+  document.getElementById("winTimeLine").textContent = "פתחתם את כל המנעולים תוך " + formatTime(elapsedAtWin) + ".";
+  document.getElementById("secretWordDisplay").textContent = word;
+  showScreen(winScreen);
+}
+
+function showReview(){
+  const list = document.getElementById("reviewList");
+  list.innerHTML = "";
+  DOORS.forEach((d, i) => {
+    const card = document.createElement("div");
+    card.className = "review-card";
+    card.innerHTML =
+      '<div class="review-q">' + (i + 1) + '. ' + d.q + '</div>' +
+      '<div class="review-a"><b>✓ תשובה:</b> ' + d.options[d.correct] + ' - ' + d.explain + '</div>';
+    list.appendChild(card);
+  });
+  showScreen(reviewScreen);
+}
+
+document.getElementById("startBtn").addEventListener("click", startGame);
+document.getElementById("playAgainBtn").addEventListener("click", startGame);
+document.getElementById("toReviewBtn").addEventListener("click", showReview);
+document.getElementById("backToWinBtn").addEventListener("click", () => showScreen(winScreen));
+
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>
