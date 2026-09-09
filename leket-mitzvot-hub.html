@@ -3200,6 +3200,45 @@ unitChecks.forEach(cb => {
 });
 loadUnits();
 
+// למידה דיפרנציאלית (ניסוי): בורר רמות
+const LEVEL_KEY = 'leket-hub-level';
+const levelBtns = Array.from(document.querySelectorAll('.level-btn'));
+function setLevel(level){
+  levelBtns.forEach(b => b.classList.toggle('active', b.dataset.level === level));
+  document.querySelectorAll('.level-help-box').forEach(el => el.classList.toggle('show', level === 'help'));
+  document.querySelectorAll('.level-challenge-box').forEach(el => el.classList.toggle('show', level === 'challenge'));
+  try{ localStorage.setItem(LEVEL_KEY, level); }catch(e){}
+}
+levelBtns.forEach(btn => { btn.addEventListener('click', () => setLevel(btn.dataset.level)); });
+if(levelBtns.length){
+  let savedLevel = 'regular';
+  try{ savedLevel = localStorage.getItem(LEVEL_KEY) || 'regular'; }catch(e){}
+  setLevel(savedLevel);
+}
+
+// למידה דיפרנציאלית (ניסוי): הקראה קולית של המקורות
+if('speechSynthesis' in window){
+  document.querySelectorAll('.pasuk-block, .meforesh-block').forEach(block => {
+    const textToRead = block.textContent.trim().replace(/\s+/g, ' ');
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'speak-btn';
+    btn.setAttribute('aria-label', 'הקראת הקטע');
+    btn.textContent = '🔊';
+    btn.addEventListener('click', () => {
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(textToRead);
+      utter.lang = 'he-IL';
+      utter.rate = 0.9;
+      btn.classList.add('speaking');
+      utter.onend = () => btn.classList.remove('speaking');
+      utter.onerror = () => btn.classList.remove('speaking');
+      window.speechSynthesis.speak(utter);
+    });
+    block.insertBefore(btn, block.firstChild);
+  });
+}
+
 let originalHeights = [];
 window.addEventListener('beforeprint', () => {
   originalHeights = textareas.map(t => t.style.height);
