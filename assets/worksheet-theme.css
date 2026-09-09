@@ -253,6 +253,19 @@ main{ max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 2rem; }
 .choice-note{ background:#EAF2FB; border:1.5px dashed #2B5D8C; border-radius:8px; padding:.5rem .8rem; font-size:.82rem; color:#1C3F5E; margin:0 0 .7rem; font-weight:600; line-height:1.5; }
 .choice-chip{ display:inline-block; font-size:.68rem; font-weight:700; color:#2B5D8C; background:#EAF2FB; border:1px solid #2B5D8C; border-radius:999px; padding:.1rem .55rem; margin-inline-start:.5rem; vertical-align:middle; }
 
+/* תרשים זרימה של פרק שלם עם דברי הפרשנים - עמוד לחזרה, לא דף עבודה */
+.flowchart{ display:flex; flex-direction:column; max-width:760px; margin:0 auto; }
+.flow-step{ display:flex; align-items:flex-start; gap:.9rem; }
+.flow-node{ flex:none; width:2.3rem; height:2.3rem; border-radius:50%; background:var(--acc); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:1rem; margin-top:.1rem; }
+.flow-card{ flex:1; background:#fff; border:1.5px solid var(--paper-line); border-radius:12px; padding:.85rem 1.05rem; margin-bottom:.2rem; box-shadow: var(--shadow); }
+.flow-title{ font-weight:800; font-size:1.02rem; color:var(--ink); display:flex; align-items:center; gap:.5rem; }
+.flow-title .flow-icon{ font-size:1.2rem; }
+.flow-note{ font-size:.85rem; color:var(--ink-soft); margin-top:.3rem; line-height:1.5; }
+.flow-mefarshim{ display:flex; flex-direction:column; gap:.45rem; margin-top:.6rem; }
+.mini-mefaresh{ background:var(--rust-soft); border-right:3px solid var(--rust); border-radius:6px; padding:.45rem .65rem; font-size:.82rem; line-height:1.55; color:#5c3324; }
+.mini-mefaresh b{ color:var(--rust); }
+.flow-arrow{ text-align:center; font-size:1.3rem; color:var(--acc); margin:.15rem 0; padding-inline-start:1.05rem; }
+
 .question-block{ border-top: 1px dashed var(--paper-line); padding-top: .8rem; margin-top: .1rem; }
 .question-block.sub-q{ border-top:none; padding-top:.3rem; margin-top:0; }
 
