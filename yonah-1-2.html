@@ -48,16 +48,19 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
-<div class="level-switcher" role="group" aria-label="בחירת רמת קושי">
-  <span class="level-label">רמה:</span>
-  <button class="level-btn" data-level="help" type="button">🟢 עם רמזים</button>
-  <button class="level-btn active" data-level="regular" type="button">🔵 רגיל</button>
-  <button class="level-btn" data-level="challenge" type="button">🟣 אתגר נוסף</button>
-</div>
-<p class="level-note">ניסוי: בחרו את הרמה שנוחה לכם עכשיו - אפשר להחליף בכל שלב, וגם לחזור ל"רגיל". ליד כל קטע מקורות אפשר גם ללחוץ על 🔊 כדי לשמוע אותו מוקרא.</p>
-
 <main>
   <div class="grid" id="grid">
+
+    <!-- למידה דיפרנציאלית (ניסוי) - בתוך ה-grid כדי שיופיע גם בעמוד המרכזי (hub) -->
+    <div style="grid-column: 1 / -1;">
+      <div class="level-switcher" role="group" aria-label="בחירת רמת קושי">
+        <span class="level-label">רמה:</span>
+        <button class="level-btn" data-level="help" type="button">🟢 עם רמזים</button>
+        <button class="level-btn active" data-level="regular" type="button">🔵 רגיל</button>
+        <button class="level-btn" data-level="challenge" type="button">🟣 אתגר נוסף</button>
+      </div>
+      <p class="level-note">ניסוי: בחרו את הרמה שנוחה לכם עכשיו - אפשר להחליף בכל שלב, וגם לחזור ל"רגיל". ליד כל קטע מקורות אפשר גם ללחוץ על 🔊 כדי לשמוע אותו מוקרא.</p>
+    </div>
 
     <!-- תקציר הסיפור לפני השאלות -->
     <section class="card" style="grid-column: 1 / -1;">
