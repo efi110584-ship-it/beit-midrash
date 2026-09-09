@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר יונה (פרקים ג׳-ד׳) — גלגל המזל לתרגול</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@600;800&family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF6EE; --card:#FFFFFF; --ink:#2B2419; --ink-soft:#5A5142;
+    --navy:#1E2761; --navy-soft:#E7E9F5;
+    --gold:#8A5C21; --gold-soft:#F4ECE1;
+    --green:#1F7A4D; --green-soft:#E4EEEA;
+    --border:#E4DACB;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
+  .wrap{ max-width:840px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  header{ text-align:center; padding:1rem 0 .4rem; }
+  h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
+  .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; }
+
+  .breadcrumbs{ max-width:840px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs a{ color:var(--navy); text-decoration:none; }
+  .breadcrumbs a:hover{ text-decoration:underline; }
+  .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
+  .breadcrumbs .current{ color:var(--ink-soft); }
+
+  .game-nav{ text-align:center; margin:.6rem 0 0; }
+  .game-nav a{
+    display:inline-flex; align-items:center; gap:.4rem; color:var(--navy); text-decoration:none;
+    font-size:.9rem; font-weight:700; border:1.5px solid var(--navy); border-radius:999px; padding:.4rem 1rem;
+  }
+  .game-nav a:hover{ background:var(--navy-soft); }
+
+  .status-bar{
+    display:flex; align-items:center; justify-content:center; gap:1.2rem; flex-wrap:wrap;
+    margin:1rem 0; font-weight:700; color:var(--navy);
+  }
+  .status-bar .count{ background:var(--navy-soft); border-radius:999px; padding:.4rem 1rem; font-size:.95rem; }
+
+  .wheel-area{ position:relative; display:flex; justify-content:center; margin:1.2rem 0; }
+  .pointer{
+    position:absolute; top:-2px; left:50%; transform:translateX(-50%); z-index:2;
+    width:0; height:0; border-left:16px solid transparent; border-right:16px solid transparent;
+    border-top:28px solid var(--gold);
+    filter:drop-shadow(0 2px 3px rgba(0,0,0,.25));
+  }
+  #wheelCanvas{
+    border-radius:50%; box-shadow:0 6px 24px rgba(0,0,0,.18); transition:transform 4.5s cubic-bezier(.17,.67,.16,1);
+    background:#fff;
+  }
+  .hub{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:3;
+    width:52px; height:52px; border-radius:50%; background:var(--gold); border:4px solid #fff;
+    box-shadow:0 2px 8px rgba(0,0,0,.25);
+  }
+
+  .spin-row{ text-align:center; margin-top:1rem; }
+  .spin-btn{
+    background:var(--navy); color:#fff; border:none; border-radius:999px; padding:.9rem 2.4rem;
+    font-size:1.15rem; font-weight:800; cursor:pointer; font-family:'Heebo',sans-serif;
+    box-shadow:0 4px 12px rgba(30,39,97,.35);
+  }
+  .spin-btn:hover:not(:disabled){ background:#141b47; }
+  .spin-btn:disabled{ background:#C9BFA6; cursor:not-allowed; box-shadow:none; }
+  .reset-btn{
+    background:none; border:1.5px dashed var(--ink-soft); color:var(--ink-soft);
+    border-radius:999px; padding:.5rem 1.2rem; font-size:.85rem; cursor:pointer; font-family:'Heebo',sans-serif;
+    margin-top:.8rem;
+  }
+  .reset-btn:hover{ background:#fff; }
+
+  .qcard{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.2rem 1.4rem; margin-top:1.5rem; box-shadow:0 2px 10px rgba(0,0,0,.06); display:none;
+  }
+  .qcard.show{ display:block; }
+  .qtopic{
+    display:inline-flex; align-items:center; gap:.4rem; font-size:.8rem; font-weight:800;
+    border-radius:999px; padding:.25rem .8rem; margin-bottom:.6rem; color:#fff;
+  }
+  .qtext{ font-weight:700; font-size:1.15rem; }
+  .revealbtn{
+    display:block; margin-top:.8rem; padding:.6rem 1.1rem;
+    background:var(--navy); color:#fff; border:none; border-radius:10px;
+    font-family:'Heebo',sans-serif; font-size:.95rem; font-weight:700; cursor:pointer;
+  }
+  .revealbtn:hover{ background:#141b47; }
+  .answer{
+    display:none; background:var(--green-soft); border:1.5px solid #9FC4B7;
+    border-radius:10px; padding:.8rem 1rem; margin-top:.7rem; font-size:1rem; color:#1D3F37;
+  }
+  .answer.show{ display:block; }
+  .alabel{ font-weight:800; color:var(--green); margin-bottom:.25rem; }
+
+  .empty-msg{ text-align:center; margin-top:1.5rem; display:none; }
+  .empty-msg.show{ display:block; }
+  .empty-msg .big{ font-size:2.4rem; }
+
+  .legend{ display:flex; flex-wrap:wrap; justify-content:center; gap:.5rem .9rem; margin-top:1.3rem; }
+  .legend span{ display:inline-flex; align-items:center; gap:.35rem; font-size:.8rem; color:var(--ink-soft); }
+  .legend i{ width:.8rem; height:.8rem; border-radius:3px; display:inline-block; }
+
+  .site-footer{ text-align:center; color:var(--ink-soft); font-size:.85rem; margin-top:2rem; }
+  .to-top-btn{
+    position:fixed; bottom:1.2rem; left:1.2rem; width:2.8rem; height:2.8rem; border-radius:50%;
+    background:var(--navy); color:#fff; border:none; font-size:1.2rem; cursor:pointer; opacity:0;
+    pointer-events:none; transition:opacity .2s ease; box-shadow:0 3px 10px rgba(0,0,0,.2);
+  }
+  .to-top-btn.show{ opacity:1; pointer-events:auto; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">ספר יונה</a>
+  <span class="sep">›</span>
+  <span class="current">גלגל המזל - פרקים ג׳-ד׳</span>
+</nav>
+
+<div class="wrap">
+
+  <header>
+    <h1>🎡 ספר יונה (פרקים ג׳-ד׳) — גלגל המזל לתרגול</h1>
+    <p class="sub">מסובבים את הגלגל, עונים על השאלה שיצאה - וכל שאלה שנשאלה יורדת מהגלגל.</p>
+  </header>
+
+  <div class="game-nav"><a href="yonah-3.html">→ פרק ג׳</a> · <a href="yonah-4.html">פרק ד׳ ←</a></div>
+
+  <div class="status-bar">
+    <span class="count">🎯 נותרו <span id="remainCount">12</span> / 12 שאלות בגלגל</span>
+  </div>
+
+  <div class="wheel-area">
+    <div class="pointer" aria-hidden="true"></div>
+    <canvas id="wheelCanvas" width="420" height="420"></canvas>
+    <div class="hub" aria-hidden="true"></div>
+  </div>
+
+  <div class="spin-row">
+    <button class="spin-btn" id="spinBtn" type="button">🎡 סובבו את הגלגל</button><br>
+    <button class="reset-btn" id="resetBtn" type="button">🔄 אפסו את הגלגל (12/12)</button>
+  </div>
+
+  <div class="qcard" id="qCard">
+    <span class="qtopic" id="qTopic"></span>
+    <div class="qtext" id="qText"></div>
+    <button class="revealbtn" id="revealBtn" type="button">👁 הצג תשובה</button>
+    <div class="answer" id="qAnswer"><div class="alabel">✓ תשובה:</div><span id="qAnswerText"></span></div>
+  </div>
+
+  <div class="empty-msg" id="emptyMsg">
+    <div class="big">🎉🏆🎉</div>
+    <p style="font-weight:800; font-size:1.2rem; color:var(--navy);">כל 12 השאלות נשאלו - כל הכבוד לכיתה!</p>
+    <p>אפשר לאפס את הגלגל ולהתחיל תרגול נוסף.</p>
+  </div>
+
+  <div class="legend" id="legend"></div>
+
+  <footer class="site-footer">ספר יונה · פרקים ג׳-ד׳ · גלגל מזל לתרגול כיתתי</footer>
+</div>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+
+<script>
+const TOPICS = [
+{ name:"השליחות השנייה וקיום הנבואה", icon:"📯", color:"#3F6E66",
+  qa:[
+    ["מה מצווה ה' על יונה בפעם השנייה?",
+     "לקום וללכת לנינווה ולהכריז עליה את הקריאה שה' יאמר לו - בלי לגלות לו מראש את התוכן."],
+    ["איך יונה מגיב הפעם, בשונה מפרק א'?",
+     "הוא מציית - קם והולך ישר לנינווה, בניגוד לבריחה שלו בפרק א'."],
+    ["איך יונה ממלא את השליחות במידה המועטה ביותר?",
+     "הוא נכנס לעיר (שלוקח 3 ימי הליכה לעבור) רק יום אחד, ואומר משפט קצר אחד בלבד: \"עוד ארבעים יום ונינווה נהפכת\"."],
+    ["לפי רד\"ק, מה פירוש \"נינווה נהפכת\"?",
+     "שהעיר תיחרב, כמו סדום ועמורה - כי מעשי אנשי נינווה היו רעים כמו מעשיהם."],
+  ]
+},
+{ name:"תשובת אנשי נינווה", icon:"🙏", color:"#1E2761",
+  qa:[
+    ["איך מתחילה תשובת אנשי נינווה?",
+     "כל אנשי העיר, מהגדול ועד הקטן, מאמינים בה', קוראים צום ולובשים שקים - מרצונם."],
+    ["מה עושה מלך נינווה כששומע על כך?",
+     "קם מכיסאו, מעביר את אדרתו, מתכסה בשק ויושב על האפר, ומוציא צו רשמי לכל העיר."],
+    ["מהן שתי הדרישות הנוספות (מלבד הצום) שגוזר המלך?",
+     "שגם האדם וגם הבהמה יתכסו בשקים ויזעקו לה' בקול חזק, ושכל אחד ישוב מדרכו הרעה ומהחמס שבידיו."],
+    ["איך מגיב ה' לתשובת אנשי נינווה?",
+     "ה' רואה שהם שבו מדרכם הרעה, ומתנחם מהרעה שתכנן להביא עליהם - ולא עושה אותה."],
+  ]
+},
+{ name:"כעס יונה, הקיקיון, והלימוד", icon:"🌿", color:"#8B4A34",
+  qa:[
+    ["איך מגיב יונה לכך שה' סלח לנינווה?",
+     "הוא כועס כעס גדול ומבקש מה' שייקח את נשמתו, כי טוב מותו מחייו."],
+    ["מה עושה ה' כדי ללמד את יונה שיעור?",
+     "מצמיח לו קיקיון שנותן לו צל ומשמח אותו, ואז שולח תולעת שמייבשת אותו ורוח קדים חמה שמכה בראשו."],
+    ["מהו הקל וחומר שה' אומר ליונה בסוף?",
+     "אם יונה חס על קיקיון קטן שלא טרח בו ולא גידל אותו, קל וחומר שה' חס על נינווה - עיר גדולה מלאה בבני אדם ובעלי חיים."],
+    ["לפי רד\"ק, על מי חס יונה באמת, ומדוע ה' חס על נינווה?",
+     "יונה בעצם חס על עצמו (על הצער שלו), ואילו ה' חס על נינווה מפני כבודו - כי כל הנבראים, ובפרט בני האדם, הם כבודו של ה' בעולם."],
+  ]
+},
+];
+
+// שיטוח לרשימה אחת של 12 שאלות עם מספור גלובלי וצבע/נושא
+const ALL_QUESTIONS = [];
+TOPICS.forEach((t, ti) => {
+  t.qa.forEach((pair, qi) => {
+    ALL_QUESTIONS.push({
+      id: ti + "-" + qi,
+      num: ALL_QUESTIONS.length + 1,
+      topic: t.name,
+      icon: t.icon,
+      color: t.color,
+      q: pair[0],
+      a: pair[1],
+    });
+  });
+});
+const TOTAL = ALL_QUESTIONS.length;
+const STORAGE_KEY = "yonah-3-4-wheel-v1";
+
+let remaining = [];
+let currentRotation = 0;
+let spinning = false;
+
+const canvas = document.getElementById("wheelCanvas");
+const ctx = canvas.getContext("2d");
+const R = canvas.width / 2;
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const savedIds = JSON.parse(raw);
+      remaining = ALL_QUESTIONS.filter(q => savedIds.includes(q.id));
+      return;
+    }
+  }catch(e){ /* אחסון חסום */ }
+  remaining = ALL_QUESTIONS.slice();
+}
+function saveState(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(remaining.map(q => q.id))); }catch(e){ /* אחסון חסום */ }
+}
+
+function drawWheel(){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const n = remaining.length;
+  if(n === 0) return;
+  const segAngle = (2 * Math.PI) / n;
+  remaining.forEach((item, i) => {
+    const start = i * segAngle;
+    const end = start + segAngle;
+    ctx.beginPath();
+    ctx.moveTo(R, R);
+    ctx.arc(R, R, R - 4, start, end);
+    ctx.closePath();
+    ctx.fillStyle = item.color;
+    ctx.fill();
+    ctx.strokeStyle = "#fff";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // number label
+    const mid = start + segAngle / 2;
+    ctx.save();
+    ctx.translate(R, R);
+    ctx.rotate(mid);
+    ctx.fillStyle = "#fff";
+    ctx.font = "bold " + (n > 16 ? 13 : 16) + "px Heebo, sans-serif";
+    ctx.textAlign = "right";
+    ctx.textBaseline = "middle";
+    ctx.fillText(String(item.num), R - 16, 0);
+    ctx.restore();
+  });
+}
+
+function renderLegend(){
+  const legend = document.getElementById("legend");
+  legend.innerHTML = "";
+  TOPICS.forEach(t => {
+    const span = document.createElement("span");
+    span.innerHTML = `<i style="background:${t.color}"></i>${t.icon} ${t.name}`;
+    legend.appendChild(span);
+  });
+}
+
+function updateStatus(){
+  document.getElementById("remainCount").textContent = String(remaining.length);
+  const spinBtn = document.getElementById("spinBtn");
+  const emptyMsg = document.getElementById("emptyMsg");
+  if(remaining.length === 0){
+    spinBtn.disabled = true;
+    emptyMsg.classList.add("show");
+    document.getElementById("qCard").classList.remove("show");
+    canvas.style.visibility = "hidden";
+    document.querySelector(".pointer").style.visibility = "hidden";
+    document.querySelector(".hub").style.visibility = "hidden";
+  } else {
+    spinBtn.disabled = false;
+    emptyMsg.classList.remove("show");
+    canvas.style.visibility = "visible";
+    document.querySelector(".pointer").style.visibility = "visible";
+    document.querySelector(".hub").style.visibility = "visible";
+  }
+}
+
+function spin(){
+  if(spinning || remaining.length === 0) return;
+  spinning = true;
+  document.getElementById("spinBtn").disabled = true;
+  document.getElementById("qCard").classList.remove("show");
+
+  const n = remaining.length;
+  const segAngleDeg = 360 / n;
+  const targetIndex = Math.floor(Math.random() * n);
+  const targetLocalAngleDeg = targetIndex * segAngleDeg + segAngleDeg / 2;
+
+  // הצבעה נמצאת למעלה (270 מעלות בקואורדינטות הקנבס הרגילות)
+  let deltaR = (270 - targetLocalAngleDeg) - (currentRotation % 360);
+  deltaR = ((deltaR % 360) + 360) % 360;
+  const extraSpins = 5 + Math.floor(Math.random() * 3);
+  const finalRotation = currentRotation + deltaR + extraSpins * 360;
+
+  currentRotation = finalRotation;
+  canvas.style.transform = "rotate(" + currentRotation + "deg)";
+
+  setTimeout(() => {
+    spinning = false;
+    const landed = remaining[targetIndex];
+    remaining.splice(targetIndex, 1);
+    saveState();
+    showQuestion(landed);
+    drawWheel();
+    updateStatus();
+  }, 4600);
+}
+
+function showQuestion(item){
+  document.getElementById("qTopic").textContent = item.icon + " " + item.topic;
+  document.getElementById("qTopic").style.background = item.color;
+  document.getElementById("qText").textContent = "שאלה " + item.num + ": " + item.q;
+  document.getElementById("qAnswerText").textContent = item.a;
+  document.getElementById("qAnswer").classList.remove("show");
+  document.getElementById("revealBtn").textContent = "👁 הצג תשובה";
+  document.getElementById("qCard").classList.add("show");
+}
+
+document.getElementById("revealBtn").addEventListener("click", () => {
+  const ans = document.getElementById("qAnswer");
+  const btn = document.getElementById("revealBtn");
+  const showing = ans.classList.toggle("show");
+  btn.textContent = showing ? "🙈 הסתר תשובה" : "👁 הצג תשובה";
+});
+
+document.getElementById("spinBtn").addEventListener("click", spin);
+
+document.getElementById("resetBtn").addEventListener("click", () => {
+  if(remaining.length < TOTAL && !confirm("לאפס את הגלגל ולהחזיר את כל 12 השאלות?")) return;
+  remaining = ALL_QUESTIONS.slice();
+  currentRotation = 0;
+  canvas.style.transition = "none";
+  canvas.style.transform = "rotate(0deg)";
+  requestAnimationFrame(() => { canvas.style.transition = ""; });
+  saveState();
+  document.getElementById("qCard").classList.remove("show");
+  drawWheel();
+  updateStatus();
+});
+
+loadState();
+renderLegend();
+drawWheel();
+updateStatus();
+
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>

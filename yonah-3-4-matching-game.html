@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר יונה (פרקים ג׳-ד׳) — משחק התאמה: שאלה ותשובה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@600;800&family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF6EE; --card:#FFFFFF; --ink:#2B2419; --ink-soft:#5A5142;
+    --navy:#1E2761; --navy-soft:#E7E9F5;
+    --gold:#8A5C21; --gold-soft:#F4ECE1;
+    --green:#1F7A4D; --green-soft:#E4EEEA;
+    --red:#B03A2E; --red-soft:#FBE4E0;
+    --border:#E4DACB;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
+  .wrap{ max-width:1000px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  header{ text-align:center; padding:1rem 0 .4rem; }
+  h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
+  .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; }
+
+  .screen{ display:none; }
+  .screen.active{ display:block; }
+
+  /* topic picker */
+  .topic-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1rem; margin-top:1.2rem; }
+  .topic-tile{
+    border:none; border-radius:16px; padding:1.3rem 1.1rem; cursor:pointer; text-align:right; color:#fff;
+    font-family:'Heebo',sans-serif; box-shadow:0 4px 14px rgba(0,0,0,.12); min-height:110px;
+    transition:transform .15s ease;
+  }
+  .topic-tile:hover{ transform:translateY(-3px); }
+  .topic-tile .icon{ font-size:2rem; display:block; margin-bottom:.3rem; }
+  .topic-tile .name{ font-weight:800; font-size:1.08rem; }
+
+  /* team bar */
+  .team-bar{
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.8rem;
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px; padding:.9rem 1.1rem; margin:1rem 0;
+  }
+  .team-bar label{ font-weight:700; font-size:.95rem; }
+  .team-bar input{
+    font-family:'Heebo',sans-serif; font-size:1rem; padding:.4rem .7rem; border:1.5px solid var(--border);
+    border-radius:8px; width:9rem;
+  }
+  .stat{ font-weight:800; color:var(--navy); font-size:1.05rem; }
+  .back-btn{
+    display:inline-flex; align-items:center; gap:.4rem; background:none; border:2px solid var(--navy);
+    color:var(--navy); border-radius:999px; padding:.45rem 1rem; font-weight:700; cursor:pointer;
+    font-family:'Heebo',sans-serif; font-size:.9rem;
+  }
+  .back-btn:hover{ background:var(--navy-soft); }
+
+  /* board */
+  .board{ display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-top:1rem; }
+  @media (max-width:640px){ .board{ grid-template-columns:1fr; } }
+  .col-label{ font-weight:800; color:var(--ink-soft); font-size:.85rem; text-align:center; margin-bottom:.4rem; letter-spacing:.05em; }
+  .match-card{
+    background:var(--card); border:2px solid var(--border); border-radius:12px;
+    padding:.85rem 1rem; margin-bottom:.7rem; cursor:pointer; font-size:.98rem; font-weight:600;
+    transition:all .15s ease; min-height:3.4rem; display:flex; align-items:center;
+  }
+  .match-card:hover{ border-color:var(--navy); }
+  .match-card:focus-visible{ outline:3px solid var(--navy); outline-offset:2px; }
+  .match-card.selected{ border-color:var(--gold); background:var(--gold-soft); }
+  .match-card.correct{ border-color:var(--green); background:var(--green-soft); color:var(--green); cursor:default; }
+  .match-card.wrong{ border-color:var(--red); background:var(--red-soft); animation:shake .3s ease; }
+  @keyframes shake{ 0%,100%{transform:translateX(0);} 25%{transform:translateX(-6px);} 75%{transform:translateX(6px);} }
+  .match-card .qnum{
+    display:inline-flex; align-items:center; justify-content:center; width:1.6rem; height:1.6rem;
+    border-radius:50%; background:var(--navy-soft); color:var(--navy); font-weight:800; font-size:.85rem;
+    margin-left:.6rem; flex:none;
+  }
+  .match-card.correct .qnum{ background:var(--green); color:#fff; }
+
+  /* win screen */
+  #winScreen{ text-align:center; padding:1.5rem 1rem; }
+  #winScreen .trophy{ font-size:3rem; }
+  #winScreen h2{ font-family:'Frank Ruhl Libre',serif; color:var(--navy); font-size:1.7rem; margin:.3rem 0; }
+  .prize-box{
+    background:var(--gold-soft); border:2px dashed var(--gold); border-radius:14px;
+    padding:1rem 1.4rem; max-width:420px; margin:1rem auto; font-weight:700; color:var(--gold); font-size:1.1rem;
+  }
+  .btn-row{ display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap; margin-top:1.2rem; }
+  .primary-btn{
+    background:var(--navy); color:#fff; border:none; border-radius:999px; padding:.8rem 1.6rem;
+    font-size:1rem; font-weight:800; cursor:pointer; font-family:'Heebo',sans-serif;
+  }
+  .primary-btn:hover{ background:#141b47; }
+  .secondary-btn{
+    background:#fff; color:var(--navy); border:2px solid var(--navy); border-radius:999px; padding:.75rem 1.5rem;
+    font-size:1rem; font-weight:800; cursor:pointer; font-family:'Heebo',sans-serif;
+  }
+  .secondary-btn:hover{ background:var(--navy-soft); }
+
+  /* review screen */
+  .review-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin-bottom:1rem; box-shadow:0 2px 8px rgba(0,0,0,.04);
+  }
+  .review-q{ font-weight:700; font-size:1.05rem; display:flex; gap:.5rem; align-items:flex-start; }
+  .review-a{ background:var(--green-soft); border:1.5px solid #9FC4B7; border-radius:10px; padding:.7rem 1rem; margin-top:.6rem; font-size:.98rem; color:#1D3F37; }
+  .review-a b{ color:var(--green); }
+
+  .breadcrumbs{ max-width:1000px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs a{ color:var(--navy); text-decoration:none; }
+  .breadcrumbs a:hover{ text-decoration:underline; }
+  .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
+  .breadcrumbs .current{ color:var(--ink-soft); }
+
+  .game-nav{ text-align:center; margin:.6rem 0 0; }
+  .game-nav a{
+    display:inline-flex; align-items:center; gap:.4rem; color:var(--navy); text-decoration:none;
+    font-size:.9rem; font-weight:700; border:1.5px solid var(--navy); border-radius:999px; padding:.4rem 1rem;
+  }
+  .game-nav a:hover{ background:var(--navy-soft); }
+
+  .site-footer{ text-align:center; color:var(--ink-soft); font-size:.85rem; margin-top:2rem; }
+
+  .to-top-btn{
+    position:fixed; bottom:1.2rem; left:1.2rem; width:2.8rem; height:2.8rem; border-radius:50%;
+    background:var(--navy); color:#fff; border:none; font-size:1.2rem; cursor:pointer; opacity:0;
+    pointer-events:none; transition:opacity .2s ease; box-shadow:0 3px 10px rgba(0,0,0,.2);
+  }
+  .to-top-btn.show{ opacity:1; pointer-events:auto; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">ספר יונה</a>
+  <span class="sep">›</span>
+  <span class="current">משחק התאמה - פרקים ג׳-ד׳</span>
+</nav>
+
+<div class="wrap">
+
+  <header>
+    <h1>🧩 ספר יונה (פרקים ג׳-ד׳) — משחק התאמה: שאלה ותשובה</h1>
+    <p class="sub">אפשר לשחק בקבוצה או ביחיד. התאימו כל שאלה לתשובה הנכונה שלה - מי שמסיים מקבל פרס! ואז לומדים ביחד.</p>
+  </header>
+
+  <div class="game-nav"><a href="yonah-3.html">→ פרק ג׳</a> · <a href="yonah-4.html">פרק ד׳ ←</a></div>
+
+  <!-- topic picker -->
+  <section id="topicScreen" class="screen active">
+    <div class="topic-grid" id="topicGrid"></div>
+  </section>
+
+  <!-- game board -->
+  <section id="gameScreen" class="screen">
+    <button class="back-btn" id="toTopicsBtn" type="button">→ בחירת נושא אחר</button>
+    <div class="team-bar">
+      <div><label>שם הקבוצה / שם התלמיד: </label><input type="text" id="teamName" placeholder="לדוגמה: קבוצה 1, או השם שלך"></div>
+      <div class="stat">ניסיונות: <span id="triesCount">0</span></div>
+      <div class="stat">✓ <span id="matchedCount">0</span> / 4</div>
+    </div>
+    <div class="board">
+      <div>
+        <div class="col-label">שאלות</div>
+        <div id="qCol"></div>
+      </div>
+      <div>
+        <div class="col-label">תשובות</div>
+        <div id="aCol"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- win screen -->
+  <section id="winScreen" class="screen">
+    <div class="trophy">🏆🎉🏆</div>
+    <h2 id="winTeamLine">כל הכבוד!</h2>
+    <p id="winTriesLine" style="font-size:1.05rem;"></p>
+    <div class="prize-box">🎁 מקבלים פרס מהמורה!</div>
+    <div class="btn-row">
+      <button class="primary-btn" id="nextTeamBtn" type="button">↺ עוד סיבוב באותו נושא</button>
+      <button class="secondary-btn" id="toReviewBtn" type="button">📖 בואו נלמד את זה ביחד</button>
+    </div>
+  </section>
+
+  <!-- review screen -->
+  <section id="reviewScreen" class="screen">
+    <button class="back-btn" id="toTopicsBtn2" type="button">→ בחירת נושא אחר</button>
+    <h2 style="font-family:'Frank Ruhl Libre',serif; color:var(--navy);" id="reviewTitle"></h2>
+    <div id="reviewList"></div>
+  </section>
+
+</div>
+
+<script>
+const TOPICS = [
+{
+  key:"s1", name:"השליחות השנייה וקיום הנבואה", icon:"📯", color:"#3F6E66",
+  qa:[
+    ["מה מצווה ה' על יונה בפעם השנייה?",
+     "לקום וללכת לנינווה ולהכריז עליה את הקריאה שה' יאמר לו - בלי לגלות לו מראש את התוכן."],
+    ["איך יונה מגיב הפעם, בשונה מפרק א'?",
+     "הוא מציית - קם והולך ישר לנינווה, בניגוד לבריחה שלו בפרק א'."],
+    ["איך יונה ממלא את השליחות במידה המועטה ביותר?",
+     "הוא נכנס לעיר (שלוקח 3 ימי הליכה לעבור) רק יום אחד, ואומר משפט קצר אחד בלבד: \"עוד ארבעים יום ונינווה נהפכת\"."],
+    ["לפי רד\"ק, מה פירוש \"נינווה נהפכת\"?",
+     "שהעיר תיחרב, כמו סדום ועמורה - כי מעשי אנשי נינווה היו רעים כמו מעשיהם."],
+  ]
+},
+{
+  key:"s2", name:"תשובת אנשי נינווה", icon:"🙏", color:"#1E2761",
+  qa:[
+    ["איך מתחילה תשובת אנשי נינווה?",
+     "כל אנשי העיר, מהגדול ועד הקטן, מאמינים בה', קוראים צום ולובשים שקים - מרצונם."],
+    ["מה עושה מלך נינווה כששומע על כך?",
+     "קם מכיסאו, מעביר את אדרתו, מתכסה בשק ויושב על האפר, ומוציא צו רשמי לכל העיר."],
+    ["מהן שתי הדרישות הנוספות (מלבד הצום) שגוזר המלך?",
+     "שגם האדם וגם הבהמה יתכסו בשקים ויזעקו לה' בקול חזק, ושכל אחד ישוב מדרכו הרעה ומהחמס שבידיו."],
+    ["איך מגיב ה' לתשובת אנשי נינווה?",
+     "ה' רואה שהם שבו מדרכם הרעה, ומתנחם מהרעה שתכנן להביא עליהם - ולא עושה אותה."],
+  ]
+},
+{
+  key:"s3", name:"כעס יונה, הקיקיון, והלימוד", icon:"🌿", color:"#8B4A34",
+  qa:[
+    ["איך מגיב יונה לכך שה' סלח לנינווה?",
+     "הוא כועס כעס גדול ומבקש מה' שייקח את נשמתו, כי טוב מותו מחייו."],
+    ["מה עושה ה' כדי ללמד את יונה שיעור?",
+     "מצמיח לו קיקיון שנותן לו צל ומשמח אותו, ואז שולח תולעת שמייבשת אותו ורוח קדים חמה שמכה בראשו."],
+    ["מהו הקל וחומר שה' אומר ליונה בסוף?",
+     "אם יונה חס על קיקיון קטן שלא טרח בו ולא גידל אותו, קל וחומר שה' חס על נינווה - עיר גדולה מלאה בבני אדם ובעלי חיים."],
+    ["לפי רד\"ק, על מי חס יונה באמת, ומדוע ה' חס על נינווה?",
+     "יונה בעצם חס על עצמו (על הצער שלו), ואילו ה' חס על נינווה מפני כבודו - כי כל הנבראים, ובפרט בני האדם, הם כבודו של ה' בעולם."],
+  ]
+},
+];
+
+const topicScreen = document.getElementById("topicScreen");
+const gameScreen = document.getElementById("gameScreen");
+const winScreen = document.getElementById("winScreen");
+const reviewScreen = document.getElementById("reviewScreen");
+const teamNameInput = document.getElementById("teamName");
+const triesCountEl = document.getElementById("triesCount");
+const matchedCountEl = document.getElementById("matchedCount");
+const qCol = document.getElementById("qCol");
+const aCol = document.getElementById("aCol");
+
+let currentTopic = null;
+let tries = 0;
+let matched = 0;
+let selectedQ = null;
+let selectedA = null;
+let lastTeamName = "";
+
+function showScreen(el){
+  [topicScreen, gameScreen, winScreen, reviewScreen].forEach(s => s.classList.remove("active"));
+  el.classList.add("active");
+}
+
+function renderTopics(){
+  const grid = document.getElementById("topicGrid");
+  grid.innerHTML = "";
+  TOPICS.forEach(t => {
+    const btn = document.createElement("button");
+    btn.className = "topic-tile";
+    btn.type = "button";
+    btn.style.background = t.color;
+    btn.innerHTML = `<span class="icon" aria-hidden="true">${t.icon}</span><span class="name">${t.name}</span>`;
+    btn.addEventListener("click", () => startGame(t.key));
+    grid.appendChild(btn);
+  });
+}
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startGame(key){
+  currentTopic = TOPICS.find(t => t.key === key);
+  tries = 0;
+  matched = 0;
+  selectedQ = null;
+  selectedA = null;
+  triesCountEl.textContent = "0";
+  matchedCountEl.textContent = "0";
+  teamNameInput.value = lastTeamName;
+
+  const order = shuffle([0, 1, 2, 3]);
+  const qOrder = [0, 1, 2, 3];
+
+  qCol.innerHTML = "";
+  aCol.innerHTML = "";
+
+  qOrder.forEach(i => {
+    const div = document.createElement("div");
+    div.className = "match-card";
+    div.dataset.index = i;
+    div.dataset.side = "q";
+    div.innerHTML = `<span class="qnum">${i + 1}</span><span>${currentTopic.qa[i][0]}</span>`;
+    div.addEventListener("click", () => selectCard(div, "q", i));
+    qCol.appendChild(div);
+  });
+  order.forEach(i => {
+    const div = document.createElement("div");
+    div.className = "match-card";
+    div.dataset.index = i;
+    div.dataset.side = "a";
+    div.textContent = currentTopic.qa[i][1];
+    div.addEventListener("click", () => selectCard(div, "a", i));
+    aCol.appendChild(div);
+  });
+
+  showScreen(gameScreen);
+}
+
+function selectCard(el, side, index){
+  if(el.classList.contains("correct")) return;
+  if(side === "q"){
+    if(selectedQ) selectedQ.el.classList.remove("selected");
+    selectedQ = { el, index };
+    el.classList.add("selected");
+  } else {
+    if(selectedA) selectedA.el.classList.remove("selected");
+    selectedA = { el, index };
+    el.classList.add("selected");
+  }
+  if(selectedQ && selectedA){
+    tries++;
+    triesCountEl.textContent = String(tries);
+    if(selectedQ.index === selectedA.index){
+      selectedQ.el.classList.remove("selected");
+      selectedA.el.classList.remove("selected");
+      selectedQ.el.classList.add("correct");
+      selectedA.el.classList.add("correct");
+      matched++;
+      matchedCountEl.textContent = String(matched);
+      selectedQ = null; selectedA = null;
+      if(matched === 4){
+        lastTeamName = teamNameInput.value.trim();
+        setTimeout(showWin, 500);
+      }
+    } else {
+      const qEl = selectedQ.el, aEl = selectedA.el;
+      qEl.classList.add("wrong"); aEl.classList.add("wrong");
+      setTimeout(() => {
+        qEl.classList.remove("selected", "wrong");
+        aEl.classList.remove("selected", "wrong");
+      }, 500);
+      selectedQ = null; selectedA = null;
+    }
+  }
+}
+
+function showWin(){
+  document.getElementById("winTeamLine").textContent = lastTeamName
+    ? `${lastTeamName} - כל הכבוד!`
+    : `כל הכבוד!`;
+  document.getElementById("winTriesLine").textContent = `התאמתם את כל 4 הזוגות ב-${tries} ניסיונות.`;
+  showScreen(winScreen);
+}
+
+function showReview(){
+  document.getElementById("reviewTitle").textContent = `${currentTopic.icon} ${currentTopic.name} - לומדים ביחד`;
+  const list = document.getElementById("reviewList");
+  list.innerHTML = "";
+  currentTopic.qa.forEach((pair, i) => {
+    const div = document.createElement("div");
+    div.className = "review-card";
+    div.innerHTML = `
+      <div class="review-q"><span class="qnum" style="display:inline-flex;align-items:center;justify-content:center;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--navy-soft);color:var(--navy);font-weight:800;font-size:.85rem;flex:none;">${i + 1}</span><span>${pair[0]}</span></div>
+      <div class="review-a"><b>✓ תשובה:</b> ${pair[1]}</div>
+    `;
+    list.appendChild(div);
+  });
+  showScreen(reviewScreen);
+}
+
+document.getElementById("toTopicsBtn").addEventListener("click", () => showScreen(topicScreen));
+document.getElementById("toTopicsBtn2").addEventListener("click", () => showScreen(topicScreen));
+document.getElementById("nextTeamBtn").addEventListener("click", () => startGame(currentTopic.key));
+document.getElementById("toReviewBtn").addEventListener("click", showReview);
+
+renderTopics();
+</script>
+
+<footer class="site-footer">ספר יונה · פרקים ג׳-ד׳ · משחק התאמה כיתתי</footer>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<script>
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>
