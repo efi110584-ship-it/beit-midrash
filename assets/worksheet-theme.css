@@ -253,6 +253,13 @@ main{ max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 2rem; }
 .choice-note{ background:#EAF2FB; border:1.5px dashed #2B5D8C; border-radius:8px; padding:.5rem .8rem; font-size:.82rem; color:#1C3F5E; margin:0 0 .7rem; font-weight:600; line-height:1.5; }
 .choice-chip{ display:inline-block; font-size:.68rem; font-weight:700; color:#2B5D8C; background:#EAF2FB; border:1px solid #2B5D8C; border-radius:999px; padding:.1rem .55rem; margin-inline-start:.5rem; vertical-align:middle; }
 
+/* סיכום + שאלה-ותשובה מודגשת לצד קטע - דף חזרה מסוכם, לא דף עבודה */
+.recap-qa{ background: var(--acc-soft); border-right: 3px solid var(--acc); border-radius: 8px; padding: .65rem .9rem; font-size: .88rem; line-height: 1.6; }
+.recap-q{ display:flex; align-items:flex-start; gap:.4rem; font-weight: 800; color: var(--acc); margin-bottom: .35rem; font-size: .9rem; }
+.recap-q .recap-q-icon{ flex:none; }
+.recap-a{ color: var(--ink); }
+.recap-a b{ color: var(--acc); font-weight:700; }
+
 /* תרשים זרימה של פרק שלם עם דברי הפרשנים - עמוד לחזרה, לא דף עבודה */
 .flowchart{ display:flex; flex-direction:column; max-width:760px; margin:0 auto; }
 .flow-step{ display:flex; align-items:flex-start; gap:.9rem; }
