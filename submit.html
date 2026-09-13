@@ -4,223 +4,324 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>הגשת מטלה | בית המדרש הדיגיטלי</title>
+<meta name="description" content="הגשת מטלה או דף עבודה - בית המדרש הדיגיטלי">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --ink: #1F3A4D;
-  --ink-2: #2C4A61;
-  --paper: #EFE6D0;
-  --paper-card: #F7F1E1;
-  --paper-2: #E9DEC3;
-  --gold: #A9752E;
-  --gold-text: #8A5C21;
-  --gold-light: #C99A4C;
-  --teal: #3F6E66;
-  --text: #1F3A4D;
-  --text-soft: #4B6577;
-  --border: #D8C9A3;
-  --focus: #1857C4;
-  --radius: 10px;
-  --font-display: "Frank Ruhl Libre", "David Libre", serif;
-  --font-body: "Heebo", "Arial Hebrew", sans-serif;
-}
-*, *::before, *::after{ box-sizing:border-box; }
-body{
-  margin:0;
-  background:var(--paper);
-  color:var(--text);
-  font-family:var(--font-body);
-  line-height:1.6;
-}
-h1,h2{ font-family:var(--font-display); color:var(--ink); margin:0; }
-a{ color:var(--gold-text); }
-button, select, input, textarea{ font-family:inherit; font-size:1rem; }
-a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible{
-  outline: 3px solid var(--focus);
-  outline-offset: 3px;
-  border-radius: 4px;
-}
-.site-header{ background:var(--ink); color:#F4EFE2; }
-.header-inner{
-  max-width:700px; margin:0 auto; padding:0.9rem 1.25rem;
-  display:flex; align-items:center; justify-content:space-between; gap:1rem;
-}
-.brand{ display:flex; align-items:center; gap:0.8rem; }
-.brand-text h1{ color:#fff; font-size:1.25rem; margin:0; }
-.brand-sub{ margin:0.15rem 0 0; font-size:0.82rem; color:#C9C2AE; }
-.back-link{ color:#F4EFE2; text-decoration:none; font-weight:600; font-size:0.9rem; white-space:nowrap; }
-.back-link:hover{ color:var(--gold-light); }
-
-.hero{ background:linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%); color:#F4EFE2; }
-.hero-inner{ max-width:700px; margin:0 auto; padding:2.4rem 1.25rem 2.6rem; text-align:center; }
-.hero h2{ color:#fff; font-size:1.7rem; line-height:1.35; margin:0 0 0.7rem; }
-.hero-desc{ color:#D6D0BE; font-size:1rem; max-width:520px; margin:0 auto; }
-
-.form-wrap{ max-width:640px; margin:0 auto; padding:2rem 1.25rem 4rem; }
-.context-note{
-  background:var(--paper-2); border:1.5px solid var(--gold-light); border-radius:8px;
-  padding:.7rem 1rem; margin:0 0 1.2rem; font-size:.9rem; color:var(--ink); text-align:center;
-}
-.context-note b{ color:var(--gold-text); }
-.card{
-  background:var(--paper-card); border:1px solid var(--border); border-radius:var(--radius);
-  padding:1.5rem; box-shadow:0 1px 3px rgba(22,35,63,0.06);
-}
-.field{ display:flex; flex-direction:column; gap:0.35rem; margin-bottom:1.1rem; }
-.field label{ font-size:0.92rem; color:var(--text); font-weight:600; }
-.field .hint{ font-size:0.8rem; color:var(--text-soft); font-weight:400; margin-top:-0.15rem; }
-.field input, .field select, .field textarea{
-  border:1.5px solid var(--border); border-radius:8px; padding:0.65rem 0.8rem;
-  background:var(--paper); color:var(--text); min-height:44px; width:100%;
-}
-.field textarea{ min-height:220px; resize:vertical; line-height:1.6; font-family:inherit; }
-.field input:focus, .field select:focus, .field textarea:focus{ border-color:var(--gold); }
-
-.submit-btn{
-  width:100%; background:var(--ink); color:#fff; border:none; border-radius:8px;
-  padding:0.9rem 1rem; font-weight:700; font-size:1.02rem; cursor:pointer; min-height:48px;
-}
-.submit-btn:hover{ background:var(--gold-text); }
-.submit-btn:disabled{ opacity:0.6; cursor:not-allowed; }
-
-.status-msg{ margin-top:1rem; padding:0.9rem 1rem; border-radius:8px; font-weight:600; text-align:center; display:none; }
-.status-msg.show{ display:block; }
-.status-msg.success{ background:var(--paper-2); color:var(--teal); border:1.5px solid var(--teal); }
-.status-msg.error{ background:#F8E6E2; color:#8B4A34; border:1.5px solid #8B4A34; }
-
-.site-footer{ text-align:center; padding:1.6rem 1rem; color:var(--text-soft); font-size:0.85rem; }
+  :root {
+    --gold: #b8873a;
+    --gold-dark: #8f6526;
+    --blue: #1f3a5f;
+    --blue-dark: #142743;
+    --bg: #faf6ee;
+    --card: #ffffff;
+    --border: #e4d9c3;
+    --text: #2b2b2b;
+    --muted: #6b6b6b;
+    --success: #2f7d4f;
+    --error: #b3372c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Heebo', Arial, sans-serif;
+    min-height: 100vh;
+    padding: 24px 16px 60px;
+  }
+  h1, h2 { font-family: 'Frank Ruhl Libre', serif; }
+  a { color: var(--blue); }
+  .skip-link {
+    position: absolute;
+    right: -999px;
+    top: 0;
+    background: var(--blue);
+    color: #fff;
+    padding: 10px 16px;
+    z-index: 100;
+  }
+  .skip-link:focus { right: 8px; top: 8px; }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  .breadcrumb {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .breadcrumb a { color: var(--blue); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  header.page-header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  header.page-header h1 {
+    color: var(--blue-dark);
+    font-size: 1.9rem;
+    margin: 0 0 8px;
+  }
+  header.page-header p {
+    color: var(--muted);
+    margin: 0;
+    font-size: 1rem;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 24px;
+    box-shadow: 0 2px 10px rgba(31,58,95,0.06);
+  }
+  label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+  }
+  .required-mark { color: var(--error); }
+  .field { margin-bottom: 20px; }
+  input[type="text"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    background: #fffefb;
+    color: var(--text);
+  }
+  input[type="text"]:focus,
+  select:focus,
+  textarea:focus {
+    outline: 2px solid var(--gold);
+    outline-offset: 1px;
+  }
+  textarea { resize: vertical; min-height: 80px; }
+  .file-drop {
+    border: 2px dashed var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    text-align: center;
+    background: #fbf8f1;
+  }
+  .file-drop input { display: block; margin: 0 auto; width: 100%; }
+  .hint { font-size: 0.82rem; color: var(--muted); margin-top: 6px; }
+  .submit-btn {
+    width: 100%;
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .submit-btn:hover:not(:disabled) { background: var(--blue-dark); }
+  .submit-btn:disabled { background: #9aa7b5; cursor: not-allowed; }
+  .status-box {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    display: none;
+  }
+  .status-box.show { display: block; }
+  .status-box.error {
+    background: #fbeceb;
+    border: 1px solid var(--error);
+    color: var(--error);
+  }
+  .success-panel {
+    text-align: center;
+    padding: 20px 10px 6px;
+  }
+  .success-panel .icon {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--success);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem;
+    margin: 0 auto 14px;
+  }
+  .success-panel h2 { color: var(--success); margin: 0 0 8px; font-size: 1.4rem; }
+  .success-panel p { color: var(--muted); margin: 0 0 20px; }
+  .again-btn {
+    display: inline-block;
+    background: transparent;
+    border: 1px solid var(--blue);
+    color: var(--blue);
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.95rem;
+  }
+  .again-btn:hover { background: #eef2f7; }
+  form[hidden], .success-panel[hidden] { display: none; }
 </style>
 </head>
 <body>
-
-<header class="site-header">
-  <div class="header-inner">
-    <div class="brand">
-      <div class="brand-text">
-        <h1>הגשת מטלה</h1>
-        <p class="brand-sub">בית המדרש הדיגיטלי</p>
-      </div>
-    </div>
-    <a class="back-link" href="index.html">&rarr; חזרה לאתר</a>
+<a href="#main" class="skip-link">דלג לתוכן המרכזי</a>
+<div class="wrap">
+  <div class="breadcrumb">
+    <a href="index.html">בית המדרש הדיגיטלי</a> &raquo; הגשת מטלה
   </div>
-</header>
 
-<section class="hero">
-  <div class="hero-inner">
-    <h2>הגישו כאן את המטלה שלכם</h2>
-    <p class="hero-desc">מלאו את הפרטים וצרפו את הקובץ שלכם, ולחצו על "שליחה". המטלה תגיע ישירות למורה - אין צורך בכתובת מייל משלכם.</p>
-  </div>
-</section>
+  <header class="page-header">
+    <h1>הגשת מטלה</h1>
+    <p>מלאו את הפרטים וצרפו את הקובץ - ההגשה עוברת ישירות למורה, ללא צורך בהתחברות או בכתובת מייל.</p>
+  </header>
 
-<div class="form-wrap">
-  <p class="context-note" id="contextNote" hidden></p>
-  <div class="card">
-    <form id="submit-form" method="POST" enctype="multipart/form-data"
-          action="https://api.web3forms.com/submit">
-      <input type="hidden" name="access_key" value="9798d17a-a799-49c8-b264-cc309ec85a1e">
-      <input type="hidden" name="subject" id="subjectField" value="הגשת מטלה - בית המדרש הדיגיטלי">
-      <input type="hidden" name="redirect" id="nextField" value="submit-thanks.html">
-      <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
-
+  <main id="main" class="card">
+    <form id="submitForm" novalidate>
       <div class="field">
-        <label for="studentName">שם מלא</label>
-        <input type="text" id="studentName" name="name" required autocomplete="name">
+        <label for="studentName">שם מלא <span class="required-mark">*</span></label>
+        <input type="text" id="studentName" name="studentName" autocomplete="name" required>
       </div>
 
       <div class="field">
-        <label for="studentClass">כיתה</label>
-        <input type="text" id="studentClass" name="class" required placeholder='לדוגמה: י"א 3'>
+        <label for="studentClass">כיתה <span class="required-mark">*</span></label>
+        <select id="studentClass" name="studentClass" required>
+          <option value="" disabled selected>בחרו כיתה</option>
+          <option value="יא">י"א</option>
+          <option value="יב">י"ב</option>
+        </select>
       </div>
 
       <div class="field">
-        <label for="topic">איזו מטלה / דף עבודה?</label>
-        <input type="text" id="topic" name="topic" required placeholder='לדוגמה: יונה פרק ג, לא תסור...'>
+        <label for="assignment">שם המטלה / דף העבודה <span class="required-mark">*</span></label>
+        <input type="text" id="assignment" name="assignment" placeholder="לדוגמה: דף עבודה - יונה פרק ג׳" required>
       </div>
 
       <div class="field">
-        <label for="fileInput">קובץ המטלה</label>
-        <span class="hint">שמרו את הקובץ שלכם (PDF / Word / תמונה) ואז צרפו אותו כאן. גודל מקסימלי: 5MB.</span>
-        <input type="file" id="fileInput" name="attachment" required accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.heic">
+        <label for="fileInput">קובץ להגשה <span class="required-mark">*</span></label>
+        <div class="file-drop">
+          <input type="file" id="fileInput" name="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required>
+        </div>
+        <p class="hint">קובצי PDF, Word או תמונה, עד 5MB.</p>
       </div>
 
       <div class="field">
-        <label for="note">הערה (לא חובה)</label>
-        <textarea id="note" name="note" placeholder="רוצים להוסיף משהו למורה? כתבו כאן..." style="min-height:100px;"></textarea>
+        <label for="notes">הערות (לא חובה)</label>
+        <textarea id="notes" name="notes" placeholder="משהו שחשוב שהמורה ידע לגבי ההגשה הזו"></textarea>
       </div>
 
-      <button type="submit" class="submit-btn" id="submitBtn">שליחה</button>
+      <button type="submit" class="submit-btn" id="submitBtn">שליחת ההגשה</button>
 
-      <div class="status-msg" id="statusMsg" role="status" aria-live="polite"></div>
+      <div class="status-box error" id="errorBox" role="alert"></div>
     </form>
-  </div>
+
+    <div class="success-panel" id="successPanel" hidden>
+      <div class="icon">&#10003;</div>
+      <h2>ההגשה נשלחה בהצלחה!</h2>
+      <p>המורה קיבל הודעה על ההגשה שלך. אפשר לסגור את הדף.</p>
+      <button type="button" class="again-btn" id="againBtn">הגשת מטלה נוספת</button>
+    </div>
+  </main>
 </div>
 
-<footer class="site-footer">
-  <p>בית המדרש הדיגיטלי &middot; מתעדכן ע"י הרב אפרים</p>
-</footer>
-
 <script>
-(function(){
-  "use strict";
-
-  /* הטופס נשלח כ-POST רגיל (לא AJAX/fetch) לשירות Web3Forms - כך גם
-     קובץ מצורף עובר בוודאות. לא עושים preventDefault כשהכל תקין -
-     רק כשצריך לעצור בגלל קובץ גדול מדי. */
-
-  var form = document.getElementById("submit-form");
-  var submitBtn = document.getElementById("submitBtn");
-  var statusMsg = document.getElementById("statusMsg");
-  var subjectField = document.getElementById("subjectField");
-  var nextField = document.getElementById("nextField");
-  var topicInput = document.getElementById("topic");
-
+(function () {
+  // כתובת ה-Web App של סקריפט הקליטה (Google Apps Script)
+  var ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbwkhxAu28oe10-Mli0tSUj-pb0rpxGmEioPdquopkPrnIvKw2TZmZw1PmlwhDZ3AUSPXw/exec';
   var MAX_FILE_BYTES = 5 * 1024 * 1024; // 5MB
-  var fileInput = document.getElementById("fileInput");
-  var nameInput = document.getElementById("studentName");
-  var classInput = document.getElementById("studentClass");
-  var contextNote = document.getElementById("contextNote");
 
-  /* _next חייב להיות כתובת מלאה כדי ש-FormSubmit ידע לאן להפנות בחזרה */
-  nextField.value = location.href.replace(/submit\.html.*$/, "submit-thanks.html");
+  var form = document.getElementById('submitForm');
+  var submitBtn = document.getElementById('submitBtn');
+  var errorBox = document.getElementById('errorBox');
+  var successPanel = document.getElementById('successPanel');
+  var againBtn = document.getElementById('againBtn');
+  var fileInput = document.getElementById('fileInput');
 
-  /* מילוי מראש בהגעה מקישור "הגשת מטלה" מתוך דף עבודה ספציפי -
-     ?unit=...&topic=...&name=...&cls=... - וכן משם/כיתה שנשמרו בעבר. */
-  (function prefillFromContext(){
-    var params = new URLSearchParams(location.search);
-    var unit = (params.get("unit") || "").trim();
-    var topic = (params.get("topic") || "").trim();
-    var name = (params.get("name") || "").trim();
-    var cls = (params.get("cls") || "").trim();
+  function showError(msg) {
+    errorBox.textContent = msg;
+    errorBox.classList.add('show');
+  }
+  function clearError() {
+    errorBox.textContent = '';
+    errorBox.classList.remove('show');
+  }
+  function fileToBase64(file) {
+    return new Promise(function (resolve, reject) {
+      var reader = new FileReader();
+      reader.onload = function () {
+        var result = reader.result; // "data:<mime>;base64,XXXX"
+        var base64 = result.substring(result.indexOf(',') + 1);
+        resolve(base64);
+      };
+      reader.onerror = function () { reject(new Error('שגיאה בקריאת הקובץ')); };
+      reader.readAsDataURL(file);
+    });
+  }
 
-    if(unit || topic){
-      topicInput.value = [unit, topic].filter(Boolean).join(" - ");
-      contextNote.innerHTML = "מגישים מטלה עבור: <b>" + [unit, topic].filter(Boolean)
-        .map(function(s){ return s.replace(/[<>&]/g, function(c){ return ({"<":"&lt;",">":"&gt;","&":"&amp;"})[c]; }); })
-        .join(" · ") + "</b>";
-      contextNote.hidden = false;
-    }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    clearError();
 
-    if(name) nameInput.value = name;
-    if(cls) classInput.value = cls;
-  })();
-
-  form.addEventListener("submit", function(e){
+    var studentName = document.getElementById('studentName').value.trim();
+    var studentClass = document.getElementById('studentClass').value;
+    var assignment = document.getElementById('assignment').value.trim();
+    var notes = document.getElementById('notes').value.trim();
     var file = fileInput.files[0];
-    if(file && file.size > MAX_FILE_BYTES){
-      e.preventDefault();
-      statusMsg.className = "status-msg show error";
-      statusMsg.textContent = "הקובץ גדול מדי (מעל 5MB). נסו לשמור אותו בפורמט קטן יותר או לצלם באיכות נמוכה יותר.";
+
+    if (!studentName || !studentClass || !assignment || !file) {
+      showError('נא למלא את כל שדות החובה (מסומנים ב-*) ולצרף קובץ.');
+      return;
+    }
+    if (file.size > MAX_FILE_BYTES) {
+      showError('הקובץ גדול מדי (מעל 5MB). נא לצרף קובץ קטן יותר.');
       return;
     }
 
-    subjectField.value = "הגשת מטלה - " + (topicInput.value || "בית המדרש הדיגיטלי");
     submitBtn.disabled = true;
-    submitBtn.textContent = "שולח...";
-    statusMsg.className = "status-msg";
-    statusMsg.textContent = "";
-    /* אין עוד קוד אחרי זה - הדפדפן ממשיך בשליחה הרגילה של הטופס */
+    submitBtn.textContent = 'שולח...';
+
+    fileToBase64(file).then(function (base64) {
+      var payload = {
+        studentName: studentName,
+        studentClass: studentClass,
+        assignment: assignment,
+        notes: notes,
+        fileName: file.name,
+        fileMimeType: file.type || 'application/octet-stream',
+        fileBase64: base64
+      };
+
+      return fetch(ENDPOINT_URL, {
+        method: 'POST',
+        // חשוב: text/plain כדי להימנע מ-preflight שסקריפטים של Google לא תומכים בו
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      if (data && data.ok) {
+        form.hidden = true;
+        successPanel.hidden = false;
+      } else {
+        throw new Error((data && data.error) || 'שגיאה לא ידועה מהשרת');
+      }
+    }).catch(function (err) {
+      console.error(err);
+      showError('משהו השתבש בשליחה. אפשר לנסות שוב, ואם זה חוזר על עצמו - לשלוח למורה ישירות. (' + err.message + ')');
+    }).finally(function () {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'שליחת ההגשה';
+    });
+  });
+
+  againBtn.addEventListener('click', function () {
+    form.reset();
+    form.hidden = false;
+    successPanel.hidden = true;
+    clearError();
   });
 })();
 </script>
