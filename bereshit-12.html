@@ -9,19 +9,43 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .compare-table{ width:100%; border-collapse:collapse; font-size:.88rem; margin-top:.6rem; }
-  .compare-table th, .compare-table td{ padding:.5rem .6rem; border:1px solid var(--paper-line); vertical-align:top; text-align:right; }
-  .compare-table th{ background:var(--acc-soft); color:var(--acc); font-weight:800; }
-  .compare-table td:first-child{ font-weight:700; color:var(--acc); white-space:nowrap; }
   .q-cue{ font-size:.83rem; color:var(--acc); font-style:italic; margin:0 0 .4rem; }
 
-  /* פרשני הפרק - סיכום ויזואלי בסוף הדף, עם וי לסימון הבנה */
-  .mp-recap-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:1rem; }
-  .mp-card{ animation:none; }
-  .mp-card .card-head{ padding:.85rem 1rem .7rem; }
-  .mp-card .card-title{ font-size:1rem; }
-  .mp-card .card-body{ padding:.85rem 1rem 1rem; gap:.65rem; }
-  .mp-brief{ font-size:.85rem; color:var(--ink); line-height:1.5; margin:0; }
+  /* טבלת השוואה - אברהם מול בניו */
+  .compare-table-wrap{ overflow-x:auto; border-radius:12px; border:1.5px solid var(--paper-line); box-shadow:var(--shadow); margin-top:.7rem; }
+  .compare-table{ width:100%; border-collapse:collapse; font-size:.86rem; min-width:460px; }
+  .compare-table th, .compare-table td{ padding:.65rem .8rem; vertical-align:top; text-align:right; border-bottom:1px solid var(--paper-line); line-height:1.5; }
+  .compare-table thead th{ font-weight:800; font-size:.78rem; letter-spacing:.02em; }
+  .compare-table thead th:first-child{ background:var(--paper-card); color:var(--ink-soft); }
+  .compare-table thead th:nth-child(2){ background:var(--teal-soft); color:var(--teal); }
+  .compare-table thead th:nth-child(3){ background:var(--rust-soft); color:var(--rust); }
+  .compare-table tbody td:first-child{ font-weight:700; color:var(--ink-soft); background:var(--paper-card); white-space:nowrap; }
+  .compare-table tbody td:nth-child(2){ background:rgba(63,110,102,.07); }
+  .compare-table tbody td:nth-child(3){ background:rgba(139,74,52,.07); }
+  .compare-table tbody tr:last-child td{ border-bottom:none; }
+
+  /* פרשני הפרק - ריבועי סיכום קטנים, עם וי לסימון הבנה */
+  .mp-recap-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:.8rem; }
+  .mp-tile{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    gap:.3rem; aspect-ratio:1/1; padding:.9rem .6rem; position:relative;
+    background:var(--acc-soft); border:2px solid var(--acc); border-radius:14px;
+    cursor:pointer; box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .mp-tile:hover{ transform:translateY(-2px); box-shadow:var(--shadow-hover); }
+  .mp-tile:focus-within{ outline:2px solid var(--acc); outline-offset:2px; }
+  .mp-tile input.unit-check{ position:absolute; opacity:0; width:1px; height:1px; }
+  .mp-tile-topic{ font-size:.66rem; font-weight:700; color:var(--acc); line-height:1.3; }
+  .mp-tile-name{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.05rem; color:var(--ink); }
+  .mp-tile-brief{ font-size:.7rem; color:var(--ink-soft); line-height:1.35; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .mp-tile-check{
+    position:absolute; top:.45rem; left:.45rem; width:1.3rem; height:1.3rem; border-radius:50%;
+    border:2px solid var(--acc); background:#fff; display:flex; align-items:center; justify-content:center;
+    font-size:.75rem; color:transparent; transition:background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .mp-tile.completed{ background:var(--teal-soft); border-color:var(--teal); }
+  .mp-tile.completed .mp-tile-check{ background:var(--teal); border-color:var(--teal); color:#fff; }
+  .mp-tile.completed .mp-tile-topic{ color:var(--teal); }
 </style>
 </head>
 <body>
@@ -250,18 +274,20 @@
           <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הכלל: מה שקרה לאבות הוא רמז למה שיקרה לבניהם, עם ישראל, בעתיד. לכן התורה מספרת בפירוט על מסעות האבות - כדי ללמוד מהם על העתיד.</div>
         </div>
         <p class="pasuk-block-note">הרמב"ן מדגים את הכלל דרך ההשוואה בין ירידת אברהם למצרים (פרק י"ב) לבין ירידת בני ישראל למצרים בדורות מאוחרים יותר:</p>
-        <table class="compare-table">
-          <thead>
-            <tr><th></th><th>מה שאירע לאברהם</th><th>מה שאירע לבניו</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>סיבת הירידה</td><td>רעב בארץ</td><td>בני ישראל יורדים למצרים בגלל הרעב בימי יעקב</td></tr>
-            <tr><td>לקיחת הנשים</td><td>המצרים רוצים לקחת את שרה לבית פרעה</td><td>"כל הבן הילוד היאורה תשליכוהו ואת כל הבת תחיון" (שמות א', כ"ב)</td></tr>
-            <tr><td>העונש למצרים</td><td>ה' מעניש את פרעה וביתו בנגעים בגלל שרה</td><td>ה' מביא עשר מכות על מצרים כדי להוציא את ישראל</td></tr>
-            <tr><td>המתנות</td><td>פרעה מעניק לאברהם רכוש רב כשהוא משלח אותו</td><td>בני ישראל יוצאים ממצרים ברכוש גדול</td></tr>
-            <tr><td>השילוח הנחרץ</td><td>פרעה מגרש את אברהם ממצרים</td><td>המצרים ממהרים לשלח את בני ישראל בעקבות עשר המכות</td></tr>
-          </tbody>
-        </table>
+        <div class="compare-table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr><th></th><th>👤 מה שאירע לאברהם</th><th>👨‍👩‍👧‍👦 מה שאירע לבניו</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>סיבת הירידה</td><td>רעב בארץ</td><td>בני ישראל יורדים למצרים בגלל הרעב בימי יעקב</td></tr>
+              <tr><td>לקיחת הנשים</td><td>המצרים רוצים לקחת את שרה לבית פרעה</td><td>"כל הבן הילוד היאורה תשליכוהו ואת כל הבת תחיון" (שמות א', כ"ב)</td></tr>
+              <tr><td>העונש למצרים</td><td>ה' מעניש את פרעה וביתו בנגעים בגלל שרה</td><td>ה' מביא עשר מכות על מצרים כדי להוציא את ישראל</td></tr>
+              <tr><td>המתנות</td><td>פרעה מעניק לאברהם רכוש רב כשהוא משלח אותו</td><td>בני ישראל יוצאים ממצרים ברכוש גדול</td></tr>
+              <tr><td>השילוח הנחרץ</td><td>פרעה מגרש את אברהם ממצרים</td><td>המצרים ממהרים לשלח את בני ישראל בעקבות עשר המכות</td></tr>
+            </tbody>
+          </table>
+        </div>
         <div class="question-block">
           <div class="question-row"><span class="q-num">11</span><span class="q-text" id="a11y-lbl-11">בחרו שורה אחת מהטבלה, וכתבו במילים שלכם מהו הדמיון בין מה שקרה לאברהם למה שקרה לבניו.</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-11" data-id="q11" placeholder="כתבו כאן את התשובה..." style="min-height:120px;"></textarea>
@@ -281,71 +307,53 @@
         <p class="pasuk-block-note">עברו על כל הפרשנים שלמדנו בפרק. אחרי שאתם מרגישים שהבנתם את דבריו של פרשן מסוים - סמנו וי ליד השם שלו.</p>
         <div class="mp-recap-grid">
 
-          <div class="card unit mp-card" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
-            <div class="card-head">
-              <span class="card-tag">רקע - הבחירה באברהם</span>
-              <h3 class="card-title">מהר"ל</h3>
-            </div>
-            <div class="card-body">
-              <p class="mp-brief">ההבדל בין "בחירה פרטית" (נח) ל"בחירה כללית" (אברהם).</p>
-              <label class="unit-done"><input type="checkbox" class="unit-check" id="bereshit12-mp-1" data-unit-id="bereshit12-mp-1"><span>✓ הבנתי את הפרשן הזה</span></label>
-            </div>
-          </div>
+          <label class="mp-tile unit" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
+            <input type="checkbox" class="unit-check" id="bereshit12-mp-1" data-unit-id="bereshit12-mp-1">
+            <span class="mp-tile-check" aria-hidden="true">✓</span>
+            <span class="mp-tile-topic">רקע - הבחירה באברהם</span>
+            <span class="mp-tile-name">מהר"ל</span>
+            <span class="mp-tile-brief">בחירה פרטית (נח) מול בחירה כללית (אברהם).</span>
+          </label>
 
-          <div class="card unit mp-card" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
-            <div class="card-head">
-              <span class="card-tag">"לך לך" - הציווי וההבטחה</span>
-              <h3 class="card-title">רמב"ן (פסוק א')</h3>
-            </div>
-            <div class="card-body">
-              <p class="mp-brief">למה מפרטת התורה דווקא "ארצך, מולדתך, בית אביך".</p>
-              <label class="unit-done"><input type="checkbox" class="unit-check" id="bereshit12-mp-2" data-unit-id="bereshit12-mp-2"><span>✓ הבנתי את הפרשן הזה</span></label>
-            </div>
-          </div>
+          <label class="mp-tile unit" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+            <input type="checkbox" class="unit-check" id="bereshit12-mp-2" data-unit-id="bereshit12-mp-2">
+            <span class="mp-tile-check" aria-hidden="true">✓</span>
+            <span class="mp-tile-topic">"לך לך" - הציווי וההבטחה</span>
+            <span class="mp-tile-name">רמב"ן (פס' א')</span>
+            <span class="mp-tile-brief">למה "ארצך, מולדתך, בית אביך".</span>
+          </label>
 
-          <div class="card unit mp-card" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
-            <div class="card-head">
-              <span class="card-tag">"לך לך" - הציווי וההבטחה</span>
-              <h3 class="card-title">רד"ק (פסוק ב')</h3>
-            </div>
-            <div class="card-body">
-              <p class="mp-brief">למה ה' לא גילה לאברהם לאיזו ארץ הוא הולך.</p>
-              <label class="unit-done"><input type="checkbox" class="unit-check" id="bereshit12-mp-3" data-unit-id="bereshit12-mp-3"><span>✓ הבנתי את הפרשן הזה</span></label>
-            </div>
-          </div>
+          <label class="mp-tile unit" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+            <input type="checkbox" class="unit-check" id="bereshit12-mp-3" data-unit-id="bereshit12-mp-3">
+            <span class="mp-tile-check" aria-hidden="true">✓</span>
+            <span class="mp-tile-topic">"לך לך" - הציווי וההבטחה</span>
+            <span class="mp-tile-name">רד"ק (פס' ב')</span>
+            <span class="mp-tile-brief">למה ה' לא גילה לאברהם לאיזו ארץ.</span>
+          </label>
 
-          <div class="card unit mp-card" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
-            <div class="card-head">
-              <span class="card-tag">המסע לארץ כנען</span>
-              <h3 class="card-title">רש"י (פסוק ה')</h3>
-            </div>
-            <div class="card-body">
-              <p class="mp-brief">שני פירושים (פשט ודרש) למילה "עשו".</p>
-              <label class="unit-done"><input type="checkbox" class="unit-check" id="bereshit12-mp-4" data-unit-id="bereshit12-mp-4"><span>✓ הבנתי את הפרשן הזה</span></label>
-            </div>
-          </div>
+          <label class="mp-tile unit" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
+            <input type="checkbox" class="unit-check" id="bereshit12-mp-4" data-unit-id="bereshit12-mp-4">
+            <span class="mp-tile-check" aria-hidden="true">✓</span>
+            <span class="mp-tile-topic">המסע לארץ כנען</span>
+            <span class="mp-tile-name">רש"י (פס' ה')</span>
+            <span class="mp-tile-brief">שני פירושים (פשט ודרש) למילה "עשו".</span>
+          </label>
 
-          <div class="card unit mp-card" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
-            <div class="card-head">
-              <span class="card-tag">הירידה למצרים</span>
-              <h3 class="card-title">ספורנו (פסוק י"ג)</h3>
-            </div>
-            <div class="card-body">
-              <p class="mp-brief">תוכניתו של אברהם עם שרה, ומה השתבש בה.</p>
-              <label class="unit-done"><input type="checkbox" class="unit-check" id="bereshit12-mp-5" data-unit-id="bereshit12-mp-5"><span>✓ הבנתי את הפרשן הזה</span></label>
-            </div>
-          </div>
+          <label class="mp-tile unit" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
+            <input type="checkbox" class="unit-check" id="bereshit12-mp-5" data-unit-id="bereshit12-mp-5">
+            <span class="mp-tile-check" aria-hidden="true">✓</span>
+            <span class="mp-tile-topic">הירידה למצרים</span>
+            <span class="mp-tile-name">ספורנו (פס' י"ג)</span>
+            <span class="mp-tile-brief">תוכניתו של אברהם עם שרה, ומה השתבש בה.</span>
+          </label>
 
-          <div class="card unit mp-card" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
-            <div class="card-head">
-              <span class="card-tag">"מעשה אבות סימן לבנים"</span>
-              <h3 class="card-title">רמב"ן (פסוק ו')</h3>
-            </div>
-            <div class="card-body">
-              <p class="mp-brief">הכלל "כל מה שאירע לאבות סימן לבנים".</p>
-              <label class="unit-done"><input type="checkbox" class="unit-check" id="bereshit12-mp-6" data-unit-id="bereshit12-mp-6"><span>✓ הבנתי את הפרשן הזה</span></label>
-            </div>
-          </div>
+          <label class="mp-tile unit" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+            <input type="checkbox" class="unit-check" id="bereshit12-mp-6" data-unit-id="bereshit12-mp-6">
+            <span class="mp-tile-check" aria-hidden="true">✓</span>
+            <span class="mp-tile-topic">"מעשה אבות סימן לבנים"</span>
+            <span class="mp-tile-name">רמב"ן (פס' ו')</span>
+            <span class="mp-tile-brief">הכלל "כל מה שאירע לאבות סימן לבנים".</span>
+          </label>
 
         </div>
       </div>
