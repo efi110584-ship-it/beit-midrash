@@ -1128,6 +1128,144 @@ loadStudentInfo();
 loadAnswers();
 
 (function(){
+  var MM_DATA = {
+    "bereshit-12": {
+      topics: [
+        { key:"t1", name:"רקע - הבחירה באברהם", acc:"#8A5C21", accSoft:"#F3E7D2" },
+        { key:"t2", name:'"לך לך" - הציווי וההבטחה', acc:"#3F6E66", accSoft:"#E4EEEA" },
+        { key:"t3", name:"המסע לארץ כנען", acc:"#1E2761", accSoft:"#E3E5F3" },
+        { key:"t4", name:"הירידה למצרים", acc:"#8B4A34", accSoft:"#F1E2DA" },
+        { key:"t5", name:'"מעשה אבות סימן לבנים"', acc:"#7A4A73", accSoft:"#EFE3EC" },
+      ],
+      mefarshim: [
+        { topic:"t1", name:'מהר"ל', pasuk:'נצח ישראל, פרק י"א', brief:'ההבדל בין "בחירה פרטית" (נח) ל"בחירה כללית" (אברהם).',
+          quote:'"...אבל לפי הדברים אשר אמרנו לך לא יקשה כלל, כי אצל נח היה רק בחירה פרטית... אבל באברהם לא היה בחירה פרטית, רק [=אלא בחירה] באומה הישראלית, שהם זרעו... וזה בחירה כללית, ובחירה כמו זאת אין תולה במעשה כלל, ולא בחטא..."',
+          q:'מה ההבדל, לפי המהר"ל, בין הבחירה בנח לבין הבחירה באברהם?' },
+        { topic:"t2", name:'רמב"ן', pasuk:"פסוק א'", brief:'למה מפרטת התורה דווקא "ארצך, מולדתך, בית אביך".',
+          quote:'"וטעם להזכיר \'ארצך ומולדתך ובית אביך\', כי יקשה על האדם לעזוב ארצו אשר הוא יושב בה ושם אוהביו ורעיו, וכל שכן כשהוא ארץ מולדתו ששם נולד, וכל שכן כשיש שם כל בית אביו, ולכך הוצרך לומר לו שיעזוב הכל לאהבתו של הקב\"ה."',
+          q:'מהו הקושי הלשוני שמעורר הביטוי "מארצך וממולדתך ומבית אביך", וכיצד מיישב אותו הרמב"ן?' },
+        { topic:"t2", name:'רד"ק', pasuk:"פסוק ב'", brief:'למה ה\' לא גילה לאברהם לאיזו ארץ הוא הולך.',
+          quote:'"ואלו אמר לו אל ארץ כארצך טובה או טובה ממנה לא היה כל כך קשה, אבל אמר אל הארץ אשר אראך ולא ידע הטובה היא אם רעה, וכל זה אמר לו האל להודיע חיבתו של אברהם אבינו..."',
+          q:'מדוע, לדעת הרד"ק, ה\' לא גילה לאברהם מהי הארץ שאליה הוא הולך?' },
+        { topic:"t3", name:'רש"י', pasuk:"פסוק ה'", brief:'שני פירושים (פשט ודרש) למילה "עשו".',
+          quote:'"אשר עשו בחרן - שהכניסן תחת כנפי השכינה, אברהם מגייר את האנשים, ושרה מגיירת הנשים... ופשוטו של מקרא: עבדים ושפחות שקנו להם..."',
+          q:'הביאו את שני פירושיו של רש"י למילה "עשו" בביטוי "הנפש אשר עשו בחרן".' },
+        { topic:"t4", name:"ספורנו", pasuk:"פסוק י\"ג", brief:"תוכניתו של אברהם עם שרה, ומה השתבש בה.",
+          quote:'"למען ייטב לי - למען כשתאמרי שאת אחותי יקווה כל אחד מהם שאשיאך לו... ובין כך חשב לצאת משם. ותוקח האישה - ולאברם היטיב, שלא נמלכו ראשונה בו לפתותו כמו שהיה המנהג..."',
+          q:'מהי התוכנית שמייחס הספורנו לאברהם, ומה, לדעתו, השתבש בפועל במצרים?' },
+        { topic:"t5", name:'רמב"ן', pasuk:"פסוק ו'", brief:'הכלל "כל מה שאירע לאבות סימן לבנים".',
+          quote:'"אומר לך כלל תבין אותו בכל הפרשיות הבאות בעניין אברהם יצחק ויעקב... ואמרו: כל מה שאירע לאבות סימן לבנים. ולכן יאריכו הכתובים בספור המסעות וחפירת הבארות ושאר המקרים... וכולם באים ללמד על העתיד..."',
+          q:'מהו הכלל שמלמד הרמב"ן, ומדוע לדעתו התורה מאריכה דווקא בתיאור מסעות האבות?' },
+      ]
+    }
+  };
+
+  function initMmWidget(widget){
+    var data = MM_DATA[widget.dataset.mmChapter];
+    if(!data) return;
+    var filtersEl = widget.querySelector(".mm-filters");
+    var rowsEl = widget.querySelector(".mm-rows");
+    var emptyMsg = widget.querySelector(".mm-empty");
+    var activeFilter = "all";
+
+    function topicByKey(k){ return data.topics.find(function(t){ return t.key === k; }); }
+
+    function setFilter(key, btn){
+      activeFilter = key;
+      filtersEl.querySelectorAll(".mm-filter-chip").forEach(function(c){ c.classList.remove("active"); });
+      btn.classList.add("active");
+      applyFilter();
+    }
+
+    function applyFilter(){
+      var visible = 0;
+      rowsEl.querySelectorAll(".mm-row").forEach(function(row){
+        var match = activeFilter === "all" || row.dataset.topic === activeFilter;
+        row.classList.toggle("mm-hidden", !match);
+        if(match) visible++;
+      });
+      emptyMsg.classList.toggle("mm-show", visible === 0);
+    }
+
+    function toggleRow(row){
+      var detail = row.nextElementSibling;
+      var isOpen = row.classList.contains("mm-open");
+      rowsEl.querySelectorAll(".mm-row.mm-open").forEach(function(r){
+        r.classList.remove("mm-open");
+        r.nextElementSibling.style.maxHeight = null;
+      });
+      if(!isOpen){
+        row.classList.add("mm-open");
+        detail.style.maxHeight = detail.scrollHeight + "px";
+      }
+    }
+
+    function renderFilters(){
+      var allChip = document.createElement("button");
+      allChip.type = "button";
+      allChip.className = "mm-filter-chip active";
+      allChip.textContent = "הכול";
+      allChip.style.setProperty("--mm-chip", "#1F3A4D");
+      allChip.addEventListener("click", function(){ setFilter("all", allChip); });
+      filtersEl.appendChild(allChip);
+
+      data.topics.forEach(function(t){
+        var chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "mm-filter-chip";
+        chip.textContent = t.name;
+        chip.style.setProperty("--mm-chip", t.acc);
+        chip.addEventListener("click", function(){ setFilter(t.key, chip); });
+        filtersEl.appendChild(chip);
+      });
+    }
+
+    function renderRows(){
+      data.mefarshim.forEach(function(m){
+        var topic = topicByKey(m.topic);
+
+        var row = document.createElement("div");
+        row.className = "mm-row";
+        row.dataset.topic = m.topic;
+        row.style.setProperty("--mm-row-acc", topic.acc);
+        row.style.setProperty("--mm-row-acc-soft", topic.accSoft);
+        row.tabIndex = 0;
+        row.setAttribute("role", "button");
+        row.setAttribute("aria-expanded", "false");
+
+        row.innerHTML =
+          '<span class="mm-topic-chip">' + topic.name + '</span>' +
+          '<span class="mm-name-wrap"><span class="mm-name">' + m.name + '</span> ' +
+          '<span class="mm-pasuk">· ' + m.pasuk + '</span></span>' +
+          '<span class="mm-brief">' + m.brief + '</span>' +
+          '<span class="mm-expand-icon" aria-hidden="true">▾</span>';
+
+        var detail = document.createElement("div");
+        detail.className = "mm-detail";
+        detail.innerHTML =
+          '<div class="mm-detail-inner">' +
+            '<div class="mm-quote">' + m.quote + '</div>' +
+            '<div class="mm-tied-q"><b>שאלה נלווית:</b> ' + m.q + '</div>' +
+          '</div>';
+
+        row.addEventListener("click", function(){ toggleRow(row); });
+        row.addEventListener("keydown", function(e){
+          if(e.key === "Enter" || e.key === " "){ e.preventDefault(); toggleRow(row); }
+        });
+
+        rowsEl.appendChild(row);
+        rowsEl.appendChild(detail);
+      });
+    }
+
+    renderFilters();
+    renderRows();
+  }
+
+  document.querySelectorAll(".mm-widget").forEach(initMmWidget);
+})();
+
+(function(){
   var last = null;
   try{ last = localStorage.getItem('yonah-hub-last-tab'); }catch(e){}
   if(last && document.getElementById('topic-' + last)){
