@@ -15,68 +15,13 @@
   .compare-table td:first-child{ font-weight:700; color:var(--acc); white-space:nowrap; }
   .q-cue{ font-size:.83rem; color:var(--acc); font-style:italic; margin:0 0 .4rem; }
 
-  /* מפרשים במבט אחד - טבלה דינמית עם סינון ופתיחת ציטוט */
-  .mm-filters{ display:flex; flex-wrap:wrap; gap:.5rem; margin:0 0 1rem; }
-  .mm-filter-chip{
-    font-family:'Heebo',sans-serif; font-size:.82rem; font-weight:700; cursor:pointer;
-    border:1.5px solid var(--mm-chip, var(--ink-soft)); color:var(--mm-chip, var(--ink-soft));
-    background:transparent; border-radius:999px; padding:.35rem .95rem;
-    transition:background .15s ease, color .15s ease;
-  }
-  .mm-filter-chip.active, .mm-filter-chip:hover{ background:var(--mm-chip, var(--ink-soft)); color:#fff; }
-
-  .mm-matrix{
-    background:var(--paper-card); border:1.5px solid var(--paper-line); border-radius:14px;
-    overflow:hidden;
-  }
-  .mm-head{
-    display:grid; grid-template-columns:1fr 1.4fr 3fr auto;
-    padding:.6rem 1rem; font-size:.72rem; font-weight:700; letter-spacing:.02em;
-    color:var(--ink-soft); border-bottom:1.5px solid var(--paper-line);
-  }
-  .mm-row{
-    display:grid; grid-template-columns:1fr 1.4fr 3fr auto; align-items:center;
-    gap:.6rem; padding:.75rem 1rem; border-bottom:1px solid var(--paper-line);
-    border-right:4px solid var(--mm-row-acc, var(--gold)); cursor:pointer;
-    transition:background .15s ease;
-  }
-  .mm-row:last-of-type{ border-bottom:none; }
-  .mm-row:hover{ background:rgba(255,255,255,.5); }
-  .mm-row.mm-hidden{ display:none; }
-  .mm-topic-chip{
-    display:inline-flex; align-items:center; font-size:.7rem; font-weight:700;
-    color:var(--mm-row-acc, var(--gold)); background:var(--mm-row-acc-soft, var(--acc-soft));
-    border-radius:999px; padding:.2rem .55rem; width:fit-content;
-  }
-  .mm-name{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1rem; color:var(--ink); }
-  .mm-pasuk{ font-size:.74rem; color:var(--ink-soft); font-weight:400; }
-  .mm-brief{ font-size:.86rem; color:var(--ink); line-height:1.5; }
-  .mm-expand-icon{
-    width:1.6rem; height:1.6rem; border-radius:50%; border:1.5px solid var(--paper-line);
-    display:flex; align-items:center; justify-content:center; font-size:.8rem; color:var(--ink-soft);
-    transition:transform .25s ease, background .15s ease; flex:none;
-  }
-  .mm-row.mm-open .mm-expand-icon{ transform:rotate(180deg); background:var(--mm-row-acc, var(--gold)); color:#fff; border-color:var(--mm-row-acc, var(--gold)); }
-  .mm-detail{ max-height:0; overflow:hidden; transition:max-height .35s ease; }
-  .mm-detail-inner{ padding:0 1rem 1rem 2.6rem; }
-  .mm-quote{
-    font-family:'Frank Ruhl Libre',serif; font-style:italic; font-size:.92rem; line-height:1.7;
-    color:var(--ink); background:#fff; border-right:3px solid var(--mm-row-acc, var(--gold));
-    border-radius:8px; padding:.7rem .95rem; margin:0 0 .6rem;
-  }
-  .mm-tied-q{ font-size:.83rem; color:var(--ink-soft); }
-  .mm-tied-q b{ color:var(--ink); }
-  .mm-empty{ padding:1.4rem 1rem; text-align:center; color:var(--ink-soft); font-size:.88rem; display:none; }
-  .mm-empty.mm-show{ display:block; }
-  @media (max-width:640px){
-    .mm-head{ display:none; }
-    .mm-row{ grid-template-columns:1fr auto; grid-template-areas:"topic icon" "name name" "brief brief"; row-gap:.3rem; }
-    .mm-row > .mm-topic-chip{ grid-area:topic; }
-    .mm-row > .mm-expand-icon{ grid-area:icon; }
-    .mm-row > .mm-name-wrap{ grid-area:name; }
-    .mm-row > .mm-brief{ grid-area:brief; }
-    .mm-detail-inner{ padding-inline-start:1rem; }
-  }
+  /* פרשני הפרק - סיכום ויזואלי בסוף הדף, עם וי לסימון הבנה */
+  .mp-recap-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(230px, 1fr)); gap:1rem; }
+  .mp-card{ animation:none; }
+  .mp-card .card-head{ padding:.85rem 1rem .7rem; }
+  .mp-card .card-title{ font-size:1rem; }
+  .mp-card .card-body{ padding:.85rem 1rem 1rem; gap:.65rem; }
+  .mp-brief{ font-size:.85rem; color:var(--ink); line-height:1.5; margin:0; }
 </style>
 </head>
 <body>
@@ -138,27 +83,6 @@
         <div class="story-summary">
           <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
           ה' פונה אל אברם ומצווה עליו לעזוב את הכול - את ארצו, את סביבתו ואת בית אביו - וללכת אל ארץ שעוד לא נחשפה בפניו. יחד עם הציווי מבטיח לו ה' ברכה גדולה: שיהיה לגוי גדול, ושכל משפחות האדמה יתברכו בזכותו. אברם מציית מיד: הוא יוצא לדרך עם שרי אשתו, לוט בן אחיו וכל רכושם, עובר בארץ כנען, בונה בה מזבחות לה' ומכריז בשמו. כשפורץ רעב קשה בארץ, הוא יורד למצרים, ומבקש משרי להציג עצמה כאחותו כדי להגן על חייו. שרי אכן נלקחת לבית פרעה - אך ה' מכה את פרעה ואת ביתו בנגעים, פרעה מבין את טעותו, ומשלח את אברם ושרי בחזרה עם כל רכושם.
-        </div>
-      </div>
-    </section>
-
-    <!-- מפרשים במבט אחד -->
-    <section class="card" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">📖 מפרשים במבט אחד</span>
-        <h2 class="card-title">מפה מהירה של כל הפרשנים בפרק</h2>
-      </div>
-      <div class="card-body">
-        <p class="pasuk-block-note">סננו לפי נושא, ולחצו על שורה כדי לפתוח את הציטוט המלא של הפרשן והשאלה הקשורה אליו - מפה מהירה לפני שצוללים לתוך הכרטיסים המלאים למטה.</p>
-        <div class="mm-widget" data-mm-chapter="bereshit-12">
-          <div class="mm-filters"></div>
-          <div class="mm-matrix">
-            <div class="mm-head">
-              <span>נושא</span><span>פרשן</span><span>תמצית</span><span></span>
-            </div>
-            <div class="mm-rows"></div>
-            <div class="mm-empty">אין פרשנים בנושא הזה - נסו לבחור נושא אחר.</div>
-          </div>
         </div>
       </div>
     </section>
@@ -347,6 +271,86 @@
       </div>
     </section>
 
+    <!-- פרשני הפרק - סיכום -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">📚 סיכום</span>
+        <h2 class="card-title">כל הפרשנים שפגשנו בפרק - מה כל אחד אמר?</h2>
+      </div>
+      <div class="card-body">
+        <p class="pasuk-block-note">עברו על כל הפרשנים שלמדנו בפרק. אחרי שאתם מרגישים שהבנתם את דבריו של פרשן מסוים - סמנו וי ליד השם שלו.</p>
+        <div class="mp-recap-grid">
+
+          <div class="card unit mp-card" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
+            <div class="card-head">
+              <span class="card-tag">רקע - הבחירה באברהם</span>
+              <h3 class="card-title">מהר"ל</h3>
+            </div>
+            <div class="card-body">
+              <p class="mp-brief">ההבדל בין "בחירה פרטית" (נח) ל"בחירה כללית" (אברהם).</p>
+              <label class="unit-done"><input type="checkbox" class="unit-check" id="bereshit12-mp-1" data-unit-id="bereshit12-mp-1"><span>✓ הבנתי את הפרשן הזה</span></label>
+            </div>
+          </div>
+
+          <div class="card unit mp-card" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+            <div class="card-head">
+              <span class="card-tag">"לך לך" - הציווי וההבטחה</span>
+              <h3 class="card-title">רמב"ן (פסוק א')</h3>
+            </div>
+            <div class="card-body">
+              <p class="mp-brief">למה מפרטת התורה דווקא "ארצך, מולדתך, בית אביך".</p>
+              <label class="unit-done"><input type="checkbox" class="unit-check" id="bereshit12-mp-2" data-unit-id="bereshit12-mp-2"><span>✓ הבנתי את הפרשן הזה</span></label>
+            </div>
+          </div>
+
+          <div class="card unit mp-card" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+            <div class="card-head">
+              <span class="card-tag">"לך לך" - הציווי וההבטחה</span>
+              <h3 class="card-title">רד"ק (פסוק ב')</h3>
+            </div>
+            <div class="card-body">
+              <p class="mp-brief">למה ה' לא גילה לאברהם לאיזו ארץ הוא הולך.</p>
+              <label class="unit-done"><input type="checkbox" class="unit-check" id="bereshit12-mp-3" data-unit-id="bereshit12-mp-3"><span>✓ הבנתי את הפרשן הזה</span></label>
+            </div>
+          </div>
+
+          <div class="card unit mp-card" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
+            <div class="card-head">
+              <span class="card-tag">המסע לארץ כנען</span>
+              <h3 class="card-title">רש"י (פסוק ה')</h3>
+            </div>
+            <div class="card-body">
+              <p class="mp-brief">שני פירושים (פשט ודרש) למילה "עשו".</p>
+              <label class="unit-done"><input type="checkbox" class="unit-check" id="bereshit12-mp-4" data-unit-id="bereshit12-mp-4"><span>✓ הבנתי את הפרשן הזה</span></label>
+            </div>
+          </div>
+
+          <div class="card unit mp-card" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
+            <div class="card-head">
+              <span class="card-tag">הירידה למצרים</span>
+              <h3 class="card-title">ספורנו (פסוק י"ג)</h3>
+            </div>
+            <div class="card-body">
+              <p class="mp-brief">תוכניתו של אברהם עם שרה, ומה השתבש בה.</p>
+              <label class="unit-done"><input type="checkbox" class="unit-check" id="bereshit12-mp-5" data-unit-id="bereshit12-mp-5"><span>✓ הבנתי את הפרשן הזה</span></label>
+            </div>
+          </div>
+
+          <div class="card unit mp-card" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+            <div class="card-head">
+              <span class="card-tag">"מעשה אבות סימן לבנים"</span>
+              <h3 class="card-title">רמב"ן (פסוק ו')</h3>
+            </div>
+            <div class="card-body">
+              <p class="mp-brief">הכלל "כל מה שאירע לאבות סימן לבנים".</p>
+              <label class="unit-done"><input type="checkbox" class="unit-check" id="bereshit12-mp-6" data-unit-id="bereshit12-mp-6"><span>✓ הבנתי את הפרשן הזה</span></label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
   </div>
 </main>
 
@@ -500,148 +504,38 @@ window.addEventListener('afterprint', () => {
   textareas.forEach((t, i) => { t.style.height = originalHeights[i] || ''; });
 });
 
+const UNIT_KEY = 'bereshit-ch12-units';
+const unitChecks = Array.from(document.querySelectorAll('.unit-check'));
+
+function saveUnits(){
+  const done = {};
+  unitChecks.forEach(cb => { done[cb.dataset.unitId] = cb.checked; });
+  try{ localStorage.setItem(UNIT_KEY, JSON.stringify(done)); }catch(e){ /* אחסון חסום */ }
+}
+
+function loadUnits(){
+  try{
+    const raw = localStorage.getItem(UNIT_KEY);
+    const done = raw ? JSON.parse(raw) : {};
+    unitChecks.forEach(cb => {
+      if(done[cb.dataset.unitId]){
+        cb.checked = true;
+        cb.closest('.unit').classList.add('completed');
+      }
+    });
+  }catch(e){ /* אין נתונים שמורים עדיין */ }
+}
+
+unitChecks.forEach(cb => {
+  cb.addEventListener('change', () => {
+    cb.closest('.unit').classList.toggle('completed', cb.checked);
+    saveUnits();
+  });
+});
+
 loadStudentInfo();
 loadAnswers();
-</script>
-
-<script>
-(function(){
-  const MM_DATA = {
-    "bereshit-12": {
-      topics: [
-        { key:"t1", name:"רקע - הבחירה באברהם", acc:"#8A5C21", accSoft:"#F3E7D2" },
-        { key:"t2", name:'"לך לך" - הציווי וההבטחה', acc:"#3F6E66", accSoft:"#E4EEEA" },
-        { key:"t3", name:"המסע לארץ כנען", acc:"#1E2761", accSoft:"#E3E5F3" },
-        { key:"t4", name:"הירידה למצרים", acc:"#8B4A34", accSoft:"#F1E2DA" },
-        { key:"t5", name:'"מעשה אבות סימן לבנים"', acc:"#7A4A73", accSoft:"#EFE3EC" },
-      ],
-      mefarshim: [
-        { topic:"t1", name:'מהר"ל', pasuk:'נצח ישראל, פרק י"א', brief:'ההבדל בין "בחירה פרטית" (נח) ל"בחירה כללית" (אברהם).',
-          quote:'"...אבל לפי הדברים אשר אמרנו לך לא יקשה כלל, כי אצל נח היה רק בחירה פרטית... אבל באברהם לא היה בחירה פרטית, רק [=אלא בחירה] באומה הישראלית, שהם זרעו... וזה בחירה כללית, ובחירה כמו זאת אין תולה במעשה כלל, ולא בחטא..."',
-          q:'מה ההבדל, לפי המהר"ל, בין הבחירה בנח לבין הבחירה באברהם?' },
-        { topic:"t2", name:'רמב"ן', pasuk:"פסוק א'", brief:'למה מפרטת התורה דווקא "ארצך, מולדתך, בית אביך".',
-          quote:'"וטעם להזכיר \'ארצך ומולדתך ובית אביך\', כי יקשה על האדם לעזוב ארצו אשר הוא יושב בה ושם אוהביו ורעיו, וכל שכן כשהוא ארץ מולדתו ששם נולד, וכל שכן כשיש שם כל בית אביו, ולכך הוצרך לומר לו שיעזוב הכל לאהבתו של הקב\"ה."',
-          q:'מהו הקושי הלשוני שמעורר הביטוי "מארצך וממולדתך ומבית אביך", וכיצד מיישב אותו הרמב"ן?' },
-        { topic:"t2", name:'רד"ק', pasuk:"פסוק ב'", brief:'למה ה\' לא גילה לאברהם לאיזו ארץ הוא הולך.',
-          quote:'"ואלו אמר לו אל ארץ כארצך טובה או טובה ממנה לא היה כל כך קשה, אבל אמר אל הארץ אשר אראך ולא ידע הטובה היא אם רעה, וכל זה אמר לו האל להודיע חיבתו של אברהם אבינו..."',
-          q:'מדוע, לדעת הרד"ק, ה\' לא גילה לאברהם מהי הארץ שאליה הוא הולך?' },
-        { topic:"t3", name:'רש"י', pasuk:"פסוק ה'", brief:'שני פירושים (פשט ודרש) למילה "עשו".',
-          quote:'"אשר עשו בחרן - שהכניסן תחת כנפי השכינה, אברהם מגייר את האנשים, ושרה מגיירת הנשים... ופשוטו של מקרא: עבדים ושפחות שקנו להם..."',
-          q:'הביאו את שני פירושיו של רש"י למילה "עשו" בביטוי "הנפש אשר עשו בחרן".' },
-        { topic:"t4", name:"ספורנו", pasuk:"פסוק י\"ג", brief:"תוכניתו של אברהם עם שרה, ומה השתבש בה.",
-          quote:'"למען ייטב לי - למען כשתאמרי שאת אחותי יקווה כל אחד מהם שאשיאך לו... ובין כך חשב לצאת משם. ותוקח האישה - ולאברם היטיב, שלא נמלכו ראשונה בו לפתותו כמו שהיה המנהג..."',
-          q:'מהי התוכנית שמייחס הספורנו לאברהם, ומה, לדעתו, השתבש בפועל במצרים?' },
-        { topic:"t5", name:'רמב"ן', pasuk:"פסוק ו'", brief:'הכלל "כל מה שאירע לאבות סימן לבנים".',
-          quote:'"אומר לך כלל תבין אותו בכל הפרשיות הבאות בעניין אברהם יצחק ויעקב... ואמרו: כל מה שאירע לאבות סימן לבנים. ולכן יאריכו הכתובים בספור המסעות וחפירת הבארות ושאר המקרים... וכולם באים ללמד על העתיד..."',
-          q:'מהו הכלל שמלמד הרמב"ן, ומדוע לדעתו התורה מאריכה דווקא בתיאור מסעות האבות?' },
-      ]
-    }
-  };
-
-  function initWidget(widget){
-    const data = MM_DATA[widget.dataset.mmChapter];
-    if(!data) return;
-    const filtersEl = widget.querySelector(".mm-filters");
-    const rowsEl = widget.querySelector(".mm-rows");
-    const emptyMsg = widget.querySelector(".mm-empty");
-    let activeFilter = "all";
-
-    function topicByKey(k){ return data.topics.find(t => t.key === k); }
-
-    function setFilter(key, btn){
-      activeFilter = key;
-      filtersEl.querySelectorAll(".mm-filter-chip").forEach(c => c.classList.remove("active"));
-      btn.classList.add("active");
-      applyFilter();
-    }
-
-    function applyFilter(){
-      let visible = 0;
-      rowsEl.querySelectorAll(".mm-row").forEach(row => {
-        const match = activeFilter === "all" || row.dataset.topic === activeFilter;
-        row.classList.toggle("mm-hidden", !match);
-        if(match) visible++;
-      });
-      emptyMsg.classList.toggle("mm-show", visible === 0);
-    }
-
-    function toggleRow(row){
-      const detail = row.nextElementSibling;
-      const isOpen = row.classList.contains("mm-open");
-      rowsEl.querySelectorAll(".mm-row.mm-open").forEach(r => {
-        r.classList.remove("mm-open");
-        r.nextElementSibling.style.maxHeight = null;
-      });
-      if(!isOpen){
-        row.classList.add("mm-open");
-        detail.style.maxHeight = detail.scrollHeight + "px";
-      }
-    }
-
-    function renderFilters(){
-      const allChip = document.createElement("button");
-      allChip.type = "button";
-      allChip.className = "mm-filter-chip active";
-      allChip.textContent = "הכול";
-      allChip.style.setProperty("--mm-chip", "#1F3A4D");
-      allChip.addEventListener("click", () => setFilter("all", allChip));
-      filtersEl.appendChild(allChip);
-
-      data.topics.forEach(t => {
-        const chip = document.createElement("button");
-        chip.type = "button";
-        chip.className = "mm-filter-chip";
-        chip.textContent = t.name;
-        chip.style.setProperty("--mm-chip", t.acc);
-        chip.addEventListener("click", () => setFilter(t.key, chip));
-        filtersEl.appendChild(chip);
-      });
-    }
-
-    function renderRows(){
-      data.mefarshim.forEach(m => {
-        const topic = topicByKey(m.topic);
-
-        const row = document.createElement("div");
-        row.className = "mm-row";
-        row.dataset.topic = m.topic;
-        row.style.setProperty("--mm-row-acc", topic.acc);
-        row.style.setProperty("--mm-row-acc-soft", topic.accSoft);
-        row.tabIndex = 0;
-        row.setAttribute("role", "button");
-        row.setAttribute("aria-expanded", "false");
-
-        row.innerHTML =
-          '<span class="mm-topic-chip">' + topic.name + '</span>' +
-          '<span class="mm-name-wrap"><span class="mm-name">' + m.name + '</span> ' +
-          '<span class="mm-pasuk">· ' + m.pasuk + '</span></span>' +
-          '<span class="mm-brief">' + m.brief + '</span>' +
-          '<span class="mm-expand-icon" aria-hidden="true">▾</span>';
-
-        const detail = document.createElement("div");
-        detail.className = "mm-detail";
-        detail.innerHTML =
-          '<div class="mm-detail-inner">' +
-            '<div class="mm-quote">' + m.quote + '</div>' +
-            '<div class="mm-tied-q"><b>שאלה נלווית:</b> ' + m.q + '</div>' +
-          '</div>';
-
-        row.addEventListener("click", () => toggleRow(row));
-        row.addEventListener("keydown", (e) => {
-          if(e.key === "Enter" || e.key === " "){ e.preventDefault(); toggleRow(row); }
-        });
-
-        rowsEl.appendChild(row);
-        rowsEl.appendChild(detail);
-      });
-    }
-
-    renderFilters();
-    renderRows();
-  }
-
-  document.querySelectorAll(".mm-widget").forEach(initWidget);
-})();
+loadUnits();
 </script>
 
 <button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
