@@ -311,7 +311,7 @@
           משפט 33 (**): קיימים חילוקי דעות מילוניים לגבי שורש "הזיע" - י-ז-ע או ז-ו-ע. כדאי לבדוק מול המקור שלמדתם בכיתה.
         </div>
 
-        <button class="hint-btn" type="button">🔎 הצג את כל התשובות</button>
+        <button class="hint-btn" type="button" id="answerKeyBtn" data-gated="true">🔒 הצג את כל התשובות (נדרש קוד מהמורה)</button>
         <div class="hint-box" hidden>
           <div class="table-wrap"><table class="answer-key">
 <thead><tr><th></th><th>שורש</th><th>בניין</th><th>שם הפועל</th><th>שם פעולה</th></tr></thead>
@@ -470,6 +470,7 @@ textareas.forEach(t => {
 });
 
 document.querySelectorAll('.hint-btn').forEach(btn => {
+  if(btn.dataset.gated) return;
   btn.addEventListener('click', () => {
     const box = btn.nextElementSibling;
     const showing = box.hidden;
@@ -477,6 +478,27 @@ document.querySelectorAll('.hint-btn').forEach(btn => {
     btn.textContent = showing ? '🙈 הסתר תשובות' : '🔎 הצג את כל התשובות';
   });
 });
+
+const ANSWER_KEY_CODE = '5703531';
+const answerKeyBtn = document.getElementById('answerKeyBtn');
+if(answerKeyBtn){
+  answerKeyBtn.addEventListener('click', () => {
+    const box = answerKeyBtn.nextElementSibling;
+    if(!box.hidden){
+      box.hidden = true;
+      answerKeyBtn.textContent = '🔒 הצג את כל התשובות (נדרש קוד מהמורה)';
+      return;
+    }
+    const code = prompt('הקלידו את הקוד שקיבלתם מהמורה כדי לפתוח את מפתח התשובות:');
+    if(code === null) return;
+    if(code.trim() === ANSWER_KEY_CODE){
+      box.hidden = false;
+      answerKeyBtn.textContent = '🙈 הסתר תשובות';
+    } else {
+      alert('קוד שגוי. נסו שוב, או שאלו את המורה.');
+    }
+  });
+}
 
 document.getElementById('clearBtn').addEventListener('click', () => {
   if(!confirm('למחוק את כל התשובות שכתבתם? אי אפשר לשחזר לאחר מכן.')) return;
