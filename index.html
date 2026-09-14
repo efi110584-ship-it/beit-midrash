@@ -179,6 +179,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .tag{ font-size:0.75rem; font-weight:700; padding:0.2rem 0.6rem; border-radius:999px; }
 .tag.subject-tnk{ background:var(--teal-light); color:var(--teal); }
 .tag.subject-tsb{ background:var(--gold-tag-bg); color:#8A5C21; }
+.tag.subject-heb{ background:#F1E2DA; color:#8B4A34; }
 
 .unit-card-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:0.6rem; }
 .unit-icon{ font-size:2.1rem; line-height:1; }
@@ -340,6 +341,10 @@ body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; 
       icon:"\u{1F3DE}️", title:"ספר בראשית",
       desc:"מסע קריאה בפרקי ספר בראשית - שאלות, פרשנים והעמקה, פרק אחר פרק.",
       chapters:1, chaptersLabel:"פרקים", url:"bereshit-hub.html" },
+    { key:"ivrit", class:"יא", subject:"עברית",
+      icon:"\u{1F4D3}", title:"עברית - דקדוק",
+      desc:"תרגילי דקדוק - גזרת חפ\"נ וחפי\"צ ועוד, למילוי ישיר באתר.",
+      chapters:1, chaptersLabel:"דפי עבודה", url:"ivrit-hafan-hafitz.html" },
     { key:"devarim", class:"יב", subject:"תנך",
       icon:"\u{1F4D6}", title:"ספר דברים",
       desc:"נאומו האחרון של משה רבנו לעם ישראל - יחידת הפתיחה לספר דברים.",
@@ -394,8 +399,8 @@ body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; 
   function unitCardHtml(u, registry){
     var entry = registry[u.url];
     var pct = (entry && entry.percent) ? entry.percent : 0;
-    var subjTagClass = u.subject === "תנך" ? "subject-tnk" : "subject-tsb";
-    var subjLabel = u.subject === "תנך" ? 'תנ"ך' : 'תושב"ע';
+    var subjTagClass = u.subject === "תנך" ? "subject-tnk" : (u.subject === "תושבע" ? "subject-tsb" : "subject-heb");
+    var subjLabel = u.subject === "תנך" ? 'תנ"ך' : (u.subject === "תושבע" ? 'תושב"ע' : "עברית");
     var titleLabel = escapeHtml(u.title);
     var cta = pct >= 100 ? "חזרה ליחידה - הושלמה" : (pct > 0 ? "המשיכו ללמוד" : "התחילו ללמוד");
 
