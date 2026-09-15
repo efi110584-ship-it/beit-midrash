@@ -697,7 +697,7 @@ textareas.forEach(t => {
   var classEl = document.getElementById('studentClass');
   function updateSubmitLink(){
     var params = new URLSearchParams();
-    params.set('topic', 'עברית - גזרת חפ"נ וחפי"צ');
+    params.set('assignment', 'עברית - גזרת חפ"נ וחפי"צ');
     if(nameEl && nameEl.value.trim()) params.set('name', nameEl.value.trim());
     if(classEl && classEl.value.trim()) params.set('cls', classEl.value.trim());
     submitLink.href = 'submit.html?' + params.toString();

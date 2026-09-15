@@ -239,6 +239,26 @@
   var againBtn = document.getElementById('againBtn');
   var fileInput = document.getElementById('fileInput');
 
+  // מילוי מראש מפרמטרים בכתובת - מגיע מקישור "הגשת מטלה" מתוך דף עבודה עצמו
+  (function prefillFromQuery(){
+    var qp = new URLSearchParams(window.location.search);
+    var qName = qp.get('name');
+    var qCls = qp.get('cls');
+    var qAssignment = qp.get('assignment');
+    var qUnit = qp.get('unit');
+    var qTopic = qp.get('topic');
+    if(!qAssignment && (qUnit || qTopic)){
+      qAssignment = [qUnit, qTopic].filter(Boolean).join(' - ');
+    }
+    if(qName) document.getElementById('studentName').value = qName;
+    if(qCls){
+      var clsSelect = document.getElementById('studentClass');
+      Array.prototype.forEach.call(clsSelect.options, function(opt){
+        if(opt.value === qCls) opt.selected = true;
+      });
+    }
+    if(qAssignment) document.getElementById('assignment').value = qAssignment;
+  })();
   function showError(msg) {
     errorBox.textContent = msg;
     errorBox.classList.add('show');

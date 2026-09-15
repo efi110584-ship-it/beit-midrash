@@ -361,7 +361,7 @@ loadAnswers();
   var classEl = document.getElementById('studentClass');
   function updateSubmitLink(){
     var params = new URLSearchParams();
-    params.set('topic', 'אהבת ישראל');
+    params.set('assignment', 'אהבת ישראל');
     if(nameEl && nameEl.value.trim()) params.set('name', nameEl.value.trim());
     if(classEl && classEl.value.trim()) params.set('cls', classEl.value.trim());
     submitLink.href = 'submit.html?' + params.toString();
