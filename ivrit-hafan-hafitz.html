@@ -12,6 +12,9 @@
   .hafan-sentence{ text-align:right; white-space:normal; font-size:.85rem; line-height:1.55; min-width:210px; }
   .hafan-sentence .num{ color:var(--ink-soft); font-weight:700; margin-inline-end:.25rem; }
   table.fill-grid.hafan-table th, table.fill-grid.hafan-table td.na-cell{ text-align:center; }
+  table.fill-grid.hafan-table thead th{ position:sticky; top:0; z-index:2; box-shadow:0 1px 0 var(--paper-line); }
+  /* גלילה פנימית עם כותרת קפואה - overflow-x:auto לבד לא מספיק ל-sticky, צריך גם ציר Y מוגדר במפורש */
+  .hafan-scroll-wrap{ max-height:65vh; overflow-y:auto; border:1px solid var(--paper-line); border-radius:8px; }
   table.fill-grid.hafan-table td.na-cell{ color:var(--ink-soft); font-size:.9rem; background:rgba(0,0,0,.02); }
   table.fill-grid.hafan-table td input.answer.table-cell{ font-size:.82rem; padding:.35rem .5rem; text-align:right; min-width:70px; min-height:auto; height:2.3rem; background:#fff; }
   .hafan-note{ font-size:.82rem; color:var(--ink-soft); line-height:1.65; background:var(--paper-card); border-right:3px solid var(--gold); border-radius:6px; padding:.6rem .85rem; margin-top:.7rem; }
@@ -69,7 +72,7 @@
       <div class="card-body">
         <p class="pasuk-block-note">הפועל המודגש בכל משפט שייך לגזרת חפ"נ (חסר פ"נ) או לגזרת חפי"צ (חסר פ"י/צ"). מלאו את הפרטים הדקדוקיים בעמודות שלצד המשפט.</p>
 
-        <div class="table-wrap"><table class="fill-grid hafan-table">
+        <div class="table-wrap hafan-scroll-wrap"><table class="fill-grid hafan-table">
 <thead><tr><th></th><th>שורש</th><th>בניין</th><th>שם הפועל</th><th>שם פעולה</th></tr></thead>
 <tbody>
 <tr>
