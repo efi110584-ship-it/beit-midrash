@@ -524,6 +524,77 @@ loadStudentInfo();
 loadAnswers();
 </script>
 
+<script>
+(function(){
+  var table = document.querySelector('table.hafan-table');
+  if(!table) return;
+  var rows = Array.from(table.querySelectorAll('tbody > tr'));
+  var numCols = 4;
+  // matrix[rowIndex][colIndex] = input element, or null בתא "–"
+  var matrix = rows.map(function(tr){
+    var tds = Array.from(tr.children).slice(1); // דילוג על תא המשפט
+    return tds.map(function(td){ return td.querySelector('input.answer'); });
+  });
+
+  function findPos(input){
+    for(var r = 0; r < matrix.length; r++){
+      var c = matrix[r].indexOf(input);
+      if(c !== -1) return { r: r, c: c };
+    }
+    return null;
+  }
+
+  function focusCell(r, c){
+    var el = matrix[r] && matrix[r][c];
+    if(!el) return false;
+    el.focus();
+    el.select();
+    return true;
+  }
+
+  function moveVertical(pos, dir){
+    var r = pos.r + dir;
+    while(r >= 0 && r < matrix.length){
+      if(focusCell(r, pos.c)) return;
+      r += dir;
+    }
+  }
+
+  function moveHorizontal(pos, dir){
+    var c = pos.c + dir;
+    while(c >= 0 && c < numCols){
+      if(focusCell(pos.r, c)) return;
+      c += dir;
+    }
+  }
+
+  table.addEventListener('keydown', function(e){
+    var input = e.target;
+    if(!input.matches || !input.matches('input.answer')) return;
+    var pos = findPos(input);
+    if(!pos) return;
+
+    if(e.key === 'ArrowDown' || e.key === 'Enter'){
+      e.preventDefault();
+      moveVertical(pos, 1);
+    } else if(e.key === 'ArrowUp'){
+      e.preventDefault();
+      moveVertical(pos, -1);
+    } else if(e.key === 'ArrowRight'){
+      if(input.selectionStart === 0 && input.selectionEnd === 0){
+        e.preventDefault();
+        moveHorizontal(pos, -1); // מבחינה חזותית ימינה = טור קודם ב-DOM
+      }
+    } else if(e.key === 'ArrowLeft'){
+      if(input.selectionStart === input.value.length && input.selectionEnd === input.value.length){
+        e.preventDefault();
+        moveHorizontal(pos, 1); // מבחינה חזותית שמאלה = טור הבא ב-DOM
+      }
+    }
+  });
+})();
+</script>
+
 <button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
 <script>
 (function(){
