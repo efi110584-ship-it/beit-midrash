@@ -175,6 +175,7 @@
 <div class="toolbar">
   <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
   <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn primary" type="button" id="directSubmitBtn">✅ שלחו למורה ישירות (בלי הורדה)</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
 <p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
@@ -342,6 +343,41 @@ loadAnswers();
   }
   [nameEl, classEl].forEach(function(el){ if(el) el.addEventListener('input', updateSubmitLink); });
   updateSubmitLink();
+})();
+</script>
+<script src="assets/direct-submit.js"></script>
+<script>
+(function(){
+  var btn = document.getElementById('directSubmitBtn');
+  if(!btn) return;
+  btn.addEventListener('click', function(){
+    if(!nameInput.value.trim()){
+      nameInput.focus();
+      alert('לפני ההגשה, כתבו למעלה את שמכם.');
+      return;
+    }
+    if(!confirm('לשלוח את התשובות שמילאתם ישירות למורה עכשיו? לא ניתן לבטל את השליחה.')) return;
+    var originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'שולח...';
+    window.BeitMidrashDirectSubmit.send({
+      studentName: nameInput.value.trim(),
+      studentClass: classInput.value.trim(),
+      assignment: 'כיבוד הורים',
+      fields: textareas
+    }).then(function(data){
+      if(data && data.ok){
+        alert('ההגשה נשלחה בהצלחה למורה!');
+      } else {
+        throw new Error((data && data.error) || 'שגיאה לא ידועה');
+      }
+    }).catch(function(err){
+      alert('משהו השתבש בשליחה: ' + err.message + '\nאפשר לנסות שוב, או להשתמש בכפתור "הגשת מטלה" הרגיל.');
+    }).finally(function(){
+      btn.disabled = false;
+      btn.textContent = originalText;
+    });
+  });
 })();
 </script>
 </body>
