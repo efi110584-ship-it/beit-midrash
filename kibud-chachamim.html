@@ -239,6 +239,7 @@
 
 <div class="toolbar">
   <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
 <p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
@@ -391,5 +392,22 @@ loadAnswers();
 })();
 </script>
 <script src="assets/progress-tracker.js"></script>
+<script>
+(function(){
+  var submitLink = document.getElementById('submitLink');
+  if(!submitLink) return;
+  var nameEl = document.getElementById('studentName');
+  var classEl = document.getElementById('studentClass');
+  function updateSubmitLink(){
+    var params = new URLSearchParams();
+    params.set('topic', 'כיבוד חכמים');
+    if(nameEl && nameEl.value.trim()) params.set('name', nameEl.value.trim());
+    if(classEl && classEl.value.trim()) params.set('cls', classEl.value.trim());
+    submitLink.href = 'submit.html?' + params.toString();
+  }
+  [nameEl, classEl].forEach(function(el){ if(el) el.addEventListener('input', updateSubmitLink); });
+  updateSubmitLink();
+})();
+</script>
 </body>
 </html>
