@@ -594,14 +594,10 @@ if(checkAnswersBtn){
 
 textareas.forEach(t => {
   t.addEventListener('input', () => {
+    // בדיקה חוזרת חיה: הסימון האדום נשאר כל עוד התשובה לא נכונה,
+    // והופך לוי ירוק ברגע שהיא מתוקנת (לא נעלם סתם כי עורכים).
     if(t.dataset.id in CORRECT_ANSWERS){
-      t.classList.remove('is-correct', 'is-wrong');
-      const cell = t.nextElementSibling;
-      if(cell && cell.classList.contains('check-mark')){
-        cell.classList.remove('is-correct', 'is-wrong');
-        cell.textContent = '';
-      }
-      if(checkSummary) checkSummary.textContent = '';
+      checkAnswer(t);
     }
   });
 });
