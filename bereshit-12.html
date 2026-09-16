@@ -32,15 +32,11 @@
   .mp-tile.completed .mp-tile-name{ color:var(--teal); }
   .mp-tile.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
-  /* ========== טבלת פירוק - ליווי כתוב לתרשים ========== */
-  .breakdown-table-wrap{ overflow-x:auto; border-radius:12px; border:1.5px solid var(--ink-soft); box-shadow:var(--shadow); margin-top:.9rem; }
-  .breakdown-table{ width:100%; border-collapse:collapse; font-size:.83rem; min-width:480px; }
-  .breakdown-table th, .breakdown-table td{ padding:.6rem .8rem; text-align:right; vertical-align:top; border:1px solid var(--paper-line); line-height:1.55; }
-  .breakdown-table thead th{ background:var(--acc-soft); color:var(--acc); font-weight:800; font-size:.76rem; letter-spacing:.02em; border-color:var(--ink-soft); }
-  .breakdown-table tbody td:first-child{ font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:.95rem; white-space:nowrap; background:var(--paper-card); }
-  .breakdown-table tbody tr:nth-child(1) td:first-child{ color:#8B5A3C; }
-  .breakdown-table tbody tr:nth-child(2) td:first-child{ color:#A5502B; }
-  .breakdown-table tbody tr:nth-child(3) td:first-child{ color:var(--rust); }
+  /* ========== ציר-צעדים "מורחב" - מכיל גם את עיקרי הדברים בתוך הקוביות ========== */
+  .mini-timeline.detail .step{ flex:1 1 170px; text-align:center; gap:.35rem; padding:.75rem .8rem; }
+  .mini-timeline.detail .step b{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1rem; color:var(--ink); }
+  .mini-timeline.detail .step small{ display:block; font-size:.74rem; line-height:1.4; color:var(--ink-soft); }
+  .mini-timeline.detail .step small.why{ color:var(--rust); font-weight:700; }
 
   /* ========== ציר מסע - נעשה שימוש ברכיב mini-timeline הקיים באתר (worksheet-theme.css) ========== */
   .mini-timeline{ margin-top:.9rem; }
@@ -236,23 +232,24 @@
           <q>וטעם להזכיר "ארצך ומולדתך ובית אביך", כי יקשה על האדם לעזוב ארצו אשר הוא יושב בה ושם אוהביו ורעיו, וכל שכן כשהוא ארץ מולדתו ששם נולד, וכל שכן כשיש שם כל בית אביו, ולכך הוצרך לומר לו שיעזוב הכל לאהבתו של הקב"ה.</q>
         </div>
 
-        <div class="mini-timeline" role="img" aria-label="שלוש רמות פרידה - ארץ, מולדת, בית אב - בקושי הולך וגדל">
-          <div class="step"><span class="step-icon" aria-hidden="true">🌍</span>אַרְצְךָ<br><small>קשה לעזוב</small></div>
+        <div class="mini-timeline detail" role="img" aria-label="שלוש רמות פרידה - ארץ, מולדת, בית אב - בקושי הולך וגדל">
+          <div class="step">
+            <span class="step-icon" aria-hidden="true">🌍</span><b>אַרְצְךָ</b>
+            <small>הארץ / המדינה שבה את/ה חי</small>
+            <small class="why">קשה: ההרגל לסביבה, לשפה, לאקלים</small>
+          </div>
           <div class="arrow" aria-hidden="true">←</div>
-          <div class="step"><span class="step-icon" aria-hidden="true">🏘️</span>מוֹלַדְתְּךָ<br><small>קשה יותר</small></div>
+          <div class="step">
+            <span class="step-icon" aria-hidden="true">🏘️</span><b>מוֹלַדְתְּךָ</b>
+            <small>מקום הולדתך - העיר/הכפר שגדלת בו</small>
+            <small class="why">קשה יותר: הזיכרונות והמקומות</small>
+          </div>
           <div class="arrow" aria-hidden="true">←</div>
-          <div class="step fail"><span class="step-icon" aria-hidden="true">🏠</span>בֵּית אָבִיךָ<br><small>הכי קשה</small></div>
-        </div>
-
-        <div class="breakdown-table-wrap">
-          <table class="breakdown-table">
-            <thead><tr><th>המילה בפסוק</th><th>מה זה כולל</th><th>למה קשה לעזוב דווקא את זה</th></tr></thead>
-            <tbody>
-              <tr><td>אַרְצְךָ</td><td>הארץ / המדינה שבה את/ה חי</td><td>ההרגל לסביבה, לשפה, לאקלים המוכר</td></tr>
-              <tr><td>מוֹלַדְתְּךָ</td><td>מקום הולדתך - העיר/הכפר שגדלת בו</td><td>הזיכרונות והמקומות שגדלת בהם דווקא</td></tr>
-              <tr><td>בֵּית אָבִיךָ</td><td>המשפחה הקרובה ביותר - הורים ואחים</td><td>הקשר האישי וחום הבית המשפחתי</td></tr>
-            </tbody>
-          </table>
+          <div class="step fail">
+            <span class="step-icon" aria-hidden="true">🏠</span><b>בֵּית אָבִיךָ</b>
+            <small>המשפחה הקרובה ביותר - הורים ואחים</small>
+            <small class="why">הכי קשה: הקשר האישי וחום הבית</small>
+          </div>
         </div>
 
         <div class="question-block">
