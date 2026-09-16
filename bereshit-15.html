@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר בראשית — דף עבודה אינטראקטיבי (פרק ט"ו)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .q-cue{ font-size:.83rem; color:var(--acc); font-style:italic; margin:0 0 .4rem; }
+
+  /* פרשני הפרק - קוביות סיכום קטנות: אייקון + שם הפרשן + כפתור אישור */
+  .mp-recap-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(115px, 1fr)); gap:.7rem; }
+  .mp-tile{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    gap:.45rem; aspect-ratio:1/1; padding:.85rem .5rem;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:4px solid var(--acc); border-radius:12px;
+    box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .mp-tile:hover{ transform:translateY(-2px); box-shadow:var(--shadow-hover); }
+  .mp-tile-icon{ font-size:1.3rem; line-height:1; }
+  .mp-tile-name{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1rem; color:var(--ink); line-height:1.25; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:32px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .mp-tile.completed{ background:var(--teal-soft); border-top-color:var(--teal); }
+  .mp-tile.completed .mp-tile-name{ color:var(--teal); }
+  .mp-tile.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  /* ========== ציר-צעדים "מורחב" - מכיל גם את עיקרי הדברים בתוך הקוביות ========== */
+  .mini-timeline.detail .step{ flex:1 1 170px; text-align:center; gap:.35rem; padding:.75rem .8rem; }
+  .mini-timeline.detail .step b{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1rem; color:var(--ink); }
+  .mini-timeline.detail .step small{ display:block; font-size:.74rem; line-height:1.4; color:var(--ink-soft); }
+  .mini-timeline.detail .step small.why{ color:var(--rust); font-weight:700; }
+
+  /* ========== ציר מסע - נעשה שימוש ברכיב mini-timeline הקיים באתר (worksheet-theme.css) ========== */
+  .mini-timeline{ margin-top:.9rem; }
+  .mini-timeline.compact .step{ font-size:.72rem; padding:.45rem .35rem; }
+  .step.fail{ background:var(--rust-soft); border-color:var(--rust); }
+  .step.fail small{ color:var(--rust); font-weight:700; }
+
+  /* ========== "מול" - השוואת שני צדדים ========== */
+  .vs-compare{ display:flex; align-items:stretch; gap:0; margin:.9rem 0; border-radius:14px; overflow:hidden; box-shadow:var(--shadow); }
+  .vs-side{ flex:1; padding:.9rem 1rem; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.35rem; }
+  .vs-a{ background:var(--teal-soft); }
+  .vs-b{ background:var(--acc-soft); }
+  .vs-icon{ font-size:1.6rem; }
+  .vs-title{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.95rem; color:var(--ink); }
+  .vs-desc{ font-size:.78rem; line-height:1.5; color:var(--ink-soft); }
+  .vs-mid{ flex:none; width:2.4rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.8rem; color:#fff; background:var(--ink); }
+
+  /* ========== תוכנית מול מציאות - שני צירים זה מתחת לזה ========== */
+  .plan-reality{ display:flex; flex-direction:column; gap:.65rem; margin:.9rem 0; }
+  .pr-row{ display:flex; flex-direction:column; gap:.35rem; }
+  .pr-label{ font-weight:800; font-size:.82rem; color:var(--acc); }
+
+  /* ========== באנר מעבר בין נושאים - הפרדה חזותית ברורה ========== */
+  .topic-banner{ margin-top:2.4rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  /* ========== גבולות הארץ - שני קצוות עם חץ ========== */
+  .border-strip{ display:flex; align-items:center; justify-content:center; gap:.8rem; margin:.9rem 0 .7rem; }
+  .border-end{ background:var(--acc-soft); color:var(--acc); border:1.5px solid var(--acc); border-radius:999px; padding:.45rem 1.1rem; font-size:.85rem; font-weight:700; }
+  .border-arrow{ font-size:1.3rem; color:var(--acc); }
+
+  /* ========== רשימת עשרת העמים - שבבים קטנים ========== */
+  .nations-grid{ display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; }
+  .nation-chip{ background:#fff; color:var(--ink); border:1.5px solid var(--paper-line); border-radius:999px; padding:.4rem 1rem; font-size:.82rem; font-weight:700; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">ספר בראשית</a>
+  <span class="sep">›</span>
+  <span class="current">פרק ט"ו</span>
+</nav>
+
+<header>
+  <div class="eyebrow">ספר בראשית · חוברת תלמיד דיגיטלית · 3 יח"ל</div>
+  <h1>דף עבודה — פרק ט"ו, "ברית בין הבתרים"</h1>
+  <p class="sub">בכל נושא: קודם קוראים את הפסוקים, אחר כך את דברי הפרשן כלשונו, וכותבים תשובה בתיבה. רק אחרי שניסיתם לענות - לחצו על "הצג תשובה" כדי לבדוק את עצמכם מול תשובה מוצעת בלשון פשוטה. הכול נשמר אוטומטית במכשיר שלכם.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 9 שאלות</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
+  <a class="chip-link" href="bereshit-15-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+</p>
+
+<main>
+  <div class="grid" id="grid">
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרק</span>
+        <h2 class="card-title">מה קורה בפרק ט"ו?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          ה' נגלה אל אברם במחזה ומבטיח לו שכר גדול. אברם מתלונן שאין לו יורש, ואליעזר עבדו עתיד לרשת אותו - אך ה' מבטיח לו שדווקא בן שייצא ממעיו יירש אותו, ומראה לו את ריבוי הכוכבים כסמל לריבוי זרעו. אברם מאמין בלי לשאול שום אות. כשה' ממשיך ומבטיח לו גם את הארץ, אברם כן מבקש אות: "במה אדע כי אירשנה". ה' מצווה עליו טקס ברית מיוחד - בקיעת בהמות והנחתן זו מול זו. עם רדת החשיכה נופלת על אברם תרדמה, ובה מתגלה לו חזון קשה: זרעו ישועבד בארץ נכריה 400 שנה, אך בסופו של דבר יֵצא ברכוש גדול, והאומה המשעבדת תיענש. לבסוף עוברים "תנור עשן ולפיד אש" בין הבתרים, וה' כורת עם אברם ברית רשמית - הבטחת הארץ מנהר מצרים ועד נהר פרת, ארץ עשרת העמים.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <span class="topic-icon" aria-hidden="true">⭐</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 5</div>
+        <div class="topic-title">"אל תירא אברם" - הבטחת הזרע</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <div class="card-head">
+        <span class="card-tag">נושא 1 · פסוקים א'-ו'</span>
+        <h2 class="card-title">"אל תירא אברם" - הבטחת הזרע</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">
+          <b>א:</b> אַחַר הַדְּבָרִים הָאֵלֶּה הָיָה דְבַר ה' אֶל אַבְרָם בַּמַּחֲזֶה לֵאמֹר: אַל תִּירָא אַבְרָם, אָנֹכִי מָגֵן לָךְ, שְׂכָרְךָ הַרְבֵּה מְאֹד.<br>
+          <b>ב:</b> וַיֹּאמֶר אַבְרָם: אֲדֹנָי ה' מַה תִּתֶּן לִי וְאָנֹכִי הוֹלֵךְ עֲרִירִי, וּבֶן מֶשֶׁק בֵּיתִי הוּא דַּמֶּשֶׂק אֱלִיעֶזֶר.<br>
+          <b>ג:</b> וַיֹּאמֶר אַבְרָם: הֵן לִי לֹא נָתַתָּה זָרַע, וְהִנֵּה בֶן בֵּיתִי יוֹרֵשׁ אֹתִי.<br>
+          <b>ד:</b> וְהִנֵּה דְבַר ה' אֵלָיו לֵאמֹר: לֹא יִירָשְׁךָ זֶה, כִּי אִם אֲשֶׁר יֵצֵא מִמֵּעֶיךָ הוּא יִירָשֶׁךָ.<br>
+          <b>ה:</b> וַיּוֹצֵא אֹתוֹ הַחוּצָה וַיֹּאמֶר: הַבֶּט נָא הַשָּׁמַיְמָה וּסְפֹר הַכּוֹכָבִים אִם תּוּכַל לִסְפֹּר אֹתָם; וַיֹּאמֶר לוֹ: כֹּה יִהְיֶה זַרְעֶךָ.<br>
+          <b>ו:</b> וְהֶאֱמִן בַּה', וַיַּחְשְׁבֶהָ לּוֹ צְדָקָה.
+        </div>
+
+        <div class="vs-compare" role="img" aria-label="השוואה: המצב לפני ההבטחה מול אחריה">
+          <div class="vs-side vs-a">
+            <span class="vs-icon" aria-hidden="true">😟</span>
+            <div class="vs-title">לפני ההבטחה</div>
+            <div class="vs-desc">אברם ערירי (בלי ילדים) - אליעזר, עבד הבית, עתיד לרשת אותו.</div>
+          </div>
+          <div class="vs-mid" aria-hidden="true">מול</div>
+          <div class="vs-side vs-b">
+            <span class="vs-icon" aria-hidden="true">✨</span>
+            <div class="vs-title">אחרי ההבטחה</div>
+            <div class="vs-desc">בן שייצא ממעיו של אברם יירש אותו, וזרעו יהיה רב ככוכבי השמים.</div>
+          </div>
+        </div>
+
+        <div class="question-block">
+          <p class="q-cue">תזכורת: "הֵן לִי לֹא נָתַתָּה זָרַע... לֹא יִירָשְׁךָ זֶה כִּי אִם אֲשֶׁר יֵצֵא מִמֵּעֶיךָ" (פסוקים ג'-ד')</p>
+          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מה אברם טוען כלפי ה' בפסוקים ב'-ג', ומה ה' מבטיח לו כתשובה?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..." style="min-height:130px;"></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אברם טוען שאין לו זרע, ולכן אליעזר עבדו עתיד לרשת אותו. ה' מבטיח לו שדווקא מי שייצא ממעיו (בן ביולוגי) יירש אותו, וממחיש זאת בריבוי ככוכבי השמים.</div>
+        </div>
+
+        <div class="meforesh-block">
+          <span class="src">רש"י (פסוק ו') - "וְהֶאֱמִן בַּה'":</span>
+          <q>ולא שאל לו אות על זאת.</q>
+        </div>
+
+        <div class="question-block">
+          <p class="q-cue">תזכורת: "וְהֶאֱמִן בַּה', וַיַּחְשְׁבֶהָ לּוֹ צְדָקָה" (פסוק ו')</p>
+          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מהי משמעות הביטוי "והאמן בה' ויחשבה לו צדקה"? מה מיוחד, לפי רש"י, באמונה של אברם כאן?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..." style="min-height:130px;"></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אברם מאמין בהבטחה בלי לבקש שום אות או הוכחה - ולכן ה' חושב לו זאת לזכות ("צדקה"). רש"י מדגיש בדיוק את זה: "ולא שאל לו אות על זאת" - האמונה המלאה, בלי צורך בהוכחה, היא מה שמיוחד כאן.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">🕊️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 5</div>
+        <div class="topic-title">"במה אדע" - האות וברית בין הבתרים</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="card-head">
+        <span class="card-tag">נושא 2 · פסוקים ז'-יא'</span>
+        <h2 class="card-title">"במה אדע" - האות וברית בין הבתרים</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">
+          <b>ז:</b> וַיֹּאמֶר אֵלָיו: אֲנִי ה' אֲשֶׁר הוֹצֵאתִיךָ מֵאוּר כַּשְׂדִּים לָתֶת לְךָ אֶת הָאָרֶץ הַזֹּאת לְרִשְׁתָּהּ.<br>
+          <b>ח:</b> וַיֹּאמַר: אֲדֹנָי ה' בַּמָּה אֵדַע כִּי אִירָשֶׁנָּה.<br>
+          <b>ט:</b> וַיֹּאמֶר אֵלָיו: קְחָה לִי עֶגְלָה מְשֻׁלֶּשֶׁת וְעֵז מְשֻׁלֶּשֶׁת וְאַיִל מְשֻׁלָּשׁ, וְתֹר וְגוֹזָל.<br>
+          <b>י:</b> וַיִּקַּח לוֹ אֶת כָּל אֵלֶּה וַיְבַתֵּר אֹתָם בַּתָּוֶךְ, וַיִּתֵּן אִישׁ בִּתְרוֹ לִקְרַאת רֵעֵהוּ; וְאֶת הַצִּפֹּר לֹא בָתָר.<br>
+          <b>יא:</b> וַיֵּרֶד הָעַיִט עַל הַפְּגָרִים, וַיַּשֵּׁב אֹתָם אַבְרָם.
+        </div>
+
+        <div class="meforesh-block">
+          <span class="src">רמב"ן (פסוק ח'):</span>
+          <q>ולא ידעתי למה חטא אברהם אבינו בשאלה הזאת... [הרמב"ן מקשה מדוע כאן, בשונה מהבטחת הזרע בפסוק ו', מבקש אברם אות - ומקשר קושי זה לגזירת הגלות המופיעה מיד בהמשך הפרק]</q>
+        </div>
+
+        <div class="question-block">
+          <p class="q-cue">תזכורת: "וְהֶאֱמִן בַּה'" (פסוק ו') לעומת "בַּמָּה אֵדַע כִּי אִירָשֶׁנָּה" (פסוק ח')</p>
+          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מה שואל אברם בפסוק ח', ומדוע זו שאלה מפתיעה לאור מה שקרה רק כמה פסוקים קודם (פסוק ו')?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..." style="min-height:140px;"></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אברם שואל "במה אדע כי אירשנה" - הוא מבקש אות או הוכחה. זה מפתיע כי רק לפני רגע (פסוק ו') הוא האמין בהבטחת הזרע בלי לשאול שום אות. הרמב"ן מעלה את השאלה הזו כקושי מרכזי בפרק, ומקשר אותה לגזירת הגלות שמופיעה מיד בהמשך.</div>
+        </div>
+
+        <div class="mini-timeline" role="img" aria-label="שלבי טקס ברית בין הבתרים">
+          <div class="step"><span class="step-icon" aria-hidden="true">🐐</span>מביא בהמות<br><small>עגלה, עז, איל, תור וגוזל</small></div>
+          <div class="arrow" aria-hidden="true">←</div>
+          <div class="step"><span class="step-icon" aria-hidden="true">✂️</span>בוקע לשניים<br><small>מניח את החצאים זה מול זה</small></div>
+          <div class="arrow" aria-hidden="true">←</div>
+          <div class="step fail"><span class="step-icon" aria-hidden="true">🦅</span>עיט יורד<br><small>מנסה לטרוף את הפגרים</small></div>
+          <div class="arrow" aria-hidden="true">←</div>
+          <div class="step"><span class="step-icon" aria-hidden="true">✋</span>אברם מבריח<br><small>שומר על הבתרים</small></div>
+        </div>
+
+        <div class="question-block">
+          <p class="q-cue">תזכורת: "וַיְבַתֵּר אֹתָם בַּתָּוֶךְ... וַיֵּרֶד הָעַיִט עַל הַפְּגָרִים, וַיַּשֵּׁב אֹתָם אַבְרָם" (פסוקים י'-יא')</p>
+          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">תארו במילים שלכם את הטקס שה' מצווה על אברם לעשות בפסוקים ט'-י'. מה עושה העיט (עוף הדורס), ואיך אברם מגיב?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..." style="min-height:140px;"></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אברם מביא שלוש בהמות (עגלה, עז, איל) ושתי ציפורים (תור וגוזל), בוקע את הבהמות (לא את הציפורים) ומניח את החצאים זה מול זה. עיט יורד לנסות לטרוף את הפגרים, ואברם מבריח אותו ושומר על סדר הטקס.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
+      <span class="topic-icon" aria-hidden="true">⛓️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 5</div>
+        <div class="topic-title">חזון העתיד - גלות וגאולה</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
+      <div class="card-head">
+        <span class="card-tag">נושא 3 · פסוקים יב'-טז'</span>
+        <h2 class="card-title">חזון העתיד - גלות וגאולה</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">
+          <b>יב:</b> וַיְהִי הַשֶּׁמֶשׁ לָבוֹא וְתַרְדֵּמָה נָפְלָה עַל אַבְרָם, וְהִנֵּה אֵימָה חֲשֵׁכָה גְדֹלָה נֹפֶלֶת עָלָיו.<br>
+          <b>יג:</b> וַיֹּאמֶר לְאַבְרָם: יָדֹעַ תֵּדַע כִּי גֵר יִהְיֶה זַרְעֲךָ בְּאֶרֶץ לֹא לָהֶם, וַעֲבָדוּם וְעִנּוּ אֹתָם אַרְבַּע מֵאוֹת שָׁנָה.<br>
+          <b>יד:</b> וְגַם אֶת הַגּוֹי אֲשֶׁר יַעֲבֹדוּ דָּן אָנֹכִי, וְאַחֲרֵי כֵן יֵצְאוּ בִּרְכֻשׁ גָּדוֹל.<br>
+          <b>טו:</b> וְאַתָּה תָּבוֹא אֶל אֲבֹתֶיךָ בְּשָׁלוֹם, תִּקָּבֵר בְּשֵׂיבָה טוֹבָה.<br>
+          <b>טז:</b> וְדוֹר רְבִיעִי יָשׁוּבוּ הֵנָּה, כִּי לֹא שָׁלֵם עֲוֹן הָאֱמֹרִי עַד הֵנָּה.
+        </div>
+
+        <div class="mini-timeline" role="img" aria-label="שלבי חזון הגלות והגאולה">
+          <div class="step fail"><span class="step-icon" aria-hidden="true">😢</span>גלות ושעבוד<br><small>400 שנה בארץ לא להם</small></div>
+          <div class="arrow" aria-hidden="true">←</div>
+          <div class="step"><span class="step-icon" aria-hidden="true">⚖️</span>עונש לאומה המשעבדת<br><small>"וְגַם אֶת הַגּוֹי... דָּן אָנֹכִי"</small></div>
+          <div class="arrow" aria-hidden="true">←</div>
+          <div class="step"><span class="step-icon" aria-hidden="true">💰</span>יציאה ברכוש גדול<br><small>אחרי העונש לגוי המשעבד</small></div>
+          <div class="arrow" aria-hidden="true">←</div>
+          <div class="step"><span class="step-icon" aria-hidden="true">🏡</span>שיבה לארץ<br><small>בדור הרביעי</small></div>
+        </div>
+
+        <div class="question-block">
+          <p class="q-cue">תזכורת: "יָדֹעַ תֵּדַע כִּי גֵר יִהְיֶה זַרְעֲךָ... וְאַחֲרֵי כֵן יֵצְאוּ בִּרְכֻשׁ גָּדוֹל" (פסוקים י"ג-י"ד)</p>
+          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מהם עיקרי הדברים שה' מודיע לאברם על עתיד זרעו בפסוקים י"ג-י"ד?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..." style="min-height:130px;"></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> זרעו של אברם יהיה גֵר בארץ זרה, ישועבד ויעונה 400 שנה - אבל ה' יעניש את האומה המשעבדת, ובני ישראל יצאו משם ברכוש גדול.</div>
+        </div>
+
+        <div class="remember-block">
+          <span class="src"><span aria-hidden="true">🔁</span>תזכורת מפרק י"ב:</span>
+          רמב"ן (פרק י"ב, פסוק ו'): "כל מה שאירע לאבות סימן לבנים". כאן, בפרק ט"ו, רואים חיזוק ישיר לעיקרון הזה - ה' עצמו מגלה לאברהם מראש שבניו יעברו גלות ושעבוד, בדיוק כפי שכבר קרה לאברהם עצמו כשירד למצרים.
+        </div>
+
+        <div class="question-block">
+          <p class="q-cue">תזכורת: "וְדוֹר רְבִיעִי יָשׁוּבוּ הֵנָּה, כִּי לֹא שָׁלֵם עֲוֹן הָאֱמֹרִי עַד הֵנָּה" (פסוק ט"ז)</p>
+          <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">לפי פסוק ט"ז, למה בני ישראל צריכים לחכות דווקא "דור רביעי" כדי לשוב לארץ? מה זה מלמד על מידת הדין של ה'?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..." style="min-height:140px;"></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ה' ממתין "כי לא שלם עוון האמורי עד הנה" - כלומר, בני ישראל יורשים את הארץ מהאמורי רק כשעוונם מגיע לשיאו, לא לפני כן. זה מלמד שה' דן את העמים בצדק ובסבלנות, ולא מגרש עם רק כדי לתת מקום לעם אחר.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 4 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <span class="topic-icon" aria-hidden="true">🔥</span>
+      <div>
+        <div class="topic-eyebrow">נושא 4 מתוך 5</div>
+        <div class="topic-title">כריתת הברית - הבטחת הארץ</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <div class="card-head">
+        <span class="card-tag">נושא 4 · פסוקים י"ז-כ"א</span>
+        <h2 class="card-title">כריתת הברית - הבטחת הארץ</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-block">
+          <b>יז:</b> וַיְהִי הַשֶּׁמֶשׁ בָּאָה וַעֲלָטָה הָיָה, וְהִנֵּה תַנּוּר עָשָׁן וְלַפִּיד אֵשׁ אֲשֶׁר עָבַר בֵּין הַגְּזָרִים הָאֵלֶּה.<br>
+          <b>יח:</b> בַּיּוֹם הַהוּא כָּרַת ה' אֶת אַבְרָם בְּרִית לֵאמֹר: לְזַרְעֲךָ נָתַתִּי אֶת הָאָרֶץ הַזֹּאת, מִנְּהַר מִצְרַיִם עַד הַנָּהָר הַגָּדֹל נְהַר פְּרָת.<br>
+          <b>יט-כא:</b> אֶת הַקֵּינִי וְאֶת הַקְּנִזִּי וְאֵת הַקַּדְמֹנִי. וְאֶת הַחִתִּי וְאֶת הַפְּרִזִּי וְאֶת הָרְפָאִים. וְאֶת הָאֱמֹרִי וְאֶת הַכְּנַעֲנִי וְאֶת הַגִּרְגָּשִׁי וְאֶת הַיְבוּסִי.
+        </div>
+
+        <div class="question-block">
+          <p class="q-cue">תזכורת: "וְהִנֵּה תַנּוּר עָשָׁן וְלַפִּיד אֵשׁ אֲשֶׁר עָבַר בֵּין הַגְּזָרִים הָאֵלֶּה" (פסוק י"ז)</p>
+          <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">מי או מה עובר בין הבתרים בפסוק י"ז, ומה זה מסמל?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..." style="min-height:130px;"></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> "תנור עשן ולפיד אש" - סמל לנוכחות ה' עצמו (לא אברם) שעובר בין החלקים, לכרות את הברית. בתקופה זו זו הייתה הצורה המקובלת לכרות ברית - הצדדים עוברים בין בתרי הבהמות שנבקעו.</div>
+        </div>
+
+        <div class="border-strip" role="img" aria-label="גבולות הארץ המובטחת: מנהר מצרים עד נהר פרת">
+          <span class="border-end">🏞️ נהר מצרים</span>
+          <span class="border-arrow" aria-hidden="true">⟷</span>
+          <span class="border-end">🌊 נהר פרת</span>
+        </div>
+        <div class="nations-grid">
+          <span class="nation-chip">קֵינִי</span>
+          <span class="nation-chip">קְנִזִּי</span>
+          <span class="nation-chip">קַדְמֹנִי</span>
+          <span class="nation-chip">חִתִּי</span>
+          <span class="nation-chip">פְּרִזִּי</span>
+          <span class="nation-chip">רְפָאִים</span>
+          <span class="nation-chip">אֱמֹרִי</span>
+          <span class="nation-chip">כְּנַעֲנִי</span>
+          <span class="nation-chip">גִּרְגָּשִׁי</span>
+          <span class="nation-chip">יְבוּסִי</span>
+        </div>
+
+        <div class="question-block">
+          <p class="q-cue">תזכורת: "אֶת הַקֵּינִי וְאֶת הַקְּנִזִּי... וְאֶת הַיְבוּסִי" (פסוקים י"ט-כ"א)</p>
+          <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">כמה עמים מוזכרים כיושבי הארץ המובטחת (פסוקים י"ט-כ"א)? למה, לדעתכם, התורה מפרטת אותם בשמם?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q8" placeholder="כתבו כאן את התשובה..." style="min-height:120px;"></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> עשרה עמים. הפירוט בשמם מדגיש שהבטחת הארץ היא קונקרטית ומוגדרת גיאוגרפית - לא הבטחה כללית וסתמית, אלא ברית עם גבולות ותושבים ידועים.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 5 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">🤝</span>
+      <div>
+        <div class="topic-eyebrow">נושא 5 מתוך 5</div>
+        <div class="topic-title">בין "לך לך" ל"ברית בין הבתרים"</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="card-head">
+        <span class="card-tag">נושא 5 · חיבור לפרק י"ב</span>
+        <h2 class="card-title">בין "לך לך" ל"ברית בין הבתרים" - שני סוגי אמונה</h2>
+      </div>
+      <div class="card-body">
+        <p class="pasuk-block-note">אברם שפגשנו בפרק י"ב הלך מיד לפי הציווי "לך לך", בלי לשאול שום שאלה. באברם שבפרק שלנו אנחנו רואים תמונה מורכבת יותר - גם אמונה מלאה (פסוק ו'), וגם בקשת אות (פסוק ח'):</p>
+
+        <div class="vs-compare" role="img" aria-label="השוואה בין ההליכה בפרק יב לשאלת במה אדע בפרק טו">
+          <div class="vs-side vs-a">
+            <span class="vs-icon" aria-hidden="true">🚶</span>
+            <div class="vs-title">"לך לך" (פרק י"ב)</div>
+            <div class="vs-desc">אברם הולך מיד לפי הציווי, בלי לשאול לאן ובלי לבקש שום הוכחה.</div>
+          </div>
+          <div class="vs-mid" aria-hidden="true">מול</div>
+          <div class="vs-side vs-b">
+            <span class="vs-icon" aria-hidden="true">❓</span>
+            <div class="vs-title">"במה אדע" (פרק ט"ו)</div>
+            <div class="vs-desc">אברם מאמין בהבטחת הזרע בלי שאלה - אבל כן שואל אות על הבטחת הארץ.</div>
+          </div>
+        </div>
+
+        <div class="meforesh-block">
+          <span class="src">משנה, מסכת אבות ה', ג':</span>
+          <q>עֲשָׂרָה נִסְיוֹנוֹת נִתְנַסָּה אַבְרָהָם אָבִינוּ, וְעָמַד בְּכֻלָּם - לְהוֹדִיעַ כַּמָּה חִבָּתוֹ שֶׁל אַבְרָהָם אָבִינוּ.</q>
+        </div>
+
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-9">לאור המשנה באבות שאברהם עמד בעשרה ניסיונות - איך אפשר להסביר את השאלה "במה אדע" לא כחוסר אמונה, אלא כחלק מתהליך של התמודדות ועמידה בניסיון?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q9" placeholder="כתבו כאן את התשובה..." style="min-height:150px;"></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אם אברהם עמד בעשרה ניסיונות שונים לאורך חייו, אפשר להבין את "במה אדע" לא כרגע של כישלון, אלא כשלב בתוך מסע ארוך של התמודדות - גם מי שמאמין באמת יכול להתלבט בנקודה מסוימת, ועדיין לצאת מנוסה ומחוזק, כמו שקרה לאברהם בכל שאר הניסיונות.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- פרשני הפרק - סיכום -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">📚 סיכום</span>
+        <h2 class="card-title">כל הפרשנים שפגשנו בפרק - מה כל אחד אמר?</h2>
+      </div>
+      <div class="card-body">
+        <p class="pasuk-block-note">עברו על כל הפרשנים שלמדנו בפרק. אחרי שאתם מרגישים שהבנתם את דבריו של פרשן מסוים - לחצו על "אישור" ליד השם שלו.</p>
+        <div class="mp-recap-grid">
+
+          <div class="mp-tile" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
+            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רש"י (פס' ו')</span>
+            <button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-1">אישור</button>
+          </div>
+
+          <div class="mp-tile" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רמב"ן (פס' ח')</span>
+            <button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-2">אישור</button>
+          </div>
+
+          <div class="mp-tile" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
+            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רמב"ן (פרק י"ב)</span>
+            <button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-3">אישור</button>
+          </div>
+
+          <div class="mp-tile" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">משנה, אבות ה' ג'</span>
+            <button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-4">אישור</button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <a href="bereshit-12.html">→ פרק י"ב</a>
+  <a href="index.html#tab-ya">↺ חזרה ליחידה</a>
+  <span></span>
+</nav>
+<div class="toolbar">
+  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn primary" type="button" id="directSubmitBtn">✅ שלחו למורה ישירות (בלי הורדה)</button>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
+  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
+</p>
+
+<footer class="credit">ספר בראשית, פרק ט"ו · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'bereshit-ch15-answers';
+const NAME_KEY = 'bereshit-ch15-student';
+const textareas = Array.from(document.querySelectorAll('textarea.answer'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{
+    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      nameInput.value = data.name || '';
+      classInput.value = data.cls || '';
+    }
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    flashSaved();
+  }catch(e){
+    console.error('שגיאת שמירה', e);
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => {
+        if(data[t.dataset.id]){
+          t.value = data[t.dataset.id];
+          markFilled(t);
+        }
+      });
+    }
+  }catch(e){
+    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
+  }
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+document.querySelectorAll('.hint-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.nextElementSibling;
+    const showing = box.hidden;
+    box.hidden = !showing;
+    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות שכתבתם? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){
+    nameInput.focus();
+    alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.');
+    return;
+  }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => {
+  inp.addEventListener('input', saveStudentInfo);
+});
+
+let originalHeights = [];
+window.addEventListener('beforeprint', () => {
+  originalHeights = textareas.map(t => t.style.height);
+  textareas.forEach(t => { t.style.height = 'auto'; t.style.height = (t.scrollHeight + 4) + 'px'; });
+});
+window.addEventListener('afterprint', () => {
+  textareas.forEach((t, i) => { t.style.height = originalHeights[i] || ''; });
+});
+
+const UNIT_KEY = 'bereshit-ch15-units';
+const unitButtons = Array.from(document.querySelectorAll('.mp-tile-btn'));
+
+function saveUnits(){
+  const done = {};
+  unitButtons.forEach(btn => { done[btn.dataset.unitId] = btn.closest('.mp-tile').classList.contains('completed'); });
+  try{ localStorage.setItem(UNIT_KEY, JSON.stringify(done)); }catch(e){ /* אחסון חסום */ }
+}
+
+function loadUnits(){
+  try{
+    const raw = localStorage.getItem(UNIT_KEY);
+    const done = raw ? JSON.parse(raw) : {};
+    unitButtons.forEach(btn => {
+      if(done[btn.dataset.unitId]){
+        btn.closest('.mp-tile').classList.add('completed');
+        btn.textContent = '✓ אושר';
+      }
+    });
+  }catch(e){ /* אין נתונים שמורים עדיין */ }
+}
+
+unitButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tile = btn.closest('.mp-tile');
+    const nowCompleted = !tile.classList.contains('completed');
+    tile.classList.toggle('completed', nowCompleted);
+    btn.textContent = nowCompleted ? '✓ אושר' : 'אישור';
+    saveUnits();
+  });
+});
+
+loadStudentInfo();
+loadAnswers();
+loadUnits();
+</script>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<script>
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+<script>
+(function(){
+  var submitLink = document.getElementById('submitLink');
+  if(!submitLink) return;
+  var nameEl = document.getElementById('studentName');
+  var classEl = document.getElementById('studentClass');
+  function updateSubmitLink(){
+    var params = new URLSearchParams();
+    params.set('assignment', 'בראשית פרק ט"ו');
+    if(nameEl && nameEl.value.trim()) params.set('name', nameEl.value.trim());
+    if(classEl && classEl.value.trim()) params.set('cls', classEl.value.trim());
+    submitLink.href = 'submit.html?' + params.toString();
+  }
+  [nameEl, classEl].forEach(function(el){ if(el) el.addEventListener('input', updateSubmitLink); });
+  updateSubmitLink();
+})();
+</script>
+<script src="assets/direct-submit.js"></script>
+<script>
+(function(){
+  var btn = document.getElementById('directSubmitBtn');
+  if(!btn) return;
+  btn.addEventListener('click', function(){
+    if(!nameInput.value.trim()){
+      nameInput.focus();
+      alert('לפני ההגשה, כתבו למעלה את שמכם.');
+      return;
+    }
+    if(!confirm('לשלוח את התשובות שמילאתם ישירות למורה עכשיו? לא ניתן לבטל את השליחה.')) return;
+    var originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'שולח...';
+    window.BeitMidrashDirectSubmit.send({
+      studentName: nameInput.value.trim(),
+      studentClass: classInput.value.trim(),
+      assignment: 'בראשית פרק ט"ו',
+      fields: textareas
+    }).then(function(data){
+      if(data && data.ok){
+        alert('ההגשה נשלחה בהצלחה למורה!');
+      } else {
+        throw new Error((data && data.error) || 'שגיאה לא ידועה');
+      }
+    }).catch(function(err){
+      alert('משהו השתבש בשליחה: ' + err.message + '\nאפשר לנסות שוב, או להשתמש בכפתור "הגשת מטלה" הרגיל.');
+    }).finally(function(){
+      btn.disabled = false;
+      btn.textContent = originalText;
+    });
+  });
+})();
+</script>
+</body>
+</html>
