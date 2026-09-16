@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מבחן מסכם - ספר יונה | בית המדרש הדיגיטלי</title>
+<meta name="description" content="מבחן דיגיטלי מקיף על כל ארבעת פרקי ספר יונה - נדרש קוד מהמורה">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .exam-card{ max-width:620px; margin:0 auto; text-align:center; }
+  .exam-icon{ font-size:3rem; display:block; margin-bottom:.4rem; }
+  .exam-desc{ font-size:.95rem; line-height:1.7; color:var(--ink-soft); margin:0 0 1.3rem; }
+  a.exam-link{ display:none; margin-top:1rem; }
+  a.exam-link.show{ display:inline-flex; }
+  .exam-note{ font-size:.8rem; color:var(--ink-soft); margin-top:1rem; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-exams">מבחנים</a>
+  <span class="sep">›</span>
+  <span class="current">מבחן מסכם - ספר יונה</span>
+</nav>
+
+<header>
+  <div class="eyebrow">ספר יונה · מבחן מסכם</div>
+  <h1>מבחן מסכם - ספר יונה</h1>
+  <p class="sub">מבחן דיגיטלי על כל ארבעת פרקי הספר. הגישה למבחן דורשת קוד מהמורה.</p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<main>
+  <div class="grid">
+    <section class="card exam-card" style="grid-column: 1 / -1;">
+      <div class="card-body">
+        <span class="exam-icon" aria-hidden="true">📝</span>
+        <p class="exam-desc">המבחן כולל שאלות על כל ארבעת פרקי ספר יונה - העלילה, הפרשנים והרעיונות המרכזיים שלמדנו. לפני הכניסה למבחן, ודאו שחזרתם על החומר.</p>
+
+        <button class="hint-btn" type="button" id="examGateBtn" data-gated="true">🔒 פתחו את המבחן (נדרש קוד מהמורה)</button>
+
+        <p>
+          <a class="btn primary exam-link" id="examLink" href="https://exam-generator.com/share-redirect?eid=6aa94acd0e0b6ea36206aef7&uid=69395f425cf25bf8172dbaff" target="_blank" rel="noopener">📝 מעבר למבחן</a>
+        </p>
+
+        <p class="exam-note">המבחן ייפתח בכרטיסייה חדשה.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט">
+  <span></span>
+  <a href="yonah-hub.html">↺ חזרה לספר יונה</a>
+  <span></span>
+</nav>
+
+<footer class="credit">ספר יונה · מבחן מסכם</footer>
+
+<script>
+(function(){
+  "use strict";
+  var EXAM_CODE = '5703531';
+  var btn = document.getElementById('examGateBtn');
+  var link = document.getElementById('examLink');
+  if(!btn || !link) return;
+  btn.addEventListener('click', function(){
+    var code = prompt('הקלידו את הקוד שקיבלתם מהמורה כדי לפתוח את המבחן:');
+    if(code === null) return;
+    if(code.trim() === EXAM_CODE){
+      link.classList.add('show');
+      btn.textContent = '🔓 הקוד אושר';
+      btn.disabled = true;
+      link.focus();
+    } else {
+      alert('קוד שגוי. נסו שוב, או שאלו את המורה.');
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
