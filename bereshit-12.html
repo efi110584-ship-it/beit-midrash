@@ -11,55 +11,26 @@
 <style>
   .q-cue{ font-size:.83rem; color:var(--acc); font-style:italic; margin:0 0 .4rem; }
 
-  /* טבלת השוואה - אברהם מול בניו */
-  .compare-table-wrap{ overflow-x:auto; border-radius:12px; border:1.5px solid var(--ink-soft); box-shadow:var(--shadow); margin-top:.7rem; }
-  .compare-table{ width:100%; border-collapse:collapse; font-size:.86rem; min-width:460px; }
-  .compare-table th, .compare-table td{ padding:.65rem .8rem; vertical-align:top; text-align:right; border:1px solid var(--paper-line); line-height:1.5; }
-  .compare-table thead th{ font-weight:800; font-size:.78rem; letter-spacing:.02em; border-color:var(--ink-soft); }
-  .compare-table thead th:first-child{ background:var(--paper-card); color:var(--ink-soft); }
-  .compare-table thead th:nth-child(2){ background:var(--teal-soft); color:var(--teal); }
-  .compare-table thead th:nth-child(3){ background:var(--rust-soft); color:var(--rust); }
-  .compare-table tbody td:first-child{ font-weight:700; color:var(--ink-soft); background:var(--paper-card); white-space:nowrap; }
-  .compare-table tbody td:nth-child(2){ background:rgba(63,110,102,.07); }
-  .compare-table tbody td:nth-child(3){ background:rgba(139,74,52,.07); }
-
-  /* פרשני הפרק - קוביות סיכום קטנות: שם הפרשן + כפתור אישור */
+  /* פרשני הפרק - קוביות סיכום קטנות: אייקון + שם הפרשן + כפתור אישור */
   .mp-recap-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(115px, 1fr)); gap:.7rem; }
   .mp-tile{
     display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
-    gap:.6rem; aspect-ratio:1/1; padding:.8rem .5rem;
-    background:var(--acc-soft); border:2px solid var(--acc); border-radius:14px;
-    box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .2s ease, background .2s ease;
+    gap:.45rem; aspect-ratio:1/1; padding:.85rem .5rem;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:4px solid var(--acc); border-radius:12px;
+    box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
   }
   .mp-tile:hover{ transform:translateY(-2px); box-shadow:var(--shadow-hover); }
-  .mp-tile-name{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.05rem; color:var(--ink); line-height:1.25; }
+  .mp-tile-icon{ font-size:1.3rem; line-height:1; }
+  .mp-tile-name{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1rem; color:var(--ink); line-height:1.25; }
   .mp-tile-btn{
     font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:32px;
     padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
     transition:background .2s ease, color .2s ease, border-color .2s ease;
   }
   .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
-  .mp-tile.completed{ background:var(--teal-soft); border-color:var(--teal); }
+  .mp-tile.completed{ background:var(--teal-soft); border-top-color:var(--teal); }
   .mp-tile.completed .mp-tile-name{ color:var(--teal); }
   .mp-tile.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
-
-  /* ========== תרשים שכבות - "ככל שמתקרבים למרכז, קשה יותר לעזוב" ========== */
-  .nest-diagram{ margin:.9rem 0 .5rem; }
-  .nest-layer{
-    display:flex; align-items:center; gap:.9rem; border-radius:14px;
-    padding:.7rem 1.1rem; box-shadow:var(--shadow);
-  }
-  .nest-layer + .nest-layer{ margin-top:.5rem; }
-  .nest-1{ background:#F5E6DC; border:2px solid #D9AD8E; }
-  .nest-2{ background:#EFC9AE; border:2px solid #C98F62; margin-inline:1.6rem; }
-  .nest-3{ background:#E4A57E; border:2px solid var(--rust); margin-inline:3.2rem; }
-  .nest-icon{ font-size:1.7rem; flex:none; line-height:1; }
-  .nest-text{ flex:1; font-size:.86rem; line-height:1.45; color:#4a2c1a; }
-  .nest-text b{ font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; display:block; color:#3a2010; }
-  .nest-diff{ flex:none; font-size:.72rem; font-weight:700; color:var(--rust); letter-spacing:.05em; white-space:nowrap; text-align:center; }
-  .nest-diff .dot{ display:inline-block; width:.55rem; height:.55rem; border-radius:50%; background:var(--paper-line); margin-inline-start:.15rem; }
-  .nest-diff .dot.on{ background:var(--rust); }
-  .nest-caption{ text-align:center; font-size:.8rem; color:var(--ink-soft); margin:.6rem 1rem 0; font-style:italic; }
 
   /* ========== טבלת פירוק - ליווי כתוב לתרשים ========== */
   .breakdown-table-wrap{ overflow-x:auto; border-radius:12px; border:1.5px solid var(--ink-soft); box-shadow:var(--shadow); margin-top:.9rem; }
@@ -265,23 +236,12 @@
           <q>וטעם להזכיר "ארצך ומולדתך ובית אביך", כי יקשה על האדם לעזוב ארצו אשר הוא יושב בה ושם אוהביו ורעיו, וכל שכן כשהוא ארץ מולדתו ששם נולד, וכל שכן כשיש שם כל בית אביו, ולכך הוצרך לומר לו שיעזוב הכל לאהבתו של הקב"ה.</q>
         </div>
 
-        <div class="nest-diagram" role="img" aria-label="תרשים: שלוש רמות פרידה - ארץ, מולדת, בית אב - בקושי הולך וגדל">
-          <div class="nest-layer nest-1">
-            <span class="nest-icon" aria-hidden="true">🌍</span>
-            <span class="nest-text"><b>אַרְצְךָ</b>הארץ / האזור הגיאוגרפי שבו את/ה חי</span>
-            <span class="nest-diff">קשה<br><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span>
-          </div>
-          <div class="nest-layer nest-2">
-            <span class="nest-icon" aria-hidden="true">🏘️</span>
-            <span class="nest-text"><b>מוֹלַדְתְּךָ</b>מקום הולדתך - העיר או הכפר שבו גדלת</span>
-            <span class="nest-diff">קשה יותר<br><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></span>
-          </div>
-          <div class="nest-layer nest-3">
-            <span class="nest-icon" aria-hidden="true">🏠</span>
-            <span class="nest-text"><b>בֵּית אָבִיךָ</b>המשפחה הקרובה ביותר - הורים ואחים</span>
-            <span class="nest-diff">הכי קשה<br><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></span>
-          </div>
-          <p class="nest-caption">ככל שמתקדמים פנימה - השֶׁטַח קטן יותר, אבל הקושי הרגשי לעזוב גדל.</p>
+        <div class="mini-timeline" role="img" aria-label="שלוש רמות פרידה - ארץ, מולדת, בית אב - בקושי הולך וגדל">
+          <div class="step"><span class="step-icon" aria-hidden="true">🌍</span>אַרְצְךָ<br><small>קשה לעזוב</small></div>
+          <div class="arrow" aria-hidden="true">←</div>
+          <div class="step"><span class="step-icon" aria-hidden="true">🏘️</span>מוֹלַדְתְּךָ<br><small>קשה יותר</small></div>
+          <div class="arrow" aria-hidden="true">←</div>
+          <div class="step fail"><span class="step-icon" aria-hidden="true">🏠</span>בֵּית אָבִיךָ<br><small>הכי קשה</small></div>
         </div>
 
         <div class="breakdown-table-wrap">
@@ -483,22 +443,40 @@
           <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הכלל: מה שקרה לאבות הוא רמז למה שיקרה לבניהם, עם ישראל, בעתיד. לכן התורה מספרת בפירוט על מסעות האבות - כדי ללמוד מהם על העתיד.</div>
         </div>
         <p class="pasuk-block-note">הרמב"ן מדגים את הכלל דרך ההשוואה בין ירידת אברהם למצרים (פרק י"ב) לבין ירידת בני ישראל למצרים בדורות מאוחרים יותר:</p>
-        <div class="compare-table-wrap">
-          <table class="compare-table">
-            <thead>
-              <tr><th></th><th>👤 מה שאירע לאברהם</th><th>👨‍👩‍👧‍👦 מה שאירע לבניו</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>סיבת הירידה</td><td>רעב בארץ</td><td>בני ישראל יורדים למצרים בגלל הרעב בימי יעקב</td></tr>
-              <tr><td>לקיחת הנשים</td><td>המצרים רוצים לקחת את שרה לבית פרעה</td><td>"כל הבן הילוד היאורה תשליכוהו ואת כל הבת תחיון" (שמות א', כ"ב)</td></tr>
-              <tr><td>העונש למצרים</td><td>ה' מעניש את פרעה וביתו בנגעים בגלל שרה</td><td>ה' מביא עשר מכות על מצרים כדי להוציא את ישראל</td></tr>
-              <tr><td>המתנות</td><td>פרעה מעניק לאברהם רכוש רב כשהוא משלח אותו</td><td>בני ישראל יוצאים ממצרים ברכוש גדול</td></tr>
-              <tr><td>השילוח הנחרץ</td><td>פרעה מגרש את אברהם ממצרים</td><td>המצרים ממהרים לשלח את בני ישראל בעקבות עשר המכות</td></tr>
-            </tbody>
-          </table>
+
+        <div class="plan-reality" role="img" aria-label="השוואה בין מה שאירע לאברהם למה שאירע לבניו, בני ישראל, במצרים">
+          <div class="pr-row">
+            <span class="pr-label">👤 מה שאירע לאברהם</span>
+            <div class="mini-timeline compact">
+              <div class="step"><span class="step-icon" aria-hidden="true">🌾</span>רעב בארץ<br><small>סיבת הירידה</small></div>
+              <div class="arrow" aria-hidden="true">←</div>
+              <div class="step"><span class="step-icon" aria-hidden="true">👰</span>שרה נלקחת<br><small>לבית פרעה</small></div>
+              <div class="arrow" aria-hidden="true">←</div>
+              <div class="step"><span class="step-icon" aria-hidden="true">🤕</span>נגעים לפרעה<br><small>העונש למצרים</small></div>
+              <div class="arrow" aria-hidden="true">←</div>
+              <div class="step"><span class="step-icon" aria-hidden="true">🐑</span>רכוש רב<br><small>המתנות</small></div>
+              <div class="arrow" aria-hidden="true">←</div>
+              <div class="step"><span class="step-icon" aria-hidden="true">🚪</span>פרעה מגרש<br><small>השילוח הנחרץ</small></div>
+            </div>
+          </div>
+          <div class="pr-row">
+            <span class="pr-label">👨‍👩‍👧‍👦 מה שאירע לבניו</span>
+            <div class="mini-timeline compact">
+              <div class="step"><span class="step-icon" aria-hidden="true">🌾</span>רעב בימי יעקב<br><small>סיבת הירידה</small></div>
+              <div class="arrow" aria-hidden="true">←</div>
+              <div class="step"><span class="step-icon" aria-hidden="true">👶</span>"היאורה תשליכוהו"<br><small>גזירת פרעה</small></div>
+              <div class="arrow" aria-hidden="true">←</div>
+              <div class="step"><span class="step-icon" aria-hidden="true">⚡</span>עשר מכות<br><small>העונש למצרים</small></div>
+              <div class="arrow" aria-hidden="true">←</div>
+              <div class="step"><span class="step-icon" aria-hidden="true">💰</span>רכוש גדול<br><small>המתנות</small></div>
+              <div class="arrow" aria-hidden="true">←</div>
+              <div class="step"><span class="step-icon" aria-hidden="true">🏃</span>ממהרים לשלחם<br><small>השילוח הנחרץ</small></div>
+            </div>
+          </div>
         </div>
+
         <div class="question-block">
-          <div class="question-row"><span class="q-num">12</span><span class="q-text" id="a11y-lbl-12">בחרו שורה אחת מהטבלה, וכתבו במילים שלכם מהו הדמיון בין מה שקרה לאברהם למה שקרה לבניו.</span></div>
+          <div class="question-row"><span class="q-num">12</span><span class="q-text" id="a11y-lbl-12">בחרו זוג אחד מהתרשים, וכתבו במילים שלכם מהו הדמיון בין מה שקרה לאברהם למה שקרה לבניו.</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-12" data-id="q12" placeholder="כתבו כאן את התשובה..." style="min-height:120px;"></textarea>
           <button class="hint-btn" type="button">🔎 הצג תשובה</button>
           <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לדוגמה, שורת "סיבת הירידה": אברהם ירד למצרים בגלל רעב, ובדיוק כך ירדו בני ישראל למצרים בגלל רעב בימי יעקב.</div>
@@ -517,37 +495,37 @@
         <div class="mp-recap-grid">
 
           <div class="mp-tile" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
-            <span class="mp-tile-name">מהר"ל</span>
+            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">מהר"ל</span>
             <button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-1">אישור</button>
           </div>
 
           <div class="mp-tile" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
-            <span class="mp-tile-name">שפת אמת</span>
+            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">שפת אמת</span>
             <button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-7">אישור</button>
           </div>
 
           <div class="mp-tile" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
-            <span class="mp-tile-name">רמב"ן (פס' א')</span>
+            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רמב"ן (פס' א')</span>
             <button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-2">אישור</button>
           </div>
 
           <div class="mp-tile" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
-            <span class="mp-tile-name">רד"ק (פס' ב')</span>
+            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רד"ק (פס' ב')</span>
             <button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-3">אישור</button>
           </div>
 
           <div class="mp-tile" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
-            <span class="mp-tile-name">רש"י (פס' ה')</span>
+            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רש"י (פס' ה')</span>
             <button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-4">אישור</button>
           </div>
 
           <div class="mp-tile" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
-            <span class="mp-tile-name">ספורנו (פס' י"ג)</span>
+            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">ספורנו (פס' י"ג)</span>
             <button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-5">אישור</button>
           </div>
 
           <div class="mp-tile" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
-            <span class="mp-tile-name">רמב"ן (פס' ו')</span>
+            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רמב"ן (פס' ו')</span>
             <button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-6">אישור</button>
           </div>
 
