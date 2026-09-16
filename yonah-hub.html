@@ -1093,27 +1093,50 @@ document.querySelectorAll('.hint-btn').forEach(btn => {
 
 const UNIT_KEY = 'yonah-hub-units';
 const unitChecks = Array.from(document.querySelectorAll('.unit-check'));
-function saveUnits(){
-  const done = {};
-  unitChecks.forEach(cb => { done[cb.dataset.unitId] = cb.checked; });
-  try{ localStorage.setItem(UNIT_KEY, JSON.stringify(done)); }catch(e){}
-}
-function loadUnits(){
+const unitButtons = Array.from(document.querySelectorAll('.mp-tile-btn'));
+
+function readDoneMap(){
   try{
     const raw = localStorage.getItem(UNIT_KEY);
-    const done = raw ? JSON.parse(raw) : {};
-    unitChecks.forEach(cb => {
-      if(done[cb.dataset.unitId]){ cb.checked = true; cb.closest('.unit').classList.add('completed'); }
-    });
-  }catch(e){}
+    return raw ? JSON.parse(raw) : {};
+  }catch(e){ return {}; }
+}
+function markUnitDone(id, isDone){
+  const done = readDoneMap();
+  done[id] = isDone;
+  try{ localStorage.setItem(UNIT_KEY, JSON.stringify(done)); }catch(e){}
+}
+
+function loadUnits(){
+  const done = readDoneMap();
+  unitChecks.forEach(cb => {
+    if(done[cb.dataset.unitId]){ cb.checked = true; cb.closest('.unit').classList.add('completed'); }
+  });
 }
 unitChecks.forEach(cb => {
   cb.addEventListener('change', () => {
     cb.closest('.unit').classList.toggle('completed', cb.checked);
-    saveUnits();
+    markUnitDone(cb.dataset.unitId, cb.checked);
   });
 });
 loadUnits();
+
+function loadUnitButtons(){
+  const done = readDoneMap();
+  unitButtons.forEach(btn => {
+    if(done[btn.dataset.unitId]){ btn.closest('.mp-tile').classList.add('completed'); btn.textContent = '✓ אושר'; }
+  });
+}
+unitButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tile = btn.closest('.mp-tile');
+    const nowCompleted = !tile.classList.contains('completed');
+    tile.classList.toggle('completed', nowCompleted);
+    btn.textContent = nowCompleted ? '✓ אושר' : 'אישור';
+    markUnitDone(btn.dataset.unitId, nowCompleted);
+  });
+});
+loadUnitButtons();
 
 let originalHeights = [];
 window.addEventListener('beforeprint', () => {
