@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר בראשית — קריאה אינטראקטיבית בפסוקים (פרק י"ב)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .pasuk-flow{ font-size:1.12rem; line-height:2.3; color:var(--ink); }
+  .v-num{
+    display:inline-flex; align-items:center; justify-content:center; width:1.55rem; height:1.55rem;
+    border-radius:50%; background:var(--acc-soft); color:var(--acc); font-weight:800; font-size:.72rem;
+    margin-inline-end:.3rem; vertical-align:middle; font-family:'Heebo',sans-serif;
+  }
+  .hot-word{
+    background:none; border:none; padding:0 .12rem; margin:0 .05rem; font:inherit; font-weight:800;
+    color:var(--acc); cursor:pointer; border-bottom:2.5px dotted var(--acc); border-radius:2px;
+    transition:background .15s ease;
+  }
+  .hot-word:hover, .hot-word:focus-visible{ background:var(--acc-soft); outline:none; }
+  .hot-word .hw-icon{ font-size:.78em; margin-inline-start:.12rem; }
+  .legend{
+    display:flex; flex-wrap:wrap; gap:.6rem 1.4rem; justify-content:center; align-items:center;
+    font-size:.85rem; color:var(--ink-soft); margin:0 0 1.2rem;
+  }
+  .legend b{ color:var(--ink); }
+  .legend .hot-word{ pointer-events:none; }
+  .cross-ref-note{
+    background:var(--paper-card); border:1.5px dashed var(--paper-line); border-radius:10px;
+    padding:.7rem 1rem; font-size:.85rem; color:var(--ink-soft); margin:.7rem 0;
+  }
+  .muted-pasuk{
+    background:var(--paper-2); border-radius:10px; padding:.8rem 1rem; font-size:.95rem;
+    line-height:1.9; color:var(--ink-soft); margin:.7rem 0; font-style:italic;
+  }
+  .muted-pasuk b{ font-style:normal; color:var(--ink); }
+
+  .pmodal-overlay{
+    position:fixed; inset:0; background:rgba(31,29,23,.6); display:flex; align-items:center; justify-content:center;
+    padding:1rem; z-index:500;
+  }
+  .pmodal-overlay[hidden]{ display:none; }
+  .pmodal-box{
+    background:#fff; border-radius:18px; max-width:480px; width:100%; padding:1.7rem 1.7rem 1.5rem;
+    box-shadow:0 24px 60px rgba(0,0,0,.35); position:relative; max-height:82vh; overflow-y:auto;
+    border-top:6px solid var(--pmodal-acc, var(--ink));
+    animation:pmodalIn .18s ease;
+  }
+  @keyframes pmodalIn{ from{ opacity:0; transform:translateY(10px) scale(.98); } to{ opacity:1; transform:none; } }
+  .pmodal-close{
+    position:absolute; top:.7rem; left:.7rem; background:var(--paper-2); border:none; width:2.1rem; height:2.1rem;
+    border-radius:50%; cursor:pointer; font-size:1.05rem; color:var(--ink-soft); line-height:1;
+  }
+  .pmodal-close:hover{ background:var(--paper); }
+  .pmodal-badge{
+    display:inline-block; font-size:.78rem; font-weight:800; color:#fff; background:var(--pmodal-acc, var(--ink));
+    padding:.35rem .9rem; border-radius:999px; margin-bottom:.9rem; font-family:'Frank Ruhl Libre',serif;
+  }
+  .pmodal-q{ font-weight:800; margin:0 0 1rem; font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; line-height:1.5; color:var(--ink); }
+  .pmodal-quote{
+    font-style:italic; border-right:3px solid var(--pmodal-acc,var(--ink)); padding:.15rem .8rem;
+    margin:0 0 .9rem; color:var(--ink); font-size:.9rem; line-height:1.65; background:var(--paper-card);
+    border-radius:0 8px 8px 0;
+  }
+  .pmodal-a-label{ font-size:.78rem; font-weight:800; color:var(--pmodal-acc, var(--ink)); margin:0 0 .25rem; }
+  .pmodal-a{ font-size:.95rem; line-height:1.75; color:var(--ink-soft); }
+
+  .topic-banner{ margin-top:2.4rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">ספר בראשית</a>
+  <span class="sep">›</span>
+  <a href="bereshit-12.html">פרק י"ב</a>
+  <span class="sep">›</span>
+  <span class="current">קריאה אינטראקטיבית בפסוקים</span>
+</nav>
+
+<header>
+  <div class="eyebrow">ספר בראשית · קריאה אינטראקטיבית · פרק י"ב</div>
+  <h1>הטקסט המלא, מילה-מילה — פרק י"ב, "לך לך"</h1>
+  <p class="sub">קראו את הפסוקים לפי הנושאים. כל מילה עם קו מקווקו ניתנת ללחיצה - היא נוגעת בשאלה מרכזית או בדברי פרשן, ולחיצה עליה תפתח חלונית קצרה עם השאלה והתשובה.</p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
+  <a class="chip-link" href="bereshit-12.html"><span class="chip-icon" aria-hidden="true">📄</span>לדף העבודה המלא</a>
+  <a class="chip-link" href="bereshit-12-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+</p>
+
+<main>
+  <div class="legend">
+    <span><button class="hot-word" style="--acc:#8A5C21;" tabindex="-1">מילה לדוגמה<span class="hw-icon" aria-hidden="true">💬</span></button> = לחצו לפתיחת חלונית</span>
+    <span><b>❓</b> שאלה למחשבה</span>
+    <span><b>💬</b> דברי פרשן</span>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <span class="topic-icon" aria-hidden="true">📜</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 5</div>
+        <div class="topic-title">רקע: למה דווקא אברהם?</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <div class="card-head">
+        <span class="card-tag">רקע - להשוואה עם נח</span>
+        <h2 class="card-title">רקע: למה דווקא אברהם?</h2>
+      </div>
+      <div class="card-body">
+        <p class="pasuk-block-note">התורה לא מסבירה מראש למה ה' פונה דווקא לאברם - בשונה מהבחירה בנח, שכן מוסברת:</p>
+        <div class="muted-pasuk"><b>בראשית ו', ח'-ט' (להשוואה):</b> וְנֹחַ מָצָא חֵן בְּעֵינֵי ה'. אֵלֶּה תּוֹלְדֹת נֹחַ, נֹחַ אִישׁ צַדִּיק תָּמִים הָיָה בְּדֹרֹתָיו, אֶת הָאֱלֹקים הִתְהַלֶּךְ נֹחַ.</div>
+        <div class="cross-ref-note">💡 המילים הרלוונטיות לנושא זה (מהר"ל, שפת אמת) משולבות בקריאת פסוקים א'-ב' בנושא הבא.</div>
+      </div>
+    </section>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">🧭</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 5</div>
+        <div class="topic-title">"לך לך" - הציווי, ההבטחה והניסיון</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="card-head">
+        <span class="card-tag">פסוקים א'-ג'</span>
+        <h2 class="card-title">"לך לך" - הציווי, ההבטחה והניסיון</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">א</span> וַיֹּאמֶר ה' אֶל אַבְרָם: <button class="hot-word" data-key="q_shefat" data-acc="#3F6E66">לֶךְ לְךָ<span class="hw-icon" aria-hidden="true">💬</span></button> <button class="hot-word" data-key="m_ramban_a" data-acc="#3F6E66">מֵאַרְצְךָ וּמִמּוֹלַדְתְּךָ וּמִבֵּית אָבִיךָ<span class="hw-icon" aria-hidden="true">💬</span></button>, אֶל הָאָרֶץ <button class="hot-word" data-key="m_radak" data-acc="#3F6E66">אֲשֶׁר אַרְאֶךָּ<span class="hw-icon" aria-hidden="true">💬</span></button>.
+          <span class="v-num">ב</span> וְאֶעֶשְׂךָ <button class="hot-word" data-key="m_maharal" data-acc="#3F6E66">לְגוֹי גָּדוֹל<span class="hw-icon" aria-hidden="true">💬</span></button> וַאֲבָרֶכְךָ וַאֲגַדְּלָה שְׁמֶךָ, וֶהְיֵה בְּרָכָה.
+          <span class="v-num">ג</span> וַאֲבָרְכָה מְבָרֲכֶיךָ וּמְקַלֶּלְךָ אָאֹר, וְ<button class="hot-word" data-key="q_blessings" data-acc="#3F6E66">נִבְרְכוּ בְךָ כֹּל מִשְׁפְּחֹת הָאֲדָמָה<span class="hw-icon" aria-hidden="true">❓</span></button>.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
+      <span class="topic-icon" aria-hidden="true">🐫</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 5</div>
+        <div class="topic-title">קיום הציווי - המסע לארץ כנען</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
+      <div class="card-head">
+        <span class="card-tag">פסוקים ד'-ט'</span>
+        <h2 class="card-title">קיום הציווי - המסע לארץ כנען</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">ד</span> וַיֵּלֶךְ אַבְרָם כַּאֲשֶׁר דִּבֶּר אֵלָיו ה', וַיֵּלֶךְ אִתּוֹ לוֹט; וְאַבְרָם בֶּן חָמֵשׁ שָׁנִים וְשִׁבְעִים שָׁנָה בְּצֵאתוֹ מֵחָרָן.
+          <span class="v-num">ה</span> וַיִּקַּח אַבְרָם אֶת שָׂרַי אִשְׁתּוֹ וְאֶת לוֹט בֶּן אָחִיו וְאֶת כָּל רְכוּשָׁם אֲשֶׁר רָכָשׁוּ, וְאֶת <button class="hot-word" data-key="m_rashi_5" data-acc="#1E2761">הַנֶּפֶשׁ אֲשֶׁר עָשׂוּ<span class="hw-icon" aria-hidden="true">💬</span></button> בְחָרָן, וַיֵּצְאוּ לָלֶכֶת אַרְצָה כְּנַעַן וַיָּבֹאוּ אַרְצָה כְּנָעַן.
+          <span class="v-num">ו</span> וַ<button class="hot-word" data-key="m_ramban_vayaavor" data-acc="#1E2761">יַּעֲבֹר אַבְרָם בָּאָרֶץ<span class="hw-icon" aria-hidden="true">💬</span></button> עַד מְקוֹם שְׁכֶם עַד אֵלוֹן מוֹרֶה, וְהַכְּנַעֲנִי אָז בָּאָרֶץ.
+          <span class="v-num">ז</span> וַיֵּרָא ה' אֶל אַבְרָם וַיֹּאמֶר: <button class="hot-word" data-key="q_promise" data-acc="#1E2761">לְזַרְעֲךָ אֶתֵּן אֶת הָאָרֶץ הַזֹּאת<span class="hw-icon" aria-hidden="true">❓</span></button>, וַיִּבֶן שָׁם מִזְבֵּחַ לַה' הַנִּרְאֶה אֵלָיו.
+          <span class="v-num">ח</span> וַיַּעְתֵּק מִשָּׁם הָהָרָה מִקֶּדֶם לְבֵית אֵל וַיֵּט אָהֳלֹה, בֵּית אֵל מִיָּם וְהָעַי מִקֶּדֶם, וַיִּבֶן שָׁם מִזְבֵּחַ לַה' וַ<button class="hot-word" data-key="q_altars" data-acc="#1E2761">יִּקְרָא בְּשֵׁם ה'<span class="hw-icon" aria-hidden="true">❓</span></button>.
+          <span class="v-num">ט</span> וַיִּסַּע אַבְרָם הָלוֹךְ וְנָסוֹעַ הַנֶּגְבָּה.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 4 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <span class="topic-icon" aria-hidden="true">👑</span>
+      <div>
+        <div class="topic-eyebrow">נושא 4 מתוך 5</div>
+        <div class="topic-title">הירידה למצרים</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <div class="card-head">
+        <span class="card-tag">פסוקים י'-כ'</span>
+        <h2 class="card-title">הירידה למצרים</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">י</span> וַיְהִי רָעָב בָּאָרֶץ, וַ<button class="hot-word" data-key="q_egypt" data-acc="#8B4A34">יֵּרֶד אַבְרָם מִצְרַיְמָה<span class="hw-icon" aria-hidden="true">❓</span></button> לָגוּר שָׁם כִּי כָבֵד הָרָעָב בָּאָרֶץ.
+          <span class="v-num">יא-יג</span> וַיְהִי כַּאֲשֶׁר הִקְרִיב לָבוֹא מִצְרָיְמָה, וַיֹּאמֶר אֶל שָׂרַי אִשְׁתּוֹ: הִנֵּה נָא יָדַעְתִּי כִּי אִשָּׁה יְפַת מַרְאֶה אָתְּ. וְהָיָה כִּי יִרְאוּ אֹתָךְ הַמִּצְרִים וְאָמְרוּ אִשְׁתּוֹ זֹאת, וְהָרְגוּ אֹתִי וְאֹתָךְ יְחַיּוּ. <button class="hot-word" data-key="m_seforno" data-acc="#8B4A34">אִמְרִי נָא אֲחֹתִי אָתְּ<span class="hw-icon" aria-hidden="true">💬</span></button>, לְמַעַן יִיטַב לִי בַעֲבוּרֵךְ וְחָיְתָה נַפְשִׁי בִּגְלָלֵךְ.
+          <span class="v-num">יד-טז</span> וַיְהִי כְּבוֹא אַבְרָם מִצְרָיְמָה, וַיִּרְאוּ הַמִּצְרִים אֶת הָאִשָּׁה כִּי יָפָה הִוא מְאֹד. וַיִּרְאוּ אֹתָהּ שָׂרֵי פַרְעֹה וַיְהַלְלוּ אֹתָהּ אֶל פַּרְעֹה, וַתֻּקַּח הָאִשָּׁה בֵּית פַּרְעֹה. וּלְאַבְרָם הֵיטִיב בַּעֲבוּרָהּ, וַיְהִי לוֹ צֹאן וּבָקָר וַחֲמֹרִים וַעֲבָדִים וּשְׁפָחֹת וַאֲתֹנֹת וּגְמַלִּים.
+          <span class="v-num">יז-כ</span> וַ<button class="hot-word" data-key="q_plagues" data-acc="#8B4A34">יְנַגַּע ה' אֶת פַּרְעֹה<span class="hw-icon" aria-hidden="true">❓</span></button> נְגָעִים גְּדֹלִים וְאֶת בֵּיתוֹ, עַל דְּבַר שָׂרַי אֵשֶׁת אַבְרָם. וַיִּקְרָא פַרְעֹה לְאַבְרָם וַיֹּאמֶר: מַה זֹּאת עָשִׂיתָ לִּי, לָמָּה לֹא הִגַּדְתָּ לִּי כִּי אִשְׁתְּךָ הִוא? לָמָה אָמַרְתָּ אֲחֹתִי הִוא וָאֶקַּח אֹתָהּ לִּי לְאִשָּׁה, וְעַתָּה הִנֵּה אִשְׁתְּךָ קַח וָלֵךְ. וַיְצַו עָלָיו פַּרְעֹה אֲנָשִׁים, וַיְשַׁלְּחוּ אֹתוֹ וְאֶת אִשְׁתּוֹ וְאֶת כָּל אֲשֶׁר לוֹ.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 5 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">🔁</span>
+      <div>
+        <div class="topic-eyebrow">נושא 5 מתוך 5</div>
+        <div class="topic-title">"כל מה שאירע לאבות סימן לבנים"</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="card-head">
+        <span class="card-tag">עיקרון מרכזי</span>
+        <h2 class="card-title">"כל מה שאירע לאבות סימן לבנים"</h2>
+      </div>
+      <div class="card-body">
+        <p class="pasuk-block-note">הרמב"ן מלמד כלל גדול: מה שקרה לאברהם (פסוק ו' למעלה, בנושא 3) הוא רמז למה שיקרה לבניו בדורות מאוחרים יותר - למשל, ירידת אברהם למצרים בשל רעב (פסוק י', בנושא 4) מקבילה לירידת בני יעקב למצרים בשל רעב, ונגעי פרעה מקבילים לעשר המכות.</p>
+        <div class="cross-ref-note">💡 לחצו על "וַיַּעֲבֹר אַבְרָם בָּאָרֶץ" (פסוק ו', בנושא 3) כדי לקרוא את דברי הרמב"ן על עיקרון זה במלואם.</div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <a href="bereshit-12.html">→ לדף העבודה של הפרק</a>
+  <a href="index.html#tab-ya">↺ חזרה ליחידה</a>
+  <span></span>
+</nav>
+
+<footer class="credit">ספר בראשית, פרק י"ב · קריאה אינטראקטיבית בפסוקים</footer>
+
+<div class="pmodal-overlay" id="pmodalOverlay" hidden>
+  <div class="pmodal-box" id="pmodalBox" role="dialog" aria-modal="true" aria-labelledby="pmodalQ">
+    <button class="pmodal-close" id="pmodalClose" type="button" aria-label="סגירה">✕</button>
+    <div class="pmodal-badge" id="pmodalBadge"></div>
+    <p class="pmodal-q" id="pmodalQ"></p>
+    <div class="pmodal-quote" id="pmodalQuote" hidden></div>
+    <div class="pmodal-a-label">✓ התשובה / הרעיון</div>
+    <div class="pmodal-a" id="pmodalA"></div>
+  </div>
+</div>
+
+<script>
+const POPUPS = {
+  m_maharal: {
+    badge: "מהר\"ל, נצח ישראל, פרק י\"א", acc: "#8A5C21",
+    q: "מה ההבדל, לפי המהר\"ל, בין הבחירה בנח (\"בחירה פרטית\") לבין הבחירה באברהם (\"בחירה כללית\")?",
+    quote: "אצל נח היה רק בחירה פרטית, והבחירה הפרטית הוא לפי מעשה צדקות שלו... אבל באברהם לא היה בחירה פרטית, רק בחירה באומה הישראלית שהם זרעו... ובחירה כללית אין תולה במעשה כלל.",
+    a: "נח נבחר בזכות מעשיו הטובים - זו \"בחירה פרטית\", שיכולה להתבטל אם יפסיק להיות צדיק. אברהם נבחר כדי להקים ממנו עם שלם - זו \"בחירה כללית\", שלא תלויה במעשה אחד, ולכן היא נצחית."
+  },
+  q_shefat: {
+    badge: "שפת אמת, לך לך תרל\"ב", acc: "#3F6E66",
+    q: "הרמב\"ן שואל: למה לא מוזכרת מעלתו של אברהם לפני שה' פונה אליו ב\"לך לך\"? מה עונה השפת אמת (בשם הזוהר)?",
+    quote: "המאמר \"לך לך\" נאמר מהשם יתברך לכל האנשים תמיד... ואברהם אבינו שמע וקיבל... זה השבח בעצמו שהיה מוכן לקבל המאמר.",
+    a: "לפי הזוהר, ה' פונה ב\"לך לך\" אל כל אדם, תמיד - אבל רוב האנשים \"ישנים\" ולא שומעים את הקריאה. השבח המיוחד של אברהם הוא שהוא כן שמע וקיבל אותה."
+  },
+  m_ramban_a: {
+    badge: "רמב\"ן (פסוק א')", acc: "#3F6E66",
+    q: "מהו הקושי הלשוני בביטוי \"מארצך וממולדתך ומבית אביך\"?",
+    quote: "יקשה על האדם לעזוב ארצו אשר הוא יושב בה... וכל שכן כשיש שם כל בית אביו, ולכך הוצרך לומר לו שיעזוב הכל לאהבתו של הקב\"ה.",
+    a: "לכאורה זו חזרה מיותרת - מי שעוזב את בית אביו ממילא עוזב גם את ארצו ואת מולדתו. הרמב\"ן מיישב: הפירוט מדגיש דרגות קושי הולכות וגדלות - קשה לעזוב את הארץ, קשה יותר את המולדת, והכי קשה - את בית האב."
+  },
+  m_radak: {
+    badge: "רד\"ק (פסוק ב')", acc: "#3F6E66",
+    q: "מדוע, לדעת הרד\"ק, ה' לא גילה לאברהם מהי הארץ שאליה הוא הולך?",
+    quote: "לא ידע הטובה היא אם רעה, וכל זה אמר לו האל להודיע חיבתו של אברהם אבינו... והכל קבל מאהבה לעשות רצון האל.",
+    a: "דווקא ההסתרה - שאברהם לא ידע אם הארץ טובה או לא - מגדילה את הניסיון. הוא הסכים ללכת בלי לדעת לאן, וזה מראה את גודל אמונתו."
+  },
+  q_blessings: {
+    badge: "❓ שאלה למחשבה", acc: "#3F6E66",
+    q: "מהם שלושת חלקי הברכה שה' מבטיח לאברהם בפסוקים ב'-ג'?",
+    a: "(1) להיות לגוי גדול. (2) שם גדול. (3) שכל משפחות האדמה יתברכו בזכותו."
+  },
+  q_promise: {
+    badge: "❓ שאלה למחשבה", acc: "#1E2761",
+    q: "עקבו אחר תחנות מסע אברהם בארץ כנען. איזו הבטחה חדשה הוא מקבל בפסוק ז', ומה הוא עושה מיד אחריה?",
+    a: "תחנות המסע: שכם ← בית אל והעי ← הנגב. ההבטחה החדשה: \"לזרעך אתן את הארץ הזאת\". מיד אחריה בונה אברהם מזבח לה'."
+  },
+  q_altars: {
+    badge: "❓ שאלה למחשבה", acc: "#1E2761",
+    q: "אברהם בונה מזבח פעמיים - בשכם ובבית אל. מה ההבדל בין שני המזבחות?",
+    a: "המזבח הראשון (שכם) נבנה כתגובה מיידית להתגלות - \"לה' הנראה אליו\". במזבח השני (בית אל) אברהם גם \"קורא בשם ה'\" - לא רק מודה בשקט, אלא יוצא ומכריז ומפרסם את אמונתו כלפי הסובבים אותו."
+  },
+  m_rashi_5: {
+    badge: "רש\"י (פסוק ה')", acc: "#1E2761",
+    q: "מהם שני הפירושים (פשט ודרש) של רש\"י למילה \"עשו\" ב\"הנפש אשר עשו בחרן\"?",
+    quote: "אשר עשו בחרן - שהכניסן תחת כנפי השכינה, אברהם מגייר את האנשים ושרה מגיירת הנשים... ופשוטו של מקרא: עבדים ושפחות שקנו להם.",
+    a: "פשט: עבדים ושפחות שאברהם ושרה קנו. דרש: אנשים שגיירו - אברהם את הגברים, שרה את הנשים - וכאילו \"יצרו\" אותם מחדש."
+  },
+  m_ramban_vayaavor: {
+    badge: "רמב\"ן (פסוק ו') - כלל \"מעשה אבות סימן לבנים\"", acc: "#1E2761",
+    q: "מהו הכלל שמלמד הרמב\"ן, ומדוע לדעתו התורה מאריכה בתיאור מסעות האבות?",
+    quote: "כל מה שאירע לאבות סימן לבנים... יאריכו הכתובים בספור המסעות... וכולם באים ללמד על העתיד, כי כאשר יבוא המקרה לנביא משלושת האבות יתבונן ממנו הדבר הנגזר לבוא לזרעו.",
+    a: "מה שקרה לאבות הוא רמז למה שיקרה לבניהם, עם ישראל, בעתיד. לדוגמה: רעב הביא את אברהם למצרים (פסוק י'), וכך רעב הביא את יעקב ובניו למצרים בדורות מאוחרים; נגעים לפרעה מקבילים לעשר המכות."
+  },
+  q_egypt: {
+    badge: "❓ שאלה למחשבה", acc: "#8B4A34",
+    q: "למה ירד אברהם למצרים, ומה ביקש משרה לומר עליו? כיצד זה מהדהד מאוחר יותר בסיפור בני ישראל במצרים?",
+    a: "אברהם ירד למצרים כי היה רעב כבד בכנען, וביקש משרה לומר שהיא אחותו כדי שלא יהרגו אותו. מאוחר יותר גם בני ישראל ירדו למצרים בגלל רעב (בימי יעקב) - בדיוק כפי שקרה לאברהם."
+  },
+  m_seforno: {
+    badge: "ספורנו (פסוק י\"ג)", acc: "#8B4A34",
+    q: "מהי התוכנית שמייחס הספורנו לאברהם באומרו לשרה \"אמרי נא אחתי את\"? מה השתבש בפועל?",
+    quote: "למען ייטב לי - למען כשתאמרי שאת אחותי יקווה כל אחד מהם שאשיאך לו... ובין כך חשב לצאת משם. ותוקח האישה - ולאברם היטיב, שלא נמלכו ראשונה בו לפתותו כמו שהיה המנהג.",
+    a: "אברהם קיווה שמחזרים ינהלו איתו, כ\"אח\" של שרה, משא ומתן על מוהר - וכך ירוויח זמן לברוח. בפועל זה השתבש: פרעה לקח את שרה ישר לביתו, בלי שום משא ומתן."
+  },
+  q_plagues: {
+    badge: "❓ שאלה למחשבה", acc: "#8B4A34",
+    q: "כיצד ה' מתערב ומציל את שרה, וכיצד מסתיים הסיפור?",
+    a: "ה' מכה את פרעה ואת ביתו בנגעים בגלל שרה. פרעה מבין שטעה, מחזיר לו את שרה, ומשלח אותם עם כל רכושם."
+  }
+};
+
+const overlay = document.getElementById('pmodalOverlay');
+const box = document.getElementById('pmodalBox');
+const badgeEl = document.getElementById('pmodalBadge');
+const qEl = document.getElementById('pmodalQ');
+const quoteEl = document.getElementById('pmodalQuote');
+const aEl = document.getElementById('pmodalA');
+const closeBtn = document.getElementById('pmodalClose');
+let lastFocused = null;
+
+function openPopup(key){
+  const data = POPUPS[key];
+  if(!data) return;
+  box.style.setProperty('--pmodal-acc', data.acc);
+  badgeEl.textContent = data.badge;
+  qEl.textContent = data.q;
+  if(data.quote){
+    quoteEl.textContent = '"' + data.quote + '"';
+    quoteEl.hidden = false;
+  } else {
+    quoteEl.hidden = true;
+  }
+  aEl.textContent = data.a;
+  overlay.hidden = false;
+  lastFocused = document.activeElement;
+  closeBtn.focus();
+}
+
+function closePopup(){
+  overlay.hidden = true;
+  if(lastFocused) lastFocused.focus();
+}
+
+document.querySelectorAll('.hot-word[data-key]').forEach(btn => {
+  btn.addEventListener('click', () => openPopup(btn.dataset.key));
+});
+
+closeBtn.addEventListener('click', closePopup);
+overlay.addEventListener('click', (e) => { if(e.target === overlay) closePopup(); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && !overlay.hidden) closePopup(); });
+</script>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<script>
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>

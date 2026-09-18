@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר בראשית — קריאה אינטראקטיבית בפסוקים (פרק י"ז)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .pasuk-flow{ font-size:1.12rem; line-height:2.3; color:var(--ink); }
+  .v-num{
+    display:inline-flex; align-items:center; justify-content:center; width:1.55rem; height:1.55rem;
+    border-radius:50%; background:var(--acc-soft); color:var(--acc); font-weight:800; font-size:.72rem;
+    margin-inline-end:.3rem; vertical-align:middle; font-family:'Heebo',sans-serif;
+  }
+  .hot-word{
+    background:none; border:none; padding:0 .12rem; margin:0 .05rem; font:inherit; font-weight:800;
+    color:var(--acc); cursor:pointer; border-bottom:2.5px dotted var(--acc); border-radius:2px;
+    transition:background .15s ease;
+  }
+  .hot-word:hover, .hot-word:focus-visible{ background:var(--acc-soft); outline:none; }
+  .hot-word .hw-icon{ font-size:.78em; margin-inline-start:.12rem; }
+  .legend{
+    display:flex; flex-wrap:wrap; gap:.6rem 1.4rem; justify-content:center; align-items:center;
+    font-size:.85rem; color:var(--ink-soft); margin:0 0 1.2rem;
+  }
+  .legend b{ color:var(--ink); }
+  .legend .hot-word{ pointer-events:none; }
+
+  .pmodal-overlay{
+    position:fixed; inset:0; background:rgba(31,29,23,.6); display:flex; align-items:center; justify-content:center;
+    padding:1rem; z-index:500;
+  }
+  .pmodal-overlay[hidden]{ display:none; }
+  .pmodal-box{
+    background:#fff; border-radius:18px; max-width:480px; width:100%; padding:1.7rem 1.7rem 1.5rem;
+    box-shadow:0 24px 60px rgba(0,0,0,.35); position:relative; max-height:82vh; overflow-y:auto;
+    border-top:6px solid var(--pmodal-acc, var(--ink));
+    animation:pmodalIn .18s ease;
+  }
+  @keyframes pmodalIn{ from{ opacity:0; transform:translateY(10px) scale(.98); } to{ opacity:1; transform:none; } }
+  .pmodal-close{
+    position:absolute; top:.7rem; left:.7rem; background:var(--paper-2); border:none; width:2.1rem; height:2.1rem;
+    border-radius:50%; cursor:pointer; font-size:1.05rem; color:var(--ink-soft); line-height:1;
+  }
+  .pmodal-close:hover{ background:var(--paper); }
+  .pmodal-badge{
+    display:inline-block; font-size:.78rem; font-weight:800; color:#fff; background:var(--pmodal-acc, var(--ink));
+    padding:.35rem .9rem; border-radius:999px; margin-bottom:.9rem; font-family:'Frank Ruhl Libre',serif;
+  }
+  .pmodal-q{ font-weight:800; margin:0 0 1rem; font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; line-height:1.5; color:var(--ink); }
+  .pmodal-quote{
+    font-style:italic; border-right:3px solid var(--pmodal-acc,var(--ink)); padding:.15rem .8rem;
+    margin:0 0 .9rem; color:var(--ink); font-size:.9rem; line-height:1.65; background:var(--paper-card);
+    border-radius:0 8px 8px 0;
+  }
+  .pmodal-a-label{ font-size:.78rem; font-weight:800; color:var(--pmodal-acc, var(--ink)); margin:0 0 .25rem; }
+  .pmodal-a{ font-size:.95rem; line-height:1.75; color:var(--ink-soft); }
+
+  .topic-banner{ margin-top:2.4rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">ספר בראשית</a>
+  <span class="sep">›</span>
+  <a href="bereshit-17.html">פרק י"ז</a>
+  <span class="sep">›</span>
+  <span class="current">קריאה אינטראקטיבית בפסוקים</span>
+</nav>
+
+<header>
+  <div class="eyebrow">ספר בראשית · קריאה אינטראקטיבית · פרק י"ז</div>
+  <h1>הטקסט המלא, מילה-מילה — פרק י"ז, "ברית המילה"</h1>
+  <p class="sub">קראו את הפסוקים לפי הנושאים. כל מילה עם קו מקווקו ניתנת ללחיצה - היא נוגעת בשאלה מרכזית או בדברי פרשן, ולחיצה עליה תפתח חלונית קצרה עם השאלה והתשובה.</p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
+  <a class="chip-link" href="bereshit-17.html"><span class="chip-icon" aria-hidden="true">📄</span>לדף העבודה המלא</a>
+  <a class="chip-link" href="bereshit-17-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+</p>
+
+<main>
+  <div class="legend">
+    <span><button class="hot-word" style="--acc:#8A5C21;" tabindex="-1">מילה לדוגמה<span class="hw-icon" aria-hidden="true">💬</span></button> = לחצו לפתיחת חלונית</span>
+    <span><b>❓</b> שאלה למחשבה</span>
+    <span><b>💬</b> דברי פרשן</span>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <span class="topic-icon" aria-hidden="true">🚶</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 5</div>
+        <div class="topic-title">"הִתְהַלֵּךְ לְפָנַי וֶהְיֵה תָמִים"</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <div class="card-head">
+        <span class="card-tag">פסוק א'</span>
+        <h2 class="card-title">"הִתְהַלֵּךְ לְפָנַי וֶהְיֵה תָמִים"</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">א</span> וַיְהִי אַבְרָם בֶּן תִּשְׁעִים שָׁנָה וְתֵשַׁע שָׁנִים, וַיֵּרָא ה' אֶל אַבְרָם וַיֹּאמֶר אֵלָיו: <button class="hot-word" data-key="q_age" data-acc="#8A5C21">אֲנִי אֵל שַׁדַּי<span class="hw-icon" aria-hidden="true">❓</span></button>, <button class="hot-word" data-key="m_tanchuma" data-acc="#8A5C21">הִתְהַלֵּךְ לְפָנַי<span class="hw-icon" aria-hidden="true">💬</span></button> וֶהְיֵה תָמִים.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">✂️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 5</div>
+        <div class="topic-title">ברית המילה - הציווי ומשמעותו</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="card-head">
+        <span class="card-tag">פסוקים ט'-י"ד</span>
+        <h2 class="card-title">ברית המילה - הציווי ומשמעותו</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">ט</span> וַיֹּאמֶר אֱלֹהִים אֶל אַבְרָהָם: וְאַתָּה אֶת בְּרִיתִי תִשְׁמֹר, אַתָּה וְזַרְעֲךָ אַחֲרֶיךָ לְדֹרֹתָם.
+          <span class="v-num">י</span> זֹאת בְּרִיתִי אֲשֶׁר תִּשְׁמְרוּ בֵּינִי וּבֵינֵיכֶם וּבֵין זַרְעֲךָ אַחֲרֶיךָ: <button class="hot-word" data-key="q_command" data-acc="#3F6E66">הִמּוֹל לָכֶם כָּל זָכָר<span class="hw-icon" aria-hidden="true">❓</span></button>.
+          <span class="v-num">יא</span> וּ<button class="hot-word" data-key="m_seferhachinuch" data-acc="#3F6E66">נְמַלְתֶּם אֵת בְּשַׂר עָרְלַתְכֶם<span class="hw-icon" aria-hidden="true">💬</span></button>, וְהָיָה לְאוֹת בְּרִית בֵּינִי וּבֵינֵיכֶם.
+          <span class="v-num">יב</span> וּבֶן שְׁמֹנַת יָמִים יִמּוֹל לָכֶם כָּל זָכָר לְדֹרֹתֵיכֶם, יְלִיד בָּיִת וּמִקְנַת כֶּסֶף מִכֹּל בֶּן נֵכָר אֲשֶׁר לֹא מִזַּרְעֲךָ הוּא.
+          <span class="v-num">יג</span> הִמּוֹל יִמּוֹל יְלִיד בֵּיתְךָ וּמִקְנַת כַּסְפֶּךָ, וְהָיְתָה בְרִיתִי בִּבְשַׂרְכֶם לִבְרִית עוֹלָם.
+          <span class="v-num">יד</span> וְעָרֵל זָכָר אֲשֶׁר לֹא יִמּוֹל אֶת בְּשַׂר עָרְלָתוֹ, וְ<button class="hot-word" data-key="q_karet" data-acc="#3F6E66">נִכְרְתָה הַנֶּפֶשׁ הַהִוא<span class="hw-icon" aria-hidden="true">❓</span></button> מֵעַמֶּיהָ.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
+      <span class="topic-icon" aria-hidden="true">🤝</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 5</div>
+        <div class="topic-title">ברית חד-צדדית מול דו-צדדית</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
+      <div class="card-head">
+        <span class="card-tag">פסוק ז'</span>
+        <h2 class="card-title">ברית חד-צדדית מול דו-צדדית</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">ז</span> וַהֲקִמֹתִי אֶת בְּרִיתִי בֵּינִי וּבֵינֶךָ וּבֵין זַרְעֲךָ אַחֲרֶיךָ לְדֹרֹתָם <button class="hot-word" data-key="m_abarbanel" data-acc="#1E2761">לִבְרִית עוֹלָם<span class="hw-icon" aria-hidden="true">💬</span></button>, <button class="hot-word" data-key="q_compare" data-acc="#1E2761">לִהְיוֹת לְךָ לֵאלֹהִים<span class="hw-icon" aria-hidden="true">❓</span></button> וּלְזַרְעֲךָ אַחֲרֶיךָ.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 4 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <span class="topic-icon" aria-hidden="true">😊</span>
+      <div>
+        <div class="topic-eyebrow">נושא 4 מתוך 5</div>
+        <div class="topic-title">שינוי השמות ובשורת יצחק</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <div class="card-head">
+        <span class="card-tag">פסוקים ה', ט"ו, י"ז-י"ט</span>
+        <h2 class="card-title">שינוי השמות ובשורת יצחק</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">ה</span> וְלֹא יִקָּרֵא עוֹד אֶת שִׁמְךָ אַבְרָם, וְהָיָה שִׁמְךָ אַבְרָהָם - כִּי <button class="hot-word" data-key="q_names" data-acc="#8B4A34">אַב הֲמוֹן גּוֹיִם נְתַתִּיךָ<span class="hw-icon" aria-hidden="true">❓</span></button>.
+          <span class="v-num">טו</span> וַיֹּאמֶר אֱלֹהִים אֶל אַבְרָהָם: שָׂרַי אִשְׁתְּךָ לֹא תִקְרָא אֶת שְׁמָהּ שָׂרָי, כִּי שָׂרָה שְׁמָהּ.
+          <span class="v-num">יז</span> וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַ<button class="hot-word" data-key="m_rashi_17" data-acc="#8B4A34">יִּצְחָק<span class="hw-icon" aria-hidden="true">💬</span></button>, וַיֹּאמֶר בְּלִבּוֹ: הַלְּבֶן מֵאָה שָׁנָה יִוָּלֵד וְאִם שָׂרָה הֲבַת תִּשְׁעִים שָׁנָה תֵּלֵד.
+          <span class="v-num">יח</span> וַיֹּאמֶר אַבְרָהָם אֶל הָאֱלֹהִים: לוּ יִשְׁמָעֵאל יִחְיֶה לְפָנֶיךָ.
+          <span class="v-num">יט</span> וַיֹּאמֶר אֱלֹהִים: אֲבָל שָׂרָה אִשְׁתְּךָ יֹלֶדֶת לְךָ בֵּן, וְ<button class="hot-word" data-key="q_yitzchakname" data-acc="#8B4A34">קָרָאתָ אֶת שְׁמוֹ יִצְחָק<span class="hw-icon" aria-hidden="true">❓</span></button>.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 5 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">⚡</span>
+      <div>
+        <div class="topic-eyebrow">נושא 5 מתוך 5</div>
+        <div class="topic-title">קיום המצווה בזריזות</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="card-head">
+        <span class="card-tag">פסוקים כ"ג-כ"ז</span>
+        <h2 class="card-title">קיום המצווה בזריזות</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">כג</span> וַיִּקַּח אַבְרָהָם אֶת יִשְׁמָעֵאל בְּנוֹ וְאֵת כָּל יְלִידֵי בֵיתוֹ וְאֵת כָּל מִקְנַת כַּסְפּוֹ, כָּל זָכָר בְּאַנְשֵׁי בֵּית אַבְרָהָם, וַיָּמָל אֶת בְּשַׂר עָרְלָתָם <button class="hot-word" data-key="m_rashi_23" data-acc="#7A4A73">בְּעֶצֶם הַיּוֹם הַזֶּה<span class="hw-icon" aria-hidden="true">💬</span></button>, <button class="hot-word" data-key="q_promises" data-acc="#7A4A73">כַּאֲשֶׁר דִּבֶּר אִתּוֹ אֱלֹהִים<span class="hw-icon" aria-hidden="true">❓</span></button>.
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <a href="bereshit-17.html">→ לדף העבודה של הפרק</a>
+  <a href="index.html#tab-ya">↺ חזרה ליחידה</a>
+  <span></span>
+</nav>
+
+<footer class="credit">ספר בראשית, פרק י"ז · קריאה אינטראקטיבית בפסוקים</footer>
+
+<div class="pmodal-overlay" id="pmodalOverlay" hidden>
+  <div class="pmodal-box" id="pmodalBox" role="dialog" aria-modal="true" aria-labelledby="pmodalQ">
+    <button class="pmodal-close" id="pmodalClose" type="button" aria-label="סגירה">✕</button>
+    <div class="pmodal-badge" id="pmodalBadge"></div>
+    <p class="pmodal-q" id="pmodalQ"></p>
+    <div class="pmodal-quote" id="pmodalQuote" hidden></div>
+    <div class="pmodal-a-label">✓ התשובה / הרעיון</div>
+    <div class="pmodal-a" id="pmodalA"></div>
+  </div>
+</div>
+
+<script>
+const POPUPS = {
+  q_age: {
+    badge: "❓ שאלה למחשבה", acc: "#8A5C21",
+    q: "בן כמה היה אברם כשה' נגלה אליו בפרק זה? באיזה שם מכנה ה' את עצמו, ומה הוא מבקש מאברהם?",
+    a: "אברם היה בן תשעים ותשע שנה. ה' מכנה עצמו \"אל שדי\", ומבקש מאברהם להתהלך לפניו ולהיות תמים - כלומר, לעבוד את ה' בשלמות, בתמימות ובנאמנות מלאה."
+  },
+  m_tanchuma: {
+    badge: "מדרש תנחומא, \"לך לך\" ו'", acc: "#8A5C21",
+    q: "מה מוסיף המדרש בהבנת \"התהלך לפני\"? למה הוא מדמה את יחסי האבות עם ה'?",
+    quote: "למה האבות היו דרכם לפני הקב\"ה? לנשיא שהוא מהלך וזקניו מהלכין לפניו, והזקנים מודיע כבודו של נשיא. כך היו אבות העולם הולכים לפניו.",
+    a: "המדרש מדמה זאת לזקנים ההולכים לפני הנשיא, ובכך מודיעים לכול את כבודו. כך האבות הלכו לפני ה' והודיעו בעולם את כבודו - ומכאן שעם ישראל נדרש לייצג את דרך ה' בעולם: לפרסם אמונה ולעשות צדקה ומשפט."
+  },
+  q_command: {
+    badge: "❓ שאלה למחשבה", acc: "#3F6E66",
+    q: "מהם עיקרי ציווי ברית המילה - את מי מלים, מתי, ולכמה זמן?",
+    a: "יש למול כל זכר - יליד בית או מקנת כסף (עבד) - את ערלת הבשר, ביום השמיני ללידתו, וזאת לדורות עולם."
+  },
+  m_seferhachinuch: {
+    badge: "ספר החינוך, מצוה ב'", acc: "#3F6E66",
+    q: "מה מסמל הציווי למול דווקא איבר בגוף? מה זה מלמד על תפקידו של האדם?",
+    quote: "והעם הנבחר חפץ השם יתברך להשלים תכונתו... ולא בראו שלם מבטן, לרמוז אליו כי כאשר תושלם צורת גופו על ידו, כן בידו להשלים צורת נפשו.",
+    a: "ה' הותיר את גוף האדם חסר ולא שלם מבטן, כדי לרמוז שכשם שבידו להשלים את צורת גופו (במילה), כך בידו להשלים גם את צורת נפשו. האדם אחראי לעצב את מידותיו ומעשיו ולפעול לתיקון עצמי."
+  },
+  q_karet: {
+    badge: "❓ שאלה למחשבה", acc: "#3F6E66",
+    q: "מה קורה למי שלא נימול? ואילו שני ביטויים חוזרים ומדגישים שזו מצווה נצחית?",
+    a: "מי שלא נימול (\"ערל\") נענש ב\"ונכרתה הנפש ההוא מעמיה\" (כרת). הביטויים \"לדרתיכם\" ו\"ברית עולם\" מדגישים שזו מצווה לדורי דורות, נצחית."
+  },
+  m_abarbanel: {
+    badge: "אברבנאל (פסוק ז')", acc: "#1E2761",
+    q: "מה משמעות הביטוי \"לברית עולם\"? ומה כולל הביטוי \"להיות לך לאלהים ולזרעך אחריך\"?",
+    quote: "ר\"ל נצחי ומתמיד. והברית הוא: \"להיות לך לאלהים ולזרעך אחריך\", ר\"ל שתדבק ההשגחה באברהם כל ימיו, וגם כן תדבק בזרעו בסבתו וזכותו.",
+    a: "\"לברית עולם\" - ברית נצחית ומתמדת. \"להיות לך לאלהים\" - השגחת ה' תדבק באברהם כל ימיו, וגם בזרעו אחריו, בזכותו."
+  },
+  q_compare: {
+    badge: "❓ שאלה למחשבה", acc: "#1E2761",
+    q: "השוו בין ברית בין הבתרים (פרק ט\"ו) לברית המילה (פרק י\"ז) - מה ההבדל בסוג הברית?",
+    a: "ברית בין הבתרים הייתה ברית חד-צדדית - רק ה' מתחייב, ואברם אינו עובר בין הבתרים. ברית המילה היא ברית דו-צדדית - גם אברהם מתחייב לקיים מצווה בגופו (למול את עצמו ואת בני ביתו)."
+  },
+  q_names: {
+    badge: "❓ שאלה למחשבה", acc: "#8B4A34",
+    q: "מה משמעות השם \"אברהם\" (\"אב המון גויים\") לעומת \"אברם\"? ומה משמעות השם \"שרה\" לעומת \"שרי\"?",
+    a: "\"אברם\" הפך ל\"אברהם\" - \"אב המון גויים\", אב לעם רב. \"שרי\" (המבטא בעלות פרטית) הפך ל\"שרה\" - שם כללי, שרה על הכול. שינוי השמות מרחיב את שליחותם ממעמד פרטי לתפקיד כלל-אנושי ולאומי."
+  },
+  m_rashi_17: {
+    badge: "רש\"י (פסוק י\"ז)", acc: "#8B4A34",
+    q: "האם הצחוק של אברהם בפסוק י\"ז הוא צחוק של ספק או של שמחה?",
+    quote: "זה תרגם אונקלוס: וחדי (=ושמח) - לשון שמחה.",
+    a: "לפי רש\"י (בשם תרגום אונקלוס - \"וחדי\"), זהו צחוק של שמחה ולא של ספק. בפסוק הבא אברהם מבקש שישמעאל יחיה ויתקיים ביראת ה' - ואומר בכך שאינו רואה עצמו ראוי לבקש שכר גדול יותר."
+  },
+  q_yitzchakname: {
+    badge: "❓ שאלה למחשבה", acc: "#8B4A34",
+    q: "מאיזו מילה בפרק נגזר השם \"יצחק\" שניתן לבן העתיד להיוולד?",
+    a: "השם \"יצחק\" נגזר מהמילה \"וַיִּצְחָק\" (פסוק י\"ז) - הצחוק (של שמחה, לפי רש\"י) של אברהם למשמע הבשורה שייוולד לו בן."
+  },
+  m_rashi_23: {
+    badge: "רש\"י (פסוק כ\"ג)", acc: "#7A4A73",
+    q: "מה מדגישה התורה בביטוי \"בעצם היום הזה\" לגבי אופן קיום המצווה?",
+    quote: "בו ביום שנצטווה, ביום ולא בלילה, לא נתיירא לא מן הגויים ולא מן הלצנים... שלא יהיו אויביו ובני דורו אומרים: אילו ראינוהו לא הנחנוהו למול.",
+    a: "לפי רש\"י, אברהם מל מיד ביום עצמו שבו נצטווה, ביום (ולא בלילה) ובגלוי - בלי לפחד מהגויים, מהליצנים או מאויביו שהיו יכולים לנסות למנוע ממנו לקיים את המצווה."
+  },
+  q_promises: {
+    badge: "❓ שאלה למחשבה", acc: "#7A4A73",
+    q: "פרק י\"ז מתאר שלוש הבטחות מרכזיות לאברהם ולזרעו. מהן?",
+    a: "הבטחת הזרע, הבטחת הארץ, וההבטחה החדשה - \"להיות לך לאלוקים ולזרעך אחריך\"."
+  }
+};
+
+const overlay = document.getElementById('pmodalOverlay');
+const box = document.getElementById('pmodalBox');
+const badgeEl = document.getElementById('pmodalBadge');
+const qEl = document.getElementById('pmodalQ');
+const quoteEl = document.getElementById('pmodalQuote');
+const aEl = document.getElementById('pmodalA');
+const closeBtn = document.getElementById('pmodalClose');
+let lastFocused = null;
+
+function openPopup(key){
+  const data = POPUPS[key];
+  if(!data) return;
+  box.style.setProperty('--pmodal-acc', data.acc);
+  badgeEl.textContent = data.badge;
+  qEl.textContent = data.q;
+  if(data.quote){
+    quoteEl.textContent = '"' + data.quote + '"';
+    quoteEl.hidden = false;
+  } else {
+    quoteEl.hidden = true;
+  }
+  aEl.textContent = data.a;
+  overlay.hidden = false;
+  lastFocused = document.activeElement;
+  closeBtn.focus();
+}
+
+function closePopup(){
+  overlay.hidden = true;
+  if(lastFocused) lastFocused.focus();
+}
+
+document.querySelectorAll('.hot-word[data-key]').forEach(btn => {
+  btn.addEventListener('click', () => openPopup(btn.dataset.key));
+});
+
+closeBtn.addEventListener('click', closePopup);
+overlay.addEventListener('click', (e) => { if(e.target === overlay) closePopup(); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && !overlay.hidden) closePopup(); });
+</script>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<script>
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>
