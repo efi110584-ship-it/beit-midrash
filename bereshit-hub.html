@@ -113,7 +113,7 @@
   .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
   .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
 
-.q-cue{ font-size:.83rem; color:var(--acc); font-style:italic; margin:0 0 .4rem; }
+.q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   /* פרשני הפרק - קוביות סיכום קטנות: אייקון + שם הפרשן + כפתור אישור */
   .mp-recap-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(115px, 1fr)); gap:.7rem; }
@@ -136,34 +136,74 @@
   .mp-tile.completed .mp-tile-name{ color:var(--teal); }
   .mp-tile.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
-  /* ========== ציר מסע - נעשה שימוש ברכיב mini-timeline הקיים באתר (worksheet-theme.css) ========== */
-  .mini-timeline{ margin-top:.9rem; }
-  .mini-timeline.compact .step{ font-size:.72rem; padding:.45rem .35rem; }
+  /* ========== רכיבי עזר קיימים, בגודל מוקטן לשימוש בתוך קוביות ========== */
+  .mini-timeline{ margin-top:.7rem; }
+  .mini-timeline.compact .step{ font-size:.68rem; padding:.4rem .3rem; }
   .step.fail{ background:var(--rust-soft); border-color:var(--rust); }
   .step.fail small{ color:var(--rust); font-weight:700; }
 
-  /* ========== "מול" - השוואת שני צדדים ========== */
-  .vs-compare{ display:flex; align-items:stretch; gap:0; margin:.9rem 0; border-radius:14px; overflow:hidden; box-shadow:var(--shadow); }
-  .vs-side{ flex:1; padding:.9rem 1rem; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.35rem; }
+  .vs-compare{ display:flex; align-items:stretch; gap:0; margin:.7rem 0; border-radius:12px; overflow:hidden; box-shadow:var(--shadow); }
+  .vs-side{ flex:1; padding:.7rem .8rem; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.3rem; }
   .vs-a{ background:var(--teal-soft); }
   .vs-b{ background:var(--acc-soft); }
-  .vs-icon{ font-size:1.6rem; }
-  .vs-title{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.95rem; color:var(--ink); }
-  .vs-desc{ font-size:.78rem; line-height:1.5; color:var(--ink-soft); }
-  .vs-mid{ flex:none; width:2.4rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.8rem; color:#fff; background:var(--ink); }
+  .vs-icon{ font-size:1.35rem; }
+  .vs-title{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.85rem; color:var(--ink); }
+  .vs-desc{ font-size:.72rem; line-height:1.45; color:var(--ink-soft); }
+  .vs-mid{ flex:none; width:2rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.72rem; color:#fff; background:var(--ink); }
 
-  /* ========== באנר מעבר בין נושאים - הפרדה חזותית ברורה ========== */
-  .topic-banner{ margin-top:2.4rem; }
+  .border-strip{ display:flex; align-items:center; justify-content:center; gap:.6rem; margin:.7rem 0 .5rem; }
+  .border-end{ background:var(--acc-soft); color:var(--acc); border:1.5px solid var(--acc); border-radius:999px; padding:.4rem 1rem; font-size:.8rem; font-weight:700; }
+  .border-arrow{ font-size:1.15rem; color:var(--acc); }
+
+  .nations-grid{ display:flex; flex-wrap:wrap; gap:.4rem; justify-content:center; }
+  .nation-chip{ background:#fff; color:var(--ink); border:1.5px solid var(--paper-line); border-radius:999px; padding:.35rem .85rem; font-size:.76rem; font-weight:700; }
+
+  .topic-banner{ margin-top:2.6rem; }
   .grid > .topic-banner:first-of-type{ margin-top:0; }
 
-  /* ========== גבולות הארץ - שני קצוות עם חץ ========== */
-  .border-strip{ display:flex; align-items:center; justify-content:center; gap:.8rem; margin:.9rem 0 .7rem; }
-  .border-end{ background:var(--acc-soft); color:var(--acc); border:1.5px solid var(--acc); border-radius:999px; padding:.45rem 1.1rem; font-size:.85rem; font-weight:700; }
-  .border-arrow{ font-size:1.3rem; color:var(--acc); }
+  /* ========== תרשים-זרימה: קוביית-שורש שמסתעפת לקוביות-שאלה ========== */
+  .qb-topic{ grid-column: 1 / -1; }
+  .qb-root{
+    max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
+    padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
+  }
+  .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
+  .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
+  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
+  .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
+  .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
 
-  /* ========== רשימת עשרת העמים - שבבים קטנים ========== */
-  .nations-grid{ display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; }
-  .nation-chip{ background:#fff; color:var(--ink); border:1.5px solid var(--paper-line); border-radius:999px; padding:.4rem 1rem; font-size:.82rem; font-weight:700; }
+  .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
+  .qb-connector::after{
+    content:""; position:absolute; bottom:-1px; right:50%; transform:translateX(50%);
+    border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
+  }
+
+  .qb-branches{
+    display:flex; flex-wrap:wrap; gap:1.1rem;
+    position:relative; padding-top:22px; margin-top:-22px;
+  }
+  .qb-branches::before{
+    content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
+  }
+  .qb-card{
+    flex:1 1 260px;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
+    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
+    min-width:0;
+  }
+  .qb-card > *{ width:100%; max-width:640px; }
+  .qb-meforesh{
+    font-size:.78rem; font-style:italic; color:var(--ink-soft); border-right:2.5px solid var(--acc);
+    padding-right:.55rem; line-height:1.55;
+  }
+  .qb-meforesh .qb-src{ display:block; font-style:normal; font-weight:800; color:var(--acc); font-size:.72rem; margin-bottom:.15rem; }
+  .qb-card .question-block{ display:flex; flex-direction:column; gap:.5rem; }
+  .qb-card .question-row{ align-items:flex-start; }
+  .qb-card .q-text{ font-size:.86rem; line-height:1.5; }
+  .qb-card textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
+  .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
+  .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
 
 .q-cue{ font-size:.83rem; color:var(--acc); font-style:italic; margin:0 0 .4rem; }
 
@@ -821,7 +861,7 @@
         <div class="topic-eyebrow">ספר בראשית 2 מתוך 5</div>
         <h2 class="topic-title">דף עבודה — פרק ט&quot;ו, &quot;ברית בין הבתרים&quot;</h2>
       </div>
-      <div class="topic-counter" data-topic-counter="topic-ch15">0/7</div>
+      <div class="topic-counter" data-topic-counter="topic-ch15">0/2</div>
     </div><p class="topic-extra-link"> <a class="chip-link" href="bereshit-15-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a> <a class="chip-link" href="bereshit-15-text.html"><span class="chip-icon" aria-hidden="true">🔍</span>קריאה אינטראקטיבית בפסוקים</a></p>
     <div class="grid">
 
@@ -848,13 +888,11 @@
         <div class="topic-title">הבטחת הזרע</div>
       </div>
     </div>
-    <section class="card" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F3E7D2;">
-      <div class="card-head">
-        <span class="card-tag">נושא 1 · פסוקים א'-ו'</span>
-        <h2 class="card-title">הבטחת הזרע</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">
+    <div class="qb-topic" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">⭐</span>
+        <div class="qb-root-label">פסוקים א'-ו'</div>
+        <div class="qb-root-pasuk">
           <b>א:</b> אַחַר הַדְּבָרִים הָאֵלֶּה הָיָה דְבַר ה' אֶל אַבְרָם בַּמַּחֲזֶה לֵאמֹר: אַל תִּירָא אַבְרָם, אָנֹכִי מָגֵן לָךְ, שְׂכָרְךָ הַרְבֵּה מְאֹד.<br>
           <b>ב:</b> וַיֹּאמֶר אַבְרָם: אֲדֹנָי ה' מַה תִּתֶּן לִי וְאָנֹכִי הוֹלֵךְ עֲרִירִי, וּבֶן מֶשֶׁק בֵּיתִי הוּא דַּמֶּשֶׂק אֱלִיעֶזֶר.<br>
           <b>ג:</b> וַיֹּאמֶר אַבְרָם: הֵן לִי לֹא נָתַתָּה זָרַע, וְהִנֵּה בֶן בֵּיתִי יוֹרֵשׁ אֹתִי.<br>
@@ -862,55 +900,61 @@
           <b>ה:</b> וַיּוֹצֵא אֹתוֹ הַחוּצָה וַיֹּאמֶר: הַבֶּט נָא הַשָּׁמַיְמָה וּסְפֹר הַכּוֹכָבִים אִם תּוּכַל לִסְפֹּר אֹתָם; וַיֹּאמֶר לוֹ: כֹּה יִהְיֶה זַרְעֶךָ.<br>
           <b>ו:</b> וְהֶאֱמִן בַּה', וַיַּחְשְׁבֶהָ לּוֹ צְדָקָה.
         </div>
-
-        <div class="meforesh-block">
-          <span class="src">אברבנאל (פסוק ג'):</span>
-          <q>פעמים רבות יקרה לאדם העניו שיבוש ויכלם מלשאול שאלה מאדוניו בפירוש, וישאלנה ברמיזות... וכאשר ראה אברהם שלא השיבו יתברך, חזר לדבר פעם שנית בביאור ולא ברמיזות, באמרו "הן לי לא נתת זרע".</q>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "מַה תִּתֶּן לִי וְאָנֹכִי הוֹלֵךְ עֲרִירִי" (פסוק ב') לעומת "הֵן לִי לֹא נָתַתָּה זָרַע" (פסוק ג')</p>
-          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="ch15__a11y-lbl-1">לפי אברבנאל, למה אברם חוזר ושואל את ה' פעמיים - קודם ברמז ("מה תתן לי") ואחר כך במפורש ("הן לי לא נתת זרע")?</span></div>
-          <textarea class="answer" aria-labelledby="ch15__a11y-lbl-1" data-id="ch15__q1" placeholder="כתבו כאן את התשובה..." style="min-height:130px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי אברבנאל, אברם תחילה מרמז בביישנות על כך שאין לו יורש ("מה תתן לי ואנכי הולך ערירי"). כשה' לא עונה לרמז, הוא נאלץ לשאול פעם שנייה במפורש ("הן לי לא נתת זרע"). הכפילות מלמדת על שני שלבים בפנייתו.</div>
-        </div>
-
-        <div class="meforesh-block">
-          <span class="src">רש"י (פסוק ה') - "וַיּוֹצֵא אֹתוֹ הַחוּצָה":</span>
-          <q>לפי פשוטו: הוציאו מאהלו לחוץ לראות הכוכבים. ולפי מדרשו: אמר לו צא מאצטגנינות שלך שראית במזלות שאינך עתיד להעמיד בן... אני קורא לכם שם אחר וישתנה המזל. דבר אחר: הוציאו מחללו של עולם והגביהו למעלה מן הכוכבים, וזהו לשון הבטה מלמעלה למטה.</q>
-        </div>
-
-        <div class="mini-timeline" role="img" aria-label="שלוש הדרכים בהן מסביר רש"י את ויוצא אתו החוצה">
-          <div class="step"><span class="step-icon" aria-hidden="true">👁️</span>פשט<br><small>הוציאו לראות כוכבים</small></div>
-          <div class="arrow" aria-hidden="true">←</div>
-          <div class="step"><span class="step-icon" aria-hidden="true">🔮</span>דרש א'<br><small>צא מהאצטגנינות</small></div>
-          <div class="arrow" aria-hidden="true">←</div>
-          <div class="step"><span class="step-icon" aria-hidden="true">⬆️</span>דרש ב'<br><small>הגביהו מעל הכוכבים</small></div>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "וַיּוֹצֵא אֹתוֹ הַחוּצָה וַיֹּאמֶר: הַבֶּט נָא הַשָּׁמַיְמָה" (פסוק ה')</p>
-          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="ch15__a11y-lbl-2">הביאו את שלוש הדרכים שבהן מסביר רש"י את "ויוצא אתו החוצה" - לפי הפשט ולפי שני מדרשים.</span></div>
-          <textarea class="answer" aria-labelledby="ch15__a11y-lbl-2" data-id="ch15__q2" placeholder="כתבו כאן את התשובה..." style="min-height:140px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> פשט: הוציא את אברם מהאוהל כדי שיוכל לראות בעיניו את הכוכבים. דרש א': אמר לו לצאת מהאצטגנינות (הידיעה במזלות) שממנה חשב שלא יהיה לו בן - כי שינוי השם ישנה את המזל. דרש ב': הוציא אותו מעל לכל העולם, מעל לכוכבים עצמם - ולכן הלשון "הבט" (מלמעלה למטה).</div>
-        </div>
-
-        <div class="meforesh-block">
-          <span class="src">רש"י (פסוק ו') - "וְהֶאֱמִן בַּה'":</span>
-          <q>לא שאל לו אות על זאת... ויחשבה לו צדקה - הקב"ה חשבה לאברם לזכות ולצדקה על האמונה שהאמין בו.</q>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "וְהֶאֱמִן בַּה', וַיַּחְשְׁבֶהָ לּוֹ צְדָקָה" (פסוק ו')</p>
-          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="ch15__a11y-lbl-3">בפסוק ו' יש שני פעלים - "והאמן" ו"ויחשבה". מי הנושא (הפועַל) של כל אחד מהם? ומה מיוחד, לפי רש"י, באמונה של אברם כאן?</span></div>
-          <textarea class="answer" aria-labelledby="ch15__a11y-lbl-3" data-id="ch15__q3" placeholder="כתבו כאן את התשובה..." style="min-height:140px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אברם הוא הנושא של "והאמין" (הוא זה שהאמין); ה' הוא הנושא של "ויחשבה" (הוא זה שהחשיב). ה' החשיב את אמונתו המלאה של אברם - שהאמין בהבטחה בלי לבקש שום אות - לזכות ולצדקה.</div>
-        </div>
       </div>
-    </section>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">אברבנאל (פסוק ג')</span>
+            פעמים רבות יקרה לאדם העניו שיבוש מלשאול שאלה מאדוניו בפירוש, וישאלנה ברמיזות... וכאשר ראה אברהם שלא השיבו יתברך, חזר לדבר פעם שנית בביאור, באמרו "הן לי לא נתת זרע".
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "מַה תִּתֶּן לִי וְאָנֹכִי הוֹלֵךְ עֲרִירִי" (פסוק ב') לעומת "הֵן לִי לֹא נָתַתָּה זָרַע" (פסוק ג')</p>
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="ch15__a11y-lbl-1">לפי אברבנאל, למה אברם חוזר ושואל את ה' פעמיים - קודם ברמז ("מה תתן לי") ואחר כך במפורש ("הן לי לא נתת זרע")?</span></div>
+            <textarea class="answer" aria-labelledby="ch15__a11y-lbl-1" data-id="ch15__q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי אברבנאל, אברם תחילה מרמז בביישנות על כך שאין לו יורש ("מה תתן לי ואנכי הולך ערירי"). כשה' לא עונה לרמז, הוא נאלץ לשאול פעם שנייה במפורש ("הן לי לא נתת זרע"). הכפילות מלמדת על שני שלבים בפנייתו.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י (פסוק ה') - "וַיּוֹצֵא אֹתוֹ הַחוּצָה"</span>
+            לפי פשוטו: הוציאו מאהלו לחוץ לראות הכוכבים. ולפי מדרשו: אמר לו צא מאצטגנינות שלך... דבר אחר: הוציאו מחללו של עולם והגביהו למעלה מן הכוכבים.
+          </div>
+          <div class="mini-timeline" role="img" aria-label="שלוש הדרכים בהן מסביר רש"י את ויוצא אתו החוצה">
+            <div class="step"><span class="step-icon" aria-hidden="true">👁️</span>פשט<br><small>הוציאו לראות כוכבים</small></div>
+            <div class="arrow" aria-hidden="true">←</div>
+            <div class="step"><span class="step-icon" aria-hidden="true">🔮</span>דרש א'<br><small>צא מהאצטגנינות</small></div>
+            <div class="arrow" aria-hidden="true">←</div>
+            <div class="step"><span class="step-icon" aria-hidden="true">⬆️</span>דרש ב'<br><small>הגביהו מעל הכוכבים</small></div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיּוֹצֵא אֹתוֹ הַחוּצָה וַיֹּאמֶר: הַבֶּט נָא הַשָּׁמַיְמָה" (פסוק ה')</p>
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="ch15__a11y-lbl-2">הביאו את שלוש הדרכים שבהן מסביר רש"י את "ויוצא אתו החוצה" - לפי הפשט ולפי שני מדרשים.</span></div>
+            <textarea class="answer" aria-labelledby="ch15__a11y-lbl-2" data-id="ch15__q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> פשט: הוציא את אברם מהאוהל כדי שיוכל לראות בעיניו את הכוכבים. דרש א': אמר לו לצאת מהאצטגנינות (הידיעה במזלות) שממנה חשב שלא יהיה לו בן - כי שינוי השם ישנה את המזל. דרש ב': הוציא אותו מעל לכל העולם, מעל לכוכבים עצמם - ולכן הלשון "הבט" (מלמעלה למטה).</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י (פסוק ו') - "וְהֶאֱמִן בַּה'"</span>
+            לא שאל לו אות על זאת... ויחשבה לו צדקה - הקב"ה חשבה לאברם לזכות ולצדקה על האמונה שהאמין בו.
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְהֶאֱמִן בַּה', וַיַּחְשְׁבֶהָ לּוֹ צְדָקָה" (פסוק ו')</p>
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="ch15__a11y-lbl-3">בפסוק ו' יש שני פעלים - "והאמן" ו"ויחשבה". מי הנושא (הפועַל) של כל אחד מהם? ומה מיוחד, לפי רש"י, באמונה של אברם כאן?</span></div>
+            <textarea class="answer" aria-labelledby="ch15__a11y-lbl-3" data-id="ch15__q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אברם הוא הנושא של "והאמין" (הוא זה שהאמין); ה' הוא הנושא של "ויחשבה" (הוא זה שהחשיב). ה' החשיב את אמונתו המלאה של אברם - שהאמין בהבטחה בלי לבקש שום אות - לזכות ולצדקה.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
     <!-- נושא 2 -->
     <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
@@ -920,74 +964,79 @@
         <div class="topic-title">"במה אדע" - בקשת האות וטקס הברית</div>
       </div>
     </div>
-    <section class="card" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
-      <div class="card-head">
-        <span class="card-tag">נושא 2 · פסוקים ז'-יא'</span>
-        <h2 class="card-title">"במה אדע" - בקשת האות וטקס הברית</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">
+    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🕊️</span>
+        <div class="qb-root-label">פסוקים ז'-י"א</div>
+        <div class="qb-root-pasuk">
           <b>ז:</b> וַיֹּאמֶר אֵלָיו: אֲנִי ה' אֲשֶׁר הוֹצֵאתִיךָ מֵאוּר כַּשְׂדִּים לָתֶת לְךָ אֶת הָאָרֶץ הַזֹּאת לְרִשְׁתָּהּ.<br>
           <b>ח:</b> וַיֹּאמַר: אֲדֹנָי ה' בַּמָּה אֵדַע כִּי אִירָשֶׁנָּה.<br>
           <b>ט:</b> וַיֹּאמֶר אֵלָיו: קְחָה לִי עֶגְלָה מְשֻׁלֶּשֶׁת וְעֵז מְשֻׁלֶּשֶׁת וְאַיִל מְשֻׁלָּשׁ, וְתֹר וְגוֹזָל.<br>
           <b>י:</b> וַיִּקַּח לוֹ אֶת כָּל אֵלֶּה וַיְבַתֵּר אֹתָם בַּתָּוֶךְ, וַיִּתֵּן אִישׁ בִּתְרוֹ לִקְרַאת רֵעֵהוּ; וְאֶת הַצִּפֹּר לֹא בָתָר.<br>
           <b>יא:</b> וַיֵּרֶד הָעַיִט עַל הַפְּגָרִים, וַיַּשֵּׁב אֹתָם אַבְרָם.
         </div>
-
-        <div class="vs-compare" role="img" aria-label="השוואת לשון פתיחה: ברית בין הבתרים מול עשרת הדברות">
-          <div class="vs-side vs-a">
-            <span class="vs-icon" aria-hidden="true">🕊️</span>
-            <div class="vs-title">ברית בין הבתרים (ט"ו, ז')</div>
-            <div class="vs-desc">"אֲנִי ה' אֲשֶׁר הוֹצֵאתִיךָ מֵאוּר כַּשְׂדִּים לָתֶת לְךָ אֶת הָאָרֶץ הַזֹּאת"</div>
-          </div>
-          <div class="vs-mid" aria-hidden="true">מול</div>
-          <div class="vs-side vs-b">
-            <span class="vs-icon" aria-hidden="true">📜</span>
-            <div class="vs-title">עשרת הדברות (שמות כ', ב')</div>
-            <div class="vs-desc">"אָנֹכִי ה' אֱלֹהֶיךָ אֲשֶׁר הוֹצֵאתִיךָ מֵאֶרֶץ מִצְרַיִם מִבֵּית עֲבָדִים"</div>
-          </div>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "אֲנִי ה' אֲשֶׁר הוֹצֵאתִיךָ מֵאוּר כַּשְׂדִּים" (פסוק ז')</p>
-          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="ch15__a11y-lbl-4">שימו לב ללשון הפתיחה של פסוק ז' - "אני ה' אשר הוצאתיך מ...". באיזה מקום אחר בתורה פותח ה' בלשון דומה? מה, לדעתכם, המשמעות של הדמיון הזה?</span></div>
-          <textarea class="answer" aria-labelledby="ch15__a11y-lbl-4" data-id="ch15__q4" placeholder="כתבו כאן את התשובה..." style="min-height:140px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הלשון דומה לפתיחת עשרת הדברות: "אנכי ה' אלהיך אשר הוצאתיך מארץ מצרים מבית עבדים". בשני המקומות ה' פותח בהזכרת מעשה הצלה/הוצאה, לפני שהוא ממשיך לציווי או להבטחה - כאילו הוא מזכיר לאברהם (ואחר כך לעם כולו) את הזכות שכבר עשה איתם, כבסיס להמשך היחסים.</div>
-        </div>
-
-        <div class="meforesh-block">
-          <span class="src">רמב"ן (פסוק ח') - "בַּמָּה אֵדַע כִּי אִירָשֶׁנָּה":</span>
-          <q>בקש אברהם שידע ידיעה אמיתית שיירשנה, ולא יגרום חטאו או חטא זרעו למונעה מהם, או שמא יעשו הכנענים תשובה... והקב"ה כרת עמו ברית שיירשנה על כל פנים.</q>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "בַּמָּה אֵדַע כִּי אִירָשֶׁנָּה" (פסוק ח')</p>
-          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="ch15__a11y-lbl-5">מה, לפי הרמב"ן, אברם באמת מבקש כשהוא שואל "במה אדע כי אירשנה"? ממה הוא חושש?</span></div>
-          <textarea class="answer" aria-labelledby="ch15__a11y-lbl-5" data-id="ch15__q5" placeholder="כתבו כאן את התשובה..." style="min-height:140px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי הרמב"ן, אברם לא מפקפק בהבטחה עצמה, אלא חושש שמא חטא שלו או של זרעו בעתיד ימנע את קיומה, או שמא הכנענים יחזרו בתשובה ולא יהיה צידוק להוריש אותם מארצם. בתשובה לכך, ה' כורת איתו ברית שהארץ תינתן לזרעו על כל פנים.</div>
-        </div>
-
-        <div class="mini-timeline" role="img" aria-label="שלבי טקס ברית בין הבתרים">
-          <div class="step"><span class="step-icon" aria-hidden="true">🐐</span>מביא בהמות<br><small>עגלה, עז, איל, תור וגוזל</small></div>
-          <div class="arrow" aria-hidden="true">←</div>
-          <div class="step"><span class="step-icon" aria-hidden="true">✂️</span>בוקע לשניים<br><small>מניח את החצאים זה מול זה</small></div>
-          <div class="arrow" aria-hidden="true">←</div>
-          <div class="step fail"><span class="step-icon" aria-hidden="true">🦅</span>עיט יורד<br><small>מנסה לטרוף את הפגרים</small></div>
-          <div class="arrow" aria-hidden="true">←</div>
-          <div class="step"><span class="step-icon" aria-hidden="true">✋</span>אברם מבריח<br><small>שומר על הבתרים</small></div>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "וַיְבַתֵּר אֹתָם בַּתָּוֶךְ... וְאֶת הַצִּפֹּר לֹא בָתָר" (פסוק י')</p>
-          <div class="question-row"><span class="q-num">6</span><span class="q-text" id="ch15__a11y-lbl-6">תארו במילים שלכם את הטקס שה' מצווה על אברם לעשות בפסוקים ט'-י'. מה עושה העיט (עוף הדורס), ואיך אברם מגיב?</span></div>
-          <textarea class="answer" aria-labelledby="ch15__a11y-lbl-6" data-id="ch15__q6" placeholder="כתבו כאן את התשובה..." style="min-height:140px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אברם ביתר את הבהמות (עגלה, עז, איל) וסידר את הבתרים זה מול זה - הציפורים (תור וגוזל) לא ביתר. עיט יורד לנסות לטרוף את הפגרים, ואברם מבריח אותו ושומר על סדר הטקס - כך נכרתה הברית.</div>
-        </div>
       </div>
-    </section>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="vs-compare" role="img" aria-label="השוואת לשון פתיחה: ברית בין הבתרים מול עשרת הדברות">
+            <div class="vs-side vs-a">
+              <span class="vs-icon" aria-hidden="true">🕊️</span>
+              <div class="vs-title">ברית בין הבתרים (ט"ו, ז')</div>
+              <div class="vs-desc">"אני ה' אשר הוצאתיך מאור כשדים"</div>
+            </div>
+            <div class="vs-mid" aria-hidden="true">מול</div>
+            <div class="vs-side vs-b">
+              <span class="vs-icon" aria-hidden="true">📜</span>
+              <div class="vs-title">עשרת הדברות (שמות כ', ב')</div>
+              <div class="vs-desc">"אנכי ה' אלהיך אשר הוצאתיך מארץ מצרים"</div>
+            </div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "אֲנִי ה' אֲשֶׁר הוֹצֵאתִיךָ מֵאוּר כַּשְׂדִּים" (פסוק ז')</p>
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="ch15__a11y-lbl-4">שימו לב ללשון הפתיחה של פסוק ז' - "אני ה' אשר הוצאתיך מ...". באיזה מקום אחר בתורה פותח ה' בלשון דומה? מה, לדעתכם, המשמעות של הדמיון הזה?</span></div>
+            <textarea class="answer" aria-labelledby="ch15__a11y-lbl-4" data-id="ch15__q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הלשון דומה לפתיחת עשרת הדברות: "אנכי ה' אלהיך אשר הוצאתיך מארץ מצרים מבית עבדים". בשני המקומות ה' פותח בהזכרת מעשה הצלה, לפני שהוא ממשיך לציווי או להבטחה - כאילו מזכיר את הזכות שכבר עשה, כבסיס להמשך היחסים.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רמב"ן (פסוק ח') - "בַּמָּה אֵדַע כִּי אִירָשֶׁנָּה"</span>
+            בקש אברהם שידע ידיעה אמיתית שיירשנה, ולא יגרום חטאו או חטא זרעו למונעה מהם, או שמא יעשו הכנענים תשובה... והקב"ה כרת עמו ברית שיירשנה על כל פנים.
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "בַּמָּה אֵדַע כִּי אִירָשֶׁנָּה" (פסוק ח')</p>
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="ch15__a11y-lbl-5">מה, לפי הרמב"ן, אברם באמת מבקש כשהוא שואל "במה אדע כי אירשנה"? ממה הוא חושש?</span></div>
+            <textarea class="answer" aria-labelledby="ch15__a11y-lbl-5" data-id="ch15__q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי הרמב"ן, אברם לא מפקפק בהבטחה עצמה, אלא חושש שמא חטא שלו או של זרעו בעתיד ימנע את קיומה, או שמא הכנענים יחזרו בתשובה. בתשובה לכך, ה' כורת איתו ברית שהארץ תינתן לזרעו על כל פנים.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="mini-timeline compact" role="img" aria-label="שלבי טקס ברית בין הבתרים">
+            <div class="step"><span class="step-icon" aria-hidden="true">🐐</span>מביא בהמות</div>
+            <div class="arrow" aria-hidden="true">←</div>
+            <div class="step"><span class="step-icon" aria-hidden="true">✂️</span>בוקע לשניים</div>
+            <div class="arrow" aria-hidden="true">←</div>
+            <div class="step fail"><span class="step-icon" aria-hidden="true">🦅</span>עיט יורד</div>
+            <div class="arrow" aria-hidden="true">←</div>
+            <div class="step"><span class="step-icon" aria-hidden="true">✋</span>אברם מבריח</div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיְבַתֵּר אֹתָם בַּתָּוֶךְ... וְאֶת הַצִּפֹּר לֹא בָתָר" (פסוק י')</p>
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="ch15__a11y-lbl-6">תארו במילים שלכם את הטקס שה' מצווה על אברם לעשות בפסוקים ט'-י'. מה עושה העיט (עוף הדורס), ואיך אברם מגיב?</span></div>
+            <textarea class="answer" aria-labelledby="ch15__a11y-lbl-6" data-id="ch15__q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אברם ביתר את הבהמות (עגלה, עז, איל) וסידר את הבתרים זה מול זה - הציפורים (תור וגוזל) לא ביתר. עיט יורד לנסות לטרוף את הפגרים, ואברם מבריח אותו ושומר על סדר הטקס - כך נכרתה הברית.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
     <!-- נושא 3 -->
     <div class="topic-banner" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
@@ -997,40 +1046,45 @@
         <div class="topic-title">סמליות הברית - בהמות מול ציפור</div>
       </div>
     </div>
-    <section class="card" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
-      <div class="card-head">
-        <span class="card-tag">נושא 3 · פסוקים י'-י"א</span>
-        <h2 class="card-title">סמליות הברית - בהמות מול ציפור</h2>
+    <div class="qb-topic" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🦅</span>
+        <div class="qb-root-label">פסוקים י'-י"א (המשך)</div>
+        <div class="qb-root-pasuk" style="font-style:italic;">"וַיְבַתֵּר אֹתָם בַּתָּוֶךְ... וְאֶת הַצִּפֹּר לֹא בָתָר... וַיֵּרֶד הָעַיִט עַל הַפְּגָרִים"</div>
+        <div class="qb-root-note">אותם פסוקים שבנושא הקודם מלמדים גם על סמליות עמוקה יותר של הטקס.</div>
       </div>
-      <div class="card-body">
-        <div class="meforesh-block">
-          <span class="src">רש"י (פסוק י') - "וְאֶת הַצִּפֹּר לֹא בָתָר":</span>
-          <q>לפי שהאומות נמשלו לפרים ואילים ושעירים... וישראל נמשלו לבני יונה... לפיכך בתר הבהמות רמז על האומות שיהיו כלין והולכין, ואת הציפור לא בתר - רמז שיהיו ישראל קיימין לעולם.</q>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י (פסוק י') - "וְאֶת הַצִּפֹּר לֹא בָתָר"</span>
+            לפי שהאומות נמשלו לפרים ואילים ושעירים... וישראל נמשלו לבני יונה... לפיכך בתר הבהמות רמז על האומות שיהיו כלין והולכין, ואת הציפור לא בתר - רמז שיהיו ישראל קיימין לעולם.
+          </div>
+          <div class="vs-compare" role="img" aria-label="השוואה: הבהמות מסמלות את האומות, הציפור מסמלת את ישראל">
+            <div class="vs-side vs-a">
+              <span class="vs-icon" aria-hidden="true">🐐</span>
+              <div class="vs-title">הבהמות - האומות</div>
+              <div class="vs-desc">ביתורן רומז שהאומות עתידות לכלות ולחלוף.</div>
+            </div>
+            <div class="vs-mid" aria-hidden="true">מול</div>
+            <div class="vs-side vs-b">
+              <span class="vs-icon" aria-hidden="true">🕊️</span>
+              <div class="vs-title">הציפור - ישראל</div>
+              <div class="vs-desc">שלא נבתרה - רומז שישראל יתקיימו לעולם.</div>
+            </div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "בְּתָרִים... וְאֶת הַצִּפֹּר לֹא בָתָר... וַיֵּרֶד הָעַיִט" (פסוקים י'-י"א)</p>
+            <div class="question-row"><span class="q-num">7</span><span class="q-text" id="ch15__a11y-lbl-7">לפי רש"י, מה מסמלות הבהמות שאברם ביתר, ומה מסמלת הציפור שלא ביתר? ומה, לפי זה, מסמלת בריחת העיט?</span></div>
+            <textarea class="answer" aria-labelledby="ch15__a11y-lbl-7" data-id="ch15__q7" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הבהמות (עגלה, עז, איל) מסמלות את האומות - שביתורן רומז שהן עתידות לכלות ולחלוף. הציפור, שלא ביתר, מסמלת את עם ישראל - שיתקיים לעולם. הרחקת העיט (שרוצה לטרוף) מסמלת את דחיית מבקשי כליית ישראל, עד לגאולה.</div>
+          </div>
         </div>
 
-        <div class="vs-compare" role="img" aria-label="השוואה: הבהמות מסמלות את האומות, הציפור מסמלת את ישראל">
-          <div class="vs-side vs-a">
-            <span class="vs-icon" aria-hidden="true">🐐</span>
-            <div class="vs-title">הבהמות - האומות</div>
-            <div class="vs-desc">ביתורן רומז שהאומות עתידות לכלות ולחלוף.</div>
-          </div>
-          <div class="vs-mid" aria-hidden="true">מול</div>
-          <div class="vs-side vs-b">
-            <span class="vs-icon" aria-hidden="true">🕊️</span>
-            <div class="vs-title">הציפור - ישראל</div>
-            <div class="vs-desc">שלא נבתרה - רומז שישראל יתקיימו לעולם.</div>
-          </div>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "בְּתָרִים... וְאֶת הַצִּפֹּר לֹא בָתָר... וַיֵּרֶד הָעַיִט" (פסוקים י'-י"א)</p>
-          <div class="question-row"><span class="q-num">7</span><span class="q-text" id="ch15__a11y-lbl-7">לפי רש"י, מה מסמלות הבהמות שאברם ביתר, ומה מסמלת הציפור שלא ביתר? ומה, לפי זה, מסמלת בריחת העיט?</span></div>
-          <textarea class="answer" aria-labelledby="ch15__a11y-lbl-7" data-id="ch15__q7" placeholder="כתבו כאן את התשובה..." style="min-height:150px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הבהמות (עגלה, עז, איל) מסמלות את האומות - שביתורן רומז שהן עתידות לכלות ולחלוף. הציפור, שלא ביתר, מסמלת את עם ישראל - שיתקיים לעולם. הרחקת העיט (שרוצה לטרוף) מסמלת את דחיית מבקשי כליית ישראל, עד לגאולה.</div>
-        </div>
       </div>
-    </section>
+    </div>
 
     <!-- נושא 4 -->
     <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
@@ -1040,57 +1094,60 @@
         <div class="topic-title">גזירת הגלות והגאולה</div>
       </div>
     </div>
-    <section class="card" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
-      <div class="card-head">
-        <span class="card-tag">נושא 4 · פסוקים י"ב-ט"ז</span>
-        <h2 class="card-title">גזירת הגלות והגאולה</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">
+    <div class="qb-topic" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">⛓️</span>
+        <div class="qb-root-label">פסוקים י"ב-ט"ז</div>
+        <div class="qb-root-pasuk">
           <b>יב:</b> וַיְהִי הַשֶּׁמֶשׁ לָבוֹא וְתַרְדֵּמָה נָפְלָה עַל אַבְרָם, וְהִנֵּה אֵימָה חֲשֵׁכָה גְדֹלָה נֹפֶלֶת עָלָיו.<br>
           <b>יג:</b> וַיֹּאמֶר לְאַבְרָם: יָדֹעַ תֵּדַע כִּי גֵר יִהְיֶה זַרְעֲךָ בְּאֶרֶץ לֹא לָהֶם, וַעֲבָדוּם וְעִנּוּ אֹתָם אַרְבַּע מֵאוֹת שָׁנָה.<br>
           <b>יד:</b> וְגַם אֶת הַגּוֹי אֲשֶׁר יַעֲבֹדוּ דָּן אָנֹכִי, וְאַחֲרֵי כֵן יֵצְאוּ בִּרְכֻשׁ גָּדוֹל.<br>
           <b>טו:</b> וְאַתָּה תָּבוֹא אֶל אֲבֹתֶיךָ בְּשָׁלוֹם, תִּקָּבֵר בְּשֵׂיבָה טוֹבָה.<br>
           <b>טז:</b> וְדוֹר רְבִיעִי יָשׁוּבוּ הֵנָּה, כִּי לֹא שָׁלֵם עֲוֹן הָאֱמֹרִי עַד הֵנָּה.
         </div>
-
-        <div class="meforesh-block">
-          <span class="src">רש"י (פסוק י"ב) - "וְהִנֵּה אֵימָה":</span>
-          <q>רמז לצרות וחשך של גליות.</q>
-        </div>
-
         <div class="mini-timeline" role="img" aria-label="שלבי חזון הגלות והגאולה">
-          <div class="step fail"><span class="step-icon" aria-hidden="true">😢</span>גלות ושעבוד<br><small>400 שנה בארץ לא להם</small></div>
+          <div class="step fail"><span class="step-icon" aria-hidden="true">😢</span>גלות ושעבוד<br><small>400 שנה</small></div>
           <div class="arrow" aria-hidden="true">←</div>
-          <div class="step"><span class="step-icon" aria-hidden="true">⚖️</span>עונש לאומה המשעבדת<br><small>"וְגַם אֶת הַגּוֹי... דָּן אָנֹכִי"</small></div>
+          <div class="step"><span class="step-icon" aria-hidden="true">⚖️</span>עונש לאומה המשעבדת</div>
           <div class="arrow" aria-hidden="true">←</div>
-          <div class="step"><span class="step-icon" aria-hidden="true">💰</span>יציאה ברכוש גדול<br><small>אחרי העונש לגוי המשעבד</small></div>
+          <div class="step"><span class="step-icon" aria-hidden="true">💰</span>יציאה ברכוש גדול</div>
           <div class="arrow" aria-hidden="true">←</div>
-          <div class="step"><span class="step-icon" aria-hidden="true">🏡</span>שיבה לארץ<br><small>בדור הרביעי</small></div>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "יָדֹעַ תֵּדַע כִּי גֵר יִהְיֶה זַרְעֲךָ... וְאַחֲרֵי כֵן יֵצְאוּ בִּרְכֻשׁ גָּדוֹל" (פסוקים י"ג-י"ד)</p>
-          <div class="question-row"><span class="q-num">8</span><span class="q-text" id="ch15__a11y-lbl-8">מהם עיקרי הדברים שה' מודיע לאברם על עתיד זרעו בפסוקים י"ג-י"ד?</span></div>
-          <textarea class="answer" aria-labelledby="ch15__a11y-lbl-8" data-id="ch15__q8" placeholder="כתבו כאן את התשובה..." style="min-height:130px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> זרעו של אברם יהיה גֵר בארץ זרה, ישועבד ויעונה 400 שנה - אבל ה' יעניש את האומה המשעבדת, ובני ישראל יצאו משם ברכוש גדול, ובדור הרביעי ישובו לארץ.</div>
-        </div>
-
-        <div class="meforesh-block">
-          <span class="src">הרב חנן פורת, "מעט מן האור", גיליון "לך לך" תשס"ו:</span>
-          <q>בדרך הטבע, הקשר בין עם לארץ נוצר מתוך היותה "תבנית נוף מולדתו"... אבל אחרי דורות רבים של גלות בארץ אחרת, האדם מסתגל לאותה ארץ - ומה איפוא ישיב אותו אל ארץ אבותיו?... לכן על העם הזה להתגבש - שלא כדרך הטבע - בארץ לא לו, תוך שיעבוד וסבל, ולצאת ממנה בדרך נס.</q>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "וְדוֹר רְבִיעִי יָשׁוּבוּ הֵנָּה" (פסוק ט"ז)</p>
-          <div class="question-row"><span class="q-num">9</span><span class="q-text" id="ch15__a11y-lbl-9">לפי הרב חנן פורת, למה דווקא קשר לא-טבעי (גלות, שעבוד ויציאה בדרך נס) הוא הבסיס הנכון לקשר הנצחי בין עם ישראל לארצו?</span></div>
-          <textarea class="answer" aria-labelledby="ch15__a11y-lbl-9" data-id="ch15__q9" placeholder="כתבו כאן את התשובה..." style="min-height:150px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> קשר טבעי לארץ (המבוסס רק על גדילה בה) עלול להתבטל כאשר מתנתקים ממנה, כפי שקרה לעמים אחרים שגלו והתבוללו בארצות אחרות. לכן ה' יוצר קשר אחר - המבוסס על צו וברית אלוקיים, לא על הרגל טבעי - ולכן הוא נצחי ואינו תלוי במגורים רצופים בארץ.</div>
+          <div class="step"><span class="step-icon" aria-hidden="true">🏡</span>שיבה - דור רביעי</div>
         </div>
       </div>
-    </section>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י (פסוק י"ב) - "וְהִנֵּה אֵימָה"</span>
+            רמז לצרות וחשך של גליות.
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "יָדֹעַ תֵּדַע כִּי גֵר יִהְיֶה זַרְעֲךָ... וְאַחֲרֵי כֵן יֵצְאוּ בִּרְכֻשׁ גָּדוֹל" (פסוקים י"ג-י"ד)</p>
+            <div class="question-row"><span class="q-num">8</span><span class="q-text" id="ch15__a11y-lbl-8">מהם עיקרי הדברים שה' מודיע לאברם על עתיד זרעו בפסוקים י"ג-י"ד?</span></div>
+            <textarea class="answer" aria-labelledby="ch15__a11y-lbl-8" data-id="ch15__q8" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> זרעו של אברם יהיה גֵר בארץ זרה, ישועבד ויעונה 400 שנה - אבל ה' יעניש את האומה המשעבדת, ובני ישראל יצאו משם ברכוש גדול, ובדור הרביעי ישובו לארץ.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">הרב חנן פורת, "מעט מן האור", גיליון "לך לך" תשס"ו</span>
+            בדרך הטבע, הקשר בין עם לארץ נוצר מתוך היותה "תבנית נוף מולדתו"... לכן על העם הזה להתגבש - שלא כדרך הטבע - בארץ לא לו, תוך שיעבוד וסבל, ולצאת ממנה בדרך נס.
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְדוֹר רְבִיעִי יָשׁוּבוּ הֵנָּה" (פסוק ט"ז)</p>
+            <div class="question-row"><span class="q-num">9</span><span class="q-text" id="ch15__a11y-lbl-9">לפי הרב חנן פורת, למה דווקא קשר לא-טבעי (גלות, שעבוד ויציאה בדרך נס) הוא הבסיס הנכון לקשר הנצחי בין עם ישראל לארצו?</span></div>
+            <textarea class="answer" aria-labelledby="ch15__a11y-lbl-9" data-id="ch15__q9" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> קשר טבעי לארץ עלול להתבטל כאשר מתנתקים ממנה, כפי שקרה לעמים אחרים שגלו והתבוללו בארצות אחרות. לכן ה' יוצר קשר אחר - המבוסס על צו וברית אלוקיים, לא על הרגל טבעי - ולכן הוא נצחי ואינו תלוי במגורים רצופים בארץ.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
     <!-- נושא 5 -->
     <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
@@ -1100,31 +1157,15 @@
         <div class="topic-title">כריתת הברית - הבטחת הארץ</div>
       </div>
     </div>
-    <section class="card" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
-      <div class="card-head">
-        <span class="card-tag">נושא 5 · פסוקים י"ז-כ"א</span>
-        <h2 class="card-title">כריתת הברית - הבטחת הארץ</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">
+    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🔥</span>
+        <div class="qb-root-label">פסוקים י"ז-כ"א</div>
+        <div class="qb-root-pasuk">
           <b>יז:</b> וַיְהִי הַשֶּׁמֶשׁ בָּאָה וַעֲלָטָה הָיָה, וְהִנֵּה תַנּוּר עָשָׁן וְלַפִּיד אֵשׁ אֲשֶׁר עָבַר בֵּין הַגְּזָרִים הָאֵלֶּה.<br>
           <b>יח:</b> בַּיּוֹם הַהוּא כָּרַת ה' אֶת אַבְרָם בְּרִית לֵאמֹר: לְזַרְעֲךָ נָתַתִּי אֶת הָאָרֶץ הַזֹּאת, מִנְּהַר מִצְרַיִם עַד הַנָּהָר הַגָּדֹל נְהַר פְּרָת.<br>
           <b>יט-כא:</b> אֶת הַקֵּינִי וְאֶת הַקְּנִזִּי וְאֵת הַקַּדְמֹנִי. וְאֶת הַחִתִּי וְאֶת הַפְּרִזִּי וְאֶת הָרְפָאִים. וְאֶת הָאֱמֹרִי וְאֶת הַכְּנַעֲנִי וְאֶת הַגִּרְגָּשִׁי וְאֶת הַיְבוּסִי.
         </div>
-
-        <div class="meforesh-block">
-          <span class="src">רש"י (פסוק י') - "וַיְבַתֵּר אֹתָם":</span>
-          <q>ודרך כורתי ברית לחלק בהמה ולעבר בין בתריה... ואף כאן: "תנור עשן ולפיד אש אשר עבר בין הגזרים" - שלוחו של שכינה שהוא אש.</q>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "וְהִנֵּה תַנּוּר עָשָׁן וְלַפִּיד אֵשׁ אֲשֶׁר עָבַר בֵּין הַגְּזָרִים הָאֵלֶּה" (פסוק י"ז)</p>
-          <div class="question-row"><span class="q-num">10</span><span class="q-text" id="ch15__a11y-lbl-10">מה מסמלים "תנור עשן ולפיד אש" שעוברים בין הבתרים, ולמה זה חשוב לטקס הברית?</span></div>
-          <textarea class="answer" aria-labelledby="ch15__a11y-lbl-10" data-id="ch15__q10" placeholder="כתבו כאן את התשובה..." style="min-height:130px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, זהו סמל לנוכחות ה' עצמו ("שלוחו של שכינה שהוא אש") שעובר בין הבתרים, כמנהג כורתי ברית באותה תקופה - חלוקת בהמה ומעבר בין חלקיה - וכך נכרתת הברית עם אברם.</div>
-        </div>
-
         <div class="border-strip" role="img" aria-label="גבולות הארץ המובטחת: מנהר מצרים עד נהר פרת">
           <span class="border-end">🏞️ נהר מצרים</span>
           <span class="border-arrow" aria-hidden="true">⟷</span>
@@ -1142,24 +1183,46 @@
           <span class="nation-chip">גִּרְגָּשִׁי</span>
           <span class="nation-chip">יְבוּסִי</span>
         </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "אֶת הַקֵּינִי וְאֶת הַקְּנִזִּי... וְאֶת הַיְבוּסִי" (פסוקים י"ט-כ"א)</p>
-          <div class="question-row"><span class="q-num">11</span><span class="q-text" id="ch15__a11y-lbl-11">כמה עמים מוזכרים כיושבי הארץ המובטחת (פסוקים י"ט-כ"א)? למה, לדעתכם, התורה מפרטת אותם בשמם?</span></div>
-          <textarea class="answer" aria-labelledby="ch15__a11y-lbl-11" data-id="ch15__q11" placeholder="כתבו כאן את התשובה..." style="min-height:120px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> עשרה עמים. הפירוט בשמם מדגיש שהבטחת הארץ קונקרטית ומוגדרת גיאוגרפית - לא הבטחה כללית וסתמית, אלא ברית עם גבולות ותושבים ידועים.</div>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">שימו לב: בטקס כולו, רק "תנור עשן ולפיד אש" עוברים בין הבתרים - אברם עצמו לא עובר</p>
-          <div class="question-row"><span class="q-num">12</span><span class="q-text" id="ch15__a11y-lbl-12">אברם עצמו לא עובר בין הבתרים - רק "תנור עשן ולפיד אש" עוברים. מה זה מלמד על סוג הברית הזאת?</span></div>
-          <textarea class="answer" aria-labelledby="ch15__a11y-lbl-12" data-id="ch15__q12" placeholder="כתבו כאן את התשובה..." style="min-height:120px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אברם אינו עובר, מפני שזו ברית חד-צדדית: ה' לבדו מתחייב לתת את הארץ לזרעו, וההבטחה אינה מותנית במעשיו של אברם.</div>
-        </div>
       </div>
-    </section>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י (פסוק י') - "וַיְבַתֵּר אֹתָם"</span>
+            ודרך כורתי ברית לחלק בהמה ולעבר בין בתריה... ואף כאן: "תנור עשן ולפיד אש אשר עבר בין הגזרים" - שלוחו של שכינה שהוא אש.
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְהִנֵּה תַנּוּר עָשָׁן וְלַפִּיד אֵשׁ אֲשֶׁר עָבַר בֵּין הַגְּזָרִים הָאֵלֶּה" (פסוק י"ז)</p>
+            <div class="question-row"><span class="q-num">10</span><span class="q-text" id="ch15__a11y-lbl-10">מה מסמלים "תנור עשן ולפיד אש" שעוברים בין הבתרים, ולמה זה חשוב לטקס הברית?</span></div>
+            <textarea class="answer" aria-labelledby="ch15__a11y-lbl-10" data-id="ch15__q10" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, זהו סמל לנוכחות ה' עצמו ("שלוחו של שכינה שהוא אש") שעובר בין הבתרים, כמנהג כורתי ברית באותה תקופה - חלוקת בהמה ומעבר בין חלקיה - וכך נכרתת הברית עם אברם.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "אֶת הַקֵּינִי וְאֶת הַקְּנִזִּי... וְאֶת הַיְבוּסִי" (פסוקים י"ט-כ"א)</p>
+            <div class="question-row"><span class="q-num">11</span><span class="q-text" id="ch15__a11y-lbl-11">כמה עמים מוזכרים כיושבי הארץ המובטחת (פסוקים י"ט-כ"א)? למה, לדעתכם, התורה מפרטת אותם בשמם?</span></div>
+            <textarea class="answer" aria-labelledby="ch15__a11y-lbl-11" data-id="ch15__q11" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> עשרה עמים. הפירוט בשמם מדגיש שהבטחת הארץ קונקרטית ומוגדרת גיאוגרפית - לא הבטחה כללית וסתמית, אלא ברית עם גבולות ותושבים ידועים.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">שימו לב: בטקס כולו, רק "תנור עשן ולפיד אש" עוברים בין הבתרים - אברם עצמו לא עובר</p>
+            <div class="question-row"><span class="q-num">12</span><span class="q-text" id="ch15__a11y-lbl-12">אברם עצמו לא עובר בין הבתרים - רק "תנור עשן ולפיד אש" עוברים. מה זה מלמד על סוג הברית הזאת?</span></div>
+            <textarea class="answer" aria-labelledby="ch15__a11y-lbl-12" data-id="ch15__q12" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אברם אינו עובר, מפני שזו ברית חד-צדדית: ה' לבדו מתחייב לתת את הארץ לזרעו, וההבטחה אינה מותנית במעשיו של אברם.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
     <!-- פרשני הפרק - סיכום -->
     <section class="card" style="grid-column: 1 / -1;">
