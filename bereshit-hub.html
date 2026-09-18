@@ -378,7 +378,7 @@
   .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
   .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
 
-.q-cue{ font-size:.83rem; color:var(--acc); font-style:italic; margin:0 0 .4rem; }
+.q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   /* פרשני הפרק - קוביות סיכום קטנות: אייקון + שם הפרשן + כפתור אישור */
   .mp-recap-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(115px, 1fr)); gap:.7rem; }
@@ -401,29 +401,72 @@
   .mp-tile.completed .mp-tile-name{ color:var(--teal); }
   .mp-tile.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
-  /* ========== ציר-צעדים ========== */
-  .mini-timeline{ margin-top:.9rem; }
-
-  /* ========== "מול" - השוואת שני צדדים ========== */
-  .vs-compare{ display:flex; align-items:stretch; gap:0; margin:.9rem 0; border-radius:14px; overflow:hidden; box-shadow:var(--shadow); }
-  .vs-side{ flex:1; padding:.9rem 1rem; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.35rem; }
+  /* ========== רכיבי עזר קיימים, בגודל מוקטן לשימוש בתוך קוביות ========== */
+  .vs-compare{ display:flex; align-items:stretch; gap:0; margin:.7rem 0; border-radius:12px; overflow:hidden; box-shadow:var(--shadow); }
+  .vs-side{ flex:1; padding:.7rem .8rem; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.3rem; }
   .vs-a{ background:var(--teal-soft); }
   .vs-b{ background:var(--acc-soft); }
-  .vs-icon{ font-size:1.6rem; }
-  .vs-title{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.95rem; color:var(--ink); }
-  .vs-desc{ font-size:.78rem; line-height:1.5; color:var(--ink-soft); }
-  .vs-mid{ flex:none; width:2.4rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.8rem; color:#fff; background:var(--ink); }
+  .vs-icon{ font-size:1.35rem; }
+  .vs-title{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.85rem; color:var(--ink); }
+  .vs-desc{ font-size:.72rem; line-height:1.45; color:var(--ink-soft); }
+  .vs-mid{ flex:none; width:2rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.72rem; color:#fff; background:var(--ink); }
 
-  /* ========== באנר מעבר בין נושאים ========== */
-  .topic-banner{ margin-top:2.4rem; }
+  .topic-banner{ margin-top:2.6rem; }
   .grid > .topic-banner:first-of-type{ margin-top:0; }
 
   /* ========== דו-שיח מתגלגל - "וילכו שניהם יחדיו" ========== */
-  .dialog-strip{ display:flex; flex-direction:column; gap:.5rem; margin:.9rem 0; }
-  .dialog-line{ display:flex; gap:.6rem; align-items:flex-start; background:#fff; border:1.5px solid var(--paper-line); border-radius:10px; padding:.55rem .8rem; }
-  .dialog-who{ flex:none; font-weight:800; font-family:'Frank Ruhl Libre',serif; color:var(--acc); min-width:3.6rem; }
-  .dialog-txt{ font-size:.88rem; line-height:1.6; }
-  .dialog-refrain{ text-align:center; font-family:'Frank Ruhl Libre',serif; font-weight:800; color:#fff; background:var(--acc); border-radius:999px; padding:.4rem 1rem; font-size:.85rem; align-self:center; }
+  .dialog-strip{ display:flex; flex-direction:column; gap:.4rem; margin:.7rem 0; }
+  .dialog-line{ display:flex; gap:.5rem; align-items:flex-start; background:#fff; border:1.5px solid var(--paper-line); border-radius:9px; padding:.5rem .7rem; }
+  .dialog-who{ flex:none; font-weight:800; font-family:'Frank Ruhl Libre',serif; color:var(--acc); min-width:3.2rem; font-size:.85rem; }
+  .dialog-txt{ font-size:.8rem; line-height:1.55; }
+  .dialog-refrain{ text-align:center; font-family:'Frank Ruhl Libre',serif; font-weight:800; color:#fff; background:var(--acc); border-radius:999px; padding:.35rem .9rem; font-size:.78rem; align-self:center; }
+
+  /* ========== תרשים-זרימה: קוביית-שורש שמסתעפת לקוביות-שאלה ========== */
+  .qb-topic{ grid-column: 1 / -1; }
+  .qb-root{
+    max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
+    padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
+  }
+  .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
+  .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
+  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
+  .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
+  .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+
+  .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
+  .qb-connector::after{
+    content:""; position:absolute; bottom:-1px; right:50%; transform:translateX(50%);
+    border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
+  }
+
+  .qb-branches{
+    display:flex; flex-wrap:wrap; gap:1.1rem;
+    position:relative; padding-top:22px; margin-top:-22px;
+  }
+  .qb-branches::before{
+    content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
+  }
+  .qb-card{
+    flex:1 1 260px;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
+    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
+    min-width:0;
+  }
+  .qb-card > *{ width:100%; max-width:640px; }
+  .qb-meforesh{
+    font-size:.78rem; font-style:italic; color:var(--ink-soft); border-right:2.5px solid var(--acc);
+    padding-right:.55rem; line-height:1.55;
+  }
+  .qb-meforesh .qb-src{ display:block; font-style:normal; font-weight:800; color:var(--acc); font-size:.72rem; margin-bottom:.15rem; }
+  .qb-meforesh + .qb-meforesh{ margin-top:.5rem; }
+  .qb-card .question-block{ display:flex; flex-direction:column; gap:.5rem; }
+  .qb-card .question-block + .question-block{ margin-top:.6rem; padding-top:.6rem; border-top:1px dashed var(--paper-line); }
+  .qb-card .question-row{ align-items:flex-start; }
+  .qb-card .q-text{ font-size:.86rem; line-height:1.5; }
+  .qb-card textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
+  .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
+  .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
+  .qb-topic .pasuk-block-note{ margin-top:1.1rem; }
 </style>
 </head>
 <body>
@@ -2127,7 +2170,7 @@
         <div class="topic-eyebrow">ספר בראשית 5 מתוך 5</div>
         <h2 class="topic-title">דף עבודה — פרק כ&quot;ב, &quot;עקידת יצחק&quot;</h2>
       </div>
-      <div class="topic-counter" data-topic-counter="topic-ch22">0/7</div>
+      <div class="topic-counter" data-topic-counter="topic-ch22">0/2</div>
     </div><p class="topic-extra-link"> <a class="chip-link" href="bereshit-22-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a> <a class="chip-link" href="bereshit-22-text.html"><span class="chip-icon" aria-hidden="true">🔍</span>קריאה אינטראקטיבית בפסוקים</a></p>
     <div class="grid">
 
@@ -2154,62 +2197,66 @@
         <div class="topic-title">מטרת הניסיון</div>
       </div>
     </div>
-    <section class="card" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F3E7D2;">
-      <div class="card-head">
-        <span class="card-tag">נושא 1 · פסוק א'</span>
-        <h2 class="card-title">מטרת הניסיון</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">
+    <div class="qb-topic" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🎯</span>
+        <div class="qb-root-label">פסוק א'</div>
+        <div class="qb-root-pasuk">
           <b>א:</b> וַיְהִי אַחַר הַדְּבָרִים הָאֵלֶּה וְהָאֱלֹהִים נִסָּה אֶת אַבְרָהָם, וַיֹּאמֶר אֵלָיו: אַבְרָהָם! וַיֹּאמֶר: הִנֵּנִי.
         </div>
-
-        <div class="meforesh-block">
-          <span class="src">הקדמת אברבנאל לפרק כ"ב:</span>
-          <q>הפרשה הזאת היא כל קרן ישראל וזכותם לפני אביהם שבשמים, ולכן היא שגורה בפינו בתפילתנו כל היום; ומפני זה ראוי להפליג בה העיון והחקירה יותר מבשאר הפרשיות.</q>
-        </div>
-
-        <div class="question-block">
-          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="ch22__a11y-lbl-1">לפי אברבנאל, מדוע ראוי לעיין בפרשת העקדה יותר מבשאר הפרשיות? היכן היא נזכרת עד היום?</span></div>
-          <textarea class="answer" aria-labelledby="ch22__a11y-lbl-1" data-id="ch22__q1" placeholder="כתבו כאן את התשובה..." style="min-height:120px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> העקדה היא יסוד גדול בזכות ישראל, ונזכרת עד היום בתפילה - ומסמלת עמידה בניסיון ומסירות מוחלטת לרצון ה'; לכן ראוי לעיין בה יותר מבפרשיות אחרות.</div>
-        </div>
-
-        <div class="meforesh-block">
-          <span class="src">רמב"ן לפסוק א':</span>
-          <q>עניין הניסיון הוא, לדעתי, בעבור היות מעשה האדם רשות מוחלטת בידו - אם ירצה יעשה, ואם לא ירצה לא יעשה - יקרא הבוחן אותו "מנסה"... אבל המנסה יתברך יצווה בו להוציא הדבר מן הכוח אל הפועל, להיות לו שכר מעשה טוב, לא שכר לב טוב בלבד. ודע כי "ה' צדיק יבחן" - כשהוא יודע בצדיק שיעשה רצונו וחפץ להצדיקו, יצווה אותו בניסיון, ולא יבחן את הרשעים אשר לא ישמעו. והנה כל הניסיונות שבתורה לטובת המנוסה.</q>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">שאלה מנחה: אם ה' יודע הכול מראש, מה טעם יש בניסיון?</p>
-          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="ch22__a11y-lbl-2">מדוע שואלים "אם ה' יודע מראש מה יעשה האדם, לשם מה הוא מנסה אותו"? ולפי הרמב"ן, מצד מי - האדם או ה' - קיים הניסיון בפועל?</span></div>
-          <textarea class="answer" aria-labelledby="ch22__a11y-lbl-2" data-id="ch22__q2" placeholder="כתבו כאן את התשובה..." style="min-height:130px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אם ה' יודע מראש מה יעשה האדם, ניסיון אינו יכול להוסיף לו ידיעה חדשה. לפי הרמב"ן, הניסיון הוא מצד האדם - שבידו לבחור אם לבצע את הציווי אם לאו; מבחינת ה' התוצאה כבר ידועה מראש.</div>
-        </div>
-
-        <div class="question-block">
-          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="ch22__a11y-lbl-3">לפי הרמב"ן, מה מטרת הניסיון - ומדוע ה' מנסה דווקא צדיקים ולא רשעים?</span></div>
-          <textarea class="answer" aria-labelledby="ch22__a11y-lbl-3" data-id="ch22__q3" placeholder="כתבו כאן את התשובה..." style="min-height:130px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> מטרת הניסיון היא להוציא את הרצון הטוב מן הכוח אל הפועל, כדי שהאדם יקבל שכר על מעשה ממשי ולא רק על כוונה טובה בלבד. ה' מנסה צדיק שיודע שיעמוד בניסיון, כדי לזכותו; רשע שלא ישמע ממילא אינו נבחן.</div>
-        </div>
-
-        <div class="meforesh-block">
-          <span class="src">אברבנאל, ד"ה "ויאמר":</span>
-          <q>הניסיון הזה אין ענינו הבחינה, כדי שידע האל מה שלא היה יודע; אבל "והאלוקים נסה" הוא מגזרת "נס" - כי הפועל הנפלא הזה שעשה אברהם בדבר ה' עומד לנס עמים, כדגל רם ונשא, אליו גויים ידרושו ויביטו אחריו!</q>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "וְהָאֱלֹקִים נִסָּה אֶת אַבְרָהָם" (פסוק א')</p>
-          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="ch22__a11y-lbl-4">לפי אברבנאל, ממה נגזרת המילה "נִסָּה"? ומהי מטרת הניסיון - כלפי מי הוא בעצם מכוון?</span></div>
-          <textarea class="answer" aria-labelledby="ch22__a11y-lbl-4" data-id="ch22__q4" placeholder="כתבו כאן את התשובה..." style="min-height:130px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי אברבנאל, "נִסָּה" נגזרת מ"נס" - דגל וסמל מורם לעיני העמים. מטרת הניסיון היא להפוך את מעשה אברהם למופת גלוי, נס לדורות ולעמים כולם.</div>
-        </div>
       </div>
-    </section>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">הקדמת אברבנאל לפרק כ"ב</span>
+            הפרשה הזאת היא כל קרן ישראל וזכותם לפני אביהם שבשמים, ולכן היא שגורה בפינו בתפילתנו כל היום; ומפני זה ראוי להפליג בה העיון והחקירה יותר מבשאר הפרשיות.
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="ch22__a11y-lbl-1">לפי אברבנאל, מדוע ראוי לעיין בפרשת העקדה יותר מבשאר הפרשיות? היכן היא נזכרת עד היום?</span></div>
+            <textarea class="answer" aria-labelledby="ch22__a11y-lbl-1" data-id="ch22__q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> העקדה היא יסוד גדול בזכות ישראל, ונזכרת עד היום בתפילה - ומסמלת עמידה בניסיון ומסירות מוחלטת לרצון ה'; לכן ראוי לעיין בה יותר מבפרשיות אחרות.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רמב"ן לפסוק א'</span>
+            עניין הניסיון הוא, לדעתי, בעבור היות מעשה האדם רשות מוחלטת בידו - אם ירצה יעשה, ואם לא ירצה לא יעשה - יקרא הבוחן אותו "מנסה"... אבל המנסה יתברך יצווה בו להוציא הדבר מן הכוח אל הפועל, להיות לו שכר מעשה טוב, לא שכר לב טוב בלבד. ודע כי "ה' צדיק יבחן" - כשהוא יודע בצדיק שיעשה רצונו וחפץ להצדיקו, יצווה אותו בניסיון, ולא יבחן את הרשעים אשר לא ישמעו. והנה כל הניסיונות שבתורה לטובת המנוסה.
+          </div>
+          <div class="question-block">
+            <p class="q-cue">שאלה מנחה: אם ה' יודע הכול מראש, מה טעם יש בניסיון?</p>
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="ch22__a11y-lbl-2">מדוע שואלים "אם ה' יודע מראש מה יעשה האדם, לשם מה הוא מנסה אותו"? ולפי הרמב"ן, מצד מי - האדם או ה' - קיים הניסיון בפועל?</span></div>
+            <textarea class="answer" aria-labelledby="ch22__a11y-lbl-2" data-id="ch22__q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אם ה' יודע מראש מה יעשה האדם, ניסיון אינו יכול להוסיף לו ידיעה חדשה. לפי הרמב"ן, הניסיון הוא מצד האדם - שבידו לבחור אם לבצע את הציווי אם לאו; מבחינת ה' התוצאה כבר ידועה מראש.</div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="ch22__a11y-lbl-3">לפי הרמב"ן, מה מטרת הניסיון - ומדוע ה' מנסה דווקא צדיקים ולא רשעים?</span></div>
+            <textarea class="answer" aria-labelledby="ch22__a11y-lbl-3" data-id="ch22__q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> מטרת הניסיון היא להוציא את הרצון הטוב מן הכוח אל הפועל, כדי שהאדם יקבל שכר על מעשה ממשי ולא רק על כוונה טובה בלבד. ה' מנסה צדיק שיודע שיעמוד בניסיון, כדי לזכותו; רשע שלא ישמע ממילא אינו נבחן.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">אברבנאל, ד"ה "ויאמר"</span>
+            הניסיון הזה אין ענינו הבחינה, כדי שידע האל מה שלא היה יודע; אבל "והאלוקים נסה" הוא מגזרת "נס" - כי הפועל הנפלא הזה שעשה אברהם בדבר ה' עומד לנס עמים, כדגל רם ונשא, אליו גויים ידרושו ויביטו אחריו!
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְהָאֱלֹקִים נִסָּה אֶת אַבְרָהָם" (פסוק א')</p>
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="ch22__a11y-lbl-4">לפי אברבנאל, ממה נגזרת המילה "נִסָּה"? ומהי מטרת הניסיון - כלפי מי הוא בעצם מכוון?</span></div>
+            <textarea class="answer" aria-labelledby="ch22__a11y-lbl-4" data-id="ch22__q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי אברבנאל, "נִסָּה" נגזרת מ"נס" - דגל וסמל מורם לעיני העמים. מטרת הניסיון היא להפוך את מעשה אברהם למופת גלוי, נס לדורות ולעמים כולם.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
     <!-- נושא 2 -->
     <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
@@ -2219,38 +2266,43 @@
         <div class="topic-title">הציווי המדורג</div>
       </div>
     </div>
-    <section class="card" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
-      <div class="card-head">
-        <span class="card-tag">נושא 2 · פסוק ב'</span>
-        <h2 class="card-title">הציווי המדורג</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">
+    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">📢</span>
+        <div class="qb-root-label">פסוק ב'</div>
+        <div class="qb-root-pasuk">
           <b>ב:</b> וַיֹּאמֶר: קַח נָא אֶת בִּנְךָ אֶת יְחִידְךָ אֲשֶׁר אָהַבְתָּ אֶת יִצְחָק, וְלֶךְ לְךָ אֶל אֶרֶץ הַמֹּרִיָּה, וְהַעֲלֵהוּ שָׁם לְעֹלָה עַל אַחַד הֶהָרִים אֲשֶׁר אֹמַר אֵלֶיךָ.
         </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "וַיֹּאמֶר אֵלָיו אַבְרָהָם, וַיֹּאמֶר הִנֵּנִי" (פס' א')</p>
-          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="ch22__a11y-lbl-5">כיצד עונה אברהם לקריאת ה' (פס' א')? מהו הציווי עצמו, והיכן נמצא המקום שאליו מצווה אברהם ללכת?</span></div>
-          <textarea class="answer" aria-labelledby="ch22__a11y-lbl-5" data-id="ch22__q5" placeholder="כתבו כאן את התשובה..." style="min-height:120px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אברהם משיב "הנני". הציווי: "קח נא את בנך... והעלהו שם לעולה". המקום - ארץ המוריה, על אחד ההרים אשר ה' יאמר עליו לאברהם.</div>
-        </div>
-
-        <div class="meforesh-block">
-          <span class="src">רש"י לפסוק ב':</span>
-          <q>את בנך - אמר לו: שני בנים יש לי. אמר לו: את יחידך. אמר לו: זה יחיד לאמו וזה יחיד לאמו. אמר לו: אשר אהבת. אמר לו: שניהם אני אוהב. אמר לו: את יצחק. ולמה לא גילה לו מתחילה? שלא לערבבו פתאום, ותזוח דעתו עליו ותיטרף.</q>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "אֶת בִּנְךָ אֶת יְחִידְךָ אֲשֶׁר אָהַבְתָּ אֶת יִצְחָק" (פס' ב')</p>
-          <div class="question-row"><span class="q-num">6</span><span class="q-text" id="ch22__a11y-lbl-6">לפי רש"י, מדוע פירט ה' את הציווי בשלבים ("את בנך", "את יחידך", "אשר אהבת", "את יצחק") במקום לומר מיד "את יצחק"? מה מרמז הפירוט הזה?</span></div>
-          <textarea class="answer" aria-labelledby="ch22__a11y-lbl-6" data-id="ch22__q6" placeholder="כתבו כאן את התשובה..." style="min-height:150px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, כל שלב בדו-שיח מלמד שלכל הגדרה הייתה לאברהם תשובה אפשרית אחרת (שני בנים, כל אחד "יחיד" לאמו, ושניהם אהובים) - עד שנאלץ ה' לפרט "את יצחק" עצמו. ה' מסר את הציווי בהדרגה כדי שלא לערבב את אברהם בפתאומיות, וכדי להגדיל בהדרגה את חיבתו למצווה.</div>
-        </div>
       </div>
-    </section>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיֹּאמֶר אֵלָיו אַבְרָהָם, וַיֹּאמֶר הִנֵּנִי" (פס' א')</p>
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="ch22__a11y-lbl-5">כיצד עונה אברהם לקריאת ה' (פס' א')? מהו הציווי עצמו, והיכן נמצא המקום שאליו מצווה אברהם ללכת?</span></div>
+            <textarea class="answer" aria-labelledby="ch22__a11y-lbl-5" data-id="ch22__q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אברהם משיב "הנני". הציווי: "קח נא את בנך... והעלהו שם לעולה". המקום - ארץ המוריה, על אחד ההרים אשר ה' יאמר עליו לאברהם.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י לפסוק ב'</span>
+            את בנך - אמר לו: שני בנים יש לי. אמר לו: את יחידך. אמר לו: זה יחיד לאמו וזה יחיד לאמו. אמר לו: אשר אהבת. אמר לו: שניהם אני אוהב. אמר לו: את יצחק. ולמה לא גילה לו מתחילה? שלא לערבבו פתאום, ותזוח דעתו עליו ותיטרף.
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "אֶת בִּנְךָ אֶת יְחִידְךָ אֲשֶׁר אָהַבְתָּ אֶת יִצְחָק" (פס' ב')</p>
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="ch22__a11y-lbl-6">לפי רש"י, מדוע פירט ה' את הציווי בשלבים ("את בנך", "את יחידך", "אשר אהבת", "את יצחק") במקום לומר מיד "את יצחק"? מה מרמז הפירוט הזה?</span></div>
+            <textarea class="answer" aria-labelledby="ch22__a11y-lbl-6" data-id="ch22__q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, כל שלב בדו-שיח מלמד שלכל הגדרה הייתה לאברהם תשובה אפשרית אחרת (שני בנים, כל אחד "יחיד" לאמו, ושניהם אהובים) - עד שנאלץ ה' לפרט "את יצחק" עצמו. ה' מסר את הציווי בהדרגה כדי שלא לערבב את אברהם בפתאומיות, וכדי להגדיל בהדרגה את חיבתו למצווה.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
     <!-- נושא 3 -->
     <div class="topic-banner" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
@@ -2260,12 +2312,10 @@
         <div class="topic-title">"לֶךְ לְךָ": בין שני ציוויים</div>
       </div>
     </div>
-    <section class="card" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
-      <div class="card-head">
-        <span class="card-tag">נושא 3 · השוואה לפרק י"ב</span>
-        <h2 class="card-title">"לֶךְ לְךָ": בין שני ציוויים</h2>
-      </div>
-      <div class="card-body">
+    <div class="qb-topic" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🧭</span>
+        <div class="qb-root-label">השוואה לפרק י"ב</div>
         <div class="vs-compare" role="img" aria-label="השוואה בין 'לך לך' בפרק י״ב לבין 'לך לך' בפרק כ״ב">
           <div class="vs-side vs-a">
             <span class="vs-icon" aria-hidden="true">🛤️</span>
@@ -2279,30 +2329,40 @@
             <div class="vs-desc">"עַל אַחַד הֶהָרִים אֲשֶׁר אֹמַר אֵלֶיךָ" - הברכה באה רק לאחר העמידה בניסיון.</div>
           </div>
         </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "לֶךְ לְךָ מֵאַרְצְךָ..." (י"ב, א') לעומת "לֶךְ לְךָ אֶל אֶרֶץ הַמֹּרִיָּה... עַל אַחַד הֶהָרִים אֲשֶׁר אֹמַר אֵלֶיךָ" (כ"ב, ב')</p>
-          <div class="question-row"><span class="q-num">7</span><span class="q-text" id="ch22__a11y-lbl-7">מהו הביטוי הייחודי החוזר בשני הפרקים? מה משותף לשני הציוויים מבחינת הידיעה על היעד מראש?</span></div>
-          <textarea class="answer" aria-labelledby="ch22__a11y-lbl-7" data-id="ch22__q7" placeholder="כתבו כאן את התשובה..." style="min-height:130px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הביטוי הייחודי הוא "לך לך". בשני הפרקים היעד אינו ידוע מראש: בפרק י"ב - "אל הארץ אשר אראך", ובפרק כ"ב - "על אחד ההרים אשר אמר אליך".</div>
-        </div>
-
-        <div class="question-block">
-          <div class="question-row"><span class="q-num">8</span><span class="q-text" id="ch22__a11y-lbl-8">מתי ניתנת הברכה לאברהם בכל אחד מהציוויים - מיד עם הציווי, או רק לאחר קיומו?</span></div>
-          <textarea class="answer" aria-labelledby="ch22__a11y-lbl-8" data-id="ch22__q8" placeholder="כתבו כאן את התשובה..." style="min-height:110px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> בפרק י"ב הברכה ניתנת מיד עם הציווי ("ואעשך לגוי גדול..."). בפרק כ"ב הברכה באה רק לאחר העמידה בניסיון - לאחר שאברהם הוכיח בפועל את מסירותו.</div>
-        </div>
-
-        <div class="question-block">
-          <div class="question-row"><span class="q-num">9</span><span class="q-text" id="ch22__a11y-lbl-9">במה שונה הוויתור הנדרש מאברהם בציווי "לך לך" הראשון מהוויתור הנדרש ממנו בעקדה?</span></div>
-          <textarea class="answer" aria-labelledby="ch22__a11y-lbl-9" data-id="ch22__q9" placeholder="כתבו כאן את התשובה..." style="min-height:130px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> בניסיון הראשון (פרק י"ב) הוויתור הוא על הארץ, המולדת ובית האב. בעקדה - הוויתור הוא על הבן היחיד והאהוב, שהוא עתיד הזרע כולו.</div>
-        </div>
       </div>
-    </section>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "לֶךְ לְךָ מֵאַרְצְךָ..." (י"ב, א') לעומת "לֶךְ לְךָ אֶל אֶרֶץ הַמֹּרִיָּה... עַל אַחַד הֶהָרִים אֲשֶׁר אֹמַר אֵלֶיךָ" (כ"ב, ב')</p>
+            <div class="question-row"><span class="q-num">7</span><span class="q-text" id="ch22__a11y-lbl-7">מהו הביטוי הייחודי החוזר בשני הפרקים? מה משותף לשני הציוויים מבחינת הידיעה על היעד מראש?</span></div>
+            <textarea class="answer" aria-labelledby="ch22__a11y-lbl-7" data-id="ch22__q7" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הביטוי הייחודי הוא "לך לך". בשני הפרקים היעד אינו ידוע מראש: בפרק י"ב - "אל הארץ אשר אראך", ובפרק כ"ב - "על אחד ההרים אשר אמר אליך".</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">8</span><span class="q-text" id="ch22__a11y-lbl-8">מתי ניתנת הברכה לאברהם בכל אחד מהציוויים - מיד עם הציווי, או רק לאחר קיומו?</span></div>
+            <textarea class="answer" aria-labelledby="ch22__a11y-lbl-8" data-id="ch22__q8" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> בפרק י"ב הברכה ניתנת מיד עם הציווי ("ואעשך לגוי גדול..."). בפרק כ"ב הברכה באה רק לאחר העמידה בניסיון - לאחר שאברהם הוכיח בפועל את מסירותו.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">9</span><span class="q-text" id="ch22__a11y-lbl-9">במה שונה הוויתור הנדרש מאברהם בציווי "לך לך" הראשון מהוויתור הנדרש ממנו בעקדה?</span></div>
+            <textarea class="answer" aria-labelledby="ch22__a11y-lbl-9" data-id="ch22__q9" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> בניסיון הראשון (פרק י"ב) הוויתור הוא על הארץ, המולדת ובית האב. בעקדה - הוויתור הוא על הבן היחיד והאהוב, שהוא עתיד הזרע כולו.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
     <!-- נושא 4 -->
     <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
@@ -2312,67 +2372,68 @@
         <div class="topic-title">הדרך - זריזות והתבוננות</div>
       </div>
     </div>
-    <section class="card" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
-      <div class="card-head">
-        <span class="card-tag">נושא 4 · פסוקים ג'-ח'</span>
-        <h2 class="card-title">הדרך - זריזות והתבוננות</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">
-          <b>ג-ד:</b> וַיַּשְׁכֵּם אַבְרָהָם בַּבֹּקֶר וַיַּחֲבֹשׁ אֶת חֲמֹרוֹ, וַיִּקַּח אֶת שְׁנֵי נְעָרָיו אִתּוֹ וְאֵת יִצְחָק בְּנוֹ, וַיְבַקַּע עֲצֵי עֹלָה, וַיָּקָם וַיֵּלֶךְ אֶל הַמָּקוֹם אֲשֶׁר אָמַר לוֹ הָאֱלֹהִים. בַּיּוֹם הַשְּׁלִישִׁי וַיִּשָּׂא אַבְרָהָם אֶת עֵינָיו וַיַּרְא אֶת הַמָּקוֹם מֵרָחֹק.
-        </div>
-
-        <div class="meforesh-block">
-          <span class="src">רש"י ד"ה 'וַיַּשְׁכֵּם' - נזדרז למצווה:</span>
-          <q>וַיַּחֲבֹשׁ - הוא בעצמו, ולא ציווה לאחד מעבדיו, שהאהבה מקלקלת השורה.</q>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "וַיַּשְׁכֵּם... וַיַּחֲבֹשׁ... וַיִּקַּח... וַיְבַקַּע... וַיָּקָם וַיֵּלֶךְ" (פס' ג')</p>
-          <div class="question-row"><span class="q-num">10</span><span class="q-text" id="ch22__a11y-lbl-10">אילו פעלים בפסוק ג' מדגישים את זריזותו של אברהם? ולפי רש"י, מדוע חבש אברהם את החמור בעצמו ולא מסר זאת לאחד מנעריו?</span></div>
-          <textarea class="answer" aria-labelledby="ch22__a11y-lbl-10" data-id="ch22__q10" placeholder="כתבו כאן את התשובה..." style="min-height:150px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הפעלים "וישכם", "ויחבוש", "ויקח", "ויבקע", "ויקם", "וילך" מדגישים זריזות ומרץ. לפי רש"י, אברהם חבש את החמור בעצמו ולא מסר את המעשה לעבדיו, כי אהבת ה' והמצווה גורמת לאדם לחרוג מהסדר הרגיל ולעשות בעצמו, בזריזות, גם דברים שרגילים למסור לאחרים.</div>
-        </div>
-
-        <div class="meforesh-block">
-          <span class="src">רמב"ן לפסוק ב':</span>
-          <q>ורצה שיעשה זה אחרי מהלך שלושה ימים, כי אילו יעשה כן בפתע פתאום במקומו, הייתה פעולתו במהירות ובהלה; אבל כשיהיה אחר מהלך ימים, כבר נעשה בישוב דעת ועצה.</q>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "בַּיּוֹם הַשְּׁלִישִׁי" (פס' ד')</p>
-          <div class="question-row"><span class="q-num">11</span><span class="q-text" id="ch22__a11y-lbl-11">מי הלך עם אברהם, ומה לקחו איתם לדרך? ולפי הרמב"ן, מה מוכיח דווקא האורך של שלושת ימי המסע?</span></div>
-          <textarea class="answer" aria-labelledby="ch22__a11y-lbl-11" data-id="ch22__q11" placeholder="כתבו כאן את התשובה..." style="min-height:150px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ההולכים הם אברהם, יצחק ושני נעריו; הם לקחו חמור, עצי עולה, אש ומאכלת. לפי הרמב"ן, שלושת ימי המסע מוכיחים שאברהם פעל ביישוב הדעת ומתוך החלטה שקולה, ולא מתוך בהלה רגעית - אילו ביצע את הציווי מיד במקומו, פעולתו הייתה נראית פזיזה.</div>
-        </div>
-
-        <div class="pasuk-block">
+    <div class="qb-topic" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🚶</span>
+        <div class="qb-root-label">פסוקים ג'-ח'</div>
+        <div class="qb-root-pasuk">
+          <b>ג-ד:</b> וַיַּשְׁכֵּם אַבְרָהָם בַּבֹּקֶר וַיַּחֲבֹשׁ אֶת חֲמֹרוֹ, וַיִּקַּח אֶת שְׁנֵי נְעָרָיו אִתּוֹ וְאֵת יִצְחָק בְּנוֹ, וַיְבַקַּע עֲצֵי עֹלָה, וַיָּקָם וַיֵּלֶךְ אֶל הַמָּקוֹם אֲשֶׁר אָמַר לוֹ הָאֱלֹהִים. בַּיּוֹם הַשְּׁלִישִׁי וַיִּשָּׂא אַבְרָהָם אֶת עֵינָיו וַיַּרְא אֶת הַמָּקוֹם מֵרָחֹק.<br>
           <b>ה-ח:</b> וַיֹּאמֶר אַבְרָהָם אֶל נְעָרָיו: שְׁבוּ לָכֶם פֹּה עִם הַחֲמוֹר, וַאֲנִי וְהַנַּעַר נֵלְכָה עַד כֹּה וְנִשְׁתַּחֲוֶה וְנָשׁוּבָה אֲלֵיכֶם. וַיִּקַּח אַבְרָהָם אֶת עֲצֵי הָעֹלָה וַיָּשֶׂם עַל יִצְחָק בְּנוֹ, וַיִּקַּח בְּיָדוֹ אֶת הָאֵשׁ וְאֶת הַמַּאֲכֶלֶת, וַיֵּלְכוּ שְׁנֵיהֶם יַחְדָּו. וַיֹּאמֶר יִצְחָק אֶל אַבְרָהָם אָבִיו וַיֹּאמֶר: אָבִי! וַיֹּאמֶר: הִנֶּנִּי בְנִי. וַיֹּאמֶר: הִנֵּה הָאֵשׁ וְהָעֵצִים, וְאַיֵּה הַשֶּׂה לְעֹלָה? וַיֹּאמֶר אַבְרָהָם: אֱלֹהִים יִרְאֶה לּוֹ הַשֶּׂה לְעֹלָה בְּנִי. וַיֵּלְכוּ שְׁנֵיהֶם יַחְדָּו.
         </div>
-
         <div class="dialog-strip" role="img" aria-label="הדו-שיח בין אברהם ליצחק, בין שתי הופעות הביטוי וילכו שניהם יחדיו">
           <div class="dialog-refrain">"וַיֵּלְכוּ שְׁנֵיהֶם יַחְדָּו" (פס' ו')</div>
           <div class="dialog-line"><span class="dialog-who">יצחק:</span><span class="dialog-txt">"אָבִי!" ... "הִנֵּה הָאֵשׁ וְהָעֵצִים, וְאַיֵּה הַשֶּׂה לְעֹלָה?"</span></div>
           <div class="dialog-line"><span class="dialog-who">אברהם:</span><span class="dialog-txt">"הִנֶּנִּי בְנִי" ... "אֱלֹהִים יִרְאֶה לּוֹ הַשֶּׂה לְעֹלָה, בְּנִי."</span></div>
           <div class="dialog-refrain">"וַיֵּלְכוּ שְׁנֵיהֶם יַחְדָּו" (פס' ח')</div>
         </div>
-
-        <div class="meforesh-block">
-          <span class="src">רש"י:</span>
-          <q>(ו) וילכו שניהם יחדיו - אברהם שהיה יודע שהולך לשחוט את בנו, היה הולך ברצון ושמחה כיצחק, שלא היה מרגיש. (ח) יראה לו השה - כלומר יראה ויבחר לו השה, ואם אין שה - לעולה בני. ואף על פי שהבין יצחק שהוא הולך להישחט, וילכו שניהם יחדיו בלב שווה.</q>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "אָבִי... הִנֶּנִּי בְנִי" (פס' ז') לעומת "וַיֵּלְכוּ שְׁנֵיהֶם יַחְדָּו" (פס' ו', ח')</p>
-          <div class="question-row"><span class="q-num">12</span><span class="q-text" id="ch22__a11y-lbl-12">הביטוי "וַיֵּלְכוּ שְׁנֵיהֶם יַחְדָּו" חוזר פעמיים - בפסוק ו' ובפסוק ח'. מה ההבדל, לפי רש"י, במשמעותו בכל אחת מהפעמים? ואיך הכינויים "אבי"/"בני" מוסיפים למתח שבסיפור?</span></div>
-          <textarea class="answer" aria-labelledby="ch22__a11y-lbl-12" data-id="ch22__q12" placeholder="כתבו כאן את התשובה..." style="min-height:160px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> בפסוק ו' אברהם יודע לאן הם הולכים ויצחק אינו יודע, ובכל זאת שניהם הולכים יחד; בפסוק ח' יצחק כבר מבין שהוא העולה, וממשיך ללכת מרצונו - ולכן גם אז שניהם הולכים "בלב שווה". הכינויים "אבי" ו"בני", החוזרים בדו-שיח הרך, מחריפים את המתח בין האהבה הטבעית שבין אב לבן לבין הציות לציווי ה'.</div>
-        </div>
       </div>
-    </section>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י ד"ה 'וַיַּשְׁכֵּם' - נזדרז למצווה</span>
+            וַיַּחֲבֹשׁ - הוא בעצמו, ולא ציווה לאחד מעבדיו, שהאהבה מקלקלת השורה.
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיַּשְׁכֵּם... וַיַּחֲבֹשׁ... וַיִּקַּח... וַיְבַקַּע... וַיָּקָם וַיֵּלֶךְ" (פס' ג')</p>
+            <div class="question-row"><span class="q-num">10</span><span class="q-text" id="ch22__a11y-lbl-10">אילו פעלים בפסוק ג' מדגישים את זריזותו של אברהם? ולפי רש"י, מדוע חבש אברהם את החמור בעצמו ולא מסר זאת לאחד מנעריו?</span></div>
+            <textarea class="answer" aria-labelledby="ch22__a11y-lbl-10" data-id="ch22__q10" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הפעלים "וישכם", "ויחבוש", "ויקח", "ויבקע", "ויקם", "וילך" מדגישים זריזות ומרץ. לפי רש"י, אברהם חבש את החמור בעצמו ולא מסר את המעשה לעבדיו, כי אהבת ה' והמצווה גורמת לאדם לחרוג מהסדר הרגיל ולעשות בעצמו, בזריזות, גם דברים שרגילים למסור לאחרים.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רמב"ן לפסוק ב'</span>
+            ורצה שיעשה זה אחרי מהלך שלושה ימים, כי אילו יעשה כן בפתע פתאום במקומו, הייתה פעולתו במהירות ובהלה; אבל כשיהיה אחר מהלך ימים, כבר נעשה בישוב דעת ועצה.
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "בַּיּוֹם הַשְּׁלִישִׁי" (פס' ד')</p>
+            <div class="question-row"><span class="q-num">11</span><span class="q-text" id="ch22__a11y-lbl-11">מי הלך עם אברהם, ומה לקחו איתם לדרך? ולפי הרמב"ן, מה מוכיח דווקא האורך של שלושת ימי המסע?</span></div>
+            <textarea class="answer" aria-labelledby="ch22__a11y-lbl-11" data-id="ch22__q11" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ההולכים הם אברהם, יצחק ושני נעריו; הם לקחו חמור, עצי עולה, אש ומאכלת. לפי הרמב"ן, שלושת ימי המסע מוכיחים שאברהם פעל ביישוב הדעת ומתוך החלטה שקולה, ולא מתוך בהלה רגעית - אילו ביצע את הציווי מיד במקומו, פעולתו הייתה נראית פזיזה.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י</span>
+            (ו) וילכו שניהם יחדיו - אברהם שהיה יודע שהולך לשחוט את בנו, היה הולך ברצון ושמחה כיצחק, שלא היה מרגיש. (ח) יראה לו השה - כלומר יראה ויבחר לו השה, ואם אין שה - לעולה בני. ואף על פי שהבין יצחק שהוא הולך להישחט, וילכו שניהם יחדיו בלב שווה.
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "אָבִי... הִנֶּנִּי בְנִי" (פס' ז') לעומת "וַיֵּלְכוּ שְׁנֵיהֶם יַחְדָּו" (פס' ו', ח')</p>
+            <div class="question-row"><span class="q-num">12</span><span class="q-text" id="ch22__a11y-lbl-12">הביטוי "וַיֵּלְכוּ שְׁנֵיהֶם יַחְדָּו" חוזר פעמיים - בפסוק ו' ובפסוק ח'. מה ההבדל, לפי רש"י, במשמעותו בכל אחת מהפעמים? ואיך הכינויים "אבי"/"בני" מוסיפים למתח שבסיפור?</span></div>
+            <textarea class="answer" aria-labelledby="ch22__a11y-lbl-12" data-id="ch22__q12" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> בפסוק ו' אברהם יודע לאן הם הולכים ויצחק אינו יודע, ובכל זאת שניהם הולכים יחד; בפסוק ח' יצחק כבר מבין שהוא העולה, וממשיך ללכת מרצונו - ולכן גם אז שניהם הולכים "בלב שווה". הכינויים "אבי" ו"בני", החוזרים בדו-שיח הרך, מחריפים את המתח בין האהבה הטבעית שבין אב לבן לבין הציות לציווי ה'.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
 
     <!-- נושא 5 -->
     <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
@@ -2382,60 +2443,65 @@
         <div class="topic-title">העקידה, הבשורה וזכות אבות</div>
       </div>
     </div>
-    <section class="card" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
-      <div class="card-head">
-        <span class="card-tag">נושא 5 · פסוקים ט'-י"ט</span>
-        <h2 class="card-title">העקידה, הבשורה וזכות אבות</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">
+    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">⭐</span>
+        <div class="qb-root-label">פסוקים ט'-י"ח</div>
+        <div class="qb-root-pasuk">
           <b>ט-י:</b> וַיָּבֹאוּ אֶל הַמָּקוֹם אֲשֶׁר אָמַר לוֹ הָאֱלֹהִים, וַיִּבֶן שָׁם אַבְרָהָם אֶת הַמִּזְבֵּחַ וַיַּעֲרֹךְ אֶת הָעֵצִים, וַיַּעֲקֹד אֶת יִצְחָק בְּנוֹ וַיָּשֶׂם אֹתוֹ עַל הַמִּזְבֵּחַ מִמַּעַל לָעֵצִים. וַיִּשְׁלַח אַבְרָהָם אֶת יָדוֹ וַיִּקַּח אֶת הַמַּאֲכֶלֶת לִשְׁחֹט אֶת בְּנוֹ.<br>
           <b>יא-יב:</b> וַיִּקְרָא אֵלָיו מַלְאַךְ ה' מִן הַשָּׁמַיִם וַיֹּאמֶר: אַבְרָהָם! אַבְרָהָם! וַיֹּאמֶר: הִנֵּנִי. וַיֹּאמֶר: אַל תִּשְׁלַח יָדְךָ אֶל הַנַּעַר וְאַל תַּעַשׂ לוֹ מְאוּמָה, כִּי עַתָּה יָדַעְתִּי כִּי יְרֵא אֱלֹהִים אַתָּה, וְלֹא חָשַׂכְתָּ אֶת בִּנְךָ אֶת יְחִידְךָ מִמֶּנִּי.<br>
           <b>טז-יח:</b> כִּי בָרֵךְ אֲבָרֶכְךָ וְהַרְבָּה אַרְבֶּה אֶת זַרְעֲךָ כְּכוֹכְבֵי הַשָּׁמַיִם וְכַחוֹל אֲשֶׁר עַל שְׂפַת הַיָּם, וְיִרַשׁ זַרְעֲךָ אֵת שַׁעַר אֹיְבָיו. וְהִתְבָּרֲכוּ בְזַרְעֲךָ כֹּל גּוֹיֵי הָאָרֶץ, עֵקֶב אֲשֶׁר שָׁמַעְתָּ בְּקֹלִי.
         </div>
-
-        <div class="meforesh-block">
-          <span class="src">רש"י ד"ה 'עַתָּה יָדַעְתִּי':</span>
-          <q>מעתה יש לי מה להשיב לשטן ולאומות התמהים מה היא חיבתי אצלך - יש לי פתחון פה עכשיו, שרואים כי ירא אלוקים אתה.</q>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "כִּי עַתָּה יָדַעְתִּי כִּי יְרֵא אֱלֹהִים אַתָּה" (פס' י"ב)</p>
-          <div class="question-row"><span class="q-num">13</span><span class="q-text" id="ch22__a11y-lbl-13">לפי רש"י, מה נתן הניסיון לקב"ה, כביכול, שלא היה לו קודם לכן?</span></div>
-          <textarea class="answer" aria-labelledby="ch22__a11y-lbl-13" data-id="ch22__q13" placeholder="כתבו כאן את התשובה..." style="min-height:120px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, הניסיון נתן לקב"ה "פתחון פה" להשיב לשטן ולאומות העולם ולגלות בפועל, ולא רק בהבטחה, מדוע אברהם אהוב וירא אלוקים.</div>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">תזכורת: "כִּי בָרֵךְ אֲבָרֶכְךָ... וְיִרַשׁ זַרְעֲךָ אֵת שַׁעַר אֹיְבָיו" (פס' י"ז)</p>
-          <div class="question-row"><span class="q-num">14</span><span class="q-text" id="ch22__a11y-lbl-14">מדוע השבועה והברכה הגדולה באות דווקא בשלב הזה של הסיפור? ומה מוסיף הביטוי "וירש זרעך את שער איביו" מעבר להבטחת ריבוי הזרע?</span></div>
-          <textarea class="answer" aria-labelledby="ch22__a11y-lbl-14" data-id="ch22__q14" placeholder="כתבו כאן את התשובה..." style="min-height:140px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> השבועה באה לאחר שאברהם הוכיח בפועל מסירות נפש מלאה ולא חשך את בנו יחידו. "וירש זרעך את שער איביו" מוסיף שזרעו לא רק ירבה, אלא גם יגבר על אויביו.</div>
-        </div>
-
-        <div class="meforesh-block">
-          <span class="src">הרב חרל"פ, מתוך ההקדמה ל"בית זבול":</span>
-          <q>יסוד מעלתם של ישראל הוא במה שיוכלו לזכות לקדש את השם בנפשותם... ובא להם זה מאז עקד אברהם אבינו את יצחק על גבי המזבח... שבזה, מה שלא יצא לפועל, נשאר הרצון הזה של קידוש השם בכוח, להיות לרצון, נעקד על גבי המזבח ולפשוט צווארו להיות נשחט על קיום מצוותיו וקידוש שמו יתברך - חדור עמוק עמוק בתוך כל ישראל, שיהיו כל חייהם המשך ארוך של קידוש השם.</q>
-        </div>
-
-        <div class="meforesh-block">
-          <span class="src">"הגיונות אל עמי":</span>
-          <q>...בכל דבר העיקר הוא הראשון... כי כל הכובד שבדבר הוא בהורדת המחשבה מעולם האצילות לעולם העשייה, אבל כיוון שכבר הורדה המחשבה על ידי מי שהוא, שוב נקל הדבר להרבה אנשים... לבוא גם הם בעצמם לאותה המחשבה. ואברהם היה הראשון שקיים את המסירות נפש על קידוש השם, והוא סלל את המסילה לנו, ואנחנו רק הולכים אנו בעקבותיו - אבל לעולם העיקר הוא הממציא הראשון.</q>
-        </div>
-
-        <div class="question-block">
-          <p class="q-cue">** אין חובה ללמוד את המקורות הבאים מילה במילה, אלא להתחבר לרעיון הכללי</p>
-          <div class="question-row"><span class="q-num">15</span><span class="q-text" id="ch22__a11y-lbl-15">לפי הרב חרל"פ ו"הגיונות אל עמי", מדוע חשיבותה של עקדת יצחק כה עצומה - ומה בכוחה של היות אברהם "הראשון" שהוריד את המסירות נפש מן המחשבה אל המעשה?</span></div>
-          <textarea class="answer" aria-labelledby="ch22__a11y-lbl-15" data-id="ch22__q15" placeholder="כתבו כאן את התשובה..." style="min-height:160px;"></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי הרב חרל"פ, העקדה הטביעה בישראל כוח פנימי למסירות נפש ולקידוש השם, שממשיך ומלווה את העם לדורותיו. לפי "הגיונות אל עמי", הקושי העיקרי בכל דבר חדש הוא "להוריד" אותו מעולם המחשבה אל עולם המעשה בפעם הראשונה; אברהם היה הראשון שעשה זאת בפועל, וסלל בכך את הדרך לדורות הבאים שנדרשו למסור את נפשם על קידוש השם מכוחו.</div>
-        </div>
-
-        <p class="pasuk-block-note">חיבור למועד: ביום השני של ראש השנה קוראים בתורה את פסוקי העקדה. תקיעת השופר מזכירה את איל העקדה, ובתפילת מוסף אנו אומרים: "וְאֶת הָעֲקֵדָה שֶׁעָקַד אֶת יִצְחָק בְּנוֹ עַל גַּבֵּי הַמִּזְבֵּחַ... זְכָר לָנוּ ה' אֱלֹהֵינוּ אֶת הַבְּרִית וְאֶת הַחֶסֶד". גם הפיוט הספרדי "עֵת שַׁעֲרֵי רָצוֹן", מאת רבי יהודה בן שמואל עבאס, מזכיר את זכות העקדה בבקשת רחמים ביום הדין.</p>
       </div>
-    </section>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י ד"ה 'עַתָּה יָדַעְתִּי'</span>
+            מעתה יש לי מה להשיב לשטן ולאומות התמהים מה היא חיבתי אצלך - יש לי פתחון פה עכשיו, שרואים כי ירא אלוקים אתה.
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "כִּי עַתָּה יָדַעְתִּי כִּי יְרֵא אֱלֹהִים אַתָּה" (פס' י"ב)</p>
+            <div class="question-row"><span class="q-num">13</span><span class="q-text" id="ch22__a11y-lbl-13">לפי רש"י, מה נתן הניסיון לקב"ה, כביכול, שלא היה לו קודם לכן?</span></div>
+            <textarea class="answer" aria-labelledby="ch22__a11y-lbl-13" data-id="ch22__q13" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, הניסיון נתן לקב"ה "פתחון פה" להשיב לשטן ולאומות העולם ולגלות בפועל, ולא רק בהבטחה, מדוע אברהם אהוב וירא אלוקים.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "כִּי בָרֵךְ אֲבָרֶכְךָ... וְיִרַשׁ זַרְעֲךָ אֵת שַׁעַר אֹיְבָיו" (פס' י"ז)</p>
+            <div class="question-row"><span class="q-num">14</span><span class="q-text" id="ch22__a11y-lbl-14">מדוע השבועה והברכה הגדולה באות דווקא בשלב הזה של הסיפור? ומה מוסיף הביטוי "וירש זרעך את שער איביו" מעבר להבטחת ריבוי הזרע?</span></div>
+            <textarea class="answer" aria-labelledby="ch22__a11y-lbl-14" data-id="ch22__q14" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> השבועה באה לאחר שאברהם הוכיח בפועל מסירות נפש מלאה ולא חשך את בנו יחידו. "וירש זרעך את שער איביו" מוסיף שזרעו לא רק ירבה, אלא גם יגבר על אויביו.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">הרב חרל"פ, מתוך ההקדמה ל"בית זבול"</span>
+            יסוד מעלתם של ישראל הוא במה שיוכלו לזכות לקדש את השם בנפשותם... ובא להם זה מאז עקד אברהם אבינו את יצחק על גבי המזבח... שבזה, מה שלא יצא לפועל, נשאר הרצון הזה של קידוש השם בכוח, להיות לרצון, נעקד על גבי המזבח ולפשוט צווארו להיות נשחט על קיום מצוותיו וקידוש שמו יתברך - חדור עמוק עמוק בתוך כל ישראל, שיהיו כל חייהם המשך ארוך של קידוש השם.
+          </div>
+          <div class="qb-meforesh">
+            <span class="qb-src">"הגיונות אל עמי"</span>
+            ...בכל דבר העיקר הוא הראשון... כי כל הכובד שבדבר הוא בהורדת המחשבה מעולם האצילות לעולם העשייה, אבל כיוון שכבר הורדה המחשבה על ידי מי שהוא, שוב נקל הדבר להרבה אנשים... לבוא גם הם בעצמם לאותה המחשבה. ואברהם היה הראשון שקיים את המסירות נפש על קידוש השם, והוא סלל את המסילה לנו, ואנחנו רק הולכים אנו בעקבותיו - אבל לעולם העיקר הוא הממציא הראשון.
+          </div>
+          <div class="question-block">
+            <p class="q-cue">** אין חובה ללמוד את המקורות הבאים מילה במילה, אלא להתחבר לרעיון הכללי</p>
+            <div class="question-row"><span class="q-num">15</span><span class="q-text" id="ch22__a11y-lbl-15">לפי הרב חרל"פ ו"הגיונות אל עמי", מדוע חשיבותה של עקדת יצחק כה עצומה - ומה בכוחה של היות אברהם "הראשון" שהוריד את המסירות נפש מן המחשבה אל המעשה?</span></div>
+            <textarea class="answer" aria-labelledby="ch22__a11y-lbl-15" data-id="ch22__q15" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי הרב חרל"פ, העקדה הטביעה בישראל כוח פנימי למסירות נפש ולקידוש השם, שממשיך ומלווה את העם לדורותיו. לפי "הגיונות אל עמי", הקושי העיקרי בכל דבר חדש הוא "להוריד" אותו מעולם המחשבה אל עולם המעשה בפעם הראשונה; אברהם היה הראשון שעשה זאת בפועל, וסלל בכך את הדרך לדורות הבאים שנדרשו למסור את נפשם על קידוש השם מכוחו.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="pasuk-block-note">חיבור למועד: ביום השני של ראש השנה קוראים בתורה את פסוקי העקדה. תקיעת השופר מזכירה את איל העקדה, ובתפילת מוסף אנו אומרים: "וְאֶת הָעֲקֵדָה שֶׁעָקַד אֶת יִצְחָק בְּנוֹ עַל גַּבֵּי הַמִּזְבֵּחַ... זְכָר לָנוּ ה' אֱלֹהֵינוּ אֶת הַבְּרִית וְאֶת הַחֶסֶד". גם הפיוט הספרדי "עֵת שַׁעֲרֵי רָצוֹן", מאת רבי יהודה בן שמואל עבאס, מזכיר את זכות העקדה בבקשת רחמים ביום הדין.</p>
+    </div>
 
     <!-- פרשני הפרק - סיכום -->
     <section class="card" style="grid-column: 1 / -1;">
