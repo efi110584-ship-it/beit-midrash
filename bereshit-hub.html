@@ -8,6 +8,300 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+.q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
+
+  /* פרשני הפרק - קוביות סיכום קטנות: אייקון + שם הפרשן + כפתור אישור */
+  .mp-recap-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(115px, 1fr)); gap:.7rem; }
+  .mp-tile{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    gap:.45rem; aspect-ratio:1/1; padding:.85rem .5rem;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:4px solid var(--acc); border-radius:12px;
+    box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .mp-tile:hover{ transform:translateY(-2px); box-shadow:var(--shadow-hover); }
+  .mp-tile-icon{ font-size:1.3rem; line-height:1; }
+  .mp-tile-name{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1rem; color:var(--ink); line-height:1.25; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:32px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .mp-tile.completed{ background:var(--teal-soft); border-top-color:var(--teal); }
+  .mp-tile.completed .mp-tile-name{ color:var(--teal); }
+  .mp-tile.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  /* ========== רכיבי עזר קיימים, בגודל מוקטן לשימוש בתוך קוביות ========== */
+  .mini-timeline.detail .step{ flex:1 1 140px; text-align:center; gap:.3rem; padding:.6rem .6rem; }
+  .mini-timeline.detail .step b{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.88rem; color:var(--ink); }
+  .mini-timeline.detail .step small{ display:block; font-size:.68rem; line-height:1.35; color:var(--ink-soft); }
+  .mini-timeline.detail .step small.why{ color:var(--rust); font-weight:700; }
+  .mini-timeline{ margin-top:.7rem; }
+  .mini-timeline.compact .step{ font-size:.68rem; padding:.4rem .3rem; }
+  .step.fail{ background:var(--rust-soft); border-color:var(--rust); }
+  .step.fail small{ color:var(--rust); font-weight:700; }
+
+  .vs-compare{ display:flex; align-items:stretch; gap:0; margin:.7rem 0; border-radius:12px; overflow:hidden; box-shadow:var(--shadow); }
+  .vs-side{ flex:1; padding:.7rem .8rem; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.3rem; }
+  .vs-a{ background:var(--teal-soft); }
+  .vs-b{ background:var(--acc-soft); }
+  .vs-icon{ font-size:1.35rem; }
+  .vs-title{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.85rem; color:var(--ink); }
+  .vs-desc{ font-size:.72rem; line-height:1.45; color:var(--ink-soft); }
+  .vs-mid{ flex:none; width:2rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.72rem; color:#fff; background:var(--ink); }
+
+  .plan-reality{ display:flex; flex-direction:column; gap:.55rem; margin:.7rem 0; }
+  .pr-row{ display:flex; flex-direction:column; gap:.3rem; }
+  .pr-label{ font-weight:800; font-size:.76rem; color:var(--acc); }
+
+  .flowchart{ display:flex; flex-direction:column; align-items:center; gap:0; margin:.7rem 0; }
+  .flow-step{ display:flex; align-items:center; gap:.6rem; width:100%; }
+  .flow-node{
+    flex:none; width:1.6rem; height:1.6rem; border-radius:50%; background:var(--acc); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.8rem;
+  }
+  .flow-card{ flex:1; background:#fff; border:1.5px solid var(--paper-line); border-radius:10px; padding:.5rem .7rem; }
+  .flow-title{ font-size:.78rem; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:.4rem; }
+  .flow-icon{ font-size:.95rem; }
+  .flow-arrow{ color:var(--acc); font-size:1rem; margin:.1rem 0; }
+
+  .topic-banner{ margin-top:2.6rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  /* ========== תרשים-זרימה: קוביית-שורש שמסתעפת לקוביות-שאלה ========== */
+  .qb-topic{ grid-column: 1 / -1; }
+  .qb-root{
+    max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
+    padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
+  }
+  .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
+  .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
+  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
+  .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
+  .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+
+  .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
+  .qb-connector::after{
+    content:""; position:absolute; bottom:-1px; right:50%; transform:translateX(50%);
+    border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
+  }
+
+  .qb-branches{
+    display:flex; flex-wrap:wrap; gap:1.1rem;
+    position:relative; padding-top:22px; margin-top:-22px;
+  }
+  .qb-branches::before{
+    content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
+  }
+  .qb-card{
+    flex:1 1 260px;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
+    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
+    min-width:0;
+  }
+  .qb-card > *{ width:100%; max-width:640px; }
+  .qb-meforesh{
+    font-size:.78rem; font-style:italic; color:var(--ink-soft); border-right:2.5px solid var(--acc);
+    padding-right:.55rem; line-height:1.55;
+  }
+  .qb-meforesh .qb-src{ display:block; font-style:normal; font-weight:800; color:var(--acc); font-size:.72rem; margin-bottom:.15rem; }
+  .qb-card .question-block{ display:flex; flex-direction:column; gap:.5rem; }
+  .qb-card .question-row{ align-items:flex-start; }
+  .qb-card .q-text{ font-size:.86rem; line-height:1.5; }
+  .qb-card textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
+  .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
+  .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
+
+.q-cue{ font-size:.83rem; color:var(--acc); font-style:italic; margin:0 0 .4rem; }
+
+  /* פרשני הפרק - קוביות סיכום קטנות: אייקון + שם הפרשן + כפתור אישור */
+  .mp-recap-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(115px, 1fr)); gap:.7rem; }
+  .mp-tile{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    gap:.45rem; aspect-ratio:1/1; padding:.85rem .5rem;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:4px solid var(--acc); border-radius:12px;
+    box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .mp-tile:hover{ transform:translateY(-2px); box-shadow:var(--shadow-hover); }
+  .mp-tile-icon{ font-size:1.3rem; line-height:1; }
+  .mp-tile-name{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1rem; color:var(--ink); line-height:1.25; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:32px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .mp-tile.completed{ background:var(--teal-soft); border-top-color:var(--teal); }
+  .mp-tile.completed .mp-tile-name{ color:var(--teal); }
+  .mp-tile.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  /* ========== ציר מסע - נעשה שימוש ברכיב mini-timeline הקיים באתר (worksheet-theme.css) ========== */
+  .mini-timeline{ margin-top:.9rem; }
+  .mini-timeline.compact .step{ font-size:.72rem; padding:.45rem .35rem; }
+  .step.fail{ background:var(--rust-soft); border-color:var(--rust); }
+  .step.fail small{ color:var(--rust); font-weight:700; }
+
+  /* ========== "מול" - השוואת שני צדדים ========== */
+  .vs-compare{ display:flex; align-items:stretch; gap:0; margin:.9rem 0; border-radius:14px; overflow:hidden; box-shadow:var(--shadow); }
+  .vs-side{ flex:1; padding:.9rem 1rem; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.35rem; }
+  .vs-a{ background:var(--teal-soft); }
+  .vs-b{ background:var(--acc-soft); }
+  .vs-icon{ font-size:1.6rem; }
+  .vs-title{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.95rem; color:var(--ink); }
+  .vs-desc{ font-size:.78rem; line-height:1.5; color:var(--ink-soft); }
+  .vs-mid{ flex:none; width:2.4rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.8rem; color:#fff; background:var(--ink); }
+
+  /* ========== באנר מעבר בין נושאים - הפרדה חזותית ברורה ========== */
+  .topic-banner{ margin-top:2.4rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  /* ========== גבולות הארץ - שני קצוות עם חץ ========== */
+  .border-strip{ display:flex; align-items:center; justify-content:center; gap:.8rem; margin:.9rem 0 .7rem; }
+  .border-end{ background:var(--acc-soft); color:var(--acc); border:1.5px solid var(--acc); border-radius:999px; padding:.45rem 1.1rem; font-size:.85rem; font-weight:700; }
+  .border-arrow{ font-size:1.3rem; color:var(--acc); }
+
+  /* ========== רשימת עשרת העמים - שבבים קטנים ========== */
+  .nations-grid{ display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; }
+  .nation-chip{ background:#fff; color:var(--ink); border:1.5px solid var(--paper-line); border-radius:999px; padding:.4rem 1rem; font-size:.82rem; font-weight:700; }
+
+.q-cue{ font-size:.83rem; color:var(--acc); font-style:italic; margin:0 0 .4rem; }
+
+  /* פרשני הפרק - קוביות סיכום קטנות: אייקון + שם הפרשן + כפתור אישור */
+  .mp-recap-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(115px, 1fr)); gap:.7rem; }
+  .mp-tile{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    gap:.45rem; aspect-ratio:1/1; padding:.85rem .5rem;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:4px solid var(--acc); border-radius:12px;
+    box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .mp-tile:hover{ transform:translateY(-2px); box-shadow:var(--shadow-hover); }
+  .mp-tile-icon{ font-size:1.3rem; line-height:1; }
+  .mp-tile-name{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1rem; color:var(--ink); line-height:1.25; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:32px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .mp-tile.completed{ background:var(--teal-soft); border-top-color:var(--teal); }
+  .mp-tile.completed .mp-tile-name{ color:var(--teal); }
+  .mp-tile.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  /* ========== ציר-צעדים - נעשה שימוש ברכיב mini-timeline הקיים באתר (worksheet-theme.css) ========== */
+  .mini-timeline{ margin-top:.9rem; }
+
+  /* ========== "מול" - השוואת שני צדדים ========== */
+  .vs-compare{ display:flex; align-items:stretch; gap:0; margin:.9rem 0; border-radius:14px; overflow:hidden; box-shadow:var(--shadow); }
+  .vs-side{ flex:1; padding:.9rem 1rem; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.35rem; }
+  .vs-a{ background:var(--teal-soft); }
+  .vs-b{ background:var(--acc-soft); }
+  .vs-icon{ font-size:1.6rem; }
+  .vs-title{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.95rem; color:var(--ink); }
+  .vs-desc{ font-size:.78rem; line-height:1.5; color:var(--ink-soft); }
+  .vs-mid{ flex:none; width:2.4rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.8rem; color:#fff; background:var(--ink); }
+
+  /* ========== באנר מעבר בין נושאים - הפרדה חזותית ברורה ========== */
+  .topic-banner{ margin-top:2.4rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  /* ========== שבבים קטנים למי כלול בציווי ========== */
+  .nations-grid{ display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; }
+  .nation-chip{ background:#fff; color:var(--ink); border:1.5px solid var(--paper-line); border-radius:999px; padding:.4rem 1rem; font-size:.82rem; font-weight:700; }
+
+.q-cue{ font-size:.83rem; color:var(--acc); font-style:italic; margin:0 0 .4rem; }
+  .q-topic{
+    display:flex; align-items:center; gap:.55rem; font-family:'Frank Ruhl Libre',serif; font-weight:800;
+    font-size:1.05rem; color:#fff; background:var(--acc); border-radius:10px; padding:.65rem 1.1rem;
+    margin:0 0 .8rem; box-shadow:0 4px 12px rgba(0,0,0,.18);
+  }
+  .q-topic-icon{ font-size:1.25rem; line-height:1; flex:none; }
+
+  /* פרשני הפרק - קוביות סיכום קטנות: אייקון + שם הפרשן + כפתור אישור */
+  .mp-recap-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(115px, 1fr)); gap:.7rem; }
+  .mp-tile{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    gap:.45rem; aspect-ratio:1/1; padding:.85rem .5rem;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:4px solid var(--acc); border-radius:12px;
+    box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .mp-tile:hover{ transform:translateY(-2px); box-shadow:var(--shadow-hover); }
+  .mp-tile-icon{ font-size:1.3rem; line-height:1; }
+  .mp-tile-name{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1rem; color:var(--ink); line-height:1.25; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:32px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .mp-tile.completed{ background:var(--teal-soft); border-top-color:var(--teal); }
+  .mp-tile.completed .mp-tile-name{ color:var(--teal); }
+  .mp-tile.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  /* ========== ציר-צעדים ========== */
+  .mini-timeline{ margin-top:.9rem; }
+
+  /* ========== "מול" - השוואת שני צדדים ========== */
+  .vs-compare{ display:flex; align-items:stretch; gap:0; margin:.9rem 0; border-radius:14px; overflow:hidden; box-shadow:var(--shadow); }
+  .vs-side{ flex:1; padding:.9rem 1rem; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.35rem; }
+  .vs-a{ background:var(--teal-soft); }
+  .vs-b{ background:var(--acc-soft); }
+  .vs-icon{ font-size:1.6rem; }
+  .vs-title{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.95rem; color:var(--ink); }
+  .vs-desc{ font-size:.78rem; line-height:1.5; color:var(--ink-soft); }
+  .vs-mid{ flex:none; width:2.4rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.8rem; color:#fff; background:var(--ink); }
+
+  /* ========== באנר מעבר בין נושאים ========== */
+  .topic-banner{ margin-top:2.4rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+.q-cue{ font-size:.83rem; color:var(--acc); font-style:italic; margin:0 0 .4rem; }
+
+  /* פרשני הפרק - קוביות סיכום קטנות: אייקון + שם הפרשן + כפתור אישור */
+  .mp-recap-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(115px, 1fr)); gap:.7rem; }
+  .mp-tile{
+    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+    gap:.45rem; aspect-ratio:1/1; padding:.85rem .5rem;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:4px solid var(--acc); border-radius:12px;
+    box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .mp-tile:hover{ transform:translateY(-2px); box-shadow:var(--shadow-hover); }
+  .mp-tile-icon{ font-size:1.3rem; line-height:1; }
+  .mp-tile-name{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1rem; color:var(--ink); line-height:1.25; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:32px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .mp-tile.completed{ background:var(--teal-soft); border-top-color:var(--teal); }
+  .mp-tile.completed .mp-tile-name{ color:var(--teal); }
+  .mp-tile.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  /* ========== ציר-צעדים ========== */
+  .mini-timeline{ margin-top:.9rem; }
+
+  /* ========== "מול" - השוואת שני צדדים ========== */
+  .vs-compare{ display:flex; align-items:stretch; gap:0; margin:.9rem 0; border-radius:14px; overflow:hidden; box-shadow:var(--shadow); }
+  .vs-side{ flex:1; padding:.9rem 1rem; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.35rem; }
+  .vs-a{ background:var(--teal-soft); }
+  .vs-b{ background:var(--acc-soft); }
+  .vs-icon{ font-size:1.6rem; }
+  .vs-title{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.95rem; color:var(--ink); }
+  .vs-desc{ font-size:.78rem; line-height:1.5; color:var(--ink-soft); }
+  .vs-mid{ flex:none; width:2.4rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.8rem; color:#fff; background:var(--ink); }
+
+  /* ========== באנר מעבר בין נושאים ========== */
+  .topic-banner{ margin-top:2.4rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  /* ========== דו-שיח מתגלגל - "וילכו שניהם יחדיו" ========== */
+  .dialog-strip{ display:flex; flex-direction:column; gap:.5rem; margin:.9rem 0; }
+  .dialog-line{ display:flex; gap:.6rem; align-items:flex-start; background:#fff; border:1.5px solid var(--paper-line); border-radius:10px; padding:.55rem .8rem; }
+  .dialog-who{ flex:none; font-weight:800; font-family:'Frank Ruhl Libre',serif; color:var(--acc); min-width:3.6rem; }
+  .dialog-txt{ font-size:.88rem; line-height:1.6; }
+  .dialog-refrain{ text-align:center; font-family:'Frank Ruhl Libre',serif; font-weight:800; color:#fff; background:var(--acc); border-radius:999px; padding:.4rem 1rem; font-size:.85rem; align-self:center; }
+</style>
 </head>
 <body>
 

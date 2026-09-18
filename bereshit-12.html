@@ -88,17 +88,19 @@
   }
 
   .qb-branches{
-    display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
     content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
   }
   .qb-card{
+    flex:1 1 260px;
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:.65rem;
+    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
     min-width:0;
   }
+  .qb-card > *{ width:100%; max-width:640px; }
   .qb-meforesh{
     font-size:.78rem; font-style:italic; color:var(--ink-soft); border-right:2.5px solid var(--acc);
     padding-right:.55rem; line-height:1.55;
