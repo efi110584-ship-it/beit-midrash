@@ -17,26 +17,18 @@
   }
   .q-topic-icon{ font-size:1.1rem; line-height:1; flex:none; }
 
-  /* פרשני הפרק - קוביות סיכום קטנות: אייקון + שם הפרשן + כפתור אישור */
-  .mp-recap-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(115px, 1fr)); gap:.7rem; }
-  .mp-tile{
-    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
-    gap:.45rem; aspect-ratio:1/1; padding:.85rem .5rem;
-    background:#fff; border:1.5px solid var(--paper-line); border-top:4px solid var(--acc); border-radius:12px;
-    box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
-  }
-  .mp-tile:hover{ transform:translateY(-2px); box-shadow:var(--shadow-hover); }
-  .mp-tile-icon{ font-size:1.3rem; line-height:1; }
-  .mp-tile-name{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1rem; color:var(--ink); line-height:1.25; }
+  /* אישור הבנת פרשן - כפתור קטן בתחתית כל קובית מפרש, במקום רשימת סיכום נפרדת */
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
-    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:32px;
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
     padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
-    transition:background .2s ease, color .2s ease, border-color .2s ease;
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
   }
   .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
-  .mp-tile.completed{ background:var(--teal-soft); border-top-color:var(--teal); }
-  .mp-tile.completed .mp-tile-name{ color:var(--teal); }
-  .mp-tile.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-right-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
   /* ========== רכיבי עזר קיימים, בגודל מוקטן לשימוש בתוך קוביות ========== */
   .mini-timeline{ margin-top:.7rem; }
@@ -64,6 +56,12 @@
   .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
   .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
   .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
 
   .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
   .qb-connector::after{
@@ -171,10 +169,14 @@
         <span class="qb-root-icon" aria-hidden="true">🍞</span>
         <div class="qb-root-label">פסוקים א'-ח'</div>
         <div class="qb-root-pasuk">
-          <b>א:</b> וַיֵּרָא אֵלָיו ה' בְּאֵלֹנֵי מַמְרֵא, וְהוּא יֹשֵׁב פֶּתַח הָאֹהֶל כְּחֹם הַיּוֹם.<br>
-          <b>ב:</b> וַיִּשָּׂא עֵינָיו וַיַּרְא וְהִנֵּה שְׁלֹשָׁה אֲנָשִׁים נִצָּבִים עָלָיו, וַיַּרְא וַיָּרָץ לִקְרָאתָם מִפֶּתַח הָאֹהֶל וַיִּשְׁתַּחוּ אָרְצָה.<br>
-          <b>ג-ה:</b> וַיֹּאמַר: אֲדֹנָי, אִם נָא מָצָאתִי חֵן בְּעֵינֶיךָ... יֻקַּח נָא מְעַט מַיִם וְרַחֲצוּ רַגְלֵיכֶם, וְהִשָּׁעֲנוּ תַּחַת הָעֵץ. וְאֶקְחָה פַת לֶחֶם וְסַעֲדוּ לִבְּכֶם, אַחַר תַּעֲבֹרוּ.<br>
-          <b>ו-ח:</b> וַיְמַהֵר אַבְרָהָם הָאֹהֱלָה אֶל שָׂרָה, וַיֹּאמֶר: מַהֲרִי שְׁלֹשׁ סְאִים קֶמַח סֹלֶת, לוּשִׁי וַעֲשִׂי עֻגוֹת. וְאֶל הַבָּקָר רָץ אַבְרָהָם וַיִּקַּח בֶּן בָּקָר רַךְ וָטוֹב... וַיִּקַּח חֶמְאָה וְחָלָב וּבֶן הַבָּקָר אֲשֶׁר עָשָׂה, וַיִּתֵּן לִפְנֵיהֶם, וְהוּא עֹמֵד עֲלֵיהֶם תַּחַת הָעֵץ וַיֹּאכֵלוּ.
+          <div class="pasuk-gloss">ה' נגלה לאברהם באלוני ממרא, בעודו יושב בפתח האוהל</div>
+          <div class="pasuk-line"><b>א:</b> וַיֵּרָא אֵלָיו ה' בְּאֵלֹנֵי מַמְרֵא, וְהוּא יֹשֵׁב פֶּתַח הָאֹהֶל כְּחֹם הַיּוֹם.</div>
+          <div class="pasuk-gloss">אברהם רואה שלושה אנשים, רץ לקראתם ומשתחווה להם</div>
+          <div class="pasuk-line"><b>ב:</b> וַיִּשָּׂא עֵינָיו וַיַּרְא וְהִנֵּה שְׁלֹשָׁה אֲנָשִׁים נִצָּבִים עָלָיו, וַיַּרְא וַיָּרָץ לִקְרָאתָם מִפֶּתַח הָאֹהֶל וַיִּשְׁתַּחוּ אָרְצָה.</div>
+          <div class="pasuk-gloss">אברהם מזמין את האורחים לנוח ולאכול מעט אצלו</div>
+          <div class="pasuk-line"><b>ג-ה:</b> וַיֹּאמַר: אֲדֹנָי, אִם נָא מָצָאתִי חֵן בְּעֵינֶיךָ... יֻקַּח נָא מְעַט מַיִם וְרַחֲצוּ רַגְלֵיכֶם, וְהִשָּׁעֲנוּ תַּחַת הָעֵץ. וְאֶקְחָה פַת לֶחֶם וְסַעֲדוּ לִבְּכֶם, אַחַר תַּעֲבֹרוּ.</div>
+          <div class="pasuk-gloss">אברהם ושרה ממהרים להכין לאורחים סעודה עשירה</div>
+          <div class="pasuk-line"><b>ו-ח:</b> וַיְמַהֵר אַבְרָהָם הָאֹהֱלָה אֶל שָׂרָה, וַיֹּאמֶר: מַהֲרִי שְׁלֹשׁ סְאִים קֶמַח סֹלֶת, לוּשִׁי וַעֲשִׂי עֻגוֹת. וְאֶל הַבָּקָר רָץ אַבְרָהָם וַיִּקַּח בֶּן בָּקָר רַךְ וָטוֹב... וַיִּקַּח חֶמְאָה וְחָלָב וּבֶן הַבָּקָר אֲשֶׁר עָשָׂה, וַיִּתֵּן לִפְנֵיהֶם, וְהוּא עֹמֵד עֲלֵיהֶם תַּחַת הָעֵץ וַיֹּאכֵלוּ.</div>
         </div>
         <div class="mini-timeline" role="img" aria-label="שלבי הכנסת האורחים - מיעוט בדברים וריבוי במעשה">
           <div class="step"><span class="step-icon" aria-hidden="true">🏃</span>רָץ לִקְרַאתָם<br><small>וישתחו ארצה</small></div>
@@ -225,10 +227,14 @@
         <span class="qb-root-icon" aria-hidden="true">😊</span>
         <div class="qb-root-label">פסוקים ט'-ט"ו</div>
         <div class="qb-root-pasuk">
-          <b>ט-י:</b> וַיֹּאמְרוּ אֵלָיו: אַיֵּה שָׂרָה אִשְׁתֶּךָ? וַיֹּאמֶר: הִנֵּה בָאֹהֶל. וַיֹּאמֶר: שׁוֹב אָשׁוּב אֵלֶיךָ כָּעֵת חַיָּה, וְהִנֵּה בֵן לְשָׂרָה אִשְׁתֶּךָ, וְשָׂרָה שֹׁמַעַת פֶּתַח הָאֹהֶל וְהוּא אַחֲרָיו.<br>
-          <b>יא-יב:</b> וְאַבְרָהָם וְשָׂרָה זְקֵנִים בָּאִים בַּיָּמִים, חָדַל לִהְיוֹת לְשָׂרָה אֹרַח כַּנָּשִׁים. וַתִּצְחַק שָׂרָה בְּקִרְבָּהּ לֵאמֹר: אַחֲרֵי בְלֹתִי הָיְתָה לִּי עֶדְנָה, וַאדֹנִי זָקֵן.<br>
-          <b>יג-יד:</b> וַיֹּאמֶר ה' אֶל אַבְרָהָם: לָמָּה זֶּה צָחֲקָה שָׂרָה לֵאמֹר, הַאַף אֻמְנָם אֵלֵד וַאֲנִי זָקַנְתִּי? הֲיִפָּלֵא מֵה' דָּבָר? לַמּוֹעֵד אָשׁוּב אֵלֶיךָ כָּעֵת חַיָּה, וּלְשָׂרָה בֵן.<br>
-          <b>טו:</b> וַתְּכַחֵשׁ שָׂרָה לֵאמֹר לֹא צָחַקְתִּי, כִּי יָרֵאָה. וַיֹּאמֶר: לֹא, כִּי צָחָקְתְּ.
+          <div class="pasuk-gloss">האורחים שואלים על שרה, ומבשרים שבעוד שנה ייוולד לה בן</div>
+          <div class="pasuk-line"><b>ט-י:</b> וַיֹּאמְרוּ אֵלָיו: אַיֵּה שָׂרָה אִשְׁתֶּךָ? וַיֹּאמֶר: הִנֵּה בָאֹהֶל. וַיֹּאמֶר: שׁוֹב אָשׁוּב אֵלֶיךָ כָּעֵת חַיָּה, וְהִנֵּה בֵן לְשָׂרָה אִשְׁתֶּךָ, וְשָׂרָה שֹׁמַעַת פֶּתַח הָאֹהֶל וְהוּא אַחֲרָיו.</div>
+          <div class="pasuk-gloss">אברהם ושרה זקנים; שרה צוחקת בקרבה למשמע הבשורה</div>
+          <div class="pasuk-line"><b>יא-יב:</b> וְאַבְרָהָם וְשָׂרָה זְקֵנִים בָּאִים בַּיָּמִים, חָדַל לִהְיוֹת לְשָׂרָה אֹרַח כַּנָּשִׁים. וַתִּצְחַק שָׂרָה בְּקִרְבָּהּ לֵאמֹר: אַחֲרֵי בְלֹתִי הָיְתָה לִּי עֶדְנָה, וַאדֹנִי זָקֵן.</div>
+          <div class="pasuk-gloss">ה' תמה מדוע צחקה שרה, וחוזר על ההבטחה</div>
+          <div class="pasuk-line"><b>יג-יד:</b> וַיֹּאמֶר ה' אֶל אַבְרָהָם: לָמָּה זֶּה צָחֲקָה שָׂרָה לֵאמֹר, הַאַף אֻמְנָם אֵלֵד וַאֲנִי זָקַנְתִּי? הֲיִפָּלֵא מֵה' דָּבָר? לַמּוֹעֵד אָשׁוּב אֵלֶיךָ כָּעֵת חַיָּה, וּלְשָׂרָה בֵן.</div>
+          <div class="pasuk-gloss">שרה מכחישה שצחקה, מיראה; ה' מעמיד אותה על טעותה</div>
+          <div class="pasuk-line"><b>טו:</b> וַתְּכַחֵשׁ שָׂרָה לֵאמֹר לֹא צָחַקְתִּי, כִּי יָרֵאָה. וַיֹּאמֶר: לֹא, כִּי צָחָקְתְּ.</div>
         </div>
       </div>
       <div class="qb-connector" aria-hidden="true"></div>
@@ -260,6 +266,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רמב"ן (ט"ו) ד"ה 'ותכחש שרה לאמר'</span>
             אני תמה בנביאה הצדקת איך תכחש באשר אמר השם לנביא, וגם למה לא האמינה לדברי מלאכי אלוהים. והנראה בעיני כי המלאכים האלה הנראים כאנשים באו אל אברהם, והוא בחכמתו הכיר בהם... ושרה שומעת, ולא ידעה כי מלאכי עליון הם... ואולי, לא ראתה אותם כלל.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-1">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>פשר הכחשתה של שרה לפי הרמב"ן</p>
@@ -309,9 +316,12 @@
         <span class="qb-root-icon" aria-hidden="true">🗣️</span>
         <div class="qb-root-label">פסוקים י"ז-י"ט</div>
         <div class="qb-root-pasuk">
-          <b>יז:</b> וַה' אָמָר: הַמְכַסֶּה אֲנִי מֵאַבְרָהָם אֲשֶׁר אֲנִי עֹשֶׂה?<br>
-          <b>יח:</b> וְאַבְרָהָם הָיוֹ יִהְיֶה לְגוֹי גָּדוֹל וְעָצוּם, וְנִבְרְכוּ בוֹ כֹּל גּוֹיֵי הָאָרֶץ.<br>
-          <b>יט:</b> כִּי יְדַעְתִּיו לְמַעַן אֲשֶׁר יְצַוֶּה אֶת בָּנָיו וְאֶת בֵּיתוֹ אַחֲרָיו וְשָׁמְרוּ דֶּרֶךְ ה' לַעֲשׂוֹת צְדָקָה וּמִשְׁפָּט, לְמַעַן הָבִיא ה' עַל אַבְרָהָם אֵת אֲשֶׁר דִּבֶּר עָלָיו.
+          <div class="pasuk-gloss">ה' שוקל אם לגלות לאברהם את התוכנית נגד סדום</div>
+          <div class="pasuk-line"><b>יז:</b> וַה' אָמָר: הַמְכַסֶּה אֲנִי מֵאַבְרָהָם אֲשֶׁר אֲנִי עֹשֶׂה?</div>
+          <div class="pasuk-gloss">ה' מזכיר את ייעודו של אברהם - להיות לגוי גדול ולברך את כל העמים</div>
+          <div class="pasuk-line"><b>יח:</b> וְאַבְרָהָם הָיוֹ יִהְיֶה לְגוֹי גָּדוֹל וְעָצוּם, וְנִבְרְכוּ בוֹ כֹּל גּוֹיֵי הָאָרֶץ.</div>
+          <div class="pasuk-gloss">ה' בוחר באברהם כדי שיצווה את בניו לשמור את דרכו</div>
+          <div class="pasuk-line"><b>יט:</b> כִּי יְדַעְתִּיו לְמַעַן אֲשֶׁר יְצַוֶּה אֶת בָּנָיו וְאֶת בֵּיתוֹ אַחֲרָיו וְשָׁמְרוּ דֶּרֶךְ ה' לַעֲשׂוֹת צְדָקָה וּמִשְׁפָּט, לְמַעַן הָבִיא ה' עַל אַבְרָהָם אֵת אֲשֶׁר דִּבֶּר עָלָיו.</div>
         </div>
       </div>
       <div class="qb-connector" aria-hidden="true"></div>
@@ -321,6 +331,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רש"י (י"ז) ד"ה 'הַמְכַסֶּה אֲנִי' - בתמיה</span>
             אשר אני עושה בסדום - לא יפה לי לעשות דבר זה שלא מדעתו: אני נתתי לו את הארץ הזאת, וחמשה כרכין הללו שלו הן... קראתי אותו אברהם, אב המון גוים, ואשמיד את הבנים ולא אודיע לאב שהוא אוהבי?
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-2">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>הסיבה לגילוי תוכנית סדום לאברהם</p>
@@ -335,6 +346,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רש"י (י"ט) ד"ה 'כי ידעתיו'</span>
             לשון חיבה... שהמחבב את האדם מקרבו אצלו ויודעו ומכירו. ולמה ידעתיו? למען אשר יצוה - לפי שהוא מצוה את בניו עליי לשמור דרכיי.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-3">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>משמעות הבחירה באברהם</p>
@@ -362,8 +374,10 @@
         <span class="qb-root-icon" aria-hidden="true">⚖️</span>
         <div class="qb-root-label">פסוקים כ'-כ"א</div>
         <div class="qb-root-pasuk">
-          <b>כ:</b> וַיֹּאמֶר ה': זַעֲקַת סְדֹם וַעֲמֹרָה כִּי רָבָּה, וְחַטָּאתָם כִּי כָבְדָה מְאֹד.<br>
-          <b>כא:</b> אֵרֲדָה נָּא וְאֶרְאֶה הַכְּצַעֲקָתָהּ הַבָּאָה אֵלַי עָשׂוּ כָּלָה, וְאִם לֹא אֵדָעָה.
+          <div class="pasuk-gloss">ה' אומר שזעקת סדום ועמורה וחטאתם גדולים מאוד</div>
+          <div class="pasuk-line"><b>כ:</b> וַיֹּאמֶר ה': זַעֲקַת סְדֹם וַעֲמֹרָה כִּי רָבָּה, וְחַטָּאתָם כִּי כָבְדָה מְאֹד.</div>
+          <div class="pasuk-gloss">ה' "יורד" לבדוק אם מעשיהם כחומרת הזעקה</div>
+          <div class="pasuk-line"><b>כא:</b> אֵרֲדָה נָּא וְאֶרְאֶה הַכְּצַעֲקָתָהּ הַבָּאָה אֵלַי עָשׂוּ כָּלָה, וְאִם לֹא אֵדָעָה.</div>
         </div>
       </div>
       <div class="qb-connector" aria-hidden="true"></div>
@@ -373,6 +387,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רש"י (כ"א) ד"ה 'הכצעקתה'</span>
             הבאה אלי עשו - ואם עומדים במרדם, כלה אני עושה בהם. ואם לא - יעמדו במרדם, אדעה מה אעשה להיפרע מהן ביסורין ולא אכלה אותן.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-4">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>משמעות הביטוי "הכצעקתה"</p>
@@ -387,6 +402,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">פרקי דרבי אליעזר, פרק כ"ה</span>
             הכריזו בסדום ואמרו: כל מי שהוא מחזיק בידו בפת לחם לעני לגר לאביון - יישרף באש. פלוטית, בתו של לוט, הייתה נשואה לאחד מגדולי סדום; ראתה עני אחד מדוקדק ברחובות העיר, רגמה נפשה - מה הייתה עושה? בכל יום כשהייתה יוצאת לשאוב מים, הייתה נותנת בכדה מכל מזון הבית ומכלכלת אותו. אמרו אנשי סדום: העני הזה מאין הוא חי?! עד שגילו הדבר והוציאו אותה להישרף. אמרה: ריבונו של עולם, עשה משפטי ודיני! ועלתה צעקתה לפני כיסא הכבוד.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-5">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>סיפור פלוטית בת לוט וחוקי סדום</p>
@@ -401,6 +417,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">נחמה ליבוביץ'</span>
             הרע נהפך לפעולה חוקית, עשיית הרע נהפכת לחוק החברה. אין הרע דבר הנעשה בצנעה שיש להתבייש בפניו, גם אין הרשע נעשה בגלוי ע"י התפרצות ספונטנית של המונים פרועים ומוסתים מפרי סדר וחוקי חברה, אלא הוא הוא הסדר והוא חוק החברה - והעובר עליו ועושה, על פי עצת ליבו, את הטוב, הרי הוא פורע מוסר וחוק, ואחת דתו למות.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-6">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>אופי הרוע המוסדי בסדום</p>
@@ -427,9 +444,12 @@
         <span class="qb-root-icon" aria-hidden="true">🙏</span>
         <div class="qb-root-label">פסוקים כ"ב-ל"ג</div>
         <div class="qb-root-pasuk">
-          <b>כב-כג:</b> וַיִּפְנוּ מִשָּׁם הָאֲנָשִׁים וַיֵּלְכוּ סְדֹמָה, וְאַבְרָהָם עוֹדֶנּוּ עֹמֵד לִפְנֵי ה'. וַיִּגַּשׁ אַבְרָהָם וַיֹּאמַר: הַאַף תִּסְפֶּה צַדִּיק עִם רָשָׁע?<br>
-          <b>כד-כה:</b> אוּלַי יֵשׁ חֲמִשִּׁים צַדִּיקִם בְּתוֹךְ הָעִיר... חָלִלָה לְּךָ מֵעֲשֹׂת כַּדָּבָר הַזֶּה, לְהָמִית צַדִּיק עִם רָשָׁע... הֲשֹׁפֵט כָּל הָאָרֶץ לֹא יַעֲשֶׂה מִשְׁפָּט?<br>
-          <b>לב-לג:</b> וַיֹּאמֶר: אַל נָא יִחַר לַאדֹנָי וַאֲדַבְּרָה אַךְ הַפַּעַם, אוּלַי יִמָּצְאוּן שָׁם עֲשָׂרָה. וַיֹּאמֶר: לֹא אַשְׁחִית בַּעֲבוּר הָעֲשָׂרָה. וַיֵּלֶךְ ה' כַּאֲשֶׁר כִּלָּה לְדַבֵּר אֶל אַבְרָהָם, וְאַבְרָהָם שָׁב לִמְקֹמוֹ.
+          <div class="pasuk-gloss">אברהם נשאר עומד לפני ה', וניגש לבקש שלא יספה צדיק עם רשע</div>
+          <div class="pasuk-line"><b>כב-כג:</b> וַיִּפְנוּ מִשָּׁם הָאֲנָשִׁים וַיֵּלְכוּ סְדֹמָה, וְאַבְרָהָם עוֹדֶנּוּ עֹמֵד לִפְנֵי ה'. וַיִּגַּשׁ אַבְרָהָם וַיֹּאמַר: הַאַף תִּסְפֶּה צַדִּיק עִם רָשָׁע?</div>
+          <div class="pasuk-gloss">אברהם מבקש שה' יציל את העיר בזכות חמישים צדיקים</div>
+          <div class="pasuk-line"><b>כד-כה:</b> אוּלַי יֵשׁ חֲמִשִּׁים צַדִּיקִם בְּתוֹךְ הָעִיר... חָלִלָה לְּךָ מֵעֲשֹׂת כַּדָּבָר הַזֶּה, לְהָמִית צַדִּיק עִם רָשָׁע... הֲשֹׁפֵט כָּל הָאָרֶץ לֹא יַעֲשֶׂה מִשְׁפָּט?</div>
+          <div class="pasuk-gloss">אברהם ממשיך להתמקח עד עשרה צדיקים, וה' נענה לו</div>
+          <div class="pasuk-line"><b>לב-לג:</b> וַיֹּאמֶר: אַל נָא יִחַר לַאדֹנָי וַאֲדַבְּרָה אַךְ הַפַּעַם, אוּלַי יִמָּצְאוּן שָׁם עֲשָׂרָה. וַיֹּאמֶר: לֹא אַשְׁחִית בַּעֲבוּר הָעֲשָׂרָה. וַיֵּלֶךְ ה' כַּאֲשֶׁר כִּלָּה לְדַבֵּר אֶל אַבְרָהָם, וְאַבְרָהָם שָׁב לִמְקֹמוֹ.</div>
         </div>
       </div>
       <div class="qb-connector" aria-hidden="true"></div>
@@ -449,6 +469,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רש"י (כ"ג) ד"ה 'ויגש אברהם'</span>
             מצינו הגשה למלחמה - ויגש יואב (שמואל ב י', י"ג). הגשה לפיוס - ויגש אליו יהודה (בראשית מ"ד, י"ח). והגשה לתפילה - ויגש אליהו הנביא (מלכים א י"ח). לכל אלה ניגש אברהם: לדבר קשות, לפיוס ולתפילה.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-7">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>שלוש הכוונות בפניית אברהם אל ה'</p>
@@ -463,6 +484,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">נחמה ליבוביץ', עיונים חדשים בספר בראשית, עמ' 131-132</span>
             אמנם יש בכוח המיעוט להכריע גורל המקום לכף זכות, אבל רק אם אותם מעטים בודדים צדיקים הם, מעורים ומעורבים בחיי העיר, בעסקיה, במשאה ובמתנה, אם מופיעים ומשפיעים הם בציבוריותה. אבל אם אין אותם בודדים אלא נחבאים וחיים חיי צדקות בחדרי חדרים - הם את נפשם, אולי, יצילו, אך בוודאי אין זכותם יכולה להגן על העיר.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-8">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>תנאי "בתוך העיר" להגנה על הציבור</p>
@@ -476,50 +498,6 @@
 
       </div>
     </div>
-
-    <!-- פרשני הפרק - סיכום -->
-    <section class="card" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">📚 סיכום</span>
-        <h2 class="card-title">כל הפרשנים שפגשנו בפרק - מה כל אחד אמר?</h2>
-      </div>
-      <div class="card-body">
-        <p class="pasuk-block-note">עברו על כל הפרשנים שלמדנו בפרק. אחרי שאתם מרגישים שהבנתם את דבריו של פרשן מסוים - לחצו על "אישור" ליד השם שלו.</p>
-        <div class="mp-recap-grid">
-
-          <div class="mp-tile" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רמב"ן (פס' ט"ו)</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-1">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רש"י (פס' י"ז, י"ט)</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-2">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רש"י (פס' כ"א)</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-3">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">פרקי דרבי אליעזר</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-4">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">נחמה ליבוביץ'</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-5">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רש"י (פס' כ"ג)</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-6">אישור</button>
-          </div>
-
-        </div>
-      </div>
-    </section>
 
   </div>
 </main>
@@ -681,7 +659,7 @@ const unitButtons = Array.from(document.querySelectorAll('.mp-tile-btn'));
 
 function saveUnits(){
   const done = {};
-  unitButtons.forEach(btn => { done[btn.dataset.unitId] = btn.closest('.mp-tile').classList.contains('completed'); });
+  unitButtons.forEach(btn => { done[btn.dataset.unitId] = btn.closest('.qb-meforesh').classList.contains('completed'); });
   try{ localStorage.setItem(UNIT_KEY, JSON.stringify(done)); }catch(e){ /* אחסון חסום */ }
 }
 
@@ -691,7 +669,7 @@ function loadUnits(){
     const done = raw ? JSON.parse(raw) : {};
     unitButtons.forEach(btn => {
       if(done[btn.dataset.unitId]){
-        btn.closest('.mp-tile').classList.add('completed');
+        btn.closest('.qb-meforesh').classList.add('completed');
         btn.textContent = '✓ אושר';
       }
     });
@@ -700,7 +678,7 @@ function loadUnits(){
 
 unitButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    const tile = btn.closest('.mp-tile');
+    const tile = btn.closest('.qb-meforesh');
     const nowCompleted = !tile.classList.contains('completed');
     tile.classList.toggle('completed', nowCompleted);
     btn.textContent = nowCompleted ? '✓ אושר' : 'אישור';
