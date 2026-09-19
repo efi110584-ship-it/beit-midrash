@@ -11,26 +11,18 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
-  /* פרשני הפרק - קוביות סיכום קטנות: אייקון + שם הפרשן + כפתור אישור */
-  .mp-recap-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(115px, 1fr)); gap:.7rem; }
-  .mp-tile{
-    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
-    gap:.45rem; aspect-ratio:1/1; padding:.85rem .5rem;
-    background:#fff; border:1.5px solid var(--paper-line); border-top:4px solid var(--acc); border-radius:12px;
-    box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
-  }
-  .mp-tile:hover{ transform:translateY(-2px); box-shadow:var(--shadow-hover); }
-  .mp-tile-icon{ font-size:1.3rem; line-height:1; }
-  .mp-tile-name{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1rem; color:var(--ink); line-height:1.25; }
+  /* אישור הבנת פרשן - כפתור קטן בתחתית כל קובית מפרש, במקום רשימת סיכום נפרדת */
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
-    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:32px;
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
     padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
-    transition:background .2s ease, color .2s ease, border-color .2s ease;
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
   }
   .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
-  .mp-tile.completed{ background:var(--teal-soft); border-top-color:var(--teal); }
-  .mp-tile.completed .mp-tile-name{ color:var(--teal); }
-  .mp-tile.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-right-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
   /* ========== רכיבי עזר קיימים, בגודל מוקטן לשימוש בתוך קוביות ========== */
   .mini-timeline{ margin-top:.7rem; }
@@ -201,6 +193,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">אברבנאל (פסוק ג')</span>
             פעמים רבות יקרה לאדם העניו שיבוש מלשאול שאלה מאדוניו בפירוש, וישאלנה ברמיזות... וכאשר ראה אברהם שלא השיבו יתברך, חזר לדבר פעם שנית בביאור, באמרו "הן לי לא נתת זרע".
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-1">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">תזכורת: "מַה תִּתֶּן לִי וְאָנֹכִי הוֹלֵךְ עֲרִירִי" (פסוק ב') לעומת "הֵן לִי לֹא נָתַתָּה זָרַע" (פסוק ג')</p>
@@ -215,6 +208,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רש"י (פסוק ה') - "וַיּוֹצֵא אֹתוֹ הַחוּצָה"</span>
             לפי פשוטו: הוציאו מאהלו לחוץ לראות הכוכבים. ולפי מדרשו: אמר לו צא מאצטגנינות שלך... דבר אחר: הוציאו מחללו של עולם והגביהו למעלה מן הכוכבים.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-2">אישור</button></div>
           </div>
           <div class="mini-timeline" role="img" aria-label="שלוש הדרכים בהן מסביר רש"י את ויוצא אתו החוצה">
             <div class="step"><span class="step-icon" aria-hidden="true">👁️</span>פשט<br><small>הוציאו לראות כוכבים</small></div>
@@ -236,6 +230,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רש"י (פסוק ו') - "וְהֶאֱמִן בַּה'"</span>
             לא שאל לו אות על זאת... ויחשבה לו צדקה - הקב"ה חשבה לאברם לזכות ולצדקה על האמונה שהאמין בו.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-3">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">תזכורת: "וְהֶאֱמִן בַּה', וַיַּחְשְׁבֶהָ לּוֹ צְדָקָה" (פסוק ו')</p>
@@ -304,6 +299,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רמב"ן (פסוק ח') - "בַּמָּה אֵדַע כִּי אִירָשֶׁנָּה"</span>
             בקש אברהם שידע ידיעה אמיתית שיירשנה, ולא יגרום חטאו או חטא זרעו למונעה מהם, או שמא יעשו הכנענים תשובה... והקב"ה כרת עמו ברית שיירשנה על כל פנים.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-4">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">תזכורת: "בַּמָּה אֵדַע כִּי אִירָשֶׁנָּה" (פסוק ח')</p>
@@ -358,6 +354,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רש"י (פסוק י') - "וְאֶת הַצִּפֹּר לֹא בָתָר"</span>
             לפי שהאומות נמשלו לפרים ואילים ושעירים... וישראל נמשלו לבני יונה... לפיכך בתר הבהמות רמז על האומות שיהיו כלין והולכין, ואת הציפור לא בתר - רמז שיהיו ישראל קיימין לעולם.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-5">אישור</button></div>
           </div>
           <div class="vs-compare" role="img" aria-label="השוואה: הבהמות מסמלות את האומות, הציפור מסמלת את ישראל">
             <div class="vs-side vs-a">
@@ -425,6 +422,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רש"י (פסוק י"ב) - "וְהִנֵּה אֵימָה"</span>
             רמז לצרות וחשך של גליות.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-6">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">תזכורת: "יָדֹעַ תֵּדַע כִּי גֵר יִהְיֶה זַרְעֲךָ... וְאַחֲרֵי כֵן יֵצְאוּ בִּרְכֻשׁ גָּדוֹל" (פסוקים י"ג-י"ד)</p>
@@ -439,6 +437,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">הרב חנן פורת, "מעט מן האור", גיליון "לך לך" תשס"ו</span>
             בדרך הטבע, הקשר בין עם לארץ נוצר מתוך היותה "תבנית נוף מולדתו"... לכן על העם הזה להתגבש - שלא כדרך הטבע - בארץ לא לו, תוך שיעבוד וסבל, ולצאת ממנה בדרך נס.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-7">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">תזכורת: "וְדוֹר רְבִיעִי יָשׁוּבוּ הֵנָּה" (פסוק ט"ז)</p>
@@ -497,6 +496,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רש"י (פסוק י') - "וַיְבַתֵּר אֹתָם"</span>
             ודרך כורתי ברית לחלק בהמה ולעבר בין בתריה... ואף כאן: "תנור עשן ולפיד אש אשר עבר בין הגזרים" - שלוחו של שכינה שהוא אש.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-8">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">תזכורת: "וְהִנֵּה תַנּוּר עָשָׁן וְלַפִּיד אֵשׁ אֲשֶׁר עָבַר בֵּין הַגְּזָרִים הָאֵלֶּה" (פסוק י"ז)</p>
@@ -530,54 +530,6 @@
       </div>
     </div>
 
-    <!-- פרשני הפרק - סיכום -->
-    <section class="card" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">📚 סיכום</span>
-        <h2 class="card-title">כל הפרשנים שפגשנו בפרק - מה כל אחד אמר?</h2>
-      </div>
-      <div class="card-body">
-        <p class="pasuk-block-note">עברו על כל הפרשנים שלמדנו בפרק. אחרי שאתם מרגישים שהבנתם את דבריו של פרשן מסוים - לחצו על "אישור" ליד השם שלו.</p>
-        <div class="mp-recap-grid">
-
-          <div class="mp-tile" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">אברבנאל (פס' ג')</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-1">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רש"י (פס' ה')</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-2">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רש"י (פס' ו')</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-3">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רמב"ן (פס' ח')</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-4">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רש"י (פס' י')</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-5">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">הרב חנן פורת</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-6">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רש"י (תנור עשן)</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit15-mp-7">אישור</button>
-          </div>
-
-        </div>
-      </div>
-    </section>
 
   </div>
 </main>
@@ -739,7 +691,7 @@ const unitButtons = Array.from(document.querySelectorAll('.mp-tile-btn'));
 
 function saveUnits(){
   const done = {};
-  unitButtons.forEach(btn => { done[btn.dataset.unitId] = btn.closest('.mp-tile').classList.contains('completed'); });
+  unitButtons.forEach(btn => { done[btn.dataset.unitId] = btn.closest('.qb-meforesh').classList.contains('completed'); });
   try{ localStorage.setItem(UNIT_KEY, JSON.stringify(done)); }catch(e){ /* אחסון חסום */ }
 }
 
@@ -749,7 +701,7 @@ function loadUnits(){
     const done = raw ? JSON.parse(raw) : {};
     unitButtons.forEach(btn => {
       if(done[btn.dataset.unitId]){
-        btn.closest('.mp-tile').classList.add('completed');
+        btn.closest('.qb-meforesh').classList.add('completed');
         btn.textContent = '✓ אושר';
       }
     });
@@ -758,7 +710,7 @@ function loadUnits(){
 
 unitButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    const tile = btn.closest('.mp-tile');
+    const tile = btn.closest('.qb-meforesh');
     const nowCompleted = !tile.classList.contains('completed');
     tile.classList.toggle('completed', nowCompleted);
     btn.textContent = nowCompleted ? '✓ אושר' : 'אישור';
