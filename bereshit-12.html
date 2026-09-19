@@ -11,26 +11,18 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
-  /* פרשני הפרק - קוביות סיכום קטנות: אייקון + שם הפרשן + כפתור אישור */
-  .mp-recap-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(115px, 1fr)); gap:.7rem; }
-  .mp-tile{
-    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
-    gap:.45rem; aspect-ratio:1/1; padding:.85rem .5rem;
-    background:#fff; border:1.5px solid var(--paper-line); border-top:4px solid var(--acc); border-radius:12px;
-    box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
-  }
-  .mp-tile:hover{ transform:translateY(-2px); box-shadow:var(--shadow-hover); }
-  .mp-tile-icon{ font-size:1.3rem; line-height:1; }
-  .mp-tile-name{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1rem; color:var(--ink); line-height:1.25; }
+  /* אישור הבנת פרשן - כפתור קטן בתחתית כל קובית מפרש, במקום רשימת סיכום נפרדת */
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
-    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:32px;
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
     padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
-    transition:background .2s ease, color .2s ease, border-color .2s ease;
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
   }
   .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
-  .mp-tile.completed{ background:var(--teal-soft); border-top-color:var(--teal); }
-  .mp-tile.completed .mp-tile-name{ color:var(--teal); }
-  .mp-tile.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-right-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
   /* ========== רכיבי עזר קיימים, בגודל מוקטן לשימוש בתוך קוביות ========== */
   .mini-timeline.detail .step{ flex:1 1 140px; text-align:center; gap:.3rem; padding:.6rem .6rem; }
@@ -80,6 +72,12 @@
   .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
   .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
   .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
 
   .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
   .qb-connector::after{
@@ -200,6 +198,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">מהר"ל, נצח ישראל, פרק י"א</span>
             אצל נח היה רק בחירה פרטית... אבל באברהם לא היה בחירה פרטית, רק בחירה באומה הישראלית - שהרי כתיב "ואעשה אותך לגוי גדול", וזה בחירה כללית, ובחירה כזאת אין תולה במעשה כלל.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-1">אישור</button></div>
           </div>
           <div class="vs-compare" role="img" aria-label="השוואה: בחירה פרטית בנח מול בחירה כללית באברהם">
             <div class="vs-side vs-a">
@@ -227,6 +226,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">שפת אמת, לך לך תרל"ב</span>
             רמב"ן הקשה שנאמר לך לך בלי שנזכר מקודם חיבתו... "לך לך" נאמר מהשם יתברך לכל האנשים תמיד, ואברהם אבינו שמע וקיבל - זה השבח בעצמו שהיה מוכן לקבל המאמר.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-2">אישור</button></div>
           </div>
           <div class="flowchart" style="max-width:none; margin:0;" role="img" aria-label="הקריאה יוצאת לכולם, רוב ישנים, אברהם שומע ומקבל">
             <div class="flow-step">
@@ -269,9 +269,11 @@
         <span class="qb-root-icon" aria-hidden="true">🧭</span>
         <div class="qb-root-label">פסוקים א'-ג'</div>
         <div class="qb-root-pasuk">
-          <b>א:</b> וַיֹּאמֶר ה' אֶל אַבְרָם: לֶךְ לְךָ מֵאַרְצְךָ וּמִמּוֹלַדְתְּךָ וּמִבֵּית אָבִיךָ, אֶל הָאָרֶץ אֲשֶׁר אַרְאֶךָּ.<br>
-          <b>ב:</b> וְאֶעֶשְׂךָ לְגוֹי גָּדוֹל וַאֲבָרֶכְךָ וַאֲגַדְּלָה שְׁמֶךָ, וֶהְיֵה בְּרָכָה.<br>
-          <b>ג:</b> וַאֲבָרְכָה מְבָרֲכֶיךָ וּמְקַלֶּלְךָ אָאֹר, וְנִבְרְכוּ בְךָ כֹּל מִשְׁפְּחֹת הָאֲדָמָה.
+          <div class="pasuk-gloss">ה' מצווה על אברם לעזוב הכול וללכת אל ארץ לא נודעת</div>
+          <div class="pasuk-line"><b>א:</b> וַיֹּאמֶר ה' אֶל אַבְרָם: לֶךְ לְךָ מֵאַרְצְךָ וּמִמּוֹלַדְתְּךָ וּמִבֵּית אָבִיךָ, אֶל הָאָרֶץ אֲשֶׁר אַרְאֶךָּ.</div>
+          <div class="pasuk-gloss">ה' מבטיח לאברם ברכה גדולה - לגוי גדול, שם גדול, וברכה לכל משפחות האדמה</div>
+          <div class="pasuk-line"><b>ב:</b> וְאֶעֶשְׂךָ לְגוֹי גָּדוֹל וַאֲבָרֶכְךָ וַאֲגַדְּלָה שְׁמֶךָ, וֶהְיֵה בְּרָכָה.<br>
+          <b>ג:</b> וַאֲבָרְכָה מְבָרֲכֶיךָ וּמְקַלֶּלְךָ אָאֹר, וְנִבְרְכוּ בְךָ כֹּל מִשְׁפְּחֹת הָאֲדָמָה.</div>
         </div>
       </div>
       <div class="qb-connector" aria-hidden="true"></div>
@@ -291,6 +293,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רמב"ן (פסוק א')</span>
             יקשה על האדם לעזוב ארצו... וכל שכן כשיש שם כל בית אביו, ולכך הוצרך לומר לו שיעזוב הכל לאהבתו של הקב"ה.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-3">אישור</button></div>
           </div>
           <div class="mini-timeline detail" role="img" aria-label="שלוש רמות פרידה - ארץ, מולדת, בית אב - בקושי הולך וגדל">
             <div class="step">
@@ -324,6 +327,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רד"ק (פסוק ב')</span>
             ולא ידע הטובה היא אם רעה, וכל זה אמר לו האל להודיע חיבתו של אברהם אבינו... והכל קבל מאהבה לעשות רצון האל.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-4">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">תזכורת: "אֶל הָאָרֶץ אֲשֶׁר אַרְאֶךָּ" (פסוק א')</p>
@@ -350,12 +354,18 @@
         <span class="qb-root-icon" aria-hidden="true">🐫</span>
         <div class="qb-root-label">פסוקים ד'-ט'</div>
         <div class="qb-root-pasuk">
-          <b>ד:</b> וַיֵּלֶךְ אַבְרָם כַּאֲשֶׁר דִּבֶּר אֵלָיו ה', וַיֵּלֶךְ אִתּוֹ לוֹט; וְאַבְרָם בֶּן חָמֵשׁ שָׁנִים וְשִׁבְעִים שָׁנָה בְּצֵאתוֹ מֵחָרָן.<br>
-          <b>ה:</b> וַיִּקַּח אַבְרָם אֶת שָׂרַי אִשְׁתּוֹ וְאֶת לוֹט בֶּן אָחִיו וְאֶת כָּל רְכוּשָׁם אֲשֶׁר רָכָשׁוּ, וְאֶת הַנֶּפֶשׁ אֲשֶׁר עָשׂוּ בְחָרָן, וַיֵּצְאוּ לָלֶכֶת אַרְצָה כְּנַעַן וַיָּבֹאוּ אַרְצָה כְּנָעַן.<br>
-          <b>ו:</b> וַיַּעֲבֹר אַבְרָם בָּאָרֶץ עַד מְקוֹם שְׁכֶם עַד אֵלוֹן מוֹרֶה, וְהַכְּנַעֲנִי אָז בָּאָרֶץ.<br>
-          <b>ז:</b> וַיֵּרָא ה' אֶל אַבְרָם וַיֹּאמֶר: לְזַרְעֲךָ אֶתֵּן אֶת הָאָרֶץ הַזֹּאת, וַיִּבֶן שָׁם מִזְבֵּחַ לַה' הַנִּרְאֶה אֵלָיו.<br>
-          <b>ח:</b> וַיַּעְתֵּק מִשָּׁם הָהָרָה מִקֶּדֶם לְבֵית אֵל וַיֵּט אָהֳלֹה, בֵּית אֵל מִיָּם וְהָעַי מִקֶּדֶם, וַיִּבֶן שָׁם מִזְבֵּחַ לַה' וַיִּקְרָא בְּשֵׁם ה'.<br>
-          <b>ט:</b> וַיִּסַּע אַבְרָם הָלוֹךְ וְנָסוֹעַ הַנֶּגְבָּה.
+          <div class="pasuk-gloss">אברם יוצא לדרך כמצוות ה', יחד עם לוט</div>
+          <div class="pasuk-line"><b>ד:</b> וַיֵּלֶךְ אַבְרָם כַּאֲשֶׁר דִּבֶּר אֵלָיו ה', וַיֵּלֶךְ אִתּוֹ לוֹט; וְאַבְרָם בֶּן חָמֵשׁ שָׁנִים וְשִׁבְעִים שָׁנָה בְּצֵאתוֹ מֵחָרָן.</div>
+          <div class="pasuk-gloss">אברם לוקח את שרי, לוט ואת כל רכושם, ומגיעים לארץ כנען</div>
+          <div class="pasuk-line"><b>ה:</b> וַיִּקַּח אַבְרָם אֶת שָׂרַי אִשְׁתּוֹ וְאֶת לוֹט בֶּן אָחִיו וְאֶת כָּל רְכוּשָׁם אֲשֶׁר רָכָשׁוּ, וְאֶת הַנֶּפֶשׁ אֲשֶׁר עָשׂוּ בְחָרָן, וַיֵּצְאוּ לָלֶכֶת אַרְצָה כְּנַעַן וַיָּבֹאוּ אַרְצָה כְּנָעַן.</div>
+          <div class="pasuk-gloss">אברם עובר בארץ עד שכם ואלון מורה, כשהכנעני יושב בה</div>
+          <div class="pasuk-line"><b>ו:</b> וַיַּעֲבֹר אַבְרָם בָּאָרֶץ עַד מְקוֹם שְׁכֶם עַד אֵלוֹן מוֹרֶה, וְהַכְּנַעֲנִי אָז בָּאָרֶץ.</div>
+          <div class="pasuk-gloss">ה' נגלה לאברם ומבטיח את הארץ לזרעו; אברם בונה מזבח</div>
+          <div class="pasuk-line"><b>ז:</b> וַיֵּרָא ה' אֶל אַבְרָם וַיֹּאמֶר: לְזַרְעֲךָ אֶתֵּן אֶת הָאָרֶץ הַזֹּאת, וַיִּבֶן שָׁם מִזְבֵּחַ לַה' הַנִּרְאֶה אֵלָיו.</div>
+          <div class="pasuk-gloss">אברם ממשיך לבית אל והעי, בונה מזבח וקורא בשם ה'</div>
+          <div class="pasuk-line"><b>ח:</b> וַיַּעְתֵּק מִשָּׁם הָהָרָה מִקֶּדֶם לְבֵית אֵל וַיֵּט אָהֳלֹה, בֵּית אֵל מִיָּם וְהָעַי מִקֶּדֶם, וַיִּבֶן שָׁם מִזְבֵּחַ לַה' וַיִּקְרָא בְּשֵׁם ה'.</div>
+          <div class="pasuk-gloss">אברם ממשיך לנסוע לכיוון הנגב</div>
+          <div class="pasuk-line"><b>ט:</b> וַיִּסַּע אַבְרָם הָלוֹךְ וְנָסוֹעַ הַנֶּגְבָּה.</div>
         </div>
         <div class="mini-timeline" role="img" aria-label="ציר המסע: חרן, שכם ואלון מורה, בית אל והעי, הנגב">
           <div class="step"><span class="step-icon" aria-hidden="true">🏛️</span>חָרָן<br><small>יוצא לדרך</small></div>
@@ -394,6 +404,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רש"י (פסוק ה') - "וְאֶת הַנֶּפֶשׁ אֲשֶׁר עָשׂוּ"</span>
             שהכניסן תחת כנפי השכינה, אברהם מגייר את האנשים ושרה מגיירת הנשים... ופשוטו של מקרא: עבדים ושפחות שקנו להם.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-5">אישור</button></div>
           </div>
           <div class="vs-compare" role="img" aria-label="שני פירושים למילה עשו: פשט וקניין מול דרש וגיור">
             <div class="vs-side vs-a">
@@ -433,10 +444,14 @@
         <span class="qb-root-icon" aria-hidden="true">👑</span>
         <div class="qb-root-label">פסוקים י'-כ'</div>
         <div class="qb-root-pasuk">
-          <b>י:</b> וַיְהִי רָעָב בָּאָרֶץ, וַיֵּרֶד אַבְרָם מִצְרַיְמָה לָגוּר שָׁם כִּי כָבֵד הָרָעָב בָּאָרֶץ.<br>
-          <b>יא-יג:</b> וַיְהִי כַּאֲשֶׁר הִקְרִיב לָבוֹא מִצְרָיְמָה, וַיֹּאמֶר אֶל שָׂרַי אִשְׁתּוֹ: הִנֵּה נָא יָדַעְתִּי כִּי אִשָּׁה יְפַת מַרְאֶה אָתְּ... וְהָרְגוּ אֹתִי וְאֹתָךְ יְחַיּוּ. אִמְרִי נָא אֲחֹתִי אָתְּ, לְמַעַן יִיטַב לִי בַעֲבוּרֵךְ וְחָיְתָה נַפְשִׁי בִּגְלָלֵךְ.<br>
-          <b>יד-טז:</b> וַיְהִי כְּבוֹא אַבְרָם מִצְרָיְמָה, וַיִּרְאוּ הַמִּצְרִים אֶת הָאִשָּׁה כִּי יָפָה הִוא מְאֹד. וַיִּרְאוּ אֹתָהּ שָׂרֵי פַרְעֹה וַיְהַלְלוּ אֹתָהּ אֶל פַּרְעֹה, וַתֻּקַּח הָאִשָּׁה בֵּית פַּרְעֹה. וּלְאַבְרָם הֵיטִיב בַּעֲבוּרָהּ, וַיְהִי לוֹ צֹאן וּבָקָר וַחֲמֹרִים וַעֲבָדִים וּשְׁפָחֹת וַאֲתֹנֹת וּגְמַלִּים.<br>
-          <b>יז-כ:</b> וַיְנַגַּע ה' אֶת פַּרְעֹה נְגָעִים גְּדֹלִים וְאֶת בֵּיתוֹ, עַל דְּבַר שָׂרַי אֵשֶׁת אַבְרָם. וַיִּקְרָא פַרְעֹה לְאַבְרָם וַיֹּאמֶר: מַה זֹּאת עָשִׂיתָ לִּי... וְעַתָּה הִנֵּה אִשְׁתְּךָ קַח וָלֵךְ. וַיְצַו עָלָיו פַּרְעֹה אֲנָשִׁים, וַיְשַׁלְּחוּ אֹתוֹ וְאֶת אִשְׁתּוֹ וְאֶת כָּל אֲשֶׁר לוֹ.
+          <div class="pasuk-gloss">רעב כבד בארץ, ואברם יורד למצרים לגור שם</div>
+          <div class="pasuk-line"><b>י:</b> וַיְהִי רָעָב בָּאָרֶץ, וַיֵּרֶד אַבְרָם מִצְרַיְמָה לָגוּר שָׁם כִּי כָבֵד הָרָעָב בָּאָרֶץ.</div>
+          <div class="pasuk-gloss">אברם מבקש משרי לומר שהיא אחותו, מחשש שיהרגו אותו בגללה</div>
+          <div class="pasuk-line"><b>יא-יג:</b> וַיְהִי כַּאֲשֶׁר הִקְרִיב לָבוֹא מִצְרָיְמָה, וַיֹּאמֶר אֶל שָׂרַי אִשְׁתּוֹ: הִנֵּה נָא יָדַעְתִּי כִּי אִשָּׁה יְפַת מַרְאֶה אָתְּ... וְהָרְגוּ אֹתִי וְאֹתָךְ יְחַיּוּ. אִמְרִי נָא אֲחֹתִי אָתְּ, לְמַעַן יִיטַב לִי בַעֲבוּרֵךְ וְחָיְתָה נַפְשִׁי בִּגְלָלֵךְ.</div>
+          <div class="pasuk-gloss">המצרים רואים את יופייה של שרי; היא נלקחת לבית פרעה, ואברם מתעשר בזכותה</div>
+          <div class="pasuk-line"><b>יד-טז:</b> וַיְהִי כְּבוֹא אַבְרָם מִצְרָיְמָה, וַיִּרְאוּ הַמִּצְרִים אֶת הָאִשָּׁה כִּי יָפָה הִוא מְאֹד. וַיִּרְאוּ אֹתָהּ שָׂרֵי פַרְעֹה וַיְהַלְלוּ אֹתָהּ אֶל פַּרְעֹה, וַתֻּקַּח הָאִשָּׁה בֵּית פַּרְעֹה. וּלְאַבְרָם הֵיטִיב בַּעֲבוּרָהּ, וַיְהִי לוֹ צֹאן וּבָקָר וַחֲמֹרִים וַעֲבָדִים וּשְׁפָחֹת וַאֲתֹנֹת וּגְמַלִּים.</div>
+          <div class="pasuk-gloss">ה' מכה את פרעה בנגעים; פרעה משיב את שרה ומשלח את אברם ורכושו</div>
+          <div class="pasuk-line"><b>יז-כ:</b> וַיְנַגַּע ה' אֶת פַּרְעֹה נְגָעִים גְּדֹלִים וְאֶת בֵּיתוֹ, עַל דְּבַר שָׂרַי אֵשֶׁת אַבְרָם. וַיִּקְרָא פַרְעֹה לְאַבְרָם וַיֹּאמֶר: מַה זֹּאת עָשִׂיתָ לִּי... וְעַתָּה הִנֵּה אִשְׁתְּךָ קַח וָלֵךְ. וַיְצַו עָלָיו פַּרְעֹה אֲנָשִׁים, וַיְשַׁלְּחוּ אֹתוֹ וְאֶת אִשְׁתּוֹ וְאֶת כָּל אֲשֶׁר לוֹ.</div>
         </div>
       </div>
       <div class="qb-connector" aria-hidden="true"></div>
@@ -456,6 +471,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">ספורנו (פסוק י"ג)</span>
             למען כשתאמרי שאת אחותי יקווה כל אחד שאשיאך לו, ולא יחשוב להורגני, אבל "ייטיב לי" במהר ובמתן... ובין כך חשב לצאת משם.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-6">אישור</button></div>
           </div>
           <div class="plan-reality" role="img" aria-label="השוואה בין התוכנית של אברהם למה שקרה בפועל, לפי הספורנו">
             <div class="pr-row">
@@ -513,7 +529,11 @@
       <div class="qb-root">
         <span class="qb-root-icon" aria-hidden="true">🔁</span>
         <div class="qb-root-label">עיקרון מרכזי</div>
-        <div class="qb-root-pasuk" style="font-style:italic;">"אומר לך כלל תבין אותו בכל הפרשיות הבאות... כל מה שאירע לאבות סימן לבנים. ולכן יאריכו הכתובים בספור המסעות... וכולם באים ללמד על העתיד." (רמב"ן, פסוק ו')</div>
+        <div class="qb-meforesh" style="text-align:right; margin-top:.3rem;">
+          <span class="qb-src">רמב"ן, פסוק ו'</span>
+          אומר לך כלל תבין אותו בכל הפרשיות הבאות... כל מה שאירע לאבות סימן לבנים. ולכן יאריכו הכתובים בספור המסעות... וכולם באים ללמד על העתיד.
+          <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-7">אישור</button></div>
+        </div>
       </div>
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
@@ -566,55 +586,6 @@
 
       </div>
     </div>
-
-    <!-- פרשני הפרק - סיכום -->
-    <section class="card" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">📚 סיכום</span>
-        <h2 class="card-title">כל הפרשנים שפגשנו בפרק - מה כל אחד אמר?</h2>
-      </div>
-      <div class="card-body">
-        <p class="pasuk-block-note">עברו על כל הפרשנים שלמדנו בפרק. אחרי שאתם מרגישים שהבנתם את דבריו של פרשן מסוים - לחצו על "אישור" ליד השם שלו.</p>
-        <div class="mp-recap-grid">
-
-          <div class="mp-tile" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">מהר"ל</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-1">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">שפת אמת</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-7">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רמב"ן (פס' א')</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-2">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רד"ק (פס' ב')</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-3">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רש"י (פס' ה')</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-4">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">ספורנו (פס' י"ג)</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-5">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רמב"ן (פס' ו')</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit12-mp-6">אישור</button>
-          </div>
-
-        </div>
-      </div>
-    </section>
 
   </div>
 </main>
@@ -776,7 +747,7 @@ const unitButtons = Array.from(document.querySelectorAll('.mp-tile-btn'));
 
 function saveUnits(){
   const done = {};
-  unitButtons.forEach(btn => { done[btn.dataset.unitId] = btn.closest('.mp-tile').classList.contains('completed'); });
+  unitButtons.forEach(btn => { done[btn.dataset.unitId] = btn.closest('.qb-meforesh').classList.contains('completed'); });
   try{ localStorage.setItem(UNIT_KEY, JSON.stringify(done)); }catch(e){ /* אחסון חסום */ }
 }
 
@@ -786,7 +757,7 @@ function loadUnits(){
     const done = raw ? JSON.parse(raw) : {};
     unitButtons.forEach(btn => {
       if(done[btn.dataset.unitId]){
-        btn.closest('.mp-tile').classList.add('completed');
+        btn.closest('.qb-meforesh').classList.add('completed');
         btn.textContent = '✓ אושר';
       }
     });
@@ -795,7 +766,7 @@ function loadUnits(){
 
 unitButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    const tile = btn.closest('.mp-tile');
+    const tile = btn.closest('.qb-meforesh');
     const nowCompleted = !tile.classList.contains('completed');
     tile.classList.toggle('completed', nowCompleted);
     btn.textContent = nowCompleted ? '✓ אושר' : 'אישור';
