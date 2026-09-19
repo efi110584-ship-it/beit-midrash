@@ -372,26 +372,18 @@
 
 .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
-  /* פרשני הפרק - קוביות סיכום קטנות: אייקון + שם הפרשן + כפתור אישור */
-  .mp-recap-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(115px, 1fr)); gap:.7rem; }
-  .mp-tile{
-    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
-    gap:.45rem; aspect-ratio:1/1; padding:.85rem .5rem;
-    background:#fff; border:1.5px solid var(--paper-line); border-top:4px solid var(--acc); border-radius:12px;
-    box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
-  }
-  .mp-tile:hover{ transform:translateY(-2px); box-shadow:var(--shadow-hover); }
-  .mp-tile-icon{ font-size:1.3rem; line-height:1; }
-  .mp-tile-name{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1rem; color:var(--ink); line-height:1.25; }
+  /* אישור הבנת פרשן - כפתור קטן בתחתית כל קובית מפרש, במקום רשימת סיכום נפרדת */
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
-    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:32px;
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
     padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
-    transition:background .2s ease, color .2s ease, border-color .2s ease;
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
   }
   .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
-  .mp-tile.completed{ background:var(--teal-soft); border-top-color:var(--teal); }
-  .mp-tile.completed .mp-tile-name{ color:var(--teal); }
-  .mp-tile.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-right-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
   /* ========== רכיבי עזר קיימים, בגודל מוקטן לשימוש בתוך קוביות ========== */
   .vs-compare{ display:flex; align-items:stretch; gap:0; margin:.7rem 0; border-radius:12px; overflow:hidden; box-shadow:var(--shadow); }
@@ -424,6 +416,12 @@
   .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
   .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
   .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
 
   .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
   .qb-connector::after{
@@ -2070,7 +2068,7 @@
         <div class="topic-eyebrow">ספר בראשית 5 מתוך 5</div>
         <h2 class="topic-title">דף עבודה — פרק כ&quot;ב, &quot;עקידת יצחק&quot;</h2>
       </div>
-      <div class="topic-counter" data-topic-counter="topic-ch22">0/2</div>
+      <div class="topic-counter" data-topic-counter="topic-ch22">0/1</div>
     </div><p class="topic-extra-link"> <a class="chip-link" href="bereshit-22-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a> <a class="chip-link" href="bereshit-22-text.html"><span class="chip-icon" aria-hidden="true">🔍</span>קריאה אינטראקטיבית בפסוקים</a></p>
     <div class="grid">
 
@@ -2112,6 +2110,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">הקדמת אברבנאל לפרק כ"ב</span>
             הפרשה הזאת היא כל קרן ישראל וזכותם לפני אביהם שבשמים, ולכן היא שגורה בפינו בתפילתנו כל היום; ומפני זה ראוי להפליג בה העיון והחקירה יותר מבשאר הפרשיות.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit22-mp-1">אישור</button></div>
           </div>
           <div class="question-block">
             <div class="question-row"><span class="q-num">1</span><span class="q-text" id="ch22__a11y-lbl-1">לפי אברבנאל, מדוע ראוי לעיין בפרשת העקדה יותר מבשאר הפרשיות? היכן היא נזכרת עד היום?</span></div>
@@ -2125,6 +2124,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רמב"ן לפסוק א'</span>
             עניין הניסיון הוא, לדעתי, בעבור היות מעשה האדם רשות מוחלטת בידו - אם ירצה יעשה, ואם לא ירצה לא יעשה - יקרא הבוחן אותו "מנסה"... אבל המנסה יתברך יצווה בו להוציא הדבר מן הכוח אל הפועל, להיות לו שכר מעשה טוב, לא שכר לב טוב בלבד. ודע כי "ה' צדיק יבחן" - כשהוא יודע בצדיק שיעשה רצונו וחפץ להצדיקו, יצווה אותו בניסיון, ולא יבחן את הרשעים אשר לא ישמעו. והנה כל הניסיונות שבתורה לטובת המנוסה.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit22-mp-2">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">שאלה מנחה: אם ה' יודע הכול מראש, מה טעם יש בניסיון?</p>
@@ -2145,6 +2145,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">אברבנאל, ד"ה "ויאמר"</span>
             הניסיון הזה אין ענינו הבחינה, כדי שידע האל מה שלא היה יודע; אבל "והאלוקים נסה" הוא מגזרת "נס" - כי הפועל הנפלא הזה שעשה אברהם בדבר ה' עומד לנס עמים, כדגל רם ונשא, אליו גויים ידרושו ויביטו אחריו!
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit22-mp-3">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">תזכורת: "וְהָאֱלֹקִים נִסָּה אֶת אַבְרָהָם" (פסוק א')</p>
@@ -2191,6 +2192,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רש"י לפסוק ב'</span>
             את בנך - אמר לו: שני בנים יש לי. אמר לו: את יחידך. אמר לו: זה יחיד לאמו וזה יחיד לאמו. אמר לו: אשר אהבת. אמר לו: שניהם אני אוהב. אמר לו: את יצחק. ולמה לא גילה לו מתחילה? שלא לערבבו פתאום, ותזוח דעתו עליו ותיטרף.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit22-mp-4">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">תזכורת: "אֶת בִּנְךָ אֶת יְחִידְךָ אֲשֶׁר אָהַבְתָּ אֶת יִצְחָק" (פס' ב')</p>
@@ -2277,8 +2279,10 @@
         <span class="qb-root-icon" aria-hidden="true">🚶</span>
         <div class="qb-root-label">פסוקים ג'-ח'</div>
         <div class="qb-root-pasuk">
-          <b>ג-ד:</b> וַיַּשְׁכֵּם אַבְרָהָם בַּבֹּקֶר וַיַּחֲבֹשׁ אֶת חֲמֹרוֹ, וַיִּקַּח אֶת שְׁנֵי נְעָרָיו אִתּוֹ וְאֵת יִצְחָק בְּנוֹ, וַיְבַקַּע עֲצֵי עֹלָה, וַיָּקָם וַיֵּלֶךְ אֶל הַמָּקוֹם אֲשֶׁר אָמַר לוֹ הָאֱלֹהִים. בַּיּוֹם הַשְּׁלִישִׁי וַיִּשָּׂא אַבְרָהָם אֶת עֵינָיו וַיַּרְא אֶת הַמָּקוֹם מֵרָחֹק.<br>
-          <b>ה-ח:</b> וַיֹּאמֶר אַבְרָהָם אֶל נְעָרָיו: שְׁבוּ לָכֶם פֹּה עִם הַחֲמוֹר, וַאֲנִי וְהַנַּעַר נֵלְכָה עַד כֹּה וְנִשְׁתַּחֲוֶה וְנָשׁוּבָה אֲלֵיכֶם. וַיִּקַּח אַבְרָהָם אֶת עֲצֵי הָעֹלָה וַיָּשֶׂם עַל יִצְחָק בְּנוֹ, וַיִּקַּח בְּיָדוֹ אֶת הָאֵשׁ וְאֶת הַמַּאֲכֶלֶת, וַיֵּלְכוּ שְׁנֵיהֶם יַחְדָּו. וַיֹּאמֶר יִצְחָק אֶל אַבְרָהָם אָבִיו וַיֹּאמֶר: אָבִי! וַיֹּאמֶר: הִנֶּנִּי בְנִי. וַיֹּאמֶר: הִנֵּה הָאֵשׁ וְהָעֵצִים, וְאַיֵּה הַשֶּׂה לְעֹלָה? וַיֹּאמֶר אַבְרָהָם: אֱלֹהִים יִרְאֶה לּוֹ הַשֶּׂה לְעֹלָה בְּנִי. וַיֵּלְכוּ שְׁנֵיהֶם יַחְדָּו.
+          <div class="pasuk-gloss">אברהם משכים בבוקר ויוצא לדרך עם יצחק ונעריו; ביום השלישי הוא רואה את המקום מרחוק</div>
+          <div class="pasuk-line"><b>ג-ד:</b> וַיַּשְׁכֵּם אַבְרָהָם בַּבֹּקֶר וַיַּחֲבֹשׁ אֶת חֲמֹרוֹ, וַיִּקַּח אֶת שְׁנֵי נְעָרָיו אִתּוֹ וְאֵת יִצְחָק בְּנוֹ, וַיְבַקַּע עֲצֵי עֹלָה, וַיָּקָם וַיֵּלֶךְ אֶל הַמָּקוֹם אֲשֶׁר אָמַר לוֹ הָאֱלֹהִים. בַּיּוֹם הַשְּׁלִישִׁי וַיִּשָּׂא אַבְרָהָם אֶת עֵינָיו וַיַּרְא אֶת הַמָּקוֹם מֵרָחֹק.</div>
+          <div class="pasuk-gloss">אברהם ויצחק ממשיכים לבדם; יצחק שואל היכן השה, ואברהם עונה שה' יראה לו</div>
+          <div class="pasuk-line"><b>ה-ח:</b> וַיֹּאמֶר אַבְרָהָם אֶל נְעָרָיו: שְׁבוּ לָכֶם פֹּה עִם הַחֲמוֹר, וַאֲנִי וְהַנַּעַר נֵלְכָה עַד כֹּה וְנִשְׁתַּחֲוֶה וְנָשׁוּבָה אֲלֵיכֶם. וַיִּקַּח אַבְרָהָם אֶת עֲצֵי הָעֹלָה וַיָּשֶׂם עַל יִצְחָק בְּנוֹ, וַיִּקַּח בְּיָדוֹ אֶת הָאֵשׁ וְאֶת הַמַּאֲכֶלֶת, וַיֵּלְכוּ שְׁנֵיהֶם יַחְדָּו. וַיֹּאמֶר יִצְחָק אֶל אַבְרָהָם אָבִיו וַיֹּאמֶר: אָבִי! וַיֹּאמֶר: הִנֶּנִּי בְנִי. וַיֹּאמֶר: הִנֵּה הָאֵשׁ וְהָעֵצִים, וְאַיֵּה הַשֶּׂה לְעֹלָה? וַיֹּאמֶר אַבְרָהָם: אֱלֹהִים יִרְאֶה לּוֹ הַשֶּׂה לְעֹלָה בְּנִי. וַיֵּלְכוּ שְׁנֵיהֶם יַחְדָּו.</div>
         </div>
         <div class="dialog-strip" role="img" aria-label="הדו-שיח בין אברהם ליצחק, בין שתי הופעות הביטוי וילכו שניהם יחדיו">
           <div class="dialog-refrain">"וַיֵּלְכוּ שְׁנֵיהֶם יַחְדָּו" (פס' ו')</div>
@@ -2294,6 +2298,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רש"י ד"ה 'וַיַּשְׁכֵּם' - נזדרז למצווה</span>
             וַיַּחֲבֹשׁ - הוא בעצמו, ולא ציווה לאחד מעבדיו, שהאהבה מקלקלת השורה.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit22-mp-5">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">תזכורת: "וַיַּשְׁכֵּם... וַיַּחֲבֹשׁ... וַיִּקַּח... וַיְבַקַּע... וַיָּקָם וַיֵּלֶךְ" (פס' ג')</p>
@@ -2308,6 +2313,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רמב"ן לפסוק ב'</span>
             ורצה שיעשה זה אחרי מהלך שלושה ימים, כי אילו יעשה כן בפתע פתאום במקומו, הייתה פעולתו במהירות ובהלה; אבל כשיהיה אחר מהלך ימים, כבר נעשה בישוב דעת ועצה.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit22-mp-6">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">תזכורת: "בַּיּוֹם הַשְּׁלִישִׁי" (פס' ד')</p>
@@ -2322,6 +2328,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רש"י</span>
             (ו) וילכו שניהם יחדיו - אברהם שהיה יודע שהולך לשחוט את בנו, היה הולך ברצון ושמחה כיצחק, שלא היה מרגיש. (ח) יראה לו השה - כלומר יראה ויבחר לו השה, ואם אין שה - לעולה בני. ואף על פי שהבין יצחק שהוא הולך להישחט, וילכו שניהם יחדיו בלב שווה.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit22-mp-7">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">תזכורת: "אָבִי... הִנֶּנִּי בְנִי" (פס' ז') לעומת "וַיֵּלְכוּ שְׁנֵיהֶם יַחְדָּו" (פס' ו', ח')</p>
@@ -2348,9 +2355,12 @@
         <span class="qb-root-icon" aria-hidden="true">⭐</span>
         <div class="qb-root-label">פסוקים ט'-י"ח</div>
         <div class="qb-root-pasuk">
-          <b>ט-י:</b> וַיָּבֹאוּ אֶל הַמָּקוֹם אֲשֶׁר אָמַר לוֹ הָאֱלֹהִים, וַיִּבֶן שָׁם אַבְרָהָם אֶת הַמִּזְבֵּחַ וַיַּעֲרֹךְ אֶת הָעֵצִים, וַיַּעֲקֹד אֶת יִצְחָק בְּנוֹ וַיָּשֶׂם אֹתוֹ עַל הַמִּזְבֵּחַ מִמַּעַל לָעֵצִים. וַיִּשְׁלַח אַבְרָהָם אֶת יָדוֹ וַיִּקַּח אֶת הַמַּאֲכֶלֶת לִשְׁחֹט אֶת בְּנוֹ.<br>
-          <b>יא-יב:</b> וַיִּקְרָא אֵלָיו מַלְאַךְ ה' מִן הַשָּׁמַיִם וַיֹּאמֶר: אַבְרָהָם! אַבְרָהָם! וַיֹּאמֶר: הִנֵּנִי. וַיֹּאמֶר: אַל תִּשְׁלַח יָדְךָ אֶל הַנַּעַר וְאַל תַּעַשׂ לוֹ מְאוּמָה, כִּי עַתָּה יָדַעְתִּי כִּי יְרֵא אֱלֹהִים אַתָּה, וְלֹא חָשַׂכְתָּ אֶת בִּנְךָ אֶת יְחִידְךָ מִמֶּנִּי.<br>
-          <b>טז-יח:</b> כִּי בָרֵךְ אֲבָרֶכְךָ וְהַרְבָּה אַרְבֶּה אֶת זַרְעֲךָ כְּכוֹכְבֵי הַשָּׁמַיִם וְכַחוֹל אֲשֶׁר עַל שְׂפַת הַיָּם, וְיִרַשׁ זַרְעֲךָ אֵת שַׁעַר אֹיְבָיו. וְהִתְבָּרֲכוּ בְזַרְעֲךָ כֹּל גּוֹיֵי הָאָרֶץ, עֵקֶב אֲשֶׁר שָׁמַעְתָּ בְּקֹלִי.
+          <div class="pasuk-gloss">אברהם עוקד את יצחק על המזבח, ושולח ידו לשוחטו</div>
+          <div class="pasuk-line"><b>ט-י:</b> וַיָּבֹאוּ אֶל הַמָּקוֹם אֲשֶׁר אָמַר לוֹ הָאֱלֹהִים, וַיִּבֶן שָׁם אַבְרָהָם אֶת הַמִּזְבֵּחַ וַיַּעֲרֹךְ אֶת הָעֵצִים, וַיַּעֲקֹד אֶת יִצְחָק בְּנוֹ וַיָּשֶׂם אֹתוֹ עַל הַמִּזְבֵּחַ מִמַּעַל לָעֵצִים. וַיִּשְׁלַח אַבְרָהָם אֶת יָדוֹ וַיִּקַּח אֶת הַמַּאֲכֶלֶת לִשְׁחֹט אֶת בְּנוֹ.</div>
+          <div class="pasuk-gloss">מלאך ה' עוצר את אברהם ברגע האחרון</div>
+          <div class="pasuk-line"><b>יא-יב:</b> וַיִּקְרָא אֵלָיו מַלְאַךְ ה' מִן הַשָּׁמַיִם וַיֹּאמֶר: אַבְרָהָם! אַבְרָהָם! וַיֹּאמֶר: הִנֵּנִי. וַיֹּאמֶר: אַל תִּשְׁלַח יָדְךָ אֶל הַנַּעַר וְאַל תַּעַשׂ לוֹ מְאוּמָה, כִּי עַתָּה יָדַעְתִּי כִּי יְרֵא אֱלֹהִים אַתָּה, וְלֹא חָשַׂכְתָּ אֶת בִּנְךָ אֶת יְחִידְךָ מִמֶּנִּי.</div>
+          <div class="pasuk-gloss">ה' משביע לאברהם ברכה גדולה על זרעו, בזכות עמידתו בניסיון</div>
+          <div class="pasuk-line"><b>טז-יח:</b> כִּי בָרֵךְ אֲבָרֶכְךָ וְהַרְבָּה אַרְבֶּה אֶת זַרְעֲךָ כְּכוֹכְבֵי הַשָּׁמַיִם וְכַחוֹל אֲשֶׁר עַל שְׂפַת הַיָּם, וְיִרַשׁ זַרְעֲךָ אֵת שַׁעַר אֹיְבָיו. וְהִתְבָּרֲכוּ בְזַרְעֲךָ כֹּל גּוֹיֵי הָאָרֶץ, עֵקֶב אֲשֶׁר שָׁמַעְתָּ בְּקֹלִי.</div>
         </div>
       </div>
       <div class="qb-connector" aria-hidden="true"></div>
@@ -2360,6 +2370,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רש"י ד"ה 'עַתָּה יָדַעְתִּי'</span>
             מעתה יש לי מה להשיב לשטן ולאומות התמהים מה היא חיבתי אצלך - יש לי פתחון פה עכשיו, שרואים כי ירא אלוקים אתה.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit22-mp-8">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">תזכורת: "כִּי עַתָּה יָדַעְתִּי כִּי יְרֵא אֱלֹהִים אַתָּה" (פס' י"ב)</p>
@@ -2384,10 +2395,12 @@
           <div class="qb-meforesh">
             <span class="qb-src">הרב חרל"פ, מתוך ההקדמה ל"בית זבול"</span>
             יסוד מעלתם של ישראל הוא במה שיוכלו לזכות לקדש את השם בנפשותם... ובא להם זה מאז עקד אברהם אבינו את יצחק על גבי המזבח... שבזה, מה שלא יצא לפועל, נשאר הרצון הזה של קידוש השם בכוח, להיות לרצון, נעקד על גבי המזבח ולפשוט צווארו להיות נשחט על קיום מצוותיו וקידוש שמו יתברך - חדור עמוק עמוק בתוך כל ישראל, שיהיו כל חייהם המשך ארוך של קידוש השם.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit22-mp-9">אישור</button></div>
           </div>
           <div class="qb-meforesh">
             <span class="qb-src">"הגיונות אל עמי"</span>
             ...בכל דבר העיקר הוא הראשון... כי כל הכובד שבדבר הוא בהורדת המחשבה מעולם האצילות לעולם העשייה, אבל כיוון שכבר הורדה המחשבה על ידי מי שהוא, שוב נקל הדבר להרבה אנשים... לבוא גם הם בעצמם לאותה המחשבה. ואברהם היה הראשון שקיים את המסירות נפש על קידוש השם, והוא סלל את המסילה לנו, ואנחנו רק הולכים אנו בעקבותיו - אבל לעולם העיקר הוא הממציא הראשון.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit22-mp-10">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">** אין חובה ללמוד את המקורות הבאים מילה במילה, אלא להתחבר לרעיון הכללי</p>
@@ -2402,55 +2415,6 @@
 
       <p class="pasuk-block-note">חיבור למועד: ביום השני של ראש השנה קוראים בתורה את פסוקי העקדה. תקיעת השופר מזכירה את איל העקדה, ובתפילת מוסף אנו אומרים: "וְאֶת הָעֲקֵדָה שֶׁעָקַד אֶת יִצְחָק בְּנוֹ עַל גַּבֵּי הַמִּזְבֵּחַ... זְכָר לָנוּ ה' אֱלֹהֵינוּ אֶת הַבְּרִית וְאֶת הַחֶסֶד". גם הפיוט הספרדי "עֵת שַׁעֲרֵי רָצוֹן", מאת רבי יהודה בן שמואל עבאס, מזכיר את זכות העקדה בבקשת רחמים ביום הדין.</p>
     </div>
-
-    <!-- פרשני הפרק - סיכום -->
-    <section class="card" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">📚 סיכום</span>
-        <h2 class="card-title">כל הפרשנים שפגשנו בפרק - מה כל אחד אמר?</h2>
-      </div>
-      <div class="card-body">
-        <p class="pasuk-block-note">עברו על כל הפרשנים שלמדנו בפרק. אחרי שאתם מרגישים שהבנתם את דבריו של פרשן מסוים - לחצו על "אישור" ליד השם שלו.</p>
-        <div class="mp-recap-grid">
-
-          <div class="mp-tile" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רמב"ן (פס' א')</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit22-mp-1">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">אברבנאל</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit22-mp-2">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רש"י (פס' ב')</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit22-mp-3">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רש"י (פס' ג')</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit22-mp-4">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רמב"ן (מהלך ג' ימים)</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit22-mp-5">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רש"י (עתה ידעתי)</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit22-mp-6">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">הרב חרל"פ והגיונות אל עמי</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit22-mp-7">אישור</button>
-          </div>
-
-        </div>
-      </div>
-    </section>
 
   
     </div>
