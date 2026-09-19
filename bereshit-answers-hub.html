@@ -96,6 +96,12 @@
 
 <p class="teacher-note">🗝️ עמוד זה מיועד לשימוש המורה בלבד - לבדיקה מהירה של תשובות התלמידים, ולהקראה בכיתה. הוא אינו מקושר מעמודי דפי העבודה של התלמידים.</p>
 
+<p style="text-align:center; margin:0 0 1.6rem;">
+  <button class="hint-btn" type="button" id="answersGateBtn" data-gated="true">🔒 פתחו את המחוון (נדרש קוד מהמורה)</button>
+</p>
+
+<div id="gatedContent" hidden>
+
 <div class="chapter-picker" role="tablist" aria-label="בחירת פרק">
   <button type="button" class="chapter-btn" role="tab" data-chapter="12" aria-selected="true">פרק י"ב</button>
   <button type="button" class="chapter-btn" role="tab" data-chapter="15" aria-selected="false">פרק ט"ו</button>
@@ -778,11 +784,29 @@
 
 </main>
 
+</div>
+
 <footer class="credit">ספר בראשית · מחוון תשובות למורה</footer>
 
 <script>
 (function(){
   "use strict";
+  var ANSWERS_CODE = '5703531';
+  var gateBtn = document.getElementById('answersGateBtn');
+  var gatedContent = document.getElementById('gatedContent');
+  if(gateBtn && gatedContent){
+    gateBtn.addEventListener('click', function(){
+      var code = prompt('הקלידו את הקוד שקיבלתם מהמורה כדי לפתוח את המחוון:');
+      if(code === null) return;
+      if(code.trim() === ANSWERS_CODE){
+        gatedContent.hidden = false;
+        gateBtn.textContent = '🔓 הקוד אושר';
+        gateBtn.disabled = true;
+      } else {
+        alert('קוד שגוי. נסו שוב, או שאלו את המורה.');
+      }
+    });
+  }
 
   /* ===== מעבר בין פרקים ===== */
   var chapterBtns = Array.prototype.slice.call(document.querySelectorAll(".chapter-btn"));
