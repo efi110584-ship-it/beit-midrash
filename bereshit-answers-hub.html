@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מחוון תשובות למורה — ספר בראשית</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .teacher-note{
+    max-width:760px; margin:0 auto 1.4rem; text-align:center; font-size:.88rem; color:var(--ink-soft);
+    background:var(--paper-card); border:1.5px solid var(--paper-line); border-radius:12px; padding:.8rem 1.1rem;
+  }
+
+  /* ========== בורר פרקים ========== */
+  .chapter-picker{ display:flex; flex-wrap:wrap; gap:.6rem; justify-content:center; margin:0 0 1.6rem; }
+  .chapter-btn{
+    font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.95rem; cursor:pointer;
+    padding:.55rem 1.2rem; border-radius:999px; border:2px solid var(--paper-line); background:#fff; color:var(--ink);
+    transition:border-color .2s ease, background .2s ease, color .2s ease, transform .15s ease;
+  }
+  .chapter-btn:hover{ transform:translateY(-1px); }
+  .chapter-btn[aria-selected="true"]{ background:var(--acc); border-color:var(--acc); color:#fff; }
+
+  .chapter-panel{ display:none; }
+  .chapter-panel.active{ display:block; }
+
+  .chapter-head{
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.8rem;
+    background:var(--paper-card); border:1.5px solid var(--paper-line); border-radius:14px;
+    padding:1rem 1.3rem; margin-bottom:1.4rem;
+  }
+  .chapter-head h2{ margin:0; font-family:'Frank Ruhl Libre',serif; font-size:1.25rem; color:var(--ink); }
+  .chapter-head .sub-small{ margin:.2rem 0 0; font-size:.82rem; color:var(--ink-soft); }
+
+  .speak-btn{
+    font-family:'Heebo',sans-serif; font-size:.8rem; font-weight:700; cursor:pointer; white-space:nowrap;
+    padding:.5rem 1rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    display:inline-flex; align-items:center; gap:.4rem; transition:background .2s ease, color .2s ease;
+  }
+  .speak-btn:hover{ background:var(--acc); color:#fff; }
+  .speak-btn.speaking{ background:var(--teal); border-color:var(--teal); color:#fff; }
+  .speak-btn[disabled]{ opacity:.45; cursor:not-allowed; }
+  .speak-btn.small{ font-size:.72rem; padding:.35rem .75rem; }
+
+  /* ========== נושא ========== */
+  .topic-section{
+    grid-column:1 / -1; border-right:6px solid var(--acc); background:#fff; border-radius:14px;
+    box-shadow:var(--shadow); padding:1.1rem 1.3rem; margin-bottom:1.2rem;
+  }
+  .topic-section-head{
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.7rem;
+    margin-bottom:.9rem; padding-bottom:.7rem; border-bottom:1.5px dashed var(--paper-line);
+  }
+  .topic-section-head h3{ margin:0; font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; color:var(--acc); }
+
+  .qa-item{ padding:.7rem 0; }
+  .qa-item + .qa-item{ border-top:1px solid var(--paper-line); }
+  .qa-row{ display:flex; align-items:flex-start; gap:.6rem; }
+  .qa-num{
+    flex:none; width:1.6rem; height:1.6rem; border-radius:50%; background:var(--acc-soft); color:var(--acc);
+    font-weight:800; font-size:.8rem; display:flex; align-items:center; justify-content:center; margin-top:.1rem;
+  }
+  .qa-body{ flex:1; min-width:0; }
+  .qa-q{ font-weight:700; color:var(--ink); font-size:.92rem; line-height:1.5; margin:0 0 .35rem; }
+  .qa-a-row{ display:flex; align-items:flex-start; gap:.5rem; }
+  .qa-a{ font-size:.9rem; line-height:1.6; color:var(--ink-soft); margin:0; flex:1; }
+  .qa-a b{ color:var(--teal); font-weight:800; }
+
+  main .grid{ display:block; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-teacher">🗝️ תשובות למורה</a>
+  <span class="sep">›</span>
+  <span class="current">ספר בראשית</span>
+</nav>
+
+<header>
+  <div class="eyebrow">ספר בראשית · מחוון תשובות למורה</div>
+  <h1>מחוון תשובות — ספר בראשית</h1>
+  <p class="sub">תשובות תמציתיות ברמת בגרות לכל שאלות דפי העבודה, פרק אחר פרק. ליד כל נושא (וליד כל שאלה בנפרד) יש כפתור הקראה - אפשר להשמיע את התשובות בכיתה ישירות מהדפדפן, בלי צורך בהקלטה.</p>
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<p class="teacher-note">🗝️ עמוד זה מיועד לשימוש המורה בלבד - לבדיקה מהירה של תשובות התלמידים, ולהקראה בכיתה. הוא אינו מקושר מעמודי דפי העבודה של התלמידים.</p>
+
+<div class="chapter-picker" role="tablist" aria-label="בחירת פרק">
+  <button type="button" class="chapter-btn" role="tab" data-chapter="12" aria-selected="true">פרק י"ב</button>
+  <button type="button" class="chapter-btn" role="tab" data-chapter="15" aria-selected="false">פרק ט"ו</button>
+  <button type="button" class="chapter-btn" role="tab" data-chapter="17" aria-selected="false">פרק י"ז</button>
+  <button type="button" class="chapter-btn" role="tab" data-chapter="18" aria-selected="false">פרק י"ח</button>
+  <button type="button" class="chapter-btn" role="tab" data-chapter="22" aria-selected="false">פרק כ"ב</button>
+</div>
+
+<main>
+
+  <!-- ============ פרק י"ב ============ -->
+  <section class="chapter-panel active" id="chapter-12" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
+    <div class="chapter-head">
+      <div>
+        <h2>פרק י"ב — "לך לך"</h2>
+        <p class="sub-small">13 שאלות · 5 נושאים</p>
+      </div>
+      <button type="button" class="speak-btn speak-chapter" data-target="chapter-12">🔊 הקראת כל הפרק</button>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>רקע: למה דווקא אברהם?</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-12-1">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-12-1">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">1</span><div class="qa-body">
+            <p class="qa-q">מה ההבדל, לפי המהר"ל, בין הבחירה בנח ("בחירה פרטית") לבין הבחירה באברהם ("בחירה כללית")? מדוע, לדעתו, בחירת אברהם אינה יכולה להתבטל?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> נח נבחר בזכות מעשיו - "בחירה פרטית" שיכולה להתבטל. אברהם נבחר כדי להקים ממנו עם שלם - "בחירה כללית" שאינה תלויה במעשה בודד, ולכן נצחית.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">2</span><div class="qa-body">
+            <p class="qa-q">הרמב"ן שואל: למה לא מוזכרת מעלתו של אברהם לפני שה' פונה אליו ב"לך לך"? לפי השפת אמת (בשם הזוהר), במה מתבטא בכל זאת השבח המיוחד של אברהם?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> לפי הזוהר, ה' קורא "לך לך" לכל אדם, תמיד - אך רוב האנשים "ישנים" ולא שומעים. שבחו המיוחד של אברהם הוא ששמע וקיבל את הקריאה.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>"לך לך" - הציווי, ההבטחה והניסיון</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-12-2">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-12-2">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">3</span><div class="qa-body">
+            <p class="qa-q">מהם שלושת חלקי הברכה שה' מבטיח לאברהם בפסוקים ב'-ג'?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> (1) להיות לגוי גדול. (2) שם גדול. (3) שכל משפחות האדמה יתברכו בזכותו.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">4</span><div class="qa-body">
+            <p class="qa-q">מהו הקושי הלשוני שמעורר הביטוי "מארצך וממולדתך ומבית אביך", וכיצד מיישב אותו הרמב"ן?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> לכאורה מיותר לפרט שלושה שלבים. הרמב"ן: זה דירוג לפי קושי - קשה לעזוב ארץ, קשה יותר מולדת, והכי קשה בית אב. הפירוט מדגיש את גודל הניסיון.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">5</span><div class="qa-body">
+            <p class="qa-q">מדוע, לדעת הרד"ק, ה' לא גילה לאברהם מהי הארץ שאליה הוא הולך? מה לומדים מכך על אברהם?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> ה' הסתיר את זהות הארץ כדי להגדיל את הניסיון. הליכתו של אברהם בלי לדעת לאן מוכיחה את גודל אמונתו.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>קיום הציווי - המסע לארץ כנען</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-12-3">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-12-3">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">6</span><div class="qa-body">
+            <p class="qa-q">עקבו אחר תחנות המסע של אברהם בארץ כנען (פסוקים ו'-ח'). ואיזו הבטחה חדשה הוא מקבל בפסוק ז', ומה הוא עושה מיד אחריה?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> תחנות המסע: שכם ← בית אל והעי ← הנגב. ההבטחה החדשה: "לזרעך אתן את הארץ הזאת". מיד אחריה בונה אברהם מזבח.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">7</span><div class="qa-body">
+            <p class="qa-q">אברהם בונה מזבח פעמיים - בשכם (פסוק ז') ובבית אל (פסוק ח'). מה ההבדל בין שני המזבחות?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> המזבח בשכם - תגובה אישית מיד לאחר ההתגלות ("לה' הנראה אליו"). המזבח בבית אל - אברהם גם "קורא בשם ה'", כלומר מפרסם את אמונתו בפומבי.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">8</span><div class="qa-body">
+            <p class="qa-q">הביאו את שני פירושיו של רש"י (פשט ודרש) למילה "עשו" בביטוי "הנפש אשר עשו בחרן".</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> פשט: עבדים ושפחות שקנו. דרש: אנשים שאברהם ושרה גיירו.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>הירידה למצרים</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-12-4">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-12-4">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">9</span><div class="qa-body">
+            <p class="qa-q">למה אברהם יורד למצרים, ומה הוא מבקש משרה לומר עליו - ולמה?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> ירד בגלל רעב כבד בכנען. ביקש משרה לומר שהיא אחותו, מחשש שיהרגו אותו כדי לקחת אותה.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">10</span><div class="qa-body">
+            <p class="qa-q">מהי התוכנית שמייחס הספורנו לאברהם באומרו לשרה "אמרי נא אחתי את"? מה השתבש בפועל?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> אברהם קיווה לנהל משא ומתן על מוהר ולהרוויח זמן לברוח; בפועל פרעה לקח את שרה מיד, בלי משא ומתן.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">11</span><div class="qa-body">
+            <p class="qa-q">כיצד ה' מתערב ומציל את שרה, וכיצד מסתיים הסיפור?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> ה' מכה את פרעה ואת ביתו בנגעים; פרעה משיב את שרה ומשלח את אברהם עם כל רכושו.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>"כל מה שאירע לאבות סימן לבנים"</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-12-5">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-12-5">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">12</span><div class="qa-body">
+            <p class="qa-q">מהו הכלל שמלמד הרמב"ן, ומדוע לדעתו התורה מאריכה דווקא בתיאור מסעות האבות?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> הכלל: מה שקרה לאבות מרמז על מה שיקרה לבניהם. לכן התורה מאריכה בתיאור מסעות האבות - כדי ללמוד מהם על העתיד.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">13</span><div class="qa-body">
+            <p class="qa-q">בחרו זוג אחד מהתרשים, וכתבו מהו הדמיון בין מה שקרה לאברהם למה שקרה לבניו.</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> תשובה פתוחה, למשל: אברהם ירד למצרים מחמת רעב, ובדומה ירדו בני ישראל למצרים בגלל רעב בימי יעקב. (כל זוג מתאים מהתרשים קביל.)</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ פרק ט"ו ============ -->
+  <section class="chapter-panel" id="chapter-15" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+    <div class="chapter-head">
+      <div>
+        <h2>פרק ט"ו — "ברית בין הבתרים"</h2>
+        <p class="sub-small">12 שאלות · 5 נושאים</p>
+      </div>
+      <button type="button" class="speak-btn speak-chapter" data-target="chapter-15">🔊 הקראת כל הפרק</button>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>הבטחת הזרע</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-15-1">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-15-1">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">1</span><div class="qa-body">
+            <p class="qa-q">לפי אברבנאל, למה אברם חוזר ושואל את ה' פעמיים - קודם ברמז ואחר כך במפורש?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> אברם תחילה רומז ("מה תתן לי"), וכשה' אינו עונה - שואל במפורש ("הן לי לא נתת זרע"). שני שלבים בפנייתו.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">2</span><div class="qa-body">
+            <p class="qa-q">הביאו את שלוש הדרכים שבהן מסביר רש"י את "ויוצא אתו החוצה" - לפי הפשט ולפי שני מדרשים.</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> פשט: הוציאו לראות כוכבים. דרש א': יצא מהאצטגנינות (שינוי שם משנה מזל). דרש ב': הועלה מעל לכוכבים עצמם.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">3</span><div class="qa-body">
+            <p class="qa-q">בפסוק ו' יש שני פעלים - "והאמן" ו"ויחשבה". מי הנושא של כל אחד? ומה מיוחד באמונת אברם?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> אברם - נושא "והאמין"; ה' - נושא "ויחשבה". ה' החשיב לזכות את אמונתו המלאה של אברם, שהאמין בלי לבקש אות.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>"במה אדע" - בקשת האות וטקס הברית</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-15-2">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-15-2">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">4</span><div class="qa-body">
+            <p class="qa-q">שימו לב ללשון הפתיחה של פסוק ז'. באיזה מקום אחר בתורה פותח ה' בלשון דומה? מה המשמעות?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> הלשון דומה לפתיחת עשרת הדברות ("אנכי ה' אלהיך אשר הוצאתיך..."). בשני המקומות ה' מזכיר מעשה הצלה כבסיס להמשך היחסים.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">5</span><div class="qa-body">
+            <p class="qa-q">מה, לפי הרמב"ן, אברם באמת מבקש כשהוא שואל "במה אדע כי אירשנה"? ממה הוא חושש?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> אינו מפקפק בהבטחה, אלא חושש שחטא (שלו או של זרעו) ימנע את קיומה. ה' כורת ברית שהארץ תינתן על כל פנים.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">6</span><div class="qa-body">
+            <p class="qa-q">תארו את הטקס שה' מצווה על אברם בפסוקים ט'-י'. מה עושה העיט, ואיך אברם מגיב?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> אברם ביתר את הבהמות והניח את הבתרים זה מול זה, בלי לבתר את הציפורים; עיט יורד לטרוף והוא מבריחו.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>סמליות הברית - בהמות מול ציפור</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-15-3">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-15-3">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">7</span><div class="qa-body">
+            <p class="qa-q">לפי רש"י, מה מסמלות הבהמות שאברם ביתר, ומה מסמלת הציפור שלא ביתר? ומה מסמלת בריחת העיט?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> הבהמות מסמלות את האומות שיכלו ויחלפו; הציפור מסמלת את ישראל שיתקיים לעד; בריחת העיט - דחיית מבקשי כליון ישראל.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>גזירת הגלות והגאולה</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-15-4">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-15-4">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">8</span><div class="qa-body">
+            <p class="qa-q">מהם עיקרי הדברים שה' מודיע לאברם על עתיד זרעו בפסוקים י"ג-י"ד?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> זרעו יהיה גר וישועבד 400 שנה, אך ה' יעניש את המשעבד, יצאו ברכוש גדול וישובו בדור הרביעי.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">9</span><div class="qa-body">
+            <p class="qa-q">לפי הרב חנן פורת, למה דווקא קשר לא-טבעי (גלות ושעבוד) הוא הבסיס הנכון לקשר הנצחי בין עם ישראל לארצו?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> קשר טבעי לארץ עלול להתבטל; קשר המבוסס על ברית וניסיון אלוקי הוא נצחי ואינו תלוי בישיבה רצופה בארץ.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>כריתת הברית - הבטחת הארץ</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-15-5">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-15-5">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">10</span><div class="qa-body">
+            <p class="qa-q">מה מסמלים "תנור עשן ולפיד אש" שעוברים בין הבתרים, ולמה זה חשוב לטקס הברית?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> מסמלים את נוכחות ה' עצמו העובר בין הבתרים, כמנהג כורתי ברית באותה תקופה.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">11</span><div class="qa-body">
+            <p class="qa-q">כמה עמים מוזכרים כיושבי הארץ המובטחת? למה, לדעתכם, התורה מפרטת אותם בשמם?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> עשרה עמים. הפירוט מדגיש הבטחה קונקרטית עם גבולות ותושבים ידועים, לא הבטחה כללית.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">12</span><div class="qa-body">
+            <p class="qa-q">אברם עצמו לא עובר בין הבתרים - רק "תנור עשן ולפיד אש" עוברים. מה זה מלמד על סוג הברית?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> זו ברית חד-צדדית - ה' לבדו מתחייב לתת את הארץ, וההבטחה אינה מותנית במעשי אברם.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ פרק י"ז ============ -->
+  <section class="chapter-panel" id="chapter-17" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
+    <div class="chapter-head">
+      <div>
+        <h2>פרק י"ז — "ברית המילה"</h2>
+        <p class="sub-small">12 שאלות · 5 נושאים</p>
+      </div>
+      <button type="button" class="speak-btn speak-chapter" data-target="chapter-17">🔊 הקראת כל הפרק</button>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>"הִתְהַלֵּךְ לְפָנַי וֶהְיֵה תָמִים"</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-17-1">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-17-1">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">1</span><div class="qa-body">
+            <p class="qa-q">בן כמה היה אברם כשה' נגלה אליו? באיזה שם מכנה ה' את עצמו, ומה הוא מבקש מאברהם?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> אברם היה בן 99. ה' מכנה עצמו "אל שדי" ומבקש ממנו להתהלך לפניו ולהיות תמים - לעבוד את ה' בשלמות ובנאמנות.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">2</span><div class="qa-body">
+            <p class="qa-q">מה מוסיף המדרש בהבנת "התהלך לפני"? למה הוא מדמה את יחסי האבות עם ה'?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> המדרש מדמה זאת לזקנים ההולכים לפני הנשיא ומפרסמים כבודו; כך על עם ישראל לייצג את ה' בעולם - אמונה, צדקה ומשפט.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>ברית המילה - הציווי ומשמעותו</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-17-2">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-17-2">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">3</span><div class="qa-body">
+            <p class="qa-q">מהם עיקרי הציווי בפסוקים י'-י"ג - את מי מלים, מתי, ולכמה זמן?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> יש למול כל זכר - יליד בית או עבד - ביום השמיני ללידתו, לדורות עולם.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">4</span><div class="qa-body">
+            <p class="qa-q">לפי ספר החינוך, מה מסמל הציווי למול דווקא איבר בגוף? מה זה מלמד על תפקידו של האדם?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> המילה מרמזת שכשם שאדם משלים חיסרון בגופו, כך עליו לתקן ולהשלים את מידותיו ונפשו.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">5</span><div class="qa-body">
+            <p class="qa-q">מה קורה, לפי פסוק י"ד, למי שלא נימול? ואילו שני ביטויים חוזרים ומדגישים שזו מצווה נצחית?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> נענש בכרת ("ונכרתה הנפש"); "לדרתיכם" ו"ברית עולם" מדגישים שזו מצווה נצחית.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>ברית חד-צדדית מול דו-צדדית</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-17-3">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-17-3">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">6</span><div class="qa-body">
+            <p class="qa-q">לפי אברבנאל, מה משמעות הביטוי "לברית עולם"? ומה כולל "להיות לך לאלהים ולזרעך אחריך"?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> "לברית עולם" - ברית נצחית. "להיות לך לאלהים" - השגחת ה' תדבק באברהם ובזרעו לדורות.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">7</span><div class="qa-body">
+            <p class="qa-q">השוו בין ברית בין הבתרים (פרק ט"ו) לברית המילה (פרק י"ז) - מה ההבדל בסוג הברית?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> ברית בין הבתרים - חד-צדדית (רק ה' מתחייב). ברית המילה - דו-צדדית (גם אברהם מתחייב במעשה בגופו).</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>שינוי השמות ובשורת יצחק</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-17-4">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-17-4">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">8</span><div class="qa-body">
+            <p class="qa-q">מה משמעות השם "אברהם" לעומת "אברם"? ומה משמעות השם "שרה" לעומת "שרי"?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> "אברהם" = "אב המון גויים" - מעבר ממעמד פרטי לתפקיד כלל-לאומי; "שרה" - שם כללי במקום "שרי" הפרטי.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">9</span><div class="qa-body">
+            <p class="qa-q">לפי רש"י (בשם אונקלוס), האם צחוק אברהם בפסוק י"ז הוא צחוק ספק או שמחה? ומה מבקש בפסוק הבא?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> צחוק של שמחה ("וחדי"). אברהם מבקש שגם ישמעאל יזכה לחיות ביראת ה'.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">10</span><div class="qa-body">
+            <p class="qa-q">מאיזו מילה בפרק נגזר השם "יצחק" שניתן לבן העתיד להיוולד?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> נגזר מ"וַיִּצְחָק" - צחוק השמחה של אברהם למשמע הבשורה.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>קיום המצווה בזריזות</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-17-5">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-17-5">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">11</span><div class="qa-body">
+            <p class="qa-q">מה מדגישה התורה בביטוי "בעצם היום הזה" לגבי אופן קיום המצווה על ידי אברהם?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> אברהם מל מיד באותו יום, ביום (לא בלילה) ובגלוי, בלי לפחד מאיש.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">12</span><div class="qa-body">
+            <p class="qa-q">פרק י"ז מתאר שלוש הבטחות מרכזיות לאברהם ולזרעו. מהן?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> הבטחת הזרע, הבטחת הארץ, וההבטחה "להיות לך לאלוקים ולזרעך אחריך".</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ פרק י"ח ============ -->
+  <section class="chapter-panel" id="chapter-18" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
+    <div class="chapter-head">
+      <div>
+        <h2>פרק י"ח — "אברהם והמלאכים"</h2>
+        <p class="sub-small">14 שאלות · 5 נושאים</p>
+      </div>
+      <button type="button" class="speak-btn speak-chapter" data-target="chapter-18">🔊 הקראת כל הפרק</button>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>הכנסת האורחים</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-18-1">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-18-1">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">1</span><div class="qa-body">
+            <p class="qa-q">מה מציע אברהם לאורחים במילים, ומה הוא בפועל מגיש להם? מה זה מלמד על מידת הכנסת האורחים שלו?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> במילים מציע מעט ("פת לחם", מעט מים); בפועל מגיש סעודה עשירה. הפער מלמד על ענווה ונדיבות אמיתית.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">2</span><div class="qa-body">
+            <p class="qa-q">אילו פעלים חוזרים בקטע, ומה הם מדגישים באופיו של אברהם כמארח?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> "וירץ", "וימהר", "מהרי" מדגישים זריזות והתלהבות של אברהם ובני ביתו בהכנסת אורחים.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>בשורת יצחק וצחוקה של שרה</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-18-2">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-18-2">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">3</span><div class="qa-body">
+            <p class="qa-q">מה מבטיח האורח לאברהם בפסוק י', ומדוע מודגש שגם שרה שומעת זאת מפתח האוהל?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> מבטיח שבעוד שנה ייוולד בן לשרה; מודגש ששרה שומעת כי הבשורה מכוונת גם אליה במישרין.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">4</span><div class="qa-body">
+            <p class="qa-q">מדוע צחקה שרה בקרבה, ובמה בדיוק היא מטילה ספק?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> תמהה מזקנתה ומזקנת אברהם - "אחרי בלותי הייתה לי עדנה" - קשה לה להאמין שתלד בגיל כה מופלג.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">5</span><div class="qa-body">
+            <p class="qa-q">לפי הרמב"ן, כיצד ייתכן שנביאה צדקת כשרה מכחישה את דבר ה'? ומדוע ייתכן שלא ידעה שמדובר במלאכים?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> אברהם הכיר שהם מלאכים, אך שרה לא ידעה זאת (ואולי לא ראתה אותם), ולכן חשבה שמדובר בדברי אנשים ולא בדבר ה'.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">6</span><div class="qa-body">
+            <p class="qa-q">השוו בין צחוקה של שרה כאן לצחוקו של אברהם בפרק הקודם - במה הם דומים ובמה שונים?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> שני הצחוקים מגיבים לאותה בשורה; צחוק אברהם - שמחה ואמונה; צחוק שרה - ספק ותמיהה, ולכן היא נענית ("היפלא מה' דבר").</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>ה' מגלה לאברהם את דין סדום</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-18-3">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-18-3">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">7</span><div class="qa-body">
+            <p class="qa-q">לפי רש"י, מדוע מחליט ה' לגלות לאברהם את התכנית להשמיד את סדום?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> ה' נתן לאברהם את הארץ וקרא לו "אב המון גויים" - לכן "לא יפה" להשמיד בלי להודיעו.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">8</span><div class="qa-body">
+            <p class="qa-q">מה פירוש המילה "ידעתיו" לפי רש"י, ומדוע נבחר אברהם, לפי פסוק זה?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> "ידעתיו" - לשון חיבה וקירבה. אברהם נבחר כדי שיצווה את בניו לשמור את דרך ה', צדקה ומשפט.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>חטאה המוסדי של סדום</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-18-4">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-18-4">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">9</span><div class="qa-body">
+            <p class="qa-q">לפי רש"י, מה יעשה ה' אם אנשי סדום יעמדו במרדם, ומה אם לא?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> אם יעמדו במרדם - כליה מוחלטת. אם לא - ה' יידע כיצד להיפרע מהם ביסורים בלבד.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">10</span><div class="qa-body">
+            <p class="qa-q">ספרו בקצרה, לפי פרקי דרבי אליעזר, את סיפור פלוטית בת לוט. מה הוא מלמד על אופי החוק בסדום?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> בסדום נאסר לתת צדקה לעני בעונש שריפה; פלוטית סייעה לעני בסתר, נתגלתה ונשרפה. מלמד שהרוע בסדום היה חוק רשמי, לא התפרצות פרטית.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">11</span><div class="qa-body">
+            <p class="qa-q">לפי נחמה ליבוביץ', מה ההבדל בין רוע "רגיל" לרוע שבסדום? נגדו זאת לאופי ביתו של אברהם.</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> ברוב החברות הרוע נעשה בסתר או כהתפרצות; בסדום הרוע עצמו היה החוק, וחסד נחשב עבירה שדינה מוות - בניגוד לבית אברהם, שבו הכנסת אורחים היא הנורמה.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>תפילת אברהם על סדום</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-18-5">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-18-5">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">12</span><div class="qa-body">
+            <p class="qa-q">תארו את שיטת המיקוח של אברהם על סדום. באילו ביטויי ענווה הוא משתמש כלפי ה'?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> יורד בהדרגה מ-50 עד 10 צדיקים, ומשתמש בביטויי ענווה כ"עפר ואפר" ו"אל נא יחר".</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">13</span><div class="qa-body">
+            <p class="qa-q">לפי רש"י, באילו שלוש כוונות ניגש אברהם אל ה' בבקשתו על סדום?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> לדבר קשות (כמלחמה), לפייס ולבקש רחמים, ולהתפלל - שלוש כוונות יחד.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">14</span><div class="qa-body">
+            <p class="qa-q">לפי נחמה ליבוביץ', מהו התנאי "בתוך העיר" הנדרש מן הצדיקים כדי שיוכלו להגן על תושביה?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> רק צדיקים המעורים ומשפיעים "בתוך העיר" יכולים להגן עליה; צדיקים נחבאים מצילים רק את עצמם.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ פרק כ"ב ============ -->
+  <section class="chapter-panel" id="chapter-22" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+    <div class="chapter-head">
+      <div>
+        <h2>פרק כ"ב — "עקידת יצחק"</h2>
+        <p class="sub-small">14 שאלות · 5 נושאים</p>
+      </div>
+      <button type="button" class="speak-btn speak-chapter" data-target="chapter-22">🔊 הקראת כל הפרק</button>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>מטרת הניסיון</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-22-1">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-22-1">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">1</span><div class="qa-body">
+            <p class="qa-q">לפי אברבנאל, מדוע ראוי לעיין בפרשת העקדה יותר מבשאר הפרשיות? היכן היא נזכרת עד היום?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> העקדה היא יסוד זכות ישראל, נזכרת עד היום בתפילה, ומבטאת מסירות מוחלטת לרצון ה'.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">2</span><div class="qa-body">
+            <p class="qa-q">לפי הרמב"ן, מה מטרת הניסיון - ומדוע ה' מנסה דווקא צדיקים ולא רשעים?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> להוציא את הרצון הטוב מהכוח אל הפועל ולתת שכר על מעשה ממשי. ה' מנסה דווקא צדיק שיודע שיעמוד בניסיון, כדי לזכותו.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">3</span><div class="qa-body">
+            <p class="qa-q">לפי אברבנאל, ממה נגזרת המילה "נִסָּה"? ומהי מטרת הניסיון - כלפי מי הוא בעצם מכוון?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> נגזרת מ"נס" (דגל); מטרת הניסיון להפוך את מעשה אברהם למופת גלוי לדורות ולעמים.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>הציווי המדורג</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-22-2">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-22-2">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">4</span><div class="qa-body">
+            <p class="qa-q">כיצד עונה אברהם לקריאת ה'? מהו הציווי עצמו, והיכן נמצא המקום שאליו מצווה אברהם ללכת?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> עונה "הנני". הציווי: להעלות את בנו לעולה. המקום - ארץ המוריה, על הר שה' יאמר.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">5</span><div class="qa-body">
+            <p class="qa-q">לפי רש"י, מדוע פירט ה' את הציווי בשלבים במקום לומר מיד "את יצחק"? מה מרמז הפירוט הזה?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> דו-שיח מדורג: "את בנך" - שני בנים יש לי; "את יחידך" - כל אחד יחיד לאמו; "אשר אהבת" - שניהם אני אוהב; "את יצחק". ה' לא גילה מיד כדי שלא לערבב את אברהם בפתאומיות.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>"לֶךְ לְךָ": בין שני ציוויים</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-22-3">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-22-3">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">6</span><div class="qa-body">
+            <p class="qa-q">מהו הביטוי הייחודי החוזר בשני הפרקים? מה משותף לשני הציוויים מבחינת הידיעה על היעד מראש?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> הביטוי "לך לך". בשני הפרקים היעד אינו ידוע מראש.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">7</span><div class="qa-body">
+            <p class="qa-q">מתי ניתנת הברכה לאברהם בכל אחד מהציוויים - מיד עם הציווי, או רק לאחר קיומו?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> בפרק י"ב הברכה ניתנת מיד עם הציווי. בעקדה הברכה באה רק לאחר העמידה בניסיון.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">8</span><div class="qa-body">
+            <p class="qa-q">במה שונה הוויתור הנדרש מאברהם בציווי "לך לך" הראשון מהוויתור הנדרש ממנו בעקדה?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> ב"לך לך" הראשון - ויתור על ארץ ומולדת. בעקדה - ויתור על הבן היחיד, עתיד הזרע.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>הדרך - זריזות והתבוננות</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-22-4">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-22-4">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">9</span><div class="qa-body">
+            <p class="qa-q">אילו פעלים בפסוק ג' מדגישים את זריזותו של אברהם? ולפי רש"י, מדוע חבש את החמור בעצמו?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> הפעלים "וישכם", "ויחבוש" וכו' מדגישים זריזות. חבש בעצמו כי אהבת המצווה גורמת לחרוג מהסדר הרגיל.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">10</span><div class="qa-body">
+            <p class="qa-q">מי הלך עם אברהם, ומה לקחו איתם לדרך? ולפי הרמב"ן, מה מוכיח דווקא האורך של שלושת ימי המסע?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> אברהם, יצחק ושני נערים, עם חמור, עצים, אש ומאכלת. שלושת הימים מוכיחים ישוב דעת ולא פזיזות.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">11</span><div class="qa-body">
+            <p class="qa-q">הביטוי "וַיֵּלְכוּ שְׁנֵיהֶם יַחְדָּו" חוזר פעמיים. מה ההבדל, לפי רש"י, במשמעותו בכל אחת מהפעמים?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> בפעם הראשונה יצחק אינו יודע לאן הולכים; בשנייה כבר מבין שהוא הקורבן - ובכל זאת שניהם הולכים "בלב שווה".</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topic-section">
+      <div class="topic-section-head">
+        <h3>העקידה, הבשורה וזכות אבות</h3>
+        <button type="button" class="speak-btn speak-topic" data-target="topic-22-5">🔊 הקרא נושא</button>
+      </div>
+      <div id="topic-22-5">
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">12</span><div class="qa-body">
+            <p class="qa-q">לפי רש"י, מה נתן הניסיון לקב"ה, כביכול, שלא היה לו קודם לכן?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> הניסיון נתן לה' "פתחון פה" להשיב לשטן ולאומות מדוע אברהם ירא אלוקים.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">13</span><div class="qa-body">
+            <p class="qa-q">מדוע השבועה והברכה הגדולה באות דווקא בשלב הזה? ומה מוסיף "וירש זרעך את שער איביו"?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> השבועה באה לאחר מסירות נפש בפועל; הביטוי מוסיף שזרעו יגבר על אויביו, מעבר לריבוי בלבד.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+        <div class="qa-item">
+          <div class="qa-row"><span class="qa-num">14</span><div class="qa-body">
+            <p class="qa-q">לפי הרב חרל"פ ו"הגיונות אל עמי", מדוע חשיבותה של עקדת יצחק כה עצומה?</p>
+            <div class="qa-a-row"><p class="qa-a"><b>תשובה:</b> העקדה הטביעה בישראל כוח פנימי למסירות נפש וקידוש ה' לדורות; אברהם היה ה"ראשון" שהוריד את הרעיון מהמחשבה למעשה, וסלל את הדרך לבאים אחריו.</p><button type="button" class="speak-btn small speak-item">🔊</button></div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="credit">ספר בראשית · מחוון תשובות למורה</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ===== מעבר בין פרקים ===== */
+  var chapterBtns = Array.prototype.slice.call(document.querySelectorAll(".chapter-btn"));
+  var panels = Array.prototype.slice.call(document.querySelectorAll(".chapter-panel"));
+
+  chapterBtns.forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var target = btn.dataset.chapter;
+      chapterBtns.forEach(function(b){ b.setAttribute("aria-selected", b === btn ? "true" : "false"); });
+      panels.forEach(function(p){ p.classList.toggle("active", p.id === "chapter-" + target); });
+      stopSpeaking();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
+
+  /* ===== הקראה (Web Speech API) ===== */
+  var synth = window.speechSynthesis;
+  var supported = !!synth;
+  var currentBtn = null;
+  var hebrewVoice = null;
+
+  function pickHebrewVoice(){
+    if(!supported) return;
+    var voices = synth.getVoices();
+    hebrewVoice = voices.find(function(v){ return /^he/i.test(v.lang); }) || null;
+  }
+  if(supported){
+    pickHebrewVoice();
+    synth.addEventListener("voiceschanged", pickHebrewVoice);
+  } else {
+    document.querySelectorAll(".speak-btn").forEach(function(b){
+      b.disabled = true;
+      b.title = "הדפדפן שלכם אינו תומך בהקראה קולית";
+    });
+  }
+
+  function stopSpeaking(){
+    if(!supported) return;
+    synth.cancel();
+    if(currentBtn){ currentBtn.classList.remove("speaking"); currentBtn.dataset.originalText && (currentBtn.textContent = currentBtn.dataset.originalText); }
+    currentBtn = null;
+  }
+
+  function collectText(container){
+    var parts = [];
+    container.querySelectorAll(".qa-item").forEach(function(item){
+      var q = item.querySelector(".qa-q");
+      var a = item.querySelector(".qa-a");
+      if(q) parts.push(q.textContent.trim());
+      if(a) parts.push(a.textContent.replace(/^תשובה:\s*/, "תשובה. ").trim());
+    });
+    return parts.join(". ");
+  }
+
+  function speak(text, btn, labelWhenIdle){
+    if(!supported || !text) return;
+    var wasThisBtn = currentBtn === btn;
+    stopSpeaking();
+    if(wasThisBtn) return; /* לחיצה שנייה על אותו כפתור = רק עצירה */
+
+    var utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "he-IL";
+    if(hebrewVoice) utter.voice = hebrewVoice;
+    utter.rate = 0.95;
+
+    btn.dataset.originalText = labelWhenIdle;
+    btn.textContent = "⏹ עצירה";
+    btn.classList.add("speaking");
+    currentBtn = btn;
+
+    utter.onend = function(){
+      if(currentBtn === btn){ btn.classList.remove("speaking"); btn.textContent = labelWhenIdle; currentBtn = null; }
+    };
+    utter.onerror = utter.onend;
+
+    synth.speak(utter);
+  }
+
+  document.querySelectorAll(".speak-item").forEach(function(btn){
+    var label = btn.textContent;
+    btn.addEventListener("click", function(){
+      var item = btn.closest(".qa-item");
+      speak(collectText(item), btn, label);
+    });
+  });
+
+  document.querySelectorAll(".speak-topic").forEach(function(btn){
+    var label = btn.textContent;
+    btn.addEventListener("click", function(){
+      var container = document.getElementById(btn.dataset.target);
+      speak(collectText(container), btn, label);
+    });
+  });
+
+  document.querySelectorAll(".speak-chapter").forEach(function(btn){
+    var label = btn.textContent;
+    btn.addEventListener("click", function(){
+      var chapter = document.getElementById(btn.dataset.target);
+      speak(collectText(chapter), btn, label);
+    });
+  });
+
+  window.addEventListener("beforeunload", stopSpeaking);
+})();
+</script>
+
+</body>
+</html>

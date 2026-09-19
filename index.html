@@ -181,6 +181,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .tag.subject-tsb{ background:var(--gold-tag-bg); color:#8A5C21; }
 .tag.subject-heb{ background:#F1E2DA; color:#8B4A34; }
 .tag.subject-exam{ background:#E3E5F3; color:#1E2761; }
+.tag.subject-teacher{ background:#EFE3EC; color:#7A4A73; }
 
 .unit-card-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:0.6rem; }
 .unit-icon{ font-size:2.1rem; line-height:1; }
@@ -304,6 +305,7 @@ body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; 
         <button class="tab" role="tab" aria-selected="false" data-class="יב" id="tab-yb">כיתה י"ב</button>
         <button class="tab tab-all" role="tab" aria-selected="false" data-class="all" id="tab-all">כל הכיתות</button>
         <button class="tab" role="tab" aria-selected="false" data-class="exams" id="tab-exams">📝 מבחנים</button>
+        <button class="tab" role="tab" aria-selected="false" data-class="teacher" id="tab-teacher">🗝️ תשובות למורה</button>
       </div>
     </div>
   </section>
@@ -358,7 +360,11 @@ body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; 
     { key:"yonah-exam", class:"exams", subject:"מבחן",
       icon:"\u{1F4DD}", title:"מבחן מסכם - ספר יונה",
       desc:"מבחן דיגיטלי מקיף על כל ארבעת פרקי הספר. הכניסה למבחן דורשת קוד מהמורה.",
-      chapters:1, chaptersLabel:"מבחן", url:"yonah-exam.html" }
+      chapters:1, chaptersLabel:"מבחן", url:"yonah-exam.html" },
+    { key:"bereshit-answers", class:"teacher", subject:"מורה",
+      icon:"\u{1F5DD}️", title:"מחוון תשובות - ספר בראשית",
+      desc:"תשובות תמציתיות ברמת בגרות לכל שאלות דפי העבודה בחמשת פרקי בראשית, עם אפשרות הקראה לכל נושא.",
+      chapters:5, chaptersLabel:"פרקים", url:"bereshit-answers-hub.html" }
   ];
 
   var CLASS_ORDER = ["יא","יב"];
@@ -393,7 +399,7 @@ body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; 
     var html = "";
     classKeys.forEach(function(cls){
       html += '<section class="class-section">';
-      html += '<h2>' + (CLASS_ORDER.indexOf(cls) !== -1 ? 'כיתה ' + escapeHtml(cls) + '\u200f' : (cls === "exams" ? '📝 מבחנים' : escapeHtml(cls))) + '</h2>';
+      html += '<h2>' + (CLASS_ORDER.indexOf(cls) !== -1 ? 'כיתה ' + escapeHtml(cls) + '\u200f' : (cls === "exams" ? '📝 מבחנים' : (cls === "teacher" ? '🗝️ תשובות למורה' : escapeHtml(cls)))) + '</h2>';
       html += '<div class="unit-grid">';
       byClass[cls].forEach(function(u){ html += unitCardHtml(u, registry); });
       html += '</div></section>';
@@ -405,8 +411,8 @@ body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; 
   function unitCardHtml(u, registry){
     var entry = registry[u.url];
     var pct = (entry && entry.percent) ? entry.percent : 0;
-    var subjTagClass = u.subject === "תנך" ? "subject-tnk" : (u.subject === "תושבע" ? "subject-tsb" : (u.subject === "מבחן" ? "subject-exam" : "subject-heb"));
-    var subjLabel = u.subject === "תנך" ? 'תנ"ך' : (u.subject === "תושבע" ? 'תושב"ע' : (u.subject === "מבחן" ? "מבחן" : "עברית"));
+    var subjTagClass = u.subject === "תנך" ? "subject-tnk" : (u.subject === "תושבע" ? "subject-tsb" : (u.subject === "מבחן" ? "subject-exam" : (u.subject === "מורה" ? "subject-teacher" : "subject-heb")));
+    var subjLabel = u.subject === "תנך" ? 'תנ"ך' : (u.subject === "תושבע" ? 'תושב"ע' : (u.subject === "מבחן" ? "מבחן" : (u.subject === "מורה" ? "למורה" : "עברית")));
     var titleLabel = escapeHtml(u.title);
     var cta = pct >= 100 ? "חזרה ליחידה - הושלמה" : (pct > 0 ? "המשיכו ללמוד" : "התחילו ללמוד");
 
