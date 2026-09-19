@@ -65,9 +65,15 @@
   }
   .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
   .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
-  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
+  .qb-root-pasuk{ font-size:.92rem; line-height:1.75; color:var(--ink); text-align:center; }
   .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
   .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
 
   .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
   .qb-connector::after{
@@ -175,12 +181,17 @@
         <span class="qb-root-icon" aria-hidden="true">⭐</span>
         <div class="qb-root-label">פסוקים א'-ו'</div>
         <div class="qb-root-pasuk">
-          <b>א:</b> אַחַר הַדְּבָרִים הָאֵלֶּה הָיָה דְבַר ה' אֶל אַבְרָם בַּמַּחֲזֶה לֵאמֹר: אַל תִּירָא אַבְרָם, אָנֹכִי מָגֵן לָךְ, שְׂכָרְךָ הַרְבֵּה מְאֹד.<br>
-          <b>ב:</b> וַיֹּאמֶר אַבְרָם: אֲדֹנָי ה' מַה תִּתֶּן לִי וְאָנֹכִי הוֹלֵךְ עֲרִירִי, וּבֶן מֶשֶׁק בֵּיתִי הוּא דַּמֶּשֶׂק אֱלִיעֶזֶר.<br>
-          <b>ג:</b> וַיֹּאמֶר אַבְרָם: הֵן לִי לֹא נָתַתָּה זָרַע, וְהִנֵּה בֶן בֵּיתִי יוֹרֵשׁ אֹתִי.<br>
-          <b>ד:</b> וְהִנֵּה דְבַר ה' אֵלָיו לֵאמֹר: לֹא יִירָשְׁךָ זֶה, כִּי אִם אֲשֶׁר יֵצֵא מִמֵּעֶיךָ הוּא יִירָשֶׁךָ.<br>
-          <b>ה:</b> וַיּוֹצֵא אֹתוֹ הַחוּצָה וַיֹּאמֶר: הַבֶּט נָא הַשָּׁמַיְמָה וּסְפֹר הַכּוֹכָבִים אִם תּוּכַל לִסְפֹּר אֹתָם; וַיֹּאמֶר לוֹ: כֹּה יִהְיֶה זַרְעֶךָ.<br>
-          <b>ו:</b> וְהֶאֱמִן בַּה', וַיַּחְשְׁבֶהָ לּוֹ צְדָקָה.
+          <div class="pasuk-gloss">ה' מבטיח לאברם הגנה ושכר</div>
+          <div class="pasuk-line"><b>א:</b> אַחַר הַדְּבָרִים הָאֵלֶּה הָיָה דְבַר ה' אֶל אַבְרָם בַּמַּחֲזֶה לֵאמֹר: אַל תִּירָא אַבְרָם, אָנֹכִי מָגֵן לָךְ, שְׂכָרְךָ הַרְבֵּה מְאֹד.</div>
+          <div class="pasuk-gloss">תגובת אברם ותלונתו שאין לו ילדים</div>
+          <div class="pasuk-line"><b>ב:</b> וַיֹּאמֶר אַבְרָם: אֲדֹנָי ה' מַה תִּתֶּן לִי וְאָנֹכִי הוֹלֵךְ עֲרִירִי, וּבֶן מֶשֶׁק בֵּיתִי הוּא דַּמֶּשֶׂק אֱלִיעֶזֶר.<br>
+          <b>ג:</b> וַיֹּאמֶר אַבְרָם: הֵן לִי לֹא נָתַתָּה זָרַע, וְהִנֵּה בֶן בֵּיתִי יוֹרֵשׁ אֹתִי.</div>
+          <div class="pasuk-gloss">הבטחת ה' שדווקא זרעו של אברם יירש אותו</div>
+          <div class="pasuk-line"><b>ד:</b> וְהִנֵּה דְבַר ה' אֵלָיו לֵאמֹר: לֹא יִירָשְׁךָ זֶה, כִּי אִם אֲשֶׁר יֵצֵא מִמֵּעֶיךָ הוּא יִירָשֶׁךָ.</div>
+          <div class="pasuk-gloss">ה' מראה לאברם את הכוכבים כסמל לריבוי זרעו</div>
+          <div class="pasuk-line"><b>ה:</b> וַיּוֹצֵא אֹתוֹ הַחוּצָה וַיֹּאמֶר: הַבֶּט נָא הַשָּׁמַיְמָה וּסְפֹר הַכּוֹכָבִים אִם תּוּכַל לִסְפֹּר אֹתָם; וַיֹּאמֶר לוֹ: כֹּה יִהְיֶה זַרְעֶךָ.</div>
+          <div class="pasuk-gloss">אברם מאמין בה' ללא כל אות, וזה נחשב לו לצדקה</div>
+          <div class="pasuk-line"><b>ו:</b> וְהֶאֱמִן בַּה', וַיַּחְשְׁבֶהָ לּוֹ צְדָקָה.</div>
         </div>
       </div>
       <div class="qb-connector" aria-hidden="true"></div>
