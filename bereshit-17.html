@@ -11,26 +11,18 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
-  /* פרשני הפרק - קוביות סיכום קטנות: אייקון + שם הפרשן + כפתור אישור */
-  .mp-recap-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(115px, 1fr)); gap:.7rem; }
-  .mp-tile{
-    display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
-    gap:.45rem; aspect-ratio:1/1; padding:.85rem .5rem;
-    background:#fff; border:1.5px solid var(--paper-line); border-top:4px solid var(--acc); border-radius:12px;
-    box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
-  }
-  .mp-tile:hover{ transform:translateY(-2px); box-shadow:var(--shadow-hover); }
-  .mp-tile-icon{ font-size:1.3rem; line-height:1; }
-  .mp-tile-name{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1rem; color:var(--ink); line-height:1.25; }
+  /* אישור הבנת פרשן - כפתור קטן בתחתית כל קובית מפרש, במקום רשימת סיכום נפרדת */
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
-    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:32px;
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
     padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
-    transition:background .2s ease, color .2s ease, border-color .2s ease;
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
   }
   .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
-  .mp-tile.completed{ background:var(--teal-soft); border-top-color:var(--teal); }
-  .mp-tile.completed .mp-tile-name{ color:var(--teal); }
-  .mp-tile.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-right-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
   /* ========== רכיבי עזר קיימים, בגודל מוקטן לשימוש בתוך קוביות ========== */
   .mini-timeline{ margin-top:.7rem; }
@@ -61,6 +53,12 @@
   .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
   .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
   .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
 
   .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
   .qb-connector::after{
@@ -188,6 +186,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">מדרש תנחומא, "לך לך" ו'</span>
             התהלך לפני והיה תמים. למה האבות היו דרכם לפני הקב"ה? לנשיא שהוא מהלך וזקניו מהלכין לפניו, והזקנים מודיע כבודו של נשיא. כך היו אבות העולם הולכים לפניו, שנאמר "הָאֱלֹהִים אֲשֶׁר הִתְהַלְּכוּ אֲבֹתַי לְפָנָיו".
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit17-mp-1">אישור</button></div>
           </div>
           <div class="vs-compare" role="img" aria-label="המשל: זקנים לפני הנשיא, והנמשל: האבות לפני ה'">
             <div class="vs-side vs-a">
@@ -227,12 +226,18 @@
         <span class="qb-root-icon" aria-hidden="true">✂️</span>
         <div class="qb-root-label">פסוקים ט'-י"ד</div>
         <div class="qb-root-pasuk">
-          <b>ט:</b> וַיֹּאמֶר אֱלֹהִים אֶל אַבְרָהָם: וְאַתָּה אֶת בְּרִיתִי תִשְׁמֹר, אַתָּה וְזַרְעֲךָ אַחֲרֶיךָ לְדֹרֹתָם.<br>
-          <b>י:</b> זֹאת בְּרִיתִי אֲשֶׁר תִּשְׁמְרוּ בֵּינִי וּבֵינֵיכֶם וּבֵין זַרְעֲךָ אַחֲרֶיךָ: הִמּוֹל לָכֶם כָּל זָכָר.<br>
-          <b>יא:</b> וּנְמַלְתֶּם אֵת בְּשַׂר עָרְלַתְכֶם, וְהָיָה לְאוֹת בְּרִית בֵּינִי וּבֵינֵיכֶם.<br>
-          <b>יב:</b> וּבֶן שְׁמֹנַת יָמִים יִמּוֹל לָכֶם כָּל זָכָר לְדֹרֹתֵיכֶם, יְלִיד בָּיִת וּמִקְנַת כֶּסֶף מִכֹּל בֶּן נֵכָר אֲשֶׁר לֹא מִזַּרְעֲךָ הוּא.<br>
-          <b>יג:</b> הִמּוֹל יִמּוֹל יְלִיד בֵּיתְךָ וּמִקְנַת כַּסְפֶּךָ, וְהָיְתָה בְרִיתִי בִּבְשַׂרְכֶם לִבְרִית עוֹלָם.<br>
-          <b>יד:</b> וְעָרֵל זָכָר אֲשֶׁר לֹא יִמּוֹל אֶת בְּשַׂר עָרְלָתוֹ, וְנִכְרְתָה הַנֶּפֶשׁ הַהִוא מֵעַמֶּיהָ.
+          <div class="pasuk-gloss">ה' מצווה על אברהם ועל זרעו לשמור את הברית</div>
+          <div class="pasuk-line"><b>ט:</b> וַיֹּאמֶר אֱלֹהִים אֶל אַבְרָהָם: וְאַתָּה אֶת בְּרִיתִי תִשְׁמֹר, אַתָּה וְזַרְעֲךָ אַחֲרֶיךָ לְדֹרֹתָם.</div>
+          <div class="pasuk-gloss">אות הברית: מילת כל זכר</div>
+          <div class="pasuk-line"><b>י:</b> זֹאת בְּרִיתִי אֲשֶׁר תִּשְׁמְרוּ בֵּינִי וּבֵינֵיכֶם וּבֵין זַרְעֲךָ אַחֲרֶיךָ: הִמּוֹל לָכֶם כָּל זָכָר.</div>
+          <div class="pasuk-gloss">המילה היא אות הברית בין ה' לבין אברהם וזרעו</div>
+          <div class="pasuk-line"><b>יא:</b> וּנְמַלְתֶּם אֵת בְּשַׂר עָרְלַתְכֶם, וְהָיָה לְאוֹת בְּרִית בֵּינִי וּבֵינֵיכֶם.</div>
+          <div class="pasuk-gloss">יש למול כל זכר ביום השמיני ללידתו, כולל עבדים ובני נכר</div>
+          <div class="pasuk-line"><b>יב:</b> וּבֶן שְׁמֹנַת יָמִים יִמּוֹל לָכֶם כָּל זָכָר לְדֹרֹתֵיכֶם, יְלִיד בָּיִת וּמִקְנַת כֶּסֶף מִכֹּל בֶּן נֵכָר אֲשֶׁר לֹא מִזַּרְעֲךָ הוּא.</div>
+          <div class="pasuk-gloss">המילה היא ברית עולם החקוקה בבשר</div>
+          <div class="pasuk-line"><b>יג:</b> הִמּוֹל יִמּוֹל יְלִיד בֵּיתְךָ וּמִקְנַת כַּסְפֶּךָ, וְהָיְתָה בְרִיתִי בִּבְשַׂרְכֶם לִבְרִית עוֹלָם.</div>
+          <div class="pasuk-gloss">מי שלא נימול - נכרתת נפשו מעמו</div>
+          <div class="pasuk-line"><b>יד:</b> וְעָרֵל זָכָר אֲשֶׁר לֹא יִמּוֹל אֶת בְּשַׂר עָרְלָתוֹ, וְנִכְרְתָה הַנֶּפֶשׁ הַהִוא מֵעַמֶּיהָ.</div>
         </div>
         <div class="nations-grid" role="img" aria-label="מי כלול בציווי ברית המילה">
           <span class="nation-chip">כָּל זָכָר</span>
@@ -259,6 +264,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">ספר החינוך, מצוה ב'</span>
             והעם הנבחר חפץ השם יתברך להשלים תכונתו, ורצה להיות ההשלמה על ידי האדם, ולא בראו שלם מבטן, לרמוז אליו כי כאשר תושלם צורת גופו על ידו, כן בידו להשלים צורת נפשו בהכשר פעולותיו.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit17-mp-2">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">תזכורת: "וּנְמַלְתֶּם אֵת בְּשַׂר עָרְלַתְכֶם" (פסוק י"א)</p>
@@ -305,6 +311,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">אברבנאל (פסוק ז') - "לִבְרִית עוֹלָם"</span>
             ר"ל [רצונו לומר] נצחי ומתמיד. והברית הוא: "להיות לך לאלהים ולזרעך אחריך", ר"ל שתדבק ההשגחה באברהם כל ימיו, וגם כן תדבק בזרעו בסבתו וזכותו - וזה טעם "אחריך".
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit17-mp-3">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">תזכורת: "לִבְרִית עוֹלָם, לִהְיוֹת לְךָ לֵאלֹהִים וּלְזַרְעֲךָ אַחֲרֶיךָ" (פסוק ז')</p>
@@ -354,11 +361,16 @@
         <span class="qb-root-icon" aria-hidden="true">😊</span>
         <div class="qb-root-label">פסוקים ה', ט"ו, י"ז-י"ט</div>
         <div class="qb-root-pasuk">
-          <b>ה:</b> וְלֹא יִקָּרֵא עוֹד אֶת שִׁמְךָ אַבְרָם, וְהָיָה שִׁמְךָ אַבְרָהָם - כִּי אַב הֲמוֹן גּוֹיִם נְתַתִּיךָ.<br>
-          <b>טו:</b> וַיֹּאמֶר אֱלֹהִים אֶל אַבְרָהָם: שָׂרַי אִשְׁתְּךָ לֹא תִקְרָא אֶת שְׁמָהּ שָׂרָי, כִּי שָׂרָה שְׁמָהּ.<br>
-          <b>יז:</b> וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק, וַיֹּאמֶר בְּלִבּוֹ: הַלְּבֶן מֵאָה שָׁנָה יִוָּלֵד וְאִם שָׂרָה הֲבַת תִּשְׁעִים שָׁנָה תֵּלֵד.<br>
-          <b>יח:</b> וַיֹּאמֶר אַבְרָהָם אֶל הָאֱלֹהִים: לוּ יִשְׁמָעֵאל יִחְיֶה לְפָנֶיךָ.<br>
-          <b>יט:</b> וַיֹּאמֶר אֱלֹהִים: אֲבָל שָׂרָה אִשְׁתְּךָ יֹלֶדֶת לְךָ בֵּן, וְקָרָאתָ אֶת שְׁמוֹ יִצְחָק.
+          <div class="pasuk-gloss">ה' משנה את שם אברם לאברהם</div>
+          <div class="pasuk-line"><b>ה:</b> וְלֹא יִקָּרֵא עוֹד אֶת שִׁמְךָ אַבְרָם, וְהָיָה שִׁמְךָ אַבְרָהָם - כִּי אַב הֲמוֹן גּוֹיִם נְתַתִּיךָ.</div>
+          <div class="pasuk-gloss">ה' משנה את שם שרי לשרה</div>
+          <div class="pasuk-line"><b>טו:</b> וַיֹּאמֶר אֱלֹהִים אֶל אַבְרָהָם: שָׂרַי אִשְׁתְּךָ לֹא תִקְרָא אֶת שְׁמָהּ שָׂרָי, כִּי שָׂרָה שְׁמָהּ.</div>
+          <div class="pasuk-gloss">אברהם נופל על פניו וצוחק, תוהה כיצד ייוולד לו בן בגילו המופלג</div>
+          <div class="pasuk-line"><b>יז:</b> וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק, וַיֹּאמֶר בְּלִבּוֹ: הַלְּבֶן מֵאָה שָׁנָה יִוָּלֵד וְאִם שָׂרָה הֲבַת תִּשְׁעִים שָׁנָה תֵּלֵד.</div>
+          <div class="pasuk-gloss">אברהם מבקש שישמעאל יזכה לחיות לפני ה'</div>
+          <div class="pasuk-line"><b>יח:</b> וַיֹּאמֶר אַבְרָהָם אֶל הָאֱלֹהִים: לוּ יִשְׁמָעֵאל יִחְיֶה לְפָנֶיךָ.</div>
+          <div class="pasuk-gloss">ה' מבטיח שדווקא שרה תלד בן, ושמו ייקרא יצחק</div>
+          <div class="pasuk-line"><b>יט:</b> וַיֹּאמֶר אֱלֹהִים: אֲבָל שָׂרָה אִשְׁתְּךָ יֹלֶדֶת לְךָ בֵּן, וְקָרָאתָ אֶת שְׁמוֹ יִצְחָק.</div>
         </div>
         <div class="mini-timeline" role="img" aria-label="שינוי השמות ובשורת יצחק">
           <div class="step"><span class="step-icon" aria-hidden="true">🌍</span>אַבְרָם ← אַבְרָהָם<br><small>"אב המון גויים"</small></div>
@@ -385,6 +397,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רש"י (פסוק י"ז) - "וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק"</span>
             זה תרגם אונקלוס: וחדי (=ושמח) - לשון שמחה.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit17-mp-4">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">תזכורת: "וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק" (פסוק י"ז) לעומת "לוּ יִשְׁמָעֵאל יִחְיֶה לְפָנֶיךָ" (פסוק י"ח)</p>
@@ -431,6 +444,7 @@
           <div class="qb-meforesh">
             <span class="qb-src">רש"י (פסוק כ"ג) - "בְּעֶצֶם הַיּוֹם הַזֶּה"</span>
             בו ביום שנצטווה, ביום ולא בלילה, לא נתיירא לא מן הגויים ולא מן הלצנים, ושלא יהיו אויביו ובני דורו אומרים: אילו ראינוהו לא הנחנוהו למול ולקיים מצוותו של מקום.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit17-mp-5">אישור</button></div>
           </div>
           <div class="question-block">
             <p class="q-cue">תזכורת: "וַיָּמָל אֶת בְּשַׂר עָרְלָתָם בְּעֶצֶם הַיּוֹם הַזֶּה" (פסוק כ"ג)</p>
@@ -452,45 +466,6 @@
 
       </div>
     </div>
-
-    <!-- פרשני הפרק - סיכום -->
-    <section class="card" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">📚 סיכום</span>
-        <h2 class="card-title">כל הפרשנים שפגשנו בפרק - מה כל אחד אמר?</h2>
-      </div>
-      <div class="card-body">
-        <p class="pasuk-block-note">עברו על כל הפרשנים שלמדנו בפרק. אחרי שאתם מרגישים שהבנתם את דבריו של פרשן מסוים - לחצו על "אישור" ליד השם שלו.</p>
-        <div class="mp-recap-grid">
-
-          <div class="mp-tile" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">מדרש תנחומא</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit17-mp-1">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">ספר החינוך</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit17-mp-2">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">אברבנאל (פס' ז')</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit17-mp-3">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רש"י (פס' י"ז)</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit17-mp-4">אישור</button>
-          </div>
-
-          <div class="mp-tile" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
-            <span class="mp-tile-icon" aria-hidden="true">💬</span><span class="mp-tile-name">רש"י (פס' כ"ג)</span>
-            <button type="button" class="mp-tile-btn" data-unit-id="bereshit17-mp-5">אישור</button>
-          </div>
-
-        </div>
-      </div>
-    </section>
 
   </div>
 </main>
@@ -652,7 +627,7 @@ const unitButtons = Array.from(document.querySelectorAll('.mp-tile-btn'));
 
 function saveUnits(){
   const done = {};
-  unitButtons.forEach(btn => { done[btn.dataset.unitId] = btn.closest('.mp-tile').classList.contains('completed'); });
+  unitButtons.forEach(btn => { done[btn.dataset.unitId] = btn.closest('.qb-meforesh').classList.contains('completed'); });
   try{ localStorage.setItem(UNIT_KEY, JSON.stringify(done)); }catch(e){ /* אחסון חסום */ }
 }
 
@@ -662,7 +637,7 @@ function loadUnits(){
     const done = raw ? JSON.parse(raw) : {};
     unitButtons.forEach(btn => {
       if(done[btn.dataset.unitId]){
-        btn.closest('.mp-tile').classList.add('completed');
+        btn.closest('.qb-meforesh').classList.add('completed');
         btn.textContent = '✓ אושר';
       }
     });
@@ -671,7 +646,7 @@ function loadUnits(){
 
 unitButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    const tile = btn.closest('.mp-tile');
+    const tile = btn.closest('.qb-meforesh');
     const nowCompleted = !tile.classList.contains('completed');
     tile.classList.toggle('completed', nowCompleted);
     btn.textContent = nowCompleted ? '✓ אושר' : 'אישור';
