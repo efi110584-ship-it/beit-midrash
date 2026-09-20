@@ -236,8 +236,16 @@ main{ max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 2rem; }
 /* "חשוב לזכור" / "לקראת הבגרות" - תיבות הבלטה ייעודיות, בשימוש איפה שרלוונטי */
 .remember-block{ background: #FBEFD1; border-right: 3px solid var(--gold); border-radius: 6px; padding: .55rem .75rem; font-size: .84rem; line-height: 1.55; color: #5a4212; }
 .remember-block .src{ display:flex; align-items:center; gap:.35rem; font-weight: 700; color: var(--gold-text); margin-bottom: .2rem; font-size: .78rem; }
-.bagrut-block{ background: #E4EEEA; border-right: 3px solid var(--teal); border-radius: 6px; padding: .55rem .75rem; font-size: .84rem; line-height: 1.55; color: #1d3d38; }
+.bagrut-block{ background: #E4EEEA; border-right: 3px solid var(--teal); border-radius: 6px; padding: .7rem .9rem; font-size: .84rem; line-height: 1.55; color: #1d3d38; }
 .bagrut-block .src{ display:flex; align-items:center; gap:.35rem; font-weight: 700; color: var(--teal); margin-bottom: .2rem; font-size: .78rem; }
+.bagrut-block .bagrut-note{ font-size: .74rem; font-style: italic; color: #3a6058; margin: -.1rem 0 .4rem; }
+.bagrut-block p{ margin: 0 0 .35rem; }
+.bagrut-block p:last-of-type{ margin-bottom: .6rem; }
+.bagrut-block .hint-btn{ background:#fff; }
+.bagrut-block .hint-box{ background:#fff; border:1.5px solid var(--teal); }
+.bagrut-block .hint-box p{ margin: 0 0 .35rem; }
+.bagrut-block .hint-box p:last-child{ margin-bottom: 0; }
+.card-body .bagrut-block + .bagrut-block{ margin-top: .9rem; }
 
 /* תקציר עלילה בתחילת פרק - לפני השאלות, כדי שהתלמידים יזכרו את הסיפור */
 .story-summary{ background: var(--paper-card); border: 1.5px dashed var(--acc); border-radius: 10px; padding: .9rem 1.1rem; font-size: .95rem; line-height: 1.7; color: var(--ink); }
