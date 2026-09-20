@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר ישעיהו — דף עבודה אינטראקטיבי (פרק א', חזון ישעיהו)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
+
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  .mini-timeline.detail .step{ flex:1 1 140px; text-align:center; gap:.3rem; padding:.6rem .6rem; }
+  .mini-timeline.detail .step b{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.88rem; color:var(--ink); }
+  .mini-timeline.detail .step small{ display:block; font-size:.68rem; line-height:1.35; color:var(--ink-soft); }
+  .mini-timeline.detail .step small.why{ color:var(--rust); font-weight:700; }
+  .mini-timeline{ margin-top:.7rem; }
+
+  .vs-compare{ display:flex; align-items:stretch; gap:0; margin:.7rem 0; border-radius:12px; overflow:hidden; box-shadow:var(--shadow); }
+  .vs-side{ flex:1; padding:.7rem .8rem; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.3rem; }
+  .vs-a{ background:var(--teal-soft); }
+  .vs-b{ background:var(--rust-soft); }
+  .vs-icon{ font-size:1.35rem; }
+  .vs-title{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.85rem; color:var(--ink); }
+  .vs-desc{ font-size:.72rem; line-height:1.45; color:var(--ink-soft); }
+  .vs-mid{ flex:none; width:2rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.72rem; color:#fff; background:var(--ink); }
+
+  .topic-banner{ margin-top:2.6rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  .qb-topic{ grid-column: 1 / -1; }
+  .qb-root{
+    max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
+    padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
+  }
+  .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
+  .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
+  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
+  .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
+  .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
+
+  .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
+  .qb-connector::after{
+    content:""; position:absolute; bottom:-1px; right:50%; transform:translateX(50%);
+    border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
+  }
+
+  .qb-branches{
+    display:flex; flex-wrap:wrap; gap:1.1rem;
+    position:relative; padding-top:22px; margin-top:-22px;
+  }
+  .qb-branches::before{
+    content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
+  }
+  .qb-card{
+    flex:1 1 260px;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
+    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
+    min-width:0;
+  }
+  .qb-card > *{ width:100%; max-width:640px; }
+  .qb-meforesh{
+    font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+    background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
+    padding:.75rem .9rem; box-shadow:var(--shadow);
+  }
+  .qb-meforesh .qb-src{
+    display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
+    font-size:.8rem; margin-bottom:.35rem;
+  }
+  .qb-meforesh .qb-src::before{ content:"💬"; font-size:1.05rem; line-height:1; }
+  .qb-card .question-block{ display:flex; flex-direction:column; gap:.5rem; }
+  .qb-card .question-row{ align-items:flex-start; }
+  .qb-card .q-text{ font-size:.86rem; line-height:1.5; }
+  .qb-card textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
+  .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
+  .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">ספר ישעיהו</a>
+  <span class="sep">›</span>
+  <span class="current">פרק א'</span>
+</nav>
+
+<header>
+  <div class="eyebrow">ספר ישעיהו · חוברת תלמיד דיגיטלית · נבואות ישעיהו</div>
+  <h1>דף עבודה — פרק א', "חֲזוֹן יְשַׁעְיָהוּ"</h1>
+  <p class="sub">בכל נושא: קודם קוראים את הפסוקים בקובייה העליונה, ואז עוברים על כל קוביית-שאלה שמסתעפת ממנה - קוראים את דברי הפרשן (אם יש), כותבים תשובה, ורק אז לוחצים "הצג תשובה" לבדיקה עצמית. הכול נשמר אוטומטית במכשיר שלכם.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 9 שאלות</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main>
+  <div class="grid" id="grid">
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרק</span>
+        <h2 class="card-title">מה קורה בפרק א'?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          פרק א' הוא פתיחת ספר ישעיהו, ומשמש כמעין "כותרת" לנבואות הנביא כולן - הוא מציג את חטאי העם, את התוכחה שבפי הנביא, ואת התקווה לתיקון ולגאולה. הפרק נחלק לשלושה חלקים עיקריים: תחילה מתאר הנביא את כפיות הטובה של העם כלפי ה', שנמשל לבן שמרד באביו, ואת מצבה החרב של הארץ בעקבות פלישות האויב. אחר כך מוכיח הנביא את העם על כך שהם מרבים בקורבנות ובתפילות, אך ידיהם מלאות עוול ומשפט מעוות - ולכן ה' דוחה את עבודתם, ובמקומה דורש מהם לדרוש משפט ולעשות צדק ליתום ולאלמנה. הפרק מסתיים בקינה על ירושלים שהפכה מ"קריה נאמנה" לעיר מלאה רוצחים וגנבים, אך גם בהבטחה: אם ישובו העם בדרך התשובה - תיפדה ציון במשפט, ואם לא - ייענשו בחרב.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">📜</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 4</div>
+        <div class="topic-title">הכותרת - זמן החזון ומקורו</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">📜</span>
+        <div class="qb-root-label">פסוק א'</div>
+        <div class="qb-root-pasuk"><b>א:</b> חֲזוֹן יְשַׁעְיָהוּ בֶן אָמוֹץ אֲשֶׁר חָזָה עַל יְהוּדָה וִירוּשָׁלַ‍ִם בִּימֵי עֻזִּיָּהוּ יוֹתָם אָחָז יְחִזְקִיָּהוּ מַלְכֵי יְהוּדָה.</div>
+        <div class="qb-root-note">פסוק זה משמש ככותרת-על לכל ספר ישעיהו, וקובע את זהות הנביא, את נמעניו ואת התקופה שבה ניבא.</div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "חֲזוֹן יְשַׁעְיָהוּ בֶן אָמוֹץ... בִּימֵי עֻזִּיָּהוּ יוֹתָם אָחָז יְחִזְקִיָּהוּ מַלְכֵי יְהוּדָה" (פסוק א')</p>
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מי הוא הנביא המדבר בפרק, על מי הוא מנבא, ובאיזו תקופה היסטורית (על פי שמות המלכים המנויים בפסוק)?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שם הנביא: ישעיהו בן אמוץ. הוא מנבא על יהודה וירושלים. הזמן ההיסטורי: ימי עוזיהו, יותם, אחז וחזקיהו - מלכי יהודה.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">מבנה הפרק</span>
+            הפרק נחלק לשלושה חלקים: פס' ב'-ט' - חטא כפיות הטובה של העם ותיאור הארץ החרבה; פס' י'-כ' - תוכחה בדבר עבודת ה' שאינה מחוברת לצדקה ולמשפט; פס' כ"א-ל"א - קינה על מצב העם, והבטחת השבת הצדק לירושלים בדרך התשובה או בדרך העונש.
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">על פי חלוקת הפרק לעיל, מהו הנושא המרכזי שאליו חותר הפרק כולו - ומדוע לדעתכם דווקא פרק זה נבחר לשמש "פתיחה" לכל ספר ישעיהו?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הפרק חותר מן החטא (עבודה חיצונית ריקה ממשפט וצדק) אל התיקון (חזרה בתשובה שמובילה לגאולה). הוא מתאים כפתיחה כי הוא מרכז בתמציתיות את המסר המרכזי שילווה את כל נבואות הספר: חטא, תוכחה ותקווה לתיקון.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <span class="topic-icon" aria-hidden="true">🐂</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 4</div>
+        <div class="topic-title">כפיות טובה - בנים שמרדו באביהם</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🐂</span>
+        <div class="qb-root-label">פסוקים ב'-ט'</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">ה' קורא לשמים ולארץ לעדות: בניו מרדו בו</div>
+          <div class="pasuk-line"><b>ב:</b> שִׁמְעוּ שָׁמַיִם וְהַאֲזִינִי אֶרֶץ כִּי ה' דִּבֵּר: בָּנִים גִּדַּלְתִּי וְרוֹמַמְתִּי וְהֵם פָּשְׁעוּ בִי.</div>
+          <div class="pasuk-gloss">גם השור והחמור מכירים את בעליהם - ועם ישראל אינו מכיר את ה'</div>
+          <div class="pasuk-line"><b>ג:</b> יָדַע שׁוֹר קֹנֵהוּ וַחֲמוֹר אֵבוּס בְּעָלָיו, יִשְׂרָאֵל לֹא יָדַע עַמִּי לֹא הִתְבּוֹנָן.</div>
+          <div class="pasuk-gloss">העם מתואר כ"עם כבד עוון" שעזב את ה' וניאץ את קדוש ישראל</div>
+          <div class="pasuk-line"><b>ד:</b> הוֹי גּוֹי חֹטֵא עַם כֶּבֶד עָוֹן, זֶרַע מְרֵעִים בָּנִים מַשְׁחִיתִים; עָזְבוּ אֶת ה', נִאֲצוּ אֶת קְדוֹשׁ יִשְׂרָאֵל נָזֹרוּ אָחוֹר.</div>
+          <div class="pasuk-gloss">משל הגוף החולה: מכף רגל ועד ראש אין בעם מקום בריא</div>
+          <div class="pasuk-line"><b>ה-ו:</b> עַל מֶה תֻכּוּ עוֹד תּוֹסִיפוּ סָרָה, כָּל רֹאשׁ לָחֳלִי וְכָל לֵבָב דַּוָּי. מִכַּף רֶגֶל וְעַד רֹאשׁ אֵין בּוֹ מְתֹם, פֶּצַע וְחַבּוּרָה וּמַכָּה טְרִיָּה - לֹא זֹרוּ וְלֹא חֻבָּשׁוּ וְלֹא רֻכְּכָה בַּשָּׁמֶן.</div>
+          <div class="pasuk-gloss">הארץ שממה, ורק ירושלים נותרה כסוכה בודדה בכרם לאחר החורבן</div>
+          <div class="pasuk-line"><b>ז-ט:</b> אַרְצְכֶם שְׁמָמָה עָרֵיכֶם שְׂרֻפוֹת אֵשׁ... וְנוֹתְרָה בַת צִיּוֹן כְּסֻכָּה בְכָרֶם, כִּמְלוּנָה בְמִקְשָׁה, כְּעִיר נְצוּרָה. לוּלֵי ה' צְבָאוֹת הוֹתִיר לָנוּ שָׂרִיד - כִּמְעַט כִּסְדֹם הָיִינוּ, לַעֲמֹרָה דָּמִינוּ.</div>
+        </div>
+        <div class="mini-timeline detail" role="img" aria-label="שני משלים על מצב העם - הגוף החולה, והסוכה הבודדה בכרם">
+          <div class="step">
+            <span class="step-icon" aria-hidden="true">🤕</span><b>משל הגוף החולה</b>
+            <small>"מכף רגל ועד ראש אין בו מתם"</small>
+            <small class="why">הנמשל: העם כולו שקוע בחטא, בלי שום תיקון</small>
+          </div>
+          <div class="arrow" aria-hidden="true">←</div>
+          <div class="step">
+            <span class="step-icon" aria-hidden="true">🏕️</span><b>משל הסוכה בכרם</b>
+            <small>"ונותרה בת ציון כסוכה בכרם"</small>
+            <small class="why">הנמשל: רוב ערי יהודה נחרבו, וירושלים נותרה בודדה</small>
+          </div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "בָּנִים גִּדַּלְתִּי וְרוֹמַמְתִּי וְהֵם פָּשְׁעוּ בִי... יִשְׂרָאֵל לֹא יָדַע" (פסוקים ב'-ג')</p>
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">בפסוקים אלה מבליט הנביא את חוסר ההיגיון שבהתנהגות העם, בכינוי "בנים" ובהשוואה לשור ולחמור. לשם מה הנביא משתמש בכינויים אלה בפתיחת נבואת התוכחה?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ישראל נמשלים לבנים שמרדו באביהם - כפיות טובה כלפי מי שגידלם. השור והחמור מכירים את בעליהם, ואילו ישראל, שיש להם בינה ודעת, אינם מכירים את ה' ואינם מבינים את טובתו. כך מודגש עד כמה חמור וחסר היגיון החטא.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "עַל מֶה תֻכּוּ עוֹד... כָּל רֹאשׁ לָחֳלִי" לעומת "וְנוֹתְרָה בַת צִיּוֹן כְּסֻכָּה בְכָרֶם" (פסוקים ה'-ח')</p>
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">הביאו במילים שלכם את שני המשלים שבפסוקים אלה (הגוף החולה, והסוכה בכרם), והסבירו את הנמשל של כל אחד מהם.</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> משל הגוף החולה: כל הגוף - מכף רגל ועד ראש - מלא פצעים שלא טופלו כלל. הנמשל: העם כולו שקוע בחטא, בלי שום תיקון. משל הסוכה בכרם: סוכה זמנית ובודדת שנותרה לבדה בשדה נטוש. הנמשל: רוב ערי יהודה נחרבו (בפלישת האויב), ורק ירושלים נותרה עומדת, בודדה כסוכה.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">⚖️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 4</div>
+        <div class="topic-title">עבודה ריקה מצדק ומשפט</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">⚖️</span>
+        <div class="qb-root-label">פסוקים י'-כ'</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">ה' דוחה את ריבוי הקורבנות והתפילות של העם</div>
+          <div class="pasuk-line"><b>י-יג:</b> שִׁמְעוּ דְבַר ה' קְצִינֵי סְדֹם... לָמָּה לִּי רֹב זִבְחֵיכֶם יֹאמַר ה', שָׂבַעְתִּי עֹלוֹת אֵילִים וְחֵלֶב מְרִיאִים... לֹא תוֹסִיפוּ הָבִיא מִנְחַת שָׁוְא, קְטֹרֶת תּוֹעֵבָה הִיא לִי.</div>
+          <div class="pasuk-gloss">גם התפילה נדחית - כי ידי העם מלאות דמים</div>
+          <div class="pasuk-line"><b>יד-טו:</b> חָדְשֵׁיכֶם וּמוֹעֲדֵיכֶם שָׂנְאָה נַפְשִׁי... וּבְפָרִשְׂכֶם כַּפֵּיכֶם אַעְלִים עֵינַי מִכֶּם, גַּם כִּי תַרְבּוּ תְפִלָּה אֵינֶנִּי שֹׁמֵעַ, יְדֵיכֶם דָּמִים מָלֵאוּ.</div>
+          <div class="pasuk-gloss">הדרישה החלופית: לחדול מהרע וללמוד לעשות משפט וצדק לחלש</div>
+          <div class="pasuk-line"><b>טז-יז:</b> רַחֲצוּ הִזַּכּוּ, הָסִירוּ רֹעַ מַעַלְלֵיכֶם... לִמְדוּ הֵיטֵב דִּרְשׁוּ מִשְׁפָּט, אַשְּׁרוּ חָמוֹץ, שִׁפְטוּ יָתוֹם רִיבוּ אַלְמָנָה.</div>
+          <div class="pasuk-gloss">קריאה לתשובה ולוויכוח, עם הבטחת מחילה ובחירה בין שני מסלולים</div>
+          <div class="pasuk-line"><b>יח-כ:</b> לְכוּ נָא וְנִוָּכְחָה יֹאמַר ה', אִם יִהְיוּ חֲטָאֵיכֶם כַּשָּׁנִים כַּשֶּׁלֶג יַלְבִּינוּ... אִם תֹּאבוּ וּשְׁמַעְתֶּם - טוּב הָאָרֶץ תֹּאכֵלוּ; וְאִם תְּמָאֲנוּ וּמְרִיתֶם - חֶרֶב תְּאֻכְּלוּ, כִּי פִּי ה' דִּבֵּר.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="vs-compare" role="img" aria-label="השוואה בין עבודה חיצונית ריקה לבין המשפט והצדק שה' דורש במקומה">
+            <div class="vs-side vs-a">
+              <span class="vs-icon" aria-hidden="true">🕯️</span>
+              <div class="vs-title">הנדחה: עבודה ריקה</div>
+              <div class="vs-desc">זבחים, מנחות, קטורת, חגים ותפילות - בלי משפט וצדק.</div>
+            </div>
+            <div class="vs-mid" aria-hidden="true">מול</div>
+            <div class="vs-side vs-b">
+              <span class="vs-icon" aria-hidden="true">🤲</span>
+              <div class="vs-title">הנדרש: משפט וצדק</div>
+              <div class="vs-desc">דרשו משפט, אשרו חמוץ, שפטו יתום, ריבו אלמנה.</div>
+            </div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "לָמָּה לִּי רֹב זִבְחֵיכֶם... יְדֵיכֶם דָּמִים מָלֵאוּ" (פסוקים י"א-ט"ו)</p>
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מדוע ה', לפי פסוקים אלה, דוחה את הקורבנות, המועדים והתפילות של העם - הרי אלה מצוות שהעם מקיים בפועל?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> העבודה החיצונית - זבחים, מועדים ותפילות - אינה מלווה במשפט ובצדק בין אדם לחברו, ואף מנוגדת להם ("ידיכם דמים מלאו"). עבודה כזו, המנותקת מהתנהגות מוסרית, הופכת לתועבה בעיני ה', שכן היא שקר וצביעות ולא עבודה אמיתית.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "לִמְדוּ הֵיטֵב דִּרְשׁוּ מִשְׁפָּט, אַשְּׁרוּ חָמוֹץ שִׁפְטוּ יָתוֹם רִיבוּ אַלְמָנָה" (פסוק י"ז)</p>
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">מהי הדרישה החיובית שמעמיד הנביא במקום העבודה שנדחתה - ומיהם, על פי הפסוק, האנשים שכלפיהם נדרש המשפט והצדק?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הדרישה: לחדול מהרע וללמוד לעשות טוב - לדרוש משפט, לתקן עוול (אשרו חמוץ), ולהגן על החלשים בחברה. האנשים המוזכרים: היתום והאלמנה - הנזקקים ביותר להגנת המשפט, כי אין להם מי שיגן עליהם.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "אִם יִהְיוּ חֲטָאֵיכֶם כַּשָּׁנִים כַּשֶּׁלֶג יַלְבִּינוּ... וְאִם תְּמָאֲנוּ וּמְרִיתֶם חֶרֶב תְּאֻכְּלוּ" (פסוקים י"ח-כ')</p>
+            <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">אילו שני מסלולים עתידיים מציג הנביא לעם בפסוקים אלה, ובמה תלויה הבחירה בין השניים?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> מסלול אחד: אם ישמעו וישובו - חטאיהם יימחלו לגמרי (כשלג הלבן) והם ייהנו מטוב הארץ. מסלול שני: אם ימאנו וימרו - ייענשו בחרב. הבחירה תלויה לגמרי ברצון החופשי של העם - האם לשמוע בקול ה' ולתקן דרכם, או להמשיך במרים.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 4 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
+      <span class="topic-icon" aria-hidden="true">🏙️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 4 מתוך 4</div>
+        <div class="topic-title">קינה על ירושלים ותקוות התיקון</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🏙️</span>
+        <div class="qb-root-label">פסוקים כ"א-כ"ז</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">קינה: ירושלים, שהייתה "קריה נאמנה" מלאת משפט וצדק, הפכה לעיר רוצחים</div>
+          <div class="pasuk-line"><b>כא:</b> אֵיכָה הָיְתָה לְזוֹנָה קִרְיָה נֶאֱמָנָה! מְלֵאֲתִי מִשְׁפָּט צֶדֶק יָלִין בָּהּ וְעַתָּה מְרַצְּחִים.</div>
+          <div class="pasuk-gloss">שריה מושחתים: אוהבי שוחד שאינם דנים ליתום ולאלמנה</div>
+          <div class="pasuk-line"><b>כב-כג:</b> כַּסְפֵּךְ הָיָה לְסִיגִים... שָׂרַיִךְ סוֹרְרִים וְחַבְרֵי גַּנָּבִים, כֻּלּוֹ אֹהֵב שֹׁחַד וְרֹדֵף שַׁלְמֹנִים; יָתוֹם לֹא יִשְׁפֹּטוּ וְרִיב אַלְמָנָה לֹא יָבוֹא אֲלֵיהֶם.</div>
+          <div class="pasuk-gloss">ה' מבטיח לצרף את הסיגים ולהשיב את השופטים לתפקידם, כדי שירושלים תיקרא שוב "עיר הצדק"</div>
+          <div class="pasuk-line"><b>כה-כז:</b> וְאָשִׁיבָה יָדִי עָלַיִךְ וְאֶצְרֹף כַּבֹּר סִיגָיִךְ... וְאָשִׁיבָה שֹׁפְטַיִךְ כְּבָרִאשֹׁנָה וְיֹעֲצַיִךְ כְּבַתְּחִלָּה, אַחֲרֵי כֵן יִקָּרֵא לָךְ עִיר הַצֶּדֶק קִרְיָה נֶאֱמָנָה. צִיּוֹן בְּמִשְׁפָּט תִּפָּדֶה וְשָׁבֶיהָ בִּצְדָקָה.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "אֵיכָה הָיְתָה לְזוֹנָה קִרְיָה נֶאֱמָנָה... וְעַתָּה מְרַצְּחִים" (פסוק כ"א)</p>
+            <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">הנביא פותח פסוק זה במילה "אֵיכָה" - מילת קינה. מהו הניגוד המודגש בפסוק בין עברה של ירושלים לבין הווה שלה?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> בעבר ירושלים הייתה "קריה נאמנה" - עיר מלאה משפט וצדק. בהווה היא נמשלת לזונה - עיר שבגדה בייעודה, ובתוכה שוכנים רוצחים במקום אנשי צדק. הניגוד מדגיש עד כמה גדולה הנפילה המוסרית.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְאָשִׁיבָה שֹׁפְטַיִךְ כְּבָרִאשֹׁנָה... צִיּוֹן בְּמִשְׁפָּט תִּפָּדֶה וְשָׁבֶיהָ בִּצְדָקָה" (פסוקים כ"ו-כ"ז)</p>
+            <div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-9">באיזו דרך, לפי פסוקים אלה, עתידה ירושלים לחזור ולהיקרא "עיר הצדק"? הראו כיצד תשובה זו קושרת בין סוף הפרק לבין תחילתו.</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ה' יצרף וינקה את העם מחטאיו וישיב את השופטים והיועצים הראויים למקומם - ואז תיפדה ציון "במשפט ובצדקה" דווקא. כך נסגר המעגל שנפתח בפסוקים י"ז-כ': בדיוק המשפט והצדק שה' דרש מהעם ולא קיבל, הם התנאי לגאולתה העתידית של העיר.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <span></span>
+  <a href="index.html#tab-ya">↺ חזרה ליחידה</a>
+  <a href="yeshayahu-2.html">פרק ב' ←</a>
+</nav>
+<div class="toolbar">
+  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
+  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
+</p>
+
+<footer class="credit">ספר ישעיהו, פרק א' · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'yeshayahu-ch1-answers';
+const NAME_KEY = 'yeshayahu-ch1-student';
+const textareas = Array.from(document.querySelectorAll('textarea.answer'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{
+    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      nameInput.value = data.name || '';
+      classInput.value = data.cls || '';
+    }
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    flashSaved();
+  }catch(e){
+    console.error('שגיאת שמירה', e);
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => {
+        if(data[t.dataset.id]){
+          t.value = data[t.dataset.id];
+          markFilled(t);
+        }
+      });
+    }
+  }catch(e){
+    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
+  }
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+document.querySelectorAll('.hint-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.nextElementSibling;
+    const showing = box.hidden;
+    box.hidden = !showing;
+    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות בדף העבודה? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
+
+loadStudentInfo();
+loadAnswers();
+</script>
+<script src="assets/progress-tracker.js"></script>
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+
+</body>
+</html>

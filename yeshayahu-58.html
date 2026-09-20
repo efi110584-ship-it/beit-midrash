@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר ישעיהו — דף עבודה אינטראקטיבי (פרק נ"ח, השגת קרבת ה')</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
+
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  .mini-timeline.detail .step{ flex:1 1 140px; text-align:center; gap:.3rem; padding:.6rem .6rem; }
+  .mini-timeline.detail .step b{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.88rem; color:var(--ink); }
+  .mini-timeline.detail .step small{ display:block; font-size:.68rem; line-height:1.35; color:var(--ink-soft); }
+  .mini-timeline.detail .step small.why{ color:var(--rust); font-weight:700; }
+  .mini-timeline{ margin-top:.7rem; }
+
+  .vs-compare{ display:flex; align-items:stretch; gap:0; margin:.7rem 0; border-radius:12px; overflow:hidden; box-shadow:var(--shadow); }
+  .vs-side{ flex:1; padding:.7rem .8rem; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.3rem; }
+  .vs-a{ background:var(--teal-soft); }
+  .vs-b{ background:var(--rust-soft); }
+  .vs-icon{ font-size:1.35rem; }
+  .vs-title{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.85rem; color:var(--ink); }
+  .vs-desc{ font-size:.72rem; line-height:1.45; color:var(--ink-soft); }
+  .vs-mid{ flex:none; width:2rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.72rem; color:#fff; background:var(--ink); }
+
+  .plan-reality{ display:flex; flex-direction:column; gap:.55rem; margin:.7rem 0; }
+  .pr-row{ display:flex; flex-direction:column; gap:.3rem; }
+  .pr-label{ font-weight:800; font-size:.76rem; color:var(--acc); }
+
+  .flowchart{ display:flex; flex-direction:column; align-items:center; gap:0; margin:.7rem 0; }
+  .flow-step{ display:flex; align-items:center; gap:.6rem; width:100%; }
+  .flow-node{
+    flex:none; width:1.6rem; height:1.6rem; border-radius:50%; background:var(--acc); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.8rem;
+  }
+  .flow-card{ flex:1; background:#fff; border:1.5px solid var(--paper-line); border-radius:10px; padding:.5rem .7rem; }
+  .flow-title{ font-size:.78rem; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:.4rem; }
+  .flow-icon{ font-size:.95rem; }
+  .flow-arrow{ color:var(--acc); font-size:1rem; margin:.1rem 0; }
+
+  .topic-banner{ margin-top:2.6rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  .qb-topic{ grid-column: 1 / -1; }
+  .qb-root{
+    max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
+    padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
+  }
+  .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
+  .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
+  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
+  .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
+  .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
+
+  .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
+  .qb-connector::after{
+    content:""; position:absolute; bottom:-1px; right:50%; transform:translateX(50%);
+    border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
+  }
+
+  .qb-branches{
+    display:flex; flex-wrap:wrap; gap:1.1rem;
+    position:relative; padding-top:22px; margin-top:-22px;
+  }
+  .qb-branches::before{
+    content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
+  }
+  .qb-card{
+    flex:1 1 260px;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
+    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
+    min-width:0;
+  }
+  .qb-card > *{ width:100%; max-width:640px; }
+  .qb-meforesh{
+    font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+    background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
+    padding:.75rem .9rem; box-shadow:var(--shadow);
+  }
+  .qb-meforesh .qb-src{
+    display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
+    font-size:.8rem; margin-bottom:.35rem;
+  }
+  .qb-meforesh .qb-src::before{ content:"💬"; font-size:1.05rem; line-height:1; }
+  .qb-card .question-block{ display:flex; flex-direction:column; gap:.5rem; }
+  .qb-card .question-row{ align-items:flex-start; }
+  .qb-card .q-text{ font-size:.86rem; line-height:1.5; }
+  .qb-card textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
+  .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
+  .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
+
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">ספר ישעיהו</a>
+  <span class="sep">›</span>
+  <span class="current">פרק נ"ח</span>
+</nav>
+
+<header>
+  <div class="eyebrow">ספר ישעיהו · חוברת תלמיד דיגיטלית · נבואות ישעיהו</div>
+  <h1>דף עבודה — פרק נ"ח, "הַשָּׂגַת קִרְבַת ה'"</h1>
+  <p class="sub">בכל נושא: קודם קוראים את הפסוקים בקובייה העליונה, ואז עוברים על כל קוביית-שאלה שמסתעפת ממנה - קוראים את דברי הפרשן (אם יש), כותבים תשובה, ורק אז לוחצים "הצג תשובה" לבדיקה עצמית. הכול נשמר אוטומטית במכשיר שלכם.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 6 שאלות</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main>
+  <div class="grid" id="grid">
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרק</span>
+        <h2 class="card-title">מה קורה בפרק נ"ח?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          פרק זה עוסק ביחס הראוי בין הצום לבין עבודת ה' האמיתית. הנביא מצווה להרים קול ולהודיע לעם את פשעו: העם צם ומתפלל, אך תמה מדוע ה' אינו מקבל את תעניתו. תשובת הנביא: ביום הצום עצמו העם ממשיך למצוא חפצו, לעשוק את הפועלים ולריב ולהכות באגרוף רשע - כלומר, הצום נשאר טקס חיצוני בלבד, בלי שינוי אמיתי בהתנהגות. לעומת הצום ה"פסול" הזה, מתאר הנביא את "הצום הרצוי" - פתיחת חרצובות רשע, שילוח רצוצים חופשיים, פריסת לחם לרעב, הכנסת עניים לבית, וכיסוי הערום. פרק זה, שהוא חלק מהפטרת יום הכיפורים, מסתיים בהבטחה: אם ישמור העם על השבת ויעשה מדרכיו כבוד לה', ישאהו ה' על במותי ארץ.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <span class="topic-icon" aria-hidden="true">📢</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
+        <div class="topic-title">תלונת העם - "מדוע צמנו ולא ראית?"</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">📢</span>
+        <div class="qb-root-label">פסוקים א'-ג'</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">ה' מצווה על הנביא להרים קול ולהודיע לעם את פשעו</div>
+          <div class="pasuk-line"><b>א:</b> קְרָא בְגָרוֹן אַל תַּחְשֹׂךְ, כַּשּׁוֹפָר הָרֵם קוֹלֶךָ; וְהַגֵּד לְעַמִּי פִּשְׁעָם וּלְבֵית יַעֲקֹב חַטֹּאתָם.</div>
+          <div class="pasuk-gloss">העם דורש את ה' יום-יום ונראה חפץ בדרכיו, כאילו הוא צדיק</div>
+          <div class="pasuk-line"><b>ב:</b> וְאוֹתִי יוֹם יוֹם יִדְרֹשׁוּן, וְדַעַת דְּרָכַי יֶחְפָּצוּן, כְּגוֹי אֲשֶׁר צְדָקָה עָשָׂה וּמִשְׁפַּט אֱלֹקָיו לֹא עָזָב; יִשְׁאָלוּנִי מִשְׁפְּטֵי צֶדֶק, קִרְבַת אֱלֹקִים יֶחְפָּצוּן.</div>
+          <div class="pasuk-gloss">תלונת העם: "צמנו ולא ראית, עינינו נפשנו ולא תדע"</div>
+          <div class="pasuk-line"><b>ג:</b> לָמָּה צַּמְנוּ וְלֹא רָאִיתָ, עִנִּינוּ נַפְשֵׁנוּ וְלֹא תֵדָע? הֵן בְּיוֹם צֹמְכֶם תִּמְצְאוּ חֵפֶץ, וְכָל עַצְּבֵיכֶם תִּנְגֹּשׂוּ.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְאוֹתִי יוֹם יוֹם יִדְרֹשׁוּן... כְּגוֹי אֲשֶׁר צְדָקָה עָשָׂה" (פסוק ב')</p>
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">כיצד רואה העם את עצמו, לפי פסוק זה? מהי הכוונה במילה "כְּגוֹי" - כלומר, כיצד רומז הנביא כבר בפסוק זה שמדובר במראית עין בלבד?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> העם רואה את עצמו כגוי צדיק שדורש את ה' יום-יום ומקיים משפט אלוקיו - כאילו הוא באמת עושה צדקה ומשפט. אולם המילה "כְּגוֹי" (כמו גוי, לא בהכרח גוי אמיתי) רומזת שמדובר בדימוי חיצוני ומטעה בלבד, לא במציאות ממשית - הנביא כבר כאן מכין את הקורא לחשיפת הפער בין המראית לבין המעשה.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "לָמָּה צַּמְנוּ וְלֹא רָאִיתָ... הֵן בְּיוֹם צֹמְכֶם תִּמְצְאוּ חֵפֶץ" (פסוק ג')</p>
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מהי טענת העם כלפי ה' בתחילת הפסוק, וכיצד עונה ה' לטענה זו בהמשך אותו פסוק עצמו?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> טענת העם: הם צמו וסיגפו עצמם, ובכל זאת ה' אינו מגיב או שם לב לכך. תשובת ה' באותו הפסוק: דווקא ביום הצום עצמו, ממשיכים אנשי העם למצוא חפצם ולנגוש (ללחוץ) את פועליהם - כלומר, הצום נשאר חיצוני בלבד, בלי שינוי אמיתי בהתנהגותם.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">⛓️‍💥</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
+        <div class="topic-title">בין הצום הפסול לצום הרצוי</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">⛓️‍💥</span>
+        <div class="qb-root-label">פסוקים ד'-ז'</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">הצום הפסול: מלווה בריב, מצה ובהכאת אגרוף רשע</div>
+          <div class="pasuk-line"><b>ד:</b> הֵן לְרִיב וּמַצָּה תָּצוּמוּ וּלְהַכּוֹת בְּאֶגְרֹף רֶשַׁע; לֹא תָצוּמוּ כַיּוֹם לְהַשְׁמִיעַ בַּמָּרוֹם קוֹלְכֶם.</div>
+          <div class="pasuk-gloss">ה' תוהה אם זהו באמת הצום שהוא בחר - ענוי הגוף בלבד, בלי תוכן מוסרי</div>
+          <div class="pasuk-line"><b>ה:</b> הֲכָזֶה יִהְיֶה צוֹם אֶבְחָרֵהוּ, יוֹם עַנּוֹת אָדָם נַפְשׁוֹ? הֲלָכֹף כְּאַגְמֹן רֹאשׁוֹ, וְשַׂק וָאֵפֶר יַצִּיעַ - הֲלָזֶה תִּקְרָא צוֹם וְיוֹם רָצוֹן לַה'?</div>
+          <div class="pasuk-gloss">הצום הרצוי: שחרור עשוקים, פריסת לחם לרעב, הכנסת עניים לבית וכיסוי הערום</div>
+          <div class="pasuk-line"><b>ו-ז:</b> הֲלוֹא זֶה צוֹם אֶבְחָרֵהוּ: פַּתֵּחַ חַרְצֻבּוֹת רֶשַׁע, הַתֵּר אֲגֻדּוֹת מוֹטָה, וְשַׁלַּח רְצוּצִים חָפְשִׁים, וְכָל מוֹטָה תְּנַתֵּקוּ. הֲלוֹא פָרֹס לָרָעֵב לַחְמֶךָ, וַעֲנִיִּים מְרוּדִים תָּבִיא בָיִת; כִּי תִרְאֶה עָרֹם וְכִסִּיתוֹ, וּמִבְּשָׂרְךָ לֹא תִתְעַלָּם.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="vs-compare" role="img" aria-label="השוואה בין הצום הפסול לצום הרצוי, על פי פרק נ&quot;ח">
+            <div class="vs-side vs-a">
+              <span class="vs-icon" aria-hidden="true">👊</span>
+              <div class="vs-title">הצום הפסול</div>
+              <div class="vs-desc">ריב ומצה, הכאת אגרוף רשע, כפיפת ראש ושק ואפר - בלי שינוי אמיתי.</div>
+            </div>
+            <div class="vs-mid" aria-hidden="true">מול</div>
+            <div class="vs-side vs-b">
+              <span class="vs-icon" aria-hidden="true">🤲</span>
+              <div class="vs-title">הצום הרצוי</div>
+              <div class="vs-desc">שחרור עשוקים, האכלת רעבים, אירוח עניים וכיסוי ערומים.</div>
+            </div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "הֵן לְרִיב וּמַצָּה תָּצוּמוּ... הֲלָזֶה תִּקְרָא צוֹם וְיוֹם רָצוֹן לַה'?" (פסוקים ד'-ה')</p>
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מהם שני המרכיבים שמפרט הנביא בתיאור הצום שהעם עושה בפועל (פסוקים ד'-ה'), ומדוע ה' דוחה אותו?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> המרכיב הראשון: הצום מלווה בריב, במצה ובהכאה באגרוף רשע - כלומר, בהתנהגות אלימה ופוגענית כלפי הזולת. המרכיב השני: ענוי גוף חיצוני בלבד - כפיפת ראש, שק ואפר. ה' דוחה צום זה כי הוא ריק מתוכן מוסרי - ענוי הגוף אינו מלווה בשינוי אמיתי ביחס לזולת.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "פַּתֵּחַ חַרְצֻבּוֹת רֶשַׁע... פָרֹס לָרָעֵב לַחְמֶךָ... כִּי תִרְאֶה עָרֹם וְכִסִּיתוֹ" (פסוקים ו'-ז')</p>
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">מנו לפחות שלוש פעולות המרכיבות את "הצום אשר ה' בוחר בו", וסכמו במשפט אחד את העיקרון המשותף לכולן.</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> פעולות: שחרור עשוקים מדיכויים ("פתח חרצובות רשע"), האכלת רעבים ("פרוס לרעב לחמך"), הכנסת עניים מחוסרי בית, וכיסוי הערום. העיקרון המשותף: הצום האמיתי אינו סיגוף עצמי, אלא מעשי חסד וצדק כלפי הזקוקים לעזרה.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3E5A8C; --acc-soft:#E2E7F2;">
+      <span class="topic-icon" aria-hidden="true">☀️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
+        <div class="topic-title">השכר לצום הרצוי, ושמירת השבת</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#3E5A8C; --acc-soft:#E2E7F2;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">☀️</span>
+        <div class="qb-root-label">פסוקים ח'-י"ד</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">אם יקיימו את הצום הרצוי - אורם יבקע כשחר, וה' יענה לקריאתם</div>
+          <div class="pasuk-line"><b>ח-ט:</b> אָז יִבָּקַע כַּשַּׁחַר אוֹרֶךָ, וַאֲרֻכָתְךָ מְהֵרָה תִצְמָח... אָז תִּקְרָא וַה' יַעֲנֶה, תְּשַׁוַּע וְיֹאמַר הִנֵּנִי.</div>
+          <div class="pasuk-gloss">הבטחת ה' לשומרי השבת: יתענגו על ה' וירכבו על במותי ארץ</div>
+          <div class="pasuk-line"><b>יג-יד:</b> אִם תָּשִׁיב מִשַּׁבָּת רַגְלֶךָ, עֲשׂוֹת חֲפָצֶיךָ בְּיוֹם קָדְשִׁי... אָז תִּתְעַנַּג עַל ה', וְהִרְכַּבְתִּיךָ עַל בָּמֳתֵי אָרֶץ, וְהַאֲכַלְתִּיךָ נַחֲלַת יַעֲקֹב אָבִיךָ - כִּי פִּי ה' דִּבֵּר.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "אָז יִבָּקַע כַּשַּׁחַר אוֹרֶךָ... אָז תִּקְרָא וַה' יַעֲנֶה" (פסוקים ח'-ט')</p>
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">כיצד קושר הנביא בין קיום "הצום הרצוי" (מעשי החסד שתוארו קודם) לבין תפילה שנענית? מה מלמד קישור זה על היחס שבין מצוות בין אדם לחברו למצוות בין אדם למקום?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הנביא קובע שרק לאחר קיום מעשי החסד (פתיחת השכר לרעב, שחרור עשוקים וכו') תיענה התפילה - "אז תקרא וה' יענה". הקישור מלמד שאי אפשר להפריד בין מצוות בין אדם למקום לבין מצוות בין אדם לחברו: תפילה וצום שאינם מלווים בהתנהגות מוסרית כלפי הזולת אינם מתקבלים.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "אִם תָּשִׁיב מִשַּׁבָּת רַגְלֶךָ... אָז תִּתְעַנַּג עַל ה'" (פסוקים י"ג-י"ד)</p>
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">מהו התנאי לשמירת השבת הראויה, לפי פסוק י"ג, ומה מובטח לשומריה בפסוק י"ד?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> התנאי: להשיב את הרגל מחפצים אישיים ומעשייה חופשית ביום השבת - לא לעשות בו "חפציך". השכר המובטח: התענגות אמיתית על ה', רכיבה על "במותי ארץ" (הצלחה וכבוד), והתברכות בנחלת יעקב אבי האומה.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <a href="yeshayahu-11.html">← פרק י"א</a>
+  <a href="index.html#tab-ya">↺ חזרה ליחידה</a>
+  <a href="yeshayahu-40.html">פרק מ' →</a>
+</nav>
+<div class="toolbar">
+  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
+  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
+</p>
+
+<footer class="credit">ספר ישעיהו, פרק נ"ח · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'yeshayahu-ch58-answers';
+const NAME_KEY = 'yeshayahu-ch58-student';
+const textareas = Array.from(document.querySelectorAll('textarea.answer'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{
+    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      nameInput.value = data.name || '';
+      classInput.value = data.cls || '';
+    }
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    flashSaved();
+  }catch(e){
+    console.error('שגיאת שמירה', e);
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => {
+        if(data[t.dataset.id]){
+          t.value = data[t.dataset.id];
+          markFilled(t);
+        }
+      });
+    }
+  }catch(e){
+    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
+  }
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+document.querySelectorAll('.hint-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.nextElementSibling;
+    const showing = box.hidden;
+    box.hidden = !showing;
+    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות בדף העבודה? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
+
+loadStudentInfo();
+loadAnswers();
+</script>
+<script src="assets/progress-tracker.js"></script>
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+
+</body>
+</html>
