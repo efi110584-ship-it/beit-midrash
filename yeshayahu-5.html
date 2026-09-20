@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר ישעיהו — דף עבודה אינטראקטיבי (פרק ה', משל הכרם)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
+
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  .mini-timeline.detail .step{ flex:1 1 140px; text-align:center; gap:.3rem; padding:.6rem .6rem; }
+  .mini-timeline.detail .step b{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.88rem; color:var(--ink); }
+  .mini-timeline.detail .step small{ display:block; font-size:.68rem; line-height:1.35; color:var(--ink-soft); }
+  .mini-timeline.detail .step small.why{ color:var(--rust); font-weight:700; }
+  .mini-timeline{ margin-top:.7rem; }
+
+  .vs-compare{ display:flex; align-items:stretch; gap:0; margin:.7rem 0; border-radius:12px; overflow:hidden; box-shadow:var(--shadow); }
+  .vs-side{ flex:1; padding:.7rem .8rem; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.3rem; }
+  .vs-a{ background:var(--teal-soft); }
+  .vs-b{ background:var(--rust-soft); }
+  .vs-icon{ font-size:1.35rem; }
+  .vs-title{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.85rem; color:var(--ink); }
+  .vs-desc{ font-size:.72rem; line-height:1.45; color:var(--ink-soft); }
+  .vs-mid{ flex:none; width:2rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.72rem; color:#fff; background:var(--ink); }
+
+  .plan-reality{ display:flex; flex-direction:column; gap:.55rem; margin:.7rem 0; }
+  .pr-row{ display:flex; flex-direction:column; gap:.3rem; }
+  .pr-label{ font-weight:800; font-size:.76rem; color:var(--acc); }
+
+  .flowchart{ display:flex; flex-direction:column; align-items:center; gap:0; margin:.7rem 0; }
+  .flow-step{ display:flex; align-items:center; gap:.6rem; width:100%; }
+  .flow-node{
+    flex:none; width:1.6rem; height:1.6rem; border-radius:50%; background:var(--acc); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.8rem;
+  }
+  .flow-card{ flex:1; background:#fff; border:1.5px solid var(--paper-line); border-radius:10px; padding:.5rem .7rem; }
+  .flow-title{ font-size:.78rem; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:.4rem; }
+  .flow-icon{ font-size:.95rem; }
+  .flow-arrow{ color:var(--acc); font-size:1rem; margin:.1rem 0; }
+
+  .topic-banner{ margin-top:2.6rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  .qb-topic{ grid-column: 1 / -1; }
+  .qb-root{
+    max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
+    padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
+  }
+  .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
+  .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
+  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
+  .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
+  .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
+
+  .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
+  .qb-connector::after{
+    content:""; position:absolute; bottom:-1px; right:50%; transform:translateX(50%);
+    border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
+  }
+
+  .qb-branches{
+    display:flex; flex-wrap:wrap; gap:1.1rem;
+    position:relative; padding-top:22px; margin-top:-22px;
+  }
+  .qb-branches::before{
+    content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
+  }
+  .qb-card{
+    flex:1 1 260px;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
+    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
+    min-width:0;
+  }
+  .qb-card > *{ width:100%; max-width:640px; }
+  .qb-meforesh{
+    font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+    background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
+    padding:.75rem .9rem; box-shadow:var(--shadow);
+  }
+  .qb-meforesh .qb-src{
+    display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
+    font-size:.8rem; margin-bottom:.35rem;
+  }
+  .qb-meforesh .qb-src::before{ content:"💬"; font-size:1.05rem; line-height:1; }
+  .qb-card .question-block{ display:flex; flex-direction:column; gap:.5rem; }
+  .qb-card .question-row{ align-items:flex-start; }
+  .qb-card .q-text{ font-size:.86rem; line-height:1.5; }
+  .qb-card textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
+  .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
+  .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
+
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">ספר ישעיהו</a>
+  <span class="sep">›</span>
+  <span class="current">פרק ה'</span>
+</nav>
+
+<header>
+  <div class="eyebrow">ספר ישעיהו · חוברת תלמיד דיגיטלית · נבואות ישעיהו</div>
+  <h1>דף עבודה — פרק ה' (פסוקים א'-ז'), "מִשַּׁל הַכֶּרֶם"</h1>
+  <p class="sub">בכל נושא: קודם קוראים את הפסוקים בקובייה העליונה, ואז עוברים על כל קוביית-שאלה שמסתעפת ממנה - קוראים את דברי הפרשן (אם יש), כותבים תשובה, ורק אז לוחצים "הצג תשובה" לבדיקה עצמית. הכול נשמר אוטומטית במכשיר שלכם.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 5 שאלות</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main>
+  <div class="grid" id="grid">
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר היחידה</span>
+        <h2 class="card-title">מה קורה בפרק ה' (פסוקים א'-ז')?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          נבואה זו מוצגת כמשל שיר-אהבה מיוחד, שהוא משל על דרך המשפט: הנביא מספר על "ידיד" שהשקיע מאמץ עצום בטיפוח כרם - ניקה אותו מאבנים, נטע בו את מיטב הגפנים, בנה בו מגדל שמירה ואף חצב בו יקב - אך הכרם, במקום לתת ענבים טובים, הוציא "באושים" (ענבי באושה, גרועים). בעל הכרם פונה אל תושבי ירושלים ואיש יהודה ומבקש מהם לשפוט בינו לבין כרמו: מה עוד יכול היה לעשות ולא עשה? לכן הוא מכריז על עונש הכרם - הסרת גידור השמירה, הפקרתו וביטול הטיפוח בו. בסיום מפרש הנביא את הנמשל במפורש: הכרם הוא בית ישראל, ואיש יהודה - נטע שעשועיו של ה'; וה' קיווה למשפט וצדקה, אך מצא במקומם משפח (עוול) וצעקה.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <span class="topic-icon" aria-hidden="true">🍇</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
+        <div class="topic-title">שיר הידיד - כל הטיפוח שהושקע בכרם</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🍇</span>
+        <div class="qb-root-label">פסוקים א'-ב'</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">הנביא שר שיר אהבה על כרמו של ידידו, שניטע במקום המשובח ביותר</div>
+          <div class="pasuk-line"><b>א:</b> אָשִׁירָה נָּא לִידִידִי שִׁירַת דּוֹדִי לְכַרְמוֹ; כֶּרֶם הָיָה לִידִידִי בְּקֶרֶן בֶּן שָׁמֶן.</div>
+          <div class="pasuk-gloss">הידיד עידר את הכרם, סיקל אבנים, נטע גפן מבחר, בנה מגדל וחצב יקב - וקיווה לענבים טובים, אך קיבל באושים</div>
+          <div class="pasuk-line"><b>ב:</b> וַיְעַזְּקֵהוּ וַיְסַקְּלֵהוּ וַיִּטָּעֵהוּ שֹׂרֵק, וַיִּבֶן מִגְדָּל בְּתוֹכוֹ וְגַם יֶקֶב חָצֵב בּוֹ; וַיְקַו לַעֲשׂוֹת עֲנָבִים וַיַּעַשׂ בְּאֻשִׁים.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="qb-root" style="max-width:none; margin:0; padding:.8rem 1rem;">
+            <table style="width:100%; border-collapse:collapse; font-size:.82rem; text-align:right;">
+              <thead><tr style="border-bottom:1.5px solid var(--paper-line);"><th style="padding:.3rem;">הפעולה בלשון הכתוב</th><th style="padding:.3rem;">הסבר במילים שלכם</th></tr></thead>
+              <tbody>
+                <tr><td style="padding:.3rem;">בְּקֶרֶן בֶּן שָׁמֶן</td><td style="padding:.3rem;">נטע במקום משובח ופורה</td></tr>
+                <tr><td style="padding:.3rem;">וַיְעַזְּקֵהוּ</td><td style="padding:.3rem;">עידר וטיפח את הקרקע</td></tr>
+                <tr><td style="padding:.3rem;">וַיְסַקְּלֵהוּ</td><td style="padding:.3rem;">סילק אבנים מן הכרם</td></tr>
+                <tr><td style="padding:.3rem;">וַיִּטָּעֵהוּ שֹׂרֵק</td><td style="padding:.3rem;">נטע גפן מהמין המשובח ביותר</td></tr>
+                <tr><td style="padding:.3rem;">וַיִּבֶן מִגְדָּל</td><td style="padding:.3rem;">בנה מגדל שמירה על הכרם</td></tr>
+                <tr><td style="padding:.3rem;">יֶקֶב חָצֵב בּוֹ</td><td style="padding:.3rem;">חצב בור לדריכת הענבים ליין</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיְעַזְּקֵהוּ וַיְסַקְּלֵהוּ וַיִּטָּעֵהוּ שֹׂרֵק... וַיְקַו לַעֲשׂוֹת עֲנָבִים וַיַּעַשׂ בְּאֻשִׁים" (פסוק ב')</p>
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מנו לפחות ארבע פעולות טיפוח שעשה בעל הכרם בכרמו, וציינו מה הייתה תוצאת כל השקעתו.</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> בעל הכרם נטע אותו במקום משובח, עידר וסיקל את הקרקע מאבנים, נטע גפן מהמין המשובח ביותר (שורק), בנה מגדל שמירה וחצב יקב לדריכת היין. למרות כל זאת, במקום ענבים טובים - הכרם הוציא באושים (ענבים גרועים וסרוחים).</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <span class="topic-icon" aria-hidden="true">⚖️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
+        <div class="topic-title">קריאה למשפט ועונשו של הכרם</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">⚖️</span>
+        <div class="qb-root-label">פסוקים ג'-ו'</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">בעל הכרם פונה לתושבי ירושלים ויהודה ומבקש שישפטו בינו לבין כרמו</div>
+          <div class="pasuk-line"><b>ג-ד:</b> וְעַתָּה יוֹשֵׁב יְרוּשָׁלִַם וְאִישׁ יְהוּדָה, שִׁפְטוּ נָא בֵּינִי וּבֵין כַּרְמִי. מַה לַּעֲשׂוֹת עוֹד לְכַרְמִי וְלֹא עָשִׂיתִי בּוֹ? מַדּוּעַ קִוֵּיתִי לַעֲשׂוֹת עֲנָבִים וַיַּעַשׂ בְּאֻשִׁים.</div>
+          <div class="pasuk-gloss">בעל הכרם מכריז על עונשו: הסרת השמירה, ביטול הטיפוח, והפסקת הגשם</div>
+          <div class="pasuk-line"><b>ה-ו:</b> וְעַתָּה אוֹדִיעָה נָּא אֶתְכֶם אֵת אֲשֶׁר אֲנִי עֹשֶׂה לְכַרְמִי: הָסֵר מְשׂוּכָּתוֹ וְהָיָה לְבָעֵר, פָּרֹץ גְּדֵרוֹ וְהָיָה לְמִרְמָס. וַאֲשִׁיתֵהוּ בָתָה - לֹא יִזָּמֵר וְלֹא יֵעָדֵר, וְעָלָה שָׁמִיר וָשָׁיִת; וְעַל הֶעָבִים אֲצַוֶּה מֵהַמְטִיר עָלָיו מָטָר.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "שִׁפְטוּ נָא בֵּינִי וּבֵין כַּרְמִי... מַדּוּעַ קִוֵּיתִי לַעֲשׂוֹת עֲנָבִים וַיַּעַשׂ בְּאֻשִׁים" (פסוקים ג'-ד')</p>
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מדוע פונה בעל הכרם דווקא לתושבי ירושלים ואיש יהודה כדי שישפטו בינו לבין כרמו? מה משיג הנביא בכך שהוא מנסח את התוכחה כשאלה משפטית, ולא כהאשמה ישירה?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> בכך שהנביא מנסח את התוכחה כפנייה לשיפוט, הוא גורם לשומעים עצמם לשפוט את המקרה בעצמם ולהגיע למסקנה - עוד לפני שהם מבינים שהם עצמם הנשפטים. כך הם "נלכדים" בהודאה על צדקת בעל הכרם, עוד לפני שנחשף הנמשל שהם עצמם הכרם.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="vs-compare" role="img" aria-label="שלושה שלבים בעונש הכרם - הסרת הגנה, הזנחה מוחלטת, מניעת גשם">
+            <div class="vs-side vs-a">
+              <span class="vs-icon" aria-hidden="true">🚧</span>
+              <div class="vs-title">הסרת ההגנה</div>
+              <div class="vs-desc">הסרת המשוכה והגדר - הפקרת הכרם למרמס ולבעֵרה.</div>
+            </div>
+            <div class="vs-mid" aria-hidden="true">ואז</div>
+            <div class="vs-side vs-b">
+              <span class="vs-icon" aria-hidden="true">🌵</span>
+              <div class="vs-title">הזנחה גמורה</div>
+              <div class="vs-desc">לא יזמר ולא יעדר - יעלו בו קוצים ודרדרים.</div>
+            </div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "הָסֵר מְשׂוּכָּתוֹ... וַאֲשִׁיתֵהוּ בָתָה... וְעַל הֶעָבִים אֲצַוֶּה מֵהַמְטִיר עָלָיו מָטָר" (פסוקים ה'-ו')</p>
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מנו את שלושת שלבי העונש שמתאר בעל הכרם, מן הקל אל החמור ביותר.</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שלב א': הסרת המשוכה והגדר - הכרם נותר חשוף למרמס ולבעֵרה. שלב ב': הפסקת הטיפוח לגמרי (לא יזמר ולא יעדר) - הכרם יעלה שמיר ושית ויהפוך לבתה עזובה. שלב ג' (החמור ביותר): ה' יצווה על העננים שלא להוריד עליו גשם כלל - כלומר, אין אפילו סיכוי טבעי לכרם להתאושש.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">🔑</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
+        <div class="topic-title">הנמשל - משפט לעומת משפח, צדקה לעומת צעקה</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🔑</span>
+        <div class="qb-root-label">פסוק ז'</div>
+        <div class="qb-root-pasuk"><b>ז:</b> כִּי כֶרֶם ה' צְבָאוֹת בֵּית יִשְׂרָאֵל, וְאִישׁ יְהוּדָה נְטַע שַׁעֲשׁוּעָיו; וַיְקַו לְמִשְׁפָּט וְהִנֵּה מִשְׂפָּח, לִצְדָקָה וְהִנֵּה צְעָקָה.</div>
+        <div class="qb-root-note">כאן חושף הנביא במפורש את הנמשל של כל השיר: הכרם הוא בית ישראל, וכל הטיפוח שתואר - הוא כל הטובה שגמל ה' עם עמו.</div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "כִּי כֶרֶם ה' צְבָאוֹת בֵּית יִשְׂרָאֵל, וְאִישׁ יְהוּדָה נְטַע שַׁעֲשׁוּעָיו" (פסוק ז')</p>
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">פרטו את הנמשל: מיהו בעל הכרם בפועל, מהו הכרם, ומה מסמלות פעולות הטיפוח שתוארו בפסוקים א'-ב'?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> בעל הכרם הוא ה' צבאות. הכרם הוא בית ישראל ואיש יהודה - "נטע שעשועיו" של ה'. פעולות הטיפוח (הבחירה במקום המשובח, הנטיעה, הבנייה) מסמלות את כל הטובות וההשגחה שה' העניק לעמו לאורך הדורות.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">על משחק המילים בפסוק ז'</span>
+            "מִשְׂפָּח" לעומת "מִשְׁפָּט" - הבדל של אות אחת בלבד, אך משמעות הפוכה: התנהגות מוסרית מקולקלת במקום משפט צדק. "צְעָקָה" לעומת "צְדָקָה" - צעקת העשוקים במקום מעשי צדקה כלפיהם. השימוש הכפול במילה "וְהִנֵּה" מבטא הפתעה ומדגיש את גודל האכזבה.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yeshayahu5-mp-1">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיְקַו לְמִשְׁפָּט וְהִנֵּה מִשְׂפָּח, לִצְדָקָה וְהִנֵּה צְעָקָה" (פסוק ז')</p>
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מה מיוחד, מבחינה צלילית ולשונית, בזוגות המילים "משפט/משפח" ו"צדקה/צעקה"? כיצד הדמיון הצלילי ביניהן מחזק את המסר של הפסוק?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> בכל זוג, המילים דומות מאוד בצליל אך הפוכות לגמרי במשמעות - "משפט" (צדק) מול "משפח" (עוול), ו"צדקה" (מעשי חסד) מול "צעקה" (זעקת הנעשקים). הדמיון הצלילי ממחיש כמה קצרה הדרך בין הטוב שקיווה לו ה' לבין הרע שקרה בפועל - הכול "כמעט אותו הדבר" בצליל, אך שונה עד קצה גבול היכולת במהות.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <a href="yeshayahu-2.html">← פרק ב'</a>
+  <a href="index.html#tab-ya">↺ חזרה ליחידה</a>
+  <a href="yeshayahu-11.html">פרק י"א →</a>
+</nav>
+<div class="toolbar">
+  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
+  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
+</p>
+
+<footer class="credit">ספר ישעיהו, פרק ה' · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'yeshayahu-ch5-answers';
+const NAME_KEY = 'yeshayahu-ch5-student';
+const textareas = Array.from(document.querySelectorAll('textarea.answer'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{
+    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      nameInput.value = data.name || '';
+      classInput.value = data.cls || '';
+    }
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    flashSaved();
+  }catch(e){
+    console.error('שגיאת שמירה', e);
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => {
+        if(data[t.dataset.id]){
+          t.value = data[t.dataset.id];
+          markFilled(t);
+        }
+      });
+    }
+  }catch(e){
+    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
+  }
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+document.querySelectorAll('.hint-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.nextElementSibling;
+    const showing = box.hidden;
+    box.hidden = !showing;
+    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות בדף העבודה? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
+
+loadStudentInfo();
+loadAnswers();
+</script>
+<script src="assets/progress-tracker.js"></script>
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+
+</body>
+</html>
