@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר בראשית — קריאה אינטראקטיבית בפסוקים (פרקים ל&quot;ב-ל&quot;ג)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .pasuk-flow{ font-size:1.12rem; line-height:2.3; color:var(--ink); }
+  .v-num{
+    display:inline-flex; align-items:center; justify-content:center; width:1.55rem; height:1.55rem;
+    border-radius:50%; background:var(--acc-soft); color:var(--acc); font-weight:800; font-size:.72rem;
+    margin-inline-end:.3rem; vertical-align:middle; font-family:'Heebo',sans-serif;
+  }
+  .hot-word{
+    background:none; border:none; padding:0 .12rem; margin:0 .05rem; font:inherit; font-weight:800;
+    color:var(--acc); cursor:pointer; border-bottom:2.5px dotted var(--acc); border-radius:2px;
+    transition:background .15s ease;
+  }
+  .hot-word:hover, .hot-word:focus-visible{ background:var(--acc-soft); outline:none; }
+  .hot-word .hw-icon{ font-size:.78em; margin-inline-start:.12rem; }
+  .legend{
+    display:flex; flex-wrap:wrap; gap:.6rem 1.4rem; justify-content:center; align-items:center;
+    font-size:.85rem; color:var(--ink-soft); margin:0 0 1.2rem;
+  }
+  .legend b{ color:var(--ink); }
+  .legend .hot-word{ pointer-events:none; }
+  .cross-ref-note{
+    background:var(--paper-card); border:1.5px dashed var(--paper-line); border-radius:10px;
+    padding:.7rem 1rem; font-size:.85rem; color:var(--ink-soft); margin:.7rem 0;
+  }
+  .muted-pasuk{
+    background:var(--paper-2); border-radius:10px; padding:.8rem 1rem; font-size:.95rem;
+    line-height:1.9; color:var(--ink-soft); margin:.7rem 0; font-style:italic;
+  }
+  .muted-pasuk b{ font-style:normal; color:var(--ink); }
+
+  .pmodal-overlay{
+    position:fixed; inset:0; background:rgba(31,29,23,.6); display:flex; align-items:center; justify-content:center;
+    padding:1rem; z-index:500;
+  }
+  .pmodal-overlay[hidden]{ display:none; }
+  .pmodal-box{
+    background:#fff; border-radius:18px; max-width:480px; width:100%; padding:1.7rem 1.7rem 1.5rem;
+    box-shadow:0 24px 60px rgba(0,0,0,.35); position:relative; max-height:82vh; overflow-y:auto;
+    border-top:6px solid var(--pmodal-acc, var(--ink));
+    animation:pmodalIn .18s ease;
+  }
+  @keyframes pmodalIn{ from{ opacity:0; transform:translateY(10px) scale(.98); } to{ opacity:1; transform:none; } }
+  .pmodal-close{
+    position:absolute; top:.7rem; left:.7rem; background:var(--paper-2); border:none; width:2.1rem; height:2.1rem;
+    border-radius:50%; cursor:pointer; font-size:1.05rem; color:var(--ink-soft); line-height:1;
+  }
+  .pmodal-close:hover{ background:var(--paper); }
+  .pmodal-badge{
+    display:inline-block; font-size:.78rem; font-weight:800; color:#fff; background:var(--pmodal-acc, var(--ink));
+    padding:.35rem .9rem; border-radius:999px; margin-bottom:.9rem; font-family:'Frank Ruhl Libre',serif;
+  }
+  .pmodal-q{ font-weight:800; margin:0 0 1rem; font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; line-height:1.5; color:var(--ink); }
+  .pmodal-quote{
+    font-style:italic; border-right:3px solid var(--pmodal-acc,var(--ink)); padding:.15rem .8rem;
+    margin:0 0 .9rem; color:var(--ink); font-size:.9rem; line-height:1.65; background:var(--paper-card);
+    border-radius:0 8px 8px 0;
+  }
+  .pmodal-a-label{ font-size:.78rem; font-weight:800; color:var(--pmodal-acc, var(--ink)); margin:0 0 .25rem; }
+  .pmodal-a{ font-size:.95rem; line-height:1.75; color:var(--ink-soft); }
+
+  .topic-banner{ margin-top:2.4rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">ספר בראשית</a>
+  <span class="sep">›</span>
+  <a href="bereshit-32.html">פרקים ל&quot;ב-ל&quot;ג</a>
+  <span class="sep">›</span>
+  <span class="current">קריאה אינטראקטיבית בפסוקים</span>
+</nav>
+
+<header>
+  <div class="eyebrow">ספר בראשית · קריאה אינטראקטיבית · פרקים ל&quot;ב-ל&quot;ג</div>
+  <h1>הטקסט המלא, מילה-מילה — פרקים ל"ב-ל"ג, "וַיֵּאָבֵק אִישׁ עִמּוֹ"</h1>
+  <p class="sub">קראו את הפסוקים לפי הנושאים. כל מילה עם קו מקווקו ניתנת ללחיצה - היא נוגעת בשאלה מרכזית או בדברי פרשן, ולחיצה עליה תפתח חלונית קצרה עם השאלה והתשובה.</p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
+  <a class="chip-link" href="bereshit-32.html"><span class="chip-icon" aria-hidden="true">📄</span>לדף העבודה המלא</a>
+  <a class="chip-link" href="bereshit-32-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+</p>
+
+<main>
+  <div class="legend">
+    <span><button class="hot-word" style="--acc:#8A5C21;" tabindex="-1">מילה לדוגמה<span class="hw-icon" aria-hidden="true">💬</span></button> = לחצו לפתיחת חלונית</span>
+    <span><b>❓</b> שאלה למחשבה</span>
+    <span><b>💬</b> דברי פרשן</span>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3E5A8C; --acc-soft:#E2E7F2;">
+      <span class="topic-icon" aria-hidden="true">😨</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
+        <div class="topic-title">פחד המפגש ותפילת יעקב (פרק ל"ב)</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#3E5A8C; --acc-soft:#E2E7F2;">
+      <div class="card-head">
+        <span class="card-tag">פסוקים ד'-י"ג</span>
+        <h2 class="card-title">פחד המפגש ותפילת יעקב (פרק ל"ב)</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">ד, ז-ח</span> וַיִּשְׁלַח יַעֲקֹב מַלְאָכִים לְפָנָיו אֶל עֵשָׂו אָחִיו... וַיָּשֻׁבוּ הַמַּלְאָכִים אֶל יַעֲקֹב לֵאמֹר: בָּאנוּ אֶל אָחִיךָ אֶל עֵשָׂו, וְגַם הֹלֵךְ לִקְרָאתְךָ וְאַרְבַּע מֵאוֹת אִישׁ עִמּוֹ. <button class="hot-word" data-key="m_rashi_vayira" data-acc="#3E5A8C">וַיִּירָא יַעֲקֹב מְאֹד וַיֵּצֶר לוֹ<span class="hw-icon" aria-hidden="true">💬</span></button>.
+          <span class="v-num">י-יב</span> וַיֹּאמֶר יַעֲקֹב: אֱלֹקֵי אָבִי אַבְרָהָם וֵאלֹקֵי אָבִי יִצְחָק, ה' הָאֹמֵר אֵלַי שׁוּב לְאַרְצְךָ וּלְמוֹלַדְתְּךָ וְאֵיטִיבָה עִמָּךְ. <button class="hot-word" data-key="q_tefila" data-acc="#3E5A8C">קָטֹנְתִּי מִכֹּל הַחֲסָדִים וּמִכָּל הָאֱמֶת אֲשֶׁר עָשִׂיתָ אֶת עַבְדֶּךָ<span class="hw-icon" aria-hidden="true">💬</span></button>... הַצִּילֵנִי נָא מִיַּד אָחִי מִיַּד עֵשָׂו, כִּי יָרֵא אָנֹכִי אֹתוֹ.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">🌅</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
+        <div class="topic-title">המאבק עם האיש - שינוי השם לישראל</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="card-head">
+        <span class="card-tag">פסוקים כ"ה-ל"א</span>
+        <h2 class="card-title">המאבק עם האיש - שינוי השם לישראל</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">כה-כו</span> וַיִּוָּתֵר יַעֲקֹב לְבַדּוֹ, וַ<button class="hot-word" data-key="m_midrash_sar_esav" data-acc="#7A4A73">יֵּאָבֵק אִישׁ עִמּוֹ<span class="hw-icon" aria-hidden="true">💬</span></button> עַד עֲלוֹת הַשָּׁחַר. וַיַּרְא כִּי לֹא יָכֹל לוֹ וַיִּגַּע בְּכַף יְרֵכוֹ.
+          <span class="v-num">כח-כט</span> וַיֹּאמֶר אֵלָיו: מַה שְּׁמֶךָ - וַיֹּאמֶר: יַעֲקֹב. וַיֹּאמֶר: <button class="hot-word" data-key="q_name_change" data-acc="#7A4A73">לֹא יַעֲקֹב יֵאָמֵר עוֹד שִׁמְךָ, כִּי אִם יִשְׂרָאֵל - כִּי שָׂרִיתָ עִם אֱלֹקִים וְעִם אֲנָשִׁים וַתּוּכָל<span class="hw-icon" aria-hidden="true">💬</span></button>.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">🤝</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
+        <div class="topic-title">הפיוס עם עשיו (פרק ל"ג)</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="card-head">
+        <span class="card-tag">פסוקים א'-י"א</span>
+        <h2 class="card-title">הפיוס עם עשיו (פרק ל"ג)</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">א, ג-ד</span> וַיִּשָּׂא יַעֲקֹב עֵינָיו וַיַּרְא וְהִנֵּה עֵשָׂו בָּא וְעִמּוֹ אַרְבַּע מֵאוֹת אִישׁ... <button class="hot-word" data-key="q_meeting_compare" data-acc="#3F6E66">וַיִּשְׁתַּחוּ אַרְצָה שֶׁבַע פְּעָמִים עַד גִּשְׁתּוֹ עַד אָחִיו. וַיָּרָץ עֵשָׂו לִקְרָאתוֹ וַיְחַבְּקֵהוּ וַיִּפֹּל עַל צַוָּארָו וַיִּשָּׁקֵהוּ וַיִּבְכּוּ<span class="hw-icon" aria-hidden="true">💬</span></button>.
+          <span class="v-num">ח-יא</span> וַיֹּאמֶר: מִי לְךָ כָּל הַמַּחֲנֶה הַזֶּה אֲשֶׁר פָּגָשְׁתִּי? וַיֹּאמֶר: לִמְצֹא חֵן בְּעֵינֵי אֲדֹנִי... וַיֹּאמֶר יַעֲקֹב: אַל נָא, אִם נָא מָצָאתִי חֵן בְּעֵינֶיךָ וְלָקַחְתָּ מִנְחָתִי מִיָּדִי - <button class="hot-word" data-key="q_pnei_elokim" data-acc="#3F6E66">כִּי עַל כֵּן רָאִיתִי פָנֶיךָ כִּרְאֹת פְּנֵי אֱלֹקִים וַתִּרְצֵנִי<span class="hw-icon" aria-hidden="true">💬</span></button>.
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <a href="bereshit-32.html">→ לדף העבודה של הפרק</a>
+  <a href="index.html#tab-ya">↺ חזרה ליחידה</a>
+  <span></span>
+</nav>
+
+<footer class="credit">ספר בראשית, פרקים ל&quot;ב-ל&quot;ג · קריאה אינטראקטיבית בפסוקים</footer>
+
+<div class="pmodal-overlay" id="pmodalOverlay" hidden>
+  <div class="pmodal-box" id="pmodalBox" role="dialog" aria-modal="true" aria-labelledby="pmodalQ">
+    <button class="pmodal-close" id="pmodalClose" type="button" aria-label="סגירה">✕</button>
+    <div class="pmodal-badge" id="pmodalBadge"></div>
+    <p class="pmodal-q" id="pmodalQ"></p>
+    <div class="pmodal-quote" id="pmodalQuote" hidden></div>
+    <div class="pmodal-a-label">✓ התשובה / הרעיון</div>
+    <div class="pmodal-a" id="pmodalA"></div>
+  </div>
+</div>
+
+<script>
+const POPUPS = {
+"m_rashi_vayira": {
+"badge": "רש\"י, פסוק ח'",
+"acc": "#3E5A8C",
+"q": "מהם שני החששות השונים ב\"ויירא\" וב\"ויצר לו\"?",
+"quote": "ויירא - שמא ייהרג. ויצר לו - עגמה נפשו על שמא יהרוג הוא את אחרים. אמר: אם יתגבר עלי, יהרגני - ואם אני אתגבר עליו, אהרגנו.",
+"a": "\"ויירא\" - חשש לחייו שלו. \"ויצר לו\" - חשש שמא ייאלץ להרוג אחרים כדי להינצל. יעקב חושש הן מלהיפגע והן מלפגוע."
+},
+"q_tefila": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#3E5A8C",
+"q": "כיצד פותח יעקב את תפילתו, ומדוע הוא מקדים חסדי ה' לפני בקשתו?",
+"a": "יעקב פותח בהכרת הטוב - \"קטונתי מכל החסדים\". הקדמה זו ממחישה יחס נכון לתפילה: פנייה מתוך הכרת תודה, לא מתוך תחושת זכאות."
+},
+"m_midrash_sar_esav": {
+"badge": "מדרש חז\"ל (ברש\"י, פסוק כ\"ה)",
+"acc": "#7A4A73",
+"q": "מיהו ה\"איש\" שנאבק עם יעקב?",
+"quote": "אמר רבי יהושע בן לוי: זה שרו של עשיו. וזהו שאמר הנביא: \"בבטן עקב את אחיו, ובאונו שרה את אלוקים\" (הושע י\"ב, ד').",
+"a": "ה\"איש\" הוא שרו (המלאך הרוחני) של עשיו. זיהוי זה הופך את המאבק לסמל של כל ההתמודדות המתמשכת בין יעקב לעשיו לאורך חייו."
+},
+"q_name_change": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#7A4A73",
+"q": "מהו הנימוק לשינוי השם מיעקב לישראל?",
+"a": "יעקב \"שרה\" (נאבק) עם כוחות אלוקיים ועם בני אדם - וגבר בכולם. שמו החדש מבטא זהות של מי ששורר ומתמודד עם קשיים ומצליח."
+},
+"q_meeting_compare": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#3F6E66",
+"q": "השוו בין תגובת יעקב לתגובת עשיו במפגש עצמו.",
+"a": "יעקב משתחווה שבע פעמים - כניעה וזהירות. עשיו רץ בהתרגשות, מחבק ובוכה - אהבה כנה. פחדו של יעקב לא התממש."
+},
+"q_pnei_elokim": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#3F6E66",
+"q": "מה משמעות דימוי פני עשיו לפני אלוקים?",
+"a": "יעקב מבטא הקלה והכרת תודה בראותו את פני עשיו רגועות - חוויה מרוממת, המקשרת בין הפיוס הזה למאבק הקודם עם המלאך."
+}
+};
+
+const overlay = document.getElementById('pmodalOverlay');
+const box = document.getElementById('pmodalBox');
+const badgeEl = document.getElementById('pmodalBadge');
+const qEl = document.getElementById('pmodalQ');
+const quoteEl = document.getElementById('pmodalQuote');
+const aEl = document.getElementById('pmodalA');
+const closeBtn = document.getElementById('pmodalClose');
+let lastFocused = null;
+
+function openPopup(key){
+  const data = POPUPS[key];
+  if(!data) return;
+  box.style.setProperty('--pmodal-acc', data.acc);
+  badgeEl.textContent = data.badge;
+  qEl.textContent = data.q;
+  if(data.quote){
+    quoteEl.textContent = '"' + data.quote + '"';
+    quoteEl.hidden = false;
+  } else {
+    quoteEl.hidden = true;
+  }
+  aEl.textContent = data.a;
+  overlay.hidden = false;
+  lastFocused = document.activeElement;
+  closeBtn.focus();
+}
+
+function closePopup(){
+  overlay.hidden = true;
+  if(lastFocused) lastFocused.focus();
+}
+
+document.querySelectorAll('.hot-word[data-key]').forEach(btn => {
+  btn.addEventListener('click', () => openPopup(btn.dataset.key));
+});
+
+closeBtn.addEventListener('click', closePopup);
+overlay.addEventListener('click', (e) => { if(e.target === overlay) closePopup(); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && !overlay.hidden) closePopup(); });
+</script>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<script>
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>
