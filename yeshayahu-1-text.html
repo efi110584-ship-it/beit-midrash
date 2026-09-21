@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר ישעיהו — קריאה אינטראקטיבית בפסוקים (פרק א׳)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .pasuk-flow{ font-size:1.12rem; line-height:2.3; color:var(--ink); }
+  .v-num{
+    display:inline-flex; align-items:center; justify-content:center; width:1.55rem; height:1.55rem;
+    border-radius:50%; background:var(--acc-soft); color:var(--acc); font-weight:800; font-size:.72rem;
+    margin-inline-end:.3rem; vertical-align:middle; font-family:'Heebo',sans-serif;
+  }
+  .hot-word{
+    background:none; border:none; padding:0 .12rem; margin:0 .05rem; font:inherit; font-weight:800;
+    color:var(--acc); cursor:pointer; border-bottom:2.5px dotted var(--acc); border-radius:2px;
+    transition:background .15s ease;
+  }
+  .hot-word:hover, .hot-word:focus-visible{ background:var(--acc-soft); outline:none; }
+  .hot-word .hw-icon{ font-size:.78em; margin-inline-start:.12rem; }
+  .legend{
+    display:flex; flex-wrap:wrap; gap:.6rem 1.4rem; justify-content:center; align-items:center;
+    font-size:.85rem; color:var(--ink-soft); margin:0 0 1.2rem;
+  }
+  .legend b{ color:var(--ink); }
+  .legend .hot-word{ pointer-events:none; }
+  .cross-ref-note{
+    background:var(--paper-card); border:1.5px dashed var(--paper-line); border-radius:10px;
+    padding:.7rem 1rem; font-size:.85rem; color:var(--ink-soft); margin:.7rem 0;
+  }
+  .muted-pasuk{
+    background:var(--paper-2); border-radius:10px; padding:.8rem 1rem; font-size:.95rem;
+    line-height:1.9; color:var(--ink-soft); margin:.7rem 0; font-style:italic;
+  }
+  .muted-pasuk b{ font-style:normal; color:var(--ink); }
+
+  .pmodal-overlay{
+    position:fixed; inset:0; background:rgba(31,29,23,.6); display:flex; align-items:center; justify-content:center;
+    padding:1rem; z-index:500;
+  }
+  .pmodal-overlay[hidden]{ display:none; }
+  .pmodal-box{
+    background:#fff; border-radius:18px; max-width:480px; width:100%; padding:1.7rem 1.7rem 1.5rem;
+    box-shadow:0 24px 60px rgba(0,0,0,.35); position:relative; max-height:82vh; overflow-y:auto;
+    border-top:6px solid var(--pmodal-acc, var(--ink));
+    animation:pmodalIn .18s ease;
+  }
+  @keyframes pmodalIn{ from{ opacity:0; transform:translateY(10px) scale(.98); } to{ opacity:1; transform:none; } }
+  .pmodal-close{
+    position:absolute; top:.7rem; left:.7rem; background:var(--paper-2); border:none; width:2.1rem; height:2.1rem;
+    border-radius:50%; cursor:pointer; font-size:1.05rem; color:var(--ink-soft); line-height:1;
+  }
+  .pmodal-close:hover{ background:var(--paper); }
+  .pmodal-badge{
+    display:inline-block; font-size:.78rem; font-weight:800; color:#fff; background:var(--pmodal-acc, var(--ink));
+    padding:.35rem .9rem; border-radius:999px; margin-bottom:.9rem; font-family:'Frank Ruhl Libre',serif;
+  }
+  .pmodal-q{ font-weight:800; margin:0 0 1rem; font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; line-height:1.5; color:var(--ink); }
+  .pmodal-quote{
+    font-style:italic; border-right:3px solid var(--pmodal-acc,var(--ink)); padding:.15rem .8rem;
+    margin:0 0 .9rem; color:var(--ink); font-size:.9rem; line-height:1.65; background:var(--paper-card);
+    border-radius:0 8px 8px 0;
+  }
+  .pmodal-a-label{ font-size:.78rem; font-weight:800; color:var(--pmodal-acc, var(--ink)); margin:0 0 .25rem; }
+  .pmodal-a{ font-size:.95rem; line-height:1.75; color:var(--ink-soft); }
+
+  .topic-banner{ margin-top:2.4rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">ספר ישעיהו</a>
+  <span class="sep">›</span>
+  <a href="yeshayahu-1.html">פרק א׳</a>
+  <span class="sep">›</span>
+  <span class="current">קריאה אינטראקטיבית בפסוקים</span>
+</nav>
+
+<header>
+  <div class="eyebrow">ספר ישעיהו · קריאה אינטראקטיבית · פרק א׳</div>
+  <h1>הטקסט המלא, מילה-מילה — פרק א׳, "חֲזוֹן יְשַׁעְיָהוּ"</h1>
+  <p class="sub">קראו את הפסוקים לפי הנושאים. כל מילה עם קו מקווקו ניתנת ללחיצה - היא נוגעת בשאלה מרכזית או בדברי פרשן, ולחיצה עליה תפתח חלונית קצרה עם השאלה והתשובה.</p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
+  <a class="chip-link" href="yeshayahu-1.html"><span class="chip-icon" aria-hidden="true">📄</span>לדף העבודה המלא</a>
+  <a class="chip-link" href="yeshayahu-1-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+</p>
+
+<main>
+  <div class="legend">
+    <span><button class="hot-word" style="--acc:#8A5C21;" tabindex="-1">מילה לדוגמה<span class="hw-icon" aria-hidden="true">💬</span></button> = לחצו לפתיחת חלונית</span>
+    <span><b>❓</b> שאלה למחשבה</span>
+    <span><b>💬</b> דברי פרשן</span>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">📜</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 4</div>
+        <div class="topic-title">הכותרת - זמן החזון ומקורו</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="card-head">
+        <span class="card-tag">פסוק א'</span>
+        <h2 class="card-title">הכותרת - זמן החזון ומקורו</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">א</span> <button class="hot-word" data-key="q_structure" data-acc="#7A4A73">חֲזוֹן יְשַׁעְיָהוּ בֶן אָמוֹץ<span class="hw-icon" aria-hidden="true">💬</span></button> <button class="hot-word" data-key="q_kings" data-acc="#7A4A73">אֲשֶׁר חָזָה עַל יְהוּדָה וִירוּשָׁלַ‍ִם בִּימֵי עֻזִּיָּהוּ יוֹתָם אָחָז יְחִזְקִיָּהוּ מַלְכֵי יְהוּדָה<span class="hw-icon" aria-hidden="true">💬</span></button>.
+        </div>
+        <div class="cross-ref-note">💡 הפרק נחלק לשלושה חלקים: פס' ב'-ט' (חטא), פס' י'-כ' (תוכחה), פס' כ"א-ל"א (קינה ותיקון) - לחצו על "חֲזוֹן יְשַׁעְיָהוּ" למעלה כדי לקרוא למה דווקא פרק זה פותח את הספר.</div>
+      </div>
+    </section>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <span class="topic-icon" aria-hidden="true">🐂</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 4</div>
+        <div class="topic-title">כפיות טובה - בנים שמרדו באביהם</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <div class="card-head">
+        <span class="card-tag">פסוקים ב'-ט'</span>
+        <h2 class="card-title">כפיות טובה - בנים שמרדו באביהם</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">ב</span> שִׁמְעוּ שָׁמַיִם וְהַאֲזִינִי אֶרֶץ כִּי ה' דִּבֵּר: <button class="hot-word" data-key="q_sons" data-acc="#8B4A34">בָּנִים גִּדַּלְתִּי וְרוֹמַמְתִּי וְהֵם פָּשְׁעוּ בִי<span class="hw-icon" aria-hidden="true">💬</span></button>.
+          <span class="v-num">ג</span> יָדַע שׁוֹר קֹנֵהוּ וַחֲמוֹר אֵבוּס בְּעָלָיו, יִשְׂרָאֵל לֹא יָדַע עַמִּי לֹא הִתְבּוֹנָן.
+          <span class="v-num">ד</span> הוֹי גּוֹי חֹטֵא עַם כֶּבֶד עָוֹן, זֶרַע מְרֵעִים בָּנִים מַשְׁחִיתִים; עָזְבוּ אֶת ה', נִאֲצוּ אֶת קְדוֹשׁ יִשְׂרָאֵל נָזֹרוּ אָחוֹר.
+          <span class="v-num">ה-ו</span> עַל מֶה תֻכּוּ עוֹד תּוֹסִיפוּ סָרָה, <button class="hot-word" data-key="q_meshalim" data-acc="#8B4A34">כָּל רֹאשׁ לָחֳלִי וְכָל לֵבָב דַּוָּי<span class="hw-icon" aria-hidden="true">💬</span></button>. מִכַּף רֶגֶל וְעַד רֹאשׁ אֵין בּוֹ מְתֹם, פֶּצַע וְחַבּוּרָה וּמַכָּה טְרִיָּה - לֹא זֹרוּ וְלֹא חֻבָּשׁוּ וְלֹא רֻכְּכָה בַּשָּׁמֶן.
+          <span class="v-num">ז-ט</span> אַרְצְכֶם שְׁמָמָה עָרֵיכֶם שְׂרֻפוֹת אֵשׁ... <button class="hot-word" data-key="q_meshalim" data-acc="#8B4A34">וְנוֹתְרָה בַת צִיּוֹן כְּסֻכָּה בְכָרֶם<span class="hw-icon" aria-hidden="true">💬</span></button>, כִּמְלוּנָה בְמִקְשָׁה, כְּעִיר נְצוּרָה. לוּלֵי ה' צְבָאוֹת הוֹתִיר לָנוּ שָׂרִיד - כִּמְעַט כִּסְדֹם הָיִינוּ, לַעֲמֹרָה דָּמִינוּ.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">⚖️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 4</div>
+        <div class="topic-title">עבודה ריקה מצדק ומשפט</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="card-head">
+        <span class="card-tag">פסוקים י'-כ'</span>
+        <h2 class="card-title">עבודה ריקה מצדק ומשפט</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">י-יג</span> שִׁמְעוּ דְבַר ה' קְצִינֵי סְדֹם... <button class="hot-word" data-key="q_sacrifices" data-acc="#3F6E66">לָמָּה לִּי רֹב זִבְחֵיכֶם<span class="hw-icon" aria-hidden="true">💬</span></button>, שָׂבַעְתִּי עֹלוֹת אֵילִים וְחֵלֶב מְרִיאִים... לֹא תוֹסִיפוּ הָבִיא מִנְחַת שָׁוְא, קְטֹרֶת תּוֹעֵבָה הִיא לִי.
+          <span class="v-num">יד-טו</span> חָדְשֵׁיכֶם וּמוֹעֲדֵיכֶם שָׂנְאָה נַפְשִׁי... וּבְפָרִשְׂכֶם כַּפֵּיכֶם אַעְלִים עֵינַי מִכֶּם, גַּם כִּי תַרְבּוּ תְפִלָּה אֵינֶנִּי שֹׁמֵעַ, יְדֵיכֶם דָּמִים מָלֵאוּ.
+          <span class="v-num">טז-יז</span> רַחֲצוּ הִזַּכּוּ, הָסִירוּ רֹעַ מַעַלְלֵיכֶם... <button class="hot-word" data-key="q_justice" data-acc="#3F6E66">לִמְדוּ הֵיטֵב דִּרְשׁוּ מִשְׁפָּט<span class="hw-icon" aria-hidden="true">💬</span></button>, אַשְּׁרוּ חָמוֹץ, שִׁפְטוּ יָתוֹם רִיבוּ אַלְמָנָה.
+          <span class="v-num">יח-כ</span> לְכוּ נָא וְנִוָּכְחָה יֹאמַר ה', <button class="hot-word" data-key="q_paths" data-acc="#3F6E66">אִם יִהְיוּ חֲטָאֵיכֶם כַּשָּׁנִים כַּשֶּׁלֶג יַלְבִּינוּ<span class="hw-icon" aria-hidden="true">💬</span></button>... וְאִם תְּמָאֲנוּ וּמְרִיתֶם - חֶרֶב תְּאֻכְּלוּ, כִּי פִּי ה' דִּבֵּר.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 4 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
+      <span class="topic-icon" aria-hidden="true">🏙️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 4 מתוך 4</div>
+        <div class="topic-title">קינה על ירושלים ותקוות התיקון</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
+      <div class="card-head">
+        <span class="card-tag">פסוקים כ"א-כ"ז</span>
+        <h2 class="card-title">קינה על ירושלים ותקוות התיקון</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">כא</span> <button class="hot-word" data-key="q_eicha" data-acc="#1E2761">אֵיכָה הָיְתָה לְזוֹנָה קִרְיָה נֶאֱמָנָה<span class="hw-icon" aria-hidden="true">💬</span></button>! מְלֵאֲתִי מִשְׁפָּט צֶדֶק יָלִין בָּהּ וְעַתָּה מְרַצְּחִים.
+          <span class="v-num">כב-כג</span> כַּסְפֵּךְ הָיָה לְסִיגִים... שָׂרַיִךְ סוֹרְרִים וְחַבְרֵי גַּנָּבִים, כֻּלּוֹ אֹהֵב שֹׁחַד וְרֹדֵף שַׁלְמֹנִים; יָתוֹם לֹא יִשְׁפֹּטוּ וְרִיב אַלְמָנָה לֹא יָבוֹא אֲלֵיהֶם.
+          <span class="v-num">כה-כז</span> וְאָשִׁיבָה יָדִי עָלַיִךְ וְאֶצְרֹף כַּבֹּר סִיגָיִךְ... וְאָשִׁיבָה שֹׁפְטַיִךְ כְּבָרִאשֹׁנָה וְיֹעֲצַיִךְ כְּבַתְּחִלָּה, אַחֲרֵי כֵן יִקָּרֵא לָךְ עִיר הַצֶּדֶק קִרְיָה נֶאֱמָנָה. <button class="hot-word" data-key="q_tikkun" data-acc="#1E2761">צִיּוֹן בְּמִשְׁפָּט תִּפָּדֶה וְשָׁבֶיהָ בִּצְדָקָה<span class="hw-icon" aria-hidden="true">💬</span></button>.
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <a href="yeshayahu-1.html">→ לדף העבודה של הפרק</a>
+  <a href="index.html#tab-ya">↺ חזרה ליחידה</a>
+  <span></span>
+</nav>
+
+<footer class="credit">ספר ישעיהו, פרק א׳ · קריאה אינטראקטיבית בפסוקים</footer>
+
+<div class="pmodal-overlay" id="pmodalOverlay" hidden>
+  <div class="pmodal-box" id="pmodalBox" role="dialog" aria-modal="true" aria-labelledby="pmodalQ">
+    <button class="pmodal-close" id="pmodalClose" type="button" aria-label="סגירה">✕</button>
+    <div class="pmodal-badge" id="pmodalBadge"></div>
+    <p class="pmodal-q" id="pmodalQ"></p>
+    <div class="pmodal-quote" id="pmodalQuote" hidden></div>
+    <div class="pmodal-a-label">✓ התשובה / הרעיון</div>
+    <div class="pmodal-a" id="pmodalA"></div>
+  </div>
+</div>
+
+<script>
+const POPUPS = {
+"q_kings": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#7A4A73",
+"q": "מיהו הנביא, על מי הוא מנבא, ובאיזו תקופה היסטורית (על פי שמות המלכים)?",
+"a": "שם הנביא: ישעיהו בן אמוץ. הוא מנבא על יהודה וירושלים. הזמן ההיסטורי: ימי עוזיהו, יותם, אחז וחזקיהו - מלכי יהודה."
+},
+"q_structure": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#7A4A73",
+"q": "הפרק נחלק לשלושה חלקים: פס' ב'-ט' - חטא כפיות הטובה; פס' י'-כ' - תוכחה על עבודה ריקה ממשפט; פס' כ\"א-ל\"א - קינה והבטחת תיקון. מדוע דווקא פרק זה נבחר לפתוח את הספר?",
+"a": "הפרק חותר מן החטא אל התיקון, ומרכז בתמציתיות את המסר שילווה את כל נבואות הספר: חטא, תוכחה ותקווה לתיקון - ולכן הוא פתיחה מתאימה."
+},
+"q_sons": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#8B4A34",
+"q": "מדוע הנביא מכנה את העם \"בנים\" ומשווה אותם לשור ולחמור המכירים את בעליהם?",
+"a": "ישראל נמשלים לבנים שמרדו באביהם - כפיות טובה. השור והחמור מכירים את בעליהם, ואילו ישראל אינם מכירים את ה' - כך מודגש חוסר ההיגיון שבחטא."
+},
+"q_meshalim": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#8B4A34",
+"q": "מהו הנמשל של משל הגוף החולה, ומהו הנמשל של משל הסוכה בכרם?",
+"a": "משל הגוף החולה: העם כולו שקוע בחטא, בלי שום תיקון. משל הסוכה בכרם: רוב ערי יהודה נחרבו, ורק ירושלים נותרה עומדת, בודדה כסוכה."
+},
+"q_sacrifices": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#3F6E66",
+"q": "מדוע ה' דוחה את הקורבנות, המועדים והתפילות של העם - הרי אלה מצוות שהעם מקיים בפועל?",
+"a": "העבודה החיצונית אינה מלווה במשפט ובצדק, ואף מנוגדת להם (\"ידיכם דמים מלאו\") - ולכן היא נחשבת לתועבה, שקר וצביעות."
+},
+"q_justice": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#3F6E66",
+"q": "מהי הדרישה החיובית שמעמיד הנביא במקום העבודה שנדחתה, ומיהם האנשים שכלפיהם נדרש המשפט?",
+"a": "הדרישה: לחדול מהרע וללמוד לעשות טוב - לדרוש משפט, לתקן עוול, ולהגן על החלשים. האנשים המוזכרים: היתום והאלמנה."
+},
+"q_paths": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#3F6E66",
+"q": "אילו שני מסלולים עתידיים מציג הנביא לעם, ובמה תלויה הבחירה בין השניים?",
+"a": "אם ישמעו וישובו - חטאיהם יימחלו לגמרי והם ייהנו מטוב הארץ. אם ימאנו וימרו - ייענשו בחרב. הבחירה תלויה לגמרי ברצון החופשי של העם."
+},
+"q_eicha": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#1E2761",
+"q": "מהו הניגוד המודגש במילת הקינה \"אֵיכָה\" בין עברה של ירושלים לבין הווה שלה?",
+"a": "בעבר ירושלים הייתה \"קריה נאמנה\" מלאת משפט וצדק. בהווה היא נמשלת לזונה, ובתוכה שוכנים רוצחים - הניגוד מדגיש את גודל הנפילה המוסרית."
+},
+"q_tikkun": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#1E2761",
+"q": "באיזו דרך עתידה ירושלים לחזור ולהיקרא \"עיר הצדק\"?",
+"a": "ה' יצרף וינקה את העם מחטאיו וישיב את השופטים והיועצים הראויים למקומם - ואז תיפדה ציון \"במשפט ובצדקה\" דווקא."
+}
+};
+
+const overlay = document.getElementById('pmodalOverlay');
+const box = document.getElementById('pmodalBox');
+const badgeEl = document.getElementById('pmodalBadge');
+const qEl = document.getElementById('pmodalQ');
+const quoteEl = document.getElementById('pmodalQuote');
+const aEl = document.getElementById('pmodalA');
+const closeBtn = document.getElementById('pmodalClose');
+let lastFocused = null;
+
+function openPopup(key){
+  const data = POPUPS[key];
+  if(!data) return;
+  box.style.setProperty('--pmodal-acc', data.acc);
+  badgeEl.textContent = data.badge;
+  qEl.textContent = data.q;
+  if(data.quote){
+    quoteEl.textContent = '"' + data.quote + '"';
+    quoteEl.hidden = false;
+  } else {
+    quoteEl.hidden = true;
+  }
+  aEl.textContent = data.a;
+  overlay.hidden = false;
+  lastFocused = document.activeElement;
+  closeBtn.focus();
+}
+
+function closePopup(){
+  overlay.hidden = true;
+  if(lastFocused) lastFocused.focus();
+}
+
+document.querySelectorAll('.hot-word[data-key]').forEach(btn => {
+  btn.addEventListener('click', () => openPopup(btn.dataset.key));
+});
+
+closeBtn.addEventListener('click', closePopup);
+overlay.addEventListener('click', (e) => { if(e.target === overlay) closePopup(); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && !overlay.hidden) closePopup(); });
+</script>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<script>
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>
