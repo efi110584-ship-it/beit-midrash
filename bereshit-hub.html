@@ -482,6 +482,107 @@
   .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
   .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
   .qb-topic .pasuk-block-note{ margin-top:1.1rem; }
+
+.q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
+
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  .mini-timeline.detail .step{ flex:1 1 140px; text-align:center; gap:.3rem; padding:.6rem .6rem; }
+  .mini-timeline.detail .step b{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.88rem; color:var(--ink); }
+  .mini-timeline.detail .step small{ display:block; font-size:.68rem; line-height:1.35; color:var(--ink-soft); }
+  .mini-timeline.detail .step small.why{ color:var(--rust); font-weight:700; }
+  .mini-timeline{ margin-top:.7rem; }
+
+  .vs-compare{ display:flex; align-items:stretch; gap:0; margin:.7rem 0; border-radius:12px; overflow:hidden; box-shadow:var(--shadow); }
+  .vs-side{ flex:1; padding:.7rem .8rem; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.3rem; }
+  .vs-a{ background:var(--teal-soft); }
+  .vs-b{ background:var(--rust-soft); }
+  .vs-icon{ font-size:1.35rem; }
+  .vs-title{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.85rem; color:var(--ink); }
+  .vs-desc{ font-size:.72rem; line-height:1.45; color:var(--ink-soft); }
+  .vs-mid{ flex:none; width:2rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.72rem; color:#fff; background:var(--ink); }
+
+  .plan-reality{ display:flex; flex-direction:column; gap:.55rem; margin:.7rem 0; }
+  .pr-row{ display:flex; flex-direction:column; gap:.3rem; }
+  .pr-label{ font-weight:800; font-size:.76rem; color:var(--acc); }
+
+  .flowchart{ display:flex; flex-direction:column; align-items:center; gap:0; margin:.7rem 0; }
+  .flow-step{ display:flex; align-items:center; gap:.6rem; width:100%; }
+  .flow-node{
+    flex:none; width:1.6rem; height:1.6rem; border-radius:50%; background:var(--acc); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.8rem;
+  }
+  .flow-card{ flex:1; background:#fff; border:1.5px solid var(--paper-line); border-radius:10px; padding:.5rem .7rem; }
+  .flow-title{ font-size:.78rem; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:.4rem; }
+  .flow-icon{ font-size:.95rem; }
+  .flow-arrow{ color:var(--acc); font-size:1rem; margin:.1rem 0; }
+
+  .topic-banner{ margin-top:2.6rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  .qb-topic{ grid-column: 1 / -1; }
+  .qb-root{
+    max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
+    padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
+  }
+  .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
+  .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
+  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
+  .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
+  .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
+
+  .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
+  .qb-connector::after{
+    content:""; position:absolute; bottom:-1px; right:50%; transform:translateX(50%);
+    border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
+  }
+
+  .qb-branches{
+    display:flex; flex-wrap:wrap; gap:1.1rem;
+    position:relative; padding-top:22px; margin-top:-22px;
+  }
+  .qb-branches::before{
+    content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
+  }
+  .qb-card{
+    flex:1 1 260px;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
+    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
+    min-width:0;
+  }
+  .qb-card > *{ width:100%; max-width:640px; }
+  .qb-meforesh{
+    font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+    background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
+    padding:.75rem .9rem; box-shadow:var(--shadow);
+  }
+  .qb-meforesh .qb-src{
+    display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
+    font-size:.8rem; margin-bottom:.35rem;
+  }
+  .qb-meforesh .qb-src::before{ content:"💬"; font-size:1.05rem; line-height:1; }
+  .qb-card .question-block{ display:flex; flex-direction:column; gap:.5rem; }
+  .qb-card .question-row{ align-items:flex-start; }
+  .qb-card .q-text{ font-size:.86rem; line-height:1.5; }
+  .qb-card textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
+  .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
+  .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
 </style>
 </head>
 <body>
@@ -510,7 +611,7 @@
 <p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
-  <span class="progress-label" id="progressLabel">0 / 65 שאלות</span>
+  <span class="progress-label" id="progressLabel">0 / 110 שאלות</span>
   <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות ביחידה" id="progressTrack"><div class="progress-fill" id="progressFill"></div></div>
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
@@ -522,6 +623,14 @@
 <button type="button" class="topic-pill" role="tab" id="tab-btn-ch17" aria-selected="false" aria-controls="topic-ch17" data-topic="topic-ch17" style="--acc:#3F6E66;--acc-soft:#E4EEEA;"><span class="pill-icon" aria-hidden="true">🤝</span><span class="pill-num">3</span><span class="pill-title">פרק י&quot;ז</span></button>
 <button type="button" class="topic-pill" role="tab" id="tab-btn-ch18" aria-selected="false" aria-controls="topic-ch18" data-topic="topic-ch18" style="--acc:#8A5C21;--acc-soft:#F3E7D2;"><span class="pill-icon" aria-hidden="true">🍞</span><span class="pill-num">4</span><span class="pill-title">פרק י&quot;ח</span></button>
 <button type="button" class="topic-pill" role="tab" id="tab-btn-ch22" aria-selected="false" aria-controls="topic-ch22" data-topic="topic-ch22" style="--acc:#7A4A73;--acc-soft:#EFE3EC;"><span class="pill-icon" aria-hidden="true">⭐</span><span class="pill-num">5</span><span class="pill-title">פרק כ&quot;ב</span></button>
+<button type="button" class="topic-pill" role="tab" id="tab-btn-ch25" aria-selected="false" aria-controls="topic-ch25" data-topic="topic-ch25" style="--acc:#3F6E66;--acc-soft:#E4EEEA;"><span class="pill-icon" aria-hidden="true">🍲</span><span class="pill-num">6</span><span class="pill-title">פרק כ&quot;ה</span></button>
+<button type="button" class="topic-pill" role="tab" id="tab-btn-ch27" aria-selected="false" aria-controls="topic-ch27" data-topic="topic-ch27" style="--acc:#1E2761;--acc-soft:#E3E5F3;"><span class="pill-icon" aria-hidden="true">🐐</span><span class="pill-num">7</span><span class="pill-title">פרק כ&quot;ז</span></button>
+<button type="button" class="topic-pill" role="tab" id="tab-btn-ch32" aria-selected="false" aria-controls="topic-ch32" data-topic="topic-ch32" style="--acc:#7A4A73;--acc-soft:#EFE3EC;"><span class="pill-icon" aria-hidden="true">🤜</span><span class="pill-num">8</span><span class="pill-title">פרקים ל&quot;ב-ל&quot;ג</span></button>
+<button type="button" class="topic-pill" role="tab" id="tab-btn-ch37" aria-selected="false" aria-controls="topic-ch37" data-topic="topic-ch37" style="--acc:#8A5C21;--acc-soft:#F3E7D2;"><span class="pill-icon" aria-hidden="true">👕</span><span class="pill-num">9</span><span class="pill-title">פרק ל&quot;ז</span></button>
+<button type="button" class="topic-pill" role="tab" id="tab-btn-ch39" aria-selected="false" aria-controls="topic-ch39" data-topic="topic-ch39" style="--acc:#3F6E66;--acc-soft:#E4EEEA;"><span class="pill-icon" aria-hidden="true">🔒</span><span class="pill-num">10</span><span class="pill-title">פרק ל&quot;ט</span></button>
+<button type="button" class="topic-pill" role="tab" id="tab-btn-ch40" aria-selected="false" aria-controls="topic-ch40" data-topic="topic-ch40" style="--acc:#7A4A73;--acc-soft:#EFE3EC;"><span class="pill-icon" aria-hidden="true">👑</span><span class="pill-num">11</span><span class="pill-title">פרקים מ'-מ&quot;א</span></button>
+<button type="button" class="topic-pill" role="tab" id="tab-btn-ch42" aria-selected="false" aria-controls="topic-ch42" data-topic="topic-ch42" style="--acc:#8B4A34;--acc-soft:#F1E2DA;"><span class="pill-icon" aria-hidden="true">🌾</span><span class="pill-num">12</span><span class="pill-title">פרקים מ&quot;ב-מ&quot;ד</span></button>
+<button type="button" class="topic-pill" role="tab" id="tab-btn-ch45" aria-selected="false" aria-controls="topic-ch45" data-topic="topic-ch45" style="--acc:#1E2761;--acc-soft:#E3E5F3;"><span class="pill-icon" aria-hidden="true">💕</span><span class="pill-num">13</span><span class="pill-title">פרק מ&quot;ה</span></button>
   </div>
 </div>
 
@@ -531,7 +640,7 @@
     <div class="topic-banner">
       <span class="topic-icon" aria-hidden="true">🛤️</span>
       <div>
-        <div class="topic-eyebrow">ספר בראשית 1 מתוך 5</div>
+        <div class="topic-eyebrow">ספר בראשית 1 מתוך 13</div>
         <h2 class="topic-title">דף עבודה — פרק י&quot;ב, &quot;לך לך&quot;</h2>
       </div>
       <div class="topic-counter" data-topic-counter="topic-ch12">0/1</div>
@@ -972,7 +1081,7 @@
     <div class="topic-banner">
       <span class="topic-icon" aria-hidden="true">🔥</span>
       <div>
-        <div class="topic-eyebrow">ספר בראשית 2 מתוך 5</div>
+        <div class="topic-eyebrow">ספר בראשית 2 מתוך 13</div>
         <h2 class="topic-title">דף עבודה — פרק ט&quot;ו, &quot;ברית בין הבתרים&quot;</h2>
       </div>
       <div class="topic-counter" data-topic-counter="topic-ch15">0/1</div>
@@ -1373,7 +1482,7 @@
     <div class="topic-banner">
       <span class="topic-icon" aria-hidden="true">🤝</span>
       <div>
-        <div class="topic-eyebrow">ספר בראשית 3 מתוך 5</div>
+        <div class="topic-eyebrow">ספר בראשית 3 מתוך 13</div>
         <h2 class="topic-title">דף עבודה — פרק י&quot;ז, &quot;ברית המילה&quot;</h2>
       </div>
       <div class="topic-counter" data-topic-counter="topic-ch17">0/1</div>
@@ -1717,7 +1826,7 @@
     <div class="topic-banner">
       <span class="topic-icon" aria-hidden="true">🍞</span>
       <div>
-        <div class="topic-eyebrow">ספר בראשית 4 מתוך 5</div>
+        <div class="topic-eyebrow">ספר בראשית 4 מתוך 13</div>
         <h2 class="topic-title">דף עבודה — פרק י&quot;ח, &quot;אברהם והמלאכים&quot;</h2>
       </div>
       <div class="topic-counter" data-topic-counter="topic-ch18">0/1</div>
@@ -2090,7 +2199,7 @@
     <div class="topic-banner">
       <span class="topic-icon" aria-hidden="true">⭐</span>
       <div>
-        <div class="topic-eyebrow">ספר בראשית 5 מתוך 5</div>
+        <div class="topic-eyebrow">ספר בראשית 5 מתוך 13</div>
         <h2 class="topic-title">דף עבודה — פרק כ&quot;ב, &quot;עקידת יצחק&quot;</h2>
       </div>
       <div class="topic-counter" data-topic-counter="topic-ch22">0/1</div>
@@ -2442,6 +2551,1391 @@
   
     </div>
   </section>
+
+  <section class="topic-section" id="topic-ch25" role="tabpanel" aria-labelledby="tab-btn-ch25" hidden style="--acc:#3F6E66;--acc-soft:#E4EEEA;">
+    <div class="topic-banner">
+      <span class="topic-icon" aria-hidden="true">🍲</span>
+      <div>
+        <div class="topic-eyebrow">ספר בראשית 6 מתוך 13</div>
+        <h2 class="topic-title">דף עבודה — פרק כ&quot;ה, &quot;מְכִירַת הַבְּכוֹרָה&quot;</h2>
+      </div>
+      <div class="topic-counter" data-topic-counter="topic-ch25">0/1</div>
+    </div>
+    <div class="grid">
+
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרק</span>
+        <h2 class="card-title">מה קורה בפרק כ"ה (פסוקים י"ט-ל"ד)?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          לאחר שנים ארוכות של עקרות, מתפלל יצחק בעד רבקה אשתו, ותהר בתאומים. עוד בהיותה בהיריון, הבנים מתרוצצים בקרבה עד שהיא הולכת לדרוש את ה', והוא מגלה לה שבבטנה שני גויים, ושהגדול (עשיו) יעבוד את הצעיר (יעקב). עשיו נולד ראשון, אדמוני ושעיר, ואחריו יעקב, ידו אוחזת בעקבו. הבנים גדלים והופכים לשני טיפוסים מנוגדים: עשיו - איש ציד ושדה, אהוב על יצחק; יעקב - איש תם יושב אוהלים, אהוב על רבקה. הפרק מסתיים בסיפור מכירת הבכורה: עשיו שב עייף מהשדה ומבקש מיעקב מן הנזיד האדום, ויעקב מנצל את הרגע ומבקש בתמורה את הבכורה - ועשיו, שאינו מעריך אותה, מוכר אותה בקלות ובז לה.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">👶</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
+        <div class="topic-title">התפילה, ההיריון והנבואה על שני הגויים</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">👶</span>
+        <div class="qb-root-label">פסוקים כ'-כ"ג</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">יצחק מתפלל בעד רבקה העקרה, וה' נענה לתפילתו</div>
+          <div class="pasuk-line"><b>כ-כא:</b> וַיְהִי יִצְחָק בֶּן אַרְבָּעִים שָׁנָה בְּקַחְתּוֹ אֶת רִבְקָה... וַיֶּעְתַּר יִצְחָק לַה' לְנֹכַח אִשְׁתּוֹ כִּי עֲקָרָה הִוא, וַיֵּעָתֶר לוֹ ה' וַתַּהַר רִבְקָה אִשְׁתּוֹ.</div>
+          <div class="pasuk-gloss">הבנים מתרוצצים בבטנה, והיא הולכת לדרוש את ה'</div>
+          <div class="pasuk-line"><b>כב:</b> וַיִּתְרֹצֲצוּ הַבָּנִים בְּקִרְבָּהּ וַתֹּאמֶר: אִם כֵּן לָמָּה זֶּה אָנֹכִי? וַתֵּלֶךְ לִדְרֹשׁ אֶת ה'.</div>
+          <div class="pasuk-gloss">ה' עונה לה: שני גויים בבטנה, ורב (הגדול) יעבוד צעיר</div>
+          <div class="pasuk-line"><b>כג:</b> וַיֹּאמֶר ה' לָהּ: שְׁנֵי גֹיִים בְּבִטְנֵךְ, וּשְׁנֵי לְאֻמִּים מִמֵּעַיִךְ יִפָּרֵדוּ; וּלְאֹם מִלְאֹם יֶאֱמָץ, וְרַב יַעֲבֹד צָעִיר.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י, פסוק כ"ב - "וַיִּתְרֹצֲצוּ"</span>
+            רבותינו דרשוהו לשון ריצה: כשהייתה עוברת על פתחי תורה של שם ועבר - יעקב רץ ומפרכס לצאת; עוברת על פתח עבודה זרה - עשו רץ ומפרכס לצאת.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit25-mp-1">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיִּתְרֹצֲצוּ הַבָּנִים בְּקִרְבָּהּ" (פסוק כ"ב)</p>
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="ch25__a11y-lbl-1">כיצד מפרש רש"י את הפועל "ויתרוצצו"? כיצד פירוש זה כבר מרמז, עוד לפני הלידה, על האופי העתידי של שני הבנים?</span></div>
+            <textarea class="answer" aria-labelledby="ch25__a11y-lbl-1" data-id="ch25__q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> רש"י מפרש שהתרוצצות פירושה ריצה: כשעברה רבקה ליד בית מדרשם של שם ועבר, יעקב היה רץ ומנסה לצאת; וכשעברה ליד מקום עבודה זרה, עשיו היה רץ ומנסה לצאת. כבר כאן, בבטן אמם, מרומזת הנטייה העתידית של כל בן - יעקב לתורה, ועשיו לעבודה זרה.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "שְׁנֵי גֹיִים בְּבִטְנֵךְ... וְרַב יַעֲבֹד צָעִיר" (פסוק כ"ג)</p>
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="ch25__a11y-lbl-2">מהי הבשורה שמקבלת רבקה מפי ה', ומהו החידוש שבה ביחס לסדר הרגיל של הורשת הבכורה (מהגדול לצעיר)?</span></div>
+            <textarea class="answer" aria-labelledby="ch25__a11y-lbl-2" data-id="ch25__q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ה' מבשר לרבקה שבבטנה שני עמים נפרדים, שיתפתחו לכיוונים שונים, ושהצעיר יגבר בסופו של דבר על הבכור. זהו חידוש ביחס למקובל, לפיו הבן הבכור הוא בעל המעמד המוביל - וכבר כאן נרמז שהבכורה תעבור בסופו של דבר ליעקב.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <span class="topic-icon" aria-hidden="true">🏹</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
+        <div class="topic-title">הלידה - שני עולמות מנוגדים</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🏹</span>
+        <div class="qb-root-label">פסוקים כ"ד-כ"ח</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">עשיו נולד ראשון, אדמוני ושעיר; יעקב נולד אחריו, ידו אוחזת בעקבו</div>
+          <div class="pasuk-line"><b>כד-כו:</b> וַיִּמְלְאוּ יָמֶיהָ לָלֶדֶת וְהִנֵּה תוֹמִם בְּבִטְנָהּ. וַיֵּצֵא הָרִאשׁוֹן אַדְמוֹנִי כֻּלּוֹ כְּאַדֶּרֶת שֵׂעָר, וַיִּקְרְאוּ שְׁמוֹ עֵשָׂו. וְאַחֲרֵי כֵן יָצָא אָחִיו וְיָדוֹ אֹחֶזֶת בַּעֲקֵב עֵשָׂו, וַיִּקְרָא שְׁמוֹ יַעֲקֹב.</div>
+          <div class="pasuk-gloss">הנערים גדלים לשני טיפוסים מנוגדים - עשיו איש שדה, יעקב איש תם יושב אוהלים</div>
+          <div class="pasuk-line"><b>כז-כח:</b> וַיִּגְדְּלוּ הַנְּעָרִים, וַיְהִי עֵשָׂו אִישׁ יֹדֵעַ צַיִד אִישׁ שָׂדֶה, וְיַעֲקֹב אִישׁ תָּם יֹשֵׁב אֹהָלִים. וַיֶּאֱהַב יִצְחָק אֶת עֵשָׂו כִּי צַיִד בְּפִיו, וְרִבְקָה אֹהֶבֶת אֶת יַעֲקֹב.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="vs-compare" role="img" aria-label="השוואה בין עשיו ליעקב, לפי אופיים המתואר בפסוקים כז-כח">
+            <div class="vs-side vs-a">
+              <span class="vs-icon" aria-hidden="true">🏹</span>
+              <div class="vs-title">עֵשָׂו - אִישׁ שָׂדֶה</div>
+              <div class="vs-desc">יודע ציד, פועל בעולם החיצוני, אהוב על יצחק.</div>
+            </div>
+            <div class="vs-mid" aria-hidden="true">מול</div>
+            <div class="vs-side vs-b">
+              <span class="vs-icon" aria-hidden="true">⛺</span>
+              <div class="vs-title">יַעֲקֹב - אִישׁ תָּם</div>
+              <div class="vs-desc">יושב אוהלים, פועל בעולם הפנימי, אהוב על רבקה.</div>
+            </div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיְהִי עֵשָׂו אִישׁ יֹדֵעַ צַיִד אִישׁ שָׂדֶה, וְיַעֲקֹב אִישׁ תָּם יֹשֵׁב אֹהָלִים" (פסוק כ"ז)</p>
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="ch25__a11y-lbl-3">מהם שני האפיונים המנוגדים של עשיו ושל יעקב בפסוק זה, ומדוע, לדעתכם, כל הורה אוהב דווקא את הבן ה"דומה" לו יותר באופיו או בתחומי העניין שלו?</span></div>
+            <textarea class="answer" aria-labelledby="ch25__a11y-lbl-3" data-id="ch25__q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> עשיו מתואר כאיש שדה וציד - פעיל בעולם החיצוני והגשמי. יעקב מתואר כאיש תם היושב באוהלים - פעיל בעולם הפנימי והרוחני (לימוד). התשובה האישית תתייחס לכך שאהבת ההורה מושפעת לעיתים מזיהוי עם תחומי עניין דומים או מהערכה לאיכות מסוימת אצל הילד.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיֶּאֱהַב יִצְחָק אֶת עֵשָׂו כִּי צַיִד בְּפִיו, וְרִבְקָה אֹהֶבֶת אֶת יַעֲקֹב" (פסוק כ"ח)</p>
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="ch25__a11y-lbl-4">שימו לב לניסוח: אצל יצחק כתוב "ויאהב" (לשון עבר, עם נימוק - "כי ציד בפיו"), ואילו אצל רבקה כתוב "אוהבת" (לשון הווה, בלי נימוק). מה, לדעתכם, יכול ההבדל הלשוני הזה לרמז על טיב האהבה של כל אחד מההורים?</span></div>
+            <textarea class="answer" aria-labelledby="ch25__a11y-lbl-4" data-id="ch25__q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אהבת יצחק לעשיו מנומקת ("כי ציד בפיו") - כלומר, תלויה בתועלת שהוא מפיק ממנו, ולכן מוצגת כפרטנית וחד-פעמית (לשון עבר). אהבת רבקה ליעקב מוצגת ללא נימוק, כמצב מתמשך (לשון הווה) - אהבה טבעית ובלתי-מותנית.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">🍲</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
+        <div class="topic-title">מכירת הבכורה</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🍲</span>
+        <div class="qb-root-label">פסוקים כ"ט-ל"ד</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">עשיו שב עייף מן השדה, ומבקש מיעקב מן הנזיד האדום</div>
+          <div class="pasuk-line"><b>כט-ל:</b> וַיָּזֶד יַעֲקֹב נָזִיד, וַיָּבֹא עֵשָׂו מִן הַשָּׂדֶה וְהוּא עָיֵף. וַיֹּאמֶר עֵשָׂו אֶל יַעֲקֹב: הַלְעִיטֵנִי נָא מִן הָאָדֹם הָאָדֹם הַזֶּה כִּי עָיֵף אָנֹכִי - עַל כֵּן קָרָא שְׁמוֹ אֱדוֹם.</div>
+          <div class="pasuk-gloss">יעקב מבקש בתמורה את הבכורה, ועשיו - הרואה עצמו כהולך למות - מוכר אותה בלי היסוס</div>
+          <div class="pasuk-line"><b>לא-לג:</b> וַיֹּאמֶר יַעֲקֹב: מִכְרָה כַיּוֹם אֶת בְּכֹרָתְךָ לִי. וַיֹּאמֶר עֵשָׂו: הִנֵּה אָנֹכִי הוֹלֵךְ לָמוּת, וְלָמָּה זֶּה לִי בְּכֹרָה? וַיֹּאמֶר יַעֲקֹב: הִשָּׁבְעָה לִּי כַּיּוֹם - וַיִּשָּׁבַע לוֹ, וַיִּמְכֹּר אֶת בְּכֹרָתוֹ לְיַעֲקֹב.</div>
+          <div class="pasuk-gloss">עשיו אוכל, שותה, קם והולך - ובכך מגלה את בוז ליבו לבכורה</div>
+          <div class="pasuk-line"><b>לד:</b> וְיַעֲקֹב נָתַן לְעֵשָׂו לֶחֶם וּנְזִיד עֲדָשִׁים, וַיֹּאכַל וַיֵּשְׁתְּ וַיָּקָם וַיֵּלַךְ, וַיִּבֶז עֵשָׂו אֶת הַבְּכֹרָה.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רמב"ן, פסוק ל"ד</span>
+            טעם ביזוי הבכורה, כי לא חשש עשו רק לומר שלא יאבד ממנה כלום בעבור המכר, ולכן אכל ושתה כאילו לא אירע דבר; ולפי שביזה הדבר הגדול הזה - הענישו הכתוב שלא הזכיר שמו רק בשם התאווה שנתאווה, "אדום".
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit25-mp-2">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיֹּאכַל וַיֵּשְׁתְּ וַיָּקָם וַיֵּלַךְ, וַיִּבֶז עֵשָׂו אֶת הַבְּכֹרָה" (פסוק ל"ד)</p>
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="ch25__a11y-lbl-5">מה, על פי הרמב"ן, מוכיחה שרשרת הפעלים "ויאכל וישת ויקם וילך" על יחסו של עשיו למכירה שזה עתה עשה? באיזה "עונש" סיפורי, לדעת הרמב"ן, נענש עשיו על ביזוי זה?</span></div>
+            <textarea class="answer" aria-labelledby="ch25__a11y-lbl-5" data-id="ch25__q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שרשרת הפעולות הרגועה מוכיחה שעשיו התייחס למכירה כאילו לא קרה דבר משמעותי - הוא לא התעכב, התחרט או התרגש, אלא המשיך בשגרתו מיד. לדעת הרמב"ן, כעונש על ביזוי הבכורה, זכה עשיו לכינוי "אדום" - שם שמזכיר את התאווה הרגעית שגברה עליו, ולא שם מכובד.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "הִנֵּה אָנֹכִי הוֹלֵךְ לָמוּת, וְלָמָּה זֶּה לִי בְּכֹרָה?" (פסוק ל"ב)</p>
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="ch25__a11y-lbl-6">כיצד מנמק עשיו לעצמו את ההסכמה למכור את הבכורה? האם, לדעתכם, מדובר בנימוק סביר או בתירוץ שנועד להצדיק החלטה פזיזה?</span></div>
+            <textarea class="answer" aria-labelledby="ch25__a11y-lbl-6" data-id="ch25__q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> עשיו טוען שממילא הוא "הולך למות" (חשוף כל הזמן לסכנות מחיי הציד), ולכן הבכורה, שתועיל לו רק בעתיד, חסרת ערך בעיניו כעת. זוהי הצדקה נוחה לתאווה רגעית (הרעב לנזיד) - הוא מוותר על נכס עתידי חשוב בתמורה להנאה מיידית וחולפת.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  
+    </div>
+  </section>
+
+  <section class="topic-section" id="topic-ch27" role="tabpanel" aria-labelledby="tab-btn-ch27" hidden style="--acc:#1E2761;--acc-soft:#E3E5F3;">
+    <div class="topic-banner">
+      <span class="topic-icon" aria-hidden="true">🐐</span>
+      <div>
+        <div class="topic-eyebrow">ספר בראשית 7 מתוך 13</div>
+        <h2 class="topic-title">דף עבודה — פרק כ&quot;ז, &quot;בָּא אָחִיךָ בְּמִרְמָה וַיִּקַּח בִּרְכָתֶךָ&quot;</h2>
+      </div>
+      <div class="topic-counter" data-topic-counter="topic-ch27">0/1</div>
+    </div>
+    <div class="grid">
+
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרק</span>
+        <h2 class="card-title">מה קורה בפרק כ"ז?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          יצחק הזקן, שעיניו כהו מראות, קורא לעשיו בנו הבכור ומבקש ממנו לצוד לו ציד ולהכין לו מטעמים - כדי שיברך אותו לפני מותו. רבקה, ששמעה את הדברים, פועלת מיד: היא מצווה על יעקב להביא לה שני גדיי עיזים, מכינה מהם מטעמים כטעם שאהב יצחק, ומלבישה את יעקב בבגדי עשיו ובעורות הגדיים על ידיו וצווארו - כדי שירגיש וירח כמו עשיו השעיר. יעקב נכנס אל אביו, מתחזה לעשיו, ולמרות חשדו של יצחק ("הקול קול יעקב והידיים ידי עשו") - הוא מברך אותו בברכת הבכורה: שפע, ממשל על אחיו והבטחה. מיד לאחר מכן מגיע עשיו האמיתי עם המטעמים - ואז מתגלה התרמית. יצחק חרד חרדה גדולה, ועשיו זועק זעקה גדולה ומרה ומבקש ברכה גם לעצמו - ומקבל ברכה שונה: לחיות על חרבו, לשעבד לאחיו, ובבוא היום לפרוק את עולו.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
+      <span class="topic-icon" aria-hidden="true">🎯</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
+        <div class="topic-title">יצחק שולח את עשיו לצוד ציד</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🎯</span>
+        <div class="qb-root-label">פסוקים א'-ד'</div>
+        <div class="qb-root-pasuk"><b>א-ד:</b> וַיְהִי כִּי זָקֵן יִצְחָק וַתִּכְהֶיןָ עֵינָיו מֵרְאֹת, וַיִּקְרָא אֶת עֵשָׂו בְּנוֹ הַגָּדֹל וַיֹּאמֶר אֵלָיו: בְּנִי - וַיֹּאמֶר אֵלָיו: הִנֵּנִי. וַיֹּאמֶר: הִנֵּה נָא זָקַנְתִּי, לֹא יָדַעְתִּי יוֹם מוֹתִי. וְעַתָּה שָׂא נָא כֵלֶיךָ תֶּלְיְךָ וְקַשְׁתֶּךָ, וְצֵא הַשָּׂדֶה וְצוּדָה לִּי צָיִדָה (צַיִד). וַעֲשֵׂה לִי מַטְעַמִּים כַּאֲשֶׁר אָהַבְתִּי וְהָבִיאָה לִּי וְאֹכֵלָה - בַּעֲבוּר תְּבָרֶכְךָ נַפְשִׁי בְּטֶרֶם אָמוּת.</div>
+        <div class="qb-root-note">בקשה זו של יצחק, ששמעה רבקה בסתר, היא שמניעה את כל שרשרת האירועים שבהמשך הפרק.</div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י, פסוק א' - "וַתִּכְהֶיןָ עֵינָיו"</span>
+            מכהות ראייתו - מרוב עשן ידוע [של קטורת] שהיו נשות עשיו מקטירות לעבודה זרה. ורבותינו דרשו מכאן: מכהות מראות עינו - מן העקידה, כשעקדו אביו על גבי המזבח והיה מבט המלאכים בוכים ונטפו דמעות לתוך עיניו.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit27-mp-1">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַתִּכְהֶיןָ עֵינָיו מֵרְאֹת" (פסוק א')</p>
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="ch27__a11y-lbl-1">הביאו את שני ההסברים שמביא רש"י לעיוורונו של יצחק. איזה מהם קושר את העיוורון לעשיו, ואיזה קושר אותו לעקידה?</span></div>
+            <textarea class="answer" aria-labelledby="ch27__a11y-lbl-1" data-id="ch27__q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הסבר ראשון: עיניו כהו מעשן קטורת עבודה זרה שהקטירו נשות עשיו - הסבר זה קושר את העיוורון לעשיו ולהשפעתו השלילית. הסבר שני: עיניו כהו מדמעות המלאכים שירדו לתוכן בעת העקדה - הסבר זה קושר את העיוורון לעקידה, אירוע עברו הרוחני של יצחק עצמו.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "הִנֵּה נָא זָקַנְתִּי, לֹא יָדַעְתִּי יוֹם מוֹתִי... בַּעֲבוּר תְּבָרֶכְךָ נַפְשִׁי" (פסוקים ב'-ד')</p>
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="ch27__a11y-lbl-2">מדוע דורש יצחק דווקא מטעמים מציד לפני שיברך את עשיו - מה, לדעתכם, הקשר בין האוכל לבין הברכה?</span></div>
+            <textarea class="answer" aria-labelledby="ch27__a11y-lbl-2" data-id="ch27__q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ייתכן שהמטעמים נועדו ליצור מצב רוח נפשי מרומם ("בעבור תברכך נפשי") אצל יצחק, שיאפשר לו להעניק ברכה שלמה ומלאה מתוך תחושת סיפוק ורוגע. יש הרואים בכך גם מבחן ליכולתו של עשיו לספק את צרכי אביו מתוך מסירות ואהבה.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <span class="topic-icon" aria-hidden="true">🐐</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
+        <div class="topic-title">רבקה ויעקב - התחפושת והברכה</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🐐</span>
+        <div class="qb-root-label">פסוקים ו'-כ"ט (עיקרי)</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">רבקה שומעת ומצווה על יעקב להביא גדיי עיזים; יעקב חושש שאביו יגלה את התרמית</div>
+          <div class="pasuk-line"><b>ח-יב:</b> וְעַתָּה בְנִי שְׁמַע בְּקֹלִי... לֶךְ נָא אֶל הַצֹּאן וְקַח לִי מִשָּׁם שְׁנֵי גְּדָיֵי עִזִּים... וְהֵבֵאתָ לְאָבִיךָ וְאָכָל, בַּעֲבֻר אֲשֶׁר יְבָרֶכְךָ. וַיֹּאמֶר יַעֲקֹב: הֵן עֵשָׂו אָחִי אִישׁ שָׂעִר וְאָנֹכִי אִישׁ חָלָק. אוּלַי יְמֻשֵּׁנִי אָבִי וְהָיִיתִי בְעֵינָיו כִּמְתַעְתֵּעַ, וְהֵבֵאתִי עָלַי קְלָלָה וְלֹא בְרָכָה.</div>
+          <div class="pasuk-gloss">רבקה מלבישה את יעקב בבגדי עשיו ובעורות הגדיים - כדי שיוכל להתחזות אליו</div>
+          <div class="pasuk-line"><b>טו-יז:</b> וַתִּקַּח רִבְקָה אֶת בִּגְדֵי עֵשָׂו בְּנָהּ הַגָּדֹל הַחֲמֻדֹת... וַתַּלְבֵּשׁ אֶת יַעֲקֹב בְּנָהּ הַקָּטָן. וְאֵת עֹרֹת גְּדָיֵי הָעִזִּים הִלְבִּישָׁה עַל יָדָיו וְעַל חֶלְקַת צַוָּארָיו.</div>
+          <div class="pasuk-gloss">יעקב נכנס אל אביו וטוען שהוא עשיו; יצחק חושד אך ממשש ולא מזהה</div>
+          <div class="pasuk-line"><b>יח-כג:</b> וַיָּבֹא אֶל אָבִיו... אָנֹכִי עֵשָׂו בְּכֹרֶךָ... גְּשָׁה נָּא וַאֲמֻשְׁךָ בְּנִי, הַאַתָּה זֶה בְּנִי עֵשָׂו אִם לֹא. וַיְמֻשֵּׁהוּ וַיֹּאמֶר: הַקֹּל קוֹל יַעֲקֹב וְהַיָּדַיִם יְדֵי עֵשָׂו, וְלֹא הִכִּירוֹ - וַיְבָרְכֵהוּ.</div>
+          <div class="pasuk-gloss">יצחק מברך את יעקב בברכת שפע ובממשל על האחים</div>
+          <div class="pasuk-line"><b>כח-כט:</b> וְיִתֶּן לְךָ הָאֱלֹקִים מִטַּל הַשָּׁמַיִם וּמִשְׁמַנֵּי הָאָרֶץ, וְרֹב דָּגָן וְתִירֹשׁ. יַעַבְדוּךָ עַמִּים וְיִשְׁתַּחֲווּ לְךָ לְאֻמִּים, הֱוֵה גְבִיר לְאַחֶיךָ וְיִשְׁתַּחֲווּ לְךָ בְּנֵי אִמֶּךָ; אֹרְרֶיךָ אָרוּר וּמְבָרֲכֶיךָ בָּרוּךְ.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "הֵן עֵשָׂו אָחִי אִישׁ שָׂעִר וְאָנֹכִי אִישׁ חָלָק... וְהֵבֵאתִי עָלַי קְלָלָה וְלֹא בְרָכָה" (פסוק י"ב)</p>
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="ch27__a11y-lbl-3">ממה חושש יעקב לפני שהוא נכנס אל אביו, ואיזו תשובה נותנת לו רבקה על חששו זה?</span></div>
+            <textarea class="answer" aria-labelledby="ch27__a11y-lbl-3" data-id="ch27__q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יעקב חושש שאביו יגלה, באמצעות משמוש, שהוא חלק-עור בעוד עשיו שעיר - ואז ייחשב בעיני אביו כמרמה, ובמקום ברכה יקבל קללה. רבקה עונה: "עלי קללתך בני" - היא מקבלת על עצמה את האחריות והסיכון, ומורה לו להמשיך למלא את הוראותיה.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י, פסוק כ"ג - "הַקֹּל קוֹל יַעֲקֹב"</span>
+            שהיה מדבר בלשון תחנונים, אבל עשו בלשון קנטוריא. דבר אחר: מכיר היה קולו שהוא כקול יעקב, שהרי לא דבר אליו אלא פעם אחת "אנכי עשו בכרך" - והשאר היה משיבו במישוש.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit27-mp-2">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיְמֻשֵּׁהוּ וַיֹּאמֶר: הַקֹּל קוֹל יַעֲקֹב וְהַיָּדַיִם יְדֵי עֵשָׂו... וַיְבָרְכֵהוּ" (פסוק כ"ג)</p>
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="ch27__a11y-lbl-4">יצחק מזהה בקול משהו שאינו מתאים לזיהוי הידיים, ובכל זאת מברך - מדוע, לדעתכם, המישוש (הידיים) גובר בסופו של דבר על הקול בקבלת ההחלטה?</span></div>
+            <textarea class="answer" aria-labelledby="ch27__a11y-lbl-4" data-id="ch27__q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יצחק, שאינו רואה, סומך בעיקר על חוש המישוש - הידיים השעירות, שהוכנו במיוחד לתרמית - כאשר החוש הישיר (מגע) נראה לו מהימן יותר מהחשד המופשט שעורר הקול. כך התחפושת הפיזית של רבקה מכריעה את החשד הראשוני.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <span class="topic-icon" aria-hidden="true">😢</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
+        <div class="topic-title">גילוי התרמית וזעקת עשיו</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">😢</span>
+        <div class="qb-root-label">פסוקים ל'-מ'</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">מיד לאחר שיעקב יוצא, מגיע עשיו עם המטעמים - ויצחק חרד חרדה גדולה</div>
+          <div class="pasuk-line"><b>ל-לג:</b> וַיְהִי אַךְ יָצֹא יָצָא יַעֲקֹב מֵאֵת פְּנֵי יִצְחָק אָבִיו, וְעֵשָׂו אָחִיו בָּא מִצֵּידוֹ... וַיֶּחֱרַד יִצְחָק חֲרָדָה גְּדֹלָה עַד מְאֹד וַיֹּאמֶר: מִי אֵפוֹא הוּא הַצָּד צַיִד וַיָּבֵא לִי וָאֹכַל מִכֹּל בְּטֶרֶם תָּבוֹא, וָאֲבָרֲכֵהוּ - גַּם בָּרוּךְ יִהְיֶה.</div>
+          <div class="pasuk-gloss">עשיו זועק זעקה גדולה ומרה, ומגלה שיעקב כבר לקח ממנו פעמיים - את הבכורה ואת הברכה</div>
+          <div class="pasuk-line"><b>לד-לו:</b> כִּשְׁמֹעַ עֵשָׂו אֶת דִּבְרֵי אָבִיו, וַיִּצְעַק צְעָקָה גְּדֹלָה וּמָרָה עַד מְאֹד... וַיֹּאמֶר: הֲכִי קָרָא שְׁמוֹ יַעֲקֹב וַיַּעְקְבֵנִי זֶה פַעֲמַיִם - אֶת בְּכֹרָתִי לָקָח וְהִנֵּה עַתָּה לָקַח בִּרְכָתִי!</div>
+          <div class="pasuk-gloss">עשיו מבקש ברכה גם לעצמו, ומקבל ברכה שונה - חיים על החרב, שעבוד ותקווה עתידית לפרוק את העול</div>
+          <div class="pasuk-line"><b>לח-מ:</b> וַיֹּאמֶר עֵשָׂו: הַבְרָכָה אַחַת הִוא לְךָ אָבִי? בָּרֲכֵנִי גַם אָנִי אָבִי - וַיִּשָּׂא עֵשָׂו קֹלוֹ וַיֵּבְךְּ. וְעַל חַרְבְּךָ תִחְיֶה וְאֶת אָחִיךָ תַּעֲבֹד, וְהָיָה כַּאֲשֶׁר תָּרִיד וּפָרַקְתָּ עֻלּוֹ מֵעַל צַוָּארֶךָ.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י, פסוק ל"ג - "גַּם בָּרוּךְ יִהְיֶה"</span>
+            הרהרתי אחריו וראיתי בו רוח הקדש שיהא ברוך, גם כשראיתי את עשו בא לא נתקררה דעתי, ולפי הפשט - כשראה גיהנם פתוחה תחתיו נתחרט ואמר: מעתה גם ברוך יהיה.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit27-mp-3">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיֶּחֱרַד יִצְחָק חֲרָדָה גְּדֹלָה עַד מְאֹד... גַּם בָּרוּךְ יִהְיֶה" (פסוקים ל"ג)</p>
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="ch27__a11y-lbl-5">מדוע, על אף החרדה הגדולה שאחזה בו כשגילה את התרמית, אינו מבטל יצחק את ברכתו ליעקב? הביאו את אחד ההסברים לכך.</span></div>
+            <textarea class="answer" aria-labelledby="ch27__a11y-lbl-5" data-id="ch27__q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, יצחק מבין ברוח הקודש שהברכה ליעקב היא נכונה וראויה, ולכן מחליט "גם ברוך יהיה" - כלומר, מקבל את המצב ואינו מבטל את הברכה. לפי הפשט, כשראה יצחק "גיהנום פתוחה" תחת עשיו (חש בעתידו הרוחני של עשיו), התחרט על כוונתו המקורית והשלים עם כך שהברכה שייכת ליעקב.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "הֲכִי קָרָא שְׁמוֹ יַעֲקֹב וַיַּעְקְבֵנִי זֶה פַעֲמַיִם - אֶת בְּכֹרָתִי לָקָח וְהִנֵּה עַתָּה לָקַח בִּרְכָתִי" (פסוק ל"ו)</p>
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="ch27__a11y-lbl-6">עשיו משחק על שם "יעקב" במילה "ויעקבני". הסבירו את משחק המילים הזה, וכתבו לאילו שני מעשים של יעקב הוא מתייחס.</span></div>
+            <textarea class="answer" aria-labelledby="ch27__a11y-lbl-6" data-id="ch27__q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> "ויעקבני" משחק על השורש "עקב" (מכאן שם "יעקב", שנקרא כך כי יצא אוחז בעקב עשיו) ומשמעו "רימה אותי, עקף אותי בערמה". עשיו מתייחס לשני מעשים: לקיחת הבכורה (בעסקת הנזיד, פרק כ"ה) ולקיחת הברכה (בפרק זה) - שני "רגעים" שבהם, לדבריו, יעקב פעל נגדו במרמה.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  
+    </div>
+  </section>
+
+  <section class="topic-section" id="topic-ch32" role="tabpanel" aria-labelledby="tab-btn-ch32" hidden style="--acc:#7A4A73;--acc-soft:#EFE3EC;">
+    <div class="topic-banner">
+      <span class="topic-icon" aria-hidden="true">🤜</span>
+      <div>
+        <div class="topic-eyebrow">ספר בראשית 8 מתוך 13</div>
+        <h2 class="topic-title">דף עבודה — פרקים ל&quot;ב-ל&quot;ג, &quot;וַיֵּאָבֵק אִישׁ עִמּוֹ&quot;</h2>
+      </div>
+      <div class="topic-counter" data-topic-counter="topic-ch32">0/1</div>
+    </div>
+    <div class="grid">
+
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרקים</span>
+        <h2 class="card-title">מה קורה בפרקים ל"ב-ל"ג?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          לאחר עשרים שנה אצל לבן, יעקב שב לארצו ושולח מלאכים לקראת עשיו אחיו - אך אלה חוזרים בבשורה מדאיגה: עשיו מגיע לקראתו עם ארבע מאות איש. יעקב, אחוז פחד, מתכונן בשלוש דרכים: הוא מחלק את מחנהו לשניים, שולח מנחה גדולה לעשיו, ומתפלל לה' שיצילו. בלילה שלפני המפגש, יעקב נותר לבדו ונאבק עם איש עד עלות השחר; האיש פוגע בכף ירכו אך אינו יכול לו, ולבסוף מברך אותו ומשנה את שמו מיעקב לישראל - "כי שרית עם אלוקים ועם אנשים ותוכל". למחרת מתקיים המפגש המיוחל: עשיו, במקום לתקוף, רץ לקראת יעקב, מחבקו, נופל על צווארו ובוכה איתו. יעקב מציע לו מנחה גדולה, ולבסוף השניים נפרדים בשלום, כל אחד לדרכו.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3E5A8C; --acc-soft:#E2E7F2;">
+      <span class="topic-icon" aria-hidden="true">😨</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
+        <div class="topic-title">פחד המפגש ותפילת יעקב (פרק ל"ב)</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#3E5A8C; --acc-soft:#E2E7F2;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">😨</span>
+        <div class="qb-root-label">פסוקים ד'-י"ג</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">יעקב שולח מלאכים לעשיו, אך אלה חוזרים עם ידיעה מדאיגה: עשיו בא עם 400 איש</div>
+          <div class="pasuk-line"><b>ד, ז-ח:</b> וַיִּשְׁלַח יַעֲקֹב מַלְאָכִים לְפָנָיו אֶל עֵשָׂו אָחִיו... וַיָּשֻׁבוּ הַמַּלְאָכִים אֶל יַעֲקֹב לֵאמֹר: בָּאנוּ אֶל אָחִיךָ אֶל עֵשָׂו, וְגַם הֹלֵךְ לִקְרָאתְךָ וְאַרְבַּע מֵאוֹת אִישׁ עִמּוֹ. וַיִּירָא יַעֲקֹב מְאֹד וַיֵּצֶר לוֹ.</div>
+          <div class="pasuk-gloss">יעקב מתכונן: מחלק את מחנהו לשניים כדי שיישאר שריד אם עשיו יתקוף</div>
+          <div class="pasuk-line"><b>ח-ט:</b> וַיַּחַץ אֶת הָעָם אֲשֶׁר אִתּוֹ... לִשְׁנֵי מַחֲנוֹת. וַיֹּאמֶר: אִם יָבוֹא עֵשָׂו אֶל הַמַּחֲנֶה הָאַחַת וְהִכָּהוּ - וְהָיָה הַמַּחֲנֶה הַנִּשְׁאָר לִפְלֵיטָה.</div>
+          <div class="pasuk-gloss">יעקב מתפלל לה' ומבקש הצלה מיד עשיו, מתוך ענווה על כל החסד שכבר קיבל</div>
+          <div class="pasuk-line"><b>י-יב:</b> וַיֹּאמֶר יַעֲקֹב: אֱלֹקֵי אָבִי אַבְרָהָם וֵאלֹקֵי אָבִי יִצְחָק, ה' הָאֹמֵר אֵלַי שׁוּב לְאַרְצְךָ וּלְמוֹלַדְתְּךָ וְאֵיטִיבָה עִמָּךְ. קָטֹנְתִּי מִכֹּל הַחֲסָדִים וּמִכָּל הָאֱמֶת אֲשֶׁר עָשִׂיתָ אֶת עַבְדֶּךָ... הַצִּילֵנִי נָא מִיַּד אָחִי מִיַּד עֵשָׂו, כִּי יָרֵא אָנֹכִי אֹתוֹ, פֶּן יָבוֹא וְהִכַּנִי אֵם עַל בָּנִים.</div>
+        </div>
+        <div class="mini-timeline" role="img" aria-label="שלוש דרכי ההתמודדות של יעקב עם הפחד ממפגש עשיו">
+          <div class="step"><span class="step-icon" aria-hidden="true">⚔️</span>הכנה למלחמה<br><small>חלוקת המחנה לשניים</small></div>
+          <div class="arrow" aria-hidden="true">←</div>
+          <div class="step"><span class="step-icon" aria-hidden="true">🙏</span>תפילה<br><small>בקשת הצלה מה'</small></div>
+          <div class="arrow" aria-hidden="true">←</div>
+          <div class="step"><span class="step-icon" aria-hidden="true">🎁</span>מנחה (בהמשך)<br><small>ריצוי עשיו במתנה</small></div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י, פסוק ח' - "וַיִּירָא... וַיֵּצֶר לוֹ"</span>
+            ויירא - שמא ייהרג. ויצר לו - עגמה נפשו על שמא יהרוג הוא את אחרים. אמר: אם יתגבר עלי, יהרגני - ואם אני אתגבר עליו, אהרגנו.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit32-mp-1">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיִּירָא יַעֲקֹב מְאֹד וַיֵּצֶר לוֹ" (פסוק ח')</p>
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="ch32__a11y-lbl-1">רש"י מבחין בין שני הפעלים "ויירא" ו"ויצר לו". הסבירו את שני החששות השונים העולים מהם.</span></div>
+            <textarea class="answer" aria-labelledby="ch32__a11y-lbl-1" data-id="ch32__q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> "ויירא" - חשש לחייו שלו, שמא ייהרג בידי עשיו. "ויצר לו" - חשש נוסף ומוסרי: שמא הוא עצמו ייאלץ להרוג אחרים (אנשי עשיו) כדי להינצל. כלומר, יעקב חושש הן מלהיפגע והן מלפגוע.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "קָטֹנְתִּי מִכֹּל הַחֲסָדִים... הַצִּילֵנִי נָא מִיַּד אָחִי" (פסוקים י'-י"ב)</p>
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="ch32__a11y-lbl-2">כיצד פותח יעקב את תפילתו, ומדוע, לדעתכם, הוא מקדים ומזכיר את חסדי ה' עליו לפני שהוא מבקש בקשה קונקרטית?</span></div>
+            <textarea class="answer" aria-labelledby="ch32__a11y-lbl-2" data-id="ch32__q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יעקב פותח בהכרת הטוב ובענווה - "קטונתי מכל החסדים" - מכיר בכל מה שכבר קיבל מה' ואינו רואה עצמו כראוי מאליו לכך. הקדמה זו ממחישה יחס נכון לתפילה: פנייה מתוך הכרת תודה וענווה, ולא מתוך תחושת זכאות אוטומטית לעזרה נוספת.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">🌅</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
+        <div class="topic-title">המאבק עם האיש - שינוי השם לישראל</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🌅</span>
+        <div class="qb-root-label">פסוקים כ"ה-ל"א</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">יעקב נשאר לבדו ונאבק עם איש עד עלות השחר; האיש פוגע בכף ירכו</div>
+          <div class="pasuk-line"><b>כה-כו:</b> וַיִּוָּתֵר יַעֲקֹב לְבַדּוֹ, וַיֵּאָבֵק אִישׁ עִמּוֹ עַד עֲלוֹת הַשָּׁחַר. וַיַּרְא כִּי לֹא יָכֹל לוֹ וַיִּגַּע בְּכַף יְרֵכוֹ, וַתֵּקַע כַּף יֶרֶךְ יַעֲקֹב בְּהֵאָבְקוֹ עִמּוֹ.</div>
+          <div class="pasuk-gloss">יעקב מסרב לשלח את האיש עד שיברכהו</div>
+          <div class="pasuk-line"><b>כז:</b> וַיֹּאמֶר: שַׁלְּחֵנִי כִּי עָלָה הַשָּׁחַר, וַיֹּאמֶר: לֹא אֲשַׁלֵּחֲךָ כִּי אִם בֵּרַכְתָּנִי.</div>
+          <div class="pasuk-gloss">שם יעקב משתנה לישראל - "כי שרית עם אלוקים ועם אנשים ותוכל"</div>
+          <div class="pasuk-line"><b>כח-כט:</b> וַיֹּאמֶר אֵלָיו: מַה שְּׁמֶךָ - וַיֹּאמֶר: יַעֲקֹב. וַיֹּאמֶר: לֹא יַעֲקֹב יֵאָמֵר עוֹד שִׁמְךָ, כִּי אִם יִשְׂרָאֵל - כִּי שָׂרִיתָ עִם אֱלֹקִים וְעִם אֲנָשִׁים וַתּוּכָל.</div>
+          <div class="pasuk-gloss">יעקב קורא למקום "פניאל" - כי ראה אלוקים פנים אל פנים וניצל</div>
+          <div class="pasuk-line"><b>ל-לא:</b> וַיִּקְרָא יַעֲקֹב שֵׁם הַמָּקוֹם פְּנִיאֵל: כִּי רָאִיתִי אֱלֹקִים פָּנִים אֶל פָּנִים וַתִּנָּצֵל נַפְשִׁי.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">מדרש חז"ל (המובא ברש"י, פסוק כ"ה)</span>
+            אמר רבי יהושע בן לוי: זה שרו של עשיו [מלאך המייצג את עשיו ואת כוחו הרוחני]. וזהו שאמר לו הנביא: "בבטן עקב את אחיו, ובאונו שרה את אלוקים" (הושע י"ב, ד').
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit32-mp-2">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיֵּאָבֵק אִישׁ עִמּוֹ עַד עֲלוֹת הַשָּׁחַר" (פסוק כ"ה)</p>
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="ch32__a11y-lbl-3">מיהו, על פי המדרש, ה"איש" שנאבק עם יעקב? כיצד זיהוי זה קושר את הסיפור הזה לכל שרשרת ההתמודדויות של יעקב עם עשיו לאורך חייו?</span></div>
+            <textarea class="answer" aria-labelledby="ch32__a11y-lbl-3" data-id="ch32__q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> על פי המדרש, ה"איש" הוא שרו (המלאך הרוחני) של עשיו. זיהוי זה הופך את המאבק הלילי הבודד לסמל של כל ההתמודדות המתמשכת בין יעקב לעשיו - כפי שיעקב נאבק עם עשיו כבר מהבטן (מכירת הבכורה, גניבת הברכה), כך הוא נאבק כעת עם הכוח הרוחני שמאחוריו, וגובר עליו.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "לֹא יַעֲקֹב יֵאָמֵר עוֹד שִׁמְךָ כִּי אִם יִשְׂרָאֵל, כִּי שָׂרִיתָ עִם אֱלֹקִים וְעִם אֲנָשִׁים וַתּוּכָל" (פסוק כ"ט)</p>
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="ch32__a11y-lbl-4">מהו הנימוק שנותן האיש לשינוי השם מיעקב לישראל? הציעו הסבר למשמעות שמו החדש, "ישראל", לאור נימוק זה.</span></div>
+            <textarea class="answer" aria-labelledby="ch32__a11y-lbl-4" data-id="ch32__q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הנימוק: יעקב "שרה" (נאבק, מלשון שררה/התמודדות) הן עם כוחות אלוקיים (המלאך) והן עם בני אדם (לבן, עשיו) - וגבר בכל המאבקים. שמו החדש, "ישראל", מבטא זהות של מי ששורר ומתמודד עם קשיים ומצליח לצאת מהם מנצח - במקום "יעקב", השם המזכיר עקיפה וערמומיות מלידתו.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">🤝</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
+        <div class="topic-title">הפיוס עם עשיו (פרק ל"ג)</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🤝</span>
+        <div class="qb-root-label">פסוקים א'-י"א</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">יעקב משתחווה שבע פעמים לעשיו, ועשיו רץ לקראתו, מחבקו ובוכה איתו</div>
+          <div class="pasuk-line"><b>א, ג-ד:</b> וַיִּשָּׂא יַעֲקֹב עֵינָיו וַיַּרְא וְהִנֵּה עֵשָׂו בָּא וְעִמּוֹ אַרְבַּע מֵאוֹת אִישׁ... וְהוּא עָבַר לִפְנֵיהֶם וַיִּשְׁתַּחוּ אַרְצָה שֶׁבַע פְּעָמִים עַד גִּשְׁתּוֹ עַד אָחִיו. וַיָּרָץ עֵשָׂו לִקְרָאתוֹ וַיְחַבְּקֵהוּ וַיִּפֹּל עַל צַוָּארָו וַיִּשָּׁקֵהוּ וַיִּבְכּוּ.</div>
+          <div class="pasuk-gloss">עשיו מסרב תחילה למנחה שיעקב מציע, אך נעתר להפצרתו</div>
+          <div class="pasuk-line"><b>ח-יא:</b> וַיֹּאמֶר: מִי לְךָ כָּל הַמַּחֲנֶה הַזֶּה אֲשֶׁר פָּגָשְׁתִּי? וַיֹּאמֶר: לִמְצֹא חֵן בְּעֵינֵי אֲדֹנִי. וַיֹּאמֶר עֵשָׂו: יֶשׁ לִי רָב אָחִי, יְהִי לְךָ אֲשֶׁר לָךְ. וַיֹּאמֶר יַעֲקֹב: אַל נָא, אִם נָא מָצָאתִי חֵן בְּעֵינֶיךָ וְלָקַחְתָּ מִנְחָתִי מִיָּדִי - כִּי עַל כֵּן רָאִיתִי פָנֶיךָ כִּרְאֹת פְּנֵי אֱלֹקִים וַתִּרְצֵנִי.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיִּשְׁתַּחוּ אַרְצָה שֶׁבַע פְּעָמִים... וַיָּרָץ עֵשָׂו לִקְרָאתוֹ וַיְחַבְּקֵהוּ" (פסוקים ג'-ד')</p>
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="ch32__a11y-lbl-5">השוו בין תגובת יעקב לתגובת עשיו במפגש: מה עושה כל אחד מהם, ומה מלמדת ההשוואה על האופן שבו נפתר בסופו של דבר הפחד שאחז ביעקב?</span></div>
+            <textarea class="answer" aria-labelledby="ch32__a11y-lbl-5" data-id="ch32__q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יעקב, החושש עדיין, משתחווה שבע פעמים - מעשה של כניעה וזהירות. עשיו, לעומתו, רץ בהתרגשות לקראתו, מחבק, מנשק ובוכה - תגובה של אהבה כנה ולא של איבה. ההשוואה מלמדת שפחדו של יעקב, אף שהיה מוצדק מבחינתו, לא התממש - עשיו הגיע מתוך רגש אמיתי של אחווה, לא כדי לפגוע.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "כִּי עַל כֵּן רָאִיתִי פָנֶיךָ כִּרְאֹת פְּנֵי אֱלֹקִים וַתִּרְצֵנִי" (פסוק י')</p>
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="ch32__a11y-lbl-6">יעקב מדמה את פני עשיו לפני אלוקים. הציעו הסבר למשמעות הדימוי הזה בהקשר של המפגש שהתרחש זה עתה.</span></div>
+            <textarea class="answer" aria-labelledby="ch32__a11y-lbl-6" data-id="ch32__q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יעקב מבטא בכך את ההקלה וההכרת התודה שבראותו את פני עשיו רגועות ומרוצות, כמו מי שראה פנים כועסות שנרגעו לפתע - חוויה מרוממת ומרגשת, כפגישה עם הא-ל. הדימוי גם מקשר בין הפיוס האנושי הזה למאבק הקודם עם המלאך, שבו ראה יעקב "אלוקים פנים אל פנים" וניצל.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  
+    </div>
+  </section>
+
+  <section class="topic-section" id="topic-ch37" role="tabpanel" aria-labelledby="tab-btn-ch37" hidden style="--acc:#8A5C21;--acc-soft:#F3E7D2;">
+    <div class="topic-banner">
+      <span class="topic-icon" aria-hidden="true">👕</span>
+      <div>
+        <div class="topic-eyebrow">ספר בראשית 9 מתוך 13</div>
+        <h2 class="topic-title">דף עבודה — פרק ל&quot;ז, &quot;מְכִירַת יוֹסֵף&quot;</h2>
+      </div>
+      <div class="topic-counter" data-topic-counter="topic-ch37">0/1</div>
+    </div>
+    <div class="grid">
+
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרק</span>
+        <h2 class="card-title">מה קורה בפרק ל"ז?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          יעקב אוהב את יוסף מכל בניו, בהיותו בן זקוניו, ועושה לו כתונת פסים - דבר שמעורר את שנאת אחיו. יוסף מוסיף שמן למדורה כשהוא מספר להם שני חלומות: באחד משתחוות אלומותיהם לאלומתו, ובשני משתחווים לו השמש, הירח ואחד עשר כוכבים. כשיוסף יוצא לחפש את אחיו הרועים בשכם ומגיע אליהם לדותן, הם מתנכלים להרגו - עד שראובן מציע להשליכו לבור, כדי להצילו בסתר ולהשיבו לאביו. בעוד ראובן נעדר, מציע יהודה למכור את יוסף לאורחת ישמעאלים העוברת שם, במקום להורגו. האחים טובלים את כתונתו בדם שעיר עיזים ומביאים אותה ליעקב, שמאמין שיוסף נטרף ומתאבל עליו ללא נחמה.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <span class="topic-icon" aria-hidden="true">🌾</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
+        <div class="topic-title">שנאת האחים וחלומות יוסף</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🌾</span>
+        <div class="qb-root-label">פסוקים ג'-י"א</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">יעקב אוהב את יוסף מכל בניו ועושה לו כתונת פסים; האחים שונאים אותו ואינם יכולים לדבר עמו לשלום</div>
+          <div class="pasuk-line"><b>ג-ד:</b> וְיִשְׂרָאֵל אָהַב אֶת יוֹסֵף מִכָּל בָּנָיו כִּי בֶן זְקֻנִים הוּא לוֹ, וְעָשָׂה לוֹ כְּתֹנֶת פַּסִּים. וַיִּרְאוּ אֶחָיו כִּי אֹתוֹ אָהַב אֲבִיהֶם מִכָּל אֶחָיו וַיִּשְׂנְאוּ אֹתוֹ, וְלֹא יָכְלוּ דַּבְּרוֹ לְשָׁלֹם.</div>
+          <div class="pasuk-gloss">חלום האלומות: אלומת יוסף עומדת, ואלומות האחים משתחוות לה</div>
+          <div class="pasuk-line"><b>ה-ח:</b> וַיַּחֲלֹם יוֹסֵף חֲלוֹם וַיַּגֵּד לְאֶחָיו וַיּוֹסִפוּ עוֹד שְׂנֹא אֹתוֹ... וְהִנֵּה קָמָה אֲלֻמָּתִי וְגַם נִצָּבָה, וְהִנֵּה תְסֻבֶּינָה אֲלֻמֹּתֵיכֶם וַתִּשְׁתַּחֲוֶיןָ לַאֲלֻמָּתִי. וַיֹּאמְרוּ לוֹ אֶחָיו: הֲמָלֹךְ תִּמְלֹךְ עָלֵינוּ אִם מָשׁוֹל תִּמְשֹׁל בָּנוּ?</div>
+          <div class="pasuk-gloss">חלום שני: השמש, הירח ואחד עשר כוכבים משתחווים ליוסף; גם אביו גוער בו, אך שומר את הדבר</div>
+          <div class="pasuk-line"><b>ט-יא:</b> וְהִנֵּה הַשֶּׁמֶשׁ וְהַיָּרֵחַ וְאַחַד עָשָׂר כּוֹכָבִים מִשְׁתַּחֲוִים לִי. וַיְסַפֵּר אֶל אָבִיו וְאֶל אֶחָיו וַיִּגְעַר בּוֹ אָבִיו... וַיְקַנְאוּ בוֹ אֶחָיו, וְאָבִיו שָׁמַר אֶת הַדָּבָר.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְיִשְׂרָאֵל אָהַב אֶת יוֹסֵף מִכָּל בָּנָיו... וְלֹא יָכְלוּ דַּבְּרוֹ לְשָׁלֹם" (פסוקים ג'-ד')</p>
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="ch37__a11y-lbl-1">מהו הביטוי שמלמד על חומרת שנאת האחים ליוסף עוד לפני שסופרו החלומות? מדוע דווקא מעשה הכתונת מעורר שנאה כה גדולה?</span></div>
+            <textarea class="answer" aria-labelledby="ch37__a11y-lbl-1" data-id="ch37__q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הביטוי "ולא יכלו דברו לשלום" מלמד ששנאתם עזה כל כך עד שאינם מסוגלים לתקשר איתו כלל בנימוס. הכתונת מעוררת שנאה כי היא סמל גלוי ובולט להעדפה של יעקב ליוסף על פני אחיו - עדות פומבית ומתמשכת ליחס המיוחד שהוא זוכה לו.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְהִנֵּה קָמָה אֲלֻמָּתִי... וַתִּשְׁתַּחֲוֶיןָ לַאֲלֻמָּתִי" (פסוק ז') לעומת "הַשֶּׁמֶשׁ וְהַיָּרֵחַ וְאַחַד עָשָׂר כּוֹכָבִים מִשְׁתַּחֲוִים לִי" (פסוק ט')</p>
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="ch37__a11y-lbl-2">מה משותף לשני חלומות יוסף, ובמה שונה החלום השני מהראשון (שימו לב למי הוא כולל)? מדוע דווקא החלום השני מעורר גם את תגובת האב, ולא רק את תגובת האחים?</span></div>
+            <textarea class="answer" aria-labelledby="ch37__a11y-lbl-2" data-id="ch37__q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> משותף: בשני החלומות מישהו/משהו הקשור ליוסף משתחווה לו - סמל להתעלות מעל שאר בני המשפחה. ההבדל: בחלום הראשון משתחוות רק אלומות האחים; בחלום השני, השמש והירח (המסמלים כנראה את ההורים) מצטרפים לכוכבים (האחים) - ולכן דווקא חלום זה, הכולל את ההורים, מעורר גם את גערת אביו.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <span class="topic-icon" aria-hidden="true">🕳️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
+        <div class="topic-title">המזימה למכור את יוסף</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🕳️</span>
+        <div class="qb-root-label">פסוקים י"ח-כ"ח</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">האחים רואים את יוסף מרחוק ומתנכלים להורגו, בטרם יגיע אליהם</div>
+          <div class="pasuk-line"><b>יח-כ:</b> וַיִּרְאוּ אֹתוֹ מֵרָחֹק... וַיִּתְנַכְּלוּ אֹתוֹ לַהֲמִיתוֹ. וַיֹּאמְרוּ אִישׁ אֶל אָחִיו: הִנֵּה בַּעַל הַחֲלֹמוֹת הַלָּזֶה בָּא. וְעַתָּה לְכוּ וְנַהַרְגֵהוּ וְנַשְׁלִכֵהוּ בְּאַחַד הַבֹּרוֹת, וְאָמַרְנוּ חַיָּה רָעָה אֲכָלָתְהוּ; וְנִרְאֶה מַה יִּהְיוּ חֲלֹמֹתָיו.</div>
+          <div class="pasuk-gloss">ראובן מציל אותו מרצח בכך שהוא מציע להשליכו לבור בלבד, במטרה סמויה להשיבו לאביו</div>
+          <div class="pasuk-line"><b>כא-כב:</b> וַיִּשְׁמַע רְאוּבֵן וַיַּצִּלֵהוּ מִיָּדָם, וַיֹּאמֶר: לֹא נַכֶּנּוּ נָפֶשׁ... הַשְׁלִיכוּ אֹתוֹ אֶל הַבּוֹר הַזֶּה אֲשֶׁר בַּמִּדְבָּר, וְיָד אַל תִּשְׁלְחוּ בוֹ - לְמַעַן הַצִּיל אֹתוֹ מִיָּדָם לַהֲשִׁיבוֹ אֶל אָבִיו.</div>
+          <div class="pasuk-gloss">יהודה מציע למכור את יוסף לישמעאלים במקום להורגו; האחים מסכימים</div>
+          <div class="pasuk-line"><b>כה-כח:</b> וַיֵּשְׁבוּ לֶאֱכָל לֶחֶם, וַיִּשְׂאוּ עֵינֵיהֶם וַיִּרְאוּ וְהִנֵּה אֹרְחַת יִשְׁמְעֵאלִים בָּאָה מִגִּלְעָד... וַיֹּאמֶר יְהוּדָה אֶל אֶחָיו: מַה בֶּצַע כִּי נַהֲרֹג אֶת אָחִינוּ וְכִסִּינוּ אֶת דָּמוֹ. לְכוּ וְנִמְכְּרֶנּוּ לַיִּשְׁמְעֵאלִים, וְיָדֵנוּ אַל תְּהִי בוֹ, כִּי אָחִינוּ בְשָׂרֵנוּ הוּא... וַיִּמְכְּרוּ אֶת יוֹסֵף לַיִּשְׁמְעֵאלִים בְּעֶשְׂרִים כָּסֶף.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "לֹא נַכֶּנּוּ נָפֶשׁ... לְמַעַן הַצִּיל אֹתוֹ מִיָּדָם לַהֲשִׁיבוֹ אֶל אָבִיו" (פסוקים כ"א-כ"ב)</p>
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="ch37__a11y-lbl-3">מהי הכוונה הסמויה של ראובן בהצעתו להשליך את יוסף לבור, ומדוע הוא אינו מגלה אותה בגלוי לאחיו?</span></div>
+            <textarea class="answer" aria-labelledby="ch37__a11y-lbl-3" data-id="ch37__q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> כוונתו הסמויה של ראובן היא לחזור לבור מאוחר יותר, לבד, ולהוציא את יוסף כדי להשיבו אל אביו בשלום. הוא אינו מגלה זאת בגלוי מפני שאחיו נחושים בכוונתם להיפטר מיוסף, ואילו הוא היה מגלה את כוונתו, הם היו מסכלים אותה או פועלים בדרך אחרת שתמנע ממנו להציל את יוסף.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "מַה בֶּצַע כִּי נַהֲרֹג אֶת אָחִינוּ... כִּי אָחִינוּ בְשָׂרֵנוּ הוּא" (פסוקים כ"ו-כ"ז)</p>
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="ch37__a11y-lbl-4">מהם שני הנימוקים שמעלה יהודה כדי לשכנע את אחיו למכור את יוסף במקום להרגו? האם, לדעתכם, ההצעה של יהודה מעידה על יחס מוסרי טוב יותר כלפי יוסף, או רק על פתרון "פחות רע"?</span></div>
+            <textarea class="answer" aria-labelledby="ch37__a11y-lbl-4" data-id="ch37__q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> נימוק ראשון: אין תועלת ("בצע") ברצח ובהסתרתו. נימוק שני: "אחינו בשרנו הוא" - קרבת המשפחה מחייבת יחס אחר. תשובה אישית: אפשר לטעון שהצעת יהודה אכן מונעת רצח ומראה מודעות מוסרית מסוימת, אך עדיין מדובר במכירת אח לעבדות - כך שמדובר בשיפור יחסי בלבד, לא בפתרון מוסרי מלא.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
+      <span class="topic-icon" aria-hidden="true">😭</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
+        <div class="topic-title">הטבלת הכתונת ואבל יעקב</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">😭</span>
+        <div class="qb-root-label">פסוקים ל"א-ל"ה</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">האחים טובלים את כתונת יוסף בדם שעיר עיזים, ומביאים אותה ליעקב כהוכחה מזויפת שנטרף</div>
+          <div class="pasuk-line"><b>לא-לג:</b> וַיִּקְחוּ אֶת כְּתֹנֶת יוֹסֵף וַיִּשְׁחֲטוּ שְׂעִיר עִזִּים, וַיִּטְבְּלוּ אֶת הַכֻּתֹּנֶת בַּדָּם... וַיַּכֵּר וַיֹּאמֶר: כְּתֹנֶת בְּנִי, חַיָּה רָעָה אֲכָלָתְהוּ - טָרֹף טֹרַף יוֹסֵף.</div>
+          <div class="pasuk-gloss">יעקב מסרב להתנחם ואומר שירד אבל אל בנו לשאול</div>
+          <div class="pasuk-line"><b>לה:</b> וַיָּקֻמוּ כָל בָּנָיו וְכָל בְּנֹתָיו לְנַחֲמוֹ, וַיְמָאֵן לְהִתְנַחֵם, וַיֹּאמֶר: כִּי אֵרֵד אֶל בְּנִי אָבֵל שְׁאֹלָה - וַיֵּבְךְּ אֹתוֹ אָבִיו.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיִּטְבְּלוּ אֶת הַכֻּתֹּנֶת בַּדָּם... כְּתֹנֶת בְּנִי, חַיָּה רָעָה אֲכָלָתְהוּ" (פסוקים ל"א-ל"ג)</p>
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="ch37__a11y-lbl-5">כיצד יוצרים האחים את הרושם המטעה, ומדוע הם בוחרים דווקא בדרך זו (הצגת פריט לבוש מוכתם בדם) ולא בשקר מילולי ישיר?</span></div>
+            <textarea class="answer" aria-labelledby="ch37__a11y-lbl-5" data-id="ch37__q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הם שוחטים שעיר עיזים וטובלים בדמו את כתונת יוסף, ואז מציגים אותה ליעקב מבלי לשקר בפירוש - הם מסתמכים על יעקב שיסיק בעצמו את המסקנה (חיה רעה טרפה אותו). בכך הם נמנעים משקר ישיר בפה, אך יוצרים רושם כוזב לחלוטין - צורה של הטעיה עקיפה.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיְמָאֵן לְהִתְנַחֵם, וַיֹּאמֶר: כִּי אֵרֵד אֶל בְּנִי אָבֵל שְׁאֹלָה" (פסוק ל"ה)</p>
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="ch37__a11y-lbl-6">מדוע, לדעתכם, מסרב יעקב להתנחם, בניגוד להתמודדות הרגילה עם אבל שבסופו של דבר פוחתת עם הזמן?</span></div>
+            <textarea class="answer" aria-labelledby="ch37__a11y-lbl-6" data-id="ch37__q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יעקב מסרב להתנחם משום שאבלו על יוסף כה עמוק - הוא איבד את בנו האהוב, בן זקוניו, בנסיבות אכזריות. תשובה אישית: יש מפרשים הרואים בכך רמז לכך שברמה מסוימת ידע יעקב, או חש, שיוסף עודנו חי - ולכן לא הצליח למצוא נחמה אמיתית, שהרי אין תנחומים אמיתיים על מי שעודנו חי.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  
+    </div>
+  </section>
+
+  <section class="topic-section" id="topic-ch39" role="tabpanel" aria-labelledby="tab-btn-ch39" hidden style="--acc:#3F6E66;--acc-soft:#E4EEEA;">
+    <div class="topic-banner">
+      <span class="topic-icon" aria-hidden="true">🔒</span>
+      <div>
+        <div class="topic-eyebrow">ספר בראשית 10 מתוך 13</div>
+        <h2 class="topic-title">דף עבודה — פרק ל&quot;ט, &quot;וַיְהִי ה' אֶת יוֹסֵף&quot;</h2>
+      </div>
+      <div class="topic-counter" data-topic-counter="topic-ch39">0/1</div>
+    </div>
+    <div class="grid">
+
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרק</span>
+        <h2 class="card-title">מה קורה בפרק ל"ט?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          יוסף, שנמכר לפוטיפר שר הטבחים במצרים, זוכה להצלחה רבה בזכות נוכחות ה' עמו - עד שפוטיפר מפקיד בידיו את כל אשר לו. יוסף, יפה תואר ומראה, נתקל בפיתויים חוזרים מצד אשת אדוניו, המבקשת ממנו לשכב עמה - אך הוא מסרב בתוקף, מנמק זאת בנאמנותו לאדונו ובחטא כלפי ה'. יום אחד, כשאין איש בבית, היא תופסת בבגדו, אך הוא נמלט משם ומשאיר את הבגד בידה. נעלבת מדחייתו, היא מעלילה עליו ומאשימה אותו בניסיון תקיפה - ובעקבות כך הוא נכלא. גם בכלא, כמו בבית פוטיפר, ה' עם יוסף ומעניק לו חן בעיני שר בית הסוהר, שמפקיד בידיו את ניהול האסירים.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">🏠</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
+        <div class="topic-title">יוסף מצליח בבית פוטיפר</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🏠</span>
+        <div class="qb-root-label">פסוקים ב'-ו'</div>
+        <div class="qb-root-pasuk"><b>ב-ד:</b> וַיְהִי ה' אֶת יוֹסֵף וַיְהִי אִישׁ מַצְלִיחַ, וַיְהִי בְּבֵית אֲדֹנָיו הַמִּצְרִי. וַיַּרְא אֲדֹנָיו כִּי ה' אִתּוֹ, וְכֹל אֲשֶׁר הוּא עֹשֶׂה ה' מַצְלִיחַ בְּיָדוֹ. וַיִּמְצָא יוֹסֵף חֵן בְּעֵינָיו וַיְשָׁרֶת אֹתוֹ, וַיַּפְקִדֵהוּ עַל בֵּיתוֹ וְכָל יֶשׁ לוֹ נָתַן בְּיָדוֹ.</div>
+        <div class="qb-root-note">פסוקים אלה קובעים דפוס שיחזור לאורך כל סיפור יוסף: בכל מקום שאליו הוא מגיע - בית פוטיפר, הכלא, וארמון פרעה - הוא מצליח, כי "ה' אתו".</div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיְהִי ה' אֶת יוֹסֵף וַיְהִי אִישׁ מַצְלִיחַ... וַיַּפְקִדֵהוּ עַל בֵּיתוֹ" (פסוקים ב'-ד')</p>
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="ch39__a11y-lbl-1">מהי הסיבה שנותנת התורה להצלחתו של יוסף, ומהי ההוכחה המעשית לכך שגם פוטיפר עצמו הבחין בה?</span></div>
+            <textarea class="answer" aria-labelledby="ch39__a11y-lbl-1" data-id="ch39__q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הסיבה: "ה' אתו" - השגחה אלוקית נוכחת המלווה את יוסף. ההוכחה המעשית: פוטיפר, שראה שכל מה שיוסף עושה מצליח, נתן בו אמון מלא והפקיד בידיו את ניהול כל ביתו - כלומר, גם אדם שאינו מכיר את ה' יכול להכיר בהשגחה זו דרך התוצאות הנראות לעין.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <span class="topic-icon" aria-hidden="true">🚫</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
+        <div class="topic-title">ניסיון אשת פוטיפר וסירובו של יוסף</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🚫</span>
+        <div class="qb-root-label">פסוקים ו'-י"ב</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">אשת פוטיפר נושאת עיניה ליוסף היפה ומבקשת ממנו לשכב עמה</div>
+          <div class="pasuk-line"><b>ו-ז:</b> וַיְהִי יוֹסֵף יְפֵה תֹאַר וִיפֵה מַרְאֶה. וַיְהִי אַחַר הַדְּבָרִים הָאֵלֶּה וַתִּשָּׂא אֵשֶׁת אֲדֹנָיו אֶת עֵינֶיהָ אֶל יוֹסֵף, וַתֹּאמֶר: שִׁכְבָה עִמִּי.</div>
+          <div class="pasuk-gloss">יוסף מסרב, ומנמק זאת בנאמנות לאדונו ובחטא כלפי ה'</div>
+          <div class="pasuk-line"><b>ח-ט:</b> וַיְמָאֵן... הֵן אֲדֹנִי לֹא יָדַע אִתִּי מַה בַּבָּיִת, וְכֹל אֲשֶׁר יֶשׁ לוֹ נָתַן בְּיָדִי... וְלֹא חָשַׂךְ מִמֶּנִּי מְאוּמָה כִּי אִם אוֹתָךְ בַּאֲשֶׁר אַתְּ אִשְׁתּוֹ; וְאֵיךְ אֶעֱשֶׂה הָרָעָה הַגְּדֹלָה הַזֹּאת וְחָטָאתִי לֵאלֹקִים.</div>
+          <div class="pasuk-gloss">יוסף נמלט מן הבית ומשאיר את בגדו בידה, לאחר שהתפשה בו</div>
+          <div class="pasuk-line"><b>יא-יב:</b> וַיְהִי כְּהַיּוֹם הַזֶּה וַיָּבֹא הַבַּיְתָה לַעֲשׂוֹת מְלַאכְתּוֹ... וַתִּתְפְּשֵׂהוּ בְּבִגְדוֹ לֵאמֹר: שִׁכְבָה עִמִּי - וַיַּעֲזֹב בִּגְדוֹ בְּיָדָהּ, וַיָּנָס וַיֵּצֵא הַחוּצָה.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "הֵן אֲדֹנִי לֹא יָדַע אִתִּי מַה בַּבָּיִת... וְאֵיךְ אֶעֱשֶׂה הָרָעָה הַגְּדֹלָה הַזֹּאת וְחָטָאתִי לֵאלֹקִים" (פסוקים ח'-ט')</p>
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="ch39__a11y-lbl-2">מנו את שני הנימוקים שנותן יוסף לסירובו. מדוע, לדעתכם, הוא בוחר להזכיר דווקא את אמון אדוניו בו, ולא רק את החטא כלפי ה'?</span></div>
+            <textarea class="answer" aria-labelledby="ch39__a11y-lbl-2" data-id="ch39__q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> נימוק ראשון: פוטיפר נתן בו אמון מוחלט ולא חשך ממנו דבר; לבגוד באמון זה יהיה כפוי טובה. נימוק שני: זהו חטא כלפי ה' עצמו. יוסף מקדים דווקא את הנימוק האנושי אולי מפני שהוא נגיש ומובן יותר לאישה שאינה בהכרח מאמינה בה', וגם כדי להראות שהמוסר האנושי (הכרת הטוב) חשוב לו כשלעצמו, לא רק כאמצעי דתי.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַתִּתְפְּשֵׂהוּ בְּבִגְדוֹ... וַיַּעֲזֹב בִּגְדוֹ בְּיָדָהּ, וַיָּנָס וַיֵּצֵא הַחוּצָה" (פסוקים י"ב)</p>
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="ch39__a11y-lbl-3">מדוע בוחר יוסף לברוח מן הבית ולהשאיר את בגדו מאחור, במקום להישאר ולהתעמת עם אשת פוטיפר? מה מלמד מעשה זה על אופן ההתמודדות הראוי עם פיתוי?</span></div>
+            <textarea class="answer" aria-labelledby="ch39__a11y-lbl-3" data-id="ch39__q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יוסף בורח בלי היסוס, ולוּ במחיר אובדן בגדו, כדי לא להישאר במצב מסוכן ומפתה. הבריחה המיידית מלמדת שההתמודדות הראויה עם פיתוי אינה עימות מתמשך המסתמך על כוח הרצון בלבד, אלא הרחקה פיזית ומיידית מהמצב - "לברוח מהנסיון" ולא להישאר לבחון את עוצמתו.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
+      <span class="topic-icon" aria-hidden="true">⛓️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
+        <div class="topic-title">ההעלילה, הכליאה - והצלחה מחדש בכלא</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">⛓️</span>
+        <div class="qb-root-label">פסוקים כ'-כ"ג</div>
+        <div class="qb-root-pasuk"><b>כ, כג:</b> וַיִּקַּח אֲדֹנֵי יוֹסֵף אֹתוֹ וַיִּתְּנֵהוּ אֶל בֵּית הַסֹּהַר... וַיְהִי ה' אֶת יוֹסֵף וַיֵּט אֵלָיו חָסֶד, וַיִּתֵּן חִנּוֹ בְּעֵינֵי שַׂר בֵּית הַסֹּהַר... כִּי ה' אִתּוֹ, וַאֲשֶׁר הוּא עֹשֶׂה ה' מַצְלִיחַ.</div>
+        <div class="qb-root-note">גם לאחר עלילת השווא והכליאה, חוזרת התורה על אותו ניסוח מדויק שראינו בתחילת הפרק ("ויהי ה' את יוסף") - הדגשה שהשגחת ה' על יוסף אינה תלויה בנסיבות החיצוניות.</div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="vs-compare" role="img" aria-label="הקבלה בין תחילת הפרק (בבית פוטיפר) לסופו (בבית הסוהר)">
+            <div class="vs-side vs-a">
+              <span class="vs-icon" aria-hidden="true">🏠</span>
+              <div class="vs-title">בְּבֵית פּוֹטִיפַר</div>
+              <div class="vs-desc">"ויהי ה' את יוסף... ויפקדהו על ביתו".</div>
+            </div>
+            <div class="vs-mid" aria-hidden="true">כמו</div>
+            <div class="vs-side vs-b">
+              <span class="vs-icon" aria-hidden="true">⛓️</span>
+              <div class="vs-title">בְּבֵית הַסֹּהַר</div>
+              <div class="vs-desc">"ויהי ה' את יוסף... ויתן חנו בעיני שר בית הסהר".</div>
+            </div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיְהִי ה' אֶת יוֹסֵף וַיֵּט אֵלָיו חָסֶד, וַיִּתֵּן חִנּוֹ בְּעֵינֵי שַׂר בֵּית הַסֹּהַר" (פסוק כ"א)</p>
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="ch39__a11y-lbl-4">הראו כיצד חוזר בפסוקים אלה, כמעט מילה במילה, אותו תבנית לשונית שראינו בתחילת הפרק (בבית פוטיפר). מה בא ללמד חזרה זו על משמעות הכליאה - האם היא סוף הצלחתו של יוסף, או שלב נוסף בדרכו?</span></div>
+            <textarea class="answer" aria-labelledby="ch39__a11y-lbl-4" data-id="ch39__q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> בשני המקומות מופיע הביטוי "ויהי ה' את יוסף", ובשניהם הוא זוכה לחן בעיני הממונה עליו (פוטיפר, ואחר כך שר בית הסוהר) ומקבל תפקיד ניהולי. חזרה זו מלמדת שהכליאה אינה סוף דרכו של יוסף, אלא שלב נוסף שבו ממשיכה השגחת ה' ללוותו - הצלחתו אינה תלויה במעמדו החיצוני, אלא בליווי האלוקי המתמיד.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  
+    </div>
+  </section>
+
+  <section class="topic-section" id="topic-ch40" role="tabpanel" aria-labelledby="tab-btn-ch40" hidden style="--acc:#7A4A73;--acc-soft:#EFE3EC;">
+    <div class="topic-banner">
+      <span class="topic-icon" aria-hidden="true">👑</span>
+      <div>
+        <div class="topic-eyebrow">ספר בראשית 11 מתוך 13</div>
+        <h2 class="topic-title">דף עבודה — פרקים מ'-מ&quot;א, &quot;אֵין נָבוֹן וְחָכָם כָּמוֹךָ&quot;</h2>
+      </div>
+      <div class="topic-counter" data-topic-counter="topic-ch40">0/1</div>
+    </div>
+    <div class="grid">
+
+
+    <!-- תקציר הפרקים -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרקים</span>
+        <h2 class="card-title">מה קורה בפרקים מ'-מ"א?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          שר המשקים ושר האופים של פרעה, שכלואים יחד עם יוסף, חולמים חלומות שאין מי שיפתור אותם. יוסף, בענווה, מכריז ש"הלוא לאלוקים פתרונים" ופותר את שניהם: שר המשקים יושב על כנו בעוד שלושה ימים, ושר האופים ייתלה. יוסף מבקש משר המשקים שיזכירו לפרעה - אך זה שוכח אותו לגמרי, שנתיים תמימות. רק כשפרעה עצמו חולם שני חלומות (שבע פרות ושבע שיבולים) ואיש מחכמי מצרים אינו יכול לפתור אותם, נזכר שר המשקים ביוסף. יוסף מובא לפני פרעה, פותר את חלומו כרמז לשבע שנות שובע ושבע שנות רעב, ומציע תוכנית לאגירת מזון. פרעה, המתרשם עמוקות, ממנה את יוסף למשנה למלך על כל ארץ מצרים.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">🍇</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
+        <div class="topic-title">חלומות שר המשקים והאופה - "וישכחהו"</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🍇</span>
+        <div class="qb-root-label">פרק מ', עיקרי</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">שר המשקים ושר האופים חולמים חלומות בכלא, ואין מי שיפתור אותם - עד שיוסף מכריז ש"לאלוקים פתרונים"</div>
+          <div class="pasuk-line"><b>ה, ח:</b> וַיַּחַלְמוּ חֲלוֹם שְׁנֵיהֶם... וַיֹּאמְרוּ אֵלָיו: חֲלוֹם חָלַמְנוּ וּפֹתֵר אֵין אֹתוֹ. וַיֹּאמֶר אֲלֵהֶם יוֹסֵף: הֲלוֹא לֵאלֹקִים פִּתְרֹנִים, סַפְּרוּ נָא לִי.</div>
+          <div class="pasuk-gloss">יוסף פותר את שני החלומות: שר המשקים יושב על כנו, ושר האופים ייתלה - ומבקש שיזכרוהו לפני פרעה</div>
+          <div class="pasuk-line"><b>יד-טו:</b> כִּי אִם זְכַרְתַּנִי אִתְּךָ כַּאֲשֶׁר יִיטַב לָךְ, וְעָשִׂיתָ נָּא עִמָּדִי חָסֶד וְהִזְכַּרְתַּנִי אֶל פַּרְעֹה וְהוֹצֵאתַנִי מִן הַבַּיִת הַזֶּה. כִּי גֻנֹּב גֻּנַּבְתִּי מֵאֶרֶץ הָעִבְרִים, וְגַם פֹּה לֹא עָשִׂיתִי מְאוּמָה כִּי שָׂמוּ אֹתִי בַּבּוֹר.</div>
+          <div class="pasuk-gloss">שני החלומות מתגשמים כדבר יוסף - אך שר המשקים שוכח אותו לחלוטין</div>
+          <div class="pasuk-line"><b>כג:</b> וְלֹא זָכַר שַׂר הַמַּשְׁקִים אֶת יוֹסֵף וַיִּשְׁכָּחֵהוּ.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "חֲלוֹם חָלַמְנוּ וּפֹתֵר אֵין אֹתוֹ... הֲלוֹא לֵאלֹקִים פִּתְרֹנִים" (פסוקים ח')</p>
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="ch40__a11y-lbl-1">מה עונה יוסף לשרים כשהם מספרים שאין להם מי שיפתור את חלומם? כיצד תשובה זו שונה מיוסף הצעיר שסיפר את חלומותיו שלו לאחיו (בפרק ל"ז)?</span></div>
+            <textarea class="answer" aria-labelledby="ch40__a11y-lbl-1" data-id="ch40__q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יוסף עונה שהפתרון שייך לה', לא לו עצמו - ענווה מובהקת. זהו שינוי משמעותי לעומת יוסף הצעיר, שסיפר את חלומותיו לאחיו כמעט בגאווה, בלי לייחס אותם לה'. בכלא, לאחר שנות ניסיון קשות, יוסף מציג עצמו כצינור להעברת מסר אלוקי, ולא כבעל כישרון עצמאי.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "כִּי גֻנֹּב גֻּנַּבְתִּי מֵאֶרֶץ הָעִבְרִים... וְלֹא זָכַר שַׂר הַמַּשְׁקִים אֶת יוֹסֵף וַיִּשְׁכָּחֵהוּ" (פסוקים ט"ו, כ"ג)</p>
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="ch40__a11y-lbl-2">כיצד מתאר יוסף את מצבו בפני שר המשקים, ומה התוצאה המאכזבת של כל הבקשה הזאת?</span></div>
+            <textarea class="answer" aria-labelledby="ch40__a11y-lbl-2" data-id="ch40__q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יוסף מתאר עצמו כמי שנגנב שלא כדין מארץ העברים, ושגם במצרים לא עשה דבר שיצדיק את כליאתו. למרות זאת, התוצאה מאכזבת: שר המשקים, למרות שהובטח לו הצלה מיידית ופנייה לפרעה, שוכח את יוסף לגמרי - יוסף נשאר בכלא שנתיים נוספות.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <span class="topic-icon" aria-hidden="true">🐄</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
+        <div class="topic-title">חלום פרעה - הפרות והשיבולים</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🐄</span>
+        <div class="qb-root-label">פרק מ"א, פסוקים א'-ז'</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">פרעה חולם: שבע פרות רזות בולעות שבע פרות בריאות</div>
+          <div class="pasuk-line"><b>א-ד:</b> וַיְהִי מִקֵּץ שְׁנָתַיִם יָמִים וּפַרְעֹה חֹלֵם... וְהִנֵּה עֹלֹת מִן הַיְאֹר שֶׁבַע פָּרוֹת יְפוֹת מַרְאֶה וּבְרִיאֹת בָּשָׂר... וְהִנֵּה שֶׁבַע פָּרוֹת אֲחֵרוֹת עֹלוֹת אַחֲרֵיהֶן, רָעוֹת מַרְאֶה וְדַקּוֹת בָּשָׂר... וַתֹּאכַלְנָה הַפָּרוֹת רָעוֹת הַמַּרְאֶה וְדַקֹּת הַבָּשָׂר, אֵת שֶׁבַע הַפָּרוֹת יְפֹת הַמַּרְאֶה וְהַבְּרִיאֹת.</div>
+          <div class="pasuk-gloss">חלום שני, דומה בתוכנו: שבע שיבולים דקות בולעות שבע שיבולים בריאות</div>
+          <div class="pasuk-line"><b>ה-ז:</b> וְהִנֵּה שֶׁבַע שִׁבֳּלִים עֹלוֹת בְּקָנֶה אֶחָד, בְּרִיאוֹת וְטֹבוֹת... וְהִנֵּה שֶׁבַע שִׁבֳּלִים דַּקּוֹת וּשְׁדוּפֹת קָדִים צֹמְחוֹת אַחֲרֵיהֶן... וַתִּבְלַעְנָה הַשִּׁבֳּלִים הַדַּקּוֹת אֵת שֶׁבַע הַשִּׁבֳּלִים הַבְּרִיאוֹת וְהַמְּלֵאוֹת.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="mini-timeline detail" role="img" aria-label="שני חלומות פרעה - הפרות והשיבולים - עם אותה מבנה: טוב ואחריו רע שבולע אותו">
+            <div class="step">
+              <span class="step-icon" aria-hidden="true">🐄</span><b>7 פרות בריאות</b>
+              <small>נבלעות ע"י 7 פרות רזות</small>
+            </div>
+            <div class="arrow" aria-hidden="true">↔</div>
+            <div class="step">
+              <span class="step-icon" aria-hidden="true">🌾</span><b>7 שיבולים בריאות</b>
+              <small>נבלעות ע"י 7 שיבולים דקות</small>
+            </div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: שני חלומות פרעה - הפרות (פס' א'-ד') והשיבולים (פס' ה'-ז')</p>
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="ch40__a11y-lbl-3">מה משותף למבנה שני החלומות של פרעה? מדוע, לדעתכם, חולם פרעה שני חלומות דומים במקום חלום אחד בלבד?</span></div>
+            <textarea class="answer" aria-labelledby="ch40__a11y-lbl-3" data-id="ch40__q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> בשני החלומות, שבעה דברים "טובים" (פרות בריאות, שיבולים מלאות) נבלעים על ידי שבעה דברים "רעים" (פרות רזות, שיבולים דקות) - אותו מבנה בדיוק, בשתי תמונות שונות. כפי שיוסף יסביר בהמשך, הכפילות מלמדת שהדבר נכון ומזומן מאת ה' להתרחש בקרוב.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3E5A8C; --acc-soft:#E2E7F2;">
+      <span class="topic-icon" aria-hidden="true">👑</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
+        <div class="topic-title">פתרון החלום ומינוי יוסף למשנה למלך</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#3E5A8C; --acc-soft:#E2E7F2;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">👑</span>
+        <div class="qb-root-label">פרק מ"א, פסוקים ט"ז-מ"א</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">יוסף מוצג לפני פרעה ומייחס את הפתרון לה'; מפרש את שני החלומות כאחד - שבע שנות שובע ואחריהן שבע שנות רעב</div>
+          <div class="pasuk-line"><b>טז, כה-כז:</b> וַיַּעַן יוֹסֵף אֶת פַּרְעֹה לֵאמֹר: בִּלְעָדָי, אֱלֹקִים יַעֲנֶה אֶת שְׁלוֹם פַּרְעֹה. חֲלוֹם פַּרְעֹה אֶחָד הוּא, אֵת אֲשֶׁר הָאֱלֹקִים עֹשֶׂה הִגִּיד לְפַרְעֹה. שֶׁבַע פָּרֹת הַטֹּבֹת - שֶׁבַע שָׁנִים הֵנָּה... שֶׁבַע שְׁנֵי רָעָב.</div>
+          <div class="pasuk-gloss">יוסף מציע תוכנית מעשית: למנות איש נבון וחכם ולאגור מזון בשני השובע</div>
+          <div class="pasuk-line"><b>לג-לו:</b> וְעַתָּה יֵרֶא פַרְעֹה אִישׁ נָבוֹן וְחָכָם וִישִׁיתֵהוּ עַל אֶרֶץ מִצְרָיִם... וְיִקְבְּצוּ אֶת כָּל אֹכֶל הַשָּׁנִים הַטֹּבֹת הַבָּאֹת הָאֵלֶּה... לְפִקָּדוֹן.</div>
+          <div class="pasuk-gloss">פרעה מתרשם עמוקות וממנה את יוסף למשנה למלך על כל ארץ מצרים</div>
+          <div class="pasuk-line"><b>לח-מא:</b> הֲנִמְצָא כָזֶה - אִישׁ אֲשֶׁר רוּחַ אֱלֹקִים בּוֹ? אַחֲרֵי הוֹדִיעַ אֱלֹקִים אוֹתְךָ אֶת כָּל זֹאת, אֵין נָבוֹן וְחָכָם כָּמוֹךָ. אַתָּה תִּהְיֶה עַל בֵּיתִי וְעַל פִּיךָ יִשַּׁק כָּל עַמִּי, רַק הַכִּסֵּא אֶגְדַּל מִמֶּךָּ. רְאֵה נָתַתִּי אֹתְךָ עַל כָּל אֶרֶץ מִצְרָיִם.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "בִּלְעָדָי, אֱלֹקִים יַעֲנֶה אֶת שְׁלוֹם פַּרְעֹה... חֲלוֹם פַּרְעֹה אֶחָד הוּא" (פסוקים ט"ז, כ"ה)</p>
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="ch40__a11y-lbl-4">כיצד פותח יוסף את דבריו לפני פרעה, ומה החידוש בפתרונו - כיצד הוא מאחד את שני החלומות הנפרדים לפתרון אחד?</span></div>
+            <textarea class="answer" aria-labelledby="ch40__a11y-lbl-4" data-id="ch40__q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יוסף פותח, כמו בכלא, בייחוס הפתרון לאלוקים ולא לחוכמתו האישית. חידושו: הוא מבין ששני החלומות, אף שנראים נפרדים (פרות ושיבולים), מבטאים את אותו מסר בדיוק - שבע שנות שובע יבואו ואחריהן שבע שנות רעב - ולכן מכריז "חלום פרעה אחד הוא".</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְעַתָּה יֵרֶא פַרְעֹה אִישׁ נָבוֹן וְחָכָם... אַתָּה תִּהְיֶה עַל בֵּיתִי" (פסוקים ל"ג, מ')</p>
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="ch40__a11y-lbl-5">יוסף לא התבקש להציע פתרון מעשי, אלא רק לפתור את החלום - ובכל זאת הוא מוסיף עצה. כיצד תרמה יוזמה זו למינויו שלו עצמו?</span></div>
+            <textarea class="answer" aria-labelledby="ch40__a11y-lbl-5" data-id="ch40__q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> על ידי הצעת תוכנית מעשית ומפורטת (מינוי איש נבון, אגירת מזון, פקדון לשני הרעב), יוסף מדגים לפרעה לא רק יכולת פרשנית אלא גם יכולת ניהולית ומעשית. פרעה, המתרשם מהחוכמה וההיגיון שברעיון, מגיע למסקנה שיוסף עצמו הוא האיש הראוי למלא את התפקיד שהציע.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  
+    </div>
+  </section>
+
+  <section class="topic-section" id="topic-ch42" role="tabpanel" aria-labelledby="tab-btn-ch42" hidden style="--acc:#8B4A34;--acc-soft:#F1E2DA;">
+    <div class="topic-banner">
+      <span class="topic-icon" aria-hidden="true">🌾</span>
+      <div>
+        <div class="topic-eyebrow">ספר בראשית 12 מתוך 13</div>
+        <h2 class="topic-title">דף עבודה — פרקים מ&quot;ב-מ&quot;ד, &quot;אָנֹכִי אֶעֶרְבֶנּוּ&quot;</h2>
+      </div>
+      <div class="topic-counter" data-topic-counter="topic-ch42">0/1</div>
+    </div>
+    <div class="grid">
+
+
+    <!-- תקציר הפרקים -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרקים</span>
+        <h2 class="card-title">מה קורה בפרקים מ"ב-מ"ד?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          הרעב הכבד מביא את אחי יוסף (מלבד בנימין) לרדת למצרים לשבור בר. יוסף מזהה אותם מיד, אך הם אינם מזהים אותו; הוא מתייחס אליהם בקשיחות, מאשים אותם כמרגלים, וכולא את שמעון עד שיביאו את בנימין. בדרך חזרה, האחים מגלים בבהלה שכספם הושב בשקיהם. יעקב מסרב תחילה לשלוח את בנימין, אך משנאלץ בשל המשך הרעב, יהודה ערב לו באופן אישי ("אנכי אערבנו"). במצרים, יוסף עורך סעודה מרגשת לאחיו ובוכה למראה בנימין, אך עדיין אינו מתגלה. הוא מצווה להטמין את גביע הכסף שלו באמתחת בנימין, ומאשים את האחים בגניבה כשהם יוצאים לדרכם. יהודה, במקום לנטוש את בנימין, נושא נאום נרגש ומבקש להישאר עבד תחת בנימין - כדי לא לגרום ליעקב אביהם צער נוסף.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <span class="topic-icon" aria-hidden="true">🌾</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
+        <div class="topic-title">ירידת האחים למצרים והאשמת המרגלים</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🌾</span>
+        <div class="qb-root-label">פרק מ"ב, פסוקים עיקריים</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">האחים יורדים למצרים לשבור בר; יוסף מזהה אותם, אך הם אינם מזהים אותו</div>
+          <div class="pasuk-line"><b>ז-ח:</b> וַיַּרְא יוֹסֵף אֶת אֶחָיו וַיַּכִּרֵם, וַיִּתְנַכֵּר אֲלֵיהֶם וַיְדַבֵּר אִתָּם קָשׁוֹת... וְיוֹסֵף הִכִּיר אֶת אֶחָיו, וְהֵם לֹא הִכִּרֻהוּ.</div>
+          <div class="pasuk-gloss">יוסף מאשים אותם במרגלות ומחזיק את שמעון בערבון עד שיביאו את בנימין</div>
+          <div class="pasuk-line"><b>ט, יד-טו:</b> וַיִּזְכֹּר יוֹסֵף אֵת הַחֲלֹמוֹת אֲשֶׁר חָלַם לָהֶם, וַיֹּאמֶר אֲלֵהֶם: מְרַגְּלִים אַתֶּם... בְּזֹאת תִּבָּחֵנוּ: חֵי פַרְעֹה אִם תֵּצְאוּ מִזֶּה כִּי אִם בְּבוֹא אֲחִיכֶם הַקָּטֹן הֵנָּה.</div>
+          <div class="pasuk-gloss">האחים מתייסרים ומבינים שזהו עונש על מכירת יוסף</div>
+          <div class="pasuk-line"><b>כא-כב:</b> וַיֹּאמְרוּ אִישׁ אֶל אָחִיו: אֲבָל אֲשֵׁמִים אֲנַחְנוּ עַל אָחִינוּ אֲשֶׁר רָאִינוּ צָרַת נַפְשׁוֹ בְּהִתְחַנְנוֹ אֵלֵינוּ וְלֹא שָׁמָעְנוּ - עַל כֵּן בָּאָה אֵלֵינוּ הַצָּרָה הַזֹּאת.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְיוֹסֵף הִכִּיר אֶת אֶחָיו, וְהֵם לֹא הִכִּרֻהוּ" (פסוק ח')</p>
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="ch42__a11y-lbl-1">מהן, לדעתכם, הסיבות האפשריות לכך שיוסף מזהה את אחיו, אך הם אינם מזהים אותו? (חִשבו הן על שינוי חיצוני והן על ציפייה נפשית).</span></div>
+            <textarea class="answer" aria-labelledby="ch42__a11y-lbl-1" data-id="ch42__q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יוסף התבגר מגיל 17 (כשנמכר) למשנה למלך מבוגר, לבוש בבגדי מלכות מצריים, מגולח ומדבר מצרית - שינוי חיצוני עצום. בנוסף, האחים כלל אינם מצפים לפגוש את יוסף - הם משוכנעים שהוא מת - ולכן אינם מנסים לזהות אותו. יוסף, לעומתם, יודע בדיוק מי הם וממתין להם.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "אֲבָל אֲשֵׁמִים אֲנַחְנוּ עַל אָחִינוּ... עַל כֵּן בָּאָה אֵלֵינוּ הַצָּרָה הַזֹּאת" (פסוקים כ"א-כ"ב)</p>
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="ch42__a11y-lbl-2">מה מגלים האחים על עצמם בפסוקים אלה, ומדוע דווקא צרתם הנוכחית (החשד במרגלות) מעוררת בהם הודאה בחטא הישן?</span></div>
+            <textarea class="answer" aria-labelledby="ch42__a11y-lbl-2" data-id="ch42__q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> האחים מגלים שמעולם לא שכחו את מכירת יוסף, ושהם חשים אשמה עמוקה על כך שהתעלמו מתחנוניו. הצרה הנוכחית - חוסר האונים מול השלטון המצרי - מזכירה להם באופן ישיר את חוסר האונים של יוסף מולם בזמנו, ולכן דווקא כעת מתעוררת ההודאה בחטא.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">🤲</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
+        <div class="topic-title">יהודה ערב לבנימין - הגביע באמתחתו</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🤲</span>
+        <div class="qb-root-label">פרקים מ"ג-מ"ד, עיקרי</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">יהודה מתחייב באופן אישי לאחריות על שלום בנימין, וכך משכנע את יעקב לשלוח אותו</div>
+          <div class="pasuk-line"><b>מ"ג, ח-ט:</b> וַיֹּאמֶר יְהוּדָה אֶל יִשְׂרָאֵל אָבִיו: שִׁלְחָה הַנַּעַר אִתִּי וְנָקוּמָה וְנֵלֵכָה, וְנִחְיֶה וְלֹא נָמוּת גַּם אֲנַחְנוּ גַם אַתָּה גַּם טַפֵּנוּ. אָנֹכִי אֶעֶרְבֶנּוּ, מִיָּדִי תְּבַקְשֶׁנּוּ; אִם לֹא הֲבִיאֹתִיו אֵלֶיךָ וְהִצַּגְתִּיו לְפָנֶיךָ - וְחָטָאתִי לְךָ כָּל הַיָּמִים.</div>
+          <div class="pasuk-gloss">בסעודה במצרים, יוסף רואה את בנימין ונאלץ להתאפק מרוב התרגשות</div>
+          <div class="pasuk-line"><b>מ"ג, ל:</b> וַיְמַהֵר יוֹסֵף כִּי נִכְמְרוּ רַחֲמָיו אֶל אָחִיו וַיְבַקֵּשׁ לִבְכּוֹת, וַיָּבֹא הַחַדְרָה וַיֵּבְךְּ שָׁמָּה.</div>
+          <div class="pasuk-gloss">יוסף מצווה להטמין את גביעו באמתחת בנימין, ולהאשים את האחים בגניבה כשהם יוצאים לדרך</div>
+          <div class="pasuk-line"><b>מ"ד, יב-יג:</b> וַיְחַפֵּשׂ, בַּגָּדוֹל הֵחֵל וּבַקָּטֹן כִּלָּה - וַיִּמָּצֵא הַגָּבִיעַ בְּאַמְתַּחַת בִּנְיָמִן. וַיִּקְרְעוּ שִׂמְלֹתָם, וַיַּעֲמֹס אִישׁ עַל חֲמֹרוֹ, וַיָּשֻׁבוּ הָעִירָה.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "אָנֹכִי אֶעֶרְבֶנּוּ, מִיָּדִי תְּבַקְשֶׁנּוּ... וְחָטָאתִי לְךָ כָּל הַיָּמִים" (פרק מ"ג, פסוק ט')</p>
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="ch42__a11y-lbl-3">מה מציע יהודה ליעקב כדי לשכנעו לשלוח את בנימין? במה שונה התחייבותו של יהודה כאן מהתנהגותו בפרק ל"ז, כאשר הציע למכור את יוסף?</span></div>
+            <textarea class="answer" aria-labelledby="ch42__a11y-lbl-3" data-id="ch42__q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יהודה מציע ערבות אישית ומוחלטת - הוא לוקח על עצמו את מלוא האחריות לשלום בנימין, ומקבל על עצמו "לחטוא לאביו כל הימים" אם לא ישיבו. זהו שינוי דרמטי לעומת פרק ל"ז: שם יהודה יזם את מכירת אח, וכעת הוא מוכן לסכן את עצמו למען הגנת אח אחר - עדות להתפתחות מוסרית.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיְמַהֵר יוֹסֵף כִּי נִכְמְרוּ רַחֲמָיו אֶל אָחִיו וַיְבַקֵּשׁ לִבְכּוֹת" (פרק מ"ג, פסוק ל')</p>
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="ch42__a11y-lbl-4">מדוע, לדעתכם, בוחר יוסף להסתיר את דמעותיו ולא להתגלות מיד לאחיו כשהוא רואה את בנימין - למרות הרגש העז שהוא חש?</span></div>
+            <textarea class="answer" aria-labelledby="ch42__a11y-lbl-4" data-id="ch42__q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ייתכן שיוסף רוצה לבחון תחילה את אחיו - האם השתנו מאז מכירתו - לפני שיתגלה אליהם ויסתכן שוב באכזבה. הוא עורך את מבחן הגביע דווקא כדי לראות כיצד יתייחסו האחים לבנימין, האם ינטשו אותו כפי שנטשו אותו בזמנו, או יגנו עליו במסירות.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">🗣️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
+        <div class="topic-title">נאום יהודה הנרגש</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🗣️</span>
+        <div class="qb-root-label">פרק מ"ד, פסוקים י"ח-ל"ד</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">יהודה ניגש אל יוסף ומבקש לדבר, ומזכיר את התחייבותו לאביו על שלום בנימין</div>
+          <div class="pasuk-line"><b>יח, לב:</b> וַיִּגַּשׁ אֵלָיו יְהוּדָה וַיֹּאמֶר: בִּי אֲדֹנִי, יְדַבֶּר נָא עַבְדְּךָ דָבָר בְּאָזְנֵי אֲדֹנִי... כִּי עַבְדְּךָ עָרַב אֶת הַנַּעַר מֵעִם אָבִי לֵאמֹר: אִם לֹא אֲבִיאֶנּוּ אֵלֶיךָ וְחָטָאתִי לְאָבִי כָּל הַיָּמִים.</div>
+          <div class="pasuk-gloss">יהודה מציג את מצוקת אביו, שנפשו קשורה בנפש בנימין, ומבקש שהוא עצמו יישאר עבד במקומו</div>
+          <div class="pasuk-line"><b>ל, לג-לד:</b> וְעַתָּה כְּבֹאִי אֶל עַבְדְּךָ אָבִי וְהַנַּעַר אֵינֶנּוּ אִתָּנוּ, וְנַפְשׁוֹ קְשׁוּרָה בְנַפְשׁוֹ... וְעַתָּה יֵשֶׁב נָא עַבְדְּךָ תַּחַת הַנַּעַר עֶבֶד לַאדֹנִי, וְהַנַּעַר יַעַל עִם אֶחָיו. כִּי אֵיךְ אֶעֱלֶה אֶל אָבִי וְהַנַּעַר אֵינֶנּוּ אִתִּי - פֶּן אֶרְאֶה בָרָע אֲשֶׁר יִמְצָא אֶת אָבִי.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְנַפְשׁוֹ קְשׁוּרָה בְנַפְשׁוֹ... פֶּן אֶרְאֶה בָרָע אֲשֶׁר יִמְצָא אֶת אָבִי" (פסוקים ל', ל"ד)</p>
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="ch42__a11y-lbl-5">מה מדגיש יהודה בנאומו לגבי הקשר בין יעקב לבנימין? מהי הבקשה הקונקרטית שהוא מציע במקום להשאיר את בנימין כעבד?</span></div>
+            <textarea class="answer" aria-labelledby="ch42__a11y-lbl-5" data-id="ch42__q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יהודה מדגיש שנפשו של יעקב "קשורה" בנפש בנימין - קשר רגשי כה עמוק, עד שאובדנו עלול לגרום למות אביהם מצער. הבקשה הקונקרטית: שיהודה עצמו יישאר עבד תמורת חופש בנימין, כדי שבנימין יוכל לחזור בשלום אל אביהם.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "יֵשֶׁב נָא עַבְדְּךָ תַּחַת הַנַּעַר עֶבֶד לַאדֹנִי" (פסוק ל"ג)</p>
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="ch42__a11y-lbl-6">השוו בין יהודה בנקודה זו לבין יהודה שהציע למכור את יוסף לעבדות (פרק ל"ז). מה השתנה באופיו של יהודה, ומה מלמד שינוי זה על יכולתו של אדם לתקן עוול שגרם בעבר?</span></div>
+            <textarea class="answer" aria-labelledby="ch42__a11y-lbl-6" data-id="ch42__q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> בפרק ל"ז יהודה הציע למכור אח לעבדות כדי להיפטר ממנו בלא אשמת רצח; כאן הוא מציע את עצמו לעבדות כדי להציל אח אחר. זהו היפוך גמור: מנצל מצב לטובתו האישית, להקרבה עצמית למען אחיו ואביו. שינוי זה מלמד שאדם יכול לתקן עוול עבר על ידי בחירה הפוכה במצב דומה - זהו יסוד רעיון "בעל תשובה" בהמשך המסורת.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  
+    </div>
+  </section>
+
+  <section class="topic-section" id="topic-ch45" role="tabpanel" aria-labelledby="tab-btn-ch45" hidden style="--acc:#1E2761;--acc-soft:#E3E5F3;">
+    <div class="topic-banner">
+      <span class="topic-icon" aria-hidden="true">💕</span>
+      <div>
+        <div class="topic-eyebrow">ספר בראשית 13 מתוך 13</div>
+        <h2 class="topic-title">דף עבודה — פרק מ&quot;ה, &quot;אֲנִי יוֹסֵף, הַעוֹד אָבִי חָי&quot;</h2>
+      </div>
+      <div class="topic-counter" data-topic-counter="topic-ch45">0/1</div>
+    </div>
+    <div class="grid">
+
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרק</span>
+        <h2 class="card-title">מה קורה בפרק מ"ה?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          לאחר נאומו הנרגש של יהודה, אין יוסף יכול עוד להתאפק. הוא מוציא מעליו את כל המצרים ומתגלה לאחיו בבכי גדול: "אני יוסף - העוד אבי חי?". האחים נבהלים ואינם מסוגלים לענות, אך יוסף מקרב אותם ומרגיע אותם - הוא מסביר שלא הם, אלא ה', שלח אותו למצרים כדי להצילם ברעב, "למחיה". הוא מבקש מהם למהר ולעלות אל אביהם, לספר לו על מעמדו הרם במצרים, ולהביא את המשפחה כולה לגור בארץ גושן. פרעה שמח לשמע הבשורה ומצווה לספק לאחים עגלות ורכוש. כשמגיעה הבשורה ליעקב, הוא אינו מאמין תחילה, אך משראה את העגלות ששלח יוסף - רוחו חוזרת אליו, והוא מכריז שיילך לראות את בנו בטרם ימות.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
+      <span class="topic-icon" aria-hidden="true">💔</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
+        <div class="topic-title">"אני יוסף" - ההתוודעות</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">💔</span>
+        <div class="qb-root-label">פסוקים א'-ד'</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">יוסף אינו יכול עוד להתאפק, מוציא את כל המצרים, ומתגלה לאחיו בבכי</div>
+          <div class="pasuk-line"><b>א-ב:</b> וְלֹא יָכֹל יוֹסֵף לְהִתְאַפֵּק לְכֹל הַנִּצָּבִים עָלָיו, וַיִּקְרָא: הוֹצִיאוּ כָל אִישׁ מֵעָלָי! וְלֹא עָמַד אִישׁ אִתּוֹ בְּהִתְוַדַּע יוֹסֵף אֶל אֶחָיו. וַיִּתֵּן אֶת קֹלוֹ בִּבְכִי, וַיִּשְׁמְעוּ מִצְרַיִם וַיִּשְׁמַע בֵּית פַּרְעֹה.</div>
+          <div class="pasuk-gloss">יוסף מכריז מיהו, ושואל על אביו; האחים נבהלים ואינם מסוגלים לענות</div>
+          <div class="pasuk-line"><b>ג-ד:</b> וַיֹּאמֶר יוֹסֵף אֶל אֶחָיו: אֲנִי יוֹסֵף, הַעוֹד אָבִי חָי? וְלֹא יָכְלוּ אֶחָיו לַעֲנוֹת אֹתוֹ כִּי נִבְהֲלוּ מִפָּנָיו. וַיֹּאמֶר יוֹסֵף אֶל אֶחָיו: גְּשׁוּ נָא אֵלַי - וַיִּגָּשׁוּ, וַיֹּאמֶר: אֲנִי יוֹסֵף אֲחִיכֶם אֲשֶׁר מְכַרְתֶּם אֹתִי מִצְרָיְמָה.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "הוֹצִיאוּ כָל אִישׁ מֵעָלָי... וַיִּתֵּן אֶת קֹלוֹ בִּבְכִי" (פסוקים א'-ב')</p>
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="ch45__a11y-lbl-1">מדוע מקפיד יוסף להוציא את כל המצרים לפני שהוא מתגלה לאחיו? מה מלמד הדבר על רגישותו כלפי אחיו, גם ברגע הדרמטי הזה?</span></div>
+            <textarea class="answer" aria-labelledby="ch45__a11y-lbl-1" data-id="ch45__q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יוסף מקפיד להתייחד עם אחיו לבד, כדי לא לבייש אותם בפני זרים (המצרים) ברגע שבו יתגלה שהם מכרו אח לעבדות. גם ברגע רגשי ודרמטי כל כך, הוא שומר על כבודם וחוסך מהם השפלה פומבית - עדות לאיפוק ולרגישות מוסרית עמוקה.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "אֲנִי יוֹסֵף, הַעוֹד אָבִי חָי?... אֲנִי יוֹסֵף אֲחִיכֶם אֲשֶׁר מְכַרְתֶּם אֹתִי מִצְרָיְמָה" (פסוקים ג'-ד')</p>
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="ch45__a11y-lbl-2">מדוע חוזר יוסף ואומר "אני יוסף" פעמיים, בהפרש של פסוק אחד בלבד? במה שונה ההכרזה השנייה מהראשונה?</span></div>
+            <textarea class="answer" aria-labelledby="ch45__a11y-lbl-2" data-id="ch45__q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ההכרזה הראשונה נאמרת מרחוק, ואינה מתקבלת - האחים נבהלים ואינם מגיבים כלל. לכן יוסף קורא להם לגשת אליו, ורק אז חוזר על ההכרזה מקרוב, הפעם עם תוספת מפורשת ("אחיכם אשר מכרתם אתי") - כדי שלא יישאר ספק לגבי זהותו, ובמטרה להרגיע אותם על ידי קרבה פיזית.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">🌾</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
+        <div class="topic-title">"כי למחיה שלחני אלוקים" - ההשגחה במקום ההאשמה</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🌾</span>
+        <div class="qb-root-label">פסוקים ה'-ח'</div>
+        <div class="qb-root-pasuk"><b>ה, ז-ח:</b> וְעַתָּה אַל תֵּעָצְבוּ וְאַל יִחַר בְּעֵינֵיכֶם כִּי מְכַרְתֶּם אֹתִי הֵנָּה, כִּי לְמִחְיָה שְׁלָחַנִי אֱלֹקִים לִפְנֵיכֶם. וַיִּשְׁלָחֵנִי אֱלֹקִים לִפְנֵיכֶם לָשׂוּם לָכֶם שְׁאֵרִית בָּאָרֶץ, וּלְהַחֲיוֹת לָכֶם לִפְלֵיטָה גְּדֹלָה. וְעַתָּה לֹא אַתֶּם שְׁלַחְתֶּם אֹתִי הֵנָּה כִּי הָאֱלֹקִים, וַיְשִׂימֵנִי לְאָב לְפַרְעֹה וּלְאָדוֹן לְכָל בֵּיתוֹ וּמֹשֵׁל בְּכָל אֶרֶץ מִצְרָיִם.</div>
+        <div class="qb-root-note">בפסוקים אלה מציג יוסף לראשונה את ה"תמונה המלאה" של סיפור חייו - לא כשרשרת מקרים אקראית, אלא כתוכנית אלוקית מכוונת.</div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "אַל תֵּעָצְבוּ וְאַל יִחַר בְּעֵינֵיכֶם כִּי מְכַרְתֶּם אֹתִי הֵנָּה... לֹא אַתֶּם שְׁלַחְתֶּם אֹתִי הֵנָּה כִּי הָאֱלֹקִים" (פסוקים ה', ח')</p>
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="ch45__a11y-lbl-3">כיצד מפרש יוסף את שרשרת האירועים שהובילה אותו למצרים - האם כמעשה האחים או כמעשה ה'? כיצד פרשנות זו מאפשרת לו לסלוח לאחיו?</span></div>
+            <textarea class="answer" aria-labelledby="ch45__a11y-lbl-3" data-id="ch45__q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יוסף מפרש את כל שרשרת האירועים כתוכנית אלוקית שנועדה מראש להצילם ("למחיה שלחני אלוקים") - לא כמעשה זדון אנושי בלבד. פרשנות זו מאפשרת לו לסלוח: הוא רואה את מעשה האחים כאמצעי שבו השתמש ה' להשגת מטרה גדולה יותר, ולכן אינו נושא להם טינה על התוצאה.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיְשִׂימֵנִי לְאָב לְפַרְעֹה וּלְאָדוֹן לְכָל בֵּיתוֹ וּמֹשֵׁל בְּכָל אֶרֶץ מִצְרָיִם" (פסוק ח')</p>
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="ch45__a11y-lbl-4">חִזרו אחורה בזיכרונכם לחלומות יוסף בפרק ל"ז (האלומות, השמש הירח והכוכבים). כיצד מסתיימים חלומות אלה בפועל בפסוק זה?</span></div>
+            <textarea class="answer" aria-labelledby="ch45__a11y-lbl-4" data-id="ch45__q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> חלומות יוסף על ממשל ועל השתחוות אחיו ובני משפחתו לפניו מתגשמים כעת במלואם: יוסף אכן הופך לשליט (על מצרים) שאליו יגיעו אחיו ואביו בבקשת עזרה - בדיוק כפי שחזה בחלומותיו הצעירים, שעליהם נשנאו על ידי אחיו.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <span class="topic-icon" aria-hidden="true">🐫</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
+        <div class="topic-title">הבשורה ליעקב - "עוד יוסף חי"</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🐫</span>
+        <div class="qb-root-label">פסוקים כ"ד-כ"ח</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">האחים חוזרים ומספרים ליעקב שיוסף עודנו חי, אך הוא אינו מאמין להם</div>
+          <div class="pasuk-line"><b>כד-כו:</b> וַיְנַגְּדוּ לוֹ לֵאמֹר: עוֹד יוֹסֵף חַי, וְכִי הוּא מֹשֵׁל בְּכָל אֶרֶץ מִצְרָיִם - וַיָּפָג לִבּוֹ כִּי לֹא הֶאֱמִין לָהֶם.</div>
+          <div class="pasuk-gloss">כשיעקב רואה את העגלות ששלח יוסף, רוחו חוזרת אליו והוא מאמין</div>
+          <div class="pasuk-line"><b>כז:</b> וַיְדַבְּרוּ אֵלָיו אֵת כָּל דִּבְרֵי יוֹסֵף אֲשֶׁר דִּבֶּר אֲלֵהֶם, וַיַּרְא אֶת הָעֲגָלוֹת אֲשֶׁר שָׁלַח יוֹסֵף לָשֵׂאת אֹתוֹ - וַתְּחִי רוּחַ יַעֲקֹב אֲבִיהֶם.</div>
+          <div class="pasuk-gloss">יעקב מכריז שיילך לראות את בנו יוסף בטרם ימות</div>
+          <div class="pasuk-line"><b>כח:</b> וַיֹּאמֶר יִשְׂרָאֵל: רַב, עוֹד יוֹסֵף בְּנִי חָי - אֵלְכָה וְאֶרְאֶנּוּ בְּטֶרֶם אָמוּת.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיָּפָג לִבּוֹ כִּי לֹא הֶאֱמִין לָהֶם... וַתְּחִי רוּחַ יַעֲקֹב אֲבִיהֶם" (פסוקים כ"ו-כ"ז)</p>
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="ch45__a11y-lbl-5">מדוע אין יעקב מאמין לדברי בניו, ומה, בסופו של דבר, משכנע אותו שהבשורה אמיתית?</span></div>
+            <textarea class="answer" aria-labelledby="ch45__a11y-lbl-5" data-id="ch45__q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יעקב אינו מאמין כי הבשורה נשמעת בלתי סבירה מדי - בנו שהיה בטוח שנטרף חי כמשנה למלך מצרים - וייתכן שגם משום שכבר פעם אחת רומה בכתונת הדם. מה שמשכנע אותו סופית הוא ראיית העגלות המוחשיות ששלח יוסף - הוכחה חזותית וקונקרטית שאי אפשר להטיל בה ספק.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "רַב, עוֹד יוֹסֵף בְּנִי חָי - אֵלְכָה וְאֶרְאֶנּוּ בְּטֶרֶם אָמוּת" (פסוק כ"ח)</p>
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="ch45__a11y-lbl-6">כיצד מסתיים, בפסוק זה, הקרע המשפחתי שהחל בפרק ל"ז? הראו כיצד סוף הפרק "סוגר מעגל" עם תחילת סיפור יוסף.</span></div>
+            <textarea class="answer" aria-labelledby="ch45__a11y-lbl-6" data-id="ch45__q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הפרק מסתיים בתקווה מלאה ובאיחוד משפחתי צפוי - יעקב, שאבל בלא נחמה על "מות" יוסף (פרק ל"ז), עומד כעת ללכת ולראותו בחיים. המעגל נסגר: מהפירוד הכואב שנגרם בקנאה ובשנאה, אל האיחוד המחודש שנולד מתוך אחריות, ערבות והכרה בהשגחת ה'.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  
+    </div>
+  </section>
 </main>
 
 <div class="toolbar">
@@ -2598,6 +4092,14 @@ function loadAnswers(){
   migrateLegacy('bereshit-ch17-answers', 'ch17');
   migrateLegacy('bereshit-ch18-answers', 'ch18');
   migrateLegacy('bereshit-ch22-answers', 'ch22');
+  migrateLegacy('bereshit-ch25-answers', 'ch25');
+  migrateLegacy('bereshit-ch27-answers', 'ch27');
+  migrateLegacy('bereshit-ch32-answers', 'ch32');
+  migrateLegacy('bereshit-ch37-answers', 'ch37');
+  migrateLegacy('bereshit-ch39-answers', 'ch39');
+  migrateLegacy('bereshit-ch40-answers', 'ch40');
+  migrateLegacy('bereshit-ch42-answers', 'ch42');
+  migrateLegacy('bereshit-ch45-answers', 'ch45');
   try{
     const raw = localStorage.getItem(STORAGE_KEY);
     if(raw){
