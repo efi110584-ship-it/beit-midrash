@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר בראשית — דף עבודה אינטראקטיבי (פרק ל"ז, מכירת יוסף)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
+
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  .mini-timeline.detail .step{ flex:1 1 140px; text-align:center; gap:.3rem; padding:.6rem .6rem; }
+  .mini-timeline.detail .step b{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.88rem; color:var(--ink); }
+  .mini-timeline.detail .step small{ display:block; font-size:.68rem; line-height:1.35; color:var(--ink-soft); }
+  .mini-timeline.detail .step small.why{ color:var(--rust); font-weight:700; }
+  .mini-timeline{ margin-top:.7rem; }
+
+  .vs-compare{ display:flex; align-items:stretch; gap:0; margin:.7rem 0; border-radius:12px; overflow:hidden; box-shadow:var(--shadow); }
+  .vs-side{ flex:1; padding:.7rem .8rem; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.3rem; }
+  .vs-a{ background:var(--teal-soft); }
+  .vs-b{ background:var(--rust-soft); }
+  .vs-icon{ font-size:1.35rem; }
+  .vs-title{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.85rem; color:var(--ink); }
+  .vs-desc{ font-size:.72rem; line-height:1.45; color:var(--ink-soft); }
+  .vs-mid{ flex:none; width:2rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.72rem; color:#fff; background:var(--ink); }
+
+  .plan-reality{ display:flex; flex-direction:column; gap:.55rem; margin:.7rem 0; }
+  .pr-row{ display:flex; flex-direction:column; gap:.3rem; }
+  .pr-label{ font-weight:800; font-size:.76rem; color:var(--acc); }
+
+  .flowchart{ display:flex; flex-direction:column; align-items:center; gap:0; margin:.7rem 0; }
+  .flow-step{ display:flex; align-items:center; gap:.6rem; width:100%; }
+  .flow-node{
+    flex:none; width:1.6rem; height:1.6rem; border-radius:50%; background:var(--acc); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.8rem;
+  }
+  .flow-card{ flex:1; background:#fff; border:1.5px solid var(--paper-line); border-radius:10px; padding:.5rem .7rem; }
+  .flow-title{ font-size:.78rem; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:.4rem; }
+  .flow-icon{ font-size:.95rem; }
+  .flow-arrow{ color:var(--acc); font-size:1rem; margin:.1rem 0; }
+
+  .topic-banner{ margin-top:2.6rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  .qb-topic{ grid-column: 1 / -1; }
+  .qb-root{
+    max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
+    padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
+  }
+  .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
+  .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
+  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
+  .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
+  .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
+
+  .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
+  .qb-connector::after{
+    content:""; position:absolute; bottom:-1px; right:50%; transform:translateX(50%);
+    border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
+  }
+
+  .qb-branches{
+    display:flex; flex-wrap:wrap; gap:1.1rem;
+    position:relative; padding-top:22px; margin-top:-22px;
+  }
+  .qb-branches::before{
+    content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
+  }
+  .qb-card{
+    flex:1 1 260px;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
+    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
+    min-width:0;
+  }
+  .qb-card > *{ width:100%; max-width:640px; }
+  .qb-meforesh{
+    font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+    background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
+    padding:.75rem .9rem; box-shadow:var(--shadow);
+  }
+  .qb-meforesh .qb-src{
+    display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
+    font-size:.8rem; margin-bottom:.35rem;
+  }
+  .qb-meforesh .qb-src::before{ content:"💬"; font-size:1.05rem; line-height:1; }
+  .qb-card .question-block{ display:flex; flex-direction:column; gap:.5rem; }
+  .qb-card .question-row{ align-items:flex-start; }
+  .qb-card .q-text{ font-size:.86rem; line-height:1.5; }
+  .qb-card textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
+  .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
+  .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
+
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">ספר בראשית</a>
+  <span class="sep">›</span>
+  <span class="current">פרק ל"ז</span>
+</nav>
+
+<header>
+  <div class="eyebrow">ספר בראשית · חוברת תלמיד דיגיטלית · 3 יח"ל</div>
+  <h1>דף עבודה — פרק ל"ז, "מְכִירַת יוֹסֵף"</h1>
+  <p class="sub">בכל נושא: קודם קוראים את הפסוקים בקובייה העליונה, ואז עוברים על כל קוביית-שאלה שמסתעפת ממנה - קוראים את דברי הפרשן (אם יש), כותבים תשובה, ורק אז לוחצים "הצג תשובה" לבדיקה עצמית. הכול נשמר אוטומטית במכשיר שלכם.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 6 שאלות</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main>
+  <div class="grid" id="grid">
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרק</span>
+        <h2 class="card-title">מה קורה בפרק ל"ז?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          יעקב אוהב את יוסף מכל בניו, בהיותו בן זקוניו, ועושה לו כתונת פסים - דבר שמעורר את שנאת אחיו. יוסף מוסיף שמן למדורה כשהוא מספר להם שני חלומות: באחד משתחוות אלומותיהם לאלומתו, ובשני משתחווים לו השמש, הירח ואחד עשר כוכבים. כשיוסף יוצא לחפש את אחיו הרועים בשכם ומגיע אליהם לדותן, הם מתנכלים להרגו - עד שראובן מציע להשליכו לבור, כדי להצילו בסתר ולהשיבו לאביו. בעוד ראובן נעדר, מציע יהודה למכור את יוסף לאורחת ישמעאלים העוברת שם, במקום להורגו. האחים טובלים את כתונתו בדם שעיר עיזים ומביאים אותה ליעקב, שמאמין שיוסף נטרף ומתאבל עליו ללא נחמה.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <span class="topic-icon" aria-hidden="true">🌾</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
+        <div class="topic-title">שנאת האחים וחלומות יוסף</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🌾</span>
+        <div class="qb-root-label">פסוקים ג'-י"א</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">יעקב אוהב את יוסף מכל בניו ועושה לו כתונת פסים; האחים שונאים אותו ואינם יכולים לדבר עמו לשלום</div>
+          <div class="pasuk-line"><b>ג-ד:</b> וְיִשְׂרָאֵל אָהַב אֶת יוֹסֵף מִכָּל בָּנָיו כִּי בֶן זְקֻנִים הוּא לוֹ, וְעָשָׂה לוֹ כְּתֹנֶת פַּסִּים. וַיִּרְאוּ אֶחָיו כִּי אֹתוֹ אָהַב אֲבִיהֶם מִכָּל אֶחָיו וַיִּשְׂנְאוּ אֹתוֹ, וְלֹא יָכְלוּ דַּבְּרוֹ לְשָׁלֹם.</div>
+          <div class="pasuk-gloss">חלום האלומות: אלומת יוסף עומדת, ואלומות האחים משתחוות לה</div>
+          <div class="pasuk-line"><b>ה-ח:</b> וַיַּחֲלֹם יוֹסֵף חֲלוֹם וַיַּגֵּד לְאֶחָיו וַיּוֹסִפוּ עוֹד שְׂנֹא אֹתוֹ... וְהִנֵּה קָמָה אֲלֻמָּתִי וְגַם נִצָּבָה, וְהִנֵּה תְסֻבֶּינָה אֲלֻמֹּתֵיכֶם וַתִּשְׁתַּחֲוֶיןָ לַאֲלֻמָּתִי. וַיֹּאמְרוּ לוֹ אֶחָיו: הֲמָלֹךְ תִּמְלֹךְ עָלֵינוּ אִם מָשׁוֹל תִּמְשֹׁל בָּנוּ?</div>
+          <div class="pasuk-gloss">חלום שני: השמש, הירח ואחד עשר כוכבים משתחווים ליוסף; גם אביו גוער בו, אך שומר את הדבר</div>
+          <div class="pasuk-line"><b>ט-יא:</b> וְהִנֵּה הַשֶּׁמֶשׁ וְהַיָּרֵחַ וְאַחַד עָשָׂר כּוֹכָבִים מִשְׁתַּחֲוִים לִי. וַיְסַפֵּר אֶל אָבִיו וְאֶל אֶחָיו וַיִּגְעַר בּוֹ אָבִיו... וַיְקַנְאוּ בוֹ אֶחָיו, וְאָבִיו שָׁמַר אֶת הַדָּבָר.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְיִשְׂרָאֵל אָהַב אֶת יוֹסֵף מִכָּל בָּנָיו... וְלֹא יָכְלוּ דַּבְּרוֹ לְשָׁלֹם" (פסוקים ג'-ד')</p>
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מהו הביטוי שמלמד על חומרת שנאת האחים ליוסף עוד לפני שסופרו החלומות? מדוע דווקא מעשה הכתונת מעורר שנאה כה גדולה?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הביטוי "ולא יכלו דברו לשלום" מלמד ששנאתם עזה כל כך עד שאינם מסוגלים לתקשר איתו כלל בנימוס. הכתונת מעוררת שנאה כי היא סמל גלוי ובולט להעדפה של יעקב ליוסף על פני אחיו - עדות פומבית ומתמשכת ליחס המיוחד שהוא זוכה לו.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְהִנֵּה קָמָה אֲלֻמָּתִי... וַתִּשְׁתַּחֲוֶיןָ לַאֲלֻמָּתִי" (פסוק ז') לעומת "הַשֶּׁמֶשׁ וְהַיָּרֵחַ וְאַחַד עָשָׂר כּוֹכָבִים מִשְׁתַּחֲוִים לִי" (פסוק ט')</p>
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מה משותף לשני חלומות יוסף, ובמה שונה החלום השני מהראשון (שימו לב למי הוא כולל)? מדוע דווקא החלום השני מעורר גם את תגובת האב, ולא רק את תגובת האחים?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> משותף: בשני החלומות מישהו/משהו הקשור ליוסף משתחווה לו - סמל להתעלות מעל שאר בני המשפחה. ההבדל: בחלום הראשון משתחוות רק אלומות האחים; בחלום השני, השמש והירח (המסמלים כנראה את ההורים) מצטרפים לכוכבים (האחים) - ולכן דווקא חלום זה, הכולל את ההורים, מעורר גם את גערת אביו.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <span class="topic-icon" aria-hidden="true">🕳️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
+        <div class="topic-title">המזימה למכור את יוסף</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🕳️</span>
+        <div class="qb-root-label">פסוקים י"ח-כ"ח</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">האחים רואים את יוסף מרחוק ומתנכלים להורגו, בטרם יגיע אליהם</div>
+          <div class="pasuk-line"><b>יח-כ:</b> וַיִּרְאוּ אֹתוֹ מֵרָחֹק... וַיִּתְנַכְּלוּ אֹתוֹ לַהֲמִיתוֹ. וַיֹּאמְרוּ אִישׁ אֶל אָחִיו: הִנֵּה בַּעַל הַחֲלֹמוֹת הַלָּזֶה בָּא. וְעַתָּה לְכוּ וְנַהַרְגֵהוּ וְנַשְׁלִכֵהוּ בְּאַחַד הַבֹּרוֹת, וְאָמַרְנוּ חַיָּה רָעָה אֲכָלָתְהוּ; וְנִרְאֶה מַה יִּהְיוּ חֲלֹמֹתָיו.</div>
+          <div class="pasuk-gloss">ראובן מציל אותו מרצח בכך שהוא מציע להשליכו לבור בלבד, במטרה סמויה להשיבו לאביו</div>
+          <div class="pasuk-line"><b>כא-כב:</b> וַיִּשְׁמַע רְאוּבֵן וַיַּצִּלֵהוּ מִיָּדָם, וַיֹּאמֶר: לֹא נַכֶּנּוּ נָפֶשׁ... הַשְׁלִיכוּ אֹתוֹ אֶל הַבּוֹר הַזֶּה אֲשֶׁר בַּמִּדְבָּר, וְיָד אַל תִּשְׁלְחוּ בוֹ - לְמַעַן הַצִּיל אֹתוֹ מִיָּדָם לַהֲשִׁיבוֹ אֶל אָבִיו.</div>
+          <div class="pasuk-gloss">יהודה מציע למכור את יוסף לישמעאלים במקום להורגו; האחים מסכימים</div>
+          <div class="pasuk-line"><b>כה-כח:</b> וַיֵּשְׁבוּ לֶאֱכָל לֶחֶם, וַיִּשְׂאוּ עֵינֵיהֶם וַיִּרְאוּ וְהִנֵּה אֹרְחַת יִשְׁמְעֵאלִים בָּאָה מִגִּלְעָד... וַיֹּאמֶר יְהוּדָה אֶל אֶחָיו: מַה בֶּצַע כִּי נַהֲרֹג אֶת אָחִינוּ וְכִסִּינוּ אֶת דָּמוֹ. לְכוּ וְנִמְכְּרֶנּוּ לַיִּשְׁמְעֵאלִים, וְיָדֵנוּ אַל תְּהִי בוֹ, כִּי אָחִינוּ בְשָׂרֵנוּ הוּא... וַיִּמְכְּרוּ אֶת יוֹסֵף לַיִּשְׁמְעֵאלִים בְּעֶשְׂרִים כָּסֶף.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "לֹא נַכֶּנּוּ נָפֶשׁ... לְמַעַן הַצִּיל אֹתוֹ מִיָּדָם לַהֲשִׁיבוֹ אֶל אָבִיו" (פסוקים כ"א-כ"ב)</p>
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מהי הכוונה הסמויה של ראובן בהצעתו להשליך את יוסף לבור, ומדוע הוא אינו מגלה אותה בגלוי לאחיו?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> כוונתו הסמויה של ראובן היא לחזור לבור מאוחר יותר, לבד, ולהוציא את יוסף כדי להשיבו אל אביו בשלום. הוא אינו מגלה זאת בגלוי מפני שאחיו נחושים בכוונתם להיפטר מיוסף, ואילו הוא היה מגלה את כוונתו, הם היו מסכלים אותה או פועלים בדרך אחרת שתמנע ממנו להציל את יוסף.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "מַה בֶּצַע כִּי נַהֲרֹג אֶת אָחִינוּ... כִּי אָחִינוּ בְשָׂרֵנוּ הוּא" (פסוקים כ"ו-כ"ז)</p>
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">מהם שני הנימוקים שמעלה יהודה כדי לשכנע את אחיו למכור את יוסף במקום להרגו? האם, לדעתכם, ההצעה של יהודה מעידה על יחס מוסרי טוב יותר כלפי יוסף, או רק על פתרון "פחות רע"?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> נימוק ראשון: אין תועלת ("בצע") ברצח ובהסתרתו. נימוק שני: "אחינו בשרנו הוא" - קרבת המשפחה מחייבת יחס אחר. תשובה אישית: אפשר לטעון שהצעת יהודה אכן מונעת רצח ומראה מודעות מוסרית מסוימת, אך עדיין מדובר במכירת אח לעבדות - כך שמדובר בשיפור יחסי בלבד, לא בפתרון מוסרי מלא.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
+      <span class="topic-icon" aria-hidden="true">😭</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
+        <div class="topic-title">הטבלת הכתונת ואבל יעקב</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">😭</span>
+        <div class="qb-root-label">פסוקים ל"א-ל"ה</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">האחים טובלים את כתונת יוסף בדם שעיר עיזים, ומביאים אותה ליעקב כהוכחה מזויפת שנטרף</div>
+          <div class="pasuk-line"><b>לא-לג:</b> וַיִּקְחוּ אֶת כְּתֹנֶת יוֹסֵף וַיִּשְׁחֲטוּ שְׂעִיר עִזִּים, וַיִּטְבְּלוּ אֶת הַכֻּתֹּנֶת בַּדָּם... וַיַּכֵּר וַיֹּאמֶר: כְּתֹנֶת בְּנִי, חַיָּה רָעָה אֲכָלָתְהוּ - טָרֹף טֹרַף יוֹסֵף.</div>
+          <div class="pasuk-gloss">יעקב מסרב להתנחם ואומר שירד אבל אל בנו לשאול</div>
+          <div class="pasuk-line"><b>לה:</b> וַיָּקֻמוּ כָל בָּנָיו וְכָל בְּנֹתָיו לְנַחֲמוֹ, וַיְמָאֵן לְהִתְנַחֵם, וַיֹּאמֶר: כִּי אֵרֵד אֶל בְּנִי אָבֵל שְׁאֹלָה - וַיֵּבְךְּ אֹתוֹ אָבִיו.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיִּטְבְּלוּ אֶת הַכֻּתֹּנֶת בַּדָּם... כְּתֹנֶת בְּנִי, חַיָּה רָעָה אֲכָלָתְהוּ" (פסוקים ל"א-ל"ג)</p>
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">כיצד יוצרים האחים את הרושם המטעה, ומדוע הם בוחרים דווקא בדרך זו (הצגת פריט לבוש מוכתם בדם) ולא בשקר מילולי ישיר?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הם שוחטים שעיר עיזים וטובלים בדמו את כתונת יוסף, ואז מציגים אותה ליעקב מבלי לשקר בפירוש - הם מסתמכים על יעקב שיסיק בעצמו את המסקנה (חיה רעה טרפה אותו). בכך הם נמנעים משקר ישיר בפה, אך יוצרים רושם כוזב לחלוטין - צורה של הטעיה עקיפה.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיְמָאֵן לְהִתְנַחֵם, וַיֹּאמֶר: כִּי אֵרֵד אֶל בְּנִי אָבֵל שְׁאֹלָה" (פסוק ל"ה)</p>
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">מדוע, לדעתכם, מסרב יעקב להתנחם, בניגוד להתמודדות הרגילה עם אבל שבסופו של דבר פוחתת עם הזמן?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יעקב מסרב להתנחם משום שאבלו על יוסף כה עמוק - הוא איבד את בנו האהוב, בן זקוניו, בנסיבות אכזריות. תשובה אישית: יש מפרשים הרואים בכך רמז לכך שברמה מסוימת ידע יעקב, או חש, שיוסף עודנו חי - ולכן לא הצליח למצוא נחמה אמיתית, שהרי אין תנחומים אמיתיים על מי שעודנו חי.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <a href="bereshit-32.html">← פרקים ל"ב-ל"ג</a>
+  <a href="index.html#tab-ya">↺ חזרה ליחידה</a>
+  <a href="bereshit-39.html">פרק ל"ט →</a>
+</nav>
+<div class="toolbar">
+  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
+  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
+</p>
+
+<footer class="credit">ספר בראשית, פרק ל"ז · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'bereshit-ch37-answers';
+const NAME_KEY = 'bereshit-ch37-student';
+const textareas = Array.from(document.querySelectorAll('textarea.answer'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{
+    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      nameInput.value = data.name || '';
+      classInput.value = data.cls || '';
+    }
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    flashSaved();
+  }catch(e){
+    console.error('שגיאת שמירה', e);
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => {
+        if(data[t.dataset.id]){
+          t.value = data[t.dataset.id];
+          markFilled(t);
+        }
+      });
+    }
+  }catch(e){
+    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
+  }
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+document.querySelectorAll('.hint-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.nextElementSibling;
+    const showing = box.hidden;
+    box.hidden = !showing;
+    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות בדף העבודה? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
+
+loadStudentInfo();
+loadAnswers();
+</script>
+<script src="assets/progress-tracker.js"></script>
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+
+</body>
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר בראשית — דף עבודה אינטראקטיבי (פרק כ"ה, מכירת הבכורה)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
+
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  .mini-timeline.detail .step{ flex:1 1 140px; text-align:center; gap:.3rem; padding:.6rem .6rem; }
+  .mini-timeline.detail .step b{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.88rem; color:var(--ink); }
+  .mini-timeline.detail .step small{ display:block; font-size:.68rem; line-height:1.35; color:var(--ink-soft); }
+  .mini-timeline.detail .step small.why{ color:var(--rust); font-weight:700; }
+  .mini-timeline{ margin-top:.7rem; }
+
+  .vs-compare{ display:flex; align-items:stretch; gap:0; margin:.7rem 0; border-radius:12px; overflow:hidden; box-shadow:var(--shadow); }
+  .vs-side{ flex:1; padding:.7rem .8rem; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.3rem; }
+  .vs-a{ background:var(--teal-soft); }
+  .vs-b{ background:var(--rust-soft); }
+  .vs-icon{ font-size:1.35rem; }
+  .vs-title{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.85rem; color:var(--ink); }
+  .vs-desc{ font-size:.72rem; line-height:1.45; color:var(--ink-soft); }
+  .vs-mid{ flex:none; width:2rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.72rem; color:#fff; background:var(--ink); }
+
+  .plan-reality{ display:flex; flex-direction:column; gap:.55rem; margin:.7rem 0; }
+  .pr-row{ display:flex; flex-direction:column; gap:.3rem; }
+  .pr-label{ font-weight:800; font-size:.76rem; color:var(--acc); }
+
+  .flowchart{ display:flex; flex-direction:column; align-items:center; gap:0; margin:.7rem 0; }
+  .flow-step{ display:flex; align-items:center; gap:.6rem; width:100%; }
+  .flow-node{
+    flex:none; width:1.6rem; height:1.6rem; border-radius:50%; background:var(--acc); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.8rem;
+  }
+  .flow-card{ flex:1; background:#fff; border:1.5px solid var(--paper-line); border-radius:10px; padding:.5rem .7rem; }
+  .flow-title{ font-size:.78rem; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:.4rem; }
+  .flow-icon{ font-size:.95rem; }
+  .flow-arrow{ color:var(--acc); font-size:1rem; margin:.1rem 0; }
+
+  .topic-banner{ margin-top:2.6rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  .qb-topic{ grid-column: 1 / -1; }
+  .qb-root{
+    max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
+    padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
+  }
+  .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
+  .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
+  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
+  .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
+  .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
+
+  .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
+  .qb-connector::after{
+    content:""; position:absolute; bottom:-1px; right:50%; transform:translateX(50%);
+    border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
+  }
+
+  .qb-branches{
+    display:flex; flex-wrap:wrap; gap:1.1rem;
+    position:relative; padding-top:22px; margin-top:-22px;
+  }
+  .qb-branches::before{
+    content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
+  }
+  .qb-card{
+    flex:1 1 260px;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
+    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
+    min-width:0;
+  }
+  .qb-card > *{ width:100%; max-width:640px; }
+  .qb-meforesh{
+    font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+    background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
+    padding:.75rem .9rem; box-shadow:var(--shadow);
+  }
+  .qb-meforesh .qb-src{
+    display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
+    font-size:.8rem; margin-bottom:.35rem;
+  }
+  .qb-meforesh .qb-src::before{ content:"💬"; font-size:1.05rem; line-height:1; }
+  .qb-card .question-block{ display:flex; flex-direction:column; gap:.5rem; }
+  .qb-card .question-row{ align-items:flex-start; }
+  .qb-card .q-text{ font-size:.86rem; line-height:1.5; }
+  .qb-card textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
+  .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
+  .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
+
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">ספר בראשית</a>
+  <span class="sep">›</span>
+  <span class="current">פרק כ"ה</span>
+</nav>
+
+<header>
+  <div class="eyebrow">ספר בראשית · חוברת תלמיד דיגיטלית · 3 יח"ל</div>
+  <h1>דף עבודה — פרק כ"ה, "מְכִירַת הַבְּכוֹרָה"</h1>
+  <p class="sub">בכל נושא: קודם קוראים את הפסוקים בקובייה העליונה, ואז עוברים על כל קוביית-שאלה שמסתעפת ממנה - קוראים את דברי הפרשן (אם יש), כותבים תשובה, ורק אז לוחצים "הצג תשובה" לבדיקה עצמית. הכול נשמר אוטומטית במכשיר שלכם.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 6 שאלות</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main>
+  <div class="grid" id="grid">
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרק</span>
+        <h2 class="card-title">מה קורה בפרק כ"ה (פסוקים י"ט-ל"ד)?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          לאחר שנים ארוכות של עקרות, מתפלל יצחק בעד רבקה אשתו, ותהר בתאומים. עוד בהיותה בהיריון, הבנים מתרוצצים בקרבה עד שהיא הולכת לדרוש את ה', והוא מגלה לה שבבטנה שני גויים, ושהגדול (עשיו) יעבוד את הצעיר (יעקב). עשיו נולד ראשון, אדמוני ושעיר, ואחריו יעקב, ידו אוחזת בעקבו. הבנים גדלים והופכים לשני טיפוסים מנוגדים: עשיו - איש ציד ושדה, אהוב על יצחק; יעקב - איש תם יושב אוהלים, אהוב על רבקה. הפרק מסתיים בסיפור מכירת הבכורה: עשיו שב עייף מהשדה ומבקש מיעקב מן הנזיד האדום, ויעקב מנצל את הרגע ומבקש בתמורה את הבכורה - ועשיו, שאינו מעריך אותה, מוכר אותה בקלות ובז לה.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">👶</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
+        <div class="topic-title">התפילה, ההיריון והנבואה על שני הגויים</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">👶</span>
+        <div class="qb-root-label">פסוקים כ'-כ"ג</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">יצחק מתפלל בעד רבקה העקרה, וה' נענה לתפילתו</div>
+          <div class="pasuk-line"><b>כ-כא:</b> וַיְהִי יִצְחָק בֶּן אַרְבָּעִים שָׁנָה בְּקַחְתּוֹ אֶת רִבְקָה... וַיֶּעְתַּר יִצְחָק לַה' לְנֹכַח אִשְׁתּוֹ כִּי עֲקָרָה הִוא, וַיֵּעָתֶר לוֹ ה' וַתַּהַר רִבְקָה אִשְׁתּוֹ.</div>
+          <div class="pasuk-gloss">הבנים מתרוצצים בבטנה, והיא הולכת לדרוש את ה'</div>
+          <div class="pasuk-line"><b>כב:</b> וַיִּתְרֹצֲצוּ הַבָּנִים בְּקִרְבָּהּ וַתֹּאמֶר: אִם כֵּן לָמָּה זֶּה אָנֹכִי? וַתֵּלֶךְ לִדְרֹשׁ אֶת ה'.</div>
+          <div class="pasuk-gloss">ה' עונה לה: שני גויים בבטנה, ורב (הגדול) יעבוד צעיר</div>
+          <div class="pasuk-line"><b>כג:</b> וַיֹּאמֶר ה' לָהּ: שְׁנֵי גֹיִים בְּבִטְנֵךְ, וּשְׁנֵי לְאֻמִּים מִמֵּעַיִךְ יִפָּרֵדוּ; וּלְאֹם מִלְאֹם יֶאֱמָץ, וְרַב יַעֲבֹד צָעִיר.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י, פסוק כ"ב - "וַיִּתְרֹצֲצוּ"</span>
+            רבותינו דרשוהו לשון ריצה: כשהייתה עוברת על פתחי תורה של שם ועבר - יעקב רץ ומפרכס לצאת; עוברת על פתח עבודה זרה - עשו רץ ומפרכס לצאת.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit25-mp-1">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיִּתְרֹצֲצוּ הַבָּנִים בְּקִרְבָּהּ" (פסוק כ"ב)</p>
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">כיצד מפרש רש"י את הפועל "ויתרוצצו"? כיצד פירוש זה כבר מרמז, עוד לפני הלידה, על האופי העתידי של שני הבנים?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> רש"י מפרש שהתרוצצות פירושה ריצה: כשעברה רבקה ליד בית מדרשם של שם ועבר, יעקב היה רץ ומנסה לצאת; וכשעברה ליד מקום עבודה זרה, עשיו היה רץ ומנסה לצאת. כבר כאן, בבטן אמם, מרומזת הנטייה העתידית של כל בן - יעקב לתורה, ועשיו לעבודה זרה.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "שְׁנֵי גֹיִים בְּבִטְנֵךְ... וְרַב יַעֲבֹד צָעִיר" (פסוק כ"ג)</p>
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מהי הבשורה שמקבלת רבקה מפי ה', ומהו החידוש שבה ביחס לסדר הרגיל של הורשת הבכורה (מהגדול לצעיר)?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ה' מבשר לרבקה שבבטנה שני עמים נפרדים, שיתפתחו לכיוונים שונים, ושהצעיר יגבר בסופו של דבר על הבכור. זהו חידוש ביחס למקובל, לפיו הבן הבכור הוא בעל המעמד המוביל - וכבר כאן נרמז שהבכורה תעבור בסופו של דבר ליעקב.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <span class="topic-icon" aria-hidden="true">🏹</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
+        <div class="topic-title">הלידה - שני עולמות מנוגדים</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🏹</span>
+        <div class="qb-root-label">פסוקים כ"ד-כ"ח</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">עשיו נולד ראשון, אדמוני ושעיר; יעקב נולד אחריו, ידו אוחזת בעקבו</div>
+          <div class="pasuk-line"><b>כד-כו:</b> וַיִּמְלְאוּ יָמֶיהָ לָלֶדֶת וְהִנֵּה תוֹמִם בְּבִטְנָהּ. וַיֵּצֵא הָרִאשׁוֹן אַדְמוֹנִי כֻּלּוֹ כְּאַדֶּרֶת שֵׂעָר, וַיִּקְרְאוּ שְׁמוֹ עֵשָׂו. וְאַחֲרֵי כֵן יָצָא אָחִיו וְיָדוֹ אֹחֶזֶת בַּעֲקֵב עֵשָׂו, וַיִּקְרָא שְׁמוֹ יַעֲקֹב.</div>
+          <div class="pasuk-gloss">הנערים גדלים לשני טיפוסים מנוגדים - עשיו איש שדה, יעקב איש תם יושב אוהלים</div>
+          <div class="pasuk-line"><b>כז-כח:</b> וַיִּגְדְּלוּ הַנְּעָרִים, וַיְהִי עֵשָׂו אִישׁ יֹדֵעַ צַיִד אִישׁ שָׂדֶה, וְיַעֲקֹב אִישׁ תָּם יֹשֵׁב אֹהָלִים. וַיֶּאֱהַב יִצְחָק אֶת עֵשָׂו כִּי צַיִד בְּפִיו, וְרִבְקָה אֹהֶבֶת אֶת יַעֲקֹב.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="vs-compare" role="img" aria-label="השוואה בין עשיו ליעקב, לפי אופיים המתואר בפסוקים כז-כח">
+            <div class="vs-side vs-a">
+              <span class="vs-icon" aria-hidden="true">🏹</span>
+              <div class="vs-title">עֵשָׂו - אִישׁ שָׂדֶה</div>
+              <div class="vs-desc">יודע ציד, פועל בעולם החיצוני, אהוב על יצחק.</div>
+            </div>
+            <div class="vs-mid" aria-hidden="true">מול</div>
+            <div class="vs-side vs-b">
+              <span class="vs-icon" aria-hidden="true">⛺</span>
+              <div class="vs-title">יַעֲקֹב - אִישׁ תָּם</div>
+              <div class="vs-desc">יושב אוהלים, פועל בעולם הפנימי, אהוב על רבקה.</div>
+            </div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיְהִי עֵשָׂו אִישׁ יֹדֵעַ צַיִד אִישׁ שָׂדֶה, וְיַעֲקֹב אִישׁ תָּם יֹשֵׁב אֹהָלִים" (פסוק כ"ז)</p>
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מהם שני האפיונים המנוגדים של עשיו ושל יעקב בפסוק זה, ומדוע, לדעתכם, כל הורה אוהב דווקא את הבן ה"דומה" לו יותר באופיו או בתחומי העניין שלו?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> עשיו מתואר כאיש שדה וציד - פעיל בעולם החיצוני והגשמי. יעקב מתואר כאיש תם היושב באוהלים - פעיל בעולם הפנימי והרוחני (לימוד). התשובה האישית תתייחס לכך שאהבת ההורה מושפעת לעיתים מזיהוי עם תחומי עניין דומים או מהערכה לאיכות מסוימת אצל הילד.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיֶּאֱהַב יִצְחָק אֶת עֵשָׂו כִּי צַיִד בְּפִיו, וְרִבְקָה אֹהֶבֶת אֶת יַעֲקֹב" (פסוק כ"ח)</p>
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">שימו לב לניסוח: אצל יצחק כתוב "ויאהב" (לשון עבר, עם נימוק - "כי ציד בפיו"), ואילו אצל רבקה כתוב "אוהבת" (לשון הווה, בלי נימוק). מה, לדעתכם, יכול ההבדל הלשוני הזה לרמז על טיב האהבה של כל אחד מההורים?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אהבת יצחק לעשיו מנומקת ("כי ציד בפיו") - כלומר, תלויה בתועלת שהוא מפיק ממנו, ולכן מוצגת כפרטנית וחד-פעמית (לשון עבר). אהבת רבקה ליעקב מוצגת ללא נימוק, כמצב מתמשך (לשון הווה) - אהבה טבעית ובלתי-מותנית.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">🍲</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
+        <div class="topic-title">מכירת הבכורה</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🍲</span>
+        <div class="qb-root-label">פסוקים כ"ט-ל"ד</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">עשיו שב עייף מן השדה, ומבקש מיעקב מן הנזיד האדום</div>
+          <div class="pasuk-line"><b>כט-ל:</b> וַיָּזֶד יַעֲקֹב נָזִיד, וַיָּבֹא עֵשָׂו מִן הַשָּׂדֶה וְהוּא עָיֵף. וַיֹּאמֶר עֵשָׂו אֶל יַעֲקֹב: הַלְעִיטֵנִי נָא מִן הָאָדֹם הָאָדֹם הַזֶּה כִּי עָיֵף אָנֹכִי - עַל כֵּן קָרָא שְׁמוֹ אֱדוֹם.</div>
+          <div class="pasuk-gloss">יעקב מבקש בתמורה את הבכורה, ועשיו - הרואה עצמו כהולך למות - מוכר אותה בלי היסוס</div>
+          <div class="pasuk-line"><b>לא-לג:</b> וַיֹּאמֶר יַעֲקֹב: מִכְרָה כַיּוֹם אֶת בְּכֹרָתְךָ לִי. וַיֹּאמֶר עֵשָׂו: הִנֵּה אָנֹכִי הוֹלֵךְ לָמוּת, וְלָמָּה זֶּה לִי בְּכֹרָה? וַיֹּאמֶר יַעֲקֹב: הִשָּׁבְעָה לִּי כַּיּוֹם - וַיִּשָּׁבַע לוֹ, וַיִּמְכֹּר אֶת בְּכֹרָתוֹ לְיַעֲקֹב.</div>
+          <div class="pasuk-gloss">עשיו אוכל, שותה, קם והולך - ובכך מגלה את בוז ליבו לבכורה</div>
+          <div class="pasuk-line"><b>לד:</b> וְיַעֲקֹב נָתַן לְעֵשָׂו לֶחֶם וּנְזִיד עֲדָשִׁים, וַיֹּאכַל וַיֵּשְׁתְּ וַיָּקָם וַיֵּלַךְ, וַיִּבֶז עֵשָׂו אֶת הַבְּכֹרָה.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רמב"ן, פסוק ל"ד</span>
+            טעם ביזוי הבכורה, כי לא חשש עשו רק לומר שלא יאבד ממנה כלום בעבור המכר, ולכן אכל ושתה כאילו לא אירע דבר; ולפי שביזה הדבר הגדול הזה - הענישו הכתוב שלא הזכיר שמו רק בשם התאווה שנתאווה, "אדום".
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit25-mp-2">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיֹּאכַל וַיֵּשְׁתְּ וַיָּקָם וַיֵּלַךְ, וַיִּבֶז עֵשָׂו אֶת הַבְּכֹרָה" (פסוק ל"ד)</p>
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מה, על פי הרמב"ן, מוכיחה שרשרת הפעלים "ויאכל וישת ויקם וילך" על יחסו של עשיו למכירה שזה עתה עשה? באיזה "עונש" סיפורי, לדעת הרמב"ן, נענש עשיו על ביזוי זה?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שרשרת הפעולות הרגועה מוכיחה שעשיו התייחס למכירה כאילו לא קרה דבר משמעותי - הוא לא התעכב, התחרט או התרגש, אלא המשיך בשגרתו מיד. לדעת הרמב"ן, כעונש על ביזוי הבכורה, זכה עשיו לכינוי "אדום" - שם שמזכיר את התאווה הרגעית שגברה עליו, ולא שם מכובד.</div>
+          </div>
+        </div>
+
+        <div class="qb-card">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "הִנֵּה אָנֹכִי הוֹלֵךְ לָמוּת, וְלָמָּה זֶּה לִי בְּכֹרָה?" (פסוק ל"ב)</p>
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">כיצד מנמק עשיו לעצמו את ההסכמה למכור את הבכורה? האם, לדעתכם, מדובר בנימוק סביר או בתירוץ שנועד להצדיק החלטה פזיזה?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> עשיו טוען שממילא הוא "הולך למות" (חשוף כל הזמן לסכנות מחיי הציד), ולכן הבכורה, שתועיל לו רק בעתיד, חסרת ערך בעיניו כעת. זוהי הצדקה נוחה לתאווה רגעית (הרעב לנזיד) - הוא מוותר על נכס עתידי חשוב בתמורה להנאה מיידית וחולפת.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <a href="bereshit-22.html">← פרק כ"ב</a>
+  <a href="index.html#tab-ya">↺ חזרה ליחידה</a>
+  <a href="bereshit-27.html">פרק כ"ז →</a>
+</nav>
+<div class="toolbar">
+  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
+  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
+</p>
+
+<footer class="credit">ספר בראשית, פרק כ"ה · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'bereshit-ch25-answers';
+const NAME_KEY = 'bereshit-ch25-student';
+const textareas = Array.from(document.querySelectorAll('textarea.answer'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{
+    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      nameInput.value = data.name || '';
+      classInput.value = data.cls || '';
+    }
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    flashSaved();
+  }catch(e){
+    console.error('שגיאת שמירה', e);
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => {
+        if(data[t.dataset.id]){
+          t.value = data[t.dataset.id];
+          markFilled(t);
+        }
+      });
+    }
+  }catch(e){
+    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
+  }
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+document.querySelectorAll('.hint-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.nextElementSibling;
+    const showing = box.hidden;
+    box.hidden = !showing;
+    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות בדף העבודה? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
+
+loadStudentInfo();
+loadAnswers();
+</script>
+<script src="assets/progress-tracker.js"></script>
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+
+</body>
+</html>
