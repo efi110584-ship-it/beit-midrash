@@ -228,6 +228,7 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
+
 <div class="topic-nav-wrap">
   <div class="topic-nav" id="topicNav" role="tablist" aria-label="נושאי היחידה">
 <button type="button" class="topic-pill" role="tab" id="tab-btn-ch1" aria-selected="true" aria-controls="topic-ch1" data-topic="topic-ch1" style="--acc:#1E2761;--acc-soft:#E3E5F3;"><span class="pill-icon" aria-hidden="true">📜</span><span class="pill-num">1</span><span class="pill-title">פרק א׳</span></button>
@@ -1422,6 +1423,7 @@ const classInput = document.getElementById('studentClass');
 const printNameLine = document.getElementById('printNameLine');
 const topicSections = Array.from(document.querySelectorAll('.topic-section'));
 const topicTabs = Array.from(document.querySelectorAll('.topic-pill[role="tab"]'));
+const sectionTabs = Array.from(document.querySelectorAll('.section-pill[role="tab"]'));
 const submitLink = document.getElementById('submitLink');
 let saveTimer = null;
 let noteTimer = null;
@@ -1473,6 +1475,49 @@ document.getElementById('topicNav').addEventListener('keydown', (e) => {
   activateTab(next.dataset.topic.replace('topic-', ''));
   e.preventDefault();
 });
+
+function topicsInSection(key){
+  return topicTabs.filter(t => t.dataset.section === key);
+}
+
+function activateSection(key, opts){
+  opts = opts || {};
+  sectionTabs.forEach(tab => {
+    const active = tab.dataset.section === key;
+    tab.setAttribute('aria-selected', String(active));
+    tab.classList.toggle('active', active);
+    tab.tabIndex = active ? 0 : -1;
+  });
+  topicTabs.forEach(tab => { tab.hidden = (tab.dataset.section !== key); });
+  if(!opts.keepTopic){
+    const first = topicsInSection(key)[0];
+    if(first) activateTab(first.dataset.topic.replace('topic-', ''), { skipScroll: opts.skipScroll });
+  }
+}
+
+sectionTabs.forEach(tab => {
+  tab.addEventListener('click', () => activateSection(tab.dataset.section));
+});
+
+const sectionNavEl = document.getElementById('sectionNav');
+if(sectionNavEl){
+  sectionNavEl.addEventListener('keydown', (e) => {
+    if(e.key !== 'ArrowRight' && e.key !== 'ArrowLeft' && e.key !== 'Home' && e.key !== 'End') return;
+    const i = sectionTabs.indexOf(document.activeElement);
+    if(i === -1) return;
+    let nextIndex;
+    if(e.key === 'Home') nextIndex = 0;
+    else if(e.key === 'End') nextIndex = sectionTabs.length - 1;
+    else{
+      const dir = e.key === 'ArrowRight' ? -1 : 1; // RTL
+      nextIndex = (i + dir + sectionTabs.length) % sectionTabs.length;
+    }
+    const next = sectionTabs[nextIndex];
+    next.focus();
+    activateSection(next.dataset.section);
+    e.preventDefault();
+  });
+}
 
 function updatePrintNameLine(){
   const name = (nameInput.value || '').trim();
@@ -1662,6 +1707,9 @@ loadAnswers();
   var last = null;
   try{ last = localStorage.getItem('yeshayahu-hub-last-tab'); }catch(e){}
   if(last && document.getElementById('topic-' + last)){
+    var lastPill = document.querySelector('.topic-pill[data-topic="topic-' + last + '"]');
+    var lastSection = lastPill && lastPill.dataset.section;
+    if(lastSection) activateSection(lastSection, { keepTopic:true, skipScroll:true });
     activateTab(last, { skipScroll:true });
   }
 })();
