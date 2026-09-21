@@ -91,6 +91,35 @@ header p.sub{ font-size: 1rem; color: var(--ink-soft); max-width: 680px; margin:
 .save-note{ text-align:center; font-size: .78rem; color: var(--teal); min-height: 1.2rem; margin-bottom: .3rem; opacity: 0; transform: translateY(-3px); transition: opacity .3s ease, transform .3s ease; }
 .save-note.show{ opacity: 1; transform: translateY(0); }
 
+/* ---------- ניווט "מדורים" - שכבת-על מעל לשוניות הפרקים (למשל: אברהם / יעקב / יוסף) ---------- */
+.section-nav-wrap{ max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+.section-nav{
+  display:flex; flex-wrap:wrap; gap:.7rem; justify-content:center;
+  padding: 1rem 0 .8rem;
+}
+.section-pill{
+  display:flex; align-items:center; gap:.55rem;
+  padding: .65rem 1.35rem;
+  min-height: 48px;
+  border-radius: 14px;
+  border: 2px solid var(--acc);
+  color: var(--acc);
+  background: var(--acc-soft);
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: .95rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, box-shadow .2s ease, transform .15s ease;
+}
+.section-pill .section-icon{ font-size: 1.25rem; }
+.section-pill:hover{ transform: translateY(-1px); }
+.section-pill.active{ background: var(--acc); color:#fff; box-shadow: 0 3px 10px rgba(0,0,0,.18); }
+.section-pill:focus-visible{ outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+.topic-pill[hidden]{ display:none; }
+@media (max-width:480px){
+  .section-pill{ flex: 1 1 100%; justify-content:center; }
+}
+
 /* ---------- ניווט נושאים/לשוניות דביק (יחידת הפתיחה, פתוח תפתח) ---------- */
 .topic-nav-wrap{
   position: sticky; top: 0; z-index: 40;
