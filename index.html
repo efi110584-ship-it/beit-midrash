@@ -113,10 +113,24 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .a11y-group button:hover{ border-color:var(--gold-light); }
 
 /* ===== Hero ===== */
-.hero{ background:linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%); color:#F4EFE2; }
-.hero-inner{ max-width:700px; margin:0 auto; padding:2.2rem 1.25rem 1.4rem; text-align:center; }
-.hero h2{ color:#fff; font-size:1.6rem; line-height:1.35; margin:0; }
-.hero-wave{ display:block; width:100%; height:26px; }
+.hero{
+  position:relative; overflow:hidden;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(201,154,76,0.18), transparent 55%),
+    radial-gradient(ellipse at 85% 15%, rgba(63,110,102,0.22), transparent 50%),
+    linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%);
+  color:#F4EFE2;
+}
+.hero-inner{ max-width:700px; margin:0 auto; padding:2.4rem 1.25rem 1.2rem; text-align:center; position:relative; z-index:2; }
+.hero h2{ color:#fff; font-size:clamp(1.5rem, 4vw, 1.9rem); line-height:1.35; margin:0; text-wrap:balance; }
+.hero-sub{ margin:.55rem 0 0; color:#D9CFB8; font-size:1rem; }
+
+/* גל אנימציה - רצועה כפולה שנעה ברציפות ("תפר" בלתי-נראה כי שתי העותקים זהים) */
+.wave-divider{ position:relative; line-height:0; margin-top:.6rem; }
+.wave-track{ display:flex; width:200%; animation: wave-scroll 22s linear infinite; will-change:transform; }
+.wave-track svg{ width:50%; flex:none; display:block; height:34px; }
+@media (min-width:640px){ .wave-track svg{ height:52px; } }
+@keyframes wave-scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
 
 /* ===== "המשך ללמוד" ===== */
 .continue-wrap{ max-width:1100px; margin:0 auto; padding:1.25rem 1.25rem 0; }
@@ -134,25 +148,53 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .continue-card .continue-progress-track{ display:inline-block; width:120px; height:7px; border-radius:999px; background:var(--border); overflow:hidden; vertical-align:middle; margin-inline-start:.4rem; }
 .continue-card .continue-progress-fill{ height:100%; background:linear-gradient(90deg, var(--teal), var(--gold)); }
 
-/* ===== Controls ===== */
-.controls{ background:var(--paper-2); border-bottom:1px solid var(--border); }
-.controls-inner{ max-width:1100px; margin:0 auto; padding:1rem 1.25rem; display:flex; flex-wrap:wrap; align-items:center; gap:0.9rem; }
+/* ===== בחירת כיתה - אזור בולט, גלוי כולו בלי גלילה ===== */
+.class-picker-section{ background:var(--paper); padding:0 1.25rem 1.6rem; }
+.class-picker-inner{ max-width:820px; margin:0 auto; }
 
-.tabgroup{ display:flex; gap:0.7rem; flex-wrap:wrap; }
-.tab{
-  background:var(--paper-card); border:2px solid var(--border); color:var(--ink);
-  padding:0.7rem 1.6rem; border-radius:999px; cursor:pointer; font-weight:700;
-  font-size:1.05rem; font-family:var(--font-display);
-  min-height:48px;
-  transition: background .2s ease, color .2s ease, border-color .2s ease, transform .15s ease, box-shadow .2s ease;
+.class-picker-primary{
+  display:grid; grid-template-columns:repeat(2, 1fr); gap:1rem;
+  margin-top:-2.6rem; position:relative; z-index:3;
 }
-.tab:hover{ border-color:var(--gold); transform: translateY(-1px); }
-.tab[aria-selected="true"]{
-  background: linear-gradient(135deg, var(--ink), var(--ink-2));
-  color:#fff; border-color:var(--ink);
-  box-shadow: 0 4px 14px rgba(31,58,77,0.28);
+@media (max-width:640px){ .class-picker-primary{ margin-top:-1.8rem; gap:.7rem; } }
+
+.class-card{
+  --card-acc: var(--gold);
+  background:var(--paper-card); border:2px solid var(--border); border-top:5px solid var(--card-acc);
+  border-radius:16px; cursor:pointer; text-align:center;
+  padding:1.3rem 1rem 1.1rem; display:flex; flex-direction:column; align-items:center; gap:.4rem;
+  box-shadow:0 6px 20px rgba(31,58,77,0.16);
+  font-family:var(--font-body);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
-.tab.tab-all{ font-size:0.92rem; font-weight:600; font-family:var(--font-body); opacity:.85; }
+.class-card:hover{ transform:translateY(-3px); box-shadow:0 10px 26px rgba(31,58,77,0.22); }
+.class-card[aria-selected="true"]{
+  background: var(--card-acc);
+  background: linear-gradient(160deg, var(--card-acc), color-mix(in srgb, var(--card-acc) 70%, var(--ink)));
+  border-color:var(--card-acc);
+}
+.class-card[aria-selected="true"] .class-card-label,
+.class-card[aria-selected="true"] .class-card-hint{ color:#fff; }
+.class-card-icon{ font-size:2.3rem; line-height:1; }
+.class-card-label{ font-family:var(--font-display); font-weight:800; font-size:1.35rem; color:var(--ink); }
+.class-card-hint{ font-size:.8rem; color:var(--text-soft); font-weight:600; }
+.class-card:nth-of-type(1){ --card-acc: var(--teal); }
+.class-card:nth-of-type(2){ --card-acc: #7A4A73; }
+
+.class-picker-secondary{
+  display:flex; gap:.6rem; flex-wrap:wrap; justify-content:center;
+  margin-top:1rem;
+}
+.class-chip{
+  background:var(--paper-card); border:1.5px solid var(--border); color:var(--ink);
+  padding:.55rem 1.1rem; border-radius:999px; cursor:pointer; font-weight:600;
+  font-size:.88rem; font-family:var(--font-body); min-height:40px;
+  transition: background .2s ease, color .2s ease, border-color .2s ease, transform .15s ease;
+}
+.class-chip:hover{ border-color:var(--gold); transform:translateY(-1px); }
+.class-chip[aria-selected="true"]{
+  background:var(--ink); color:#fff; border-color:var(--ink);
+}
 
 /* ===== Results (ארבע יחידות הלימוד) ===== */
 .results-wrap{ max-width:1100px; margin:0 auto; padding:1.75rem 1.25rem 4rem; }
@@ -217,18 +259,23 @@ body.high-contrast{
   --gold:#7A4E00; --gold-text:#7A4E00; --gold-light:#7A4E00; --teal:#003C39; --teal-light:#FFFFFF;
   --gold-tag-bg:#FFFFFF;
 }
-body.high-contrast .card, body.high-contrast .tab{
+body.high-contrast .card, body.high-contrast .tab, body.high-contrast .class-card, body.high-contrast .class-chip{
   border:2px solid #000 !important;
 }
 body.high-contrast .tag{ border:2px solid currentColor; }
 body.high-contrast .hero{ background:#000; }
 body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; }
+body.high-contrast .wave-divider{ display:none; }
+body.high-contrast .class-card[aria-selected="true"]{ background:#000 !important; }
+body.high-contrast .class-card[aria-selected="true"] .class-card-label,
+body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#fff !important; }
 
 /* ===== Responsive ===== */
 @media (max-width:640px){
-  .hero h2{ font-size:1.6rem; }
   .header-inner{ flex-wrap:wrap; }
   .unit-grid{ grid-template-columns:1fr; }
+  .class-card-icon{ font-size:1.9rem; }
+  .class-card-label{ font-size:1.1rem; }
 }
 
 </style>
@@ -289,26 +336,46 @@ body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; 
   <section class="hero">
     <div class="hero-inner">
       <h2>כל חומרי הכיתה, במקום אחד</h2>
+      <p class="hero-sub">בחרו כיתה כדי להתחיל</p>
     </div>
-    <svg class="hero-wave" viewBox="0 0 1200 26" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0 16 Q 50 4, 100 16 T 200 16 T 300 16 T 400 16 T 500 16 T 600 16 T 700 16 T 800 16 T 900 16 T 1000 16 T 1100 16 T 1200 16" fill="none" stroke="#D9B36C" stroke-width="2" opacity="0.6"/>
-    </svg>
-  </section>
-
-  <div id="continue-wrap" class="continue-wrap" hidden></div>
-
-  <section class="controls" aria-label="בחירת כיתה">
-    <div class="controls-inner">
-
-      <div class="tabgroup" role="tablist" aria-label="בחירת כיתה">
-        <button class="tab" role="tab" aria-selected="true" data-class="יא" id="tab-ya">כיתה י"א</button>
-        <button class="tab" role="tab" aria-selected="false" data-class="יב" id="tab-yb">כיתה י"ב</button>
-        <button class="tab tab-all" role="tab" aria-selected="false" data-class="all" id="tab-all">כל הכיתות</button>
-        <button class="tab" role="tab" aria-selected="false" data-class="exams" id="tab-exams">📝 מבחנים</button>
-        <button class="tab" role="tab" aria-selected="false" data-class="teacher" id="tab-teacher">🗝️ תשובות למורה</button>
+    <div class="wave-divider" aria-hidden="true">
+      <div class="wave-track">
+        <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+          <path d="M0 32 C 100 8, 200 8, 300 32 C 400 56, 500 56, 600 32 C 700 8, 800 8, 900 32 C 1000 56, 1100 56, 1200 32 L1200 60 L0 60 Z" fill="var(--paper)"/>
+        </svg>
+        <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
+          <path d="M0 32 C 100 8, 200 8, 300 32 C 400 56, 500 56, 600 32 C 700 8, 800 8, 900 32 C 1000 56, 1100 56, 1200 32 L1200 60 L0 60 Z" fill="var(--paper)"/>
+        </svg>
       </div>
     </div>
   </section>
+
+  <section class="class-picker-section" aria-label="בחירת כיתה">
+    <div class="class-picker-inner" role="tablist" aria-label="בחירת כיתה">
+
+      <div class="class-picker-primary">
+        <button class="tab class-card" role="tab" aria-selected="true" data-class="יא" id="tab-ya">
+          <span class="class-card-icon" aria-hidden="true">🎓</span>
+          <span class="class-card-label">כיתה י"א</span>
+          <span class="class-card-hint">תנ"ך ותושב"ע</span>
+        </button>
+        <button class="tab class-card" role="tab" aria-selected="false" data-class="יב" id="tab-yb">
+          <span class="class-card-icon" aria-hidden="true">🎓</span>
+          <span class="class-card-label">כיתה י"ב</span>
+          <span class="class-card-hint">תנ"ך ותושב"ע</span>
+        </button>
+      </div>
+
+      <div class="class-picker-secondary">
+        <button class="tab class-chip" role="tab" aria-selected="false" data-class="all" id="tab-all">כל הכיתות</button>
+        <button class="tab class-chip" role="tab" aria-selected="false" data-class="exams" id="tab-exams">📝 מבחנים</button>
+        <button class="tab class-chip" role="tab" aria-selected="false" data-class="teacher" id="tab-teacher">🗝️ תשובות למורה</button>
+      </div>
+
+    </div>
+  </section>
+
+  <div id="continue-wrap" class="continue-wrap" hidden></div>
 
   <section class="results-wrap">
     <div id="status-line" class="status-line" role="status" aria-live="polite"></div>
@@ -456,7 +523,7 @@ body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; 
 
   /* ============ בקרת כיתה ============ */
   var tabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
-  var tabgroup = document.querySelector(".tabgroup");
+  var tabgroup = document.querySelector(".class-picker-inner");
 
   function selectTab(tab, opts){
     opts = opts || {};
