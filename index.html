@@ -195,7 +195,6 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .class-chip[aria-selected="true"]{
   background:var(--ink); color:#fff; border-color:var(--ink);
 }
-.class-chip-icon{ font-size:2.3rem; line-height:1; }
 
 /* ===== Results (ארבע יחידות הלימוד) ===== */
 .results-wrap{ max-width:1100px; margin:0 auto; padding:1.75rem 1.25rem 4rem; }
@@ -361,7 +360,6 @@ body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#ff
 
       <div class="class-picker-secondary">
         <button class="tab class-chip" role="tab" aria-selected="false" data-class="all" id="tab-all">כל הכיתות</button>
-        <button class="tab class-chip" role="tab" aria-selected="false" data-class="exams" id="tab-exams"><span class="class-chip-icon" aria-hidden="true">📝</span> מבחנים</button>
       </div>
 
     </div>
@@ -420,7 +418,7 @@ body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#ff
       icon:"\u2696\uFE0F", title:"פתוח תפתח",
       desc:"יחידת המצוות שבספר דברים - שמיטת כספים, צדקה, ריבית, משכון ועוד.",
       chapters:8, chaptersLabel:"נושאים", url:"ptp-hub.html" },
-    { key:"yonah-exam", class:"exams", subject:"מבחן",
+    { key:"yonah-exam", class:"teacher", subject:"מבחן",
       icon:"\u{1F4DD}", title:"מבחן מסכם - ספר יונה",
       desc:"מבחן דיגיטלי מקיף על כל ארבעת פרקי הספר. הכניסה למבחן דורשת קוד מהמורה.",
       chapters:1, chaptersLabel:"מבחן", url:"yonah-exam.html" },
@@ -478,7 +476,7 @@ body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#ff
     var html = "";
     classKeys.forEach(function(cls){
       html += '<section class="class-section">';
-      html += '<h2>' + (CLASS_ORDER.indexOf(cls) !== -1 ? 'כיתה ' + escapeHtml(cls) + '\u200f' : (cls === "exams" ? '📝 מבחנים' : (cls === "teacher" ? '🗝️ אזור אישי' : escapeHtml(cls)))) + '</h2>';
+      html += '<h2>' + (CLASS_ORDER.indexOf(cls) !== -1 ? 'כיתה ' + escapeHtml(cls) + '\u200f' : (cls === "teacher" ? '🗝️ אזור אישי' : escapeHtml(cls))) + '</h2>';
       html += '<div class="unit-grid">';
       byClass[cls].forEach(function(u){ html += unitCardHtml(u, registry); });
       html += '</div></section>';
