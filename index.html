@@ -133,20 +133,6 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 @media (min-width:640px){ .wave-track svg{ height:52px; } }
 @keyframes wave-scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
 
-/* ===== "המשך ללמוד" ===== */
-.continue-wrap{ max-width:1100px; margin:0 auto; padding:1.25rem 1.25rem 0; }
-.continue-card{
-  display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
-  background: linear-gradient(90deg, var(--gold-tag-bg), var(--paper-card));
-  border:1.5px solid var(--gold-light); border-radius:var(--radius);
-  padding:1rem 1.25rem; box-shadow:var(--shadow);
-}
-.continue-card .continue-text{ flex:1 1 260px; }
-.continue-card .continue-label{ font-size:.78rem; font-weight:700; color:var(--gold-text); letter-spacing:.04em; }
-.continue-card .continue-title{ font-family:var(--font-display); font-weight:700; font-size:1.15rem; color:var(--ink); margin:.15rem 0; }
-.continue-card .continue-progress{ font-size:.85rem; color:var(--text-soft); }
-.continue-card .continue-progress-track{ display:inline-block; width:120px; height:7px; border-radius:999px; background:var(--border); overflow:hidden; vertical-align:middle; margin-inline-start:.4rem; }
-.continue-card .continue-progress-fill{ height:100%; background:linear-gradient(90deg, var(--teal), var(--gold)); }
 
 /* ===== בחירת כיתה - אזור בולט, גלוי כולו בלי גלילה ===== */
 .class-picker-section{ background:var(--paper); padding:0 1.25rem 1.6rem; }
@@ -228,18 +214,6 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .unit-tile.subject-heb{ border-top-color:#8B4A34; }
 .unit-tile.subject-exam{ border-top-color:#1E2761; }
 .unit-tile.subject-teacher{ border-top-color:#7A4A73; }
-
-.card-link{
-  display:inline-flex; align-items:center; justify-content:center; gap:0.4rem;
-  background:var(--ink); color:#fff !important; text-decoration:none; font-weight:700;
-  padding:0.75rem 1rem; border-radius:8px; min-height:48px; font-size:1rem;
-  transition: background .2s ease, transform .15s ease;
-}
-.card-link:hover{ background:var(--gold-text); transform: translateY(-1px); }
-.card-link.card-link-secondary{
-  background:transparent; color:var(--ink) !important; border:1.5px solid var(--border);
-}
-.card-link.card-link-secondary:hover{ background:var(--paper-2); border-color:var(--gold); }
 
 /* ===== Footer ===== */
 .site-footer{ text-align:center; padding:1.6rem 1rem; color:var(--text-soft); font-size:0.85rem; border-top:1px solid var(--border); }
@@ -364,8 +338,6 @@ body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#ff
 
     </div>
   </section>
-
-  <div id="continue-wrap" class="continue-wrap" hidden></div>
 
   <section class="results-wrap">
     <div id="status-line" class="status-line" role="status" aria-live="polite"></div>
@@ -598,42 +570,6 @@ body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#ff
     if(localStorage.getItem("a11y-contrast") === "1"){ contrastToggle.click(); }
     if(localStorage.getItem("a11y-letterspace") === "1"){ dyslexiaToggle.click(); }
   })();
-
-  /* ============ כרטיס "המשך ללמוד" ============
-     כל דף עבודה (ראו assets/progress-tracker.js) שומר רשומה קטנה על
-     כמה הוא מלא, בלי לגעת במנגנון השמירה הפרטי שלו. כאן קוראים את
-     הרשומה המשותפת הזו ומציגים כרטיס לחומר האחרון שבו הייתה התקדמות -
-     רק אם התלמיד באמת התחיל למלא משהו (0% לא נחשב "המשך"). */
-  function renderContinueCard(){
-    var wrap = document.getElementById("continue-wrap");
-    if(!wrap) return;
-    var registry;
-    try{ registry = JSON.parse(localStorage.getItem("site-progress-v1") || "{}"); }
-    catch(e){ return; }
-
-    var best = null;
-    Object.keys(registry).forEach(function(url){
-      var entry = registry[url];
-      if(!entry || !entry.percent) return;
-      if(!best || entry.updatedAt > best.updatedAt){ best = Object.assign({ url: url }, entry); }
-    });
-    if(!best) return;
-
-    var statusText = best.percent >= 100 ? "הושלם! אפשר לחזור ולשפר תשובות" : (best.percent + "% הושלמו");
-    wrap.hidden = false;
-    wrap.innerHTML =
-      '<div class="continue-card">' +
-        '<div class="continue-text">' +
-          '<div class="continue-label">המשך ללמוד מהמקום שבו עצרת</div>' +
-          '<div class="continue-title">' + escapeHtml(best.title) + '</div>' +
-          '<div class="continue-progress">' + statusText +
-            '<span class="continue-progress-track"><span class="continue-progress-fill" style="width:' + Math.min(100, best.percent) + '%"></span></span>' +
-          '</div>' +
-        '</div>' +
-        '<a class="card-link" href="' + escapeAttr(best.url) + '">להמשיך<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></a>' +
-      '</div>';
-  }
-  renderContinueCard();
 
   renderUnits();
 })();
