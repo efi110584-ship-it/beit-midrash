@@ -487,8 +487,27 @@ body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#ff
   var tabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
   var tabgroup = document.querySelector(".class-picker-inner");
 
+  var TEACHER_CODE = "5703531";
+  function isTeacherUnlocked(){
+    try{ return sessionStorage.getItem("teacherAreaUnlocked") === "1"; }
+    catch(e){ return false; }
+  }
+  function unlockTeacherArea(){
+    var code = prompt("הקלידו את הקוד שקיבלתם מהמורה כדי להיכנס לאזור האישי:");
+    if(code === null) return false;
+    if(code.trim() === TEACHER_CODE){
+      try{ sessionStorage.setItem("teacherAreaUnlocked", "1"); }catch(e){}
+      return true;
+    }
+    alert("קוד שגוי. נסו שוב, או שאלו את המורה.");
+    return false;
+  }
+
   function selectTab(tab, opts){
     opts = opts || {};
+    if(tab.getAttribute("data-class") === "teacher" && !isTeacherUnlocked()){
+      if(!unlockTeacherArea()) return;
+    }
     tabs.forEach(function(t){
       var active = t === tab;
       t.setAttribute("aria-selected", active ? "true" : "false");
