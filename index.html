@@ -175,7 +175,6 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 }
 .class-card[aria-selected="true"] .class-card-label,
 .class-card[aria-selected="true"] .class-card-hint{ color:#fff; }
-.class-card-icon{ font-size:2.3rem; line-height:1; }
 .class-card-label{ font-family:var(--font-display); font-weight:800; font-size:1.35rem; color:var(--ink); }
 .class-card-hint{ font-size:.8rem; color:var(--text-soft); font-weight:600; }
 .class-card:nth-of-type(1){ --card-acc: var(--teal); }
@@ -195,6 +194,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .class-chip[aria-selected="true"]{
   background:var(--ink); color:#fff; border-color:var(--ink);
 }
+.class-chip-icon{ font-size:1.4rem; line-height:1; vertical-align:middle; }
 
 /* ===== Results (ארבע יחידות הלימוד) ===== */
 .results-wrap{ max-width:1100px; margin:0 auto; padding:1.75rem 1.25rem 4rem; }
@@ -268,7 +268,6 @@ body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#ff
   .unit-tile{ min-height:100px; padding:0.7rem 0.5rem; }
   .unit-tile-icon{ font-size:1.6rem; }
   .unit-tile-title{ font-size:0.84rem; }
-  .class-card-icon{ font-size:1.9rem; }
   .class-card-label{ font-size:1.1rem; }
 }
 
@@ -349,12 +348,10 @@ body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#ff
 
       <div class="class-picker-primary">
         <button class="tab class-card" role="tab" aria-selected="true" data-class="יא" id="tab-ya">
-          <span class="class-card-icon" aria-hidden="true">🎓</span>
           <span class="class-card-label">כיתה י"א</span>
           <span class="class-card-hint">תנ"ך ותושב"ע</span>
         </button>
         <button class="tab class-card" role="tab" aria-selected="false" data-class="יב" id="tab-yb">
-          <span class="class-card-icon" aria-hidden="true">🎓</span>
           <span class="class-card-label">כיתה י"ב</span>
           <span class="class-card-hint">תנ"ך ותושב"ע</span>
         </button>
@@ -362,8 +359,8 @@ body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#ff
 
       <div class="class-picker-secondary">
         <button class="tab class-chip" role="tab" aria-selected="false" data-class="all" id="tab-all">כל הכיתות</button>
-        <button class="tab class-chip" role="tab" aria-selected="false" data-class="exams" id="tab-exams">📝 מבחנים</button>
-        <button class="tab class-chip" role="tab" aria-selected="false" data-class="teacher" id="tab-teacher">🗝️ תשובות למורה</button>
+        <button class="tab class-chip" role="tab" aria-selected="false" data-class="exams" id="tab-exams"><span class="class-chip-icon" aria-hidden="true">📝</span> מבחנים</button>
+        <button class="tab class-chip" role="tab" aria-selected="false" data-class="teacher" id="tab-teacher">🗝️ אזור אישי</button>
       </div>
 
     </div>
@@ -480,7 +477,7 @@ body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#ff
     var html = "";
     classKeys.forEach(function(cls){
       html += '<section class="class-section">';
-      html += '<h2>' + (CLASS_ORDER.indexOf(cls) !== -1 ? 'כיתה ' + escapeHtml(cls) + '\u200f' : (cls === "exams" ? '📝 מבחנים' : (cls === "teacher" ? '🗝️ תשובות למורה' : escapeHtml(cls)))) + '</h2>';
+      html += '<h2>' + (CLASS_ORDER.indexOf(cls) !== -1 ? 'כיתה ' + escapeHtml(cls) + '\u200f' : (cls === "exams" ? '📝 מבחנים' : (cls === "teacher" ? '🗝️ אזור אישי' : escapeHtml(cls)))) + '</h2>';
       html += '<div class="unit-grid">';
       byClass[cls].forEach(function(u){ html += unitCardHtml(u, registry); });
       html += '</div></section>';
