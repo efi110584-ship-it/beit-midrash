@@ -204,39 +204,31 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .class-section{ margin-bottom:2.5rem; }
 .class-section > h2{ font-size:1.5rem; border-bottom:2.5px solid var(--gold); padding-bottom:0.5rem; margin-bottom:1.3rem; }
 
-.unit-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:1.3rem; }
+/* קוביות קטנות - כל היחידות נראות בבת אחת, בלי לגלול */
+.unit-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(128px,1fr)); gap:0.75rem; }
 
 @keyframes cardIn{ from{ opacity:0; transform: translateY(8px); } to{ opacity:1; transform: translateY(0); } }
 
-.card{
+.unit-tile{
   background:var(--paper-card); border:1px solid var(--border); border-top:3px solid var(--gold);
   border-radius:var(--radius);
-  padding:1.3rem 1.4rem; display:flex; flex-direction:column; gap:0.7rem;
-  box-shadow:var(--shadow);
-  transition: box-shadow .25s ease, transform .25s ease;
+  padding:0.9rem 0.6rem; min-height:118px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:0.3rem;
+  box-shadow:var(--shadow); text-decoration:none; color:var(--ink);
+  transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
   animation: cardIn .4s ease backwards;
 }
-.card:hover{ box-shadow:var(--shadow-hover); transform: translateY(-2px); }
-.card-tags{ display:flex; gap:0.4rem; flex-wrap:wrap; }
-.tag{ font-size:0.75rem; font-weight:700; padding:0.2rem 0.6rem; border-radius:999px; }
-.tag.subject-tnk{ background:var(--teal-light); color:var(--teal); }
-.tag.subject-tsb{ background:var(--gold-tag-bg); color:#8A5C21; }
-.tag.subject-heb{ background:#F1E2DA; color:#8B4A34; }
-.tag.subject-exam{ background:#E3E5F3; color:#1E2761; }
-.tag.subject-teacher{ background:#EFE3EC; color:#7A4A73; }
+.unit-tile:hover{ box-shadow:var(--shadow-hover); transform: translateY(-2px); border-color:var(--gold); }
+.unit-tile-icon{ font-size:1.9rem; line-height:1; }
+.unit-tile-title{ font-family:var(--font-display); font-weight:700; font-size:0.92rem; line-height:1.3; color:var(--ink); }
+.unit-tile-meta{ font-size:0.7rem; color:var(--text-soft); font-weight:600; }
+.unit-tile-done{ font-size:0.68rem; font-weight:800; color:var(--teal); }
+.unit-tile.subject-tnk{ border-top-color:var(--teal); }
+.unit-tile.subject-tsb{ border-top-color:var(--gold); }
+.unit-tile.subject-heb{ border-top-color:#8B4A34; }
+.unit-tile.subject-exam{ border-top-color:#1E2761; }
+.unit-tile.subject-teacher{ border-top-color:#7A4A73; }
 
-.unit-card-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:0.6rem; }
-.unit-icon{ font-size:2.1rem; line-height:1; }
-.card h3{ font-family:var(--font-display); font-size:1.3rem; margin:0; color:var(--ink); line-height:1.35; }
-.card p.note{ margin:0; color:var(--text-soft); font-size:0.92rem; line-height:1.55; }
-.unit-meta{ margin:0; color:var(--text-soft); font-size:0.82rem; font-weight:600; }
-
-.unit-progress{ display:flex; align-items:center; gap:0.5rem; }
-.unit-progress-track{ flex:1; display:inline-block; height:8px; border-radius:999px; background:var(--border); overflow:hidden; }
-.unit-progress-fill{ display:block; height:100%; background:linear-gradient(90deg, var(--teal), var(--gold)); border-radius:999px; }
-.unit-progress-label{ font-size:0.78rem; font-weight:700; color:var(--teal); white-space:nowrap; }
-
-.card-actions{ margin-top:auto; display:flex; flex-direction:column; gap:0.5rem; padding-top:0.3rem; }
 .card-link{
   display:inline-flex; align-items:center; justify-content:center; gap:0.4rem;
   background:var(--ink); color:#fff !important; text-decoration:none; font-weight:700;
@@ -259,10 +251,9 @@ body.high-contrast{
   --gold:#7A4E00; --gold-text:#7A4E00; --gold-light:#7A4E00; --teal:#003C39; --teal-light:#FFFFFF;
   --gold-tag-bg:#FFFFFF;
 }
-body.high-contrast .card, body.high-contrast .tab, body.high-contrast .class-card, body.high-contrast .class-chip{
+body.high-contrast .unit-tile, body.high-contrast .tab, body.high-contrast .class-card, body.high-contrast .class-chip{
   border:2px solid #000 !important;
 }
-body.high-contrast .tag{ border:2px solid currentColor; }
 body.high-contrast .hero{ background:#000; }
 body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; }
 body.high-contrast .wave-divider{ display:none; }
@@ -273,7 +264,10 @@ body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#ff
 /* ===== Responsive ===== */
 @media (max-width:640px){
   .header-inner{ flex-wrap:wrap; }
-  .unit-grid{ grid-template-columns:1fr; }
+  .unit-grid{ grid-template-columns:repeat(auto-fill, minmax(100px,1fr)); gap:0.6rem; }
+  .unit-tile{ min-height:100px; padding:0.7rem 0.5rem; }
+  .unit-tile-icon{ font-size:1.6rem; }
+  .unit-tile-title{ font-size:0.84rem; }
   .class-card-icon{ font-size:1.9rem; }
   .class-card-label{ font-size:1.1rem; }
 }
@@ -499,33 +493,17 @@ body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#ff
     var entry = registry[u.url];
     var pct = (entry && entry.percent) ? entry.percent : 0;
     var subjTagClass = u.subject === "תנך" ? "subject-tnk" : (u.subject === "תושבע" ? "subject-tsb" : (u.subject === "מבחן" ? "subject-exam" : (u.subject === "מורה" ? "subject-teacher" : "subject-heb")));
-    var subjLabel = u.subject === "תנך" ? 'תנ"ך' : (u.subject === "תושבע" ? 'תושב"ע' : (u.subject === "מבחן" ? "מבחן" : (u.subject === "מורה" ? "למורה" : "עברית")));
     var titleLabel = escapeHtml(u.title);
-    var cta = pct >= 100 ? "חזרה ליחידה - הושלמה" : (pct > 0 ? "המשיכו ללמוד" : "התחילו ללמוד");
-
-    var progressHtml = pct > 0 ?
-      ('<div class="unit-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + Math.min(100,pct) + '" aria-label="התקדמות ב' + titleLabel + '">' +
-        '<span class="unit-progress-track"><span class="unit-progress-fill" style="width:' + Math.min(100,pct) + '%"></span></span>' +
-        '<span class="unit-progress-label">' + pct + '% הושלם</span>' +
-      '</div>') : "";
+    var doneHtml = pct >= 100 ? '<span class="unit-tile-done">✓ הושלם</span>' : (pct > 0 ? '<span class="unit-tile-done">' + pct + '%</span>' : "");
+    var ariaExtra = pct >= 100 ? " - הושלם" : (pct > 0 ? " - " + pct + "% הושלם" : "");
 
     return (
-      '<article class="card unit-card">' +
-        '<div class="unit-card-top">' +
-          '<span class="unit-icon" aria-hidden="true">' + u.icon + '</span>' +
-          '<div class="card-tags"><span class="tag ' + subjTagClass + '">' + subjLabel + '</span></div>' +
-        '</div>' +
-        '<h3>' + titleLabel + '</h3>' +
-        '<p class="note">' + escapeHtml(u.desc) + '</p>' +
-        '<p class="unit-meta">' + u.chapters + ' ' + escapeHtml(u.chaptersLabel) + '</p>' +
-        progressHtml +
-        '<div class="card-actions">' +
-          '<a class="card-link" href="' + escapeAttr(u.url) + '" aria-label="' + cta + ' - ' + titleLabel + '">' +
-            cta +
-            '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
-          '</a>' +
-        '</div>' +
-      '</article>'
+      '<a class="unit-tile ' + subjTagClass + '" href="' + escapeAttr(u.url) + '" aria-label="' + titleLabel + ariaExtra + '">' +
+        '<span class="unit-tile-icon" aria-hidden="true">' + u.icon + '</span>' +
+        '<span class="unit-tile-title">' + titleLabel + '</span>' +
+        '<span class="unit-tile-meta">' + u.chapters + ' ' + escapeHtml(u.chaptersLabel) + '</span>' +
+        doneHtml +
+      '</a>'
     );
   }
 

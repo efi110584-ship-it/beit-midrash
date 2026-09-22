@@ -37,10 +37,6 @@
 </div>
 <p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
-<div class="progress-wrap">
-  <span class="progress-label" id="progressLabel">0 / 43 שאלות</span>
-  <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות ביחידה" id="progressTrack"><div class="progress-fill" id="progressFill"></div></div>
-</div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 
@@ -912,9 +908,6 @@
 const STORAGE_KEY = 'yonah-hub-answers';
 const NAME_KEY = 'yonah-hub-student';
 const textareas = Array.from(document.querySelectorAll('.answer'));
-const progressFill = document.getElementById('progressFill');
-const progressTrack = document.getElementById('progressTrack');
-const progressLabel = document.getElementById('progressLabel');
 const saveNote = document.getElementById('saveNote');
 const nameInput = document.getElementById('studentName');
 const classInput = document.getElementById('studentClass');
@@ -1040,12 +1033,6 @@ function loadStudentInfo(){
 }
 
 function updateProgress(){
-  const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
-  progressFill.style.width = pct + '%';
-  progressTrack.setAttribute('aria-valuenow', String(pct));
-  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
-
   topicSections.forEach(sec => {
     const fields = Array.from(sec.querySelectorAll('.answer'));
     const done = fields.filter(t => t.value.trim().length > 0).length;
