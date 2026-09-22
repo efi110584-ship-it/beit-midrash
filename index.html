@@ -96,6 +96,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   padding:0.55rem 0.9rem; border-radius:999px; cursor:pointer; white-space:nowrap;
 }
 .a11y-toggle:hover{ border-color:var(--gold-light); color:var(--gold-light); }
+#tab-teacher[aria-selected="true"]{ background:var(--gold-light); color:var(--ink); border-color:var(--gold-light); }
 
 .a11y-panel{ background:var(--ink-2); border-top:1px solid #3A4A72; }
 .a11y-panel-inner{
@@ -140,7 +141,6 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   border:1.5px solid var(--gold-light); border-radius:var(--radius);
   padding:1rem 1.25rem; box-shadow:var(--shadow);
 }
-.continue-card .continue-icon{ font-size:1.7rem; flex:none; }
 .continue-card .continue-text{ flex:1 1 260px; }
 .continue-card .continue-label{ font-size:.78rem; font-weight:700; color:var(--gold-text); letter-spacing:.04em; }
 .continue-card .continue-title{ font-family:var(--font-display); font-weight:700; font-size:1.15rem; color:var(--ink); margin:.15rem 0; }
@@ -188,13 +188,14 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   background:var(--paper-card); border:1.5px solid var(--border); color:var(--ink);
   padding:.55rem 1.1rem; border-radius:999px; cursor:pointer; font-weight:600;
   font-size:.88rem; font-family:var(--font-body); min-height:40px;
+  display:inline-flex; align-items:center; gap:.4rem;
   transition: background .2s ease, color .2s ease, border-color .2s ease, transform .15s ease;
 }
 .class-chip:hover{ border-color:var(--gold); transform:translateY(-1px); }
 .class-chip[aria-selected="true"]{
   background:var(--ink); color:#fff; border-color:var(--ink);
 }
-.class-chip-icon{ font-size:1.4rem; line-height:1; vertical-align:middle; }
+.class-chip-icon{ font-size:2.3rem; line-height:1; }
 
 /* ===== Results (ארבע יחידות הלימוד) ===== */
 .results-wrap{ max-width:1100px; margin:0 auto; padding:1.75rem 1.25rem 4rem; }
@@ -291,6 +292,7 @@ body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#ff
         <h1>בית המדרש הדיגיטלי</h1>
         <p class="brand-sub">חומרי לימוד בתנ"ך ובתושב"ע &middot; כיתות י"א–י"ב</p>
       </div>
+      <button class="tab a11y-toggle" role="tab" aria-selected="false" data-class="teacher" id="tab-teacher">🗝️ אזור אישי</button>
     </div>
 
     <div style="display:flex; align-items:center; gap:0.5rem;">
@@ -360,7 +362,6 @@ body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#ff
       <div class="class-picker-secondary">
         <button class="tab class-chip" role="tab" aria-selected="false" data-class="all" id="tab-all">כל הכיתות</button>
         <button class="tab class-chip" role="tab" aria-selected="false" data-class="exams" id="tab-exams"><span class="class-chip-icon" aria-hidden="true">📝</span> מבחנים</button>
-        <button class="tab class-chip" role="tab" aria-selected="false" data-class="teacher" id="tab-teacher">🗝️ אזור אישי</button>
       </div>
 
     </div>
@@ -624,7 +625,6 @@ body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#ff
     wrap.hidden = false;
     wrap.innerHTML =
       '<div class="continue-card">' +
-        '<span class="continue-icon" aria-hidden="true">\u{1F4D6}</span>' +
         '<div class="continue-text">' +
           '<div class="continue-label">המשך ללמוד מהמקום שבו עצרת</div>' +
           '<div class="continue-title">' + escapeHtml(best.title) + '</div>' +
