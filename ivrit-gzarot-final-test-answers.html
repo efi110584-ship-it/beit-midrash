@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>עברית — מבחן מסכם על הגזרות — מחוון תשובות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  table.answer-key{ width:100%; border-collapse:collapse; font-size:.85rem; }
+  table.answer-key th, table.answer-key td{ border:1px solid var(--paper-line); padding:.45rem .6rem; vertical-align:middle; text-align:center; }
+  table.answer-key thead th{ background:var(--acc-soft); color:var(--ink); font-weight:700; }
+  table.answer-key td.n{ color:var(--ink-soft); font-weight:700; width:44px; }
+  table.answer-key td.tw{ font-family:'Frank Ruhl Libre',serif; font-size:1.1rem; font-weight:700; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-teacher">🗝️ אזור אישי</a>
+  <span class="sep">›</span>
+  <span class="current">מבחן מסכם על הגזרות · מחוון</span>
+</nav>
+
+<p style="text-align:center; margin:1.6rem 0;">
+  <button class="hint-btn" type="button" id="answersGateBtn" data-gated="true">🔒 פתחו את המחוון (נדרש קוד מהמורה)</button>
+</p>
+
+<main>
+<div id="gatedContent" hidden></div>
+</main>
+
+<footer class="credit">עברית - מבחן מסכם על הגזרות · מחוון תשובות למורה</footer>
+
+<script>
+(function(){
+  "use strict";
+  var ANSWERS_CODE = '5703531';
+  var gateBtn = document.getElementById('answersGateBtn');
+  var gatedContent = document.getElementById('gatedContent');
+
+  function b64ToUtf8(b64){
+    var binary = window.atob(b64);
+    var bytes = new Uint8Array(binary.length);
+    for(var i = 0; i < binary.length; i++){ bytes[i] = binary.charCodeAt(i); }
+    return new TextDecoder("utf-8").decode(bytes);
+  }
+
+  function unlockContent(){
+    if(gatedContent.childElementCount === 0){
+      gatedContent.innerHTML = b64ToUtf8(window.LOCKED_HTML_B64);
+    }
+    gatedContent.hidden = false;
+  }
+
+  function isTeacherUnlocked(){
+    try{ return sessionStorage.getItem('teacherAreaUnlocked') === '1'; }
+    catch(e){ return false; }
+  }
+
+  if(gateBtn && gatedContent){
+    if(isTeacherUnlocked()){
+      document.addEventListener('DOMContentLoaded', function(){
+        unlockContent();
+        gateBtn.textContent = '🔓 הקוד אושר';
+        gateBtn.disabled = true;
+      });
+    }
+    gateBtn.addEventListener('click', function(){
+      var code = prompt('הקלידו את הקוד שקיבלתם מהמורה כדי לפתוח את המחוון:');
+      if(code === null) return;
+      if(code.trim() === ANSWERS_CODE){
+        try{ sessionStorage.setItem('teacherAreaUnlocked', '1'); }catch(e){}
+        unlockContent();
+        gateBtn.textContent = '🔓 הקוד אושר';
+        gateBtn.disabled = true;
+      } else {
+        alert('קוד שגוי. נסו שוב, או שאלו את המורה.');
+      }
+    });
+  }
+})();
+var LOCKED_HTML_B64 = "PHNlY3Rpb24gY2xhc3M9ImNhcmQiIHN0eWxlPSJncmlkLWNvbHVtbjogMSAvIC0xOyI+PGRpdiBjbGFzcz0iY2FyZC1oZWFkIj48c3BhbiBjbGFzcz0iY2FyZC10YWciPtee16TXqteXINeq16nXldeR15XXqjwvc3Bhbj48aDIgY2xhc3M9ImNhcmQtdGl0bGUiPtee15HXl9efINee16HXm9edINei15wg15TXkteW16jXldeqPC9oMj48L2Rpdj48ZGl2IGNsYXNzPSJjYXJkLWJvZHkiPjxkaXYgY2xhc3M9InRhYmxlLXdyYXAiPjx0YWJsZSBjbGFzcz0iYW5zd2VyLWtleSI+PHRoZWFkPjx0cj48dGg+157XodezPC90aD48dGg+157Xmdec15Q8L3RoPjx0aD7XqdeV16jXqTwvdGg+PHRoPteS15bXqNeUPC90aD48L3RyPjwvdGhlYWQ+PHRib2R5Pjx0cj48dGQgY2xhc3M9Im4iPjEuPC90ZD48dGQgY2xhc3M9InR3Ij7Xodaw15zWtNeZ15zWuNeUPC90ZD48dGQ+16Et15wt15w8L3RkPjx0ZD7Xm9ek15XXnNeZ150gKNeiIteiKTwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj4yLjwvdGQ+PHRkIGNsYXNzPSJ0dyI+16fWsNeo1rTXmdeQ1rjXlDwvdGQ+PHRkPtenLdeoLdeQPC90ZD48dGQ+16DXl9eZINecIteQPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjMuPC90ZD48dGQgY2xhc3M9InR3Ij7XkNa0157WvNeV1rzXqjwvdGQ+PHRkPteQLdeeLdeqPC90ZD48dGQ+16DXl9eZINekIteQPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjQuPC90ZD48dGQgY2xhc3M9InR3Ij7XkNay157WtNeZ16jWuNeUPC90ZD48dGQ+15At154t16g8L3RkPjx0ZD7XoNeX15kg16Qi15A8L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0ibiI+NS48L3RkPjx0ZCBjbGFzcz0idHciPteU1rfXkNay15bWuNeg1rjXlDwvdGQ+PHRkPteQLdeWLdefPC90ZD48dGQ+16DXl9eZINekIteQPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjYuPC90ZD48dGQgY2xhc3M9InR3Ij7Xmdaw16bWtNeZ16jWuNeUPC90ZD48dGQ+15kt16Yt16g8L3RkPjx0ZD7Xl9eh16jXmSDXpNeZItemPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjcuPC90ZD48dGQgY2xhc3M9InR3Ij7XlNa216LWsdec1rjXlDwvdGQ+PHRkPteiLdecLdeUPC90ZD48dGQ+16DXl9eZINecIteUPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjguPC90ZD48dGQgY2xhc3M9InR3Ij7Xm9a01rzXoda815XWvNeZPC90ZD48dGQ+15st16Et15Q8L3RkPjx0ZD7XoNeX15kg15wi15Q8L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0ibiI+OS48L3RkPjx0ZCBjbGFzcz0idHciPteq1rTWvNeo1rDXkta815XWvNedPC90ZD48dGQ+16ot16gt15It1508L3RkPjx0ZD7Xnteo15XXkdei15nXnTwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj4xMC48L3RkPjx0ZCBjbGFzcz0idHciPteR1rTWvNec1rDXkda815XWvNecPC90ZD48dGQ+15Et15wt15Et15w8L3RkPjx0ZD7Xnteo15XXkdei15nXnTwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj4xMS48L3RkPjx0ZCBjbGFzcz0idHciPten1rjXqNa415A8L3RkPjx0ZD7Xpy3XqC3XkDwvdGQ+PHRkPteg15fXmSDXnCLXkDwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj4xMi48L3RkPjx0ZCBjbGFzcz0idHciPteZ1rfXpta01rzXmdeRPC90ZD48dGQ+15kt16Yt15E8L3RkPjx0ZD7Xl9eh16jXmSDXpNeZItemPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjEzLjwvdGQ+PHRkIGNsYXNzPSJ0dyI+157WsNem1rTXmdeQ1rjXlDwvdGQ+PHRkPteeLdemLdeQPC90ZD48dGQ+16DXl9eZINecIteQPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjE0LjwvdGQ+PHRkIGNsYXNzPSJ0dyI+157WtNeZ16rWuNeUPC90ZD48dGQ+154t15Ut16o8L3RkPjx0ZD7XoNeX15kg16Ii15U8L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0ibiI+MTUuPC90ZD48dGQgY2xhc3M9InR3Ij7Xmdaw16jWtNeZ15PWuNeUPC90ZD48dGQ+15kt16gt15M8L3RkPjx0ZD7XoNeX15kg16Qi15U8L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0ibiI+MTYuPC90ZD48dGQgY2xhc3M9InR3Ij7Xp9aw16DWtNeZ1rjWvNeUPC90ZD48dGQ+16ct16At15Q8L3RkPjx0ZD7XoNeX15kg15wi15Q8L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0ibiI+MTcuPC90ZD48dGQgY2xhc3M9InR3Ij7Xmdaw15PWtNeZ16LWuNeUPC90ZD48dGQ+15kt15Mt16I8L3RkPjx0ZD7XoNeX15kg16Qi15U8L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0ibiI+MTguPC90ZD48dGQgY2xhc3M9InR3Ij7XoNaw16HWtNeZ16LWuNeUPC90ZD48dGQ+16At16Et16I8L3RkPjx0ZD7Xl9eh16jXmSDXpCLXoDwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj4xOS48L3RkPjx0ZCBjbGFzcz0idHciPteR1rjWvNeg1rjXlDwvdGQ+PHRkPteRLdegLdeUPC90ZD48dGQ+16DXl9eZINecIteUPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjIwLjwvdGQ+PHRkIGNsYXNzPSJ0dyI+15TWsteR1rjXkNa415Q8L3RkPjx0ZD7XkS3XlS3XkDwvdGQ+PHRkPteg15fXmSDXoiLXlTwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj4yMS48L3RkPjx0ZCBjbGFzcz0idHciPteU1rfXkda41rzXmNa415Q8L3RkPjx0ZD7XoC3XkS3XmDwvdGQ+PHRkPteX16HXqNeZINekItegPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjIyLjwvdGQ+PHRkIGNsYXNzPSJ0dyI+15TWsteh1rjXkda415Q8L3RkPjx0ZD7XoS3XkS3XkTwvdGQ+PHRkPteb16TXldec15nXnSAo16Ii16IpPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjIzLjwvdGQ+PHRkIGNsYXNzPSJ0dyI+15TWt9em1rjWvNeR1rjXlDwvdGQ+PHRkPteZLdemLdeRPC90ZD48dGQ+15fXodeo15kg16TXmSLXpjwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj4yNC48L3RkPjx0ZCBjbGFzcz0idHciPteU15XWudep1rjXgdeR1rjXlDwvdGQ+PHRkPteZLdepLdeRPC90ZD48dGQ+16DXl9eZINekIteVPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjI1LjwvdGQ+PHRkIGNsYXNzPSJ0dyI+157WuNem1rjXkDwvdGQ+PHRkPteeLdemLdeQPC90ZD48dGQ+16DXl9eZINecIteQPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjI2LjwvdGQ+PHRkIGNsYXNzPSJ0dyI+16nWtNeB15nXkda415Q8L3RkPjx0ZD7XqS3XlS3XkTwvdGQ+PHRkPteg15fXmSDXoiLXlTwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj4yNy48L3RkPjx0ZCBjbGFzcz0idHciPteR1rDWvNeg1rTXmda41rzXlDwvdGQ+PHRkPteRLdegLdeUPC90ZD48dGQ+16DXl9eZINecIteUPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjI4LjwvdGQ+PHRkIGNsYXNzPSJ0dyI+15TWt9ee1rDXpta415DWuNeUPC90ZD48dGQ+154t16Yt15A8L3RkPjx0ZD7XoNeX15kg15wi15A8L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0ibiI+MjkuPC90ZD48dGQgY2xhc3M9InR3Ij7Xmda016TWuda815w8L3RkPjx0ZD7XoC3XpC3XnDwvdGQ+PHRkPteX16HXqNeZINekItegPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjMwLjwvdGQ+PHRkIGNsYXNzPSJ0dyI+16fWuNedPC90ZD48dGQ+16ct15Ut1508L3RkPjx0ZD7XoNeX15kg16Ii15U8L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0ibiI+MzEuPC90ZD48dGQgY2xhc3M9InR3Ij7Xnta015zWvNeV1rzXmTwvdGQ+PHRkPteeLdecLdeQPC90ZD48dGQ+16DXl9eZINecIteQPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjMyLjwvdGQ+PHRkIGNsYXNzPSJ0dyI+16fWtNec1rDXnNa415Q8L3RkPjx0ZD7Xpy3XnC3XnDwvdGQ+PHRkPteb16TXldec15nXnSAo16Ii16IpPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjMzLjwvdGQ+PHRkIGNsYXNzPSJ0dyI+16jWtNek1rzXlda815k8L3RkPjx0ZD7XqC3XpC3XkDwvdGQ+PHRkPteg15fXmSDXnCLXkDwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj4zNC48L3RkPjx0ZCBjbGFzcz0idHciPteZ1rDXqda014HXmdeR1rjXlDwvdGQ+PHRkPteZLdepLdeRPC90ZD48dGQ+16DXl9eZINekIteVPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjM1LjwvdGQ+PHRkIGNsYXNzPSJ0dyI+15HWsNa816jWtNeZ15DWuNeUPC90ZD48dGQ+15Et16gt15A8L3RkPjx0ZD7XoNeX15kg15wi15A8L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0ibiI+MzYuPC90ZD48dGQgY2xhc3M9InR3Ij7Xqda014HXmdeo1rjXlDwvdGQ+PHRkPtepLdeZLdeoPC90ZD48dGQ+16DXl9eZINeiIteVPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjM3LjwvdGQ+PHRkIGNsYXNzPSJ0dyI+15TWt9em1rjWvNeq1rjXlDwvdGQ+PHRkPteZLdemLdeqPC90ZD48dGQ+15fXodeo15kg16TXmSLXpjwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj4zOC48L3RkPjx0ZCBjbGFzcz0idHciPteo1rDXkNa015nWuNa815Q8L3RkPjx0ZD7XqC3XkC3XlDwvdGQ+PHRkPteg15fXmSDXnCLXlDwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj4zOS48L3RkPjx0ZCBjbGFzcz0idHciPteU15XWudeT1rjXota415Q8L3RkPjx0ZD7XmS3Xky3XojwvdGQ+PHRkPteg15fXmSDXpCLXlTwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj40MC48L3RkPjx0ZCBjbGFzcz0idHciPteZ1rjXqNa315M8L3RkPjx0ZD7XmS3XqC3XkzwvdGQ+PHRkPteg15fXmSDXpCLXlTwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj40MS48L3RkPjx0ZCBjbGFzcz0idHciPteU1rfXotay15zWuNeQ1rjXlDwvdGQ+PHRkPteiLdecLdeUPC90ZD48dGQ+16DXl9eZINecIteUPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjQyLjwvdGQ+PHRkIGNsYXNzPSJ0dyI+15fWsteS1rTXmdeS1rjXlDwvdGQ+PHRkPteXLdeSLdeSPC90ZD48dGQ+15vXpNeV15zXmdedICjXoiLXoik8L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0ibiI+NDMuPC90ZD48dGQgY2xhc3M9InR3Ij7XkNa515vWt9ecPC90ZD48dGQ+15At15st15w8L3RkPjx0ZD7XoNeX15kg16Qi15A8L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0ibiI+NDQuPC90ZD48dGQgY2xhc3M9InR3Ij7XlNay16fWuNee1rjXlDwvdGQ+PHRkPtenLdeVLdedPC90ZD48dGQ+16DXl9eZINeiIteVPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjQ1LjwvdGQ+PHRkIGNsYXNzPSJ0dyI+15vWsNa816rWtNeZ15HWuNeUPC90ZD48dGQ+15st16ot15E8L3RkPjx0ZD7Xqdec157XmdedPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjQ2LjwvdGQ+PHRkIGNsYXNzPSJ0dyI+15nWtNeh1rfWvNeiPC90ZD48dGQ+16At16Et16I8L3RkPjx0ZD7Xl9eh16jXmSDXpCLXoDwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj40Ny48L3RkPjx0ZCBjbGFzcz0idHciPtep1rTXgteg1rDXkNa415Q8L3RkPjx0ZD7XqdeCLdegLdeQPC90ZD48dGQ+16DXl9eZINecIteQPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjQ4LjwvdGQ+PHRkIGNsYXNzPSJ0dyI+16TWsNa816DWtNeZ1rjWvNeUPC90ZD48dGQ+16Qt16At15Q8L3RkPjx0ZD7XoNeX15kg15wi15Q8L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0ibiI+NDkuPC90ZD48dGQgY2xhc3M9InR3Ij7XlNa316bWuNa815zWuNeUPC90ZD48dGQ+16At16Yt15w8L3RkPjx0ZD7Xl9eh16jXmSDXpCLXoDwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj41MC48L3RkPjx0ZCBjbGFzcz0idHciPtei1rLXqda014LXmda41rzXlDwvdGQ+PHRkPteiLdepLdeUPC90ZD48dGQ+16DXl9eZINecIteUPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjUxLjwvdGQ+PHRkIGNsYXNzPSJ0dyI+16HWtNeR1rzXlda815E8L3RkPjx0ZD7XoS3XkS3XkTwvdGQ+PHRkPteb16TXldec15nXnSAo16Ii16IpPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjUyLjwvdGQ+PHRkIGNsYXNzPSJ0dyI+15TXlda515zWuNeT1rjXlDwvdGQ+PHRkPteZLdecLdeTPC90ZD48dGQ+16DXl9eZINekIteVPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjUzLjwvdGQ+PHRkIGNsYXNzPSJ0dyI+15nWtNeq1rXWvNefPC90ZD48dGQ+16At16ot1588L3RkPjx0ZD7Xl9eh16jXmSDXpCLXoDwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj41NC48L3RkPjx0ZCBjbGFzcz0idHciPtep1rDXgdee1rTXmdeo1rjXlDwvdGQ+PHRkPtepLdeeLdeoPC90ZD48dGQ+16nXnNee15nXnTwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj41NS48L3RkPjx0ZCBjbGFzcz0idHciPteU1rfXpta41rzXkta415Q8L3RkPjx0ZD7XmS3Xpi3XkjwvdGQ+PHRkPteX16HXqNeZINek15ki16Y8L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0ibiI+NTYuPC90ZD48dGQgY2xhc3M9InR3Ij7XkNay15vWtNeZ15zWuNeUPC90ZD48dGQ+15At15st15w8L3RkPjx0ZD7XoNeX15kg16Qi15A8L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0ibiI+NTcuPC90ZD48dGQgY2xhc3M9InR3Ij7Xmda515DXnta316g8L3RkPjx0ZD7XkC3Xni3XqDwvdGQ+PHRkPteg15fXmSDXpCLXkDwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj41OC48L3RkPjx0ZCBjbGFzcz0idHciPteQ1rLXkda115PWuNeUPC90ZD48dGQ+15At15Et15M8L3RkPjx0ZD7XoNeX15kg16Qi15A8L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0ibiI+NTkuPC90ZD48dGQgY2xhc3M9InR3Ij7Xp9a015nXnta415Q8L3RkPjx0ZD7Xpy3XlS3XnTwvdGQ+PHRkPteg15fXmSDXoiLXlTwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJuIj42MC48L3RkPjx0ZCBjbGFzcz0idHciPteg1rDXpNa015nXnNa415Q8L3RkPjx0ZD7XoC3XpC3XnDwvdGQ+PHRkPteX16HXqNeZINekItegPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9Im4iPjYxLjwvdGQ+PHRkIGNsYXNzPSJ0dyI+15TWt9em1rTWvNeZ15I8L3RkPjx0ZD7XmS3Xpi3XkjwvdGQ+PHRkPteX16HXqNeZINek15ki16Y8L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0ibiI+NjIuPC90ZD48dGQgY2xhc3M9InR3Ij7XlNeV1rnXqNa415PWuNeUPC90ZD48dGQ+15kt16gt15M8L3RkPjx0ZD7XoNeX15kg16Qi15U8L3RkPjwvdHI+PC90Ym9keT48L3RhYmxlPjwvZGl2PjwvZGl2Pjwvc2VjdGlvbj4=";
+</script>
+
+</body>
+</html>
