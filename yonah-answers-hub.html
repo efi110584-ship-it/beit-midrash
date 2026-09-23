@@ -199,11 +199,26 @@
     gatedContent.hidden = false;
   }
 
+  function isTeacherUnlocked(){
+    try{ return sessionStorage.getItem('teacherAreaUnlocked') === '1'; }
+    catch(e){ return false; }
+  }
+
   if(gateBtn && gatedContent){
+    if(isTeacherUnlocked()){
+      /* LOCKED_HTML_B64 מוגדר בתגית <script> נפרדת שמגיעה אחרי זו במסמך -
+         ממתינים ל-DOMContentLoaded כדי לוודא שהיא כבר הוגדרה. */
+      document.addEventListener('DOMContentLoaded', function(){
+        unlockContent();
+        gateBtn.textContent = '🔓 הקוד אושר';
+        gateBtn.disabled = true;
+      });
+    }
     gateBtn.addEventListener('click', function(){
       var code = prompt('הקלידו את הקוד שקיבלתם מהמורה כדי לפתוח את המחוון:');
       if(code === null) return;
       if(code.trim() === ANSWERS_CODE){
+        try{ sessionStorage.setItem('teacherAreaUnlocked', '1'); }catch(e){}
         unlockContent();
         gateBtn.textContent = '🔓 הקוד אושר';
         gateBtn.disabled = true;

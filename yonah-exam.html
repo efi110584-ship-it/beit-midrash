@@ -75,18 +75,33 @@
   var btn = document.getElementById('examGateBtn');
   var link = document.getElementById('examLink');
   if(!btn || !link) return;
-  btn.addEventListener('click', function(){
-    var code = prompt('הקלידו את הקוד שקיבלתם מהמורה כדי לפתוח את המבחן:');
-    if(code === null) return;
-    if(code.trim() === EXAM_CODE){
-      link.classList.add('show');
-      btn.textContent = '🔓 הקוד אושר';
-      btn.disabled = true;
-      link.focus();
-    } else {
-      alert('קוד שגוי. נסו שוב, או שאלו את המורה.');
-    }
-  });
+
+  function reveal(){
+    link.classList.add('show');
+    btn.textContent = '🔓 הקוד אושר';
+    btn.disabled = true;
+  }
+
+  function isTeacherUnlocked(){
+    try{ return sessionStorage.getItem('teacherAreaUnlocked') === '1'; }
+    catch(e){ return false; }
+  }
+
+  if(isTeacherUnlocked()){
+    reveal();
+  } else {
+    btn.addEventListener('click', function(){
+      var code = prompt('הקלידו את הקוד שקיבלתם מהמורה כדי לפתוח את המבחן:');
+      if(code === null) return;
+      if(code.trim() === EXAM_CODE){
+        try{ sessionStorage.setItem('teacherAreaUnlocked', '1'); }catch(e){}
+        reveal();
+        link.focus();
+      } else {
+        alert('קוד שגוי. נסו שוב, או שאלו את המורה.');
+      }
+    });
+  }
 })();
 </script>
 
