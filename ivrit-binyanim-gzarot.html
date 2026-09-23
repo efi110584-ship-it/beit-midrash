@@ -55,10 +55,19 @@ table{border-collapse:collapse;margin:0 auto}
 .sheet p{margin:6px 0;line-height:1.5}
 .bank{background:#fbefe8;padding:8px 12px;border-radius:8px}
 .printbtn{display:block;margin:0 auto 14px;font:700 1rem Assistant;border:0;background:var(--accent);color:#fff;padding:10px 22px;border-radius:999px;cursor:pointer}
+.test td.answer-cell{position:relative;padding:4px}
+.test input.ans{width:100%;box-sizing:border-box;font:600 1rem Assistant,sans-serif;padding:6px 8px;border:1.5px solid var(--line);border-radius:6px;text-align:center;background:#fff}
+.test input.ans.is-correct{border-color:#2E7D4F;background:#EAF6EF}
+.test input.ans.is-wrong{border-color:var(--red);background:#FBEAE9}
+.test .check-mark{position:absolute;top:2px;left:6px;font-size:.85rem;font-weight:900;pointer-events:none}
+.test .check-mark.is-correct{color:#2E7D4F}
+.test .check-mark.is-wrong{color:var(--red)}
+.checkbtn{display:block;margin:14px auto 0;font:700 1rem Assistant;border:2px solid var(--ink);background:transparent;color:var(--ink);padding:10px 22px;border-radius:999px;cursor:pointer}
+.check-summary{display:block;text-align:center;margin-top:8px;font-weight:700}
 .back-link{display:block;text-align:center;padding:18px 20px 40px;font-size:.9rem}
 .back-link a{color:var(--accent);font-weight:700;text-decoration:none}
 .back-link a:hover{text-decoration:underline}
-@media print{.crumb,nav.tabs,header,.printbtn,.hint,.back-link{display:none!important}section{display:none!important}section.printing{display:block!important}.scroll{box-shadow:none;padding:0}body{background:#fff}main{padding:0}}
+@media print{.crumb,nav.tabs,header,.printbtn,.hint,.back-link,.checkbtn,.check-summary,.check-mark{display:none!important}section{display:none!important}section.printing{display:block!important}.scroll{box-shadow:none;padding:0}body{background:#fff}main{padding:0}}
 </style></head><body>
 <nav class="crumb" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -79,9 +88,106 @@ table{border-collapse:collapse;margin:0 auto}
 <section id="test"><button class="printbtn" onclick="pr('test')">הדפסה</button><div class="scroll sheet"><h2>זיהוי גזרות</h2>
 <div class="meta"><span>שם: ____________________</span><span>כיתה: ________</span><span>תאריך: ____________</span></div>
 <p>לפניך 20 מילים. כל מילה שייכת לגזרה אחת בלבד. כתוב את השורש של כל מילה ואת הגזרה שלה.</p><p class="bank"><b>מחסן הגזרות:</b> שלמים · מרובעים · חסרי פ״נ · חסרי פי״צ · נחי פ״א · נחי ל״א · נחי ל״ה · נחי פ״ו · נחי ע״ו · כפולים</p>
-<table class="test"><thead><tr><th>מס׳</th><th>מילה</th><th>שורש</th><th>גזרה</th></tr></thead><tbody><tr><td class="n">1.</td><td class="tw">יִסַּע</td><td></td><td></td></tr><tr><td class="n">2.</td><td class="tw">קָרָא</td><td></td><td></td></tr><tr><td class="n">3.</td><td class="tw">שָׁמַר</td><td></td><td></td></tr><tr><td class="n">4.</td><td class="tw">הוֹשִׁיב</td><td></td><td></td></tr><tr><td class="n">5.</td><td class="tw">סָבַב</td><td></td><td></td></tr><tr><td class="n">6.</td><td class="tw">יֹאכַל</td><td></td><td></td></tr><tr><td class="n">7.</td><td class="tw">תִּרְגֵּם</td><td></td><td></td></tr><tr><td class="n">8.</td><td class="tw">בָּנָה</td><td></td><td></td></tr><tr><td class="n">9.</td><td class="tw">קָם</td><td></td><td></td></tr><tr><td class="n">10.</td><td class="tw">הִצִּיג</td><td></td><td></td></tr><tr><td class="n">11.</td><td class="tw">נוֹלַד</td><td></td><td></td></tr><tr><td class="n">12.</td><td class="tw">הִבִּיט</td><td></td><td></td></tr><tr><td class="n">13.</td><td class="tw">חָגַג</td><td></td><td></td></tr><tr><td class="n">14.</td><td class="tw">מָצָא</td><td></td><td></td></tr><tr><td class="n">15.</td><td class="tw">כִּרְסֵם</td><td></td><td></td></tr><tr><td class="n">16.</td><td class="tw">יֹאמַר</td><td></td><td></td></tr><tr><td class="n">17.</td><td class="tw">שָׁתָה</td><td></td><td></td></tr><tr><td class="n">18.</td><td class="tw">יִצֹּק</td><td></td><td></td></tr><tr><td class="n">19.</td><td class="tw">שָׁר</td><td></td><td></td></tr><tr><td class="n">20.</td><td class="tw">לָמַד</td><td></td><td></td></tr></tbody></table></div></section>
+<table class="test"><thead><tr><th>מס׳</th><th>מילה</th><th>שורש</th><th>גזרה</th></tr></thead><tbody><tr><td class="n">1.</td><td class="tw">יִסַּע</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t1-shoresh" aria-label="שורש, מילה 1"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t1-gzara" aria-label="גזרה, מילה 1"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">2.</td><td class="tw">קָרָא</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t2-shoresh" aria-label="שורש, מילה 2"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t2-gzara" aria-label="גזרה, מילה 2"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">3.</td><td class="tw">שָׁמַר</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t3-shoresh" aria-label="שורש, מילה 3"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t3-gzara" aria-label="גזרה, מילה 3"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">4.</td><td class="tw">הוֹשִׁיב</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t4-shoresh" aria-label="שורש, מילה 4"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t4-gzara" aria-label="גזרה, מילה 4"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">5.</td><td class="tw">סָבַב</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t5-shoresh" aria-label="שורש, מילה 5"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t5-gzara" aria-label="גזרה, מילה 5"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">6.</td><td class="tw">יֹאכַל</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t6-shoresh" aria-label="שורש, מילה 6"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t6-gzara" aria-label="גזרה, מילה 6"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">7.</td><td class="tw">תִּרְגֵּם</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t7-shoresh" aria-label="שורש, מילה 7"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t7-gzara" aria-label="גזרה, מילה 7"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">8.</td><td class="tw">בָּנָה</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t8-shoresh" aria-label="שורש, מילה 8"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t8-gzara" aria-label="גזרה, מילה 8"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">9.</td><td class="tw">קָם</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t9-shoresh" aria-label="שורש, מילה 9"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t9-gzara" aria-label="גזרה, מילה 9"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">10.</td><td class="tw">הִצִּיג</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t10-shoresh" aria-label="שורש, מילה 10"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t10-gzara" aria-label="גזרה, מילה 10"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">11.</td><td class="tw">נוֹלַד</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t11-shoresh" aria-label="שורש, מילה 11"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t11-gzara" aria-label="גזרה, מילה 11"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">12.</td><td class="tw">הִבִּיט</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t12-shoresh" aria-label="שורש, מילה 12"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t12-gzara" aria-label="גזרה, מילה 12"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">13.</td><td class="tw">חָגַג</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t13-shoresh" aria-label="שורש, מילה 13"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t13-gzara" aria-label="גזרה, מילה 13"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">14.</td><td class="tw">מָצָא</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t14-shoresh" aria-label="שורש, מילה 14"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t14-gzara" aria-label="גזרה, מילה 14"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">15.</td><td class="tw">כִּרְסֵם</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t15-shoresh" aria-label="שורש, מילה 15"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t15-gzara" aria-label="גזרה, מילה 15"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">16.</td><td class="tw">יֹאמַר</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t16-shoresh" aria-label="שורש, מילה 16"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t16-gzara" aria-label="גזרה, מילה 16"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">17.</td><td class="tw">שָׁתָה</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t17-shoresh" aria-label="שורש, מילה 17"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t17-gzara" aria-label="גזרה, מילה 17"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">18.</td><td class="tw">יִצֹּק</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t18-shoresh" aria-label="שורש, מילה 18"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t18-gzara" aria-label="גזרה, מילה 18"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">19.</td><td class="tw">שָׁר</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t19-shoresh" aria-label="שורש, מילה 19"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t19-gzara" aria-label="גזרה, מילה 19"><span class="check-mark" aria-hidden="true"></span></td></tr><tr><td class="n">20.</td><td class="tw">לָמַד</td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t20-shoresh" aria-label="שורש, מילה 20"><span class="check-mark" aria-hidden="true"></span></td><td class="answer-cell"><input type="text" class="ans" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="t20-gzara" aria-label="גזרה, מילה 20"><span class="check-mark" aria-hidden="true"></span></td></tr></tbody></table><button class="checkbtn" type="button" id="testCheckBtn">✓ בדקו לי את התשובות</button><span class="check-summary" id="testCheckSummary"></span></div></section>
 </main>
 <p class="back-link"><a href="index.html#tab-ya">↺ חזרה ליחידה</a></p>
+<script>
+var TEST_CORRECT_ANSWERS = {"t1-shoresh": "נ-ס-ע", "t1-gzara": "חסרי פ\"נ", "t2-shoresh": "ק-ר-א", "t2-gzara": "נחי ל\"א", "t3-shoresh": "ש-מ-ר", "t3-gzara": "שלמים", "t4-shoresh": "י-ש-ב", "t4-gzara": "נחי פ\"ו", "t5-shoresh": "ס-ב-ב", "t5-gzara": "כפולים (ע\"ע)", "t6-shoresh": "א-כ-ל", "t6-gzara": "נחי פ\"א", "t7-shoresh": "ת-ר-ג-ם", "t7-gzara": "מרובעים", "t8-shoresh": "ב-נ-ה", "t8-gzara": "נחי ל\"ה", "t9-shoresh": "ק-ו-ם", "t9-gzara": "נחי ע\"ו", "t10-shoresh": "י-צ-ג", "t10-gzara": "חסרי פי\"צ", "t11-shoresh": "י-ל-ד", "t11-gzara": "נחי פ\"ו", "t12-shoresh": "נ-ב-ט", "t12-gzara": "חסרי פ\"נ", "t13-shoresh": "ח-ג-ג", "t13-gzara": "כפולים (ע\"ע)", "t14-shoresh": "מ-צ-א", "t14-gzara": "נחי ל\"א", "t15-shoresh": "כ-ר-ס-ם", "t15-gzara": "מרובעים", "t16-shoresh": "א-מ-ר", "t16-gzara": "נחי פ\"א", "t17-shoresh": "ש-ת-ה", "t17-gzara": "נחי ל\"ה", "t18-shoresh": "י-צ-ק", "t18-gzara": "חסרי פי\"צ", "t19-shoresh": "ש-י-ר", "t19-gzara": "נחי ע\"ו", "t20-shoresh": "ל-מ-ד", "t20-gzara": "שלמים"};
+var TEST_STORAGE_KEY = 'ivrit-binyanim-test-answers';
+
+function testNormalizeFree(str){
+  return (str || '')
+    .replace(/[\u0591-\u05C7]/g, '')
+    .replace(/["'\u05F3\u05F4()\-.,\s]/g, '')
+    .trim();
+}
+
+var TEST_GZARA_ALIASES = {
+  'חסרי פ"נ': ['חסרי פ"נ', 'חפ"נ', 'חסר פ"נ', 'פ"נ'],
+  'חסרי פי"צ': ['חסרי פי"צ', 'חפי"צ', 'חסר פי"צ', 'פי"צ'],
+  'נחי פ"א': ['נחי פ"א', 'פ"א'],
+  'נחי ל"א': ['נחי ל"א', 'ל"א'],
+  'נחי ל"ה': ['נחי ל"ה', 'ל"ה'],
+  'נחי פ"ו': ['נחי פ"ו', 'פ"ו'],
+  'נחי ע"ו': ['נחי ע"ו', 'ע"ו', 'ע"י', 'נחי ע"י'],
+  'כפולים (ע"ע)': ['כפולים (ע"ע)', 'כפולים', 'ע"ע'],
+  'שלמים': ['שלמים'],
+  'מרובעים': ['מרובעים']
+};
+var TEST_GZARA_ALIASES_NORM = {};
+Object.keys(TEST_GZARA_ALIASES).forEach(function(key){
+  TEST_GZARA_ALIASES_NORM[key] = TEST_GZARA_ALIASES[key].map(testNormalizeFree);
+});
+
+var testInputs = Array.prototype.slice.call(document.querySelectorAll('table.test input.ans'));
+
+function testSaveAnswers(){
+  var data = {};
+  testInputs.forEach(function(t){ data[t.dataset.id] = t.value; });
+  try{ localStorage.setItem(TEST_STORAGE_KEY, JSON.stringify(data)); }catch(e){}
+}
+
+function testLoadAnswers(){
+  try{
+    var raw = localStorage.getItem(TEST_STORAGE_KEY);
+    if(raw){
+      var data = JSON.parse(raw);
+      testInputs.forEach(function(t){ if(data[t.dataset.id]) t.value = data[t.dataset.id]; });
+    }
+  }catch(e){}
+}
+testLoadAnswers();
+
+var testSaveTimer = null;
+testInputs.forEach(function(t){
+  t.addEventListener('input', function(){
+    clearTimeout(testSaveTimer);
+    testSaveTimer = setTimeout(testSaveAnswers, 400);
+    if(t.classList.contains('is-correct') || t.classList.contains('is-wrong')){
+      testCheckOne(t);
+    }
+  });
+});
+
+function testCheckOne(input){
+  var correctRaw = TEST_CORRECT_ANSWERS[input.dataset.id];
+  var cell = input.nextElementSibling;
+  if(!correctRaw || !cell) return null;
+  input.classList.remove('is-correct', 'is-wrong');
+  cell.classList.remove('is-correct', 'is-wrong');
+  cell.textContent = '';
+  var studentNorm = testNormalizeFree(input.value);
+  if(!studentNorm) return null;
+
+  var isGzaraField = input.dataset.id.indexOf('-gzara') !== -1;
+  var isCorrect;
+  if(isGzaraField && TEST_GZARA_ALIASES_NORM[correctRaw]){
+    isCorrect = TEST_GZARA_ALIASES_NORM[correctRaw].indexOf(studentNorm) !== -1;
+  } else {
+    isCorrect = testNormalizeFree(correctRaw) === studentNorm;
+  }
+  input.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
+  cell.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
+  cell.textContent = isCorrect ? '\u2713' : '\u2717';
+  return isCorrect;
+}
+
+var testCheckBtn = document.getElementById('testCheckBtn');
+var testCheckSummary = document.getElementById('testCheckSummary');
+if(testCheckBtn){
+  testCheckBtn.addEventListener('click', function(){
+    var correct = 0, attempted = 0;
+    testInputs.forEach(function(input){
+      if(!(input.dataset.id in TEST_CORRECT_ANSWERS)) return;
+      var result = testCheckOne(input);
+      if(result !== null){ attempted++; if(result) correct++; }
+    });
+    testCheckSummary.textContent = attempted
+      ? ('\u2713 ' + correct + ' \u05de\u05ea\u05d5\u05da ' + attempted + ' \u05e9\u05e0\u05d5\u05e1\u05d5')
+      : '\u05e2\u05d3\u05d9\u05d9\u05df \u05dc\u05d0 \u05de\u05d9\u05dc\u05d0\u05ea\u05dd \u05d0\u05e3 \u05ea\u05e9\u05d5\u05d1\u05d4';
+  });
+}
+</script>
 <script>
 var tabBtns=document.querySelectorAll('nav.tabs button');
 tabBtns.forEach(b=>b.onclick=()=>{tabBtns.forEach(x=>x.classList.toggle('on',x===b));document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===b.dataset.s));});
