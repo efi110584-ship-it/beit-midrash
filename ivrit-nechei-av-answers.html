@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>עברית — גזרת נחי ע&quot;ו — מחוון תשובות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  table.answer-key{ width:100%; border-collapse:collapse; font-size:.8rem; }
+  table.answer-key th, table.answer-key td{ border:1px solid var(--paper-line); padding:.4rem .55rem; vertical-align:top; text-align:center; }
+  table.answer-key thead th{ background:var(--acc-soft); color:var(--ink); font-weight:700; }
+  table.answer-key td.hafan-sentence{ text-align:right; font-size:.8rem; }
+  table.answer-key td.hafan-sentence .num{ color:var(--ink-soft); font-weight:700; margin-inline-end:.25rem; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-teacher">🗝️ אזור אישי</a>
+  <span class="sep">›</span>
+  <span class="current">עברית - גזרת נחי ע&quot;ו · מחוון</span>
+</nav>
+
+<p style="text-align:center; margin:1.6rem 0;">
+  <button class="hint-btn" type="button" id="answersGateBtn" data-gated="true">🔒 פתחו את המחוון (נדרש קוד מהמורה)</button>
+</p>
+
+<main>
+<div id="gatedContent" hidden></div>
+</main>
+
+<footer class="credit">עברית - גזרת נחי ע&quot;ו · מחוון תשובות למורה</footer>
+
+<script>
+(function(){
+  "use strict";
+  var ANSWERS_CODE = '5703531';
+  var gateBtn = document.getElementById('answersGateBtn');
+  var gatedContent = document.getElementById('gatedContent');
+
+  function b64ToUtf8(b64){
+    var binary = window.atob(b64);
+    var bytes = new Uint8Array(binary.length);
+    for(var i = 0; i < binary.length; i++){ bytes[i] = binary.charCodeAt(i); }
+    return new TextDecoder("utf-8").decode(bytes);
+  }
+
+  function unlockContent(){
+    if(gatedContent.childElementCount === 0){
+      gatedContent.innerHTML = b64ToUtf8(window.LOCKED_HTML_B64);
+    }
+    gatedContent.hidden = false;
+  }
+
+  if(gateBtn && gatedContent){
+    gateBtn.addEventListener('click', function(){
+      var code = prompt('הקלידו את הקוד שקיבלתם מהמורה כדי לפתוח את המחוון:');
+      if(code === null) return;
+      if(code.trim() === ANSWERS_CODE){
+        unlockContent();
+        gateBtn.textContent = '🔓 הקוד אושר';
+        gateBtn.disabled = true;
+      } else {
+        alert('קוד שגוי. נסו שוב, או שאלו את המורה.');
+      }
+    });
+  }
+})();
+var LOCKED_HTML_B64 = "PHNlY3Rpb24gY2xhc3M9ImNhcmQiIHN0eWxlPSJncmlkLWNvbHVtbjogMSAvIC0xOyI+PGRpdiBjbGFzcz0iY2FyZC1oZWFkIj48c3BhbiBjbGFzcz0iY2FyZC10YWciPtee16TXqteXINeq16nXldeR15XXqjwvc3Bhbj48aDIgY2xhc3M9ImNhcmQtdGl0bGUiPteS15bXqNeqINeg15fXmSDXoiZxdW90O9eVIOKAlCDXk9ejINei15HXldeT15Q8L2gyPjwvZGl2PjxkaXYgY2xhc3M9ImNhcmQtYm9keSI+PGRpdiBjbGFzcz0idGFibGUtd3JhcCI+PHRhYmxlIGNsYXNzPSJhbnN3ZXIta2V5Ij48dGhlYWQ+PHRyPjx0aD48L3RoPjx0aD7XqdeV16jXqTwvdGg+PHRoPteR16DXmdeZ1588L3RoPjx0aD7XqdedINeU16TXldei15w8L3RoPjx0aD7XqdedINek16LXldec15Q8L3RoPjwvdHI+PC90aGVhZD48dGJvZHk+PHRyPjx0ZCBjbGFzcz0iaGFmYW4tc2VudGVuY2UiPjxzcGFuIGNsYXNzPSJudW0iPjEuPC9zcGFuPiDXlNeV15Ag16fWuNedINee15XXp9eT150g15HXkdeV16fXqC48L3RkPjx0ZD7Xpy3XlS3XnTwvdGQ+PHRkPten1rfXnCAo16TWuNa816LWt9ecKTwvdGQ+PHRkPtec1rjXp9eV1rzXnTwvdGQ+PHRkPten1rTXmdee1rjXlDwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJoYWZhbi1zZW50ZW5jZSI+PHNwYW4gY2xhc3M9Im51bSI+Mi48L3NwYW4+INeQ16DXmSDXkNa416fXlda8150g15HXqdeR16IuPC90ZD48dGQ+16ct15Ut1508L3RkPjx0ZD7Xp9a315wgKNek1rjWvNei1rfXnCk8L3RkPjx0ZD7XnNa416fXlda81508L3RkPjx0ZD7Xp9a015nXnta415Q8L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0iaGFmYW4tc2VudGVuY2UiPjxzcGFuIGNsYXNzPSJudW0iPjMuPC9zcGFuPiDXlNedINeU1rXXp9a015nXnteV1rwg15HXmdeqINeh16TXqCDXl9eT16kuPC90ZD48dGQ+16ct15Ut1508L3RkPjx0ZD7XlNa016TWsNei1rTXmdecPC90ZD48dGQ+15zWsNeU1rjXp9a015nXnTwvdGQ+PHRkPteU1rLXp9a4157WuNeUPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9ImhhZmFuLXNlbnRlbmNlIj48c3BhbiBjbGFzcz0ibnVtIj40Ljwvc3Bhbj4g15TXkNeo15LXldefINeU15XWvNen1rfXnSDXnNek16DXmSDXotep15XXqC48L3RkPjx0ZD7Xpy3XlS3XnTwvdGQ+PHRkPteU1rvXpNaw16LWt9ecPC90ZD48dGQ+LTwvdGQ+PHRkPi08L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0iaGFmYW4tc2VudGVuY2UiPjxzcGFuIGNsYXNzPSJudW0iPjUuPC9zcGFuPiDXlNeW157XqNeqINep1rjXgdeo1rjXlCDXqdeZ16gg15nXpNeULjwvdGQ+PHRkPtepLdeZLdeoPC90ZD48dGQ+16fWt9ecICjXpNa41rzXota315wpPC90ZD48dGQ+15zWuNep1rTXgdeZ16g8L3RkPjx0ZD7Xqda014HXmdeo1rjXlDwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJoYWZhbi1zZW50ZW5jZSI+PHNwYW4gY2xhc3M9Im51bSI+Ni48L3NwYW4+INeU150g15nWuNep1rTXgdeZ16jXlda8INeR157XodeZ15HXlC48L3RkPjx0ZD7XqS3XmS3XqDwvdGQ+PHRkPten1rfXnCAo16TWuNa816LWt9ecKTwvdGQ+PHRkPtec1rjXqda014HXmdeoPC90ZD48dGQ+16nWtNeB15nXqNa415Q8L3RkPjwvdHI+PHRyPjx0ZCBjbGFzcz0iaGFmYW4tc2VudGVuY2UiPjxzcGFuIGNsYXNzPSJudW0iPjcuPC9zcGFuPiDXlNeX15nXmdecINeU1rXXnta015nXqiDXkNeqINeU15DXldeZ15EuPC90ZD48dGQ+154t15Ut16o8L3RkPjx0ZD7XlNa016TWsNei1rTXmdecPC90ZD48dGQ+15zWsNeU1rjXnta015nXqjwvdGQ+PHRkPteU1rLXnta416rWuNeUPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9ImhhZmFuLXNlbnRlbmNlIj48c3BhbiBjbGFzcz0ibnVtIj44Ljwvc3Bhbj4g15TXlten158g157WtdeqINeR16nXnNeV15XXlC48L3RkPjx0ZD7Xni3XlS3XqjwvdGQ+PHRkPten1rfXnCAo16TWuNa816LWt9ecKTwvdGQ+PHRkPtec1rjXnteV1rzXqjwvdGQ+PHRkPtee1rTXmdeq1rjXlDwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJoYWZhbi1zZW50ZW5jZSI+PHNwYW4gY2xhc3M9Im51bSI+OS48L3NwYW4+INeU16TXqNeXINeZ1rjXnteV1rzXqiDXkdec15kg157XmdedLjwvdGQ+PHRkPteeLdeVLdeqPC90ZD48dGQ+16fWt9ecICjXpNa41rzXota315wpPC90ZD48dGQ+15zWuNee15XWvNeqPC90ZD48dGQ+157WtNeZ16rWuNeUPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9ImhhZmFuLXNlbnRlbmNlIj48c3BhbiBjbGFzcz0ibnVtIj4xMC48L3NwYW4+INeU15nXkCDXqda414LXnta415Qg15DXqiDXlNeh16TXqCDXotecINeU16nXldec15fXny48L3RkPjx0ZD7XqdeCLdeZLdedPC90ZD48dGQ+16fWt9ecICjXpNa41rzXota315wpPC90ZD48dGQ+15zWuNep1rTXgteZ1508L3RkPjx0ZD7Xqda014LXmdee1rjXlDwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJoYWZhbi1zZW50ZW5jZSI+PHNwYW4gY2xhc3M9Im51bSI+MTEuPC9zcGFuPiDXlNeh16TXqCDXlNeV1rzXqda314LXnSDXotecINeU157Xk9ejLjwvdGQ+PHRkPtep14It15kt1508L3RkPjx0ZD7XlNa716TWsNei1rfXnDwvdGQ+PHRkPi08L3RkPjx0ZD4tPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9ImhhZmFuLXNlbnRlbmNlIj48c3BhbiBjbGFzcz0ibnVtIj4xMi48L3NwYW4+INeU15XXkCDXqda414HXkSDXlNeR15nXqteUINeR16LXqNeRLjwvdGQ+PHRkPtepLdeVLdeRPC90ZD48dGQ+16fWt9ecICjXpNa41rzXota315wpPC90ZD48dGQ+15zWuNep14HXlda815E8L3RkPjx0ZD7Xqda014HXmdeR1rjXlDwvdGQ+PC90cj48dHI+PHRkIGNsYXNzPSJoYWZhbi1zZW50ZW5jZSI+PHNwYW4gY2xhc3M9Im51bSI+MTMuPC9zcGFuPiDXlNee15XXqNeUINeU1rXXqda014HXmdeRINei15wg15TXqdeQ15zXlC48L3RkPjx0ZD7XqS3XlS3XkTwvdGQ+PHRkPteU1rTXpNaw16LWtNeZ15w8L3RkPjx0ZD7XnNaw15TWuNep1rTXgdeZ15E8L3RkPjx0ZD7XlNay16nWuNeB15HWuNeUPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9ImhhZmFuLXNlbnRlbmNlIj48c3BhbiBjbGFzcz0ibnVtIj4xNC48L3NwYW4+INeU15DXldeo15cg15HWuNa815Ag15HXltee158uPC90ZD48dGQ+15Et15Ut15A8L3RkPjx0ZD7Xp9a315wgKNek1rjWvNei1rfXnCk8L3RkPjx0ZD7XnNa415HXlda515A8L3RkPjx0ZD7Xkda815XWudeQPC90ZD48L3RyPjx0cj48dGQgY2xhc3M9ImhhZmFuLXNlbnRlbmNlIj48c3BhbiBjbGFzcz0ibnVtIj4xNS48L3NwYW4+INeU15nXkCDXlNa115HWtNeZ15DWuNeUINee16rXoNeULjwvdGQ+PHRkPteRLdeVLdeQPC90ZD48dGQ+15TWtNek1rDXota015nXnDwvdGQ+PHRkPtec1rDXlNa415HWtNeZ15A8L3RkPjx0ZD7XlNay15HWuNeQ1rjXlDwvdGQ+PC90cj48L3Rib2R5PjwvdGFibGU+PC9kaXY+PC9kaXY+PC9zZWN0aW9uPg==";
+</script>
+
+</body>
+</html>
