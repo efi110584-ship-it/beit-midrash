@@ -113,102 +113,48 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .a11y-group button[aria-pressed="true"]{ background:var(--gold-text); border-color:var(--gold-text); }
 .a11y-group button:hover{ border-color:var(--gold-light); }
 
-/* ===== Hero ===== */
-.hero{
-  position:relative; overflow:hidden;
-  background:
-    radial-gradient(ellipse at 20% 0%, rgba(201,154,76,0.18), transparent 55%),
-    radial-gradient(ellipse at 85% 15%, rgba(63,110,102,0.22), transparent 50%),
-    linear-gradient(180deg, var(--ink) 0%, var(--ink-2) 100%);
-  color:#F4EFE2;
-}
-.hero-inner{ max-width:700px; margin:0 auto; padding:2.4rem 1.25rem 1.2rem; text-align:center; position:relative; z-index:2; }
-.hero h2{ color:#fff; font-size:clamp(1.5rem, 4vw, 1.9rem); line-height:1.35; margin:0; text-wrap:balance; }
-.hero-sub{ margin:.55rem 0 0; color:#D9CFB8; font-size:1rem; }
+/* ===== בחירת כיתה - שורה כחולה צמודה לכותרת, בלי גלילה ===== */
+.class-picker-section{ background:var(--ink); padding:.7rem 1.25rem; box-shadow:0 2px 10px rgba(0,0,0,.1); }
+.class-picker-inner{ max-width:1100px; margin:0 auto; display:flex; gap:.5rem; flex-wrap:wrap; justify-content:center; }
 
-/* גל אנימציה - רצועה כפולה שנעה ברציפות ("תפר" בלתי-נראה כי שתי העותקים זהים) */
-.wave-divider{ position:relative; line-height:0; margin-top:.6rem; }
-.wave-track{ display:flex; width:200%; animation: wave-scroll 22s linear infinite; will-change:transform; }
-.wave-track svg{ width:50%; flex:none; display:block; height:34px; }
-@media (min-width:640px){ .wave-track svg{ height:52px; } }
-@keyframes wave-scroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
-
-
-/* ===== בחירת כיתה - אזור בולט, גלוי כולו בלי גלילה ===== */
-.class-picker-section{ background:var(--paper); padding:0 1.25rem 1.6rem; }
-.class-picker-inner{ max-width:820px; margin:0 auto; }
-
-.class-picker-primary{
-  display:grid; grid-template-columns:repeat(2, 1fr); gap:1rem;
-  margin-top:-2.6rem; position:relative; z-index:3;
-}
-@media (max-width:640px){ .class-picker-primary{ margin-top:-1.8rem; gap:.7rem; } }
-
-.class-card{
-  --card-acc: var(--gold);
-  background:var(--paper-card); border:2px solid var(--border); border-top:5px solid var(--card-acc);
-  border-radius:16px; cursor:pointer; text-align:center;
-  padding:1.3rem 1rem 1.1rem; display:flex; flex-direction:column; align-items:center; gap:.4rem;
-  box-shadow:0 6px 20px rgba(31,58,77,0.16);
-  font-family:var(--font-body);
-  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-}
-.class-card:hover{ transform:translateY(-3px); box-shadow:0 10px 26px rgba(31,58,77,0.22); }
-.class-card[aria-selected="true"]{
-  background: var(--card-acc);
-  background: linear-gradient(160deg, var(--card-acc), color-mix(in srgb, var(--card-acc) 70%, var(--ink)));
-  border-color:var(--card-acc);
-}
-.class-card[aria-selected="true"] .class-card-label,
-.class-card[aria-selected="true"] .class-card-hint{ color:#fff; }
-.class-card-label{ font-family:var(--font-display); font-weight:800; font-size:1.35rem; color:var(--ink); }
-.class-card-hint{ font-size:.8rem; color:var(--text-soft); font-weight:600; }
-.class-card:nth-of-type(1){ --card-acc: var(--teal); }
-.class-card:nth-of-type(2){ --card-acc: #7A4A73; }
-
-.class-picker-secondary{
-  display:flex; gap:.6rem; flex-wrap:wrap; justify-content:center;
-  margin-top:1rem;
-}
 .class-chip{
-  background:var(--paper-card); border:1.5px solid var(--border); color:var(--ink);
-  padding:.55rem 1.1rem; border-radius:999px; cursor:pointer; font-weight:600;
-  font-size:.88rem; font-family:var(--font-body); min-height:40px;
+  background:transparent; border:1.5px solid #6C7899; color:#F4EFE2;
+  padding:.5rem 1.05rem; border-radius:999px; cursor:pointer; font-weight:600;
+  font-size:.85rem; font-family:var(--font-body); min-height:38px;
   display:inline-flex; align-items:center; gap:.4rem;
-  transition: background .2s ease, color .2s ease, border-color .2s ease, transform .15s ease;
+  transition: background .2s ease, color .2s ease, border-color .2s ease;
 }
-.class-chip:hover{ border-color:var(--gold); transform:translateY(-1px); }
+.class-chip:hover{ border-color:var(--gold-light); color:var(--gold-light); }
 .class-chip[aria-selected="true"]{
-  background:var(--ink); color:#fff; border-color:var(--ink);
+  background:var(--gold-light); color:var(--ink); border-color:var(--gold-light);
 }
 
-/* ===== Results (ארבע יחידות הלימוד) ===== */
-.results-wrap{ max-width:1100px; margin:0 auto; padding:1.75rem 1.25rem 4rem; }
-.status-line{ color:var(--text-soft); margin-bottom:1.1rem; font-size:0.95rem; }
+/* ===== Results (יחידות הלימוד) - קוביות קטנות, גלויות מיד בלי לגלול ===== */
+.results-wrap{ max-width:1100px; margin:0 auto; padding:1rem 1.25rem 3rem; }
+.status-line{ color:var(--text-soft); margin-bottom:.7rem; font-size:0.85rem; }
 .loading-msg, .empty-msg{ color:var(--text-soft); padding:2.5rem 0; text-align:center; font-size:1.05rem; }
 
-.class-section{ margin-bottom:2.5rem; }
-.class-section > h2{ font-size:1.5rem; border-bottom:2.5px solid var(--gold); padding-bottom:0.5rem; margin-bottom:1.3rem; }
+.class-section{ margin-bottom:1.4rem; }
+.class-section > h2{ font-size:1.1rem; border-bottom:2px solid var(--gold); padding-bottom:0.3rem; margin-bottom:0.7rem; }
 
-/* קוביות קטנות - כל היחידות נראות בבת אחת, בלי לגלול */
-.unit-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(128px,1fr)); gap:0.75rem; }
+.unit-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(84px,1fr)); gap:0.5rem; }
 
 @keyframes cardIn{ from{ opacity:0; transform: translateY(8px); } to{ opacity:1; transform: translateY(0); } }
 
 .unit-tile{
   background:var(--paper-card); border:1px solid var(--border); border-top:3px solid var(--gold);
   border-radius:var(--radius);
-  padding:0.9rem 0.6rem; min-height:118px;
-  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:0.3rem;
+  padding:0.55rem 0.4rem; min-height:78px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:0.15rem;
   box-shadow:var(--shadow); text-decoration:none; color:var(--ink);
   transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
   animation: cardIn .4s ease backwards;
 }
 .unit-tile:hover{ box-shadow:var(--shadow-hover); transform: translateY(-2px); border-color:var(--gold); }
-.unit-tile-icon{ font-size:1.9rem; line-height:1; }
-.unit-tile-title{ font-family:var(--font-display); font-weight:700; font-size:0.92rem; line-height:1.3; color:var(--ink); }
-.unit-tile-meta{ font-size:0.7rem; color:var(--text-soft); font-weight:600; }
-.unit-tile-done{ font-size:0.68rem; font-weight:800; color:var(--teal); }
+.unit-tile-icon{ font-size:1.35rem; line-height:1; }
+.unit-tile-title{ font-family:var(--font-display); font-weight:700; font-size:0.72rem; line-height:1.2; color:var(--ink); }
+.unit-tile-meta{ font-size:0.6rem; color:var(--text-soft); font-weight:600; }
+.unit-tile-done{ font-size:0.6rem; font-weight:800; color:var(--teal); }
 .unit-tile.subject-tnk{ border-top-color:var(--teal); }
 .unit-tile.subject-tsb{ border-top-color:var(--gold); }
 .unit-tile.subject-heb{ border-top-color:#8B4A34; }
@@ -225,24 +171,19 @@ body.high-contrast{
   --gold:#7A4E00; --gold-text:#7A4E00; --gold-light:#7A4E00; --teal:#003C39; --teal-light:#FFFFFF;
   --gold-tag-bg:#FFFFFF;
 }
-body.high-contrast .unit-tile, body.high-contrast .tab, body.high-contrast .class-card, body.high-contrast .class-chip{
+body.high-contrast .unit-tile, body.high-contrast .tab, body.high-contrast .class-chip{
   border:2px solid #000 !important;
 }
-body.high-contrast .hero{ background:#000; }
-body.high-contrast .site-header{ background:#000; border-bottom:2px solid #fff; }
-body.high-contrast .wave-divider{ display:none; }
-body.high-contrast .class-card[aria-selected="true"]{ background:#000 !important; }
-body.high-contrast .class-card[aria-selected="true"] .class-card-label,
-body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#fff !important; }
+body.high-contrast .site-header, body.high-contrast .class-picker-section{ background:#000; border-bottom:2px solid #fff; }
+body.high-contrast .class-chip[aria-selected="true"]{ background:#fff !important; color:#000 !important; }
 
 /* ===== Responsive ===== */
 @media (max-width:640px){
   .header-inner{ flex-wrap:wrap; }
-  .unit-grid{ grid-template-columns:repeat(auto-fill, minmax(100px,1fr)); gap:0.6rem; }
-  .unit-tile{ min-height:100px; padding:0.7rem 0.5rem; }
-  .unit-tile-icon{ font-size:1.6rem; }
-  .unit-tile-title{ font-size:0.84rem; }
-  .class-card-label{ font-size:1.1rem; }
+  .unit-grid{ grid-template-columns:repeat(auto-fill, minmax(74px,1fr)); gap:0.4rem; }
+  .unit-tile{ min-height:70px; padding:0.45rem 0.35rem; }
+  .unit-tile-icon{ font-size:1.15rem; }
+  .unit-tile-title{ font-size:0.66rem; }
 }
 
 </style>
@@ -301,41 +242,11 @@ body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#ff
 
 <main id="main-content">
 
-  <section class="hero">
-    <div class="hero-inner">
-      <h2>כל חומרי הכיתה, במקום אחד</h2>
-      <p class="hero-sub">בחרו כיתה כדי להתחיל</p>
-    </div>
-    <div class="wave-divider" aria-hidden="true">
-      <div class="wave-track">
-        <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
-          <path d="M0 32 C 100 8, 200 8, 300 32 C 400 56, 500 56, 600 32 C 700 8, 800 8, 900 32 C 1000 56, 1100 56, 1200 32 L1200 60 L0 60 Z" fill="var(--paper)"/>
-        </svg>
-        <svg viewBox="0 0 1200 60" preserveAspectRatio="none">
-          <path d="M0 32 C 100 8, 200 8, 300 32 C 400 56, 500 56, 600 32 C 700 8, 800 8, 900 32 C 1000 56, 1100 56, 1200 32 L1200 60 L0 60 Z" fill="var(--paper)"/>
-        </svg>
-      </div>
-    </div>
-  </section>
-
   <section class="class-picker-section" aria-label="בחירת כיתה">
     <div class="class-picker-inner" role="tablist" aria-label="בחירת כיתה">
-
-      <div class="class-picker-primary">
-        <button class="tab class-card" role="tab" aria-selected="true" data-class="יא" id="tab-ya">
-          <span class="class-card-label">כיתה י"א</span>
-          <span class="class-card-hint">תנ"ך ותושב"ע</span>
-        </button>
-        <button class="tab class-card" role="tab" aria-selected="false" data-class="יב" id="tab-yb">
-          <span class="class-card-label">כיתה י"ב</span>
-          <span class="class-card-hint">תנ"ך ותושב"ע</span>
-        </button>
-      </div>
-
-      <div class="class-picker-secondary">
-        <button class="tab class-chip" role="tab" aria-selected="false" data-class="all" id="tab-all">כל הכיתות</button>
-      </div>
-
+      <button class="tab class-chip" role="tab" aria-selected="true" data-class="יא" id="tab-ya">כיתה י"א</button>
+      <button class="tab class-chip" role="tab" aria-selected="false" data-class="יב" id="tab-yb">כיתה י"ב</button>
+      <button class="tab class-chip" role="tab" aria-selected="false" data-class="all" id="tab-all">כל הכיתות</button>
     </div>
   </section>
 
@@ -380,12 +291,8 @@ body.high-contrast .class-card[aria-selected="true"] .class-card-hint{ color:#ff
       chapters:6, chaptersLabel:"יחידות", url:"yeshayahu-hub.html" },
     { key:"ivrit", class:"יא", subject:"עברית",
       icon:"\u{1F4D3}", title:"עברית - דקדוק",
-      desc:"תרגילי דקדוק - גזרת חפ\"נ וחפי\"צ ועוד, למילוי ישיר באתר.",
-      chapters:1, chaptersLabel:"דפי עבודה", url:"ivrit-hafan-hafitz.html" },
-    { key:"ivrit-binyanim", class:"יא", subject:"עברית",
-      icon:"\u{1F4D0}", title:"עברית - בניינים וגזרות",
-      desc:"טבלת סיכום לשבעת הבניינים, טבלת סיכום לכל הגזרות עם דוגמאות, ודף תרגול להדפסה.",
-      chapters:3, chaptersLabel:"מדורים", url:"ivrit-binyanim-gzarot.html" },
+      desc:"כל חומרי הדקדוק במקום אחד - בניינים, גזרות ותרגול.",
+      chapters:4, chaptersLabel:"קטגוריות", url:"ivrit-hub.html" },
     { key:"devarim", class:"יב", subject:"תנך",
       icon:"\u{1F4D6}", title:"ספר דברים",
       desc:"נאומו האחרון של משה רבנו לעם ישראל - יחידת הפתיחה לספר דברים.",
