@@ -83,6 +83,11 @@ table{border-collapse:collapse;margin:0 auto}
 </main>
 <p class="back-link"><a href="index.html#tab-ya">↺ חזרה ליחידה</a></p>
 <script>
-document.querySelectorAll('nav.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav.tabs button').forEach(x=>x.classList.toggle('on',x===b));document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===b.dataset.s));});
+var tabBtns=document.querySelectorAll('nav.tabs button');
+tabBtns.forEach(b=>b.onclick=()=>{tabBtns.forEach(x=>x.classList.toggle('on',x===b));document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===b.dataset.s));});
 function pr(id){document.querySelectorAll('section').forEach(s=>s.classList.toggle('printing',s.id===id));window.print();}
+var hashId=(location.hash||'').replace('#','');
+if(hashId){
+  for(var i=0;i<tabBtns.length;i++){ if(tabBtns[i].dataset.s===hashId){ tabBtns[i].click(); break; } }
+}
 </script></body></html>
