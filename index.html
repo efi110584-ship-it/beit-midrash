@@ -136,6 +136,8 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 
 .class-section{ margin-bottom:1.4rem; }
 .class-section > h2{ font-size:1.1rem; border-bottom:2px solid var(--gold); padding-bottom:0.3rem; margin-bottom:0.7rem; }
+.unit-category{ font-size:.8rem; font-weight:800; color:var(--text-soft); text-transform:none; margin:1rem 0 0.4rem; padding-inline-start:0.1rem; }
+.unit-category:first-of-type{ margin-top:0; }
 
 .unit-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(84px,1fr)); gap:0.5rem; }
 
@@ -301,55 +303,63 @@ body.high-contrast .class-chip[aria-selected="true"]{ background:#fff !important
       icon:"\u2696\uFE0F", title:"פתוח תפתח",
       desc:"יחידת המצוות שבספר דברים - שמיטת כספים, צדקה, ריבית, משכון ועוד.",
       chapters:8, chaptersLabel:"נושאים", url:"ptp-hub.html" },
-    { key:"yonah-exam", class:"teacher", subject:"מבחן",
+    { key:"yonah-exam", class:"teacher", subject:"מבחן", category:"מבחנים",
       icon:"\u{1F4DD}", title:"מבחן מסכם - ספר יונה",
       desc:"מבחן דיגיטלי מקיף על כל ארבעת פרקי הספר. הכניסה למבחן דורשת קוד מהמורה.",
       chapters:1, chaptersLabel:"מבחן", url:"yonah-exam.html" },
-    { key:"bereshit-answers", class:"teacher", subject:"מורה",
-      icon:"\u{1F5DD}️", title:"מחוון תשובות - ספר בראשית",
-      desc:"תשובות תמציתיות ברמת בגרות לכל שאלות דפי העבודה בחמשת פרקי בראשית, עם אפשרות הקראה לכל נושא.",
+    { key:"bereshit-answers", class:"teacher", subject:"מורה", category:"ספר בראשית",
+      icon:"\u{1F5DD}️", title:"מחוון תשובות - פרקי אברהם ושרה",
+      desc:"תשובות תמציתיות ברמת בגרות לכל שאלות דפי העבודה בחמשת פרקי אברהם ושרה, עם אפשרות הקראה לכל נושא.",
       chapters:5, chaptersLabel:"פרקים", url:"bereshit-answers-hub.html" },
-    { key:"yeshayahu-answers", class:"teacher", subject:"מורה",
+    { key:"bereshit-yaakov-esav-answers", class:"teacher", subject:"מורה", category:"ספר בראשית",
+      icon:"\u{1F5DD}️", title:"מחוון תשובות - פרקי יעקב ועשיו",
+      desc:"תשובות תמציתיות ברמת בגרות לכל שאלות דפי העבודה בפרקי יעקב ועשיו (כ\"ה, כ\"ז-כ\"ח, ל\"ב-ל\"ג), עם אפשרות הקראה לכל נושא.",
+      chapters:4, chaptersLabel:"פרקים", url:"bereshit-yaakov-esav-answers-hub.html" },
+    { key:"bereshit-yosef-answers", class:"teacher", subject:"מורה", category:"ספר בראשית",
+      icon:"\u{1F5DD}️", title:"מחוון תשובות - פרקי יוסף ואחיו",
+      desc:"תשובות תמציתיות ברמת בגרות לכל שאלות דפי העבודה בפרקי יוסף ואחיו (ל\"ז, מ\"ב-מ\"ג, מ\"ד, מ\"ה, נ'), עם אפשרות הקראה לכל נושא.",
+      chapters:5, chaptersLabel:"פרקים", url:"bereshit-yosef-answers-hub.html" },
+    { key:"yeshayahu-answers", class:"teacher", subject:"מורה", category:"ספר ישעיהו",
       icon:"\u{1F5DD}️", title:"מחוון תשובות - ספר ישעיהו",
       desc:"תשובות תמציתיות ברמת בגרות לכל שאלות דפי העבודה בששת פרקי ישעיהו, עם אפשרות הקראה לכל נושא.",
       chapters:6, chaptersLabel:"פרקים", url:"yeshayahu-answers-hub.html" },
-    { key:"yonah-answers", class:"teacher", subject:"מורה",
+    { key:"yonah-answers", class:"teacher", subject:"מורה", category:"ספר יונה",
       icon:"\u{1F5DD}️", title:"מחוון תשובות - ספר יונה",
       desc:"תשובות תמציתיות ברמת בגרות לכל 43 שאלות דף העבודה על פרקי יונה, עם הפסוקים והפרשנים לצד כל שאלה ואפשרות הקראה.",
       chapters:3, chaptersLabel:"פרקים", url:"yonah-answers-hub.html" },
-    { key:"leket-answers", class:"teacher", subject:"מורה",
+    { key:"leket-answers", class:"teacher", subject:"מורה", category:"לקט מצוות",
       icon:"\u{1F5DD}️", title:"מחוון תשובות - לקט מצוות",
       desc:"תשובות תמציתיות ברמת בגרות לכל 185 שאלות דפי העבודה על 15 המצוות, עם מקורות ספר החינוך לצד כל שאלה ואפשרות הקראה.",
       chapters:15, chaptersLabel:"מצוות", url:"leket-mitzvot-answers-hub.html" },
-    { key:"ptp-answers", class:"teacher", subject:"מורה",
+    { key:"ptp-answers", class:"teacher", subject:"מורה", category:"פתוח תפתח",
       icon:"\u{1F5DD}️", title:"מחוון תשובות - פתוח תפתח",
       desc:"תשובות תמציתיות ברמת בגרות לכל 46 שאלות דפי העבודה על 8 נושאי היחידה, עם הפסוקים ורש\"י לצד כל שאלה ואפשרות הקראה.",
       chapters:8, chaptersLabel:"נושאים", url:"ptp-answers-hub.html" },
-    { key:"ivrit-lh-answers", class:"teacher", subject:"מורה",
+    { key:"ivrit-lh-answers", class:"teacher", subject:"מורה", category:"עברית - דקדוק",
       icon:"\u{1F5DD}️", title:'מחוון תשובות - גזרת נחי ל"ה',
       desc:"מפתח תשובות מלא לדף העבודה על גזרת נחי ל\"ה - שורש, בניין, שם הפועל ושם הפעולה לכל משפט.",
       chapters:16, chaptersLabel:"משפטים", url:"ivrit-nechei-lh-answers.html" },
-    { key:"ivrit-pa-answers", class:"teacher", subject:"מורה",
+    { key:"ivrit-pa-answers", class:"teacher", subject:"מורה", category:"עברית - דקדוק",
       icon:"\u{1F5DD}️", title:'מחוון תשובות - גזרת נחי פ"א',
       desc:"מפתח תשובות מלא לדף העבודה על גזרת נחי פ\"א - שורש, בניין, שם הפועל ושם הפעולה לכל משפט.",
       chapters:15, chaptersLabel:"משפטים", url:"ivrit-nechei-pa-answers.html" },
-    { key:"ivrit-la-answers", class:"teacher", subject:"מורה",
+    { key:"ivrit-la-answers", class:"teacher", subject:"מורה", category:"עברית - דקדוק",
       icon:"\u{1F5DD}️", title:'מחוון תשובות - גזרת נחי ל"א',
       desc:"מפתח תשובות מלא לדף העבודה על גזרת נחי ל\"א - שורש, בניין, שם הפועל ושם הפעולה לכל משפט.",
       chapters:17, chaptersLabel:"משפטים", url:"ivrit-nechei-la-answers.html" },
-    { key:"ivrit-pv-answers", class:"teacher", subject:"מורה",
+    { key:"ivrit-pv-answers", class:"teacher", subject:"מורה", category:"עברית - דקדוק",
       icon:"\u{1F5DD}️", title:'מחוון תשובות - גזרת נחי פ"ו',
       desc:"מפתח תשובות מלא לדף העבודה על גזרת נחי פ\"ו - שורש, בניין, שם הפועל ושם הפעולה לכל משפט.",
       chapters:14, chaptersLabel:"משפטים", url:"ivrit-nechei-pv-answers.html" },
-    { key:"ivrit-av-answers", class:"teacher", subject:"מורה",
+    { key:"ivrit-av-answers", class:"teacher", subject:"מורה", category:"עברית - דקדוק",
       icon:"\u{1F5DD}️", title:'מחוון תשובות - גזרת נחי ע"ו',
       desc:"מפתח תשובות מלא לדף העבודה על גזרת נחי ע\"ו - שורש, בניין, שם הפועל ושם הפעולה לכל משפט.",
       chapters:15, chaptersLabel:"משפטים", url:"ivrit-nechei-av-answers.html" },
-    { key:"ivrit-kfulim-answers", class:"teacher", subject:"מורה",
+    { key:"ivrit-kfulim-answers", class:"teacher", subject:"מורה", category:"עברית - דקדוק",
       icon:"\u{1F5DD}️", title:'מחוון תשובות - גזרת כפולים',
       desc:"מפתח תשובות מלא לדף העבודה על גזרת הכפולים (ע\"ע) - שורש, בניין, שם הפועל ושם הפעולה לכל משפט.",
       chapters:12, chaptersLabel:"משפטים", url:"ivrit-kfulim-answers.html" },
-    { key:"ivrit-final-test-answers", class:"teacher", subject:"מורה",
+    { key:"ivrit-final-test-answers", class:"teacher", subject:"מורה", category:"עברית - דקדוק",
       icon:"\u{1F5DD}️", title:"מחוון תשובות - מבחן מסכם על הגזרות",
       desc:"מפתח תשובות מלא ל-62 המילים במבחן המסכם - שורש וגזרה לכל מילה, כולל שמות פעולה ושמות עצם.",
       chapters:62, chaptersLabel:"מילים", url:"ivrit-gzarot-final-test-answers.html" }
@@ -388,9 +398,26 @@ body.high-contrast .class-chip[aria-selected="true"]{ background:#fff !important
     classKeys.forEach(function(cls){
       html += '<section class="class-section">';
       html += '<h2>' + (CLASS_ORDER.indexOf(cls) !== -1 ? 'כיתה ' + escapeHtml(cls) + '\u200f' : (cls === "teacher" ? '🗝️ אזור אישי' : escapeHtml(cls))) + '</h2>';
-      html += '<div class="unit-grid">';
-      byClass[cls].forEach(function(u){ html += unitCardHtml(u, registry); });
-      html += '</div></section>';
+      if(cls === "teacher"){
+        var byCategory = {};
+        var categoryOrder = [];
+        byClass[cls].forEach(function(u){
+          var cat = u.category || "כללי";
+          if(!byCategory[cat]){ byCategory[cat] = []; categoryOrder.push(cat); }
+          byCategory[cat].push(u);
+        });
+        categoryOrder.forEach(function(cat){
+          html += '<h3 class="unit-category">' + escapeHtml(cat) + '</h3>';
+          html += '<div class="unit-grid">';
+          byCategory[cat].forEach(function(u){ html += unitCardHtml(u, registry); });
+          html += '</div>';
+        });
+      } else {
+        html += '<div class="unit-grid">';
+        byClass[cls].forEach(function(u){ html += unitCardHtml(u, registry); });
+        html += '</div>';
+      }
+      html += '</section>';
     });
 
     contentRoot.innerHTML = html;
