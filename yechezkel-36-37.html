@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר יחזקאל — דף עבודה אינטראקטיבי (פרקים ל"ו-ל"ז, נבואות הגאולה)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  .topic-banner{ margin-top:2.6rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  .qb-topic{ grid-column: 1 / -1; }
+  .qb-root{
+    max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
+    padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
+  }
+  .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
+  .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
+  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
+  .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
+  .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
+
+  .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
+  .qb-connector::after{
+    content:""; position:absolute; bottom:-1px; right:50%; transform:translateX(50%);
+    border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
+  }
+
+  .qb-branches{
+    display:flex; flex-wrap:wrap; gap:1.1rem;
+    position:relative; padding-top:22px; margin-top:-22px;
+  }
+  .qb-branches::before{
+    content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
+  }
+  .qb-card{
+    flex:1 1 260px;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
+    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
+    min-width:0;
+  }
+  .qb-card > *{ width:100%; max-width:640px; }
+  .qb-meforesh{
+    font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+    background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
+    padding:.75rem .9rem; box-shadow:var(--shadow);
+  }
+  .qb-meforesh .qb-src{
+    display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
+    font-size:.8rem; margin-bottom:.35rem;
+  }
+  .qb-meforesh .qb-src::before{ content:"💬"; font-size:1.05rem; line-height:1; }
+  .qb-card .question-block{ display:flex; flex-direction:column; gap:.5rem; }
+  .qb-card .question-row{ align-items:flex-start; }
+  .qb-card .q-text{ font-size:.86rem; line-height:1.5; }
+  .qb-card textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
+  .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
+  .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-yb">כיתה י"ב</a>
+  <span class="sep">›</span>
+  <a href="neviim-hub.html">פרקי נביאים</a>
+  <span class="sep">›</span>
+  <span class="current">יחזקאל, פרקים ל"ו-ל"ז</span>
+</nav>
+
+<header>
+  <div class="eyebrow">נבואות יחזקאל · כיתה י"ב</div>
+  <h1>דף עבודה — פרקים ל"ו-ל"ז, "נְבוּאוֹת הַגְּאֻלָּה"</h1>
+  <p class="sub">בכל נושא: קודם קוראים את הפסוקים בקובייה העליונה, ואז עוברים על כל קוביית-שאלה שמסתעפת ממנה - קוראים את דברי הפרשן (אם יש), כותבים תשובה, ורק אז לוחצים "הצג תשובה" לבדיקה עצמית. הכול נשמר אוטומטית במכשיר שלכם.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 7 שאלות</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main>
+  <div class="grid" id="grid">
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרקים</span>
+        <h2 class="card-title">מה קורה בפרקים אלו?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          יחזקאל, כהן שגלה עם גלות יהויכין וממשיך להתנבא בבבל גם אחרי חורבן המקדש, מציג בפרקים אלו שלוש נבואות גאולה עוקבות. בפרק ל"ו הוא מנבא על תקומת הרי ישראל - היפוך לנבואות חורבן קודמות שלו עצמו על אותם ההרים. בתחילת פרק ל"ז מגיע החזון המפורסם ביותר בספר: עמק מלא עצמות יבשות שמתלבשות בגידים ובבשר וקמות לתחייה ברוח ה' - משל לתחיית עם ישראל מהייאוש העמוק של הגלות. הפרק מסתיים בחזון נוסף - איחוד שני מקלות (יהודה ויוסף) לאחד, סמל לאיחוד עתידי של הממלכות המפוצלות. שלוש הנבואות יחד משקפות תקווה עמוקה לתחייה לאומית ורוחנית מלאה.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <span class="topic-icon" aria-hidden="true">🏞️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
+        <div class="topic-title">נבואת הרי ישראל - היפוך הגורל</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🏞️</span>
+        <div class="qb-root-label">יחזקאל ל"ו, א'-י"ג</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">הכובשים מתייחסים להרי ישראל כירושה שלהם, ומבקשים להותירם שוממים</div>
+          <div class="pasuk-line"><b>ב', ג':</b> יַעַן אָמַר הָאוֹיֵב עֲלֵיכֶם: הֶאָח, וּבָמוֹת עוֹלָם לְמוֹרָשָׁה הָיְתָה לָּנוּ.</div>
+          <div class="pasuk-gloss">הבטחת תקומה ותפארת, בעקבות חרפת הגויים</div>
+          <div class="pasuk-line"><b>ח':</b> וְאַתֶּם הָרֵי יִשְׂרָאֵל, עַנְפְּכֶם תִּתֵּנוּ וּפֶרְיְכֶם תִּשְׂאוּ לְעַמִּי יִשְׂרָאֵל, כִּי קֵרְבוּ לָבוֹא.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">רש"י (פס' י"ג): "לְמוּדָה היא הארץ הזאת להשחית את יושביה - האמוריים כלו בה והיהודים כלו בה"</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י, יחזקאל ל"ו, י"ג</span>
+            "אֹכֶלֶת אָדָם אָתְּ" - לְמוּדָה היא הארץ הזאת להשחית את יושביה: האמוריים כלו בה והיהודים כלו בה.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yech3637-mp-1">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">שם רע ("אֹכֶלֶת אָדָם") נדבק לארץ ישראל, לפי רש"י, בשל היסטוריה חוזרת של עמים שנכחדו בה - הן האמוריים והן ישראל עצמם. מדוע, לדעתכם, חשוב היה ליחזקאל להתייחס במפורש לשם הרע הזה ולהתמודד עמו, ולא רק להתעלם ולעבור ישירות להבטחת הגאולה?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> התייחסות מפורשת לשם הרע נדרשת כדי לעקור מהשורש את התפיסה שהארץ עצמה "מקוללת" או פגומה במהותה - יחזקאל מבהיר שהסיבה לחורבנות החוזרים היא התנהגות היושבים בה, ולא תכונה מובנית בקרקע עצמה. רק לאחר הבהרה זו ניתן להבין מדוע הגאולה העתידית אפשרית: הבעיה הייתה תמיד באדם החוטא, לא באדמה, ולכן שינוי בהתנהגות העם (בהמשך הפרק) יכול להוביל לתוצאה שונה לגמרי, גם באותה ארץ עצמה.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">הרב יגאל אריאל: "הביטוי 'יען' בא לקבוע מערכת מסודרת של סיבה ומסובב... אותה מידה שחייבה בשעתה את גלות ישראל, מחייבת כאן את עונשם של הגויים"</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">הרב יגאל אריאל, "לב חדש"</span>
+            הביטוי "יען" בא לקבוע מערכת מסודרת של סיבה ומסובב בעולם, שכר ועונש, מידה כנגד מידה. מול חטא ישראל עומדים ייסוריו וכלימתו בידי שונאיו. אותה מידה שחייבה בשעתה את גלות ישראל בגין חטאם, מחייבת כאן את עונשם של הגויים. הם התאמצו לרשת את ישראל, והקב"ה נוקם בהם ומחזיר את ישראל אל אדמתם.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yech3637-mp-2">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">לפי הרב יגאל אריאל, אותו עקרון של "מידה כנגד מידה" ששימש להסביר את גלות ישראל, משמש כעת גם להסביר את עונש הגויים על לעגם. מה משמעות השימוש בעיקרון אחד ועקבי (מידה כנגד מידה) הן להסבר החורבן והן להסבר הגאולה, במקום שני עקרונות שונים?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שימוש בעיקרון אחד עקבי מלמד שהעולם מתנהל לפי צדק מוסרי יציב וקבוע, ולא לפי שרירותיות - אותם חוקי גמול המפעילים עונש על חטא ישראל מפעילים גם עונש על התאכזרות הגויים. עקביות זו מעניקה תוקף מוסרי מלא הן לחורבן (שהיה מוצדק בשל חטאי ישראל) והן לגאולה (שהיא תגובה מוצדקת לחטא הגויים) - אין כאן העדפה שרירותית לישראל, אלא יישום נאמן ועקבי של אותו עיקרון צדק על כל הצדדים.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">💀</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
+        <div class="topic-title">חזון תחיית העצמות היבשות</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">💀</span>
+        <div class="qb-root-label">יחזקאל ל"ז, א'-י"ד</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line"><b>ג', ט':</b> וַיֹּאמֶר אֵלַי: בֶּן אָדָם, הֲתִחְיֶינָה הָעֲצָמוֹת הָאֵלֶּה? וָאֹמַר: אֲדֹנָי ה' אַתָּה יָדָעְתָּ. כֹּה אָמַר אֲדֹנָי ה': מֵאַרְבַּע רוּחוֹת בֹּאִי הָרוּחַ, וּפְחִי בַּהֲרוּגִים הָאֵלֶּה וְיִחְיוּ.</div>
+          <div class="pasuk-line"><b>י"ג-י"ד:</b> וִידַעְתֶּם כִּי אֲנִי ה', בְּפִתְחִי אֶת קִבְרוֹתֵיכֶם... וְנָתַתִּי רוּחִי בָכֶם וִחְיִיתֶם, וְהִנַּחְתִּי אֶתְכֶם עַל אַדְמַתְכֶם.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">תזכורת: תשובת יחזקאל לשאלת ה' ("אַתָּה יָדָעְתָּ") אינה "כן" ואינה "לא" - היא מותירה את ההכרעה בידי ה' בלבד</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">כאשר ה' שואל את יחזקאל "הֲתִחְיֶינָה הָעֲצָמוֹת הָאֵלֶּה?", יחזקאל אינו עונה בביטחון "כן" ואינו מייאש בביטחון "לא", אלא משיב "אַתָּה יָדָעְתָּ" - מותיר את התשובה לה' בלבד. מה משמעות תגובה זהירה ומסויגת זו, ומה היא מבטאת לגבי מצבו הנפשי של יחזקאל עצמו ביחס לאפשרות התחייה?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> תשובת יחזקאל משקפת מצב נפשי כן של אי-ודאות עמוקה - הוא אינו מוכן לזייף אופטימיות שאינה לו באמת (אחרי חורבן כה מוחלט, "כן" נשמע חסר בסיס), אך גם אינו רוצה לחתום סופית על ייאוש ("לא") שיסתור את אמונתו בכוחו של ה'. תגובתו מבטאת ענווה נבואית - הכרה בכך שגבולות היכולת האנושית להאמין בתחייה מוגבלים, ורק הכוח האלוקי חורג מגבולות אלה. בכך משמש יחזקאל כמייצג של העם כולו, המצוי במצב דומה של ייאוש המעורב בציפייה עמומה.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">תזכורת: "הָעֲצָמוֹת" מופיעות בנבואה תשע פעמים, ומולן "הָרוּחַ" מופיעה גם היא תשע פעמים - חזרה מכוונת ומאוזנת</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">החזרה השווה על "עצמות" ו"רוח" (תשע פעמים כל אחת) יוצרת מבנה טקסטואלי מאוזן ומכוון. מה מבטא איזון מספרי זה על היחס בין שני האלמנטים - הגוף החומרי (עצמות) לכוח החיים הרוחני (רוח) - בתהליך התחייה המתואר?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> האיזון המספרי מדגיש ששני האלמנטים - המבנה הגשמי (עצמות) וההשראה הרוחנית (רוח) - הכרחיים באותה מידה בדיוק לתחייה מלאה. עצמות בלבד, ללא רוח, נותרות שלד חסר חיים; ורוח בלבד, ללא מבנה גופני מסודר, אינה יכולה להתגלם. התחייה השלמה - הן של הגוף המתואר בחזון והן, במשמעות הרחבה, של העם עצמו - דורשת חיבור מלא בין שיקום המבנה הלאומי הפיזי לבין התחדשות הרוח הפנימית, ואף לא אחד מהם לבדו מספיק.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">מחלוקת תלמודית (סנהדרין צ"ב ע"ב): רבי אליעזר - "מתים שהחיה יחזקאל עמדו על רגליהם, אמרו שירה ומתו"; רבי יהודה - "באמת משל היה"</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">תלמוד בבלי, סנהדרין צ"ב ע"ב</span>
+            רבי אליעזר אומר: מתים שהחיה יחזקאל עמדו על רגליהם, ואמרו שירה ומתו. רבי יהודה אומר: באמת משל היה. רבי אליעזר בנו של רבי יוסי הגלילי אומר: מתים שהחיה יחזקאל עלו לארץ ישראל, ונשאו נשים והולידו בנים ובנות.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yech3637-mp-3">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">חכמי התלמוד עצמם חלוקים בשאלה אם החזון התרחש בפועל ההיסטורי או שהוא משל נבואי בלבד. מדוע, לדעתכם, אין הכרעה חד-משמעית בשאלה זו משפיעה על עוצמת המסר הרעיוני של הנבואה, גם עבור מי שמבין אותה כמשל בלבד?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> גם אם החזון הוא משל בלבד ולא אירוע היסטורי, הוא ממשיך לשאת עוצמה רעיונית מלאה - שכן תפקידה של הנבואה מלכתחילה אינו תיעוד היסטורי אלא העברת מסר תקווה לעם המיואש. משל רב-עוצמה יכול להשפיע על תודעת העם ולעורר אמונה בתחייה לא פחות מאירוע היסטורי ממשי, ולעיתים אף יותר - כיוון שהוא הופך לסמל אוניברסלי החוזר ומתפרש מחדש בכל דור, כפי שאכן קרה בהתייחסות ההיסטורית המאוחרת לחזון זה (למשל בעקבות השואה).</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">🤝</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
+        <div class="topic-title">חזון איחוד הממלכות</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🤝</span>
+        <div class="qb-root-label">יחזקאל ל"ז, ט"ז, כ"ג</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line"><b>ט"ז-י"ז:</b> וְאַתָּה בֶן אָדָם, קַח לְךָ עֵץ אֶחָד וּכְתֹב עָלָיו לִיהוּדָה... וּקְרַב אֹתָם אֶחָד אֶל אֶחָד לְךָ לְעֵץ אֶחָד, וְהָיוּ לַאֲחָדִים בְּיָדֶךָ.</div>
+          <div class="pasuk-line"><b>כ"ג:</b> וְלֹא יִהְיוּ עוֹד לִשְׁנֵי גוֹיִם, וְלֹא יֵחָצוּ עוֹד לִשְׁתֵּי מַמְלָכוֹת עוֹד; וְלֹא יִטַּמְּאוּ עוֹד בְּגִלּוּלֵיהֶם.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">ר' יוסף קרא: "ולא יטמאו עוד בגילוליהם - מאחר שלא יהיו לשני גוים... דבר זה שנחלקו לשני גוים ולשתי ממלכות, גרם שנתייעץ ועשה שני עגלי זהב"</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">ר' יוסף קרא, יחזקאל ל"ז, כ"ג</span>
+            "ולא יטמאו עוד בגילוליהם" - מאחר שלא יהיו לשני גויים ולא יחצו לשתי ממלכות, לא יטמאו עוד בשיקוציהם ובגילוליהם כמו שעשו בימי ירבעם ורחבעם: דבר זה, שנחלקו לשני גויים ולשתי ממלכות, גרם שנתייעץ ירבעם ועשה שני עגלי זהב, ונטמאו בהם כל בית ישראל.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yech3637-mp-4">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">לפי ר' יוסף קרא, קיים קשר ישיר בין פילוג הממלכה לבין עבודה זרה - ירבעם הקים את עגלי הזהב בדיוק כדי לבסס את פילוגו המדיני. מה מלמד קשר זה על מקומה של האחדות הפוליטית-לאומית בבריאת סביבה רוחנית בריאה, ולהפך?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הקשר מלמד שפילוג פוליטי אינו רק בעיה מנהלית-ארגונית, אלא מייצר לחצים המובילים ישירות לחטא דתי - מנהיג המבקש לבסס שלטון נפרד נאלץ ליצור מוסדות דת נפרדים (כמו עגלי הזהב) שמנתקים את העם ממרכז הפולחן המשותף (ירושלים), ובכך מזמין עבודה זרה. מכאן שאיחוד לאומי-פוליטי אינו רק תנאי טכני לחוזק מדיני, אלא תשתית הכרחית ליציבות רוחנית - רק עם מאוחד סביב מרכז פולחני אחד יכול לשמר טוהר דתי לאורך זמן, ולכן חזון האיחוד ביחזקאל הוא בו-זמנית חזון מדיני ורוחני כאחד.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">תזכורת: המילה "אחד" חוזרת עשר פעמים בנבואת איחוד הממלכות - הדגשה חוזרת ונשנית על מוטיב האחדות</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">חזרה עשר פעמים על המילה "אחד" בנבואה קצרה יחסית היא תופעה בולטת מאוד. בהינתן שלוש הנבואות בפרקים ל"ו-ל"ז - תקומת ההרים, תחיית העצמות, ואיחוד הממלכות - כיצד מתקשר מוטיב האחדות (בין העם לעצמו) לשתי הנבואות הקודמות, העוסקות באחדות מסוג אחר (בין העם לארצו, ובין הגוף לרוח)?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שלוש הנבואות מציגות תהליך גאולה כתהליך של איחוי קרעים בשלושה מישורים משלימים: קודם כל, איחוד העם עם אדמתו (הרי ישראל שנפרדו מיושביהם בגלות); לאחר מכן, איחוד הגוף עם הרוח (העצמות היבשות המקבלות נשמת חיים); ולבסוף, איחוד העם עם עצמו (שני העצים המתאחדים לעץ אחד). המבנה המשולש מלמד שגאולה שלמה אינה תיקון נקודתי אחד, אלא ריפוי מקיף של כל הקרעים שנוצרו - הגיאוגרפי, הרוחני, והלאומי-פנימי - וכולם יחד יוצרים תמונה כוללת של תחייה מלאה.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <a href="yirmiyahu-31.html">← ירמיהו, פרק ל"א</a>
+  <a href="neviim-hub.html">↺ חזרה ליחידה</a>
+  <span></span>
+</nav>
+<div class="toolbar">
+  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
+  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
+</p>
+
+<footer class="credit">ספר יחזקאל, פרקים ל"ו-ל"ז · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'yechezkel-ch36-37-answers';
+const NAME_KEY = 'yechezkel-ch36-37-student';
+const textareas = Array.from(document.querySelectorAll('textarea.answer'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{
+    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      nameInput.value = data.name || '';
+      classInput.value = data.cls || '';
+    }
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    flashSaved();
+  }catch(e){
+    console.error('שגיאת שמירה', e);
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => {
+        if(data[t.dataset.id]){
+          t.value = data[t.dataset.id];
+          markFilled(t);
+        }
+      });
+    }
+  }catch(e){
+    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
+  }
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+document.querySelectorAll('.hint-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.nextElementSibling;
+    const showing = box.hidden;
+    box.hidden = !showing;
+    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות בדף העבודה? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
+
+loadStudentInfo();
+loadAnswers();
+</script>
+<script src="assets/progress-tracker.js"></script>
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+
+</body>
+</html>

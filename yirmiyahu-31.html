@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר ירמיהו — דף עבודה אינטראקטיבי (פרק ל"א, נבואת נחמה)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  .topic-banner{ margin-top:2.6rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  .qb-topic{ grid-column: 1 / -1; }
+  .qb-root{
+    max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
+    padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
+  }
+  .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
+  .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
+  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
+  .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
+  .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
+
+  .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
+  .qb-connector::after{
+    content:""; position:absolute; bottom:-1px; right:50%; transform:translateX(50%);
+    border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
+  }
+
+  .qb-branches{
+    display:flex; flex-wrap:wrap; gap:1.1rem;
+    position:relative; padding-top:22px; margin-top:-22px;
+  }
+  .qb-branches::before{
+    content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
+  }
+  .qb-card{
+    flex:1 1 260px;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
+    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
+    min-width:0;
+  }
+  .qb-card > *{ width:100%; max-width:640px; }
+  .qb-meforesh{
+    font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+    background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
+    padding:.75rem .9rem; box-shadow:var(--shadow);
+  }
+  .qb-meforesh .qb-src{
+    display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
+    font-size:.8rem; margin-bottom:.35rem;
+  }
+  .qb-meforesh .qb-src::before{ content:"💬"; font-size:1.05rem; line-height:1; }
+  .qb-card .question-block{ display:flex; flex-direction:column; gap:.5rem; }
+  .qb-card .question-row{ align-items:flex-start; }
+  .qb-card .q-text{ font-size:.86rem; line-height:1.5; }
+  .qb-card textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
+  .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
+  .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-yb">כיתה י"ב</a>
+  <span class="sep">›</span>
+  <a href="neviim-hub.html">פרקי נביאים</a>
+  <span class="sep">›</span>
+  <span class="current">ירמיהו, פרק ל"א</span>
+</nav>
+
+<header>
+  <div class="eyebrow">נבואות ירמיהו · כיתה י"ב</div>
+  <h1>דף עבודה — פרק ל"א (פס' א'-י"ט), "נְבוּאַת נֶחָמָה"</h1>
+  <p class="sub">בכל נושא: קודם קוראים את הפסוקים בקובייה העליונה, ואז עוברים על כל קוביית-שאלה שמסתעפת ממנה - קוראים את דברי הפרשן (אם יש), כותבים תשובה, ורק אז לוחצים "הצג תשובה" לבדיקה עצמית. הכול נשמר אוטומטית במכשיר שלכם.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 6 שאלות</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main>
+  <div class="grid" id="grid">
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרק</span>
+        <h2 class="card-title">מה קורה בפרק ל"א?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          בניגוד לרוב נבואות הפורענות של ירמיהו, פרק ל"א הוא נבואת נחמה מלאה. היא פותחת בהצהרת אהבת עולם של ה' לישראל, הממשיכה גם בגלות, וממשיכה בהבטחת קיבוץ גלויות ומהפך רגשי - שמחה שתחליף את היגון. בליבו של הפרק ניצבת דמותה של רחל אמנו הבוכה על בניה היוצאים לגלות, ותגובת ה' אליה: "יֵשׁ שָׂכָר לִפְעֻלָּתֵךְ... וְשָׁבוּ בָנִים לִגְבוּלָם". הנבואה מסתיימת בתיאור מרגש של תשובת אפרים (מייצג עשרת השבטים) וקבלתה המלאה על ידי ה', המתאר רחמים עמוקים המתעוררים דווקא נוכח חרטה כנה. שלושה מרכיבים - אהבת ה', בכיית רחל, ותשובת העם - משולבים יחד כמניעים לתהליך הגאולה.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <span class="topic-icon" aria-hidden="true">💛</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 4</div>
+        <div class="topic-title">אהבת ה' לישראל - דו-שיח בגלות</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">💛</span>
+        <div class="qb-root-label">ירמיהו ל"א, א'-ג'</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line"><b>א':</b> מָצָא חֵן בַּמִּדְבָּר, עַם שְׂרִידֵי חָרֶב; הָלוֹךְ לְהַרְגִּיעוֹ יִשְׂרָאֵל.</div>
+          <div class="pasuk-line"><b>ג':</b> וְאַהֲבַת עוֹלָם אֲהַבְתִּיךְ; עַל כֵּן מְשַׁכְתִּיךְ חָסֶד.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">רד"ק: דו-שיח בין הקב"ה לכנסת ישראל - "אמרה: אמת הוא זה, כי מזמן רחוק ה' נראה לי אך עתה הסתיר פניו ממני בגלות. ענה אותם הא-ל: 'ואהבת עולם אהבתיך' - לא הייתה אהבתי אליך לפי שעה, אלא להיות האהבה לעולם"</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רד"ק, ירמיהו ל"א, ב'</span>
+            פסוקים אלו מהווים דו-שיח בין הקב"ה לכנסת ישראל: "אומרת כנסת ישראל בגלות למה שאמר האל 'מצא חן במדבר': אמרה היא - אמת הוא זה, כי מזמן רחוק ה' נראה לי, אך עתה הסתיר פניו ממני בגלות. ענה אותם הא-ל: 'ואהבת עולם אהבתיך' - לא הייתה אהבתי אליך לפי שעה, אלא להיות האהבה לעולם."
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yir31-mp-1">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">לפי הרד"ק, כנסת ישראל מטילה ספק באהבת ה' בגלל היעדרות ("הסתר פנים") ממושכת, וה' משיב לה שהאהבה אינה "לפי שעה" אלא "לעולם". מה ההבדל המהותי בין אהבה "לפי שעה" לאהבת "עולם", ומדוע דווקא הבחנה זו מספקת מענה לתחושת הנטישה של כנסת ישראל בגלות?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אהבה "לפי שעה" תלויה בנסיבות משתנות ועלולה להיפסק כאשר התנאים משתנים - אם היא נעלמת בעת מצוקה, סימן שלא הייתה יציבה מלכתחילה. אהבת "עולם", לעומת זאת, קבועה ובלתי תלויה בנסיבות חיצוניות - היעדרות זמנית של גילוי (הסתר פנים) אינה מעידה על היעדר האהבה עצמה, אלא רק על הסתרתה הזמנית. הבחנה זו מרגיעה את כנסת ישראל: הגלות אינה סימן לביטול האהבה, אלא שלב חולף בתוך מסגרת יציבה ונצחית של אהבת ה'.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">😭</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 4</div>
+        <div class="topic-title">בכיית רחל - מי בוכה ועל מה</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">😭</span>
+        <div class="qb-root-label">ירמיהו ל"א, י"ד</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line"><b>י"ד:</b> קוֹל בְּרָמָה נִשְׁמָע, נְהִי בְּכִי תַמְרוּרִים, רָחֵל מְבַכָּה עַל בָּנֶיהָ; מֵאֲנָה לְהִנָּחֵם עַל בָּנֶיהָ כִּי אֵינֶנּוּ.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">תזכורת: יש מפרשים את הפסוק על בכיית רחל אמנו ממש, ויש המפרשים את "הקול" כבכיים של גולי יהודה ובנימין שעברו דרך רמה (מצפון לירושלים) בדרכם לבבל</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">קיימות שתי גישות פרשניות למקור "הקול ברמה" - האחת רואה בו בכי סמלי של רחל אמנו עצמה, והשנייה רואה בו תיאור ריאלי של בכיית הגולים שעברו בפועל דרך רמה בדרכם לבבל (כמתועד בירמיהו מ'). מה היתרון הרעיוני של כל אחת מהגישות, ומה מאבד כל אחת מהן אם מקבלים רק אותה בלבד?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הגישה הריאלית (בכיית הגולים עצמם) מעגנת את הנבואה במציאות היסטורית קונקרטית ומוחשית, ומדגישה את הסבל האנושי הממשי של הגלות. הגישה הסמלית (בכיית רחל) מוסיפה רובד עומק רגשי-אמהי המשקף את יחס ה' לעם כולו, ומאפשרת לקרוא לתוך הנבואה גם את מכלול הגלויות ההיסטוריות, לא רק את הגלות הספציפית לבבל. קבלת גישה אחת בלבד מאבדת את הרובד השני - אם מדובר רק בגולים ריאליים, מפסידים את העומק הסמלי-משפחתי; ואם מדובר רק ברחל הסמלית, מפסידים את העיגון ההיסטורי הממשי.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">רש"י (מדרש אגדה): אבות ואמהות ניגשו לפייס את ה' על חטא מנשה ולא נתפייס; רחל אמרה "רחמי מי מרובים - רחמיך או רחמי בשר ודם?... שמסרתי לה את סימני"</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י (מדרש אגדה), ירמיהו ל"א, י"ד</span>
+            הלכו אבות ואימהות לפייס את הקב"ה על שהעמיד מנשה דמות בהיכל, ולא נתפייס. נכנסה רחל, אמרה לפניו: "ריבונו של עולם, רחמי מי מרובים - רחמיך או רחמי בשר ודם? הוי אומר רחמיך מרובים. והלא אני הכנסתי צרתי בתוך ביתי... כשבאתי ליכנס לחופה הכניסו את אחותי [במקומי], ולא די ששתקתי אלא שמסרתי לה [את] סימני. אף אתה, אם הכניסו בניך צרתך בביתך [פסל לבית המקדש], שתוק להם." אמר לה: "יפה למדת סנגוריה, יש שכר לפעולתך."
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yir31-mp-2">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">לפי המדרש, רחל מצליחה לפעול היכן שאבות ואמהות אחרים נכשלו, באמצעות טיעון אישי מנסיונה שלה - מסירת "סימניה" לאחותה לאה מתוך רחמים, ולא באמצעות זכויות כלליות. מה החידוש בטיעון "רחמי בשר ודם" של רחל, ומדוע דווקא הוא, ולא זכויות אבות מסורתיות, מצליח לפעול את הפיוס?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> רחל אינה מסתמכת על זכות אבסטרקטית או על מעמד היסטורי, אלא על אנלוגיה אישית וקונקרטית ביותר: היא עצמה ויתרה מרצון על מעמדה למען אחותה, מתוך חמלה כלפי מתחרה. הטיעון החדשני הוא ש"קל וחומר" - אם בשר ודם מסוגל לרחמים כאלה עמוקים, ה' שרחמיו מרובים לאין ערוך על כן חייב להיות מסוגל למחול על חטא דומה (העמדת דמות זרה, "צרה", בבית המקדש). דווקא הקרבה האישית-רגשית של הטיעון, ולא זכות מופשטת, היא זו שמצליחה לגעת ברחמי ה'.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">🎁</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 4</div>
+        <div class="topic-title">שכר הבכי - "יש שכר לפעולתך"</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🎁</span>
+        <div class="qb-root-label">ירמיהו ל"א, ט"ו</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line"><b>ט"ו:</b> מִנְעִי קוֹלֵךְ מִבֶּכִי וְעֵינַיִךְ מִדִּמְעָה, כִּי יֵשׁ שָׂכָר לִפְעֻלָּתֵךְ נְאֻם ה'; וְשָׁבוּ מֵאֶרֶץ אוֹיֵב.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">שד"ל: "לִפְעֻלָּתֵךְ - הפעולה היא הבכי והנהי שעשתה על בניה"</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">שד"ל, ירמיהו ל"א, ט"ו</span>
+            "לִפְעֻלָּתֵךְ" - הפעולה היא הבכי והנהי שעשתה על בניה.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yir31-mp-3">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">לפי שד"ל, "פְעֻלָּתֵךְ" של רחל היא הבכי עצמו - כלומר, הבכי אינו רק ביטוי לצער אלא פעולה בעלת ערך ושכר משלה. מה ההבדל בין תפיסת הבכי כתגובה רגשית פסיבית לתפיסתו כ"פעולה" הזכאית לשכר, ומה זה מלמד על מקומו של הצער האותנטי בתהליך הגאולה?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> תפיסת הבכי כ"פעולה" מרוממת אותו ממצב נפשי גרידא לכדי מעשה בעל משמעות ותוצאה - הבכי הכן והמתמשך אינו רק תגובה פסיבית לאסון, אלא ביטוי אקטיבי של אהבה, דאגה, ואי-ויתור על הקשר עם הבנים הגולים. הכרה בבכי כ"פעולה" הזכאית לשכר מלמדת שגם צער אמיתי ובלתי-פוסק, שאינו כרוך במעשה חיצוני נראה לעין, נחשב בעיני ה' כתרומה משמעותית לתהליך הגאולה - הזעקה עצמה, כביטוי לחיבור בלתי-נשבר, היא חלק מהמנוע המניע את השיבה.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 4 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#B0762B; --acc-soft:#F5E9D6;">
+      <span class="topic-icon" aria-hidden="true">🤲</span>
+      <div>
+        <div class="topic-eyebrow">נושא 4 מתוך 4</div>
+        <div class="topic-title">קבלת תשובת אפרים</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#B0762B; --acc-soft:#F5E9D6;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🤲</span>
+        <div class="qb-root-label">ירמיהו ל"א, י"ז-י"ט</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line"><b>י"ח:</b> הֲבֵן יַקִּיר לִי אֶפְרַיִם, אִם יֶלֶד שַׁעֲשֻׁעִים? כִּי מִדֵּי דַבְּרִי בּוֹ, זָכֹר אֶזְכְּרֶנּוּ עוֹד; עַל כֵּן הָמוּ מֵעַי לוֹ, רַחֵם אֲרַחֲמֶנּוּ נְאֻם ה'.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">ר' יוסף קרא: "מקרא תמוה הוא זה... וכי בן יקיר הוא לי אפרים?... והלא מעולם ממרה היה על דברי... אלא, על אשר הוא מתנחם ושב מפשעו, על כן המו מעי לו"</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">ר' יוסף קרא, ירמיהו ל"א, י"ח</span>
+            "הֲבֵן יַקִּיר לִי אֶפְרַיִם, אִם יֶלֶד שַׁעֲשֻׁעִים" - מקרא תמוה הוא זה (יש לקרוא כשאלה רטורית): וכי בן יקיר הוא לי אפרים? או ילד שעשועים?... והלא מעולם ממרה היה על דברי, ואין בכל השבטים שחטא והחטיא את ישראל כשבט אפרים! אלא, על אשר הוא מתנחם ושב מפשעו, על כן המו מעי לו, "ורחם ארחמנו".
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yir31-mp-4">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">לפי ר' יוסף קרא, הפסוק אינו תיאור אוהב סתמי אלא שאלה רטורית מפתיעה: וכי אפרים, מהחוטאים הגדולים ביותר בישראל, ראוי להיקרא "בן יקיר"? מה מלמדת קריאה זו על תפקידה של תשובה כנה בשינוי מוחלט של יחס ה' כלפי חוטא, גם אם עברו החוטא כבד ביותר?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הקריאה הרטורית מלמדת שהחיבה כלפי אפרים אינה נובעת מזכות עבר מוצדקת - להפך, עברו רצוף חטאים חמורים - אלא נוצרת מחדש ובאופן דרמטי בזכות התשובה הכנה בהווה. ככל שהחטא היה כבד יותר, כך ה"התעוררות" ברחמי ה' לנוכח התשובה גדולה יותר ומפתיעה יותר - "עַל כֵּן הָמוּ מֵעַי לוֹ" מבטא תגובה רגשית עמוקה וכמעט בלתי נשלטת, המודגשת דווקא לאור הניגוד בין החטא הכבד לתשובה הכנה. תשובה אמיתית, אם כן, אינה רק "מוחקת" את העבר אלא הופכת אותו לרקע המדגיש עוד יותר את עומק הקבלה מחדש.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">תזכורת לסיכום: שלושה מרכיבים מוזכרים בנבואת ל"א כגורמים לתהליך הגאולה - אהבת ה' ומידת הרחמים, בכיית רחל אמנו, וחזרה בתשובה של היושבים בגולה</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">הפרק משלב שלושה גורמים שונים לגמרי כמניעים לתהליך הגאולה: אהבה אלוקית קבועה, דמעות אימהיות של רחל, ותשובה אנושית של החוטאים עצמם. מדוע, לדעתכם, אף אחד מהגורמים הללו אינו מספיק בפני עצמו, ומדוע נדרש השילוב של שלושתם יחד להנעת הגאולה?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אהבת ה' לבדה, ללא בכי ותשובה, עלולה להיראות כחסד חד-צדדי שאינו מכיר בחומרת החטא ואינו דורש שינוי אמיתי מהעם. בכיית רחל לבדה, ללא תשובה, נותרת רק ביטוי לצער ללא מהלך של תיקון בפועל. תשובת העם לבדה, ללא אהבת ה' הקבועה, עלולה שלא להספיק מול חומרת החטא. רק השילוב של שלושת המרכיבים - בסיס אלוקי איתן של אהבת עולם, תיווך רגשי-אמהי המבטא זעקה בלתי פוסקת, ותהליך פנימי אמיתי של חרטה ותשובה מצד העם - יוצר את התנאים המלאים והמאוזנים הדרושים למהלך גאולה שלם ובר-קיימא.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <a href="yirmiyahu-36.html">← פרק ל"ו</a>
+  <a href="neviim-hub.html">↺ חזרה ליחידה</a>
+  <a href="yechezkel-36-37.html">יחזקאל, פרקים ל"ו-ל"ז →</a>
+</nav>
+<div class="toolbar">
+  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
+  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
+</p>
+
+<footer class="credit">ספר ירמיהו, פרק ל"א · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'yirmiyahu-ch31-answers';
+const NAME_KEY = 'yirmiyahu-ch31-student';
+const textareas = Array.from(document.querySelectorAll('textarea.answer'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{
+    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      nameInput.value = data.name || '';
+      classInput.value = data.cls || '';
+    }
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    flashSaved();
+  }catch(e){
+    console.error('שגיאת שמירה', e);
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => {
+        if(data[t.dataset.id]){
+          t.value = data[t.dataset.id];
+          markFilled(t);
+        }
+      });
+    }
+  }catch(e){
+    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
+  }
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+document.querySelectorAll('.hint-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.nextElementSibling;
+    const showing = box.hidden;
+    box.hidden = !showing;
+    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות בדף העבודה? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
+
+loadStudentInfo();
+loadAnswers();
+</script>
+<script src="assets/progress-tracker.js"></script>
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+
+</body>
+</html>
