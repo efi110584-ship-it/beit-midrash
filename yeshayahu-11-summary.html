@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,33 +100,51 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 ישעיהו פרק י"א — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 ישעיהו פרק י"א — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="yeshayahu-11.html">→ חזרה לדף העבודה - פרק י"א</a></div>
 
-  <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">👑</span>חוטר מגזע ישי - רוח ה' ומשפט הצדק</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#1E2761;">
-      <div class="mp-src">רד"ק, פסוק ד'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה בדיוק כוונת "וְשָׁפַט בְּצֶדֶק דַּלִּים"?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> שהמלך לא יישא פנים לעשירים, אלא ישפוט את הדלים ביושר ובאמת - כדי שלא ייגזלו וייעשקו.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    נבואה זו, המכונה "חזון האחרית", מתארת מלך עתידי מבית דוד - "חֹטֶר מִגֵּזַע יִשָׁי" - שעליו תנוח רוח ה' על שלל בחינותיה: חכמה ובינה, עצה וגבורה, דעת ויראת ה'. בזכות רוח זו ישפוט המלך בצדק את הדלים, בלי להתפתות למראה עיניים או למשמע אוזניים, ויכה רשעים ברוח שפתיו בלבד. בהמשך מתאר הנביא חזון מפתיע של שלום מוחלט בטבע: הזאב גר עם הכבש, הנמר רובץ עם הגדי, והאריה אוכל תבן כבקר - "כִּי מָלְאָה הָאָרֶץ דֵּעָה אֶת ה'". הפרק מסתיים בתיאור "שֹׁרֶשׁ יִשַׁי" שעומד "לְנֵס עַמִּים" - סמל וכיוון שאליו ידרשו כל הגויים.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">👑</span>חוטר מגזע ישי - רוח ה' ומשפט הצדק<span class="range">(פסוקים א'-ה')</span></div>
+    <p class="narrative">מבית דוד, מגזע ישי אביו, יצא נצר חדש - מלך עתידי שעליו תנוח רוח ה' על שלל בחינותיה: חכמה ובינה, עצה וגבורה, דעת ויראת ה'. בזכות רוח זו לא ישפוט המלך על פי מראה עיניים או משמע אוזניים, אלא ישפוט בצדק את הדלים ויוכיח במישור לענוי הארץ, ויכה רשעים ברוח שפתיו בלבד; צדק ואמונה יהיו כאזור מתניו וחלציו.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#1E2761;">
+        <div class="mp-src">רד"ק, פסוק ד'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה בדיוק כוונת "וְשָׁפַט בְּצֶדֶק דַּלִּים"?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> שהמלך לא יישא פנים לעשירים, אלא ישפוט את הדלים ביושר ובאמת - כדי שלא ייגזלו וייעשקו.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🐺</span>שלום מוחלט בטבע - כפשוטו או כמשל?</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3F6E66;">
-      <div class="mp-src">רמב"ם, הלכות מלכים פרק י"ב, הלכה א'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> האם התיאור "וְגָר זְאֵב עִם כֶּבֶשׂ" מתאר שינוי ממשי בטבע החיות?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> לא - זהו משל וחידה בלבד; העולם ימשיך להתנהג כרגיל, וישראל פשוט יחיו לבטח בשלום עם אומות שהיו כמותם כזאבים וכנמרים.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🐺</span>שלום מוחלט בטבע - כפשוטו או כמשל?<span class="range">(פסוקים ו'-ט')</span></div>
+    <p class="narrative">בהמשך החזון מתאר הנביא שלום מפתיע בטבע: הזאב יגור עם הכבש, הנמר ירבץ עם הגדי, והעגל והכפיר והמריא יחדיו, כשנער קטן נוהג בהם; הפרה והדוב תרעינה יחד, והאריה יאכל תבן כבקר. אפילו תינוק ישחק על פתח מאורת נחש בלי להיפגע - כי הארץ תהיה מלאה דעת את ה' כמים המכסים את הים.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3F6E66;">
+        <div class="mp-src">רמב"ם, הלכות מלכים פרק י"ב, הלכה א'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> האם התיאור "וְגָר זְאֵב עִם כֶּבֶשׂ" מתאר שינוי ממשי בטבע החיות?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> לא - זהו משל וחידה בלבד; העולם ימשיך להתנהג כרגיל, וישראל פשוט יחיו לבטח בשלום עם אומות שהיו כמותם כזאבים וכנמרים.</div>
+      </div>
+      <div class="mp-card" style="--acc:#3F6E66;">
+        <div class="mp-src">רמב"ן, פירוש לויקרא כ"ו, ו'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> כיצד הבנת הפסוקים אצל הרמב"ן שונה מזו של הרמב"ם?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> בניגוד לרמב"ם, הרמב"ן מבין שמדובר בשינוי ממשי בטבע: ארץ ישראל תחזור למצב שקדם לחטא אדם הראשון, וחיות הטרף עצמן ישובו לטבען המקורי.</div>
+      </div>
     </div>
-    <div class="mp-card" style="--acc:#3F6E66;">
-      <div class="mp-src">רמב"ן, פירוש לויקרא כ"ו, ו'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> כיצד הבנת הפסוקים אצל הרמב"ן שונה מזו של הרמב"ם?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> בניגוד לרמב"ם, הרמב"ן מבין שמדובר בשינוי ממשי בטבע: ארץ ישראל תחזור למצב שקדם לחטא אדם הראשון, וחיות הטרף עצמן ישובו לטבען המקורי.</div>
-    </div>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🚩</span>שורש ישי - נס לעמים<span class="range">(פסוק י')</span></div>
+    <p class="narrative">פסוק זה מסכם את החזון: "שורש ישי", המלך שתואר קודם, יהפוך לא רק למנהיג ישראל אלא לסמל ומוקד משיכה לכל הגויים - "נס עמים" שאליו ידרשו הגויים, ומנוחתו תהיה כבוד.</p>
   </div>
 
 </div>

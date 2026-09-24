@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,19 +100,38 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 ישעיהו פרק מ' — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 ישעיהו פרק מ' — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="yeshayahu-40.html">→ חזרה לדף העבודה - פרק מ'</a></div>
 
-  <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🏜️</span>קול קורא במדבר - כל בשר חציר, ודבר אלוקינו יקום לעולם</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">מצודת דוד, פסוקים ו', ח'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מי אומר "קְרָא" למי, ומי שואל בתגובה "מָה אֶקְרָא"?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> קול הנבואה מצווה על הנביא להכריז ברבים; הנביא שואל "מה אקרא", והתשובה היא שכל בשר, כל חוסנו וחסדו, חולף וכלה כמו חציר וציץ נובל.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    פרק זה פותח את "נבואות הנחמה" בספר ישעיהו, ומכריז שתם עונשה של ירושלים ונסלח עוונה. קול קורא מצווה להכין דרך לה' במדבר - ליישר את הדרכים ולהשפיל את המכשולים - ומבטיח שאז ייגלה כבוד ה' לעיני כל בשר, בדימוי המזכיר את יציאת מצרים. קול נוסף מצווה על הנביא להכריז שכל בשר הוא כחציר קצר-ימים החולף במהרה, אך "דבר אלוקינו יקום לעולם" - ניגוד בין ארעיות בני האדם לנצחיות דבר ה'. הפרק מסתיים בקריאה נרגשת אל "מבשרת ציון" לעלות על הר גבוה ולבשר לערי יהודה: הנה אלוקיכם בא - כגיבור חזק, אך גם כרועה עדין המרחם על טלאיו.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🕊️</span>"נחמו נחמו עמי" - תם העוון<span class="range">(פסוקים א'-ב')</span></div>
+    <p class="narrative">פרק זה פותח את נבואות הנחמה בספר ישעיהו: ה' מצווה בכפילות "נחמו נחמו עמי" לנחם את עמו. יש לדבר על לב ירושלים ולבשר לה שזמן עונשה תם, עוונה נסלח, ואף קיבלה מיד ה' כפליים על כל חטאותיה.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🏜️</span>קול קורא במדבר - כל בשר חציר, ודבר אלוקינו יקום לעולם<span class="range">(פסוקים ג'-ח')</span></div>
+    <p class="narrative">קול קורא במדבר מצווה להכין דרך לה': כל גיא יינשא וכל הר וגבעה ישפלו, העקוב יהיה למישור והרכסים לבקעה - ואז ייגלה כבוד ה' לעיני כל בשר יחדיו. קול נוסף פונה אל הנביא ומצווה עליו להכריז שכל בשר, על כל חסדו וחוסנו, ארעי וחולף כחציר וכציץ נובל - אך דבר אלוקינו יקום לעולם.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">מצודת דוד, פסוקים ו', ח'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מי אומר "קְרָא" למי, ומי שואל בתגובה "מָה אֶקְרָא"?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> קול הנבואה מצווה על הנביא להכריז ברבים; הנביא שואל "מה אקרא", והתשובה היא שכל בשר, כל חוסנו וחסדו, חולף וכלה כמו חציר וציץ נובל.</div>
+      </div>
     </div>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">📯</span>מבשרת ציון - האל בא כגיבור וכרועה<span class="range">(פסוקים ט'-י"א)</span></div>
+    <p class="narrative">הנביא קורא ל"מבשרת ציון" לעלות על הר גבוה ולהרים בכוח את קולה, ולבשר בלי פחד לערי יהודה: הנה אלוקיכם! ה' מתואר בעת ובעונה אחת כגיבור חזק שזרועו מושלת לו ושכרו ופעולתו עמו, וגם כרועה עדין המקבץ טלאים בזרועו ונושא אותם בחיקו.</p>
   </div>
 
 </div>

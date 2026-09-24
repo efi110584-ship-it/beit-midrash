@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,46 +100,63 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 בראשית פרק כ"ה — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 בראשית פרק כ"ה — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="bereshit-25.html">→ חזרה לדף העבודה - פרק כ"ה</a></div>
 
-  <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">👶</span>התפילה, ההיריון והנבואה על שני הגויים</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3F6E66;">
-      <div class="mp-src">רש"י, פסוק כ"ב - "וַיִּתְרֹצֲצוּ"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה פירוש הפועל "ויתרוצצו" המתאר את תנועת התאומים ברחם רבקה?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> זו לשון ריצה: ליד בתי המדרש של שם ועבר רץ יעקב לצאת, וליד עבודה זרה רץ עשיו - כך שכבר בבטן נרמז אופיים העתידי.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    לאחר שנים ארוכות של עקרות, מתפלל יצחק בעד רבקה אשתו, ותהר בתאומים. עוד בהיותה בהיריון, הבנים מתרוצצים בקרבה עד שהיא הולכת לדרוש את ה', והוא מגלה לה שבבטנה שני גויים, ושהגדול (עשיו) יעבוד את הצעיר (יעקב). עשיו נולד ראשון, אדמוני ושעיר, ואחריו יעקב, ידו אוחזת בעקבו. הבנים גדלים והופכים לשני טיפוסים מנוגדים: עשיו - איש ציד ושדה, אהוב על יצחק; יעקב - איש תם יושב אוהלים, אהוב על רבקה. הפרק מסתיים בסיפור מכירת הבכורה: עשיו שב עייף מהשדה ומבקש מיעקב מן הנזיד האדום, ויעקב מנצל את הרגע ומבקש בתמורה את הבכורה - ועשיו, שאינו מעריך אותה, מוכר אותה בקלות ובז לה.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">👶</span>התפילה, ההיריון והנבואה על שני הגויים<span class="range">(פסוקים כ'-כ"ג)</span></div>
+    <p class="narrative">לאחר שנים ארוכות של עקרות, מתפלל יצחק בעד רבקה אשתו, וה' נענה לו - היא הרה בתאומים. עוד בהיותה בהיריון הבנים מתרוצצים בקרבה, עד שהיא הולכת לדרוש את ה'; והוא מגלה לה ששני גויים בבטנה, ושדווקא הגדול יעבוד את הצעיר.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3F6E66;">
+        <div class="mp-src">רש"י, פסוק כ"ב - "וַיִּתְרֹצֲצוּ"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה פירוש הפועל "ויתרוצצו" המתאר את תנועת התאומים ברחם רבקה?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> זו לשון ריצה: ליד בתי המדרש של שם ועבר רץ יעקב לצאת, וליד עבודה זרה רץ עשיו - כך שכבר בבטן נרמז אופיים העתידי.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">🏹</span>הלידה - שני עולמות מנוגדים</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8B4A34;">
-      <div class="mp-src">אבן עזרא, פסוק כ"ז - "יֹדֵעַ צַיִד"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מלמד התיאור "יודע ציד" על אופיו הפנימי של עשיו, מעבר לעיסוקו החיצוני?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> ציידים תופסים את טרפם במרמה ובתחבולות - התיאור מזהה את עשיו עם עורמה, בניגוד ליעקב "איש תם".</div>
-    </div>
-    <div class="mp-card" style="--acc:#8B4A34;">
-      <div class="mp-src">רש"י, פסוק כ"ח - "כִּי צַיִד בְּפִיו"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע אהב יצחק דווקא את עשיו, שהיה "צד אותו" בדברים?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> עשיו רימה את אביו בשאלות מעושות על דקדוק במצוות ("היאך מעשרין את המלח"), וכך גרם לו לחשוב בטעות שהוא ירא שמים.</div>
-    </div>
-    <div class="mp-card" style="--acc:#8B4A34;">
-      <div class="mp-src">ספורנו, פסוק כ"ח</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> האם יצחק אהב את עשיו מתוך טעות בלבד?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> יצחק ידע היטב שעשיו אינו שלם כיעקב, ובכל זאת אהב אותו; רבקה, לעומתו, אהבה רק את יעקב כי הכירה ברשעותו של עשיו.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">🏹</span>הלידה - שני עולמות מנוגדים<span class="range">(פסוקים כ"ד-כ"ח)</span></div>
+    <p class="narrative">עשיו נולד ראשון, אדמוני ושעיר כולו, ואחריו יוצא יעקב, ידו אוחזת בעקבו. הנערים גדלים והופכים לשני טיפוסים מנוגדים: עשיו איש ציד ושדה, אהוב על יצחק; ויעקב איש תם יושב אוהלים, אהוב על רבקה.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8B4A34;">
+        <div class="mp-src">אבן עזרא, פסוק כ"ז - "יֹדֵעַ צַיִד"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מלמד התיאור "יודע ציד" על אופיו הפנימי של עשיו, מעבר לעיסוקו החיצוני?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> ציידים תופסים את טרפם במרמה ובתחבולות - התיאור מזהה את עשיו עם עורמה, בניגוד ליעקב "איש תם".</div>
+      </div>
+      <div class="mp-card" style="--acc:#8B4A34;">
+        <div class="mp-src">רש"י, פסוק כ"ח - "כִּי צַיִד בְּפִיו"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע אהב יצחק דווקא את עשיו, שהיה "צד אותו" בדברים?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> עשיו רימה את אביו בשאלות מעושות על דקדוק במצוות ("היאך מעשרין את המלח"), וכך גרם לו לחשוב בטעות שהוא ירא שמים.</div>
+      </div>
+      <div class="mp-card" style="--acc:#8B4A34;">
+        <div class="mp-src">ספורנו, פסוק כ"ח</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> האם יצחק אהב את עשיו מתוך טעות בלבד?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> יצחק ידע היטב שעשיו אינו שלם כיעקב, ובכל זאת אהב אותו; רבקה, לעומתו, אהבה רק את יעקב כי הכירה ברשעותו של עשיו.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🍲</span>מכירת הבכורה</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">אבן עזרא, פסוק ל"ב - "הִנֵּה אָנֹכִי הוֹלֵךְ לָמוּת"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> על איזו סכנה ממשית מתכוון עשיו כשהוא אומר "הנה אנכי הולך למות"?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> מדובר בסכנה האמיתית שבחיי ציד יומיומיים - עשיו חושש שימות בטרם אביו, ולכן בכורה שתועיל רק בעתיד הרחוק חסרת ערך בעיניו.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🍲</span>מכירת הבכורה<span class="range">(פסוקים כ"ט-ל"ד)</span></div>
+    <p class="narrative">עשיו שב עייף מהשדה ומבקש מיעקב מן הנזיד האדום. יעקב מנצל את הרגע ומבקש בתמורה את הבכורה - ועשיו, הרואה עצמו כמי שעלול למות בכל יום מחיי ציד מסוכנים, מוכר אותה בקלות ובז לה.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">אבן עזרא, פסוק ל"ב - "הִנֵּה אָנֹכִי הוֹלֵךְ לָמוּת"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> על איזו סכנה ממשית מתכוון עשיו כשהוא אומר "הנה אנכי הולך למות"?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> מדובר בסכנה האמיתית שבחיי ציד יומיומיים - עשיו חושש שימות בטרם אביו, ולכן בכורה שתועיל רק בעתיד הרחוק חסרת ערך בעיניו.</div>
+      </div>
     </div>
   </div>
 

@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,27 +100,45 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 ירמיהו פרק ל"ו — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 ירמיהו פרק ל"ו — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="yirmiyahu-36.html">→ חזרה לדף העבודה - פרק ל"ו</a></div>
 
-  <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">📢</span>קריאת המגילה - הדרגתיות התגובות</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3F6E66;">
-      <div class="mp-src">רש"י, ירמיהו ל"ו, ט'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה היה דווקא יום צום כשברוך קרא את המגילה?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> הצום לא נגזר לכבוד קריאת המגילה - הוא כבר היה קיים קודם לכן, שכן העם גזר תענית מפני פחדם מנבוכדנאצר.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    לאחר קרב כרכמיש, שבו מנצחת בבל את מצרים ומשנה את מפת הכוח באזור, מצטווה ירמיהו לכתוב על מגילת ספר את כל נבואותיו מראשית דרכו ועד אז. ברוך בן נריה, סופרו הנאמן, כותב מפיו וקורא את המגילה בפני העם בבית המקדש. הידיעה עוברת בהדרגה - משר לשר, מלשכה ללשכה - עד שהיא מגיעה למלך יהויקים עצמו, בחצרו. יהויקים, במקום להירתע, קורע את המגילה בפועל ושורף אותה קטע אחר קטע באש שלפניו, ומבקש להרוג את ירמיהו ואת ברוך. אך השניים מצליחים להסתתר, וירמיהו מצטווה לכתוב את המגילה מחדש - בתוספת נבואת פורענות אישית נגד יהויקים עצמו.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">📜</span>הרקע לנבואה וכתיבת המגילה<span class="range">(פסוקים א'-ג')</span></div>
+    <p class="narrative">לאחר קרב כרכמיש, שבו מנצחת בבל את מצרים ומשנה את מפת הכוח באזור, מצטווה ירמיהו לכתוב על מגילת ספר את כל נבואותיו מראשית דרכו ועד אז. מטרת הכתיבה מוצהרת במפורש: אולי ישמעו בית יהודה ויחזרו בתשובה, איש מדרכו הרעה.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">📢</span>קריאת המגילה - הדרגתיות התגובות<span class="range">(פסוקים ט'-י"ח)</span></div>
+    <p class="narrative">ברוך בן נריה, סופרו הנאמן של ירמיהו, קורא את המגילה באוזני כל העם בבית המקדש, ביום צום שכבר נגזר מחמת הפחד מנבוכדנאצר. הידיעה על תוכן המגילה עוברת בהדרגה - משר לשר, מלשכה ללשכה - עד שהיא מגיעה לבסוף אל המלך יהויקים עצמו.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3F6E66;">
+        <div class="mp-src">רש"י, ירמיהו ל"ו, ט'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה היה דווקא יום צום כשברוך קרא את המגילה?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> הצום לא נגזר לכבוד קריאת המגילה - הוא כבר היה קיים קודם לכן, שכן העם גזר תענית מפני פחדם מנבוכדנאצר.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🔥</span>שריפת המגילה וכתיבתה מחדש</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">הר"י קרא, ירמיהו ל"ו, כ"ג</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> איך בדיוק שרף יהויקים את המגילה - בבת אחת או בהדרגה?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> המגילה הייתה עשויה יריעות קלף מחוברות בתפר; יהויקים קרא כל יריעה, קרע אותה במקום התפר בתער הסופר, והשליכה מיד לאש - וכך חזר על התהליך עד תום כל המגילה.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🔥</span>שריפת המגילה וכתיבתה מחדש<span class="range">(פסוקים כ"ג, כ"ז-כ"ח)</span></div>
+    <p class="narrative">יהויקים, במקום להירתע מתוכן הנבואה, קורע את המגילה בפועל ושורף אותה קטע אחר קטע באש שלפניו, ומבקש להרוג את ירמיהו ואת ברוך - אך השניים מצליחים להסתתר. מיד לאחר מכן מצווה ה' את ירמיהו לכתוב את המגילה מחדש, בתוספת נבואת פורענות אישית נגד יהויקים עצמו.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">הר"י קרא, ירמיהו ל"ו, כ"ג</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> איך בדיוק שרף יהויקים את המגילה - בבת אחת או בהדרגה?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> המגילה הייתה עשויה יריעות קלף מחוברות בתפר; יהויקים קרא כל יריעה, קרע אותה במקום התפר בתער הסופר, והשליכה מיד לאש - וכך חזר על התהליך עד תום כל המגילה.</div>
+      </div>
     </div>
   </div>
 

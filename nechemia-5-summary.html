@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,27 +100,50 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 נחמיה, פרק ה' — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 נחמיה, פרק ה' — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="nechemia-5.html">→ חזרה לדף העבודה - נחמיה, פרק ה'</a></div>
 
-  <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">😠</span>תוכחת נחמיה לעשירים</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3F6E66;">
-      <div class="mp-src">מלבי"ם, נחמיה ה', ז'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> איך ייתכן שאדם מישראל הופך ל"נושה" על אחיו, בניגוד מפורש לאיסור התורה?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> נחמיה מזכיר לעשירים במילים "משא איש באחיו אתם נושים" את איסור התורה המפורש (שמות כ"ב) על נגישה, ריבית והחזקת משכון מהעני.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    בעוד הבנייה הפיזית של החומה נמשכת, מתגלה משבר חברתי-כלכלי חריף בקרב העם: עניים זועקים שנאלצים למכור את ילדיהם לעבדות ולמשכן את שדותיהם, רק כדי לשלם את מס המלך ולשרוד. נחמיה מגיב בכעס כלפי ראשי העם העשירים שגובים ריבית מאחיהם, מוכיח אותם בחריפות, ומוביל בדוגמה אישית מהלך של שמיטת חובות - עד שהעשירים נענים לקריאתו. בהמשך הפרק מתאר נחמיה את אורח חייו הצנוע כפחה: בניגוד לפחות הקודמים, הוא מוותר על לחם הפחה המגיע לו ומממן מכיסו את צורכי הבונים, מפני יראת שמים.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">😰</span>זעקת העשוקים<span class="range">(נחמיה ה', א'-ה')</span></div>
+    <p class="narrative">בעיצומה של בניית החומה פורצת זעקת מצוקה בקרב חלק מהעם. יש הטוענים שמשפחותיהם גדולות מדי ואין להם די דגן לאכול; אחרים נאלצים למשכן שדות, כרמים ובתים כדי לקבל הלוואה עבור תשלום מס המלך. הזעקה מגיעה לשיאה בטענה המוסרית-לאומית: "כִּבְשַׂר אַחֵינוּ בְּשָׂרֵנוּ" - ובכל זאת הם נאלצים לשעבד את בניהם ובנותיהם לעבדים, בלי יכולת לפדותם.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">😠</span>תוכחת נחמיה לעשירים<span class="range">(נחמיה ה', ו'-ט')</span></div>
+    <p class="narrative">כשנחמיה שומע את הזעקה הוא כועס מאוד, ויוצא בתוכחה חריפה כלפי החורים והסגנים: "מַשָּׂא אִישׁ בְּאָחִיו אַתֶּם נֹשִׁים!". הוא מבהיר להם שדרכם אינה טובה, וקורא להם ללכת ביראת אלוקים, גם כדי שלא לתת פתחון פה לחרפת הגויים האויבים.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3F6E66;">
+        <div class="mp-src">מלבי"ם, נחמיה ה', ז'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> איך ייתכן שאדם מישראל הופך ל"נושה" על אחיו, בניגוד מפורש לאיסור התורה?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> נחמיה מזכיר לעשירים במילים "משא איש באחיו אתם נושים" את איסור התורה המפורש (שמות כ"ב) על נגישה, ריבית והחזקת משכון מהעני.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#B0762B;"><span class="icon" aria-hidden="true">🍞</span>הנהגתו של נחמיה כפחה</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#B0762B;">
-      <div class="mp-src">רש"י, נחמיה ה', ט"ז</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה הכוונה ב"ושדה לא קנינו" - ממי נמנע נחמיה מלקנות, ולמה זה חשוב?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> נחמיה ובני ביתו נמנעו מלנצל את מצוקת הבונים כדי לקנות מהם שדות בזול; להפך, הוא מימן מכיסו את צורכי הבנייה.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🤝</span>שמיטת החובות<span class="range">(נחמיה ה', י'-י"ג)</span></div>
+    <p class="narrative">נחמיה מודה שגם הוא ואנשיו הלוו כסף ודגן בריבית, ולפני שהוא דורש מהעשירים לתקן הוא קורא להם להשיב לעניים את שדותיהם, כרמיהם, זיתיהם ובתיהם, ולוותר על הריבית שגבו מהם. העשירים נענים מיד, מבטיחים להשיב הכול ולא לדרוש עוד דבר, והעם כולו מהלל את ה' ומקיים את הדבר.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#B0762B;"><span class="icon" aria-hidden="true">🍞</span>הנהגתו של נחמיה כפחה<span class="range">(נחמיה ה', י"ד-י"ט)</span></div>
+    <p class="narrative">נחמיה מתאר את התנהלותו כפחה ביהודה: בניגוד לפחות הקודמים שהכבידו על העם ולקחו לעצמם "לחם הפחה", הוא נמנע מכך לחלוטין מפני יראת אלוקים. הוא ובני ביתו אף נמנעים מלקנות שדות מהעם, וממשיכים לתמוך במלאכת החומה מכיסם הפרטי.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#B0762B;">
+        <div class="mp-src">רש"י, נחמיה ה', ט"ז</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה הכוונה ב"ושדה לא קנינו" - ממי נמנע נחמיה מלקנות, ולמה זה חשוב?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> נחמיה ובני ביתו נמנעו מלנצל את מצוקת הבונים כדי לקנות מהם שדות בזול; להפך, הוא מימן מכיסו את צורכי הבנייה.</div>
+      </div>
     </div>
   </div>
 

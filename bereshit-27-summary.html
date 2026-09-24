@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,45 +100,66 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 בראשית פרקים כ"ז-כ"ח:ד — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 בראשית פרקים כ"ז-כ"ח:ד — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרקים, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="bereshit-27.html">→ חזרה לדף העבודה - פרקים כ"ז-כ"ח:ד</a></div>
 
-  <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">🎯</span>יצחק שולח את עשיו לצוד ציד</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#1E2761;">
-      <div class="mp-src">רש"י, פסוק א' - "וַתִּכְהֶיןָ עֵינָיו"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע כהו עיניו של יצחק בזקנותו?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> שני הסברים: לפי אחד - מעשן קטורת עבודה זרה שהקטירו נשות עשיו; לפי השני - מדמעות המלאכים שנטפו לתוך עיניו בעת העקדה.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    יצחק הזקן, שעיניו כהו מראות, קורא לעשיו בנו הבכור ומבקש ממנו לצוד לו ציד ולהכין לו מטעמים - כדי שיברך אותו לפני מותו. רבקה, ששמעה את הדברים, פועלת מיד: היא מצווה על יעקב להביא לה שני גדיי עיזים, מכינה מהם מטעמים כטעם שאהב יצחק, ומלבישה את יעקב בבגדי עשיו ובעורות הגדיים על ידיו וצווארו - כדי שירגיש וירח כמו עשיו השעיר. יעקב נכנס אל אביו, מתחזה לעשיו, ולמרות חשדו של יצחק ("הקול קול יעקב והידיים ידי עשו") - הוא מברך אותו בברכת הבכורה: שפע, ממשל על אחיו והבטחה. מיד לאחר מכן מגיע עשיו האמיתי עם המטעמים - ואז מתגלה התרמית. יצחק חרד חרדה גדולה, ועשיו זועק זעקה גדולה ומרה ומבקש ברכה גם לעצמו - ומקבל ברכה שונה: לחיות על חרבו, לשעבד לאחיו, ובבוא היום לפרוק את עולו. עשיו שוטם את יעקב ומתכנן להורגו לאחר מות אביהם; רבקה, ששומעת על כך, שולחת את יעקב אל לבן אחיה בחרן - ויצחק, מרצונו החופשי הפעם, מברך את יעקב בברכת אברהם המפורשת ושולחו לשאת אישה מבנות משפחתה.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">🎯</span>יצחק שולח את עשיו לצוד ציד<span class="range">(פסוקים א'-ד')</span></div>
+    <p class="narrative">יצחק הזקן, שעיניו כהו מראות, קורא לעשיו בנו הבכור ומבקש ממנו לצאת השדה, לצוד ציד ולהכין לו מטעמים כאשר אהב - כדי שיברך אותו לפני מותו. בקשה זו, ששמעה רבקה בסתר, היא שמניעה את כל שרשרת האירועים שבהמשך.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#1E2761;">
+        <div class="mp-src">רש"י, פסוק א' - "וַתִּכְהֶיןָ עֵינָיו"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע כהו עיניו של יצחק בזקנותו?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> שני הסברים: לפי אחד - מעשן קטורת עבודה זרה שהקטירו נשות עשיו; לפי השני - מדמעות המלאכים שנטפו לתוך עיניו בעת העקדה.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🐐</span>רבקה ויעקב - התחפושת והברכה</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">רש"י, פסוק כ"ג - "הַקֹּל קוֹל יַעֲקֹב"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע יצחק, שחש שמשהו בקול אינו מתאים, מברך את המתחזה בכל זאת?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> הקול של יעקב היה בלשון תחנונים בניגוד לגסות עשיו, אך יצחק בכל זאת הסתמך בעיקר על המישוש - הידיים השעירות - כי בן השיח דיבר איתו רק פעם אחת.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🐐</span>רבקה ויעקב - התחפושת והברכה<span class="range">(פסוקים ו'-כ"ט, עיקרי)</span></div>
+    <p class="narrative">רבקה, ששמעה את הבקשה, מצווה על יעקב להביא שני גדיי עיזים, מכינה מהם מטעמים כטעם שאהב יצחק, ומלבישה את יעקב בבגדי עשיו ובעורות הגדיים - כדי שירגיש וירח כמוהו. יעקב נכנס אל אביו ומתחזה לעשיו; יצחק חש שמשהו בקול אינו מתאים ("הקול קול יעקב והידיים ידי עשו"), אך מברך אותו בכל זאת - בברכת שפע וממשל על אחיו.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">רש"י, פסוק כ"ג - "הַקֹּל קוֹל יַעֲקֹב"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע יצחק, שחש שמשהו בקול אינו מתאים, מברך את המתחזה בכל זאת?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> הקול של יעקב היה בלשון תחנונים בניגוד לגסות עשיו, אך יצחק בכל זאת הסתמך בעיקר על המישוש - הידיים השעירות - כי בן השיח דיבר איתו רק פעם אחת.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">😢</span>גילוי התרמית וזעקת עשיו</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8B4A34;">
-      <div class="mp-src">רש"י, פסוק ל"ג - "גַּם בָּרוּךְ יִהְיֶה"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע יצחק אינו מבטל את ברכתו ליעקב, גם לאחר שגילה את התרמית וחרד חרדה גדולה?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> לפי דרש, יצחק חש ברוח הקודש שהברכה ליעקב ראויה; ולפי הפשט, בראותו את עתידו הרוחני הקשה של עשיו הוא השלים עם כך שהברכה שייכת ליעקב.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">😢</span>גילוי התרמית וזעקת עשיו<span class="range">(פסוקים ל'-מ')</span></div>
+    <p class="narrative">מיד לאחר שיעקב יוצא, מגיע עשיו האמיתי עם המטעמים - ואז מתגלה התרמית, ויצחק חרד חרדה גדולה. עשיו זועק זעקה גדולה ומרה, מגלה שיעקב כבר לקח ממנו פעמיים - את הבכורה ואת הברכה - ומבקש ברכה גם לעצמו. הוא מקבל ברכה שונה: לחיות על חרבו, לשעבד לאחיו, ובבוא היום לפרוק את עולו.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8B4A34;">
+        <div class="mp-src">רש"י, פסוק ל"ג - "גַּם בָּרוּךְ יִהְיֶה"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע יצחק אינו מבטל את ברכתו ליעקב, גם לאחר שגילה את התרמית וחרד חרדה גדולה?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> לפי דרש, יצחק חש ברוח הקודש שהברכה ליעקב ראויה; ולפי הפשט, בראותו את עתידו הרוחני הקשה של עשיו הוא השלים עם כך שהברכה שייכת ליעקב.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🎒</span>תגובת עשיו ושליחת יעקב לחרן</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3F6E66;">
-      <div class="mp-src">רמב"ן, על ברכת אברהם בפרק כ"ח</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע יצחק חוזר ומברך את יעקב פעם נוספת, ב"ברכת אברהם" המפורשת, אחרי שכבר קיבל ממנו ברכת שפע וממשל?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> ברכת השפע ניתנה בטעות, תחת דמות עשיו; ברכת אברהם - ירושת הארץ - ניתנת עתה ביודעין ומרצון חופשי, כדי שיעקב יקבלה כדין ולא רק מתוך תרמית.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🎒</span>תגובת עשיו ושליחת יעקב לחרן<span class="range">(כ"ז, מ"א - כ"ח, ד')</span></div>
+    <p class="narrative">עשיו שוטם את יעקב על הברכה ומתכנן להורגו לאחר מות אביהם. רבקה, ששומעת על כך, שולחת את יעקב אל לבן אחיה בחרן עד יעבור זעם עשיו. יצחק, מרצונו החופשי הפעם, מברך את יעקב פעם נוספת - בברכת אברהם המפורשת, כולל הבטחת הארץ - ושולחו לשאת אישה מבנות משפחתה.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3F6E66;">
+        <div class="mp-src">רמב"ן, על ברכת אברהם בפרק כ"ח</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע יצחק חוזר ומברך את יעקב פעם נוספת, ב"ברכת אברהם" המפורשת, אחרי שכבר קיבל ממנו ברכת שפע וממשל?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> ברכת השפע ניתנה בטעות, תחת דמות עשיו; ברכת אברהם - ירושת הארץ - ניתנת עתה ביודעין ומרצון חופשי, כדי שיעקב יקבלה כדין ולא רק מתוך תרמית.</div>
+      </div>
     </div>
   </div>
 

@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -58,11 +72,6 @@
   .mp-tag{ font-weight:800; }
   .mp-tag.ask{ color:var(--gold); }
   .mp-tag.answer{ color:var(--green); }
-
-  .empty-note{
-    max-width:640px; margin:2rem auto 0; text-align:center; color:var(--ink-soft); font-size:.95rem;
-    background:var(--card); border:1.5px solid var(--border); border-radius:14px; padding:1.2rem 1.4rem;
-  }
 
   .site-footer{ text-align:center; color:var(--ink-soft); font-size:.85rem; margin-top:2rem; }
 
@@ -91,13 +100,36 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 עזרא פרק ז' — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 עזרא פרק ז' — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק ז', נושא אחרי נושא - ניתוח ישיר של הכתוב ושל תוכן הרישיון שקיבל עזרא מן המלך, בלי דגש מיוחד על שמות מפרשים.</p>
   </header>
 
   <div class="game-nav"><a href="ezra-7.html">→ חזרה לדף העבודה - פרק ז'</a></div>
 
-  <p class="empty-note">בדף העבודה של פרק זה אין קטעי פרשנות המיוחסים במפורש לשם מפרש - הדגש כאן הוא בעיקר על ניתוח ישיר של הכתוב ושל תוכן הרישיון שקיבל עזרא מן המלך. לחזרה על השאלות שנדונו בפרק, ראו את דף העבודה עצמו.</p>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    מפרק ז' ואילך אנו למדים על מנהיג חדש, שעולה ארצה ועומד מכאן ואילך בראש השבים - עזרא הסופר. הפרק פותח ברשימת ייחוסו של עזרא, המגיעה עד אהרן הכהן, ומציג אותו כ"סֹפֵר מָהִיר בְּתוֹרַת מֹשֶׁה". עזרא עולה לירושלים עם קבוצת עולים בשנה השביעית למלך ארתחשסתא, במסע שתאריכיו סמליים ומכוונים. בליבו של הפרק מובא הרישיון המפורט שקיבל עזרא מן המלך - המרשה לו לעלות, לגבות כספי נדבה, ומסמיך אותו למנות מערכת משפט לפי דת אלוקי ישראל. הפרק מסתיים בתגובתו האישית של עזרא - ברכת הודיה לה' על החסד שעשה עמו.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🕊️</span>יחוסו של עזרא<span class="range">(עזרא ז', א'-ו')</span></div>
+    <p class="narrative">מכאן ואילך עומד עזרא במרכז הסיפור. הפרק פותח ברשימת ייחוסו, המגיעה עד אלעזר בן אהרן הכהן הראש, ומציג אותו כ"סֹפֵר מָהִיר בְּתוֹרַת מֹשֶׁה אֲשֶׁר נָתַן ה' אֱלֹקֵי יִשְׂרָאֵל". המלך נענה לכל בקשתו של עזרא, שכן יד ה' אלוקיו טובה עליו.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🗓️</span>עליית עזרא - תאריכים סמליים<span class="range">(עזרא ז', ז'-י')</span></div>
+    <p class="narrative">עזרא עולה עם קבוצת עולים בשנה השביעית למלכות ארתחשסתא המלך. הם יוצאים מבבל באחד לחודש הראשון, ומגיעים לירושלים באחד לחודש החמישי - כיד אלוקיו הטובה על עזרא.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">📄</span>הרישיון שקיבל עזרא<span class="range">(עזרא ז', י"ב, כ"ה)</span></div>
+    <p class="narrative">בליבו של הפרק מובא נוסח הרישיון שמעניק המלך ארתחשסתא לעזרא, הפונה אליו כ"סֹפֵר דָּתָא דִּי אֱלָהּ שְׁמַיָּא". הרישיון מתיר לעזרא ולאנשיו לעלות ולפקח על העלייה, להעביר כספי נדבה וכלים למקדש, וקוצב מס לצורך עבודתו - ומעל לכול, מסמיך את עזרא למנות שופטים ודיינים על פי חכמת אלוקיו, שידונו את כל העם שבעבר הנהר, יודעי דת אלוקיו.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#B0762B;"><span class="icon" aria-hidden="true">🙏</span>תגובת עזרא - הכרת הטוב<span class="range">(עזרא ז', כ"ז-כ"ח)</span></div>
+    <p class="narrative">הפרק מסתיים בתגובתו האישית של עזרא: הוא מברך את ה' אלוקי אבותיו על שנתן בלב המלך לפאר את בית ה' בירושלים, ועל שהטה עליו חסד לפני המלך ויועציו. עזרא מציין שהתחזק כיד ה' אלוקיו עליו, וקיבץ מישראל ראשים לעלות עמו.</p>
+  </div>
 
 </div>
 

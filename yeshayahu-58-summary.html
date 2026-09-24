@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,13 +100,31 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 ישעיהו פרק נ"ח — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 ישעיהו פרק נ"ח — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - קריאה צמודה בפסוקים, ובהשוואה בין הצום הפסול לצום הרצוי.</p>
   </header>
 
   <div class="game-nav"><a href="yeshayahu-58.html">→ חזרה לדף העבודה - פרק נ"ח</a></div>
 
-  <p class="sub" style="margin-top:2rem;">בדף העבודה של פרק זה אין קוביות עם דברי מפרש בעל שם (כגון רש"י או רמב"ן) - השאלות בו מתמקדות בקריאה צמודה בפסוקים, בהשוואה בין הצום הפסול לצום הרצוי, ולכן אין כאן כרגע פרשנות קלאסית לסכם.</p>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    פרק זה עוסק ביחס הראוי בין הצום לבין עבודת ה' האמיתית. הנביא מצווה להרים קול ולהודיע לעם את פשעו: העם צם ומתפלל, אך תמה מדוע ה' אינו מקבל את תעניתו. תשובת הנביא: ביום הצום עצמו העם ממשיך למצוא חפצו, לעשוק את הפועלים ולריב ולהכות באגרוף רשע - כלומר, הצום נשאר טקס חיצוני בלבד, בלי שינוי אמיתי בהתנהגות. לעומת הצום ה"פסול" הזה, מתאר הנביא את "הצום הרצוי" - פתיחת חרצובות רשע, שילוח רצוצים חופשיים, פריסת לחם לרעב, הכנסת עניים לבית, וכיסוי הערום. פרק זה, שהוא חלק מהפטרת יום הכיפורים, מסתיים בהבטחה: אם ישמור העם על השבת ויעשה מדרכיו כבוד לה', ישאהו ה' על במותי ארץ.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">📢</span>תלונת העם - "מדוע צמנו ולא ראית?"<span class="range">(פסוקים א'-ג')</span></div>
+    <p class="narrative">ה' מצווה על הנביא להרים קול כשופר ולהודיע לעם את פשעו. העם דורש את ה' יום-יום ומתנהג כביכול כגוי צדיק החפץ במשפטי צדק ובקרבת אלוקים - אך למעשה מתלונן: "למה צמנו ולא ראית, עינינו נפשנו ולא תדע". תשובת ה' מגיעה מיד: דווקא ביום הצום ממשיך העם למצוא חפצו ולנגוש את פועליו.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">⛓️‍💥</span>בין הצום הפסול לצום הרצוי<span class="range">(פסוקים ד'-ז')</span></div>
+    <p class="narrative">הנביא מבהיר שהצום שהעם מקיים מלווה בריב ובמצה ובהכאת אגרוף רשע - ואינו הצום שיישמע במרום. ה' תוהה אם ענוי הגוף בלבד, כפיפת ראש ולבישת שק ואפר, הוא באמת הצום שבחר. לעומתו מתאר הנביא את "הצום הרצוי": פתיחת חרצובות רשע ושילוח רצוצים לחופשי, פריסת לחם לרעב, הכנסת עניים מרודים אל הבית, וכיסוי הערום.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3E5A8C;"><span class="icon" aria-hidden="true">☀️</span>השכר לצום הרצוי, ושמירת השבת<span class="range">(פסוקים ח'-י"ד)</span></div>
+    <p class="narrative">אם יקיים העם את הצום הרצוי, מבטיח ה' שאורו יבקע כשחר וארוכתו תצמח מהרה, ותפילתו תיענה מיד. הפרק מסתיים בהבטחה לשומרי השבת: אם ישיבו את רגלם מחפציהם ביום קדשו, יתענגו על ה', ירכבו על במותי ארץ ויאכלו מנחלת יעקב אביהם.</p>
+  </div>
 
 </div>
 

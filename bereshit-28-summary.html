@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,41 +100,58 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 בראשית פרק כ"ח — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 בראשית פרק כ"ח — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="bereshit-28.html">→ חזרה לדף העבודה - פרק כ"ח</a></div>
 
-  <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">🪜</span>חלום הסולם - התגלות ה' ליעקב</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#1E2761;">
-      <div class="mp-src">רש"י, פסוק י"ב - "עֹלִים וְיֹרְדִים"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע בחלום המלאכים קודם "עולים" ורק אחר כך "יורדים"?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> מלאכי הארץ אינם יוצאים לחוץ לארץ - הם "עולים" בגבול הארץ, ובמקומם "יורדים" מלאכים אחרים שילוו את יעקב בחוץ לארץ.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    יעקב יוצא מבאר שבע לבדו, בורח מפני עשיו אחיו, בדרכו לחרן אל בית לבן אחי אמו. בדרך הוא לן במקום מסוים, לוקח מאבני המקום לשים תחת ראשו, ושוכב לישון. בחלומו הוא רואה סולם מוצב ארצה וראשו מגיע השמימה, ומלאכי אלוקים עולים ויורדים בו. ה' נצב עליו ומתגלה אליו, מבטיח לו את ארץ כנען, זרע רב כעפר הארץ, ושמירה בכל אשר ילך עד שובו בשלום. יעקב מתעורר נרעש, קורא למקום "בית אל", ונודר נדר: אם ה' יהיה עמו וישמרו בדרכו ויחזירו בשלום לבית אביו - יהיה ה' לו לאלוקים, והאבן שהציב למצבה תהיה בית אלוקים, ומכל אשר יתן לו יעשר עשר לה'.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">🪜</span>חלום הסולם - התגלות ה' ליעקב<span class="range">(פסוקים י'-י"ג)</span></div>
+    <p class="narrative">יעקב יוצא לבדו מבאר שבע ופונה חרנה. בדרך הוא לן במקום מסוים, לוקח מאבני המקום לשים תחת ראשו, ובחלומו רואה סולם מוצב ארצה וראשו מגיע השמימה, כשמלאכי אלוקים עולים ויורדים בו. ה' נצב עליו ומתגלה אליו לראשונה, מבטיח לו את ארץ כנען ומזכיר לו שהוא ממשיך את שלשלת אברהם ויצחק.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#1E2761;">
+        <div class="mp-src">רש"י, פסוק י"ב - "עֹלִים וְיֹרְדִים"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע בחלום המלאכים קודם "עולים" ורק אחר כך "יורדים"?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> מלאכי הארץ אינם יוצאים לחוץ לארץ - הם "עולים" בגבול הארץ, ובמקומם "יורדים" מלאכים אחרים שילוו את יעקב בחוץ לארץ.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#3E5A8C;"><span class="icon" aria-hidden="true">🛡️</span>הבטחת השמירה, והתעוררות יעקב</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3E5A8C;">
-      <div class="mp-src">רש"י, פסוק ט"ו - "וּשְׁמַרְתִּיךָ"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מפני מי זקוק יעקב במיוחד להבטחת שמירה?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> מפני עשיו שממנו הוא בורח, ומפני לבן שאליו הוא הולך.</div>
-    </div>
-    <div class="mp-card" style="--acc:#3E5A8C;">
-      <div class="mp-src">רש"י, פסוק ט"ז - "וְאָנֹכִי לֹא יָדָעְתִּי"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> על מה מצטער יעקב במילים "ואנכי לא ידעתי"?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> שאילו ידע מראש שהמקום קדוש, לא היה ישן בו.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3E5A8C;"><span class="icon" aria-hidden="true">🛡️</span>הבטחת השמירה, והתעוררות יעקב<span class="range">(פסוקים י"ד-י"ז)</span></div>
+    <p class="narrative">ה' ממשיך ומבטיח ליעקב זרע רב כעפר הארץ וברכה לכל משפחות האדמה, ומצהיר שיהיה עמו וישמרו בכל אשר ילך עד שישיבו אל אדמתו. יעקב מתעורר משנתו ומבין בבת אחת שה' נמצא באותו מקום; הוא נמלא יראה וקורא "מה נורא המקום הזה - אין זה כי אם בית אלוקים ושער השמים".</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3E5A8C;">
+        <div class="mp-src">רש"י, פסוק ט"ו - "וּשְׁמַרְתִּיךָ"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מפני מי זקוק יעקב במיוחד להבטחת שמירה?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> מפני עשיו שממנו הוא בורח, ומפני לבן שאליו הוא הולך.</div>
+      </div>
+      <div class="mp-card" style="--acc:#3E5A8C;">
+        <div class="mp-src">רש"י, פסוק ט"ז - "וְאָנֹכִי לֹא יָדָעְתִּי"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> על מה מצטער יעקב במילים "ואנכי לא ידעתי"?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> שאילו ידע מראש שהמקום קדוש, לא היה ישן בו.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🕊️</span>קריאת שם המקום ונדר יעקב</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">רמב"ן, פסוק כ' - וטעם הנדר</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע נודר יעקב "אם" יהיה אלוקים עמו, הרי כבר קיבל הבטחה מוחלטת?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> אין הצדיקים בוטחים בעולם הזה בביטחון מוחלט; לכן יעקב מתנה את נדרו ב"אם" - לא מתוך ספק אלא מענווה.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🕊️</span>קריאת שם המקום ונדר יעקב<span class="range">(פסוקים י"ח-כ"ב)</span></div>
+    <p class="narrative">בבוקר משכים יעקב, לוקח את האבן ששם תחת ראשו, מציב אותה למצבה ויוצק עליה שמן, וקורא למקום "בית אל". הוא נודר נדר: אם ה' יהיה עמו, ישמרנו בדרכו וישיבנו בשלום אל בית אביו - יהיה ה' לו לאלוקים, האבן שהציב תהיה בית אלוקים, ומכל אשר יתן לו יעשר מעשר לה'.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">רמב"ן, פסוק כ' - וטעם הנדר</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע נודר יעקב "אם" יהיה אלוקים עמו, הרי כבר קיבל הבטחה מוחלטת?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> אין הצדיקים בוטחים בעולם הזה בביטחון מוחלט; לכן יעקב מתנה את נדרו ב"אם" - לא מתוך ספק אלא מענווה.</div>
+      </div>
     </div>
   </div>
 

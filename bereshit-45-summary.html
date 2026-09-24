@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,28 +100,46 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 בראשית פרק מ"ה — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 בראשית פרק מ"ה — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="bereshit-45.html">→ חזרה לדף העבודה - פרק מ"ה</a></div>
 
-  <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">💔</span>"אני יוסף" - ההתוודעות</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#1E2761;">
-      <div class="mp-src">אברבנאל ועקידת יצחק - מדוע דווקא עכשיו?</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע מתגלה יוסף לאחיו דווקא עכשיו, ולא קודם לכן?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> יוסף המתין במכוון עד שהאחים הוכיחו בפועל - במבחן הגביע ובנאום יהודה - שעשו תשובה שלמה, ורק אז נגלה אליהם.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    לאחר נאומו הנרגש של יהודה, אין יוסף יכול עוד להתאפק. הוא מוציא מעליו את כל המצרים ומתגלה לאחיו בבכי גדול: "אני יוסף - העוד אבי חי?". האחים נבהלים ואינם מסוגלים לענות, אך יוסף מקרב אותם ומרגיע אותם - הוא מסביר שלא הם, אלא ה', שלח אותו למצרים כדי להצילם ברעב, "למחיה". הוא מבקש מהם למהר ולעלות אל אביהם, לספר לו על מעמדו הרם במצרים, ולהביא את המשפחה כולה לגור בארץ גושן. פרעה שמח לשמע הבשורה ומצווה לספק לאחים עגלות ורכוש. כשמגיעה הבשורה ליעקב, הוא אינו מאמין תחילה, אך משראה את העגלות ששלח יוסף - רוחו חוזרת אליו, והוא מכריז שיילך לראות את בנו בטרם ימות.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">💔</span>"אני יוסף" - ההתוודעות<span class="range">(פסוקים א'-ד')</span></div>
+    <p class="narrative">יוסף אינו יכול עוד להתאפק ומצווה להוציא מעליו את כל המצרים, כדי להתייחד עם אחיו לבדם. הוא נותן את קולו בבכי ומכריז: "אני יוסף, העוד אבי חי?" - אך האחים נבהלים ואינם מסוגלים לענות לו. יוסף מקרבם אליו ומזכיר להם שהוא אחיהם אשר מכרו למצרים.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#1E2761;">
+        <div class="mp-src">אברבנאל ועקידת יצחק - מדוע דווקא עכשיו?</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע מתגלה יוסף לאחיו דווקא עכשיו, ולא קודם לכן?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> יוסף המתין במכוון עד שהאחים הוכיחו בפועל - במבחן הגביע ובנאום יהודה - שעשו תשובה שלמה, ורק אז נגלה אליהם.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🌾</span>"כי למחיה שלחני אלוקים" - ההשגחה במקום ההאשמה</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3F6E66;">
-      <div class="mp-src">עקרון "הסיבתיות הכפולה"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> איך אפשר ליישב בין אשמת האחים לבין ראיית מכירת יוסף כהשגחה אלוקית?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> אותו מעשה עצמו הוא גם בחירה חופשית וחוטאת של האחים, וגם חלק מתוכנית אלוקית שהצילה את המשפחה - שני ההסברים נכונים במקביל, בלי לסתור זה את זה.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🌾</span>"כי למחיה שלחני אלוקים" - ההשגחה במקום ההאשמה<span class="range">(פסוקים ה'-ח')</span></div>
+    <p class="narrative">יוסף מרגיע את אחיו ומבקש מהם שלא יתעצבו ולא ייחר בעיניהם על שמכרו אותו - שכן לא הם, אלא ה', שלח אותו לפניהם למחיה, כדי להשאיר להם שארית בארץ ולהחיותם לפליטה גדולה. בכך מציג יוסף לראשונה את "התמונה המלאה" של סיפור חייו: לא שרשרת מקרים אקראית, אלא תוכנית אלוקית מכוונת.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3F6E66;">
+        <div class="mp-src">עקרון "הסיבתיות הכפולה"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> איך אפשר ליישב בין אשמת האחים לבין ראיית מכירת יוסף כהשגחה אלוקית?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> אותו מעשה עצמו הוא גם בחירה חופשית וחוטאת של האחים, וגם חלק מתוכנית אלוקית שהצילה את המשפחה - שני ההסברים נכונים במקביל, בלי לסתור זה את זה.</div>
+      </div>
     </div>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🐫</span>הבשורה ליעקב - "עוד יוסף חי"<span class="range">(פסוקים כ"ד-כ"ח)</span></div>
+    <p class="narrative">האחים חוזרים ומספרים ליעקב שיוסף עודנו חי ומושל בכל ארץ מצרים, אך הוא אינו מאמין להם ולבו פג. רק כשהוא רואה את העגלות ששלח יוסף לשאת אותו, רוחו חוזרת אליו, והוא מכריז: "רב, עוד יוסף בני חי - אלכה ואראנו בטרם אמות".</p>
   </div>
 
 </div>

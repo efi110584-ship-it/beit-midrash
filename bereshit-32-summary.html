@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,28 +100,46 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 בראשית פרקים ל"ב-ל"ג — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 בראשית פרקים ל"ב-ל"ג — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="bereshit-32.html">→ חזרה לדף העבודה - פרקים ל"ב-ל"ג</a></div>
 
-  <div class="topic-heading" style="--acc:#3E5A8C;"><span class="icon" aria-hidden="true">😨</span>פחד המפגש ותפילת יעקב (פרק ל"ב)</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3E5A8C;">
-      <div class="mp-src">רש"י, פסוק ח' - "וַיִּירָא... וַיֵּצֶר לוֹ"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה ההבדל בין שני הפעלים "ויירא" ו"ויצר לו"?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> "ויירא" - חשש שמא ייהרג בעצמו; "ויצר לו" - חשש מוסרי שמא ייאלץ להרוג אחרים כדי להינצל.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרקים</div>
+    לאחר עשרים שנה אצל לבן, יעקב שב לארצו ושולח מלאכים לקראת עשיו אחיו - אך אלה חוזרים בבשורה מדאיגה: עשיו מגיע לקראתו עם ארבע מאות איש. יעקב, אחוז פחד, מתכונן בשלוש דרכים: הוא מחלק את מחנהו לשניים, שולח מנחה גדולה לעשיו, ומתפלל לה' שיצילו. בלילה שלפני המפגש, יעקב נותר לבדו ונאבק עם איש עד עלות השחר; האיש פוגע בכף ירכו אך אינו יכול לו, ולבסוף מברך אותו ומשנה את שמו מיעקב לישראל - "כי שרית עם אלוקים ועם אנשים ותוכל". למחרת מתקיים המפגש המיוחל: עשיו, במקום לתקוף, רץ לקראת יעקב, מחבקו, נופל על צווארו ובוכה איתו. יעקב מציע לו מנחה גדולה, ולבסוף השניים נפרדים בשלום, כל אחד לדרכו.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3E5A8C;"><span class="icon" aria-hidden="true">😨</span>פחד המפגש ותפילת יעקב<span class="range">(פרק ל"ב, פסוקים ד'-י"ג)</span></div>
+    <p class="narrative">יעקב שולח מלאכים לקראת עשיו אחיו, ואלה חוזרים עם ידיעה מדאיגה: עשיו כבר בדרך לקראתו, ועמו ארבע מאות איש. יעקב נמלא פחד ומתכונן בשלוש דרכים: הוא מחלק את מחנהו לשניים כדי שיישאר שריד אם יתקוף עשיו, ומתפלל לה' ומבקש הצלה מיד אחיו, מתוך ענווה על כל החסד שכבר קיבל.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3E5A8C;">
+        <div class="mp-src">רש"י, פסוק ח' - "וַיִּירָא... וַיֵּצֶר לוֹ"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה ההבדל בין שני הפעלים "ויירא" ו"ויצר לו"?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> "ויירא" - חשש שמא ייהרג בעצמו; "ויצר לו" - חשש מוסרי שמא ייאלץ להרוג אחרים כדי להינצל.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🌅</span>המאבק עם האיש - שינוי השם לישראל</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">מדרש חז"ל (המובא ברש"י, פסוק כ"ה)</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מיהו ה"איש" שנאבק עם יעקב?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> שרו הרוחני של עשיו - כפי שנרמז גם בפסוק "בבטן עקב את אחיו, ובאונו שרה את אלוקים" (הושע י"ב).</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🌅</span>המאבק עם האיש - שינוי השם לישראל<span class="range">(פסוקים כ"ה-ל"א)</span></div>
+    <p class="narrative">יעקב נותר לבדו ונאבק עם איש עד עלות השחר; כשהאיש רואה שאינו יכול לו, הוא פוגע בכף ירכו של יעקב. יעקב מסרב לשלח אותו עד שיברכהו, והאיש משנה את שמו מיעקב לישראל - "כי שרית עם אלוקים ועם אנשים ותוכל". יעקב קורא למקום "פניאל", כי ראה אלוקים פנים אל פנים וניצל.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">מדרש חז"ל (המובא ברש"י, פסוק כ"ה)</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מיהו ה"איש" שנאבק עם יעקב?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> שרו הרוחני של עשיו - כפי שנרמז גם בפסוק "בבטן עקב את אחיו, ובאונו שרה את אלוקים" (הושע י"ב).</div>
+      </div>
     </div>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🤝</span>הפיוס עם עשיו<span class="range">(פרק ל"ג, פסוקים א'-י"א)</span></div>
+    <p class="narrative">למחרת מתקיים המפגש המיוחל: יעקב משתחווה ארצה שבע פעמים לקראת עשיו, ועשיו - במקום לתקוף - רץ לקראתו, מחבקו, נופל על צווארו ובוכה איתו. יעקב מציע לעשיו מנחה גדולה; עשיו מסרב תחילה, אך נעתר להפצרתו של יעקב ומקבל אותה.</p>
   </div>
 
 </div>

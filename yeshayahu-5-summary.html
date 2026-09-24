@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,13 +100,31 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 ישעיהו פרק ה' — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 ישעיהו פרק ה' — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - קריאה צמודה במשל הכרם, בלשונו ובנמשלו.</p>
   </header>
 
   <div class="game-nav"><a href="yeshayahu-5.html">→ חזרה לדף העבודה - פרק ה'</a></div>
 
-  <p class="sub" style="margin-top:2rem;">בדף העבודה של פרק זה אין קוביות עם דברי מפרש בעל שם (כגון רש"י או רמב"ן) - השאלות בו מתמקדות בקריאה צמודה של משל הכרם, בלשונו ובנמשלו, ולכן אין כאן כרגע פרשנות קלאסית לסכם.</p>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    נבואה זו מוצגת כמשל שיר-אהבה מיוחד, שהוא משל על דרך המשפט: הנביא מספר על "ידיד" שהשקיע מאמץ עצום בטיפוח כרם - ניקה אותו מאבנים, נטע בו את מיטב הגפנים, בנה בו מגדל שמירה ואף חצב בו יקב - אך הכרם, במקום לתת ענבים טובים, הוציא "באושים" (ענבי באושה, גרועים). בעל הכרם פונה אל תושבי ירושלים ואיש יהודה ומבקש מהם לשפוט בינו לבין כרמו: מה עוד יכול היה לעשות ולא עשה? לכן הוא מכריז על עונש הכרם - הסרת גידור השמירה, הפקרתו וביטול הטיפוח בו. בסיום מפרש הנביא את הנמשל במפורש: הכרם הוא בית ישראל, ואיש יהודה - נטע שעשועיו של ה'; וה' קיווה למשפט וצדקה, אך מצא במקומם משפח (עוול) וצעקה.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🍇</span>שיר הידיד - כל הטיפוח שהושקע בכרם<span class="range">(פסוקים א'-ב')</span></div>
+    <p class="narrative">הנביא פותח בשיר אהבה על כרמו של ידיד, שניטע בקרן בן שמן - המקום המשובח ביותר. הידיד עידר את הכרם וסיקל ממנו אבנים, נטע בו גפן מבחר, בנה בתוכו מגדל שמירה וחצב בו יקב - כל טיפוח אפשרי. אך חרף כל ההשקעה, במקום הענבים הטובים שציפה להם, הוציא הכרם באושים.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">⚖️</span>קריאה למשפט ועונשו של הכרם<span class="range">(פסוקים ג'-ו')</span></div>
+    <p class="narrative">בעל הכרם פונה אל יושבי ירושלים ואיש יהודה ומבקש מהם לשפוט בינו לבין כרמו: מה עוד יכול היה לעשות בכרמו ולא עשה? מדוע קיווה לענבים וקיבל באושים? על כן הוא מכריז על עונש בשלושה שלבים: הסרת המשוכה והגדר כדי שיהיה למרמס ולבער, הפסקת הזמירה והעידור כך שיעלו בו שמיר ושית, ואף ציווי על העננים שלא ימטירו עליו גשם.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🔑</span>הנמשל - משפט לעומת משפח, צדקה לעומת צעקה<span class="range">(פסוק ז')</span></div>
+    <p class="narrative">בפסוק זה חושף הנביא במפורש את הנמשל: הכרם הוא בית ישראל, ואיש יהודה הוא נטע שעשועיו של ה'. ה' קיווה למשפט - ומצא במקומו משפח (עוול); קיווה לצדקה - ומצא צעקה. הדמיון הצלילי בין המילים מבליט את עומק האכזבה בין הציפייה למציאות.</p>
+  </div>
 
 </div>
 

@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,19 +100,38 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 מלכים ב', פרק כ"א — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 מלכים ב', פרק כ"א — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="melachim-b-21.html">→ חזרה לדף העבודה - מלכים ב', פרק כ"א</a></div>
 
-  <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🗿</span>התרחקות מנשה מדרך ה'</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">רלב"ג, מלכים ב' כ"א</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע מנשה הרג גם את הנביאים, ולא הסתפק בעבודה זרה בלבד?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> מנשה הרג כל מי שסירב לעבוד עבודה זרה, כולל הנביאים שהוכיחו אותו - כשם שאיזבל אשת אחאב הרגה את נביאי ה' בממלכת ישראל.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    מנשה, בנו של חזקיהו המלך הצדיק, מולך 55 שנה - משך המלוכה הארוך ביותר בתולדות ממלכת יהודה - ועושה את הרע בעיני ה' יותר מכל מלך שקדם לו. הכתוב מתאר בפרוטרוט את התרחקותו מדרך ה': בניית במות, עבודת הבעל, ובשיא החטא - הכנסת פסל אל תוך היכל בית המקדש עצמו. מנשה גם שופך דם נקי, ורודף את מוכיחיו. בעקבות חטאיו החמורים מכריז ה' על חתימת גורלה של ירושלים - היא תחרב בדיוק כפי שחרבה שומרון, בירת ממלכת ישראל. הפרק מסתיים בתיאור קצר של מלכות בנו אמון, שהלך בדרכי אביו ונרצח במרד קצרצר.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🗿</span>התרחקות מנשה מדרך ה'<span class="range">(מלכים ב' כ"א, א'-ז')</span></div>
+    <p class="narrative">מנשה מולך בירושלים 55 שנה, ומרגע עלייתו לשלטון הוא סוטה בהדרגה מדרך אביו חזקיהו: הוא בונה מזבחות לכל צבא השמים בשתי חצרות בית ה', ולבסוף מציב פסל אשרה בתוך ההיכל עצמו - במקום שבו הבטיח ה' לדוד ולשלמה לשים את שמו לעולם. לצד עבודת האלילים, מנשה גם שופך דם נקי ורודף את הנביאים המוכיחים אותו.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">רלב"ג, מלכים ב' כ"א</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע מנשה הרג גם את הנביאים, ולא הסתפק בעבודה זרה בלבד?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> מנשה הרג כל מי שסירב לעבוד עבודה זרה, כולל הנביאים שהוכיחו אותו - כשם שאיזבל אשת אחאב הרגה את נביאי ה' בממלכת ישראל.</div>
+      </div>
     </div>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">⚖️</span>חתימת גורל ממלכת יהודה וירושלים<span class="range">(מלכים ב' כ"א, י'-ט"ז)</span></div>
+    <p class="narrative">בעקבות חטאיו הכבדים של מנשה, ה' מכריז על רעה שתבוא על ירושלים ויהודה, רעה כה גדולה עד ש"כל שומעה תצילנה שתי אוזניו". הנבואה משתמשת בדימוי קו הבנייה ומחיית הצלחת כדי לתאר כיצד ה' יטה על ירושלים את אותו קו המשקולת שהופעל על שומרון - ירושלים תימחה ותיהפך בדיוק כפי שנמחתה בירת ממלכת ישראל.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">📜</span>מקורות נוספים וסיכום<span class="range">(מלכים ב' כ"ג, כ"ו; כ"ד, ג')</span></div>
+    <p class="narrative">פרקים מאוחרים יותר בספר מלכים ב' חוזרים ומזכירים את חטאת מנשה כגורם המכריע לחורבן, שממנו לא שב חרון אף ה'. לפי דברי הימים, מנשה עצמו הוגלה בשלב מסוים לבבל בידי מלך אשור, שם שב בתשובה והתפלל לה' - וזה השיבו למלכותו בירושלים; אך ספר מלכים עצמו אינו מזכיר פרט זה. הפרק מסתיים בקצרה במלכות בנו אמון, שהלך בדרכי אביו ונרצח בידי עבדיו לאחר שנתיים בלבד.</p>
   </div>
 
 </div>

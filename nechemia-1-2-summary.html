@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,32 +100,55 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 נחמיה פרקים א'-ב' — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 נחמיה פרקים א'-ב' — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרקים א'-ב', נושא אחרי נושא - ולצד הנושאים שיש בהם דברי מפרשים, מה הם שואלים ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="nechemia-1-2.html">→ חזרה לדף העבודה - פרקים א'-ב'</a></div>
 
-  <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">👑</span>דו-השיח בין נחמיה למלך</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">מלבי"ם, נחמיה ב', ה'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> כיצד ייתכן שנחמיה גם מתפלל לה' וגם פונה למלך באותו רגע, כשהוא אומר "אִם עַל הַמֶּלֶךְ טוֹב"?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> "אם על המלך טוב" הייתה בלבו של נחמיה תפילה למלך העליון שיישר את הדבר בעיני המלך הארצי - הוא פנה לה' ולמלך כאחד, "באותה נשימה".</div>
-    </div>
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">מלבי"ם, נחמיה ב', ג'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה נחמיה מנסח את בקשתו למלך דווקא כ"עיר קברות אבותי", ולא מזכיר מיד את כוונתו לבנות את חומות ירושלים?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> מקום קברי האבות היה יקר וקדוש בעיני הפרסים; מתוך חוכמה מדינית נחמיה אינו חושף בתחילה את מלוא תוכניתו, אלא מנצל את בירור המלך כדי לפרט את בקשתו במלואה.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    נחמיה, שר המשקים של המלך ארתחשסתא בשושן הבירה, שומע מפי חנני אחיו על מצבם הקשה של שבי ציון: חומת ירושלים מפורצת ושעריה שרופים באש - שלוש עשרה שנה לאחר עליית עזרא. נחמיה מגיב בבכי, צום ותפילה ממושכת. כעבור זמן הוא נכנס אל המלך כשפניו רעים, ומעז לבקש רשות לעלות ולבנות את חומת ירושלים. המלך נענה לו. נחמיה מגיע לירושלים, וללא ידיעת איש יוצא בלילה לסייר על החומה ההרוסה. או-אז הוא עומד מול ראשי העם וקורא להם להתחיל בבנייה - וזוכה להיענות מיידית, חרף לעג הצרים סנבלט וטוביה.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">😢</span>עדותו של חנני ותגובת נחמיה<span class="range">(נחמיה א', א'-ד')</span></div>
+    <p class="narrative">חנני, אחיו של נחמיה, מגיע משושן עם אנשים מיהודה, ונחמיה שואל אותם על הפליטה שנשארה מן השבי ועל מצב ירושלים. התשובה קשה: הנשארים שרויים ברעה גדולה ובחרפה, וחומת ירושלים מפורצת ושעריה נצתו באש. למשמע הדברים יושב נחמיה ובוכה ומתאבל ימים, וצם ומתפלל לפני אלוקי השמים.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🙏</span>תפילת נחמיה<span class="range">(נחמיה א', ה'-י"א)</span></div>
+    <p class="narrative">נחמיה פותח את תפילתו בפנייה לה' אלוקי השמים, האל הגדול והנורא, ומתוודה בשם עצמו ובית אביו על חטאי העם. הוא מזכיר את ההבטחה שנתן ה' למשה, שאם ישוב העם אליו - יביאם אל המקום אשר בחר לשכן שם את שמו. תפילתו מסתיימת בבקשה קונקרטית: שיתן ה' לרחמים לפני האיש הזה - המלך, שלפניו משמש נחמיה כשר משקים.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">👑</span>דו-השיח בין נחמיה למלך<span class="range">(נחמיה ב', א'-ט')</span></div>
+    <p class="narrative">נחמיה עומד לפני המלך כשפניו רעים - דבר שמעורר בו פחד רב - והמלך שם לב ושואל לפשר הדבר. נחמיה משיב שפניו רעים משום שהעיר, בית קברות אבותיו, חרבה ושעריה נאכלו באש. כשהמלך שואל אותו מה הוא מבקש, מתפלל נחמיה אל אלוקי השמים, ורק אז עונה למלך: אם ייטב בעיניו, שישלחנו אל יהודה, אל עיר קברות אבותיו, לבנותה.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">מלבי"ם, נחמיה ב', ה'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> כיצד ייתכן שנחמיה גם מתפלל לה' וגם פונה למלך באותו רגע, כשהוא אומר "אִם עַל הַמֶּלֶךְ טוֹב"?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> "אם על המלך טוב" הייתה בלבו של נחמיה תפילה למלך העליון שיישר את הדבר בעיני המלך הארצי - הוא פנה לה' ולמלך כאחד, "באותה נשימה".</div>
+      </div>
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">מלבי"ם, נחמיה ב', ג'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה נחמיה מנסח את בקשתו למלך דווקא כ"עיר קברות אבותי", ולא מזכיר מיד את כוונתו לבנות את חומות ירושלים?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> מקום קברי האבות היה יקר וקדוש בעיני הפרסים; מתוך חוכמה מדינית נחמיה אינו חושף בתחילה את מלוא תוכניתו, אלא מנצל את בירור המלך כדי לפרט את בקשתו במלואה.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#B0762B;"><span class="icon" aria-hidden="true">🌙</span>המסע החשאי וניצחון על הצרים</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#B0762B;">
-      <div class="mp-src">רש"י, נחמיה ב', י"ג</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע נחמיה יוצא לסייר על החומה בלילה עם מעט אנשים ובהמה אחת בלבד, בלי לגלות לאיש את כוונתו?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> האנשים שעמו הלכו בלילה לשבור ולהרחיב את פרצות החומה, כדי שבבוקר יראו אנשי העיר את חומרת המצב ויסכימו בקלות ובאחדות להצטרף לנחמיה בבניית החומה.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#B0762B;"><span class="icon" aria-hidden="true">🌙</span>המסע החשאי וניצחון על הצרים<span class="range">(נחמיה ב', י'-כ')</span></div>
+    <p class="narrative">שלושה ימים בלבד לאחר הגעתו לירושלים, קם נחמיה בלילה עם אנשים מעטים, ובלי לגלות לאיש מה נותן אלוקיו בלבו לעשות, סורק בחשאי את מצב החומה ההרוסה. לאחר הסיור הוא עומד לפני ראשי העם, מציג בפניהם את הרעה שהם נתונים בה, וקורא להם לבנות יחד את חומת ירושלים ולא להישאר עוד חרפה. הוא מספר להם על יד אלוקיו הטובה עליו ועל דברי המלך שאמר לו - והם עונים מיד: נקום ובנינו.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#B0762B;">
+        <div class="mp-src">רש"י, נחמיה ב', י"ג</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע נחמיה יוצא לסייר על החומה בלילה עם מעט אנשים ובהמה אחת בלבד, בלי לגלות לאיש את כוונתו?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> האנשים שעמו הלכו בלילה לשבור ולהרחיב את פרצות החומה, כדי שבבוקר יראו אנשי העיר את חומרת המצב ויסכימו בקלות ובאחדות להצטרף לנחמיה בבניית החומה.</div>
+      </div>
     </div>
   </div>
 

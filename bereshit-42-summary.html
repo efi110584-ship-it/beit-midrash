@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -58,11 +72,6 @@
   .mp-tag{ font-weight:800; }
   .mp-tag.ask{ color:var(--gold); }
   .mp-tag.answer{ color:var(--green); }
-
-  .empty-note{
-    max-width:640px; margin:2rem auto 0; text-align:center; background:var(--card); border:1.5px solid var(--border);
-    border-radius:14px; padding:1.4rem 1.4rem; color:var(--ink-soft); font-size:.95rem; box-shadow:0 3px 10px rgba(0,0,0,.06);
-  }
 
   .site-footer{ text-align:center; color:var(--ink-soft); font-size:.85rem; margin-top:2rem; }
 
@@ -91,13 +100,26 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 בראשית פרקים מ"ב-מ"ג — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 בראשית פרקים מ"ב-מ"ג — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - בדף העבודה של פרקים אלה אין ציטוטים מפורשים בשם פרשן, כך שהסיכום מתמקד בעלילה עצמה.</p>
   </header>
 
   <div class="game-nav"><a href="bereshit-42.html">→ חזרה לדף העבודה - פרקים מ"ב-מ"ג</a></div>
 
-  <div class="empty-note">בדף העבודה של הפרקים הללו אין ציטוטים מפורשים בשם פרשן - כל השאלות מבוססות על ניתוח ישיר של הפסוקים עצמם, ללא הבאת דברי מפרשים.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרקים</div>
+    הרעב הכבד מביא את אחי יוסף (מלבד בנימין) לרדת למצרים לשבור בר. יוסף מזהה אותם מיד, אך הם אינם מזהים אותו; הוא מתייחס אליהם בקשיחות, מאשים אותם כמרגלים, וכולא את שמעון עד שיביאו את בנימין. בדרך חזרה, האחים מגלים בבהלה שכספם הושב בשקיהם, וחוזרים לספר ליעקב את קורותיהם. יעקב מסרב תחילה לשלוח את בנימין, אך משנאלץ בשל המשך הרעב, יהודה ערב לו באופן אישי ("אנכי אערבנו"). במצרים, יוסף עורך סעודה מרגשת לאחיו ובוכה למראה בנימין, אך עדיין אינו מתגלה.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">🌾</span>ירידת האחים למצרים והאשמת המרגלים<span class="range">(פרק מ"ב, פסוקים עיקריים)</span></div>
+    <p class="narrative">הרעב מביא את אחי יוסף, מלבד בנימין, לרדת למצרים לשבור בר. יוסף מזהה אותם מיד, אך הם אינם מזהים אותו; הוא מתנכר להם, מדבר אתם קשות ומאשים אותם במרגלות, ומחזיק את שמעון בערבון עד שיביאו את בנימין. בעקבות הצרה שנקלעו אליה, האחים נזכרים במצוקת יוסף שהתעלמו ממנה, ומבינים שזהו עונש על מכירתו.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🤲</span>יהודה ערב לבנימין - הגביע באמתחתו<span class="range">(פרקים מ"ג-מ"ד, עיקרי)</span></div>
+    <p class="narrative">משנדרש יעקב לשלוח את בנימין למצרים כדי שהמשפחה תוכל לשוב ולשבור בר, יהודה מתחייב באופן אישי לאחריות על שלומו - "אנכי אערבנו, מידי תבקשנו" - וכך משכנע את אביו. במצרים עורך יוסף לאחיו סעודה, ולמראה בנימין הוא נכמרים רחמיו עד שהוא נאלץ להתאפק ולבכות בחדרו, בלי להתגלות עדיין.</p>
+  </div>
 
 </div>
 

@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,27 +100,45 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 ירמיהו פרקים ז', כ"ו — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 ירמיהו פרקים ז', כ"ו — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרקים, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="yirmiyahu-7-26.html">→ חזרה לדף העבודה - פרקים ז', כ"ו</a></div>
 
-  <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🏛️</span>נבואת ירמיהו על היכל ה' - האזהרה</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">שד"ל, ירמיהו ז', ד'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה טועה העם כשהוא בוטח שהמקדש עצמו יגן עליו?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> העם מסיק מקדושת המקום מסקנה מוטעית לגבי ביטחונו האישי - "המקום הזה הוא היכל ה', ולכן לא ייפול ביד אויב", ומכך שגם הם לא ייפלו.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרקים</div>
+    ירמיהו יוצא לעמוד בשער בית ה' ולהכריז נגד תפיסה מוטעית ונפוצה בקרב העם: האמונה שבית המקדש עצמו מבטיח הגנה אוטומטית, בלי קשר להתנהגות המוסרית והדתית של העם. הוא דורש תיקון מעשים ממשי - הן בין אדם לחברו והן בין אדם למקום - ומזהיר שהמקדש עלול לחלוק את גורלו של משכן שילה שחרב. פרק כ"ו מספר את סיפור התגובה לנבואה זו: הכהנים והעם תופסים את ירמיהו ודורשים את מותו, אך לאחר בירור שרי יהודה, ולאחר שזקני העם מזכירים תקדים היסטורי דומה (מיכה הנביא, שלא נענש על נבואת פורענות), ירמיהו ניצל ממוות - בניגוד לגורלו הטראגי של אוריה בן שמעיהו, נביא אחר שהתנבא כמותו ונרצח.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🏛️</span>נבואת ירמיהו על היכל ה' - האזהרה<span class="range">(ז', ד', ח'-י"א)</span></div>
+    <p class="narrative">ירמיהו יוצא לעמוד בשער בית ה' ולהכריז נגד אמונה מוטעית ונפוצה בעם: הביטחון שהמקדש עצמו, כשלעצמו, מבטיח הגנה אוטומטית מפני אויב. הוא מזהיר שביטחון סרק זה הפך את המקדש, בעיניו, ל"מְעָרַת פָּרִצִים" - מקום שבו חוטאים באים לבקש כיסוי דתי לחטאיהם.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">שד"ל, ירמיהו ז', ד'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה טועה העם כשהוא בוטח שהמקדש עצמו יגן עליו?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> העם מסיק מקדושת המקום מסקנה מוטעית לגבי ביטחונו האישי - "המקום הזה הוא היכל ה', ולכן לא ייפול ביד אויב", ומכך שגם הם לא ייפלו.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">⚔️</span>משפט ירמיהו - תקדימים סותרים</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">מלבי"ם, ירמיהו כ"ו, ט"ז</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה זקני העם מסתמכים דווקא על התקדים ההיסטורי של מיכה הנביא כדי להציל את ירמיהו?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> מיכה ניבא נבואת פורענות דומה בימי חזקיהו ולא נענש עליה - אדרבה, המלך התייחס אליה ברצינות וחזר בתשובה; תקדים זה מוכיח שהריגת נביא היא לא רק שלא כדין, אלא גם מסוכנת.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">⚖️</span>תיקון המעשים ותקדים שילה<span class="range">(ז', ה'-ז', י"ב-ט"ו)</span></div>
+    <p class="narrative">ירמיהו דורש מהעם תיקון מעשים ממשי - הן ביחסים שבין אדם לחברו (משפט צדק, איסור עושק גר, יתום ואלמנה, ואיסור שפיכות דמים) והן ביחסים שבין אדם למקום (הימנעות מעבודה זרה) - כתנאי לכך שה' ישכון עמם במקום. כתקדים מזהיר, הוא מזכיר את חורבן שילה, משכן ה' הראשון שחרב בשל חטאי העם, ומזהיר שגם מקדש ירושלים עלול לחלוק את גורלו.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">⚔️</span>משפט ירמיהו - תקדימים סותרים<span class="range">(כ"ו, ח'-ט', י"ז-כ"ג)</span></div>
+    <p class="narrative">פרק כ"ו מספר את סיפור התגובה לנבואת ירמיהו: הכהנים והעם תופסים אותו ודורשים את מותו. לאחר בירור שרי יהודה, זקני העם מזכירים תקדים היסטורי מזכה - מיכה הנביא, שהתנבא נבואת פורענות דומה בימי חזקיהו ולא נענש עליה - ובזכות תקדים זה ניצל ירמיהו ממוות. גורלו שונה מזה של אוריה בן שמעיהו, נביא אחר שהתנבא כמותו ונרדף עד שנרצח.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">מלבי"ם, ירמיהו כ"ו, ט"ז</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה זקני העם מסתמכים דווקא על התקדים ההיסטורי של מיכה הנביא כדי להציל את ירמיהו?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> מיכה ניבא נבואת פורענות דומה בימי חזקיהו ולא נענש עליה - אדרבה, המלך התייחס אליה ברצינות וחזר בתשובה; תקדים זה מוכיח שהריגת נביא היא לא רק שלא כדין, אלא גם מסוכנת.</div>
+      </div>
     </div>
   </div>
 

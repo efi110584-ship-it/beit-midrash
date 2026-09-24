@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,45 +100,66 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 ירמיהו פרק ל"א — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 ירמיהו פרק ל"א — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="yirmiyahu-31.html">→ חזרה לדף העבודה - פרק ל"א</a></div>
 
-  <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">💛</span>אהבת ה' לישראל - דו-שיח בגלות</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">רד"ק, ירמיהו ל"א, ב'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> איך ה' עונה לתחושת הנטישה של כנסת ישראל בגלות ("הסתיר פניו")?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> הפסוקים הם דו-שיח: כנסת ישראל מתלוננת שה' הסתיר פניו בגלות, וה' משיב "וְאַהֲבַת עוֹלָם אֲהַבְתִּיךְ" - אהבתו לא הייתה "לפי שעה" אלא נצחית; הגלות רק מסתירה אותה, לא מבטלת אותה.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    בניגוד לרוב נבואות הפורענות של ירמיהו, פרק ל"א הוא נבואת נחמה מלאה. היא פותחת בהצהרת אהבת עולם של ה' לישראל, הממשיכה גם בגלות, וממשיכה בהבטחת קיבוץ גלויות ומהפך רגשי - שמחה שתחליף את היגון. בליבו של הפרק ניצבת דמותה של רחל אמנו הבוכה על בניה היוצאים לגלות, ותגובת ה' אליה: "יֵשׁ שָׂכָר לִפְעֻלָּתֵךְ... וְשָׁבוּ בָנִים לִגְבוּלָם". הנבואה מסתיימת בתיאור מרגש של תשובת אפרים (מייצג עשרת השבטים) וקבלתה המלאה על ידי ה', המתאר רחמים עמוקים המתעוררים דווקא נוכח חרטה כנה. שלושה מרכיבים - אהבת ה', בכיית רחל, ותשובת העם - משולבים יחד כמניעים לתהליך הגאולה.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">💛</span>אהבת ה' לישראל - דו-שיח בגלות<span class="range">(פסוקים א'-ג')</span></div>
+    <p class="narrative">הנבואה פותחת בדו-שיח נסתר בין ה' לכנסת ישראל: העם שבגלות חש שה' הסתיר פניו ונטש אותו, וה' משיב שאהבתו מעולם לא הייתה זמנית אלא "אַהֲבַת עוֹלָם", ולכן הוא ממשיך למשוך את ישראל אליו בחסד גם בתוך הגלות.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">רד"ק, ירמיהו ל"א, ב'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> איך ה' עונה לתחושת הנטישה של כנסת ישראל בגלות ("הסתיר פניו")?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> הפסוקים הם דו-שיח: כנסת ישראל מתלוננת שה' הסתיר פניו בגלות, וה' משיב "וְאַהֲבַת עוֹלָם אֲהַבְתִּיךְ" - אהבתו לא הייתה "לפי שעה" אלא נצחית; הגלות רק מסתירה אותה, לא מבטלת אותה.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">😭</span>בכיית רחל - מי בוכה ועל מה</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3F6E66;">
-      <div class="mp-src">רש"י (מדרש אגדה), ירמיהו ל"א, י"ד</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה דווקא רחל מצליחה לפייס את ה' על חטא מנשה, אחרי שאבות ואמהות אחרים נכשלו?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> לפי המדרש, רחל טוענת מניסיונה האישי - היא מסרה ללאה אחותה את סימניה מתוך רחמים ולא ביישה אותה; אם היא, בשר ודם, נהגה כך ברחמים, קל וחומר שרחמי ה' מרובים משלה.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">😭</span>בכיית רחל - מי בוכה ועל מה<span class="range">(פסוק י"ד)</span></div>
+    <p class="narrative">בליבה הרגשי של הנבואה נשמע קול בכי ברמה - רחל אמנו בוכה על בניה היוצאים לגלות ומסרבת להתנחם. יש הרואים בכך בכי סמלי של רחל עצמה, ויש הרואים בו תיאור ריאלי של בכיית הגולים שעברו במקום זה בדרכם לבבל.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3F6E66;">
+        <div class="mp-src">רש"י (מדרש אגדה), ירמיהו ל"א, י"ד</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה דווקא רחל מצליחה לפייס את ה' על חטא מנשה, אחרי שאבות ואמהות אחרים נכשלו?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> לפי המדרש, רחל טוענת מניסיונה האישי - היא מסרה ללאה אחותה את סימניה מתוך רחמים ולא ביישה אותה; אם היא, בשר ודם, נהגה כך ברחמים, קל וחומר שרחמי ה' מרובים משלה.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🎁</span>שכר הבכי - "יש שכר לפעולתך"</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">שד"ל, ירמיהו ל"א, ט"ו</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מהי "פְעֻלָּתֵךְ" של רחל, שעליה מובטח לה שכר?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> ה"פעולה" היא הבכי והנהי עצמם - כלומר הבכי אינו רק תגובה רגשית, אלא נחשב מעשה של ממש הראוי לשכר.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🎁</span>שכר הבכי - "יש שכר לפעולתך"<span class="range">(פסוק ט"ו)</span></div>
+    <p class="narrative">ה' עונה לבכייה של רחל בהבטחת נחמה: תפסיק לבכות, כי לבכי ולצער שלה יש שכר ממשי - בניה עתידים לשוב מארץ האויב אל גבולם.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">שד"ל, ירמיהו ל"א, ט"ו</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מהי "פְעֻלָּתֵךְ" של רחל, שעליה מובטח לה שכר?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> ה"פעולה" היא הבכי והנהי עצמם - כלומר הבכי אינו רק תגובה רגשית, אלא נחשב מעשה של ממש הראוי לשכר.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#B0762B;"><span class="icon" aria-hidden="true">🤲</span>קבלת תשובת אפרים</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#B0762B;">
-      <div class="mp-src">ר' יוסף קרא, ירמיהו ל"א, י"ח</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> איך אפשר לקרוא לאפרים, מהחוטאים הגדולים בישראל, "בֵּן יַקִּיר"?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> זו שאלה רטורית - אפרים לא היה באמת "בן יקיר" בעברו, אך דווקא משום שהוא שב ומתנחם מפשעו, נכמרים רחמי ה' עליו.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#B0762B;"><span class="icon" aria-hidden="true">🤲</span>קבלת תשובת אפרים<span class="range">(פסוקים י"ז-י"ט)</span></div>
+    <p class="narrative">הנבואה מסתיימת בתיאור מרגש של תשובת אפרים, המייצג את עשרת השבטים: אף שאפרים חטא רבות בעברו, חרטתו הכנה מעוררת רחמים עמוקים בלב ה', הקורא לו "בֵּן יַקִּיר" ומבטיח לרחם עליו.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#B0762B;">
+        <div class="mp-src">ר' יוסף קרא, ירמיהו ל"א, י"ח</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> איך אפשר לקרוא לאפרים, מהחוטאים הגדולים בישראל, "בֵּן יַקִּיר"?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> זו שאלה רטורית - אפרים לא היה באמת "בן יקיר" בעברו, אך דווקא משום שהוא שב ומתנחם מפשעו, נכמרים רחמי ה' עליו.</div>
+      </div>
     </div>
   </div>
 
