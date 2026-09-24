@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר עזרא — קריאה אינטראקטיבית בפסוקים (פרקים א'-ב')</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .pasuk-flow{ font-size:1.12rem; line-height:2.3; color:var(--ink); }
+  .v-num{
+    display:inline-flex; align-items:center; justify-content:center; width:1.55rem; height:1.55rem;
+    border-radius:50%; background:var(--acc-soft); color:var(--acc); font-weight:800; font-size:.72rem;
+    margin-inline-end:.3rem; vertical-align:middle; font-family:'Heebo',sans-serif;
+  }
+  .hot-word{
+    background:none; border:none; padding:0 .12rem; margin:0 .05rem; font:inherit; font-weight:800;
+    color:var(--acc); cursor:pointer; border-bottom:2.5px dotted var(--acc); border-radius:2px;
+    transition:background .15s ease;
+  }
+  .hot-word:hover, .hot-word:focus-visible{ background:var(--acc-soft); outline:none; }
+  .hot-word .hw-icon{ font-size:.78em; margin-inline-start:.12rem; }
+  .legend{
+    display:flex; flex-wrap:wrap; gap:.6rem 1.4rem; justify-content:center; align-items:center;
+    font-size:.85rem; color:var(--ink-soft); margin:0 0 1.2rem;
+  }
+  .legend b{ color:var(--ink); }
+  .legend .hot-word{ pointer-events:none; }
+  .cross-ref-note{
+    background:var(--paper-card); border:1.5px dashed var(--paper-line); border-radius:10px;
+    padding:.7rem 1rem; font-size:.85rem; color:var(--ink-soft); margin:.7rem 0;
+  }
+  .muted-pasuk{
+    background:var(--paper-2); border-radius:10px; padding:.8rem 1rem; font-size:.95rem;
+    line-height:1.9; color:var(--ink-soft); margin:.7rem 0; font-style:italic;
+  }
+  .muted-pasuk b{ font-style:normal; color:var(--ink); }
+
+  .pmodal-overlay{
+    position:fixed; inset:0; background:rgba(31,29,23,.6); display:flex; align-items:center; justify-content:center;
+    padding:1rem; z-index:500;
+  }
+  .pmodal-overlay[hidden]{ display:none; }
+  .pmodal-box{
+    background:#fff; border-radius:18px; max-width:480px; width:100%; padding:1.7rem 1.7rem 1.5rem;
+    box-shadow:0 24px 60px rgba(0,0,0,.35); position:relative; max-height:82vh; overflow-y:auto;
+    border-top:6px solid var(--pmodal-acc, var(--ink));
+    animation:pmodalIn .18s ease;
+  }
+  @keyframes pmodalIn{ from{ opacity:0; transform:translateY(10px) scale(.98); } to{ opacity:1; transform:none; } }
+  .pmodal-close{
+    position:absolute; top:.7rem; left:.7rem; background:var(--paper-2); border:none; width:2.1rem; height:2.1rem;
+    border-radius:50%; cursor:pointer; font-size:1.05rem; color:var(--ink-soft); line-height:1;
+  }
+  .pmodal-close:hover{ background:var(--paper); }
+  .pmodal-badge{
+    display:inline-block; font-size:.78rem; font-weight:800; color:#fff; background:var(--pmodal-acc, var(--ink));
+    padding:.35rem .9rem; border-radius:999px; margin-bottom:.9rem; font-family:'Frank Ruhl Libre',serif;
+  }
+  .pmodal-q{ font-weight:800; margin:0 0 1rem; font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; line-height:1.5; color:var(--ink); }
+  .pmodal-quote{
+    font-style:italic; border-right:3px solid var(--pmodal-acc,var(--ink)); padding:.15rem .8rem;
+    margin:0 0 .9rem; color:var(--ink); font-size:.9rem; line-height:1.65; background:var(--paper-card);
+    border-radius:0 8px 8px 0;
+  }
+  .pmodal-a-label{ font-size:.78rem; font-weight:800; color:var(--pmodal-acc, var(--ink)); margin:0 0 .25rem; }
+  .pmodal-a{ font-size:.95rem; line-height:1.75; color:var(--ink-soft); }
+
+  .topic-banner{ margin-top:2.4rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">ספר עזרא</a>
+  <span class="sep">›</span>
+  <a href="ezra-1-2.html">פרקים א'-ב'</a>
+  <span class="sep">›</span>
+  <span class="current">קריאה אינטראקטיבית בפסוקים</span>
+</nav>
+
+<header>
+  <div class="eyebrow">ספר עזרא · קריאה אינטראקטיבית · פרקים א'-ב'</div>
+  <h1>הטקסט המלא, מילה-מילה — פרקים א'-ב', "הַצְהָרַת כּוֹרֶשׁ וְהָעֲלִיּוֹת בְּיָמָיו"</h1>
+  <p class="sub">קראו את הפסוקים לפי הנושאים. כל מילה עם קו מקווקו ניתנת ללחיצה - היא נוגעת בשאלה מרכזית או בדברי פרשן, ולחיצה עליה תפתח חלונית קצרה עם השאלה והתשובה.</p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
+  <a class="chip-link" href="ezra-1-2.html"><span class="chip-icon" aria-hidden="true">📄</span>לדף העבודה המלא</a>
+  <a class="chip-link" href="ezra-1-2-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+</p>
+
+<main>
+  <div class="legend">
+    <span><button class="hot-word" style="--acc:#8A5C21;" tabindex="-1">מילה לדוגמה<span class="hw-icon" aria-hidden="true">💬</span></button> = לחצו לפתיחת חלונית</span>
+    <span><b>❓</b> שאלה למחשבה</span>
+    <span><b>💬</b> דברי פרשן</span>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <span class="topic-icon" aria-hidden="true">📯</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 4</div>
+        <div class="topic-title">הנבואות המבשרות, והצהרת כורש כהגשמתן</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <div class="card-head">
+        <span class="card-tag">עזרא א', א'-ד'</span>
+        <h2 class="card-title">הנבואות המבשרות, והצהרת כורש כהגשמתן</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">א</span> וּבִשְׁנַת אַחַת לְכוֹרֶשׁ מֶלֶךְ פָּרַס, לִכְלוֹת דְּבַר ה' מִפִּי יִרְמְיָה, הֵעִיר ה' אֶת רוּחַ כֹּרֶשׁ מֶלֶךְ פָּרַס, וַיַּעֲבֶר קוֹל בְּכָל מַלְכוּתוֹ וְגַם בְּמִכְתָּב לֵאמֹר: <button class="hot-word" data-key="q_nevuot" data-acc="#8A5C21">הָאֹמֵר לְכוֹרֶשׁ רֹעִי וְכָל חֶפְצִי יַשְׁלִם<span class="hw-icon" aria-hidden="true">❓</span></button>
+          <span class="v-num">ב-ד</span> כֹּה אָמַר כֹּרֶשׁ מֶלֶךְ פָּרַס: כֹּל מַמְלְכוֹת הָאָרֶץ נָתַן לִי ה' אֱלֹקֵי הַשָּׁמַיִם, וְהוּא פָקַד עָלַי לִבְנוֹת לוֹ בַיִת בִּירוּשָׁלַיִם אֲשֶׁר בִּיהוּדָה. מִי בָכֶם מִכָּל עַמּוֹ, יְהִי אֱלֹקָיו עִמּוֹ, וְיַעַל <button class="hot-word" data-key="q_balfour" data-acc="#8A5C21">לִירוּשָׁלַיִם אֲשֶׁר בִּיהוּדָה וְיִבֶן אֶת בֵּית ה'<span class="hw-icon" aria-hidden="true">❓</span></button>.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">📜</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 4</div>
+        <div class="topic-title">נוסח ההצהרה הרשמי בגנזי המלך</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="card-head">
+        <span class="card-tag">עזרא ו', ג'-ה' (מתורגם)</span>
+        <h2 class="card-title">נוסח ההצהרה הרשמי בגנזי המלך</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">ג-ה</span> כֹּרֶשׁ הַמֶּלֶךְ שָׂם צַו: בֵּית הָאֱלֹקִים אֲשֶׁר בִּירוּשָׁלַיִם, הַבַּיִת יִבָּנֶה, מָקוֹם שֶׁזּוֹבְחִים זְבָחִים; וִיסוֹדָיו מוּקָמִים, רוּמוֹ אַמּוֹת שִׁשִּׁים, רָחְבּוֹ אַמּוֹת שִׁשִּׁים. נִדְבָּכִים שֶׁל אֶבֶן גָּלָל שְׁלֹשָׁה, וְנִדְבָּךְ שֶׁל עֵץ אֶחָד, וְהַהוֹצָאָה מִבֵּית הַמֶּלֶךְ תִּנָּתֵן. <button class="hot-word" data-key="q_official_text" data-acc="#3F6E66">וְאַף כְּלֵי בֵּית הָאֱלֹקִים שֶׁל זָהָב וָכֶסֶף... יָשִׁיבוּ, וְיֵלֵךְ לַהֵיכָל אֲשֶׁר בִּירוּשָׁלַיִם לִמְקוֹמוֹ<span class="hw-icon" aria-hidden="true">❓</span></button>.
+          <div class="cross-ref-note">הערה: פרק ו' כתוב בארמית. במבחן הבגרות תידרשו לדעת את תוכן הפרק ולא את המילים בעל-פה.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">🏺</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 4</div>
+        <div class="topic-title">עליית ששבצר - עליית הכלים</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="card-head">
+        <span class="card-tag">עזרא א', ה'-י"א</span>
+        <h2 class="card-title">עליית ששבצר - עליית הכלים</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">ה</span> וַיָּקוּמוּ רָאשֵׁי הָאָבוֹת לִיהוּדָה וּבִנְיָמִן וְהַכֹּהֲנִים וְהַלְוִיִּם, לְכֹל הֵעִיר הָאֱלֹקִים אֶת רוּחוֹ, לַעֲלוֹת לִבְנוֹת אֶת בֵּית ה' אֲשֶׁר בִּירוּשָׁלָיִם.
+          <span class="v-num">ז-ח</span> וְהַמֶּלֶךְ כּוֹרֶשׁ הוֹצִיא אֶת <button class="hot-word" data-key="q_jeremiah_vessels" data-acc="#7A4A73">כְּלֵי בֵית ה'<span class="hw-icon" aria-hidden="true">❓</span></button>... וַיִּסְפְּרֵם <button class="hot-word" data-key="m_shesh" data-acc="#7A4A73">לְשֵׁשְׁבַּצַּר הַנָּשִׂיא לִיהוּדָה<span class="hw-icon" aria-hidden="true">💬</span></button>.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 4 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#B0762B; --acc-soft:#F5E9D6;">
+      <span class="topic-icon" aria-hidden="true">📋</span>
+      <div>
+        <div class="topic-eyebrow">נושא 4 מתוך 4</div>
+        <div class="topic-title">עליית זרובבל ויהושע - עליית ההמונים</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#B0762B; --acc-soft:#F5E9D6;">
+      <div class="card-head">
+        <span class="card-tag">עזרא ב', א' וס"ד</span>
+        <h2 class="card-title">עליית זרובבל ויהושע - עליית ההמונים</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">א</span> וְאֵלֶּה בְּנֵי הַמְּדִינָה הָעֹלִים מִשְּׁבִי הַגּוֹלָה... <button class="hot-word" data-key="q_return_city" data-acc="#B0762B">וַיָּשׁוּבוּ לִירוּשָׁלַם וִיהוּדָה, אִישׁ לְעִירוֹ<span class="hw-icon" aria-hidden="true">❓</span></button>.
+          <span class="v-num">ב</span> אֲשֶׁר בָּאוּ עִם <button class="hot-word" data-key="m_zerubavel" data-acc="#B0762B">זְרֻבָּבֶל<span class="hw-icon" aria-hidden="true">💬</span></button> וְ<button class="hot-word" data-key="m_yeshua" data-acc="#B0762B">יֵשׁוּעַ<span class="hw-icon" aria-hidden="true">💬</span></button>.
+          <span class="v-num">ס"ד</span> כָּל הַקָּהָל כְּאֶחָד אַרְבַּע רִבּוֹא אַלְפַּיִם שְׁלֹשׁ מֵאוֹת שִׁשִּׁים.
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <a href="ezra-1-2.html">→ לדף העבודה של הפרק</a>
+  <a href="index.html#tab-ya">↺ חזרה ליחידה</a>
+  <span></span>
+</nav>
+
+<footer class="credit">ספר עזרא, פרקים א'-ב' · קריאה אינטראקטיבית בפסוקים</footer>
+
+<div class="pmodal-overlay" id="pmodalOverlay" hidden>
+  <div class="pmodal-box" id="pmodalBox" role="dialog" aria-modal="true" aria-labelledby="pmodalQ">
+    <button class="pmodal-close" id="pmodalClose" type="button" aria-label="סגירה">✕</button>
+    <div class="pmodal-badge" id="pmodalBadge"></div>
+    <p class="pmodal-q" id="pmodalQ"></p>
+    <div class="pmodal-quote" id="pmodalQuote" hidden></div>
+    <div class="pmodal-a-label">✓ התשובה / הרעיון</div>
+    <div class="pmodal-a" id="pmodalA"></div>
+  </div>
+</div>
+
+<script>
+const POPUPS = {
+"q_nevuot": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#8A5C21",
+"q": "ישעיהו מנבא על \"כורש\" בשמו, מאות שנים לפני שנולד, כמי שיצווה על ירושלים וההיכל (ישעיהו מ\"ד, כ\"ו-כ\"ח; מ\"ה, א'). כיצד קושר זאת פסוק הפתיחה לנבואת ירמיהו על 70 שנות גלות?",
+"a": "הפסוק פותח \"לִכְלוֹת דְּבַר ה' מִפִּי יִרְמְיָה\" - מציג את המהלך כמימוש נבואת ירמיהו. הבחירה בכורש למימוש ההכרזה ממלאת גם את נבואת ישעיהו שכינתה אותו \"רועי\". שני חוטי הנבואה נפגשים כאן."
+},
+"q_balfour": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#8A5C21",
+"q": "הרב קוק השווה בין הצהרת כורש להצהרת בלפור (1917), וטען שבלפור היה \"נעלה\" יותר. במה?",
+"a": "כורש היה \"מלך כשר\" אך \"החמיץ\" - לא עמד בעקביות מאחורי הצהרתו. בלפור \"עמד בצדקו מתחילה ועד סוף\" - העקביות היא המבחן האמיתי של הצהרה, לא רגע ההכרזה עצמו."
+},
+"q_official_text": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#3F6E66",
+"q": "מדוע נשמר לצד סיפור ההצהרה בפרק א' גם נוסח רשמי מדויק, הכולל מידות בניין ומקור מימון?",
+"a": "המסמך הרשמי בעל תוקף משפטי-מדיני, ומאפשר בהמשך לדחות את טענות המתנכלים לבנייה. משקף גם את סגנון עזרא-נחמיה, המרבה ברשימות ומסמכים רשמיים."
+},
+"q_jeremiah_vessels": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#7A4A73",
+"q": "ירמיהו ניבא (כ\"ז, כ\"א-כ\"ב) שהכלים הנותרים ישובו ביום פקידת ה' את עמו. באיזה אופן מוגבלת הגשמת הנבואה כאן?",
+"a": "העלייה איננה המונית, ורבים נשארים בבבל. גם הכלים שהוחזרו אינם כוללים את המרכזיים ביותר. מול ההצהרה הגדולה - התממשות חלקית, שלב ראשון בתהליך."
+},
+"m_shesh": {
+"badge": "ראב\"ע ורלב\"ג, מיהו ששבצר",
+"acc": "#7A4A73",
+"q": "מיהו ששבצר, ומדוע דווקא הוא מקבל את הכלים?",
+"quote": "ששבצר הוא כינויו הנכרי (הפרסי) של זרובבל, המוזכר בהמשך בפרק ב'.",
+"a": "לפי ראב\"ע ורלב\"ג, ששבצר וזרובבל הם אותו אדם - שם נכרי-רשמי ושם עברי לאותו מנהיג, שאליו נמסרים הכלים כ\"נשיא ליהודה\"."
+},
+"m_zerubavel": {
+"badge": "ייחוסו של זרובבל",
+"acc": "#B0762B",
+"q": "מהו ייחוסו של זרובבל בן שאלתיאל?",
+"quote": "לפי רשימת יוחסין בספר דברי הימים, זרובבל בן שאלתיאל הוא נינו של יהויכין מלך יהודה, ומיוחס ישירות לדוד המלך; זרובבל נתמנה לפחה (מושל אזורי).",
+"a": "זרובבל מיוחס ישירות לבית דוד המלך, ותפקידו כפחה מסמל חידוש (חלקי) של ההנהגה המלכותית ההיסטורית."
+},
+"m_yeshua": {
+"badge": "ייחוסו של יהושע",
+"acc": "#B0762B",
+"q": "מהו ייחוסו של יהושע בן יהוצדק?",
+"quote": "יהושוע בן יהוצדק הוא צאצא ישיר לאהרן הכהן, כפי שהוא מיוחס בספר דברי הימים.",
+"a": "יהושע מיוחס ישירות לבית אהרן הכהן, ותפקידו כהתחלת שרשרת הכהונה החדשה בירושלים מסמל חידוש עמוד העבודה במקדש."
+},
+"q_return_city": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#B0762B",
+"q": "מה משמעות כך שהעולים חוזרים איש-איש לעיר משפחתו, ולא מתיישבים באופן כללי בארץ?",
+"a": "מבטא המשכיות היסטורית ומשפחתית עם התקופה שלפני החורבן, וממש את נבואת ירמיהו \"שֻׁבִי אֶל עָרַיִךְ אֵלֶּה\" (ל\"א, כ') במדויק."
+}
+};
+
+const overlay = document.getElementById('pmodalOverlay');
+const box = document.getElementById('pmodalBox');
+const badgeEl = document.getElementById('pmodalBadge');
+const qEl = document.getElementById('pmodalQ');
+const quoteEl = document.getElementById('pmodalQuote');
+const aEl = document.getElementById('pmodalA');
+const closeBtn = document.getElementById('pmodalClose');
+let lastFocused = null;
+
+function openPopup(key){
+  const data = POPUPS[key];
+  if(!data) return;
+  box.style.setProperty('--pmodal-acc', data.acc);
+  badgeEl.textContent = data.badge;
+  qEl.textContent = data.q;
+  if(data.quote){
+    quoteEl.textContent = '"' + data.quote + '"';
+    quoteEl.hidden = false;
+  } else {
+    quoteEl.hidden = true;
+  }
+  aEl.textContent = data.a;
+  overlay.hidden = false;
+  lastFocused = document.activeElement;
+  closeBtn.focus();
+}
+
+function closePopup(){
+  overlay.hidden = true;
+  if(lastFocused) lastFocused.focus();
+}
+
+document.querySelectorAll('.hot-word[data-key]').forEach(btn => {
+  btn.addEventListener('click', () => openPopup(btn.dataset.key));
+});
+
+closeBtn.addEventListener('click', closePopup);
+overlay.addEventListener('click', (e) => { if(e.target === overlay) closePopup(); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && !overlay.hidden) closePopup(); });
+</script>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<script>
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>
