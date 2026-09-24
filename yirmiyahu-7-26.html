@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר ירמיהו — דף עבודה אינטראקטיבי (נבואת היכל ה' ומשפט ירמיהו)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  .topic-banner{ margin-top:2.6rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  .qb-topic{ grid-column: 1 / -1; }
+  .qb-root{
+    max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
+    padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
+  }
+  .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
+  .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
+  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
+  .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
+  .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
+
+  .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
+  .qb-connector::after{
+    content:""; position:absolute; bottom:-1px; right:50%; transform:translateX(50%);
+    border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
+  }
+
+  .qb-branches{
+    display:flex; flex-wrap:wrap; gap:1.1rem;
+    position:relative; padding-top:22px; margin-top:-22px;
+  }
+  .qb-branches::before{
+    content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
+  }
+  .qb-card{
+    flex:1 1 260px;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
+    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
+    min-width:0;
+  }
+  .qb-card > *{ width:100%; max-width:640px; }
+  .qb-meforesh{
+    font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+    background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
+    padding:.75rem .9rem; box-shadow:var(--shadow);
+  }
+  .qb-meforesh .qb-src{
+    display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
+    font-size:.8rem; margin-bottom:.35rem;
+  }
+  .qb-meforesh .qb-src::before{ content:"💬"; font-size:1.05rem; line-height:1; }
+  .qb-card .question-block{ display:flex; flex-direction:column; gap:.5rem; }
+  .qb-card .question-row{ align-items:flex-start; }
+  .qb-card .q-text{ font-size:.86rem; line-height:1.5; }
+  .qb-card textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
+  .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
+  .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-yb">כיתה י"ב</a>
+  <span class="sep">›</span>
+  <a href="neviim-hub.html">פרקי נביאים</a>
+  <span class="sep">›</span>
+  <span class="current">ירמיהו, פרקים ז', כ"ו</span>
+</nav>
+
+<header>
+  <div class="eyebrow">נבואות ירמיהו · כיתה י"ב</div>
+  <h1>דף עבודה — פרק ז' (פס' א'-ט"ו), פרק כ"ו, "נְבוּאַת הֵיכַל ה' וּמִשְׁפַּט יִרְמְיָהוּ"</h1>
+  <p class="sub">בכל נושא: קודם קוראים את הפסוקים בקובייה העליונה, ואז עוברים על כל קוביית-שאלה שמסתעפת ממנה - קוראים את דברי הפרשן (אם יש), כותבים תשובה, ורק אז לוחצים "הצג תשובה" לבדיקה עצמית. הכול נשמר אוטומטית במכשיר שלכם.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 6 שאלות</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main>
+  <div class="grid" id="grid">
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרקים</span>
+        <h2 class="card-title">מה קורה בפרקים אלו?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          ירמיהו יוצא לעמוד בשער בית ה' ולהכריז נגד תפיסה מוטעית ונפוצה בקרב העם: האמונה שבית המקדש עצמו מבטיח הגנה אוטומטית, בלי קשר להתנהגות המוסרית והדתית של העם. הוא דורש תיקון מעשים ממשי - הן בין אדם לחברו והן בין אדם למקום - ומזהיר שהמקדש עלול לחלוק את גורלו של משכן שילה שחרב. פרק כ"ו מספר את סיפור התגובה לנבואה זו: הכהנים והעם תופסים את ירמיהו ודורשים את מותו, אך לאחר בירור שרי יהודה, ולאחר שזקני העם מזכירים תקדים היסטורי דומה (מיכה הנביא, שלא נענש על נבואת פורענות), ירמיהו ניצל ממוות - בניגוד לגורלו הטראגי של אוריה בן שמעיהו, נביא אחר שהתנבא כמותו ונרצח.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <span class="topic-icon" aria-hidden="true">🏛️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
+        <div class="topic-title">נבואת ירמיהו על היכל ה' - האזהרה</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🏛️</span>
+        <div class="qb-root-label">ירמיהו ז', ד', ח'-י"א</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line"><b>ד':</b> אַל תִּבְטְחוּ לָכֶם אֶל דִּבְרֵי הַשֶּׁקֶר לֵאמֹר: הֵיכַל ה' הֵיכַל ה' הֵיכַל ה' הֵמָּה.</div>
+          <div class="pasuk-line"><b>ח'-י"א:</b> הִנֵּה אַתֶּם בֹּטְחִים לָכֶם עַל דִּבְרֵי הַשֶּׁקֶר לְבִלְתִּי הוֹעִיל... וּבָאתֶם וַעֲמַדְתֶּם לְפָנַי בַּבַּיִת הַזֶּה... וַאֲמַרְתֶּם נִצַּלְנוּ, לְמַעַן עֲשׂוֹת אֵת כָּל הַתּוֹעֵבוֹת הָאֵלֶּה... הַמְעָרַת פָּרִצִים הָיָה הַבַּיִת הַזֶּה?</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">שד"ל: "אל תבטחו לכם וגו' - אל תבטחו במה שאתם רגילים לומר... שהמקום הזה הוא היכל ה', ולא יתכן שיפול ביד אויב"</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">שד"ל, ירמיהו ז', ד'</span>
+            "אל תבטחו לכם וגו'" - אל תבטחו במה שאתם רגילים לומר, או שנביאי השקר רגילים לומר, והוא שהמקום הזה הוא היכל ה', ולא יתכן שיפול ביד אויב, ומתוך כך אתם בוטחים שגם אתם לא תפלו ביד האויבים.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yir726-mp-1">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">לפי שד"ל, טעות העם היא בכך שהם מסיקים מקדושת המקום (המקדש) מסקנה בנוגע לביטחונם האישי (שלא ייפלו ביד האויב). מדוע, לדעתכם, זוהי מסקנה מוטעית מבחינה תיאולוגית - כלומר, מדוע קדושת המקום אינה מבטיחה אוטומטית את שלום שוכניו?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> קדושת המקום נובעת מהתכלית שלשמה נבנה - עבודת ה' וקיום מצוותיו - ואינה תלוית מקום פיזי גרידא באופן מנותק מהתנהגות שוכניו. כאשר העם מחלל את המקדש בפועל על ידי חטאיו (כפי שיפורט בהמשך), הוא הופך את הקדושה עצמה לריקה מתוכן - "הֵיכַל ה'" הופך לכינוי חסר משמעות אם אין מאחוריו קיום ממשי של רצון ה'. המבנה הפיזי לבדו, ללא התנהגות ראויה, אינו יכול לשמש קמע מגן.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">רד"ק: "ואמר שלושה פעמים היכל ה' לפי שהיו שלושה: אולם, היכל ודביר... ויתכן כי הכפל [החזרה שלוש פעמים] - לחזק העניין"</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">הפסוק חוזר שלוש פעמים על הביטוי "הֵיכַל ה'" ברצף אחד. בין אם הכוונה לשלושת חלקי המקדש (רד"ק) ובין אם למטרת הדגשה, מה מלמדת עצם החזרה המשולשת על אופי הטעות שירמיהו מוקיע?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> החזרה המשולשת מדגימה כיצד הביטוי הפך אצל העם לסיסמה מכנית וריקה מתוכן - חזרה טקסית שנועדה להרגיע את המצפון ולא להביע הכרה אמיתית בקדושה. ככל שביטוי נאמר יותר פעמים באופן אוטומטי, כך הוא הופך יותר לקסם מילולי ופחות למחשבה מודעת - בדיוק את הסכנה הזו, של אמונה טפלה במקום אמונה אמיתית, מבקש ירמיהו לחשוף ולעקור.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">⚖️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
+        <div class="topic-title">תיקון המעשים ותקדים שילה</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">⚖️</span>
+        <div class="qb-root-label">ירמיהו ז', ה'-ז', י"ב-ט"ו</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line"><b>ה'-ז':</b> כִּי אִם הֵיטֵיב תֵּיטִיבוּ אֶת דַּרְכֵיכֶם וְאֶת מַעַלְלֵיכֶם... אִם עָשׂוֹ תַעֲשׂוּ מִשְׁפָּט בֵּין אִישׁ וּבֵין רֵעֵהוּ... וְשָׁכַנְתִּי אִתְּכֶם בַּמָּקוֹם הַזֶּה.</div>
+          <div class="pasuk-line"><b>י"ב:</b> כִּי לְכוּ נָא אֶל מְקוֹמִי אֲשֶׁר בְּשִׁילוֹ... וּרְאוּ אֵת אֲשֶׁר עָשִׂיתִי לוֹ מִפְּנֵי רָעַת עַמִּי יִשְׂרָאֵל.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">תזכורת: הפסוקים בנויים כלל ופירוט - "הֵיטֵיב תֵּיטִיבוּ אֶת דַּרְכֵיכֶם" (הכלל) מתפרט למצוות קונקרטיות: משפט בין אדם לחברו, איסור עושק גר-יתום-אלמנה, איסור שפיכות דמים, ואיסור עבודה זרה</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">רשימת המעשים הנדרשים משלבת מצוות "בין אדם לחברו" (משפט, גר-יתום-אלמנה, דם נקי) עם מצוות "בין אדם למקום" (איסור עבודה זרה). מדוע, לדעתכם, משלב ירמיהו את שני התחומים יחד באותה דרישה, ואינו מפריד ביניהם?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> השילוב מלמד שבעיני ירמיהו אין הבדל עקרוני בין החובה כלפי הזולת לחובה כלפי ה' - שתיהן מבטאות את אותה יראת שמים אמיתית. עם שמקפיד על טקסי הפולחן אך פוגע בגר, ביתום ובאלמנה, אינו באמת ירא שמים - ואילו עם ההוגן כלפי הזולת אך עובד עבודה זרה גם הוא חסר. רק שילוב שני התחומים יחד מהווה "תיקון דרכים" של ממש, המצדיק את המשך שכינת ה' במקום.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">תזכורת: ירמיהו מזכיר את חורבן שילה - משכן ה' הראשון שחרב בעקבות חטאי העם - כתקדים מזהיר לגורל האפשרי של מקדש ירושלים</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">ירמיהו בוחר להוכיח את טענתו באמצעות דוגמה היסטורית קונקרטית - חורבן שילה - ולא רק באמצעות איום מופשט. מה היתרון הרטורי בהבאת תקדים היסטורי ממשי, במיוחד כלפי קהל שכבר טוען שהמקדש "לא יכול" לחרוב?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> תקדים היסטורי ממשי מפריך ישירות את הטענה שקדושה מבטיחה הגנה מוחלטת - שילה, שהייתה גם היא מקום משכן ה', כבר חרבה בעבר בשל חטאי העם, ולכן אין שום עיקרון תיאולוגי המבטיח שמקדש ירושלים חסין מגורל דומה. עובדה היסטורית מוכחת משכנעת הרבה יותר מאיום תיאורטי, במיוחד כלפי קהל המבוסס על הנחת יסוד מוטעית שהוא בטוח שהיא נכונה.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">⚔️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
+        <div class="topic-title">משפט ירמיהו - תקדימים סותרים</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">⚔️</span>
+        <div class="qb-root-label">ירמיהו כ"ו, ח'-ט', י"ז-כ"ג</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line"><b>ח'-ט':</b> וַיְהִי כְּכַלּוֹת יִרְמְיָהוּ לְדַבֵּר... וַיִּתְפְּשׂוּ אֹתוֹ הַכֹּהֲנִים וְהַנְּבִיאִים וְכָל הָעָם לֵאמֹר: מוֹת תָּמוּת.</div>
+          <div class="pasuk-line"><b>י"ט:</b> הֶהָמֵת הֱמִתֻהוּ חִזְקִיָּהוּ מֶלֶךְ יְהוּדָה וְכָל יְהוּדָה... הֲלוֹא יָרֵא אֶת ה'... וַאֲנַחְנוּ עֹשִׂים רָעָה גְדוֹלָה עַל נַפְשׁוֹתֵינוּ.</div>
+          <div class="pasuk-line"><b>כ"א-כ"ג:</b> וְאוּרִיָּהוּ... הִתְנַבֵּא כַּדִּבְרֵי יִרְמְיָהוּ... וַיִּשְׁמַע הַמֶּלֶךְ... וַיְבַקֵּשׁ הַמֶּלֶךְ הֲמִיתוֹ... וַיַּכֵּהוּ בֶּחָרֶב.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">מלבי"ם: "אין משפט מות לאיש הזה... כי בשם ה' אלוקינו דבר ונבואתו אמת. אולם בכל זה עדיין היה דעת העם להמית אותו שלא במשפט"</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">מלבי"ם, ירמיהו כ"ו, ט"ז</span>
+            "אין משפט מות לאיש הזה" - רוצה לומר שאי אפשר להמיתו במשפט ובדין, כי בשם ה' אלוקינו דבר ונבואתו אמת. אולם בכל זה עדיין היה דעת העם להמית אותו שלא במשפט, כדי לסלק ההיזק שמגיע להם לפי דעתם מנבואתו. ויקומו - אז קמו אנשים מזקני העם להשתיק את העם ולברר שאין להרגו בשביל יראת נזק שיגיע מנבואותיו.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yir726-mp-2">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">לפי המלבי"ם, זקני העם מצילים את ירמיהו באמצעות תקדים הלכתי-היסטורי: מיכה הנביא ניבא נבואת פורענות דומה בימי חזקיהו, לא נענש עליה, ואף גרם למלך לחזור בתשובה. מדוע דווקא תקדים היסטורי-הלכתי, ולא טיעון תיאולוגי-עקרוני, הצליח לשכנע את דעת הקהל ולהציל את חייו של ירמיהו?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> תקדים הלכתי-היסטורי קונקרטי משכנע יותר מטיעון תיאולוגי מופשט מכיוון שהוא מדגים תוצאה ממשית מוכרת לכולם: חזקיהו הצדיק, לא רק שלא הרג את מיכה, אלא אף התייחס לנבואתו ברצינות וזכה בכך לתוצאה חיובית. הצגת התקדים ממחישה לעם שהריגת נביא מוכיח אינה רק בלתי מוצדקת עקרונית, אלא גם הרת סיכון תיאולוגי - סירוב לחזור בתשובה כפי שעשה חזקיהו עלול להביא בדיוק את הפורענות שנחשש ממנה.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">מהר"י קרא: "מה שלא הרגו את ירמיהו לפי שיד אחיקם בן שפן היתה את ירמיהו לבלתי תת אותו ביד העם להורגו"</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">בניגוד למיכה שניצל, אוריה בן שמעיהו, שהתנבא "כְּדִבְרֵי יִרְמְיָהוּ" ממש, נרדף על ידי המלך יהויקים ונרצח בחרב, אף שברח למצרים. גם ירמיהו עצמו ניצל, לדברי מהר"י קרא, רק הודות להשפעתו האישית של אחיקם בן שפן. מה מלמדים שני הגורלות השונים הללו - של מיכה ואוריה, ושל ירמיהו עצמו - על מידת התלות של גורל הנביא בנסיבות מקריות ופוליטיות, ולא רק בצדקת נבואתו?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שלושת הגורלות (מיכה ניצל, אוריה נרצח, ירמיהו ניצל בקושי) מלמדים שנכונות תוכן הנבואה כשלעצמה אינה מבטיחה דבר לגבי גורלו האישי של הנביא - הכל תלוי בזהות המלך השורר, במידת נכונותו לקבל תוכחה, ובנוכחותם של אנשי השפעה (כמו אחיקם) שיגנו על הנביא. עובדה זו מדגישה עוד יותר את אומץ הלב הנדרש מכל נביא אמת - הוא נדרש לומר את האמת בלי כל ערובה לביטחונו האישי, ותלוי לחלוטין בחסדי הנסיבות הפוליטיות של זמנו.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <a href="yirmiyahu-1.html">← פרק א'</a>
+  <a href="neviim-hub.html">↺ חזרה ליחידה</a>
+  <a href="yirmiyahu-28.html">פרק כ"ח →</a>
+</nav>
+<div class="toolbar">
+  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
+  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
+</p>
+
+<footer class="credit">ספר ירמיהו, פרקים ז', כ"ו · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'yirmiyahu-ch7-26-answers';
+const NAME_KEY = 'yirmiyahu-ch7-26-student';
+const textareas = Array.from(document.querySelectorAll('textarea.answer'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{
+    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      nameInput.value = data.name || '';
+      classInput.value = data.cls || '';
+    }
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    flashSaved();
+  }catch(e){
+    console.error('שגיאת שמירה', e);
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => {
+        if(data[t.dataset.id]){
+          t.value = data[t.dataset.id];
+          markFilled(t);
+        }
+      });
+    }
+  }catch(e){
+    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
+  }
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+document.querySelectorAll('.hint-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.nextElementSibling;
+    const showing = box.hidden;
+    box.hidden = !showing;
+    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות בדף העבודה? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
+
+loadStudentInfo();
+loadAnswers();
+</script>
+<script src="assets/progress-tracker.js"></script>
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+
+</body>
+</html>

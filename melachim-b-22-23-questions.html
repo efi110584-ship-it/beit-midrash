@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר מלכים ב' — שאלות ותשובות לחזרה (פרקים כ&quot;ב-כ&quot;ג)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@600;800&family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF6EE; --card:#FFFFFF; --ink:#2B2419; --ink-soft:#5A5142;
+    --navy:#1E2761; --navy-soft:#E7E9F5;
+    --gold:#8A5C21; --gold-soft:#F4ECE1;
+    --green:#1F7A4D; --green-soft:#E4EEEA;
+    --red:#B03A2E; --red-soft:#FBE4E0;
+    --border:#E4DACB;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
+  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  header{ text-align:center; padding:1rem 0 .4rem; }
+  h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
+  .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; }
+
+  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs a{ color:var(--navy); text-decoration:none; }
+  .breadcrumbs a:hover{ text-decoration:underline; }
+  .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
+  .breadcrumbs .current{ color:var(--ink-soft); }
+
+  .game-nav{ text-align:center; margin:.6rem 0 0; }
+  .game-nav a{
+    display:inline-flex; align-items:center; gap:.4rem; color:var(--navy); text-decoration:none;
+    font-size:.9rem; font-weight:700; border:1.5px solid var(--navy); border-radius:999px; padding:.4rem 1rem;
+  }
+  .game-nav a:hover{ background:var(--navy-soft); }
+
+  .controls{
+    display:flex; align-items:center; justify-content:center; gap:.9rem; flex-wrap:wrap;
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px; padding:.85rem 1.1rem; margin:1.2rem 0;
+  }
+  .ctrl-btn{
+    display:inline-flex; align-items:center; gap:.4rem; background:#fff; border:2px solid var(--navy);
+    color:var(--navy); border-radius:999px; padding:.5rem 1.1rem; font-weight:700; cursor:pointer;
+    font-family:'Heebo',sans-serif; font-size:.9rem;
+  }
+  .ctrl-btn:hover{ background:var(--navy-soft); }
+  .revealed-stat{ font-weight:800; color:var(--navy); font-size:.95rem; }
+
+  .topic-heading{
+    display:flex; align-items:center; gap:.6rem; margin:1.6rem 0 .8rem;
+    font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
+    border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
+  }
+  .topic-heading .icon{ font-size:1.4rem; }
+
+  .card-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1rem; }
+  .flip-card{ perspective:1200px; height:200px; }
+  .flip-inner{
+    position:relative; width:100%; height:100%; transition:transform .5s cubic-bezier(.4,0,.2,1);
+    transform-style:preserve-3d; cursor:pointer;
+  }
+  .flip-card.flipped .flip-inner{ transform:rotateY(180deg); }
+  .flip-front, .flip-back{
+    position:absolute; inset:0; backface-visibility:hidden; border-radius:14px; padding:1rem;
+    display:flex; align-items:center; justify-content:center; text-align:center; font-size:.92rem;
+    box-shadow:0 3px 10px rgba(0,0,0,.08); overflow-y:auto;
+  }
+  .flip-front{ background:var(--card); border:2px solid var(--border); color:var(--ink); font-weight:700; }
+  .flip-back{ background:var(--green-soft); border:2px solid var(--green); color:#1D3F37; transform:rotateY(180deg); }
+  .flip-hint{ position:absolute; bottom:.35rem; left:0; right:0; text-align:center; font-size:.66rem; color:var(--ink-soft); opacity:.8; }
+  .flip-card:focus-visible .flip-inner{ outline:3px solid var(--navy); outline-offset:2px; }
+
+  .site-footer{ text-align:center; color:var(--ink-soft); font-size:.85rem; margin-top:2rem; }
+
+  .to-top-btn{
+    position:fixed; bottom:1.2rem; left:1.2rem; width:2.8rem; height:2.8rem; border-radius:50%;
+    background:var(--navy); color:#fff; border:none; font-size:1.2rem; cursor:pointer; opacity:0;
+    pointer-events:none; transition:opacity .2s ease; box-shadow:0 3px 10px rgba(0,0,0,.2);
+  }
+  .to-top-btn.show{ opacity:1; pointer-events:auto; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">ספר מלכים ב'</a>
+  <span class="sep">›</span>
+  <a href="melachim-b-22-23.html">פרקים כ&quot;ב-כ&quot;ג</a>
+  <span class="sep">›</span>
+  <span class="current">שאלות ותשובות לחזרה</span>
+</nav>
+
+<div class="wrap">
+
+  <header>
+    <h1>📝 ספר מלכים ב' פרקים כ&quot;ב-כ&quot;ג — שאלות ותשובות לחזרה</h1>
+    <p class="sub">לחצו על כרטיסייה כדי להפוך אותה ולראות את התשובה. אפשר לערבב את הסדר ולתרגל שוב ושוב.</p>
+  </header>
+
+  <div class="game-nav"><a href="melachim-b-22-23.html">→ חזרה לדף העבודה - פרקים כ&quot;ב-כ&quot;ג</a></div>
+
+  <div class="controls">
+    <span class="revealed-stat"><span id="revealedCount">0</span> / <span id="totalCount">0</span> נחשפו</span>
+    <button class="ctrl-btn" id="shuffleBtn" type="button">🔀 ערבבו את הסדר</button>
+    <button class="ctrl-btn" id="resetBtn" type="button">↺ הפכו הכל בחזרה</button>
+  </div>
+
+  <div id="deckArea"></div>
+
+</div>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+
+<footer class="site-footer">ספר מלכים ב' · פרקים כ&quot;ב-כ&quot;ג · שאלות ותשובות לחזרה</footer>
+
+<script>
+const TOPICS = [
+{
+"key": "t1",
+"name": "חיזוק בדק הבית ומציאת ספר התורה",
+"icon": "📖",
+"color": "#8A5C21",
+"qa": [
+[
+"הכסף לתיקון המקדש נמסר לעושי המלאכה \"בֶאֱמוּנָה\" ללא בדיקת חשבונות. מה מלמד זה על מצב הרוח הציבורי בתחילת מלכות יאשיהו?",
+"האמון הציבורי מלמד שכבר בשלב מוקדם הצליח יאשיהו לשקם תקינות ואמון ציבורי, חרף דור ארוך של שחיתות. סימן ראשון לכך שהעם מזהה בו מנהיג אמין השונה מקודמיו."
+],
+[
+"לפי המלבי\"ם, ספר התורה נגנז בימי מנשה וגלול לפסוק המרמז על גלות. מה משמעות התגלותו דווקא בימי יאשיהו הצדיק?",
+"גילוי הספר בזמן זה כמעט סמלי: התורה שהוסתרה מפני חילול נחשפת שוב לעיני מלך הראוי לקבלה ברצינות. הבחירה בפסוק המבשר גלות מדגישה שהתגלותו נועדה לתת ליאשיהו את הדחיפות לפעול."
+]
+]
+},
+{
+"key": "t2",
+"name": "ההליכה לחולדה הנביאה",
+"icon": "🔮",
+"color": "#3F6E66",
+"qa": [
+[
+"חולדה מאשרת את חתימת גורל ירושלים אך דוחה את מימושו לאחר ימי יאשיהו, בזכות ענוותנותו. מה מלמד זה על היחס בין צדיק יחיד לגורל לאומי?",
+"גזרה לאומית חמורה, גם כשנחתמה עקרונית, יכולה להידחות בזכות מעשי מנהיג צדיק - אך הדחייה זמנית ואינה מבטלת את הגזרה. יאשיהו זוכה שלא לחזות בחורבן, אך גורל העם אינו משתנה."
+]
+]
+},
+{
+"key": "t3",
+"name": "מעשי יאשיהו לתיקון המצב הדתי",
+"icon": "🕎",
+"color": "#7A4A73",
+"qa": [
+[
+"לפי רש\"י, פסח יאשיהו כלל היקף משתתפים חסר תקדים, כולל אולי צאצאי עשרת השבטים. מדוע חשוב להדגיש דווקא את האחדות הלאומית?",
+"מלמד שהתיקון הדתי לא הצטמצם לפולחן בלבד, אלא ביקש לרפא גם את הפיצול הלאומי מאז התפלגות הממלכה. אחדות בעבודת ה' ואחדות לאומית הן שתי פנים של אותה תשובה."
+],
+[
+"יאשיהו משמיד עבודה זרה גם בשטחי ממלכת ישראל לשעבר, מעבר לגבולות יהודה. מה מלמד זה על תפיסת תפקידו?",
+"רואה עצמו אחראי על כלל עם ישראל, לא רק על יהודה הפורמלית. מנצל היחלשות אשור כדי לממש חזון של אחדות דתית-לאומית שחצתה את הגבולות שנוצרו מפילוג הממלכה."
+]
+]
+},
+{
+"key": "t4",
+"name": "סופו של יאשיהו",
+"icon": "⚔️",
+"color": "#B0762B",
+"qa": [
+[
+"יאשיהו מתואר כמלך המושלם ביותר, ובכל זאת מת טרם זמנו בקרב מגידו. כיצד ניתן להבין את הפער בין צדקתו למותו, לאור נבואת חולדה?",
+"חולדה הבטיחה רק שלא יראה את חורבן ירושלים - לא הבטיחה חיים ארוכים. מותו בקרב מגשים בדיוק את ההבטחה: נאסף בטרם עת אך בטרם הרעה הגדולה - אין כאן סתירה לצדקתו."
+],
+[
+"מותו הפתאומי של יאשיהו מסמן את סוף עצמאות יהודה ותחילת שעבודה למצרים ואז לבבל. כיצד משמש מותו כנקודת מפנה היסטורית?",
+"יאשיהו היה המנהיג האחרון ששילב עצמאות מדינית עם תיקון דתי. מותו חושף שהיציבות הייתה תלויה בו אישית - ללא המשך שלטונו נגררת הממלכה במהירות לתלות במעצמות עד חורבנה."
+]
+]
+}
+];
+
+const deckArea = document.getElementById("deckArea");
+const revealedCountEl = document.getElementById("revealedCount");
+const totalCountEl = document.getElementById("totalCount");
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function updateRevealedCount(){
+  const total = document.querySelectorAll(".flip-card").length;
+  const revealed = document.querySelectorAll(".flip-card.flipped").length;
+  revealedCountEl.textContent = String(revealed);
+  totalCountEl.textContent = String(total);
+}
+
+function makeCard(q, a){
+  const card = document.createElement("div");
+  card.className = "flip-card";
+  card.tabIndex = 0;
+  card.setAttribute("role", "button");
+  card.setAttribute("aria-label", "כרטיסייה - לחצו כדי להפוך");
+  card.innerHTML =
+    '<div class="flip-inner">' +
+      '<div class="flip-front">' + q + '<span class="flip-hint">לחצו להפוך</span></div>' +
+      '<div class="flip-back"><b>✓ </b>' + a + '</div>' +
+    '</div>';
+  function toggle(){
+    card.classList.toggle("flipped");
+    updateRevealedCount();
+  }
+  card.addEventListener("click", toggle);
+  card.addEventListener("keydown", (e) => {
+    if(e.key === "Enter" || e.key === " "){ e.preventDefault(); toggle(); }
+  });
+  return card;
+}
+
+function renderDeck(shuffled){
+  deckArea.innerHTML = "";
+  TOPICS.forEach(topic => {
+    const heading = document.createElement("div");
+    heading.className = "topic-heading";
+    heading.style.setProperty("--acc", topic.color);
+    heading.innerHTML = '<span class="icon" aria-hidden="true">' + topic.icon + '</span>' + topic.name;
+    deckArea.appendChild(heading);
+
+    const grid = document.createElement("div");
+    grid.className = "card-grid";
+    const pairs = shuffled ? shuffle(topic.qa) : topic.qa;
+    pairs.forEach(([q, a]) => grid.appendChild(makeCard(q, a)));
+    deckArea.appendChild(grid);
+  });
+  updateRevealedCount();
+}
+
+document.getElementById("shuffleBtn").addEventListener("click", () => renderDeck(true));
+document.getElementById("resetBtn").addEventListener("click", () => {
+  document.querySelectorAll(".flip-card.flipped").forEach(c => c.classList.remove("flipped"));
+  updateRevealedCount();
+});
+
+renderDeck(false);
+</script>
+
+<script>
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר ירמיהו — דף עבודה אינטראקטיבי (פרק כ"ח, נביאי השקר)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  .topic-banner{ margin-top:2.6rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  .qb-topic{ grid-column: 1 / -1; }
+  .qb-root{
+    max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
+    padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
+  }
+  .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
+  .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
+  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
+  .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
+  .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
+
+  .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
+  .qb-connector::after{
+    content:""; position:absolute; bottom:-1px; right:50%; transform:translateX(50%);
+    border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
+  }
+
+  .qb-branches{
+    display:flex; flex-wrap:wrap; gap:1.1rem;
+    position:relative; padding-top:22px; margin-top:-22px;
+  }
+  .qb-branches::before{
+    content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
+  }
+  .qb-card{
+    flex:1 1 260px;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
+    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
+    min-width:0;
+  }
+  .qb-card > *{ width:100%; max-width:640px; }
+  .qb-meforesh{
+    font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+    background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
+    padding:.75rem .9rem; box-shadow:var(--shadow);
+  }
+  .qb-meforesh .qb-src{
+    display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
+    font-size:.8rem; margin-bottom:.35rem;
+  }
+  .qb-meforesh .qb-src::before{ content:"💬"; font-size:1.05rem; line-height:1; }
+  .qb-card .question-block{ display:flex; flex-direction:column; gap:.5rem; }
+  .qb-card .question-row{ align-items:flex-start; }
+  .qb-card .q-text{ font-size:.86rem; line-height:1.5; }
+  .qb-card textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
+  .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
+  .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-yb">כיתה י"ב</a>
+  <span class="sep">›</span>
+  <a href="neviim-hub.html">פרקי נביאים</a>
+  <span class="sep">›</span>
+  <span class="current">ירמיהו, פרק כ"ח</span>
+</nav>
+
+<header>
+  <div class="eyebrow">נבואות ירמיהו · כיתה י"ב</div>
+  <h1>דף עבודה — פרק כ"ח, "נְבִיאֵי הַשֶּׁקֶר"</h1>
+  <p class="sub">בכל נושא: קודם קוראים את הפסוקים בקובייה העליונה, ואז עוברים על כל קוביית-שאלה שמסתעפת ממנה - קוראים את דברי הפרשן (אם יש), כותבים תשובה, ורק אז לוחצים "הצג תשובה" לבדיקה עצמית. הכול נשמר אוטומטית במכשיר שלכם.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 6 שאלות</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main>
+  <div class="grid" id="grid">
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרק</span>
+        <h2 class="card-title">מה קורה בפרק כ"ח?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          חנניה בן עזור, נביא המדבר בסגנון נבואי משכנע, מכריז בבית המקדש שעול מלך בבל יישבר בתוך שנתיים בלבד, וכל כלי המקדש והגולים - כולל המלך יכניה - ישובו לירושלים. חנניה אף מבצע מעשה סמלי דרמטי: הוא שובר מוט עץ שירמיהו ענד על צווארו כסמל לעול בבל. ירמיהו, במקום להתעמת מיד, עונה בתגובה כמעט מהוססת ("אָמֵן כֵּן יַעֲשֶׂה ה'") ועוזב את הזירה. רק לאחר מכן מגיע אליו דבר ה' המבהיר שחנניה דובר שקר, ושבמקום מוט העץ השבור יבוא עול ברזל חמור בהרבה. הפרק מסתיים במות חנניה באותה שנה עצמה - התגשמות מדויקת של נבואת ירמיהו נגדו.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <span class="topic-icon" aria-hidden="true">🎭</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
+        <div class="topic-title">נבואת חנניה - נאום כיאסטי משכנע</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🎭</span>
+        <div class="qb-root-label">ירמיהו כ"ח, ב'-ו'</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line"><b>ב'-ג':</b> כֹּה אָמַר ה' צְבָאוֹת אֱלֹקֵי יִשְׂרָאֵל: שָׁבַרְתִּי אֶת עֹל מֶלֶךְ בָּבֶל. בְּעוֹד שְׁנָתַיִם יָמִים אֲנִי מֵשִׁיב אֶל הַמָּקוֹם הַזֶּה אֵת כָּל כְּלֵי בֵית ה'.</div>
+          <div class="pasuk-line"><b>ד':</b> וְאֶת יְכָנְיָה בֶן יְהוֹיָקִים מֶלֶךְ יְהוּדָה וְאֶת כָּל גָּלוּת יְהוּדָה הַבָּאִים בָּבֶלָה, אֲנִי מֵשִׁיב אֶל הַמָּקוֹם הַזֶּה, נְאֻם ה'.</div>
+          <div class="pasuk-line"><b>ו':</b> וַיֹּאמֶר יִרְמְיָה הַנָּבִיא: אָמֵן, כֵּן יַעֲשֶׂה ה'; יָקֵם ה' אֶת דְּבָרֶיךָ אֲשֶׁר נִבֵּאתָ, לְהָשִׁיב כְּלֵי בֵית ה'... מִבָּבֶל אֶל הַמָּקוֹם הַזֶּה.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">תזכורת: נאום חנניה בנוי במבנה כיאסטי (מעגלי) - פותח ומסיים באותו רעיון: שבירת עול בבל</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">נאום חנניה בנוי בסגנון נבואי משכנע ובמבנה כיאסטי (פותח ומסיים באותו משפט: "שָׁבַרְתִּי אֶת עֹל מֶלֶךְ בָּבֶל"), הכולל גם פירוט קונקרטי (מספר שנים, שמות אנשים). מה תפקידם של אמצעים רטוריים אלה בהענקת אמינות לנבואת שקר?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> המבנה הכיאסטי המקצועי והפירוט הקונקרטי (שמות, תאריכים) מחקים במדויק את הסגנון הנבואי האמיתי, ומקשים על השומעים להבחין בין נבואת אמת לשקר על סמך הצורה בלבד. פרטים קונקרטיים במיוחד מקנים תחושת אמינות - נבואה המפרטת בדיוק מי ישוב וכמה זמן ייקח נשמעת אמינה יותר מהבטחה כללית ומעורפלת, אף שדווקא הדיוק לכאורה הוא מה שיאפשר בסופו של דבר להפריך אותה במלואה.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">מלבי"ם: "וירמיה בפני עצמו כיוון ללעוג עליו" - תגובת ירמיהו לחנניה אינה הסכמה תמימה אלא לעג סמוי</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">מלבי"ם, ירמיהו כ"ח, ו'</span>
+            בפרקים הקודמים תקף ירמיהו בחריפות את נביאי השקר - מדוע הוא לא עושה זאת כאן? "וירמיה בפני עצמו כיוון ללעוג עליו" (וכן פירוש דעת מקרא).
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yir28-mp-1">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">בניגוד למקומות אחרים בהם ירמיהו תוקף בחריפות נביאי שקר, כאן תגובתו הראשונית ("אָמֵן, כֵּן יַעֲשֶׂה ה'") נראית כהסכמה. לפי המלבי"ם, מדובר בלעג סמוי ולא בהסכמה תמימה. מדוע, לדעתכם, בוחר ירמיהו בתגובה עקיפה ומרומזת כזו, ולא בהתנגדות ישירה ומיידית?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ייתכן שירמיהו עצמו, באותו רגע, אינו בטוח לחלוטין בהערכתו את חנניה - ולכן הוא מגיב בתגובה שאפשר לפרש בשני אופנים (איחול כן, או לעג מרומז), עד שיקבל בירור נבואי ודאי מה'. תגובה כזו גם ממחישה את המורכבות האמיתית של הבחנה בין נביא אמת לשקר בזמן אמת - לא תמיד ניתן להכריע מיד, ורק בדיעבד, לאחר קבלת דבר ה' המפורש, יכול ירמיהו לדעת בוודאות שחנניה טעה.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">🤔</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
+        <div class="topic-title">מדוע התקשה העם להבחין באמיתות חנניה</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🤔</span>
+        <div class="qb-root-label">ירמיהו כ"ח, י'-י"א</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line"><b>י'-י"א:</b> וַיִּקַּח חֲנַנְיָה... אֶת הַמּוֹטָה מֵעַל צַוַּאר יִרְמְיָה הַנָּבִיא וַיִּשְׁבְּרֵהוּ. וַיֹּאמֶר חֲנַנְיָה: כָּכָה אֶשְׁבֹּר אֶת עֹל נְבֻכַדְנֶאצַּר מֶלֶךְ בָּבֶל בְּעוֹד שְׁנָתַיִם יָמִים... וַיֵּלֶךְ יִרְמְיָה הַנָּבִיא לְדַרְכּוֹ.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">תזכורת: חנניה לא שולל את נבואת ירמיהו אלא "בונה" עליה - שניהם מסכימים שלא למרוד בבבל, וההבדל הוא רק במספר שנות השעבוד (שנתיים מול שבעים)</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">חנניה אינו מציג עמדה הפוכה לחלוטין מזו של ירמיהו (למשל, קריאה למרד מיידי), אלא בונה על נבואתו ומקצר רק את משך הזמן. מדוע אסטרטגיה זו של "בנייה על" הנבואה הקיימת, ולא התנגדות ישירה לה, מקשה במיוחד על הבחנה בין נביא אמת לשקר?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> כאשר נבואת שקר סותרת לחלוטין נבואת אמת ידועה, קל יותר לזהות אותה ככוזבת מיידית. אך כאשר היא נשענת על אותה מסגרת עקרונית (הכניעה לבבל היא זמנית) ומשנה רק פרט אחד (משך הזמן), נוצר רושם של המשכיות והסכמה עקרונית, המקשה על השומע להבין שמדובר בסטייה מהותית. המסקנה המעשית הדומה (אל תמרדו) מטשטשת עוד יותר את ההבדל, אף שהתוצאה בפועל - תחושת שווא של הקלה קרובה - שונה לחלוטין.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">תזכורת: ירמיהו עצמו מעלה בליבו את האפשרות שחנניה קיבל נבואה מעודכנת יותר משלו - עוד סיבה לקושי ההבחנה</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">ירמיהו עצמו, לפי חלק מהמפרשים, שוקל את האפשרות שחנניה קיבל נבואה עדכנית יותר משלו. מה מלמדת עצם נכונותו של ירמיהו לשקול אפשרות כזו, במקום לדחות מיד את חנניה מכל וכל, על ענוותנותו כנביא אמת?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> נכונותו של ירמיהו לשקול שמא נבואת חנניה עדכנית יותר משלו-שלו, במקום להניח מיידית שהוא צודק וחנניה טועה, משקפת ענווה נבואית אמיתית - הכרה בכך שגם הוא עצמו אינו יודע הכל, ושדבר ה' יכול להשתנות בהתאם לנסיבות. דווקא ענווה זו, הפוכה מהביטחון העצמי המוחלט שמאפיין נביא שקר, היא אחד הסימנים המבחינים בין נביא אמת - הפתוח לבירור נוסף - לנביא שקר הבטוח בעצמו ללא סייג.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">⚖️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
+        <div class="topic-title">המבחן ההלכתי וסופו של חנניה</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">⚖️</span>
+        <div class="qb-root-label">ירמיהו כ"ח, י"ג-י"ז</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line"><b>י"ג-י"ד:</b> מוֹטֹת עֵץ שָׁבַרְתָּ, וְעָשִׂיתָ תַחְתֵּיהֶן מֹטוֹת בַּרְזֶל. כִּי כֹה אָמַר ה'... עֹל בַּרְזֶל נָתַתִּי עַל צַוַּאר כָּל הַגּוֹיִם הָאֵלֶּה.</div>
+          <div class="pasuk-line"><b>ט"ז-י"ז:</b> הִנְנִי מְשַׁלֵּחֲךָ מֵעַל פְּנֵי הָאֲדָמָה; הַשָּׁנָה אַתָּה מֵת... וַיָּמָת חֲנַנְיָה הַנָּבִיא בַּשָּׁנָה הַהִיא, בַּחֹדֶשׁ הַשְּׁבִיעִי.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">רש"י: "אני מתנבא פורענות; אם לא יבוא איני שקרן שהקב"ה ניחם על הרעה. אבל הנביא אשר ינבא לשלום... בבוא דבר הנביא יודע... אבל אם לא יבוא דברו - שקרן הוא"</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י (ורמב"ם, הלכות יסודי התורה פרק י'), ירמיהו כ"ח</span>
+            רמב"ם: "בדברי הטובה בלבד יבחן הנביא... שירמיהו אמר בתשובתו לחנניה: אם לא יעמדו דברי אין בזה ראיה שאני נביא שקר, אבל אם לא יעמדו דבריך יודע שאתה נביא שקר, שנאמר: 'הַנָּבִיא אֲשֶׁר יִנָּבֵא לְשָׁלוֹם, בְּבוֹא דְּבַר הַנָּבִיא יִוָּדַע הַנָּבִיא אֲשֶׁר שְׁלָחוֹ ה' בֶּאֱמֶת'."
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yir28-mp-2">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">לפי הרמב"ם, המבחן ההלכתי להבחנה בין נביא אמת לשקר אינו סימטרי: נבואת פורענות שאינה מתגשמת אינה מוכיחה שהנביא שקרן (כי ה' עשוי לרחם ולבטל את הגזרה), אך נבואת טובה שאינה מתגשמת כן מוכיחה שקר. מדוע קיימת א-סימטריה זו בין שני סוגי הנבואות?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> נבואת פורענות תלויה בהתנהגות העם - תשובה כנה יכולה לבטל גזרה רעה, כפי שקרה פעמים רבות בתנ"ך (למשל בנינווה), ולכן אי-התגשמותה עשויה לנבוע מחסד אלוקי ולא משקר הנביא. לעומת זאת, נבואת טובה אינה תלויה בתשובה - אין סיבה מוסרית שה' "יחזור בו" מהבטחה חיובית, ולכן אם היא אינה מתגשמת, זהו סימן ודאי שהנביא כלל לא דיבר בשם ה' מלכתחילה.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">תזכורת: ירמיהו מנבא במפורש שחנניה ימות באותה שנה - והכתוב מאשר שאכן כך קרה, בחודש השביעי</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">מות חנניה בתוך אותה שנה, בדיוק כפי שניבא ירמיהו, מהווה הוכחה ניצחת בזמן אמת לכך שירמיהו הוא נביא האמת. מדוע, לדעתכם, טורח הכתוב לציין את התאריך המדויק ("בַּחֹדֶשׁ הַשְּׁבִיעִי") של מות חנניה, ולא מסתפק בציון שמת "באותה שנה"?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ציון החודש המדויק מדגיש שהתגשמות הנבואה אינה מקרית או כללית, אלא מדויקת ומיידית - חנניה מת עוד באותה שנה שבה ניבא, בתוך מסגרת הזמן שהוא עצמו הכריז עליה (השנתיים שהבטיח לגאולה מבבל). הדיוק הכרונולוגי מחזק את ההוכחה שאין כאן צירוף מקרים אלא קיום ממשי ומדויק של דבר ה' שנאמר לירמיהו, ומשמש עדות חותכת לכל מי שהתלבט בזמן אמת בין שני הנביאים.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <a href="yirmiyahu-7-26.html">← פרקים ז', כ"ו</a>
+  <a href="neviim-hub.html">↺ חזרה ליחידה</a>
+  <a href="yirmiyahu-36.html">פרק ל"ו →</a>
+</nav>
+<div class="toolbar">
+  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
+  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
+</p>
+
+<footer class="credit">ספר ירמיהו, פרק כ"ח · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'yirmiyahu-ch28-answers';
+const NAME_KEY = 'yirmiyahu-ch28-student';
+const textareas = Array.from(document.querySelectorAll('textarea.answer'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{
+    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      nameInput.value = data.name || '';
+      classInput.value = data.cls || '';
+    }
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    flashSaved();
+  }catch(e){
+    console.error('שגיאת שמירה', e);
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => {
+        if(data[t.dataset.id]){
+          t.value = data[t.dataset.id];
+          markFilled(t);
+        }
+      });
+    }
+  }catch(e){
+    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
+  }
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+document.querySelectorAll('.hint-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.nextElementSibling;
+    const showing = box.hidden;
+    box.hidden = !showing;
+    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות בדף העבודה? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
+
+loadStudentInfo();
+loadAnswers();
+</script>
+<script src="assets/progress-tracker.js"></script>
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+
+</body>
+</html>

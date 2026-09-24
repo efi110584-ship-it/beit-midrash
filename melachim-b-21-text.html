@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר מלכים ב' — קריאה אינטראקטיבית בפסוקים (פרק כ&quot;א)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .pasuk-flow{ font-size:1.12rem; line-height:2.3; color:var(--ink); }
+  .v-num{
+    display:inline-flex; align-items:center; justify-content:center; width:1.55rem; height:1.55rem;
+    border-radius:50%; background:var(--acc-soft); color:var(--acc); font-weight:800; font-size:.72rem;
+    margin-inline-end:.3rem; vertical-align:middle; font-family:'Heebo',sans-serif;
+  }
+  .hot-word{
+    background:none; border:none; padding:0 .12rem; margin:0 .05rem; font:inherit; font-weight:800;
+    color:var(--acc); cursor:pointer; border-bottom:2.5px dotted var(--acc); border-radius:2px;
+    transition:background .15s ease;
+  }
+  .hot-word:hover, .hot-word:focus-visible{ background:var(--acc-soft); outline:none; }
+  .hot-word .hw-icon{ font-size:.78em; margin-inline-start:.12rem; }
+  .legend{
+    display:flex; flex-wrap:wrap; gap:.6rem 1.4rem; justify-content:center; align-items:center;
+    font-size:.85rem; color:var(--ink-soft); margin:0 0 1.2rem;
+  }
+  .legend b{ color:var(--ink); }
+  .legend .hot-word{ pointer-events:none; }
+  .cross-ref-note{
+    background:var(--paper-card); border:1.5px dashed var(--paper-line); border-radius:10px;
+    padding:.7rem 1rem; font-size:.85rem; color:var(--ink-soft); margin:.7rem 0;
+  }
+  .muted-pasuk{
+    background:var(--paper-2); border-radius:10px; padding:.8rem 1rem; font-size:.95rem;
+    line-height:1.9; color:var(--ink-soft); margin:.7rem 0; font-style:italic;
+  }
+  .muted-pasuk b{ font-style:normal; color:var(--ink); }
+
+  .pmodal-overlay{
+    position:fixed; inset:0; background:rgba(31,29,23,.6); display:flex; align-items:center; justify-content:center;
+    padding:1rem; z-index:500;
+  }
+  .pmodal-overlay[hidden]{ display:none; }
+  .pmodal-box{
+    background:#fff; border-radius:18px; max-width:480px; width:100%; padding:1.7rem 1.7rem 1.5rem;
+    box-shadow:0 24px 60px rgba(0,0,0,.35); position:relative; max-height:82vh; overflow-y:auto;
+    border-top:6px solid var(--pmodal-acc, var(--ink));
+    animation:pmodalIn .18s ease;
+  }
+  @keyframes pmodalIn{ from{ opacity:0; transform:translateY(10px) scale(.98); } to{ opacity:1; transform:none; } }
+  .pmodal-close{
+    position:absolute; top:.7rem; left:.7rem; background:var(--paper-2); border:none; width:2.1rem; height:2.1rem;
+    border-radius:50%; cursor:pointer; font-size:1.05rem; color:var(--ink-soft); line-height:1;
+  }
+  .pmodal-close:hover{ background:var(--paper); }
+  .pmodal-badge{
+    display:inline-block; font-size:.78rem; font-weight:800; color:#fff; background:var(--pmodal-acc, var(--ink));
+    padding:.35rem .9rem; border-radius:999px; margin-bottom:.9rem; font-family:'Frank Ruhl Libre',serif;
+  }
+  .pmodal-q{ font-weight:800; margin:0 0 1rem; font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; line-height:1.5; color:var(--ink); }
+  .pmodal-quote{
+    font-style:italic; border-right:3px solid var(--pmodal-acc,var(--ink)); padding:.15rem .8rem;
+    margin:0 0 .9rem; color:var(--ink); font-size:.9rem; line-height:1.65; background:var(--paper-card);
+    border-radius:0 8px 8px 0;
+  }
+  .pmodal-a-label{ font-size:.78rem; font-weight:800; color:var(--pmodal-acc, var(--ink)); margin:0 0 .25rem; }
+  .pmodal-a{ font-size:.95rem; line-height:1.75; color:var(--ink-soft); }
+
+  .topic-banner{ margin-top:2.4rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">ספר מלכים ב'</a>
+  <span class="sep">›</span>
+  <a href="melachim-b-21.html">פרק כ&quot;א</a>
+  <span class="sep">›</span>
+  <span class="current">קריאה אינטראקטיבית בפסוקים</span>
+</nav>
+
+<header>
+  <div class="eyebrow">ספר מלכים ב' · קריאה אינטראקטיבית · פרק כ&quot;א</div>
+  <h1>הטקסט המלא, מילה-מילה — פרק כ"א, "מַלְכוּת מְנַשֶּׁה"</h1>
+  <p class="sub">קראו את הפסוקים לפי הנושאים. כל מילה עם קו מקווקו ניתנת ללחיצה - היא נוגעת בשאלה מרכזית או בדברי פרשן, ולחיצה עליה תפתח חלונית קצרה עם השאלה והתשובה.</p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
+  <a class="chip-link" href="melachim-b-21.html"><span class="chip-icon" aria-hidden="true">📄</span>לדף העבודה המלא</a>
+  <a class="chip-link" href="melachim-b-21-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+</p>
+
+<main>
+  <div class="legend">
+    <span><button class="hot-word" style="--acc:#8A5C21;" tabindex="-1">מילה לדוגמה<span class="hw-icon" aria-hidden="true">💬</span></button> = לחצו לפתיחת חלונית</span>
+    <span><b>❓</b> שאלה למחשבה</span>
+    <span><b>💬</b> דברי פרשן</span>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <span class="topic-icon" aria-hidden="true">🗿</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
+        <div class="topic-title">התרחקות מנשה מדרך ה'</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <div class="card-head">
+        <span class="card-tag">מלכים ב' כ"א, א'-ז'</span>
+        <h2 class="card-title">התרחקות מנשה מדרך ה'</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">א</span> בֶּן שְׁתֵּים עֶשְׂרֵה שָׁנָה מְנַשֶּׁה בְמָלְכוֹ, וַחֲמִשִּׁים וְחָמֵשׁ שָׁנָה מָלַךְ בִּירוּשָׁלָם.
+          <span class="v-num">ה</span> וַיִּבֶן מִזְבְּחוֹת לְכָל צְבָא הַשָּׁמַיִם, <button class="hot-word" data-key="q_gradual_sin" data-acc="#8A5C21">בִּשְׁתֵּי חַצְרוֹת בֵּית ה'<span class="hw-icon" aria-hidden="true">❓</span></button>.
+          <span class="v-num">ז</span> וַיָּשֶׂם אֶת פֶּסֶל הָאֲשֵׁרָה אֲשֶׁר עָשָׂה, <button class="hot-word" data-key="m_relbag_izevel" data-acc="#8A5C21">בַּבַּיִת אֲשֶׁר אָמַר ה' אֶל דָּוִד וְאֶל שְׁלֹמֹה בְנוֹ: בַּבַּיִת הַזֶּה... אָשִׂים אֶת שְׁמִי לְעוֹלָם<span class="hw-icon" aria-hidden="true">💬</span></button>.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">⚖️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
+        <div class="topic-title">חתימת גורל ממלכת יהודה וירושלים</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="card-head">
+        <span class="card-tag">מלכים ב' כ"א, י"ב-ט"ז</span>
+        <h2 class="card-title">חתימת גורל ממלכת יהודה וירושלים</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">יב-יג</span> הִנְנִי מֵבִיא רָעָה עַל יְרוּשָׁלַם וִיהוּדָה, <button class="hot-word" data-key="q_dimuyim" data-acc="#3F6E66">אֲשֶׁר כָּל שֹׁמְעָהּ תִּצַּלְנָה שְׁתֵּי אָזְנָיו<span class="hw-icon" aria-hidden="true">❓</span></button>. וְנָטִיתִי עַל יְרוּשָׁלַם <button class="hot-word" data-key="q_shomron_compare" data-acc="#3F6E66">אֵת קָו שֹׁמְרוֹן וְאֶת מִשְׁקֹלֶת בֵּית אַחְאָב<span class="hw-icon" aria-hidden="true">❓</span></button>, וּמָחִיתִי אֶת יְרוּשָׁלַם כַּאֲשֶׁר יִמְחֶה אֶת הַצַּלַּחַת - מָחָה וְהָפַךְ עַל פָּנֶיהָ.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">📜</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
+        <div class="topic-title">מקורות נוספים וסיכום</div>
+      </div>
+    </div>
+    <section class="card" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="card-head">
+        <span class="card-tag">מלכים ב' כ"ג, כ"ו; כ"ד, ג'</span>
+        <h2 class="card-title">מקורות נוספים וסיכום</h2>
+      </div>
+      <div class="card-body">
+        <div class="pasuk-flow">
+          <span class="v-num">כג, כו</span> <button class="hot-word" data-key="q_teshuva_vs_gzeira" data-acc="#7A4A73">לֹא שָׁב ה' מֵחֲרוֹן אַפּוֹ הַגָּדוֹל<span class="hw-icon" aria-hidden="true">❓</span></button>, אֲשֶׁר חָרָה אַפּוֹ בִּיהוּדָה, עַל כָּל הַכְּעָסִים אֲשֶׁר הִכְעִיסוֹ מְנַשֶּׁה.
+          <span class="v-num">כד, ג</span> אַךְ עַל פִּי ה' הָיְתָה בִיהוּדָה לְהָסִיר מֵעַל פָּנָיו <button class="hot-word" data-key="q_amon_short" data-acc="#7A4A73">בְּחַטֹּאת מְנַשֶּׁה, כְּכֹל אֲשֶׁר עָשָׂה<span class="hw-icon" aria-hidden="true">❓</span></button>.
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <a href="melachim-b-21.html">→ לדף העבודה של הפרק</a>
+  <a href="index.html#tab-ya">↺ חזרה ליחידה</a>
+  <span></span>
+</nav>
+
+<footer class="credit">ספר מלכים ב', פרק כ&quot;א · קריאה אינטראקטיבית בפסוקים</footer>
+
+<div class="pmodal-overlay" id="pmodalOverlay" hidden>
+  <div class="pmodal-box" id="pmodalBox" role="dialog" aria-modal="true" aria-labelledby="pmodalQ">
+    <button class="pmodal-close" id="pmodalClose" type="button" aria-label="סגירה">✕</button>
+    <div class="pmodal-badge" id="pmodalBadge"></div>
+    <p class="pmodal-q" id="pmodalQ"></p>
+    <div class="pmodal-quote" id="pmodalQuote" hidden></div>
+    <div class="pmodal-a-label">✓ התשובה / הרעיון</div>
+    <div class="pmodal-a" id="pmodalA"></div>
+  </div>
+</div>
+
+<script>
+const POPUPS = {
+"q_gradual_sin": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#8A5C21",
+"q": "תיאור חטאי מנשה מתקדם בהדרגה ממרחק אל מרכז הקדושה. מדוע בחר הכתוב בתיאור מדורג?",
+"a": "ההדרגתיות ממחישה כיצד חטא ש\"התחיל בשוליים\" הלך והחריף עד שחדר ללב הקודש - עבודה זרה נוטה להתפשט ולהעמיק אם לא עוצרים אותה מוקדם."
+},
+"m_relbag_izevel": {
+"badge": "💬 רלב\"ג",
+"acc": "#8A5C21",
+"q": "מדוע מנשה רודף גם אחר הנביאים המוכיחים אותו, ולא מסתפק בעבודה הזרה עצמה?",
+"a": "רלב\"ג: מנשה הרג כל מי שלא הסכים לעבוד עבודת גילולים, כמו איזבל אשת אחאב שהרגה את נביאי ה' - מי שוויתר על קדושת ה' מוכן גם לוותר על קדושת חיי האדם."
+},
+"q_dimuyim": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#3F6E66",
+"q": "מדוע חוזרת הנבואה על דימוי אוזניים מצלצלות לתיאור עוצמת הרעה הצפויה?",
+"a": "מבטא כליל את חומרת השמועה - צליל שהוא כמעט בלתי נסבל, המשקף את גודל הזעזוע הצפוי לכל השומע אותו."
+},
+"q_shomron_compare": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#3F6E66",
+"q": "הנבואה משווה במפורש בין גורל ירושלים לגורל שומרון שכבר חרבה. מה משמעות ההשוואה?",
+"a": "תושבי יהודה התנחמו בכך שממלכתם שונה מישראל החוטאת. ההשוואה מנפצת אשליה זו - אין הבדל ברמת האחריות, וגם ירושלים אינה חסינה מדין."
+},
+"q_teshuva_vs_gzeira": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#7A4A73",
+"q": "פסוקים מאוחרים עדיין מזכירים את \"חטאת מנשה\", אף שלפי דברי הימים הוא שב בתשובה. מדוע נותר עונש החורבן בעינו?",
+"a": "תשובתו האישית יכולה לכפר על חטאו הפרטי, אך אינה מבטלת את ההשפעה המצטברת של 55 שנות עבודה זרה על העם - נזק חברתי-רוחני רחב הממשיך לפעול."
+},
+"q_amon_short": {
+"badge": "❓ שאלה למחשבה",
+"acc": "#7A4A73",
+"q": "אמון בנו של מנשה מולך רק שנתיים ותיאורו קצר בהרבה מתיאור אביו. מדוע?",
+"a": "תיאור מנשה ארוך כי הוא החוטא המכריע והמייסד. תיאור אמון קצר כי הוא רק ממשיך דרך קיימת - וסופו האלים מרמז שגם במערכת המושחתת כבר מתערערת היציבות."
+}
+};
+
+const overlay = document.getElementById('pmodalOverlay');
+const box = document.getElementById('pmodalBox');
+const badgeEl = document.getElementById('pmodalBadge');
+const qEl = document.getElementById('pmodalQ');
+const quoteEl = document.getElementById('pmodalQuote');
+const aEl = document.getElementById('pmodalA');
+const closeBtn = document.getElementById('pmodalClose');
+let lastFocused = null;
+
+function openPopup(key){
+  const data = POPUPS[key];
+  if(!data) return;
+  box.style.setProperty('--pmodal-acc', data.acc);
+  badgeEl.textContent = data.badge;
+  qEl.textContent = data.q;
+  if(data.quote){
+    quoteEl.textContent = '"' + data.quote + '"';
+    quoteEl.hidden = false;
+  } else {
+    quoteEl.hidden = true;
+  }
+  aEl.textContent = data.a;
+  overlay.hidden = false;
+  lastFocused = document.activeElement;
+  closeBtn.focus();
+}
+
+function closePopup(){
+  overlay.hidden = true;
+  if(lastFocused) lastFocused.focus();
+}
+
+document.querySelectorAll('.hot-word[data-key]').forEach(btn => {
+  btn.addEventListener('click', () => openPopup(btn.dataset.key));
+});
+
+closeBtn.addEventListener('click', closePopup);
+overlay.addEventListener('click', (e) => { if(e.target === overlay) closePopup(); });
+document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && !overlay.hidden) closePopup(); });
+</script>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<script>
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>

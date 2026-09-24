@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר ירמיהו — דף עבודה אינטראקטיבי (פרק א', הקדשת ירמיהו)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  .topic-banner{ margin-top:2.6rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  .qb-topic{ grid-column: 1 / -1; }
+  .qb-root{
+    max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
+    padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
+  }
+  .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
+  .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
+  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
+  .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
+  .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
+
+  .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
+  .qb-connector::after{
+    content:""; position:absolute; bottom:-1px; right:50%; transform:translateX(50%);
+    border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
+  }
+
+  .qb-branches{
+    display:flex; flex-wrap:wrap; gap:1.1rem;
+    position:relative; padding-top:22px; margin-top:-22px;
+  }
+  .qb-branches::before{
+    content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
+  }
+  .qb-card{
+    flex:1 1 260px;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
+    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
+    min-width:0;
+  }
+  .qb-card > *{ width:100%; max-width:640px; }
+  .qb-meforesh{
+    font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+    background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
+    padding:.75rem .9rem; box-shadow:var(--shadow);
+  }
+  .qb-meforesh .qb-src{
+    display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
+    font-size:.8rem; margin-bottom:.35rem;
+  }
+  .qb-meforesh .qb-src::before{ content:"💬"; font-size:1.05rem; line-height:1; }
+  .qb-card .question-block{ display:flex; flex-direction:column; gap:.5rem; }
+  .qb-card .question-row{ align-items:flex-start; }
+  .qb-card .q-text{ font-size:.86rem; line-height:1.5; }
+  .qb-card textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
+  .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
+  .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-yb">כיתה י"ב</a>
+  <span class="sep">›</span>
+  <a href="neviim-hub.html">פרקי נביאים</a>
+  <span class="sep">›</span>
+  <span class="current">ירמיהו, פרק א'</span>
+</nav>
+
+<header>
+  <div class="eyebrow">נבואות ירמיהו · כיתה י"ב</div>
+  <h1>דף עבודה — פרק א', "הַקְדָּשַׁת יִרְמְיָהוּ לְנָבִיא"</h1>
+  <p class="sub">בכל נושא: קודם קוראים את הפסוקים בקובייה העליונה, ואז עוברים על כל קוביית-שאלה שמסתעפת ממנה - קוראים את דברי הפרשן (אם יש), כותבים תשובה, ורק אז לוחצים "הצג תשובה" לבדיקה עצמית. הכול נשמר אוטומטית במכשיר שלכם.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 7 שאלות</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main>
+  <div class="grid" id="grid">
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרק</span>
+        <h2 class="card-title">מה קורה בפרק א'?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          ירמיהו, כהן צעיר מענתות שבארץ בנימין, מתמנה לנביא בשנת שלוש עשרה למלך יאשיהו. עם קבלת השליחות הוא מתנגד בטענת "נַעַר אָנֹכִי" - חוסר בגרות מספקת לתפקיד כה גדול - וה' דוחה את התנגדותו ומבטיח לו הגנה מלאה. בהמשך הפרק רואה ירמיהו שני מראות נבואיים המכינים אותו לתוכן נבואתו: מקל שקד, המסמל את מהירות התגשמות הפורענות, וסיר נפוח שפניו פונות צפונה, המסמל את מקור האויב שיביא את החורבן - בבל. הפרק מציג את ירמיהו הן כ"נביא לגויים" והן כנביא חורבן ונחמה לעם ישראל, כאשר בשני התפקידים מובטח לו חיזוק אלוקי.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <span class="topic-icon" aria-hidden="true">🕯️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
+        <div class="topic-title">הקדשת ירמיהו לנביא - המינוי וההתנגדות</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🕯️</span>
+        <div class="qb-root-label">ירמיהו א', ד'-י'</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line"><b>ה':</b> בְּטֶרֶם אֶצָּרְךָ בַבֶּטֶן יְדַעְתִּיךָ, וּבְטֶרֶם תֵּצֵא מֵרֶחֶם הִקְדַּשְׁתִּיךָ; נָבִיא לַגּוֹיִם נְתַתִּיךָ.</div>
+          <div class="pasuk-line"><b>ו':</b> וָאֹמַר: אֲהָהּ אֲדֹנָי ה', הִנֵּה לֹא יָדַעְתִּי דַּבֵּר כִּי נַעַר אָנֹכִי.</div>
+          <div class="pasuk-line"><b>ז'-ח':</b> וַיֹּאמֶר ה' אֵלַי: אַל תֹּאמַר נַעַר אָנֹכִי, כִּי עַל כָּל אֲשֶׁר אֶשְׁלָחֲךָ תֵּלֵךְ... אַל תִּירָא מִפְּנֵיהֶם, כִּי אִתְּךָ אֲנִי לְהַצִּלֶךָ.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">רש"י: "כי נער אנכי" - "איני כדאי להוכיחן. משה הוכיחן סמוך למיתתו, כשכבר נחשב בעיניהם בכמה נסים שעשה להם"</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י, ירמיהו א', ו'</span>
+            "כי נער אנכי" - איני כדאי להוכיחן. משה הוכיחן סמוך למיתתו, כבר נחשב בעיניהם בכמה נסים שעשה להם: הוציאם ממצרים, וקרע להם את הים, הוריד את המן, הגיז את השליו, נתן להם את התורה, העלה את הבאר - אני בתחילת שליחותי, אבוא להוכיחם?!
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yir1-mp-1">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">לפי רש"י, ירמיהו משווה עצמו למשה רבנו וטוען שהוא, בניגוד למשה, חסר "קרדיט" של נסים והישגים מוכחים כדי לזכות לאמון העם. מה הבעייתיות בטיעון הזה, לאור הבטחת ה' "אַל תֹּאמַר נַעַר אָנֹכִי, כִּי עַל כָּל אֲשֶׁר אֶשְׁלָחֲךָ תֵּלֵךְ"?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> תשובת ה' מבהירה שסמכות הנביא אינה נובעת מהישגיו האישיים או מהכרה מוקדמת של העם, אלא ממעמדו כשליח ישיר של ה'. תפיסתו של ירמיהו, לפיה יש לבסס אמון על עבר מוכח, אינה רלוונטית לתפקיד נבואי - נביא הולך "בכל אשר אשלחך" מכוח השליחות עצמה, לא מכוח מוניטין אישי שנצבר, ולכן חוסר הניסיון של ירמיהו אינו מהווה מכשול אמיתי.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">מלב"ים: התנגדות ירמיהו כללה שלוש טענות - שהנער לא יערב לבו לגשת בפני גדולים, שאינו יודע לסדר דבריו במליצה, ושהעם לא ישא פנים לנער צעיר</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">מלבי"ם, ירמיהו א', ו'</span>
+            "הנה לא ידעתי דבר כי נער אנכי" - וזה יהיה משלושה פנים: א. שהנער לא יערב לבו לגשת בפני גדולים. ב. שהנער אינו יודע לסדר דבריו במליצה ולשון צח שעל זה צריך הרגל רב. ג. מצד העם שנשלח אליהם, שלא ישאו פנים לנער צעיר הימים ויקומו עליו ויהרגוהו.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yir1-mp-2">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">לפי המלבי"ם, ה' עונה לירמיהו נגד שלוש חששותיו בזה אחר זה - "אל כל אשר אשלחך תלך" (נגד החשש הראשון), "את כל אשר אצוך תדבר" (נגד השני), ו"אל תירא מפניהם כי אתך אני להצילך" (נגד השלישי). מדוע היה חשוב לה' לתת מענה פרטני לכל חשש בנפרד, ולא הבטחה כללית אחת?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> מענה פרטני לכל חשש מלמד על הקשבה מדויקת לחששותיו האמיתיים והמעשיים של ירמיהו, ולא רק על עידוד כללי וסתמי. כל חשש מקבל מענה קונקרטי ההולם אותו במיוחד - סמכות השליחות, ניסוח הדברים, וההגנה הפיזית - מה שמעניק לירמיהו ביטחון ממשי שכל היבט בפחדו טופל, ולא רק הרגעה כללית שאינה מתמודדת עם המכשולים הספציפיים שהוא מעלה.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">🌸</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
+        <div class="topic-title">המראה הראשון - מקל השקד</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🌸</span>
+        <div class="qb-root-label">ירמיהו א', י"א-י"ב</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line"><b>י"א-י"ב:</b> וַיְהִי דְבַר ה' אֵלַי לֵאמֹר: מָה אַתָּה רֹאֶה יִרְמְיָהוּ? וָאֹמַר: מַקֵּל שָׁקֵד אֲנִי רֹאֶה. וַיֹּאמֶר ה' אֵלַי: הֵיטַבְתָּ לִרְאוֹת, כִּי שֹׁקֵד אֲנִי עַל דְּבָרִי לַעֲשֹׂתוֹ.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">רש"י: השקד ממהר להוציא פרח קודם לכל האילנות, אף אני ממהר לעשות דברי; שד"ל חולק - השורש ש.ק.ד מורה על השגחה בלא התרשלות, לא על מהירות</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רש"י ושד"ל, ירמיהו א', י"א-י"ב (מחלוקת פרשנית)</span>
+            רש"י: "השקד הזה ממהר להוציא פרח קודם לכל האילנות, אף אני ממהר לעשות דברי." שד"ל חולק: "אין שורש ש.ק.ד מורה על העשייה מהר, כי אם על ההשגחה על הדבר בלא התרשלות ובלא שכחה - וגם העניין לחזק את ליבו שלא יירא, כי לא יטוש ה' את הדברים אשר ישים בפיו, לעשותם."
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yir1-mp-3">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">רש"י ושד"ל חלוקים במשמעות המילה "שֹׁקֵד" - רש"י מדגיש מהירות, שד"ל מדגיש השגחה מתמדת ובלתי נשכחת. כיצד כל אחת מן הפרשנויות משנה את מסר המראה כלפי ירמיהו באותה שעה, כאשר הוא עדיין חושש מהשליחות שהוטלה עליו?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, המסר לירמיהו הוא שהעונש הצפוי יבוא במהירות - תוכן מטריד לכאורה, אך המחזק את דחיפות שליחותו וחשיבותה. לפי שד"ל, המסר הוא הרגעה: ה' לא ישכח ולא יזנח את דברי הנבואה שהופקדו בפי ירמיהו, ולכן אל לו לחשוש שמא ייחשב שקרן אם התגשמות הנבואה תתעכב. שתי הפרשנויות, אף שהן שונות בתוכנן, משרתות אותה מטרה - חיזוק ירמיהו לקראת התפקיד הקשה שלפניו.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">🍲</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
+        <div class="topic-title">המראה השני - הסיר הנפוח</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🍲</span>
+        <div class="qb-root-label">ירמיהו א', י"ג-י"ט</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line"><b>י"ג-י"ד:</b> סִיר נָפוּחַ אֲנִי רֹאֶה, וּפָנָיו מִפְּנֵי צָפוֹנָה. וַיֹּאמֶר ה' אֵלָי: מִצָּפוֹן תִּפָּתַח הָרָעָה עַל כָּל יֹשְׁבֵי הָאָרֶץ.</div>
+          <div class="pasuk-line"><b>י"ט:</b> וְנִלְחֲמוּ אֵלֶיךָ וְלֹא יוּכְלוּ לָךְ, כִּי אִתְּךָ אֲנִי נְאֻם ה' לְהַצִּילֶךָ.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">רד"ק: "סיר נפוח... רותח, והסיר כשהוא רותח תעלה הבל; ופניו מפני צפונה - מורה כי המרתיחים אותה היו מארץ צפון"</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">רד"ק, ירמיהו א', י"ג</span>
+            "סיר נפוח... רותח, והסיר כשהוא רותח תעלה הבל. ופניו מפני צפונה - מורה כי פני הסיר היו פונים צפונה, להורות כי המרתיחים אותה היו מארץ צפון." ר' מנחם בן שמעון מוסיף: "הסיר משל לישראל, העומדת מצד אחד למול ארץ בבל, והאש משל לנבוכדנאצר שילכדנה וישרפה באש."
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yir1-mp-4">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">שני המראות של ירמיהו - מקל השקד וסיר הנפוח - עוסקים בשני היבטים שונים לחלוטין של אותה נבואת פורענות: זמן ההתרחשות ומקורה. מדוע, לדעתכם, בחר ה' להראות לירמיהו שני מראות נפרדים במקום מראה אחד המשלב את שני ההיבטים יחד?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הפרדת שני המראות מאפשרת לכל אחד מהם להתמקד באופן ברור וחד בהיבט אחד בלבד - מקל השקד מבטא את זמן ההתרחשות (בהקדם, בלא התרשלות), וסיר הנפוח מבטא את מקור הסכנה (הצפון, כלומר בבל). מראה משולב אחד היה עלול לטשטש בין שני המסרים או להקשות על ירמיהו לפענח כל אחד מהם בנפרד. כך גם מודגמת לירמיהו בפועל, כבר בתחילת דרכו, המתודולוגיה הנדרשת ממנו כנביא: לזהות את המראה ולפענח את משמעותו - תרגול הכרחי לקראת נבואותיו העתידיות.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">תזכורת: "וְנִלְחֲמוּ אֵלֶיךָ וְלֹא יוּכְלוּ לָךְ, כִּי אִתְּךָ אֲנִי נְאֻם ה' לְהַצִּילֶךָ" (א', י"ט)</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">הבטחת ה' לירמיהו שיצילו מפני מתנגדיו מהווה הן הרגעה והן אזהרה סמויה - אם יש צורך בהצלה, סימן שיהיו אכן מתנגדים. כיצד, לדעתכם, השפיעה ידיעה כפולה זו על מוכנותו הנפשית של ירמיהו לקראת שנות נבואתו הארוכות?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ההבטחה מכינה את ירמיהו למציאות ריאלית: לא הבטחה לחיים נטולי קונפליקט, אלא הבטחה להישרדות דווקא בתוך קונפליקט צפוי ומתמשך. ידיעה כפולה זו - שיש ממה לחשוש, אך גם שההגנה מובטחת - מעניקה לירמיהו יציבות נפשית מיוחדת המאפשרת לו להתמודד לאורך עשרות שנות נבואה עם עוינות, מאסרים ואף ניסיונות רצח, מבלי להישבר או לזנוח את שליחותו.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <a href="melachim-b-24-25.html">← מלכים ב', כ"ד-כ"ה</a>
+  <a href="neviim-hub.html">↺ חזרה ליחידה</a>
+  <a href="yirmiyahu-7-26.html">פרקים ז', כ"ו →</a>
+</nav>
+<div class="toolbar">
+  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
+  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
+</p>
+
+<footer class="credit">ספר ירמיהו, פרק א' · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'yirmiyahu-ch1-answers';
+const NAME_KEY = 'yirmiyahu-ch1-student';
+const textareas = Array.from(document.querySelectorAll('textarea.answer'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{
+    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      nameInput.value = data.name || '';
+      classInput.value = data.cls || '';
+    }
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    flashSaved();
+  }catch(e){
+    console.error('שגיאת שמירה', e);
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => {
+        if(data[t.dataset.id]){
+          t.value = data[t.dataset.id];
+          markFilled(t);
+        }
+      });
+    }
+  }catch(e){
+    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
+  }
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+document.querySelectorAll('.hint-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.nextElementSibling;
+    const showing = box.hidden;
+    box.hidden = !showing;
+    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות בדף העבודה? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
+
+loadStudentInfo();
+loadAnswers();
+</script>
+<script src="assets/progress-tracker.js"></script>
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+
+</body>
+</html>
