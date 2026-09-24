@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
@@ -53,7 +53,7 @@
   .flow-icon{ font-size:.95rem; }
   .flow-arrow{ color:var(--acc); font-size:1rem; margin:.1rem 0; }
 
-  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
   .grid > .topic-col:first-child{ margin-top:0; }
 
   .qb-topic{ min-width:0; }
@@ -80,7 +80,7 @@
   }
 
   .qb-branches{
-    display:flex; flex-direction:column; gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
@@ -190,8 +190,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "וַיְעַזְּקֵהוּ וַיְסַקְּלֵהוּ וַיִּטָּעֵהוּ שֹׂרֵק... וַיְקַו לַעֲשׂוֹת עֲנָבִים וַיַּעַשׂ בְּאֻשִׁים" (פסוק ב')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וַיְעַזְּקֵהוּ וַיְסַקְּלֵהוּ וַיִּטָּעֵהוּ שֹׂרֵק... וַיְקַו לַעֲשׂוֹת עֲנָבִים וַיַּעַשׂ בְּאֻשִׁים" (פסוק ב')</p>
           <div class="qb-root" style="max-width:none; margin:0; padding:.8rem 1rem;">
             <table style="width:100%; border-collapse:collapse; font-size:.82rem; text-align:right;">
               <thead><tr style="border-bottom:1.5px solid var(--paper-line);"><th style="padding:.3rem;">הפעולה בלשון הכתוב</th><th style="padding:.3rem;">הסבר במילים שלכם</th></tr></thead>
@@ -240,8 +240,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "שִׁפְטוּ נָא בֵּינִי וּבֵין כַּרְמִי... מַדּוּעַ קִוֵּיתִי לַעֲשׂוֹת עֲנָבִים וַיַּעַשׂ בְּאֻשִׁים" (פסוקים ג'-ד')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "שִׁפְטוּ נָא בֵּינִי וּבֵין כַּרְמִי... מַדּוּעַ קִוֵּיתִי לַעֲשׂוֹת עֲנָבִים וַיַּעַשׂ בְּאֻשִׁים" (פסוקים ג'-ד')</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מדוע פונה בעל הכרם דווקא לתושבי ירושלים ואיש יהודה כדי שישפטו בינו לבין כרמו? מה משיג הנביא בכך שהוא מנסח את התוכחה כשאלה משפטית, ולא כהאשמה ישירה?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -250,8 +250,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "הָסֵר מְשׂוּכָּתוֹ... וַאֲשִׁיתֵהוּ בָתָה... וְעַל הֶעָבִים אֲצַוֶּה מֵהַמְטִיר עָלָיו מָטָר" (פסוקים ה'-ו')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "הָסֵר מְשׂוּכָּתוֹ... וַאֲשִׁיתֵהוּ בָתָה... וְעַל הֶעָבִים אֲצַוֶּה מֵהַמְטִיר עָלָיו מָטָר" (פסוקים ה'-ו')</p>
           <div class="vs-compare" role="img" aria-label="שלושה שלבים בעונש הכרם - הסרת הגנה, הזנחה מוחלטת, מניעת גשם">
             <div class="vs-side vs-a">
               <span class="vs-icon" aria-hidden="true">🚧</span>
@@ -296,8 +296,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "כִּי כֶרֶם ה' צְבָאוֹת בֵּית יִשְׂרָאֵל, וְאִישׁ יְהוּדָה נְטַע שַׁעֲשׁוּעָיו" (פסוק ז')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "כִּי כֶרֶם ה' צְבָאוֹת בֵּית יִשְׂרָאֵל, וְאִישׁ יְהוּדָה נְטַע שַׁעֲשׁוּעָיו" (פסוק ז')</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">פרטו את הנמשל: מיהו בעל הכרם בפועל, מהו הכרם, ומה מסמלות פעולות הטיפוח שתוארו בפסוקים א'-ב'?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -306,8 +306,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "וַיְקַו לְמִשְׁפָּט וְהִנֵּה מִשְׂפָּח, לִצְדָקָה וְהִנֵּה צְעָקָה" (פסוק ז')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וַיְקַו לְמִשְׁפָּט וְהִנֵּה מִשְׂפָּח, לִצְדָקָה וְהִנֵּה צְעָקָה" (פסוק ז')</p>
           <div class="qb-meforesh">
             <span class="qb-src">על משחק המילים בפסוק ז'</span>
             "מִשְׂפָּח" לעומת "מִשְׁפָּט" - הבדל של אות אחת בלבד, אך משמעות הפוכה: התנהגות מוסרית מקולקלת במקום משפט צדק. "צְעָקָה" לעומת "צְדָקָה" - צעקת העשוקים במקום מעשי צדקה כלפיהם. השימוש הכפול במילה "וְהִנֵּה" מבטא הפתעה ומדגיש את גודל האכזבה.

@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   /* אישור הבנת פרשן - כפתור קטן בתחתית כל קובית מפרש, במקום רשימת סיכום נפרדת */
   .qb-meforesh{ position:relative; }
@@ -39,7 +39,7 @@
   .nations-grid{ display:flex; flex-wrap:wrap; gap:.4rem; justify-content:center; margin-top:.7rem; }
   .nation-chip{ background:#fff; color:var(--ink); border:1.5px solid var(--paper-line); border-radius:999px; padding:.35rem .85rem; font-size:.76rem; font-weight:700; }
 
-  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
   .grid > .topic-col:first-child{ margin-top:0; }
 
   /* ========== תרשים-זרימה: קוביית-שורש שמסתעפת לקוביות-שאלה ========== */
@@ -67,7 +67,7 @@
   }
 
   .qb-branches{
-    display:flex; flex-direction:column; gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
@@ -178,8 +178,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "וַיְהִי אַבְרָם בֶּן תִּשְׁעִים שָׁנָה וְתֵשַׁע שָׁנִים... אֲנִי אֵל שַׁדַּי" (פסוק א')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וַיְהִי אַבְרָם בֶּן תִּשְׁעִים שָׁנָה וְתֵשַׁע שָׁנִים... אֲנִי אֵל שַׁדַּי" (פסוק א')</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">בן כמה היה אברם כשה' נגלה אליו בפרק זה? באיזה שם מכנה ה' את עצמו, ומה הוא מבקש מאברהם?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -188,8 +188,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "הָאֱלֹהִים אֲשֶׁר הִתְהַלְּכוּ אֲבֹתַי לְפָנָיו" (מדרש תנחומא)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "הָאֱלֹהִים אֲשֶׁר הִתְהַלְּכוּ אֲבֹתַי לְפָנָיו" (מדרש תנחומא)</p>
           <div class="qb-meforesh">
             <span class="qb-src">מדרש תנחומא, "לך לך" ו'</span>
             התהלך לפני והיה תמים. למה האבות היו דרכם לפני הקב"ה? לנשיא שהוא מהלך וזקניו מהלכין לפניו, והזקנים מודיע כבודו של נשיא. כך היו אבות העולם הולכים לפניו, שנאמר "הָאֱלֹהִים אֲשֶׁר הִתְהַלְּכוּ אֲבֹתַי לְפָנָיו".
@@ -258,8 +258,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "הִמּוֹל לָכֶם כָּל זָכָר... וּבֶן שְׁמֹנַת יָמִים יִמּוֹל" (פסוקים י'-י"ב)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "הִמּוֹל לָכֶם כָּל זָכָר... וּבֶן שְׁמֹנַת יָמִים יִמּוֹל" (פסוקים י'-י"ב)</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מהם עיקרי הציווי בפסוקים י'-י"ג - את מי מלים, מתי, ולכמה זמן?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -268,8 +268,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "וּנְמַלְתֶּם אֵת בְּשַׂר עָרְלַתְכֶם" (פסוק י"א)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וּנְמַלְתֶּם אֵת בְּשַׂר עָרְלַתְכֶם" (פסוק י"א)</p>
           <div class="qb-meforesh">
             <span class="qb-src">ספר החינוך, מצוה ב'</span>
             והעם הנבחר חפץ השם יתברך להשלים תכונתו, ורצה להיות ההשלמה על ידי האדם, ולא בראו שלם מבטן, לרמוז אליו כי כאשר תושלם צורת גופו על ידו, כן בידו להשלים צורת נפשו בהכשר פעולותיו.
@@ -283,8 +283,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "וְעָרֵל זָכָר אֲשֶׁר לֹא יִמּוֹל... וְנִכְרְתָה הַנֶּפֶשׁ הַהִוא" (פסוק י"ד)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וְעָרֵל זָכָר אֲשֶׁר לֹא יִמּוֹל... וְנִכְרְתָה הַנֶּפֶשׁ הַהִוא" (פסוק י"ד)</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מה קורה, לפי פסוק י"ד, למי שלא נימול? ואילו שני ביטויים חוזרים בקטע ומדגישים שזו מצווה נצחית?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -317,8 +317,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "לִבְרִית עוֹלָם, לִהְיוֹת לְךָ לֵאלֹהִים וּלְזַרְעֲךָ אַחֲרֶיךָ" (פסוק ז')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "לִבְרִית עוֹלָם, לִהְיוֹת לְךָ לֵאלֹהִים וּלְזַרְעֲךָ אַחֲרֶיךָ" (פסוק ז')</p>
           <div class="qb-meforesh">
             <span class="qb-src">אברבנאל (פסוק ז') - "לִבְרִית עוֹלָם"</span>
             ר"ל [רצונו לומר] נצחי ומתמיד. והברית הוא: "להיות לך לאלהים ולזרעך אחריך", ר"ל שתדבק ההשגחה באברהם כל ימיו, וגם כן תדבק בזרעו בסבתו וזכותו - וזה טעם "אחריך".
@@ -332,8 +332,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "וְאַתָּה אֶת בְּרִיתִי תִשְׁמֹר" (פסוק ט') לעומת "לְזַרְעֲךָ נָתַתִּי אֶת הָאָרֶץ הַזֹּאת" (ט"ו, י"ח)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וְאַתָּה אֶת בְּרִיתִי תִשְׁמֹר" (פסוק ט') לעומת "לְזַרְעֲךָ נָתַתִּי אֶת הָאָרֶץ הַזֹּאת" (ט"ו, י"ח)</p>
           <div class="vs-compare" role="img" aria-label="השוואה: ברית בין הבתרים חד-צדדית מול ברית המילה דו-צדדית">
             <div class="vs-side vs-a">
               <span class="vs-icon" aria-hidden="true">🔥</span>
@@ -395,8 +395,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "כִּי אַב הֲמוֹן גּוֹיִם נְתַתִּיךָ" (פסוק ה') לעומת "כִּי שָׂרָה שְׁמָהּ" (פסוק ט"ו)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "כִּי אַב הֲמוֹן גּוֹיִם נְתַתִּיךָ" (פסוק ה') לעומת "כִּי שָׂרָה שְׁמָהּ" (פסוק ט"ו)</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">מה משמעות השם "אברהם" ("אב המון גויים") לעומת "אברם"? ומה משמעות השם "שרה" לעומת "שרי"?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -405,8 +405,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק" (פסוק י"ז) לעומת "לוּ יִשְׁמָעֵאל יִחְיֶה לְפָנֶיךָ" (פסוק י"ח)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק" (פסוק י"ז) לעומת "לוּ יִשְׁמָעֵאל יִחְיֶה לְפָנֶיךָ" (פסוק י"ח)</p>
           <div class="qb-meforesh">
             <span class="qb-src">רש"י (פסוק י"ז) - "וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק"</span>
             זה תרגם אונקלוס: וחדי (=ושמח) - לשון שמחה.
@@ -420,8 +420,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק... וְקָרָאתָ אֶת שְׁמוֹ יִצְחָק" (פסוקים י"ז, י"ט)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק... וְקָרָאתָ אֶת שְׁמוֹ יִצְחָק" (פסוקים י"ז, י"ט)</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">10</span><span class="q-text" id="a11y-lbl-10">מאיזו מילה בפרק נגזר השם "יצחק" שניתן לבן העתיד להיוולד?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-10" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -454,8 +454,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "וַיָּמָל אֶת בְּשַׂר עָרְלָתָם בְּעֶצֶם הַיּוֹם הַזֶּה" (פסוק כ"ג)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וַיָּמָל אֶת בְּשַׂר עָרְלָתָם בְּעֶצֶם הַיּוֹם הַזֶּה" (פסוק כ"ג)</p>
           <div class="qb-meforesh">
             <span class="qb-src">רש"י (פסוק כ"ג) - "בְּעֶצֶם הַיּוֹם הַזֶּה"</span>
             בו ביום שנצטווה, ביום ולא בלילה, לא נתיירא לא מן הגויים ולא מן הלצנים, ושלא יהיו אויביו ובני דורו אומרים: אילו ראינוהו לא הנחנוהו למול ולקיים מצוותו של מקום.

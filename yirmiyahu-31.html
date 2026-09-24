@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
@@ -23,7 +23,7 @@
   .qb-meforesh.completed .qb-src{ color:var(--teal); }
   .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
-  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
   .grid > .topic-col:first-child{ margin-top:0; }
 
   .qb-topic{ min-width:0; }
@@ -50,7 +50,7 @@
   }
 
   .qb-branches{
-    display:flex; flex-direction:column; gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
@@ -157,8 +157,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">רד"ק: דו-שיח בין הקב"ה לכנסת ישראל - "אמרה: אמת הוא זה, כי מזמן רחוק ה' נראה לי אך עתה הסתיר פניו ממני בגלות. ענה אותם הא-ל: 'ואהבת עולם אהבתיך' - לא הייתה אהבתי אליך לפי שעה, אלא להיות האהבה לעולם"</p>
         <div class="qb-card">
+          <p class="q-cue">רד"ק: דו-שיח בין הקב"ה לכנסת ישראל - "אמרה: אמת הוא זה, כי מזמן רחוק ה' נראה לי אך עתה הסתיר פניו ממני בגלות. ענה אותם הא-ל: 'ואהבת עולם אהבתיך' - לא הייתה אהבתי אליך לפי שעה, אלא להיות האהבה לעולם"</p>
           <div class="qb-meforesh">
             <span class="qb-src">רד"ק, ירמיהו ל"א, ב'</span>
             פסוקים אלו מהווים דו-שיח בין הקב"ה לכנסת ישראל: "אומרת כנסת ישראל בגלות למה שאמר האל 'מצא חן במדבר': אמרה היא - אמת הוא זה, כי מזמן רחוק ה' נראה לי, אך עתה הסתיר פניו ממני בגלות. ענה אותם הא-ל: 'ואהבת עולם אהבתיך' - לא הייתה אהבתי אליך לפי שעה, אלא להיות האהבה לעולם."
@@ -196,8 +196,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: יש מפרשים את הפסוק על בכיית רחל אמנו ממש, ויש המפרשים את "הקול" כבכיים של גולי יהודה ובנימין שעברו דרך רמה (מצפון לירושלים) בדרכם לבבל</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: יש מפרשים את הפסוק על בכיית רחל אמנו ממש, ויש המפרשים את "הקול" כבכיים של גולי יהודה ובנימין שעברו דרך רמה (מצפון לירושלים) בדרכם לבבל</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">קיימות שתי גישות פרשניות למקור "הקול ברמה" - האחת רואה בו בכי סמלי של רחל אמנו עצמה, והשנייה רואה בו תיאור ריאלי של בכיית הגולים שעברו בפועל דרך רמה בדרכם לבבל (כמתועד בירמיהו מ'). מה היתרון הרעיוני של כל אחת מהגישות, ומה מאבד כל אחת מהן אם מקבלים רק אותה בלבד?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -206,8 +206,8 @@
           </div>
         </div>
 
-        <p class="q-cue">רש"י (מדרש אגדה): אבות ואמהות ניגשו לפייס את ה' על חטא מנשה ולא נתפייס; רחל אמרה "רחמי מי מרובים - רחמיך או רחמי בשר ודם?... שמסרתי לה את סימני"</p>
         <div class="qb-card">
+          <p class="q-cue">רש"י (מדרש אגדה): אבות ואמהות ניגשו לפייס את ה' על חטא מנשה ולא נתפייס; רחל אמרה "רחמי מי מרובים - רחמיך או רחמי בשר ודם?... שמסרתי לה את סימני"</p>
           <div class="qb-meforesh">
             <span class="qb-src">רש"י (מדרש אגדה), ירמיהו ל"א, י"ד</span>
             הלכו אבות ואימהות לפייס את הקב"ה על שהעמיד מנשה דמות בהיכל, ולא נתפייס. נכנסה רחל, אמרה לפניו: "ריבונו של עולם, רחמי מי מרובים - רחמיך או רחמי בשר ודם? הוי אומר רחמיך מרובים. והלא אני הכנסתי צרתי בתוך ביתי... כשבאתי ליכנס לחופה הכניסו את אחותי [במקומי], ולא די ששתקתי אלא שמסרתי לה [את] סימני. אף אתה, אם הכניסו בניך צרתך בביתך [פסל לבית המקדש], שתוק להם." אמר לה: "יפה למדת סנגוריה, יש שכר לפעולתך."
@@ -245,8 +245,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">שד"ל: "לִפְעֻלָּתֵךְ - הפעולה היא הבכי והנהי שעשתה על בניה"</p>
         <div class="qb-card">
+          <p class="q-cue">שד"ל: "לִפְעֻלָּתֵךְ - הפעולה היא הבכי והנהי שעשתה על בניה"</p>
           <div class="qb-meforesh">
             <span class="qb-src">שד"ל, ירמיהו ל"א, ט"ו</span>
             "לִפְעֻלָּתֵךְ" - הפעולה היא הבכי והנהי שעשתה על בניה.
@@ -284,8 +284,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">ר' יוסף קרא: "מקרא תמוה הוא זה... וכי בן יקיר הוא לי אפרים?... והלא מעולם ממרה היה על דברי... אלא, על אשר הוא מתנחם ושב מפשעו, על כן המו מעי לו"</p>
         <div class="qb-card">
+          <p class="q-cue">ר' יוסף קרא: "מקרא תמוה הוא זה... וכי בן יקיר הוא לי אפרים?... והלא מעולם ממרה היה על דברי... אלא, על אשר הוא מתנחם ושב מפשעו, על כן המו מעי לו"</p>
           <div class="qb-meforesh">
             <span class="qb-src">ר' יוסף קרא, ירמיהו ל"א, י"ח</span>
             "הֲבֵן יַקִּיר לִי אֶפְרַיִם, אִם יֶלֶד שַׁעֲשֻׁעִים" - מקרא תמוה הוא זה (יש לקרוא כשאלה רטורית): וכי בן יקיר הוא לי אפרים? או ילד שעשועים?... והלא מעולם ממרה היה על דברי, ואין בכל השבטים שחטא והחטיא את ישראל כשבט אפרים! אלא, על אשר הוא מתנחם ושב מפשעו, על כן המו מעי לו, "ורחם ארחמנו".
@@ -299,8 +299,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת לסיכום: שלושה מרכיבים מוזכרים בנבואת ל"א כגורמים לתהליך הגאולה - אהבת ה' ומידת הרחמים, בכיית רחל אמנו, וחזרה בתשובה של היושבים בגולה</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת לסיכום: שלושה מרכיבים מוזכרים בנבואת ל"א כגורמים לתהליך הגאולה - אהבת ה' ומידת הרחמים, בכיית רחל אמנו, וחזרה בתשובה של היושבים בגולה</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">הפרק משלב שלושה גורמים שונים לגמרי כמניעים לתהליך הגאולה: אהבה אלוקית קבועה, דמעות אימהיות של רחל, ותשובה אנושית של החוטאים עצמם. מדוע, לדעתכם, אף אחד מהגורמים הללו אינו מספיק בפני עצמו, ומדוע נדרש השילוב של שלושתם יחד להנעת הגאולה?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>

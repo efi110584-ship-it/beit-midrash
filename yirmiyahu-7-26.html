@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
@@ -23,7 +23,7 @@
   .qb-meforesh.completed .qb-src{ color:var(--teal); }
   .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
-  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
   .grid > .topic-col:first-child{ margin-top:0; }
 
   .qb-topic{ min-width:0; }
@@ -50,7 +50,7 @@
   }
 
   .qb-branches{
-    display:flex; flex-direction:column; gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
@@ -157,8 +157,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">שד"ל: "אל תבטחו לכם וגו' - אל תבטחו במה שאתם רגילים לומר... שהמקום הזה הוא היכל ה', ולא יתכן שיפול ביד אויב"</p>
         <div class="qb-card">
+          <p class="q-cue">שד"ל: "אל תבטחו לכם וגו' - אל תבטחו במה שאתם רגילים לומר... שהמקום הזה הוא היכל ה', ולא יתכן שיפול ביד אויב"</p>
           <div class="qb-meforesh">
             <span class="qb-src">שד"ל, ירמיהו ז', ד'</span>
             "אל תבטחו לכם וגו'" - אל תבטחו במה שאתם רגילים לומר, או שנביאי השקר רגילים לומר, והוא שהמקום הזה הוא היכל ה', ולא יתכן שיפול ביד אויב, ומתוך כך אתם בוטחים שגם אתם לא תפלו ביד האויבים.
@@ -172,8 +172,8 @@
           </div>
         </div>
 
-        <p class="q-cue">רד"ק: "ואמר שלושה פעמים היכל ה' לפי שהיו שלושה: אולם, היכל ודביר... ויתכן כי הכפל [החזרה שלוש פעמים] - לחזק העניין"</p>
         <div class="qb-card">
+          <p class="q-cue">רד"ק: "ואמר שלושה פעמים היכל ה' לפי שהיו שלושה: אולם, היכל ודביר... ויתכן כי הכפל [החזרה שלוש פעמים] - לחזק העניין"</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">הפסוק חוזר שלוש פעמים על הביטוי "הֵיכַל ה'" ברצף אחד. בין אם הכוונה לשלושת חלקי המקדש (רד"ק) ובין אם למטרת הדגשה, מה מלמדת עצם החזרה המשולשת על אופי הטעות שירמיהו מוקיע?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -207,8 +207,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: הפסוקים בנויים כלל ופירוט - "הֵיטֵיב תֵּיטִיבוּ אֶת דַּרְכֵיכֶם" (הכלל) מתפרט למצוות קונקרטיות: משפט בין אדם לחברו, איסור עושק גר-יתום-אלמנה, איסור שפיכות דמים, ואיסור עבודה זרה</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: הפסוקים בנויים כלל ופירוט - "הֵיטֵיב תֵּיטִיבוּ אֶת דַּרְכֵיכֶם" (הכלל) מתפרט למצוות קונקרטיות: משפט בין אדם לחברו, איסור עושק גר-יתום-אלמנה, איסור שפיכות דמים, ואיסור עבודה זרה</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">רשימת המעשים הנדרשים משלבת מצוות "בין אדם לחברו" (משפט, גר-יתום-אלמנה, דם נקי) עם מצוות "בין אדם למקום" (איסור עבודה זרה). מדוע, לדעתכם, משלב ירמיהו את שני התחומים יחד באותה דרישה, ואינו מפריד ביניהם?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -217,8 +217,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: ירמיהו מזכיר את חורבן שילה - משכן ה' הראשון שחרב בעקבות חטאי העם - כתקדים מזהיר לגורל האפשרי של מקדש ירושלים</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: ירמיהו מזכיר את חורבן שילה - משכן ה' הראשון שחרב בעקבות חטאי העם - כתקדים מזהיר לגורל האפשרי של מקדש ירושלים</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">ירמיהו בוחר להוכיח את טענתו באמצעות דוגמה היסטורית קונקרטית - חורבן שילה - ולא רק באמצעות איום מופשט. מה היתרון הרטורי בהבאת תקדים היסטורי ממשי, במיוחד כלפי קהל שכבר טוען שהמקדש "לא יכול" לחרוב?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -253,8 +253,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">מלבי"ם: "אין משפט מות לאיש הזה... כי בשם ה' אלוקינו דבר ונבואתו אמת. אולם בכל זה עדיין היה דעת העם להמית אותו שלא במשפט"</p>
         <div class="qb-card">
+          <p class="q-cue">מלבי"ם: "אין משפט מות לאיש הזה... כי בשם ה' אלוקינו דבר ונבואתו אמת. אולם בכל זה עדיין היה דעת העם להמית אותו שלא במשפט"</p>
           <div class="qb-meforesh">
             <span class="qb-src">מלבי"ם, ירמיהו כ"ו, ט"ז</span>
             "אין משפט מות לאיש הזה" - רוצה לומר שאי אפשר להמיתו במשפט ובדין, כי בשם ה' אלוקינו דבר ונבואתו אמת. אולם בכל זה עדיין היה דעת העם להמית אותו שלא במשפט, כדי לסלק ההיזק שמגיע להם לפי דעתם מנבואתו. ויקומו - אז קמו אנשים מזקני העם להשתיק את העם ולברר שאין להרגו בשביל יראת נזק שיגיע מנבואותיו.
@@ -268,8 +268,8 @@
           </div>
         </div>
 
-        <p class="q-cue">מהר"י קרא: "מה שלא הרגו את ירמיהו לפי שיד אחיקם בן שפן היתה את ירמיהו לבלתי תת אותו ביד העם להורגו"</p>
         <div class="qb-card">
+          <p class="q-cue">מהר"י קרא: "מה שלא הרגו את ירמיהו לפי שיד אחיקם בן שפן היתה את ירמיהו לבלתי תת אותו ביד העם להורגו"</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">בניגוד למיכה שניצל, אוריה בן שמעיהו, שהתנבא "כְּדִבְרֵי יִרְמְיָהוּ" ממש, נרדף על ידי המלך יהויקים ונרצח בחרב, אף שברח למצרים. גם ירמיהו עצמו ניצל, לדברי מהר"י קרא, רק הודות להשפעתו האישית של אחיקם בן שפן. מה מלמדים שני הגורלות השונים הללו - של מיכה ואוריה, ושל ירמיהו עצמו - על מידת התלות של גורל הנביא בנסיבות מקריות ופוליטיות, ולא רק בצדקת נבואתו?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>

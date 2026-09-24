@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
@@ -23,7 +23,7 @@
   .qb-meforesh.completed .qb-src{ color:var(--teal); }
   .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
-  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
   .grid > .topic-col:first-child{ margin-top:0; }
 
   .qb-topic{ min-width:0; }
@@ -50,7 +50,7 @@
   }
 
   .qb-branches{
-    display:flex; flex-direction:column; gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
@@ -159,8 +159,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">רש"י פס' כ"ח: "איש לנגד ביתו" - "כל אחד היה בונה כנגד ביתו"</p>
         <div class="qb-card">
+          <p class="q-cue">רש"י פס' כ"ח: "איש לנגד ביתו" - "כל אחד היה בונה כנגד ביתו"</p>
           <div class="qb-meforesh">
             <span class="qb-src">רש"י, נחמיה ג', כ"ח</span>
             "איש לנגד ביתו" - כל אחד היה בונה כנגד ביתו. כאן מתבטאת חכמתו של נחמיה כמנהיג, שהצליח לעורר ולרתום את כל יושבי ירושלים לקום ולעשות מעשה להגנתם וביטחונם, כשהוא מנצל קודם כל את הנכונות של היושבים לדאוג לביטחון משפחותיהם.
@@ -174,8 +174,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: הרשימה נעה בסדר גאוגרפי רציף סביב כל היקף החומה</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: הרשימה נעה בסדר גאוגרפי רציף סביב כל היקף החומה</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">הכתוב טורח לפרט רשימה ארוכה של שמות ומקומות בסדר גאוגרפי מדויק. מדוע, לדעתכם, חשוב היה למחבר הספר לתעד את הפרטים הללו, ולא להסתפק בתיאור כללי של "העם בנה את החומה"?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -210,8 +210,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: הלעג מתמקד בגובה השאיפה של הבונים ("הַיְחַיּוּ אֶת הָאֲבָנִים... וְהֵמָּה שְׂרוּפוֹת?") ולא רק ביכולתם הפיזית</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: הלעג מתמקד בגובה השאיפה של הבונים ("הַיְחַיּוּ אֶת הָאֲבָנִים... וְהֵמָּה שְׂרוּפוֹת?") ולא רק ביכולתם הפיזית</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">סנבלט וטוביה לועגים לבונים בסדרת שאלות רטוריות - החל מספקנות לגבי היכולת הטכנית, וכלה בהמעטה מוחלטת ("אפילו שועל יוכל לפרוץ את חומתם"). מה מטרתו הפסיכולוגית של לעג מדורג כזה?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -220,8 +220,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "וַתִּקָּשֵׁר כָּל הַחוֹמָה עַד חֶצְיָהּ, וַיְהִי לֵב לָעָם לַעֲשׂוֹת" (ד', ו') - חרף הלעג</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וַתִּקָּשֵׁר כָּל הַחוֹמָה עַד חֶצְיָהּ, וַיְהִי לֵב לָעָם לַעֲשׂוֹת" (ד', ו') - חרף הלעג</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">חרף הלעג הפסוק מדגיש שהעבודה נמשכה עד שהחומה הגיעה למחציתה, "וַיְהִי לֵב לָעָם לַעֲשׂוֹת". מדוע, לדעתכם, לא הצליח הלעג לשבור את רוח הבונים כפי שכוונו הצרים?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -256,8 +256,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">רש"י: "ויהי כאשר באו היהודים היושבים אצלם ויאמרו לנו עשר פעמים" - התרו בנו אותם היהודים עד עשר פעמים להילחם באויבינו, כי הם באים למלחמה</p>
         <div class="qb-card">
+          <p class="q-cue">רש"י: "ויהי כאשר באו היהודים היושבים אצלם ויאמרו לנו עשר פעמים" - התרו בנו אותם היהודים עד עשר פעמים להילחם באויבינו, כי הם באים למלחמה</p>
           <div class="qb-meforesh">
             <span class="qb-src">רש"י, נחמיה ד', ו'</span>
             "ויהי כאשר באו היהודים היושבים אצלם" - ועתה נאספו הצרים אשר נתקשרו יחד לבוא להילחם בנו עם היהודים אשר היו בינותם בארצותם. ואותם היהודים אשר נתחברו עמהם, באו לפני החיל כדרך אנשי המלחמה לדבר אלינו. ובענין הזה הערימו היהודים את האויבים: "ויאמרו לנו עשר פעמים" - התרו בנו אותם היהודים עד עשר פעמים להילחם באויבינו, כי הם באים למלחמה.
@@ -271,8 +271,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "בְּאַחַת יָדוֹ עֹשֶׂה בַמְּלָאכָה, וְאַחַת מַחֲזֶקֶת הַשָּׁלַח" (ד', י"א)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "בְּאַחַת יָדוֹ עֹשֶׂה בַמְּלָאכָה, וְאַחַת מַחֲזֶקֶת הַשָּׁלַח" (ד', י"א)</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">נחמיה מארגן את העם כך שמחצית בונים ומחצית שומרים, וכל בונה עצמו אוחז נשק ביד אחת. מה משקף פתרון זה על התמודדותו של נחמיה בין הצורך להמשיך בבנייה לבין הצורך להתגונן?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -308,8 +308,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: מדובר בעבודת בנייה פיזית שהתרחשה בימי הקיץ הלוהטים, תוך התמודדות עם סכנות רבות</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: מדובר בעבודת בנייה פיזית שהתרחשה בימי הקיץ הלוהטים, תוך התמודדות עם סכנות רבות</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">חומת ירושלים כולה הושלמה תוך 52 יום בלבד, במהלך חודשי הקיץ החמים ותוך התמודדות מתמדת עם איומים. מה, לדעתכם, מסביר את קצב הבנייה המהיר להפליא?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -318,8 +318,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: בחנוכת המקדש (עזרא ו') מוזכרת פעם אחת המילה "חדוה"; בחנוכת החומה מוזכר שבע פעמים הביטוי "שמחה"</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: בחנוכת המקדש (עזרא ו') מוזכרת פעם אחת המילה "חדוה"; בחנוכת החומה מוזכר שבע פעמים הביטוי "שמחה"</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">גילויי השמחה בחנוכת החומה גדולים בבירור מגילויי השמחה בחנוכת המקדש. מדוע, לדעתכם, עוררה השלמת חומת העיר שמחה גדולה אף יותר מהשלמת בניין המקדש עצמו?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>

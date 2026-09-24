@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
   .q-topic{
     display:flex; align-items:center; gap:.5rem; font-family:'Frank Ruhl Libre',serif; font-weight:800;
     font-size:.92rem; color:#fff; background:var(--acc); border-radius:9px; padding:.55rem .9rem;
@@ -42,7 +42,7 @@
   .vs-desc{ font-size:.72rem; line-height:1.45; color:var(--ink-soft); }
   .vs-mid{ flex:none; width:2rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.72rem; color:#fff; background:var(--ink); }
 
-  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
   .grid > .topic-col:first-child{ margin-top:0; }
 
   /* ========== תרשים-זרימה: קוביית-שורש שמסתעפת לקוביות-שאלה ========== */
@@ -70,7 +70,7 @@
   }
 
   .qb-branches{
-    display:flex; flex-direction:column; gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
@@ -195,8 +195,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "יֻקַּח נָא מְעַט מַיִם... וְאֶקְחָה פַת לֶחֶם" (פס' ד'-ה') לעומת "בֶּן בָּקָר רַךְ וָטוֹב... חֶמְאָה וְחָלָב" (פס' ז'-ח')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "יֻקַּח נָא מְעַט מַיִם... וְאֶקְחָה פַת לֶחֶם" (פס' ד'-ה') לעומת "בֶּן בָּקָר רַךְ וָטוֹב... חֶמְאָה וְחָלָב" (פס' ז'-ח')</p>
           <div class="question-block">
             <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>צדיקים אומרים מעט ועושים הרבה</p>
             <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מה מציע אברהם לאורחים במילים (פס' ג'-ה'), ומה הוא בפועל מגיש להם (פס' ו'-ח')? מה זה מלמד על מידת הכנסת האורחים שלו?</span></div>
@@ -206,8 +206,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "וַיְמַהֵר אַבְרָהָם... וְאֶל הַבָּקָר רָץ אַבְרָהָם... מַהֲרִי..." (פס' ו'-ז')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וַיְמַהֵר אַבְרָהָם... וְאֶל הַבָּקָר רָץ אַבְרָהָם... מַהֲרִי..." (פס' ו'-ז')</p>
           <div class="question-block">
             <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>פעלי הזריזות בהכנסת האורחים</p>
             <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">אילו פעלים חוזרים בקטע, ומה הם מדגישים באופיו של אברהם כמארח?</span></div>
@@ -248,8 +248,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "שׁוֹב אָשׁוּב אֵלֶיךָ כָּעֵת חַיָּה, וְהִנֵּה בֵן לְשָׂרָה אִשְׁתֶּךָ... וְשָׂרָה שֹׁמַעַת" (פס' י')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "שׁוֹב אָשׁוּב אֵלֶיךָ כָּעֵת חַיָּה, וְהִנֵּה בֵן לְשָׂרָה אִשְׁתֶּךָ... וְשָׂרָה שֹׁמַעַת" (פס' י')</p>
           <div class="question-block">
             <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>הבשורה לאברהם ושרה על לידת יצחק</p>
             <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מה מבטיח האורח לאברהם בפסוק י', ומדוע מודגש שגם שרה שומעת זאת מפתח האוהל?</span></div>
@@ -259,8 +259,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "וַתִּצְחַק שָׂרָה בְּקִרְבָּהּ... אַחֲרֵי בְלֹתִי הָיְתָה לִּי עֶדְנָה וַאדֹנִי זָקֵן" (פס' י"ב)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וַתִּצְחַק שָׂרָה בְּקִרְבָּהּ... אַחֲרֵי בְלֹתִי הָיְתָה לִּי עֶדְנָה וַאדֹנִי זָקֵן" (פס' י"ב)</p>
           <div class="question-block">
             <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>צחוקה של שרה וסיבותיו</p>
             <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">מדוע צחקה שרה בקרבה, ובמה בדיוק היא מטילה ספק?</span></div>
@@ -352,8 +352,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "כִּי יְדַעְתִּיו לְמַעַן אֲשֶׁר יְצַוֶּה אֶת בָּנָיו" (פס' י"ט)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "כִּי יְדַעְתִּיו לְמַעַן אֲשֶׁר יְצַוֶּה אֶת בָּנָיו" (פס' י"ט)</p>
           <div class="qb-meforesh">
             <span class="qb-src">רש"י (י"ט) ד"ה 'כי ידעתיו'</span>
             לשון חיבה... שהמחבב את האדם מקרבו אצלו ויודעו ומכירו. ולמה ידעתיו? למען אשר יצוה - לפי שהוא מצוה את בניו עליי לשמור דרכיי.
@@ -494,8 +494,8 @@
           </div>
         </div>
 
-        <p class="q-cue">מושג מפתח: "בְּתוֹךְ הָעִיר" (פסוק כ"ד)</p>
         <div class="qb-card">
+          <p class="q-cue">מושג מפתח: "בְּתוֹךְ הָעִיר" (פסוק כ"ד)</p>
           <div class="qb-meforesh">
             <span class="qb-src">נחמה ליבוביץ', עיונים חדשים בספר בראשית, עמ' 131-132</span>
             אמנם יש בכוח המיעוט להכריע גורל המקום לכף זכות, אבל רק אם אותם מעטים בודדים צדיקים הם, מעורים ומעורבים בחיי העיר, בעסקיה, במשאה ובמתנה, אם מופיעים ומשפיעים הם בציבוריותה. אבל אם אין אותם בודדים אלא נחבאים וחיים חיי צדקות בחדרי חדרים - הם את נפשם, אולי, יצילו, אך בוודאי אין זכותם יכולה להגן על העיר.

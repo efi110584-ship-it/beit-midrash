@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
@@ -53,7 +53,7 @@
   .flow-icon{ font-size:.95rem; }
   .flow-arrow{ color:var(--acc); font-size:1rem; margin:.1rem 0; }
 
-  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
   .grid > .topic-col:first-child{ margin-top:0; }
 
   .qb-topic{ min-width:0; }
@@ -80,7 +80,7 @@
   }
 
   .qb-branches{
-    display:flex; flex-direction:column; gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
@@ -190,8 +190,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "נַחֲמוּ נַחֲמוּ עַמִּי" (פסוק א') - כפילות המילה "נחמו"</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "נַחֲמוּ נַחֲמוּ עַמִּי" (פסוק א') - כפילות המילה "נחמו"</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מדוע, לדעתכם, פותח הנביא בכפילות "נַחֲמוּ נַחֲמוּ"? מה מבשר פסוק זה, בהשוואה לטון ששרר בפרק א' ובפרק ה' שכבר למדנו?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -200,8 +200,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "כִּי מָלְאָה צְבָאָהּ כִּי נִרְצָה עֲוֹנָהּ, כִּי לָקְחָה מִיַּד ה' כִּפְלַיִם בְּכָל חַטֹּאתֶיהָ" (פסוק ב')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "כִּי מָלְאָה צְבָאָהּ כִּי נִרְצָה עֲוֹנָהּ, כִּי לָקְחָה מִיַּד ה' כִּפְלַיִם בְּכָל חַטֹּאתֶיהָ" (פסוק ב')</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מהי הבשורה המרכזית שיש להעביר לירושלים בפסוק זה, ומדוע יש צורך "לדבר על לבה" - כלומר, לפנות אליה בדברי חיזוק ולא רק להודיע לה עובדה יבשה?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -248,8 +248,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "כָּל גֶּיא יִנָּשֵׂא וְכָל הַר וְגִבְעָה יִשְׁפָּלוּ... וְנִגְלָה כְּבוֹד ה'" (פסוקים ד'-ה')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "כָּל גֶּיא יִנָּשֵׂא וְכָל הַר וְגִבְעָה יִשְׁפָּלוּ... וְנִגְלָה כְּבוֹד ה'" (פסוקים ד'-ה')</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">תארו במילים שלכם את ארבעת שינויי הנוף הנדרשים כדי להכין את "דרך ה'". לאיזה אירוע היסטורי מוקדם יותר, שכבר למדתם עליו, מזכירה תמונת המסע הזאת?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -258,8 +258,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "כָּל הַבָּשָׂר חָצִיר... יָבֵשׁ חָצִיר נָבֵל צִיץ, וּדְבַר אֱלֹקֵינוּ יָקוּם לְעוֹלָם" (פסוקים ו'-ח')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "כָּל הַבָּשָׂר חָצִיר... יָבֵשׁ חָצִיר נָבֵל צִיץ, וּדְבַר אֱלֹקֵינוּ יָקוּם לְעוֹלָם" (פסוקים ו'-ח')</p>
           <div class="qb-meforesh">
             <span class="qb-src">מצודת דוד, פסוקים ו', ח'</span>
             "קוֹל אֹמֵר קְרָא" - קול הנבואה אומר לנביא לקרוא ולהכריז ברבים. "וְאָמַר" - כאילו הנביא שואל: מה אקרא? וקול הנבואה משיב לומר: כל הבשר חציר, וכל חסדם וגבורתם [אינם נצחיים]. "יָבֵשׁ חָצִיר" - העם חלוש כחציר, וכל חסד שעושים דומה לציץ השדה הנובל במהרה.
@@ -302,8 +302,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "הָרִימִי בַכֹּחַ קוֹלֵךְ... הָרִימִי אַל תִּירָאִי" (פסוק ט')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "הָרִימִי בַכֹּחַ קוֹלֵךְ... הָרִימִי אַל תִּירָאִי" (פסוק ט')</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מיהי "מבשרת ציון", ומהי הבשורה שעליה להכריז בקול רם וללא פחד לערי יהודה?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -312,8 +312,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "הִנֵּה אֲדֹנָי ה' בְּחָזָק יָבוֹא" (פסוק י') לעומת "כְּרֹעֶה עֶדְרוֹ יִרְעֶה... וּבְחֵיקוֹ יִשָּׂא" (פסוק י"א)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "הִנֵּה אֲדֹנָי ה' בְּחָזָק יָבוֹא" (פסוק י') לעומת "כְּרֹעֶה עֶדְרוֹ יִרְעֶה... וּבְחֵיקוֹ יִשָּׂא" (פסוק י"א)</p>
           <div class="vs-compare" role="img" aria-label="שני התיאורים המשלימים של ה' בפרק - גיבור חזק ורועה רחמן">
             <div class="vs-side vs-a">
               <span class="vs-icon" aria-hidden="true">💪</span>
