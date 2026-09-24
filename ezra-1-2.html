@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר עזרא — דף עבודה אינטראקטיבי (פרקים א'-ב', הצהרת כורש והעליות בימיו)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  .topic-banner{ margin-top:2.6rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  .qb-topic{ grid-column: 1 / -1; }
+  .qb-root{
+    max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
+    padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
+  }
+  .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
+  .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
+  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
+  .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
+  .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
+
+  .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
+  .qb-connector::after{
+    content:""; position:absolute; bottom:-1px; right:50%; transform:translateX(50%);
+    border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
+  }
+
+  .qb-branches{
+    display:flex; flex-wrap:wrap; gap:1.1rem;
+    position:relative; padding-top:22px; margin-top:-22px;
+  }
+  .qb-branches::before{
+    content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
+  }
+  .qb-card{
+    flex:1 1 260px;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
+    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
+    min-width:0;
+  }
+  .qb-card > *{ width:100%; max-width:640px; }
+  .qb-meforesh{
+    font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+    background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
+    padding:.75rem .9rem; box-shadow:var(--shadow);
+  }
+  .qb-meforesh .qb-src{
+    display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
+    font-size:.8rem; margin-bottom:.35rem;
+  }
+  .qb-meforesh .qb-src::before{ content:"💬"; font-size:1.05rem; line-height:1; }
+  .qb-card .question-block{ display:flex; flex-direction:column; gap:.5rem; }
+  .qb-card .question-row{ align-items:flex-start; }
+  .qb-card .q-text{ font-size:.86rem; line-height:1.5; }
+  .qb-card textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
+  .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
+  .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-yb">כיתה י"ב</a>
+  <span class="sep">›</span>
+  <a href="ezra-nechemia-hub.html">עזרא ונחמיה</a>
+  <span class="sep">›</span>
+  <span class="current">פרקים א'-ב'</span>
+</nav>
+
+<header>
+  <div class="eyebrow">ספר עזרא · תקופת בית שני · כיתה י"ב</div>
+  <h1>דף עבודה — פרקים א'-ב', "הַצְהָרַת כּוֹרֶשׁ וְהָעֲלִיּוֹת בְּיָמָיו"</h1>
+  <p class="sub">בכל נושא: קודם קוראים את הפסוקים בקובייה העליונה, ואז עוברים על כל קוביית-שאלה שמסתעפת ממנה - קוראים את דברי הפרשן (אם יש), כותבים תשובה, ורק אז לוחצים "הצג תשובה" לבדיקה עצמית. הכול נשמר אוטומטית במכשיר שלכם.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 8 שאלות</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main>
+  <div class="grid" id="grid">
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרקים</span>
+        <h2 class="card-title">מה קורה בפרקים א'-ב'?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          בשנת אחת לכורש מלך פרס, שבו בו כבשה פרס את בבל, מכריז כורש הכרזה מפתיעה: ה' ציווה עליו לבנות לו בית בירושלים, וכל מי מעם ישראל שרוצה - רשאי לעלות ולבנות. אנשי המקום תומכים בעולים בכסף, ברכוש ובנדבות למקדש, וכורש אף מוציא מאוצרותיו את כלי בית המקדש שנבוכדנצר לקח מירושלים ומוסרם לעולים. בראש העולים עומד ששבצר, הנשיא ליהודה, שאליו נמסרים הכלים. פרק ב' מפרט את רשימת העולים המונה עשרות אלפים: ראשי האבות, כוהנים, לוויים, אנשים עם בעיות ייחוס, ועוד - ובראשם זרובבל בן שאלתיאל (הנצר לבית דוד) ויהושע בן יהוצדק (הכהן הגדול). הפרק מסתיים בנתינת נדבות לבניין המקדש מפי העם.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <span class="topic-icon" aria-hidden="true">📯</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 4</div>
+        <div class="topic-title">הנבואות המבשרות, והצהרת כורש כהגשמתן</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">📯</span>
+        <div class="qb-root-label">עזרא א', א'</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">ה' מעיר את רוחו של כורש, וזה מכריז בכל ממלכתו על בניין בית ה' בירושלים</div>
+          <div class="pasuk-line">וּבִשְׁנַת אַחַת לְכוֹרֶשׁ מֶלֶךְ פָּרַס, לִכְלוֹת דְּבַר ה' מִפִּי יִרְמְיָה, הֵעִיר ה' אֶת רוּחַ כֹּרֶשׁ מֶלֶךְ פָּרַס, וַיַּעֲבֶר קוֹל בְּכָל מַלְכוּתוֹ וְגַם בְּמִכְתָּב לֵאמֹר.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">תזכורת: "מֵקִים דְּבַר עַבְדּוֹ... הָאֹמֵר לְכוֹרֶשׁ רֹעִי וְכָל חֶפְצִי יַשְׁלִם" (ישעיהו מ"ד, כ"ו-כ"ח); "כֹּה אָמַר ה' לִמְשִׁיחוֹ לְכוֹרֶשׁ" (ישעיהו מ"ה, א'); "לְפִי מְלֹאת לְבָבֶל שִׁבְעִים שָׁנָה אֶפְקֹד אֶתְכֶם" (ירמיהו כ"ט, י')</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">ישעיהו הנביא מנבא על "כורש" בשמו, מאות שנים לפני שנולד, כמי שיצווה על בניין ירושלים וייסוד ההיכל; ירמיהו מנבא שגלות בבל תימשך 70 שנה ואז ישוב ה' את עמו. כיצד פסוק הפתיחה של עזרא א' (המכונה כאן "פסוק הפתיחה") מציג את הצהרת כורש כהגשמה ישירה של שתי הנבואות הללו גם יחד?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הפסוק פותח במפורש "לִכְלוֹת דְּבַר ה' מִפִּי יִרְמְיָה" - כלומר, מציג את המהלך כולו כסיום וכמימוש נבואת ירמיהו על 70 שנות הגלות. מצד שני, עצם הבחירה של ה' דווקא בכורש, מלך זר, כדי להוציא את הכרזתו לפועל, ממלאת את נבואת ישעיהו שהזכירה את כורש בשמו כ"רועי" ש"כל חפצי ישלים". כך שני חוטי הנבואה - זמן הגאולה (ירמיהו) והכלי שדרכו תבוא (ישעיהו) - נפגשים באירוע אחד.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">תזכורת: "כֹּל מַמְלְכוֹת הָאָרֶץ נָתַן לִי ה' אֱלֹקֵי הַשָּׁמָיִם... וְיַעַל לִירוּשָׁלַיִם" (עזרא א', ב'-ד')</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">מה מעורר ציפייה לגאולה באותה שעה?</span>
+            (א) כורש הכניע את מלכות בבל שהחריבה את המקדש. (ב) הנביא ירמיהו ניבא על גלות של 70 שנה, והזמן הזה הסתיים.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="ezra12-mp-1">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">הרב קוק השווה בין הצהרת כורש להצהרת בלפור (1917), ואמר שבלפור היה "נעלה" יותר מכורש. במה, לדעתכם, יכולה הצהרה מודרנית להיחשב "נעלה" יותר מהצהרה מקראית שמומשה במלואה?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הרב קוק מדגיש שכורש היה "מלך כשר" אבל בסופו של דבר "החמיץ" - כלומר, לא עמד בעקביות מאחורי הצהרתו (וכפי שנלמד בהמשך, אף עצר את הבנייה זמן מה). בלפור, לעומתו, "עמד בצדקו מתחילה ועד סוף" - כלומר, המבחן האמיתי של הצהרה מדינית איננו רגע ההכרזה עצמו, אלא העקביות והנחישות לעמוד מאחוריה גם כשמתעוררות מכשולים ולחצים מדיניים.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">📜</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 4</div>
+        <div class="topic-title">נוסח ההצהרה הרשמי בגנזי המלך</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">📜</span>
+        <div class="qb-root-label">עזרא ו', ג'-ה' (מתורגם מארמית)</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line">כֹּרֶשׁ הַמֶּלֶךְ שָׂם צַו: בֵּית הָאֱלֹקִים אֲשֶׁר בִּירוּשָׁלַיִם, הַבַּיִת יִבָּנֶה, מָקוֹם שֶׁזּוֹבְחִים זְבָחִים; וִיסוֹדָיו מוּקָמִים, רוּמוֹ אַמּוֹת שִׁשִּׁים, רָחְבּוֹ אַמּוֹת שִׁשִּׁים. נִדְבָּכִים שֶׁל אֶבֶן גָּלָל שְׁלֹשָׁה, וְנִדְבָּךְ שֶׁל עֵץ אֶחָד, וְהַהוֹצָאָה מִבֵּית הַמֶּלֶךְ תִּנָּתֵן. וְאַף כְּלֵי בֵּית הָאֱלֹקִים שֶׁל זָהָב וָכֶסֶף, אֲשֶׁר נְבוּכַדְנֶצַּר הוֹצִיא מִן הַהֵיכָל אֲשֶׁר בִּירוּשָׁלַיִם וְהוֹבִיל לְבָבֶל - יָשִׁיבוּ, וְיֵלֵךְ לַהֵיכָל אֲשֶׁר בִּירוּשָׁלַיִם לִמְקוֹמוֹ, וְתוֹרִיד בְּבֵית הָאֱלֹקִים.</div>
+        </div>
+        <p class="qb-root-note">הערה: פרק ו' כתוב בארמית. במבחן הבגרות תידרשו לדעת את תוכן הפרק ולא את המילים בעל-פה; במידה ותהיה הפניה לפסוקים מסוימים, יוצג תרגום לעברית.</p>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">תזכורת: הנוסח הרשמי שנמצא בגנזי המלך דריוש, לעומת הנוסח שסופר לאוזני העולים בפרק א'</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">בפרק א' ההצהרה מסופרת כדברי כורש עצמו ("קול בכל מלכותו... בית ה' אלוקי השמים"), ואילו בפרק ו' מובא נוסח ארשמי-רשמי, מפורט מאוד, הכולל מידות בניין ומקור מימון. מדוע, לדעתכם, נשמר לצד הסיפור העברי גם המסמך הרשמי המדויק, על כל פרטיו הטכניים?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> המסמך הרשמי, שנשמר בגנזי המלכות, הוא בעל תוקף משפטי-מדיני - הוא זה שמאפשר, כפי שנראה בהמשך, לדחות בבירור את טענות המתנכלים לבנייה ולהוכיח שהיא נעשית ברשות המלכות. שמירת הנוסח המדויק (מידות, מימון) מלמדת גם על אופיים של ספרי עזרא ונחמיה, המרבים ברשימות ובמסמכים רשמיים - סגנון האופייני לתקופה ולנסיבות (עם שהיה תלוי בהכרה ובתמיכה של השלטון הזר).</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">🏺</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 4</div>
+        <div class="topic-title">עליית ששבצר - עליית הכלים</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🏺</span>
+        <div class="qb-root-label">עזרא א', ה'-י"א</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">ראשי האבות עולים, והנשארים תומכים בהם בכסף וברכוש</div>
+          <div class="pasuk-line"><b>ה':</b> וַיָּקוּמוּ רָאשֵׁי הָאָבוֹת לִיהוּדָה וּבִנְיָמִן וְהַכֹּהֲנִים וְהַלְוִיִּם, לְכֹל הֵעִיר הָאֱלֹקִים אֶת רוּחוֹ, לַעֲלוֹת לִבְנוֹת אֶת בֵּית ה' אֲשֶׁר בִּירוּשָׁלָיִם.</div>
+          <div class="pasuk-gloss">כורש מוציא את כלי בית ה' וממנה את ששבצר, הנשיא ליהודה, על מסירתם</div>
+          <div class="pasuk-line"><b>ז'-ח':</b> וְהַמֶּלֶךְ כּוֹרֶשׁ הוֹצִיא אֶת כְּלֵי בֵית ה'... וַיּוֹצִיאֵם כּוֹרֶשׁ מֶלֶךְ פָּרַס עַל יַד מִתְרְדָת הַגִּזְבָּר, וַיִּסְפְּרֵם לְשֵׁשְׁבַּצַּר הַנָּשִׂיא לִיהוּדָה.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">תזכורת: "עַל הַכֵּלִים הַנּוֹתְרִים... בָּבֶלָה יוּבָאוּ וְשָׁמָּה יִהְיוּ עַד יוֹם פָּקְדִי אֹתָם" (ירמיהו כ"ז, כ"א-כ"ב)</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">מיהו ששבצר?</span>
+            לפי הצעת ראב"ע ורלב"ג, ששבצר הוא כינויו הנכרי (הפרסי) של זרובבל, המוזכר בהמשך, בפרק ב'.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="ezra12-mp-2">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">ירמיהו ניבא שכלי בית ה' הנותרים בבבל "ישובו אל המקום הזה" ביום פקידת ה' את עמו. באיזה אופן מוגבלת ההגשמה של נבואה זו בפרק א' - הן בהיקף העלייה עצמה והן בכלים שהוחזרו?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> העלייה בפרק א' איננה עלייה המונית - עולים בה בעיקר ראשי האבות, ולא כלל העם (המונים רבים, כולל חלק ממנהיגי העם, נשארים בבבל). גם הכלים שהוחזרו אינם כוללים את הכלים המרכזיים ביותר של המקדש. כך שמול ההצהרה הגדולה והמצפה של הנבואה, ההתממשות בפועל בפרק א' היא חלקית בלבד - שלב ראשון ולא סוף התהליך.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 4 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#B0762B; --acc-soft:#F5E9D6;">
+      <span class="topic-icon" aria-hidden="true">📋</span>
+      <div>
+        <div class="topic-eyebrow">נושא 4 מתוך 4</div>
+        <div class="topic-title">עליית זרובבל ויהושע - עליית ההמונים</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#B0762B; --acc-soft:#F5E9D6;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">📋</span>
+        <div class="qb-root-label">עזרא ב', א' וס"ד</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">כותרת הרשימה: כל אחד שב לעירו</div>
+          <div class="pasuk-line"><b>א':</b> וְאֵלֶּה בְּנֵי הַמְּדִינָה הָעֹלִים מִשְּׁבִי הַגּוֹלָה... וַיָּשׁוּבוּ לִירוּשָׁלַם וִיהוּדָה, אִישׁ לְעִירוֹ.</div>
+          <div class="pasuk-gloss">סיכום מספר העולים: 42,360, מלבד עבדיהם ואמותיהם</div>
+          <div class="pasuk-line"><b>ס"ד:</b> כָּל הַקָּהָל כְּאֶחָד אַרְבַּע רִבּוֹא אַלְפַּיִם שְׁלֹשׁ מֵאוֹת שִׁשִּׁים.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">תזכורת: "שׁוּבִי בְתוּלַת יִשְׂרָאֵל, שֻׁבִי אֶל עָרַיִךְ אֵלֶּה" (ירמיהו ל"א, כ')</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">כותרת רשימת העולים - "וַיָּשׁוּבוּ... אִישׁ לְעִירוֹ" - מרמזת לנבואת ירמיהו "שֻׁבִי אֶל עָרַיִךְ אֵלֶּה". מה, לדעתכם, המשמעות של כך שהעולים חוזרים דווקא איש-איש למקום ישיבת משפחתו לפני החורבן, ולא מתיישבים באופן כללי בארץ?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> החזרה איש-איש לעירו מבטאת המשכיות היסטורית ומשפחתית - העולים שומרים על המסורת אודות מקומות מגורי משפחותיהם לפני החורבן, ולא באים כאוכלוסייה חדשה וזרה לארץ אלא כמי שממשיכים בדיוק את מה שהופסק. יש בכך גם קיום מדויק של נבואת ירמיהו, שדיברה במפורש על שיבה "אל עריך אלה" - כלומר, לא רק לארץ באופן כללי אלא לכל עיר ועיר.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">תזכורת: זרובבל בן שאלתיאל, ויהושע בן יהוצדק - עומדים בראש רשימת המנהיגים (ב', ב')</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">ייחוסם של המנהיגים</span>
+            <b>זרובבל בן שאלתיאל</b> - לפי רשימת יוחסין בספר דברי הימים, הוא נינו של יהויכין מלך יהודה, ומיוחס ישירות לדוד המלך; זרובבל נתמנה לפחה (מושל אזורי). <b>יהושע בן יהוצדק</b> - צאצא ישיר לאהרן הכהן, כפי שהוא מיוחס בספר דברי הימים.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="ezra12-mp-3">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">מדוע, לדעתכם, חשוב לספר עזרא לציין דווקא את הייחוס המלכותי (בית דוד) של זרובבל ואת הייחוס הכהוני (בית אהרן) של יהושע, בראש רשימת עשרות אלפי עולים?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ציון הייחוס המלכותי והכהוני מלמד שהעלייה אינה רק מהלך דמוגרפי-כלכלי, אלא חידוש של ההנהגה הלגיטימית ההיסטורית של העם - מלכות בית דוד וכהונת בית אהרן. שני מנהיגים אלה, יחד, מבשרים חידוש של שני עמודי היסוד של הממלכה טרם החורבן: השלטון והעבודה במקדש, ומעניקים לעולים תחושת המשכיות עם התקופה שקדמה לגלות.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">תזכורת: הרשימה כוללת גם "אֲנָשִׁים... אֲשֶׁר לֹא יָכְלוּ לְהַגִּיד בֵּית אֲבוֹתָם וְזַרְעָם, אִם מִיִּשְׂרָאֵל הֵם" (ב', נ"ט)</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">מלבד ראשי האבות והמנהיגים, כוללת הרשימה גם כוהנים, לוויים, ואנשים "עם בעיות ייחוס" שלא הצליחו להוכיח את שושלתם. מה מלמדת ההקפדה של הכתוב לפרט ולסווג את העולים לפי קבוצות אלו על אופיה של החברה החדשה שקמה בירושלים?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ההקפדה על מיון וייחוס - כוהנים, לוויים, ואפילו מי שספק אם הוא מיוחד - מלמדת שהעם השב לציון מייחס חשיבות רבה מאוד לזהות המשפחתית והשבטית, בעיקר לצורך שירות בקודש (שהרי כהונה תלויה בייחוס ודאי). יחד עם זאת, העובדה שגם בעלי ייחוס מסופק נכללים ברשימה (ולא נפסלים על הסף) מלמדת על גישה מכילה, המשאירה את בירור העניין לעתיד - "עַד עֲמֹד כֹּהֵן לְאוּרִים וּלְתֻמִּים" (ב', ס"ג).</div>
+          </div>
+        </div>
+
+        <p class="q-cue">תזכורת: "כְּמִדַּת יְדָם נָתְנוּ לְאוֹצַר הַמְּלָאכָה... לְפִי כֹחָם" (ב', ס"ט)</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">הפרק מסתיים בכך שראשי האבות נותנים נדבות לבניין המקדש "כפי כוחם" - כל אחד לפי יכולתו. מדוע, לדעתכם, בחר הכתוב לסיים את רשימת העולים דווקא בפרט הזה, של נדבה אישית ומדורגת?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הסיום בנדבה האישית מלמד שהעלייה איננה רק אקט של מעבר גיאוגרפי, אלא מהלך שכל אדם ואדם שותף בו באופן פעיל, כל אחד לפי יכולתו הכלכלית. כך הופכת רשימת היוחסין היבשה לכאורה, לתיאור של ציבור מגובש, שכל חלקיו - מהמנהיג המיוחס ועד היחיד האלמוני - נושאים חלק במפעל בניין המקדש מחדש.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <span></span>
+  <a href="ezra-nechemia-hub.html">↺ חזרה ליחידה</a>
+  <a href="ezra-3-4.html">פרקים ג'-ד' →</a>
+</nav>
+<div class="toolbar">
+  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
+  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
+</p>
+
+<footer class="credit">ספר עזרא, פרקים א'-ב' · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'ezra-ch1-2-answers';
+const NAME_KEY = 'ezra-ch1-2-student';
+const textareas = Array.from(document.querySelectorAll('textarea.answer'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{
+    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      nameInput.value = data.name || '';
+      classInput.value = data.cls || '';
+    }
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    flashSaved();
+  }catch(e){
+    console.error('שגיאת שמירה', e);
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => {
+        if(data[t.dataset.id]){
+          t.value = data[t.dataset.id];
+          markFilled(t);
+        }
+      });
+    }
+  }catch(e){
+    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
+  }
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+document.querySelectorAll('.hint-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.nextElementSibling;
+    const showing = box.hidden;
+    box.hidden = !showing;
+    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות בדף העבודה? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
+
+loadStudentInfo();
+loadAnswers();
+</script>
+<script src="assets/progress-tracker.js"></script>
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>עזרא ונחמיה — תקופת בית שני</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .cat-letter{ display:inline-flex; align-items:center; justify-content:center; min-width:1.6rem; height:1.6rem; padding:0 .3rem; border-radius:999px; background:var(--acc); color:#fff; font-weight:800; font-size:.85rem; margin-inline-end:.4rem; }
+  .book-banner{ margin-top:2.2rem; }
+  .grid > .book-banner:first-of-type{ margin-top:0; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-yb">כיתה י"ב</a>
+  <span class="sep">›</span>
+  <span class="current">עזרא ונחמיה</span>
+</nav>
+
+<header>
+  <div class="eyebrow">תנ"ך · תקופת בית שני · כיתה י"ב</div>
+  <h1>עזרא ונחמיה — תקופת בית שני</h1>
+  <p class="sub">שני מנהיגים שפעלו זה לצד זה בשיבת ציון: עזרא הסופר, שחיזק את עמוד התורה, ונחמיה, שבנה את חומת ירושלים וחיזק את עמוד גמילות החסד. בחרו פרק כדי להתחיל.</p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<main>
+  <div class="grid">
+
+    <div class="book-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <span class="topic-icon" aria-hidden="true">📯</span>
+      <div>
+        <div class="topic-eyebrow">חלק ראשון</div>
+        <div class="topic-title">ספר עזרא</div>
+      </div>
+    </div>
+
+    <section class="card">
+      <div class="card-head">
+        <span class="card-tag">פרקים א'-ב'</span>
+        <h2 class="card-title"><span class="cat-letter">1</span>הצהרת כורש והעליות בימיו</h2>
+      </div>
+      <div class="card-body">
+        <p>הצהרת כורש כהגשמת נבואות ישעיהו וירמיהו, נוסח ההצהרה הרשמי, עליית ששבצר (עליית הכלים), ועליית זרובבל ויהושע - עליית ההמונים.</p>
+        <p style="display:flex; gap:.5rem; flex-wrap:wrap;">
+          <a class="btn primary" href="ezra-1-2.html">📝 לדף העבודה</a>
+          <a class="chip-link" href="ezra-1-2-questions.html"><span class="chip-icon" aria-hidden="true">🗂️</span>כרטיסיות לחזרה</a>
+          <a class="chip-link" href="ezra-1-2-text.html"><span class="chip-icon" aria-hidden="true">🔍</span>קריאה אינטראקטיבית בפסוקים</a>
+        </p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט">
+  <span></span>
+  <a href="index.html#tab-yb">↺ חזרה לכיתה י"ב</a>
+  <span></span>
+</nav>
+
+<footer class="credit">עזרא ונחמיה · תקופת בית שני · כיתה י"ב</footer>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<script>
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>
