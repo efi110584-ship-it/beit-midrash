@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
@@ -23,7 +23,7 @@
   .qb-meforesh.completed .qb-src{ color:var(--teal); }
   .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
-  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
   .grid > .topic-col:first-child{ margin-top:0; }
 
   .qb-topic{ min-width:0; }
@@ -50,7 +50,7 @@
   }
 
   .qb-branches{
-    display:flex; flex-direction:column; gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
@@ -157,8 +157,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: לאחר שנשבתה הבנייה "כל ימי כורש... עד מלכות דריוש" (ד', ה')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: לאחר שנשבתה הבנייה "כל ימי כורש... עד מלכות דריוש" (ד', ה')</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מהו התפקיד הכפול שממלאים חגי וזכריה בחידוש הבנייה - הן ביחס לעם והן ביחס למנהיגים זרובבל ויהושע? מדוע, לדעתכם, נדרשה דווקא נבואה כדי לחדש מלאכה שכבר החלה בעבר?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -194,8 +194,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: דריוש מוצא בגנזי המלך את הצהרת כורש המקורית, ומבטל את אגרות השיטנה</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: דריוש מוצא בגנזי המלך את הצהרת כורש המקורית, ומבטל את אגרות השיטנה</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">בפרק ה' פונים שכני היהודים בשאלה מכוח מי הם בונים, וזרובבל משיב שהם פועלים לפי הרשאת כורש; דריוש בודק את הטענה בגנזי המלכות ומוצאה נכונה. מדוע, לדעתכם, חשוב היה לספר עזרא לתאר בפירוט את תהליך הבירור הבירוקרטי הזה, ולא רק את תוצאתו?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -204,8 +204,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "וּמִנִּכְסֵי הַמֶּלֶךְ... בִּמְהֵרָה הַהוֹצָאָה תִּהְיֶה נִתֶּנֶת... שֶׁלֹּא לְבַטֵּל" (ו', ח')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וּמִנִּכְסֵי הַמֶּלֶךְ... בִּמְהֵרָה הַהוֹצָאָה תִּהְיֶה נִתֶּנֶת... שֶׁלֹּא לְבַטֵּל" (ו', ח')</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">דריוש לא רק מאשר מחדש את הצהרת כורש, אלא אף מרחיב אותה - מצווה לממן את הבנייה מאוצר המלכות. מה משמעות ההרחבה הזו, מעבר לעצם קבלת הרשות לבנות?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -241,8 +241,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: השוואה בין חנוכת הבית הראשון בימי שלמה לחנוכת הבית השני כאן</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: השוואה בין חנוכת הבית הראשון בימי שלמה לחנוכת הבית השני כאן</p>
           <div class="qb-meforesh">
             <span class="qb-src">כמה נקודות לשים לב אליהן</span>
             (1) התיאור כאן קצר מאוד, בהשוואה לתיאור חנוכת בית ראשון בימי שלמה. (2) אין כמעט ביטויי שמחה, בהשוואה לשמחה המרובה שבבניית חומת ירושלים בידי נחמיה. (3) חסר גילוי של השראת שכינה במקדש. (4) הכתוב אינו מציין כלל את זרובבל ואת יהושע בן יהוצדק.
@@ -256,8 +256,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "לְחַטֵּא עַל כָּל יִשְׂרָאֵל, שְׁנֵים עָשָׂר, לְמִנְיַן שִׁבְטֵי יִשְׂרָאֵל" (ו', י"ז)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "לְחַטֵּא עַל כָּל יִשְׂרָאֵל, שְׁנֵים עָשָׂר, לְמִנְיַן שִׁבְטֵי יִשְׂרָאֵל" (ו', י"ז)</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מדוע, לדעתכם, מקריבים דווקא שנים עשר שעירי עזים "למניין שבטי ישראל", בשעה שרק חלק קטן מהעם - בעיקר משבטי יהודה ובנימין - שב בפועל מהגלות?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -291,8 +291,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "כִּי שִׂמְּחָם ה', וְהֵסֵב לֵב מֶלֶךְ אַשּׁוּר עֲלֵיהֶם" (ו', כ"ב)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "כִּי שִׂמְּחָם ה', וְהֵסֵב לֵב מֶלֶךְ אַשּׁוּר עֲלֵיהֶם" (ו', כ"ב)</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">בניגוד לחנוכת המקדש, שבה כמעט ולא הוזכרה שמחה, כאן מודגשת השמחה במפורש ("בְּשִׂמְחָה... כִּי שִׂמְּחָם ה'"). מה, לדעתכם, מיוחד בחגיגת הפסח דווקא, שמאפשר שמחה שלמה יותר מזו שהייתה אפשרית בטקס חנוכת המקדש עצמו?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -301,8 +301,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "וְהֵסֵב לֵב מֶלֶךְ אַשּׁוּר עֲלֵיהֶם לְחַזֵּק יְדֵיהֶם" (ו', כ"ב) - הכוונה, בהקשר זה, למלך פרס (המכונה כאן "מלך אשור" בשל ירושת שטחי ממלכת אשור לשעבר)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וְהֵסֵב לֵב מֶלֶךְ אַשּׁוּר עֲלֵיהֶם לְחַזֵּק יְדֵיהֶם" (ו', כ"ב) - הכוונה, בהקשר זה, למלך פרס (המכונה כאן "מלך אשור" בשל ירושת שטחי ממלכת אשור לשעבר)</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">הפסוק מייחס במפורש את המהלך המדיני התומך (מלך פרס) להשגחת ה'. מה מלמד ייחוס זה על התפיסה של המחבר את מקומם של אירועים מדיניים ("חילוניים" לכאורה) בתוך תהליך הגאולה?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>

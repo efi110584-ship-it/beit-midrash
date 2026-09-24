@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
@@ -53,7 +53,7 @@
   .flow-icon{ font-size:.95rem; }
   .flow-arrow{ color:var(--acc); font-size:1rem; margin:.1rem 0; }
 
-  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
   .grid > .topic-col:first-child{ margin-top:0; }
 
   .qb-topic{ min-width:0; }
@@ -80,7 +80,7 @@
   }
 
   .qb-branches{
-    display:flex; flex-direction:column; gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
@@ -192,8 +192,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "וַיִּבְכּוּ אֹתוֹ מִצְרַיִם שִׁבְעִים יוֹם" (פסוק ג')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וַיִּבְכּוּ אֹתוֹ מִצְרַיִם שִׁבְעִים יוֹם" (פסוק ג')</p>
           <div class="qb-meforesh">
             <span class="qb-src">רש"י, פסוק ג' - "וַיִּבְכּוּ אֹתוֹ מִצְרַיִם"</span>
             לפי שבאה להם ברכה לרגליו, שכלה הרעב.
@@ -207,8 +207,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: שלושת שלבי האבל על יעקב</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: שלושת שלבי האבל על יעקב</p>
           <div class="mini-timeline">
             <div class="step"><span class="step-icon" aria-hidden="true">🇪🇬</span>שבעים יום אבל במצרים</div>
             <div class="arrow" aria-hidden="true">←</div>
@@ -251,8 +251,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "אָבִיךָ צִוָּה לִפְנֵי מוֹתוֹ לֵאמֹר..." (פסוק ט"ז)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "אָבִיךָ צִוָּה לִפְנֵי מוֹתוֹ לֵאמֹר..." (פסוק ט"ז)</p>
           <div class="qb-meforesh">
             <span class="qb-src">רש"י, פסוק ט"ז - "אָבִיךָ צִוָּה"</span>
             שינו בדבר מפני השלום, כי לא ציווה יעקב כן, שלא נחשד יוסף בעיניו.
@@ -266,8 +266,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "הֲתַחַת אֱלֹהִים אָנִי? ...אַתֶּם חֲשַׁבְתֶּם עָלַי רָעָה - אֱלֹהִים חֲשָׁבָהּ לְטֹבָה" (פסוקים י"ט-כ')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "הֲתַחַת אֱלֹהִים אָנִי? ...אַתֶּם חֲשַׁבְתֶּם עָלַי רָעָה - אֱלֹהִים חֲשָׁבָהּ לְטֹבָה" (פסוקים י"ט-כ')</p>
           <div class="qb-meforesh">
             <span class="qb-src">רד"ק, על תגובת יוסף</span>
             ראה שמת אביהם, ירא פן ינקום בו יוסף, מלהרע לנו; ועתה כיוון שמת, יש לנו לחוש שלא ישיב לנו כל הרעה אשר גמלנוהו.
@@ -308,8 +308,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "פָּקֹד יִפְקֹד אֱלֹהִים אֶתְכֶם וְהַעֲלִתֶם אֶת עַצְמֹתַי מִזֶּה" (פסוק כ"ה)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "פָּקֹד יִפְקֹד אֱלֹהִים אֶתְכֶם וְהַעֲלִתֶם אֶת עַצְמֹתַי מִזֶּה" (פסוק כ"ה)</p>
           <div class="remember-block">
             <div class="src"><span aria-hidden="true">🔗</span>קיום השבועה</div>
             השבועה מתקיימת בפועל בספר שמות: <q>וַיִּקַּח מֹשֶׁה אֶת עַצְמוֹת יוֹסֵף עִמּוֹ, כִּי הַשְׁבֵּעַ הִשְׁבִּיעַ אֶת בְּנֵי יִשְׂרָאֵל</q> (שמות י"ג, י"ט) - ובספר יהושע: <q>וְאֶת עַצְמוֹת יוֹסֵף... קָבְרוּ בִשְׁכֶם</q> (יהושע כ"ד, ל"ב).
@@ -322,8 +322,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: השוו בין השבועה שהשביע יעקב את יוסף (פרק מ"ז) לשבועה שמשביע יוסף את אחיו כאן</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: השוו בין השבועה שהשביע יעקב את יוסף (פרק מ"ז) לשבועה שמשביע יוסף את אחיו כאן</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">כתבו במילים שלכם במה דומה ובמה שונה שתי השבועות הללו - שבועת יעקב ליוסף על קבורתו בארץ כנען, מול שבועת יוסף לאחיו על העלאת עצמותיו.</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>

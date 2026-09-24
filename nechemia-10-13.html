@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
@@ -23,7 +23,7 @@
   .qb-meforesh.completed .qb-src{ color:var(--teal); }
   .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
-  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
   .grid > .topic-col:first-child{ margin-top:0; }
 
   .qb-topic{ min-width:0; }
@@ -50,7 +50,7 @@
   }
 
   .qb-branches{
-    display:flex; flex-direction:column; gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
@@ -157,8 +157,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: פרק ט' שקדם לאמנה תיאר את מצבם הקשה של ישראל המשועבדים למלכויות - "הִנֵּה אֲנַחְנוּ הַיּוֹם עֲבָדִים"</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: פרק ט' שקדם לאמנה תיאר את מצבם הקשה של ישראל המשועבדים למלכויות - "הִנֵּה אֲנַחְנוּ הַיּוֹם עֲבָדִים"</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">הביטוי הפותח, "וּבְכָל זֹאת", מקשר את האמנה למצב הקשה שתואר קודם לכן - שעבוד לגויים. מדוע, לדעתכם, זהו רגע לא-מובן-מאליו לחתום על התחייבות מחודשת לעבודת ה', ולא רגע שבו עלולה הייתה להתעורר תחושת נטישה מצד ה'?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -167,8 +167,8 @@
           </div>
         </div>
 
-        <p class="q-cue">ר"ן: יש לקשר את האמנה לדברי חז"ל על התחייבות שקיבל עם ישראל בימי אחשוורוש - "הדור קבלוה בימי אחשורוש" (שבת פ"ח.), על פי "קִיְּמוּ וְקִבְּלוּ הַיְּהוּדִים" (אסתר ט', כז')</p>
         <div class="qb-card">
+          <p class="q-cue">ר"ן: יש לקשר את האמנה לדברי חז"ל על התחייבות שקיבל עם ישראל בימי אחשוורוש - "הדור קבלוה בימי אחשורוש" (שבת פ"ח.), על פי "קִיְּמוּ וְקִבְּלוּ הַיְּהוּדִים" (אסתר ט', כז')</p>
           <div class="qb-meforesh">
             <span class="qb-src">ר"ן (המובא בחז"ל), על פי אסתר ט', כ"ז</span>
             "הדור [חזרו וְ]קבלוה [את התורה] בימי אחשורוש, דכתיב 'קִיְּמוּ וְקִבְּלוּ הַיְּהוּדִים' - קיימו מה שקיבלו כבר." סיפור האמנה שבנחמיה י' יכול לשקף את ההתעוררות החיובית של עם ישראל לקבל מחדש על עצמם את עבודת ה', שהשפיעה מכאן ואילך על כל הדורות הבאים.
@@ -207,8 +207,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: באמנה נזכרות מצוות בענייני נישואי תערובת, שבת, שמיטת קרקע וחובות, ותרומות למקדש - אך לא איסור עבודה זרה</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: באמנה נזכרות מצוות בענייני נישואי תערובת, שבת, שמיטת קרקע וחובות, ותרומות למקדש - אך לא איסור עבודה זרה</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">בניגוד לבריתות קודמות בתנ"ך, שכללו התחייבות מפורשת שלא לעבוד עבודה זרה, האמנה כאן אינה מזכירה זאת כלל. מה, לדעתכם, מסביר את ההיעדרות הבולטת הזאת?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -217,8 +217,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "וְלֹא נַעֲזֹב אֶת בֵּית אֱלֹקֵינוּ" (י', מ') - חתימת האמנה, לעומת "מַדּוּעַ נֶעֱזַב בֵּית הָאֱלֹקִים" (י"ג, י"א) שנאמר בהמשך</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וְלֹא נַעֲזֹב אֶת בֵּית אֱלֹקֵינוּ" (י', מ') - חתימת האמנה, לעומת "מַדּוּעַ נֶעֱזַב בֵּית הָאֱלֹקִים" (י"ג, י"א) שנאמר בהמשך</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">האמנה מסתיימת בהתחייבות "וְלֹא נַעֲזֹב אֶת בֵּית אֱלֹקֵינוּ" - אך בהמשך הספר (פרק י"ג) מתברר שבית המקדש דווקא כן ננטש חלקית. מה מלמדת הסתירה הזו בין ההתחייבות למציאות בפועל על טבעה של אמנה כזו?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -252,8 +252,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: נחמיה נוקט בפעולה מנהלית ישירה - סוגר את שערי העיר וממנה משמר - ולא רק בהוכחה מילולית</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: נחמיה נוקט בפעולה מנהלית ישירה - סוגר את שערי העיר וממנה משמר - ולא רק בהוכחה מילולית</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">כדי לעצור את חילול השבת, נחמיה סוגר את שערי העיר לפני כניסת השבת ומעמיד עליהם משמר. מה ההבדל בין פתרון מנהלי-מעשי כזה לבין תוכחה מילולית בלבד, ומדוע בחר נחמיה בגישה הזו?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -262,8 +262,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "אִם תִּשְׁנוּ יָד אֶשְׁלַח בָּכֶם" (י"ג, כ"א) - נחמיה מאיים באלימות כלפי הסוחרים הלנים ליד החומה</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "אִם תִּשְׁנוּ יָד אֶשְׁלַח בָּכֶם" (י"ג, כ"א) - נחמיה מאיים באלימות כלפי הסוחרים הלנים ליד החומה</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">נחמיה מאיים במפורש בכוח פיזי כלפי הסוחרים שממשיכים ללון ליד השערים. מה מלמדת נכונותו להשתמש בשפה כה תקיפה על תפיסתו לגבי גבולות הסמכות שיש למנהיג בהגנה על קדושת השבת?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -298,8 +298,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: תוצאה חמורה של נישואי התערובת - ילדים שאינם יודעים לדבר את לשון העם היהודי</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: תוצאה חמורה של נישואי התערובת - ילדים שאינם יודעים לדבר את לשון העם היהודי</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">הכתוב מציין דווקא את קושי השפה של הילדים ("חֲצִי מְדַבֵּר אַשְׁדּוֹדִית") כביטוי לתוצאות נישואי התערובת. מדוע פרט "טכני" לכאורה כמו שפה מדוברת נחשב כאן לעדות משמעותית כל כך על נזק הנישואין?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>

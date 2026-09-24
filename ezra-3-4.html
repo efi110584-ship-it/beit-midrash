@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
@@ -23,7 +23,7 @@
   .qb-meforesh.completed .qb-src{ color:var(--teal); }
   .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
-  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
   .grid > .topic-col:first-child{ margin-top:0; }
 
   .qb-topic{ min-width:0; }
@@ -50,7 +50,7 @@
   }
 
   .qb-branches{
-    display:flex; flex-direction:column; gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
@@ -159,8 +159,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "וַיָּכִינוּ הַמִּזְבֵּחַ עַל מְכוֹנֹתָיו כִּי בְאֵימָה עֲלֵיהֶם מֵעַמֵּי הָאֲרָצוֹת" (ג', ג')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וַיָּכִינוּ הַמִּזְבֵּחַ עַל מְכוֹנֹתָיו כִּי בְאֵימָה עֲלֵיהֶם מֵעַמֵּי הָאֲרָצוֹת" (ג', ג')</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">הכתוב מדגיש שהמזבח הוקם "בְּאֵימָה... מֵעַמֵּי הָאֲרָצוֹת" - כלומר, מתוך פחד, ולא רק מתוך התלהבות דתית. מה מלמד שילוב זה בין פחד לזירוז דתי על מצבם הריאלי של שבי ציון מיד עם הגעתם?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -169,8 +169,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "מִיּוֹם אֶחָד לַחֹדֶשׁ הַשְּׁבִיעִי הֵחֵלּוּ לְהַעֲלוֹת עֹלוֹת לַה', וְהֵיכַל ה' לֹא יֻסָּד" (ג', ו')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "מִיּוֹם אֶחָד לַחֹדֶשׁ הַשְּׁבִיעִי הֵחֵלּוּ לְהַעֲלוֹת עֹלוֹת לַה', וְהֵיכַל ה' לֹא יֻסָּד" (ג', ו')</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">הכתוב מציין במפורש שהעלאת הקרבנות החלה "וְהֵיכַל ה' לֹא יֻסָּד" - כלומר, לפני שהונח אפילו יסוד הבניין. מה מלמד סדר עדיפויות זה (מזבח וקרבנות לפני מבנה) על התפיסה שבבסיס חידוש עבודת המקדש?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -206,8 +206,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "וְאֵין הָעָם מַכִּירִים קוֹל תְּרוּעַת הַשִּׂמְחָה לְקוֹל בְּכִי הָעָם" (ג', י"ג)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וְאֵין הָעָם מַכִּירִים קוֹל תְּרוּעַת הַשִּׂמְחָה לְקוֹל בְּכִי הָעָם" (ג', י"ג)</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מדוע, לדעתכם, בכו דווקא הזקנים שזכרו את הבית הראשון, בעוד שאר העם הריע בשמחה? מה ניתן ללמוד מכך על הפער בין דורות בחוויית שיבת ציון?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -243,8 +243,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "כִּי כָכֶם נִדְרוֹשׁ לֵאלֹקֵיכֶם, וְלוֹ אֲנַחְנוּ זֹבְחִים" (ד', ב')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "כִּי כָכֶם נִדְרוֹשׁ לֵאלֹקֵיכֶם, וְלוֹ אֲנַחְנוּ זֹבְחִים" (ד', ב')</p>
           <div class="qb-meforesh">
             <span class="qb-src">מיהם צרי יהודה ובנימין, ומהי כוונתם בבקשה?</span>
             <b>רש"י:</b> העכו"ם אשר הושיב סנחריב בארץ ישראל (מדובר באוכלוסייה שעברה תהליך של גיור, לפחות חלקי, לא בגויים של ממש). בקשתם להשתתף בבנייה לא הייתה בקשה כנה אלא תירוץ לעכב את המלאכה. <b>מלבי"ם:</b> סבור שאכן רצו להצטרף, אולם הצטרפותם אינה אפשרית משתי סיבות - רוחנית: הם אינם נחשבים חלק מעם ישראל אלא עובדים בשיתוף; ופורמלית: המנדט של כורש ניתן רק למי שנחשב ישראל.
@@ -258,8 +258,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "לֹא לָכֶם וָלָנוּ לִבְנוֹת בַּיִת לֵאלֹקֵינוּ" (ד', ג')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "לֹא לָכֶם וָלָנוּ לִבְנוֹת בַּיִת לֵאלֹקֵינוּ" (ד', ג')</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">זרובבל ויהושע מנמקים את הדחייה בכך ש"אֲנַחְנוּ יַחַד נִבְנֶה... כַּאֲשֶׁר צִוָּנוּ הַמֶּלֶךְ כּוֹרֶשׁ" - כלומר, נסמכים על ההרשאה הרשמית של כורש. מדוע, לדעתכם, בחרו להשתמש דווקא בנימוק הפורמלי-מדיני הזה, ולא (למשל) בנימוק דתי גרידא?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -295,8 +295,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "וְסֹכְרִים עֲלֵיהֶם יוֹעֲצִים לְהָפֵר עֲצָתָם" (ד', ה')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וְסֹכְרִים עֲלֵיהֶם יוֹעֲצִים לְהָפֵר עֲצָתָם" (ד', ה')</p>
           <div class="qb-meforesh">
             <span class="qb-src">מלבי"ם, ד', ד'-ה'</span>
             "וחשבו מחשבות לבטל הבניין: ופעם היו מרפים את ידיהם, היינו מטילים בהם עצלות בל יעשו השתדלות בענין הבנין; ופעם מבהלים אותם מלבנות ע"י שהטילו עליהם אימה; ופעם שוכרים עליהם יועצים להפר את הבנין. וזה נמשך כל ימי כורש, שבימיו נשבת הבנין עד מלכות דריוש, שאז החלו לבנות."
@@ -310,8 +310,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "וְהָיְתָה בְטֵלָה עַד שְׁנַת שְׁתַּיִם לְמַלְכוּת דָּרְיָוֶשׁ" (ד', כ"ד)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וְהָיְתָה בְטֵלָה עַד שְׁנַת שְׁתַּיִם לְמַלְכוּת דָּרְיָוֶשׁ" (ד', כ"ד)</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">בין פסוק ה' לפסוק כ"ד (שאותו קראנו כאן ברצף) מובאות בפרק ד' אגרות תלונה נוספות, המתייחסות בעצם לתקופה מאוחרת יותר (ימי אחשוורוש וארתחשסתא) ועוסקות בבניית חומת ירושלים ולא במקדש. מה, לדעתכם, ההיגיון מאחורי סידור הפרק כך שהוא "קופץ" כרונולוגית, ולא הולך לפי סדר הזמנים?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>

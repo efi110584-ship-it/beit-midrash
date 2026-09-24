@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
@@ -23,7 +23,7 @@
   .qb-meforesh.completed .qb-src{ color:var(--teal); }
   .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
-  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
   .grid > .topic-col:first-child{ margin-top:0; }
 
   .qb-topic{ min-width:0; }
@@ -50,7 +50,7 @@
   }
 
   .qb-branches{
-    display:flex; flex-direction:column; gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
@@ -157,8 +157,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: הציווי לכתיבת המגילה בא בדיוק בשנה הרביעית ליהויקים - שנת קרב כרכמיש, שבו בבל מנצחת את מצרים והופכת לאימפריה השלטת באזור</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: הציווי לכתיבת המגילה בא בדיוק בשנה הרביעית ליהויקים - שנת קרב כרכמיש, שבו בבל מנצחת את מצרים והופכת לאימפריה השלטת באזור</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">ציווי כתיבת המגילה מגיע בדיוק בשנת קרב כרכמיש, נקודת מפנה גיאופוליטית דרמטית. מדוע, לדעתכם, זהו רגע מתאים במיוחד לכינוס כל נבואות ירמיהו לכדי מסמך אחד מקיף, ולא רק להמשך במסירת נבואות בודדות כפי שנעשה עד כה?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -167,8 +167,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "אוּלַי יִשְׁמְעוּ... לְמַעַן יָשׁוּבוּ אִישׁ מִדַּרְכּוֹ הָרָעָה" (ל"ו, ג') - מטרת כתיבת המגילה מוצהרת כתקווה לתשובה</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "אוּלַי יִשְׁמְעוּ... לְמַעַן יָשׁוּבוּ אִישׁ מִדַּרְכּוֹ הָרָעָה" (ל"ו, ג') - מטרת כתיבת המגילה מוצהרת כתקווה לתשובה</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">הכתוב מציין במפורש שמטרת כתיבת המגילה היא "אוּלַי יִשְׁמְעוּ" ו"לְמַעַן יָשׁוּבוּ" - כלומר, המגילה נכתבת מתוך תקווה אמיתית לתשובה, ולא רק כתיעוד היסטורי או כהוכחה עתידית לצדקת הנביא. מה משמעות הצגת מטרה זו במפורש, לאור מה שאנו יודעים כבר שיקרה בהמשך (יהויקים ישרוף את המגילה)?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -204,8 +204,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">רש"י (פס' ט'): "קראו צום - גזרו תענית; שהיו יראים מפני נבוכדנאצר"</p>
         <div class="qb-card">
+          <p class="q-cue">רש"י (פס' ט'): "קראו צום - גזרו תענית; שהיו יראים מפני נבוכדנאצר"</p>
           <div class="qb-meforesh">
             <span class="qb-src">רש"י, ירמיהו ל"ו, ט'</span>
             "קראו צום" - גזרו תענית; שהיו יראים מפני נבוכדנאצר.
@@ -219,8 +219,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: הידיעה עוברת בשלבים ברורים - מכיהו שומע ומדווח לשרים, השרים דורשים לשמוע בעצמם, ורק בסוף מגיעה הידיעה למלך עצמו</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: הידיעה עוברת בשלבים ברורים - מכיהו שומע ומדווח לשרים, השרים דורשים לשמוע בעצמם, ורק בסוף מגיעה הידיעה למלך עצמו</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">הכתוב מפרט בקפדנות את שרשרת ההעברה של תוכן המגילה - מהעם, למכיהו, לשרים בלשכת הסופר, ולבסוף למלך בחצרו. מה תפקידה של תיאור מדורג ומפורט זה, לעומת תיאור מקוצר שהיה יכול לומר פשוט "והמלך שמע על המגילה"?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -254,8 +254,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">הר"י קרא (פס' כ"ג): מגילת ספר כמגילה שלנו - יריעות של קלף, כל יריעה כתובה בשלושה-ארבעה עמודים, מחוברות בתפר; המלך קורע כל יריעה במקום התפר ומשליכה מיד לאש</p>
         <div class="qb-card">
+          <p class="q-cue">הר"י קרא (פס' כ"ג): מגילת ספר כמגילה שלנו - יריעות של קלף, כל יריעה כתובה בשלושה-ארבעה עמודים, מחוברות בתפר; המלך קורע כל יריעה במקום התפר ומשליכה מיד לאש</p>
           <div class="qb-meforesh">
             <span class="qb-src">הר"י קרא, ירמיהו ל"ו, כ"ג</span>
             "קח לך מגילת ספר... שהוא כמגילה שלנו, שאדם נוטל יריעות של קלפים וכותב בכל יריעה בשלושה וארבעה דלתות ועמודים, ואחר כך חוברן כל היריעות כולן אשה אל אחותה על ידי תפר. כשכילה לקרוא כל הדברים הכתובים ביריעה האחת, אותה שעה יקרעה במקום התפר שבין יריעה ליריעה על ידי תער הסופר, והשלך על האש - וכן עשה לכל יריעה ויריעה עד תום כל המגילה.
@@ -269,8 +269,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: שריפת המגילה בידי יהויקים היא ניסיון "להרוג" את תוכן הנבואה, אך ה' מגן עליה בשתי דרכים - הסתרת ירמיהו וברוך, וכתיבתה מחדש</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: שריפת המגילה בידי יהויקים היא ניסיון "להרוג" את תוכן הנבואה, אך ה' מגן עליה בשתי דרכים - הסתרת ירמיהו וברוך, וכתיבתה מחדש</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">חרף מאמציו הנחושים של יהויקים להשמיד את המגילה ואת נושאיה, המגילה נכתבת מחדש והנביא ניצל. מה המסר התיאולוגי המרכזי העולה מהעובדה שכל ניסיון המלך "לחסל" את הנבואה מסתיים בכישלון מוחלט, ואף מוסיף עליה נבואת פורענות אישית נגדו?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>

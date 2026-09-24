@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
@@ -23,7 +23,7 @@
   .qb-meforesh.completed .qb-src{ color:var(--teal); }
   .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
-  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
   .grid > .topic-col:first-child{ margin-top:0; }
 
   .qb-topic{ min-width:0; }
@@ -50,7 +50,7 @@
   }
 
   .qb-branches{
-    display:flex; flex-direction:column; gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
@@ -158,8 +158,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: זעקת העניים עולה דווקא בעיצומה של בניית חומת ירושלים, מפעל שנועד להיטיב עם כלל העם</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: זעקת העניים עולה דווקא בעיצומה של בניית חומת ירושלים, מפעל שנועד להיטיב עם כלל העם</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מדוע, לדעתכם, פורצת זעקת העניים דווקא באמצע מפעל בניית החומה - מפעל לאומי-ביטחוני שאמור לשרת את טובת כלל העם - ולא בשלב אחר?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -168,8 +168,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "וְהִנֵּה אֲנַחְנוּ כֹבְשִׁים אֶת בָּנֵינוּ וְאֶת בְּנֹתֵינוּ לַעֲבָדִים... וְאֵין לְאֵל יָדֵנוּ" (ה', ה')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וְהִנֵּה אֲנַחְנוּ כֹבְשִׁים אֶת בָּנֵינוּ וְאֶת בְּנֹתֵינוּ לַעֲבָדִים... וְאֵין לְאֵל יָדֵנוּ" (ה', ה')</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">העניים פותחים בטענה כלכלית ("בָּנֵינוּ וּבְנֹתֵינוּ אֲנַחְנוּ רַבִּים") ומסיימים בטענה מוסרית-לאומית ("כִּבְשַׂר אַחֵינוּ בְּשָׂרֵנוּ"). מדוע, לדעתכם, חשוב היה להם להביא את הטיעון המוסרי דווקא בסיום דבריהם?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -203,8 +203,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">מלבי"ם: "משא איש באחיו אתם נושים... והזכיר להם בזה את דברי התורה שצוותה שם על הנגישה, ועל הריבית ועל השבת המשכון"</p>
         <div class="qb-card">
+          <p class="q-cue">מלבי"ם: "משא איש באחיו אתם נושים... והזכיר להם בזה את דברי התורה שצוותה שם על הנגישה, ועל הריבית ועל השבת המשכון"</p>
           <div class="qb-meforesh">
             <span class="qb-src">מלבי"ם, נחמיה ה', ז'</span>
             "משא איש באחיו אתם נושים - איך תהיה איש לאחיו לנושה, והכתיב (שמות כ"ב, כד): 'אִם כֶּסֶף תַּלְוֶה אֶת עַמִּי אֶת הֶעָנִי עִמָּךְ לֹא תִהְיֶה לוֹ כְּנֹשֶׁה, לֹא תְשִׂימוּן עָלָיו נֶשֶׁךְ' - והזכיר להם בזה את דברי התורה שצוותה שם על הנגישה, ועל הריבית ועל השבת המשכון."
@@ -218,8 +218,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "הֲלוֹא בְּיִרְאַת אֱלֹקֵינוּ תֵּלֵכוּ, מֵחֶרְפַּת הַגּוֹיִם אוֹיְבֵינוּ" (ה', ט')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "הֲלוֹא בְּיִרְאַת אֱלֹקֵינוּ תֵּלֵכוּ, מֵחֶרְפַּת הַגּוֹיִם אוֹיְבֵינוּ" (ה', ט')</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">נחמיה מוסיף נימוק נוסף מעבר לאיסור התורני עצמו - חשש מ"חרפת הגויים אויבינו". מדוע, לדעתכם, חשוב היה לו לצרף גם שיקול זה של יוקרה לאומית כלפי חוץ?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -253,8 +253,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: נחמיה מודה תחילה "גַּם אֲנִי אַחַי וּנְעָרַי נֹשִׁים בָּהֶם" - הוא עצמו חלק מהבעיה, לפני שהוא דורש מהעשירים לתקן</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: נחמיה מודה תחילה "גַּם אֲנִי אַחַי וּנְעָרַי נֹשִׁים בָּהֶם" - הוא עצמו חלק מהבעיה, לפני שהוא דורש מהעשירים לתקן</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">נחמיה פותח בהודאה שגם הוא ואנשיו הלוו כסף ברבית, לפני שהוא קורא לעשירים להפסיק. מהי החשיבות של ההודאה העצמית הזאת, ומה תפקידה בהצלחת השכנוע?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -263,8 +263,8 @@
           </div>
         </div>
 
-        <p class="q-cue">שוו: דברים ט"ו, א'-ב' - "מִקֵּץ שֶׁבַע שָׁנִים תַּעֲשֶׂה שְׁמִטָּה... שָׁמוֹט כָּל בַּעַל מַשֵּׁה יָדוֹ..." - מצוות שמיטת כספים המקורית</p>
         <div class="qb-card">
+          <p class="q-cue">שוו: דברים ט"ו, א'-ב' - "מִקֵּץ שֶׁבַע שָׁנִים תַּעֲשֶׂה שְׁמִטָּה... שָׁמוֹט כָּל בַּעַל מַשֵּׁה יָדוֹ..." - מצוות שמיטת כספים המקורית</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">שמיטת החובות שיזם נחמיה אינה מתרחשת בהכרח בשנת השמיטה עצמה, אלא כתגובה למצוקת השעה. מה ההבדל בין שמיטת חובות "רגילה" הנעשית מדי שבע שנים מכוח מצוות התורה לבין המהלך שיוזם נחמיה כאן?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -298,8 +298,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">רש"י: "ובשדות של היהודים שהיו בונים החומה לא קנינו אני ובני... הייתי נותן להם ממון כדי לבנות הבנין"</p>
         <div class="qb-card">
+          <p class="q-cue">רש"י: "ובשדות של היהודים שהיו בונים החומה לא קנינו אני ובני... הייתי נותן להם ממון כדי לבנות הבנין"</p>
           <div class="qb-meforesh">
             <span class="qb-src">רש"י, נחמיה ה', ט"ז</span>
             "וגם במלאכת החומה הזאת החזקתי, ושדה לא קנינו" - ובשדות של היהודים שהיו בונים החומה לא קנינו, אני ובני, לא נהניתי מדוחקם שהיו עוסקין בבניין החומה, אלא הייתי נותן להם ממון כדי לבנות הבניין.

@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
@@ -23,7 +23,7 @@
   .qb-meforesh.completed .qb-src{ color:var(--teal); }
   .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
-  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
   .grid > .topic-col:first-child{ margin-top:0; }
 
   .qb-topic{ min-width:0; }
@@ -50,7 +50,7 @@
   }
 
   .qb-branches{
-    display:flex; flex-direction:column; gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
@@ -158,8 +158,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: הכתוב משתמש בפעלים רבים המתארים הליך הדרגתי - החל מבמות, דרך חצרות המקדש, ועד להיכל עצמו</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: הכתוב משתמש בפעלים רבים המתארים הליך הדרגתי - החל מבמות, דרך חצרות המקדש, ועד להיכל עצמו</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">תיאור חטאי מנשה מתקדם בהדרגה ממרחק (במות בשדה) אל מרכז הקדושה (חצרות המקדש, ולבסוף ההיכל עצמו). מדוע, לדעתכם, בחר הכתוב להציג את החטא כתהליך מדורג ולא כמעשה חד-פעמי?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -168,8 +168,8 @@
           </div>
         </div>
 
-        <p class="q-cue">רלב"ג: מנשה היה הורג כל מי שלא הסכים לעבוד עבודת גילולים, כמו שעשתה איזבל אשת אחאב שהרגה את נביאי ה'</p>
         <div class="qb-card">
+          <p class="q-cue">רלב"ג: מנשה היה הורג כל מי שלא הסכים לעבוד עבודת גילולים, כמו שעשתה איזבל אשת אחאב שהרגה את נביאי ה'</p>
           <div class="qb-meforesh">
             <span class="qb-src">רלב"ג, מלכים ב' כ"א</span>
             מנשה היה הורג כל מי שלא הסכים לעבוד עבודת גילולים, והנביאים המוכיחים אותם - כמו שעשתה איזבל (אשת אחאב) שהרגה את נביאי ה'.
@@ -207,8 +207,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "קו שומרון" - כלי בנייה המשווה ומיישר בנייה; "מחיית הצלחת" - ניקוי כלי אכילה עד תום</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "קו שומרון" - כלי בנייה המשווה ומיישר בנייה; "מחיית הצלחת" - ניקוי כלי אכילה עד תום</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">הנבואה משתמשת בשני דימויים מעולם היום-יום - כלי בנייה ("קו") וניקוי כלים ("מחיית הצלחת") - כדי לתאר חורבן לאומי איום. מהו היתרון בבחירת דימויים מוכרים ופשוטים דווקא, לתיאור אסון כה גדול?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -217,8 +217,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "וְנָטִיתִי עַל יְרוּשָׁלַם אֵת קָו שֹׁמְרוֹן" - השוואה מפורשת בין גורל ירושלים לגורל שומרון שכבר חרבה</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וְנָטִיתִי עַל יְרוּשָׁלַם אֵת קָו שֹׁמְרוֹן" - השוואה מפורשת בין גורל ירושלים לגורל שומרון שכבר חרבה</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">הנבואה משווה במפורש בין גורל יהודה וירושלים לבין גורל ממלכת ישראל ושומרון, שכבר חרבה כמאה שנה לפני כן. מה משמעות ההשוואה הזו, ומדוע היא כה מטלטלת עבור שומעיה ביהודה?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -253,8 +253,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: ספר מלכים אינו מזכיר כלל את תשובת מנשה המתוארת בדברי הימים</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: ספר מלכים אינו מזכיר כלל את תשובת מנשה המתוארת בדברי הימים</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">גם שנים רבות אחרי מותו של מנשה, פסוקים בפרקים כ"ג וכ"ד מזכירים במפורש את "חַטֹּאת מְנַשֶּׁה" כגורם המכריע לחורבן. מדוע, לדעתכם, נותר עונש החורבן בעינו, אף שלפי דברי הימים מנשה עצמו שב בתשובה בסוף ימיו?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -263,8 +263,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: ספר מלכים ב' מסתיים בתיאור מלכות אמון, בנו של מנשה, שהלך בדרכי אביו ונרצח על ידי עבדיו</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: ספר מלכים ב' מסתיים בתיאור מלכות אמון, בנו של מנשה, שהלך בדרכי אביו ונרצח על ידי עבדיו</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">אמון, בנו של מנשה, ממשיך בדרך אביו אך מולך רק שנתיים לפני שהוא נרצח במרד פנימי. מה, לדעתכם, ההבדל המהותי בין תיאורו הקצר של אמון לבין תיאורו הארוך והמפורט של מנשה עצמו?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>

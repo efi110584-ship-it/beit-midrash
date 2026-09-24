@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   /* אישור הבנת פרשן - כפתור קטן בתחתית כל קובית מפרש, במקום רשימת סיכום נפרדת */
   .qb-meforesh{ position:relative; }
@@ -34,7 +34,7 @@
   .vs-desc{ font-size:.72rem; line-height:1.45; color:var(--ink-soft); }
   .vs-mid{ flex:none; width:2rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.72rem; color:#fff; background:var(--ink); }
 
-  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
   .grid > .topic-col:first-child{ margin-top:0; }
 
   /* ========== דו-שיח מתגלגל - "וילכו שניהם יחדיו" ========== */
@@ -69,7 +69,7 @@
   }
 
   .qb-branches{
-    display:flex; flex-direction:column; gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
@@ -211,8 +211,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "וְהָאֱלֹקִים נִסָּה אֶת אַבְרָהָם" (פסוק א')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וְהָאֱלֹקִים נִסָּה אֶת אַבְרָהָם" (פסוק א')</p>
           <div class="qb-meforesh">
             <span class="qb-src">אברבנאל, ד"ה "ויאמר"</span>
             הניסיון הזה אין ענינו הבחינה, כדי שידע האל מה שלא היה יודע; אבל "והאלוקים נסה" הוא מגזרת "נס" - כי הפועל הנפלא הזה שעשה אברהם בדבר ה' עומד לנס עמים, כדגל רם ונשא, אליו גויים ידרושו ויביטו אחריו!
@@ -250,8 +250,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "וַיֹּאמֶר אֵלָיו אַבְרָהָם, וַיֹּאמֶר הִנֵּנִי" (פס' א')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וַיֹּאמֶר אֵלָיו אַבְרָהָם, וַיֹּאמֶר הִנֵּנִי" (פס' א')</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">כיצד עונה אברהם לקריאת ה' (פס' א')? מהו הציווי עצמו, והיכן נמצא המקום שאליו מצווה אברהם ללכת?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -260,8 +260,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "אֶת בִּנְךָ אֶת יְחִידְךָ אֲשֶׁר אָהַבְתָּ אֶת יִצְחָק" (פס' ב')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "אֶת בִּנְךָ אֶת יְחִידְךָ אֲשֶׁר אָהַבְתָּ אֶת יִצְחָק" (פס' ב')</p>
           <div class="qb-meforesh">
             <span class="qb-src">רש"י לפסוק ב'</span>
             את בנך - אמר לו: שני בנים יש לי. אמר לו: את יחידך. אמר לו: זה יחיד לאמו וזה יחיד לאמו. אמר לו: אשר אהבת. אמר לו: שניהם אני אוהב. אמר לו: את יצחק. ולמה לא גילה לו מתחילה? שלא לערבבו פתאום, ותזוח דעתו עליו ותיטרף.
@@ -309,8 +309,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "לֶךְ לְךָ מֵאַרְצְךָ..." (י"ב, א') לעומת "לֶךְ לְךָ אֶל אֶרֶץ הַמֹּרִיָּה... עַל אַחַד הֶהָרִים אֲשֶׁר אֹמַר אֵלֶיךָ" (כ"ב, ב')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "לֶךְ לְךָ מֵאַרְצְךָ..." (י"ב, א') לעומת "לֶךְ לְךָ אֶל אֶרֶץ הַמֹּרִיָּה... עַל אַחַד הֶהָרִים אֲשֶׁר אֹמַר אֵלֶיךָ" (כ"ב, ב')</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">מהו הביטוי הייחודי החוזר בשני הפרקים? מה משותף לשני הציוויים מבחינת הידיעה על היעד מראש?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -370,8 +370,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "וַיַּשְׁכֵּם... וַיַּחֲבֹשׁ... וַיִּקַּח... וַיְבַקַּע... וַיָּקָם וַיֵּלֶךְ" (פס' ג')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וַיַּשְׁכֵּם... וַיַּחֲבֹשׁ... וַיִּקַּח... וַיְבַקַּע... וַיָּקָם וַיֵּלֶךְ" (פס' ג')</p>
           <div class="qb-meforesh">
             <span class="qb-src">רש"י ד"ה 'וַיַּשְׁכֵּם' - נזדרז למצווה</span>
             וַיַּחֲבֹשׁ - הוא בעצמו, ולא ציווה לאחד מעבדיו, שהאהבה מקלקלת השורה.
@@ -385,8 +385,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "בַּיּוֹם הַשְּׁלִישִׁי" (פס' ד')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "בַּיּוֹם הַשְּׁלִישִׁי" (פס' ד')</p>
           <div class="qb-meforesh">
             <span class="qb-src">רמב"ן לפסוק ב'</span>
             ורצה שיעשה זה אחרי מהלך שלושה ימים, כי אילו יעשה כן בפתע פתאום במקומו, הייתה פעולתו במהירות ובהלה; אבל כשיהיה אחר מהלך ימים, כבר נעשה בישוב דעת ועצה.
@@ -400,8 +400,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "אָבִי... הִנֶּנִּי בְנִי" (פס' ז') לעומת "וַיֵּלְכוּ שְׁנֵיהֶם יַחְדָּו" (פס' ו', ח')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "אָבִי... הִנֶּנִּי בְנִי" (פס' ז') לעומת "וַיֵּלְכוּ שְׁנֵיהֶם יַחְדָּו" (פס' ו', ח')</p>
           <div class="qb-meforesh">
             <span class="qb-src">רש"י</span>
             (ו) וילכו שניהם יחדיו - אברהם שהיה יודע שהולך לשחוט את בנו, היה הולך ברצון ושמחה כיצחק, שלא היה מרגיש. (ח) יראה לו השה - כלומר יראה ויבחר לו השה, ואם אין שה - לעולה בני. ואף על פי שהבין יצחק שהוא הולך להישחט, וילכו שניהם יחדיו בלב שווה.
@@ -444,8 +444,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "כִּי עַתָּה יָדַעְתִּי כִּי יְרֵא אֱלֹהִים אַתָּה" (פס' י"ב)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "כִּי עַתָּה יָדַעְתִּי כִּי יְרֵא אֱלֹהִים אַתָּה" (פס' י"ב)</p>
           <div class="qb-meforesh">
             <span class="qb-src">רש"י ד"ה 'עַתָּה יָדַעְתִּי'</span>
             מעתה יש לי מה להשיב לשטן ולאומות התמהים מה היא חיבתי אצלך - יש לי פתחון פה עכשיו, שרואים כי ירא אלוקים אתה.
@@ -459,8 +459,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "כִּי בָרֵךְ אֲבָרֶכְךָ... וְיִרַשׁ זַרְעֲךָ אֵת שַׁעַר אֹיְבָיו" (פס' י"ז)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "כִּי בָרֵךְ אֲבָרֶכְךָ... וְיִרַשׁ זַרְעֲךָ אֵת שַׁעַר אֹיְבָיו" (פס' י"ז)</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">13</span><span class="q-text" id="a11y-lbl-13">מדוע השבועה והברכה הגדולה באות דווקא בשלב הזה של הסיפור? ומה מוסיף הביטוי "וירש זרעך את שער איביו" מעבר להבטחת ריבוי הזרע?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-13" data-id="q13" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -469,8 +469,8 @@
           </div>
         </div>
 
-        <p class="q-cue">** אין חובה ללמוד את המקורות הבאים מילה במילה, אלא להתחבר לרעיון הכללי</p>
         <div class="qb-card">
+          <p class="q-cue">** אין חובה ללמוד את המקורות הבאים מילה במילה, אלא להתחבר לרעיון הכללי</p>
           <div class="qb-meforesh">
             <span class="qb-src">הרב חרל"פ, מתוך ההקדמה ל"בית זבול"</span>
             יסוד מעלתם של ישראל הוא במה שיוכלו לזכות לקדש את השם בנפשותם... ובא להם זה מאז עקד אברהם אבינו את יצחק על גבי המזבח... שבזה, מה שלא יצא לפועל, נשאר הרצון הזה של קידוש השם בכוח, להיות לרצון, נעקד על גבי המזבח ולפשוט צווארו להיות נשחט על קיום מצוותיו וקידוש שמו יתברך - חדור עמוק עמוק בתוך כל ישראל, שיהיו כל חייהם המשך ארוך של קידוש השם.

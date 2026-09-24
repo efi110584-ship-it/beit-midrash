@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
@@ -23,7 +23,7 @@
   .qb-meforesh.completed .qb-src{ color:var(--teal); }
   .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
-  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
   .grid > .topic-col:first-child{ margin-top:0; }
 
   .qb-topic{ min-width:0; }
@@ -50,7 +50,7 @@
   }
 
   .qb-branches{
-    display:flex; flex-direction:column; gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
@@ -157,8 +157,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: גלות זו כוללת דווקא את "הֶחָרָשׁ וְהַמַּסְגֵּר" - בעלי מקצוע היכולים לייצר נשק (או, לדעה אחרת, תלמידי חכמים)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: גלות זו כוללת דווקא את "הֶחָרָשׁ וְהַמַּסְגֵּר" - בעלי מקצוע היכולים לייצר נשק (או, לדעה אחרת, תלמידי חכמים)</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">בבל בוחרת להגלות דווקא את השרים, גיבורי החיל, ובעלי מקצוע היכולים לייצר כלי נשק ("הֶחָרָשׁ וְהַמַּסְגֵּר"), ומשאירה מאחור רק את "דַּלַּת עַם הָאָרֶץ". מה ההיגיון האסטרטגי בבחירה סלקטיבית זו של מי מגורש ומי נשאר?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -167,8 +167,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: הכתוב מדגיש ששאלה מרכזית מטרידה את שבי הגולה - האם הקיום בבבל זמני, או שמא הקיום ביהודה הוא הזמני</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: הכתוב מדגיש ששאלה מרכזית מטרידה את שבי הגולה - האם הקיום בבבל זמני, או שמא הקיום ביהודה הוא הזמני</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">גלות החרש והמסגר (גלות יהויכין) מותירה את שבי הגולה בבבל במצב של אי-ודאות עמוקה: האם מדובר בשלב זמני שיסתיים בשיבה מהירה, או שמא זהו רק השלב הראשון בתהליך גלות ארוך וסופי? מדוע, לדעתכם, נשארה שאלה זו פתוחה ולא הוכרעה מיד?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -202,8 +202,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">רד"ק: ה' שם בלבו של צדקיהו שימרוד במלך בבל, כדי שימצא מלך בבל טענה להחריב את יהודה ולהוציאם לגלות, כפי שה' הבטיח</p>
         <div class="qb-card">
+          <p class="q-cue">רד"ק: ה' שם בלבו של צדקיהו שימרוד במלך בבל, כדי שימצא מלך בבל טענה להחריב את יהודה ולהוציאם לגלות, כפי שה' הבטיח</p>
           <div class="qb-meforesh">
             <span class="qb-src">רד"ק, מלכים ב' כ"ד, כ'</span>
             "כִּי עַל אַף ה' הָיְתָה בִירוּשָׁלַם וּבִיהוּדָה עַד הִשְׁלִיכוֹ אֹתָם מֵעַל פָּנָיו" - ה' שם בלבו של צדקיהו שימרוד במלך בבל, כדי שימצא מלך בבל טענה להחריב את יהודה ולהוציא אותם לגלות, כפי שה' הבטיח.
@@ -242,8 +242,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: לפי חז"ל, החיילים הבבליים נכנסו למקדש בז' באב, אך שרפו אותו בפועל בט' באב</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: לפי חז"ל, החיילים הבבליים נכנסו למקדש בז' באב, אך שרפו אותו בפועל בט' באב</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">חז"ל קבעו את תענית ט' באב, אף שלפי המסורת הכניסה עצמה למקדש הייתה כבר בז' באב. מדוע, לדעתכם, בחרו חז"ל לקבוע את יום האבל דווקא ביום שבו הושלמה שריפת המקדש בפועל, ולא ביום הפריצה הראשונית אליו?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -252,8 +252,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: צדקיהו מנסה להימלט אך נתפס - הרגו את בניו לעיניו ואת עיניו עצמו עיוורו, כך שראה את בניו נהרגים אך לא ראה מעולם את בבל עצמה</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: צדקיהו מנסה להימלט אך נתפס - הרגו את בניו לעיניו ואת עיניו עצמו עיוורו, כך שראה את בניו נהרגים אך לא ראה מעולם את בבל עצמה</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">עיוורונו של צדקיהו מתרחש בסמיכות מיוחדת - לאחר שראה את בניו נרצחים, ולפני שהגיע לבבל. כך הוא "יגיע לבבל אך לא יראה אותה" - התקיימות מדויקת של נבואה סותרת לכאורה (יחזקאל שניבא שיובא לבבל, וירמיהו שניבא שלא יראה אותה). מה מלמד יישוב הסתירה הזה על אופי הגשמת נבואות המקרא?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -287,8 +287,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: רצח גדליה בידי ישמעאל בן נתניה גורם לגלות שארית הפליטה שנותרה בארץ - סוף כל נוכחות יהודית מאורגנת בארץ ישראל</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: רצח גדליה בידי ישמעאל בן נתניה גורם לגלות שארית הפליטה שנותרה בארץ - סוף כל נוכחות יהודית מאורגנת בארץ ישראל</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">רצח גדליה בן אחיקם, המונה לאחראי על שארית הפליטה, מוביל לגלותה של אותה שארית עצמה. מה הטרגיות המיוחדת שבכך שדווקא מעשה שנעשה, לפי הנחת הרוצחים, "למען ישראל" (כנגד המינוי הבבלי) מביא לתוצאה ההפוכה - חורבן מוחלט יותר?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -297,8 +297,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: ספר מלכים מסתיים בתיאור התרוממות מעמדו של יהויכין בחצר בבל, עשרים ושבע שנה אחרי החורבן</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: ספר מלכים מסתיים בתיאור התרוממות מעמדו של יהויכין בחצר בבל, עשרים ושבע שנה אחרי החורבן</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">בניגוד לכל התיאורים הקודרים בפרק, הפסוקים האחרונים בספר מלכים מתארים דווקא מעמד של כבוד ליהויכין הגולה. מדוע, לדעתכם, בחר מחבר הספר לסיים דווקא בנימה זו, ולא לסיים בתיאור החורבן והגלות עצמם?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>

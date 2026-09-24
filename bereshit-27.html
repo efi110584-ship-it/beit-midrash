@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
@@ -53,7 +53,7 @@
   .flow-icon{ font-size:.95rem; }
   .flow-arrow{ color:var(--acc); font-size:1rem; margin:.1rem 0; }
 
-  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
   .grid > .topic-col:first-child{ margin-top:0; }
 
   .qb-topic{ min-width:0; }
@@ -80,7 +80,7 @@
   }
 
   .qb-branches{
-    display:flex; flex-direction:column; gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
@@ -186,8 +186,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "וַתִּכְהֶיןָ עֵינָיו מֵרְאֹת" (פסוק א')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וַתִּכְהֶיןָ עֵינָיו מֵרְאֹת" (פסוק א')</p>
           <div class="qb-meforesh">
             <span class="qb-src">רש"י, פסוק א' - "וַתִּכְהֶיןָ עֵינָיו"</span>
             מכהות ראייתו - מרוב עשן ידוע [של קטורת] שהיו נשות עשיו מקטירות לעבודה זרה. ורבותינו דרשו מכאן: מכהות מראות עינו - מן העקידה, כשעקדו אביו על גבי המזבח והיה מבט המלאכים בוכים ונטפו דמעות לתוך עיניו.
@@ -201,8 +201,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "הִנֵּה נָא זָקַנְתִּי, לֹא יָדַעְתִּי יוֹם מוֹתִי... בַּעֲבוּר תְּבָרֶכְךָ נַפְשִׁי" (פסוקים ב'-ד')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "הִנֵּה נָא זָקַנְתִּי, לֹא יָדַעְתִּי יוֹם מוֹתִי... בַּעֲבוּר תְּבָרֶכְךָ נַפְשִׁי" (פסוקים ב'-ד')</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מדוע דורש יצחק דווקא מטעמים מציד לפני שיברך את עשיו - מה, לדעתכם, הקשר בין האוכל לבין הברכה?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -242,8 +242,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "הֵן עֵשָׂו אָחִי אִישׁ שָׂעִר וְאָנֹכִי אִישׁ חָלָק... וְהֵבֵאתִי עָלַי קְלָלָה וְלֹא בְרָכָה" (פסוק י"ב)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "הֵן עֵשָׂו אָחִי אִישׁ שָׂעִר וְאָנֹכִי אִישׁ חָלָק... וְהֵבֵאתִי עָלַי קְלָלָה וְלֹא בְרָכָה" (פסוק י"ב)</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">ממה חושש יעקב לפני שהוא נכנס אל אביו, ואיזו תשובה נותנת לו רבקה על חששו זה?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -252,8 +252,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "וַיְמֻשֵּׁהוּ וַיֹּאמֶר: הַקֹּל קוֹל יַעֲקֹב וְהַיָּדַיִם יְדֵי עֵשָׂו... וַיְבָרְכֵהוּ" (פסוק כ"ג)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וַיְמֻשֵּׁהוּ וַיֹּאמֶר: הַקֹּל קוֹל יַעֲקֹב וְהַיָּדַיִם יְדֵי עֵשָׂו... וַיְבָרְכֵהוּ" (פסוק כ"ג)</p>
           <div class="qb-meforesh">
             <span class="qb-src">רש"י, פסוק כ"ג - "הַקֹּל קוֹל יַעֲקֹב"</span>
             שהיה מדבר בלשון תחנונים, אבל עשו בלשון קנטוריא. דבר אחר: מכיר היה קולו שהוא כקול יעקב, שהרי לא דבר אליו אלא פעם אחת "אנכי עשו בכרך" - והשאר היה משיבו במישוש.
@@ -296,8 +296,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "וַיֶּחֱרַד יִצְחָק חֲרָדָה גְּדֹלָה עַד מְאֹד... גַּם בָּרוּךְ יִהְיֶה" (פסוקים ל"ג)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וַיֶּחֱרַד יִצְחָק חֲרָדָה גְּדֹלָה עַד מְאֹד... גַּם בָּרוּךְ יִהְיֶה" (פסוקים ל"ג)</p>
           <div class="qb-meforesh">
             <span class="qb-src">רש"י, פסוק ל"ג - "גַּם בָּרוּךְ יִהְיֶה"</span>
             הרהרתי אחריו וראיתי בו רוח הקדש שיהא ברוך, גם כשראיתי את עשו בא לא נתקררה דעתי, ולפי הפשט - כשראה גיהנם פתוחה תחתיו נתחרט ואמר: מעתה גם ברוך יהיה.
@@ -311,8 +311,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "הֲכִי קָרָא שְׁמוֹ יַעֲקֹב וַיַּעְקְבֵנִי זֶה פַעֲמַיִם - אֶת בְּכֹרָתִי לָקָח וְהִנֵּה עַתָּה לָקַח בִּרְכָתִי" (פסוק ל"ו)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "הֲכִי קָרָא שְׁמוֹ יַעֲקֹב וַיַּעְקְבֵנִי זֶה פַעֲמַיִם - אֶת בְּכֹרָתִי לָקָח וְהִנֵּה עַתָּה לָקַח בִּרְכָתִי" (פסוק ל"ו)</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">עשיו משחק על שם "יעקב" במילה "ויעקבני". הסבירו את משחק המילים הזה, וכתבו לאילו שני מעשים של יעקב הוא מתייחס.</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -350,8 +350,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "וְקוּם בְּרַח לְךָ אֶל לָבָן אָחִי חָרָנָה... עַד אֲשֶׁר תָּשׁוּב חֲמַת אָחִיךָ" (פסוקים מ"ג-מ"ד)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וְקוּם בְּרַח לְךָ אֶל לָבָן אָחִי חָרָנָה... עַד אֲשֶׁר תָּשׁוּב חֲמַת אָחִיךָ" (פסוקים מ"ג-מ"ד)</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">כיצד פועלת רבקה כדי להגן על יעקב, ומדוע, לדעתכם, היא בוחרת לנמק ליצחק את שליחת יעקב בטעם אחר לגמרי (חשש מנישואין לבנות כנען, בהמשך הפרק) ולא בסכנת הנקמה של עשיו?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -360,8 +360,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "וְיִתֶּן לְךָ אֶת בִּרְכַּת אַבְרָהָם... לְרִשְׁתְּךָ אֶת אֶרֶץ מְגֻרֶיךָ" (פרק כ"ח, פסוק ד')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וְיִתֶּן לְךָ אֶת בִּרְכַּת אַבְרָהָם... לְרִשְׁתְּךָ אֶת אֶרֶץ מְגֻרֶיךָ" (פרק כ"ח, פסוק ד')</p>
           <div class="qb-meforesh">
             <span class="qb-src">רמב"ן, על ברכת אברהם בפרק כ"ח</span>
             עתה חזר [יצחק] וברכו ברכה מפורשת - "ברכת אברהם" - שהיא ירושת הארץ וההבטחה לזרעו, בנפרד מברכת השפע והממשל שכבר נתן לו בטעות תחת דמות עשיו. וזאת, כדי שתהיה ליעקב ברכת הארץ מדעת ומרצון אביו, ולא רק מתוך תרמית.

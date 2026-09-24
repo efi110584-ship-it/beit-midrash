@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
@@ -53,7 +53,7 @@
   .flow-icon{ font-size:.95rem; }
   .flow-arrow{ color:var(--acc); font-size:1rem; margin:.1rem 0; }
 
-  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
   .grid > .topic-col:first-child{ margin-top:0; }
 
   .qb-topic{ min-width:0; }
@@ -80,7 +80,7 @@
   }
 
   .qb-branches{
-    display:flex; flex-direction:column; gap:1.1rem;
+    display:flex; flex-wrap:wrap; gap:1.1rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
@@ -190,8 +190,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "הוֹצִיאוּ כָל אִישׁ מֵעָלָי... וַיִּתֵּן אֶת קֹלוֹ בִּבְכִי" (פסוקים א'-ב')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "הוֹצִיאוּ כָל אִישׁ מֵעָלָי... וַיִּתֵּן אֶת קֹלוֹ בִּבְכִי" (פסוקים א'-ב')</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מדוע מקפיד יוסף להוציא את כל המצרים לפני שהוא מתגלה לאחיו? מה מלמד הדבר על רגישותו כלפי אחיו, גם ברגע הדרמטי הזה?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -200,8 +200,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: מדוע מתגלה יוסף לאחיו דווקא ברגע זה, ולא קודם לכן?</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: מדוע מתגלה יוסף לאחיו דווקא ברגע זה, ולא קודם לכן?</p>
           <div class="qb-meforesh">
             <span class="qb-src">אברבנאל ועקידת יצחק - מדוע דווקא עכשיו?</span>
             לפי פשוטו של מקרא, נאום יהודה הוא שעורר את רחמי יוסף ברגע נתון. אך לדעת אברבנאל ובעל עקידת יצחק, יוסף המתין במכוון עד שיוכיחו האחים בפועל, במבחן הגביע ובנאום יהודה, שעשו תשובה שלמה על מכירתו - ורק כשראה שיהודה מוכן להישאר עבד תחת בנימין, ידע שהגיעה השעה להתגלות.
@@ -238,8 +238,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "אַל תֵּעָצְבוּ וְאַל יִחַר בְּעֵינֵיכֶם כִּי מְכַרְתֶּם אֹתִי הֵנָּה... לֹא אַתֶּם שְׁלַחְתֶּם אֹתִי הֵנָּה כִּי הָאֱלֹקִים" (פסוקים ה', ח')</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "אַל תֵּעָצְבוּ וְאַל יִחַר בְּעֵינֵיכֶם כִּי מְכַרְתֶּם אֹתִי הֵנָּה... לֹא אַתֶּם שְׁלַחְתֶּם אֹתִי הֵנָּה כִּי הָאֱלֹקִים" (פסוקים ה', ח')</p>
           <div class="qb-meforesh">
             <span class="qb-src">עקרון "הסיבתיות הכפולה"</span>
             יוסף מנסח כאן עיקרון יסוד: אותו מעשה עצמו - מכירתו למצרים - הוא גם מעשה אנושי חופשי של האחים (שנבע מקנאה ושנאה), וגם, במקביל, חלק מתוכנית אלוקית מכוונת (הבאתו למצרים כדי להציל את המשפחה מרעב). שני ההסברים נכונים בעת ובעונה אחת, ואינם סותרים זה את זה - וזהו "כפל הסיבתיות": סיבה אנושית וסיבה אלוקית, יחד.
@@ -253,8 +253,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "לֹא אַתֶּם שְׁלַחְתֶּם אֹתִי הֵנָּה כִּי הָאֱלֹקִים" (פסוק ח') מול הבטחת ברית בין הבתרים</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "לֹא אַתֶּם שְׁלַחְתֶּם אֹתִי הֵנָּה כִּי הָאֱלֹקִים" (פסוק ח') מול הבטחת ברית בין הבתרים</p>
           <div class="remember-block">
             <div class="src"><span aria-hidden="true">🔗</span>קשר לברית בין הבתרים</div>
             עוד לפני שנולד יעקב, הבטיח ה' לאברהם אבינו בברית בין הבתרים: <q>יָדֹעַ תֵּדַע כִּי גֵר יִהְיֶה זַרְעֲךָ בְּאֶרֶץ לֹא לָהֶם, וַעֲבָדוּם וְעִנּוּ אֹתָם אַרְבַּע מֵאוֹת שָׁנָה</q> (בראשית ט"ו, י"ג).
@@ -296,8 +296,8 @@
       <div class="qb-connector" aria-hidden="true"></div>
       <div class="qb-branches">
 
-        <p class="q-cue">תזכורת: "וַיָּפָג לִבּוֹ כִּי לֹא הֶאֱמִין לָהֶם... וַתְּחִי רוּחַ יַעֲקֹב אֲבִיהֶם" (פסוקים כ"ו-כ"ז)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "וַיָּפָג לִבּוֹ כִּי לֹא הֶאֱמִין לָהֶם... וַתְּחִי רוּחַ יַעֲקֹב אֲבִיהֶם" (פסוקים כ"ו-כ"ז)</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מדוע אין יעקב מאמין לדברי בניו, ומה, בסופו של דבר, משכנע אותו שהבשורה אמיתית?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
@@ -306,8 +306,8 @@
           </div>
         </div>
 
-        <p class="q-cue">תזכורת: "רַב, עוֹד יוֹסֵף בְּנִי חָי - אֵלְכָה וְאֶרְאֶנּוּ בְּטֶרֶם אָמוּת" (פסוק כ"ח)</p>
         <div class="qb-card">
+          <p class="q-cue">תזכורת: "רַב, עוֹד יוֹסֵף בְּנִי חָי - אֵלְכָה וְאֶרְאֶנּוּ בְּטֶרֶם אָמוּת" (פסוק כ"ח)</p>
           <div class="question-block">
             <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">כיצד מסתיים, בפסוק זה, הקרע המשפחתי שהחל בפרק ל"ז? הראו כיצד סוף הפרק "סוגר מעגל" עם תחילת סיפור יוסף.</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
