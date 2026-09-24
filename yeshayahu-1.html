@@ -38,10 +38,10 @@
   .vs-desc{ font-size:.72rem; line-height:1.45; color:var(--ink-soft); }
   .vs-mid{ flex:none; width:2rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.72rem; color:#fff; background:var(--ink); }
 
-  .topic-banner{ margin-top:2.6rem; }
-  .grid > .topic-banner:first-of-type{ margin-top:0; }
+  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .grid > .topic-col:first-child{ margin-top:0; }
 
-  .qb-topic{ grid-column: 1 / -1; }
+  .qb-topic{ min-width:0; }
   .qb-root{
     max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
     padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
@@ -152,7 +152,8 @@
     </section>
 
     <!-- נושא 1 -->
-    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+    <div class="topic-col">
+    <div class="topic-banner" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
       <span class="topic-icon" aria-hidden="true">📜</span>
       <div>
         <div class="topic-eyebrow">נושא 1 מתוך 4</div>
@@ -194,9 +195,11 @@
 
       </div>
     </div>
+    </div>
 
     <!-- נושא 2 -->
-    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+    <div class="topic-col">
+    <div class="topic-banner" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
       <span class="topic-icon" aria-hidden="true">🐂</span>
       <div>
         <div class="topic-eyebrow">נושא 2 מתוך 4</div>
@@ -258,9 +261,11 @@
 
       </div>
     </div>
+    </div>
 
     <!-- נושא 3 -->
-    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+    <div class="topic-col">
+    <div class="topic-banner" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
       <span class="topic-icon" aria-hidden="true">⚖️</span>
       <div>
         <div class="topic-eyebrow">נושא 3 מתוך 4</div>
@@ -330,9 +335,11 @@
 
       </div>
     </div>
+    </div>
 
     <!-- נושא 4 -->
-    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
+    <div class="topic-col">
+    <div class="topic-banner" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
       <span class="topic-icon" aria-hidden="true">🏙️</span>
       <div>
         <div class="topic-eyebrow">נושא 4 מתוך 4</div>
@@ -376,6 +383,7 @@
         </div>
 
       </div>
+    </div>
     </div>
 
   </div>
