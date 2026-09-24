@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר עזרא — דף עבודה אינטראקטיבי (פרקים ה'-ו', חידוש בניית המקדש)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  .topic-banner{ margin-top:2.6rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  .qb-topic{ grid-column: 1 / -1; }
+  .qb-root{
+    max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
+    padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
+  }
+  .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
+  .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
+  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
+  .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
+  .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
+
+  .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
+  .qb-connector::after{
+    content:""; position:absolute; bottom:-1px; right:50%; transform:translateX(50%);
+    border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
+  }
+
+  .qb-branches{
+    display:flex; flex-wrap:wrap; gap:1.1rem;
+    position:relative; padding-top:22px; margin-top:-22px;
+  }
+  .qb-branches::before{
+    content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
+  }
+  .qb-card{
+    flex:1 1 260px;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
+    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
+    min-width:0;
+  }
+  .qb-card > *{ width:100%; max-width:640px; }
+  .qb-meforesh{
+    font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+    background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
+    padding:.75rem .9rem; box-shadow:var(--shadow);
+  }
+  .qb-meforesh .qb-src{
+    display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
+    font-size:.8rem; margin-bottom:.35rem;
+  }
+  .qb-meforesh .qb-src::before{ content:"💬"; font-size:1.05rem; line-height:1; }
+  .qb-card .question-block{ display:flex; flex-direction:column; gap:.5rem; }
+  .qb-card .question-row{ align-items:flex-start; }
+  .qb-card .q-text{ font-size:.86rem; line-height:1.5; }
+  .qb-card textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
+  .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
+  .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-yb">כיתה י"ב</a>
+  <span class="sep">›</span>
+  <a href="ezra-nechemia-hub.html">עזרא ונחמיה</a>
+  <span class="sep">›</span>
+  <span class="current">פרקים ה'-ו'</span>
+</nav>
+
+<header>
+  <div class="eyebrow">ספר עזרא · תקופת בית שני · כיתה י"ב</div>
+  <h1>דף עבודה — פרקים ה'-ו', "חִדּוּשׁ בְּנִיַּת הַמִּקְדָּשׁ"</h1>
+  <p class="sub">בכל נושא: קודם קוראים את הפסוקים בקובייה העליונה, ואז עוברים על כל קוביית-שאלה שמסתעפת ממנה - קוראים את דברי הפרשן (אם יש), כותבים תשובה, ורק אז לוחצים "הצג תשובה" לבדיקה עצמית. הכול נשמר אוטומטית במכשיר שלכם.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 7 שאלות</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main>
+  <div class="grid" id="grid">
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרקים</span>
+        <h2 class="card-title">מה קורה בפרקים ה'-ו'?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          לאחר שנות הפסקה, מלך חדש - דריוש - עולה לשלטון, ובמקביל מעודדים הנביאים חגי וזכריה את זרובבל ויהושע לחדש את בניית המקדש. חידוש הבנייה מעורר שוב אגרות שיטנה מצד השכנים, אך דריוש בודק בגנזי המלכות ומוצא שם את הצהרת כורש המקורית. הוא מבטל את מכתבי השטנה, מאשרר את הצהרת כורש מחדש ואף מרחיב אותה - מצווה לספק לבונים חומרים ומימון על חשבון המלכות. הבנייה מסתיימת בהצלחה בשנה השישית למלכות דריוש, וחונכת בטקס מרשים אך תמציתי. חודש לאחר מכן חוגג העם במקדש החדש את חג הפסח בשמחה גדולה.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <span class="topic-icon" aria-hidden="true">📢</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 4</div>
+        <div class="topic-title">חידוש הבנייה בעקבות נבואות חגי וזכריה</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">📢</span>
+        <div class="qb-root-label">עזרא ה', א'-ב' (ארמית, מתורגם)</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line">וְהִתְנַבְּאוּ חַגַּי הַנָּבִיא וּזְכַרְיָה בֶן עִדּוֹא הַנְּבִיאִים עַל הַיְּהוּדִים אֲשֶׁר בִּיהוּדָה וּבִירוּשָׁלַיִם, בְּשֵׁם אֱלֹקֵי יִשְׂרָאֵל עֲלֵיהֶם. אָז קָמוּ זְרֻבָּבֶל בֶּן שְׁאַלְתִּיאֵל וְיֵשׁוּעַ בֶּן יוֹצָדָק, וְהֵחֵלּוּ לִבְנוֹת אֶת בֵּית הָאֱלֹקִים אֲשֶׁר בִּירוּשָׁלַיִם, וְעִמָּהֶם נְבִיאֵי הָאֱלֹקִים עוֹזְרִים לָהֶם.</div>
+        </div>
+        <p class="qb-root-note">הערה: יחידה זו כתובה בארמית. במבחן הבגרות תידרשו לדעת את תוכן הפרק ולא את המילים בעל-פה; במידה ותהיה הפניה לפסוקים מסוימים, יוצג תרגום לעברית.</p>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">תזכורת: לאחר שנשבתה הבנייה "כל ימי כורש... עד מלכות דריוש" (ד', ה')</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מהו התפקיד הכפול שממלאים חגי וזכריה בחידוש הבנייה - הן ביחס לעם והן ביחס למנהיגים זרובבל ויהושע? מדוע, לדעתכם, נדרשה דווקא נבואה כדי לחדש מלאכה שכבר החלה בעבר?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הנביאים מעודדים את זרובבל ויהושע לחדש את היוזמה, ובו-זמנית מחזקים את רוח העם כולו לתמוך במפעל. לאחר שנות הפסקה ותסכול, נדרש דחף רוחני-נבואי מחודש כדי להתגבר על הייאוש והחשש שהתפתחו בעקבות ההתנכלויות הקודמות - נבואה שמזכירה לעם שהמפעל עדיין רצוי בעיני ה', ושהעצירה הייתה זמנית ולא סופית.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">🗄️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 4</div>
+        <div class="topic-title">מציאת הצהרת כורש בגנזי המלך, ואישורה מחדש בידי דריוש</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🗄️</span>
+        <div class="qb-root-label">עזרא ו', ו'-י"ב (ארמית, מתורגם)</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">דריוש מצווה על תתני, פחת עבר הנהר, שלא להפריע לבנייה</div>
+          <div class="pasuk-line"><b>ו'-ז':</b> כָעֵת, תַּתְּנַי פַּחַת עֵבֶר הַנָּהָר... מְרֻחָקִים הֱיוּ מִשָּׁם. הַנִּיחוּ לַעֲבוֹדַת בֵּית הָאֱלֹקִים הַזֶּה... בֵּית אֱלֹקִים זֶה יִבְנוּ עַל מְקוֹמוֹ.</div>
+          <div class="pasuk-gloss">דריוש מצווה לממן את הבנייה מנכסי המלך, במהירות וללא עיכוב</div>
+          <div class="pasuk-line"><b>ח'-י':</b> וּמִנִּכְסֵי הַמֶּלֶךְ... בִּמְהֵרָה הַהוֹצָאָה תִּהְיֶה נִתֶּנֶת לָאֲנָשִׁים הָאֵלֶּה, שֶׁלֹּא לְבַטֵּל. וּמַה שֶׁצָּרִיךְ... יְהִי נִתָּן לָהֶם יוֹם בְּיוֹם בְּלֹא מִשְׁגֶּה, אֲשֶׁר יִהְיוּ מַקְרִיבִים נִיחוֹחִים לֵאלֹקֵי הַשָּׁמַיִם, וּמִתְפַּלְלִים לְחַיֵּי הַמֶּלֶךְ וּבָנָיו.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">תזכורת: דריוש מוצא בגנזי המלך את הצהרת כורש המקורית, ומבטל את אגרות השיטנה</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">בפרק ה' פונים שכני היהודים בשאלה מכוח מי הם בונים, וזרובבל משיב שהם פועלים לפי הרשאת כורש; דריוש בודק את הטענה בגנזי המלכות ומוצאה נכונה. מדוע, לדעתכם, חשוב היה לספר עזרא לתאר בפירוט את תהליך הבירור הבירוקרטי הזה, ולא רק את תוצאתו?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> תיאור התהליך הבירוקרטי המלא מדגיש שההיתר לבנייה איננו תלוי ברצונו הרגעי או האישי של מלך זה או אחר, אלא מעוגן במסמך רשמי, שנשמר ואומת. כך הבנייה זוכה לתוקף יציב ובלתי ניתן לערעור, וגם דריוש עצמו, אף שהוא מלך חדש, מחויב על ידי הרשמיות עצמה - ולא רק בזכות רצונו הטוב.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">תזכורת: "וּמִנִּכְסֵי הַמֶּלֶךְ... בִּמְהֵרָה הַהוֹצָאָה תִּהְיֶה נִתֶּנֶת... שֶׁלֹּא לְבַטֵּל" (ו', ח')</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">דריוש לא רק מאשר מחדש את הצהרת כורש, אלא אף מרחיב אותה - מצווה לממן את הבנייה מאוצר המלכות. מה משמעות ההרחבה הזו, מעבר לעצם קבלת הרשות לבנות?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ההרחבה הופכת את מלכות פרס ממי שרק "מרשה" את הבנייה למי ש"מסייע" לה באופן פעיל ומחויב מבחינה כלכלית. כך גם מוסרת מהיהודים העול הכלכלי הכבד, וגם מתחזקת יציבות המפעל - שהרי אם המימון תלוי במלכות עצמה, לשכנים המתנכלים יש הרבה פחות סיכוי להצליח לעצור אותו שוב.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">🕎</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 4</div>
+        <div class="topic-title">תיאור חנוכת המקדש</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🕎</span>
+        <div class="qb-root-label">עזרא ו', ט"ו-י"ח</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">הבניין נשלם בשנה השישית למלכות דריוש, בשלושה לחודש אדר</div>
+          <div class="pasuk-line"><b>ט"ו:</b> וְנִשְׁלַם בַּיִת זֶה עַד יוֹם שְׁלֹשָׁה לְחֹדֶשׁ אֲדָר, שֶׁהִיא שְׁנַת שֵׁשׁ לְמַלְכוּת דָּרְיָוֶשׁ הַמֶּלֶךְ.</div>
+          <div class="pasuk-gloss">בני ישראל עושים את חנוכת בית האלוקים בחדווה, ומקריבים קרבנות רבים</div>
+          <div class="pasuk-line"><b>ט"ז-י"ח:</b> וְעָשׂוּ בְנֵי יִשְׂרָאֵל, הַכֹּהֲנִים וְהַלְוִיִּים וּשְׁאָר בְּנֵי הַגּוֹלָה, חֲנֻכַּת בֵּית הָאֱלֹקִים הַזֶּה בְּחֶדְוָה. וְהִקְרִיבוּ... פָּרִים מֵאָה, אֵילִים מָאתַיִם, כְּבָשִׂים אַרְבַּע מֵאוֹת, וּצְפִירֵי עִזִּים לְחַטֵּא עַל כָּל יִשְׂרָאֵל, שְׁנֵים עָשָׂר, לְמִנְיַן שִׁבְטֵי יִשְׂרָאֵל.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">תזכורת: השוואה בין חנוכת הבית הראשון בימי שלמה לחנוכת הבית השני כאן</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">כמה נקודות לשים לב אליהן</span>
+            (1) התיאור כאן קצר מאוד, בהשוואה לתיאור חנוכת בית ראשון בימי שלמה. (2) אין כמעט ביטויי שמחה, בהשוואה לשמחה המרובה שבבניית חומת ירושלים בידי נחמיה. (3) חסר גילוי של השראת שכינה במקדש. (4) הכתוב אינו מציין כלל את זרובבל ואת יהושע בן יהוצדק.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="ezra56-mp-1">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">בחרו שתיים מארבע הנקודות המובאות כאן, והסבירו מה, לדעתכם, מסמל כל אחת מהן ביחס להבדל בין הבית הראשון לבית השני.</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> קיצור התיאור וחוסר ביטויי השמחה עשויים לשקף את מציאותם המצומצמת והצנועה של שבי ציון בהשוואה לתקופת מלכות שלמה המפוארת. היעדר גילוי השראת שכינה במפורש (בניגוד לתיאור חנוכת בית ראשון, בו "מלא כבוד ה' את הבית") מסמל שהמקדש השני, על אף חשיבותו העצומה, נחשב בעיני חז"ל כחסר בקדושה מלאה בהשוואה לראשון. אי-הזכרת זרובבל ויהושע במפורש בטקס עצמו עשויה לרמז על שינוי הצפוי בהנהגה - הפחתה במעורבות המנהיגות המדינית-כהונית שעד כה עמדה בראש התהליך.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">תזכורת: "לְחַטֵּא עַל כָּל יִשְׂרָאֵל, שְׁנֵים עָשָׂר, לְמִנְיַן שִׁבְטֵי יִשְׂרָאֵל" (ו', י"ז)</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מדוע, לדעתכם, מקריבים דווקא שנים עשר שעירי עזים "למניין שבטי ישראל", בשעה שרק חלק קטן מהעם - בעיקר משבטי יהודה ובנימין - שב בפועל מהגלות?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הבחירה במספר שנים עשר מבטאת רצון לאחדות כלל ישראל - העולים רואים עצמם כמייצגים את כלל האומה, ולא רק את מי שבפועל נמצא בירושלים. יש בכך גם ביטוי כואב, שכן המספר שנים עשר מזכיר בו-זמנית שעשרת השבטים עדיין לא שבו מהגלות - כך שהקרבן הוא גם תקווה לאחדות עתידית, וגם הכרה בכך שהאחדות הזו עדיין חסרה.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 4 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#B0762B; --acc-soft:#F5E9D6;">
+      <span class="topic-icon" aria-hidden="true">🍞</span>
+      <div>
+        <div class="topic-eyebrow">נושא 4 מתוך 4</div>
+        <div class="topic-title">חגיגת הפסח במקדש</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#B0762B; --acc-soft:#F5E9D6;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🍞</span>
+        <div class="qb-root-label">עזרא ו', י"ט-כ"ב</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">חודש לאחר חנוכת המקדש, חוגג העם את הפסח בשמחה גדולה</div>
+          <div class="pasuk-line"><b>כ"ב:</b> וַיַּעֲשׂוּ חַג מַצּוֹת שִׁבְעַת יָמִים בְּשִׂמְחָה, כִּי שִׂמְּחָם ה', וְהֵסֵב לֵב מֶלֶךְ אַשּׁוּר עֲלֵיהֶם לְחַזֵּק יְדֵיהֶם בִּמְלֶאכֶת בֵּית הָאֱלֹקִים אֱלֹקֵי יִשְׂרָאֵל.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">תזכורת: "כִּי שִׂמְּחָם ה', וְהֵסֵב לֵב מֶלֶךְ אַשּׁוּר עֲלֵיהֶם" (ו', כ"ב)</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">בניגוד לחנוכת המקדש, שבה כמעט ולא הוזכרה שמחה, כאן מודגשת השמחה במפורש ("בְּשִׂמְחָה... כִּי שִׂמְּחָם ה'"). מה, לדעתכם, מיוחד בחגיגת הפסח דווקא, שמאפשר שמחה שלמה יותר מזו שהייתה אפשרית בטקס חנוכת המקדש עצמו?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> חנוכת המקדש הייתה טקס חד-פעמי, שהעלה בהכרח השוואות כואבות לבית הראשון בקרב מי שזכר אותו (כפי שנלמד בפרק ג'). לעומת זאת, חגיגת הפסח היא קיום מצווה מוכר ורגיל, שאינו תלוי בהשוואה למקדש שחרב - ולכן העם יכול לחוות אותה בשמחה טהורה, בזכות עצם קיום המקדש הפועל, ולא כמעמד השוואתי. גם ציון התאריך והזמן הנכון של החג, לאחר שנים שבהן לא ניתן היה לחגגו כהלכה, מוסיף לשמחה.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">תזכורת: "וְהֵסֵב לֵב מֶלֶךְ אַשּׁוּר עֲלֵיהֶם לְחַזֵּק יְדֵיהֶם" (ו', כ"ב) - הכוונה, בהקשר זה, למלך פרס (המכונה כאן "מלך אשור" בשל ירושת שטחי ממלכת אשור לשעבר)</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">הפסוק מייחס במפורש את המהלך המדיני התומך (מלך פרס) להשגחת ה'. מה מלמד ייחוס זה על התפיסה של המחבר את מקומם של אירועים מדיניים ("חילוניים" לכאורה) בתוך תהליך הגאולה?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> מלמד שהמחבר אינו רואה הבחנה חדה בין "נס" גלוי לבין מהלך מדיני-טבעי - גם תמיכתו של מלך זר, הנראית כשיקול מדיני-כלכלי גרידא, מיוחסת בסופו של דבר להשגחת ה' ("הֵסֵב לֵב"). כך מובעת התפיסה שכל תהליך שיבת ציון, על שלביו המדיניים, הכלכליים והדתיים כאחד, הוא ביטוי אחד רציף להשגחה א-לוהית, ולא רק האירועים ה"ניסיים" המובהקים שבו.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <a href="ezra-3-4.html">← פרקים ג'-ד'</a>
+  <a href="ezra-nechemia-hub.html">↺ חזרה ליחידה</a>
+  <a href="ezra-7.html">פרק ז' →</a>
+</nav>
+<div class="toolbar">
+  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
+  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
+</p>
+
+<footer class="credit">ספר עזרא, פרקים ה'-ו' · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'ezra-ch5-6-answers';
+const NAME_KEY = 'ezra-ch5-6-student';
+const textareas = Array.from(document.querySelectorAll('textarea.answer'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{
+    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      nameInput.value = data.name || '';
+      classInput.value = data.cls || '';
+    }
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    flashSaved();
+  }catch(e){
+    console.error('שגיאת שמירה', e);
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => {
+        if(data[t.dataset.id]){
+          t.value = data[t.dataset.id];
+          markFilled(t);
+        }
+      });
+    }
+  }catch(e){
+    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
+  }
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+document.querySelectorAll('.hint-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.nextElementSibling;
+    const showing = box.hidden;
+    box.hidden = !showing;
+    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות בדף העבודה? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
+
+loadStudentInfo();
+loadAnswers();
+</script>
+<script src="assets/progress-tracker.js"></script>
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+
+</body>
+</html>
