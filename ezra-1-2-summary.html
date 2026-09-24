@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,19 +100,43 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 עזרא פרקים א'-ב' — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 עזרא פרקים א'-ב' — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרקים א'-ב', נושא אחרי נושא - ולצד הנושאים שיש בהם דברי מפרשים, מה הם שואלים ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="ezra-1-2.html">→ חזרה לדף העבודה - פרקים א'-ב'</a></div>
 
-  <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🏺</span>עליית ששבצר - עליית הכלים</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">ראב"ע ורלב"ג - מיהו ששבצר?</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מיהו "ששבצר" הנשיא שנמסרו לו כלי בית המקדש - האם מדובר בדמות נפרדת, או בכינוי נוסף לאחד המנהיגים המוכרים?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> ששבצר הוא כינויו הפרסי של זרובבל בן שאלתיאל, המוזכר בשמו העברי בהמשך, בפרק ב'.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    בשנת אחת לכורש מלך פרס, שבו בו כבשה פרס את בבל, מכריז כורש הכרזה מפתיעה: ה' ציווה עליו לבנות לו בית בירושלים, וכל מי מעם ישראל שרוצה - רשאי לעלות ולבנות. אנשי המקום תומכים בעולים בכסף, ברכוש ובנדבות למקדש, וכורש אף מוציא מאוצרותיו את כלי בית המקדש שנבוכדנצר לקח מירושלים ומוסרם לעולים. בראש העולים עומד ששבצר, הנשיא ליהודה, שאליו נמסרים הכלים. פרק ב' מפרט את רשימת העולים המונה עשרות אלפים: ראשי האבות, כוהנים, לוויים, אנשים עם בעיות ייחוס, ועוד - ובראשם זרובבל בן שאלתיאל (הנצר לבית דוד) ויהושע בן יהוצדק (הכהן הגדול). הפרק מסתיים בנתינת נדבות לבניין המקדש מפי העם.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">📯</span>הנבואות המבשרות, והצהרת כורש כהגשמתן<span class="range">(עזרא א', א')</span></div>
+    <p class="narrative">בשנתו הראשונה של כורש מלך פרס, מעיר ה' את רוחו, וכורש מעביר קול בכל ממלכתו ואף בכתב, על בניין בית ה' בירושלים. הצהרה זו מוצגת בפסוק הפתיחה כהגשמה ישירה של שתי נבואות גם יחד: נבואת ירמיהו שגלות בבל תימשך שבעים שנה, ונבואת ישעיהו שקראה לכורש בשמו מראש כמי ש"יַשְׁלִים" את חפצו של ה' בבניין ההיכל.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">📜</span>נוסח ההצהרה הרשמי בגנזי המלך<span class="range">(עזרא ו', ג'-ה')</span></div>
+    <p class="narrative">לצד הסיפור העברי בפרק א', שומר הכתוב גם את הנוסח הרשמי המדויק של הצהרת כורש, כפי שנמצא מאוחר יותר בגנזי המלך דריוש וכתוב ארמית. הנוסח הרשמי מצווה לבנות את בית האלוקים בירושלים, קובע את מידות הבניין ואת מימונו מאוצר המלך, ומורה במפורש להשיב לירושלים את כלי הזהב והכסף שנבוכדנצר הוציא מן ההיכל והוביל לבבל.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🏺</span>עליית ששבצר - עליית הכלים<span class="range">(עזרא א', ה'-י"א)</span></div>
+    <p class="narrative">ראשי האבות ליהודה ובנימין, הכוהנים והלוויים - כל מי שה' מעיר את רוחו - קמים לעלות ולבנות את בית ה' בירושלים, ואילו הנשארים תומכים בעולים בכסף, ברכוש ובנדבות. כורש מוציא מאוצרותיו את כלי בית ה' שנבוכדנצר הגלה בשעתו לבבל, ומוסרם באמצעות מתרדת הגזבר לידי ששבצר, הנשיא ליהודה.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">ראב"ע ורלב"ג - מיהו ששבצר?</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מיהו "ששבצר" הנשיא שנמסרו לו כלי בית המקדש - האם מדובר בדמות נפרדת, או בכינוי נוסף לאחד המנהיגים המוכרים?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> ששבצר הוא כינויו הפרסי של זרובבל בן שאלתיאל, המוזכר בשמו העברי בהמשך, בפרק ב'.</div>
+      </div>
     </div>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#B0762B;"><span class="icon" aria-hidden="true">📋</span>עליית זרובבל ויהושע - עליית ההמונים<span class="range">(עזרא ב', א' וס"ד)</span></div>
+    <p class="narrative">פרק ב' פותח ברשימת "בני המדינה" העולים משבי הגולה, השבים איש איש לעירו ולמשפחתו. בראש הרשימה עומדים זרובבל בן שאלתיאל, מבית דוד, ויהושע בן יהוצדק, הכהן הגדול מבית אהרן, ואחריהם מפורטים ראשי האבות, הכוהנים, הלוויים, ואף אנשים שלא הצליחו להוכיח את ייחוסם. סך כל הקהל העולה מגיע לארבעים ושניים אלף שלוש מאות שישים איש, מלבד עבדיהם ואמותיהם, והפרק מסתיים בנתינת נדבות לבניין המקדש - איש איש כפי יכולתו.</p>
   </div>
 
 </div>

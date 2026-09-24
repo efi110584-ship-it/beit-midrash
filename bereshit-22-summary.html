@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,75 +100,101 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 בראשית פרק כ"ב — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 בראשית פרק כ"ב — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="bereshit-22.html">→ חזרה לדף העבודה - פרק כ"ב</a></div>
 
-  <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🎯</span>מטרת הניסיון</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">הקדמת אברבנאל לפרק כ"ב</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע ראוי לעיין ולחקור בפרשת העקדה יותר מבשאר הפרשיות?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> מפני שהיא יסוד זכות ישראל לפני ה' ונאמרת בתפילה בכל יום - ולכן ראויה לעיון מיוחד.</div>
-    </div>
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">רמב"ן לפסוק א'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מהי מטרת הניסיון האלוקי, ומדוע ה' מנסה דווקא צדיקים ולא רשעים?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> הניסיון מיועד להוציא כוונה טובה אל הפועל, כדי שהאדם יקבל שכר על מעשה בפועל ולא רק על כוונה בלב; לכן ה' מנסה רק את מי שיודע שיעמוד בו.</div>
-    </div>
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">אברבנאל, ד"ה "ויאמר"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> ממה נגזרת המילה "נִסָּה", והאם מטרתה שה' ילמד דבר שלא ידע?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> "נִסָּה" נגזרת מלשון "נס" - דגל מורם; מטרת המעשה היא להפוך את אברהם למופת גלוי ולסמל לעיני העמים, לא ללמד את ה' דבר.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    ה' מנסה את אברהם בניסיון הקשה מכולם - הציווי להעלות את יצחק, בנו היחיד והאהוב, לעולה על אחד ההרים בארץ המוריה. אברהם קם השכם בבוקר, ופונה עם יצחק ושני נעריו למסע בן שלושה ימים. בהגיעם למקום, אברהם עוקד את יצחק על המזבח, ורק ברגע האחרון עוצר אותו מלאך ה' וקורא לו שלא לפגוע בנער. בעקבות עמידתו המלאה בניסיון, אברהם זוכה בשבועה ובברכה גדולה על זרעו. פרק זה, "עקדת יצחק", הפך לאחד מיסודות זכות האבות של עם ישראל, ונזכר בתפילות ראש השנה.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🎯</span>מטרת הניסיון<span class="range">(פסוק א')</span></div>
+    <p class="narrative">ה' מנסה את אברהם בניסיון הקשה מכולם. פרשת העקדה, שנודעת עוד מראשיתה כיסוד גדול בזכות ישראל ונזכרת עד היום בתפילה, פותחת בקריאת ה' לאברהם - וזה עונה מיד: "הנני".</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">הקדמת אברבנאל לפרק כ"ב</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע ראוי לעיין ולחקור בפרשת העקדה יותר מבשאר הפרשיות?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> מפני שהיא יסוד זכות ישראל לפני ה' ונאמרת בתפילה בכל יום - ולכן ראויה לעיון מיוחד.</div>
+      </div>
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">רמב"ן לפסוק א'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מהי מטרת הניסיון האלוקי, ומדוע ה' מנסה דווקא צדיקים ולא רשעים?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> הניסיון מיועד להוציא כוונה טובה אל הפועל, כדי שהאדם יקבל שכר על מעשה בפועל ולא רק על כוונה בלב; לכן ה' מנסה רק את מי שיודע שיעמוד בו.</div>
+      </div>
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">אברבנאל, ד"ה "ויאמר"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> ממה נגזרת המילה "נִסָּה", והאם מטרתה שה' ילמד דבר שלא ידע?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> "נִסָּה" נגזרת מלשון "נס" - דגל מורם; מטרת המעשה היא להפוך את אברהם למופת גלוי ולסמל לעיני העמים, לא ללמד את ה' דבר.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">📢</span>הציווי המדורג</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3F6E66;">
-      <div class="mp-src">רש"י לפסוק ב'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע ה' לא אמר מיד "קח את יצחק" אלא פירט בהדרגה "את בנך... את יחידך... אשר אהבת... את יצחק"?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> הפירוט ההדרגתי בא כדי שלא לערבב את דעתו של אברהם בבת אחת ולהלמו פתאום.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">📢</span>הציווי המדורג<span class="range">(פסוק ב')</span></div>
+    <p class="narrative">ה' מצווה על אברהם לקחת את בנו יחידו אשר אהב, את יצחק, ולהעלותו לעולה בארץ המוריה, על אחד ההרים אשר יראה לו. הציווי עצמו בנוי בהדרגה - "את בנך... את יחידך... אשר אהבת... את יצחק" - ולא נאמר בבת אחת ובבירור.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3F6E66;">
+        <div class="mp-src">רש"י לפסוק ב'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע ה' לא אמר מיד "קח את יצחק" אלא פירט בהדרגה "את בנך... את יחידך... אשר אהבת... את יצחק"?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> הפירוט ההדרגתי בא כדי שלא לערבב את דעתו של אברהם בבת אחת ולהלמו פתאום.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">🚶</span>הדרך - זריזות והתבוננות</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8B4A34;">
-      <div class="mp-src">רש"י ד"ה 'וַיַּשְׁכֵּם' - נזדרז למצווה</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע חבש אברהם את החמור בעצמו ולא ציווה על אחד מנעריו לעשות זאת?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> אהבתו הגדולה למצווה גרמה לו לעשות בעצמו אף מה שרגילים למסור לאחרים - "האהבה מקלקלת השורה".</div>
-    </div>
-    <div class="mp-card" style="--acc:#8B4A34;">
-      <div class="mp-src">רמב"ן לפסוק ב'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע ה' דחה את קיום הציווי למסע של שלושה ימים, במקום לצוות על אברהם לבצעו מיד במקומו?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> אילו נעשה הדבר מיד, הוא היה נראה כפעולה פזיזה ונחפזת; מסע של שלושה ימים מוכיח שאברהם פעל ביישוב הדעת, לא מתוך בהלה.</div>
-    </div>
-    <div class="mp-card" style="--acc:#8B4A34;">
-      <div class="mp-src">רש"י על "וילכו שניהם יחדיו" (פס' ו', ח')</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע הביטוי "וילכו שניהם יחדיו" חוזר פעמיים - לפני שיצחק יודע לאן הולכים ואחרי שהוא כבר מבין?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> בפעם הראשונה רק אברהם יודע שהוא הולך לשחוט את בנו והולך בשמחה; בפעם השנייה גם יצחק כבר מבין - ובכל זאת שניהם ממשיכים ללכת יחד בלב שווה.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">🧭</span>"לֶךְ לְךָ": בין שני ציוויים<span class="range">(השוואה לפרק י"ב)</span></div>
+    <p class="narrative">ציווי העקדה מהדהד את הציווי הראשון שקיבל אברהם, "לך לך", מפרק י"ב - בשני המקומות היעד אינו ידוע מראש. אך בעוד שם ניתנה הברכה לאברם מיד עם הציווי, כאן היא באה רק לאחר שיעמוד בניסיון בפועל; והוויתור הנדרש ממנו הפעם גדול הרבה יותר - לא רק על ארץ ומולדת, אלא על בנו היחיד והאהוב.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">🚶</span>הדרך - זריזות והתבוננות<span class="range">(פסוקים ג'-ח')</span></div>
+    <p class="narrative">אברהם משכים בבוקר, חובש בעצמו את חמורו, לוקח את יצחק ושני נעריו ויוצא לדרך. רק ביום השלישי הוא רואה את המקום מרחוק. הוא ממשיך עם יצחק לבדו, ובדרך שואל הנער היכן השה לעולה - ואברהם עונה שאלוקים יראה לו השה, ושניהם ממשיכים ללכת יחד.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8B4A34;">
+        <div class="mp-src">רש"י ד"ה 'וַיַּשְׁכֵּם' - נזדרז למצווה</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע חבש אברהם את החמור בעצמו ולא ציווה על אחד מנעריו לעשות זאת?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> אהבתו הגדולה למצווה גרמה לו לעשות בעצמו אף מה שרגילים למסור לאחרים - "האהבה מקלקלת השורה".</div>
+      </div>
+      <div class="mp-card" style="--acc:#8B4A34;">
+        <div class="mp-src">רמב"ן לפסוק ב'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע ה' דחה את קיום הציווי למסע של שלושה ימים, במקום לצוות על אברהם לבצעו מיד במקומו?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> אילו נעשה הדבר מיד, הוא היה נראה כפעולה פזיזה ונחפזת; מסע של שלושה ימים מוכיח שאברהם פעל ביישוב הדעת, לא מתוך בהלה.</div>
+      </div>
+      <div class="mp-card" style="--acc:#8B4A34;">
+        <div class="mp-src">רש"י על "וילכו שניהם יחדיו" (פס' ו', ח')</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע הביטוי "וילכו שניהם יחדיו" חוזר פעמיים - לפני שיצחק יודע לאן הולכים ואחרי שהוא כבר מבין?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> בפעם הראשונה רק אברהם יודע שהוא הולך לשחוט את בנו והולך בשמחה; בפעם השנייה גם יצחק כבר מבין - ובכל זאת שניהם ממשיכים ללכת יחד בלב שווה.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">⭐</span>העקידה, הבשורה וזכות אבות</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">רש"י ד"ה 'עַתָּה יָדַעְתִּי'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה פירוש דברי המלאך "עתה ידעתי כי ירא אלוקים אתה" - וכי לא ידע ה' זאת קודם?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> הניסיון נתן לקב"ה, כביכול, "פתחון פה" להשיב לשטן ולאומות העולם, ולהראות בפועל שאברהם ירא אלוקים.</div>
-    </div>
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">הרב חרל"פ, מתוך ההקדמה ל"בית זבול"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מהו מקור כוחם המיוחד של עם ישראל למסירות נפש וקידוש ה'?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> הכוח הוטבע בישראל מאז עקד אברהם את יצחק על המזבח - הרצון למסור את הנפש נשאר טבוע בהם לדורות, גם כשלא יוצא בפועל לפעולה.</div>
-    </div>
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">"הגיונות אל עמי"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע חשיבות עקדת יצחק כה עצומה, יותר מכל מסירות נפש מאוחרת יותר?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> אברהם היה ה"ראשון" שהוריד את רעיון מסירות הנפש מהמחשבה אל המעשה בפועל; כל מי שבא אחריו רק הולך בעקבותיו, ולכן העיקר שייך תמיד לממציא הראשון.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">⭐</span>העקידה, הבשורה וזכות אבות<span class="range">(פסוקים ט'-י"ח)</span></div>
+    <p class="narrative">אברהם עוקד את יצחק על המזבח ושולח ידו לשוחטו - וברגע האחרון עוצר אותו מלאך ה' וקורא לו שלא לפגוע בנער, שכן עתה הוכח שהוא ירא אלוקים. בעקבות עמידתו המלאה בניסיון, ה' משביע לאברהם ברכה גדולה על זרעו: ריבוי ככוכבי השמים וכחול הים, וירושת שער אויביו.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">רש"י ד"ה 'עַתָּה יָדַעְתִּי'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה פירוש דברי המלאך "עתה ידעתי כי ירא אלוקים אתה" - וכי לא ידע ה' זאת קודם?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> הניסיון נתן לקב"ה, כביכול, "פתחון פה" להשיב לשטן ולאומות העולם, ולהראות בפועל שאברהם ירא אלוקים.</div>
+      </div>
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">הרב חרל"פ, מתוך ההקדמה ל"בית זבול"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מהו מקור כוחם המיוחד של עם ישראל למסירות נפש וקידוש ה'?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> הכוח הוטבע בישראל מאז עקד אברהם את יצחק על המזבח - הרצון למסור את הנפש נשאר טבוע בהם לדורות, גם כשלא יוצא בפועל לפעולה.</div>
+      </div>
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">"הגיונות אל עמי"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע חשיבות עקדת יצחק כה עצומה, יותר מכל מסירות נפש מאוחרת יותר?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> אברהם היה ה"ראשון" שהוריד את רעיון מסירות הנפש מהמחשבה אל המעשה בפועל; כל מי שבא אחריו רק הולך בעקבותיו, ולכן העיקר שייך תמיד לממציא הראשון.</div>
+      </div>
     </div>
   </div>
 

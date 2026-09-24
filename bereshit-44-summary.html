@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,41 +100,58 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 בראשית פרק מ"ד — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 בראשית פרק מ"ד — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="bereshit-44.html">→ חזרה לדף העבודה - פרק מ"ד</a></div>
 
-  <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🏆</span>עלילת הגביע - מבחן אחרון</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">אברבנאל, על מטרת העלילה</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע בוחר יוסף להטמין את הגביע דווקא באמתחת בנימין?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> יוסף רוצה לבחון אם האחים באמת השתנו ביחסם לבני רחל, ולראות אם ינסו להציל את בנימין - לא כפי שנטשו את יוסף.</div>
-    </div>
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">רמב"ם, הלכות תשובה פ"ב</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מהי הגדרתה של "תשובה גמורה"?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> אדם שנקלע לאותו מצב שבו חטא בעבר, ובידו לחטוא שוב - אך נמנע מכך מתוך תשובה אמיתית, לא מפחד וגם לא מחוסר יכולת.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    יוסף מצווה להטמין את גביע הכסף שלו באמתחת בנימין, ושולח את אחיו לדרכם. משיוצאים העירה, שולח יוסף את המשרתו לרדוף אחריהם ולהאשימם בגניבה. האחים, בטוחים בחפותם, מתחייבים שמי שיימצא אצלו הגביע ימות. כשמתגלה הגביע דווקא באמתחת בנימין, קורעים האחים את בגדיהם וחוזרים כולם העירה. יהודה ניגש אל יוסף ונושא נאום ארוך ונרגש: הוא מזכיר את דברי יוסף עצמו, מספר על מצוקת אביהם הזקן ועל הערבות האישית שנתן על בנימין, ומבקש להישאר עבד תחת בנימין - ובלבד שלא יגרום ליעקב אביו צער שיביא למותו.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🏆</span>עלילת הגביע - מבחן אחרון<span class="range">(פסוקים א'-י"ג)</span></div>
+    <p class="narrative">יוסף מצווה להטמין את גביעו באמתחת בנימין, ולאחר שיצאו לדרכם - להאשים אותם בגניבה. האחים, בטוחים בחפותם, מתחייבים שמי שהגביע יימצא אצלו ימות והשאר יהיו לעבדים. כשהגביע מתגלה דווקא באמתחת בנימין, קורעים האחים את שמלותם ושבים כולם העירה.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">אברבנאל, על מטרת העלילה</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע בוחר יוסף להטמין את הגביע דווקא באמתחת בנימין?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> יוסף רוצה לבחון אם האחים באמת השתנו ביחסם לבני רחל, ולראות אם ינסו להציל את בנימין - לא כפי שנטשו את יוסף.</div>
+      </div>
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">רמב"ם, הלכות תשובה פ"ב</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מהי הגדרתה של "תשובה גמורה"?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> אדם שנקלע לאותו מצב שבו חטא בעבר, ובידו לחטוא שוב - אך נמנע מכך מתוך תשובה אמיתית, לא מפחד וגם לא מחוסר יכולת.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">⚖️</span>יהודה מצדיק עליו את הדין</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3F6E66;">
-      <div class="mp-src">ספורנו, פסוק ט"ז - "הָאֱלֹהִים מָצָא אֶת עֲוֹן עֲבָדֶיךָ"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> על איזה חטא מדבר יהודה, הרי האחים חפים מגניבת הגביע?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> יהודה אינו מתכוון לגניבה, אלא רואה בכך עונש שמיימי על מכירת יוסף - ביטוי לתודעת אחריות עמוקה.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">⚖️</span>יהודה מצדיק עליו את הדין<span class="range">(פסוקים י"ד-י"ז)</span></div>
+    <p class="narrative">האחים חוזרים העירה, ויהודה מוביל אותם אל יוסף ונופלים לפניו ארצה. יהודה מצדיק עליהם את הדין ומכריז שכולם יהיו עבדים, לא רק בנימין - אך יוסף מסרב, ומתעקש שרק מי שנמצא אצלו הגביע יהיה עבד, והשאר יעלו לשלום אל אביהם.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3F6E66;">
+        <div class="mp-src">ספורנו, פסוק ט"ז - "הָאֱלֹהִים מָצָא אֶת עֲוֹן עֲבָדֶיךָ"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> על איזה חטא מדבר יהודה, הרי האחים חפים מגניבת הגביע?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> יהודה אינו מתכוון לגניבה, אלא רואה בכך עונש שמיימי על מכירת יוסף - ביטוי לתודעת אחריות עמוקה.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🗣️</span>נאום יהודה - מבנה ומטרה</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">מדרש רבה, ויגש צג, א - שלוש דעות על "וַיִּגַּשׁ"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה משמעות הפועל "ויגש" שבו נוקטת התורה?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> שלוש דעות - הגשה למלחמה, הגשה לפיוס, הגשה לתפילה; ולדעת ר' אלעזר, יהודה בא מוכן לכל שלוש האפשרויות גם יחד.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🗣️</span>נאום יהודה - מבנה ומטרה<span class="range">(פסוקים י"ח-ל"ד)</span></div>
+    <p class="narrative">יהודה ניגש אל יוסף ומבקש רשות לדבר באוזניו בלי שיחרה אפו, וחוזר על השתלשלות העניינים מן ההתחלה: שאלת יוסף על האב והאח, סירובו הראשוני של יעקב לשלוח את בנימין, וערבותו האישית של יהודה עצמו כלפי אביו הזקן.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">מדרש רבה, ויגש צג, א - שלוש דעות על "וַיִּגַּשׁ"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה משמעות הפועל "ויגש" שבו נוקטת התורה?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> שלוש דעות - הגשה למלחמה, הגשה לפיוס, הגשה לתפילה; ולדעת ר' אלעזר, יהודה בא מוכן לכל שלוש האפשרויות גם יחד.</div>
+      </div>
     </div>
   </div>
 

@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,37 +100,50 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 ישעיהו פרק ב' — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 ישעיהו פרק ב' — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="yeshayahu-2.html">→ חזרה לדף העבודה - פרק ב'</a></div>
 
-  <div class="topic-heading" style="--acc:#3E5A8C;"><span class="icon" aria-hidden="true">⛰️</span>חזון "אחרית הימים" - הר בית ה' וכל הגויים</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3E5A8C;">
-      <div class="mp-src">רד"ק, פסוק ב'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה פירוש הביטוי "באחרית הימים" שבו נפתח החזון?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> בכל מקום שמופיע ביטוי זה בתנ"ך, הכוונה לימות המשיח.</div>
-    </div>
-    <div class="mp-card" style="--acc:#3E5A8C;">
-      <div class="mp-src">דעת מקרא</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> האם "אחרית הימים" מציינת תמיד דווקא את ימות המשיח, כפי שמציע הרד"ק?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> לא בהכרח - בתנ"ך הביטוי משמש לפעמים גם לעתיד קרוב יותר, "ימים עתידיים" סתם, לא רק לתקופה משיחית.</div>
-    </div>
-    <div class="mp-card" style="--acc:#3E5A8C;">
-      <div class="mp-src">מלבי"ם, פסוק ב' - "וְנָהֲרוּ"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מוסיף הדימוי שבמילה "וְנָהֲרוּ" על עצם העלייה של הגויים להר ה'?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> המילה מציירת משיכה כמו נהר הזורם אל הים - הגויים יימשכו אל הר בית ה' מתוך חשק וכיסופים, לא מכפייה.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    פרק ב' נפתח בכותרת הדומה מאוד לכותרת פרק א' ("הַדָּבָר אֲשֶׁר חָזָה יְשַׁעְיָהוּ... עַל יְהוּדָה וִירוּשָׁלִָם") - זוהי פתיחה לנבואה מרכזית נוספת בספר. אך בעוד שפרק א' פתח בתוכחה קשה ובתיאור קודר של מצב הארץ, פרק ב' עובר לחזון של תיקון ונחמה: "באחרית הימים" יהיה הר בית ה' למקום הנישא והמרכזי ביותר בעולם, וכל הגויים ינהרו אליו כדי ללמוד את דרך ה'. מירושלים, ולא ממקום אחר, תצא תורה שתביא לשפיטה צודקת בין העמים - וכתוצאה מכך יחדלו העמים מן המלחמה, ויהפכו את כלי הנשק שלהם לכלי עבודה.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3E5A8C;"><span class="icon" aria-hidden="true">⛰️</span>חזון "אחרית הימים" - הר בית ה' וכל הגויים<span class="range">(פסוקים א'-ג')</span></div>
+    <p class="narrative">הפרק נפתח בכותרת דומה לזו של פרק א' - הדבר אשר חזה ישעיהו על יהודה וירושלים - אך הפעם מוביל אל חזון של תיקון: באחרית הימים יהיה הר בית ה' למקום הנישא והמרכזי ביותר בעולם, וכל הגויים ינהרו אליו מרוב חשק וכיסופים. עמים רבים ילכו ויאמרו: נעלה אל הר ה' וילמדנו מדרכיו - שכן מציון תצא תורה ודבר ה' מירושלים.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3E5A8C;">
+        <div class="mp-src">רד"ק, פסוק ב'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה פירוש הביטוי "באחרית הימים" שבו נפתח החזון?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> בכל מקום שמופיע ביטוי זה בתנ"ך, הכוונה לימות המשיח.</div>
+      </div>
+      <div class="mp-card" style="--acc:#3E5A8C;">
+        <div class="mp-src">דעת מקרא</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> האם "אחרית הימים" מציינת תמיד דווקא את ימות המשיח, כפי שמציע הרד"ק?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> לא בהכרח - בתנ"ך הביטוי משמש לפעמים גם לעתיד קרוב יותר, "ימים עתידיים" סתם, לא רק לתקופה משיחית.</div>
+      </div>
+      <div class="mp-card" style="--acc:#3E5A8C;">
+        <div class="mp-src">מלבי"ם, פסוק ב' - "וְנָהֲרוּ"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מוסיף הדימוי שבמילה "וְנָהֲרוּ" על עצם העלייה של הגויים להר ה'?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> המילה מציירת משיכה כמו נהר הזורם אל הים - הגויים יימשכו אל הר בית ה' מתוך חשק וכיסופים, לא מכפייה.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#5A6629;"><span class="icon" aria-hidden="true">🕊️</span>משפט עולמי ושלום נצחי - כיתות חרבות לאיתים</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#5A6629;">
-      <div class="mp-src">רד"ק, פסוק ד'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מיהו זה שעתיד "לשפוט בין הגויים", וכיצד בדיוק מונעת שפיטתו מלחמות?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> השופט הוא מלך המשיח, אדון כל הארץ; עמים יביאו את סכסוכיהם לפניו למשפט במקום למלחמה, ולכן לא יזדקקו עוד לכלי נשק.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#5A6629;"><span class="icon" aria-hidden="true">🕊️</span>משפט עולמי ושלום נצחי - כיתות חרבות לאיתים<span class="range">(פסוק ד')</span></div>
+    <p class="narrative">פסוק זה, המשך ישיר לחזון "אחרית הימים", מתאר את תוצאתה המעשית של קבלת התורה מירושלים: משפט צודק בין הגויים, וכלי מלחמה ההופכים לכלי עבודת אדמה - חרבותם לאתים וחניתותיהם למזמרות, כך שגוי לא ישא חרב אל גוי ולא ילמדו עוד מלחמה.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#5A6629;">
+        <div class="mp-src">רד"ק, פסוק ד'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מיהו זה שעתיד "לשפוט בין הגויים", וכיצד בדיוק מונעת שפיטתו מלחמות?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> השופט הוא מלך המשיח, אדון כל הארץ; עמים יביאו את סכסוכיהם לפניו למשפט במקום למלחמה, ולכן לא יזדקקו עוד לכלי נשק.</div>
+      </div>
     </div>
   </div>
 

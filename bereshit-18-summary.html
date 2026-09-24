@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,65 +100,91 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 בראשית פרק י"ח — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 בראשית פרק י"ח — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="bereshit-18.html">→ חזרה לדף העבודה - פרק י"ח</a></div>
 
-  <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">😊</span>בשורת יצחק וצחוקה של שרה</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3F6E66;">
-      <div class="mp-src">רמב"ן (ט"ו) ד"ה 'ותכחש שרה לאמר'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> כיצד ייתכן שנביאה צדקת כשרה מכחישה שצחקה, ולמה לא ידעה שמדובר בדבר ה'?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> אברהם, בחכמתו, הכיר שהאורחים הם מלאכים; שרה לא ידעה זאת וחשבה שמדובר בדברי אנשים רגילים בלבד, ולכן לא חששה להכחיש.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    פרק י"ח פותח בביקור שלושה מלאכים באוהל אברהם באלוני ממרא, שם הם מתארחים בהכנסת אורחים למופת ומבשרים לאברהם ולשרה כי בעוד שנה ייוולד להם בן. בהמשך הפרק, ה' משתף את אברהם בכוונתו להשמיד את סדום ועמורה בשל חטאתם הכבדה, ואברהם ניגש אל ה' ומתפלל למען הצלת העיר בזכות הצדיקים שבתוכה - ומעמיד את הבקשה בהדרגה, מחמישים צדיקים ועד עשרה.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🍞</span>הכנסת האורחים<span class="range">(פסוקים א'-ח')</span></div>
+    <p class="narrative">ה' נגלה לאברהם באלוני ממרא בעודו יושב בפתח האוהל. הוא רואה שלושה אנשים, רץ לקראתם ומשתחווה להם, ומזמין אותם לנוח ולאכול "מעט לחם" בלבד. בפועל, הוא ושרה ממהרים להכין לאורחים סעודה עשירה - עוגות, בן בקר רך וטוב, חמאה וחלב - כשהפער בין המיעוט בדברים לריבוי במעשה מבטא הכנסת אורחים למופת.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">😊</span>בשורת יצחק וצחוקה של שרה<span class="range">(פסוקים ט'-ט"ו)</span></div>
+    <p class="narrative">האורחים שואלים על שרה ומבשרים שבעוד שנה ייוולד לה בן. שרה, ששומעת מפתח האוהל, צוחקת בקרבה - שכן היא ואברהם כבר זקנים ובאים בימים. ה' תמה מדוע צחקה, וחוזר על ההבטחה; שרה, מיראה, מכחישה שצחקה - וה' מעמיד אותה על טעותה.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3F6E66;">
+        <div class="mp-src">רמב"ן (ט"ו) ד"ה 'ותכחש שרה לאמר'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> כיצד ייתכן שנביאה צדקת כשרה מכחישה שצחקה, ולמה לא ידעה שמדובר בדבר ה'?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> אברהם, בחכמתו, הכיר שהאורחים הם מלאכים; שרה לא ידעה זאת וחשבה שמדובר בדברי אנשים רגילים בלבד, ולכן לא חששה להכחיש.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">🗣️</span>ה' מגלה לאברהם את דין סדום</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#1E2761;">
-      <div class="mp-src">רש"י (י"ז) ד"ה 'הַמְכַסֶּה אֲנִי' - בתמיה</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע מחליט ה' לגלות לאברהם את התכנית להשמיד את סדום?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> מפני שה' נתן לאברהם את הארץ וקראו "אב המון גויים" - ולכן "לא יפה" להשמיד את סדום בלי להודיע לו קודם.</div>
-    </div>
-    <div class="mp-card" style="--acc:#1E2761;">
-      <div class="mp-src">רש"י (י"ט) ד"ה 'כי ידעתיו'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה פירוש המילה "ידעתיו", ומדוע נבחר דווקא אברהם?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> "ידעתיו" הוא לשון חיבה וקירבה; אברהם נבחר משום שהוא יצווה את ביתו לשמור את דרך ה' - לעשות צדקה ומשפט.</div>
-    </div>
-  </div>
-
-  <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">⚖️</span>חטאה המוסדי של סדום</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8B4A34;">
-      <div class="mp-src">רש"י (כ"א) ד"ה 'הכצעקתה'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה יעשה ה' לאנשי סדום בהתאם למידת התעקשותם ברשעם?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> אם יעמדו במרדם - ה' ישמידם כליל; ואם לא - ה' יידע להיפרע מהם ביסורים, בלי לכלותם.</div>
-    </div>
-    <div class="mp-card" style="--acc:#8B4A34;">
-      <div class="mp-src">פרקי דרבי אליעזר, פרק כ"ה</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מלמד סיפור פלוטית בת לוט על אופי החוק בסדום?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> בסדום הכריזו שהמחזיק ביד עני ייענש בשריפה; פלוטית ריחמה על עני והאכילה אותו בסתר, ונשרפה כשנתגלה - הרוע היה חוק רשמי, לא רק התפרצות יחידים.</div>
-    </div>
-    <div class="mp-card" style="--acc:#8B4A34;">
-      <div class="mp-src">נחמה ליבוביץ'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה ההבדל בין רוע "רגיל" לבין הרוע שבסדום?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> בסדום הרוע עצמו הפך לחוק המקובל של החברה, ועושה החסד נחשב עבריין - בניגוד לרוע הנעשה בסתר או כהתפרצות המונית.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">🗣️</span>ה' מגלה לאברהם את דין סדום<span class="range">(פסוקים י"ז-י"ט)</span></div>
+    <p class="narrative">ה' שוקל אם לגלות לאברהם את התוכנית להשמיד את סדום, ומזכיר את ייעודו של אברהם - להיות לגוי גדול ולברך את כל העמים. הוא בוחר לגלות לו זאת דווקא מפני שאברהם עתיד לצוות את בניו לשמור את דרך ה' ולעשות צדקה ומשפט.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#1E2761;">
+        <div class="mp-src">רש"י (י"ז) ד"ה 'הַמְכַסֶּה אֲנִי' - בתמיה</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע מחליט ה' לגלות לאברהם את התכנית להשמיד את סדום?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> מפני שה' נתן לאברהם את הארץ וקראו "אב המון גויים" - ולכן "לא יפה" להשמיד את סדום בלי להודיע לו קודם.</div>
+      </div>
+      <div class="mp-card" style="--acc:#1E2761;">
+        <div class="mp-src">רש"י (י"ט) ד"ה 'כי ידעתיו'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה פירוש המילה "ידעתיו", ומדוע נבחר דווקא אברהם?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> "ידעתיו" הוא לשון חיבה וקירבה; אברהם נבחר משום שהוא יצווה את ביתו לשמור את דרך ה' - לעשות צדקה ומשפט.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🙏</span>תפילת אברהם על סדום</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">רש"י (כ"ג) ד"ה 'ויגש אברהם'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> באילו כוונות ניגש אברהם אל ה' בבקשתו על סדום?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> כשם שמצינו הגשה למלחמה, לפיוס ולתפילה - כך ניגש אברהם בשלוש כוונות: לדבר קשות, לפייס ולבקש רחמים, ולהתפלל.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">⚖️</span>חטאה המוסדי של סדום<span class="range">(פסוקים כ'-כ"א)</span></div>
+    <p class="narrative">ה' קובע שזעקת סדום ועמורה גדולה וחטאתם כבדה מאוד, ו"יורד" לבדוק אם מעשיהם אכן כחומרת הזעקה עליהם.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8B4A34;">
+        <div class="mp-src">רש"י (כ"א) ד"ה 'הכצעקתה'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה יעשה ה' לאנשי סדום בהתאם למידת התעקשותם ברשעם?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> אם יעמדו במרדם - ה' ישמידם כליל; ואם לא - ה' יידע להיפרע מהם ביסורים, בלי לכלותם.</div>
+      </div>
+      <div class="mp-card" style="--acc:#8B4A34;">
+        <div class="mp-src">פרקי דרבי אליעזר, פרק כ"ה</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מלמד סיפור פלוטית בת לוט על אופי החוק בסדום?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> בסדום הכריזו שהמחזיק ביד עני ייענש בשריפה; פלוטית ריחמה על עני והאכילה אותו בסתר, ונשרפה כשנתגלה - הרוע היה חוק רשמי, לא רק התפרצות יחידים.</div>
+      </div>
+      <div class="mp-card" style="--acc:#8B4A34;">
+        <div class="mp-src">נחמה ליבוביץ'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה ההבדל בין רוע "רגיל" לבין הרוע שבסדום?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> בסדום הרוע עצמו הפך לחוק המקובל של החברה, ועושה החסד נחשב עבריין - בניגוד לרוע הנעשה בסתר או כהתפרצות המונית.</div>
+      </div>
     </div>
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">נחמה ליבוביץ', עיונים חדשים בספר בראשית, עמ' 131-132</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מהו התנאי "בתוך העיר" הנדרש מן הצדיקים כדי שיוכלו להגן על תושביה?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> רק צדיקים המעורים בחיי העיר ומשפיעים בציבוריותה יכולים להגן עליה בזכותם; צדיקים המסתתרים בחדרי חדרים עשויים להציל רק את עצמם.</div>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🙏</span>תפילת אברהם על סדום<span class="range">(פסוקים כ"ב-ל"ג)</span></div>
+    <p class="narrative">אברהם נשאר עומד לפני ה' וניגש לבקש שלא יספה צדיק עם רשע. הוא מתמקח עם ה' בהדרגה, מחמישים צדיקים ועד עשרה, בלשונות ענווה חוזרות - וה' נענה לבקשתו בכל שלב.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">רש"י (כ"ג) ד"ה 'ויגש אברהם'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> באילו כוונות ניגש אברהם אל ה' בבקשתו על סדום?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> כשם שמצינו הגשה למלחמה, לפיוס ולתפילה - כך ניגש אברהם בשלוש כוונות: לדבר קשות, לפייס ולבקש רחמים, ולהתפלל.</div>
+      </div>
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">נחמה ליבוביץ', עיונים חדשים בספר בראשית, עמ' 131-132</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מהו התנאי "בתוך העיר" הנדרש מן הצדיקים כדי שיוכלו להגן על תושביה?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> רק צדיקים המעורים בחיי העיר ומשפיעים בציבוריותה יכולים להגן עליה בזכותם; צדיקים המסתתרים בחדרי חדרים עשויים להציל רק את עצמם.</div>
+      </div>
     </div>
   </div>
 

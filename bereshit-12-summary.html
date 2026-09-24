@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,64 +100,89 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 בראשית פרק י"ב — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 בראשית פרק י"ב — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="bereshit-12.html">→ חזרה לדף העבודה - פרק י"ב</a></div>
 
-  <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">📜</span>רקע: למה דווקא אברהם?</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">מהר"ל, נצח ישראל, פרק י"א</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה ההבדל בין הבחירה בנח לבין הבחירה באברהם, ומדוע בחירת אברהם אינה עלולה להתבטל?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> בנח הייתה בחירה פרטית התלויה במעשה ועלולה להתבטל; באברהם הבחירה כללית - להקים ממנו אומה שלמה - ולכן אינה תלויה במעשה בודד.</div>
-    </div>
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">שפת אמת, לך לך תרל"ב</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> הרמב"ן הקשה מדוע לא הוזכרה מעלתו של אברהם לפני שה' פונה אליו ב"לך לך" - במה, אם כן, מתבטא שבחו?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> "לך לך" נקרא בעצם לכל אדם תמיד, אלא שרוב בני האדם אינם שומעים; שבחו של אברהם הוא ששמע וקיבל את הקריאה.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    ה' פונה אל אברם ומצווה עליו לעזוב את הכול - את ארצו, את סביבתו ואת בית אביו - וללכת אל ארץ שעוד לא נחשפה בפניו. יחד עם הציווי מבטיח לו ה' ברכה גדולה: שיהיה לגוי גדול, ושכל משפחות האדמה יתברכו בזכותו. אברם מציית מיד: הוא יוצא לדרך עם שרי אשתו, לוט בן אחיו וכל רכושם, עובר בארץ כנען, בונה בה מזבחות לה' ומכריז בשמו. כשפורץ רעב קשה בארץ, הוא יורד למצרים, ומבקש משרי להציג עצמה כאחותו כדי להגן על חייו. שרי אכן נלקחת לבית פרעה - אך ה' מכה את פרעה ואת ביתו בנגעים, פרעה מבין את טעותו, ומשלח את אברם ושרי בחזרה עם כל רכושם.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">📜</span>רקע: למה דווקא אברהם?<span class="range">(רקע - להשוואה)</span></div>
+    <p class="narrative">פרק י"ב פותח בלי כל הסבר מפורש מדוע נבחר דווקא אברם - בשונה מהבחירה בנח, המוסברת בתורה במפורש כ"איש צדיק תמים". הפער הזה עומד ברקע לשני הפרשנים הבאים, שדנים במשמעות הבחירה באברהם ובשבחו המיוחד.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">מהר"ל, נצח ישראל, פרק י"א</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה ההבדל בין הבחירה בנח לבין הבחירה באברהם, ומדוע בחירת אברהם אינה עלולה להתבטל?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> בנח הייתה בחירה פרטית התלויה במעשה ועלולה להתבטל; באברהם הבחירה כללית - להקים ממנו אומה שלמה - ולכן אינה תלויה במעשה בודד.</div>
+      </div>
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">שפת אמת, לך לך תרל"ב</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> הרמב"ן הקשה מדוע לא הוזכרה מעלתו של אברהם לפני שה' פונה אליו ב"לך לך" - במה, אם כן, מתבטא שבחו?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> "לך לך" נקרא בעצם לכל אדם תמיד, אלא שרוב בני האדם אינם שומעים; שבחו של אברהם הוא ששמע וקיבל את הקריאה.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🧭</span>"לך לך" - הציווי, ההבטחה והניסיון</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3F6E66;">
-      <div class="mp-src">רמב"ן (פסוק א')</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע התורה מפרטת "מארצך וממולדתך ומבית אביך" - הרי מי שעוזב את בית אביו ממילא עוזב גם ארץ ומולדת?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> הפירוט מדגיש דירוג הולך וקשה של פרידה - מהארץ, מהמולדת ולבסוף מבית האב - כדי להראות עד כמה קשה הציווי וגדולה אהבת אברהם לה'.</div>
-    </div>
-    <div class="mp-card" style="--acc:#3F6E66;">
-      <div class="mp-src">רד"ק (פסוק ב')</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע ה' לא גילה לאברהם מראש לאיזו ארץ הוא הולך?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> דווקא ההליכה אל הלא-נודע, בלי לדעת אם הארץ טובה, מבליטה את אהבתו וכניעתו המלאה של אברהם לרצון ה'.</div>
-    </div>
-  </div>
-
-  <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">🐫</span>קיום הציווי - המסע לארץ כנען</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#1E2761;">
-      <div class="mp-src">רש"י (פסוק ה') - "וְאֶת הַנֶּפֶשׁ אֲשֶׁר עָשׂוּ"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה פירוש "הנפש אשר עשו בחרן" - כיצד "עושים" בני אדם?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> שני פירושים: לפי הפשט - עבדים ושפחות שקנו; לפי הדרש - אנשים שגיירו (אברהם את הגברים, שרה את הנשים), כאילו יצרו אותם מחדש.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🧭</span>"לך לך" - הציווי, ההבטחה והניסיון<span class="range">(פסוקים א'-ג')</span></div>
+    <p class="narrative">ה' פונה אל אברם ומצווה עליו לעזוב את ארצו, את מולדתו ואת בית אביו וללכת אל ארץ שטרם נחשפה בפניו. לצד הציווי הקשה מבטיח לו ה' ברכה גדולה: שיהיה לגוי גדול ובעל שם גדול, ושבזכותו יתברכו כל משפחות האדמה.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3F6E66;">
+        <div class="mp-src">רמב"ן (פסוק א')</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע התורה מפרטת "מארצך וממולדתך ומבית אביך" - הרי מי שעוזב את בית אביו ממילא עוזב גם ארץ ומולדת?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> הפירוט מדגיש דירוג הולך וקשה של פרידה - מהארץ, מהמולדת ולבסוף מבית האב - כדי להראות עד כמה קשה הציווי וגדולה אהבת אברהם לה'.</div>
+      </div>
+      <div class="mp-card" style="--acc:#3F6E66;">
+        <div class="mp-src">רד"ק (פסוק ב')</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע ה' לא גילה לאברהם מראש לאיזו ארץ הוא הולך?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> דווקא ההליכה אל הלא-נודע, בלי לדעת אם הארץ טובה, מבליטה את אהבתו וכניעתו המלאה של אברהם לרצון ה'.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">👑</span>הירידה למצרים</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8B4A34;">
-      <div class="mp-src">ספורנו (פסוק י"ג)</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה בדיוק תכנן אברהם כשביקש משרה לומר שהיא אחותו?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> אברהם קיווה שכל אחד יחשוב שיוכל לשאת אותה ולכן לא יהרגנו, וינהל איתו משא ומתן על מוהר - ובינתיים יספיק לברוח משם.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">🐫</span>קיום הציווי - המסע לארץ כנען<span class="range">(פסוקים ד'-ט')</span></div>
+    <p class="narrative">אברם מציית לציווי ויוצא לדרך יחד עם לוט בן אחיו, לוקח את שרי אשתו ואת כל רכושם ומגיע לארץ כנען. הוא עובר בה עד שכם ואלון מורה, כשהכנעני עדיין יושב בארץ. ה' נגלה אליו שם ומבטיח את הארץ לזרעו, ואברם בונה מזבח; הוא ממשיך לבית אל והעי, בונה שם מזבח נוסף וקורא בשם ה', ומשם ממשיך ונוסע לכיוון הנגב.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#1E2761;">
+        <div class="mp-src">רש"י (פסוק ה') - "וְאֶת הַנֶּפֶשׁ אֲשֶׁר עָשׂוּ"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה פירוש "הנפש אשר עשו בחרן" - כיצד "עושים" בני אדם?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> שני פירושים: לפי הפשט - עבדים ושפחות שקנו; לפי הדרש - אנשים שגיירו (אברהם את הגברים, שרה את הנשים), כאילו יצרו אותם מחדש.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🔁</span>"כל מה שאירע לאבות סימן לבנים"</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">רמב"ן, פסוק ו'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע התורה מאריכה כל כך בתיאור מסעותיהם של האבות?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> מפני שכל מה שאירע לאבות הוא סימן למה שיקרה לבניהם בעתיד; לכן פירוט המסעות בא ללמד על קורות הדורות הבאים.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">👑</span>הירידה למצרים<span class="range">(פסוקים י'-כ')</span></div>
+    <p class="narrative">רעב כבד פוקד את הארץ, ואברם יורד עם משפחתו למצרים. מחשש לחייו, הוא מבקש משרי לומר שהיא אחותו. אכן, יופייה מושך את תשומת לב המצרים, והיא נלקחת לבית פרעה, בעוד אברם מתעשר בזכותה. אך ה' מכה את פרעה ואת ביתו בנגעים גדולים; פרעה מבין את הטעות, משיב לאברם את שרה ומשלח אותם עם כל רכושם.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8B4A34;">
+        <div class="mp-src">ספורנו (פסוק י"ג)</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה בדיוק תכנן אברהם כשביקש משרה לומר שהיא אחותו?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> אברהם קיווה שכל אחד יחשוב שיוכל לשאת אותה ולכן לא יהרגנו, וינהל איתו משא ומתן על מוהר - ובינתיים יספיק לברוח משם.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🔁</span>"כל מה שאירע לאבות סימן לבנים"<span class="range">(עיקרון מרכזי)</span></div>
+    <p class="narrative">התורה מרחיבה בתיאור מסעות האבות, ולפי הרמב"ן זהו כלל יסוד: כל מה שאירע לאבות הוא סימן למה שיקרה לבניהם בעתיד. כך, למשל, הרעב שהוריד את אברם למצרים ולקיחת שרה מקבילים לרעב בימי יעקב ולגזרות מצרים על בניו בדורות מאוחרים יותר.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">רמב"ן, פסוק ו'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע התורה מאריכה כל כך בתיאור מסעותיהם של האבות?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> מפני שכל מה שאירע לאבות הוא סימן למה שיקרה לבניהם בעתיד; לכן פירוט המסעות בא ללמד על קורות הדורות הבאים.</div>
+      </div>
     </div>
   </div>
 

@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,32 +100,55 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 עזרא פרקים ג'-ד' — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 עזרא פרקים ג'-ד' — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרקים ג'-ד', נושא אחרי נושא - ולצד הנושאים שיש בהם דברי מפרשים, מה הם שואלים ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="ezra-3-4.html">→ חזרה לדף העבודה - פרקים ג'-ד'</a></div>
 
-  <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🚫</span>דחיית בקשתם של צרי יהודה ובנימין</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">רש"י (ד', ב') - "כִּי כָכֶם נִדְרוֹשׁ לֵאלֹקֵיכֶם"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מיהם "צרי יהודה ובנימין" שביקשו להצטרף לבניית המקדש, ומה עמד באמת מאחורי בקשתם?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> אלה עכו"ם שהושיב סנחריב בארץ ישראל, ועברו גיור חלקי בלבד; בקשתם לא הייתה כנה אלא תירוץ לעכב את מלאכת הבנייה.</div>
-    </div>
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">מלבי"ם (ד', ב') - "כִּי כָכֶם נִדְרוֹשׁ לֵאלֹקֵיכֶם"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מיהם "צרי יהודה ובנימין", ומדוע בכל זאת נדחתה בקשתם להשתתף בבנייה?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> בקשתם הייתה כנה, אך לא ניתן היה לקבלה: מבחינה רוחנית אינם נחשבים חלק מעם ישראל אלא עובדים בשיתוף, ומבחינה פורמלית מנדט כורש הותר רק למי שנחשב ישראל.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    שבי ציון מזדרזים לבנות את המזבח ולחדש את הקרבת הקרבנות כבר בתחילת חודש תשרי בשנה הראשונה לעלייתם - עוד לפני שהונח יסוד ההיכל עצמו, ומתוך פחד מעמי הארצות. בהמשך מונח יסוד ההיכל בטקס שמשלב הלל ותרועת שמחה גדולה של הצעירים - לצד בכי גדול של הזקנים שזכרו את הבית הראשון, עד שלא ניתן היה להבחין בין קול השמחה לקול הבכי. מיד לאחר מכן פונים "צרי יהודה ובנימין" בבקשה להשתתף בבנייה, אך זרובבל ויהושע ושאר ראשי האבות דוחים אותם בתוקף. בעקבות הדחייה, מתחילים אותם צרים לפעול נגד הבנייה - מרפים ידי הבונים, מבהילים אותם ושוכרים יועצים להפר את עצתם - עד שהבניין נעצר לגמרי, מימי כורש ועד מלכות דריוש.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🔥</span>בניית המזבח וחידוש הקרבנות<span class="range">(עזרא ג', א'-ו')</span></div>
+    <p class="narrative">עם הגיע החודש השביעי, נאסף העם כאיש אחד לירושלים, ויהושע בן יוצדק וזרובבל בן שאלתיאל קמים ובונים את מזבח אלוקי ישראל, כדי להעלות עליו עולות ככתוב בתורת משה. המזבח מוקם על מכונותיו מתוך אימה מעמי הארצות שסביבם, ומיד מתחילים להעלות עולות בוקר וערב - עוד לפני שהונח יסוד ההיכל עצמו.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">😢</span>טקס ייסוד ההיכל - שירה מעורבת בבכי<span class="range">(עזרא ג', י'-י"ג)</span></div>
+    <p class="narrative">כשמניחים הבונים את יסוד היכל ה', עומדים הכוהנים בבגדיהם עם חצוצרות והלוויים בני אסף עם מצלתיים, ומהללים את ה' כמנהג שתיקן דוד המלך. רבים מהעם מריעים בתרועת שמחה גדולה, אך רבים אחרים - מי שזכרו בעיניהם את הבית הראשון - בוכים בקול גדול למראה הבית הצנוע, עד שאי אפשר להבחין בין קול השמחה לקול הבכי.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🚫</span>דחיית בקשתם של צרי יהודה ובנימין<span class="range">(עזרא ד', א'-ג')</span></div>
+    <p class="narrative">משנודע לצרי יהודה ובנימין שבני הגולה בונים היכל לה' אלוקי ישראל, הם ניגשים לזרובבל ולראשי האבות ומבקשים להצטרף לבנייה, בטענה שגם הם דורשים לאותו האל וזובחים לו מימי אסר חדון מלך אשור שהעלה אותם לארץ. זרובבל, יהושע ושאר ראשי האבות דוחים את הבקשה בתוקף, ומבהירים שרק הם, מכוח רשות כורש מלך פרס, יבנו את בית ה'.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">רש"י (ד', ב') - "כִּי כָכֶם נִדְרוֹשׁ לֵאלֹקֵיכֶם"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מיהם "צרי יהודה ובנימין" שביקשו להצטרף לבניית המקדש, ומה עמד באמת מאחורי בקשתם?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> אלה עכו"ם שהושיב סנחריב בארץ ישראל, ועברו גיור חלקי בלבד; בקשתם לא הייתה כנה אלא תירוץ לעכב את מלאכת הבנייה.</div>
+      </div>
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">מלבי"ם (ד', ב') - "כִּי כָכֶם נִדְרוֹשׁ לֵאלֹקֵיכֶם"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מיהם "צרי יהודה ובנימין", ומדוע בכל זאת נדחתה בקשתם להשתתף בבנייה?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> בקשתם הייתה כנה, אך לא ניתן היה לקבלה: מבחינה רוחנית אינם נחשבים חלק מעם ישראל אלא עובדים בשיתוף, ומבחינה פורמלית מנדט כורש הותר רק למי שנחשב ישראל.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#B0762B;"><span class="icon" aria-hidden="true">🛑</span>ההתנכלויות לבנייה ותוצאותיהן</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#B0762B;">
-      <div class="mp-src">מלבי"ם, ד', ד'-ה'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> באילו דרכים בדיוק פעלו השכנים כדי לבטל את בניית המקדש, ולמה נדרשו כמה שיטות שונות?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> השכנים פעלו בשלוש דרכים - הטלת עצלות שריפתה את ידי הבונים, הפחדה שהבהילה אותם, ושכירת יועצים שהפרו את עצתם בפני השלטון - וכך הצליחו לעצור את הבנייה עד מלכות דריוש.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#B0762B;"><span class="icon" aria-hidden="true">🛑</span>ההתנכלויות לבנייה ותוצאותיהן<span class="range">(עזרא ד', ד'-ה', כ"ד)</span></div>
+    <p class="narrative">בעקבות הדחייה, מתחיל עם הארץ לפעול נגד הבונים: מרפה את ידיהם, מבהיל אותם מהמשך העבודה, ושוכר יועצים שיפרו את תוכניתם בפני השלטון - וכך נמשך המצב כל ימי כורש ועד מלכות דריוש. בעקבות ההתנכלויות הללו נפסקת עבודת בית האלוקים בירושלים לגמרי, עד השנה השנייה למלכות דריוש.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#B0762B;">
+        <div class="mp-src">מלבי"ם, ד', ד'-ה'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> באילו דרכים בדיוק פעלו השכנים כדי לבטל את בניית המקדש, ולמה נדרשו כמה שיטות שונות?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> השכנים פעלו בשלוש דרכים - הטלת עצלות שריפתה את ידי הבונים, הפחדה שהבהילה אותם, ושכירת יועצים שהפרו את עצתם בפני השלטון - וכך הצליחו לעצור את הבנייה עד מלכות דריוש.</div>
+      </div>
     </div>
   </div>
 

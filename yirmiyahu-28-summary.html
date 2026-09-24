@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,27 +100,45 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 ירמיהו פרק כ"ח — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 ירמיהו פרק כ"ח — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="yirmiyahu-28.html">→ חזרה לדף העבודה - פרק כ"ח</a></div>
 
-  <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🎭</span>נבואת חנניה - נאום כיאסטי משכנע</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">מלבי"ם, ירמיהו כ"ח, ו'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה מגיב ירמיהו לנבואת חנניה במילים "אָמֵן כֵּן יַעֲשֶׂה ה'" במקום להתנגד לו מיד?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> תגובת ירמיהו אינה הסכמה אמיתית אלא לעג סמוי כלפי חנניה (כך גם דעת מקרא).</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    חנניה בן עזור, נביא המדבר בסגנון נבואי משכנע, מכריז בבית המקדש שעול מלך בבל יישבר בתוך שנתיים בלבד, וכל כלי המקדש והגולים - כולל המלך יכניה - ישובו לירושלים. חנניה אף מבצע מעשה סמלי דרמטי: הוא שובר מוט עץ שירמיהו ענד על צווארו כסמל לעול בבל. ירמיהו, במקום להתעמת מיד, עונה בתגובה כמעט מהוססת ("אָמֵן כֵּן יַעֲשֶׂה ה'") ועוזב את הזירה. רק לאחר מכן מגיע אליו דבר ה' המבהיר שחנניה דובר שקר, ושבמקום מוט העץ השבור יבוא עול ברזל חמור בהרבה. הפרק מסתיים במות חנניה באותה שנה עצמה - התגשמות מדויקת של נבואת ירמיהו נגדו.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🎭</span>נבואת חנניה - נאום כיאסטי משכנע<span class="range">(פסוקים ב'-ו')</span></div>
+    <p class="narrative">חנניה בן עזור, נביא בית המקדש, מכריז בנאום משכנע ומובנה כיאסטית ששבר את עול מלך בבל, ושבתוך שנתיים בלבד ישובו לירושלים כל כלי המקדש וגם המלך הגולה יכניה. ירמיהו, במקום להתעמת מיד, משיב בתגובה מהוססת - "אָמֵן כֵּן יַעֲשֶׂה ה'".</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">מלבי"ם, ירמיהו כ"ח, ו'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה מגיב ירמיהו לנבואת חנניה במילים "אָמֵן כֵּן יַעֲשֶׂה ה'" במקום להתנגד לו מיד?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> תגובת ירמיהו אינה הסכמה אמיתית אלא לעג סמוי כלפי חנניה (כך גם דעת מקרא).</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">⚖️</span>המבחן ההלכתי וסופו של חנניה</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">רש"י (ורמב"ם, הלכות יסודי התורה פרק י'), ירמיהו כ"ח</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> איך אפשר להבחין בין נביא אמת לנביא שקר, כשנבואתו טרם התגשמה?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> לפי הרמב"ם, המבחן אינו סימטרי: אם נבואת טובה של נביא לא מתגשמת - זו הוכחה שהוא נביא שקר; אך אם נבואת פורענות לא מתגשמת, אין בזה הוכחת שקר, כי ה' עשוי לרחם ולבטל את הגזרה.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🤔</span>מדוע התקשה העם להבחין באמיתות חנניה<span class="range">(פסוקים י'-י"א)</span></div>
+    <p class="narrative">חנניה מבצע מעשה סמלי דרמטי: הוא לוקח את מוט העץ שענד ירמיהו על צווארו כסמל לעול בבל, ושובר אותו לעיני כול, ומכריז שכך ישבר ה' את עול נבוכדנאצר בתוך שנתיים. ירמיהו אינו עונה לו עוד, אלא הולך לדרכו - קשה היה להבחין בשעת מעשה בין נביא האמת לנביא השקר, שכן חנניה לא סתר את ירמיהו לגמרי אלא רק קיצר את משך הזמן.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">⚖️</span>המבחן ההלכתי וסופו של חנניה<span class="range">(פסוקים י"ג-י"ז)</span></div>
+    <p class="narrative">רק לאחר מכן מגיע אל ירמיהו דבר ה' המבהיר שחנניה שיקר: במקום מוט העץ השבור יבוא עול ברזל חמור בהרבה. ירמיהו מודיע לחנניה שבשל נבואת השקר שהינבא, ימות עוד באותה שנה - וכך אכן קורה, בחודש השביעי.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">רש"י (ורמב"ם, הלכות יסודי התורה פרק י'), ירמיהו כ"ח</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> איך אפשר להבחין בין נביא אמת לנביא שקר, כשנבואתו טרם התגשמה?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> לפי הרמב"ם, המבחן אינו סימטרי: אם נבואת טובה של נביא לא מתגשמת - זו הוכחה שהוא נביא שקר; אך אם נבואת פורענות לא מתגשמת, אין בזה הוכחת שקר, כי ה' עשוי לרחם ולבטל את הגזרה.</div>
+      </div>
     </div>
   </div>
 

@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,28 +100,46 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 בראשית פרק ל"ז — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 בראשית פרק ל"ז — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="bereshit-37.html">→ חזרה לדף העבודה - פרק ל"ז</a></div>
 
-  <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🌾</span>שנאת האחים וחלומות יוסף</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">רש"י, פסוק ב' - "וְהוּא נַעַר"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע חוזרת התורה ומכנה את יוסף "נער", אחרי שכבר מסרה את גילו?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> "נער" כאן מתאר התנהגות, לא גיל - יוסף היה מתקן שיערו וממשמש בעיניו כדי להיראות יפה.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    יעקב אוהב את יוסף מכל בניו, בהיותו בן זקוניו, ועושה לו כתונת פסים - דבר שמעורר את שנאת אחיו. יוסף מוסיף שמן למדורה כשהוא מספר להם שני חלומות: באחד משתחוות אלומותיהם לאלומתו, ובשני משתחווים לו השמש, הירח ואחד עשר כוכבים. כשיוסף יוצא לחפש את אחיו הרועים בשכם ומגיע אליהם לדותן, הם מתנכלים להרגו - עד שראובן מציע להשליכו לבור, כדי להצילו בסתר ולהשיבו לאביו. בעוד ראובן נעדר, מציע יהודה למכור את יוסף לאורחת ישמעאלים העוברת שם, במקום להורגו. האחים טובלים את כתונתו בדם שעיר עיזים ומביאים אותה ליעקב, שמאמין שיוסף נטרף ומתאבל עליו ללא נחמה.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🌾</span>שנאת האחים וחלומות יוסף<span class="range">(פסוקים ב'-י"א)</span></div>
+    <p class="narrative">יוסף, בן שבע עשרה, מביא לאביו דיבה רעה על אחיו. יעקב אוהב אותו מכל בניו ועושה לו כתונת פסים, והאחים שונאים אותו עד כדי כך שאינם יכולים לדבר עמו לשלום. יוסף מוסיף שמן למדורה כשהוא מספר שני חלומות: באחד משתחוות אלומות האחים לאלומתו, ובשני משתחווים לו השמש, הירח ואחד עשר כוכבים - חלום שמעורר גם את גערת אביו.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">רש"י, פסוק ב' - "וְהוּא נַעַר"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע חוזרת התורה ומכנה את יוסף "נער", אחרי שכבר מסרה את גילו?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> "נער" כאן מתאר התנהגות, לא גיל - יוסף היה מתקן שיערו וממשמש בעיניו כדי להיראות יפה.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">🕳️</span>המזימה למכור את יוסף</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8B4A34;">
-      <div class="mp-src">רש"י, פסוק כ"ד - "וְהַבּוֹר רֵק אֵין בּוֹ מָיִם"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע מוסיפה התורה "אין בו מים" אחרי שכבר נאמר שהבור ריק?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> מים אין בו, אבל נחשים ועקרבים יש בו - הבור לא היה מקום בטוח כלל.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">🕳️</span>המזימה למכור את יוסף<span class="range">(פסוקים י"ח-כ"ח)</span></div>
+    <p class="narrative">האחים רואים את יוסף מרחוק ומתנכלים להרגו בטרם יגיע אליהם. ראובן מציל אותו מרצח בכך שהוא מציע להשליכו לבור בלבד, במטרה סמויה להשיבו לאביו. בהיעדר ראובן, מציע יהודה למכור את יוסף לאורחת ישמעאלים העוברת שם במקום להורגו - והאחים מסכימים ומוכרים אותו בעשרים כסף.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8B4A34;">
+        <div class="mp-src">רש"י, פסוק כ"ד - "וְהַבּוֹר רֵק אֵין בּוֹ מָיִם"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע מוסיפה התורה "אין בו מים" אחרי שכבר נאמר שהבור ריק?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> מים אין בו, אבל נחשים ועקרבים יש בו - הבור לא היה מקום בטוח כלל.</div>
+      </div>
     </div>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">😭</span>הטבלת הכתונת ואבל יעקב<span class="range">(פסוקים ל"א-ל"ה)</span></div>
+    <p class="narrative">האחים טובלים את כתונת יוסף בדם שעיר עיזים ומביאים אותה ליעקב, שמזהה אותה ומאמין שיוסף נטרף בידי חיה רעה. כל בניו ובנותיו קמים לנחמו, אך הוא מסרב להתנחם ומכריז שירד באבלו אל בנו שאולה.</p>
   </div>
 
 </div>

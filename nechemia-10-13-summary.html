@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,19 +100,43 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 נחמיה פרקים י', י"ג — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 נחמיה פרקים י', י"ג — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרקים י' וי"ג, נושא אחרי נושא - ולצד הנושא שיש בו דברי מפרשים, מה הם שואלים ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="nechemia-10-13.html">→ חזרה לדף העבודה - פרקים י', י"ג</a></div>
 
-  <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">📜</span>האמנה - התחייבות לעבודת ה'</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">ר"ן (המובא בחז"ל), על פי אסתר ט', כ"ז</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> איך אפשר לקשר את כריתת "האמנה" בימי נחמיה למה שקרה בימי אחשוורוש ובמגילת אסתר?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> חז"ל למדו מהפסוק "קִיְּמוּ וְקִבְּלוּ הַיְּהוּדִים" שבימי אחשוורוש חזר העם וקיבל מרצונו את התורה שכבר קיבל בסיני; "האמנה" בנחמיה י' מבטאת אותה התעוררות - קבלה מחודשת ומרצון של עבודת ה', שהשפיעה על כל הדורות הבאים.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    פרק י' מתאר את "הָאֲמָנָה" - התחייבות רשמית וחתומה של ראשי העם, הכהנים והלוויים, ואחריהם כל הציבור, ללכת בדרך התורה. האמנה כוללת התחייבויות מפורטות: הימנעות מנישואי תערובת, שמירת השבת, שמיטת קרקע וחובות, ותרומות קבועות למקדש, לכהנים וללויים. פרק י"ג, החותם את הספר, מתאר את שובו של נחמיה לירושלים לאחר תקופה בחצר המלך, ואת גילוי הכריתה מהאמנה: חילול שבת פומבי, ונישואי תערובת שהולידו ילדים שאינם יודעים לדבר עברית. נחמיה נכנס לעימות ישיר ותקיף עם העבריינים, ומתקן את המצב באומץ ובנחישות. הספר מסתיים בביטוי החוזר על עצמו: "זָכְרָה לִּי אֱלֹהַי לְטוֹבָה".
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">📜</span>האמנה - התחייבות לעבודת ה'<span class="range">(נחמיה י', א')</span></div>
+    <p class="narrative">למרות מצבם הקשה כמשועבדים למלכויות, כפי שתואר קודם לכן בתפילת הלוויים, כורתים העם - שריו, לוייו וכהניו - אמנה כתובה וחתומה: התחייבות רשמית ללכת בדרך התורה, דווקא ברגע שהיה יכול להתפרש כעילה לתחושת נטישה.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">ר"ן (המובא בחז"ל), על פי אסתר ט', כ"ז</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> איך אפשר לקשר את כריתת "האמנה" בימי נחמיה למה שקרה בימי אחשוורוש ובמגילת אסתר?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> חז"ל למדו מהפסוק "קִיְּמוּ וְקִבְּלוּ הַיְּהוּדִים" שבימי אחשוורוש חזר העם וקיבל מרצונו את התורה שכבר קיבל בסיני; "האמנה" בנחמיה י' מבטאת אותה התעוררות - קבלה מחודשת ומרצון של עבודת ה', שהשפיעה על כל הדורות הבאים.</div>
+      </div>
     </div>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">✍️</span>תוכן האמנה ומשמעותה<span class="range">(נחמיה י', ל'-מ')</span></div>
+    <p class="narrative">האמנה כוללת התחייבויות מפורטות: הימנעות מנישואי תערובת - לא לתת את בנותיהם לעמי הארץ ולא לקחת את בנותיהם לבניהם - לצד שמירת השבת, שמיטת קרקע וחובות, ותרומות קבועות למקדש, לכהנים וללוויים. הכול מסוכם בהתחייבות המסכמת: "וְלֹא נַעֲזֹב אֶת בֵּית אֱלֹקֵינוּ".</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🛑</span>חילול השבת ותיקונו<span class="range">(נחמיה י"ג, ט"ו-כ"ב)</span></div>
+    <p class="narrative">בשובו לירושלים לאחר תקופה בחצר המלך, מגלה נחמיה שהעם דורך גיתות בשבת ומביא סחורה לירושלים ביום השבת עצמו. הוא מגיב בתקיפות: סוגר את שערי העיר לפני כניסת השבת ומעמיד עליהם משמר, ומזהיר את הסוחרים הלנים ליד החומה שאם ימשיכו - יד ישלח בהם. מאותה עת ואילך אינם באים עוד בשבת.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#B0762B;"><span class="icon" aria-hidden="true">💍</span>נישואי תערובת ותיקונם<span class="range">(נחמיה י"ג, כ"ג-ל"א)</span></div>
+    <p class="narrative">נחמיה מגלה גם שרבים מן העם נשאו נשים נכריות, עד שילדיהם חצי מדברים אשדודית ואינם יודעים עוד לדבר יהודית. הוא נכנס עמם לעימות חריף - מריב אותם, מקלל, מכה ואף מורט את שיער חלקם - ומשביע אותם שלא ימשיכו בנישואי תערובת. הספר כולו, ופעולתו של נחמיה, מסתיימים בתפילתו החוזרת: "זָכְרָה לִּי אֱלֹקַי לְטוֹבָה".</p>
   </div>
 
 </div>

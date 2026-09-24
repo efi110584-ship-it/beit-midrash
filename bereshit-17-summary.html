@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,54 +100,79 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 בראשית פרק י"ז — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 בראשית פרק י"ז — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="bereshit-17.html">→ חזרה לדף העבודה - פרק י"ז</a></div>
 
-  <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🚶</span>"הִתְהַלֵּךְ לְפָנַי וֶהְיֵה תָמִים"</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">מדרש תנחומא, "לך לך" ו'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מוסיף המדרש בהבנת "התהלך לפני", ולמה הוא מדמה את יחסי האבות עם ה'?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> כשם שזקנים ההולכים לפני הנשיא מודיעים לכול את כבודו, כך האבות ההולכים לפני ה' מכריזים בעולם את כבודו.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    כשאברם בן תשעים ותשע שנה, ה' (בשם "אל שדי") נגלה אליו וכורת איתו ברית נוספת - הפעם ברית דו-צדדית: ה' מבטיח לו שוב זרע וארץ, ומוסיף הבטחה חדשה - "להיות לך לאלהים ולזרעך אחריך" - ומצידו אברהם מצטווה לעבוד את ה' בתמימות ולמול את עצמו ואת כל בני ביתו, לדורות. במסגרת הברית משנה ה' את שמות אברם ושרי ל"אברהם" ו"שרה", ומבשר לראשונה שהבן המובטח ייוולד דווקא לשרה בעוד שנה - יצחק. אברהם, שחשב עד כה שיורשו הוא ישמעאל, מגיב בשמחה ומבקש שגם ישמעאל יזכה לחיות ביראת ה'. בסיום הפרק מקיים אברהם את הציווי מיד, "בעצם היום הזה", ומל את עצמו ואת כל בני ביתו.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🚶</span>"הִתְהַלֵּךְ לְפָנַי וֶהְיֵה תָמִים"<span class="range">(פסוק א')</span></div>
+    <p class="narrative">כשאברם בן תשעים ותשע שנה, ה' נגלה אליו בשם "אל שדי" ומבקש ממנו להתהלך לפניו ולהיות תמים - לעבוד אותו בשלמות ובנאמנות מלאה.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">מדרש תנחומא, "לך לך" ו'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מוסיף המדרש בהבנת "התהלך לפני", ולמה הוא מדמה את יחסי האבות עם ה'?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> כשם שזקנים ההולכים לפני הנשיא מודיעים לכול את כבודו, כך האבות ההולכים לפני ה' מכריזים בעולם את כבודו.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">✂️</span>ברית המילה - הציווי ומשמעותו</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3F6E66;">
-      <div class="mp-src">ספר החינוך, מצוה ב'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מסמל הציווי למול דווקא איבר בגוף?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> ה' הותיר את הגוף חסר בכוונה, לרמוז שכשם שבידי האדם להשלים את גופו (במילה), כך בידו להשלים גם את נפשו ומידותיו.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">✂️</span>ברית המילה - הציווי ומשמעותו<span class="range">(פסוקים ט'-י"ד)</span></div>
+    <p class="narrative">ה' מצווה על אברהם ועל זרעו לשמור את בריתו - למול כל זכר, בין יליד בית ובין עבד, ביום השמיני ללידתו, לדורות עולם. המילה היא אות הברית החקוק בבשר, ומי שלא יימול ייענש בכרת.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3F6E66;">
+        <div class="mp-src">ספר החינוך, מצוה ב'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מסמל הציווי למול דווקא איבר בגוף?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> ה' הותיר את הגוף חסר בכוונה, לרמוז שכשם שבידי האדם להשלים את גופו (במילה), כך בידו להשלים גם את נפשו ומידותיו.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">🤝</span>ברית חד-צדדית מול דו-צדדית</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#1E2761;">
-      <div class="mp-src">אברבנאל (פסוק ז') - "לִבְרִית עוֹלָם"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה משמעות הביטוי "לברית עולם", ומה כולל הביטוי "להיות לך לאלהים ולזרעך אחריך"?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> "לברית עולם" - ברית נצחית ומתמדת; "להיות לך לאלהים" - שהשגחת ה' תדבק באברהם וגם בזרעו אחריו, בזכותו.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">🤝</span>ברית חד-צדדית מול דו-צדדית<span class="range">(פסוק ז')</span></div>
+    <p class="narrative">ה' מבטיח לאברהם ברית עולם, "להיות לך לאלהים ולזרעך אחריך" - השגחה נצחית שתלווה אותו ואת זרעו. בכך שונה ברית המילה מברית בין הבתרים שקדמה לה: שם התחייב רק ה' לתת את הארץ, ואילו כאן מתחייב גם אברהם עצמו, בגופו, למול את עצמו ואת ביתו.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#1E2761;">
+        <div class="mp-src">אברבנאל (פסוק ז') - "לִבְרִית עוֹלָם"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה משמעות הביטוי "לברית עולם", ומה כולל הביטוי "להיות לך לאלהים ולזרעך אחריך"?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> "לברית עולם" - ברית נצחית ומתמדת; "להיות לך לאלהים" - שהשגחת ה' תדבק באברהם וגם בזרעו אחריו, בזכותו.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">😊</span>שינוי השמות ובשורת יצחק</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8B4A34;">
-      <div class="mp-src">רש"י (פסוק י"ז) - "וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> האם הצחוק של אברהם למשמע בשורת הבן הוא צחוק של ספק או של שמחה?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> לפי אונקלוס, זהו צחוק של שמחה ולא ספק - ולכן מיד לאחריו אברהם מבקש רק שישמעאל יחיה, בלי לערער על הבשורה.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">😊</span>שינוי השמות ובשורת יצחק<span class="range">(פסוקים ה', ט"ו, י"ז-י"ט)</span></div>
+    <p class="narrative">ה' משנה את שם אברם לאברהם - "אב המון גויים" - ואת שם שרי לשרה. הוא מבשר שדווקא שרה תלד בן, ושמו ייקרא יצחק. אברהם נופל על פניו וצוחק, תוהה כיצד ייוולד לו בן בגילו המופלג, ומבקש שגם ישמעאל יזכה לחיות לפני ה'.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8B4A34;">
+        <div class="mp-src">רש"י (פסוק י"ז) - "וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> האם הצחוק של אברהם למשמע בשורת הבן הוא צחוק של ספק או של שמחה?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> לפי אונקלוס, זהו צחוק של שמחה ולא ספק - ולכן מיד לאחריו אברהם מבקש רק שישמעאל יחיה, בלי לערער על הבשורה.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">⚡</span>קיום המצווה בזריזות</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">רש"י (פסוק כ"ג) - "בְּעֶצֶם הַיּוֹם הַזֶּה"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מדגישה התורה בביטוי "בעצם היום הזה" על אופן קיום המצווה?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> אברהם מל מיד באותו יום עצמו, ביום (ולא בלילה) ובגלוי - בלי לחשוש מהגויים או מהלצנים בני דורו.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">⚡</span>קיום המצווה בזריזות<span class="range">(פסוקים כ"ג-כ"ז)</span></div>
+    <p class="narrative">אברהם מקיים את הציווי מיד, "בעצם היום הזה" - ומל את עצמו, את ישמעאל בנו ואת כל בני ביתו, ללא שיהוי.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">רש"י (פסוק כ"ג) - "בְּעֶצֶם הַיּוֹם הַזֶּה"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מדגישה התורה בביטוי "בעצם היום הזה" על אופן קיום המצווה?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> אברהם מל מיד באותו יום עצמו, ביום (ולא בלילה) ובגלוי - בלי לחשוש מהגויים או מהלצנים בני דורו.</div>
+      </div>
     </div>
   </div>
 

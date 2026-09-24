@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,19 +100,38 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 מלכים ב', ימי יהואחז ויהויקים — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 מלכים ב', ימי יהואחז ויהויקים — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרקים, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="melachim-b-23-24.html">→ חזרה לדף העבודה - מלכים ב', ימי יהואחז ויהויקים</a></div>
 
-  <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🩸</span>דמותו של יהויקים - השוואה למנשה</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3F6E66;">
-      <div class="mp-src">השוואה מבנית, מלכים ב' כ"ד, ד' וירמיהו כ"ו</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> הפסוק בספר מלכים מזכיר רק את "דם הנקי" ששפך מנשה - האם גם יהויקים עצמו שפך דם נקי?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> כן - יהויקים רצח בעצמו את הנביא אוריה בן שמעיהו, כמסופר בירמיהו כ"ו, אף שספר מלכים מייחס את החטא במפורש רק למנשה.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    לאחר מות יאשיהו בקרב מגידו, ממלכת יהודה מאבדת את עצמאותה בזה אחר זה. בנו יהואחז מולך שלושה חודשים בלבד לפני שפרעה נכה, מלך מצרים, מדיח אותו ולוקח אותו שבוי למצרים, שם הוא מת. פרעה נכה ממנה תחתיו את אחיו אליקים, ומשנה את שמו ליהויקים - מעשה סמלי המבטא שליטה. יהויקים, שעושה גם הוא את הרע בעיני ה' וששופך דם נקי, שולט בתקופה של מהפך גיאופוליטי דרמטי: בקרב כרכמיש מנצחת בבל את מצרים, וכל אזורי החסות המצרית - כולל יהודה - נופלים תחת השפעת בבל. יהויקים, שהיה כפוף תחילה לבבל, מורד בה בשלב מאוחר יותר ומת במהלך המרד, ובנו יהויכין יורש את מלכותו הקצרה.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">⛓️</span>יהואחז - מלכות קצרה ותלות מצרית<span class="range">(מלכים ב' כ"ג, ל'-ל"ד)</span></div>
+    <p class="narrative">לאחר מות יאשיהו, עם הארץ ממליך את בנו יהואחז - אך פרעה נכה מדיח אותו כמעט מיד, אוסר אותו וגובה קנס כבד מן הארץ. פרעה נכה ממנה תחתיו את אליקים אחיו ומשנה את שמו ליהויקים, מעשה המבטא את שליטתו המוחלטת של המלך הזר במינוי מלכי יהודה.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🩸</span>דמותו של יהויקים - השוואה למנשה<span class="range">(מלכים ב' כ"ג, ל"ז; כ"ד, ג'-ד')</span></div>
+    <p class="narrative">יהויקים עושה את הרע בעיני ה' ככל אשר עשו אבותיו. הכתוב מייחס במפורש את הדם הנקי שמילא את ירושלים לחטאת מנשה - אך למעשה גם יהויקים עצמו שפך דם נקי, כשרצח את הנביא אוריה בן שמעיהו, כמסופר בירמיהו כ"ו.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3F6E66;">
+        <div class="mp-src">השוואה מבנית, מלכים ב' כ"ד, ד' וירמיהו כ"ו</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> הפסוק בספר מלכים מזכיר רק את "דם הנקי" ששפך מנשה - האם גם יהויקים עצמו שפך דם נקי?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> כן - יהויקים רצח בעצמו את הנביא אוריה בן שמעיהו, כמסופר בירמיהו כ"ו, אף שספר מלכים מייחס את החטא במפורש רק למנשה.</div>
+      </div>
     </div>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🌍</span>הדילמה המדינית וסוף יהויקים<span class="range">(מלכים ב' כ"ד, א', ז')</span></div>
+    <p class="narrative">בימי יהויקים עולה נבוכדנאצר מלך בבל, ולאחר קרב כרכמיש נופלים כל אזורי החסות המצרית - כולל יהודה - תחת שליטת בבל; מלך מצרים אינו יוצא עוד מארצו. יהויקים, שהיה כפוף לבבל שלוש שנים, שב ומורד בה, ומת במהלך המרד.</p>
   </div>
 
 </div>

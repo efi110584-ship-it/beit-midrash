@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -58,11 +72,6 @@
   .mp-tag{ font-weight:800; }
   .mp-tag.ask{ color:var(--gold); }
   .mp-tag.answer{ color:var(--green); }
-
-  .empty-note{
-    max-width:640px; margin:2rem auto 0; text-align:center; color:var(--ink-soft); font-size:.95rem;
-    background:var(--card); border:1.5px solid var(--border); border-radius:14px; padding:1.2rem 1.4rem;
-  }
 
   .site-footer{ text-align:center; color:var(--ink-soft); font-size:.85rem; margin-top:2rem; }
 
@@ -91,13 +100,36 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 עזרא פרקים ה'-ו' — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 עזרא פרקים ה'-ו' — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרקים ה'-ו', נושא אחרי נושא - ניתוח ישיר של הכתוב, בלי דגש מיוחד על שמות מפרשים.</p>
   </header>
 
   <div class="game-nav"><a href="ezra-5-6.html">→ חזרה לדף העבודה - פרקים ה'-ו'</a></div>
 
-  <p class="empty-note">בדף העבודה של פרקים אלו אין קטעי פרשנות המיוחסים במפורש לשם מפרש - הדגש כאן הוא בעיקר על ניתוח ישיר של הכתוב, השוואות בין הבית הראשון לשני, ורקע היסטורי. לחזרה על השאלות שנדונו בפרקים אלו, ראו את דף העבודה עצמו.</p>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    לאחר שנות הפסקה, מלך חדש - דריוש - עולה לשלטון, ובמקביל מעודדים הנביאים חגי וזכריה את זרובבל ויהושע לחדש את בניית המקדש. חידוש הבנייה מעורר שוב אגרות שיטנה מצד השכנים, אך דריוש בודק בגנזי המלכות ומוצא שם את הצהרת כורש המקורית. הוא מבטל את מכתבי השטנה, מאשרר את הצהרת כורש מחדש ואף מרחיב אותה - מצווה לספק לבונים חומרים ומימון על חשבון המלכות. הבנייה מסתיימת בהצלחה בשנה השישית למלכות דריוש, וחונכת בטקס מרשים אך תמציתי. חודש לאחר מכן חוגג העם במקדש החדש את חג הפסח בשמחה גדולה.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">📢</span>חידוש הבנייה בעקבות נבואות חגי וזכריה<span class="range">(עזרא ה', א'-ב')</span></div>
+    <p class="narrative">הנביאים חגי וזכריה בן עדוא מתנבאים על היהודים ביהודה ובירושלים, בשם אלוקי ישראל. בעקבות דבריהם קמים זרובבל בן שאלתיאל ויהושע בן יוצדק ומחדשים את בניית בית האלוקים בירושלים, כשנביאי האלוקים עוזרים להם לאורך כל הדרך.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🗄️</span>מציאת הצהרת כורש בגנזי המלך, ואישורה מחדש בידי דריוש<span class="range">(עזרא ו', ו'-י"ב)</span></div>
+    <p class="narrative">חידוש הבנייה מעורר מחדש תלונת שכנים, אך כשדריוש בודק את גנזי המלכות הוא מוצא בהם את הצהרת כורש המקורית. הוא מצווה על תתני, פחת עבר הנהר, להתרחק ולא להפריע לעבודת בית האלוקים, ומורה שהבניין ייבנה על מקומו. יתרה מזו, דריוש מצווה לממן את הבנייה מנכסי המלך עצמו, במהירות וללא עיכוב, ואף לספק לכוהנים באופן שוטף את הדרוש לקרבנות, כדי שיתפללו לחיי המלך ובניו.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🕎</span>תיאור חנוכת המקדש<span class="range">(עזרא ו', ט"ו-י"ח)</span></div>
+    <p class="narrative">הבניין נשלם בשלושה לחודש אדר, בשנה השישית למלכות דריוש. בני ישראל - הכוהנים, הלוויים ושאר בני הגולה - עורכים את חנוכת בית האלוקים בחדווה, ומקריבים קרבנות רבים: מאה פרים, מאתיים אילים, ארבע מאות כבשים, ושנים עשר שעירי עזים לחטאת על כל ישראל, למניין שבטי ישראל.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#B0762B;"><span class="icon" aria-hidden="true">🍞</span>חגיגת הפסח במקדש<span class="range">(עזרא ו', י"ט-כ"ב)</span></div>
+    <p class="narrative">כחודש לאחר חנוכת המקדש, חוגג העם את חג המצות שבעת ימים בשמחה גדולה - כי ה' שימח אותם, ואף הטה את לב מלך פרס (המכונה כאן "מלך אשור") לחזק את ידיהם במלאכת בית האלוקים.</p>
+  </div>
 
 </div>
 

@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,33 +100,51 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 בראשית פרק נ׳ — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 בראשית פרק נ׳ — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="bereshit-50.html">→ חזרה לדף העבודה - פרק נ׳</a></div>
 
-  <div class="topic-heading" style="--acc:#3E5A8C;"><span class="icon" aria-hidden="true">🎗️</span>אבלות מצרים על יעקב, וקבורתו בארץ ישראל</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3E5A8C;">
-      <div class="mp-src">רש"י, פסוק ג' - "וַיִּבְכּוּ אֹתוֹ מִצְרַיִם"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע בוכים דווקא המצרים על מות יעקב, ולא רק בני משפחתו?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> לכבוד יוסף - בזכות בואו של יעקב למצרים כלה הרעב ובאה ברכה לארץ.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    לאחר מות יעקב, מצווה יוסף על רופאי מצרים לחנוט את אביו, והמצרים בוכים אותו שבעים יום לכבוד יוסף. יוסף מבקש רשות מפרעה לקיים את שבועתו לאביו ולקוברו בארץ כנען, ויוצא ללוויה גדולה עם אחיו, זקני מצרים, ורכב ופרשים - ועורכים מספד גדול בגורן האטד. לאחר קבורתו במערת המכפלה, חוששים האחים שמא ינקום בהם יוסף כעת שאביהם מת, ושולחים לו מסר בשם יעקב שיסלח להם. יוסף בוכה מדבריהם, ומרגיע אותם: "אַתֶּם חֲשַׁבְתֶּם עָלַי רָעָה - אֱלֹהִים חֲשָׁבָהּ לְטֹבָה". הפרק, וספר בראשית כולו, מסתיים במות יוסף בגיל מאה ועשר, ובשבועתו את אחיו ובני ישראל שיעלו את עצמותיו מארץ מצרים בבוא הגאולה.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3E5A8C;"><span class="icon" aria-hidden="true">🎗️</span>אבלות מצרים על יעקב, וקבורתו בארץ ישראל<span class="range">(פסוקים א'-י"ג)</span></div>
+    <p class="narrative">יוסף מצווה על רופאי מצרים לחנוט את אביו, והמצרים בוכים אותו שבעים יום. הוא מבקש רשות מפרעה לקיים את שבועתו ולקבור את אביו בארץ כנען, ופרעה נעתר לו. הלוויה יוצאת עד גורן האטד, שם עורכים מספד גדול וכבד מאוד, ולבסוף נושאים בניו את יעקב ארצה כנען וקוברים אותו במערת שדה המכפלה.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3E5A8C;">
+        <div class="mp-src">רש"י, פסוק ג' - "וַיִּבְכּוּ אֹתוֹ מִצְרַיִם"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע בוכים דווקא המצרים על מות יעקב, ולא רק בני משפחתו?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> לכבוד יוסף - בזכות בואו של יעקב למצרים כלה הרעב ובאה ברכה לארץ.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">🤝</span>חשש האחים ותגובת יוסף</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8B4A34;">
-      <div class="mp-src">רש"י, פסוק ט"ז - "אָבִיךָ צִוָּה"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> האם יעקב באמת ציווה את הדברים שהאחים מייחסים לו?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> לא - האחים שינו מהאמת "מפני השלום", כדי שיוסף לא ייחשד בעיניהם.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">🤝</span>חשש האחים ותגובת יוסף<span class="range">(פסוקים ט"ו-כ"א)</span></div>
+    <p class="narrative">לאחר מות יעקב חוששים האחים שמא ינקום בהם יוסף, ושולחים לו מסר המייחס ליעקב ציווי שיסלח להם, כי רעה גמלוהו. יוסף בוכה מדבריהם, ומרגיע אותם: אין הוא במקום אלוקים לשפוט אותם - הם חשבו עליו רעה, אך אלוקים חשבה לטובה, כדי להחיות עם רב; הוא מבטיח לכלכל אותם ואת טפם, ומדבר על ליבם.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8B4A34;">
+        <div class="mp-src">רש"י, פסוק ט"ז - "אָבִיךָ צִוָּה"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> האם יעקב באמת ציווה את הדברים שהאחים מייחסים לו?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> לא - האחים שינו מהאמת "מפני השלום", כדי שיוסף לא ייחשד בעיניהם.</div>
+      </div>
+      <div class="mp-card" style="--acc:#8B4A34;">
+        <div class="mp-src">רד"ק, על תגובת יוסף</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע חוששים האחים דווקא אחרי מות יעקב?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> כל עוד יעקב חי, חששו שינקום בהם יוסף; עתה משמת, אין עוד מי שימנע ממנו להשיב להם כגמולם.</div>
+      </div>
     </div>
-    <div class="mp-card" style="--acc:#8B4A34;">
-      <div class="mp-src">רד"ק, על תגובת יוסף</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מדוע חוששים האחים דווקא אחרי מות יעקב?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> כל עוד יעקב חי, חששו שינקום בהם יוסף; עתה משמת, אין עוד מי שימנע ממנו להשיב להם כגמולם.</div>
-    </div>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">💀</span>מות יוסף והשבועה על העצמות<span class="range">(פסוקים כ"ב-כ"ו)</span></div>
+    <p class="narrative">יוסף חי מאה ועשר שנים וזוכה לראות דורות שלישי ורביעי לבניו. לפני מותו הוא מבטיח לאחיו שאלוקים יפקוד אותם ויעלה אותם מן הארץ הזו, ומשביע את בני ישראל שיעלו את עצמותיו מזה כשתבוא הגאולה. הוא מת בן מאה ועשר שנים, ומחנטים אותו ומניחים אותו בארון במצרים.</p>
   </div>
 
 </div>

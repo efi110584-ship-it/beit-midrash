@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,41 +100,58 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 יחזקאל פרקים ל"ו-ל"ז — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 יחזקאל פרקים ל"ו-ל"ז — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרקים, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="yechezkel-36-37.html">→ חזרה לדף העבודה - פרקים ל"ו-ל"ז</a></div>
 
-  <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🏞️</span>נבואת הרי ישראל - היפוך הגורל</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">רש"י, יחזקאל ל"ו, י"ג</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה נדבק לארץ ישראל שם רע כ"אֹכֶלֶת אָדָם"?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> הארץ הזאת מלומדת בהשחתת יושביה - גם האמוריים כלו בה בעבר, וגם היהודים עצמם כלו בה.</div>
-    </div>
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">הרב יגאל אריאל, "לב חדש"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מלמדת פתיחת הפסוק במילה "יען" (מפני ש...)?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> "יען" קובעת יחס של מידה כנגד מידה: אותה מידה שחייבה את גלות ישראל על חטאם, מחייבת עתה גם את עונש הגויים שהתאכזרו והתלוצצו עליהם.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרקים</div>
+    יחזקאל, כהן שגלה עם גלות יהויכין וממשיך להתנבא בבבל גם אחרי חורבן המקדש, מציג בפרקים אלו שלוש נבואות גאולה עוקבות. בפרק ל"ו הוא מנבא על תקומת הרי ישראל - היפוך לנבואות חורבן קודמות שלו עצמו על אותם ההרים. בתחילת פרק ל"ז מגיע החזון המפורסם ביותר בספר: עמק מלא עצמות יבשות שמתלבשות בגידים ובבשר וקמות לתחייה ברוח ה' - משל לתחיית עם ישראל מהייאוש העמוק של הגלות. הפרק מסתיים בחזון נוסף - איחוד שני מקלות (יהודה ויוסף) לאחד, סמל לאיחוד עתידי של הממלכות המפוצלות. שלוש הנבואות יחד משקפות תקווה עמוקה לתחייה לאומית ורוחנית מלאה.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🏞️</span>נבואת הרי ישראל - היפוך הגורל<span class="range">(ל"ו, א'-י"ג)</span></div>
+    <p class="narrative">אויבי ישראל מתייחסים להרי הארץ כאל ירושה שנפלה לידיהם, ומבקשים להותירם שוממים לעד ולבזותם בשמם הרע "אֹכֶלֶת אָדָם". יחזקאל מנבא היפוך גמור: דווקא בזכות אותה חרפה וקלס שהטיחו בהם הגויים, ה' יביא תקומה ותפארה להרי ישראל, שיתנו את ענפם ופריים לעם ישראל השב אליהם.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">רש"י, יחזקאל ל"ו, י"ג</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה נדבק לארץ ישראל שם רע כ"אֹכֶלֶת אָדָם"?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> הארץ הזאת מלומדת בהשחתת יושביה - גם האמוריים כלו בה בעבר, וגם היהודים עצמם כלו בה.</div>
+      </div>
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">הרב יגאל אריאל, "לב חדש"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מלמדת פתיחת הפסוק במילה "יען" (מפני ש...)?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> "יען" קובעת יחס של מידה כנגד מידה: אותה מידה שחייבה את גלות ישראל על חטאם, מחייבת עתה גם את עונש הגויים שהתאכזרו והתלוצצו עליהם.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">💀</span>חזון תחיית העצמות היבשות</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3F6E66;">
-      <div class="mp-src">תלמוד בבלי, סנהדרין צ"ב ע"ב</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> האם תחיית העצמות היבשות התרחשה בפועל, או שהיא רק משל?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> חכמי התלמוד חלוקים: ר' אליעזר - המתים קמו ממש, אמרו שירה ומתו; ר' יהודה - זה היה משל בלבד; ר' אליעזר בנו של ר' יוסי הגלילי - הם קמו, עלו לארץ ישראל והקימו משפחות.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">💀</span>חזון תחיית העצמות היבשות<span class="range">(ל"ז, א'-י"ד)</span></div>
+    <p class="narrative">בחזון הנבואי המפורסם, יחזקאל מובא אל עמק מלא עצמות יבשות. כשה' שואל אותו אם תחיינה, הוא משיב בזהירות ומותיר את ההכרעה בידי ה' בלבד. לפי ציווי ה', רוח מגיעה מארבע רוחות ומחיה את העצמות, שמתלבשות בגידים ובבשר וקמות לתחייה - משל לפתיחת קברי הגלות ולהשבת העם על אדמתו.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3F6E66;">
+        <div class="mp-src">תלמוד בבלי, סנהדרין צ"ב ע"ב</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> האם תחיית העצמות היבשות התרחשה בפועל, או שהיא רק משל?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> חכמי התלמוד חלוקים: ר' אליעזר - המתים קמו ממש, אמרו שירה ומתו; ר' יהודה - זה היה משל בלבד; ר' אליעזר בנו של ר' יוסי הגלילי - הם קמו, עלו לארץ ישראל והקימו משפחות.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🤝</span>חזון איחוד הממלכות</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">ר' יוסף קרא, יחזקאל ל"ז, כ"ג</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> איך פילוג המדינה לשתי ממלכות קשור לעבודה זרה?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> הפילוג לשני עמים גרם לירבעם, שביקש לבסס שלטון נפרד, להקים את שני עגלי הזהב - וכך נטמא כל בית ישראל.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🤝</span>חזון איחוד הממלכות<span class="range">(ל"ז, ט"ז, כ"ג)</span></div>
+    <p class="narrative">בחזון החותם, מצטווה יחזקאל לקחת שני מקלות - אחד ליהודה ואחד ליוסף - ולחברם לעץ אחד, כסמל לאיחוד עתידי של הממלכות המפוצלות. הבטחה זו נלווית להבטחה נוספת: העם לא ישוב עוד להתפלג לשני עמים ולשתי ממלכות, ולא ייטמא עוד בעבודה זרה כפי שקרה בעקבות הפילוג.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">ר' יוסף קרא, יחזקאל ל"ז, כ"ג</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> איך פילוג המדינה לשתי ממלכות קשור לעבודה זרה?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> הפילוג לשני עמים גרם לירבעם, שביקש לבסס שלטון נפרד, להקים את שני עגלי הזהב - וכך נטמא כל בית ישראל.</div>
+      </div>
     </div>
   </div>
 

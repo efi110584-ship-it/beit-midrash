@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,28 +100,51 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 מלכים ב', פרקים כ"ב-כ"ג — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 מלכים ב', פרקים כ"ב-כ"ג — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרקים, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="melachim-b-22-23.html">→ חזרה לדף העבודה - מלכים ב', פרקים כ"ב-כ"ג</a></div>
 
-  <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">📖</span>חיזוק בדק הבית ומציאת ספר התורה</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">מלבי"ם, מלכים ב' כ"ב</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מהו "ספר התורה" (בה"א הידיעה) שנמצא, ולמה היה גנוז?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> זהו ספר התורה שכתב משה בעצמו והיה מונח ליד הארון; הוא הוחבא בימי מנשה כדי שלא יחולל, והיה גלול דווקא לפסוק המנבא גלות למלך ולעם.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    יאשיהו, שהומלך על ידי "עם הארץ" אחרי רצח אביו אמון, משנה כיוון חד ועושה את הישר בעיני ה'. בשנת שמונה עשרה למלכותו הוא מפעיל שיפוץ נרחב בבית המקדש - ובמהלכו מוצאים הכהנים ספר תורה עתיק שזעזע את המלך. יאשיהו שולח לברר את משמעות המציאה אצל חולדה הנביאה, וזו מאשרת שגורל ירושלים נחתם, אך מבטיחה שהחורבן לא יתרחש בימי יאשיהו הצדיק. יאשיהו יוצא במסע תיקון דתי חסר תקדים: כריתת ברית מחודשת, עריכת פסח שלא נערך כמותו מימי השופטים, טיהור המקדש והממלכה מעבודה זרה. הפרק מסתיים במותו הטרגי בקרב מגידו, המסמן את תחילת סוף עצמאות ממלכת יהודה.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">📖</span>חיזוק בדק הבית ומציאת ספר התורה<span class="range">(מלכים ב' כ"ב, א'-י')</span></div>
+    <p class="narrative">יאשיהו עושה את הישר בעיני ה' והולך בכל דרך דוד אביו. בשנת שמונה עשרה למלכותו הוא מפעיל שיפוץ בבית המקדש, כשהכסף שנאסף מהעם נמסר ישירות לעושי המלאכה באמונה, ללא צורך בחשבון מדוקדק. במהלך העבודות מודיע חלקיהו הכהן הגדול לשפן הסופר: "סֵפֶר הַתּוֹרָה מָצָאתִי בְּבֵית ה'".</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">מלבי"ם, מלכים ב' כ"ב</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מהו "ספר התורה" (בה"א הידיעה) שנמצא, ולמה היה גנוז?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> זהו ספר התורה שכתב משה בעצמו והיה מונח ליד הארון; הוא הוחבא בימי מנשה כדי שלא יחולל, והיה גלול דווקא לפסוק המנבא גלות למלך ולעם.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🕎</span>מעשי יאשיהו לתיקון המצב הדתי</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">רש"י, מלכים ב' כ"ג, כ"ב</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> במה היה מיוחד פסח יאשיהו, עד שנאמר עליו "לא נעשה כפסח הזה"?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> שני דברים ייחדו אותו: לא התכנס קיבוץ עם כה גדול מימי שמואל, ולא נחגג פסח לכל עם ישראל יחד (כולל צאצאי עשרת השבטים) מאז התפלגות הממלכה.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🔮</span>ההליכה לחולדה הנביאה<span class="range">(מלכים ב' כ"ב, י"א-כ')</span></div>
+    <p class="narrative">כששומע יאשיהו את דברי ספר התורה הוא קורע את בגדיו בבהלה, ושולח את שריו לדרוש את ה' בעדו ובעד העם. הם פונים אל חולדה הנביאה, וזו משיבה שגזרת החורבן על ירושלים אכן נחתמה - אך בזכות ליבו הרך והכנעתו מלפני ה', יאשיהו עצמו לא יראה בעיניו את הרעה, וייאסף אל אבותיו בשלום.</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🕎</span>מעשי יאשיהו לתיקון המצב הדתי<span class="range">(מלכים ב' כ"ג, א'-כ"ג)</span></div>
+    <p class="narrative">יאשיהו יוצא במהלך תיקון דתי מקיף: הוא כורת ברית לפני ה' ללכת אחריו ולשמור מצוותיו, וכל העם עומד עמו בברית. הוא מטהר את המקדש ואת הממלכה מעבודה זרה, ולבסוף עורך פסח בהיקף חסר תקדים - פסח שלא נערך כמותו מימי השופטים.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">רש"י, מלכים ב' כ"ג, כ"ב</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> במה היה מיוחד פסח יאשיהו, עד שנאמר עליו "לא נעשה כפסח הזה"?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> שני דברים ייחדו אותו: לא התכנס קיבוץ עם כה גדול מימי שמואל, ולא נחגג פסח לכל עם ישראל יחד (כולל צאצאי עשרת השבטים) מאז התפלגות הממלכה.</div>
+      </div>
     </div>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#B0762B;"><span class="icon" aria-hidden="true">⚔️</span>סופו של יאשיהו<span class="range">(מלכים ב' כ"ג, כ"ה, כ"ט-ל')</span></div>
+    <p class="narrative">הכתוב מעיד על יאשיהו שלא היה מלך כמותו לפניו, ששב אל ה' בכל לבבו ובכל נפשו ובכל מאודו ככל תורת משה. ובכל זאת, כשעולה פרעה נכה מלך מצרים על מלך אשור, יוצא יאשיהו לקראתו למגידו - ונהרג שם בידי פרעה נכה.</p>
   </div>
 
 </div>

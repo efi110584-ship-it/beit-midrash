@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -86,28 +100,51 @@
 <div class="wrap">
 
   <header>
-    <h1>📚 נחמיה, בניית החומה — סיכום הפרק</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 נחמיה, בניית החומה — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרקים, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="nechemia-3-12.html">→ חזרה לדף העבודה - נחמיה, בניית החומה</a></div>
 
-  <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🧱</span>רשימת הבונים וחכמת נחמיה</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">רש"י, נחמיה ג', כ"ח</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה משמעות הפרט שכל אחד בנה "כנגד ביתו"?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> זו עדות לחוכמת ההנהגה של נחמיה - הוא רתם את הרצון הטבעי של כל אחד להגן על ביתו וניצל אותו לטובת מפעל הבנייה הציבורי.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    פרק ג' מביא רשימת בונים מפורטת סביב היקף חומות ירושלים כולה, ומדגיש כיצד כל משפחה בנתה כנגד ביתה שלה. בפרק ד' מגיבים הצרים סנבלט וטוביה בלעג צורב, ולאחר מכן זוממים מלחמה של ממש נגד הבונים - ונחמיה מארגן את העם למחצית בונים ומחצית שומרים חמושים. חרף כל ההתנכלויות, מספר לנו פרק ו' (פסוק ט"ו) שהחומה הושלמה תוך 52 ימים בלבד. הפרקים חותמים (בפרק י"ב) בתיאור טקס חנוכת החומה - שתי תהלוכות תודה גדולות שהתכנסו במקדש בשמחה עצומה, אף גדולה מזו שבחנוכת המקדש עצמו.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">🧱</span>רשימת הבונים וחכמת נחמיה<span class="range">(נחמיה ג', א'-ל"ב)</span></div>
+    <p class="narrative">פרק ג' פותח ברשימה גאוגרפית מפורטת, הנעה לאורך כל היקף חומות ירושלים - משער הצאן ושוב עד שער הצאן. אלישיב הכהן הגדול ואחיו פותחים בבניית שער הצאן, ובהמשך מצטרפות משפחה אחר משפחה, כשכל אחת בונה כנגד ביתה שלה. שיטת ארגון זו, כפי שמדגיש הפסוק על הכהנים ("איש לנגד ביתו"), מבטאת את חוכמת ההנהגה של נחמיה שידע לרתום את דאגתו הטבעית של כל אדם לביתו לטובת מפעל הבנייה הציבורי.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">רש"י, נחמיה ג', כ"ח</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה משמעות הפרט שכל אחד בנה "כנגד ביתו"?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> זו עדות לחוכמת ההנהגה של נחמיה - הוא רתם את הרצון הטבעי של כל אחד להגן על ביתו וניצל אותו לטובת מפעל הבנייה הציבורי.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">⚔️</span>מזימת הצרים והתארגנות נחמיה</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">רש"י, נחמיה ד', ו'</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מיהם "היהודים היושבים אצלם", ומה פירוש "ויאמרו לנו עשר פעמים"?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> אלה יהודים שחיו בקרב עמי האויב עצמו; הם הסתננו והזהירו את הבונים שוב ושוב - עד עשר פעמים - שהאויב אכן מתכנן לתקוף.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">😏</span>לעג הצרים והתמודדות הבונים<span class="range">(נחמיה ד', א'-ו')</span></div>
+    <p class="narrative">כאשר שומע סנבלט שהיהודים בונים את החומה, הוא כועס ולועג לבונים לפני אחיו: "הַיְחַיּוּ אֶת הָאֲבָנִים מֵעֲרֵמוֹת הֶעָפָר וְהֵמָּה שְׂרוּפוֹת?". טוביה העמוני מצטרף ומקטין עוד יותר את הישג הבנייה, בטענו שאפילו שועל היה פורץ את חומתם. חרף הלעג הבונים אינם נשברים, וההתקדמות נמשכת עד שהחומה מתקשרת עד מחציתה - "וַיְהִי לֵב לָעָם לַעֲשׂוֹת".</p>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">⚔️</span>מזימת הצרים והתארגנות נחמיה<span class="range">(נחמיה ד', ז'-כ"ג)</span></div>
+    <p class="narrative">הצרים מתקשרים יחד ומתכננים לתקוף את ירושלים בהפתעה כדי להשבית את מלאכת הבנייה, אך יהודים החיים בקרב האויב עצמו מזהירים את הבונים שוב ושוב על הכוונה לתקוף. נחמיה מגיב בארגון מחדש של העם: מחצית ממשיכים בעבודת הבנייה ומחצית מחזיקים ברמחים לשמירה, וכל בונה עובד ביד אחת בעוד היד השנייה אוחזת בנשק.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">רש"י, נחמיה ד', ו'</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מיהם "היהודים היושבים אצלם", ומה פירוש "ויאמרו לנו עשר פעמים"?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> אלה יהודים שחיו בקרב עמי האויב עצמו; הם הסתננו והזהירו את הבונים שוב ושוב - עד עשר פעמים - שהאויב אכן מתכנן לתקוף.</div>
+      </div>
     </div>
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#B0762B;"><span class="icon" aria-hidden="true">🎉</span>השלמת הבנייה וחנוכת החומה<span class="range">(נחמיה ו', ט"ו; י"ב, כ"ז-מ"ג)</span></div>
+    <p class="narrative">חרף כל הקשיים, החומה מושלמת בעשרים וחמישה לאלול - תוך 52 יום בלבד ממועד תחילת הבנייה. השלמת המפעל מלווה בטקס חנוכה חגיגי: שתי תהלוכות תודה גדולות מתכנסות בבית המקדש וזובחות זבחים גדולים, כשהשמחה הגדולה נשמעת למרחוק, אף מעבר לשמחה ששררה בשעתו בחנוכת המקדש עצמו.</p>
   </div>
 
 </div>
