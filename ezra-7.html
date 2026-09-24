@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספר עזרא — דף עבודה אינטראקטיבי (פרק ז', עליית עזרא הסופר ופעולתו)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+
+  .qb-meforesh{ position:relative; }
+  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
+  .mp-tile-btn{
+    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
+    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
+  }
+  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
+  .qb-meforesh.completed{ background:var(--teal-soft); border-color:var(--teal); }
+  .qb-meforesh.completed .qb-src{ color:var(--teal); }
+  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
+
+  .topic-banner{ margin-top:2.6rem; }
+  .grid > .topic-banner:first-of-type{ margin-top:0; }
+
+  .qb-topic{ grid-column: 1 / -1; }
+  .qb-root{
+    max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
+    padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
+  }
+  .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
+  .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
+  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
+  .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
+  .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
+  .pasuk-gloss{
+    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
+    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
+  }
+  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
+  .pasuk-line{ margin-bottom:.15rem; }
+
+  .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
+  .qb-connector::after{
+    content:""; position:absolute; bottom:-1px; right:50%; transform:translateX(50%);
+    border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
+  }
+
+  .qb-branches{
+    display:flex; flex-wrap:wrap; gap:1.1rem;
+    position:relative; padding-top:22px; margin-top:-22px;
+  }
+  .qb-branches::before{
+    content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
+  }
+  .qb-card{
+    flex:1 1 260px;
+    background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
+    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
+    min-width:0;
+  }
+  .qb-card > *{ width:100%; max-width:640px; }
+  .qb-meforesh{
+    font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+    background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
+    padding:.75rem .9rem; box-shadow:var(--shadow);
+  }
+  .qb-meforesh .qb-src{
+    display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
+    font-size:.8rem; margin-bottom:.35rem;
+  }
+  .qb-meforesh .qb-src::before{ content:"💬"; font-size:1.05rem; line-height:1; }
+  .qb-card .question-block{ display:flex; flex-direction:column; gap:.5rem; }
+  .qb-card .question-row{ align-items:flex-start; }
+  .qb-card .q-text{ font-size:.86rem; line-height:1.5; }
+  .qb-card textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
+  .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
+  .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
+</style>
+</head>
+<body>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-yb">כיתה י"ב</a>
+  <span class="sep">›</span>
+  <a href="ezra-nechemia-hub.html">עזרא ונחמיה</a>
+  <span class="sep">›</span>
+  <span class="current">פרק ז'</span>
+</nav>
+
+<header>
+  <div class="eyebrow">ספר עזרא · תקופת בית שני · כיתה י"ב</div>
+  <h1>דף עבודה — פרק ז', "עֲלִיַּת עֶזְרָא הַסּוֹפֵר וּפְעֻלָּתוֹ"</h1>
+  <p class="sub">בכל נושא: קודם קוראים את הפסוקים בקובייה העליונה, ואז עוברים על כל קוביית-שאלה שמסתעפת ממנה - קוראים את דברי הפרשן (אם יש), כותבים תשובה, ורק אז לוחצים "הצג תשובה" לבדיקה עצמית. הכול נשמר אוטומטית במכשיר שלכם.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 7 שאלות</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main>
+  <div class="grid" id="grid">
+
+    <!-- תקציר הפרק -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תקציר הפרק</span>
+        <h2 class="card-title">מה קורה בפרק ז'?</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
+          מפרק ז' ואילך אנו למדים על מנהיג חדש, שעולה ארצה ועומד מכאן ואילך בראש השבים - עזרא הסופר. הפרק פותח ברשימת ייחוסו של עזרא, המגיעה עד אהרן הכהן, ומציג אותו כ"סֹפֵר מָהִיר בְּתוֹרַת מֹשֶׁה". עזרא עולה לירושלים עם קבוצת עולים בשנה השביעית למלך ארתחשסתא, במסע שתאריכיו סמליים ומכוונים. בליבו של הפרק מובא הרישיון המפורט שקיבל עזרא מן המלך - המרשה לו לעלות, לגבות כספי נדבה, ומסמיך אותו למנות מערכת משפט לפי דת אלוקי ישראל. הפרק מסתיים בתגובתו האישית של עזרא - ברכת הודיה לה' על החסד שעשה עמו.
+        </div>
+      </div>
+    </section>
+
+    <!-- נושא 1 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <span class="topic-icon" aria-hidden="true">🕊️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 1 מתוך 4</div>
+        <div class="topic-title">יחוסו של עזרא</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#8A5C21; --acc-soft:#F4ECE1;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🕊️</span>
+        <div class="qb-root-label">עזרא ז', א'-ו'</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">רשימת ייחוסו של עזרא, המגיעה עד אלעזר בן אהרן הכהן</div>
+          <div class="pasuk-line"><b>א', ה':</b> וְאַחַר הַדְּבָרִים הָאֵלֶּה, בְּמַלְכוּת אַרְתַּחְשַׁסְתְּא מֶלֶךְ פָּרָס: עֶזְרָא בֶּן שְׂרָיָה... בֶּן אֶלְעָזָר בֶּן אַהֲרֹן הַכֹּהֵן הָרֹאשׁ.</div>
+          <div class="pasuk-gloss">עזרא הוא סופר מהיר בתורת משה, וזוכה לכל בקשתו מן המלך</div>
+          <div class="pasuk-line"><b>ו':</b> הוּא עֶזְרָא עָלָה מִבָּבֶל, וְהוּא סֹפֵר מָהִיר בְּתוֹרַת מֹשֶׁה אֲשֶׁר נָתַן ה' אֱלֹקֵי יִשְׂרָאֵל, וַיִּתֶּן לוֹ הַמֶּלֶךְ כְּיַד ה' אֱלֹקָיו עָלָיו כֹּל בַּקָּשָׁתוֹ.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">תזכורת: חז"ל משווים את גדלותו של עזרא לגדלותו של משה רבנו</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">חז"ל השוו את גדלותו של עזרא לגדלות משה רבנו - ללמדנו שגם בסוף ימי התנ"ך שתל הקב"ה בעם ישראל דמות רוחנית כמעט שוות ערך למשה, כדי לטעת בקרב העם את לימוד התורה וקיום מצוותיה. מדוע, לדעתכם, נדרשה בשלב הזה של ההיסטוריה דמות "כמו משה", ולא רק מנהיג מדיני חזק?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לאחר עלייה מוצלחת ובניית המקדש, הסכנה הבאה העומדת בפני העם היא התרופפות רוחנית - שכחת התורה וקיום מצוותיה בתנאי החיים החדשים תחת שלטון זר. דמות "כמו משה" - שמלמדת תורה ומחזקת את הזיקה של העם לחוקי ה' - נדרשת בדיוק כדי להתמודד עם סכנה זו, ולא רק עם אתגרים מדיניים או ביטחוניים, שעליהם כבר הופקד נחמיה בהמשך.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">תזכורת: "וַיִּתֶּן לוֹ הַמֶּלֶךְ כְּיַד ה' אֱלֹקָיו עָלָיו כֹּל בַּקָּשָׁתוֹ" (ז', ו')</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מהו החידוש בכך שהכתוב מייחס את היענות המלך לבקשת עזרא ל"יד ה' אלוקיו עליו", ולא רק ליוקרתו האישית של עזרא כאדם חשוב?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הכתוב מלמד שההצלחה של עזרא במימוש שליחותו איננה תוצאה של כישוריו האישיים או קשריו הפוליטיים בלבד, אלא ביטוי להשגחת ה' עליו. זהו אותו עיקרון שראינו כבר לגבי כורש ("הֵעִיר ה' אֶת רוּחַ כֹּרֶשׁ") - גם כאן, גורמים מדיניים-אנושיים לכאורה (החלטת מלך) מוצגים כמעשה ידי ה' הפועל מאחורי הקלעים.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 2 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <span class="topic-icon" aria-hidden="true">🗓️</span>
+      <div>
+        <div class="topic-eyebrow">נושא 2 מתוך 4</div>
+        <div class="topic-title">עליית עזרא - תאריכים סמליים</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🗓️</span>
+        <div class="qb-root-label">עזרא ז', ז'-י'</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line"><b>ז'-ט':</b> וַיַּעֲלוּ מִבְּנֵי יִשְׂרָאֵל... בִּשְׁנַת שֶׁבַע לְאַרְתַּחְשַׁסְתְּא הַמֶּלֶךְ. כִּי בְּאֶחָד לַחֹדֶשׁ הָרִאשׁוֹן הוּא יְסֻד הַמַּעֲלָה מִבָּבֶל, וּבְאֶחָד לַחֹדֶשׁ הַחֲמִישִׁי בָּא אֶל יְרוּשָׁלַם, כְּיַד אֱלֹקָיו הַטּוֹבָה עָלָיו.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">תזכורת: "צוֹם הָרְבִיעִי וְצוֹם הַחֲמִשִׁי וְצוֹם הַשְּׁבִיעִי וְצוֹם הָעֲשִׂירִי יִהְיֶה לְבֵית יְהוּדָה לְשָׂשׂוֹן וּלְשִׂמְחָה" (זכריה ח', י"ט)</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">עזרא יוצא מבבל בחודש הראשון - חודש הגאולה הראשונה (יציאת מצרים) - ומגיע לירושלים בחודש החמישי, חודש החורבן. מה, לדעתכם, המשמעות הסמלית בבחירת תאריכים אלה דווקא, לאור נבואת זכריה שצוטטה כאן?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יציאתו של עזרא בחודש הגאולה הראשונה מקשרת את מסעו למורשת יציאת מצרים - גאולה חדשה בעקבות הראשונה. הגעתו דווקא בחודש החורבן (החמישי) מבטאת תקווה שהתאריך שסימל אבל ושבר יהפוך, בזכות שיבת ציון והתחדשות הרוחנית שמביא עזרא, ל"שָׂשׂוֹן וּלְשִׂמְחָה" כפי שניבא זכריה - היפוך משמעות הזמן עצמו מאבל לשמחה.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 3 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <span class="topic-icon" aria-hidden="true">📄</span>
+      <div>
+        <div class="topic-eyebrow">נושא 3 מתוך 4</div>
+        <div class="topic-title">הרישיון שקיבל עזרא</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">📄</span>
+        <div class="qb-root-label">עזרא ז', י"ב, כ"ה (ארמית, מתורגם)</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-gloss">ארתחשסתא פונה אל עזרא כ"סופר דת אלוקי השמים"</div>
+          <div class="pasuk-line"><b>י"ב:</b> אַרְתַּחְשַׁסְתְּא מֶלֶךְ הַמְּלָכִים, לְעֶזְרָא הַכֹּהֵן, סֹפֵר דָּתָא דִּי אֱלָהּ שְׁמַיָּא, גְּמִיר וּכְעֶת.</div>
+          <div class="pasuk-gloss">עזרא מוסמך למנות שופטים ודיינים על פי חכמת אלוקיו</div>
+          <div class="pasuk-line"><b>כ"ה:</b> וְאַתָּה עֶזְרָא, כְּחָכְמַת אֱלֹקֶיךָ אֲשֶׁר בְּיָדְךָ, מַנֵּה שֹׁפְטִים וְדַיָּנִים, אֲשֶׁר יִהְיוּ דָנִים אֶת כָּל הָעָם אֲשֶׁר בְּעֵבֶר הַנָּהָר, אֵת כָּל יוֹדְעֵי דָּת אֱלֹקֶיךָ.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">תזכורת: תוכן הרישיון - במה הוא שונה מהרישיונות הקודמים (כורש, דריוש)?</p>
+        <div class="qb-card">
+          <div class="qb-meforesh">
+            <span class="qb-src">ארבעה חלקים ברישיון שקיבל עזרא</span>
+            (1) הרשות שניתנה לעזרא ואנשיו לעלות ארצה ולפקח עליהם. (2) רשות להעביר כספי נדבה וכלים עבור המקדש. (3) מס עבור עבודת המקדש. (4) מינוי מערכת משפטית עצמאית.
+            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="ezra7-mp-1">אישור</button></div>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">בניגוד לרישיונות הקודמים (כורש - בניית המקדש; דריוש - מימון בנייתו), הרישיון של עזרא כולל גם מינוי מערכת משפט עצמאית לפי "דת אלוקיך". מה החידוש המהותי בהיבט זה, ומה הוא מלמד על אופי השליחות של עזרא לעומת זרובבל ויהושע?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> החידוש הוא שהמלך מכיר בפומבי ובאופן רשמי בסמכותה של "דת אלוקי ישראל" כמערכת משפטית לגיטימית ואוטונומית, ולא רק כפולחן דתי פרטי. בעוד זרובבל ויהושע פעלו בעיקר בתחום הפיזי-בנייני (מזבח, היכל), שליחותו של עזרא היא רוחנית-משפטית: להפיץ את התורה ולחזק את קיום המצוות כמערכת חיים שלמה, כולל מערך אכיפה ומשפט.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">תזכורת: "וּלְכָל אֲשֶׁר לֹא יִהְיֶה עֹשֶׂה דָּת אֱלֹקֶיךָ וְדָת הַמֶּלֶךְ... אִם לְמָוֶת אִם לְגָלוּת אִם לְעֹנֶשׁ נְכָסִין וְלֶאֱסוּרִין" (ז', כ"ו)</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">הרישיון כולל היבט חיובי (הכרה בדת ישראל, סמכות שיפוטית) לצד היבט מגביל (הגעת עזרא היא לצורך פיקוח בלבד, ומגבלת גובה על גביית מס). כיצד שני הצדדים הללו יחד משקפים את מעמדו האמיתי של העם היהודי באותה תקופה - לא עצמאי לגמרי, אך גם לא חסר זכויות?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הרישיון משקף מציאות של אוטונומיה חלקית תחת שעבוד מלכויות: העם זוכה להכרה משמעותית בזהותו הדתית-משפטית ולחופש פעולה נרחב בתחומים הפנימיים שלו, אך במקביל נותר תלוי לחלוטין ברצון המלכות - הגעת עזרא מוגדרת כפיקוח מטעם המלך, וסמכות המיסוי מוגבלת מלמעלה. כך ממחיש הרישיון בבת אחת גם את ההישג העצום שבחידוש עבודת ה' וגם את המגבלות המהותיות של חיים תחת שלטון זר.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- נושא 4 -->
+    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#B0762B; --acc-soft:#F5E9D6;">
+      <span class="topic-icon" aria-hidden="true">🙏</span>
+      <div>
+        <div class="topic-eyebrow">נושא 4 מתוך 4</div>
+        <div class="topic-title">תגובת עזרא - הכרת הטוב</div>
+      </div>
+    </div>
+    <div class="qb-topic" style="--acc:#B0762B; --acc-soft:#F5E9D6;">
+      <div class="qb-root">
+        <span class="qb-root-icon" aria-hidden="true">🙏</span>
+        <div class="qb-root-label">עזרא ז', כ"ז-כ"ח</div>
+        <div class="qb-root-pasuk">
+          <div class="pasuk-line"><b>כ"ז-כ"ח:</b> בָּרוּךְ ה' אֱלֹקֵי אֲבוֹתֵינוּ, אֲשֶׁר נָתַן כָּזֹאת בְּלֵב הַמֶּלֶךְ, לְפָאֵר אֶת בֵּית ה' אֲשֶׁר בִּירוּשָׁלָם. וְעָלַי הִטָּה חֶסֶד לִפְנֵי הַמֶּלֶךְ וְיוֹעֲצָיו... וַאֲנִי הִתְחַזַּקְתִּי כְּיַד ה' אֱלֹקַי עָלַי, וָאֶקְבְּצָה מִיִּשְׂרָאֵל רָאשִׁים לַעֲלוֹת עִמִּי.</div>
+        </div>
+      </div>
+      <div class="qb-connector" aria-hidden="true"></div>
+      <div class="qb-branches">
+
+        <p class="q-cue">תזכורת: "וַאֲנִי הִתְחַזַּקְתִּי כְּיַד ה' אֱלֹקַי עָלַי" (ז', כ"ח)</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">עזרא פותח בברכת הודיה לה' על חסדו למלך ("אֲשֶׁר נָתַן כָּזֹאת בְּלֵב הַמֶּלֶךְ"), ומיד לאחר מכן מציין שהוא "הִתְחַזַּקְתִּי" ופנה לפעולה מעשית - איסוף ראשי עם לעלייה. מה מלמד הרצף הזה (הודיה ואז מעשה) על יחסו של עזרא בין אמונה בהשגחת ה' לבין השתדלות אנושית?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> עזרא אינו רואה סתירה בין ההכרה בכך שהכל בא מיד ה' לבין הצורך לפעול בעצמו באופן נמרץ. הכרת הטוב אינה מובילה לפאסיביות ("ה' כבר עשה הכל") אלא, להפך, לחיזוק ("הִתְחַזַּקְתִּי") ולפעולה מעשית מיידית - איסוף העולים. כך משקף עזרא, כבר בפתח דרכו, את השילוב בין אמונה בהשגחה לבין השתדלות אנושית פעילה, שילוב שילווה בהמשך גם את נחמיה.</div>
+          </div>
+        </div>
+
+        <p class="q-cue">תזכורת: עזרא אוסף סביבו קבוצת מנהיגים, בניגוד לעלייה ההמונית בפרק ב' בימי כורש</p>
+        <div class="qb-card">
+          <div class="question-block">
+            <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">בניגוד לעלייה ההמונית שתוארה בפרק ב' (עשרות אלפי עולים בימי כורש), עלייתו של עזרא היא בקבוצה קטנה בהרבה. מדוע, לדעתכם, אין בכך פגם או סתירה למטרתו, לאור העובדה שעיקר פעולתו של עזרא הוא בתחום הרוח ולא בתחום ההתיישבותי?</span></div>
+            <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> מטרת עלייתו של עזרא אינה הגדלת האוכלוסייה בארץ (כפי שהייתה מטרת העלייה ההמונית של פרק ב'), אלא חיזוק רוחני-משפטי של היישוב הקיים - הפצת התורה וחיזוק קיום המצוות. למטרה כזו אין צורך בקבוצה גדולה, אלא דווקא בקבוצת מנהיגים איכותית שתוכל לפעול ביעילות בתחום החינוכי-רוחני. גודל הקבוצה מותאם, אם כן, לאופי השליחות ולא מעיד על חשיבותה הפחותה.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
+  <a href="ezra-5-6.html">← פרקים ה'-ו'</a>
+  <a href="ezra-nechemia-hub.html">↺ חזרה ליחידה</a>
+  <a href="nechemia-1-2.html">נחמיה, פרקים א'-ב' →</a>
+</nav>
+<div class="toolbar">
+  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
+  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
+  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
+</p>
+
+<footer class="credit">ספר עזרא, פרק ז' · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'ezra-ch7-answers';
+const NAME_KEY = 'ezra-ch7-student';
+const textareas = Array.from(document.querySelectorAll('textarea.answer'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{
+    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      nameInput.value = data.name || '';
+      classInput.value = data.cls || '';
+    }
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    flashSaved();
+  }catch(e){
+    console.error('שגיאת שמירה', e);
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => {
+        if(data[t.dataset.id]){
+          t.value = data[t.dataset.id];
+          markFilled(t);
+        }
+      });
+    }
+  }catch(e){
+    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
+  }
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+document.querySelectorAll('.hint-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.nextElementSibling;
+    const showing = box.hidden;
+    box.hidden = !showing;
+    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות בדף העבודה? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
+
+loadStudentInfo();
+loadAnswers();
+</script>
+<script src="assets/progress-tracker.js"></script>
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+
+</body>
+</html>
