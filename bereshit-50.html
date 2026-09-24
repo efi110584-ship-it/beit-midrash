@@ -53,10 +53,10 @@
   .flow-icon{ font-size:.95rem; }
   .flow-arrow{ color:var(--acc); font-size:1rem; margin:.1rem 0; }
 
-  .topic-banner{ margin-top:2.6rem; }
-  .grid > .topic-banner:first-of-type{ margin-top:0; }
+  .topic-col{ margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
+  .grid > .topic-col:first-child{ margin-top:0; }
 
-  .qb-topic{ grid-column: 1 / -1; }
+  .qb-topic{ min-width:0; }
   .qb-root{
     max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
     padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
@@ -168,7 +168,8 @@
     </section>
 
     <!-- נושא 1 -->
-    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#3E5A8C; --acc-soft:#E2E7F2;">
+    <div class="topic-col">
+    <div class="topic-banner" style="--acc:#3E5A8C; --acc-soft:#E2E7F2;">
       <span class="topic-icon" aria-hidden="true">🎗️</span>
       <div>
         <div class="topic-eyebrow">נושא 1 מתוך 3</div>
@@ -225,9 +226,11 @@
 
       </div>
     </div>
+    </div>
 
     <!-- נושא 2 -->
-    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+    <div class="topic-col">
+    <div class="topic-banner" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
       <span class="topic-icon" aria-hidden="true">🤝</span>
       <div>
         <div class="topic-eyebrow">נושא 2 מתוך 3</div>
@@ -280,9 +283,11 @@
 
       </div>
     </div>
+    </div>
 
     <!-- נושא 3 -->
-    <div class="topic-banner" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
+    <div class="topic-col">
+    <div class="topic-banner" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
       <span class="topic-icon" aria-hidden="true">💀</span>
       <div>
         <div class="topic-eyebrow">נושא 3 מתוך 3</div>
@@ -328,6 +333,7 @@
         </div>
 
       </div>
+    </div>
     </div>
 
   </div>
