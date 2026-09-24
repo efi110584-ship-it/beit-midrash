@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ספר בראשית — סיכום המפרשים (פרק ט"ו)</title>
+<title>ספר בראשית — סיכום הפרק (פרק ט"ו)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@600;800&family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -17,12 +17,12 @@
   }
   *{box-sizing:border-box;}
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
+  .wrap{ max-width:900px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
   header{ text-align:center; padding:1rem 0 .4rem; }
   h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
   .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
+  .breadcrumbs{ max-width:900px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
   .breadcrumbs a{ color:var(--navy); text-decoration:none; }
   .breadcrumbs a:hover{ text-decoration:underline; }
   .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
@@ -35,14 +35,28 @@
   }
   .game-nav a:hover{ background:var(--navy-soft); }
 
+  .intro-card{
+    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
+    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
+  }
+  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
+
+  .topic-section{ margin:2rem 0; }
   .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:1.8rem 0 .9rem;
+    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
     font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
     border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
   }
-  .topic-heading:first-of-type{ margin-top:1.4rem; }
   .topic-heading .icon{ font-size:1.4rem; }
+  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
 
+  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
+
+  .mp-label{
+    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
+    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
+  }
+  .mp-label::before{ content:"💬"; font-size:.95rem; }
   .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
   .mp-card{
     background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
@@ -80,80 +94,105 @@
   <span class="sep">›</span>
   <a href="bereshit-15.html">פרק ט"ו</a>
   <span class="sep">›</span>
-  <span class="current">סיכום המפרשים</span>
+  <span class="current">סיכום הפרק</span>
 </nav>
 
 <div class="wrap">
 
   <header>
-    <h1>📚 בראשית פרק ט"ו — סיכום המפרשים</h1>
-    <p class="sub">לכל מפרש שמופיע בדף העבודה: בקצרה, מה הוא שואל (על אילו מילים או קושי בפסוק) - ומה הוא עונה. סדר הנושאים תואם לדף העבודה.</p>
+    <h1>📖 בראשית פרק ט"ו — סיכום הפרק</h1>
+    <p class="sub">מה קורה בפרק, נושא אחרי נושא - ולצד כל נושא, מה המפרשים שואלים עליו ומה הם עונים, בקצרה.</p>
   </header>
 
   <div class="game-nav"><a href="bereshit-15.html">→ חזרה לדף העבודה - פרק ט"ו</a></div>
 
-  <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">⭐</span>הבטחת הזרע</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">רש"י (פסוק א') - "אַחַר הַדְּבָרִים הָאֵלֶּה"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה דווקא עכשיו, "אחר הדברים האלה", בא דבר ה' אל אברם?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> אחרי ניצחונו במלחמת המלכים חשש אברם שמיצה את זכויותיו; ה' מרגיע אותו ש"שכרך הרבה מאד" עדיין מחכה לו.</div>
-    </div>
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">אברבנאל (פסוק ג')</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה חוזרת המילה "ויאמר אברם" פעמיים בפסוקים ב'-ג', כאילו שתי אמירות נפרדות?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> אברם תחילה רומז בביישנות ("מה תתן לי"), וכשה' לא עונה - שואל פעם שנייה במפורש ("הן לי לא נתת זרע").</div>
-    </div>
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">רש"י (פסוק ה') - "וַיּוֹצֵא אֹתוֹ הַחוּצָה"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה ה' "מוציא" את אברם החוצה כדי להראות לו את הכוכבים?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> שלושה הסברים - פשט: לראות כוכבים; דרש: לצאת מהאצטגנינות שניבאה שלא יהיה לו בן; דרש נוסף: הגביהו מעל לכוכבים עצמם.</div>
-    </div>
-    <div class="mp-card" style="--acc:#8A5C21;">
-      <div class="mp-src">רש"י (פסוק ו') - "וְהֶאֱמִן בַּה'"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מיוחד באמונת אברם, שבגללה "ויחשבה לו צדקה"?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> אברם האמין בלי לבקש שום אות - ולכן ה' חשב לו אמונה שלמה זו לזכות ולצדקה.</div>
+  <div class="intro-card">
+    <div class="intro-label">📌 תקציר הפרק</div>
+    לאחר הפרידה מלוט ומלחמת המלכים (סוף פרק י"ג-י"ד), ה' נגלה אל אברם במחזה ומבטיח לו שכר גדול. אברם מתלונן שאין לו יורש, ואליעזר עבדו עתיד לרשת אותו - אך ה' מבטיח לו שדווקא בן שייצא ממעיו יירש אותו, ומראה לו את ריבוי הכוכבים כסמל לריבוי זרעו. אברם מאמין בלי לשאול שום אות. כשה' ממשיך ומבטיח לו גם את הארץ, אברם כן מבקש אות: "במה אדע כי אירשנה". ה' מצווה עליו טקס ברית מיוחד - בקיעת בהמות והנחתן זו מול זו, כשהציפורים דווקא לא נבקעות. עם רדת החשיכה נופלת על אברם תרדמה, ובה מתגלה לו חזון קשה: זרעו ישועבד בארץ נכריה 400 שנה, אך בסופו של דבר יֵצא ברכוש גדול. לבסוף עוברים "תנור עשן ולפיד אש" בין הבתרים, וה' כורת עם אברם ברית רשמית - הבטחת הארץ מנהר מצרים ועד נהר פרת, ארץ עשרת העמים.
+  </div>
+
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8A5C21;"><span class="icon" aria-hidden="true">⭐</span>הבטחת הזרע<span class="range">(פסוקים א'-ו')</span></div>
+    <p class="narrative">ה' נגלה אל אברם במחזה ומבטיח לו הגנה ושכר גדול. אברם מתלונן שאין לו יורש, ובן ביתו אליעזר עתיד לרשת אותו - אך ה' מבטיח שדווקא בן שייצא ממעיו הוא שיירש אותו, ומראה לו את ריבוי הכוכבים כסמל לריבוי זרעו. אברם מאמין בה' בלי לבקש שום אות, וזה נחשב לו לצדקה.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">רש"י (פסוק א') - "אַחַר הַדְּבָרִים הָאֵלֶּה"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה דווקא עכשיו, "אחר הדברים האלה", בא דבר ה' אל אברם?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> אחרי ניצחונו במלחמת המלכים חשש אברם שמיצה את זכויותיו; ה' מרגיע אותו ש"שכרך הרבה מאד" עדיין מחכה לו.</div>
+      </div>
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">אברבנאל (פסוק ג')</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה חוזרת המילה "ויאמר אברם" פעמיים בפסוקים ב'-ג', כאילו שתי אמירות נפרדות?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> אברם תחילה רומז בביישנות ("מה תתן לי"), וכשה' לא עונה - שואל פעם שנייה במפורש ("הן לי לא נתת זרע").</div>
+      </div>
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">רש"י (פסוק ה') - "וַיּוֹצֵא אֹתוֹ הַחוּצָה"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה ה' "מוציא" את אברם החוצה כדי להראות לו את הכוכבים?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> שלושה הסברים - פשט: לראות כוכבים; דרש: לצאת מהאצטגנינות שניבאה שלא יהיה לו בן; דרש נוסף: הגביהו מעל לכוכבים עצמם.</div>
+      </div>
+      <div class="mp-card" style="--acc:#8A5C21;">
+        <div class="mp-src">רש"י (פסוק ו') - "וְהֶאֱמִן בַּה'"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מיוחד באמונת אברם, שבגללה "ויחשבה לו צדקה"?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> אברם האמין בלי לבקש שום אות - ולכן ה' חשב לו אמונה שלמה זו לזכות ולצדקה.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🕊️</span>"במה אדע" - בקשת האות וטקס הברית</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#3F6E66;">
-      <div class="mp-src">רמב"ן (פסוק ח') - "בַּמָּה אֵדַע כִּי אִירָשֶׁנָּה"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> אם אברם כבר קיבל הבטחה על הארץ, למה הוא עדיין שואל "במה אדע כי אירשנה"?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> הוא חושש שחטא - שלו או של זרעו - יבטל את ההבטחה; לכן ה' כורת ברית שהארץ תינתן על כל פנים.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#3F6E66;"><span class="icon" aria-hidden="true">🕊️</span>"במה אדע" - בקשת האות וטקס הברית<span class="range">(פסוקים ז'-י"א)</span></div>
+    <p class="narrative">ה' מזכיר לאברם שהוציאו מאור כשדים כדי לתת לו את הארץ. אברם מבקש אות לכך שאכן יירשנה, וה' מצווה עליו טקס ברית: להביא בהמות ועופות, לבתר את הבהמות ולהניח את הבתרים זה מול זה, בעוד הציפורים נותרות שלמות. כשעיט יורד לטרוף את הפגרים, אברם מבריח אותו.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#3F6E66;">
+        <div class="mp-src">רמב"ן (פסוק ח') - "בַּמָּה אֵדַע כִּי אִירָשֶׁנָּה"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> אם אברם כבר קיבל הבטחה על הארץ, למה הוא עדיין שואל "במה אדע כי אירשנה"?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> הוא חושש שחטא - שלו או של זרעו - יבטל את ההבטחה; לכן ה' כורת ברית שהארץ תינתן על כל פנים.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">🦅</span>סמליות הברית - בהמות מול ציפור</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#1E2761;">
-      <div class="mp-src">רש"י (פסוק י') - "וְאֶת הַצִּפֹּר לֹא בָתָר"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה אברם ביתר את הבהמות אך לא ביתר את הציפורים?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> הבהמות המבותרות מסמלות את אומות העולם שעתידות לכלות; הציפור השלמה מסמלת את ישראל שיתקיים לנצח.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#1E2761;"><span class="icon" aria-hidden="true">🦅</span>סמליות הברית - בהמות מול ציפור</div>
+    <p class="narrative">אותו טקס הבתרים שתואר בנושא הקודם טומן בתוכו גם סמליות עמוקה יותר, לגבי עתיד עם ישראל מול אומות העולם.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#1E2761;">
+        <div class="mp-src">רש"י (פסוק י') - "וְאֶת הַצִּפֹּר לֹא בָתָר"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה אברם ביתר את הבהמות אך לא ביתר את הציפורים?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> הבהמות המבותרות מסמלות את אומות העולם שעתידות לכלות; הציפור השלמה מסמלת את ישראל שיתקיים לנצח.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">⛓️</span>גזירת הגלות והגאולה</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#8B4A34;">
-      <div class="mp-src">רש"י (פסוק י"ב) - "וְהִנֵּה אֵימָה"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מסמלת "אימה חשכה גדולה" שנופלת על אברם?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> רמז לצרות ולחשכת הגלויות שיעברו על זרעו בעתיד.</div>
-    </div>
-    <div class="mp-card" style="--acc:#8B4A34;">
-      <div class="mp-src">הרב חנן פורת, "מעט מן האור"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה דווקא קשר לא-טבעי (גלות, שעבוד ויציאה בדרך נס) הוא הבסיס הנכון לקשר הנצחי בין ישראל לארצו?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> קשר טבעי לארץ עלול להתבטל בניתוק ממנה; קשר המבוסס על ברית וצו אלוקי הוא נצחי, ואינו תלוי במגורים רצופים.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#8B4A34;"><span class="icon" aria-hidden="true">⛓️</span>גזירת הגלות והגאולה<span class="range">(פסוקים י"ב-ט"ז)</span></div>
+    <p class="narrative">עם רדת החשכה נופלות על אברם תרדמה ואימה גדולה. ה' מבשר לו שזרעו יגור ויועבד בארץ נכריה 400 שנה, אך יעניש את האומה המשעבדת וזרעו ייצא ברכוש גדול. לאברם עצמו מובטח מוות בשלום ובשיבה טובה, וזרעו ישוב לארץ בדור הרביעי, כשעוון האמורי יתמלא.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#8B4A34;">
+        <div class="mp-src">רש"י (פסוק י"ב) - "וְהִנֵּה אֵימָה"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מסמלת "אימה חשכה גדולה" שנופלת על אברם?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> רמז לצרות ולחשכת הגלויות שיעברו על זרעו בעתיד.</div>
+      </div>
+      <div class="mp-card" style="--acc:#8B4A34;">
+        <div class="mp-src">הרב חנן פורת, "מעט מן האור"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> למה דווקא קשר לא-טבעי (גלות, שעבוד ויציאה בדרך נס) הוא הבסיס הנכון לקשר הנצחי בין ישראל לארצו?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> קשר טבעי לארץ עלול להתבטל בניתוק ממנה; קשר המבוסס על ברית וצו אלוקי הוא נצחי, ואינו תלוי במגורים רצופים.</div>
+      </div>
     </div>
   </div>
 
-  <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🔥</span>כריתת הברית - הבטחת הארץ</div>
-  <div class="mp-grid">
-    <div class="mp-card" style="--acc:#7A4A73;">
-      <div class="mp-src">רש"י (פסוק י') - "וַיְבַתֵּר אֹתָם"</div>
-      <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מסמלים "תנור עשן ולפיד אש" שעוברים בין הבתרים?</div>
-      <div class="mp-line"><span class="mp-tag answer">עונה:</span> סמל לנוכחות ה' עצמו העובר בין הבתרים, כמנהג כורתי ברית באותה תקופה.</div>
+  <div class="topic-section">
+    <div class="topic-heading" style="--acc:#7A4A73;"><span class="icon" aria-hidden="true">🔥</span>כריתת הברית - הבטחת הארץ<span class="range">(פסוקים י"ז-כ"א)</span></div>
+    <p class="narrative">בחשכה עוברים "תנור עשן ולפיד אש" בין הבתרים, וה' כורת עם אברם ברית רשמית: הבטחת הארץ מנהר מצרים ועד נהר פרת, ארץ עשרת העמים המפורטים בשמם.</p>
+    <div class="mp-label">מה אומרים המפרשים</div>
+    <div class="mp-grid">
+      <div class="mp-card" style="--acc:#7A4A73;">
+        <div class="mp-src">רש"י (פסוק י') - "וַיְבַתֵּר אֹתָם"</div>
+        <div class="mp-line"><span class="mp-tag ask">שואל:</span> מה מסמלים "תנור עשן ולפיד אש" שעוברים בין הבתרים?</div>
+        <div class="mp-line"><span class="mp-tag answer">עונה:</span> סמל לנוכחות ה' עצמו העובר בין הבתרים, כמנהג כורתי ברית באותה תקופה.</div>
+      </div>
     </div>
   </div>
 
@@ -161,7 +200,7 @@
 
 <button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
 
-<footer class="site-footer">ספר בראשית · פרק ט"ו · סיכום המפרשים</footer>
+<footer class="site-footer">ספר בראשית · פרק ט"ו · סיכום הפרק</footer>
 
 <script>
 (function(){
