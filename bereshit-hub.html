@@ -10,8 +10,7 @@
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
   .cat-letter{ display:inline-flex; align-items:center; justify-content:center; min-width:1.6rem; height:1.6rem; padding:0 .3rem; border-radius:999px; background:var(--acc); color:#fff; font-weight:800; font-size:.85rem; margin-inline-end:.4rem; }
-  .book-banner{ margin-top:2.2rem; }
-  .grid > .book-banner:first-of-type{ margin-top:0; }
+  .book-banner{ margin-top:0; }
 </style>
 </head>
 <body>
@@ -32,32 +31,19 @@
   </svg>
 </header>
 
-<div class="jump-nav-wrap">
-  <div class="jump-nav" aria-label="קפיצה מהירה לפרק">
-    <span class="jump-label" style="--acc:#3F6E66;">אברהם</span>
-    <a class="jump-pill" href="#ch-12" style="--acc:#3F6E66;"><span class="pill-num">יב</span>לך לך</a>
-    <a class="jump-pill" href="#ch-15" style="--acc:#8A5C21;"><span class="pill-num">טו</span>ברית הבתרים</a>
-    <a class="jump-pill" href="#ch-17" style="--acc:#3F6E66;"><span class="pill-num">יז</span>ברית המילה</a>
-    <a class="jump-pill" href="#ch-18" style="--acc:#8A5C21;"><span class="pill-num">יח</span>אברהם והמלאכים</a>
-    <a class="jump-pill" href="#ch-22" style="--acc:#7A4A73;"><span class="pill-num">כב</span>עקידת יצחק</a>
-    <span class="jump-label" style="--acc:#1E2761;">יעקב</span>
-    <a class="jump-pill" href="#ch-25" style="--acc:#3F6E66;"><span class="pill-num">כה</span>מכירת הבכורה</a>
-    <a class="jump-pill" href="#ch-27" style="--acc:#1E2761;"><span class="pill-num">כז-כח</span>בא אחיך במרמה</a>
-    <a class="jump-pill" href="#ch-28" style="--acc:#8A5C21;"><span class="pill-num">כח</span>סולם יעקב</a>
-    <a class="jump-pill" href="#ch-32" style="--acc:#7A4A73;"><span class="pill-num">לב-לג</span>ויאבק איש עמו</a>
-    <span class="jump-label" style="--acc:#8B4A34;">יוסף</span>
-    <a class="jump-pill" href="#ch-37" style="--acc:#8A5C21;"><span class="pill-num">לז</span>מכירת יוסף</a>
-    <a class="jump-pill" href="#ch-42" style="--acc:#8B4A34;"><span class="pill-num">מב-מג</span>אנכי אערבנו</a>
-    <a class="jump-pill" href="#ch-44" style="--acc:#7A4A73;"><span class="pill-num">מד</span>נאום יהודה</a>
-    <a class="jump-pill" href="#ch-45" style="--acc:#1E2761;"><span class="pill-num">מה</span>אני יוסף</a>
-    <a class="jump-pill" href="#ch-50" style="--acc:#3E5A8C;"><span class="pill-num">נ</span>מות יעקב</a>
+<div class="section-nav-wrap">
+  <div class="section-nav" role="tablist" aria-label="בחרו חלק בספר">
+    <button type="button" class="section-pill" role="tab" id="sec-btn-avraham" aria-selected="false" aria-controls="sec-group-avraham" data-section="avraham" style="--acc:#3F6E66; --acc-soft:#E4EEEA;"><span class="section-icon" aria-hidden="true">🛤️</span>פרקי אברהם ושרה</button>
+    <button type="button" class="section-pill" role="tab" id="sec-btn-yaakov" aria-selected="false" aria-controls="sec-group-yaakov" data-section="yaakov" style="--acc:#1E2761; --acc-soft:#E3E5F3;"><span class="section-icon" aria-hidden="true">🤜</span>פרקי יעקב ועשיו</button>
+    <button type="button" class="section-pill" role="tab" id="sec-btn-yosef" aria-selected="false" aria-controls="sec-group-yosef" data-section="yosef" style="--acc:#8B4A34; --acc-soft:#F1E2DA;"><span class="section-icon" aria-hidden="true">👕</span>פרקי יוסף ואחיו</button>
   </div>
 </div>
 
 <main>
   <div class="grid">
 
-    <div class="book-banner" id="sec-avraham" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+    <div class="book-section" data-section="avraham" id="sec-group-avraham" role="tabpanel" aria-labelledby="sec-btn-avraham" hidden>
+    <div class="book-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
       <span class="topic-icon" aria-hidden="true">🛤️</span>
       <div>
         <div class="topic-eyebrow">חלק ראשון</div>
@@ -149,7 +135,10 @@
       </div>
     </section>
 
-    <div class="book-banner" id="sec-yaakov" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
+    </div>
+
+    <div class="book-section" data-section="yaakov" id="sec-group-yaakov" role="tabpanel" aria-labelledby="sec-btn-yaakov" hidden>
+    <div class="book-banner" style="grid-column: 1 / -1; --acc:#1E2761; --acc-soft:#E3E5F3;">
       <span class="topic-icon" aria-hidden="true">🤜</span>
       <div>
         <div class="topic-eyebrow">חלק שני</div>
@@ -221,7 +210,10 @@
       </div>
     </section>
 
-    <div class="book-banner" id="sec-yosef" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+    </div>
+
+    <div class="book-section" data-section="yosef" id="sec-group-yosef" role="tabpanel" aria-labelledby="sec-btn-yosef" hidden>
+    <div class="book-banner" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
       <span class="topic-icon" aria-hidden="true">👕</span>
       <div>
         <div class="topic-eyebrow">חלק שלישי</div>
@@ -309,6 +301,8 @@
       </div>
     </section>
 
+    </div>
+
   </div>
 </main>
 
@@ -331,6 +325,37 @@
   btn.addEventListener('click', function(){
     window.scrollTo({ top:0, behavior: 'smooth' });
   });
+})();
+
+(function(){
+  var pills = Array.from(document.querySelectorAll('.section-pill[data-section]'));
+  var groups = Array.from(document.querySelectorAll('.book-section[data-section]'));
+  function activate(name, opts){
+    pills.forEach(function(p){
+      var active = p.dataset.section === name;
+      p.classList.toggle('active', active);
+      p.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    groups.forEach(function(g){
+      g.hidden = g.dataset.section !== name;
+    });
+    if(opts && opts.scroll){
+      var group = document.getElementById('sec-group-' + name);
+      if(group) group.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+  pills.forEach(function(p){
+    p.addEventListener('click', function(){ activate(p.dataset.section, { scroll:true }); });
+  });
+  var startSection = pills.length ? pills[0].dataset.section : null;
+  var hash = window.location.hash.replace('#','');
+  var hashTarget = hash ? document.getElementById(hash) : null;
+  if(hashTarget){
+    var group = hashTarget.closest('.book-section[data-section]');
+    if(group) startSection = group.dataset.section;
+  }
+  if(startSection) activate(startSection);
+  if(hashTarget) hashTarget.scrollIntoView({ block:'start' });
 })();
 </script>
 </body>
