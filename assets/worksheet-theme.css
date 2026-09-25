@@ -118,6 +118,18 @@ header p.sub{ font-size: 1rem; color: var(--ink-soft); max-width: 680px; margin:
 /* עוטף מדור (אברהם/יעקב/יוסף) - שקוף לגריד כדי שהכרטיסים בפנים ימשיכו להיות פריטי גריד ישירים */
 .book-section{ display:contents; }
 .book-section[hidden]{ display:none; }
+/* שורת אייקונים קטנים לפרקים בתוך מדור פתוח - קפיצה ישירה לכרטיס הפרק, בלי גלילה ידנית */
+.chapter-quicklinks{ display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+.chapter-quicklinks a{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:2.5rem; height:2.5rem; padding:0 .55rem;
+  border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
+  font-family:'Frank Ruhl Libre', serif; font-weight:800; font-size:.85rem;
+  text-decoration:none;
+  transition: background .2s ease, color .2s ease, transform .15s ease, box-shadow .2s ease;
+}
+.chapter-quicklinks a:hover{ background: var(--acc); color:#fff; transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+.chapter-quicklinks a:focus-visible{ outline: 3px solid var(--focus-ring); outline-offset: 2px; }
 .topic-pill[hidden]{ display:none; }
 @media (max-width:480px){
   .section-pill{ flex: 1 1 100%; justify-content:center; }
