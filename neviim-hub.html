@@ -10,8 +10,7 @@
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
   .cat-letter{ display:inline-flex; align-items:center; justify-content:center; min-width:1.6rem; height:1.6rem; padding:0 .3rem; border-radius:999px; background:var(--acc); color:#fff; font-weight:800; font-size:.85rem; margin-inline-end:.4rem; }
-  .book-banner{ margin-top:2.2rem; }
-  .grid > .book-banner:first-of-type{ margin-top:0; }
+  .book-banner{ margin-top:0; }
 </style>
 </head>
 <body>
@@ -37,27 +36,18 @@
   </svg>
 </header>
 
-<div class="jump-nav-wrap">
-  <div class="jump-nav" aria-label="קפיצה מהירה לפרק">
-    <span class="jump-label" style="--acc:#8A5C21;">מלכים ב'</span>
-    <a class="jump-pill" href="#ch-mb21" style="--acc:#8A5C21;"><span class="pill-num">כא</span>מלכות מנשה</a>
-    <a class="jump-pill" href="#ch-mb2223" style="--acc:#8A5C21;"><span class="pill-num">כב-כג</span>מלכות יאשיהו</a>
-    <a class="jump-pill" href="#ch-mb2324" style="--acc:#8A5C21;"><span class="pill-num">כג-כד</span>יהואחז ויהויקים</a>
-    <a class="jump-pill" href="#ch-mb2425" style="--acc:#8A5C21;"><span class="pill-num">כד-כה</span>יהויכין וצדקיהו</a>
-    <span class="jump-label" style="--acc:#3F6E66;">ירמיהו</span>
-    <a class="jump-pill" href="#ch-yir1" style="--acc:#3F6E66;"><span class="pill-num">א</span>הקדשת ירמיהו</a>
-    <a class="jump-pill" href="#ch-yir726" style="--acc:#3F6E66;"><span class="pill-num">ז, כו</span>היכל ה' ומשפט ירמיהו</a>
-    <a class="jump-pill" href="#ch-yir28" style="--acc:#3F6E66;"><span class="pill-num">כח</span>נביאי השקר</a>
-    <a class="jump-pill" href="#ch-yir36" style="--acc:#3F6E66;"><span class="pill-num">לו</span>המגילה</a>
-    <a class="jump-pill" href="#ch-yir31" style="--acc:#3F6E66;"><span class="pill-num">לא</span>נבואת נחמה</a>
-    <span class="jump-label" style="--acc:#7A4A73;">יחזקאל</span>
-    <a class="jump-pill" href="#ch-yech3637" style="--acc:#7A4A73;"><span class="pill-num">לו-לז</span>נבואות הגאולה</a>
+<div class="section-nav-wrap">
+  <div class="section-nav" role="tablist" aria-label="בחרו ספר">
+    <button type="button" class="section-pill" role="tab" id="sec-btn-melachim" aria-selected="false" aria-controls="sec-group-melachim" data-section="melachim" style="--acc:#8A5C21; --acc-soft:#F4ECE1;"><span class="section-icon" aria-hidden="true">👑</span>ספר מלכים ב'</button>
+    <button type="button" class="section-pill" role="tab" id="sec-btn-yirmiyahu" aria-selected="false" aria-controls="sec-group-yirmiyahu" data-section="yirmiyahu" style="--acc:#3F6E66; --acc-soft:#E4EEEA;"><span class="section-icon" aria-hidden="true">🕯️</span>נבואות ירמיהו</button>
+    <button type="button" class="section-pill" role="tab" id="sec-btn-yechezkel" aria-selected="false" aria-controls="sec-group-yechezkel" data-section="yechezkel" style="--acc:#7A4A73; --acc-soft:#EFE3EC;"><span class="section-icon" aria-hidden="true">🦴</span>נבואות יחזקאל</button>
   </div>
 </div>
 
 <main>
   <div class="grid">
 
+    <div class="book-section" data-section="melachim" id="sec-group-melachim" role="tabpanel" aria-labelledby="sec-btn-melachim" hidden>
     <div class="book-banner" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F4ECE1;">
       <span class="topic-icon" aria-hidden="true">👑</span>
       <div>
@@ -130,6 +120,9 @@
       </div>
     </section>
 
+    </div>
+
+    <div class="book-section" data-section="yirmiyahu" id="sec-group-yirmiyahu" role="tabpanel" aria-labelledby="sec-btn-yirmiyahu" hidden>
     <div class="book-banner" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
       <span class="topic-icon" aria-hidden="true">🕯️</span>
       <div>
@@ -218,6 +211,9 @@
       </div>
     </section>
 
+    </div>
+
+    <div class="book-section" data-section="yechezkel" id="sec-group-yechezkel" role="tabpanel" aria-labelledby="sec-btn-yechezkel" hidden>
     <div class="book-banner" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
       <span class="topic-icon" aria-hidden="true">🦴</span>
       <div>
@@ -242,6 +238,8 @@
       </div>
     </section>
 
+    </div>
+
   </div>
 </main>
 
@@ -264,6 +262,37 @@
   btn.addEventListener('click', function(){
     window.scrollTo({ top:0, behavior: 'smooth' });
   });
+})();
+
+(function(){
+  var pills = Array.from(document.querySelectorAll('.section-pill[data-section]'));
+  var groups = Array.from(document.querySelectorAll('.book-section[data-section]'));
+  function activate(name, opts){
+    pills.forEach(function(p){
+      var active = p.dataset.section === name;
+      p.classList.toggle('active', active);
+      p.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    groups.forEach(function(g){
+      g.hidden = g.dataset.section !== name;
+    });
+    if(opts && opts.scroll){
+      var group = document.getElementById('sec-group-' + name);
+      if(group) group.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+  pills.forEach(function(p){
+    p.addEventListener('click', function(){ activate(p.dataset.section, { scroll:true }); });
+  });
+  var startSection = pills.length ? pills[0].dataset.section : null;
+  var hash = window.location.hash.replace('#','');
+  var hashTarget = hash ? document.getElementById(hash) : null;
+  if(hashTarget){
+    var group = hashTarget.closest('.book-section[data-section]');
+    if(group) startSection = group.dataset.section;
+  }
+  if(startSection) activate(startSection);
+  if(hashTarget) hashTarget.scrollIntoView({ block:'start' });
 })();
 </script>
 </body>
