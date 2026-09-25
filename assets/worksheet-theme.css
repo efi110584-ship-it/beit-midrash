@@ -170,6 +170,60 @@ header p.sub{ font-size: 1rem; color: var(--ink-soft); max-width: 680px; margin:
 .topic-pill.active .pill-num{ background:#fff; color: var(--acc); }
 .topic-pill.done{ opacity:.75; }
 
+/* ---------- סרגל קפיצה מהירה לפרקים (בעמודי מרכז ספר - קישורי עוגן, לא לשוניות JS) ---------- */
+.jump-nav-wrap{
+  position: sticky; top: 0; z-index: 40;
+  margin-bottom: 1.6rem;
+}
+.jump-nav-wrap::before, .jump-nav-wrap::after{
+  content:""; position:absolute; top:0; bottom:0; width:2.2rem; pointer-events:none; z-index:2;
+}
+.jump-nav-wrap::before{ right:0; background: linear-gradient(to left, rgba(239,230,208,0.95), transparent); }
+.jump-nav-wrap::after{ left:0; background: linear-gradient(to right, rgba(239,230,208,0.95), transparent); }
+.jump-nav{
+  position: relative; top: 0; z-index: 1;
+  display:flex; align-items:center; gap:.5rem; overflow-x:auto; -webkit-overflow-scrolling:touch;
+  padding: .7rem 1.2rem; scroll-snap-type: x proximity;
+  background: rgba(239,230,208,0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1.5px solid var(--paper-line);
+  scrollbar-width: thin;
+}
+.jump-nav::-webkit-scrollbar{ height:6px; }
+.jump-nav::-webkit-scrollbar-thumb{ background: var(--paper-line); border-radius:4px; }
+.jump-label{
+  flex:none; font-family:'Heebo',sans-serif; font-weight:800; font-size:.72rem;
+  color: var(--acc); text-transform:uppercase; letter-spacing:.03em;
+  padding-inline-start:.4rem; white-space:nowrap;
+}
+.jump-nav > .jump-label:not(:first-child){ margin-inline-start:.5rem; padding-inline-start:.9rem; border-inline-start:1.5px solid var(--paper-line); }
+.jump-pill{
+  flex: none;
+  display:flex; align-items:center; gap:.35rem;
+  padding: .4rem .8rem;
+  min-height: 40px;
+  border-radius: 999px;
+  border: 1.5px solid var(--acc);
+  color: var(--acc);
+  background: #fff;
+  text-decoration:none;
+  font-size: .8rem;
+  font-weight: 700;
+  white-space:nowrap;
+  scroll-snap-align: start;
+  transition: background .2s ease, color .2s ease, box-shadow .2s ease, transform .15s ease;
+}
+.jump-pill:hover{ background: var(--acc); color:#fff; transform: translateY(-1px); }
+.jump-pill:focus-visible{ outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+.jump-pill .pill-num{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:1.35rem; height:1.35rem; padding:0 .2rem; border-radius:999px;
+  background: var(--acc); color:#fff; font-size:.68rem; font-weight:800;
+}
+.jump-pill:hover .pill-num{ background:#fff; color: var(--acc); }
+/* יעד קפיצה - מרווח עליון כדי שהסרגל הדביק לא יכסה את תחילת הפרק */
+.grid > .card[id], .book-banner[id]{ scroll-margin-top: 4.8rem; }
+
 main{ max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 2rem; }
 
 .topic-section{ margin-bottom: 2.6rem; scroll-margin-top: 4.6rem; }
