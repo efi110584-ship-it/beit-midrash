@@ -641,7 +641,7 @@
       });
 
       // הרבה משימות - מציגים רק את הראשונה, האחרונה ואלה שליד הנוכחית, ולא "קיר" של מספרים
-      if(tasks.length > 7){
+      if(tasks.length > (hasPath ? 5 : 7)){   // עם מסלול למידה - שורת מספרים קצרה יותר
         var prevShown = true, here = Math.min(current, tasks.length - 1);
         tasks.forEach(function(t, idx){
           var show = idx === 0 || idx === tasks.length - 1 || Math.abs(idx - here) <= 1;
