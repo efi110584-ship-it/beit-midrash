@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
 </head>
@@ -55,14 +56,12 @@
 <p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
   <a class="chip-link" href="lo-tasur-review.html"><span class="chip-icon" aria-hidden="true">📋</span>דף חזרה מסוכם (שאלה-תשובה)</a>
   <a class="chip-link" href="lo-tasur-summary.html"><span class="chip-icon" aria-hidden="true">📄</span>דף סיכום לחזרה למבחן</a>
-  <a class="chip-link" href="lo-tasur-matching-game.html"><span class="chip-icon" aria-hidden="true">🧩</span>משחק התאמה כיתתי - שאלה מול תשובה</a>
-  <a class="chip-link" href="lo-tasur-wheel.html"><span class="chip-icon" aria-hidden="true">🎡</span>גלגל המזל לתרגול</a>
 </p>
 
 <main id="main-content">
-  <div class="grid" id="grid">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">📖 תקציר המצווה</span>
         <h2 class="card-title">"לא תסור" בקצרה - הסבר פשוט וברור</h2>
@@ -96,7 +95,29 @@
       </div>
     </section>
 
-    <section class="card" style="grid-column: 1 / -1;">
+    <!-- דוגמה פתורה (שלב ג׳) -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">השאלה לדוגמה</span> איזה סוג של מצווה היא "לא תסור" - מצוות עשה או מצוות לא תעשה? הביאו ראיה מן המקור.</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש כאן שני חלקים: (1) לקבוע איזה סוג מצווה זו. (2) להביא ראיה.</li>
+          <li><b>מבינים את מילת ההוראה.</b> "הביאו ראיה" = להעתיק מן המקור מילים שמוכיחות את התשובה, בתוך מירכאות.</li>
+          <li><b>מחפשים במקור.</b> בדברי ספר החינוך (שלב 2) כתוב: <span class="bm-quote">ואמרו זכרונם לברכה בספרי: "לא תסור וגו' - זו מצות לא תעשה".</span></li>
+          <li><b>כותבים לפי החלקים.</b> קודם התשובה, ואחריה הראיה.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה מוצעת - לא מהמחוון</span></div>
+          <p>"לא תסור" היא מצוות לא תעשה. הראיה: בספרי נאמר: "לא תסור וגו' - זו מצות לא תעשה".</p>
+        </div>
+        <p class="bm-example-why">✓ למה זו תשובה טובה? יש בה את שני החלקים שהשאלה ביקשה, והראיה מועתקת מן המקור בתוך מירכאות.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">שלב 1 · הפסוקים בתורה</span>
         <h2 class="card-title">המקור בתורה</h2>
@@ -359,7 +380,7 @@
       </div>
     </section>
 
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">שלב 11 · לסיכום</span>
         <h2 class="card-title">העונש ומקומו</h2>
@@ -387,7 +408,7 @@
       </div>
     </section>
 
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">שאלות בגרות אמיתיות</span>
         <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תשע"ט – תשפ"ו)</h2>
@@ -535,6 +556,38 @@
                 </div>
               </div>
             </div>
+      </div>
+    </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על "לא תסור"</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>המצווה:</b> אסור לחלוק על החכמים (בעלי הקבלה) ולשנות מדבריהם - בכל ענייני התורה.</li>
+          <li><b>למה?</b> לכל אחד יש דעה אחרת. בלי המצווה, התורה הייתה נעשית "ככמה תורות".</li>
+          <li><b>גם כשהחכמים טועים</b> ("אפילו יאמרו לך על ימין שהוא שמאל") - שומעים להם, כי עדיף לסבול טעות אחת מאשר פירוד בעם.</li>
+          <li><b>תנורו של עכנאי:</b> האמת הייתה כרבי אליעזר, אבל ההלכה נפסקה לפי הרוב - "לא בשמים היא". הקב"ה שמח ואמר: "נצחוני בני".</li>
+          <li><b>זקן ממרא:</b> רק כשכל ארבעת התנאים מתקיימים. הוא פטור אם הוא תלמיד שלא הגיע להוראה, או אם חלק מחוץ ללשכת הגזית.</li>
+          <li><b>היום:</b> העונש של זקן ממרא היה רק בזמן בית המקדש, אבל החובה לשמוע לחכמים נוהגת תמיד - לכולם.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎮 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - תרגול בדרך של משחק</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר גם במשחק:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="lo-tasur-matching-game.html"><span class="chip-icon" aria-hidden="true">🧩</span>משחק התאמה כיתתי - שאלה מול תשובה</a>
+          <a class="chip-link" href="lo-tasur-wheel.html"><span class="chip-icon" aria-hidden="true">🎡</span>גלגל המזל לתרגול</a>
+        </p>
       </div>
     </section>
   </div>
@@ -757,6 +810,8 @@ loadAnswers();
   });
 })();
 </script>
+<script src="assets/guide/lo-tasur.js"></script>
 <script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>
