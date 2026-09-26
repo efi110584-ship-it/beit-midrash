@@ -158,6 +158,17 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .unit-tile.subject-exam{ border-top-color:#1E2761; }
 .unit-tile.subject-teacher{ border-top-color:#7A4A73; }
 
+/* ===== "המשיכו מהמקום שבו הפסקתם" ===== */
+.continue-card{
+  display:flex; align-items:center; gap:.9rem; margin:0 0 1.1rem; padding:.9rem 1.2rem; min-height:64px;
+  background:var(--ink); color:#fff; text-decoration:none; border-radius:var(--radius);
+  border-inline-start:6px solid var(--gold-light); box-shadow:var(--shadow);
+}
+.continue-card:hover{ background:var(--ink-2); }
+.continue-icon{ font-size:1.5rem; color:var(--gold-light); flex:none; }
+.continue-title{ display:block; font-family:var(--font-display); font-weight:700; font-size:1.25rem; }
+.continue-meta{ display:block; font-size:.95rem; color:#E6DFCB; }
+
 /* ===== Footer ===== */
 .site-footer{ text-align:center; padding:1.6rem 1rem; color:var(--text-soft); font-size:0.85rem; border-top:1px solid var(--border); }
 
@@ -250,6 +261,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   </section>
 
   <section class="results-wrap">
+    <div id="continue-root"></div>
     <div id="status-line" class="status-line" role="status" aria-live="polite"></div>
     <div id="content-root" class="content-root" role="tabpanel" aria-labelledby="tab-ya">
       <p class="loading-msg">טוען חומרי לימוד…</p>
@@ -530,6 +542,22 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   })();
 
   /* בקרות הנגישות (גודל טקסט, ניגודיות, ריווח) - ב-assets/a11y.js, משותף לכל דפי האתר */
+
+  /* ============ "המשיכו מהמקום שבו הפסקתם" ============
+     דף עבודה שמחולק למשימות (assets/steps.js) רושם במכשיר איפה התלמיד עצר. */
+  (function renderContinue(){
+    var box = document.getElementById("continue-root");
+    var last = null;
+    try{ last = JSON.parse(localStorage.getItem("bm-last-place-v1") || "null"); }catch(e){}
+    if(!box || !last || !/^[\w.-]+\.html$/.test(last.page || "")) return;
+    var meta = last.finished ? "כל המשימות הושלמו - אפשר לעבור לסיכום" : "משימה " + last.task + " מתוך " + last.total;
+    box.innerHTML =
+      '<a class="continue-card" href="' + escapeAttr(last.page) + '">' +
+        '<span class="continue-icon" aria-hidden="true">▶</span>' +
+        '<span><span class="continue-title">המשיכו מהמקום שבו הפסקתם</span>' +
+        '<span class="continue-meta">' + escapeHtml(last.title || last.page) + ' · ' + meta + '</span></span>' +
+      '</a>';
+  })();
 
   renderUnits();
 })();
