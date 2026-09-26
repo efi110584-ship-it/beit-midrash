@@ -8,7 +8,7 @@
    - "פירוק השאלה" מתחת לכל שאלת בגרות: מה שואלים, כמה חלקים,
      מילות ההוראה, מה חייב להופיע בתשובה, וניקוד - רק אם הוא כתוב
      בשאלון עצמו. לא ממציאים חלוקת נקודות.
-   - תשובות: הפרדה בולטת בין "תשובת המחוון הרשמית" ל"תשובה מוצעת",
+   - תשובות: הפרדה בולטת בין "תשובת המחוון הרשמית" ל"תשובה אפשרית",
      והתשובה מוצגת כנקודות. המילים עצמן לא משתנות - הטקסט המקורי
      נשאר בדף (מוסתר), ורק מוצג מחולק לשורות.
    - בשלב "שאלה פתוחה" (מסלול הלמידה, assets/steps.js) אין פתיח ורמזים.
@@ -20,7 +20,7 @@
        hints: ["רמז קטן", "מילת מפתח", "מבנה התשובה"],
        breakdown: { what: "...", parts: "...", must: "..." } } } };
    סוג התשובה: data-answer-kind="official|suggested" על כרטיס (או על
-   main); כותרת "תשובה מוצעת" בתיבת התשובה גוברת תמיד.
+   main); כותרת "תשובה מוצעת" / "תשובה אפשרית" בתיבת התשובה גוברת תמיד.
    העיצוב ב-assets/guide.css.
    ============================================================ */
 (function(){
@@ -53,11 +53,11 @@
   if(!main) return;
 
   /* ============================================================
-     1. תשובות: מחוון רשמי / תשובה מוצעת, ותשובה כנקודות
+     1. תשובות: מחוון רשמי / תשובה אפשרית, ותשובה כנקודות
      ============================================================ */
   function answerKind(box, label){
     var lt = label ? label.textContent : "";
-    if(/מוצעת/.test(lt)) return "suggested";
+    if(/מוצעת|אפשרית/.test(lt)) return "suggested";
     var host = box.closest("[data-answer-kind]");
     if(host) return host.getAttribute("data-answer-kind");
     if(/דגם|מחוון/.test(lt)) return "official";
@@ -118,7 +118,7 @@
       box.setAttribute("data-kind", kind);
       var head = make("div", "bm-answer-head");
       head.setAttribute("data-kind", kind);
-      head.appendChild(make("span", "bm-answer-badge", kind === "official" ? "✅ תשובת המחוון הרשמית" : "💡 תשובה מוצעת"));
+      head.appendChild(make("span", "bm-answer-badge", kind === "official" ? "✅ תשובת המחוון הרשמית" : "💡 תשובה אפשרית"));
       head.appendChild(make("span", "bm-answer-sub", kind === "official" ? "כך כתוב במחוון של הבחינה" : "תשובה לדוגמה - לא מהמחוון הרשמי"));
       box.insertBefore(head, box.firstChild);
       if(label) label.classList.add("bm-label-replaced");
