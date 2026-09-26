@@ -155,7 +155,7 @@
   <div class="qcard" id="qCard">
     <span class="qtopic" id="qTopic"></span>
     <div class="qtext" id="qText"></div>
-    <button class="revealbtn" id="revealBtn" type="button">👁 הצג תשובה</button>
+    <button class="revealbtn" id="revealBtn" type="button" aria-expanded="false" aria-controls="qAnswer">👁 הצג תשובה</button>
     <div class="answer" id="qAnswer"><div class="alabel">✓ תשובה:</div><span id="qAnswerText"></span></div>
   </div>
 
@@ -353,7 +353,12 @@ function showQuestion(item){
   document.getElementById("qAnswerText").textContent = item.a;
   document.getElementById("qAnswer").classList.remove("show");
   document.getElementById("revealBtn").textContent = "👁 הצג תשובה";
+  document.getElementById("revealBtn").setAttribute("aria-expanded", "false");
   document.getElementById("qCard").classList.add("show");
+  // הפוקוס עובר לשאלה שעלתה בגלגל - קורא המסך מקריא אותה, והמקלדת ממשיכה ממנה ל"הצג תשובה"
+  const qText = document.getElementById("qText");
+  qText.setAttribute("tabindex", "-1");
+  qText.focus();
 }
 
 document.getElementById("revealBtn").addEventListener("click", () => {
@@ -361,6 +366,7 @@ document.getElementById("revealBtn").addEventListener("click", () => {
   const btn = document.getElementById("revealBtn");
   const showing = ans.classList.toggle("show");
   btn.textContent = showing ? "🙈 הסתר תשובה" : "👁 הצג תשובה";
+  btn.setAttribute("aria-expanded", String(showing));
 });
 
 document.getElementById("spinBtn").addEventListener("click", spin);

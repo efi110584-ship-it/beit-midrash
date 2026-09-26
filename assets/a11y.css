@@ -190,3 +190,11 @@ footer.credit, .flip-hint{ opacity:1; }
     transition-duration:0.001ms !important; scroll-behavior:auto !important;
   }
 }
+
+/* ---------- 8. פוקוס מקלדת ברור ----------
+   בשדות התשובה סימן הפוקוס היה רק שינוי עדין בצבע המסגרת (וצל שקוף
+   כמעט לגמרי), ובמילים הלחיצות שבפסוקים הוא הוסר לגמרי. טבעת כחולה
+   אחידה - כמו בשאר הכפתורים באתר - מראה בבירור איפה נמצאים. */
+textarea:focus-visible, input:focus-visible, select:focus-visible,
+.hot-word:focus-visible{ outline:3px solid #1857C4 !important; outline-offset:2px; }
+input[type="radio"]:focus-visible, input[type="checkbox"]:focus-visible{ outline-offset:3px; }

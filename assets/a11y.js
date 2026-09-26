@@ -194,6 +194,24 @@
     if(btn) setTimeout(function(){ syncHintButton(btn); }, 0);
   });
 
+  /* ---------- חלון קופץ (aria-modal) - Tab נשאר בתוך החלון עד שסוגרים אותו ---------- */
+  var FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]),select,textarea,[tabindex]:not([tabindex="-1"])';
+  document.addEventListener("keydown", function(e){
+    if(e.key !== "Tab") return;
+    var dialogs = document.querySelectorAll('[role="dialog"][aria-modal="true"]');
+    for(var i = 0; i < dialogs.length; i++){
+      var dlg = dialogs[i];
+      if(!dlg.getClientRects().length) continue;   // החלון סגור
+      var items = Array.prototype.filter.call(dlg.querySelectorAll(FOCUSABLE), function(el){ return el.getClientRects().length; });
+      if(!items.length) return;
+      var first = items[0], last = items[items.length - 1];
+      if(!dlg.contains(document.activeElement)){ e.preventDefault(); first.focus(); }
+      else if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+      return;
+    }
+  });
+
   function init(){
     setupSkipLinks();
     each(".hint-btn", syncHintButton);
