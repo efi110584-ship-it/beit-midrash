@@ -84,9 +84,14 @@ html{ font-size: calc(100% * var(--font-scale, 1)); }
 .bm-a11y-panel [aria-disabled="true"]{ opacity:.45; cursor:not-allowed; }
 .bm-a11y-note{ margin:0; font-size:.9rem; color:#4B6577; }
 
+/* בטלפון - כפתור עגול עם הסמל בלבד, כדי לא להסתיר טקסט (השם "נגישות" נשאר לקורא המסך) */
 @media (max-width:480px){
   .bm-a11y{ bottom:.9rem; right:.9rem; }
-  .bm-a11y-toggle{ padding:.45rem .85rem .45rem .95rem; }
+  .bm-a11y-toggle{ width:52px; height:52px; padding:0; justify-content:center; }
+  .bm-a11y-toggle-text{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
 }
 
 @media print{
@@ -125,3 +130,51 @@ html.a11y-spacing body p, html.a11y-spacing body li, html.a11y-spacing body text
 html.a11y-spacing .q-text, html.a11y-spacing .pasuk-block, html.a11y-spacing .pasuk-line,
 html.a11y-spacing .meforesh-block, html.a11y-spacing .story-summary, html.a11y-spacing .narrative,
 html.a11y-spacing .flip-front, html.a11y-spacing .flip-back{ line-height:1.9 !important; }
+
+/* ---------- 6. גודל טקסט מינימלי קריא בתוכן הלימודי ----------
+   ברירת המחדל של הדפים הייתה 11-15 פיקסלים ברוב התוכן. כאן נקבעת
+   "רצפה" (לפי 16px = 1rem, ומוכפלת בבחירת גודל הטקסט של התלמיד):
+     • תוכן לימודי מרכזי - שאלה, פסוק, סיפור, תשובה: 18px ומעלה
+     • תוכן לימודי משני - פרשנים, ביאורים, שדות תשובה, משוב: 17px
+     • תוויות, כפתורים וניווט: 15-16px
+   רק מגדילים - אף כלל כאן לא מקטין טקסט שכבר היה גדול יותר.
+   חלק מהבוררים מופיעים גם בצורה מפורטת (למשל .qb-card .q-text),
+   כי בדפים עצמם הם מוגדרים כך, ובורר פשוט לא היה גובר עליהם. */
+
+/* תוכן לימודי מרכזי - 18px */
+.q-text, .qb-card .q-text, .narrative, .story-summary, .intro-card, .recap-qa, .recap-a,
+.flip-front, .flip-back, .bagrut-block, .hafan-sentence, .pmodal-a,
+.review-q, .review-a, .q-topic, .exam-desc{ font-size:1.125rem; }
+.pasuk-block, .qb-root-pasuk, .muted-pasuk{ font-size:1.15rem; }
+.pasuk-line{ font-size:1.2rem; }
+
+/* תוכן לימודי משני - 17px */
+.meforesh-block, .mini-mefaresh, .qb-meforesh, .q-cue, .mp-line, .mp-src, .pasuk-gloss,
+.remember-block, .pasuk-block-note, .cross-ref-note, .flow-note, .flow-title,
+.hint-box, .qb-card .hint-box, .choice-note, .teacher-note, .qb-root-note,
+.dialog-txt, .hafan-note, .bank-note, .recap-q, .mc-option, .mc-feedback, .match-card,
+.card-body > p, .fill-label, .fill-row .fill-label, .vs-desc, .pasuk-block.mini{ font-size:1.0625rem; }
+textarea.answer, input.answer, .qb-card textarea.answer, .short-answer{ font-size:1.0625rem; }
+table.fill-grid, table.fill-grid td textarea.answer.table-cell{ font-size:1rem; }
+
+/* תוויות, מקורות וכפתורים - 16px */
+.src, .meforesh-block .src, .remember-block .src, .bagrut-block .src,
+.qb-src, .qb-meforesh .qb-src, .story-label, .story-summary .story-label,
+.intro-label, .mp-label, .qb-root-label, .bagrut-part-label, .part-label, .exam-tag,
+.vs-title, .unit-subhead, .pasuk-block b, .mp-tag, .hint-btn, .qb-card .hint-btn, .btn,
+.chip-link, .ctrl-btn, .back-btn, .reset-btn, .mp-tile-btn, .game-nav a, .chapter-nav a,
+.student-bar label, .student-bar input, .progress-label, .unit-done, .topic-subtitle,
+.table-intro, .revealed-stat, .mini-timeline .step, .mini-timeline.compact .step{ font-size:1rem; }
+
+/* תגיות, מספרים, ניווט ושורות עזר - 15px */
+.card-tag, .topic-eyebrow, header .eyebrow, .range, .topic-heading .range, .v-num,
+.choice-chip, .q-num, .nation-chip, .pill-title, .topic-pill, .chapter-quicklinks a,
+.privacy-note, .save-note, .q-sub, .hint-note, .breadcrumbs, .col-label,
+.bagrut-note, .bagrut-block .bagrut-note, .dialog-refrain, .chapter-head .sub-small,
+.mini-timeline.detail .step small, footer.credit, .site-footer,
+table.fill-grid thead th, table.fill-grid th.row-label, th, small, .flip-hint{ font-size:.9375rem; }
+.q-num.small, .pill-num{ font-size:.8rem; }
+.q-num{ min-width:1.8rem; height:1.8rem; }
+.q-num.small{ min-width:1.5rem; height:1.5rem; }
+.pill-num{ width:1.4rem !important; height:1.4rem !important; }
+footer.credit, .flip-hint{ opacity:1; }

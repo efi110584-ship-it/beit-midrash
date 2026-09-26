@@ -102,7 +102,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   display:flex; flex-wrap:wrap; gap:1.75rem;
 }
 .a11y-group{ border:0; padding:0; margin:0; display:flex; flex-direction:column; gap:0.4rem; }
-.a11y-group legend{ color:#C9C2AE; font-size:0.8rem; margin-bottom:0.2rem; padding:0; }
+.a11y-group legend{ color:#C9C2AE; font-size:0.95rem; margin-bottom:0.2rem; padding:0; }
 .a11y-group > div, .a11y-group{ }
 .a11y-group button{
   background:#2E3E64; color:#fff; border:1px solid #4B5C86;
@@ -118,7 +118,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .class-chip{
   background:transparent; border:1.5px solid #6C7899; color:#F4EFE2;
   padding:.5rem 1.05rem; border-radius:999px; cursor:pointer; font-weight:600;
-  font-size:.85rem; font-family:var(--font-body); min-height:38px;
+  font-size:1rem; font-family:var(--font-body); min-height:44px;
   display:inline-flex; align-items:center; gap:.4rem;
   transition: background .2s ease, color .2s ease, border-color .2s ease;
 }
@@ -129,32 +129,32 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 
 /* ===== Results (יחידות הלימוד) - קוביות קטנות, גלויות מיד בלי לגלול ===== */
 .results-wrap{ max-width:1100px; margin:0 auto; padding:1rem 1.25rem 3rem; }
-.status-line{ color:var(--text-soft); margin-bottom:.7rem; font-size:0.85rem; }
+.status-line{ color:var(--text-soft); margin-bottom:.7rem; font-size:0.95rem; }
 .loading-msg, .empty-msg{ color:var(--text-soft); padding:2.5rem 0; text-align:center; font-size:1.05rem; }
 
 .class-section{ margin-bottom:1.4rem; }
 .class-section > h2{ font-size:1.1rem; border-bottom:2px solid var(--gold); padding-bottom:0.3rem; margin-bottom:0.7rem; }
-.unit-category{ font-size:.8rem; font-weight:800; color:var(--text-soft); text-transform:none; margin:1rem 0 0.4rem; padding-inline-start:0.1rem; }
+.unit-category{ font-size:.95rem; font-weight:800; color:var(--text-soft); text-transform:none; margin:1rem 0 0.4rem; padding-inline-start:0.1rem; }
 .unit-category:first-of-type{ margin-top:0; }
 
-.unit-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(84px,1fr)); gap:0.5rem; }
+.unit-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:0.6rem; }
 
 @keyframes cardIn{ from{ opacity:0; transform: translateY(8px); } to{ opacity:1; transform: translateY(0); } }
 
 .unit-tile{
   background:var(--paper-card); border:1px solid var(--border); border-top:3px solid var(--gold);
   border-radius:var(--radius);
-  padding:0.55rem 0.4rem; min-height:78px;
+  padding:0.65rem 0.5rem; min-height:96px;
   display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:0.15rem;
   box-shadow:var(--shadow); text-decoration:none; color:var(--ink);
   transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
   animation: cardIn .4s ease backwards;
 }
 .unit-tile:hover{ box-shadow:var(--shadow-hover); transform: translateY(-2px); border-color:var(--gold); }
-.unit-tile-icon{ font-size:1.35rem; line-height:1; }
-.unit-tile-title{ font-family:var(--font-display); font-weight:700; font-size:0.72rem; line-height:1.2; color:var(--ink); }
-.unit-tile-meta{ font-size:0.6rem; color:var(--text-soft); font-weight:600; }
-.unit-tile-done{ font-size:0.6rem; font-weight:800; color:var(--teal); }
+.unit-tile-icon{ font-size:1.5rem; line-height:1; }
+.unit-tile-title{ font-family:var(--font-display); font-weight:700; font-size:1rem; line-height:1.25; color:var(--ink); }
+.unit-tile-meta{ font-size:0.82rem; color:var(--text-soft); font-weight:600; }
+.unit-tile-done{ font-size:0.82rem; font-weight:800; color:var(--teal); }
 .unit-tile.subject-tnk{ border-top-color:var(--teal); }
 .unit-tile.subject-tsb{ border-top-color:var(--gold); }
 .unit-tile.subject-heb{ border-top-color:#8B4A34; }
@@ -180,10 +180,10 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 /* ===== Responsive ===== */
 @media (max-width:640px){
   .header-inner{ flex-wrap:wrap; }
-  .unit-grid{ grid-template-columns:repeat(auto-fill, minmax(74px,1fr)); gap:0.4rem; }
-  .unit-tile{ min-height:70px; padding:0.45rem 0.35rem; }
-  .unit-tile-icon{ font-size:1.15rem; }
-  .unit-tile-title{ font-size:0.66rem; }
+  .unit-grid{ grid-template-columns:repeat(auto-fill, minmax(104px,1fr)); gap:0.5rem; }
+  .unit-tile{ min-height:88px; padding:0.55rem 0.4rem; }
+  .unit-tile-icon{ font-size:1.3rem; }
+  .unit-tile-title{ font-size:0.95rem; }
 }
 
 </style>
