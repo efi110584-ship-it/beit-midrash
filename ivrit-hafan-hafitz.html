@@ -572,7 +572,14 @@ function skeletonHafanAnswer(str){
 
 function checkAnswer(input){
   const correctRaw = CORRECT_ANSWERS[input.dataset.id];
-  const cell = input.nextElementSibling;
+  let cell = input.nextElementSibling;
+  if(correctRaw && !cell){
+    // בדף הזה חסר תא ה-✓/✗ ליד כל שדה (ולכן הבדיקה לא סימנה כלום) - יוצרים אותו בזמן הבדיקה
+    cell = document.createElement('span');
+    cell.className = 'check-mark';
+    cell.setAttribute('aria-hidden', 'true');
+    input.after(cell);
+  }
   if(!correctRaw || !cell) return null;
   const studentNorm = normalizeHafanAnswer(input.value);
   input.classList.remove('is-correct', 'is-wrong');
