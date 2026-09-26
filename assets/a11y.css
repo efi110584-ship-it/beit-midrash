@@ -178,3 +178,15 @@ table.fill-grid thead th, table.fill-grid th.row-label, th, small, .flip-hint{ f
 .q-num.small{ min-width:1.5rem; height:1.5rem; }
 .pill-num{ width:1.4rem !important; height:1.4rem !important; }
 footer.credit, .flip-hint{ opacity:1; }
+
+/* ---------- 7. הפחתת תנועה ----------
+   מי שביקש במערכת ההפעלה "להפחית תנועה" - מקבל את התוכן בלי אנימציות
+   ומעברים בכל דפי האתר (עד עכשיו זה חל רק על דפי העבודה ודף הבית,
+   ולא על המשחקים, הכרטיסיות, גלגל המזל ודפי הסיכום). */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto !important; }
+  *, *::before, *::after{
+    animation-duration:0.001ms !important; animation-iteration-count:1 !important;
+    transition-duration:0.001ms !important; scroll-behavior:auto !important;
+  }
+}

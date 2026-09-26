@@ -139,8 +139,6 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 
 .unit-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:0.6rem; }
 
-@keyframes cardIn{ from{ opacity:0; transform: translateY(8px); } to{ opacity:1; transform: translateY(0); } }
-
 .unit-tile{
   background:var(--paper-card); border:1px solid var(--border); border-top:3px solid var(--gold);
   border-radius:var(--radius);
@@ -148,7 +146,6 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:0.15rem;
   box-shadow:var(--shadow); text-decoration:none; color:var(--ink);
   transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
-  animation: cardIn .4s ease backwards;
 }
 .unit-tile:hover{ box-shadow:var(--shadow-hover); transform: translateY(-2px); border-color:var(--gold); }
 .unit-tile-icon{ font-size:1.5rem; line-height:1; }

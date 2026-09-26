@@ -57,6 +57,22 @@
   readState();
   apply();
 
+  /* ---------- הפחתת תנועה גם בגלילה שהדפים מפעילים ב-JS ----------
+     CSS לא יכול לעצור scrollTo({behavior:"smooth"}), ולכן - רק אצל מי
+     שביקש במערכת ההפעלה להפחית תנועה - גלילה "חלקה" הופכת לקפיצה מיידית. */
+  if(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+    var noSmooth = function(opts){
+      return (opts && typeof opts === "object" && opts.behavior === "smooth")
+        ? Object.assign({}, opts, { behavior: "auto" }) : opts;
+    };
+    ["scrollTo", "scrollBy"].forEach(function(fn){
+      var orig = window[fn];
+      window[fn] = function(a, b){ return arguments.length > 1 ? orig.call(window, a, b) : orig.call(window, noSmooth(a)); };
+    });
+    var origIntoView = Element.prototype.scrollIntoView;
+    Element.prototype.scrollIntoView = function(opts){ return origIntoView.call(this, noSmooth(opts)); };
+  }
+
   // שינוי שנעשה בלשונית אחרת של האתר מתעדכן גם כאן
   window.addEventListener("storage", function(e){
     if(e.key === KEY_FONT || e.key === KEY_CONTRAST || e.key === KEY_SPACING){ readState(); apply(); }
