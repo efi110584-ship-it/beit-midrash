@@ -1,0 +1,127 @@
+/* ============================================================
+   בית המדרש הדיגיטלי - שכבת נגישות משותפת לכל הדפים
+   ============================================================
+   נטען אחרון ב-<head> של כל דף (אחרי העיצוב של הדף עצמו), יחד עם
+   assets/a11y.js. הקובץ לא משנה שום תוכן - רק מראה:
+     1. כפתור ותפריט הנגישות הצף, וקישור "דלג לתוכן הראשי"
+     2. מצבי התצוגה שהתלמיד בוחר: גודל טקסט, ניגודיות גבוהה, ריווח
+   ============================================================ */
+
+/* ---------- 1. גודל טקסט - כל האתר בנוי ביחידות rem, ולכן מספיק לשנות כאן ---------- */
+html{ font-size: calc(100% * var(--font-scale, 1)); }
+
+/* ---------- 2. דלג לתוכן הראשי ---------- */
+.bm-skip-link{
+  position:absolute; top:0; right:1rem; z-index:10000;
+  transform: translateY(-130%);
+  background:#1F3A4D; color:#FFFFFF;
+  padding:.8rem 1.25rem; border-radius:0 0 10px 10px;
+  font-family:'Heebo','Arial Hebrew',sans-serif; font-weight:700; font-size:1.05rem;
+  text-decoration:none;
+}
+.bm-skip-link:focus{ transform:none; outline:3px solid #C99A4C; outline-offset:2px; }
+#main-content:focus, #main:focus{ outline:none; }
+
+.bm-sr-only{
+  position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+
+/* ---------- 3. כפתור ותפריט הנגישות הצף ---------- */
+.bm-a11y{
+  position:fixed; bottom:1.2rem; right:1.2rem; z-index:450;
+  direction:rtl; font-family:'Heebo','Arial Hebrew',sans-serif; line-height:1.4;
+}
+.bm-a11y-toggle{
+  display:inline-flex; align-items:center; gap:.45rem;
+  min-height:48px; padding:.5rem 1rem .5rem 1.15rem;
+  background:#1F3A4D; color:#FFFFFF;
+  border:2px solid #C99A4C; border-radius:999px;
+  font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer;
+  box-shadow:0 4px 14px rgba(0,0,0,.25);
+}
+.bm-a11y-toggle:hover{ background:#2C4A60; }
+.bm-a11y-toggle[aria-expanded="true"]{ background:#C99A4C; color:#1F3A4D; border-color:#1F3A4D; }
+.bm-a11y button:focus-visible{ outline:3px solid #1857C4; outline-offset:3px; }
+
+.bm-a11y-panel{
+  position:absolute; bottom:calc(100% + .6rem); right:0;
+  width:min(21rem, calc(100vw - 2.4rem));
+  max-height:calc(100vh - 7rem); overflow-y:auto;
+  display:flex; flex-direction:column; gap:.6rem;
+  background:#F7F1E1; color:#1F3A4D;
+  border:2px solid #1F3A4D; border-radius:14px;
+  padding:1rem; box-shadow:0 10px 30px rgba(0,0,0,.28);
+}
+.bm-a11y-panel[hidden]{ display:none; }
+.bm-a11y-title{ margin:0 0 .1rem; font-weight:800; font-size:1.1rem; color:#1F3A4D; }
+.bm-a11y-row{ display:flex; align-items:center; gap:.45rem; }
+.bm-a11y-label{ font-weight:700; margin-inline-end:auto; }
+.bm-a11y-level-wrap{ min-width:3.4rem; text-align:center; font-weight:800; }
+
+.bm-a11y-panel button{
+  font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer;
+  color:#1F3A4D; background:#FFFFFF;
+  border:1.5px solid #1F3A4D; border-radius:10px; min-height:44px;
+}
+.bm-a11y-panel button:hover{ background:#F3E7D2; }
+.bm-a11y-step{ min-width:48px; padding:0 .6rem; font-size:1.1rem !important; }
+.bm-a11y-switch, .bm-a11y-reset{
+  width:100%; padding:.55rem .9rem; text-align:right;
+  display:flex; align-items:center; justify-content:space-between; gap:.5rem;
+}
+/* ריבוע סימון חזותי בלבד - המצב עצמו מוכרז לקורא המסך דרך aria-pressed */
+.bm-a11y-switch::after{
+  content:""; content:"" / "";
+  display:inline-flex; align-items:center; justify-content:center; flex:none;
+  width:1.3rem; height:1.3rem; border:2px solid currentColor; border-radius:5px;
+  font-size:.9rem; line-height:1;
+}
+.bm-a11y-switch[aria-pressed="true"]{ background:#1F3A4D; color:#FFFFFF; }
+.bm-a11y-switch[aria-pressed="true"]:hover{ background:#2C4A60; }
+.bm-a11y-switch[aria-pressed="true"]::after{ content:"✓"; content:"✓" / ""; }
+.bm-a11y-reset{ border-style:dashed !important; }
+.bm-a11y-panel [aria-disabled="true"]{ opacity:.45; cursor:not-allowed; }
+.bm-a11y-note{ margin:0; font-size:.9rem; color:#4B6577; }
+
+@media (max-width:480px){
+  .bm-a11y{ bottom:.9rem; right:.9rem; }
+  .bm-a11y-toggle{ padding:.45rem .85rem .45rem .95rem; }
+}
+
+@media print{
+  .bm-a11y, .bm-skip-link{ display:none !important; }
+}
+
+/* ---------- 4. ניגודיות גבוהה ----------
+   כל הדפים בנויים על אותם משתני צבע (עם שמות מעט שונים בין תבניות),
+   ולכן מספיק להחליף כאן את ערכי המשתנים: רקע לבן, טקסט שחור,
+   מסגרות שחורות, וצבעי הדגשה כהים שעומדים ביחס ניגודיות גבוה. */
+html.a11y-contrast{
+  --paper:#FFFFFF; --paper-card:#FFFFFF; --paper-2:#FFFFFF; --card:#FFFFFF; --bg:#FFFFFF;
+  --gold-soft:#FFFFFF; --navy-soft:#FFFFFF; --green-soft:#FFFFFF; --red-soft:#FFFFFF;
+  --teal-soft:#FFFFFF; --teal-light:#FFFFFF; --rust-soft:#FFFFFF; --gold-tag-bg:#FFFFFF;
+  --ink:#000000; --ink-2:#000000; --ink-soft:#000000; --text:#000000; --text-soft:#000000; --muted:#000000;
+  --border:#000000; --paper-line:#000000; --line:#000000;
+  --navy:#000000; --accent:#000000; --blue:#00379E; --blue-dark:#00246B;
+  --gold:#6B4400; --gold-text:#6B4400; --gold-light:#6B4400; --gold-dark:#4A2F00;
+  --teal:#004D45; --green:#00552A; --success:#00552A;
+  --red:#9B0000; --error:#9B0000; --rust:#7A1F00;
+}
+/* צבע-הנושא (--acc) מוגדר גם ישירות על אלמנטים (style="--acc:..."), ולכן !important */
+html.a11y-contrast, html.a11y-contrast *{ --acc:#000000 !important; --acc-soft:#FFFFFF !important; }
+html.a11y-contrast body{ background:#FFFFFF !important; color:#000000; }
+html.a11y-contrast *{ text-shadow:none !important; }
+html.a11y-contrast textarea, html.a11y-contrast input, html.a11y-contrast select{
+  background:#FFFFFF !important; color:#000000 !important; border-color:#000000 !important;
+}
+html.a11y-contrast .topic-nav{ background:#FFFFFF !important; backdrop-filter:none !important; border-bottom:2px solid #000000 !important; }
+html.a11y-contrast .topic-nav-wrap::before, html.a11y-contrast .topic-nav-wrap::after{ display:none !important; }
+html.a11y-contrast footer.credit, html.a11y-contrast .breadcrumbs .sep, html.a11y-contrast .flip-hint{ opacity:1 !important; }
+
+/* ---------- 5. ריווח מוגבר בין אותיות, מילים ושורות ---------- */
+html.a11y-spacing body, html.a11y-spacing body *{ letter-spacing:.05em !important; word-spacing:.16em !important; }
+html.a11y-spacing body p, html.a11y-spacing body li, html.a11y-spacing body textarea,
+html.a11y-spacing .q-text, html.a11y-spacing .pasuk-block, html.a11y-spacing .pasuk-line,
+html.a11y-spacing .meforesh-block, html.a11y-spacing .story-summary, html.a11y-spacing .narrative,
+html.a11y-spacing .flip-front, html.a11y-spacing .flip-back{ line-height:1.9 !important; }

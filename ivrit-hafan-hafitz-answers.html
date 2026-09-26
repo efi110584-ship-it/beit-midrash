@@ -16,8 +16,11 @@
   table.answer-key td.hafan-sentence .num{ color:var(--ink-soft); font-weight:700; margin-inline-end:.25rem; }
   .hafan-note{ font-size:.82rem; color:var(--ink-soft); line-height:1.65; background:var(--paper-card); border-right:3px solid var(--gold); border-radius:6px; padding:.6rem .85rem; margin-top:.9rem; }
 </style>
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -31,7 +34,7 @@
   <button class="hint-btn" type="button" id="answersGateBtn" data-gated="true">🔒 פתחו את המחוון (נדרש קוד מהמורה)</button>
 </p>
 
-<main>
+<main id="main-content">
 <div id="gatedContent" hidden></div>
 </main>
 

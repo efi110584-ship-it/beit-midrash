@@ -35,7 +35,6 @@
   --font-display: "Frank Ruhl Libre", "David Libre", serif;
   --font-body: "Heebo", "Arial Hebrew", sans-serif;
   --font-scale: 1;
-  --letter-extra: 0em;
 }
 
 html{ font-size: calc(100% * var(--font-scale)); scroll-behavior: smooth; }
@@ -50,7 +49,6 @@ body{
     var(--paper);
   color:var(--text);
   font-family:var(--font-body);
-  letter-spacing:var(--letter-extra);
   line-height:1.6;
 }
 h1,h2,h3{ font-family:var(--font-display); color:var(--ink); margin:0; }
@@ -166,18 +164,18 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 /* ===== Footer ===== */
 .site-footer{ text-align:center; padding:1.6rem 1rem; color:var(--text-soft); font-size:0.85rem; border-top:1px solid var(--border); }
 
-/* ===== High contrast mode ===== */
-body.high-contrast{
+/* ===== High contrast mode (המצב עצמו נשמר ומופעל ע"י assets/a11y.js) ===== */
+.a11y-contrast body{
   --paper:#FFFFFF; --paper-card:#FFFFFF; --paper-2:#FFFFFF; --border:#000000;
   --text:#000000; --text-soft:#000000; --ink:#000000; --ink-2:#000000;
   --gold:#7A4E00; --gold-text:#7A4E00; --gold-light:#7A4E00; --teal:#003C39; --teal-light:#FFFFFF;
   --gold-tag-bg:#FFFFFF;
 }
-body.high-contrast .unit-tile, body.high-contrast .tab, body.high-contrast .class-chip{
+.a11y-contrast .unit-tile, .a11y-contrast .tab, .a11y-contrast .class-chip{
   border:2px solid #000 !important;
 }
-body.high-contrast .site-header, body.high-contrast .class-picker-section{ background:#000; border-bottom:2px solid #fff; }
-body.high-contrast .class-chip[aria-selected="true"]{ background:#fff !important; color:#000 !important; }
+.a11y-contrast .site-header, .a11y-contrast .class-picker-section{ background:#000; border-bottom:2px solid #fff; }
+.a11y-contrast .class-chip[aria-selected="true"]{ background:#fff !important; color:#000 !important; }
 
 /* ===== Responsive ===== */
 @media (max-width:640px){
@@ -189,6 +187,8 @@ body.high-contrast .class-chip[aria-selected="true"]{ background:#fff !important
 }
 
 </style>
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
 
@@ -232,11 +232,11 @@ body.high-contrast .class-chip[aria-selected="true"]{ background:#fff !important
       </fieldset>
       <fieldset class="a11y-group">
         <legend>ניגודיות</legend>
-        <button type="button" id="contrast-toggle" aria-pressed="false">ניגודיות גבוהה</button>
+        <button type="button" id="contrast-toggle" data-a11y="contrast" aria-pressed="false">ניגודיות גבוהה</button>
       </fieldset>
       <fieldset class="a11y-group">
         <legend>קריאה נוחה</legend>
-        <button type="button" id="dyslexia-toggle" aria-pressed="false">ריווח מוגבר בין אותיות</button>
+        <button type="button" id="dyslexia-toggle" data-a11y="spacing" aria-pressed="false">ריווח מוגבר בין אותיות</button>
       </fieldset>
     </div>
   </div>
@@ -532,49 +532,7 @@ body.high-contrast .class-chip[aria-selected="true"]{ background:#fff !important
     if(id){ var el = document.getElementById(id); if(el && el.classList.contains("tab")) el.click(); }
   })();
 
-  /* ============ בקרות נגישות ============ */
-  var a11yToggle = document.getElementById("a11y-toggle");
-  var a11yPanel = document.getElementById("a11y-panel");
-  a11yToggle.addEventListener("click", function(){
-    var expanded = a11yToggle.getAttribute("aria-expanded") === "true";
-    a11yToggle.setAttribute("aria-expanded", String(!expanded));
-    a11yPanel.hidden = expanded;
-  });
-
-  var FONT_STEPS = { "-1":0.9, "0":1, "1":1.15, "2":1.3 };
-  function applyFontStep(step){
-    localStorage.setItem("a11y-font-step", step);
-    document.documentElement.style.setProperty("--font-scale", FONT_STEPS[step] || 1);
-  }
-  document.querySelectorAll("[data-font-step]").forEach(function(btn){
-    btn.addEventListener("click", function(){
-      var val = btn.getAttribute("data-font-step");
-      applyFontStep(val === "reset" ? "0" : val);
-    });
-  });
-
-  var contrastToggle = document.getElementById("contrast-toggle");
-  contrastToggle.addEventListener("click", function(){
-    var on = document.body.classList.toggle("high-contrast");
-    contrastToggle.setAttribute("aria-pressed", String(on));
-    localStorage.setItem("a11y-contrast", on ? "1" : "0");
-  });
-
-  var dyslexiaToggle = document.getElementById("dyslexia-toggle");
-  dyslexiaToggle.addEventListener("click", function(){
-    var on = dyslexiaToggle.getAttribute("aria-pressed") !== "true";
-    dyslexiaToggle.setAttribute("aria-pressed", String(on));
-    document.documentElement.style.setProperty("--letter-extra", on ? "0.04em" : "0em");
-    localStorage.setItem("a11y-letterspace", on ? "1" : "0");
-  });
-
-  /* שחזור העדפות נגישות שמורות */
-  (function restorePrefs(){
-    var step = localStorage.getItem("a11y-font-step");
-    if(step) applyFontStep(step);
-    if(localStorage.getItem("a11y-contrast") === "1"){ contrastToggle.click(); }
-    if(localStorage.getItem("a11y-letterspace") === "1"){ dyslexiaToggle.click(); }
-  })();
+  /* בקרות הנגישות (גודל טקסט, ניגודיות, ריווח) - ב-assets/a11y.js, משותף לכל דפי האתר */
 
   renderUnits();
 })();
