@@ -367,7 +367,7 @@
 
         <div class="toolbar" style="justify-content:flex-start; padding:0; margin-top:.8rem;">
           <button class="btn" type="button" id="checkAnswersBtn">✓ בדקו לי את התשובות</button>
-          <span class="check-summary" id="checkSummary"></span>
+          <span class="check-summary" id="checkSummary" role="status" aria-live="polite"></span>
         </div>
 
         <button class="hint-btn" type="button" id="answerKeyBtn" data-gated="true">🔒 הצג את כל התשובות (נדרש קוד מהמורה)</button>
@@ -578,6 +578,7 @@ function checkAnswer(input){
   input.classList.remove('is-correct', 'is-wrong');
   cell.classList.remove('is-correct', 'is-wrong');
   cell.textContent = '';
+  input.removeAttribute('aria-invalid');
   if(!studentNorm) return null;
   const alternatives = correctRaw.split('/').map(s => s.trim());
   const normAlts = alternatives.map(normalizeHafanAnswer);
@@ -586,7 +587,11 @@ function checkAnswer(input){
   const isCorrect = normAlts.indexOf(studentNorm) !== -1 || skelAlts.indexOf(studentSkel) !== -1;
   input.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
   cell.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
-  cell.textContent = isCorrect ? '\u2713' : '\u2717';
+  // משוב נגיש ליד השדה: הסימן ✓/✗ מקבל גם מילים, ומקושר לשדה עצמו
+  cell.innerHTML = isCorrect ? '\u2713<span class="bm-sr-only"> - נכון</span>' : '\u2717<span class="bm-sr-only"> - לא נכון, נסו שוב</span>';
+  if(!cell.id) cell.id = 'mark-' + input.dataset.id;
+  input.setAttribute('aria-describedby', cell.id);
+  input.setAttribute('aria-invalid', isCorrect ? 'false' : 'true');
   return isCorrect;
 }
 

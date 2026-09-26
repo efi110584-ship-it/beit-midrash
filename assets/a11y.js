@@ -161,8 +161,26 @@
     });
   }
 
+  /* ---------- כפתורי "הצג תשובה" / רמז - מצב פתוח/סגור לקורא המסך ----------
+     כל דף מחליף בעצמו את התיבה (hint-box) שאחרי הכפתור; כאן רק מוסיפים
+     aria-expanded ו-aria-controls, ומעדכנים אותם אחרי כל לחיצה. */
+  var hintCounter = 0;
+  function syncHintButton(btn){
+    var box = btn.nextElementSibling;
+    if(!box || !box.classList.contains("hint-box")) return;
+    if(!box.id) box.id = "bm-hint-box-" + (++hintCounter);
+    btn.setAttribute("aria-controls", box.id);
+    btn.setAttribute("aria-expanded", box.hidden ? "false" : "true");
+  }
+  document.addEventListener("click", function(e){
+    var btn = e.target && e.target.closest ? e.target.closest(".hint-btn") : null;
+    // אחרי שהמאזין של הדף עצמו כבר פתח/סגר את התיבה
+    if(btn) setTimeout(function(){ syncHintButton(btn); }, 0);
+  });
+
   function init(){
     setupSkipLinks();
+    each(".hint-btn", syncHintButton);
     var ownPanel = document.getElementById("a11y-panel");
     if(ownPanel) setupDisclosure(document.getElementById("a11y-toggle"), ownPanel, null);
     else buildWidget();

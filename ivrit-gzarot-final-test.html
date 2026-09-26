@@ -146,7 +146,7 @@
 
         <div class="toolbar" style="justify-content:flex-start; padding:0; margin-top:.8rem;">
           <button class="btn" type="button" id="checkAnswersBtn">✓ בדקו לי את התשובות</button>
-          <span class="check-summary" id="checkSummary"></span>
+          <span class="check-summary" id="checkSummary" role="status" aria-live="polite"></span>
         </div>
       </div>
     </section>
@@ -308,6 +308,7 @@ function checkAnswer(input){
   input.classList.remove('is-correct', 'is-wrong');
   cell.classList.remove('is-correct', 'is-wrong');
   cell.textContent = '';
+  input.removeAttribute('aria-invalid');
   const studentNorm = normalizeFreeAnswer(input.value);
   if(!studentNorm) return null;
 
@@ -320,7 +321,11 @@ function checkAnswer(input){
   }
   input.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
   cell.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
-  cell.textContent = isCorrect ? '✓' : '✗';
+  // משוב נגיש ליד השדה: הסימן ✓/✗ מקבל גם מילים, ומקושר לשדה עצמו
+  cell.innerHTML = isCorrect ? '\u2713<span class="bm-sr-only"> - נכון</span>' : '\u2717<span class="bm-sr-only"> - לא נכון, נסו שוב</span>';
+  if(!cell.id) cell.id = 'mark-' + input.dataset.id;
+  input.setAttribute('aria-describedby', cell.id);
+  input.setAttribute('aria-invalid', isCorrect ? 'false' : 'true');
   return isCorrect;
 }
 
@@ -355,6 +360,7 @@ document.getElementById('clearBtn').addEventListener('click', () => {
     markFilled(t);
     t.classList.remove('is-correct', 'is-wrong');
     if(t.nextElementSibling){ t.nextElementSibling.classList.remove('is-correct', 'is-wrong'); t.nextElementSibling.textContent = ''; }
+    t.removeAttribute('aria-invalid');
   });
   if(checkSummary) checkSummary.textContent = '';
   updateProgress();

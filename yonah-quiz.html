@@ -358,6 +358,23 @@ let noteTimer = null;
 const mcGroups = Array.from(document.querySelectorAll('.mc-group'));
 const ITEM_IDS = mcGroups.map(g => g.dataset.qid);
 
+// נגישות: כל קבוצת תשובות מקבלת את השאלה שלה כשם, והמשוב ("נכון" / "לא בדיוק")
+// מקושר לתשובות - כך שקורא המסך מקריא אותו גם כשחוזרים לשאלה
+mcGroups.forEach(group => {
+  const block = group.closest('.question-block');
+  const qText = block.querySelector('.q-text');
+  const feedback = block.querySelector('.mc-feedback');
+  group.setAttribute('role', 'radiogroup');
+  if(qText){
+    qText.id = qText.id || 'qtext-' + group.dataset.qid;
+    group.setAttribute('aria-labelledby', qText.id);
+  }
+  if(feedback){
+    feedback.id = feedback.id || 'feedback-' + group.dataset.qid;
+    group.querySelectorAll('input[type="radio"]').forEach(r => r.setAttribute('aria-describedby', feedback.id));
+  }
+});
+
 function updatePrintNameLine(){
   const name = (nameInput.value || '').trim();
   const cls = (classInput.value || '').trim();
