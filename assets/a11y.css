@@ -178,6 +178,16 @@ table.fill-grid thead th, table.fill-grid th.row-label, th, small, .flip-hint{ f
 .q-num.small{ min-width:1.5rem; height:1.5rem; }
 .pill-num{ width:1.4rem !important; height:1.4rem !important; }
 footer.credit, .flip-hint{ opacity:1; }
+/* בטלפון עם טקסט מוגדל - שדה השם לא יוצא מרוחב המסך */
+.student-bar label{ max-width:100%; flex-wrap:wrap; }
+.student-bar input{ max-width:100%; }
+/* לשוניות הנושאים בדפי המרכז - טקסט מוגדל נשבר לשורות ולא יוצא מהמסך */
+.topic-nav-wrap.grid-nav .topic-nav > *{ min-width:0; }
+.topic-nav-wrap.grid-nav .topic-pill{ min-width:0; overflow-wrap:anywhere; }
+/* גלגל המזל (420 פיקסלים) - מוקטן כדי שייכנס כולו גם במסך טלפון */
+#wheelCanvas{ max-width:100%; height:auto; }
+/* כותרת דף הבית - בטקסט מוגדל השם נשבר לשורות במקום לצאת מהמסך */
+.site-header .brand, .site-header .brand-text{ min-width:0; }
 
 /* ---------- 7. הפחתת תנועה ----------
    מי שביקש במערכת ההפעלה "להפחית תנועה" - מקבל את התוכן בלי אנימציות
