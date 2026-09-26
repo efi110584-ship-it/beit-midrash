@@ -55,13 +55,17 @@
   /* ============================================================
      1. תשובות: מחוון רשמי / תשובה אפשרית, ותשובה כנקודות
      ============================================================ */
+  // תיבה בלי כותרת "✓ ..." - לא מסמנים. "תשובה מוצעת/אפשרית" - תמיד אפשרית.
+  // "דגם התשובה" - בדפי לקט המצוות כתוב במפורש שזה "דגם התשובה הרשמי".
+  // כל השאר - תשובה אפשרית, אלא אם הכרטיס (או הדף) מסומן data-answer-kind="official".
   function answerKind(box, label){
-    var lt = label ? label.textContent : "";
+    if(!label) return null;
+    var lt = label.textContent;
     if(/מוצעת|אפשרית/.test(lt)) return "suggested";
     var host = box.closest("[data-answer-kind]");
     if(host) return host.getAttribute("data-answer-kind");
     if(/דגם|מחוון/.test(lt)) return "official";
-    return DATA.answers || null;
+    return DATA.answers || "suggested";
   }
 
   // מחלקים את נוסח התשובה לשורות - בלי לשנות אף מילה
@@ -123,7 +127,7 @@
       box.insertBefore(head, box.firstChild);
       if(label) label.classList.add("bm-label-replaced");
     }
-    bulletize(box, label);
+    if(label) bulletize(box, label);
   }
   arr(main.querySelectorAll(".hint-box")).forEach(prepareAnswer);
 
@@ -195,9 +199,15 @@
     return own ? own[1] + " נקודות (כך כתוב בשאלון)." : null;
   }
 
+  var NUM_WORDS = { "שני": 2, "שתי": 2, "שלושה": 3, "שלוש": 3, "ארבעה": 4, "ארבע": 4 };
   function autoParts(text){
+    // רשימת היגדים או מקרים ("לפניכם חמישה היגדים...") - המספרים אינם חלקי תשובה, ולא מנחשים
+    if(/היגד/.test(text) || /לפניכם\s+\S+\s+(מקרים|מצבים|משפטים)/.test(text)) return null;
     var nums = text.match(/(?:^|\s)[1-9]\.\s/g);
     if(nums && nums.length >= 2) return nums.length + " חלקים (ממוספרים " + nums.map(function(x){ return norm(x).replace(".", ""); }).join(", ") + ").";
+    // "ציינו שני הבדלים" - כמה פריטים צריך לכתוב
+    var m = text.match(/(?:ציינו|כתבו|הביאו|הסבירו|הציגו|תארו|העתיקו|מנו|מהם|מהן)\s+(?:[^\s]+\s+){0,2}?(שני|שתי|שלושה|שלוש|ארבעה|ארבע)\s+([א-ת"׳'״-]+)/);
+    if(m) return "צריך לכתוב " + NUM_WORDS[m[1]] + ": \"" + m[1] + " " + m[2] + "\".";
     return null;
   }
 
@@ -214,7 +224,7 @@
     if(b.must) rows.push(["מה חייב להופיע בתשובה?", b.must]);
     var points = pointsFor(f);
     if(points) rows.push(["ניקוד", points]);
-    if(rows.length < 2) return;
+    if(!rows.length) return;
 
     var wrap = make("div", "bm-breakdown");
     var btn = make("button", "bm-breakdown-btn", "🧩 פירוק השאלה - מה בדיוק צריך לעשות?");
@@ -359,13 +369,23 @@
   /* ============================================================
      5. לכל שאלה: פירוק (בבגרות), פתיח, רמזים
      ============================================================ */
+  // שאלת בגרות: בתוך שאלה מבחינה (.bagrut-block), בשלב "שאלת בגרות" של מסלול הלמידה,
+  // אחרי תגית שנת בחינה (.exam-tag), או שאלה שנפתחת במילים "שאלת בגרות"
+  function isBagrut(f, stage){
+    if(f.closest(".bagrut-part, .bagrut-block") || stage === "bagrut") return true;
+    var qb = f.closest(".question-block");
+    if(!qb) return false;
+    for(var s = qb.previousElementSibling; s; s = s.previousElementSibling){ if(s.classList.contains("exam-tag")) return true; }
+    var q = qb.querySelector(".q-text");
+    return !!q && /^שאלת בגרות/.test(norm(q.textContent));
+  }
   var anyStarter = false;
   arr(main.querySelectorAll("textarea.answer")).forEach(function(f){
     var id = f.getAttribute("data-id");
     var d = (id && ITEMS[id]) || {};
     var host = f.closest("[data-bm-stage]");
     var stage = host ? host.getAttribute("data-bm-stage") : null;
-    if(f.closest(".bagrut-part, .bagrut-block") || stage === "bagrut") addBreakdown(f, d);
+    if(isBagrut(f, stage)) addBreakdown(f, d);
     if(stage === "open") return;
     if(d.starter){ addStarter(f, d.starter); anyStarter = true; }
     if(d.hints && d.hints.length) addHints(f, id, d.hints);

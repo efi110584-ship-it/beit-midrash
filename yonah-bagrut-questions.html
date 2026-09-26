@@ -13,6 +13,7 @@
   .part-label{ display:inline-flex; align-items:center; justify-content:center; min-width:1.6rem; height:1.6rem; padding:0 .35rem; border-radius:6px; background:var(--acc-soft); color:var(--acc); font-weight:800; font-size:.8rem; margin-inline-end:.5rem; }
 </style>
 <link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
 </head>
@@ -59,7 +60,7 @@
 </div>
 
 <main id="main-content">
-  <div class="grid" id="grid">
+  <div class="grid" id="grid" data-answer-kind="official">
 
     <section class="card" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
       <div class="card-head">
@@ -827,5 +828,6 @@ loadAnswers();
 })();
 </script>
 <script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>
