@@ -20,6 +20,13 @@
    - מצב לכל שאלה: הושלמה / נבדקה (נכונה / דורשת חזרה) / סומנה לחזרה.
    - שומר במכשיר באיזו משימה התלמיד עומד, ורושם את "המקום האחרון"
      כדי שדף הבית יציג "המשיכו מהמקום שבו הפסקתם".
+
+   מסלול למידה (שלב ג׳) - רק בדף שיש בו data-stage על כרטיסים:
+   הסבר קצר ← דוגמה פתורה ← תרגול מודרך ← שאלה פתוחה ← שאלת בגרות ← סיכום.
+   data-stage מסמן את הכרטיס הראשון של כל שלב (הכרטיסים שאחריו שייכים
+   לאותו שלב). משימה לא חוצה שלבים; משימת קריאה (בלי שאלות) נחשבת
+   הושלמה אחרי שצפו בה. כרטיסי שלב "summary" (מה למדנו, תרגול נוסף)
+   מוצגים במסך הסיכום.
    העיצוב ב-assets/steps.css.
    ============================================================ */
 (function(){
@@ -29,6 +36,22 @@
   var KEY_VIEW = "bm-steps-view";
   var KEY_LAST = "bm-last-place-v1";
   var MIN_Q = 4, MAX_Q = 7, SMALL_Q = 3;   // משימה נסגרת אחרי 4 שאלות, לא יותר מ-7, ומשימה של פחות מ-3 מתמזגת
+  var STAGES = [
+    ["explain", "הסבר קצר", "📖"],
+    ["example", "דוגמה פתורה", "✏️"],
+    ["guided", "תרגול מודרך", "🤝"],
+    ["open", "שאלה פתוחה", "💭"],
+    ["bagrut", "שאלת בגרות", "🎓"],
+    ["summary", "סיכום", "✅"]
+  ];
+  var STAGE = {};
+  STAGES.forEach(function(s){ STAGE[s[0]] = { name: s[1], icon: s[2] }; });
+  var STAGE_HINT = {
+    explain: "קראו את ההסבר בעיון. כשתסיימו, לחצו \"הבא\".",
+    example: "ראו איך עונים על שאלה - צעד אחר צעד. אחר כך תתרגלו בעצמכם.",
+    open: "עכשיו נסו לבד - בלי פתיח ובלי רמזים. אחרי שתכתבו, אפשר לבדוק את התשובה.",
+    bagrut: "שאלת בגרות אמיתית. לפני שכותבים - פתחו את \"פירוק השאלה\"."
+  };
 
   function load(key, fallback){
     try{ var v = localStorage.getItem(key); return v === null ? fallback : JSON.parse(v); }
@@ -139,9 +162,26 @@
     var KEY_STATUS = "bm-steps-status:" + PAGE + suffix;
     var ID = "bm" + n;
 
+    /* ---------- 0. מסלול למידה: לאיזה שלב שייך כל כרטיס ---------- */
+    var children = arr(grid.children).filter(function(ch){ return ch.tagName !== "SCRIPT"; });
+    var hasPath = children.some(function(ch){ return STAGE[ch.getAttribute("data-stage")]; });
+    var stageOf = new Map(), stageNow = "guided";
+    if(hasPath){
+      children.forEach(function(ch){
+        var s = ch.getAttribute("data-stage");
+        if(STAGE[s]) stageNow = s;
+        stageOf.set(ch, stageNow);
+        ch.setAttribute("data-bm-stage", stageNow);   // assets/guide.js נשען על זה (למשל: בשאלה פתוחה אין רמזים)
+      });
+    }
+    // "מה למדנו" ו"תרגול נוסף" - לא משימות, אלא חלק ממסך הסיכום
+    var endCards = children.filter(function(ch){ return stageOf.get(ch) === "summary"; });
+    var taskChildren = children.filter(function(ch){ return endCards.indexOf(ch) === -1; });
+
     /* ---------- 1. הפריטים: שאלה פתוחה, תא בטבלה, שאלת בחירה ---------- */
     var items = [];
     arr(grid.querySelectorAll("textarea.answer, input.answer, .mc-group")).forEach(function(el, i){
+      if(endCards.some(function(ec){ return ec.contains(el); })) return;
       var type = el.classList.contains("mc-group") ? "mc" : (el.closest("table") ? "cell" : "text");
       var id = el.getAttribute("data-id") || el.getAttribute("data-qid") || ("item-" + i);
       items.push({ el: el, type: type, id: id });
@@ -238,34 +278,34 @@
       return null;
     }
 
-    var children = arr(grid.children).filter(function(ch){ return ch.tagName !== "SCRIPT"; });
     var blocks = [];
-    children.forEach(function(child){
+    taskChildren.forEach(function(child){
       var its = itemsIn([child]);
       var bagrut = child.querySelectorAll(".bagrut-block").length > 0 && !child.querySelector(".question-block");
       var kind = bagrut ? "bagrut" : "regular";
       var title = titleOf(child);
+      var stage = stageOf.get(child);
       var parts = its.length > MAX_Q ? splitParts(child) : null;
       if(parts){
         parts.forEach(function(p){
           var pits = itemsIn(p.els);
           blocks.push({ card: child, els: p.els, items: pits, size: p.row ? (pits.length ? 1 : 0) : pits.length,
-            kind: kind, title: p.title || title, row: !!p.row });
+            kind: kind, title: p.title || title, row: !!p.row, stage: stage });
         });
       } else {
-        blocks.push({ card: child, els: [child], items: its, size: its.length, kind: kind, title: title, row: false });
+        blocks.push({ card: child, els: [child], items: its, size: its.length, kind: kind, title: title, row: false, stage: stage });
       }
     });
 
-    /* ---------- 4. קיבוץ למשימות של 3-7 ---------- */
+    /* ---------- 4. קיבוץ למשימות של 3-7 (במסלול למידה - בלי לחצות שלבים) ---------- */
     var totalSize = blocks.reduce(function(s, b){ return s + b.size; }, 0);
     var tasks = [], cur = null;
-    if(totalSize <= MAX_Q){
+    if(totalSize <= MAX_Q && !hasPath){
       tasks.push({ blocks: blocks.slice(), size: totalSize, kind: "regular" });   // דף קצר - משימה אחת
     } else {
       blocks.forEach(function(b){
-        if(!cur || (cur.size > 0 && (cur.kind !== b.kind || cur.size >= MIN_Q || cur.size + b.size > MAX_Q))){
-          cur = { blocks: [], size: 0, kind: b.kind };
+        if(!cur || cur.stage !== b.stage || (cur.size > 0 && (cur.kind !== b.kind || cur.size >= MIN_Q || cur.size + b.size > MAX_Q))){
+          cur = { blocks: [], size: 0, kind: b.kind, stage: b.stage };
           tasks.push(cur);
         }
         if(cur.size === 0) cur.kind = b.kind;
@@ -274,6 +314,7 @@
       });
       for(var i = tasks.length - 1; i > 0; i--){
         var t = tasks[i], p = tasks[i - 1];
+        if(p.stage !== t.stage) continue;
         if(t.size === 0 || (t.size < SMALL_Q && p.kind === t.kind && p.size + t.size <= MAX_Q)){
           p.blocks = p.blocks.concat(t.blocks);
           p.size += t.size;
@@ -296,12 +337,25 @@
         t.title = "תרגול שאלות בגרות" + (bagrutTotal > 1 ? " (" + bagrutNo + " מתוך " + bagrutTotal + ")" : "");
       } else {
         var titles = [];
-        t.blocks.forEach(function(b){ if(b.items.length && b.title && titles.indexOf(b.title) === -1) titles.push(b.title); });
+        t.blocks.forEach(function(b){ if((b.items.length || !t.items.length) && b.title && titles.indexOf(b.title) === -1) titles.push(b.title); });
         t.title = shorten(titles.slice(0, 2).join(" · ") + (titles.length > 2 ? " ועוד" : ""), 90) || c.title || "המשימה בדף";
       }
     });
     function taskOf(it){ for(var k = 0; k < tasks.length; k++){ if(tasks[k].items.indexOf(it) !== -1) return tasks[k]; } return null; }
     function taskDone(t){ return t.units.reduce(function(s, u){ return s + unitDone(u); }, 0); }
+    // משימת קריאה (הסבר / דוגמה פתורה) - הושלמה אחרי שצפו בה
+    function seenKey(t){ return t.stage + ":" + t.index; }
+    function isTaskDone(t){
+      if(t.need) return taskDone(t) >= t.need;
+      return hasPath ? !!(status.__seen && status.__seen[seenKey(t)]) : true;
+    }
+    function markSeen(t){
+      if(!hasPath || t.need || isTaskDone(t)) return;
+      var s = status.__seen || {};
+      s[seenKey(t)] = true;
+      status.__seen = s;
+      save(KEY_STATUS, status);
+    }
 
     /* ---------- 5. מצב כל שאלה ---------- */
     var status = load(KEY_STATUS, {}) || {};
@@ -423,7 +477,29 @@
     });
     prog.appendChild(progLabel); prog.appendChild(track);
     var hint = make("p", "bm-task-hint");
+
+    // מסלול הלמידה - שלבי הנושא, והשלב שבו התלמיד נמצא
+    var path = null, pathItems = [];
+    if(hasPath){
+      path = make("ol", "bm-path");
+      path.setAttribute("aria-label", "מסלול הלמידה");
+      STAGES.forEach(function(s){
+        var key = s[0];
+        var first = -1;
+        for(var k = 0; k < tasks.length; k++){ if(tasks[k].stage === key){ first = k; break; } }
+        if(key !== "summary" && first === -1) return;
+        var li = make("li", "bm-path-step"), b = make("button", "bm-path-btn");
+        b.type = "button";
+        b.appendChild(make("span", "bm-path-icon", s[2])).setAttribute("aria-hidden", "true");
+        b.appendChild(make("span", "bm-path-name", s[1]));
+        b.addEventListener("click", function(){ go(key === "summary" ? tasks.length : first, true); });
+        li.appendChild(b); path.appendChild(li);
+        pathItems.push({ key: key, name: s[1], btn: b });
+      });
+    }
+
     bar.appendChild(head);
+    if(path) bar.appendChild(path);
     if(!single) bar.appendChild(pills);
     bar.appendChild(prog); bar.appendChild(hint);
     grid.parentElement.insertBefore(bar, grid);
@@ -437,7 +513,13 @@
     var reviewWrap = make("div", "bm-review");
     var sumNote = make("p", "bm-summary-note");
     summary.appendChild(sumTitle); summary.appendChild(stats); summary.appendChild(reviewWrap); summary.appendChild(sumNote);
-    grid.insertAdjacentElement("afterend", summary);
+    if(endCards.length){
+      // במסלול למידה: קודם "איפה אני עומד/ת", ואחריו "מה למדנו" ו"תרגול נוסף"
+      summary.classList.add("bm-summary-in-grid");
+      grid.insertBefore(summary, endCards[0]);
+    } else {
+      grid.insertAdjacentElement("afterend", summary);
+    }
 
     // "הקודם" / "הבא"
     var nav = make("nav", "bm-task-nav");
@@ -449,7 +531,7 @@
     var doneMsg = make("p", "bm-task-done");
     doneMsg.setAttribute("role", "status");
     nav.appendChild(prevBtn); nav.appendChild(navCount); nav.appendChild(nextBtn); nav.appendChild(doneMsg);
-    summary.insertAdjacentElement("afterend", nav);
+    (endCards.length ? grid : summary).insertAdjacentElement("afterend", nav);
     prevBtn.addEventListener("click", function(){ go(current - 1, true); });
     nextBtn.addEventListener("click", function(){ go(current + 1, true); });
 
@@ -469,11 +551,13 @@
     function apply(){
       var all = view === "all" || single;
       var visible = new Set(all ? blocks : (current < tasks.length ? tasks[current].blocks : []));
-      children.forEach(function(child){
+      taskChildren.forEach(function(child){
         var own = blocks.filter(function(b){ return b.card === child; });
         setOff(child, !own.some(function(b){ return visible.has(b); }));
         own.forEach(function(b){ if(b.els[0] !== child) b.els.forEach(function(e){ setOff(e, !visible.has(b)); }); });
       });
+      endCards.forEach(function(ch){ setOff(ch, !all && current < tasks.length); });
+      if(!all && current < tasks.length) markSeen(tasks[current]);
       setOff(summary, !all && current < tasks.length);
       setOff(nav, all);
       setOff(pills, view === "all");
@@ -534,16 +618,27 @@
 
       var tasksDone = 0;
       tasks.forEach(function(t, idx){
-        var done = taskDone(t) >= t.need;
+        var done = isTaskDone(t);
         if(done) tasksDone++;
         var flagged = t.items.some(needsReview);
         t.pill.classList.toggle("is-done", done);
         t.pill.classList.toggle("has-flag", flagged);
         if(idx === current && view !== "all") t.pill.setAttribute("aria-current", "step"); else t.pill.removeAttribute("aria-current");
-        t.pill.setAttribute("aria-label", "משימה " + (idx + 1) + ": " + t.title + (done ? " - הושלמה" : "") + (flagged ? " - יש בה שאלות לחזרה" : ""));
-        t.segFill.style.width = (t.need ? Math.round(taskDone(t) / t.need * 100) : 100) + "%";
+        t.pill.setAttribute("aria-label", "משימה " + (idx + 1) + ": " + (t.stage ? STAGE[t.stage].name + " - " : "") + t.title + (done ? " - הושלמה" : "") + (flagged ? " - יש בה שאלות לחזרה" : ""));
+        t.segFill.style.width = (t.need ? Math.round(taskDone(t) / t.need * 100) : (done ? 100 : 0)) + "%";
       });
       if(current === tasks.length && view !== "all") sumPill.setAttribute("aria-current", "step"); else sumPill.removeAttribute("aria-current");
+
+      // מסלול הלמידה: השלב הנוכחי מודגש, שלב שכל המשימות בו הושלמו - מסומן ✓
+      var stageHere = current < tasks.length ? tasks[current].stage : "summary";
+      pathItems.forEach(function(p){
+        var inStage = p.key === "summary" ? tasks : tasks.filter(function(t){ return t.stage === p.key; });
+        var done = inStage.every(isTaskDone);
+        var here = view !== "all" && p.key === stageHere;
+        p.btn.parentElement.classList.toggle("is-done", done);
+        if(here) p.btn.setAttribute("aria-current", "step"); else p.btn.removeAttribute("aria-current");
+        p.btn.setAttribute("aria-label", "שלב במסלול: " + p.name + (done ? " - הושלם" : "") + (here ? " - אתם כאן" : ""));
+      });
 
       // הרבה משימות - מציגים רק את הראשונה, האחרונה ואלה שליד הנוכחית, ולא "קיר" של מספרים
       if(tasks.length > 7){
@@ -579,10 +674,18 @@
         hint.textContent = "השאלות מסודרות לפי המשימות. אפשר לחזור בכל רגע לתצוגה לפי משימות.";
       } else if(current < tasks.length){
         var tc = tasks[current];
-        setHeading("משימה " + (current + 1) + " מתוך " + tasks.length + (c.title ? " · " + c.title : ""), tc.title);
-        hint.textContent = "במשימה הזו " + count + " " + noun +
-          (tc.need < tc.items.length && !tc.rowsOnly ? " - בחלקן אפשר לבחור, ומספיק לענות על " + tc.need + "." : ".") +
-          " כשתסיימו, לחצו \"הבא\".";
+        setHeading("משימה " + (current + 1) + " מתוך " + tasks.length + (tc.stage ? " · " + STAGE[tc.stage].name : "") + (c.title ? " · " + c.title : ""), tc.title);
+        if(!tc.items.length){
+          hint.textContent = STAGE_HINT[tc.stage] || "קראו את הכתוב. כשתסיימו, לחצו \"הבא\".";
+        } else {
+          hint.textContent = "במשימה הזו " + count + " " + noun +
+            (tc.need < tc.items.length && !tc.rowsOnly ? " - בחלקן אפשר לבחור, ומספיק לענות על " + tc.need + "." : ".") +
+            " כשתסיימו, לחצו \"הבא\".";
+          var extra = STAGE_HINT[tc.stage];
+          if(tc.stage === "guided" && window.BM_GUIDE) extra = "בשאלות יש פתיח למשפט ורמזים - השתמשו בהם כשצריך.";
+          if(tc.stage === "bagrut" && !window.BM_GUIDE) extra = "";
+          if(extra) hint.textContent += " " + extra;
+        }
       } else {
         setHeading("סוף " + (c.title ? "הנושא" : "הדף"), "סיכום");
         hint.textContent = "כאן רואים מה הושלם, מה נבדק, ומה כדאי לחזור עליו.";

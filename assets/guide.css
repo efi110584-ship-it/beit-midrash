@@ -1,0 +1,146 @@
+/* ============================================================
+   בית המדרש הדיגיטלי - עזרים בלמידה (שלב ג׳)
+   העיצוב של assets/guide.js ושל כרטיסי "דוגמה פתורה", "מה למדנו"
+   ו"תרגול נוסף". נשען על משתני הצבע של worksheet-theme.css, ולכן
+   מצב "ניגודיות גבוהה" חל גם עליו.
+   ============================================================ */
+
+.bm-starter[hidden], .bm-hint-more[hidden], .bm-hint-list[hidden], .bm-hint-end[hidden],
+.bm-hint-reset[hidden], .bm-breakdown-panel[hidden], .bm-answer-orig[hidden]{ display:none !important; }
+.bm-label-replaced{ display:none; }
+
+/* ---------- פתיח למשפט ---------- */
+.bm-starter{
+  display:flex; flex-wrap:wrap; align-items:center; gap:.35rem .6rem;
+  margin:.55rem 0 .45rem; padding:.55rem .8rem; border-radius:10px;
+  background:#fff; border:1.5px dashed var(--teal); font-size:1rem; line-height:1.6;
+}
+.bm-starter-label{ font-weight:800; color: var(--teal); }
+.bm-starter-text{ font-weight:600; color: var(--ink); }
+.bm-starter-copy{
+  font-family:'Heebo', sans-serif; font-size:.95rem; font-weight:700; cursor:pointer;
+  min-height:40px; padding:.3rem .85rem; border-radius:999px;
+  border:1.5px solid var(--teal); background: var(--teal-soft); color: var(--teal); margin-inline-start:auto;
+}
+.bm-starter-copy:hover{ background: var(--teal); color:#fff; }
+.bm-starter-msg{ flex-basis:100%; color: var(--rust); font-weight:700; font-size:.95rem; }
+.bm-starter-msg:empty{ display:none; }
+html.bm-no-starters .bm-starter{ display:none; }
+
+/* כפתור ההסתרה / ההצגה של כל הפתיחים - בפס המשימות */
+.bm-tools{ display:flex; flex-wrap:wrap; gap:.5rem; }
+.bm-tool-starters{
+  display:inline-flex; align-items:center; gap:.5rem; cursor:pointer;
+  font-family:'Heebo', sans-serif; font-size:1rem; font-weight:700; min-height:44px;
+  padding:.35rem 1rem; border-radius:999px; border:1.5px solid var(--teal); background:#fff; color: var(--teal);
+}
+.bm-tool-starters::after{
+  content:"מוסתרים"; content:"מוסתרים" / "";
+  font-size:.85rem; padding:.1rem .55rem; border-radius:999px; background: var(--paper-line); color: var(--ink);
+}
+.bm-tool-starters[aria-pressed="true"]::after{ content:"✓ מוצגים"; content:"✓ מוצגים" / ""; background: var(--teal); color:#fff; }
+
+/* ---------- רמזים מדורגים ---------- */
+.bm-hints{ margin:.5rem 0 .2rem; display:flex; flex-direction:column; align-items:flex-start; gap:.45rem; }
+.bm-hint-more{
+  display:inline-flex; align-items:center; gap:.35rem; cursor:pointer;
+  font-family:'Heebo', sans-serif; font-size:1rem; font-weight:700; min-height:44px;
+  padding:.35rem 1rem; border-radius:999px; border:1.5px solid var(--gold); background:#FBEFD1; color:#5a4212;
+}
+.bm-hint-more:hover{ background: var(--gold-soft); color: var(--ink); }
+.bm-hint-list{
+  margin:0; padding:.55rem 1.6rem .55rem .9rem; align-self:stretch;
+  background:#FBEFD1; border-right:4px solid var(--gold); border-radius:8px;
+  display:flex; flex-direction:column; gap:.35rem; font-size:1rem; line-height:1.6; color:#3d2d0c;
+}
+.bm-hint-list b{ color:#5a4212; }
+.bm-hint-end{ margin:0; font-size:.95rem; font-weight:700; color: var(--ink-soft); }
+.bm-hint-reset{
+  font-family:'Heebo', sans-serif; font-size:.9rem; font-weight:700; cursor:pointer; min-height:36px;
+  background:none; border:0; padding:.2rem .1rem; color: var(--ink-soft); text-decoration:underline; text-underline-offset:3px;
+}
+
+/* ---------- פירוק שאלת בגרות ---------- */
+.bm-breakdown{ margin:.6rem 0 .5rem; }
+.bm-breakdown-btn{
+  display:inline-flex; align-items:center; gap:.4rem; cursor:pointer;
+  font-family:'Heebo', sans-serif; font-size:1rem; font-weight:800; min-height:44px;
+  padding:.4rem 1.05rem; border-radius:999px; border:2px solid var(--ink); background:#fff; color: var(--ink);
+}
+.bm-breakdown-btn:hover{ background: var(--ink); color:#fff; }
+.bm-breakdown-btn[aria-expanded="true"]{ background: var(--ink); color:#fff; }
+.bm-breakdown-panel{
+  margin-top:.5rem; padding:.8rem 1rem; border-radius:12px;
+  background:#fff; border:1.5px solid var(--ink); box-shadow: var(--shadow);
+}
+.bm-bd-list{ margin:0; display:flex; flex-direction:column; gap:.6rem; }
+.bm-bd-row{ display:grid; grid-template-columns: 11rem 1fr; gap:.2rem 1rem; align-items:start; }
+.bm-bd-row dt{ font-weight:800; color: var(--ink); }
+.bm-bd-row dd{ margin:0; line-height:1.6; color: var(--ink); }
+.bm-bd-words{ margin:0; padding-inline-start:1.1rem; display:flex; flex-direction:column; gap:.2rem; }
+
+/* ---------- תשובות: המחוון הרשמי מול תשובה מוצעת ---------- */
+.bm-answer-head{ display:flex; flex-wrap:wrap; align-items:center; gap:.3rem .7rem; margin:0 0 .5rem; }
+.bm-answer-badge{ display:inline-flex; align-items:center; gap:.3rem; font-weight:800; font-size:1rem; padding:.2rem .8rem; border-radius:999px; }
+.bm-answer-sub{ font-size:.9rem; font-weight:600; color: var(--ink-soft); }
+.bm-answer-head[data-kind="official"] .bm-answer-badge{ background: var(--teal); color:#fff; }
+.bm-answer-head[data-kind="suggested"] .bm-answer-badge{ background:#FBEFD1; color:#5a4212; border:1.5px dashed var(--gold); }
+.hint-box[data-kind="official"], .bm-answer-card[data-kind="official"]{
+  background: var(--teal-soft) !important; border:0 !important; border-right:6px solid var(--teal) !important;
+}
+.hint-box[data-kind="suggested"], .bm-answer-card[data-kind="suggested"]{
+  background:#fff !important; border:2px dashed var(--gold) !important;
+}
+.bm-answer-list{ margin:0; padding-inline-start:1.3rem; display:flex; flex-direction:column; gap:.35rem; line-height:1.65; }
+.bm-answer-list li.is-num{ list-style:none; margin-inline-start:-1.3rem; }
+.bm-answer-list li.is-alt{ list-style:"↳ "; color: var(--ink-soft); }
+.bm-answer-list li.is-note{ list-style:"📝 "; font-size:.95rem; color: var(--ink-soft); }
+.bm-answer-card{ border-radius:10px; padding:.7rem .95rem; font-size:1rem; line-height:1.65; margin:.6rem 0; color: var(--ink); }
+.bm-answer-card p{ margin:0; }
+
+/* ---------- כרטיס "דוגמה פתורה" ---------- */
+.bm-example-q{
+  background:#fff; border:2px solid var(--ink); border-radius:12px; padding:.75rem 1rem;
+  font-size:1.05rem; line-height:1.7; font-weight:600; color: var(--ink);
+}
+.bm-example-label{
+  display:inline-block; margin-inline-end:.5rem; margin-bottom:.25rem; padding:.1rem .65rem; border-radius:999px;
+  background: var(--ink); color:#fff; font-size:.9rem; font-weight:800;
+}
+.bm-example-steps{ margin:.9rem 0; padding:0; list-style:none; counter-reset: bmstep; display:flex; flex-direction:column; gap:.6rem; }
+.bm-example-steps > li{
+  counter-increment: bmstep; position:relative; padding:.6rem .9rem .6rem .9rem; padding-inline-start:3.2rem;
+  background: var(--paper-card); border:1.5px solid var(--paper-line); border-radius:10px; line-height:1.7; font-size:1rem;
+}
+.bm-example-steps > li::before{
+  content: counter(bmstep); position:absolute; inset-inline-start:.7rem; top:.55rem;
+  width:1.9rem; height:1.9rem; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background: var(--acc); color:#fff; font-weight:800;
+}
+.bm-example-steps q{ font-family:'Frank Ruhl Libre', serif; font-weight:700; }
+.bm-example-why{ margin:.6rem 0 0; font-weight:700; color: var(--teal); line-height:1.6; }
+
+/* ---------- "מה למדנו" ו"תרגול נוסף" (מסך הסיכום) ---------- */
+.bm-learned{ margin:0; padding-inline-start:1.3rem; display:flex; flex-direction:column; gap:.45rem; font-size:1.02rem; line-height:1.7; }
+.bm-more-intro{ margin:0 0 .7rem; color: var(--ink-soft); line-height:1.6; }
+.bm-more-links{ display:flex; flex-wrap:wrap; gap:.6rem; }
+
+/* ---------- שאלת בגרות שהועתקה לדף אחר (תגית שנה, תווית סעיף) ---------- */
+.exam-tag{ display:inline-flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:700; color:#5A4212; background:#FBEFD1; border-radius:999px; padding:.25rem .8rem; margin-bottom:.6rem; }
+.part-label{ display:inline-flex; align-items:center; justify-content:center; min-width:1.6rem; height:1.6rem; padding:0 .35rem; border-radius:6px; background:var(--acc-soft); color:var(--acc); font-weight:800; font-size:.8rem; margin-inline-end:.5rem; }
+.bm-source-note{ margin:0 0 .8rem; font-size:.95rem; color: var(--ink-soft); }
+
+@media (max-width:620px){
+  .bm-bd-row{ grid-template-columns:1fr; }
+  .bm-starter-copy{ margin-inline-start:0; }
+  .bm-example-steps > li{ padding-inline-start:2.9rem; }
+}
+
+/* ניגודיות גבוהה */
+html.a11y-contrast .bm-starter, html.a11y-contrast .bm-breakdown-panel, html.a11y-contrast .bm-hint-list,
+html.a11y-contrast .hint-box[data-kind], html.a11y-contrast .bm-answer-card{ border-color:#000000 !important; background:#FFFFFF !important; color:#000000; }
+html.a11y-contrast .bm-answer-head[data-kind] .bm-answer-badge{ background:#000000; color:#FFFFFF; border:0; }
+
+@media print{
+  .bm-starter, .bm-hints, .bm-breakdown, .bm-tools{ display:none !important; }
+}
