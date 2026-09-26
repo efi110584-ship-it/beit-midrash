@@ -258,9 +258,12 @@
      ============================================================ */
   var startersOn = load(KEY_STARTERS, true) !== false;
 
-  function starterToText(s){
-    return s.replace(/…|\.\.\./g, " ").replace(/[ \t]+/g, " ")
-      .replace(/\s+(?=(?:[1-9]|[אבג])\.\s)/g, "\n").replace(/ +\n/g, "\n").trim();
+  // כל "..." בפתיח = מקום להשלים. בתיבה: כל חלק בשורה משלו, והסמן בסוף השורה הראשונה
+  function starterLines(s){
+    var lines = s.split(/…|\.\.\./).map(norm);
+    if(lines.length > 1 && !lines[lines.length - 1]) lines.pop();
+    // רווח אחרי מילה שלמה; בלי רווח אחרי אות שמתחברת למילה הבאה ("הסיבה היא ש")
+    return lines.map(function(l){ return /(^|\s)(ש|כש|מש|וש|ב|ל|מ|ה|ו|כ)$/.test(l) ? l : l + " "; });
   }
 
   function addStarter(f, s){
@@ -280,13 +283,12 @@
         msg.textContent = "בתיבה כבר כתוב משהו, ולכן הפתיח לא הועתק.";
         return;
       }
-      var value = starterToText(s);
-      f.value = value + (value.indexOf("\n") === -1 ? " " : "");
+      var lines = starterLines(s);
+      f.value = lines.join("\n");
       f.dispatchEvent(new Event("input", { bubbles: true }));   // שמירה אוטומטית ומד ההתקדמות
       msg.textContent = "";
       f.focus();
-      var caret = value.indexOf("\n");
-      caret = caret === -1 ? f.value.length : caret;
+      var caret = lines[0].length;
       try{ f.setSelectionRange(caret, caret); }catch(e){ /* אין תמיכה */ }
     });
     f.insertAdjacentElement("beforebegin", box);
