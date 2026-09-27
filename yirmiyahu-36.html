@@ -129,10 +129,10 @@
 </p>
 
 <main id="main-content">
-  <div class="grid" id="grid">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק ל"ו?</h2>
@@ -145,8 +145,30 @@
       </div>
     </section>
 
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: מי כתב את המגילה, ואיפה היא נקראה?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) מי כתב. (2) איפה נקראה.</li>
+          <li><b>מחפשים בתקציר את המילה "כותב".</b> שני החלקים נמצאים באותו משפט: <span class="bm-quote">ברוך בן נריה, סופרו הנאמן, כותב מפיו וקורא את המגילה בפני העם בבית המקדש</span>.</li>
+          <li><b>מבינים:</b> "כותב מפיו" = ירמיהו אומר, וברוך כותב.</li>
+          <li><b>כותבים לפי החלקים</b> - במילים שלכם.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>ברוך בן נריה, הסופר של ירמיהו, כתב את המגילה - ירמיהו אמר את הדברים, וברוך כתב. ברוך קרא את המגילה לפני העם בבית המקדש.</p>
+        </div>
+        <p class="bm-example-why">✓ התשובה עונה על שני החלקים: מי, ואיפה, ומסבירה ביטוי קשה ("כותב מפיו").</p>
+      </div>
+    </section>
+
     <!-- נושא 1 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="guided">
     <div class="topic-banner" style="--acc:#8A5C21; --acc-soft:#F4ECE1;">
       <span class="topic-icon" aria-hidden="true">📜</span>
       <div>
@@ -243,7 +265,7 @@
     </div>
 
     <!-- נושא 3 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="open">
     <div class="topic-banner" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
       <span class="topic-icon" aria-hidden="true">🔥</span>
       <div>
@@ -291,6 +313,37 @@
       </div>
     </div>
     </div>
+
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו בפרק ל״ו</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>המגילה:</b> ירמיהו מצטווה: "קַח לְךָ מְגִלַּת סֵפֶר", וברוך כותב מפיו.</li>
+          <li><b>המטרה:</b> "אוּלַי יִשְׁמְעוּ... לְמַעַן יָשׁוּבוּ".</li>
+          <li><b>הקריאה:</b> ברוך קורא ביום צום, והדברים עוברים מהעם לשרים ולמלך.</li>
+          <li><b>השריפה:</b> יהויקים קורע את המגילה ושורף אותה, "עַד תֹּם כָּל הַמְּגִלָּה".</li>
+          <li><b>מגילה חדשה:</b> "שׁוּב קַח לְךָ מְגִלָּה אַחֶרֶת" - את דבר ה׳ אי אפשר לשרוף.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🔁 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - חזרה ותרגול</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="yirmiyahu-36-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+          <a class="chip-link" href="yirmiyahu-36-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
+        </p>
+      </div>
+    </section>
 
   </div>
 </main>
@@ -441,6 +494,7 @@ loadAnswers();
 <script src="assets/progress-tracker.js"></script>
 <button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
 
+<script src="assets/guide/yirmiyahu-36.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
