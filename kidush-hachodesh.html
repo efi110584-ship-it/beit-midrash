@@ -54,8 +54,65 @@
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main id="main-content">
-  <div class="grid" id="grid">
-    <section class="card">
+  <div class="grid" id="grid" data-answer-kind="suggested">
+    <!-- הסבר קצר (שלב ג׳) -->
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">📖 בקצרה</span>
+        <h2 class="card-title">קידוש החודש בקצרה - הסבר פשוט</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🌙</span>שנת שמש ושנת ירח</div>
+          שנת השמש - כ-365 ימים. שנת הירח (12 חודשים) - 354 ימים, כ-11 ימים פחות. כדי שפסח יחול תמיד באביב, מוסיפים כל 2-3 שנים חודש אדר נוסף - "שנה מעוברת".
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📅</span>חודש מלא וחודש חסר</div>
+          הירח מקיף את כדור הארץ בכ-29.5 ימים. לכן יש חודשים של 29 יום ("חסר") וחודשים של 30 יום ("מלא").
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📜</span>מה המצווה?</div>
+          לפי הרמב״ם: לקדש חודשים, ולחשב חודשים ושנים - כלומר לקבוע מתי יהיה ראש חודש, ומתי השנה תהיה מעוברת.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">⚖️</span>מי מקיים את המצווה?</div>
+          רק בית הדין הגדול, ורק בארץ ישראל - ולא כל אדם, כמו בשבת. לומדים זאת מהמילה "לכם" בפסוק "החודש הזה לכם".
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🔭</span>איך קובעים?</div>
+          בית הדין קבע את ראש החודש לפי ראיית הלבנה (עדים שראו את הירח) או לפי חשבון. מה שבית הדין קבע - מחייב את כולם, גם אם טעו.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🕰️</span>ומה היום?</div>
+          היום אין בית דין גדול. לכן אנחנו לא קובעים את החודש - אנחנו רק מחשבים ומגלים את מה שבית הדין כבר קבע.
+        </div>
+      </div>
+    </section>
+
+    <!-- דוגמה פתורה (שלב ג׳): שאלת בגרות אמיתית מהדף ותשובת המחוון -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">בגרות · תשפ״ג (2023) · שאלה 8 · סעיף ג</span> הרמב"ם כתב: "'שמור את חודש האביב', הורה כי שנתנו ראוי שנשמור בה פרקי השנה ולכן תהיה שמשית". 1. הסבירו את הציווי "שמור את חודש האביב" (דברים ט"ז, א'). 2. מה על בית הדין לעשות כדי לשמור את חודש האביב?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש שני חלקים: (1) מה פירוש הציווי. (2) מה בית הדין עושה.</li>
+          <li><b>מבינים מילים קשות.</b> "חודש האביב" = ניסן, החודש של פסח. "שמשית" = שנה שמתאימה לשמש ולעונות השנה.</li>
+          <li><b>מחפשים בדף.</b> בכרטיס "הקדמה - שנת שמש ושנת ירח" כתוב: <span class="bm-quote">חשוב שחג הפסח יחול תמיד בעונת האביב</span>, ולכן <span class="bm-quote">כל 2-3 שנים מוסיפים חודש אדר נוסף</span>.</li>
+          <li><b>כותבים לפי החלקים.</b> 1. פירוש הציווי. 2. מה בית הדין עושה.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית - לא מהמחוון</span></div>
+          <p>1. התורה מצווה לשמור שחודש ניסן, שבו חג הפסח, יהיה תמיד באביב. 2. שנת הירח קצרה בכ-11 ימים משנת השמש. לכן בית הדין מוסיף חודש אדר נוסף כל 2-3 שנים (שנה מעוברת), וכך פסח נשאר באביב.</p>
+        </div>
+        <div class="hint-box" data-answer-kind="official"><b>✓ דגם התשובה:</b><p>1. חג הפסח חייב לחול באביב.</p><p>2. מעברים את השנה אחת לכמה שנים.</p></div>
+        <p class="bm-example-why">✓ שתי התשובות עונות על שני החלקים. התשובה האפשרית מסבירה גם למה צריך להוסיף חודש.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided">
       <div class="card-head">
         <span class="card-tag">הקדמה - שנת שמש ושנת ירח</span>
         <h2 class="card-title">הקדמה - שנת שמש ושנת ירח</h2>
@@ -237,7 +294,7 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">סיכום</span>
         <h2 class="card-title">סיכום</h2>
@@ -250,7 +307,7 @@
         </div>
       </div>
     </section>
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">שאלות בגרות אמיתיות</span>
         <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תשפ"ג)</h2>
@@ -299,6 +356,24 @@
                 </div>
               </div>
             </div>
+      </div>
+    </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על קידוש החודש</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>הבעיה:</b> שנת הירח קצרה משנת השמש. כדי לקיים "שמור את חודש האביב" מוסיפים חודש - שנה מעוברת.</li>
+          <li><b>המצווה:</b> "לקדש חודשים", "ולחשב חודשים ושנים".</li>
+          <li><b>מי?</b> רק בית הדין הגדול, בארץ ישראל - ולא "כמו שבת בראשית", שכל אחד סופר לבד.</li>
+          <li><b>איך?</b> "בחשבון או בראיה". מה שבית הדין קבע מחייב - "אפילו מוטעין".</li>
+          <li><b>היום:</b> אין בית דין גדול. אנחנו רק מחשבים את מה שבית הדין "כבר קבעוהו".</li>
+          <li><b>ארץ ישראל:</b> בלי יהודים ובית דין בארץ ישראל החשבון לא מועיל, "כי מציון תצא תורה ודבר ה' מירושלים".</li>
+        </ul>
       </div>
     </section>
   </div>
@@ -517,6 +592,7 @@ loadAnswers();
 })();
 </script>
 <script src="assets/bagrut-hints.js"></script>
+<script src="assets/guide/kidush-hachodesh.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 </body>
