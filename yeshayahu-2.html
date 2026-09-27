@@ -162,10 +162,10 @@
 </p>
 
 <main id="main-content">
-  <div class="grid" id="grid">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק ב' (פסוקים א'-ד')?</h2>
@@ -178,8 +178,30 @@
       </div>
     </section>
 
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: מה יהיה הר בית ה׳ באחרית הימים, ומי ינהרו אליו?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) מה יהיה ההר. (2) מי ינהרו אליו.</li>
+          <li><b>מחפשים בתקציר את המילים "באחרית הימים":</b> <span class="bm-quote">יהיה הר בית ה' למקום הנישא והמרכזי ביותר בעולם</span>.</li>
+          <li><b>ממשיכים באותו משפט:</b> <span class="bm-quote">וכל הגויים ינהרו אליו</span>.</li>
+          <li><b>כותבים לפי החלקים</b>, ומסבירים מילים קשות: "הנישא" = הגבוה, החשוב. "ינהרו" = יבואו בהמוניהם, כמו נהר.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>באחרית הימים הר בית ה׳ יהיה המקום הכי חשוב וגבוה בעולם. כל הגויים יבואו אליו בהמוניהם, כמו נהר שזורם.</p>
+        </div>
+        <p class="bm-example-why">✓ התשובה עונה על שני החלקים, ומסבירה מילים קשות במילים פשוטות.</p>
+      </div>
+    </section>
+
     <!-- נושא 1 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="guided">
     <div class="topic-banner" style="--acc:#3E5A8C; --acc-soft:#E2E7F2;">
       <span class="topic-icon" aria-hidden="true">⛰️</span>
       <div>
@@ -250,7 +272,7 @@
     </div>
 
     <!-- נושא 2 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="open">
     <div class="topic-banner" style="--acc:#5A6629; --acc-soft:#E9EDDC;">
       <span class="topic-icon" aria-hidden="true">🕊️</span>
       <div>
@@ -307,6 +329,37 @@
       </div>
     </div>
     </div>
+
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו בפרק ב׳</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>אחרית הימים:</b> לפי הרד״ק - "ימות המשיח".</li>
+          <li><b>הר בית ה׳:</b> יהיה "בְּרֹאשׁ הֶהָרִים", "וְנָהֲרוּ אֵלָיו כָּל הַגּוֹיִם".</li>
+          <li><b>התורה:</b> "כִּי מִצִּיּוֹן תֵּצֵא תוֹרָה".</li>
+          <li><b>משפט ושלום:</b> העמים יבואו למשפט, במקום לצאת למלחמה.</li>
+          <li><b>כלי הנשק:</b> "וְכִתְּתוּ חַרְבוֹתָם לְאִתִּים" - כלי מלחמה יהפכו לכלי עבודה.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🔁 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - חזרה ותרגול</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="yeshayahu-2-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+          <a class="chip-link" href="yeshayahu-2-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
+        </p>
+      </div>
+    </section>
 
   </div>
 </main>
@@ -457,6 +510,7 @@ loadAnswers();
 <script src="assets/progress-tracker.js"></script>
 <button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
 
+<script src="assets/guide/yeshayahu-2.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
