@@ -129,10 +129,10 @@
 </p>
 
 <main id="main-content">
-  <div class="grid" id="grid">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרקים</span>
         <h2 class="card-title">מה קורה בפרקים אלו?</h2>
@@ -145,8 +145,30 @@
       </div>
     </section>
 
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: מי התחייבו באמנה, ואילו התחייבויות היא כוללת?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) מי התחייבו. (2) על מה התחייבו.</li>
+          <li><b>מחפשים בתקציר את החלק הראשון:</b> <span class="bm-quote">ראשי העם, הכהנים והלוויים, ואחריהם כל הציבור</span>.</li>
+          <li><b>מחפשים את החלק השני.</b> המילה "כוללת" מראה שמתחילה רשימה: <span class="bm-quote">הימנעות מנישואי תערובת, שמירת השבת, שמיטת קרקע וחובות, ותרומות קבועות למקדש</span>.</li>
+          <li><b>כותבים את הרשימה ממוספרת</b> - כל התחייבות בשורה.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>על האמנה התחייבו ראשי העם, הכהנים והלוויים, ואחריהם כל העם. ההתחייבויות: 1. לא להתחתן עם נכרים. 2. לשמור שבת. 3. לקיים שמיטה של קרקעות ושל חובות. 4. לתת תרומות קבועות למקדש, לכהנים וללוויים.</p>
+        </div>
+        <p class="bm-example-why">✓ כשיש בטקסט רשימה, כותבים אותה ממוספרת. כך קל לבדוק שלא שכחנו שום פריט.</p>
+      </div>
+    </section>
+
     <!-- נושא 1 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="guided">
     <div class="topic-banner" style="--acc:#8A5C21; --acc-soft:#F4ECE1;">
       <span class="topic-icon" aria-hidden="true">📜</span>
       <div>
@@ -290,7 +312,7 @@
     </div>
 
     <!-- נושא 4 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="open">
     <div class="topic-banner" style="--acc:#B0762B; --acc-soft:#F5E9D6;">
       <span class="topic-icon" aria-hidden="true">💍</span>
       <div>
@@ -324,6 +346,37 @@
       </div>
     </div>
     </div>
+
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו בפרקים י׳ וי״ג</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>האמנה:</b> "וּבְכָל זֹאת אֲנַחְנוּ כֹּרְתִים אֲמָנָה" - למרות המצב הקשה, העם מתחייב ללכת בדרך התורה.</li>
+          <li><b>תוכן האמנה:</b> בלי נישואי תערובת, שמירת שבת, שמיטה, ו"וְלֹא נַעֲזֹב אֶת בֵּית אֱלֹקֵינוּ".</li>
+          <li><b>השבת:</b> נחמיה סוגר את השערים ומזהיר את הסוחרים, ו"מִן הָעֵת הַהִיא לֹא בָאוּ בַּשַּׁבָּת".</li>
+          <li><b>נישואי תערובת:</b> הילדים "חֲצִי מְדַבֵּר אַשְׁדּוֹדִית", ונחמיה נאבק בתופעה.</li>
+          <li><b>סוף הספר:</b> "זָכְרָה לִּי אֱלֹקַי לְטוֹבָה".</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🔁 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - חזרה ותרגול</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="nechemia-10-13-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+          <a class="chip-link" href="nechemia-10-13-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
+        </p>
+      </div>
+    </section>
 
   </div>
 </main>
@@ -474,6 +527,7 @@ loadAnswers();
 <script src="assets/progress-tracker.js"></script>
 <button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
 
+<script src="assets/guide/nechemia-10-13.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
