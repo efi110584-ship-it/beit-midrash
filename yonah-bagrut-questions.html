@@ -43,6 +43,11 @@
   </svg>
 </header>
 
+<div class="student-bar">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..." data-bm-persist="yonah-bagrut"></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;" data-bm-persist="yonah-bagrut"></label>
+</div>
+
 <p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
@@ -56,7 +61,14 @@
 </div>
 
 <div class="toolbar">
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="יונה - שאלות בגרות" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
 </div>
 
 <main id="main-content">
@@ -828,6 +840,8 @@ loadAnswers();
 })();
 </script>
 <script src="assets/guide/yonah-bagrut-questions.js"></script>
+<script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 </body>

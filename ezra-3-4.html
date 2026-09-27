@@ -354,13 +354,17 @@
   <a href="ezra-5-6.html">פרקים ה'-ו' →</a>
 </nav>
 <div class="toolbar">
-  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
-  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="עזרא פרקים ג&#x27;-ד&#x27;, בניית המזבח והעיכובים בבנייה" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
-<p id="printHelp" style="text-align:center;font-size:.95rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
-  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
-</p>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 
 <footer class="credit">ספר עזרא, פרקים ג'-ד' · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
@@ -492,5 +496,7 @@ loadAnswers();
 
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
+<script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 </body>
 </html>
