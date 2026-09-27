@@ -162,10 +162,10 @@
 </p>
 
 <main id="main-content">
-  <div class="grid" id="grid">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק ל"ז?</h2>
@@ -178,8 +178,30 @@
       </div>
     </section>
 
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: מה הציע ראובן לעשות ליוסף, ומה הציע יהודה?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) ההצעה של ראובן. (2) ההצעה של יהודה.</li>
+          <li><b>מחפשים בתקציר את השם "ראובן":</b> <span class="bm-quote">ראובן מציע להשליכו לבור, כדי להצילו בסתר ולהשיבו לאביו</span>.</li>
+          <li><b>מחפשים את השם "יהודה":</b> <span class="bm-quote">מציע יהודה למכור את יוסף לאורחת ישמעאלים העוברת שם, במקום להורגו</span>.</li>
+          <li><b>כותבים לפי החלקים</b> - כל הצעה במשפט משלה.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>ראובן הציע לזרוק את יוסף לבור, כי רצה להציל אותו בסתר ולהחזיר אותו לאביו. יהודה הציע למכור את יוסף לשיירה של ישמעאלים, במקום להרוג אותו.</p>
+        </div>
+        <p class="bm-example-why">✓ כששואלים על שתי דמויות, מחפשים בטקסט את השם של כל אחת מהן, וכותבים על כל אחת בנפרד.</p>
+      </div>
+    </section>
+
     <!-- נושא 1 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="guided">
     <div class="topic-banner" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
       <span class="topic-icon" aria-hidden="true">🌾</span>
       <div>
@@ -299,7 +321,7 @@
     </div>
 
     <!-- נושא 3 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="open">
     <div class="topic-banner" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
       <span class="topic-icon" aria-hidden="true">😭</span>
       <div>
@@ -344,6 +366,37 @@
       </div>
     </div>
     </div>
+
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו בפרק ל״ז</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>האהבה והשנאה:</b> יעקב אוהב את יוסף ועושה לו "כְּתֹנֶת פַּסִּים", והאחים שונאים אותו.</li>
+          <li><b>החלומות:</b> אלומות משתחוות לאלומה של יוסף, ואחר כך "הַשֶּׁמֶשׁ וְהַיָּרֵחַ וְאַחַד עָשָׂר כּוֹכָבִים".</li>
+          <li><b>ראובן:</b> מציע להשליך את יוסף לבור, כדי להציל אותו. לפי רש״י היו בבור "נְחָשִׁים וְעַקְרַבִּים".</li>
+          <li><b>יהודה:</b> מציע למכור את יוסף לישמעאלים: "כִּי אָחִינוּ בְשָׂרֵנוּ הוּא".</li>
+          <li><b>אבל יעקב:</b> האחים טובלים את הכתונת בדם, ויעקב "וַיְמָאֵן לְהִתְנַחֵם".</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🔁 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - חזרה ותרגול</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="bereshit-37-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+          <a class="chip-link" href="bereshit-37-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
+        </p>
+      </div>
+    </section>
 
   </div>
 </main>
@@ -494,6 +547,7 @@ loadAnswers();
 <script src="assets/progress-tracker.js"></script>
 <button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
 
+<script src="assets/guide/bereshit-37.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
