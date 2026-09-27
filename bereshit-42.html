@@ -162,10 +162,10 @@
 </p>
 
 <main id="main-content">
-  <div class="grid" id="grid">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרקים -->
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרקים</span>
         <h2 class="card-title">מה קורה בפרקים מ"ב-מ"ג?</h2>
@@ -178,8 +178,30 @@
       </div>
     </section>
 
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: למה ירדו אחי יוסף למצרים, ומי מהם לא ירד?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) למה ירדו. (2) מי לא ירד.</li>
+          <li><b>מחפשים בתקציר.</b> התשובה לשני החלקים נמצאת במשפט הראשון: <span class="bm-quote">הרעב הכבד מביא את אחי יוסף (מלבד בנימין) לרדת למצרים לשבור בר</span>.</li>
+          <li><b>מבינים מילים קשות:</b> "מלבד" = חוץ מ. "לשבור בר" = לקנות תבואה (אוכל).</li>
+          <li><b>כותבים לפי החלקים</b> - במילים שלכם.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>האחים ירדו למצרים כי היה רעב כבד, והם רצו לקנות שם אוכל. בנימין לא ירד איתם.</p>
+        </div>
+        <p class="bm-example-why">✓ התשובה עונה על שני החלקים. מילים קשות מהטקסט ("מלבד", "לשבור בר") הוסברו במילים פשוטות.</p>
+      </div>
+    </section>
+
     <!-- נושא 1 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="guided">
     <div class="topic-banner" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
       <span class="topic-icon" aria-hidden="true">🌾</span>
       <div>
@@ -228,7 +250,7 @@
     </div>
 
     <!-- נושא 2 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="open">
     <div class="topic-banner" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
       <span class="topic-icon" aria-hidden="true">🤲</span>
       <div>
@@ -273,6 +295,37 @@
       </div>
     </div>
     </div>
+
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו בפרקים מ״ב-מ״ג</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>הירידה למצרים:</b> בגלל הרעב, האחים (בלי בנימין) יורדים לקנות אוכל.</li>
+          <li><b>יוסף מכיר:</b> "וְיוֹסֵף הִכִּיר אֶת אֶחָיו, וְהֵם לֹא הִכִּרֻהוּ".</li>
+          <li><b>האשמה:</b> יוסף קורא להם "מְרַגְּלִים", והם אומרים: "אֲבָל אֲשֵׁמִים אֲנַחְנוּ עַל אָחִינוּ".</li>
+          <li><b>הערבות:</b> יהודה אומר ליעקב: "אָנֹכִי אֶעֶרְבֶנּוּ, מִיָּדִי תְּבַקְשֶׁנּוּ".</li>
+          <li><b>הדמעות:</b> יוסף רואה את בנימין, נכנס לחדר ובוכה - אבל עוד לא מתגלה.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🔁 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - חזרה ותרגול</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="bereshit-42-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+          <a class="chip-link" href="bereshit-42-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
+        </p>
+      </div>
+    </section>
 
   </div>
 </main>
@@ -423,6 +476,7 @@ loadAnswers();
 <script src="assets/progress-tracker.js"></script>
 <button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
 
+<script src="assets/guide/bereshit-42.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
