@@ -8,8 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -48,9 +53,66 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
-<main>
-  <div class="grid" id="grid">
-    <section class="card" style="grid-column: 1 / -1;">
+<main id="main-content">
+  <div class="grid" id="grid" data-answer-kind="suggested">
+    <!-- הסבר קצר (שלב ג׳) -->
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">📖 בקצרה</span>
+        <h2 class="card-title">כיבוד הורים בקצרה - הסבר פשוט</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📜</span>מה המצווה?</div>
+          לכבד את האב ואת האם, שנאמר "כבד את אביך ואת אמך" (שמות כ, יב).
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🍞</span>מה זה כבוד?</div>
+          "מאכיל, משקה, מלביש, מכסה, מכניס, ומוציא" - לדאוג לכל מה שההורה צריך: אוכל, שתייה, בגדים, ועזרה להיכנס ולצאת.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🙏</span>למה יש מצווה כזאת?</div>
+          כדי להכיר טובה להורים - הם טרחו ועמלו בשבילנו כשהיינו קטנים, והביאו אותנו לעולם. מי שמתרגל להכיר טובה להוריו, יכיר טובה גם לקב״ה, שברא אותו ונתן לו כל מה שיש לו.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">💰</span>מי משלם?</div>
+          ההוצאות הן מהכסף של האב, אם יש לו. אם אין לו - הבן צריך אפילו לבקש נדבות ("יחזר על הפתחים") כדי להאכיל את אביו.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📅</span>על מי ומתי?</div>
+          בכל מקום ובכל זמן, על גברים ועל נשים - "כל זמן שאפשר להם".
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">⚠️</span>ומי שלא מכבד?</div>
+          ביטל מצוות עשה, ועונשו גדול מאוד - כי הוא נעשה "כמתנכר לאביו שבשמים". אם יש כוח בבית הדין - כופים אותו לכבד.
+        </div>
+      </div>
+    </section>
+
+    <!-- דוגמה פתורה (שלב ג׳): שאלת בגרות אמיתית מהדף ותשובת המחוון -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">בגרות · תשפ״ג (2023) · שאלה 2 · סעיף ב</span> "וכשיקבע זאת המידה בנפשו, יעלה ממנה להכיר טובת האל ברוך הוא... ויערוך במחשבתו כמה וכמה ראוי לו להיזהר בעבודתו ברוך הוא". 1. מהי המידה שבעל ספר החינוך מתייחס אליה? 2. כיצד ההפנמה של מידה זו משפיעה על עבודת ה'?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש שני חלקים: (1) איזו מידה? (2) איך היא משפיעה על עבודת ה'.</li>
+          <li><b>מבינים מילים קשות.</b> "מידה" = תכונה של האדם. "הפנמה" = כשהתכונה נעשית חלק מהאדם, מבפנים.</li>
+          <li><b>מחפשים בדף.</b> בכרטיס של שורש המצווה כתוב: <span class="bm-quote">וכשיקבע זאת המידה (הכרת הטוב) בנפשו</span> - המידה היא הכרת הטוב.</li>
+          <li><b>כותבים לפי החלקים.</b> 1. שם המידה. 2. מה היא גורמת בעבודת ה' - לפי סוף הציטוט: <span class="bm-quote">כמה וכמה ראוי לו להיזהר בעבודתו</span>.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית - לא מהמחוון</span></div>
+          <p>1. המידה היא הכרת הטוב. 2. מי שמכיר טובה להוריו, לומד להכיר טובה גם לקב״ה, שנתן לו הכול. לכן הוא ירצה להיזהר מאוד ולעבוד את ה' כמו שצריך.</p>
+        </div>
+        <div class="hint-box" data-answer-kind="official"><b>✓ דגם התשובה:</b><p>1. הכרת הטוב.</p><p>2. הכרת הטוב לה' תביא להקפדה יתירה בעבודתו.</p></div>
+        <p class="bm-example-why">✓ שתי התשובות עונות על שני החלקים. בתשובה האפשרית יש גם הסבר קצר - איך מגיעים מההורים אל הקב״ה.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">מבנה ספר החינוך - חימום</span>
         <h2 class="card-title">לפני שמתחילים: מבנה ספר החינוך</h2>
@@ -156,7 +218,7 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">ונוהגת (המשך)</span>
         <h2 class="card-title">ונוהגת (המשך)</h2>
@@ -169,13 +231,13 @@
         </div>
       </div>
     </section>
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">שאלות בגרות אמיתיות</span>
-        <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תשע"ט – תשפ"ו)</h2>
+        <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תשע"ט – תשפ"ד)</h2>
       </div>
       <div class="card-body">
-        <p style="font-size:.85rem; color:var(--ink-soft); margin:0;">השאלות להלן נלקחו כלשונן משאלוני הבגרות שהועברו בפועל על מצווה זו, מסודרות לפי שנה. לכל סעיף יש תיבת תשובה משלו - כתבו קודם את התשובה שלכם, ואז לחצו על "הצג תשובה" כדי להשוות לדגם התשובה הרשמי.</p>
+        <p style="font-size:1rem; color:var(--ink-soft); margin:0;">השאלות להלן נלקחו כלשונן משאלוני הבגרות שהועברו בפועל על מצווה זו, מסודרות לפי שנה. לכל סעיף יש תיבת תשובה משלו - כתבו קודם את התשובה שלכם, ואז לחצו על "הצג תשובה" כדי להשוות לדגם התשובה הרשמי.</p>
             <div class="bagrut-block">
               <div class="src"><span aria-hidden="true">📝</span>בגרות · תשע״ט (2019) · שאלה 1</div>
               <div class="bagrut-part">
@@ -192,7 +254,7 @@
                 <div class="bagrut-part-label">סעיף ב'</div>
                 <p>"כבוד זה מנכסי מי חייב לעשותו".</p>
                 <p>1. הסבר את השאלה ההלכתית שבציטוט זה.</p>
-                <p>2. כתוב מהו הדין שנפסק בנוגע לשאלה זו. בתשובתך פ רט שני מצבים.</p>
+                <p>2. כתוב מהו הדין שנפסק בנוגע לשאלה זו. בתשובתך פרט שני מצבים.</p>
                 <textarea class="answer" data-id="bg2" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
@@ -203,8 +265,8 @@
               </div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף ג'</div>
-                <p>"ונוהגת בכל מקום ובכל זמן בזכרים, ובנקבות כל זמן שאפשר להן".</p>
-                <p>הסבר את הדין המודגש בקו בציטוט שלפניך</p>
+                <p>"ונוהגת בכל מקום ובכל זמן בזכרים, <u>ובנקבות כל זמן שאפשר להן</u>".</p>
+                <p>הסבר את הדין המודגש בקו בציטוט שלפניך.</p>
                 <textarea class="answer" data-id="bg3" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
@@ -218,34 +280,32 @@
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף א'</div>
                 <p>1. ציינו שתי דוגמאות מדברי חז"ל לקיום מצוות כיבוד הורים.</p>
-                <p>2. בעל ספר החינוך כתב": ואם יראנו עובר על דברי תורה באיזה לשון ימנעהו? ".</p>
+                <p>2. בעל ספר החינוך כתב: "ואם יראנו עובר על דברי תורה באיזה לשון ימנעהו?".</p>
                 <p>הסבירו בלשונכם את המקרה המתואר ואת השאלה ששאל ספר החינוך על מקרה זה.</p>
                 <textarea class="answer" data-id="bg4" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
                   <b>✓ דגם התשובה:</b>
-                  <p>1 מאכיל, משקה, מלביש, מכסה, מכניס, מוציא. מספיק שתי דוגמות</p>
+                  <p>1. מאכיל, משקה, מלביש, מכסה, מכניס, מוציא. מספיק שתי דוגמות</p>
                   <p>2. רואה את אחד מהוריו חוטא. השאלה כיצד על הבן להגיב על כך, באיזה אופן הוא יכול להעיר להורה שאינו נוהג על פי דיני התורה.</p>
                 </div>
               </div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף ב'</div>
-                <p>"וכשיקבע זאת המידה בנפשו, יעלה ממנה להכיר טובת האל ברוך הוא... ויערוך במחשבתו כמה וכמה ראוי לו</p>
-                <p>להיזהר בעבודתו ברוך הוא".</p>
+                <p>"וכשיקבע זאת המידה בנפשו, יעלה ממנה להכיר טובת האל ברוך הוא... ויערוך במחשבתו כמה וכמה ראוי לו להיזהר בעבודתו ברוך הוא".</p>
                 <p>1. מהי המידה שבעל ספר החינוך מתייחס אליה?</p>
                 <p>2. כיצד ההפנמה של מידה זו משפיעה על עבודת ה'?</p>
                 <textarea class="answer" data-id="bg5" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
                   <b>✓ דגם התשובה:</b>
-                  <p>1 הכרת הטוב.</p>
+                  <p>1. הכרת הטוב.</p>
                   <p>2. הכרת הטוב לה' תביא להקפדה יתירה בעבודתו.</p>
                 </div>
               </div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף ג'</div>
-                <p>לפניכם חמישה היגדים בנוגע לכיבוד אב ואם. רק שלושה מהם נכונים. כתבו במחברת את הספרות של</p>
-                <p>שלושת ההיגדים הנכונים.</p>
+                <p>לפניכם חמישה היגדים בנוגע לכיבוד אב ואם. רק שלושה מהם נכונים. כתבו במחברת את הספרות של שלושת ההיגדים הנכונים.</p>
                 <p>1. מימון הוצאות כיבוד ההורים הוא מנכסי ההורים, אם יש להם נכסים.</p>
                 <p>2. אם ההורים מצווים על ילדיהם לעבור על דברי תורה, אסור להם לשמוע בקולם.</p>
                 <p>3. אם לאדם אין נכסים לממן את ההוצאות לטובת ההורים, הוא פטור ממצוות כיבוד הורים.</p>
@@ -268,13 +328,12 @@
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
                   <b>✓ דגם התשובה:</b>
-                  <p>השפעה על עבודת ה': בעקבות קיום מצוות כיבוד אב ואם יקנה האדם את מידת הכרת הטוב, וכאשר האדם קונה מידה</p>
-                  <p>זו יכיר את טובתו של הבורא, ויעריך במחשבתו כמה ראוי לו להיזהר בעבודת ה'.</p>
+                  <p>השפעה על עבודת ה': בעקבות קיום מצוות כיבוד אב ואם יקנה האדם את מידת הכרת הטוב, וכאשר האדם קונה מידה זו יכיר את טובתו של הבורא, ויעריך במחשבתו כמה ראוי לו להיזהר בעבודת ה'.</p>
                 </div>
               </div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף ב'</div>
-                <p>כתב בעל ספר החינוך“: כבוד זה מנכסי מי חייב לעשותו".</p>
+                <p>כתב בעל ספר החינוך: "כבוד זה מנכסי מי חייב לעשותו".</p>
                 <p>1. הסבירו את השאלה ההלכתית שבציטוט זה.</p>
                 <p>2. כתבו מהו פסק ההלכה בשאלה זו. בתשובתכם פרטו שני מצבים.</p>
                 <textarea class="answer" data-id="bg8" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
@@ -282,15 +341,14 @@
                 <div class="hint-box" hidden>
                   <b>✓ דגם התשובה:</b>
                   <p>1. השאלה ההלכתית: מי מממן את כיבוד האב – האב או הבן?</p>
-                  <p>2. פסק ההלכה: המימון הוא מנכסי האב אם יש לאב נכסים. אבל אם אין לאב נכסים – הבן צריך אפילו לחזר על</p>
-                  <p>הפתחים כדי להאכיל את אביו.</p>
+                  <p>2. פסק ההלכה: המימון הוא מנכסי האב אם יש לאב נכסים. אבל אם אין לאב נכסים – הבן צריך אפילו לחזר על הפתחים כדי להאכיל את אביו.</p>
                 </div>
               </div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף ג'</div>
-                <p>1. כתב בעל ספר החינוך“: ונוהגת בכל מקום ובכל זמן בזכרים, ובנקבות כל זמן שאפשר להן".</p>
+                <p>1. כתב בעל ספר החינוך: "ונוהגת בכל מקום ובכל זמן בזכרים, ובנקבות כל זמן שאפשר להן".</p>
                 <p>על פי בעל ספר החינוך, באיזה מקרה אישה פטורה מקיום מצווה זו?</p>
-                <p>2. על פי בעל ספר החינוך, אדם העובר על מצווה זו – “עונשו גדול מאוד". הסבירו מדוע.</p>
+                <p>2. על פי בעל ספר החינוך, אדם העובר על מצווה זו – "עונשו גדול מאוד". הסבירו מדוע.</p>
                 <textarea class="answer" data-id="bg9" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
@@ -302,18 +360,39 @@
             </div>
       </div>
     </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על כיבוד הורים</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>המצווה:</b> לכבד את האב ואת האם - "כבד את אביך ואת אמך".</li>
+          <li><b>מה זה כבוד?</b> "מאכיל, משקה, מלביש, מכסה, מכניס, ומוציא".</li>
+          <li><b>השורש:</b> הכרת טובה להורים - ומתוך כך הכרת טובה לקב״ה, וזהירות בעבודתו.</li>
+          <li><b>מי משלם?</b> מנכסי האב. אם אין לו - הבן "יחזר... על הפתחים".</li>
+          <li><b>על מי?</b> בכל מקום ובכל זמן, בזכרים ובנקבות, "כל זמן שאפשר להם".</li>
+          <li><b>מי שלא מכבד:</b> ביטל עשה, ועונשו גדול - "כמתנכר לאביו שבשמים".</li>
+        </ul>
+      </div>
+    </section>
   </div>
 </main>
 
 <div class="toolbar">
-  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
-  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
-  <button class="btn primary" type="button" id="directSubmitBtn">✅ שלחו למורה ישירות (בלי הורדה)</button>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="כיבוד הורים" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
-<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
-  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
-</p>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 
 <footer class="credit">לקט מצוות · "כיבוד הורים" · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
@@ -479,6 +558,7 @@ loadAnswers();
 })();
 </script>
 <script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 <script>
 (function(){
   var btn = document.getElementById('directSubmitBtn');
@@ -514,5 +594,8 @@ loadAnswers();
 })();
 </script>
 <script src="assets/bagrut-hints.js"></script>
+<script src="assets/guide/kibud-avot.js"></script>
+<script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>

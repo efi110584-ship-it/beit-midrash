@@ -8,8 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <header>
   <div class="eyebrow">לקט מצוות · תושב"ע · חוברת תלמיד דיגיטלית</div>
@@ -37,9 +42,9 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
-<main>
+<main id="main-content">
   <div class="grid" id="grid">
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">מתנות עניים - פתיחה</span>
         <h2 class="card-title">פרק כד, פסוקים יט-כא</h2>
@@ -51,7 +56,29 @@
         <div class="pasuk-block">המצוות נשנו לקראת החיים בארץ, כדי לפרט לפני בעלי השדות כיצד ישתפו את הגר, היתום והאלמנה ביבול הארץ.</div>
       </div>
     </section>
-    <section class="card">
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על הפסוק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על הפסוק</span> לפי הפסוקים: למי שייכות המתנות שנשארות בשדה, בזית ובכרם?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> צריך למצוא למי שייכות המתנות.</li>
+          <li><b>מחפשים ביטוי שחוזר בשלושת הפסוקים:</b> <span class="bm-quote">לַגֵּר לַיָּתוֹם וְלָאַלְמָנָה יִהְיֶה</span>.</li>
+          <li><b>מבינים:</b> בכל פסוק כתוב אותו דבר - אז התשובה זהה לשדה, לזית ולכרם.</li>
+          <li><b>כותבים רשימה</b> של שלוש הקבוצות.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>המתנות שייכות לשלוש קבוצות: 1. לגר. 2. ליתום. 3. לאלמנה.</p>
+        </div>
+        <p class="bm-example-why">✓ כשביטוי חוזר בכמה פסוקים, הוא בדרך כלל הרעיון המרכזי. כדאי לסמן אותו.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided">
       <div class="card-head">
         <span class="card-tag">אילו מצוות?</span>
         <h2 class="card-title">אילו מצוות נזכרות כאן?</h2>
@@ -137,7 +164,7 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">שאלת סיכום</span>
         <h2 class="card-title">שאלת סיכום</h2>
@@ -150,18 +177,37 @@
         </div>
       </div>
     </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על מתנות עניים</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>שלוש מצוות:</b> שכחה בשדה, "לֹא תְפַאֵר" בזית, ו"לֹא תְעוֹלֵל" בכרם.</li>
+          <li><b>למי:</b> "לַגֵּר לַיָּתוֹם וְלָאַלְמָנָה יִהְיֶה".</li>
+          <li><b>ברכה גם בלי כוונה:</b> לפי רש״י, מי שנפל ממנו סלע ועני מצא אותו - "הרי הוא מתברך עליה".</li>
+          <li><b>כבוד העני:</b> העני אוסף בעצמו, ו"כך נשמרים עצמאותו וכבודו".</li>
+        </ul>
+      </div>
+    </section>
   </div>
 </main>
 
 <div class="toolbar">
-  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
-  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
-  <button class="btn primary" type="button" id="directSubmitBtn">✅ שלחו למורה ישירות (בלי הורדה)</button>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="מתנות עניים" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
-<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
-  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
-</p>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 
 <footer class="credit">פתוח תפתח · מתנות עניים · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
@@ -327,6 +373,7 @@ loadAnswers();
 })();
 </script>
 <script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 <script>
 (function(){
   var btn = document.getElementById('directSubmitBtn');
@@ -361,5 +408,8 @@ loadAnswers();
   });
 })();
 </script>
+<script src="assets/guide/ptp-matnot-aniyim.js"></script>
+<script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>

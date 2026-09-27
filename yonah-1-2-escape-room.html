@@ -109,6 +109,7 @@
   .feedback-line{ margin-top:.9rem; font-weight:700; font-size:.95rem; min-height:1.4rem; }
   .feedback-line.ok{ color:var(--green); }
   .feedback-line.no{ color:var(--red); }
+  #doorQuestion:focus, h2[tabindex="-1"]:focus{ outline:none; }
 
   /* win screen */
   #winScreen{ text-align:center; padding:1.6rem 1rem; }
@@ -148,9 +149,22 @@
     pointer-events:none; transition:opacity .2s ease; box-shadow:0 3px 10px rgba(0,0,0,.3);
   }
   .to-top-btn.show{ opacity:1; pointer-events:auto; }
+
+  /* מצב "בלי שעון" (שלב ג׳): השעון לא מוצג, ולא כתוב בסוף כמה זמן לקח */
+  .no-timer-opt{ display:flex; align-items:center; justify-content:center; gap:.5rem; margin:.4rem 0 .2rem; font-weight:700; cursor:pointer; }
+  .no-timer-opt input{ width:1.3rem; height:1.3rem; accent-color:var(--navy); }
+  .timer-toggle{
+    font-family:'Heebo',sans-serif; font-size:.95rem; font-weight:700; cursor:pointer; min-height:40px;
+    padding:.3rem .9rem; border-radius:999px; border:1.5px solid #D9C173; background:transparent; color:#D9C173;
+  }
+  .timer-toggle[aria-pressed="true"]{ background:#D9C173; color:#241C05; }
+  html.no-timer .stopwatch, html.no-timer #winTimeLine{ display:none; }
 </style>
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -164,7 +178,7 @@
   <span class="current">חדר בריחה</span>
 </nav>
 
-<div class="wrap">
+<div class="wrap" id="main-content" role="main">
 
   <header>
     <h1>🔓 נמלטים מבטן הדג - חדר בריחה על פרק א׳</h1>
@@ -182,6 +196,7 @@
         <label for="teamName">שם הקבוצה / שם התלמיד: </label>
         <input type="text" id="teamName" placeholder="לדוגמה: קבוצה 1, או השם שלך">
       </div>
+      <label class="no-timer-opt"><input type="checkbox" id="noTimer"> ⏱️ לשחק בלי שעון (בלי לחץ של זמן)</label>
       <button class="start-btn" id="startBtn" type="button">🔓 התחילו לפתוח את המנעולים</button>
     </div>
   </section>
@@ -190,6 +205,7 @@
   <section id="gameScreen" class="screen">
     <div class="progress-row">
       <div class="stopwatch">⏱️ <span id="timerText">00:00</span></div>
+      <button type="button" class="timer-toggle" id="timerToggle" aria-pressed="false">⏱️ בלי שעון</button>
       <div class="door-dots" id="doorDots"></div>
     </div>
     <div class="letters-bar" id="lettersBar"></div>
@@ -197,7 +213,7 @@
       <span class="door-tag" id="doorTag"></span>
       <div class="door-question" id="doorQuestion"></div>
       <div class="option-grid" id="optionGrid"></div>
-      <div class="feedback-line" id="feedbackLine"></div>
+      <div class="feedback-line" id="feedbackLine" role="status" aria-live="polite"></div>
     </div>
   </section>
 
@@ -306,6 +322,9 @@ const feedbackLine = document.getElementById("feedbackLine");
 function showScreen(el){
   [introScreen, gameScreen, winScreen, reviewScreen].forEach(s => s.classList.remove("active"));
   el.classList.add("active");
+  // מעבירים את הפוקוס לכותרת המסך החדש - אחרת משתמש מקלדת/קורא מסך נשאר על כפתור שנעלם
+  const heading = el.querySelector("h2");
+  if(heading){ heading.setAttribute("tabindex", "-1"); heading.focus(); }
 }
 
 function formatTime(ms){
@@ -354,6 +373,9 @@ function renderDoor(){
   });
   renderDots();
   renderLetters();
+  // שאלה חדשה - הפוקוס עובר אליה, כדי שקורא המסך יקריא אותה ומקלדת תמשיך ממנה
+  doorQuestion.setAttribute("tabindex", "-1");
+  doorQuestion.focus();
 }
 
 function selectOption(idx, btn){
@@ -378,7 +400,9 @@ function selectOption(idx, btn){
     doorCard.classList.remove("shake");
     void doorCard.offsetWidth;
     doorCard.classList.add("shake");
-    feedbackLine.textContent = "✗ לא בדיוק - נסו שוב.";
+    // מרוקנים ואז כותבים שוב, כדי שקורא המסך יכריז גם על ניסיון שגוי נוסף ברצף
+    feedbackLine.textContent = "";
+    setTimeout(() => { feedbackLine.textContent = "✗ לא בדיוק - נסו שוב."; }, 60);
     feedbackLine.classList.remove("ok");
     feedbackLine.classList.add("no");
     setTimeout(() => { btn.classList.remove("wrong"); }, 500);
@@ -432,6 +456,22 @@ document.getElementById("startBtn").addEventListener("click", startGame);
 document.getElementById("playAgainBtn").addEventListener("click", startGame);
 document.getElementById("toReviewBtn").addEventListener("click", showReview);
 document.getElementById("backToWinBtn").addEventListener("click", () => showScreen(winScreen));
+
+// מצב "בלי שעון" - הבחירה נשמרת במכשיר. השעון ממשיך לרוץ ברקע, אבל לא מוצג
+(function(){
+  var KEY = "bm-no-timer";
+  var box = document.getElementById("noTimer"), btn = document.getElementById("timerToggle");
+  function get(){ try{ return localStorage.getItem(KEY) === "1"; }catch(e){ return false; } }
+  function apply(on){
+    document.documentElement.classList.toggle("no-timer", on);
+    box.checked = on;
+    btn.setAttribute("aria-pressed", String(on));
+  }
+  function set(on){ try{ localStorage.setItem(KEY, on ? "1" : "0"); }catch(e){ /* אחסון חסום */ } apply(on); }
+  box.addEventListener("change", function(){ set(box.checked); });
+  btn.addEventListener("click", function(){ set(!get()); });
+  apply(get());
+})();
 
 (function(){
   var btn = document.getElementById('toTopBtn');

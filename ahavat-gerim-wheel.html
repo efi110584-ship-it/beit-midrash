@@ -112,8 +112,11 @@
   }
   .to-top-btn.show{ opacity:1; pointer-events:auto; }
 </style>
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -127,7 +130,7 @@
   <span class="current">גלגל המזל</span>
 </nav>
 
-<div class="wrap">
+<div class="wrap" id="main-content" role="main">
 
   <header>
     <h1>🎡 אהבת הגרים — גלגל המזל לתרגול</h1>
@@ -154,7 +157,7 @@
   <div class="qcard" id="qCard">
     <span class="qtopic" id="qTopic"></span>
     <div class="qtext" id="qText"></div>
-    <button class="revealbtn" id="revealBtn" type="button">👁 הצג תשובה</button>
+    <button class="revealbtn" id="revealBtn" type="button" aria-expanded="false" aria-controls="qAnswer">👁 הצג תשובה</button>
     <div class="answer" id="qAnswer"><div class="alabel">✓ תשובה:</div><span id="qAnswerText"></span></div>
   </div>
 
@@ -352,7 +355,12 @@ function showQuestion(item){
   document.getElementById("qAnswerText").textContent = item.a;
   document.getElementById("qAnswer").classList.remove("show");
   document.getElementById("revealBtn").textContent = "👁 הצג תשובה";
+  document.getElementById("revealBtn").setAttribute("aria-expanded", "false");
   document.getElementById("qCard").classList.add("show");
+  // הפוקוס עובר לשאלה שעלתה בגלגל - קורא המסך מקריא אותה, והמקלדת ממשיכה ממנה ל"הצג תשובה"
+  const qText = document.getElementById("qText");
+  qText.setAttribute("tabindex", "-1");
+  qText.focus();
 }
 
 document.getElementById("revealBtn").addEventListener("click", () => {
@@ -360,6 +368,7 @@ document.getElementById("revealBtn").addEventListener("click", () => {
   const btn = document.getElementById("revealBtn");
   const showing = ans.classList.toggle("show");
   btn.textContent = showing ? "🙈 הסתר תשובה" : "👁 הצג תשובה";
+  btn.setAttribute("aria-expanded", String(showing));
 });
 
 document.getElementById("spinBtn").addEventListener("click", spin);

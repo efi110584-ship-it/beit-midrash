@@ -50,10 +50,13 @@ p{ color:var(--text-soft); margin:0 0 1.5rem; }
 }
 .back-link:hover{ background:var(--gold); }
 </style>
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
-<div class="card">
+<div class="card" id="main-content" role="main">
   <div class="check" aria-hidden="true">
     <svg width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#285C58" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </div>

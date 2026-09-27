@@ -8,8 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -48,9 +53,66 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
-<main>
-  <div class="grid" id="grid">
-    <section class="card" style="grid-column: 1 / -1;">
+<main id="main-content">
+  <div class="grid" id="grid" data-answer-kind="suggested">
+    <!-- הסבר קצר (שלב ג׳) -->
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">📖 בקצרה</span>
+        <h2 class="card-title">כיבוד חכמים בקצרה - הסבר פשוט</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📜</span>מה המצווה?</div>
+          לקום מפני חכמים ולכבד אותם - "מפני שיבה תקום והדרת פני זקן" (ויקרא יט, לב).
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🎓</span>מי זה "זקן"?</div>
+          לא רק מי שמבוגר בגיל. חז״ל אמרו: "אין 'זקן' אלא מי שקנה חכמה" - גם צעיר שלמד תורה נקרא "זקן".
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🤔</span>למה יש מצווה כזאת?</div>
+          האדם נמצא בעולם כדי להכיר את הקב״ה ואת גדולתו. אפשר להגיע לזה בשתי דרכים: ניסיון של שנים רבות, או לימוד תורה. מכבדים את מי שהגיע למטרה - וכשאחרים רואים את הכבוד, גם הם רוצים להגיע אליה.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">👴</span>"זקן אשמאי"</div>
+          גם זקן שאינו חכם בתורה מכבדים, כי בשנים הרבות שלו ראה והבין קצת במעשי ה׳ ובנפלאותיו.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🙇</span>כבוד ויראה לרב</div>
+          כבוד = מה לעשות. יראה = מה לא לעשות: לא לשבת במקומו, לא להכריע את דבריו, לא לסתור את דבריו, ולא להורות הלכה לפניו.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📅</span>על מי ומתי?</div>
+          בכל מקום ובכל זמן, על גברים ועל נשים. מי שלא מכבד - ביטל מצוות עשה, ועונשו גדול.
+        </div>
+      </div>
+    </section>
+
+    <!-- דוגמה פתורה (שלב ג׳): שאלת בגרות אמיתית מהדף ותשובת המחוון -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">בגרות · תשפ״ד (2024) · שאלה 5 · סעיף א</span> כתב בעל ספר החינוך: "'והדרת פני זקן' (ויקרא י"ט, ל"ב) – פירשו זיכרונם לברכה: אין זקן אלא מי שקנה חוכמה". על פי בעל ספר החינוך, מדוע החכם מכונה "זקן" בלשון התורה?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש שאלה אחת: למה קוראים לחכם - גם לחכם צעיר - "זקן".</li>
+          <li><b>מבינים את הקושי.</b> "זקן" הוא בדרך כלל אדם מבוגר. אבל חז״ל אמרו: <span class="bm-quote">אין 'זקן' אלא מי שקנה חכמה</span>.</li>
+          <li><b>מחפשים בדף.</b> בכרטיס "חכם וזקן - היינו הך? (המשך)" כתוב: <span class="bm-quote">הבחור החכם ראה בחוכמתו מה שראה הזקן ברוב שנותיו</span>.</li>
+          <li><b>כותבים תשובה.</b> מה משותף לחכם ולזקן.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית - לא מהמחוון</span></div>
+          <p>כי גם הזקן וגם החכם הגיעו לאותה מטרה - להכיר את הבורא ואת גדולתו. הזקן הגיע אליה בזכות שנים רבות של ניסיון, והחכם הצעיר הגיע אליה בזכות לימוד התורה.</p>
+        </div>
+        <div class="hint-box" data-answer-kind="official"><b>✓ דגם התשובה:</b><p>מפני שהבחור החכם ראה בחוכמתו מה שראה הזקן ברוב שניו.</p></div>
+        <p class="bm-example-why">✓ שתי התשובות מסבירות מה משותף לזקן ולחכם. התשובה האפשרית מוסיפה גם מהי המטרה ששניהם הגיעו אליה.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">מבנה ספר החינוך - חימום</span>
         <h2 class="card-title">לפני שמתחילים: מבנה ספר החינוך</h2>
@@ -221,7 +283,7 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">ונוהגת</span>
         <h2 class="card-title">ונוהגת</h2>
@@ -234,23 +296,18 @@
         </div>
       </div>
     </section>
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">שאלות בגרות אמיתיות</span>
-        <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תשע"ט – תשפ"ו)</h2>
+        <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תשפ"א – תשפ"ו)</h2>
       </div>
       <div class="card-body">
-        <p style="font-size:.85rem; color:var(--ink-soft); margin:0;">השאלות להלן נלקחו כלשונן משאלוני הבגרות שהועברו בפועל על מצווה זו, מסודרות לפי שנה. לכל סעיף יש תיבת תשובה משלו - כתבו קודם את התשובה שלכם, ואז לחצו על "הצג תשובה" כדי להשוות לדגם התשובה הרשמי.</p>
+        <p style="font-size:1rem; color:var(--ink-soft); margin:0;">השאלות להלן נלקחו כלשונן משאלוני הבגרות שהועברו בפועל על מצווה זו, מסודרות לפי שנה. לכל סעיף יש תיבת תשובה משלו - כתבו קודם את התשובה שלכם, ואז לחצו על "הצג תשובה" כדי להשוות לדגם התשובה הרשמי.</p>
             <div class="bagrut-block">
               <div class="src"><span aria-hidden="true">📝</span>בגרות · תשפ״א (2021) · שאלה 4</div>
               <p>א. מיהו "זקן אשמאי", ומדוע מצווה לכבד אף אותו?</p>
-              <p>ואבדה של רבו —</p>
-              <p>אבדה של אביו</p>
-              <p>ב. אדם שמוצא</p>
-              <p>אבדת רבו?</p>
-              <p>אבדת אביו, ובאיזה מצב עליו להחזיר תחילה את</p>
-              <p>באיזה מצב עליו להחזיר תחילה את</p>
-              <p>ג. 1. בנוגע למורא רבו כתב בעל ספר החינוך": ולא יכריע דבריו".</p>
+              <p>ב. אדם שמוצא אבדה של אביו ואבדה של רבו — באיזה מצב עליו להחזיר תחילה את אבדת אביו, ובאיזה מצב עליו להחזיר תחילה את אבדת רבו?</p>
+              <p>ג. 1. בנוגע למורא רבו כתב בעל ספר החינוך: "ולא יכריע דבריו".</p>
               <p>הסבר איסור זה.</p>
               <p>2. בעל ספר החינוך מבחין בין כבוד רבו ובין כבוד רבו המובהק.</p>
               <p>מי נחשב לרבו המובהק של אדם?</p>
@@ -258,13 +315,10 @@
               <button class="hint-btn" type="button">🔎 הצג תשובה</button>
               <div class="hint-box" hidden>
                 <b>✓ דגם התשובה:</b>
-                <p>א". זקן אשמאי" הוא זקן שאינו חכם, ומצווה לכבדו כי בשל שנותיו המרובות בעולם הוא ראה והכיר קצת במעשי</p>
-                <p>ה' ובנפלאותיו.</p>
+                <p>א. "זקן אשמאי" הוא זקן שאינו חכם, ומצווה לכבדו כי בשל שנותיו המרובות בעולם הוא ראה והכיר קצת במעשי ה' ובנפלאותיו.</p>
                 <p>ב. אבדת אביו קודמת כאשר אביו חכם אף על פי שאינו שקול כרבו.</p>
                 <p>אבדת רבו קודמת כאשר אביו אינו חכם.</p>
-                <p>האחר לקבל: לא יאמר נראים</p>
-                <p>אחר לא יאמר נראים דברי החכם ג 1. כאשר יש מחלוקת הלכתית בין רבו לבין חכם</p>
-                <p>דברי רבי.</p>
+                <p>ג. 1. כאשר יש מחלוקת הלכתית בין רבו לבין חכם אחר, לא יאמר "נראים דברי החכם האחר". לקבל: לא יאמר "נראים דברי רבי".</p>
                 <p>2. מי שרוב חכמתו ממנו.</p>
               </div>
             </div>
@@ -272,8 +326,8 @@
               <div class="src"><span aria-hidden="true">📝</span>בגרות · תשפ״ד (2024) · שאלה 5</div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף א'</div>
-                <p>כתב בעל ספר החינוך' “: ו ה ד ר ת פנ י ז קן' ויקרא י"ט, ל"ב – פירשו זיכרונם לברכה: אין זקן אלא מי שקנה חוכמה".</p>
-                <p>על פי בעל ספר החינוך, מדוע החכם מכונה “ז קן" בלשון התורה?</p>
+                <p>כתב בעל ספר החינוך: "'והדרת פני זקן' (ויקרא י"ט, ל"ב) – פירשו זיכרונם לברכה: אין זקן אלא מי שקנה חוכמה".</p>
+                <p>על פי בעל ספר החינוך, מדוע החכם מכונה "זקן" בלשון התורה?</p>
                 <textarea class="answer" data-id="bg2" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
@@ -283,9 +337,9 @@
               </div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף ב'</div>
-                <p>1. על פי בעל ספר החינוך, מהי ההגדרה של “זקן אשמאי"?</p>
-                <p>2. מדוע חייבים לכבד “זקן אשמאי"?</p>
-                <p>3. באיזה מקרה אין לכבד “זקן אשמאי"?</p>
+                <p>1. על פי בעל ספר החינוך, מהי ההגדרה של "זקן אשמאי"?</p>
+                <p>2. מדוע חייבים לכבד "זקן אשמאי"?</p>
+                <p>3. באיזה מקרה אין לכבד "זקן אשמאי"?</p>
                 <textarea class="answer" data-id="bg3" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
@@ -310,9 +364,9 @@
               <div class="src"><span aria-hidden="true">📝</span>בגרות · תשפ״ו (2026) · שאלה 4</div>
               <p>א. 1. על פי בעל ספר החינוך, מהי המטרה של מצוות כיבוד חכמים?</p>
               <p>2. בעל ספר החינוך הביא את דברי הגמרא:</p>
-              <p>"כל החולק על רבו – כחולק על השכינה, שנאמר': ב הצ תם על ה' ' במדבר כ"ו, ט'".</p>
+              <p>"כל החולק על רבו – כחולק על השכינה, שנאמר: 'בהצתם על ה'' (במדבר כ"ו, ט')".</p>
               <p>הסבירו כיצד לומדים מן הפסוק שבציטוט שאדם החולק על רבו הוא כחולק על השכינה.</p>
-              <p>ב. 1. בנוגע למורא רבו, כתב בעל ספר החינוך": ולא יכריע דבריו".</p>
+              <p>ב. 1. בנוגע למורא רבו, כתב בעל ספר החינוך: "ולא יכריע דבריו".</p>
               <p>הסבירו איסור זה, וכתבו איסור נוסף שנכלל ב"מורא רבו".</p>
               <p>2. בעל ספר החינוך מבחין בין "רבו" ובין "רבו המובהק".</p>
               <p>מהי ההגדרה של "רבו המובהק" של אדם?</p>
@@ -323,34 +377,52 @@
               <div class="hint-box" hidden>
                 <b>✓ דגם התשובה:</b>
                 <p>א. 1. המטרה: כדי שהאנשים יתעוררו להשיג את החוכמה ולהכיר את הבורא.</p>
-                <p>2. המחלוקת של דתן ואבירם קרח ועדתו הייתה כנגד משה ואהרן אבל התורה מציגה את הדברים כמחלוקת</p>
-                <p>עם ה', ומכאן שהחולק על רבו כחולק על השכינה.</p>
-                <p>ב" 1. ולא יכריע דבריו" – כאשר יש מחלוקת בין רבו לחכם אחר לא יאמר שנראים דבריו של החכם האחר.</p>
+                <p>2. המחלוקת של דתן ואבירם (קרח ועדתו) הייתה כנגד משה ואהרן, אבל התורה מציגה את הדברים כמחלוקת עם ה', ומכאן שהחולק על רבו כחולק על השכינה.</p>
+                <p>ב. 1. "ולא יכריע דבריו" – כאשר יש מחלוקת בין רבו לחכם אחר לא יאמר שנראים דבריו של החכם האחר.</p>
                 <p>או: לא יאמר שנראים דברי רבו.</p>
-                <p>הערה למעריכים: יש בראשונים שני הסברים לאיסור זה ראו למשל טור וב"י יורה דעה סימן רמ ולכן יש</p>
-                <p>לקבל את שניהם.</p>
+                <p>הערה למעריכים: יש בראשונים שני הסברים לאיסור זה (ראו למשל טור וב"י, יורה דעה, סימן רמ), ולכן יש לקבל את שניהם.</p>
                 <p>איסור נוסף: לא ישב במקומו, לא יסתור את דבריו, לא יורה בפניו לעולם.</p>
                 <p>הערה למעריכים: על התלמידים לכתוב איסור אחד.</p>
-                <p>" 2רבו מובהק" – מי שרוב חוכמתו ממנו.</p>
+                <p>2. "רבו מובהק" – מי שרוב חוכמתו ממנו.</p>
                 <p>ג. בניינים וחפירות המדינה, מיסים שמטילים המלכים על אנשי הארץ.</p>
-                <p>הערה למעריכים: תלמידים שכתבו שני סוגי מיסים מן המיסים הנזכרים בדברי בעל ספר החינוך מס קצוב על כל בני</p>
-                <p>העיר יחד, מס קצוב על כל איש ואיש, מס שאינו קצוב כלל – יש לקבל את תשובתם.</p>
+                <p>הערה למעריכים: תלמידים שכתבו שני סוגי מיסים מן המיסים הנזכרים בדברי בעל ספר החינוך (מס קצוב על כל בני העיר יחד, מס קצוב על כל איש ואיש, מס שאינו קצוב כלל) – יש לקבל את תשובתם.</p>
               </div>
             </div>
+      </div>
+    </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על כיבוד חכמים</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>המצווה:</b> "מפני שיבה תקום והדרת פני זקן" - לקום מפני חכמים ולכבד אותם.</li>
+          <li><b>מי "זקן"?</b> "אין 'זקן' אלא מי שקנה חכמה" - גם צעיר שלמד תורה.</li>
+          <li><b>השורש:</b> המטרה היא להכיר את הבורא. מכבדים את מי שהגיע אליה - ואחרים ירצו להגיע גם הם.</li>
+          <li><b>"זקן אשמאי":</b> גם זקן שאינו חכם מכבדים - כי ברוב שנותיו ראה והבין קצת במעשי ה׳.</li>
+          <li><b>מורא רבו:</b> "יהי מורא רבך כמורא שמים" - לא לשבת במקומו ולא לסתור את דבריו.</li>
+          <li><b>על מי?</b> בכל מקום ובכל זמן, בזכרים ונקבות. מי שלא מכבד - ביטל עשה.</li>
+        </ul>
       </div>
     </section>
   </div>
 </main>
 
 <div class="toolbar">
-  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
-  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
-  <button class="btn primary" type="button" id="directSubmitBtn">✅ שלחו למורה ישירות (בלי הורדה)</button>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="כיבוד חכמים" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
-<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
-  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
-</p>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 
 <footer class="credit">לקט מצוות · "כיבוד חכמים" · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
@@ -516,6 +588,7 @@ loadAnswers();
 })();
 </script>
 <script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 <script>
 (function(){
   var btn = document.getElementById('directSubmitBtn');
@@ -551,5 +624,8 @@ loadAnswers();
 })();
 </script>
 <script src="assets/bagrut-hints.js"></script>
+<script src="assets/guide/kibud-chachamim.js"></script>
+<script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>

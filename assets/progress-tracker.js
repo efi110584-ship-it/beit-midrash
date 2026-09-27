@@ -17,6 +17,8 @@
   }
 
   function computePercent(){
+    // בדף שמחולק למשימות (assets/steps.js) - סופרים רק שאלות חובה
+    if(window.BeitMidrashSteps) return window.BeitMidrashSteps.requiredPercent();
     var fields = document.querySelectorAll(".answer");
     if(!fields.length) return null;
     var filled = 0;

@@ -8,8 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -48,9 +53,66 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
-<main>
-  <div class="grid" id="grid">
-    <section class="card">
+<main id="main-content">
+  <div class="grid" id="grid" data-answer-kind="suggested">
+    <!-- הסבר קצר (שלב ג׳) -->
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">📖 בקצרה</span>
+        <h2 class="card-title">קידוש החודש בקצרה - הסבר פשוט</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🌙</span>שנת שמש ושנת ירח</div>
+          שנת השמש - כ-365 ימים. שנת הירח (12 חודשים) - 354 ימים, כ-11 ימים פחות. כדי שפסח יחול תמיד באביב, מוסיפים כל 2-3 שנים חודש אדר נוסף - "שנה מעוברת".
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📅</span>חודש מלא וחודש חסר</div>
+          הירח מקיף את כדור הארץ בכ-29.5 ימים. לכן יש חודשים של 29 יום ("חסר") וחודשים של 30 יום ("מלא").
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📜</span>מה המצווה?</div>
+          לפי הרמב״ם: לקדש חודשים, ולחשב חודשים ושנים - כלומר לקבוע מתי יהיה ראש חודש, ומתי השנה תהיה מעוברת.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">⚖️</span>מי מקיים את המצווה?</div>
+          רק בית הדין הגדול, ורק בארץ ישראל - ולא כל אדם, כמו בשבת. לומדים זאת מהמילה "לכם" בפסוק "החודש הזה לכם".
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🔭</span>איך קובעים?</div>
+          בית הדין קבע את ראש החודש לפי ראיית הלבנה (עדים שראו את הירח) או לפי חשבון. מה שבית הדין קבע - מחייב את כולם, גם אם טעו.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🕰️</span>ומה היום?</div>
+          היום אין בית דין גדול. לכן אנחנו לא קובעים את החודש - אנחנו רק מחשבים ומגלים את מה שבית הדין כבר קבע.
+        </div>
+      </div>
+    </section>
+
+    <!-- דוגמה פתורה (שלב ג׳): שאלת בגרות אמיתית מהדף ותשובת המחוון -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">בגרות · תשפ״ג (2023) · שאלה 8 · סעיף ג</span> הרמב"ם כתב: "'שמור את חודש האביב', הורה כי שנתנו ראוי שנשמור בה פרקי השנה ולכן תהיה שמשית". 1. הסבירו את הציווי "שמור את חודש האביב" (דברים ט"ז, א'). 2. מה על בית הדין לעשות כדי לשמור את חודש האביב?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש שני חלקים: (1) מה פירוש הציווי. (2) מה בית הדין עושה.</li>
+          <li><b>מבינים מילים קשות.</b> "חודש האביב" = ניסן, החודש של פסח. "שמשית" = שנה שמתאימה לשמש ולעונות השנה.</li>
+          <li><b>מחפשים בדף.</b> בכרטיס "הקדמה - שנת שמש ושנת ירח" כתוב: <span class="bm-quote">חשוב שחג הפסח יחול תמיד בעונת האביב</span>, ולכן <span class="bm-quote">כל 2-3 שנים מוסיפים חודש אדר נוסף</span>.</li>
+          <li><b>כותבים לפי החלקים.</b> 1. פירוש הציווי. 2. מה בית הדין עושה.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית - לא מהמחוון</span></div>
+          <p>1. התורה מצווה לשמור שחודש ניסן, שבו חג הפסח, יהיה תמיד באביב. 2. שנת הירח קצרה בכ-11 ימים משנת השמש. לכן בית הדין מוסיף חודש אדר נוסף כל 2-3 שנים (שנה מעוברת), וכך פסח נשאר באביב.</p>
+        </div>
+        <div class="hint-box" data-answer-kind="official"><b>✓ דגם התשובה:</b><p>1. חג הפסח חייב לחול באביב.</p><p>2. מעברים את השנה אחת לכמה שנים.</p></div>
+        <p class="bm-example-why">✓ שתי התשובות עונות על שני החלקים. התשובה האפשרית מסבירה גם למה צריך להוסיף חודש.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided">
       <div class="card-head">
         <span class="card-tag">הקדמה - שנת שמש ושנת ירח</span>
         <h2 class="card-title">הקדמה - שנת שמש ושנת ירח</h2>
@@ -232,7 +294,7 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">סיכום</span>
         <h2 class="card-title">סיכום</h2>
@@ -245,33 +307,32 @@
         </div>
       </div>
     </section>
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">שאלות בגרות אמיתיות</span>
-        <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תשע"ט – תשפ"ו)</h2>
+        <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תשפ"ג)</h2>
       </div>
       <div class="card-body">
-        <p style="font-size:.85rem; color:var(--ink-soft); margin:0;">השאלות להלן נלקחו כלשונן משאלוני הבגרות שהועברו בפועל על מצווה זו, מסודרות לפי שנה. לכל סעיף יש תיבת תשובה משלו - כתבו קודם את התשובה שלכם, ואז לחצו על "הצג תשובה" כדי להשוות לדגם התשובה הרשמי.</p>
+        <p style="font-size:1rem; color:var(--ink-soft); margin:0;">השאלות להלן נלקחו כלשונן משאלוני הבגרות שהועברו בפועל על מצווה זו, מסודרות לפי שנה. לכל סעיף יש תיבת תשובה משלו - כתבו קודם את התשובה שלכם, ואז לחצו על "הצג תשובה" כדי להשוות לדגם התשובה הרשמי.</p>
             <div class="bagrut-block">
               <div class="src"><span aria-hidden="true">📝</span>בגרות · תשפ״ג (2023) · שאלה 8</div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף א'</div>
-                <p>הרמב"ם כתב במצוות קידוש החודש": מצווה זו אינה מסורה לכל איש ואיש כמו שבת בראשית".</p>
+                <p>הרמב"ם כתב במצוות קידוש החודש: "מצווה זו אינה מסורה לכל איש ואיש כמו שבת בראשית".</p>
                 <p>1. למי מסורה מצוות קידוש החודש?</p>
                 <p>2. באיזה מקרה באה לידי ביטוי ההלכה ש"שבת בראשית" מסורה לכל איש ואיש?</p>
-                <p>בראייה".</p>
                 <textarea class="answer" data-id="bg1" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
                   <b>✓ דגם התשובה:</b>
-                  <p>1 רק בית הדין הגדול בירושלים יכול לקדש את החודש.</p>
+                  <p>1. רק בית הדין הגדול בירושלים יכול לקדש את החודש.</p>
                   <p>2. אדם שאינו יודע מתי שבת סופר ששה ימים ועושה שבת.</p>
                   <p>לקבל גם: שבת היא קבועה ואחרי כל ששה ימים יש שבת.</p>
                 </div>
               </div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף ב'</div>
-                <p>"כבר קבעוהו זה היום ראש חודש או יום טוב... בין שהייתה פעולתם זאת בחשבון או</p>
+                <p>"כבר קבעוהו זה היום ראש חודש או יום טוב... בין שהייתה פעולתם זאת בחשבון או בראייה".</p>
                 <p>הסבירו את שתי הדרכים שבהן אפשר לקדש את החודש.</p>
                 <textarea class="answer" data-id="bg2" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
@@ -283,32 +344,53 @@
               </div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף ג'</div>
-                <p>הרמב"ם כתב' ": שמור את חודש האביב', הורה כי שנ תנו ראוי שנשמור בה פרקי השנה ולכן תהיה שמשית".</p>
-                <p>1. הסבירו את הציווי "שמור את חודש האביב" דברים ט"ז, א'.</p>
+                <p>הרמב"ם כתב: "'שמור את חודש האביב', הורה כי שנתנו ראוי שנשמור בה פרקי השנה ולכן תהיה שמשית".</p>
+                <p>1. הסבירו את הציווי "שמור את חודש האביב" (דברים ט"ז, א').</p>
                 <p>2. מה על בית הדין לעשות כדי לשמור את חודש האביב?</p>
                 <textarea class="answer" data-id="bg3" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
                   <b>✓ דגם התשובה:</b>
-                  <p>1 חג הפסח חייב לחול באביב.</p>
+                  <p>1. חג הפסח חייב לחול באביב.</p>
                   <p>2. מעברים את השנה אחת לכמה שנים.</p>
                 </div>
               </div>
             </div>
       </div>
     </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על קידוש החודש</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>הבעיה:</b> שנת הירח קצרה משנת השמש. כדי לקיים "שמור את חודש האביב" מוסיפים חודש - שנה מעוברת.</li>
+          <li><b>המצווה:</b> "לקדש חודשים", "ולחשב חודשים ושנים".</li>
+          <li><b>מי?</b> רק בית הדין הגדול, בארץ ישראל - ולא "כמו שבת בראשית", שכל אחד סופר לבד.</li>
+          <li><b>איך?</b> "בחשבון או בראיה". מה שבית הדין קבע מחייב - "אפילו מוטעין".</li>
+          <li><b>היום:</b> אין בית דין גדול. אנחנו רק מחשבים את מה שבית הדין "כבר קבעוהו".</li>
+          <li><b>ארץ ישראל:</b> בלי יהודים ובית דין בארץ ישראל החשבון לא מועיל, "כי מציון תצא תורה ודבר ה' מירושלים".</li>
+        </ul>
+      </div>
+    </section>
   </div>
 </main>
 
 <div class="toolbar">
-  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
-  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
-  <button class="btn primary" type="button" id="directSubmitBtn">✅ שלחו למורה ישירות (בלי הורדה)</button>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="קידוש החודש" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
-<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
-  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
-</p>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 
 <footer class="credit">לקט מצוות · "קידוש החודש" · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
@@ -474,6 +556,7 @@ loadAnswers();
 })();
 </script>
 <script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 <script>
 (function(){
   var btn = document.getElementById('directSubmitBtn');
@@ -509,5 +592,8 @@ loadAnswers();
 })();
 </script>
 <script src="assets/bagrut-hints.js"></script>
+<script src="assets/guide/kidush-hachodesh.js"></script>
+<script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>

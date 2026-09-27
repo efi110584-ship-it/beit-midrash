@@ -71,8 +71,11 @@
   .topic-banner{ margin-top:2.4rem; }
   .grid > .topic-banner:first-of-type{ margin-top:0; }
 </style>
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -104,7 +107,7 @@
   <a class="chip-link" href="bereshit-45-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
 </p>
 
-<main>
+<main id="main-content">
   <div class="legend">
     <span><button class="hot-word" style="--acc:#8A5C21;" tabindex="-1">מילה לדוגמה<span class="hw-icon" aria-hidden="true">💬</span></button> = לחצו לפתיחת חלונית</span>
     <span><b>❓</b> שאלה למחשבה</span>
@@ -186,7 +189,7 @@
 <footer class="credit">ספר בראשית, פרק מ&quot;ה · קריאה אינטראקטיבית בפסוקים</footer>
 
 <div class="pmodal-overlay" id="pmodalOverlay" hidden>
-  <div class="pmodal-box" id="pmodalBox" role="dialog" aria-modal="true" aria-labelledby="pmodalQ">
+  <div class="pmodal-box" id="pmodalBox" role="dialog" aria-modal="true" aria-labelledby="pmodalQ" aria-describedby="pmodalA">
     <button class="pmodal-close" id="pmodalClose" type="button" aria-label="סגירה">✕</button>
     <div class="pmodal-badge" id="pmodalBadge"></div>
     <p class="pmodal-q" id="pmodalQ"></p>

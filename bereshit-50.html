@@ -111,8 +111,13 @@
   .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
 
 </style>
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -156,11 +161,11 @@
   <a class="chip-link" href="bereshit-50-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
 </p>
 
-<main>
-  <div class="grid" id="grid">
+<main id="main-content">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק נ' (מות יעקב, יחסי יוסף ואחיו)?</h2>
@@ -173,8 +178,30 @@
       </div>
     </section>
 
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: מה ביקש יוסף מפרעה, ולמה?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) מה ביקש. (2) למה ביקש.</li>
+          <li><b>מחפשים בתקציר את השם "פרעה":</b> <span class="bm-quote">יוסף מבקש רשות מפרעה לקיים את שבועתו לאביו ולקוברו בארץ כנען</span>.</li>
+          <li><b>מפרידים את המשפט:</b> מה ביקש = רשות לקבור את אביו בארץ כנען. למה = כי נשבע לאביו.</li>
+          <li><b>כותבים לפי החלקים</b> - במילים שלכם.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>יוסף ביקש מפרעה רשות לקבור את אביו יעקב בארץ כנען. הוא ביקש זאת כי נשבע לאביו שיקבור אותו שם.</p>
+        </div>
+        <p class="bm-example-why">✓ התשובה עונה על "מה" ועל "למה". לפעמים שני החלקים נמצאים באותו משפט, וצריך להפריד ביניהם.</p>
+      </div>
+    </section>
+
     <!-- נושא 1 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="guided">
     <div class="topic-banner" style="--acc:#3E5A8C; --acc-soft:#E2E7F2;">
       <span class="topic-icon" aria-hidden="true">🎗️</span>
       <div>
@@ -292,7 +319,7 @@
     </div>
 
     <!-- נושא 3 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="open">
     <div class="topic-banner" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
       <span class="topic-icon" aria-hidden="true">💀</span>
       <div>
@@ -342,6 +369,37 @@
     </div>
     </div>
 
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו בפרק נ׳</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>האבל:</b> המצרים בוכים על יעקב שבעים יום. לפי רש״י - "שבאה להם ברכה לרגליו".</li>
+          <li><b>הקבורה:</b> יוסף מקיים את השבועה, וקובר את יעקב "בִּמְעָרַת שְׂדֵה הַמַּכְפֵּלָה".</li>
+          <li><b>חשש האחים:</b> הם מוסרים ליוסף ציווי בשם יעקב. לפי רש״י - "שינו בדבר מפני השלום".</li>
+          <li><b>תשובת יוסף:</b> "אַתֶּם חֲשַׁבְתֶּם עָלַי רָעָה - אֱלֹהִים חֲשָׁבָהּ לְטֹבָה".</li>
+          <li><b>סוף ספר בראשית:</b> יוסף מת בן 110, ומשביע: "וְהַעֲלִתֶם אֶת עַצְמֹתַי מִזֶּה".</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🔁 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - חזרה ותרגול</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="bereshit-50-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+          <a class="chip-link" href="bereshit-50-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
+        </p>
+      </div>
+    </section>
+
   </div>
 </main>
 
@@ -351,13 +409,17 @@
   <span></span>
 </nav>
 <div class="toolbar">
-  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
-  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="בראשית פרק נ׳, מות יעקב ויחסי יוסף ואחיו" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
-<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
-  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
-</p>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 
 <footer class="credit">ספר בראשית, פרק נ׳ · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
@@ -487,5 +549,10 @@ loadAnswers();
 <script src="assets/progress-tracker.js"></script>
 <button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
 
+<script src="assets/guide/bereshit-50.js"></script>
+<script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
+<script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 </body>
 </html>

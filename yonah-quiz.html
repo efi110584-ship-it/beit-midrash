@@ -8,8 +8,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -47,7 +51,7 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
-<main>
+<main id="main-content">
   <div class="grid" id="grid">
 
     <section class="card" style="grid-column: 1 / -1;">
@@ -328,14 +332,17 @@
   <span></span>
 </nav>
 <div class="toolbar">
-  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
-  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
-  <button class="btn primary" type="button" id="directSubmitBtn">✅ שלחו למורה ישירות (בלי הורדה)</button>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="יונה - שאלות אמריקאיות" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
-<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
-  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
-</p>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 
 <footer class="credit">ספר יונה · שאלות אמריקאיות · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
@@ -354,6 +361,23 @@ let noteTimer = null;
 
 const mcGroups = Array.from(document.querySelectorAll('.mc-group'));
 const ITEM_IDS = mcGroups.map(g => g.dataset.qid);
+
+// נגישות: כל קבוצת תשובות מקבלת את השאלה שלה כשם, והמשוב ("נכון" / "לא בדיוק")
+// מקושר לתשובות - כך שקורא המסך מקריא אותו גם כשחוזרים לשאלה
+mcGroups.forEach(group => {
+  const block = group.closest('.question-block');
+  const qText = block.querySelector('.q-text');
+  const feedback = block.querySelector('.mc-feedback');
+  group.setAttribute('role', 'radiogroup');
+  if(qText){
+    qText.id = qText.id || 'qtext-' + group.dataset.qid;
+    group.setAttribute('aria-labelledby', qText.id);
+  }
+  if(feedback){
+    feedback.id = feedback.id || 'feedback-' + group.dataset.qid;
+    group.querySelectorAll('input[type="radio"]').forEach(r => r.setAttribute('aria-describedby', feedback.id));
+  }
+});
 
 function updatePrintNameLine(){
   const name = (nameInput.value || '').trim();
@@ -512,6 +536,7 @@ loadAll();
 })();
 </script>
 <script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 <script>
 (function(){
   var btn = document.getElementById('directSubmitBtn');
@@ -546,5 +571,6 @@ loadAll();
   });
 })();
 </script>
+<script src="assets/steps.js"></script>
 </body>
 </html>

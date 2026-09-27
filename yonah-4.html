@@ -8,8 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -51,16 +56,13 @@
 <p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
   <a class="chip-link" href="https://youtu.be/ya2TT8pozF8?si=Oxzl9xqAMplNHdT1" target="_blank" rel="noopener"><span class="chip-icon" aria-hidden="true">🎥</span>צפייה בסרטון על פרק ד׳</a>
   <a class="chip-link" href="yonah-3-4-flowchart.html"><span class="chip-icon" aria-hidden="true">🗺️</span>תרשים זרימה עם הפרשנים</a>
-  <a class="chip-link" href="yonah-3-4-matching-game.html"><span class="chip-icon" aria-hidden="true">🧩</span>משחק התאמה כיתתי - שאלה מול תשובה</a>
-  <a class="chip-link" href="yonah-3-4-wheel.html"><span class="chip-icon" aria-hidden="true">🎡</span>גלגל המזל לתרגול</a>
-  <a class="chip-link" href="yonah-3-4-flashcards.html"><span class="chip-icon" aria-hidden="true">🗂️</span>כרטיסיות לחזרה</a>
 </p>
 
-<main>
-  <div class="grid" id="grid">
+<main id="main-content">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הסיפור -->
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק ד׳?</h2>
@@ -109,8 +111,31 @@
       </div>
     </section>
 
+    <!-- דוגמה פתורה (שלב ג׳): שאלת בגרות אמיתית ותשובת המחוון, מתוך דף שאלות הבגרות של יונה -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">בגרות · תש"ף (2020), קיץ · שאלה 10 · סעיף א(1)</span> "וירע אל יונה רעה גדולה ויחר לו" (פסוק א׳). על פי פירוש שלמדתם, על מה חרה ליונה?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> שאלה אחת: על מה יונה כעס? צריך לכתוב סיבה.</li>
+          <li><b>מבינים את מילות ההוראה.</b> "על פי פירוש שלמדתם" = בוחרים הסבר אחד שלמדנו, ועונים לפיו. "על מה" = הסיבה לכעס.</li>
+          <li><b>מחפשים בפרק.</b> יונה עצמו אומר בפסוק ב׳ למה ברח: <span class="bm-quote">כִּי יָדַעְתִּי כִּי אַתָּה אֵל־חַנּוּן וְרַחוּם, אֶרֶךְ אַפַּיִם וְרַב־חֶסֶד, וְנִחָם עַל־הָרָעָה</span>.</li>
+          <li><b>כותבים.</b> הסיבה, ואחריה הראיה מהפסוק.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית - לא מהמחוון</span></div>
+          <p>יונה כעס כי קשה לו לקבל את רעיון התשובה - שה׳ סולח לחוטאים שחזרו בהם. רואים זאת בדבריו בפסוק ב׳: "כִּי יָדַעְתִּי כִּי אַתָּה אֵל־חַנּוּן וְרַחוּם... וְנִחָם עַל־הָרָעָה".</p>
+        </div>
+        <div class="hint-box" data-answer-kind="official"><b>✓ תשובה:</b> תושבי נינווה חזרו בתשובה, וזה קטרוג על עם ישראל / ה׳ קיבל את תשובת תושבי נינווה אף שאינם ראויים לכך / אשור (שנינווה היא בירתה) עתידה לפגוע בעם ישראל, ולכן הוא כועס על הרחמים עליה / ליונה קשה לקבל את רעיון התשובה.</div>
+        <p class="bm-example-why">✓ המחוון מקבל כמה סיבות שונות. מספיק לכתוב סיבה אחת - ולהסביר אותה.</p>
+      </div>
+    </section>
+
     <!-- חלק 1 -->
-    <section class="card unit" style="grid-column: 1 / -1;">
+    <section class="card unit" data-stage="guided" style="grid-column: 1 / -1;">
       <div class="card-head unit-head">
         <div>
           <span class="card-tag">חלק 1 · פרק ג׳,י׳ · פרק ד׳,א׳</span>
@@ -318,7 +343,7 @@
     </section>
 
     <!-- חלק 6 -->
-    <section class="card unit" style="grid-column: 1 / -1;">
+    <section class="card unit" data-stage="open" style="grid-column: 1 / -1;">
       <div class="card-head unit-head">
         <div>
           <span class="card-tag">חלק 6 · שאלת סיכום</span>
@@ -346,6 +371,76 @@
       </div>
     </section>
 
+    <!-- שאלת בגרות (שלב ג׳): הועתקה כלשונה, עם תשובות המחוון, מדף שאלות הבגרות של יונה -->
+    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎓 שאלת בגרות</span>
+        <h2 class="card-title">שאלת בגרות על פרק ד׳</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-source-note">השאלה והתשובות הועתקו כלשונן מדף "שאלות בגרות אמיתיות" של ספר יונה.</p>
+        <div class="exam-tag">📅 תשפ"ה (2025), קיץ · שאלה 11</div>
+        <div class="pasuk-block mini">יונה, פרק ד׳</div>
+        <div class="question-block">
+          <div class="question-row"><span class="part-label">א(1)</span><span class="q-text" id="bg-lbl-1">הסבירו בלשונכם את תגובתו של יונה המתוארת בפסוק א׳, וכתבו על פי פירוש שלמדתם מדוע יונה הגיב כך.</span></div>
+          <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה:</b> יונה כעס והיה לו רע. הוא חשש שתשובת נינווה תהיה קטרוג על עם ישראל / הוא חשש שיזיקו לעם ישראל בעתיד. הוא כעס שה׳ קיבל את תשובת נינווה אף שלא הייתה שלמה. ליונה היה קשה לקבל את רעיון התשובה.</div>
+        </div>
+        <div class="question-block sub-q">
+          <div class="question-row"><span class="part-label">א(2)</span><span class="q-text" id="bg-lbl-2">בהמשך פרק ד׳ יונה מגיב שוב באופן דומה. על מה הוא מגיב בפעם השנייה? (7 נקודות)</span></div>
+          <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה:</b> על ייבוש הקיקיון.</div>
+        </div>
+        <div class="question-block sub-q">
+          <div class="question-row"><span class="part-label">ב(1)</span><span class="q-text" id="bg-lbl-3">עיינו בתפילת יונה שבפרק ד׳, פסוקים ב׳-ג׳. איזו מידה של ה׳ יונה אינו מזכיר בתפילתו?</span></div>
+          <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה:</b> מידת האמת.</div>
+        </div>
+        <div class="question-block sub-q">
+          <div class="question-row"><span class="part-label">ב(2)</span><span class="q-text" id="bg-lbl-4">על פי מה שלמדתם, מדוע יונה אינו מזכיר מידה זו בתפילתו? (7 נקודות)</span></div>
+          <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה:</b> יונה חושב שלא ראוי לקבל את תשובתם של אנשי נינווה, וה׳ נמנע מלדון על פי מידת האמת.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו בפרק ד׳</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>הכעס של יונה:</b> "וַיֵּרַע אֶל־יוֹנָה רָעָה גְדוֹלָה; וַיִּחַר לוֹ" - על שה׳ סלח לנינווה. לפי הירושלמי, יונה חשש שתשובת הגויים תביא עונש על ישראל, שאינם שבים.</li>
+          <li><b>שלוש גישות לחוטא:</b> החכמה והנבואה אומרות שהחוטא ייענש; הקב"ה אומר: "יעשה תשובה ויתכפר לו".</li>
+          <li><b>תפילת יונה:</b> יונה מונה את מידות הרחמים, אבל משמיט את המילה "אמת".</li>
+          <li><b>הקיקיון:</b> ה׳ שואל "ההיטב חרה לך", ומלמד את יונה בעזרת הקיקיון: שמחה גדולה, ואחר כך תולעת, רוח קדים ושמש - ויונה מבקש שוב למות.</li>
+          <li><b>הקל וחומר:</b> אם יונה חס על קיקיון שלא עמל בו - קל וחומר שה׳ חס על נינווה, העיר הגדולה. לפי רד"ק, ה׳ חס על הבריות "מפני כבודו".</li>
+          <li><b>הסוף:</b> לפי המדרש, יונה נפל על פניו ואמר: "הנהג עולמך במדת רחמים".</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎮 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - תרגול בדרך של משחק</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר גם במשחק:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="yonah-3-4-matching-game.html"><span class="chip-icon" aria-hidden="true">🧩</span>משחק התאמה כיתתי - שאלה מול תשובה</a>
+          <a class="chip-link" href="yonah-3-4-wheel.html"><span class="chip-icon" aria-hidden="true">🎡</span>גלגל המזל לתרגול</a>
+          <a class="chip-link" href="yonah-3-4-flashcards.html"><span class="chip-icon" aria-hidden="true">🗂️</span>כרטיסיות לחזרה</a>
+        </p>
+      </div>
+    </section>
+
   </div>
 </main>
 
@@ -355,14 +450,17 @@
   <span></span>
 </nav>
 <div class="toolbar">
-  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
-  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
-  <button class="btn primary" type="button" id="directSubmitBtn">✅ שלחו למורה ישירות (בלי הורדה)</button>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="יונה פרק ד&#x27;" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
-<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
-  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
-</p>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 
 <footer class="credit">ספר יונה, פרק ד׳ · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
@@ -566,6 +664,7 @@ loadUnits();
 })();
 </script>
 <script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 <script>
 (function(){
   var btn = document.getElementById('directSubmitBtn');
@@ -600,5 +699,8 @@ loadUnits();
   });
 })();
 </script>
+<script src="assets/guide/yonah-4.js"></script>
+<script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>

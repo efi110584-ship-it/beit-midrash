@@ -8,8 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -48,14 +53,9 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
-<p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
-  <a class="chip-link" href="ahavat-gerim-matching-game.html"><span class="chip-icon" aria-hidden="true">🧩</span>משחק התאמה כיתתי - שאלה מול תשובה</a>
-  <a class="chip-link" href="ahavat-gerim-wheel.html"><span class="chip-icon" aria-hidden="true">🎡</span>גלגל המזל לתרגול</a>
-</p>
-
-<main>
-  <div class="grid" id="grid">
-    <section class="card" style="grid-column: 1 / -1;">
+<main id="main-content">
+  <div class="grid" id="grid" data-answer-kind="suggested">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">📖 תקציר המצווה</span>
         <h2 class="card-title">"אהבת הגרים" בקצרה - הסבר פשוט וברור</h2>
@@ -91,7 +91,30 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <!-- דוגמה פתורה (שלב ג׳): שאלת בגרות אמיתית מהדף ותשובת המחוון -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">בגרות · תשע״ט (2019) · שאלה 6 · סעיף ב</span> בנוגע למצוות אהבת הגר שאל בעל ספר החינוך: "ואף על פי שיכללהו כמו כן הציווי בישראל, שנאמר עליו 'ואהבת לרעך', שהרי גר צדק בכלל 'רעך' הוא". הסבר את השאלה של בעל ספר החינוך, וכתוב את תשובתו על שאלה זו.</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש שני חלקים: (1) להסביר מה ספר החינוך שואל. (2) לכתוב מה הוא עונה.</li>
+          <li><b>מבינים מילים קשות.</b> "שיכללהו" = שהוא כבר נכלל. "רעך" = חברך - כל יהודי. גר צדק הוא יהודי, ולכן הוא כבר "רעך".</li>
+          <li><b>מחפשים בדף.</b> בכרטיס "מצווה כפולה" כתוב מה התשובה: <span class="bm-quote">הוסיף לנו השם בו מצוה מיוחדת לו באהבתו</span>.</li>
+          <li><b>כותבים לפי החלקים.</b> קודם השאלה (במילים שלכם), ואחריה התשובה.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית - לא מהמחוון</span></div>
+          <p>השאלה: למה צריך מצווה מיוחדת לאהוב גר? הרי גר שהתגייר הוא יהודי, והוא כבר כלול במצווה "ואהבת לרעך כמוך". התשובה: ה' הוסיף בכל זאת מצווה מיוחדת לאהוב את הגר.</p>
+        </div>
+        <div class="hint-box" data-answer-kind="official"><b>✓ דגם התשובה:</b><p>השאלה — מדוע נצטווינו באופן מיוחד לאהוב את הגר, הרי אהבתו כלולה במצוות אהבת ישראל? התשובה — ה' הוסיף לנו מצווה מיוחדת לאהוב את הגר.</p></div>
+        <p class="bm-example-why">✓ שתי התשובות מסבירות גם את השאלה וגם את התשובה. בתשובה האפשרית השאלה מוסברת במילים פשוטות.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided">
       <div class="card-head">
         <span class="card-tag">מבוא לספר החינוך</span>
         <h2 class="card-title">מבוא לספר החינוך</h2>
@@ -256,7 +279,7 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">הרחבה - למידה נוספת וטעם המצווה (המשך)</span>
         <h2 class="card-title">הרחבה - למידה נוספת וטעם המצווה (המשך)</h2>
@@ -271,13 +294,13 @@
         </div>
       </div>
     </section>
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">שאלות בגרות אמיתיות</span>
-        <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תשע"ט – תשפ"ו)</h2>
+        <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תשע"ט – תשפ"ה)</h2>
       </div>
       <div class="card-body">
-        <p style="font-size:.85rem; color:var(--ink-soft); margin:0;">השאלות להלן נלקחו כלשונן משאלוני הבגרות שהועברו בפועל על מצווה זו, מסודרות לפי שנה. לכל סעיף יש תיבת תשובה משלו - כתבו קודם את התשובה שלכם, ואז לחצו על "הצג תשובה" כדי להשוות לדגם התשובה הרשמי.</p>
+        <p style="font-size:1rem; color:var(--ink-soft); margin:0;">השאלות להלן נלקחו כלשונן משאלוני הבגרות שהועברו בפועל על מצווה זו, מסודרות לפי שנה. לכל סעיף יש תיבת תשובה משלו - כתבו קודם את התשובה שלכם, ואז לחצו על "הצג תשובה" כדי להשוות לדגם התשובה הרשמי.</p>
             <div class="bagrut-block">
               <div class="src"><span aria-hidden="true">📝</span>בגרות · תשע״ט (2019) · שאלה 6</div>
               <div class="bagrut-part">
@@ -292,8 +315,7 @@
               </div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף ב'</div>
-                <p>בנוגע למצוות אהבת הגר שאל בעל ספר החינוך": ואף על פי שיכללהו כמו כן הציווי בישראל,</p>
-                <p>שנאמר עליו 'ואהבת לרעך', שהרי גר צדק בכלל 'רעך' הוא".</p>
+                <p>בנוגע למצוות אהבת הגר שאל בעל ספר החינוך: "ואף על פי שיכללהו כמו כן הציווי בישראל, שנאמר עליו 'ואהבת לרעך', שהרי גר צדק בכלל 'רעך' הוא".</p>
                 <p>הסבר את השאלה של בעל ספר החינוך, וכתוב את תשובתו על שאלה זו.</p>
                 <textarea class="answer" data-id="bg2" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
@@ -318,8 +340,7 @@
               <div class="src"><span aria-hidden="true">📝</span>בגרות · תשפ״ג (2023) · שאלה 6</div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף א'</div>
-                <p>על פי בעל ספר החינוך, מהי הגדרת המצווה? בתשובתכם התייחסו הן ל מה שמוטל על האדם לעשות, הן ל מה שמוטל עליו</p>
-                <p>להימנע מלעשות.</p>
+                <p>על פי בעל ספר החינוך, מהי הגדרת המצווה? בתשובתכם התייחסו הן למה שמוטל על האדם לעשות, הן למה שמוטל עליו להימנע מלעשות.</p>
                 <textarea class="answer" data-id="bg4" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
@@ -329,16 +350,14 @@
               </div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף ב'</div>
-                <p>בנוגע למצוות אהבת הגר ש אל בעל ספר החינוך": ואף על פי שיכללהו כמו כן הציווי בישראל, שנאמר עליו 'ואהבת</p>
-                <p>לרעך כמוך' שהרי גר צדק בכלל 'רעך' הוא".</p>
+                <p>בנוגע למצוות אהבת הגר שאל בעל ספר החינוך: "ואף על פי שיכללהו כמו כן הציווי בישראל, שנאמר עליו 'ואהבת לרעך כמוך' שהרי גר צדק בכלל 'רעך' הוא".</p>
                 <p>הסבירו את השאלה של בעל ספר החינוך, וכתבו את תשובתו על שאלה זו.</p>
                 <textarea class="answer" data-id="bg5" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
                   <b>✓ דגם התשובה:</b>
                   <p>השאלה: הרי כבר יש מצוות אהבת ישראל שגר כלול בה, אז מדוע צריך מצווה נוספת?</p>
-                  <p>תשובה: הקב"ה הוסיף מצווה מיוחדת לאהבת הגר. לקבל גם: הקב"ה הוסיף מצווה מיוחדת לאהבת הגר בגלל אהבתו את הגר. לקבל גם: הקב"ה הוסיף מצווה מיוחדת לאהבת הגר כי ראוי</p>
-                  <p>"להתחסד ולגמול טובה לאשר הניח אומתו וכל משפחת בית אביו ואמו ויבא לחסות תחת כנפי אומה אחרת באהבתו אותה ובבחירתו באמת ושנאת השקר"</p>
+                  <p>תשובה: הקב"ה הוסיף מצווה מיוחדת לאהבת הגר. לקבל גם: הקב"ה הוסיף מצווה מיוחדת לאהבת הגר בגלל אהבתו את הגר. לקבל גם: הקב"ה הוסיף מצווה מיוחדת לאהבת הגר כי ראוי "להתחסד ולגמול טובה לאשר הניח אומתו וכל משפחת בית אביו ואמו ויבא לחסות תחת כנפי אומה אחרת באהבתו אותה ובבחירתו באמת ושנאת השקר"</p>
                 </div>
               </div>
               <div class="bagrut-part">
@@ -359,45 +378,33 @@
                 <div class="bagrut-part-label">סעיף א'</div>
                 <p>1. על פי מה שלמדתם, איזו עבירה חמורה יותר – לרמות יהודי מלידה או לרמות גר? נמקו את תשובתכם.</p>
                 <p>2. העתיקו למחברתכם את הטבלה שלפניכם, והשלימו אותה.</p>
-                <p>המ רמה גר</p>
-                <p>המ רמה יהודי מלידה</p>
-                <p>על איזה איסור</p>
-                <p>או אילו איסורים עבר?</p>
-                <p>איזו מצו ות ע שה</p>
-                <p>או אילו מצוו ת ע שה ביטל?</p>
-                <p>באנפה = גר – עד עשרה דורות לא</p>
+                <p>בטבלה שתי עמודות: "המרמה גר" ו"המרמה יהודי מלידה".</p>
+                <p>שורה ראשונה בטבלה: על איזה איסור או אילו איסורים עבר?</p>
+                <p>שורה שנייה בטבלה: איזו מצוות עשה או אילו מצוות עשה ביטל?</p>
                 <textarea class="answer" data-id="bg7" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
                   <b>✓ דגם התשובה:</b>
-                  <p>1. לרמות גר זו עבירה חמורה יותר כי נוסף על איסור אונאה הנוגע לכל יהודי הוא עובר גם על איסור אונאת ה גר</p>
-                  <p>ומבטל מצוות "ואהבת לרעך כמוך" ומצוות "ואהבתם את ה גר".</p>
-                  <p>המ רמה גר</p>
-                  <p>המ רמה יהודי מלידה</p>
-                  <p>2</p>
-                  <p>על איזה איסור</p>
-                  <p>איסור אונאה ואיסור אונאת גר איסור אונאה</p>
-                  <p>או אילו איסורים עבר?</p>
-                  <p>ואהבת לרעך כמוך איזו מצו ות ע שה</p>
-                  <p>ואהבת לרעך כמוך</p>
-                  <p>ואהבתם את ה גר או אילו מצוו ת ע שה ביטל?</p>
+                  <p>1. לרמות גר זו עבירה חמורה יותר כי נוסף על איסור אונאה הנוגע לכל יהודי הוא עובר גם על איסור אונאת הגר ומבטל מצוות "ואהבת לרעך כמוך" ומצוות "ואהבתם את הגר".</p>
+                  <p>2. המרמה גר: עבר על איסור אונאה ועל איסור אונאת גר; ביטל את מצוות "ואהבת לרעך כמוך" ואת מצוות "ואהבתם את הגר".</p>
+                  <p>המרמה יהודי מלידה: עבר על איסור אונאה; ביטל את מצוות "ואהבת לרעך כמוך".</p>
                 </div>
               </div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף ב'</div>
-                <p>תבזה גוי בפניו". "גיורא – עד עשרה דרי לא תבזי ארמאה</p>
+                <p>"גיורא – עד עשרה דרי לא תבזי ארמאה באנפה" (= גר – עד עשרה דורות לא תבזה גוי בפניו).</p>
                 <p>הסבירו מדוע אסור לבזות גוי בפני גר.</p>
                 <textarea class="answer" data-id="bg8" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
                   <b>✓ דגם התשובה:</b>
-                  <p>אסור לבזות גוי בפני גר כי זה מצער את ה גר.</p>
+                  <p>אסור לבזות גוי בפני גר כי זה מצער את הגר.</p>
                 </div>
               </div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף ג'</div>
-                <p>על פי בעל ספר החינוך, ממצוות אהבת ה גר לומדים שיש לרחם גם על אדם שאינו גר.</p>
-                <p>מיהו אדם זה, ומה משותף לו ולג ר?</p>
+                <p>על פי בעל ספר החינוך, ממצוות אהבת הגר לומדים שיש לרחם גם על אדם שאינו גר.</p>
+                <p>מיהו אדם זה, ומה משותף לו ולגר?</p>
                 <textarea class="answer" data-id="bg9" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
@@ -408,18 +415,53 @@
             </div>
       </div>
     </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על אהבת הגרים</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>המצווה:</b> לאהוב את הגרים - "שלא לצער אותם בשום דבר", ו"נעשה להם טובה".</li>
+          <li><b>מי הגר?</b> מי "שהניח דתו ונכנס בדתנו".</li>
+          <li><b>מצווה כפולה:</b> מי שמצער גר עובר על "לא תונו" ועל "וגר לא תונה", ומבטל שתי מצוות עשה.</li>
+          <li><b>השורש:</b> ה׳ ציווה אותנו ללכת ב"דרכי החנינה והחמלה".</li>
+          <li><b>כבוד הגר:</b> לא אומרים לו "זכור מעשיך הראשונים", ולא מבזים לפניו את מוצאו.</li>
+          <li><b>ללמוד מכאן:</b> לרחם על כל מי שנמצא רחוק ממולדתו - "כי גרים הייתם בארץ מצרים".</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎮 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - תרגול בדרך של משחק</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר גם במשחק:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="ahavat-gerim-matching-game.html"><span class="chip-icon" aria-hidden="true">🧩</span>משחק התאמה כיתתי - שאלה מול תשובה</a>
+          <a class="chip-link" href="ahavat-gerim-wheel.html"><span class="chip-icon" aria-hidden="true">🎡</span>גלגל המזל לתרגול</a>
+        </p>
+      </div>
+    </section>
   </div>
 </main>
 
 <div class="toolbar">
-  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
-  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
-  <button class="btn primary" type="button" id="directSubmitBtn">✅ שלחו למורה ישירות (בלי הורדה)</button>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="אהבת הגרים" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
-<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
-  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
-</p>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 
 <footer class="credit">לקט מצוות · "אהבת הגרים" · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
@@ -594,6 +636,7 @@ loadAnswers();
 })();
 </script>
 <script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 <script>
 (function(){
   var btn = document.getElementById('directSubmitBtn');
@@ -628,5 +671,8 @@ loadAnswers();
   });
 })();
 </script>
+<script src="assets/guide/ahavat-gerim.js"></script>
+<script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>

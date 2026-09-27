@@ -8,8 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -48,9 +53,66 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
-<main>
-  <div class="grid" id="grid">
-    <section class="card" style="grid-column: 1 / -1;">
+<main id="main-content">
+  <div class="grid" id="grid" data-answer-kind="suggested">
+    <!-- הסבר קצר (שלב ג׳) -->
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">📖 בקצרה</span>
+        <h2 class="card-title">אהבת ישראל בקצרה - הסבר פשוט</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📜</span>מה המצווה?</div>
+          לאהוב כל אחד מישראל "אהבת נפש" - לחמול עליו ועל הממון שלו, כמו שאדם חומל על עצמו ועל הממון שלו.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>מאיפה לומדים?</div>
+          מהפסוק "ואהבת לרעך כמוך" (ויקרא יט, יח). וחז״ל אמרו כלל מעשי: "דעלך סני לחברך לא תעביד" - את מה ששנוא עליך, לחברך לא תעשה.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">⭐</span>"כלל גדול בתורה"</div>
+          כך אמר רבי עקיבא - כי הרבה מצוות תלויות באהבת ישראל: מי שאוהב את חברו לא יגנוב ממנו, לא יונה אותו ולא יזיק לו.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🕊️</span>למה יש מצווה כזאת?</div>
+          כמו שאדם מתנהג לחברו - כך חברו יתנהג אליו. כשכולם אוהבים זה את זה, יש שלום בין הבריות.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🛡️</span>איך מקיימים?</div>
+          שומרים על הממון של החבר ומרחיקים ממנו נזק, מספרים עליו רק דברים טובים, ולא מרגישים מכובדים מהבושה שלו - "המתכבד בקלון חברו אין לו חלק לעולם הבא".
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📅</span>מתי?</div>
+          בכל מקום ובכל זמן. מי שמזיק לחברו או מצער אותו בכוונה - ביטל מצוות עשה, וגם חייב לשלם לפי הנזק.
+        </div>
+      </div>
+    </section>
+
+    <!-- דוגמה פתורה (שלב ג׳): שאלת בגרות אמיתית מהדף ותשובת המחוון -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">בגרות · תשפ״ו (2026) · שאלה 3 · סעיף ב</span> "... וכל שכן אם הזיק אותו את חברו בממון או ציערו בשום דבר לדעת – ביטל עשה זה". הסבירו כיצד ייתכן שאדם הזיק לחברו בממון ובכל זאת לא ביטל עשה זה. בתשובתכם ציינו מאיזו מילה בציטוט למדתם זאת.</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש שני חלקים: (1) איך ייתכן שאדם הזיק ובכל זאת לא ביטל עשה. (2) מאיזו מילה בציטוט לומדים את זה.</li>
+          <li><b>קוראים את הציטוט לאט</b> ומחפשים מילה שמגבילה את הדין. בסוף כתוב: "...בשום דבר <b>לדעת</b>". "לדעת" = בידיעה, בכוונה.</li>
+          <li><b>בודקים בדף.</b> בכרטיס "ונוהגת" כתוב: <span class="bm-quote">וכל שכן אם הזיק אותו בממון או צערו בשום דבר לדעת, ביטל עשה זה</span>.</li>
+          <li><b>כותבים לפי החלקים.</b> קודם המקרה, ואחריו המילה מהציטוט.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית - לא מהמחוון</span></div>
+          <p>אם אדם הזיק לחברו בממון בלי כוונה (בטעות), הוא לא ביטל את המצווה. לומדים זאת מהמילה "לדעת" - המצווה מתבטלת רק כשמזיקים בידיעה ובכוונה.</p>
+        </div>
+        <div class="hint-box" data-answer-kind="official"><b>✓ דגם התשובה:</b><p>אם הזיק את חברו לא בכוונה.</p><p>מילה בציטוט: "לדעת".</p></div>
+        <p class="bm-example-why">✓ שתי התשובות כוללות את שני החלקים: המקרה (בלי כוונה) והמילה מהציטוט ("לדעת").</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">מבנה ספר החינוך - חימום</span>
         <h2 class="card-title">לפני שמתחילים: מבנה ספר החינוך</h2>
@@ -182,7 +244,7 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">הרחבה - הקדמת "שערי יושר" (המשך)</span>
         <h2 class="card-title">הרחבה - הקדמת "שערי יושר" (המשך)</h2>
@@ -195,20 +257,20 @@
         </div>
       </div>
     </section>
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">שאלות בגרות אמיתיות</span>
-        <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תשע"ט – תשפ"ו)</h2>
+        <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תש"ף – תשפ"ו)</h2>
       </div>
       <div class="card-body">
-        <p style="font-size:.85rem; color:var(--ink-soft); margin:0;">השאלות להלן נלקחו כלשונן משאלוני הבגרות שהועברו בפועל על מצווה זו, מסודרות לפי שנה. לכל סעיף יש תיבת תשובה משלו - כתבו קודם את התשובה שלכם, ואז לחצו על "הצג תשובה" כדי להשוות לדגם התשובה הרשמי.</p>
+        <p style="font-size:1rem; color:var(--ink-soft); margin:0;">השאלות להלן נלקחו כלשונן משאלוני הבגרות שהועברו בפועל על מצווה זו, מסודרות לפי שנה. לכל סעיף יש תיבת תשובה משלו - כתבו קודם את התשובה שלכם, ואז לחצו על "הצג תשובה" כדי להשוות לדגם התשובה הרשמי.</p>
             <div class="bagrut-block">
               <div class="src"><span aria-hidden="true">📝</span>בגרות · תש״ף (2020) · שאלה 4</div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף א'</div>
-                <p>1. חז"ל מדריכים אותנו כיצד לקיים את מצוות אהבת ישראל": דעלך סני לחברך לא תעבד".</p>
+                <p>1. חז"ל מדריכים אותנו כיצד לקיים את מצוות אהבת ישראל: "דעלך סני לחברך לא תעבד".</p>
                 <p>הסבר את דברי חז"ל האלה.</p>
-                <p>2. בעל ספר החינוך ציטט מן הספרא": אמר רבי עקיבא: זה כלל גדול בתורה".</p>
+                <p>2. בעל ספר החינוך ציטט מן הספרא: "אמר רבי עקיבא: זה כלל גדול בתורה".</p>
                 <p>הסבר מהי הסיבה שמצווה זו היא "כלל גדול בתורה", וכתוב דוגמה אחת שבה באה לידי ביטוי סיבה זו.</p>
                 <textarea class="answer" data-id="bg1" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
@@ -216,8 +278,8 @@
                   <b>✓ דגם התשובה:</b>
                   <p>1. מה ששנוא עליך אל תעשה לחברך.</p>
                   <p>2. הרבה מצוות בתורה תלויות במצווה זו.</p>
-                  <p>"האוהב חברו כנפשו לא יגנוב ממונו, ולא ינאף את אשתו, ולא יונהו בממון ולא בדברים, ולא יסיג גבולו, ולא יזיק</p>
-                  <p>לו בשום צד" על התלמיד לכתוב דוגמה אחת; לקבל דוגמאות נכונות אחרות.</p>
+                  <p>"האוהב חברו כנפשו לא יגנוב ממונו, ולא ינאף את אשתו, ולא יונהו בממון ולא בדברים, ולא יסיג גבולו, ולא יזיק לו בשום צד".</p>
+                  <p>הערה למעריך: על התלמיד לכתוב דוגמה אחת; לקבל דוגמאות נכונות אחרות.</p>
                 </div>
               </div>
               <div class="bagrut-part">
@@ -228,7 +290,7 @@
                 <div class="hint-box" hidden>
                   <b>✓ דגם התשובה:</b>
                   <p>המתכבד בקלון חברו — אדם שבאמצעות זלזול בחברו גורם שיכבדוהו.</p>
-                  <p>העונש": המתכבד בקלון חברו — אין לו חלק לעולם הבא".</p>
+                  <p>העונש: "המתכבד בקלון חברו — אין לו חלק לעולם הבא".</p>
                 </div>
               </div>
             </div>
@@ -236,14 +298,14 @@
               <div class="src"><span aria-hidden="true">📝</span>בגרות · תשפ״ג (2023) · שאלה 5</div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף א'</div>
-                <p>" 'ואהבת לרעך כמוך'... אמר רבי עקיבא: זה כלל גדול בתורה".</p>
+                <p>"'ואהבת לרעך כמוך'... אמר רבי עקיבא: זה כלל גדול בתורה".</p>
                 <p>1. על פי בעל ספר החינוך, הסבירו מדוע מצוות אהבת ישראל היא "כלל גדול בתורה".</p>
                 <p>2. בססו את ההסבר של בעל ספר החינוך באמצעות דוגמה אחת.</p>
                 <textarea class="answer" data-id="bg3" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
                   <b>✓ דגם התשובה:</b>
-                  <p>1 מצוות רבות תלויות בה.</p>
+                  <p>1. מצוות רבות תלויות בה.</p>
                   <p>2. אדם לא יעבור על לא תגנוב, בגלל אהבת ישראל. דוגמאות נוספות בספר</p>
                 </div>
               </div>
@@ -255,13 +317,13 @@
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
                   <b>✓ דגם התשובה:</b>
-                  <p>1 כי כמו שיעשה הוא בחבירו, כן יעשה חבירו בו, ובזה יהיה שלום בין הבריות.</p>
+                  <p>1. כי כמו שיעשה הוא בחבירו, כן יעשה חבירו בו, ובזה יהיה שלום בין הבריות.</p>
                   <p>2. שאדם לא יהנה או ירגיש מכובד מתוך השוואה לחבירו הבזוי והמושפל.</p>
                 </div>
               </div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף ג'</div>
-                <p>בדיני המצווה נאמר": והעובר עליה... ביטל עשה זה, מלבד החיוב שבו לפי העניין שהזיקו".</p>
+                <p>בדיני המצווה נאמר: "והעובר עליה... <u>ביטל עשה זה</u>, <u>מלבד החיוב שבו לפי העניין שהזיקו</u>".</p>
                 <p>הסבירו בלשונכם את המילים המסומנות בקו.</p>
                 <textarea class="answer" data-id="bg5" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
@@ -277,30 +339,27 @@
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף א'</div>
                 <p>1. מהו שורש מצוות אהבת ישראל?</p>
-                <p>2. בהגדרה של מצווה זו מביא בעל ספר החינוך את הדרכת חז"ל": דעלך סני – לחברך לא תעבד השנוא עליך –</p>
-                <p>אל תעשה לחברך".</p>
+                <p>2. בהגדרה של מצווה זו מביא בעל ספר החינוך את הדרכת חז"ל: "דעלך סני – לחברך לא תעבד" (= השנוא עליך – אל תעשה לחברך).</p>
                 <p>על פי בעל ספר החינוך, כתבו שתי דוגמאות ליישום של הדרכה זו.</p>
                 <textarea class="answer" data-id="bg6" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
                   <b>✓ דגם התשובה:</b>
                   <p>1. שורש המצווה: יחס של אהבה כלפי חברו יגרום ליחס דומה כלפיו מצד חברו "ובזה יהיה שלום בין הבריות".</p>
-                  <p>2. דוגמאות: חמול על חברך כמו שאתה חומל על עצמך, חמול על ממונו כמו שאתה חומל על ממונך, אל תונה את</p>
-                  <p>חברך כמו שאינך רוצה שיונו אותך, אל תזיק לחברך כמו שאינך רוצה שיזיקו לך.</p>
-                  <p>למעריכים: על התלמידים לכתוב שתי דוגמאות; לקבל דוגמאות מתאימות אחרות.</p>
+                  <p>2. דוגמאות: חמול על חברך כמו שאתה חומל על עצמך, חמול על ממונו כמו שאתה חומל על ממונך, אל תונה את חברך כמו שאינך רוצה שיונו אותך, אל תזיק לחברך כמו שאינך רוצה שיזיקו לך.</p>
+                  <p>הערה למעריכים: על התלמידים לכתוב שתי דוגמאות; לקבל דוגמאות מתאימות אחרות.</p>
                 </div>
               </div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף ב'</div>
                 <p>"... וכל שכן אם הזיק אותו את חברו בממון או ציערו בשום דבר לדעת – ביטל עשה זה".</p>
-                <p>הסבירו כיצד ייתכן שאדם הזיק לחברו בממון ובכל זאת לא ביטל עשה זה. בתשובתכם ציינו מאיזו מילה בציטוט</p>
-                <p>למדתם זאת.</p>
+                <p>הסבירו כיצד ייתכן שאדם הזיק לחברו בממון ובכל זאת לא ביטל עשה זה. בתשובתכם ציינו מאיזו מילה בציטוט למדתם זאת.</p>
                 <textarea class="answer" data-id="bg7" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
                   <b>✓ דגם התשובה:</b>
                   <p>אם הזיק את חברו לא בכוונה.</p>
-                  <p>מילה בציטוט": לדעת".</p>
+                  <p>מילה בציטוט: "לדעת".</p>
                 </div>
               </div>
               <div class="bagrut-part">
@@ -316,18 +375,39 @@
             </div>
       </div>
     </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על אהבת ישראל</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>המצווה:</b> לאהוב כל אחד מישראל "אהבת נפש" - "ואהבת לרעך כמוך".</li>
+          <li><b>הכלל המעשי:</b> "את מה ששנוא עליך, לחברך לא תעשה".</li>
+          <li><b>"כלל גדול בתורה":</b> הרבה מצוות תלויות בה - מי שאוהב את חברו לא יגנוב ממנו ולא יזיק לו.</li>
+          <li><b>השורש:</b> "כמו שיעשה הוא בחברו, כן יעשה חברו בו" - וכך יש שלום.</li>
+          <li><b>בפועל:</b> לשמור על הממון של החבר, לספר עליו לשבח, ולא להתכבד בקלונו.</li>
+          <li><b>מתי?</b> "בכל מקום ובכל זמן". מי שמזיק או מצער "לדעת" (בכוונה) - ביטל עשה.</li>
+        </ul>
+      </div>
+    </section>
   </div>
 </main>
 
 <div class="toolbar">
-  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
-  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
-  <button class="btn primary" type="button" id="directSubmitBtn">✅ שלחו למורה ישירות (בלי הורדה)</button>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="אהבת ישראל" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
-<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
-  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
-</p>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 
 <footer class="credit">לקט מצוות · "אהבת ישראל" · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
@@ -493,6 +573,7 @@ loadAnswers();
 })();
 </script>
 <script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 <script>
 (function(){
   var btn = document.getElementById('directSubmitBtn');
@@ -528,5 +609,8 @@ loadAnswers();
 })();
 </script>
 <script src="assets/bagrut-hints.js"></script>
+<script src="assets/guide/ahavat-israel.js"></script>
+<script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>

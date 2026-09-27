@@ -8,8 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -51,16 +56,13 @@
 <p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
   <a class="chip-link" href="https://youtu.be/tBX1MLeXWGE?si=oDoXiIS5HgNRulUi" target="_blank" rel="noopener"><span class="chip-icon" aria-hidden="true">🎥</span>צפייה בסרטון על פרק ג׳</a>
   <a class="chip-link" href="yonah-3-4-flowchart.html"><span class="chip-icon" aria-hidden="true">🗺️</span>תרשים זרימה עם הפרשנים</a>
-  <a class="chip-link" href="yonah-3-4-matching-game.html"><span class="chip-icon" aria-hidden="true">🧩</span>משחק התאמה כיתתי - שאלה מול תשובה</a>
-  <a class="chip-link" href="yonah-3-4-wheel.html"><span class="chip-icon" aria-hidden="true">🎡</span>גלגל המזל לתרגול</a>
-  <a class="chip-link" href="yonah-3-4-flashcards.html"><span class="chip-icon" aria-hidden="true">🗂️</span>כרטיסיות לחזרה</a>
 </p>
 
-<main>
-  <div class="grid" id="grid">
+<main id="main-content">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הסיפור -->
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק ג׳?</h2>
@@ -108,8 +110,31 @@
       </div>
     </section>
 
+    <!-- דוגמה פתורה (שלב ג׳): שאלת בגרות אמיתית ותשובת המחוון, מתוך דף שאלות הבגרות של יונה -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">בגרות · תשע"ז (2017), חורף · שאלה 10 · סעיף ב(1)</span> יונה, פרק ג׳, פסוקים ה׳-ט׳ - יש הטוענים כי החזרה בתשובה של אנשי נינווה הייתה יסודית ואמתית, ויש הטוענים כי הייתה שטחית ונלעגת. העתיקו מן הפסוקים הוכחה לטענה כי החזרה בתשובה הייתה יסודית ואמתית, והסבירו כיצד המילים שהעתקתם מוכיחות טענה זו.</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש כאן שני חלקים: (1) להעתיק מילים מהפסוקים. (2) להסביר איך המילים מוכיחות שהתשובה הייתה אמיתית.</li>
+          <li><b>מבינים את מילות ההוראה.</b> "העתיקו" = מילה במילה מהפסוק, בתוך מירכאות. "הסבירו" = במילים שלכם.</li>
+          <li><b>מחפשים בפסוקים ה׳-ט׳</b> מעשה שמראה שינוי אמיתי, מבפנים. למשל בפסוק ה׳: <span class="bm-quote">וַיַּאֲמִינוּ אַנְשֵׁי נִינְוֵה בֵּאלֹהִים</span>.</li>
+          <li><b>כותבים לפי החלקים.</b> קודם הציטוט, ואחריו ההסבר.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית - לא מהמחוון</span></div>
+          <p>העתקה: "וַיַּאֲמִינוּ אַנְשֵׁי נִינְוֵה בֵּאלֹהִים" (פסוק ה׳). הסבר: אנשי נינווה לא האמינו קודם באלוקים, ועכשיו האמינו בו - זה שינוי פנימי של אמונה, ולא רק מעשה חיצוני. לכן זו ראיה שהתשובה הייתה אמיתית.</p>
+        </div>
+        <div class="hint-box" data-answer-kind="official"><b>✓ תשובה:</b> לדוגמה: "וַיַּאֲמִינוּ אַנְשֵׁי נִינְוֵה בֵּאלֹהִים" - עברו מאמונה באלילים ועבודה זרה לאמונה מלאה בה׳ ובדברי יונה נביאו. (אפשר גם: "וַיִּקְרְאוּ צוֹם וַיִּלְבְּשׁוּ שַׂקִּים מִגְּדוֹלָם וְעַד קְטַנָּם" - כל אנשי העיר, מכל הגילאים, ביצעו מיד פעולות משמעותיות של אבל וחרדה; או: מלך נינווה בעצמו קם מכיסאו ולבש שק, אף שיכול היה להסתפק בציווי על אחרים.)</div>
+        <p class="bm-example-why">✓ שתי התשובות עונות על שני החלקים - ציטוט והסבר. המחוון מביא גם ציטוטים אחרים שמתקבלים.</p>
+      </div>
+    </section>
+
     <!-- חלק 1 -->
-    <section class="card unit" style="grid-column: 1 / -1;">
+    <section class="card unit" data-stage="guided" style="grid-column: 1 / -1;">
       <div class="card-head unit-head">
         <div>
           <span class="card-tag">חלק 1 · פס׳ א׳–ג׳</span>
@@ -280,7 +305,7 @@
     </section>
 
     <!-- חלק 5 -->
-    <section class="card unit">
+    <section class="card unit" data-stage="open">
       <div class="card-head unit-head">
         <div>
           <span class="card-tag">חלק 5 · פס׳ י׳</span>
@@ -307,6 +332,63 @@
       </div>
     </section>
 
+    <!-- שאלת בגרות (שלב ג׳): הועתקה כלשונה, עם תשובות המחוון, מדף שאלות הבגרות של יונה -->
+    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎓 שאלת בגרות</span>
+        <h2 class="card-title">שאלת בגרות על פרק ג׳</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-source-note">השאלה והתשובות הועתקו כלשונן מדף "שאלות בגרות אמיתיות" של ספר יונה.</p>
+        <div class="exam-tag">📅 תשע"ד (2014), חורף (מבחן 2) · שאלה 10</div>
+        <div class="pasuk-block mini">יונה, פרק ג׳ - עיינו בפסוקים ה׳-י׳.</div>
+        <div class="question-block">
+          <div class="question-row"><span class="part-label">א</span><span class="q-text" id="bg-lbl-1">חז"ל חלוקים בשאלה אם תשובת אנשי נינווה הייתה שלמה. בססו כל אחת מדעות חז"ל על שני מעשים של אנשי נינווה המתוארים בכתוב. (6 נקודות)</span></div>
+          <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה:</b> המעשים בפסוק ה׳ ניתנים לפרש לכאן ולכאן (יש לציין שני מעשים, ולהסביר כל אחד לפי שתי הפרשנויות): "וַיִּקְרְאוּ צוֹם וַיִּלְבְּשׁוּ שַׂקִּים מִגְּדוֹלָם וְעַד קְטַנָּם" - מצד אחד ביטוי לכנות התשובה (כולם, כולל הקטנים, מפגינים יראה וחרטה); מצד שני אפשר לראות בכך התנהגות צבועה - מעשים חיצוניים בלבד, בלי תיקון פנימי. "וְיָשֻׁבוּ... מִן הֶחָמָס אֲשֶׁר בְּכַפֵּיהֶם" - מצד אחד: החזירו את כל הגזלות שבידיהם; מצד שני: החזירו רק את מה שהיה גלוי בכפיהם, ולא את מה שהחביאו.</div>
+        </div>
+        <div class="question-block sub-q">
+          <div class="question-row"><span class="part-label">ב</span><span class="q-text" id="bg-lbl-2">"וַיַּרְא הָאֱלֹהִים אֶת מַעֲשֵׂיהֶם כִּי שָׁבוּ מִדַּרְכָּם הָרָעָה, וַיִּנָּחֶם הָאֱלֹהִים עַל הָרָעָה אֲשֶׁר דִּבֶּר לַעֲשׂוֹת לָהֶם" (פסוק י׳). לפי הפרשנים הסבורים כי תשובת אנשי נינווה לא הייתה שלמה, הסבירו מדוע בכל זאת קיבל ה׳ את תשובתם. (2 נקודות)</span></div>
+          <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה:</b> ה׳ קיבל את תשובתם אף שהייתה בעיקר חיצונית ולא שלמה, כי לפחות השתדלו לתקן את מעשיהם. (או: כי הקב"ה מעודד אנשים שרוצים לתקן את מעשיהם ולעשות תשובה, ומסייע להם אף אם אינם עושים זאת בשלמות.)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו בפרק ג׳</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>השליחות השנייה:</b> ה׳ פונה ליונה "שנית", והפעם יונה קם והולך לנינווה "כִּדְבַר יְהוָה". בפעם הראשונה ה׳ אמר לו מה להכריז; בפעם השנייה - רק "אֶת־הַקְּרִיאָה אֲשֶׁר אָנֹכִי דֹּבֵר אֵלֶיךָ".</li>
+          <li><b>המינימום:</b> נינווה היא "מַהֲלַךְ שְׁלֹשֶׁת יָמִים", ויונה הלך בה "מַהֲלַךְ יוֹם אֶחָד" והכריז משפט קצר: "עוֹד אַרְבָּעִים יוֹם וְנִינְוֵה נֶהְפָּכֶת". לפי רד"ק - "נהפכת" כמו מהפכת סדום ועמורה.</li>
+          <li><b>תשובת אנשי נינווה:</b> קודם העם האמין וצם מרצונו; אחר כך המלך קם מכיסאו, לבש שק וגזר צום חובה - גם על הבהמות - ודרש לשוב מהדרך הרעה ומהחמס.</li>
+          <li><b>כמו המלחים:</b> גם המלחים וגם אנשי נינווה הגיבו מיד ביראה, ופנו אל ה׳.</li>
+          <li><b>האם התשובה הייתה אמיתית?</b> המשנה מדגישה: ה׳ ראה "את מעשיהם כי שבו מדרכם הרעה" - ולא רק את השק והתענית. ומנגד נאמר שהייתה "תשובה של רמאות" - החזירו רק את החמס שבידיהם.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎮 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - תרגול בדרך של משחק</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר גם במשחק:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="yonah-3-4-matching-game.html"><span class="chip-icon" aria-hidden="true">🧩</span>משחק התאמה כיתתי - שאלה מול תשובה</a>
+          <a class="chip-link" href="yonah-3-4-wheel.html"><span class="chip-icon" aria-hidden="true">🎡</span>גלגל המזל לתרגול</a>
+          <a class="chip-link" href="yonah-3-4-flashcards.html"><span class="chip-icon" aria-hidden="true">🗂️</span>כרטיסיות לחזרה</a>
+        </p>
+      </div>
+    </section>
+
   </div>
 </main>
 
@@ -316,14 +398,17 @@
   <a href="yonah-4.html">לפרק הבא (פרק ד׳) ←</a>
 </nav>
 <div class="toolbar">
-  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
-  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
-  <button class="btn primary" type="button" id="directSubmitBtn">✅ שלחו למורה ישירות (בלי הורדה)</button>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="יונה פרק ג&#x27;" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
-<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
-  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
-</p>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 
 <footer class="credit">ספר יונה, פרק ג׳ · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
@@ -527,6 +612,7 @@ loadUnits();
 })();
 </script>
 <script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 <script>
 (function(){
   var btn = document.getElementById('directSubmitBtn');
@@ -561,5 +647,8 @@ loadUnits();
   });
 })();
 </script>
+<script src="assets/guide/yonah-3.js"></script>
+<script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>

@@ -8,8 +8,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -35,14 +38,14 @@
 </header>
 
 <div class="game-nav" style="text-align:center; margin:0 0 1.4rem;">
-  <a href="lo-tasur.html" style="display:inline-flex; align-items:center; gap:.4rem; color:var(--ink-soft); text-decoration:none; font-size:.9rem; font-weight:700; border:1.5px solid var(--paper-line); border-radius:999px; padding:.4rem 1rem;">→ חזרה לדף העבודה המלא</a>
+  <a href="lo-tasur.html" style="display:inline-flex; align-items:center; gap:.4rem; color:var(--ink-soft); text-decoration:none; font-size:1rem; font-weight:700; border:1.5px solid var(--paper-line); border-radius:999px; padding:.4rem 1rem;">→ חזרה לדף העבודה המלא</a>
 </div>
 
 <div class="toolbar">
   <button class="btn" id="printBtn">🖨️ הדפיסו לחזרה</button>
 </div>
 
-<main>
+<main id="main-content">
   <div class="grid" id="grid">
 
     <section class="card" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">

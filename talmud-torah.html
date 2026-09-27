@@ -8,8 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -48,9 +53,66 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
-<main>
-  <div class="grid" id="grid">
-    <section class="card" style="grid-column: 1 / -1;">
+<main id="main-content">
+  <div class="grid" id="grid" data-answer-kind="suggested">
+    <!-- הסבר קצר (שלב ג׳) -->
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">📖 בקצרה</span>
+        <h2 class="card-title">תלמוד תורה בקצרה - הסבר פשוט</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📜</span>מה המצווה?</div>
+          ללמוד תורה וללמד אותה - כדי לדעת איך עושים את המצוות, וממה צריך להישמר.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">👨‍👦</span>את מי מלמדים?</div>
+          "ושננתם לבניך" - האב מלמד את בנו, וגם את התלמידים ("בניך - אלו תלמידיך"). צריך לדעת את התורה היטב, כדי לענות מיד, בלי לגמגם.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🤔</span>למה יש מצווה כזאת?</div>
+          בלימוד האדם מכיר את דרכי ה׳. בלי לימוד הוא לא יודע ולא מבין.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">👶</span>מתי מתחילים?</div>
+          כשהילד מתחיל לדבר. לא מכבידים על ילד קטן - ורק כשהוא מתחזק ומבין יותר, מלמדים אותו ברצינות.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">⏳</span>עד מתי, ומי?</div>
+          עד יום המוות. כל אחד חייב - עני ועשיר, בריא וחולה. ולא אומרים "כשיהיה לי זמן פנוי, אלמד".
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📅</span>על מי?</div>
+          בכל מקום ובכל זמן, על גברים - "בניכם" ולא בנותיכם.
+        </div>
+      </div>
+    </section>
+
+    <!-- דוגמה פתורה (שלב ג׳): שאלת בגרות אמיתית מהדף ותשובת המחוון -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">בגרות · תשפ״ב (2022) · שאלה 5 · סעיף ב</span> 1. על פי חז"ל, אדם חייב לחלק את זמן הלימוד שלו "לשלושה חלקים". מה הם שלושת החלקים? 2. על פי חז"ל, לא יאמר אדם "לכשאפנה אשנה" – הסבירו מדוע.</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש שני חלקים: (1) שלושת החלקים של זמן הלימוד. (2) למה לא אומרים "לכשאפנה אשנה".</li>
+          <li><b>מבינים מילים קשות.</b> "לכשאפנה אשנה" = כשיהיה לי זמן פנוי, אלמד.</li>
+          <li><b>מחפשים בדף.</b> בכרטיס "חלוקת זמן הלימוד": <span class="bm-quote">שליש בעסק תורה שבכתב, ושליש בעסק תורה שבעל פה</span>... ובכרטיס "לכשאפנה אשנה": <span class="bm-quote">שמא לא יפנה לעולם</span>.</li>
+          <li><b>כותבים לפי החלקים.</b> 1. שלושה חלקים. 2. ההסבר.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית - לא מהמחוון</span></div>
+          <p>1. שליש מהזמן - תורה שבכתב. שליש - תורה שבעל פה (משניות וברייתות). שליש - להבין את הדברים מהשורש. 2. כי אולי אף פעם לא יהיה לו זמן פנוי - "כי לא ידע האדם מה ילד יום". לכן צריך ללמוד עכשיו.</p>
+        </div>
+        <div class="hint-box" data-answer-kind="official"><b>✓ דגם התשובה:</b><p>1. שלושת החלקים הם: תורה שבכתב, תורה שבעל פה, להבין העניינים מן השורש.</p><p>2. שמא לא ייפנה לעולם.</p></div>
+        <p class="bm-example-why">✓ שתי התשובות עונות על שני החלקים. התשובה האפשרית מסבירה גם כל חלק של הזמן במילים פשוטות.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">מבנה ספר החינוך - חימום</span>
         <h2 class="card-title">לפני שמתחילים: מבנה ספר החינוך</h2>
@@ -234,7 +296,7 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">ונוהגת</span>
         <h2 class="card-title">ונוהגת</h2>
@@ -247,20 +309,19 @@
         </div>
       </div>
     </section>
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">שאלות בגרות אמיתיות</span>
-        <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תשע"ט – תשפ"ו)</h2>
+        <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תשע"ט – תשפ"ה)</h2>
       </div>
       <div class="card-body">
-        <p style="font-size:.85rem; color:var(--ink-soft); margin:0;">השאלות להלן נלקחו כלשונן משאלוני הבגרות שהועברו בפועל על מצווה זו, מסודרות לפי שנה. לכל סעיף יש תיבת תשובה משלו - כתבו קודם את התשובה שלכם, ואז לחצו על "הצג תשובה" כדי להשוות לדגם התשובה הרשמי.</p>
+        <p style="font-size:1rem; color:var(--ink-soft); margin:0;">השאלות להלן נלקחו כלשונן משאלוני הבגרות שהועברו בפועל על מצווה זו, מסודרות לפי שנה. לכל סעיף יש תיבת תשובה משלו - כתבו קודם את התשובה שלכם, ואז לחצו על "הצג תשובה" כדי להשוות לדגם התשובה הרשמי.</p>
             <div class="bagrut-block">
               <div class="src"><span aria-hidden="true">📝</span>בגרות · תשע״ט (2019) · שאלה 5</div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף א'</div>
                 <p>1. על פי בעל ספר החינוך, כיצד על המלמד להתייחס לתלמיד בן שש שנמצא בתחילת דרכו בלימוד התורה?</p>
-                <p>2. על פי בעל ספר החינוך, כיצד על המלמד להתייחס לתלמיד זמן מה לאחר שהתחיל התלמיד ללמוד, ומדוע</p>
-                <p>היחס לתלמיד משתנה בזמן זה?</p>
+                <p>2. על פי בעל ספר החינוך, כיצד על המלמד להתייחס לתלמיד זמן מה לאחר שהתחיל התלמיד ללמוד, ומדוע היחס לתלמיד משתנה בזמן זה?</p>
                 <textarea class="answer" data-id="bg1" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
@@ -271,7 +332,7 @@
               </div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף ב'</div>
-                <p>" 1ואל תאמר לכ ש א פנ ה א שנ ה "... אבות, פרק ב', משנה ד'.</p>
+                <p>1. "ואל תאמר לכשאפנה אשנה..." (אבות, פרק ב', משנה ד').</p>
                 <p>על פי בעל ספר החינוך, הסבר מהו החשש העולה ממשנה זו בנוגע לקיום מצוות תלמוד תורה.</p>
                 <p>2. מהי ההדרכה של בעל ספר החינוך בנוגע לחשש זה?</p>
                 <textarea class="answer" data-id="bg2" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
@@ -285,16 +346,16 @@
             </div>
             <div class="bagrut-block">
               <div class="src"><span aria-hidden="true">📝</span>בגרות · תש״ף (2020) · שאלה 6</div>
-              <p>א" 1. ושננתם לבניך" דברים, ו', ז'.</p>
+              <p>א. 1. "ושננתם לבניך" (דברים, ו', ז').</p>
               <p>לפי דרשת חז"ל, מי הם "בניך", ומהו פירוש המילה "ושננתם"?</p>
               <p>2. מדוע אישה אינה חייבת ללמד את בנה תורה?</p>
-              <p>ב. בעל ספר החינוך כתב": ונמשלו דברי תורה למים".</p>
+              <p>ב. בעל ספר החינוך כתב: "ונמשלו דברי תורה למים".</p>
               <p>הסבר את המשל ואת הנמשל.</p>
               <textarea class="answer" data-id="bg3" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
               <button class="hint-btn" type="button">🔎 הצג תשובה</button>
               <div class="hint-box" hidden>
                 <b>✓ דגם התשובה:</b>
-                <p>א" 1. בניך" — אלו תלמידיך.</p>
+                <p>א. 1. "בניך" — אלו תלמידיך.</p>
                 <p>"ושננתם" — שיהיו מסודרים בתוך פיך, כשאדם שואלך דבר אל תהא מגמגם אלא תהא אומר לו מייד.</p>
                 <p>2. אישה אינה חייבת ללמוד תורה, ומי שאינו בחיוב ללמוד אינו חייב ללמד.</p>
                 <p>ב. המשל — המים אינם עומדים מצטברים בהרים אלא בעמקים.</p>
@@ -305,21 +366,19 @@
               <div class="src"><span aria-hidden="true">📝</span>בגרות · תשפ״ב (2022) · שאלה 5</div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף א'</div>
-                <p>בספר החינוך מובאת שאלת הגמרא": עד היכן חייב אדם ללמד את בנו תורה? ".</p>
+                <p>בספר החינוך מובאת שאלת הגמרא: "עד היכן חייב אדם ללמד את בנו תורה?".</p>
                 <p>הסבירו בלשונכם את תשובת הגמרא על שאלה זו. בתשובתכם פרטו מהו תוכן הלימוד ועל מי מוטל החיוב ללמד.</p>
                 <textarea class="answer" data-id="bg4" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
                   <b>✓ דגם התשובה:</b>
-                  <p>על פי תשובת הגמרא, תוכן החיוב הוא מקרא בלבד ומי שמוסיף – תבוא עליו ברכה, והחיוב ללמד מוטל על האבא</p>
-                  <p>ועל הסבא.</p>
+                  <p>על פי תשובת הגמרא, תוכן החיוב הוא מקרא בלבד ומי שמוסיף – תבוא עליו ברכה, והחיוב ללמד מוטל על האבא ועל הסבא.</p>
                 </div>
               </div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף ב'</div>
                 <p>1. על פי חז"ל, אדם חייב לחלק את זמן הלימוד שלו "לשלושה חלקים". מה הם שלושת החלקים?</p>
-                <p>"לכ ש א פּנ ה א שנ ה" – הסבירו מדוע.</p>
-                <p>2. על פי חז"ל, לא יאמר אדם</p>
+                <p>2. על פי חז"ל, לא יאמר אדם "לכשאפנה אשנה" – הסבירו מדוע.</p>
                 <textarea class="answer" data-id="bg5" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
@@ -330,18 +389,18 @@
               </div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף ג'</div>
-                <p>בעל ספר החינוך כתב "המצווה הזאת היא אם לכולן" – הסבירו את הכוונה במילים המודגשות בקו.</p>
+                <p>בעל ספר החינוך כתב: "המצווה הזאת היא <u>אם לכולן</u>" – הסבירו את הכוונה במילים המודגשות בקו.</p>
                 <textarea class="answer" data-id="bg6" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
                   <b>✓ דגם התשובה:</b>
-                  <p>המצווה ללמוד תורה היא הבסיס או: המקור לקיום כל המצוות.</p>
+                  <p>המצווה ללמוד תורה היא הבסיס (או: המקור) לקיום כל המצוות.</p>
                 </div>
               </div>
             </div>
             <div class="bagrut-block">
               <div class="src"><span aria-hidden="true">📝</span>בגרות · תשפ״ה (2025) · שאלה 4</div>
-              <p>א. "ו שנ נ תם ל בנ יך" דברים ו', ז'.</p>
+              <p>א. "ושננתם לבניך" (דברים ו', ז').</p>
               <p>על פי דרשת חז"ל, מהו פירוש המילה "ושננתם", ומי הם "בניך"?</p>
               <p>ב. 1. על פי בעל ספר החינוך, ממתי האב צריך להתחיל ללמד את בנו תורה?</p>
               <p>2. על פי בעל ספר החינוך, כיצד על המלמד להתייחס לתלמיד בן שש שנמצא בתחילת דרכו בלימוד התורה?</p>
@@ -351,7 +410,7 @@
               <button class="hint-btn" type="button">🔎 הצג תשובה</button>
               <div class="hint-box" hidden>
                 <b>✓ דגם התשובה:</b>
-                <p>א". ושננתם" – שיהיו דברי תורה מסודרים בפיך "כשאדם שואלך דבר – אל תהא מגמגם לו, אלא תהא אומר לו מייד".</p>
+                <p>א. "ושננתם" – שיהיו דברי תורה מסודרים בפיך "כשאדם שואלך דבר – אל תהא מגמגם לו, אלא תהא אומר לו מייד".</p>
                 <p>"בניך" – אלו תלמידיך.</p>
                 <p>ב. 1. משיתחיל הבן לדבר.</p>
                 <p>2. אין להכביד על התלמיד.</p>
@@ -362,18 +421,39 @@
             </div>
       </div>
     </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על תלמוד תורה</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>המצווה:</b> ללמוד תורה וללמד אותה - "ושננתם לבניך". "בניך" - "אלו תלמידיך".</li>
+          <li><b>השורש:</b> "בלימוד ידע האדם דרכי השם". בלי לימוד - "נחשב כבהמה".</li>
+          <li><b>ילדים:</b> מתחילים "משיתחיל לדבר", ולא מכבידים על ילד קטן.</li>
+          <li><b>כולם ותמיד:</b> עני ועשיר, בריא וחולה - "עד יום מותו".</li>
+          <li><b>הזמן:</b> שליש תורה שבכתב, שליש תורה שבעל פה, שליש להבין מן השורש. ולא אומרים "לכשאפנה אשנה".</li>
+          <li><b>על מי?</b> בכל מקום ובכל זמן, בזכרים - "ולא בנותיכם".</li>
+        </ul>
+      </div>
+    </section>
   </div>
 </main>
 
 <div class="toolbar">
-  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
-  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
-  <button class="btn primary" type="button" id="directSubmitBtn">✅ שלחו למורה ישירות (בלי הורדה)</button>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="תלמוד תורה" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
-<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
-  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
-</p>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 
 <footer class="credit">לקט מצוות · "תלמוד תורה" · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
@@ -539,6 +619,7 @@ loadAnswers();
 })();
 </script>
 <script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 <script>
 (function(){
   var btn = document.getElementById('directSubmitBtn');
@@ -574,5 +655,8 @@ loadAnswers();
 })();
 </script>
 <script src="assets/bagrut-hints.js"></script>
+<script src="assets/guide/talmud-torah.js"></script>
+<script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>

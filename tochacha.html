@@ -8,8 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -48,9 +53,66 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
-<main>
-  <div class="grid" id="grid">
-    <section class="card" style="grid-column: 1 / -1;">
+<main id="main-content">
+  <div class="grid" id="grid" data-answer-kind="suggested">
+    <!-- הסבר קצר (שלב ג׳) -->
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">📖 בקצרה</span>
+        <h2 class="card-title">מצוות תוכחה בקצרה - הסבר פשוט</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📜</span>מה המצווה?</div>
+          להוכיח (להעיר) לאדם מישראל שלא מתנהג כמו שצריך - גם בדברים שבין אדם לחברו, וגם בדברים שבין אדם למקום (בין אדם לה׳).
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📖</span>מאיפה לומדים?</div>
+          מהפסוק "הוכח תוכיח את עמיתך ולא תשא עליו חטא" (ויקרא יט, יז).
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🤫</span>איך מוכיחים?</div>
+          בהתחלה - בסתר ובעדינות, כדי לא לבייש את החוטא. אם הוא ממשיך לחטוא - מוכיחים אותו שוב ושוב, "עד הכאה" (עד שהחוטא כמעט מרים יד על המוכיח).
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🕊️</span>למה יש מצווה כזאת?</div>
+          כשמוכיחים בסתר, החוטא יכול להסביר את עצמו, והשניים משלימים - יש "שלום וטובה בין אנשים". כשלא מוכיחים, השנאה נשארת בלב ועלולה לגרום נזק - כמו אבשלום, ששנא את אמנון ולא דיבר איתו.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">✋</span>מתי לא מוכיחים?</div>
+          כשברור שהאדם רשע מאוד ולא ישמע, וכשיש סכנה שהחוטא יהרוג את המוכיח. "כשם שמצוה לומר דבר הנשמע, כך מצוה לשתוק במקום שאין הדבר נשמע".
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📅</span>על מי ומתי?</div>
+          בכל זמן ובכל מקום, על גברים ועל נשים. מי שיכול להוכיח ולא מוכיח - ביטל מצוות עשה.
+        </div>
+      </div>
+    </section>
+
+    <!-- דוגמה פתורה (שלב ג׳): שאלת בגרות אמיתית מהדף ותשובת המחוון -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">בגרות · תשפ״ד (2024) · שאלה 4 · סעיף א</span> "ולא תשא עליו חטא" (ויקרא י"ט, י"ז). על פי ציטוט זה, באיזה אופן אדם צריך להוכיח את חברו?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש כאן שאלה אחת: <i>איך</i> צריך להוכיח - לפי המילים "ולא תשא עליו חטא".</li>
+          <li><b>מבינים את הציטוט.</b> "ולא תשא עליו חטא" = שהמוכיח עצמו לא ייכשל בחטא בזמן התוכחה - החטא של לבייש את החבר.</li>
+          <li><b>מחפשים בדף.</b> בכרטיס "הפסוק ואופן קיום התוכחה" כתוב: <span class="bm-quote">יש להיזהר שלא להוכיח בצורה שמביישת את החוטא</span>.</li>
+          <li><b>כותבים תשובה.</b> איך מוכיחים + למה מוכיחים כך.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית - לא מהמחוון</span></div>
+          <p>לפי הציטוט, צריך להוכיח את החבר בסתר (לא ליד אנשים אחרים) ובעדינות, כדי לא לבייש אותו - כי לבייש אדם זה חטא.</p>
+        </div>
+        <div class="hint-box" data-answer-kind="official"><b>✓ דגם התשובה:</b><p>אדם צריך להוכיח את חברו בסתר ובלשון רכה ובנחת כדי שלא לבייש את חברו.</p></div>
+        <p class="bm-example-why">✓ שתי התשובות אומרות איך מוכיחים (בסתר ובעדינות) וגם למה (כדי לא לבייש).</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">מבנה ספר החינוך - חימום</span>
         <h2 class="card-title">לפני שמתחילים: מבנה ספר החינוך</h2>
@@ -183,7 +245,7 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">על מי נוהגת המצווה, ומה דין הנמנע ממנה (המשך)</span>
         <h2 class="card-title">על מי נוהגת המצווה, ומה דין הנמנע ממנה (המשך)</h2>
@@ -196,19 +258,18 @@
         </div>
       </div>
     </section>
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">שאלות בגרות אמיתיות</span>
         <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תשע"ט – תשפ"ו)</h2>
       </div>
       <div class="card-body">
-        <p style="font-size:.85rem; color:var(--ink-soft); margin:0;">השאלות להלן נלקחו כלשונן משאלוני הבגרות שהועברו בפועל על מצווה זו, מסודרות לפי שנה. לכל סעיף יש תיבת תשובה משלו - כתבו קודם את התשובה שלכם, ואז לחצו על "הצג תשובה" כדי להשוות לדגם התשובה הרשמי.</p>
+        <p style="font-size:1rem; color:var(--ink-soft); margin:0;">השאלות להלן נלקחו כלשונן משאלוני הבגרות שהועברו בפועל על מצווה זו, מסודרות לפי שנה. לכל סעיף יש תיבת תשובה משלו - כתבו קודם את התשובה שלכם, ואז לחצו על "הצג תשובה" כדי להשוות לדגם התשובה הרשמי.</p>
             <div class="bagrut-block">
               <div class="src"><span aria-hidden="true">📝</span>בגרות · תשע״ט (2019) · שאלה 3</div>
-              <p>תשא עליו חטא" ויקרא, י"ט, י"ז.</p>
-              <p>א". הוכח תוכיח את עמיתך ולא</p>
+              <p>א. "הוכח תוכיח את עמיתך ולא תשא עליו חטא" (ויקרא, י"ט, י"ז).</p>
               <p>1. הסבר מה למדו חז"ל מכפל הלשון במילים "הוכח תוכיח".</p>
-              <p>תשא עליו חטא". 2הסבר מה למדו חז"ל ממילות הפסוק "ולא</p>
+              <p>2. הסבר מה למדו חז"ל ממילות הפסוק "ולא תשא עליו חטא".</p>
               <p>ב. כתוב שני מצבים שבהם על האדם להימנע מלהוכיח אדם אחר.</p>
               <textarea class="answer" data-id="bg1" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
               <button class="hint-btn" type="button">🔎 הצג תשובה</button>
@@ -224,8 +285,8 @@
               <div class="src"><span aria-hidden="true">📝</span>בגרות · תשפ״ג (2023) · שאלה 4</div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף א'</div>
-                <p>התורה מצווה "הוכח תוכיח את עמיתך ולא תשא עליו חטא" ויקרא י"ט, י"ז.</p>
-                <p>מדרש ההלכה שואל": יכול מוכיחו ופניו משתנות? "</p>
+                <p>התורה מצווה "הוכח תוכיח את עמיתך ולא תשא עליו חטא" (ויקרא י"ט, י"ז).</p>
+                <p>מדרש ההלכה שואל: "יכול מוכיחו ופניו משתנות?"</p>
                 <p>1. הסבירו בלשונכם את השאלה שבמדרש ההלכה.</p>
                 <p>2. כתבו את תשובת מדרש ההלכה על שאלתו.</p>
                 <p>3. על פי בעל ספר החינוך, באיזה מקרה יש לנהוג אחרת מתשובת מדרש ההלכה, וכיצד יש לנהוג במקרה שכתבתם?</p>
@@ -233,31 +294,31 @@
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
                   <b>✓ דגם התשובה:</b>
-                  <p>1 האם ראוי להוכיח אדם אף על פי שהתוכחה גורמת לו להתבייש מאד.</p>
+                  <p>1. האם ראוי להוכיח אדם אף על פי שהתוכחה גורמת לו להתבייש מאד.</p>
                   <p>2. אסור לבייש את האדם כשמוכיחים אותו.</p>
                   <p>3. אם התוכחה לא עזרה והחוטא לא חזר בו, אפשר ואף צריך לבייש אותו עד שיחזור בו.</p>
                 </div>
               </div>
               <div class="bagrut-part">
                 <div class="bagrut-part-label">סעיף ב'</div>
-                <p>" 1משורשי המצווה לפי שיש בזה שלום וטובה בין אנשים".</p>
+                <p>1. "משורשי המצווה לפי שיש בזה שלום וטובה בין אנשים".</p>
                 <p>הסבירו כיצד התוכחה מביאה ל"שלום וטובה בין אנשים".</p>
                 <p>2. יש מצבים שבהם האדם פטור מלהוכיח את חברו. ציינו אחד מהם.</p>
                 <textarea class="answer" data-id="bg3" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
                 <button class="hint-btn" type="button">🔎 הצג תשובה</button>
                 <div class="hint-box" hidden>
                   <b>✓ דגם התשובה:</b>
-                  <p>1 כאשר אדם מוכיח את חבירו והחבר מקבל את התוכחה – הם ישלימו ביניהם.</p>
+                  <p>1. כאשר אדם מוכיח את חבירו והחבר מקבל את התוכחה – הם ישלימו ביניהם.</p>
                   <p>2. אדם רשע שלא יחזור בו; במקרה שיש סכנה למוכיח. מספיקה תשובה אחת</p>
                 </div>
               </div>
             </div>
             <div class="bagrut-block">
               <div class="src"><span aria-hidden="true">📝</span>בגרות · תשפ״ד (2024) · שאלה 4</div>
-              <p>א. “ו לא ת שא ע ליו ח טא" ויקרא י"ט, י"ז.</p>
+              <p>א. "ולא תשא עליו חטא" (ויקרא י"ט, י"ז).</p>
               <p>על פי ציטוט זה, באיזה אופן אדם צריך להוכיח את חברו?</p>
-              <p>ב. 1. בביאור שורש מצווה זו כתב בעל ספר החינוך“: לפי שיש בזה שלום וטובה בין אנשים".</p>
-              <p>הסבירו כיצד מצוות תוכחה יכולה להביא “שלום וטובה בין אנשים".</p>
+              <p>ב. 1. בביאור שורש מצווה זו כתב בעל ספר החינוך: "לפי שיש בזה שלום וטובה בין אנשים".</p>
+              <p>הסבירו כיצד מצוות תוכחה יכולה להביא "שלום וטובה בין אנשים".</p>
               <p>2. מה עלול לקרות אם אדם לא יוכיח את חברו שחטא לו, ואיזו דוגמה מן התנ"ך מביא בעל ספר החינוך לכך?</p>
               <p>ג. כתבו שני מצבים שבהם על האדם להימנע מלהוכיח אדם אחר.</p>
               <textarea class="answer" data-id="bg4" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
@@ -265,28 +326,25 @@
               <div class="hint-box" hidden>
                 <b>✓ דגם התשובה:</b>
                 <p>א. אדם צריך להוכיח את חברו בסתר ובלשון רכה ובנחת כדי שלא לבייש את חברו.</p>
-                <p>ב. 1. כי בעקבות התוכחה "במסתרים" החוטא "יתנצל =יצטדק לפניו" וכשהמוכיח יקבל "התנצלותו" =הצטדקותו</p>
-                <p>ישרור שלום ביניהם.</p>
-                <p>הערה למעריכים: תלמידים שהבינו את המילים "יתנצל" ו"התנצלות" במשמעות של בקשת סליחה, יש לקבל</p>
-                <p>את תשובתם.</p>
+                <p>ב. 1. כי בעקבות התוכחה "במסתרים" החוטא "יתנצל (= יצטדק) לפניו", וכשהמוכיח יקבל "התנצלותו" (= הצטדקותו) ישרור שלום ביניהם.</p>
+                <p>הערה למעריכים: תלמידים שהבינו את המילים "יתנצל" ו"התנצלות" במשמעות של בקשת סליחה, יש לקבל את תשובתם.</p>
                 <p>2. עלולה להיות שנאה בלב הנפגע שתוביל לגרימת נזק לחוטא.</p>
                 <p>דוגמה מן התנ"ך: אבשלום שנא את אמנון בעקבות מה שעשה לתמר אחותו, ובסופו של דבר רצח אותו.</p>
-                <p>הערה למעריכים: תלמידים שכתבו בקצרה": אבשלום ואמנון" – יש לקבל את תשובתם.</p>
-                <p>ג –. כאשר המוכיח מעריך שתוכחתו לא תועיל.</p>
+                <p>הערה למעריכים: תלמידים שכתבו בקצרה: "אבשלום ואמנון" – יש לקבל את תשובתם.</p>
+                <p>ג. – כאשר המוכיח מעריך שתוכחתו לא תועיל.</p>
                 <p>– כאשר המוכיח פוחד שהחוטא יהרוג אותו.</p>
               </div>
             </div>
             <div class="bagrut-block">
               <div class="src"><span aria-hidden="true">📝</span>בגרות · תשפ״ו (2026) · שאלה 2</div>
-              <p>יח את ע מ יתך ו ל א ת שא ע ליו ח טא" ויקרא י"ט, י"ז.</p>
-              <p>א. " 1הוכ ח תוכ</p>
+              <p>א. 1. "הוכח תוכיח את עמיתך ולא תשא עליו חטא" (ויקרא י"ט, י"ז).</p>
               <p>על איזה חטא עלול המוכיח לעבור?</p>
               <p>2. על פי בעל ספר החינוך, יש שני הבדלים בין אופן התוכחה "בתחילת התוכחה" ובין אופן התוכחה לחוטא שלא חזר בו.</p>
               <p>כתבו את שני ההבדלים.</p>
-              <p>ב. בעל ספר החינוך הביא את דברי חכמים": כשם שמצווה לומר דבר הנשמע, כך מצווה לשתוק."...</p>
+              <p>ב. בעל ספר החינוך הביא את דברי חכמים: "כשם שמצווה לומר דבר הנשמע, כך מצווה לשתוק...".</p>
               <p>1. הסבירו באיזה מקרה יש מצווה לשתוק.</p>
               <p>2. מדוע יש מצווה לשתוק במקרה זה?</p>
-              <p>ג. הסבירו ל שם מה הזכיר בעל ספר החינוך בדבריו את הפסוק בנוגע לאמנון ואבשלום.</p>
+              <p>ג. הסבירו לשם מה הזכיר בעל ספר החינוך בדבריו את הפסוק בנוגע לאמנון ואבשלום.</p>
               <textarea class="answer" data-id="bg5" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
               <button class="hint-btn" type="button">🔎 הצג תשובה</button>
               <div class="hint-box" hidden>
@@ -294,29 +352,47 @@
                 <p>א. 1. המוכיח עלול לעבור על חטא של ביוש חברו.</p>
                 <p>2. שני ההבדלים:</p>
                 <p>– בתחילת התוכחה צריך להוכיח את החוטא בסתר, ואם החוטא לא חזר בו צריך להוכיח אותו ברבים.</p>
-                <p>– בתחילת התוכחה צריך להוכיח את החוטא בלשון רכה, ואם החוטא לא חזר בו צריך להוכיח אותו בדברי</p>
-                <p>חירוף.</p>
-                <p>ב. 1. יש מצווה לשתוק במקרה שלהערכת המוכיח התוכחה לא תשפיע על החוטא. או במקרה שהחוטא עלול</p>
-                <p>להרוג אותו.</p>
+                <p>– בתחילת התוכחה צריך להוכיח את החוטא בלשון רכה, ואם החוטא לא חזר בו צריך להוכיח אותו בדברי חירוף.</p>
+                <p>ב. 1. יש מצווה לשתוק במקרה שלהערכת המוכיח התוכחה לא תשפיע על החוטא. או במקרה שהחוטא עלול להרוג אותו.</p>
                 <p>2. יש מצווה לשתוק כי התוכחה תבייש את המוכיח ולא יהיה בה תועלת לחוטא. או כי התוכחה תסכן את המוכיח.</p>
-                <p>שחטא כלפיו אלא ג. בעל ספר החינוך הזכיר בדבריו פסוק זה כדי להסביר את הסכנה בכך שאדם אינו מוכיח אדם אחר</p>
-                <p>שומר את הדבר בליבו.</p>
+                <p>ג. בעל ספר החינוך הזכיר בדבריו פסוק זה כדי להסביר את הסכנה בכך שאדם אינו מוכיח אדם אחר שחטא כלפיו אלא שומר את הדבר בליבו.</p>
               </div>
             </div>
+      </div>
+    </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על מצוות תוכחה</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>המצווה:</b> להוכיח אדם מישראל שלא מתנהג כשורה - בין אדם לחברו ובין אדם למקום.</li>
+          <li><b>המקור:</b> "הוכח תוכיח את עמיתך ולא תשא עליו חטא".</li>
+          <li><b>איך?</b> בהתחלה בסתר ובעדינות, בלי לבייש. אם לא עזר - שוב ושוב, "עד הכאה".</li>
+          <li><b>למה?</b> התוכחה מביאה "שלום וטובה בין אנשים". בלי תוכחה נשארת שנאה בלב - כמו אבשלום ואמנון.</li>
+          <li><b>מתי לא?</b> כשהאדם רשע ביותר ולא ישמע, או כשיש סכנה למוכיח.</li>
+          <li><b>על מי?</b> בכל זמן ובכל מקום, בזכרים ובנקבות. מי שנמנע מלהוכיח - ביטל עשה.</li>
+        </ul>
       </div>
     </section>
   </div>
 </main>
 
 <div class="toolbar">
-  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
-  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
-  <button class="btn primary" type="button" id="directSubmitBtn">✅ שלחו למורה ישירות (בלי הורדה)</button>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="מצוות תוכחה" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
-<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
-  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
-</p>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 
 <footer class="credit">לקט מצוות · "מצוות תוכחה" · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
@@ -482,6 +558,7 @@ loadAnswers();
 })();
 </script>
 <script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 <script>
 (function(){
   var btn = document.getElementById('directSubmitBtn');
@@ -517,5 +594,8 @@ loadAnswers();
 })();
 </script>
 <script src="assets/bagrut-hints.js"></script>
+<script src="assets/guide/tochacha.js"></script>
+<script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>

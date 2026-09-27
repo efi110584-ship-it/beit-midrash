@@ -30,8 +30,13 @@
   table.answer-key thead th{ background:var(--acc-soft); color:var(--ink); font-weight:700; }
   table.answer-key td.hafan-sentence{ text-align:right; font-size:.8rem; }
 </style>
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -67,7 +72,7 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
-<main>
+<main id="main-content">
   <div class="grid" id="grid">
 
     <!-- הסבר על הגזרה -->
@@ -364,7 +369,7 @@
 
         <div class="toolbar" style="justify-content:flex-start; padding:0; margin-top:.8rem;">
           <button class="btn" type="button" id="checkAnswersBtn">✓ בדקו לי את התשובות</button>
-          <span class="check-summary" id="checkSummary"></span>
+          <span class="check-summary" id="checkSummary" role="status" aria-live="polite"></span>
         </div>
 
         <button class="hint-btn" type="button" id="answerKeyBtn" data-gated="true">🔒 הצג את כל התשובות (נדרש קוד מהמורה)</button>
@@ -387,14 +392,17 @@
   <span></span>
 </nav>
 <div class="toolbar">
-  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
-  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
-  <button class="btn primary" type="button" id="directSubmitBtn">✅ שלחו למורה ישירות (בלי הורדה)</button>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="עברית - גזרת חפ&quot;נ וחפי&quot;צ" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
-<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
-  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
-</p>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 
 <footer class="credit">עברית - גזרת חפ"נ וחפי"צ · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
@@ -569,12 +577,20 @@ function skeletonHafanAnswer(str){
 
 function checkAnswer(input){
   const correctRaw = CORRECT_ANSWERS[input.dataset.id];
-  const cell = input.nextElementSibling;
+  let cell = input.nextElementSibling;
+  if(correctRaw && !cell){
+    // בדף הזה חסר תא ה-✓/✗ ליד כל שדה (ולכן הבדיקה לא סימנה כלום) - יוצרים אותו בזמן הבדיקה
+    cell = document.createElement('span');
+    cell.className = 'check-mark';
+    cell.setAttribute('aria-hidden', 'true');
+    input.after(cell);
+  }
   if(!correctRaw || !cell) return null;
   const studentNorm = normalizeHafanAnswer(input.value);
   input.classList.remove('is-correct', 'is-wrong');
   cell.classList.remove('is-correct', 'is-wrong');
   cell.textContent = '';
+  input.removeAttribute('aria-invalid');
   if(!studentNorm) return null;
   const alternatives = correctRaw.split('/').map(s => s.trim());
   const normAlts = alternatives.map(normalizeHafanAnswer);
@@ -583,7 +599,11 @@ function checkAnswer(input){
   const isCorrect = normAlts.indexOf(studentNorm) !== -1 || skelAlts.indexOf(studentSkel) !== -1;
   input.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
   cell.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
-  cell.textContent = isCorrect ? '\u2713' : '\u2717';
+  // משוב נגיש ליד השדה: הסימן ✓/✗ מקבל גם מילים, ומקושר לשדה עצמו
+  cell.innerHTML = isCorrect ? '\u2713<span class="bm-sr-only"> - נכון</span>' : '\u2717<span class="bm-sr-only"> - לא נכון, נסו שוב</span>';
+  if(!cell.id) cell.id = 'mark-' + input.dataset.id;
+  input.setAttribute('aria-describedby', cell.id);
+  input.setAttribute('aria-invalid', isCorrect ? 'false' : 'true');
   return isCorrect;
 }
 
@@ -717,6 +737,7 @@ textareas.forEach(t => {
 })();
 </script>
 <script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 <script>
 (function(){
   var btn = document.getElementById('directSubmitBtn');
@@ -751,5 +772,7 @@ textareas.forEach(t => {
   });
 })();
 </script>
+<script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>

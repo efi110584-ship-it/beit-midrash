@@ -34,6 +34,7 @@
   }
 
   function labelFor(field){
+    if(field.dataset && field.dataset.submitLabel) return field.dataset.submitLabel;
     var labelledBy = field.getAttribute('aria-labelledby');
     if(labelledBy){
       var labelEl = document.getElementById(labelledBy);
@@ -45,13 +46,14 @@
   }
 
   /**
-   * opts: { studentName, studentClass, assignment, fields: [HTMLElement,...], notes }
+   * opts: { studentName, studentClass, assignment, fields: [HTMLElement,...], items, notes }
    * fields - רשימת שדות .answer לאסוף מהם תשובות (ריקים מדולגים).
+   * items - במקום fields: רשימה מוכנה של { label, value } (למשל בחירות במבחן אמריקאי).
    * מחזיר Promise שמתממש לתוצאת ה-fetch המפוענחת (JSON).
    */
   function sendDirectSubmission(opts){
-    var items = opts.fields
-      .map(function(f){ return { label: labelFor(f), value: (f.value || '').trim() }; })
+    var items = (opts.items || opts.fields
+      .map(function(f){ return { label: labelFor(f), value: (f.value || '').trim() }; }))
       .filter(function(item){ return item.value.length > 0; });
 
     if(items.length === 0){

@@ -63,6 +63,7 @@
     background:var(--card); border:2px solid var(--border); border-radius:12px;
     padding:.85rem 1rem; margin-bottom:.7rem; cursor:pointer; font-size:.98rem; font-weight:600;
     transition:all .15s ease; min-height:3.4rem; display:flex; align-items:center;
+    width:100%; text-align:right; font-family:inherit; line-height:1.5; color:var(--ink);
   }
   .match-card:hover{ border-color:var(--navy); }
   .match-card:focus-visible{ outline:3px solid var(--navy); outline-offset:2px; }
@@ -76,6 +77,11 @@
     margin-left:.6rem; flex:none;
   }
   .match-card.correct .qnum{ background:var(--green); color:#fff; }
+  /* משוב כתוב לכל ניסיון - גלוי לכולם ומוקרא בקורא מסך (aria-live) */
+  .game-feedback{ min-height:1.7em; margin:.1rem 0 .3rem; text-align:center; font-weight:800; font-size:1.05rem; color:var(--ink-soft); }
+  .game-feedback.good{ color:var(--green); }
+  .game-feedback.bad{ color:var(--red); }
+  h2[tabindex="-1"]:focus{ outline:none; }
 
   /* win screen */
   #winScreen{ text-align:center; padding:1.5rem 1rem; }
@@ -128,8 +134,11 @@
   }
   .to-top-btn.show{ opacity:1; pointer-events:auto; }
 </style>
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -143,7 +152,7 @@
   <span class="current">משחק התאמה</span>
 </nav>
 
-<div class="wrap">
+<div class="wrap" id="main-content" role="main">
 
   <header>
     <h1>🧩 ספר יונה (פרקים א׳-ב׳) — משחק התאמה: שאלה ותשובה</h1>
@@ -161,18 +170,19 @@
   <section id="gameScreen" class="screen">
     <button class="back-btn" id="toTopicsBtn" type="button">→ בחירת נושא אחר</button>
     <div class="team-bar">
-      <div><label>שם הקבוצה / שם התלמיד: </label><input type="text" id="teamName" placeholder="לדוגמה: קבוצה 1, או השם שלך"></div>
+      <div><label for="teamName">שם הקבוצה / שם התלמיד: </label><input type="text" id="teamName" placeholder="לדוגמה: קבוצה 1, או השם שלך"></div>
       <div class="stat">ניסיונות: <span id="triesCount">0</span></div>
       <div class="stat">✓ <span id="matchedCount">0</span> / 4</div>
     </div>
+    <p id="gameFeedback" class="game-feedback" role="status" aria-live="polite"></p>
     <div class="board">
       <div>
-        <div class="col-label">שאלות</div>
-        <div id="qCol"></div>
+        <div class="col-label" id="qColLabel">שאלות</div>
+        <div id="qCol" role="group" aria-labelledby="qColLabel"></div>
       </div>
       <div>
-        <div class="col-label">תשובות</div>
-        <div id="aCol"></div>
+        <div class="col-label" id="aColLabel">תשובות</div>
+        <div id="aCol" role="group" aria-labelledby="aColLabel"></div>
       </div>
     </div>
   </section>
@@ -261,6 +271,23 @@ let lastTeamName = "";
 function showScreen(el){
   [topicScreen, gameScreen, winScreen, reviewScreen].forEach(s => s.classList.remove("active"));
   el.classList.add("active");
+  // מעבירים את הפוקוס למסך החדש - אחרת משתמש מקלדת/קורא מסך נשאר על כפתור שנעלם
+  const target = el.querySelector("h2, .match-card, .topic-tile");
+  if(target){
+    if(target.tagName === "H2") target.setAttribute("tabindex", "-1");
+    target.focus();
+  }
+}
+
+const feedbackEl = document.getElementById("gameFeedback");
+function announce(msg, kind){
+  feedbackEl.textContent = msg;
+  feedbackEl.className = "game-feedback" + (kind ? " " + kind : "");
+}
+
+function setPressed(el, on){
+  el.classList.toggle("selected", on);
+  el.setAttribute("aria-pressed", on ? "true" : "false");
 }
 
 function renderTopics(){
@@ -303,48 +330,67 @@ function startGame(key){
   aCol.innerHTML = "";
 
   qOrder.forEach(i => {
-    const div = document.createElement("div");
-    div.className = "match-card";
-    div.dataset.index = i;
-    div.dataset.side = "q";
-    div.innerHTML = `<span class="qnum">${i + 1}</span><span>${currentTopic.qa[i][0]}</span>`;
-    div.addEventListener("click", () => selectCard(div, "q", i));
-    qCol.appendChild(div);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "match-card";
+    btn.dataset.index = i;
+    btn.dataset.side = "q";
+    btn.setAttribute("aria-pressed", "false");
+    btn.innerHTML = `<span class="qnum" aria-hidden="true">${i + 1}</span><span class="bm-sr-only">שאלה ${i + 1}: </span><span>${currentTopic.qa[i][0]}</span>`;
+    btn.addEventListener("click", () => selectCard(btn, "q", i));
+    qCol.appendChild(btn);
   });
   order.forEach(i => {
-    const div = document.createElement("div");
-    div.className = "match-card";
-    div.dataset.index = i;
-    div.dataset.side = "a";
-    div.textContent = currentTopic.qa[i][1];
-    div.addEventListener("click", () => selectCard(div, "a", i));
-    aCol.appendChild(div);
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "match-card";
+    btn.dataset.index = i;
+    btn.dataset.side = "a";
+    btn.setAttribute("aria-pressed", "false");
+    const srLabel = document.createElement("span");
+    srLabel.className = "bm-sr-only";
+    srLabel.textContent = "תשובה: ";
+    btn.append(srLabel, currentTopic.qa[i][1]);
+    btn.addEventListener("click", () => selectCard(btn, "a", i));
+    aCol.appendChild(btn);
   });
 
+  announce("בחרו שאלה, ואחר כך את התשובה שמתאימה לה.");
   showScreen(gameScreen);
+}
+
+function markCorrect(el){
+  el.classList.add("correct");
+  el.setAttribute("aria-disabled", "true");
+  el.removeAttribute("aria-pressed");
+  const done = document.createElement("span");
+  done.className = "bm-sr-only";
+  done.textContent = " - הותאם נכון";
+  el.appendChild(done);
 }
 
 function selectCard(el, side, index){
   if(el.classList.contains("correct")) return;
   if(side === "q"){
-    if(selectedQ) selectedQ.el.classList.remove("selected");
+    if(selectedQ) setPressed(selectedQ.el, false);
     selectedQ = { el, index };
-    el.classList.add("selected");
+    setPressed(el, true);
   } else {
-    if(selectedA) selectedA.el.classList.remove("selected");
+    if(selectedA) setPressed(selectedA.el, false);
     selectedA = { el, index };
-    el.classList.add("selected");
+    setPressed(el, true);
   }
   if(selectedQ && selectedA){
     tries++;
     triesCountEl.textContent = String(tries);
     if(selectedQ.index === selectedA.index){
-      selectedQ.el.classList.remove("selected");
-      selectedA.el.classList.remove("selected");
-      selectedQ.el.classList.add("correct");
-      selectedA.el.classList.add("correct");
+      setPressed(selectedQ.el, false);
+      setPressed(selectedA.el, false);
+      markCorrect(selectedQ.el);
+      markCorrect(selectedA.el);
       matched++;
       matchedCountEl.textContent = String(matched);
+      announce(`✓ נכון! ההתאמה נכונה - ${matched} מתוך 4 הותאמו.`, "good");
       selectedQ = null; selectedA = null;
       if(matched === 4){
         lastTeamName = teamNameInput.value.trim();
@@ -353,12 +399,15 @@ function selectCard(el, side, index){
     } else {
       const qEl = selectedQ.el, aEl = selectedA.el;
       qEl.classList.add("wrong"); aEl.classList.add("wrong");
+      announce(`✗ לא מתאים (ניסיון ${tries}). נסו זוג אחר.`, "bad");
       setTimeout(() => {
-        qEl.classList.remove("selected", "wrong");
-        aEl.classList.remove("selected", "wrong");
+        qEl.classList.remove("wrong"); aEl.classList.remove("wrong");
+        setPressed(qEl, false); setPressed(aEl, false);
       }, 500);
       selectedQ = null; selectedA = null;
     }
+  } else {
+    announce(side === "q" ? "נבחרה שאלה - עכשיו בחרו את התשובה המתאימה." : "נבחרה תשובה - עכשיו בחרו את השאלה המתאימה.");
   }
 }
 

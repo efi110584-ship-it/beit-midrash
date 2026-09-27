@@ -8,8 +8,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -52,17 +57,13 @@
   <a class="chip-link" href="https://youtu.be/3Yvoumg-J1k?si=QVFixWFZGu8_nx35" target="_blank" rel="noopener"><span class="chip-icon" aria-hidden="true">🎥</span>צפייה בסרטון על פרק א׳</a>
   <a class="chip-link" href="https://www.canva.com/design/DAHECoh4BAM/B7uaqqaneiPFEzt_G2WURg/view?utm_content=DAHECoh4BAM&amp;utm_campaign=designshare&amp;utm_medium=link&amp;utm_source=viewer" target="_blank" rel="noopener"><span class="chip-icon" aria-hidden="true">💥</span>מצגת קומיקס - פרק א׳-ב׳</a>
   <a class="chip-link" href="yonah-1-2-flowchart.html"><span class="chip-icon" aria-hidden="true">🗺️</span>תרשים זרימה עם הפרשנים</a>
-  <a class="chip-link" href="yonah-1-2-matching-game.html"><span class="chip-icon" aria-hidden="true">🧩</span>משחק התאמה כיתתי - שאלה מול תשובה</a>
-  <a class="chip-link" href="yonah-1-2-wheel.html"><span class="chip-icon" aria-hidden="true">🎡</span>גלגל המזל לתרגול</a>
-  <a class="chip-link" href="yonah-1-2-flashcards.html"><span class="chip-icon" aria-hidden="true">🗂️</span>כרטיסיות לחזרה</a>
-  <a class="chip-link" href="yonah-1-2-escape-room.html"><span class="chip-icon" aria-hidden="true">🔓</span>חדר בריחה</a>
 </p>
 
-<main>
-  <div class="grid" id="grid">
+<main id="main-content">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הסיפור לפני השאלות -->
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק א׳?</h2>
@@ -88,8 +89,34 @@
       </div>
     </section>
 
+    <!-- דוגמה פתורה (שלב ג׳): שאלת בגרות אמיתית ותשובת המחוון, מתוך דף שאלות הבגרות של יונה -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">בגרות · תשפ"ה (2025), חורף · שאלה 11 · סעיף א(1)</span> בספר יונה מתוארות שתי קבוצות של אנשים שחל בהם שינוי. על פי פרק א׳, כתבו מי היא הקבוצה שחל בה שינוי, מהו השינוי, ומה גרם לשינוי זה.</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש כאן שלושה חלקים: (1) מי השתנה? (2) מה השתנה? (3) מה גרם לשינוי?</li>
+          <li><b>מבינים את מילות ההוראה.</b> "על פי פרק א׳" = התשובה נמצאת בפרק א׳. "כתבו" = לכתוב בקצרה ובבירור.</li>
+          <li><b>מחפשים בפסוקים.</b> בהתחלה (פסוק ה׳): <span class="bm-quote">וַיִּירְאוּ הַמַּלָּחִים וַיִּזְעֲקוּ אִישׁ אֶל־אֱלֹהָיו...</span> ובסוף (פסוק ט״ז): <span class="bm-quote">וַיִּירְאוּ הָאֲנָשִׁים יִרְאָה גְדוֹלָה אֶת־יְהוָה; וַיִּזְבְּחוּ־זֶבַח לַיהוָה וַיִּדְּרוּ נְדָרִים.</span> ומה קרה ביניהם? המלחים הטילו את יונה לים - והים נרגע מיד.</li>
+          <li><b>כותבים לפי שלושת החלקים.</b> מי, מה השתנה, ומה גרם לכך.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית - לא מהמחוון</span></div>
+          <p>הקבוצה: המלחים. השינוי: בהתחלה כל אחד מהם זעק אל האל שלו, ובסוף הם יראו את ה׳, זבחו לו זבח ונדרו נדרים - הם חזרו בתשובה. מה גרם לשינוי: הים נרגע מיד אחרי שהטילו את יונה לים.</p>
+        </div>
+        <div class="bm-answer-card" data-kind="official">
+          <div class="bm-answer-head" data-kind="official"><span class="bm-answer-badge">✅ תשובת המחוון הרשמית</span><span class="bm-answer-sub">כך כתוב במחוון של הבחינה</span></div>
+          <p>המלחים חזרו בתשובה, בעקבות כך שהים נרגע לאחר הטלת יונה לים.</p>
+        </div>
+        <p class="bm-example-why">✓ שתי התשובות עונות על שלושת החלקים - מי, מה השתנה ומה גרם לכך. תשובת המחוון קצרה; התשובה לדוגמה מוסיפה את הפסוקים.</p>
+      </div>
+    </section>
+
     <!-- 1: מבוא -->
-    <section class="card">
+    <section class="card" data-stage="guided">
       <div class="card-head">
         <span class="card-tag">מבוא</span>
         <h2 class="card-title">יונה בן אמיתי ותקופתו</h2>
@@ -102,6 +129,8 @@
             <span class="q-text" id="a11y-lbl-1">מה לומדים מן המקור על יונה: שמו, מהיכן בא, מתי התנבא ומה ניבא?</span>
           </div>
           <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה אפשרית:</b> שמו: יונה בן אמיתי, הנביא. מקומו: מגת החפר. זמנו: בימי ירבעם בן יואש, מלך ישראל. מה ניבא: שירבעם ישיב את גבול ישראל "מלבוא חמת עד ים הערבה" - כלומר, ניבא על הצלה והרחבה של גבולות ישראל.</div>
         </div>
       </div>
     </section>
@@ -121,10 +150,14 @@
         <div class="question-block">
           <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מה מלמד הכתוב בפרק א׳, פסוק ב׳, על נינווה?</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..." style="min-height:70px;"></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה אפשרית:</b> נינווה היא "הָעִיר הַגְּדוֹלָה" - עיר גדולה וחשובה. ואנשיה חטאו: "כִּי־עָלְתָה רָעָתָם לְפָנָי" - הרשעות שלהם הגיעה עד ה׳.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">א. מהו הקושי שמעלה רד״ק? ב. מהן שתי התשובות שהוא עונה?</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..." style="min-height:175px;"></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה אפשרית:</b> א. הקושי: למה נכתבה נבואה זו בכתבי הקודש, כשכולה על נינווה - עיר של אומות העולם, ולא על ישראל? ב. תשובה ראשונה: היא נכתבה "להיות מוסר לישראל" - שילמדו מהגויים שחזרו בתשובה. תשובה שנייה: ללמד שה׳ חומל על בעלי תשובה מכל עם שהוא ומוחל להם - וכל שכן כשהם רבים.</div>
         </div>
       </div>
     </section>
@@ -141,10 +174,12 @@
           <span class="src">רד״ק, פרק א׳, פסוק ג׳:</span>
           <q>והיה ממאן ללכת בזה השליחות כי אמר יונה, הגויים קרובים לתשובה הם, ואם אלך אליהם... ישובו מדרכיהם הרעים ויחייבו ישראל... ואינם שבים מדרכם הרעה.</q>
         </div>
-        <div class="choice-note">✏️ שני הסברים שונים לאותה שאלה - ענו לפחות על <b>אחד</b> מהם (אפשר גם על שניהם, אם תרצו).</div>
+        <div class="choice-note" data-choose="1">✏️ שני הסברים שונים לאותה שאלה - ענו לפחות על <b>אחד</b> מהם (אפשר גם על שניהם, אם תרצו).</div>
         <div class="question-block">
           <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">מדוע ממאן יונה למלא את השליחות — לפי רד״ק?</span><span class="choice-chip">לבחירה</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה אפשרית:</b> לפי רד"ק, יונה ידע שהגויים "קרובים לתשובה" - אם ילך אליהם, הם ישובו מיד מדרכם הרעה, ובכך "יחייבו ישראל" (תשובתם תהיה קטרוג על ישראל), כי ישראל "אינם שבים מדרכם הרעה". יונה לא רצה לגרום לכך.</div>
         </div>
         <div class="meforesh-block">
           <span class="src">ר׳ יצחק אברבנאל:</span>
@@ -153,6 +188,8 @@
         <div class="question-block">
           <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מדוע ממאן יונה למלא את השליחות — לפי ר׳ יצחק אברבנאל?</span><span class="choice-chip">לבחירה</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה אפשרית:</b> לפי אברבנאל, יונה הבין שאם ילך ונינווה תחזור בתשובה - בני אשור יינצלו, ובעתיד הם יכריתו (ישמידו) את בני ישראל. יונה לא רצה שהליכתו תהיה הסיבה "להציל את בני אשור ולהכרית את בני ישראל".</div>
         </div>
       </div>
     </section>
@@ -176,6 +213,8 @@
         <div class="question-block">
           <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">מדוע חשב יונה שיוכל לברוח מה׳, ומה ההבדל בין בריחה ׳מפני ה׳׳ לבריחה ׳מלפני ה׳׳?</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..." style="min-height:120px;"></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה אפשרית:</b> יונה לא חשב שאפשר לברוח מה׳ עצמו. לפי רד"ק, הוא חשב שאם יצא מארץ ישראל לחוץ לארץ - לא תשרה עליו רוח נבואה, ולא יצטרך למלא את השליחות (וכך גם במכילתא: "מקום שאין השכינה נגלית"). ההבדל: בריחה "מפני ה׳" היא בריחה מה׳ עצמו - ודבר כזה אי אפשר. בריחה "מלפני ה׳" היא בריחה מהמקום שבו ה׳ מתגלה בנבואה - מארץ ישראל.</div>
         </div>
       </div>
     </section>
@@ -198,18 +237,24 @@
           <span class="src">מן החוברת:</span>
           בתיאור המלחים חוזר השורש י־ר־א, ובתיאור יונה חוזר השורש י־ר־ד. בשעה שיונה יורד ומתרחק, המלחים פועלים ומתקרבים אל ה׳.
         </div>
-        <div class="choice-note">✏️ בחרו לפחות <b>2</b> מתוך <b>3</b> השאלות הבאות.</div>
+        <div class="choice-note" data-choose="2">✏️ בחרו לפחות <b>2</b> מתוך <b>3</b> השאלות הבאות.</div>
         <div class="question-block">
           <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">סמנו את המילים המתארות את יראת המלחים, והסבירו כיצד היא מתגברת.</span><span class="choice-chip">לבחירה</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..." style="min-height:130px;"></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה אפשרית:</b> המילים: בפסוק ה׳ - "וַיִּירְאוּ הַמַּלָּחִים"; בפסוק י׳ - "וַיִּירְאוּ הָאֲנָשִׁים יִרְאָה גְדוֹלָה"; בפסוק ט״ז - "וַיִּירְאוּ הָאֲנָשִׁים יִרְאָה גְדוֹלָה אֶת־יְהוָה". היראה מתגברת: בהתחלה המלחים מפחדים מהסערה; אחר כך - "יראה גדולה", כשהם מבינים שיונה בורח מה׳; ובסוף - "יראה גדולה את ה׳": הפחד הופך ליראת ה׳, והם זובחים לו זבח ונודרים נדרים.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">תכלית ההשוואה — מה נוכל ללמוד מן הניגוד בין יונה למלחים?</span><span class="choice-chip">לבחירה</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q8" placeholder="כתבו כאן את התשובה..." style="min-height:120px;"></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה אפשרית:</b> מהניגוד לומדים שדווקא המלחים, שהם גויים, מתקרבים לה׳ ויראים ממנו, ואילו יונה - הנביא - יורד ומתרחק ממנו. ההשוואה מבליטה את הביקורת על יונה, ומלמדת שגם גויים יכולים לשוב אל ה׳.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-9">מהו הניגוד בין התנהגות האנשים שבאונייה לבין התנהגותו של יונה בפרק?</span><span class="choice-chip">לבחירה</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q9" placeholder="כתבו כאן את התשובה..." style="min-height:105px;"></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה אפשרית:</b> המלחים פעילים: הם יראים, כל אחד זועק אל אלוהיו, הם מנסים לחתור אל היבשה, ובסוף קוראים אל ה׳. ואילו יונה סביל: הוא יורד אל ירכתי הספינה, "וַיִּשְׁכַּב וַיֵּרָדַם" - עד שרב החובל צריך לומר לו "קוּם קְרָא אֶל־אֱלֹהֶיךָ".</div>
         </div>
       </div>
     </section>
@@ -228,6 +273,8 @@
         <div class="question-block">
           <div class="question-row"><span class="q-num">10</span><span class="q-text" id="a11y-lbl-10">לפי המדרש, באילו דרכים ניסו המלחים להימנע מהשלכת יונה, ומה מלמד הדבר עליהם?</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-10" data-id="q10" placeholder="כתבו כאן את התשובה..." style="min-height:130px;"></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה אפשרית:</b> המלחים לא רצו להשליך את יונה: הם הפילו גורלות, השליכו את הכלים שבאנייה לים, ניסו לחתור אל היבשה, ואחר כך הטילו אותו רק עד הברכיים ("עד ארכובותיו") והחזירו אותו אליהם - ורק כשהים שב לסעור, הטילו אותו כולו. זה מלמד שהמלחים היו אנשים מוסריים, שחסו על חיי אדם ועשו כל מה שיכלו כדי לא לפגוע ביונה.</div>
         </div>
       </div>
     </section>
@@ -244,10 +291,12 @@
           <span class="src">רבי נתן, מכילתא דפסחא, א׳:</span>
           <q>רבי נתן אומר: לא הלך יונה אלא לאבד עצמו בים... וכן תמצא האבות והנביאים, היו נותנים עצמם על ישראל.</q>
         </div>
-        <div class="choice-note">✏️ בחרו לפחות <b>2</b> מתוך <b>3</b> השאלות הבאות.</div>
+        <div class="choice-note" data-choose="2">✏️ בחרו לפחות <b>2</b> מתוך <b>3</b> השאלות הבאות.</div>
         <div class="question-block">
           <div class="question-row"><span class="q-num">11</span><span class="q-text" id="a11y-lbl-11">כיצד מתייחס רבי נתן להתנהגותו של יונה?</span><span class="choice-chip">לבחירה</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-11" data-id="q11" placeholder="כתבו כאן את התשובה..." style="min-height:80px;"></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה אפשרית:</b> רבי נתן משבח את יונה: לדעתו יונה הלך לים כדי לאבד את עצמו - למסור את נפשו למען ישראל, כמו האבות והנביאים, ש"היו נותנים עצמם על ישראל".</div>
         </div>
         <div class="meforesh-block">
           <span class="src">חכמים, מכילתא:</span>
@@ -256,10 +305,14 @@
         <div class="question-block">
           <div class="question-row"><span class="q-num">12</span><span class="q-text" id="a11y-lbl-12">כיצד מתייחסים חכמים להתנהגותו של יונה?</span><span class="choice-chip">לבחירה</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-12" data-id="q12" placeholder="כתבו כאן את התשובה..." style="min-height:110px;"></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה אפשרית:</b> חכמים מבקרים את יונה: הוא דאג לכבוד "הבן" - עם ישראל, ולא לכבוד "האב" - ה׳, שציווה עליו ללכת. לכן נענש: ה׳ דיבר איתו רק פעם שנייה ("ויהי דבר ה׳ אל יונה שנית") - ולא פעם שלישית.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="q-num">13</span><span class="q-text" id="a11y-lbl-13">כתבו את נקודת המחלוקת בין רבי נתן לבין חכמים.</span><span class="choice-chip">לבחירה</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-13" data-id="q13" placeholder="כתבו כאן את התשובה..." style="min-height:90px;"></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה אפשרית:</b> שניהם מסכימים שיונה פעל למען עם ישראל. המחלוקת היא אם זה היה ראוי: לדעת רבי נתן - זו מסירות נפש שראויה לשבח, כמו של האבות והנביאים; לדעת חכמים - זו טעות, כי היה עליו לדאוג קודם כול לכבוד ה׳, ולכן נענש.</div>
         </div>
       </div>
     </section>
@@ -280,12 +333,14 @@
         <div class="question-block">
           <div class="question-row"><span class="q-num">14</span><span class="q-text" id="a11y-lbl-14">מהו הבסיס בכתוב לדברי חכמי המדרש? מפו את התהליך שעבר יונה באמצעות הפעלים החוזרים.</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-14" data-id="q14" placeholder="כתבו כאן את התשובה..." style="min-height:120px;"></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה אפשרית:</b> הבסיס בכתוב: הפועל י־ר־ד חוזר שוב ושוב, והוא מראה שיונה "יורד" - מתרחק מה׳ שלב אחר שלב. המיפוי: ה׳ אומר "קוּם לֵךְ" (פסוק ב׳) ← יונה קם - אבל כדי לברוח ← "וַיֵּרֶד יָפוֹ" ← "וַיֵּרֶד בָּהּ" (לאנייה) ← "יָרַד אֶל־יַרְכְּתֵי הַסְּפִינָה" ← "וַיִּשְׁכַּב וַיֵּרָדַם" (גם "וירדם" נשמע כמו "ירד") ← רב החובל אומר לו שוב "קוּם קְרָא" (פסוק ו׳). יונה מתבקש לקום - ובמקום זה הוא יורד עוד ועוד.</div>
         </div>
       </div>
     </section>
 
     <!-- 9: תפילות המלחים -->
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">שאלות חזרה · פרק א׳</span>
         <h2 class="card-title">תפילות המלחים</h2>
@@ -298,6 +353,8 @@
         <div class="question-block">
           <div class="question-row"><span class="q-num">15</span><span class="q-text" id="a11y-lbl-15">אל מי מתפללים המלחים בפסוק ה׳, ואל מי מופנית התפילה בפסוק י״ד?</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-15" data-id="q15" placeholder="כתבו כאן את התשובה..." style="min-height:65px;"></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה אפשרית:</b> בפסוק ה׳ - כל אחד מהמלחים מתפלל לאל שלו: "וַיִּזְעֲקוּ אִישׁ אֶל־אֱלֹהָיו". בפסוק י״ד - כולם מתפללים לה׳: "וַיִּקְרְאוּ אֶל־יְהוָה". מכאן רואים שהמלחים התקרבו לה׳.</div>
         </div>
       </div>
     </section>
@@ -316,7 +373,80 @@
         <div class="question-block">
           <div class="question-row"><span class="q-num">16</span><span class="q-text" id="a11y-lbl-16">עיינו בפסוקים א׳ וי״א: כיצד משמש הדג כשליח ה׳ בתחילת הפרק ובסופו?</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-16" data-id="q16" placeholder="כתבו כאן את התשובה..." style="min-height:100px;"></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה אפשרית:</b> בתחילת הפרק ה׳ ממנה את הדג לבלוע את יונה: "וַיְמַן יְהוָה דָּג גָּדוֹל לִבְלֹעַ אֶת־יוֹנָה" - וכך יונה לא טובע בים. בסוף הפרק ה׳ אומר לדג, והדג מקיא את יונה אל היבשה: "וַיֹּאמֶר יְהוָה לַדָּג; וַיָּקֵא אֶת־יוֹנָה אֶל־הַיַּבָּשָׁה". בשתי הפעמים הדג עושה בדיוק מה שה׳ מצווה - הוא שליח של ה׳.</div>
         </div>
+      </div>
+    </section>
+
+    <!-- שאלת בגרות (שלב ג׳): הועתקה כלשונה, עם תשובת המחוון, מדף שאלות הבגרות של יונה -->
+    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎓 שאלת בגרות</span>
+        <h2 class="card-title">שאלת בגרות על פרק א׳</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-source-note">השאלה והתשובות הועתקו כלשונן מדף "שאלות בגרות אמיתיות" של ספר יונה.</p>
+        <div class="exam-tag">📅 תשפ"א (2021), קיץ · שאלה 10</div>
+        <div class="pasuk-block mini">יונה, פרק א׳</div>
+        <div class="question-block">
+          <div class="question-row"><span class="part-label">א(1)</span><span class="q-text" id="bg-lbl-1">מדוע סירב יונה למלא את שליחותו להגיד את דבר ה׳ לנינווה? ("ויקם יונה לברוח תרשישה מלפני ה׳", פסוק ג׳)</span></div>
+          <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה:</b> ידע שהגויים יחזרו בתשובה ולא רצה שיהיה קטרוג על עם ישראל. ידע שנינווה היא בירת אשור שעתידה להגלות את ישראל. יונה התנגד לרעיון התשובה.</div>
+        </div>
+        <div class="question-block sub-q">
+          <div class="question-row"><span class="part-label">א(2)</span><span class="q-text" id="bg-lbl-2">על פי מה שלמדתם, מהו הקושי המתעורר בעקבות התנהגותו של יונה, ומהו היישוב של קושי זה? (8 נקודות)</span></div>
+          <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה:</b> הקושי: איך יונה הנביא חשב שאפשר לברוח מה׳? היישוב: הוא לא ברח מה׳ עצמו, אלא ברח לחו"ל כדי שלא יקבל שם את נבואת ה׳.</div>
+        </div>
+        <div class="question-block sub-q">
+          <div class="question-row"><span class="part-label">ב(1)</span><span class="q-text" id="bg-lbl-3">עיינו בפסוקים ד׳-ו׳. מהו הניגוד בין התגובה של המלחים על הסערה לבין ההתנהגות של יונה?</span></div>
+          <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה:</b> המלחים מנסים להינצל מן הסערה באמצעות תפילה והשלכת חפצים; יונה מגלה אדישות ונרדם.</div>
+        </div>
+        <div class="question-block sub-q">
+          <div class="question-row"><span class="part-label">ב(2)</span><span class="q-text" id="bg-lbl-4">עיינו בפסוקים י׳-ט"ז. הביאו ראיה אחת לכך שליונה אכפת מחייהם של המלחים, וראיה אחת לכך שלמלחים אכפת מחייו של יונה. (8 נקודות)</span></div>
+          <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          <button class="hint-btn" type="button" data-bm-toggle>🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה:</b> יונה מציע להם להשליך אותו לים כדי שיצילו את עצמם. המלחים מנסים להימנע מהצעתו ומנסים לחתור אל החוף, וגם מתפללים לה׳ שלא ייענשו על שהם משליכים אותו לים.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו בפרקים א׳-ב׳</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>השליחות:</b> ה׳ שלח את יונה לנינווה, "העיר הגדולה" שאנשיה חטאו - ויונה ברח לתרשיש, לכיוון ההפוך.</li>
+          <li><b>למה ברח?</b> לפי רד"ק - כי הגויים קרובים לתשובה, ותשובתם תחייב את ישראל שאינם שבים. לפי אברבנאל - כי הליכתו תציל את בני אשור, וזה יביא בסוף להכרתת בני ישראל.</li>
+          <li><b>"מלפני ה׳":</b> יונה לא חשב שאפשר לברוח מה׳ עצמו. הוא ברח מהנבואה - חשב שבחוץ לארץ לא תשרה עליו רוח נבואה.</li>
+          <li><b>יונה והמלחים:</b> יונה "יורד" שוב ושוב (ליפו, לאנייה, לירכתי הספינה, לשינה), ואילו המלחים מתקרבים לה׳ - מפחד הסערה ועד "יראה גדולה את ה׳".</li>
+          <li><b>שתי דעות על יונה:</b> רבי נתן משבח אותו - כמו האבות והנביאים, מסר את נפשו על ישראל. חכמים מבקרים אותו - תבע כבוד הבן ולא כבוד האב.</li>
+          <li><b>הדג:</b> שליח של ה׳ - בולע את יונה, ובסוף מקיא אותו אל היבשה.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎮 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - תרגול בדרך של משחק</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר גם במשחק:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="yonah-1-2-matching-game.html"><span class="chip-icon" aria-hidden="true">🧩</span>משחק התאמה כיתתי - שאלה מול תשובה</a>
+          <a class="chip-link" href="yonah-1-2-wheel.html"><span class="chip-icon" aria-hidden="true">🎡</span>גלגל המזל לתרגול</a>
+          <a class="chip-link" href="yonah-1-2-flashcards.html"><span class="chip-icon" aria-hidden="true">🗂️</span>כרטיסיות לחזרה</a>
+          <a class="chip-link" href="yonah-1-2-escape-room.html"><span class="chip-icon" aria-hidden="true">🔓</span>חדר בריחה</a>
+        </p>
       </div>
     </section>
 
@@ -329,14 +459,17 @@
   <a href="yonah-3.html">לפרק הבא (פרק ג׳) ←</a>
 </nav>
 <div class="toolbar">
-  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
-  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
-  <button class="btn primary" type="button" id="directSubmitBtn">✅ שלחו למורה ישירות (בלי הורדה)</button>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="יונה פרקים א&#x27;-ב&#x27;" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
-<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
-  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
-</p>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 
 <footer class="credit">ספר יונה, פרקים א׳–ב׳ · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
@@ -502,6 +635,7 @@ loadAnswers();
 })();
 </script>
 <script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 <script>
 (function(){
   var btn = document.getElementById('directSubmitBtn');
@@ -536,5 +670,8 @@ loadAnswers();
   });
 })();
 </script>
+<script src="assets/guide/yonah-1-2.js"></script>
+<script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>

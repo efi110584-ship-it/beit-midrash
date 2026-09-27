@@ -35,7 +35,6 @@
   --font-display: "Frank Ruhl Libre", "David Libre", serif;
   --font-body: "Heebo", "Arial Hebrew", sans-serif;
   --font-scale: 1;
-  --letter-extra: 0em;
 }
 
 html{ font-size: calc(100% * var(--font-scale)); scroll-behavior: smooth; }
@@ -50,7 +49,6 @@ body{
     var(--paper);
   color:var(--text);
   font-family:var(--font-body);
-  letter-spacing:var(--letter-extra);
   line-height:1.6;
 }
 h1,h2,h3{ font-family:var(--font-display); color:var(--ink); margin:0; }
@@ -104,7 +102,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
   display:flex; flex-wrap:wrap; gap:1.75rem;
 }
 .a11y-group{ border:0; padding:0; margin:0; display:flex; flex-direction:column; gap:0.4rem; }
-.a11y-group legend{ color:#C9C2AE; font-size:0.8rem; margin-bottom:0.2rem; padding:0; }
+.a11y-group legend{ color:#C9C2AE; font-size:0.95rem; margin-bottom:0.2rem; padding:0; }
 .a11y-group > div, .a11y-group{ }
 .a11y-group button{
   background:#2E3E64; color:#fff; border:1px solid #4B5C86;
@@ -120,7 +118,7 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 .class-chip{
   background:transparent; border:1.5px solid #6C7899; color:#F4EFE2;
   padding:.5rem 1.05rem; border-radius:999px; cursor:pointer; font-weight:600;
-  font-size:.85rem; font-family:var(--font-body); min-height:38px;
+  font-size:1rem; font-family:var(--font-body); min-height:44px;
   display:inline-flex; align-items:center; gap:.4rem;
   transition: background .2s ease, color .2s ease, border-color .2s ease;
 }
@@ -131,64 +129,74 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 
 /* ===== Results (יחידות הלימוד) - קוביות קטנות, גלויות מיד בלי לגלול ===== */
 .results-wrap{ max-width:1100px; margin:0 auto; padding:1rem 1.25rem 3rem; }
-.status-line{ color:var(--text-soft); margin-bottom:.7rem; font-size:0.85rem; }
+.status-line{ color:var(--text-soft); margin-bottom:.7rem; font-size:0.95rem; }
 .loading-msg, .empty-msg{ color:var(--text-soft); padding:2.5rem 0; text-align:center; font-size:1.05rem; }
 
 .class-section{ margin-bottom:1.4rem; }
 .class-section > h2{ font-size:1.1rem; border-bottom:2px solid var(--gold); padding-bottom:0.3rem; margin-bottom:0.7rem; }
-.unit-category{ font-size:.8rem; font-weight:800; color:var(--text-soft); text-transform:none; margin:1rem 0 0.4rem; padding-inline-start:0.1rem; }
+.unit-category{ font-size:.95rem; font-weight:800; color:var(--text-soft); text-transform:none; margin:1rem 0 0.4rem; padding-inline-start:0.1rem; }
 .unit-category:first-of-type{ margin-top:0; }
 
-.unit-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(84px,1fr)); gap:0.5rem; }
-
-@keyframes cardIn{ from{ opacity:0; transform: translateY(8px); } to{ opacity:1; transform: translateY(0); } }
+.unit-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:0.6rem; }
 
 .unit-tile{
   background:var(--paper-card); border:1px solid var(--border); border-top:3px solid var(--gold);
   border-radius:var(--radius);
-  padding:0.55rem 0.4rem; min-height:78px;
+  padding:0.65rem 0.5rem; min-height:96px;
   display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:0.15rem;
   box-shadow:var(--shadow); text-decoration:none; color:var(--ink);
   transition: box-shadow .2s ease, transform .2s ease, border-color .2s ease;
-  animation: cardIn .4s ease backwards;
 }
 .unit-tile:hover{ box-shadow:var(--shadow-hover); transform: translateY(-2px); border-color:var(--gold); }
-.unit-tile-icon{ font-size:1.35rem; line-height:1; }
-.unit-tile-title{ font-family:var(--font-display); font-weight:700; font-size:0.72rem; line-height:1.2; color:var(--ink); }
-.unit-tile-meta{ font-size:0.6rem; color:var(--text-soft); font-weight:600; }
-.unit-tile-done{ font-size:0.6rem; font-weight:800; color:var(--teal); }
+.unit-tile-icon{ font-size:1.5rem; line-height:1; }
+.unit-tile-title{ font-family:var(--font-display); font-weight:700; font-size:1rem; line-height:1.25; color:var(--ink); }
+.unit-tile-meta{ font-size:0.82rem; color:var(--text-soft); font-weight:600; }
+.unit-tile-done{ font-size:0.82rem; font-weight:800; color:var(--teal); }
 .unit-tile.subject-tnk{ border-top-color:var(--teal); }
 .unit-tile.subject-tsb{ border-top-color:var(--gold); }
 .unit-tile.subject-heb{ border-top-color:#8B4A34; }
 .unit-tile.subject-exam{ border-top-color:#1E2761; }
 .unit-tile.subject-teacher{ border-top-color:#7A4A73; }
 
+/* ===== "המשיכו מהמקום שבו הפסקתם" ===== */
+.continue-card{
+  display:flex; align-items:center; gap:.9rem; margin:0 0 1.1rem; padding:.9rem 1.2rem; min-height:64px;
+  background:var(--ink); color:#fff; text-decoration:none; border-radius:var(--radius);
+  border-inline-start:6px solid var(--gold-light); box-shadow:var(--shadow);
+}
+.continue-card:hover{ background:var(--ink-2); }
+.continue-icon{ font-size:1.5rem; color:var(--gold-light); flex:none; }
+.continue-title{ display:block; font-family:var(--font-display); font-weight:700; font-size:1.25rem; }
+.continue-meta{ display:block; font-size:.95rem; color:#E6DFCB; }
+
 /* ===== Footer ===== */
 .site-footer{ text-align:center; padding:1.6rem 1rem; color:var(--text-soft); font-size:0.85rem; border-top:1px solid var(--border); }
 
-/* ===== High contrast mode ===== */
-body.high-contrast{
+/* ===== High contrast mode (המצב עצמו נשמר ומופעל ע"י assets/a11y.js) ===== */
+.a11y-contrast body{
   --paper:#FFFFFF; --paper-card:#FFFFFF; --paper-2:#FFFFFF; --border:#000000;
   --text:#000000; --text-soft:#000000; --ink:#000000; --ink-2:#000000;
   --gold:#7A4E00; --gold-text:#7A4E00; --gold-light:#7A4E00; --teal:#003C39; --teal-light:#FFFFFF;
   --gold-tag-bg:#FFFFFF;
 }
-body.high-contrast .unit-tile, body.high-contrast .tab, body.high-contrast .class-chip{
+.a11y-contrast .unit-tile, .a11y-contrast .tab, .a11y-contrast .class-chip{
   border:2px solid #000 !important;
 }
-body.high-contrast .site-header, body.high-contrast .class-picker-section{ background:#000; border-bottom:2px solid #fff; }
-body.high-contrast .class-chip[aria-selected="true"]{ background:#fff !important; color:#000 !important; }
+.a11y-contrast .site-header, .a11y-contrast .class-picker-section{ background:#000; border-bottom:2px solid #fff; }
+.a11y-contrast .class-chip[aria-selected="true"]{ background:#fff !important; color:#000 !important; }
 
 /* ===== Responsive ===== */
 @media (max-width:640px){
   .header-inner{ flex-wrap:wrap; }
-  .unit-grid{ grid-template-columns:repeat(auto-fill, minmax(74px,1fr)); gap:0.4rem; }
-  .unit-tile{ min-height:70px; padding:0.45rem 0.35rem; }
-  .unit-tile-icon{ font-size:1.15rem; }
-  .unit-tile-title{ font-size:0.66rem; }
+  .unit-grid{ grid-template-columns:repeat(auto-fill, minmax(104px,1fr)); gap:0.5rem; }
+  .unit-tile{ min-height:88px; padding:0.55rem 0.4rem; }
+  .unit-tile-icon{ font-size:1.3rem; }
+  .unit-tile-title{ font-size:0.95rem; }
 }
 
 </style>
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
 
@@ -232,11 +240,11 @@ body.high-contrast .class-chip[aria-selected="true"]{ background:#fff !important
       </fieldset>
       <fieldset class="a11y-group">
         <legend>ניגודיות</legend>
-        <button type="button" id="contrast-toggle" aria-pressed="false">ניגודיות גבוהה</button>
+        <button type="button" id="contrast-toggle" data-a11y="contrast" aria-pressed="false">ניגודיות גבוהה</button>
       </fieldset>
       <fieldset class="a11y-group">
         <legend>קריאה נוחה</legend>
-        <button type="button" id="dyslexia-toggle" aria-pressed="false">ריווח מוגבר בין אותיות</button>
+        <button type="button" id="dyslexia-toggle" data-a11y="spacing" aria-pressed="false">ריווח מוגבר בין אותיות</button>
       </fieldset>
     </div>
   </div>
@@ -253,6 +261,7 @@ body.high-contrast .class-chip[aria-selected="true"]{ background:#fff !important
   </section>
 
   <section class="results-wrap">
+    <div id="continue-root"></div>
     <div id="status-line" class="status-line" role="status" aria-live="polite"></div>
     <div id="content-root" class="content-root" role="tabpanel" aria-labelledby="tab-ya">
       <p class="loading-msg">טוען חומרי לימוד…</p>
@@ -532,48 +541,22 @@ body.high-contrast .class-chip[aria-selected="true"]{ background:#fff !important
     if(id){ var el = document.getElementById(id); if(el && el.classList.contains("tab")) el.click(); }
   })();
 
-  /* ============ בקרות נגישות ============ */
-  var a11yToggle = document.getElementById("a11y-toggle");
-  var a11yPanel = document.getElementById("a11y-panel");
-  a11yToggle.addEventListener("click", function(){
-    var expanded = a11yToggle.getAttribute("aria-expanded") === "true";
-    a11yToggle.setAttribute("aria-expanded", String(!expanded));
-    a11yPanel.hidden = expanded;
-  });
+  /* בקרות הנגישות (גודל טקסט, ניגודיות, ריווח) - ב-assets/a11y.js, משותף לכל דפי האתר */
 
-  var FONT_STEPS = { "-1":0.9, "0":1, "1":1.15, "2":1.3 };
-  function applyFontStep(step){
-    localStorage.setItem("a11y-font-step", step);
-    document.documentElement.style.setProperty("--font-scale", FONT_STEPS[step] || 1);
-  }
-  document.querySelectorAll("[data-font-step]").forEach(function(btn){
-    btn.addEventListener("click", function(){
-      var val = btn.getAttribute("data-font-step");
-      applyFontStep(val === "reset" ? "0" : val);
-    });
-  });
-
-  var contrastToggle = document.getElementById("contrast-toggle");
-  contrastToggle.addEventListener("click", function(){
-    var on = document.body.classList.toggle("high-contrast");
-    contrastToggle.setAttribute("aria-pressed", String(on));
-    localStorage.setItem("a11y-contrast", on ? "1" : "0");
-  });
-
-  var dyslexiaToggle = document.getElementById("dyslexia-toggle");
-  dyslexiaToggle.addEventListener("click", function(){
-    var on = dyslexiaToggle.getAttribute("aria-pressed") !== "true";
-    dyslexiaToggle.setAttribute("aria-pressed", String(on));
-    document.documentElement.style.setProperty("--letter-extra", on ? "0.04em" : "0em");
-    localStorage.setItem("a11y-letterspace", on ? "1" : "0");
-  });
-
-  /* שחזור העדפות נגישות שמורות */
-  (function restorePrefs(){
-    var step = localStorage.getItem("a11y-font-step");
-    if(step) applyFontStep(step);
-    if(localStorage.getItem("a11y-contrast") === "1"){ contrastToggle.click(); }
-    if(localStorage.getItem("a11y-letterspace") === "1"){ dyslexiaToggle.click(); }
+  /* ============ "המשיכו מהמקום שבו הפסקתם" ============
+     דף עבודה שמחולק למשימות (assets/steps.js) רושם במכשיר איפה התלמיד עצר. */
+  (function renderContinue(){
+    var box = document.getElementById("continue-root");
+    var last = null;
+    try{ last = JSON.parse(localStorage.getItem("bm-last-place-v1") || "null"); }catch(e){}
+    if(!box || !last || !/^[\w.-]+\.html$/.test(last.page || "")) return;
+    var meta = last.finished ? "כל המשימות הושלמו - אפשר לעבור לסיכום" : "משימה " + last.task + " מתוך " + last.total;
+    box.innerHTML =
+      '<a class="continue-card" href="' + escapeAttr(last.page) + '">' +
+        '<span class="continue-icon" aria-hidden="true">▶</span>' +
+        '<span><span class="continue-title">המשיכו מהמקום שבו הפסקתם</span>' +
+        '<span class="continue-meta">' + escapeHtml(last.title || last.page) + ' · ' + meta + '</span></span>' +
+      '</a>';
   })();
 
   renderUnits();

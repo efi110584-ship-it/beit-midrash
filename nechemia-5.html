@@ -80,8 +80,13 @@
   .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
   .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
 </style>
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -125,11 +130,11 @@
   <a class="chip-link" href="nechemia-5-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
 </p>
 
-<main>
-  <div class="grid" id="grid">
+<main id="main-content">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק ה'?</h2>
@@ -142,8 +147,30 @@
       </div>
     </section>
 
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: מה נאלצו העניים לעשות, ובשביל מה?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) מה נאלצו לעשות. (2) בשביל מה.</li>
+          <li><b>מחפשים בתקציר את המילה "עניים":</b> הם <span class="bm-quote">נאלצים למכור את ילדיהם לעבדות ולמשכן את שדותיהם</span>.</li>
+          <li><b>ממשיכים באותו משפט.</b> המילים "רק כדי" מראות את הסיבה: <span class="bm-quote">רק כדי לשלם את מס המלך ולשרוד</span>.</li>
+          <li><b>כותבים לפי החלקים</b>, ומסבירים מילה קשה: "למשכן" = לתת משהו כערובה להלוואה.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>העניים נאלצו למכור את הילדים שלהם לעבדים, ולתת את השדות שלהם כמשכון (ערובה) להלוואה. הם עשו זאת כדי לשלם את המס למלך, וכדי שיהיה להם ממה לחיות.</p>
+        </div>
+        <p class="bm-example-why">✓ המילים "כדי" או "רק כדי" מסמנות סיבה או מטרה - שם נמצאת התשובה לחלק השני.</p>
+      </div>
+    </section>
+
     <!-- נושא 1 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="guided">
     <div class="topic-banner" style="--acc:#8A5C21; --acc-soft:#F4ECE1;">
       <span class="topic-icon" aria-hidden="true">😰</span>
       <div>
@@ -303,7 +330,7 @@
     </div>
 
     <!-- נושא 4 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="open">
     <div class="topic-banner" style="--acc:#B0762B; --acc-soft:#F5E9D6;">
       <span class="topic-icon" aria-hidden="true">🍞</span>
       <div>
@@ -352,6 +379,37 @@
     </div>
     </div>
 
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו בפרק ה׳</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>זעקת העניים:</b> העניים ממשכנים שדות ומוכרים את ילדיהם לעבדים, כדי לשלם את מס המלך.</li>
+          <li><b>התוכחה:</b> נחמיה כועס: "מַשָּׂא אִישׁ בְּאָחִיו אַתֶּם נֹשִׁים!", ומזכיר את איסור הנשך בתורה.</li>
+          <li><b>דוגמה אישית:</b> נחמיה מודה: "וְגַם אֲנִי אַחַי וּנְעָרַי נֹשִׁים בָּהֶם".</li>
+          <li><b>שמיטת החובות:</b> העשירים עונים: "נָשִׁיב, וּמֵהֶם לֹא נְבַקֵּשׁ".</li>
+          <li><b>נחמיה הפחה:</b> לא לקח את לחם הפחה, "מִפְּנֵי יִרְאַת אֱלֹקִים".</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🔁 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - חזרה ותרגול</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="nechemia-5-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+          <a class="chip-link" href="nechemia-5-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
+        </p>
+      </div>
+    </section>
+
   </div>
 </main>
 
@@ -361,13 +419,17 @@
   <a href="nechemia-10-13.html">פרקים י', י"ג →</a>
 </nav>
 <div class="toolbar">
-  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
-  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="נחמיה פרק ה&#x27;, בניינה הפנימי של ירושלים" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
-<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
-  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
-</p>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 
 <footer class="credit">ספר נחמיה, פרק ה' · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
@@ -497,5 +559,10 @@ loadAnswers();
 <script src="assets/progress-tracker.js"></script>
 <button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
 
+<script src="assets/guide/nechemia-5.js"></script>
+<script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
+<script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 </body>
 </html>

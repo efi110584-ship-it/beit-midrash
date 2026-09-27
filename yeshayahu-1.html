@@ -95,8 +95,13 @@
   .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
   .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
 </style>
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -140,11 +145,11 @@
   <a class="chip-link" href="yeshayahu-1-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
 </p>
 
-<main>
-  <div class="grid" id="grid">
+<main id="main-content">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק א'?</h2>
@@ -157,8 +162,30 @@
       </div>
     </section>
 
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: אילו שלושה דברים מציג פרק א׳, שמשמש "כותרת" לכל ספר ישעיהו?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> צריך למצוא שלושה דברים.</li>
+          <li><b>מחפשים בתקציר את המילה "כותרת".</b> מיד אחריה כתוב: <span class="bm-quote">הוא מציג את חטאי העם, את התוכחה שבפי הנביא, ואת התקווה לתיקון ולגאולה</span>.</li>
+          <li><b>מפרידים את המשפט לשלושה חלקים.</b> כל חלק מתחיל במילה "את".</li>
+          <li><b>כותבים רשימה ממוספרת</b>, ומסבירים מילה קשה: "תוכחה" = דברי ביקורת, כשאומרים לאדם מה הוא עושה לא בסדר.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>פרק א׳ מציג שלושה דברים: 1. את החטאים של העם. 2. את התוכחה של הנביא - מה העם עושה לא בסדר. 3. את התקווה שהעם יתקן את דרכיו ויגיע לגאולה.</p>
+        </div>
+        <p class="bm-example-why">✓ כשצריך למצוא כמה דברים, מחפשים מילה שחוזרת לפני כל אחד מהם (כאן: "את"). כך קל להפריד את הרשימה.</p>
+      </div>
+    </section>
+
     <!-- נושא 1 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="guided">
     <div class="topic-banner" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
       <span class="topic-icon" aria-hidden="true">📜</span>
       <div>
@@ -344,7 +371,7 @@
     </div>
 
     <!-- נושא 4 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="open">
     <div class="topic-banner" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
       <span class="topic-icon" aria-hidden="true">🏙️</span>
       <div>
@@ -392,6 +419,37 @@
     </div>
     </div>
 
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו בפרק א׳</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>כפיות טובה:</b> "בָּנִים גִּדַּלְתִּי וְרוֹמַמְתִּי וְהֵם פָּשְׁעוּ בִי". גם השור מכיר את בעליו - ועם ישראל לא.</li>
+          <li><b>הארץ החרבה:</b> ירושלים נשארה "כְּסֻכָּה בְכָרֶם".</li>
+          <li><b>עבודה בלי צדק:</b> "לָמָּה לִּי רֹב זִבְחֵיכֶם" - כי "יְדֵיכֶם דָּמִים מָלֵאוּ".</li>
+          <li><b>הדרישה:</b> "דִּרְשׁוּ מִשְׁפָּט... שִׁפְטוּ יָתוֹם רִיבוּ אַלְמָנָה".</li>
+          <li><b>התקווה:</b> "צִיּוֹן בְּמִשְׁפָּט תִּפָּדֶה וְשָׁבֶיהָ בִּצְדָקָה".</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🔁 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - חזרה ותרגול</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="yeshayahu-1-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+          <a class="chip-link" href="yeshayahu-1-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
+        </p>
+      </div>
+    </section>
+
   </div>
 </main>
 
@@ -401,13 +459,17 @@
   <a href="yeshayahu-2.html">פרק ב' ←</a>
 </nav>
 <div class="toolbar">
-  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
-  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="ישעיהו פרק א&#x27;, חזון ישעיהו" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
-<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
-  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
-</p>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 
 <footer class="credit">ספר ישעיהו, פרק א' · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
@@ -537,5 +599,10 @@ loadAnswers();
 <script src="assets/progress-tracker.js"></script>
 <button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
 
+<script src="assets/guide/yeshayahu-1.js"></script>
+<script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
+<script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 </body>
 </html>

@@ -25,8 +25,12 @@
   table.final-test input.answer.table-cell.is-wrong{ border-color:#B3261E; background:#FBEAE9; }
   .check-summary{ font-size:.85rem; font-weight:700; color:var(--ink); margin-inline-start:.6rem; }
 </style>
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
 </head>
 <body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
 <nav class="breadcrumbs" aria-label="נתיב ניווט">
   <a href="index.html">בית המדרש הדיגיטלי</a>
@@ -64,7 +68,7 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
-<main>
+<main id="main-content">
   <div class="grid" id="grid">
 
     <section class="card" style="grid-column: 1 / -1;">
@@ -143,7 +147,7 @@
 
         <div class="toolbar" style="justify-content:flex-start; padding:0; margin-top:.8rem;">
           <button class="btn" type="button" id="checkAnswersBtn">✓ בדקו לי את התשובות</button>
-          <span class="check-summary" id="checkSummary"></span>
+          <span class="check-summary" id="checkSummary" role="status" aria-live="polite"></span>
         </div>
       </div>
     </section>
@@ -157,14 +161,17 @@
   <span></span>
 </nav>
 <div class="toolbar">
-  <button class="btn" id="printBtn">📄 הורידו PDF להגשה בקלאסרום</button>
-  <a class="btn" id="submitLink" href="submit.html">📤 הגשת מטלה</a>
-  <button class="btn primary" type="button" id="directSubmitBtn">✅ שלחו למורה ישירות (בלי הורדה)</button>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="עברית - מבחן מסכם על הגזרות" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
-<p id="printHelp" style="text-align:center;font-size:.8rem;color:var(--ink-soft);max-width:520px;margin:-.6rem auto 1rem;line-height:1.6;">
-  לפני ההגשה מלאו את שמכם למעלה. לאחר הלחיצה יופיע חלון הדפסה — בחרו ביעד <b>"שמור כ-PDF"</b>, שמרו את הקובץ, והעלו אותו כהגשה בקלאסרום.
-</p>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 
 <footer class="credit">עברית - מבחן מסכם על הגזרות · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
@@ -305,6 +312,7 @@ function checkAnswer(input){
   input.classList.remove('is-correct', 'is-wrong');
   cell.classList.remove('is-correct', 'is-wrong');
   cell.textContent = '';
+  input.removeAttribute('aria-invalid');
   const studentNorm = normalizeFreeAnswer(input.value);
   if(!studentNorm) return null;
 
@@ -317,7 +325,11 @@ function checkAnswer(input){
   }
   input.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
   cell.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
-  cell.textContent = isCorrect ? '✓' : '✗';
+  // משוב נגיש ליד השדה: הסימן ✓/✗ מקבל גם מילים, ומקושר לשדה עצמו
+  cell.innerHTML = isCorrect ? '\u2713<span class="bm-sr-only"> - נכון</span>' : '\u2717<span class="bm-sr-only"> - לא נכון, נסו שוב</span>';
+  if(!cell.id) cell.id = 'mark-' + input.dataset.id;
+  input.setAttribute('aria-describedby', cell.id);
+  input.setAttribute('aria-invalid', isCorrect ? 'false' : 'true');
   return isCorrect;
 }
 
@@ -352,6 +364,7 @@ document.getElementById('clearBtn').addEventListener('click', () => {
     markFilled(t);
     t.classList.remove('is-correct', 'is-wrong');
     if(t.nextElementSibling){ t.nextElementSibling.classList.remove('is-correct', 'is-wrong'); t.nextElementSibling.textContent = ''; }
+    t.removeAttribute('aria-invalid');
   });
   if(checkSummary) checkSummary.textContent = '';
   updateProgress();
@@ -470,6 +483,7 @@ document.getElementById('printBtn').addEventListener('click', () => {
 })();
 </script>
 <script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
 <script>
 (function(){
   var btn = document.getElementById('directSubmitBtn');
@@ -504,5 +518,6 @@ document.getElementById('printBtn').addEventListener('click', () => {
   });
 })();
 </script>
+<script src="assets/steps.js"></script>
 </body>
 </html>
