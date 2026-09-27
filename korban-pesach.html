@@ -54,8 +54,65 @@
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main id="main-content">
-  <div class="grid" id="grid">
-    <section class="card" style="grid-column: 1 / -1;">
+  <div class="grid" id="grid" data-answer-kind="suggested">
+    <!-- הסבר קצר (שלב ג׳) -->
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">📖 בקצרה</span>
+        <h2 class="card-title">שלא לשבור עצם בפסח בקצרה - הסבר פשוט</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📜</span>מה המצווה?</div>
+          אסור לשבור עצם של קרבן הפסח - "ועצם לא תשברו בו" (שמות יב, מו).
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">👑</span>למה?</div>
+          רק עניים רעבים גוררים ושוברים עצמות כשהם אוכלים - בני מלכים לא עושים כך. ביציאת מצרים נהיינו "סגולת כל העמים", ולכן בפסח אנחנו אוכלים כמו בני מלכים - וכך זוכרים את הנס.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">❓</span>למה כל כך הרבה מצוות?</div>
+          אפשר היה לחשוב שמספיק לזכור את הנס פעם אחת. אבל "האדם נפעל כפי פעולותיו" - המעשים שלנו משנים את הלב שלנו.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">💡</span>"אחרי הפעולות נמשכים הלבבות"</div>
+          גם רשע שמתחיל לעשות מעשים טובים - ישתנה לטוב. וגם צדיק שעושה כל הזמן דברים רעים - עלול להתקלקל.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🎁</span>הרבה מצוות = זכות</div>
+          לכן חז״ל אמרו שה׳ נתן לישראל הרבה תורה ומצוות - כדי שכל המחשבות שלנו יהיו במצוות, ונהיה טובים.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📅</span>על מי ומתי?</div>
+          על גברים ועל נשים, בזמן שבית המקדש קיים (רק אז יש קרבנות). מי ששבר עצם בפסח טהור - לוקה, כי זו מצוות לא תעשה.
+        </div>
+      </div>
+    </section>
+
+    <!-- דוגמה פתורה (שלב ג׳): שאלת בגרות אמיתית מהדף ותשובת המחוון -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">בגרות · תשפ״ב (2022) · שאלה 1 · סעיף ג</span> הסבירו כיצד האיסור לשבור עצם מקורבן הפסח מסייע לזכור את נס יציאת מצרים.</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש שאלה אחת: איך המצווה עוזרת לזכור את יציאת מצרים.</li>
+          <li><b>מחפשים בדף.</b> בכרטיס "הסמל שבמצווה" כתוב: <span class="bm-quote">שאין כבוד לבני מלכים ויועצי ארץ לגרור העצמות ולשוברם</span> - רק עניים רעבים שוברים עצמות.</li>
+          <li><b>ממשיכים לקרוא.</b> ביציאת מצרים נהיינו <span class="bm-quote">סגולת כל העמים, ממלכת כהנים ועם קדוש</span> - כמו בני מלכים.</li>
+          <li><b>מחברים וכותבים.</b> המעשה (לא שוברים עצמות, כמו בני מלכים) ← הזיכרון (בזמן הזה נהיינו בני מלכים).</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית - לא מהמחוון</span></div>
+          <p>רק עניים רעבים שוברים עצמות כשהם אוכלים, ובני מלכים לא עושים את זה. ביציאת מצרים נהיינו "סגולת כל העמים" - כמו בני מלכים. לכן בכל שנה, כשאוכלים את קרבן הפסח בלי לשבור עצמות, מתנהגים כמו בני מלכים - וזוכרים את הנס.</p>
+        </div>
+        <div class="hint-box" data-answer-kind="official"><b>✓ דגם התשובה:</b><p>בכל שנה ושנה בתקופה שבה נהיינו סגולת כל העמים בתקופת יציאת מצרים אנחנו מתנהגים כמו בני מלכים ולא שוברים עצמות, והימנעות זו תקבע בנפשותינו את נס יציאת מצרים לעולם.</p></div>
+        <p class="bm-example-why">✓ שתי התשובות מחברות בין המעשה (לא שוברים עצמות, כמו בני מלכים) לבין הזיכרון (יציאת מצרים). התשובה האפשרית מסבירה גם למה שבירת עצמות מתאימה לעניים.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">מבנה ספר החינוך - חימום</span>
         <h2 class="card-title">לפני שמתחילים: מבנה ספר החינוך</h2>
@@ -174,7 +231,7 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">למעשה</span>
         <h2 class="card-title">למעשה</h2>
@@ -187,7 +244,7 @@
         </div>
       </div>
     </section>
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">שאלות בגרות אמיתיות</span>
         <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תש"ף – תשפ"ו)</h2>
@@ -323,6 +380,24 @@
                 </div>
               </div>
             </div>
+      </div>
+    </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על שלא לשבור עצם בפסח</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>המצווה:</b> "ועצם לא תשברו בו" - לא לשבור עצם בקרבן הפסח.</li>
+          <li><b>למה?</b> שבירת עצמות מתאימה "לעניי העם הרעבים". ביציאת מצרים נהיינו "סגולת כל העמים" - ואוכלים כמו בני מלכים.</li>
+          <li><b>השאלה:</b> למה צריך כל כך הרבה מצוות לזכר הנס, אם אפשר לזכור גם "בזכרון אחד"?</li>
+          <li><b>התשובה:</b> "האדם נפעל כפי פעולותיו" - "אחרי הפעולות נמשכים הלבבות".</li>
+          <li><b>ולכן:</b> "רצה המקום לזכות את ישראל לפיכך הרבה להם תורה ומצות".</li>
+          <li><b>על מי?</b> גברים ונשים, "בזמן הבית". מי ששבר עצם בפסח טהור - לוקה.</li>
+        </ul>
       </div>
     </section>
   </div>
@@ -541,6 +616,7 @@ loadAnswers();
 })();
 </script>
 <script src="assets/bagrut-hints.js"></script>
+<script src="assets/guide/korban-pesach.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 </body>
