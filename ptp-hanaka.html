@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
 </head>
@@ -43,7 +44,7 @@
 
 <main id="main-content">
   <div class="grid" id="grid">
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">מצוות הענקה - פתיחה</span>
         <h2 class="card-title">פרק טו, פסוקים יב-יח</h2>
@@ -53,7 +54,29 @@
         <div class="pasuk-block">אדם נמכר לעבד בגלל מעמדו הכלכלי. כדי לתת לעבד המשתחרר להתחיל ממקום טוב יותר, מצווה התורה את האדון להעניק לו מתנה בעת שחרורו.</div>
       </div>
     </section>
-    <section class="card">
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על הפסוק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על הפסוק</span> לפי הפסוק: כמה שנים עובד העבד העברי, ומה קורה בשנה השביעית?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) כמה שנים עובד. (2) מה קורה בשנה השביעית.</li>
+          <li><b>מחפשים בפסוק מספרים:</b> <span class="bm-quote">וַעֲבָדְךָ שֵׁשׁ שָׁנִים</span>.</li>
+          <li><b>ממשיכים באותו פסוק:</b> <span class="bm-quote">וּבַשָּׁנָה הַשְּׁבִיעִת תְּשַׁלְּחֶנּוּ חָפְשִׁי מֵעִמָּךְ</span>.</li>
+          <li><b>כותבים לפי החלקים</b> - במילים שלכם.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>העבד העברי עובד שש שנים. בשנה השביעית משחררים אותו, והוא יוצא לחופשי.</p>
+        </div>
+        <p class="bm-example-why">✓ בשאלה על כמות ("כמה") מחפשים בפסוק מספרים. כך מוצאים מהר את המקום הנכון.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided">
       <div class="card-head">
         <span class="card-tag">שני חידושים</span>
         <h2 class="card-title">שני חידושים</h2>
@@ -150,7 +173,7 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">המשמעות החברתית - הגנה על אמה העבריה</span>
         <h2 class="card-title">המשמעות החברתית - הגנה על אמה העבריה</h2>
@@ -162,6 +185,22 @@
           <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">על מה מגינה התורה בדין אמה עבריה, ובאילו שתי דרכים חייב האדון לפתור את מצבה?</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
+      </div>
+    </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על מצוות הענקה</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>ההענקה:</b> "לֹא תְשַׁלְּחֶנּוּ רֵיקָם" - נותנים לעבד המשתחרר מתנה.</li>
+          <li><b>ממה נותנים:</b> "מכל מה שברכך" - מכל דבר שיש בו ברכה.</li>
+          <li><b>יציאת מצרים:</b> "וְזָכַרְתָּ כִּי עֶבֶד הָיִיתָ בְּאֶרֶץ מִצְרַיִם".</li>
+          <li><b>היום:</b> פרופ׳ עמוס פריש משווה את ההענקה ל"פיצויי פיטורין" ול"מענק השחרור".</li>
+        </ul>
       </div>
     </section>
   </div>
@@ -379,6 +418,8 @@ loadAnswers();
   });
 })();
 </script>
+<script src="assets/guide/ptp-hanaka.js"></script>
 <script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>
