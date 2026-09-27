@@ -54,8 +54,65 @@
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main id="main-content">
-  <div class="grid" id="grid">
-    <section class="card" style="grid-column: 1 / -1;">
+  <div class="grid" id="grid" data-answer-kind="suggested">
+    <!-- הסבר קצר (שלב ג׳) -->
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">📖 בקצרה</span>
+        <h2 class="card-title">אונאת דברים בקצרה - הסבר פשוט</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📜</span>מה המצווה?</div>
+          אסור לצער אדם מישראל בדיבור - "ולא תונו איש את עמיתו" (ויקרא כה, יז).
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">💬</span>דוגמאות</div>
+          לא להזכיר לבעל תשובה מה עשה פעם; לא לומר לחולה שהוא חולה בגלל חטאיו; לא לשלוח אנשים למקום שאין בו מה שהם מחפשים; ולא לשאול על מחיר כשלא מתכוונים לקנות.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🕊️</span>למה יש מצווה כזאת?</div>
+          מחלוקת גורמת להרבה קללות ותקלות. והשלום גדול - בזכותו יש ברכה בעולם.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">💔</span>חמור יותר מממון</div>
+          מילים פוגעות יכולות לכאוב יותר מהפסד של כסף - "גדולה אונאת דברים מאונאת ממון".
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🛡️</span>מותר להגיב?</div>
+          לא צריך להיות "כאבן" ולשתוק. מותר להשיב - אבל בנעימות, בלי לכעוס הרבה. יש חסידים שבוחרים לא להשיב בכלל: "הנעלבין ואינם עולבים".
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📅</span>על מי?</div>
+          בכל מקום, על גברים ועל נשים - ואפילו על ילדים. מי שעובר - עבר על לאו, אבל אין עליו מלקות, כי "אין בו מעשה".
+        </div>
+      </div>
+    </section>
+
+    <!-- דוגמה פתורה (שלב ג׳): שאלת בגרות אמיתית מהדף ותשובת המחוון -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">בגרות · תשפ״ד (2024) · שאלה 7 · סעיף ב</span> בנוגע לאיסור זה כתב בעל ספר החינוך: "אין לוקין עליו, לפי שאין בו מעשה". הסבירו מדוע אין בלאו זה מעשה.</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש שאלה אחת: למה בלאו הזה אין "מעשה".</li>
+          <li><b>מבינים מילים קשות.</b> "לוקין" = מקבלים מלקות. בית הדין נותן מלקות על לאו שעוברים עליו במעשה.</li>
+          <li><b>מחפשים בדף.</b> בכרטיס "ונוהגת (המשך)" כתוב איך עוברים על האיסור: <span class="bm-quote">והכאיב את חברו בדברים</span> - כלומר בדיבור.</li>
+          <li><b>כותבים תשובה.</b> איך עוברים על האיסור + למה זה לא מעשה.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית - לא מהמחוון</span></div>
+          <p>באונאת דברים האדם פוגע בחברו רק בדיבור - במילים שהוא אומר. הוא לא עושה שום דבר בידיים, ודיבור לא נחשב "מעשה". לכן אין מלקות על הלאו הזה.</p>
+        </div>
+        <div class="hint-box" data-answer-kind="official"><b>✓ דגם התשובה:</b><p>כי דיבור אינו נחשב מעשה.</p></div>
+        <p class="bm-example-why">✓ שתי התשובות אומרות את העיקר: עוברים על האיסור בדיבור, ודיבור אינו מעשה.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">מבנה ספר החינוך - חימום</span>
         <h2 class="card-title">לפני שמתחילים: מבנה ספר החינוך</h2>
@@ -213,7 +270,7 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">מידת חסידות</span>
         <h2 class="card-title">מידת חסידות</h2>
@@ -226,7 +283,7 @@
         </div>
       </div>
     </section>
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">שאלות בגרות אמיתיות</span>
         <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תש"ף – תשפ"ו)</h2>
@@ -343,6 +400,24 @@
                 </div>
               </div>
             </div>
+      </div>
+    </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על אונאת דברים</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>המצווה:</b> "שלא להונות אחד מישראל בדברים" - לא לצער אחרים בדיבור.</li>
+          <li><b>דוגמאות:</b> לא לומר לבעל תשובה "זכור מעשיך הראשונים"; לא לשאול "בכמה חפץ זה?" כשלא מתכוונים לקנות.</li>
+          <li><b>למה?</b> "וגדול השלום" - ומחלוקת מביאה קללות ותקלות.</li>
+          <li><b>חמור:</b> "גדולה אונאת דברים מאונאת ממון" - מילים כואבות ללב.</li>
+          <li><b>להגיב?</b> מותר - "דרך סלסול ונעימות". והחסידים: "הנעלבין ואינם עולבים".</li>
+          <li><b>על מי?</b> גברים, נשים ואפילו קטנים. אין מלקות - "שאין בו מעשה".</li>
+        </ul>
       </div>
     </section>
   </div>
@@ -561,6 +636,7 @@ loadAnswers();
 })();
 </script>
 <script src="assets/bagrut-hints.js"></script>
+<script src="assets/guide/onaat-dvarim.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 </body>
