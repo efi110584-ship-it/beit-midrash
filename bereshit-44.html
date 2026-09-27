@@ -162,10 +162,10 @@
 </p>
 
 <main id="main-content">
-  <div class="grid" id="grid">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק מ"ד (נאום יהודה)?</h2>
@@ -178,8 +178,30 @@
       </div>
     </section>
 
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: איפה נמצא הגביע, ומה עשו האחים כשזה התגלה?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) איפה נמצא הגביע. (2) מה עשו האחים.</li>
+          <li><b>מחפשים בתקציר.</b> שני החלקים נמצאים במשפט אחד: <span class="bm-quote">כשמתגלה הגביע דווקא באמתחת בנימין, קורעים האחים את בגדיהם וחוזרים כולם העירה</span>.</li>
+          <li><b>מבינים מילים קשות:</b> "אמתחת" = שק, תיק של מסע.</li>
+          <li><b>כותבים לפי החלקים</b> - במילים שלכם.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>הגביע נמצא בשק של בנימין. כשזה התגלה, האחים קרעו את הבגדים שלהם, וכולם חזרו יחד לעיר.</p>
+        </div>
+        <p class="bm-example-why">✓ התשובה עונה על שני החלקים. שימו לב: "חוזרים כולם" - האחים לא עזבו את בנימין לבד. פרט קטן כזה חשוב להבנת הפרק.</p>
+      </div>
+    </section>
+
     <!-- נושא 1 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="guided">
     <div class="topic-banner" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
       <span class="topic-icon" aria-hidden="true">🏆</span>
       <div>
@@ -290,7 +312,7 @@
     </div>
 
     <!-- נושא 3 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="open">
     <div class="topic-banner" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
       <span class="topic-icon" aria-hidden="true">🗣️</span>
       <div>
@@ -353,6 +375,37 @@
       </div>
     </div>
     </div>
+
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו בפרק מ״ד</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>הגביע:</b> יוסף מטמין את הגביע באמתחת בנימין, כדי לבדוק אם האחים יעזבו אותו.</li>
+          <li><b>תשובה גמורה:</b> לפי הרמב״ם - כשאדם מגיע שוב לאותו מצב, "ופירש ולא עשה".</li>
+          <li><b>עוון ראשונים:</b> לפי ספורנו, יהודה מתכוון לחטא הישן - מכירת יוסף.</li>
+          <li><b>יהודה:</b> מציע שכל האחים יהיו עבדים, ובסוף מבקש להישאר עבד במקום בנימין.</li>
+          <li><b>"ויגש":</b> לפי המדרש - למלחמה, לפיוס או לתפילה.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🔁 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - חזרה ותרגול</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="bereshit-44-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+          <a class="chip-link" href="bereshit-44-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
+        </p>
+      </div>
+    </section>
 
   </div>
 </main>
@@ -503,6 +556,7 @@ loadAnswers();
 <script src="assets/progress-tracker.js"></script>
 <button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
 
+<script src="assets/guide/bereshit-44.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
