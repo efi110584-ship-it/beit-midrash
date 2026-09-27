@@ -53,14 +53,9 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
-<p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
-  <a class="chip-link" href="ahavat-gerim-matching-game.html"><span class="chip-icon" aria-hidden="true">🧩</span>משחק התאמה כיתתי - שאלה מול תשובה</a>
-  <a class="chip-link" href="ahavat-gerim-wheel.html"><span class="chip-icon" aria-hidden="true">🎡</span>גלגל המזל לתרגול</a>
-</p>
-
 <main id="main-content">
-  <div class="grid" id="grid">
-    <section class="card" style="grid-column: 1 / -1;">
+  <div class="grid" id="grid" data-answer-kind="suggested">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">📖 תקציר המצווה</span>
         <h2 class="card-title">"אהבת הגרים" בקצרה - הסבר פשוט וברור</h2>
@@ -96,7 +91,30 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <!-- דוגמה פתורה (שלב ג׳): שאלת בגרות אמיתית מהדף ותשובת המחוון -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">בגרות · תשע״ט (2019) · שאלה 6 · סעיף ב</span> בנוגע למצוות אהבת הגר שאל בעל ספר החינוך: "ואף על פי שיכללהו כמו כן הציווי בישראל, שנאמר עליו 'ואהבת לרעך', שהרי גר צדק בכלל 'רעך' הוא". הסבר את השאלה של בעל ספר החינוך, וכתוב את תשובתו על שאלה זו.</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש שני חלקים: (1) להסביר מה ספר החינוך שואל. (2) לכתוב מה הוא עונה.</li>
+          <li><b>מבינים מילים קשות.</b> "שיכללהו" = שהוא כבר נכלל. "רעך" = חברך - כל יהודי. גר צדק הוא יהודי, ולכן הוא כבר "רעך".</li>
+          <li><b>מחפשים בדף.</b> בכרטיס "מצווה כפולה" כתוב מה התשובה: <span class="bm-quote">הוסיף לנו השם בו מצוה מיוחדת לו באהבתו</span>.</li>
+          <li><b>כותבים לפי החלקים.</b> קודם השאלה (במילים שלכם), ואחריה התשובה.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית - לא מהמחוון</span></div>
+          <p>השאלה: למה צריך מצווה מיוחדת לאהוב גר? הרי גר שהתגייר הוא יהודי, והוא כבר כלול במצווה "ואהבת לרעך כמוך". התשובה: ה' הוסיף בכל זאת מצווה מיוחדת לאהוב את הגר.</p>
+        </div>
+        <div class="hint-box" data-answer-kind="official"><b>✓ דגם התשובה:</b><p>השאלה — מדוע נצטווינו באופן מיוחד לאהוב את הגר, הרי אהבתו כלולה במצוות אהבת ישראל? התשובה — ה' הוסיף לנו מצווה מיוחדת לאהוב את הגר.</p></div>
+        <p class="bm-example-why">✓ שתי התשובות מסבירות גם את השאלה וגם את התשובה. בתשובה האפשרית השאלה מוסברת במילים פשוטות.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided">
       <div class="card-head">
         <span class="card-tag">מבוא לספר החינוך</span>
         <h2 class="card-title">מבוא לספר החינוך</h2>
@@ -261,7 +279,7 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">הרחבה - למידה נוספת וטעם המצווה (המשך)</span>
         <h2 class="card-title">הרחבה - למידה נוספת וטעם המצווה (המשך)</h2>
@@ -276,7 +294,7 @@
         </div>
       </div>
     </section>
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">שאלות בגרות אמיתיות</span>
         <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תשע"ט – תשפ"ה)</h2>
@@ -395,6 +413,38 @@
                 </div>
               </div>
             </div>
+      </div>
+    </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על אהבת הגרים</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>המצווה:</b> לאהוב את הגרים - "שלא לצער אותם בשום דבר", ו"נעשה להם טובה".</li>
+          <li><b>מי הגר?</b> מי "שהניח דתו ונכנס בדתנו".</li>
+          <li><b>מצווה כפולה:</b> מי שמצער גר עובר על "לא תונו" ועל "וגר לא תונה", ומבטל שתי מצוות עשה.</li>
+          <li><b>השורש:</b> ה׳ ציווה אותנו ללכת ב"דרכי החנינה והחמלה".</li>
+          <li><b>כבוד הגר:</b> לא אומרים לו "זכור מעשיך הראשונים", ולא מבזים לפניו את מוצאו.</li>
+          <li><b>ללמוד מכאן:</b> לרחם על כל מי שנמצא רחוק ממולדתו - "כי גרים הייתם בארץ מצרים".</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎮 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - תרגול בדרך של משחק</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר גם במשחק:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="ahavat-gerim-matching-game.html"><span class="chip-icon" aria-hidden="true">🧩</span>משחק התאמה כיתתי - שאלה מול תשובה</a>
+          <a class="chip-link" href="ahavat-gerim-wheel.html"><span class="chip-icon" aria-hidden="true">🎡</span>גלגל המזל לתרגול</a>
+        </p>
       </div>
     </section>
   </div>
@@ -621,6 +671,7 @@ loadAnswers();
   });
 })();
 </script>
+<script src="assets/guide/ahavat-gerim.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 </body>
