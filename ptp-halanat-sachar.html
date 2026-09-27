@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
 </head>
@@ -43,7 +44,7 @@
 
 <main id="main-content">
   <div class="grid" id="grid">
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">הלנת שכר - פתיחה</span>
         <h2 class="card-title">פרק כד, פסוקים יד-טו</h2>
@@ -54,7 +55,29 @@
         <div class="pasuk-block">אף על פי שאיסור הלנת שכר נוגע ודאי לכל מועסק, ללא תלות במצבו הכלכלי, האופן שבו מנוסחת המצווה בחומש דברים מכוון דווקא אל המועסק שהוא גם עני.</div>
       </div>
     </section>
-    <section class="card">
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על הפסוק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על ההסבר בפתיחה</span> לפי ההסבר בכרטיס הפתיחה: האם איסור הלנת שכר נוגע רק לפועל עני? ואל מי מכוון הנוסח בספר דברים?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) על מי חל האיסור. (2) אל מי מכוון הנוסח בדברים.</li>
+          <li><b>מחפשים בהסבר את החלק הראשון:</b> האיסור <span class="bm-quote">נוגע ודאי לכל מועסק, ללא תלות במצבו הכלכלי</span>.</li>
+          <li><b>מחפשים את החלק השני:</b> הנוסח <span class="bm-quote">מכוון דווקא אל המועסק שהוא גם עני</span>.</li>
+          <li><b>כותבים לפי החלקים</b>, ומסבירים מילה קשה: "מועסק" = מי שעובד אצל מישהו.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>לא. האיסור חל על כל עובד - עשיר או עני. אבל בספר דברים המצווה כתובה במיוחד על עובד שהוא גם עני.</p>
+        </div>
+        <p class="bm-example-why">✓ התשובה עונה על שני החלקים. בשאלת "האם" מתחילים ב"כן" או "לא", ואחר כך מסבירים.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided">
       <div class="card-head">
         <span class="card-tag">"ביומו תתן שכרו"</span>
         <h2 class="card-title">"ביומו תתן שכרו"</h2>
@@ -124,7 +147,7 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">"והיה בך חטא"</span>
         <h2 class="card-title">"והיה בך חטא"</h2>
@@ -136,6 +159,22 @@
           <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">האם הלנת השכר היא חטא רק אם הפועל קורא אל ה', או בכל מקרה? הסבירו על פי דברי רש"י.</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
+      </div>
+    </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על הלנת שכר</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>המצווה:</b> "בְּיוֹמוֹ תִתֵּן שְׂכָרוֹ וְלֹא תָבוֹא עָלָיו הַשֶּׁמֶשׁ".</li>
+          <li><b>שני לאווים:</b> לפי רש״י, מי שעושק שכיר עני עובר "בשני לאוין".</li>
+          <li><b>מי מוגן:</b> לפי רש״י - העני, האביון, גר צדק וגר תושב.</li>
+          <li><b>למה זה חשוב:</b> הפועל "נושא את נפשו" - מסכן את חייו בשביל השכר.</li>
+        </ul>
       </div>
     </section>
   </div>
@@ -353,6 +392,8 @@ loadAnswers();
   });
 })();
 </script>
+<script src="assets/guide/ptp-halanat-sachar.js"></script>
 <script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>
