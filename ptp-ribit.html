@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
 </head>
@@ -43,7 +44,7 @@
 
 <main id="main-content">
   <div class="grid" id="grid">
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">איסור ריבית - פתיחה</span>
         <h2 class="card-title">פרק כג, פסוקים כ-כא · מהו נשך?</h2>
@@ -52,7 +53,29 @@
         <div class="pasuk-block">"לֹא תַשִּׁיךְ לְאָחִיךָ נֶשֶׁךְ כֶּסֶף נֶשֶׁךְ אֹכֶל נֶשֶׁךְ כָּל דָּבָר אֲשֶׁר יִשָּׁךְ. לַנָּכְרִי תַשִּׁיךְ וּלְאָחִיךָ לֹא תַשִּׁיךְ לְמַעַן יְבָרֶכְךָ ה' אֱלֹהֶיךָ בְּכֹל מִשְׁלַח יָדֶךָ עַל הָאָרֶץ אֲשֶׁר אַתָּה בָא שָׁמָּה לְרִשְׁתָּהּ" (דברים כג, כ-כא)</div>
       </div>
     </section>
-    <section class="card">
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על הפסוק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על הפסוק</span> לפי הפסוק: על אילו דברים אסור לקחת נשך (ריבית) מאחיך? מנו שלושה.</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> צריך למצוא שלושה דברים.</li>
+          <li><b>מחפשים בפסוק את המילה "נשך".</b> היא חוזרת שלוש פעמים, ואחרי כל פעם כתוב על מה: <span class="bm-quote">נֶשֶׁךְ כֶּסֶף נֶשֶׁךְ אֹכֶל נֶשֶׁךְ כָּל דָּבָר אֲשֶׁר יִשָּׁךְ</span>.</li>
+          <li><b>מפרידים לשלושה חלקים:</b> כסף, אוכל, כל דבר אחר.</li>
+          <li><b>כותבים רשימה ממוספרת</b> - כל דבר בשורה.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>אסור לקחת ריבית: 1. על הלוואה של כסף. 2. על הלוואה של אוכל. 3. על הלוואה של כל דבר אחר.</p>
+        </div>
+        <p class="bm-example-why">✓ כשמילה חוזרת כמה פעמים בפסוק, היא עוזרת לחלק את הפסוק לחלקים. כך מוצאים את כל הפריטים.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided">
       <div class="card-head">
         <span class="card-tag">מדוע נקראת ריבית "נשך"?</span>
         <h2 class="card-title">מדוע נקראת ריבית "נשך"?</h2>
@@ -135,7 +158,7 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">התגמול</span>
         <h2 class="card-title">התגמול</h2>
@@ -147,6 +170,22 @@
           <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">מה מבטיחה התורה כתגמול לשומר את שתי המצוות הללו (שמיטת כספים ואיסור ריבית)?</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
+      </div>
+    </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על איסור ריבית</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>הפסוק:</b> "לֹא תַשִּׁיךְ לְאָחִיךָ נֶשֶׁךְ כֶּסֶף נֶשֶׁךְ אֹכֶל".</li>
+          <li><b>למה "נשך"?</b> רש״י משווה את הריבית ל"נשיכת נחש".</li>
+          <li><b>נכרי ואח:</b> "לַנָּכְרִי תַשִּׁיךְ וּלְאָחִיךָ לֹא תַשִּׁיךְ" - לפי הרמב״ן, האיסור הוא מצד "האחווה והחסד".</li>
+          <li><b>הברכה:</b> "לְמַעַן יְבָרֶכְךָ ה' אֱלֹהֶיךָ" - הברכה באה על חסד וצדקה.</li>
+        </ul>
       </div>
     </section>
   </div>
@@ -364,6 +403,8 @@ loadAnswers();
   });
 })();
 </script>
+<script src="assets/guide/ptp-ribit.js"></script>
 <script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>
