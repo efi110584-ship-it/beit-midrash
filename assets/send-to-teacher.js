@@ -26,7 +26,7 @@
   });
 
   function clean(t){ return String(t || '').replace(/\s+/g, ' ').trim(); }
-  function short(t){ t = clean(t); return t.length > 140 ? t.slice(0, 140) + '…' : t; }
+  function short(t){ t = clean(t); return t.length > 300 ? t.slice(0, 300) + '…' : t; }
 
   /* ---------- שם השאלה, כפי שיופיע אצל המורה ---------- */
   function examTagFor(el){
@@ -157,7 +157,8 @@
       studentName: clean(nameEl.value),
       studentClass: classEl ? clean(classEl.value) : '',
       assignment: assignment,
-      items: data.items
+      items: data.items,
+      total: data.total
     }).then(function(res){
       if(!(res && res.ok)) throw new Error((res && res.error) || 'השרת לא אישר את הקבלה');
       try{ localStorage.setItem(KEY, JSON.stringify({ t: Date.now(), n: data.items.length })); }catch(e){}
