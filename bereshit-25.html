@@ -160,10 +160,10 @@
 </p>
 
 <main id="main-content">
-  <div class="grid" id="grid">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק כ"ה (פסוקים י"ט-ל"ד)?</h2>
@@ -176,8 +176,30 @@
       </div>
     </section>
 
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: בן כמה היה אברהם כשמת, ומי קבר אותו?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) בן כמה היה אברהם. (2) מי קבר אותו.</li>
+          <li><b>מחפשים בתקציר.</b> שני החלקים נמצאים באותו משפט: <span class="bm-quote">מותו בשיבה טובה בגיל 175 וקבורתו במערת המכפלה על ידי יצחק וישמעאל יחד</span>.</li>
+          <li><b>מפרידים את המשפט לשני חלקים:</b> הגיל, ומי קבר.</li>
+          <li><b>כותבים לפי החלקים</b> - במילים שלכם, במשפט שלם.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>אברהם מת בשיבה טובה, כשהיה בן 175. שני בניו, יצחק וישמעאל, קברו אותו יחד במערת המכפלה.</p>
+        </div>
+        <p class="bm-example-why">✓ לפעמים התשובה לשני החלקים נמצאת במשפט אחד. קוראים אותו לאט, ומוצאים בו כל חלק.</p>
+      </div>
+    </section>
+
     <!-- נושא 1 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="guided">
     <div class="topic-banner" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
       <span class="topic-icon" aria-hidden="true">👶</span>
       <div>
@@ -290,7 +312,7 @@
     </div>
 
     <!-- נושא 3 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="open">
     <div class="topic-banner" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
       <span class="topic-icon" aria-hidden="true">🍲</span>
       <div>
@@ -342,6 +364,37 @@
       </div>
     </div>
     </div>
+
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו בפרק כ״ה</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>תפילה:</b> יצחק מתפלל "לְנֹכַח אִשְׁתּוֹ", ורבקה הרה לתאומים.</li>
+          <li><b>הנבואה:</b> "שְׁנֵי גֹיִים בְּבִטְנֵךְ... וְרַב יַעֲבֹד צָעִיר".</li>
+          <li><b>שני אחים:</b> עשיו "אִישׁ יֹדֵעַ צַיִד אִישׁ שָׂדֶה", ויעקב "אִישׁ תָּם יֹשֵׁב אֹהָלִים".</li>
+          <li><b>אהבת ההורים:</b> יצחק אוהב את עשיו, ורבקה אוהבת את יעקב.</li>
+          <li><b>מכירת הבכורה:</b> עשיו מוכר את הבכורה בעבור נזיד: "וַיִּבֶז עֵשָׂו אֶת הַבְּכֹרָה".</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🔁 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - חזרה ותרגול</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="bereshit-25-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+          <a class="chip-link" href="bereshit-25-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
+        </p>
+      </div>
+    </section>
 
   </div>
 </main>
@@ -492,6 +545,7 @@ loadAnswers();
 <script src="assets/progress-tracker.js"></script>
 <button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
 
+<script src="assets/guide/bereshit-25.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
