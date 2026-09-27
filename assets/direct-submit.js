@@ -242,7 +242,7 @@
       var pages = layoutPages(ctx, opts);
       var images = pages.map(function(ops, i){ return drawPage(canvas, ctx, ops, i + 1, pages.length); });
       var pdf = buildPdf(images, opts.assignment + ' - ' + opts.studentName);
-      return { pages: pages, bytes: pdf };
+      return { pages: pages, images: images, bytes: pdf };
     } finally {
       canvas.parentNode.removeChild(canvas);
     }
