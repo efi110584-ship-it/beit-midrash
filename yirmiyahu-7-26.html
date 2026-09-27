@@ -129,10 +129,10 @@
 </p>
 
 <main id="main-content">
-  <div class="grid" id="grid">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרקים</span>
         <h2 class="card-title">מה קורה בפרקים אלו?</h2>
@@ -145,8 +145,30 @@
       </div>
     </section>
 
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: איפה עמד ירמיהו, ונגד איזו אמונה הוא הכריז?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) איפה עמד. (2) נגד איזו אמונה.</li>
+          <li><b>מחפשים בתקציר את החלק הראשון:</b> <span class="bm-quote">ירמיהו יוצא לעמוד בשער בית ה'</span>.</li>
+          <li><b>מחפשים את החלק השני.</b> אחרי המילים "תפיסה מוטעית" כתוב: <span class="bm-quote">האמונה שבית המקדש עצמו מבטיח הגנה אוטומטית</span>.</li>
+          <li><b>כותבים לפי החלקים</b>, ומסבירים ביטוי קשה: "הגנה אוטומטית" = הגנה שקורית תמיד, לא משנה מה עושים.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>ירמיהו עמד בשער של בית המקדש. הוא הכריז נגד האמונה שבית המקדש ישמור על העם תמיד, גם אם העם חוטא.</p>
+        </div>
+        <p class="bm-example-why">✓ התשובה עונה על שני החלקים, ומסבירה ביטוי קשה במילים פשוטות.</p>
+      </div>
+    </section>
+
     <!-- נושא 1 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="guided">
     <div class="topic-banner" style="--acc:#8A5C21; --acc-soft:#F4ECE1;">
       <span class="topic-icon" aria-hidden="true">🏛️</span>
       <div>
@@ -241,7 +263,7 @@
     </div>
 
     <!-- נושא 3 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="open">
     <div class="topic-banner" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
       <span class="topic-icon" aria-hidden="true">⚔️</span>
       <div>
@@ -291,6 +313,37 @@
       </div>
     </div>
     </div>
+
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו בפרקים ז׳ וכ״ו</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>הטעות:</b> העם בוטח ש"הֵיכַל ה'" ישמור עליו, בלי קשר למעשים שלו.</li>
+          <li><b>הדרישה:</b> "הֵיטֵיב תֵּיטִיבוּ אֶת דַּרְכֵיכֶם" - גם כלפי אנשים, וגם כלפי ה׳.</li>
+          <li><b>שילה:</b> גם המשכן בשילה חרב בגלל החטאים - כך יכול לקרות גם למקדש.</li>
+          <li><b>המשפט:</b> הכהנים והעם רוצים להמית את ירמיהו, אבל השרים אומרים: "אֵין לָאִישׁ הַזֶּה מִשְׁפַּט מָוֶת".</li>
+          <li><b>שני תקדימים:</b> מיכה הנביא לא נענש, אבל אוריה נרצח.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🔁 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - חזרה ותרגול</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="yirmiyahu-7-26-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+          <a class="chip-link" href="yirmiyahu-7-26-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
+        </p>
+      </div>
+    </section>
 
   </div>
 </main>
@@ -441,6 +494,7 @@ loadAnswers();
 <script src="assets/progress-tracker.js"></script>
 <button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
 
+<script src="assets/guide/yirmiyahu-7-26.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
