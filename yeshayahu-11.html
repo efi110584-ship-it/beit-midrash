@@ -162,10 +162,10 @@
 </p>
 
 <main id="main-content">
-  <div class="grid" id="grid">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר היחידה</span>
         <h2 class="card-title">מה קורה בפרק י"א (פסוקים א'-י')?</h2>
@@ -178,8 +178,30 @@
       </div>
     </section>
 
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: אילו חיות יחיו יחד בשלום? תנו שלוש דוגמאות.</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> צריך שלוש דוגמאות - שלושה זוגות של חיות.</li>
+          <li><b>מחפשים בתקציר את המילים "שלום מוחלט בטבע".</b> אחריהן יש רשימה: <span class="bm-quote">הזאב גר עם הכבש, הנמר רובץ עם הגדי, והאריה אוכל תבן כבקר</span>.</li>
+          <li><b>מפרידים את הרשימה.</b> כל פסיק מפריד בין דוגמה לדוגמה.</li>
+          <li><b>כותבים רשימה ממוספרת</b> - כל דוגמה בשורה.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>1. הזאב יגור יחד עם הכבש. 2. הנמר ישכב ליד הגדי. 3. האריה יאכל תבן, כמו פרה.</p>
+        </div>
+        <p class="bm-example-why">✓ כשצריך כמה דוגמאות, סופרים שכתבנו את המספר הנכון. פסיקים בטקסט עוזרים להפריד בין הדוגמאות.</p>
+      </div>
+    </section>
+
     <!-- נושא 1 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="guided">
     <div class="topic-banner" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
       <span class="topic-icon" aria-hidden="true">👑</span>
       <div>
@@ -305,7 +327,7 @@
     </div>
 
     <!-- נושא 3 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="open">
     <div class="topic-banner" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
       <span class="topic-icon" aria-hidden="true">🚩</span>
       <div>
@@ -336,6 +358,37 @@
       </div>
     </div>
     </div>
+
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו בחזון האחרית</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>חוטר מגזע ישי:</b> מלך מבית דוד, ועליו "רוּחַ חָכְמָה וּבִינָה, רוּחַ עֵצָה וּגְבוּרָה, רוּחַ דַּעַת וְיִרְאַת ה'".</li>
+          <li><b>משפט צדק:</b> "וְלֹא לְמַרְאֵה עֵינָיו יִשְׁפּוֹט" - הוא ישפוט בצדק את הדלים.</li>
+          <li><b>זאב עם כבש:</b> לפי הרמב״ם - משל לשלום בין ישראל לעמים. לפי הרמב״ן - הטבע ישתנה באמת.</li>
+          <li><b>הסיבה:</b> "כִּי מָלְאָה הָאָרֶץ דֵּעָה אֶת ה'".</li>
+          <li><b>נס לעמים:</b> שורש ישי יעמוד "לְנֵס עַמִּים", והגויים ידרשו אליו.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🔁 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - חזרה ותרגול</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="yeshayahu-11-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+          <a class="chip-link" href="yeshayahu-11-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
+        </p>
+      </div>
+    </section>
 
   </div>
 </main>
@@ -486,6 +539,7 @@ loadAnswers();
 <script src="assets/progress-tracker.js"></script>
 <button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
 
+<script src="assets/guide/yeshayahu-11.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
