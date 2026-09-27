@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ברית בין הבתרים — סרטון (בראשית ט"ו)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#0b0a10; --ink:#f4ead6; --acc:#d9a441; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; min-height:100vh; background:var(--bg); color:var(--ink); font-family:'Heebo',sans-serif;
+        display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; padding:16px; }
+  .stage{ width:100%; max-width:1280px; position:relative; }
+  canvas{ width:100%; height:auto; display:block; border-radius:12px; box-shadow:0 20px 60px rgba(0,0,0,.6); background:#000; }
+  .controls{ width:100%; max-width:1280px; display:flex; align-items:center; gap:10px; }
+  .controls button{ font:inherit; font-weight:700; border:none; border-radius:999px; padding:.45rem 1.1rem; cursor:pointer;
+                    background:var(--acc); color:#1d1406; min-height:40px; }
+  .controls input[type=range]{ flex:1; accent-color:var(--acc); direction:ltr; }
+  .controls .time{ font-variant-numeric:tabular-nums; font-size:.9rem; opacity:.8; direction:ltr; }
+  a.back{ color:var(--acc); font-size:.9rem; }
+  body.render .controls, body.render a.back{ display:none; }
+  body.render{ padding:0; }
+  body.render canvas{ border-radius:0; box-shadow:none; }
+</style>
+</head>
+<body>
+<div class="stage"><canvas id="c" width="1280" height="720" aria-label="אנימציה: ברית בין הבתרים, בראשית פרק ט&quot;ו"></canvas></div>
+<div class="controls">
+  <button id="play" type="button">▶ הפעלה</button>
+  <input id="seek" type="range" min="0" max="114" step="0.1" value="0" aria-label="מיקום בסרטון">
+  <span class="time" id="time">0:00</span>
+</div>
+<a class="back" href="bereshit-15.html">← חזרה לדף העבודה של פרק ט"ו</a>
+
+<script>
+(() => {
+const W = 1280, H = 720, DURATION = 114;
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+const SERIF = '"Frank Ruhl Libre", "DejaVu Serif", serif';
+const SANS = '"Heebo", "DejaVu Sans", sans-serif';
+const EMOJI = '"Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", sans-serif';
+
+/* ---------- helpers ---------- */
+const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, k) => a + (b - a) * k;
+const ease = k => k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+const easeOutBack = k => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(k - 1, 3) + c1 * Math.pow(k - 1, 2); };
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+// alpha that fades in over [a, a+f] and out over [b-f, b]
+const win = (t, a, b, f = .8) => Math.min(prog(t, a, a + f), 1 - prog(t, b - f, b));
+function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let x = Math.imul(seed ^ seed >>> 15, 1 | seed); x = x + Math.imul(x ^ x >>> 7, 61 | x) ^ x; return ((x ^ x >>> 14) >>> 0) / 4294967296; }; }
+const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+const mix = (c1, c2, k) => { const a = hex(c1), b = hex(c2); return `rgb(${a.map((v, i) => Math.round(lerp(v, b[i], k))).join(',')})`; };
+// keyframed value: frames = [[t, value], ...]; value may be number or array of hex colors
+function key(frames, t) {
+  if (t <= frames[0][0]) return frames[0][1];
+  for (let i = 1; i < frames.length; i++) {
+    const [t1, v1] = frames[i];
+    if (t <= t1) {
+      const [t0, v0] = frames[i - 1];
+      const k = ease(prog(t, t0, t1));
+      return Array.isArray(v0) ? v0.map((c, j) => mix(c, v1[j], k)) : lerp(v0, v1, k);
+    }
+  }
+  return frames[frames.length - 1][1];
+}
+
+/* ---------- script (verse text from bereshit-15-text.html) ---------- */
+const CAPTIONS = [
+  [6, 14, 'א', 'אַחַר הַדְּבָרִים הָאֵלֶּה הָיָה דְבַר ה\' אֶל אַבְרָם בַּמַּחֲזֶה לֵאמֹר: אַל תִּירָא אַבְרָם, אָנֹכִי מָגֵן לָךְ, שְׂכָרְךָ הַרְבֵּה מְאֹד.'],
+  [14, 20, 'ג', 'וַיֹּאמֶר אַבְרָם: הֵן לִי לֹא נָתַתָּה זָרַע, וְהִנֵּה בֶן בֵּיתִי יוֹרֵשׁ אֹתִי.'],
+  [20, 27, 'ה', 'וַיּוֹצֵא אֹתוֹ הַחוּצָה וַיֹּאמֶר: הַבֶּט נָא הַשָּׁמַיְמָה וּסְפֹר הַכּוֹכָבִים אִם תּוּכַל לִסְפֹּר אֹתָם; וַיֹּאמֶר לוֹ: כֹּה יִהְיֶה זַרְעֶךָ.'],
+  [27, 31, 'ו', 'וְהֶאֱמִן בַּה\', וַיַּחְשְׁבֶהָ לּוֹ צְדָקָה.'],
+  [31, 37, 'ח', 'וַיֹּאמַר: אֲדֹנָי ה\' בַּמָּה אֵדַע כִּי אִירָשֶׁנָּה.'],
+  [37, 45, 'ט', 'וַיֹּאמֶר אֵלָיו: קְחָה לִי עֶגְלָה מְשֻׁלֶּשֶׁת וְעֵז מְשֻׁלֶּשֶׁת וְאַיִל מְשֻׁלָּשׁ, וְתֹר וְגוֹזָל.'],
+  [45, 53, 'י', 'וַיִּקַּח לוֹ אֶת כָּל אֵלֶּה וַיְבַתֵּר אֹתָם בַּתָּוֶךְ, וַיִּתֵּן אִישׁ בִּתְרוֹ לִקְרַאת רֵעֵהוּ; וְאֶת הַצִּפֹּר לֹא בָתָר.'],
+  [53, 60, 'יא', 'וַיֵּרֶד הָעַיִט עַל הַפְּגָרִים, וַיַּשֵּׁב אֹתָם אַבְרָם.'],
+  [60, 68, 'יב', 'וַיְהִי הַשֶּׁמֶשׁ לָבוֹא וְתַרְדֵּמָה נָפְלָה עַל אַבְרָם, וְהִנֵּה אֵימָה חֲשֵׁכָה גְדֹלָה נֹפֶלֶת עָלָיו.'],
+  [68, 74, 'יג', 'וַיֹּאמֶר לְאַבְרָם: יָדֹעַ תֵּדַע כִּי גֵר יִהְיֶה זַרְעֲךָ בְּאֶרֶץ לֹא לָהֶם, וַעֲבָדוּם וְעִנּוּ אֹתָם אַרְבַּע מֵאוֹת שָׁנָה.'],
+  [74, 80, 'יד', 'וְגַם אֶת הַגּוֹי אֲשֶׁר יַעֲבֹדוּ דָּן אָנֹכִי, וְאַחֲרֵי כֵן יֵצְאוּ בִּרְכֻשׁ גָּדוֹל.'],
+  [80, 85, 'טז', 'וְדוֹר רְבִיעִי יָשׁוּבוּ הֵנָּה, כִּי לֹא שָׁלֵם עֲוֹן הָאֱמֹרִי עַד הֵנָּה.'],
+  [85, 97, 'יז', 'וַיְהִי הַשֶּׁמֶשׁ בָּאָה וַעֲלָטָה הָיָה, וְהִנֵּה תַנּוּר עָשָׁן וְלַפִּיד אֵשׁ אֲשֶׁר עָבַר בֵּין הַגְּזָרִים הָאֵלֶּה.'],
+  [97, 108, 'יח', 'בַּיּוֹם הַהוּא כָּרַת ה\' אֶת אַבְרָם בְּרִית לֵאמֹר: לְזַרְעֲךָ נָתַתִּי אֶת הָאָרֶץ הַזֹּאת, מִנְּהַר מִצְרַיִם עַד הַנָּהָר הַגָּדֹל נְהַר פְּרָת.'],
+];
+
+/* ---------- world ---------- */
+// palette keyframes: [skyTop, skyBottom, duneFar, duneNear, ground]
+const PALETTE = [
+  [0,   ['#04060f', '#18203c', '#15141f', '#100f18', '#0b0a10']],
+  [30,  ['#04060f', '#18203c', '#15141f', '#100f18', '#0b0a10']],
+  [36,  ['#5d97cf', '#f1d9a8', '#d0a868', '#b98c4f', '#a07642']],
+  [58,  ['#5d97cf', '#f1d9a8', '#d0a868', '#b98c4f', '#a07642']],
+  [63,  ['#3a2a58', '#ee8a3c', '#7a4630', '#5c3424', '#44261b']],
+  [68,  ['#060510', '#1a0f1e', '#140c12', '#0f090e', '#0a060a']],
+  [97,  ['#060510', '#1a0f1e', '#140c12', '#0f090e', '#0a060a']],
+];
+const STAR_ALPHA = [[0, 1], [30, 1], [35, 0], [62, 0], [67, .75], [114, .75]];
+
+const R = rng(15);
+const STARS = Array.from({ length: 3200 }, () => ({ x: R() * W, y: Math.pow(R(), 1.3) * 540, r: .4 + Math.pow(R(), 3) * 1.8, p: R() * 6.28, s: .5 + R() * 2 }));
+
+const ABRAM_X = 1080, GROUND_Y = 572, WORLD_LIFT = 118;
+const LANE_Y = 527, ROW_TOP = 447, ROW_BOT = 612;
+const ANIMALS = [ { e: '🐄', x: 780 }, { e: '🐐', x: 580 }, { e: '🐏', x: 380 } ];
+
+function drawSky(t, pal) {
+  const g = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
+  g.addColorStop(0, pal[0]); g.addColorStop(1, pal[1]);
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+
+  const sa = key(STAR_ALPHA, t);
+  if (sa > .01) {
+    // star count: a modest sky, then "count the stars" multiplies them
+    const n = Math.round(lerp(260, STARS.length, ease(prog(t, 21, 26))) * (t > 60 ? .35 : 1));
+    for (let i = 0; i < n; i++) {
+      const s = STARS[i];
+      const tw = .55 + .45 * Math.sin(t * s.s + s.p);
+      const born = i < 260 ? 1 : clamp((t - 21 - (i / STARS.length) * 5) * 2);
+      ctx.globalAlpha = sa * tw * born;
+      ctx.fillStyle = '#fff8e6';
+      ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, 6.283); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // sun: rises with the dawn, sets at v.12
+  const sunVis = win(t, 33, 66, 3);
+  if (sunVis > 0) {
+    const sx = key([[33, 1150], [58, 420], [66, 300]], t);
+    const sy = key([[33, 470], [40, 150], [58, 210], [66, 520]], t);
+    const sunCol = key([[58, ['#fff4c8']], [64, ['#ff9a3c']]], t)[0];
+    const glow = ctx.createRadialGradient(sx, sy, 10, sx, sy, 190);
+    glow.addColorStop(0, 'rgba(255,230,160,.55)'); glow.addColorStop(1, 'rgba(255,200,120,0)');
+    ctx.globalAlpha = sunVis;
+    ctx.fillStyle = glow; ctx.fillRect(sx - 200, sy - 200, 400, 400);
+    ctx.fillStyle = sunCol; ctx.beginPath(); ctx.arc(sx, sy, 42, 0, 6.283); ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+}
+
+function dune(base, amp, col, seed) {
+  ctx.fillStyle = col; ctx.beginPath(); ctx.moveTo(0, H);
+  for (let x = 0; x <= W; x += 10) {
+    const y = base - amp * (Math.sin(x / 210 + seed) * .6 + Math.sin(x / 93 + seed * 2.1) * .25 + Math.sin(x / 460 + seed * .7) * .5);
+    ctx.lineTo(x, y);
+  }
+  ctx.lineTo(W, H + 200); ctx.lineTo(0, H + 200); ctx.closePath(); ctx.fill();
+}
+function drawLand(pal) {
+  dune(470, 34, pal[2], 1.3);
+  dune(520, 22, pal[3], 4.1);
+  ctx.fillStyle = pal[4]; ctx.fillRect(0, 548, W, H);
+  dune(560, 10, pal[4], 2.2);
+}
+
+/* Abram: a simple robed silhouette. pose = { look, arm, lie } */
+function drawAbram(t, pal) {
+  const lie = ease(prog(t, 63.5, 66.5));
+  const look = ease(win(t, 20.5, 27.5, 1.2));
+  const arm = ease(win(t, 55.3, 58.3, .7));
+  const x = ABRAM_X, y = GROUND_Y;
+  const body = '#17121c';
+  ctx.save();
+  ctx.shadowColor = 'rgba(190,200,255,.55)'; ctx.shadowBlur = 14;
+  if (lie < 1) {
+    ctx.globalAlpha = 1 - lie;
+    ctx.fillStyle = body; ctx.strokeStyle = body; ctx.lineCap = 'round';
+    // staff
+    ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(x - 38, y); ctx.lineTo(x - 46, y - 160); ctx.stroke();
+    // robe
+    ctx.beginPath(); ctx.moveTo(x - 32, y); ctx.lineTo(x - 19, y - 100); ctx.quadraticCurveTo(x, y - 112, x + 19, y - 100); ctx.lineTo(x + 32, y); ctx.closePath(); ctx.fill();
+    // arm holding the staff
+    ctx.lineWidth = 11; ctx.beginPath(); ctx.moveTo(x - 12, y - 92); ctx.lineTo(x - 40, y - 78); ctx.stroke();
+    // free arm (raises to drive away the bird of prey)
+    ctx.beginPath(); ctx.moveTo(x + 13, y - 92); ctx.lineTo(lerp(x + 26, x + 20, arm), lerp(y - 48, y - 170, arm)); ctx.stroke();
+    // head + headcloth, tilts back to look at the stars
+    const hx = x - 2 + look * 5, hy = y - 122 - look * 4;
+    ctx.beginPath(); ctx.arc(hx, hy, 15, 0, 6.283); ctx.fill();
+    ctx.beginPath(); ctx.moveTo(hx - 17, hy - 4); ctx.quadraticCurveTo(hx, hy - 26 - look * 3, hx + 17, hy - 4); ctx.lineTo(hx + 22, hy + 26); ctx.lineTo(hx - 20, hy + 24); ctx.closePath(); ctx.fill();
+    // face profile toward the left (the pieces)
+    ctx.beginPath(); ctx.moveTo(hx - 13, hy - 4 - look * 6); ctx.lineTo(hx - 20, hy + 3 - look * 6); ctx.lineTo(hx - 12, hy + 8); ctx.fill();
+  }
+  if (lie > 0) {
+    // asleep on the ground
+    ctx.globalAlpha = lie;
+    ctx.fillStyle = body;
+    ctx.beginPath(); ctx.ellipse(x - 5, y - 13, 62, 15, 0, 0, 6.283); ctx.fill();
+    ctx.beginPath(); ctx.arc(x + 66, y - 17, 14, 0, 6.283); ctx.fill();
+    ctx.strokeStyle = body; ctx.lineWidth = 5; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(x - 90, y - 3); ctx.lineTo(x + 70, y - 1); ctx.stroke();
+  }
+  ctx.restore();
+
+  // v.1 — "I am your shield": a dome of light around him
+  const sh = win(t, 7.5, 14, 1.4);
+  if (sh > 0) {
+    ctx.save();
+    ctx.globalAlpha = sh;
+    const cx = x, cy = y - 20, pulse = 1 + .03 * Math.sin(t * 2.4);
+    const g = ctx.createRadialGradient(cx, cy, 20, cx, cy, 170 * pulse);
+    g.addColorStop(0, 'rgba(255,220,140,.28)'); g.addColorStop(1, 'rgba(255,220,140,0)');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.ellipse(cx, cy, 120 * pulse, 160 * pulse, 0, Math.PI, 0); ctx.fill();
+    ctx.strokeStyle = 'rgba(255,214,130,.85)'; ctx.lineWidth = 3;
+    ctx.beginPath(); ctx.ellipse(cx, cy, 120 * pulse, 160 * pulse, 0, Math.PI, 0); ctx.stroke();
+    ctx.restore();
+  }
+  // v.6 — "counted it to him as righteousness": warm aura
+  const au = win(t, 27, 31.5, 1);
+  if (au > 0) {
+    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = au;
+    const g = ctx.createRadialGradient(x, y - 80, 5, x, y - 80, 140);
+    g.addColorStop(0, 'rgba(255,210,120,.55)'); g.addColorStop(1, 'rgba(255,210,120,0)');
+    ctx.fillStyle = g; ctx.fillRect(x - 150, y - 230, 300, 300); ctx.restore();
+  }
+}
+
+/* v.9–10: the animals, then the halves laid opposite each other */
+function emoji(ch, x, y, size, alpha = 1) {
+  ctx.save(); ctx.globalAlpha *= alpha; ctx.direction = 'ltr';
+  ctx.font = `${size}px ${EMOJI}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText(ch, x, y); ctx.restore();
+}
+function drawPieces(t, row) {
+  if (t < 37.5) return;
+  const split = ease(prog(t, 46, 49.5));
+  // dim the pieces once it is dark, the torch will light them
+  const lit = key([[60, 1], [68, .45], [84, .45], [86, .55]], t);
+  ctx.save(); ctx.globalAlpha = lit * (1 - prog(t, 97, 99.5));
+  ANIMALS.forEach((a, i) => {
+    const pop = easeOutBack(prog(t, 38 + i * 1.1, 38.8 + i * 1.1));
+    if (pop <= 0) return;
+    const size = 104 * pop;
+    if (split === 0) { if (row === 'top') emoji(a.e, a.x, LANE_Y, size); return; }
+    // left half goes up, right half comes down — each piece facing its partner
+    const half = row === 'top' ? -1 : 1;
+    const y = lerp(LANE_Y, row === 'top' ? ROW_TOP : ROW_BOT, split);
+    const x = a.x + half * split * 8;
+    ctx.save(); ctx.beginPath();
+    if (half < 0) ctx.rect(a.x - 80, 0, 80 - split * 3, H); else ctx.rect(a.x + split * 3, 0, 80, H);
+    ctx.clip(); emoji(a.e, x, y, size); ctx.restore();
+  });
+  // the birds are not divided — one on each side
+  const b = prog(t, 42.5, 43.5);
+  if (b > 0) emoji(row === 'top' ? '🕊️' : '🐦', 190, row === 'top' ? lerp(LANE_Y - 30, ROW_TOP, split) : lerp(LANE_Y + 30, ROW_BOT, split), 70, b);
+  ctx.restore();
+}
+
+/* v.11: the bird of prey swoops down and Abram drives it off */
+function drawEagle(t) {
+  if (t < 53 || t > 60.5) return;
+  let x, y;
+  if (t < 56.2) { const k = ease(prog(t, 53, 56.2)); x = lerp(-80, 560, k); y = lerp(80, 360, k) + Math.sin(t * 6) * 6; }
+  else { const k = ease(prog(t, 56.2, 60)); x = lerp(560, 1400, k); y = lerp(360, -120, k); }
+  const flap = 1 + .08 * Math.sin(t * 14);
+  ctx.save(); ctx.translate(x, y); ctx.scale(t < 56.2 ? -flap : flap, flap); emoji('🦅', 0, 0, 92); ctx.restore();
+}
+
+/* v.12: dread and great darkness */
+function drawDread(t) {
+  const d = win(t, 63, 69, 2);
+  if (d <= 0) return;
+  const pulse = .85 + .15 * Math.sin(t * 3);
+  const g = ctx.createRadialGradient(W / 2, H / 2, 120, W / 2, H / 2, 760);
+  g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, `rgba(0,0,0,${.92 * pulse})`);
+  ctx.globalAlpha = d; ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.globalAlpha = 1;
+}
+
+/* v.13–16: the vision of the future */
+function centerText(text, x, y, size, color, font = SERIF, weight = 700, alpha = 1) {
+  if (alpha <= 0) return;
+  ctx.save(); ctx.globalAlpha *= alpha; ctx.direction = 'rtl'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.font = `${weight} ${size}px ${font}`; ctx.fillStyle = color;
+  ctx.shadowColor = 'rgba(0,0,0,.7)'; ctx.shadowBlur = 14; ctx.fillText(text, x, y); ctx.restore();
+}
+function drawVision(t) {
+  const dim = win(t, 68, 86, 1.8);
+  if (dim <= 0) return;
+  ctx.fillStyle = `rgba(4,3,8,${.8 * dim})`; ctx.fillRect(0, 0, W, H);
+  const gold = '#e8bd62';
+  // v.13 — 400 years
+  const a1 = win(t, 68.6, 74, .7);
+  if (a1 > 0) {
+    const n = Math.round(400 * ease(prog(t, 69, 72.5)));
+    centerText(String(n), W / 2, 215, 150, gold, SERIF, 900, a1);
+    centerText('שָׁנָה', W / 2, 315, 48, '#f4ead6', SERIF, 700, a1);
+    ['גֵּר', 'עַבְדוּת', 'עִנּוּי'].forEach((w, i) => centerText(w, W / 2 + (1 - i) * 230, 400, 38, '#c9b8a0', SERIF, 700, a1 * prog(t, 70 + i * .8, 70.8 + i * .8)));
+  }
+  // v.14 — judgment, and great wealth
+  const a2 = win(t, 74.2, 80, .7);
+  if (a2 > 0) {
+    emoji('⚖️', W / 2 + 200, 220, 110, a2);
+    centerText('דָּן אָנֹכִי', W / 2 + 200, 330, 46, '#f4ead6', SERIF, 700, a2);
+    const b = prog(t, 76.3, 77.2);
+    emoji('✨', W / 2 - 200, 220, 110, a2 * b);
+    centerText('בִּרְכֻשׁ גָּדוֹל', W / 2 - 200, 330, 46, gold, SERIF, 700, a2 * b);
+  }
+  // v.16 — the fourth generation returns
+  const a3 = win(t, 80.2, 86, .7);
+  if (a3 > 0) {
+    const labels = ['א', 'ב', 'ג', 'ד'];
+    labels.forEach((l, i) => {
+      const cx = W / 2 + 270 - i * 180, on = prog(t, 80.6 + i * .7, 81.1 + i * .7);
+      ctx.save(); ctx.globalAlpha = a3;
+      ctx.strokeStyle = gold; ctx.lineWidth = 3; ctx.fillStyle = `rgba(232,189,98,${.85 * on})`;
+      ctx.beginPath(); ctx.arc(cx, 230, 48, 0, 6.283); ctx.fill(); ctx.stroke(); ctx.restore();
+      centerText(`דּוֹר ${l}'`, cx, 232, 28, on > .5 ? '#1d1406' : gold, SANS, 700, a3);
+    });
+    centerText('יָשׁוּבוּ הֵנָּה ←', W / 2, 345, 46, '#f4ead6', SERIF, 700, a3 * prog(t, 83.4, 84.2));
+  }
+}
+
+/* v.17: a smoking furnace and a flaming torch pass between the pieces */
+function furnacePos(t) { return lerp(1380, -220, prog(t, 86.5, 96)); }
+function drawFire(t) {
+  if (t < 86 || t > 97.5) return;
+  const R2 = rng(17);
+  const fx = furnacePos(t), tx = fx + 210;
+  // smoke from the furnace: particles are a pure function of spawn time, so any frame can be drawn directly
+  for (let s = 86; s < t; s += .025) {
+    const age = t - s; if (age > 2.2) { R2(); R2(); continue; }
+    const r1 = R2(), r2 = R2();
+    const ox = furnacePos(s);
+    const px = ox + (r1 - .5) * 26 + age * 14, py = LANE_Y - 40 - age * 90 - age * age * 10;
+    const rad = 9 + age * 20;
+    ctx.fillStyle = `rgba(${90 + r2 * 30},${86 + r2 * 30},${92 + r2 * 30},${.24 * (1 - age / 2.2)})`;
+    ctx.beginPath(); ctx.arc(px, py, rad, 0, 6.283); ctx.fill();
+  }
+  // the furnace (clay oven) with glowing mouth
+  ctx.save(); ctx.translate(fx, LANE_Y + 26);
+  ctx.fillStyle = '#5b3d2a'; ctx.beginPath(); ctx.moveTo(-42, 0); ctx.quadraticCurveTo(-46, -62, 0, -66); ctx.quadraticCurveTo(46, -62, 42, 0); ctx.closePath(); ctx.fill();
+  const m = ctx.createRadialGradient(-6, -18, 2, -6, -18, 22); m.addColorStop(0, '#ffd27a'); m.addColorStop(1, '#b8451c');
+  ctx.fillStyle = m; ctx.beginPath(); ctx.ellipse(-8, -18, 14, 17, 0, 0, 6.283); ctx.fill();
+  ctx.restore();
+  // the torch
+  ctx.save(); ctx.strokeStyle = '#4a3322'; ctx.lineWidth = 7; ctx.lineCap = 'round';
+  ctx.beginPath(); ctx.moveTo(tx + 8, LANE_Y + 26); ctx.lineTo(tx, LANE_Y - 36); ctx.stroke(); ctx.restore();
+  ctx.save(); ctx.globalCompositeOperation = 'lighter';
+  const R3 = rng(71);
+  for (let s = 86; s < t; s += .012) {
+    const age = t - s; if (age > .7) { R3(); R3(); continue; }
+    const r1 = R3(), r2 = R3();
+    const px = tx + (r1 - .5) * 16 + age * 60, py = LANE_Y - 40 - age * 120;
+    const k = age / .7, rad = 16 * (1 - k) + 2;
+    ctx.fillStyle = `rgba(255,${Math.round(200 - 140 * k + r2 * 40)},${Math.round(80 * (1 - k))},${.55 * (1 - k)})`;
+    ctx.beginPath(); ctx.arc(px, py, rad, 0, 6.283); ctx.fill();
+  }
+  // light cast on the pieces
+  const g = ctx.createRadialGradient(tx, LANE_Y - 30, 10, tx, LANE_Y - 30, 260);
+  g.addColorStop(0, 'rgba(255,170,80,.35)'); g.addColorStop(1, 'rgba(255,140,60,0)');
+  ctx.fillStyle = g; ctx.fillRect(tx - 270, LANE_Y - 300, 540, 560);
+  ctx.restore();
+}
+
+/* v.18: the land, from the river of Egypt to the Euphrates */
+function river(pts, t, wob) {
+  const P = pts.map(([x, y]) => [x + Math.sin(y / 45 + t * wob) * 5, y]);
+  ctx.beginPath(); ctx.moveTo(P[0][0], P[0][1]);
+  for (let i = 1; i < P.length - 1; i++) ctx.quadraticCurveTo(P[i][0], P[i][1], (P[i][0] + P[i + 1][0]) / 2, (P[i][1] + P[i + 1][1]) / 2);
+  ctx.lineTo(P[P.length - 1][0], P[P.length - 1][1]); ctx.stroke();
+}
+
+function drawPromise(t) {
+  const a = prog(t, 97, 99.5) * (1 - prog(t, 107.2, 108.4));
+  if (a <= 0) return;
+  ctx.save(); ctx.globalAlpha = a;
+  const g = ctx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#1b2346'); g.addColorStop(1, '#e7b86f');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  // stars above — "so shall your seed be"
+  for (let i = 0; i < 500; i++) { const s = STARS[i]; ctx.fillStyle = `rgba(255,248,230,${.5 + .5 * Math.sin(t * s.s + s.p)})`; ctx.beginPath(); ctx.arc(s.x, s.y * .16, s.r, 0, 6.283); ctx.fill(); }
+  // land between the rivers, revealed from Egypt toward the Euphrates
+  const land = () => { ctx.beginPath(); ctx.moveTo(215, 160); ctx.bezierCurveTo(480, 110, 820, 120, 1045, 135); ctx.lineTo(1000, 470); ctx.bezierCurveTo(760, 500, 420, 495, 225, 480); ctx.closePath(); };
+  ctx.fillStyle = 'rgba(80,60,40,.45)'; land(); ctx.fill();
+  const rev = ease(prog(t, 99, 104));
+  ctx.save(); land(); ctx.clip();
+  const lg = ctx.createLinearGradient(215, 0, 1045, 0);
+  lg.addColorStop(0, '#f6cf73'); lg.addColorStop(1, '#e0a33f');
+  ctx.fillStyle = lg; ctx.fillRect(200, 90, (1060 - 200) * rev, 440);
+  ctx.restore();
+  ctx.strokeStyle = '#3f86c7'; ctx.lineWidth = 10; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  river([[205, 90], [225, 190], [195, 290], [228, 390], [212, 510]], t, 1.2);
+  river([[1130, 80], [1050, 170], [1085, 270], [1005, 380], [1030, 510]], t, 1);
+  centerText('נְהַר מִצְרַיִם', 215, 545, 32, '#1d2a4a', SERIF, 900, a);
+  centerText('נְהַר פְּרָת', 1030, 545, 32, '#1d2a4a', SERIF, 900, a);
+  centerText('לְזַרְעֲךָ נָתַתִּי אֶת הָאָרֶץ הַזֹּאת', W / 2, 305, 56, '#3a220c', SERIF, 900, a * prog(t, 101, 102.5));
+  ctx.restore();
+}
+
+/* titles & captions */
+function wrap(text, maxW) {
+  const words = text.split(' '), lines = []; let line = '';
+  for (const w of words) { const test = line ? line + ' ' + w : w; if (ctx.measureText(test).width > maxW && line) { lines.push(line); line = w; } else line = test; }
+  if (line) lines.push(line); return lines;
+}
+function drawCaption(t) {
+  for (const [a, b, v, text] of CAPTIONS) {
+    const al = win(t, a, b, .5);
+    if (al <= 0) continue;
+    ctx.save(); ctx.globalAlpha = al; ctx.direction = 'rtl'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.font = `700 28px ${SERIF}`;
+    const lines = wrap(text, 1060), lh = 40, boxH = lines.length * lh + 44, top = H - boxH - 14;
+    ctx.fillStyle = 'rgba(8,6,12,.66)';
+    ctx.beginPath(); ctx.roundRect(70, top, W - 140, boxH, 16); ctx.fill();
+    ctx.fillStyle = '#e8bd62'; ctx.font = `700 17px ${SANS}`;
+    ctx.fillText(`בראשית ט"ו, ${v}`, W / 2, top + 16);
+    ctx.fillStyle = '#f7efdd'; ctx.font = `700 28px ${SERIF}`;
+    lines.forEach((l, i) => ctx.fillText(l, W / 2, top + 42 + i * lh));
+    ctx.restore();
+  }
+}
+function drawTitles(t) {
+  const a = win(t, .6, 6.2, 1.1);
+  if (a > 0) {
+    ctx.fillStyle = `rgba(0,0,0,${.35 * a})`; ctx.fillRect(0, 0, W, H);
+    centerText('בְּרִית בֵּין הַבְּתָרִים', W / 2, 290, 92, '#f1cf82', SERIF, 900, a);
+    centerText('בראשית · פרק ט"ו', W / 2, 385, 34, '#f4ead6', SANS, 400, a * prog(t, 1.6, 2.6));
+  }
+  const e = prog(t, 108, 109.5);
+  if (e > 0) {
+    ctx.fillStyle = `rgba(6,5,10,${e})`; ctx.fillRect(0, 0, W, H);
+    centerText('בְּרִית בֵּין הַבְּתָרִים', W / 2, 300, 80, '#f1cf82', SERIF, 900, e);
+    centerText('"בַּיּוֹם הַהוּא כָּרַת ה\' אֶת אַבְרָם בְּרִית"', W / 2, 390, 36, '#f4ead6', SERIF, 700, e * prog(t, 109.2, 110.2));
+    centerText('בית המדרש הדיגיטלי · ספר בראשית', W / 2, 470, 22, '#b8a98f', SANS, 400, e * prog(t, 110, 111));
+  }
+  const fadeIn = 1 - prog(t, 0, .6), fadeOut = prog(t, 112.8, 114);
+  const f = Math.max(fadeIn, fadeOut);
+  if (f > 0) { ctx.fillStyle = `rgba(0,0,0,${f})`; ctx.fillRect(0, 0, W, H); }
+}
+
+function render(t) {
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.globalAlpha = 1; ctx.globalCompositeOperation = 'source-over';
+  const pal = key(PALETTE, t);
+  drawSky(t, pal);
+  // the world is raised so the caption band never hides the pieces
+  ctx.save(); ctx.translate(0, -WORLD_LIFT);
+  drawLand(pal);
+  drawPieces(t, 'top');
+  drawFire(t);
+  drawPieces(t, 'bot');
+  drawAbram(t, pal);
+  drawEagle(t);
+  ctx.restore();
+  drawDread(t);
+  drawVision(t);
+  drawPromise(t);
+  drawCaption(t);
+  drawTitles(t);
+}
+
+/* ---------- playback ---------- */
+const fontsReady = Promise.all([
+  document.fonts.load(`700 31px "Frank Ruhl Libre"`, 'אבג'),
+  document.fonts.load(`900 31px "Frank Ruhl Libre"`, 'אבג'),
+  document.fonts.load(`400 20px "Heebo"`, 'אבג'),
+  document.fonts.load(`700 20px "Heebo"`, 'אבג'),
+]).catch(() => {}).then(() => document.fonts.ready);
+
+window.__render = t => { render(t); return cv.toDataURL('image/jpeg', .9); };
+window.__duration = DURATION;
+window.__ready = fontsReady.then(() => true);
+
+if (new URLSearchParams(location.search).has('render')) { document.body.classList.add('render'); fontsReady.then(() => render(0)); return; }
+
+let t = 0, playing = false, last = 0;
+const btn = document.getElementById('play'), seek = document.getElementById('seek'), time = document.getElementById('time');
+const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+function frame(now) {
+  if (playing) { t += (now - last) / 1000; if (t >= DURATION) { t = DURATION; playing = false; btn.textContent = '↺ מההתחלה'; } }
+  last = now; render(t); seek.value = t; time.textContent = fmt(t);
+  requestAnimationFrame(frame);
+}
+btn.addEventListener('click', () => { if (t >= DURATION) t = 0; playing = !playing; btn.textContent = playing ? '❚❚ עצירה' : '▶ הפעלה'; });
+seek.addEventListener('input', () => { t = +seek.value; });
+fontsReady.then(() => requestAnimationFrame(n => { last = n; frame(n); }));
+})();
+</script>
+</body>
+</html>
