@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
 </head>
@@ -43,7 +44,7 @@
 
 <main id="main-content">
   <div class="grid" id="grid">
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">שמיטת כספים - פתיחה</span>
         <h2 class="card-title">פרק טו, פסוקים א-יא</h2>
@@ -53,7 +54,29 @@
         <div class="pasuk-block">על פי הצדק הטבעי, המַלווה זכאי לקבל את כספו שהִלווה, וההלוואה נדרשת מהאדם שלווה להשיב את הכסף שניתן לו בזמן מוגבל. אך התורה דורשת לוותר על הכסף המגיע לו בדין, בשביל לקיים חסד עם העני.</div>
       </div>
     </section>
-    <section class="card">
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על הפסוק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על ההסבר בפתיחה</span> לפי ההסבר בכרטיס הפתיחה: מה מגיע למלווה לפי הצדק הטבעי, ומה התורה דורשת ממנו?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) מה מגיע למלווה לפי הצדק הטבעי. (2) מה התורה דורשת.</li>
+          <li><b>מחפשים בהסבר את המילים "הצדק הטבעי":</b> <span class="bm-quote">המַלווה זכאי לקבל את כספו שהִלווה</span>.</li>
+          <li><b>מחפשים את המילים "התורה דורשת".</b> הן באות אחרי המילה "אך": <span class="bm-quote">לוותר על הכסף המגיע לו בדין, בשביל לקיים חסד עם העני</span>.</li>
+          <li><b>כותבים לפי החלקים</b> - במילים שלכם.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>לפי הצדק הטבעי, מי שהלווה כסף צריך לקבל אותו בחזרה. אבל התורה דורשת ממנו לוותר על הכסף, אף שמגיע לו, כדי לעשות חסד עם העני.</p>
+        </div>
+        <p class="bm-example-why">✓ המילה "אך" (כמו "אבל") מסמנת ניגוד - שם מתחיל החלק השני של התשובה.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided">
       <div class="card-head">
         <span class="card-tag">הדין הבסיסי</span>
         <h2 class="card-title">הדין הבסיסי</h2>
@@ -96,7 +119,7 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">טעם המצווה</span>
         <h2 class="card-title">טעם המצווה</h2>
@@ -108,6 +131,22 @@
           <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">קראו את דברי הרב קוק, וכתבו כיצד הם מסבירים את מהותה הפנימית של שמיטת הכספים.</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
+      </div>
+    </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על שמיטת כספים</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>השמיטה:</b> "מִקֵּץ שֶׁבַע שָׁנִים תַּעֲשֶׂה שְׁמִטָּה" - המלווה מוותר על החוב.</li>
+          <li><b>מעבר לצדק:</b> לפי הצדק הטבעי המלווה זכאי לכספו, אבל התורה דורשת "לקיים חסד עם העני".</li>
+          <li><b>שני פסוקים:</b> "לֹא יִהְיֶה בְּךָ אֶבְיוֹן" מול "לֹא יֶחְדַּל אֶבְיוֹן" - ורש״י מיישב את הסתירה.</li>
+          <li><b>הרב קוק:</b> שנת השמיטה היא "שנת שקט ושלווה, באין נוגש ורודה".</li>
+        </ul>
       </div>
     </section>
   </div>
@@ -325,6 +364,8 @@ loadAnswers();
   });
 })();
 </script>
+<script src="assets/guide/ptp-shmitat-ksafim.js"></script>
 <script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>
