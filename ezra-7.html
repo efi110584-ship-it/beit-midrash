@@ -129,10 +129,10 @@
 </p>
 
 <main id="main-content">
-  <div class="grid" id="grid">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק ז'?</h2>
@@ -145,8 +145,30 @@
       </div>
     </section>
 
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: עד מי מגיע הייחוס של עזרא, ואיך הוא מוצג?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) עד מי מגיע הייחוס. (2) איך עזרא מוצג.</li>
+          <li><b>מחפשים בתקציר את המילה "ייחוס":</b> <span class="bm-quote">רשימת ייחוסו של עזרא, המגיעה עד אהרן הכהן</span>.</li>
+          <li><b>ממשיכים באותו משפט:</b> ומציג אותו כ<span class="bm-quote">סֹפֵר מָהִיר בְּתוֹרַת מֹשֶׁה</span>.</li>
+          <li><b>כותבים לפי החלקים</b>, ומסבירים ביטוי קשה: "סופר מהיר" = מומחה, מי שמכיר היטב.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>הייחוס של עזרא מגיע עד אהרן הכהן - כלומר עזרא הוא כהן. הפרק מציג אותו כ"סופר מהיר בתורת משה", כלומר מומחה גדול בתורה.</p>
+        </div>
+        <p class="bm-example-why">✓ התשובה עונה על שני החלקים, ומסבירה ביטוי קשה במילים פשוטות.</p>
+      </div>
+    </section>
+
     <!-- נושא 1 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="guided">
     <div class="topic-banner" style="--acc:#8A5C21; --acc-soft:#F4ECE1;">
       <span class="topic-icon" aria-hidden="true">🕊️</span>
       <div>
@@ -315,7 +337,7 @@
     </div>
 
     <!-- נושא 4 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="open">
     <div class="topic-banner" style="--acc:#B0762B; --acc-soft:#F5E9D6;">
       <span class="topic-icon" aria-hidden="true">🙏</span>
       <div>
@@ -357,6 +379,37 @@
       </div>
     </div>
     </div>
+
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו בפרק ז׳</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>עזרא:</b> כהן מבית אהרן, "סֹפֵר מָהִיר בְּתוֹרַת מֹשֶׁה".</li>
+          <li><b>העלייה:</b> עזרא יוצא בחודש הראשון ומגיע בחודש החמישי, "כְּיַד אֱלֹקָיו הַטּוֹבָה עָלָיו".</li>
+          <li><b>המטרה:</b> "לִדְרוֹשׁ אֶת תּוֹרַת ה', וְלַעֲשֹׂת וּלְלַמֵּד בְּיִשְׂרָאֵל חֹק וּמִשְׁפָּט".</li>
+          <li><b>הרישיון:</b> עלייה, כספי נדבה, פטור ממס, ומינוי "שֹׁפְטִים וְדַיָּנִים".</li>
+          <li><b>ההודיה:</b> "בָּרוּךְ ה' אֱלֹקֵי אֲבוֹתֵינוּ, אֲשֶׁר נָתַן כָּזֹאת בְּלֵב הַמֶּלֶךְ".</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🔁 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - חזרה ותרגול</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="ezra-7-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+          <a class="chip-link" href="ezra-7-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
+        </p>
+      </div>
+    </section>
 
   </div>
 </main>
@@ -507,6 +560,7 @@ loadAnswers();
 <script src="assets/progress-tracker.js"></script>
 <button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
 
+<script src="assets/guide/ezra-7.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
