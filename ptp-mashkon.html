@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
 </head>
@@ -43,7 +44,7 @@
 
 <main id="main-content">
   <div class="grid" id="grid">
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">דיני משכון - פתיחה</span>
         <h2 class="card-title">פרק כד, פסוקים ו, י-יג</h2>
@@ -53,7 +54,29 @@
         <div class="pasuk-block">מַשְׁכּוֹן = חפץ שנלקח מהלווה, שאם במועד הפרעון הוא לא יוכל לשלם - יוכל המלווה לגבות ממנו את חובו.</div>
       </div>
     </section>
-    <section class="card">
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על הפסוק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על ההסבר בפתיחה</span> לפי ההסבר בכרטיס הפתיחה: מהו משכון, ולמה המלווה לוקח אותו?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) מהו משכון. (2) למה לוקחים אותו.</li>
+          <li><b>מחפשים את המילה "משכון".</b> אחרי הסימן = כתובה ההגדרה: <span class="bm-quote">חפץ שנלקח מהלווה</span>.</li>
+          <li><b>ממשיכים באותו משפט.</b> המילה "שאם" מתחילה את הסיבה: <span class="bm-quote">שאם במועד הפרעון הוא לא יוכל לשלם - יוכל המלווה לגבות ממנו את חובו</span>.</li>
+          <li><b>כותבים לפי החלקים</b> - במילים שלכם.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>משכון הוא חפץ שהמלווה לוקח מהלווה. הוא לוקח אותו כדי שאם הלווה לא יחזיר את ההלוואה בזמן, המלווה יוכל לקבל את מה שמגיע לו.</p>
+        </div>
+        <p class="bm-example-why">✓ כששואלים "מהו", מחפשים הגדרה (כאן - אחרי הסימן =). כששואלים "למה", מחפשים סיבה.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided">
       <div class="card-head">
         <span class="card-tag">מה אסור למשכן?</span>
         <h2 class="card-title">מה אסור למשכן?</h2>
@@ -110,7 +133,7 @@
         </div>
       </div>
     </section>
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="open" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">חזרה לעקרונות היחידה</span>
         <h2 class="card-title">חזרו אל העקרונות שאליהם התייחסנו בפתיחת היחידה</h2>
@@ -121,6 +144,22 @@
           <div class="fill-row"><span class="fill-label" id="a11y-lbl-6">ב. קיום/שיקום העני</span><input type="text" class="answer" aria-labelledby="a11y-lbl-6" data-id="q5b" placeholder="כיצד באה לידי ביטוי בדיני משכון?"></div>
           <div class="fill-row"><span class="fill-label" id="a11y-lbl-7">ג. כבוד העני</span><input type="text" class="answer" aria-labelledby="a11y-lbl-7" data-id="q5c" placeholder="כיצד באה לידי ביטוי בדיני משכון?"></div>
         </div>
+      </div>
+    </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על דיני משכון</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>משכון:</b> חפץ שהמלווה לוקח, כדי שיוכל לגבות את החוב.</li>
+          <li><b>מה אסור:</b> "לֹא יַחֲבֹל רֵחַיִם וָרָכֶב" - לא ממשכנים כלים שעושים בהם אוכל.</li>
+          <li><b>כבוד הלווה:</b> "בַּחוּץ תַּעֲמֹד" - לא נכנסים לביתו לקחת את המשכון.</li>
+          <li><b>החזרה בזמן:</b> "הָשֵׁב תָּשִׁיב לוֹ אֶת הַעֲבוֹט כְּבֹא הַשֶּׁמֶשׁ".</li>
+        </ul>
       </div>
     </section>
   </div>
@@ -338,6 +377,8 @@ loadAnswers();
   });
 })();
 </script>
+<script src="assets/guide/ptp-mashkon.js"></script>
 <script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
 </body>
 </html>
