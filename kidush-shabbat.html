@@ -54,8 +54,65 @@
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main id="main-content">
-  <div class="grid" id="grid">
-    <section class="card" style="grid-column: 1 / -1;">
+  <div class="grid" id="grid" data-answer-kind="suggested">
+    <!-- הסבר קצר (שלב ג׳) -->
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">📖 בקצרה</span>
+        <h2 class="card-title">קידוש השבת בקצרה - הסבר פשוט</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📜</span>מה המצווה?</div>
+          "זכור את יום השבת לקדשו" - לומר דברים על גדולת השבת כשהיא נכנסת (קידוש) וכשהיא יוצאת (הבדלה).
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🍷</span>על מה אומרים?</div>
+          חכמים אמרו לומר את הדברים על כוס יין, שיש בה "רביעית". ביציאת השבת מברכים על היין ברכת "הבדלה", וגם על הנר ועל הבשמים.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">💡</span>למה דווקא יין?</div>
+          לפי ספר החינוך, המעשים של האדם משפיעים על הלב שלו. היין מעורר את האדם, וכך הוא זוכר טוב יותר את גדולת השבת, ומחזק בלב את האמונה שה׳ ברא את העולם.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🍞</span>ואפשר על פת?</div>
+          בקידוש - מי שהפת חביבה עליו יותר יכול לקדש על הפת. בהבדלה - תמיד על יין, כי במוצאי שבת רוב האנשים רוצים יותר לשתות מלאכול (כבר אכלו סעודה גדולה בשבת).
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🥄</span>הלכות שמעוררות את הלב</div>
+          כוס של רביעית, להדיח (לשטוף) את הכוס, לא לטעום כלום לפני הקידוש, ולקדש במקום הסעודה.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📅</span>על מי?</div>
+          בכל מקום ובכל זמן - גם על נשים, אף שזו מצווה שהזמן גרמא. מי שלא קידש בכלל - ביטל עשה. מי שקידש רק בדברים, בלי יין - יצא ידי חובה מן התורה.
+        </div>
+      </div>
+    </section>
+
+    <!-- דוגמה פתורה (שלב ג׳): שאלת בגרות אמיתית מהדף ותשובת המחוון -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">בגרות · תשפ״ג (2023) · שאלה 1 · סעיף ב</span> 1. מדוע קבעו חכמים שיש לקדש את השבת ביין? 2. מהי כמות היין הנדרשת לקידוש, ומדוע אין לקדש על פחות מכמות זו?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש שני חלקים: (1) למה יין. (2) כמה יין - ולמה לא פחות. שימו לב: בחלק 2 יש שתי שאלות.</li>
+          <li><b>מחפשים בדף את חלק 1.</b> בכרטיס "קידוש דווקא על יין" כתוב: <span class="bm-quote">לפי שטבע האדם מתעורר בו הרבה</span>.</li>
+          <li><b>מחפשים בדף את חלק 2.</b> בכרטיס "הלכות שמעוררות את הלב" כתוב שצריך כוס רביעית, כי <span class="bm-quote">פחות מזה השיעור אינו ראוי ולא תעורר לב אדם עליו</span>.</li>
+          <li><b>כותבים לפי החלקים.</b> 1. הסיבה. 2. הכמות + הסיבה.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית - לא מהמחוון</span></div>
+          <p>1. כי היין מעורר את האדם - וכשהאדם מתעורר, הוא זוכר יותר את גדולת השבת. 2. צריך רביעית. בפחות מזה היין לא מעורר את הלב, ולכן הוא לא מתאים.</p>
+        </div>
+        <div class="hint-box" data-answer-kind="official"><b>✓ דגם התשובה:</b><p>1. כי היין מעורר את האדם ומשמח אותו.</p><p>2. רביעית. פחות מכמות זו אינה משפיעה על האדם.</p></div>
+        <p class="bm-example-why">✓ שתי התשובות עונות על כל החלקים: למה יין, כמה יין, ולמה לא פחות.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">מבנה ספר החינוך - חימום</span>
         <h2 class="card-title">לפני שמתחילים: מבנה ספר החינוך</h2>
@@ -174,7 +231,7 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">למעשה (המשך)</span>
         <h2 class="card-title">למעשה (המשך)</h2>
@@ -187,7 +244,7 @@
         </div>
       </div>
     </section>
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">שאלות בגרות אמיתיות</span>
         <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תש"ף – תשפ"ו)</h2>
@@ -328,6 +385,24 @@
                 </div>
               </div>
             </div>
+      </div>
+    </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על קידוש השבת</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>המצווה:</b> "זכור את יום השבת לקדשו" - לומר דברים על גדולת השבת בכניסתה (קידוש) וביציאתה (הבדלה).</li>
+          <li><b>על יין:</b> חכמים אמרו לומר אותם על כוס של רביעית.</li>
+          <li><b>השורש:</b> "לפי התעוררות האדם ומעשהו, יתפעל אל הדברים" - המעשה מעורר את הלב לזכור את גדולת היום ואת חידוש העולם.</li>
+          <li><b>קידוש והבדלה:</b> בקידוש - אפשר על הפת, אם היא חביבה יותר. בהבדלה - תמיד על יין.</li>
+          <li><b>הלכות מעוררות:</b> כוס רביעית, הדחת הכוס, לא לטעום לפני הקידוש, לקדש במקום סעודה.</li>
+          <li><b>על מי?</b> בכל מקום ובכל זמן, גם נשים. מי שקידש בדברים בלי יין - "דיעבד יצא ידי תורה".</li>
+        </ul>
       </div>
     </section>
   </div>
@@ -546,6 +621,7 @@ loadAnswers();
 })();
 </script>
 <script src="assets/bagrut-hints.js"></script>
+<script src="assets/guide/kidush-shabbat.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 </body>
