@@ -54,8 +54,65 @@
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main id="main-content">
-  <div class="grid" id="grid">
-    <section class="card" style="grid-column: 1 / -1;">
+  <div class="grid" id="grid" data-answer-kind="suggested">
+    <!-- הסבר קצר (שלב ג׳) -->
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">📖 בקצרה</span>
+        <h2 class="card-title">כיבוד חכמים בקצרה - הסבר פשוט</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📜</span>מה המצווה?</div>
+          לקום מפני חכמים ולכבד אותם - "מפני שיבה תקום והדרת פני זקן" (ויקרא יט, לב).
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🎓</span>מי זה "זקן"?</div>
+          לא רק מי שמבוגר בגיל. חז״ל אמרו: "אין 'זקן' אלא מי שקנה חכמה" - גם צעיר שלמד תורה נקרא "זקן".
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🤔</span>למה יש מצווה כזאת?</div>
+          האדם נמצא בעולם כדי להכיר את הקב״ה ואת גדולתו. אפשר להגיע לזה בשתי דרכים: ניסיון של שנים רבות, או לימוד תורה. מכבדים את מי שהגיע למטרה - וכשאחרים רואים את הכבוד, גם הם רוצים להגיע אליה.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">👴</span>"זקן אשמאי"</div>
+          גם זקן שאינו חכם בתורה מכבדים, כי בשנים הרבות שלו ראה והבין קצת במעשי ה׳ ובנפלאותיו.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">🙇</span>כבוד ויראה לרב</div>
+          כבוד = מה לעשות. יראה = מה לא לעשות: לא לשבת במקומו, לא להכריע את דבריו, לא לסתור את דבריו, ולא להורות הלכה לפניו.
+        </div>
+        <div class="story-summary">
+          <div class="story-label"><span aria-hidden="true">📅</span>על מי ומתי?</div>
+          בכל מקום ובכל זמן, על גברים ועל נשים. מי שלא מכבד - ביטל מצוות עשה, ועונשו גדול.
+        </div>
+      </div>
+    </section>
+
+    <!-- דוגמה פתורה (שלב ג׳): שאלת בגרות אמיתית מהדף ותשובת המחוון -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">בגרות · תשפ״ד (2024) · שאלה 5 · סעיף א</span> כתב בעל ספר החינוך: "'והדרת פני זקן' (ויקרא י"ט, ל"ב) – פירשו זיכרונם לברכה: אין זקן אלא מי שקנה חוכמה". על פי בעל ספר החינוך, מדוע החכם מכונה "זקן" בלשון התורה?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש שאלה אחת: למה קוראים לחכם - גם לחכם צעיר - "זקן".</li>
+          <li><b>מבינים את הקושי.</b> "זקן" הוא בדרך כלל אדם מבוגר. אבל חז״ל אמרו: <span class="bm-quote">אין 'זקן' אלא מי שקנה חכמה</span>.</li>
+          <li><b>מחפשים בדף.</b> בכרטיס "חכם וזקן - היינו הך? (המשך)" כתוב: <span class="bm-quote">הבחור החכם ראה בחוכמתו מה שראה הזקן ברוב שנותיו</span>.</li>
+          <li><b>כותבים תשובה.</b> מה משותף לחכם ולזקן.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית - לא מהמחוון</span></div>
+          <p>כי גם הזקן וגם החכם הגיעו לאותה מטרה - להכיר את הבורא ואת גדולתו. הזקן הגיע אליה בזכות שנים רבות של ניסיון, והחכם הצעיר הגיע אליה בזכות לימוד התורה.</p>
+        </div>
+        <div class="hint-box" data-answer-kind="official"><b>✓ דגם התשובה:</b><p>מפני שהבחור החכם ראה בחוכמתו מה שראה הזקן ברוב שניו.</p></div>
+        <p class="bm-example-why">✓ שתי התשובות מסבירות מה משותף לזקן ולחכם. התשובה האפשרית מוסיפה גם מהי המטרה ששניהם הגיעו אליה.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">מבנה ספר החינוך - חימום</span>
         <h2 class="card-title">לפני שמתחילים: מבנה ספר החינוך</h2>
@@ -226,7 +283,7 @@
         </div>
       </div>
     </section>
-    <section class="card">
+    <section class="card" data-stage="open">
       <div class="card-head">
         <span class="card-tag">ונוהגת</span>
         <h2 class="card-title">ונוהגת</h2>
@@ -239,7 +296,7 @@
         </div>
       </div>
     </section>
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">שאלות בגרות אמיתיות</span>
         <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תשפ"א – תשפ"ו)</h2>
@@ -331,6 +388,24 @@
                 <p>הערה למעריכים: תלמידים שכתבו שני סוגי מיסים מן המיסים הנזכרים בדברי בעל ספר החינוך (מס קצוב על כל בני העיר יחד, מס קצוב על כל איש ואיש, מס שאינו קצוב כלל) – יש לקבל את תשובתם.</p>
               </div>
             </div>
+      </div>
+    </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו על כיבוד חכמים</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>המצווה:</b> "מפני שיבה תקום והדרת פני זקן" - לקום מפני חכמים ולכבד אותם.</li>
+          <li><b>מי "זקן"?</b> "אין 'זקן' אלא מי שקנה חכמה" - גם צעיר שלמד תורה.</li>
+          <li><b>השורש:</b> המטרה היא להכיר את הבורא. מכבדים את מי שהגיע אליה - ואחרים ירצו להגיע גם הם.</li>
+          <li><b>"זקן אשמאי":</b> גם זקן שאינו חכם מכבדים - כי ברוב שנותיו ראה והבין קצת במעשי ה׳.</li>
+          <li><b>מורא רבו:</b> "יהי מורא רבך כמורא שמים" - לא לשבת במקומו ולא לסתור את דבריו.</li>
+          <li><b>על מי?</b> בכל מקום ובכל זמן, בזכרים ונקבות. מי שלא מכבד - ביטל עשה.</li>
+        </ul>
       </div>
     </section>
   </div>
@@ -549,6 +624,7 @@ loadAnswers();
 })();
 </script>
 <script src="assets/bagrut-hints.js"></script>
+<script src="assets/guide/kibud-chachamim.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 </body>
