@@ -162,10 +162,10 @@
 </p>
 
 <main id="main-content">
-  <div class="grid" id="grid">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר היחידה</span>
         <h2 class="card-title">מה קורה בפרק ה' (פסוקים א'-ז')?</h2>
@@ -178,8 +178,30 @@
       </div>
     </section>
 
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: אל מי פונה בעל הכרם, ומה הוא מבקש מהם?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) אל מי פונה. (2) מה מבקש.</li>
+          <li><b>מחפשים בתקציר את המילים "בעל הכרם פונה":</b> <span class="bm-quote">אל תושבי ירושלים ואיש יהודה</span>.</li>
+          <li><b>ממשיכים באותו משפט:</b> <span class="bm-quote">ומבקש מהם לשפוט בינו לבין כרמו</span>.</li>
+          <li><b>כותבים לפי החלקים</b> - במילים שלכם.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>בעל הכרם פונה אל האנשים שגרים בירושלים וביהודה. הוא מבקש מהם להיות שופטים, ולהחליט מי צודק - הוא או הכרם שלו.</p>
+        </div>
+        <p class="bm-example-why">✓ התשובה עונה על שני החלקים. שימו לב: בעל הכרם מבקש מהשומעים לשפוט - וזה בדיוק מה שנשאל עליו בשאלה 2.</p>
+      </div>
+    </section>
+
     <!-- נושא 1 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="guided">
     <div class="topic-banner" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
       <span class="topic-icon" aria-hidden="true">🍇</span>
       <div>
@@ -289,7 +311,7 @@
     </div>
 
     <!-- נושא 3 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="open">
     <div class="topic-banner" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
       <span class="topic-icon" aria-hidden="true">🔑</span>
       <div>
@@ -335,6 +357,37 @@
       </div>
     </div>
     </div>
+
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו במשל הכרם</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>המשל:</b> בעל הכרם עשה הכול לכרמו, "וַיְקַו לַעֲשׂוֹת עֲנָבִים וַיַּעַשׂ בְּאֻשִׁים".</li>
+          <li><b>המשפט:</b> הוא שואל את השומעים: "מַה לַּעֲשׂוֹת עוֹד לְכַרְמִי וְלֹא עָשִׂיתִי בּוֹ?"</li>
+          <li><b>העונש:</b> הסרת הגדר, הפסקת הטיפוח, ובסוף - בלי גשם.</li>
+          <li><b>הנמשל:</b> "כִּי כֶרֶם ה' צְבָאוֹת בֵּית יִשְׂרָאֵל".</li>
+          <li><b>משחק מילים:</b> "וַיְקַו לְמִשְׁפָּט וְהִנֵּה מִשְׂפָּח, לִצְדָקָה וְהִנֵּה צְעָקָה".</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🔁 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - חזרה ותרגול</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="yeshayahu-5-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+          <a class="chip-link" href="yeshayahu-5-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
+        </p>
+      </div>
+    </section>
 
   </div>
 </main>
@@ -485,6 +538,7 @@ loadAnswers();
 <script src="assets/progress-tracker.js"></script>
 <button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
 
+<script src="assets/guide/yeshayahu-5.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
