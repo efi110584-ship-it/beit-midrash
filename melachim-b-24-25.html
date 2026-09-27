@@ -131,10 +131,10 @@
 </p>
 
 <main id="main-content">
-  <div class="grid" id="grid">
+  <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרקים</span>
         <h2 class="card-title">מה קורה בפרקים כ"ד-כ"ה?</h2>
@@ -147,8 +147,30 @@
       </div>
     </section>
 
+    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה</span>
+        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: מי מינה את צדקיהו למלך, ומה הוא שינה בו?</div>
+        <ol class="bm-example-steps">
+          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) מי מינה את צדקיהו. (2) מה שינה בו.</li>
+          <li><b>מחפשים בתקציר את השם "צדקיהו":</b> <span class="bm-quote">נבוכדנאצר ממנה תחתיו את דודו מתניה, ומשנה את שמו לצדקיהו</span>.</li>
+          <li><b>שמים לב לסיבה.</b> המילה "כדי" מסבירה למה: <span class="bm-quote">כדי להוכיח את חסותו</span>.</li>
+          <li><b>כותבים לפי החלקים</b>, וגם את הסיבה.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>נבוכדנאצר, מלך בבל, מינה את מתניה (הדוד של יהויכין) למלך. הוא שינה את השם שלו לצדקיהו, כדי להראות שהמלך החדש נמצא תחת השליטה של בבל.</p>
+        </div>
+        <p class="bm-example-why">✓ התשובה עונה על שני החלקים, ומוסיפה את הסיבה. אפשר להשוות לפרק הקודם: גם פרעה נכה שינה את השם של אליקים ליהויקים.</p>
+      </div>
+    </section>
+
     <!-- נושא 1 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="guided">
     <div class="topic-banner" style="--acc:#8A5C21; --acc-soft:#F4ECE1;">
       <span class="topic-icon" aria-hidden="true">🔨</span>
       <div>
@@ -278,7 +300,7 @@
     </div>
 
     <!-- נושא 4 -->
-    <div class="topic-col">
+    <div class="topic-col" data-stage="open">
     <div class="topic-banner" style="--acc:#B0762B; --acc-soft:#F5E9D6;">
       <span class="topic-icon" aria-hidden="true">🌱</span>
       <div>
@@ -321,6 +343,37 @@
       </div>
     </div>
     </div>
+
+    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו בפרקים כ״ד-כ״ה</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>גלות יהויכין:</b> בבל מגלה את השרים, הגיבורים ו"הֶחָרָשׁ וְהַמַּסְגֵּר", ונשארת רק "דַּלַּת עַם הָאָרֶץ".</li>
+          <li><b>צדקיהו:</b> נבוכדנאצר ממנה את מתניה, ו"וַיַּסֵּב אֶת שְׁמוֹ צִדְקִיָּהוּ". צדקיהו מורד בבבל.</li>
+          <li><b>החורבן:</b> מצור, רעב, ושריפת בית ה׳. צדקיהו רואה את מות בניו, ומעוורים אותו.</li>
+          <li><b>גדליה:</b> גדליה נרצח, ושארית הפליטה גולה.</li>
+          <li><b>פתח תקווה:</b> יהויכין זוכה לכבוד בבבל: "וַאֲרֻחָתוֹ אֲרֻחַת תָּמִיד".</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🔁 תרגול נוסף</span>
+        <h2 class="card-title">אחרי הלמידה - חזרה ותרגול</h2>
+      </div>
+      <div class="card-body">
+        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר:</p>
+        <p class="bm-more-links">
+          <a class="chip-link" href="melachim-b-24-25-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
+          <a class="chip-link" href="melachim-b-24-25-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
+        </p>
+      </div>
+    </section>
 
   </div>
 </main>
@@ -471,6 +524,7 @@ loadAnswers();
 <script src="assets/progress-tracker.js"></script>
 <button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
 
+<script src="assets/guide/melachim-b-24-25.js"></script>
 <script src="assets/steps.js"></script>
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
