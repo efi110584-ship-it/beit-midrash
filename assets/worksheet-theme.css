@@ -573,3 +573,13 @@ body .qb-card{ border-top:4px solid #1F6FEB; }
 body .qb-card:nth-child(2n){ border-top-color:#FF7A1A; }
 .progress-fill{ background:linear-gradient(90deg, #1F6FEB, #12A37A); }
 @media print{ header{ background-image:none !important; } body .qb-root{ background-image:none !important; } }
+
+/* ===== רקע: חצי-חצי (כחול עדין) ===== */
+body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A calc(100% - 150px) calc(100% - 140px), transparent calc(100% - 140px)) top / 100% 520px no-repeat, #E9EFF9; }
+.breadcrumbs, header{ background-color:transparent; }
+header{ background-image:none; }
+.breadcrumbs, header p.sub{ color:#E6EEFA; }
+.privacy-note, .progress-label{ color:#fff; }
+.a11y-contrast .privacy-note, .a11y-contrast .progress-label{ color:#000; }
+@media print{ .privacy-note, .progress-label{ color:var(--ink-soft); } }
+@media print{ body{ background:#fff !important; } }
