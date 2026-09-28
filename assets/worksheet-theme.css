@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
 /* ============================================================
    בית המדרש הדיגיטלי - עיצוב משותף לכל הדפים האינטראקטיביים
    ============================================================
@@ -461,4 +462,93 @@ footer.credit{ text-align:center; font-size: .75rem; color: var(--ink-soft); pad
   .topic-section[hidden]{ display:block !important; }
   .grid > .card{ grid-column: auto !important; break-inside: avoid; page-break-inside: avoid; margin-bottom: .85rem; box-shadow:none; border: 1.4px solid var(--paper-line) !important; background: var(--paper-card) !important; animation:none !important; }
   footer.credit{ display:none; }
+}
+
+
+/* ============================================================
+   עיצוב מודרני (2026) - שכבת עיצוב בלבד. לא משנה תוכן, מזהים או JS.
+   כדי לחזור לעיצוב הקודם: מוחקים מכאן ועד סוף הקובץ, ואת שורת ה-@import בראש הקובץ.
+   ============================================================ */
+:root{
+  --paper:#F4F5F7; --paper-card:#FFFFFF; --paper-line:#E3E6EB;
+  --ink:#15283D; --ink-soft:#5A6576;
+  --gold:#E0A93B; --gold-text:#8A5A00; --gold-soft:#E0A93B;
+  --teal:#2F7D6C; --teal-soft:#E3EFEC;
+  --shadow:0 1px 3px rgba(21,40,61,.06); --shadow-hover:0 8px 22px rgba(21,40,61,.12);
+  --m-navy:#15283D; --m-gold:#E0A93B; --m-text:#15202E; --m-muted:#5A6576; --m-field:#F4F5F7; --m-quote:#F7F8FA;
+  --m-pad:max(1.5rem, calc((100% - 1100px) / 2));
+}
+body{ background:var(--paper); font-family:'Rubik','Heebo',sans-serif; color:var(--m-text); }
+.breadcrumbs{ max-width:none; margin:0; padding:1rem var(--m-pad) 0; background:var(--m-navy); color:#C3CFDD; font-size:.88rem; }
+.breadcrumbs a{ color:#fff; border-bottom:none; }
+.breadcrumbs a:hover{ color:var(--m-gold); text-decoration:underline; }
+.breadcrumbs .current{ color:var(--m-gold); font-weight:500; }
+header{ background:var(--m-navy); text-align:right; padding:1.6rem var(--m-pad) 4.4rem; }
+header .eyebrow{ color:var(--m-gold); letter-spacing:0; font-weight:500; font-size:.9rem; }
+header h1{ font-family:'Rubik',sans-serif; font-weight:700; color:#fff; }
+header p.sub{ color:#C3CFDD; margin:0; font-size:1.02rem; }
+.wave{ display:none; }
+.student-bar{ position:relative; max-width:1100px; width:calc(100% - 3rem); margin:-2.6rem auto 1rem; padding:1rem 1.2rem; background:#fff; border-radius:12px; box-shadow:0 6px 20px rgba(21,40,61,.1); justify-content:flex-start; gap:1rem; }
+.student-bar label{ color:var(--m-muted); font-weight:500; }
+.student-bar input{ font-family:inherit; min-height:44px; padding:0 .9rem; background:var(--m-field); border:1px solid transparent; border-radius:8px; }
+.student-bar input:focus{ background:#fff; border-color:var(--m-navy); box-shadow:none; }
+.privacy-note{ max-width:1100px; text-align:right; color:var(--m-muted); margin-top:0; }
+.progress-wrap{ max-width:1100px; }
+.progress-track{ height:8px; background:#EEF0F3; box-shadow:none; }
+.progress-fill{ background:var(--teal); }
+.progress-label{ color:var(--m-text); font-weight:500; }
+.chip-link{ background:#fff; color:var(--m-text) !important; border:1px solid var(--paper-line); font-weight:500; white-space:nowrap; }
+.chip-link:hover{ background:var(--m-navy); border-color:var(--m-navy); color:#fff !important; }
+main{ max-width:1100px; }
+.card{ background:#fff; border:1px solid var(--paper-line); border-top:1px solid var(--paper-line); border-radius:12px; }
+.card:hover{ transform:none; }
+.card-head{ background:none; border-bottom:none; padding:1.3rem 1.4rem 0; }
+.card-tag{ background:var(--acc-soft); color:var(--acc); font-weight:500; letter-spacing:0; font-size:.75rem; padding:.2rem .7rem; }
+.card-title{ font-family:'Rubik',sans-serif; font-size:1.3rem; }
+.card-body{ padding:1rem 1.4rem 1.4rem; }
+.story-summary{ border:none; background:none; padding:0; font-size:1.02rem; line-height:1.75; }
+.topic-banner{ background:none; border-right:none; padding:0; }
+.topic-icon{ width:3rem; height:3rem; border-radius:10px; background:var(--acc-soft); display:flex; align-items:center; justify-content:center; font-size:1.5rem; }
+.topic-eyebrow{ color:var(--m-muted); letter-spacing:0; font-weight:400; font-size:.85rem; }
+.topic-title{ font-family:'Rubik',sans-serif; font-weight:700; }
+.meforesh-block{ background:var(--m-quote); border-right:none; border-radius:10px; padding:.8rem 1rem; color:#2C3848; font-family:'Frank Ruhl Libre',serif; font-size:1rem; }
+.meforesh-block .src{ font-family:'Rubik',sans-serif; color:var(--gold-text); }
+.pasuk-block{ background:var(--m-quote); border-radius:10px; }
+.q-text{ font-weight:500; font-size:1rem; }
+.hint-btn{ border:1px solid var(--m-navy); color:var(--m-navy); background:#fff; border-radius:8px; font-weight:500; min-height:40px; }
+.hint-btn:hover{ background:var(--m-navy); color:#fff; }
+.hint-box{ background:var(--teal-soft); }
+textarea.answer, input.answer, .short-answer{ font-family:'Rubik',sans-serif; background:var(--m-field); border:1px solid transparent; }
+textarea.answer:focus, input.answer:focus, .short-answer:focus{ background:#fff; border-color:var(--m-navy); box-shadow:none; }
+textarea.answer.filled, input.answer.filled{ border-color:var(--teal); }
+.topic-nav{ background:rgba(244,245,247,.94); border-bottom:1px solid var(--paper-line); }
+.topic-nav-wrap::before{ background:linear-gradient(to left, rgba(244,245,247,.95), transparent); }
+.topic-nav-wrap::after{ background:linear-gradient(to right, rgba(244,245,247,.95), transparent); }
+.topic-pill{ border:1px solid var(--paper-line); color:var(--m-text); font-weight:500; }
+.topic-pill.active{ background:var(--m-navy); border-color:var(--m-navy); color:#fff; }
+.section-pill, .chapter-quicklinks a{ font-family:'Rubik',sans-serif; }
+.section-pill{ border-radius:10px; font-weight:700; }
+.btn{ font-family:'Rubik',sans-serif; border-radius:8px; font-weight:500; }
+.btn.primary{ background:var(--m-navy); border-color:var(--m-navy); }
+.btn.primary:hover{ background:var(--m-gold); border-color:var(--m-gold); color:var(--m-text); }
+.chapter-nav a{ border:1px solid var(--paper-line); border-radius:8px; }
+.mc-option{ border:1px solid var(--paper-line); }
+/* דפי "תרשים זרימה" (קוביית פסוקים + קוביות שאלה) */
+body .qb-root{ background:var(--m-navy); border:none; border-radius:12px; color:#fff; text-align:right; max-width:none; padding:1.3rem 1.5rem; }
+body .qb-root-label{ color:var(--m-gold); letter-spacing:0; font-weight:500; font-size:.85rem; }
+body .qb-root-pasuk{ color:#fff; text-align:right; font-family:'Frank Ruhl Libre',serif; font-size:1.2rem; line-height:1.85; }
+body .qb-root-pasuk b{ color:var(--m-gold); }
+body .qb-root .pasuk-gloss{ color:#9FB0C4; font-family:'Rubik',sans-serif; font-weight:400; font-size:.85rem; letter-spacing:0; }
+body .qb-root-note{ color:#C3CFDD; font-size:.95rem; }
+body .qb-card{ border:1px solid var(--paper-line); border-top:1px solid var(--paper-line); border-radius:12px; align-items:stretch; padding:1.2rem; }
+body .qb-meforesh{ background:var(--m-quote); border:none; box-shadow:none; font-style:normal; font-family:'Frank Ruhl Libre',serif; font-size:1rem; color:#2C3848; }
+body .qb-meforesh .qb-src{ font-family:'Rubik',sans-serif; color:var(--gold-text); }
+body .qb-card .q-text{ font-size:1rem; }
+body .qb-card textarea.answer{ font-size:.95rem; }
+@media print{
+  header{ background:none !important; padding:0 0 .5rem; text-align:center; }
+  header h1{ color:var(--ink) !important; }
+  .student-bar{ box-shadow:none; }
+  body .qb-root{ background:#fff !important; color:var(--ink) !important; border:1.4px solid var(--paper-line) !important; }
+  body .qb-root-pasuk{ color:var(--ink) !important; }
 }
