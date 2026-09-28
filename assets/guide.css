@@ -6,7 +6,7 @@
    ============================================================ */
 
 .bm-starter[hidden], .bm-hint-more[hidden], .bm-hint-list[hidden], .bm-hint-end[hidden],
-.bm-hint-reset[hidden], .bm-breakdown-panel[hidden], .bm-answer-orig[hidden]{ display:none !important; }
+.bm-hint-reset[hidden], .bm-answer-orig[hidden]{ display:none !important; }
 .bm-label-replaced{ display:none; }
 
 /* ---------- פתיח למשפט ---------- */
@@ -60,25 +60,6 @@ html.bm-no-starters .bm-starter{ display:none; }
   background:none; border:0; padding:.2rem .1rem; color: var(--ink-soft); text-decoration:underline; text-underline-offset:3px;
 }
 
-/* ---------- פירוק שאלת בגרות ---------- */
-.bm-breakdown{ margin:.6rem 0 .5rem; }
-.bm-breakdown-btn{
-  display:inline-flex; align-items:center; gap:.4rem; cursor:pointer;
-  font-family:'Heebo', sans-serif; font-size:1rem; font-weight:800; min-height:44px;
-  padding:.4rem 1.05rem; border-radius:999px; border:2px solid var(--ink); background:#fff; color: var(--ink);
-}
-.bm-breakdown-btn:hover{ background: var(--ink); color:#fff; }
-.bm-breakdown-btn[aria-expanded="true"]{ background: var(--ink); color:#fff; }
-.bm-breakdown-panel{
-  margin-top:.5rem; padding:.8rem 1rem; border-radius:12px;
-  background:#fff; border:1.5px solid var(--ink); box-shadow: var(--shadow);
-}
-.bm-bd-list{ margin:0; display:flex; flex-direction:column; gap:.6rem; }
-.bm-bd-row{ display:grid; grid-template-columns: 11rem 1fr; gap:.2rem 1rem; align-items:start; }
-.bm-bd-row dt{ font-weight:800; color: var(--ink); }
-.bm-bd-row dd{ margin:0; line-height:1.6; color: var(--ink); }
-.bm-bd-words{ margin:0; padding-inline-start:1.1rem; display:flex; flex-direction:column; gap:.2rem; }
-
 /* ---------- תשובות: המחוון הרשמי מול תשובה אפשרית ---------- */
 .bm-answer-head{ display:flex; flex-wrap:wrap; align-items:center; gap:.3rem .7rem; margin:0 0 .5rem; }
 .bm-answer-badge{ display:inline-flex; align-items:center; gap:.3rem; font-weight:800; font-size:1rem; padding:.2rem .8rem; border-radius:999px; }
@@ -128,21 +109,19 @@ html.bm-no-starters .bm-starter{ display:none; }
 /* ---------- שאלת בגרות שהועתקה לדף אחר (תגית שנה, תווית סעיף) ---------- */
 .exam-tag{ display:inline-flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:700; color:#5A4212; background:#FBEFD1; border-radius:999px; padding:.25rem .8rem; margin-bottom:.6rem; }
 .part-label{ display:inline-flex; align-items:center; justify-content:center; min-width:1.6rem; height:1.6rem; padding:0 .35rem; border-radius:6px; background:var(--acc-soft); color:var(--acc); font-weight:800; font-size:.8rem; margin-inline-end:.5rem; }
-.bm-source-note{ margin:0 0 .8rem; font-size:.95rem; color: var(--ink-soft); }
-/* שאלות בגרות מקובץ המורה: כמה פעמים הנושא חזר בבחינות */
-.bm-repeat-note{ margin:-.2rem 0 .7rem; font-size:.95rem; font-weight:600; color:#5A4212; }
+/* שאלת בגרות נשארת נקייה: בזמן משימת בגרות אין כפתור "פתיחי משפט" (assets/steps.js מסמן data-bm-now) */
+.bm-taskbar[data-bm-now="bagrut"] .bm-tools{ display:none; }
 
 @media (max-width:620px){
-  .bm-bd-row{ grid-template-columns:1fr; }
   .bm-starter-copy{ margin-inline-start:0; }
   .bm-example-steps > li{ padding-inline-start:2.9rem; }
 }
 
 /* ניגודיות גבוהה */
-html.a11y-contrast .bm-starter, html.a11y-contrast .bm-breakdown-panel, html.a11y-contrast .bm-hint-list,
+html.a11y-contrast .bm-starter, html.a11y-contrast .bm-hint-list,
 html.a11y-contrast .hint-box[data-kind], html.a11y-contrast .bm-answer-card{ border-color:#000000 !important; background:#FFFFFF !important; color:#000000; }
 html.a11y-contrast .bm-answer-head[data-kind] .bm-answer-badge{ background:#000000; color:#FFFFFF; border:0; }
 
 @media print{
-  .bm-starter, .bm-hints, .bm-breakdown, .bm-tools{ display:none !important; }
+  .bm-starter, .bm-hints, .bm-tools{ display:none !important; }
 }
