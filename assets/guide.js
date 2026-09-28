@@ -5,20 +5,20 @@
      (הבחירה נשמרת במכשיר).
    - רמזים מדורגים: רמז קטן ← מילת מפתח ← מבנה התשובה ← התשובה המלאה
      (כפתור "הצג תשובה" הקיים בדף).
-   - "פירוק השאלה" מתחת לכל שאלת בגרות: מה שואלים, כמה חלקים,
-     מילות ההוראה, מה חייב להופיע בתשובה, וניקוד - רק אם הוא כתוב
-     בשאלון עצמו. לא ממציאים חלוקת נקודות.
-   - תשובות: הפרדה בולטת בין "תשובת המחוון הרשמית" ל"תשובה אפשרית",
+   - שאלות בגרות נשארות נקיות (בקשת המורה): רק השאלה, תיבת תשובה
+     וכפתור "הצג תשובה". אין פתיח, רמזים, "פירוק שאלה" או תווית
+     מחוון, והתשובה מוצגת כפי שהיא כתובה בדף.
+   - תשובות (בשאר השאלות): הפרדה בולטת בין "תשובת המחוון הרשמית" ל"תשובה אפשרית",
      והתשובה מוצגת כנקודות. המילים עצמן לא משתנות - הטקסט המקורי
      נשאר בדף (מוסתר), ורק מוצג מחולק לשורות.
    - בשלב "מנסים לבד" (מסלול הלמידה, assets/steps.js) אין פתיח ורמזים.
 
-   התוכן של כל דף (פתיחים, רמזים, פירוק) נמצא בקובץ נפרד -
+   התוכן של כל דף (פתיחים, רמזים) נמצא בקובץ נפרד -
    assets/guide/<שם הדף>.js - כדי שיהיה קל לבדוק ולתקן אותו:
      window.BM_GUIDE = { items: { "<data-id>": {
        starter: "לפי ספר החינוך, המצווה היא...",
        hints: ["רמז קטן", "מילת מפתח", "מבנה התשובה"],
-       breakdown: { what: "...", parts: "...", must: "..." } } } };
+       breakdown: { ... } } } };   // breakdown - כבר לא מוצג בדף
    סוג התשובה: data-answer-kind="official|suggested" על כרטיס (או על
    main); כותרת "תשובה מוצעת" / "תשובה אפשרית" בתיבת התשובה גוברת תמיד.
    העיצוב ב-assets/guide.css.
@@ -51,6 +51,30 @@
 
   var main = document.querySelector("main");
   if(!main) return;
+
+  /* ============================================================
+     0. שאלות בגרות - בלי תוספות
+     ============================================================ */
+  // שאלת בגרות: בתוך שאלה מבחינה (.bagrut-block), בשלב "שאלת בגרות" של מסלול הלמידה,
+  // אחרי תגית שנת בחינה (.exam-tag), או שאלה שנפתחת במילים "שאלת בגרות".
+  // (אותו כלל ב-assets/steps.js, שם - בלי שורת מצב ובדיקה עצמית)
+  function isBagrut(f){
+    var host = f.closest("[data-bm-stage]");
+    if(f.closest(".bagrut-part, .bagrut-block") || (host && host.getAttribute("data-bm-stage") === "bagrut")) return true;
+    var qb = f.closest(".question-block");
+    if(!qb) return false;
+    for(var s = qb.previousElementSibling; s; s = s.previousElementSibling){ if(s.classList.contains("exam-tag")) return true; }
+    var q = qb.querySelector(".q-text");
+    return !!q && /^שאלת בגרות/.test(norm(q.textContent));
+  }
+  arr(main.querySelectorAll("textarea.answer")).forEach(function(f){
+    if(!isBagrut(f)) return;
+    f.setAttribute("data-bm-bagrut", "1");
+    for(var s = f.nextElementSibling; s; s = s.nextElementSibling){
+      if(s.classList.contains("hint-box")){ s.setAttribute("data-bm-bagrut", "1"); break; }
+      if(s.matches("textarea, input, .question-block")) break;
+    }
+  });
 
   /* ============================================================
      1. תשובות: מחוון רשמי / תשובה אפשרית, ותשובה כנקודות
@@ -112,7 +136,7 @@
   }
 
   function prepareAnswer(box){
-    if(box.hasAttribute("data-bm-ready")) return;
+    if(box.hasAttribute("data-bm-ready") || box.hasAttribute("data-bm-bagrut")) return;
     box.setAttribute("data-bm-ready", "1");
     var first = box.firstElementChild;
     var label = first && first.tagName === "B" && /✓/.test(first.textContent) && box.firstChild === first ? first : null;
@@ -142,129 +166,7 @@
   });
 
   /* ============================================================
-     2. פירוק שאלת בגרות
-     ============================================================ */
-  var WORDS = [
-    [/הסבירו/, "הסבירו", "לכתוב במילים שלכם למה או איך - לא רק להעתיק."],
-    [/ציינו/, "ציינו", "לכתוב בקצרה, בלי הסבר ארוך."],
-    [/הביאו ראי/, "הביאו ראיה", "להביא מהכתוב מילים או פרט שמוכיחים את התשובה."],
-    [/בססו/, "בססו", "להראות מאיפה בכתוב לקחתם את התשובה - עם ציטוט."],
-    [/העתיקו/, "העתיקו", "לכתוב מילה במילה מתוך הכתוב, בתוך מירכאות."],
-    [/הוכיחו/, "הוכיחו", "להראות בעזרת פרט מהכתוב שהטענה נכונה."],
-    [/ניגוד|הבדל|השוו|דמיון/, "השוואה", "לכתוב על שני הצדדים: מה בצד אחד, ומה בצד השני."],
-    [/תארו/, "תארו", "לספר מה קרה, לפי הסדר."],
-    [/נמקו|מדוע/, "מדוע / נמקו", "לכתוב את הסיבה."],
-    [/בלשונכם/, "בלשונכם", "במילים שלכם, לא בהעתקה."],
-    [/עיינו/, "עיינו", "קודם לקרוא את מה שצוין - התשובה נמצאת שם."],
-    [/"נכון"|נכון" או "לא נכון/, "נכון / לא נכון", "לכתוב ליד כל היגד אם הוא נכון או לא נכון."],
-    [/(?:על פי|לפי) (?:מה ש|פירוש ש)למדתם/, "על פי מה שלמדתם", "אפשר לענות לפי פירוש שלמדתם בכיתה - מספיק פירוש אחד."],
-    [/(?:על פי|לפי) (?:המשך )?(?:דברי )?(?:בעל )?ספר החינוך/, "על פי ספר החינוך", "התשובה צריכה להיות לפי מה שכתוב בספר החינוך - לא לפי דעה אחרת."],
-    [/(?:על פי|לפי) (?:פרק [א-ת]׳?)/, "על פי הפרק", "התשובה צריכה להיות מתוך הפרק שצוין בלבד."]
-  ];
-
-  function questionText(f){
-    var part = f.closest(".bagrut-part");
-    if(part){
-      var c = part.cloneNode(true);
-      arr(c.querySelectorAll(".bagrut-part-label, textarea, input, button, .hint-box")).forEach(function(x){ x.remove(); });
-      arr(c.querySelectorAll("*")).forEach(function(x){ if(/(^|\s)bm-/.test(x.className || "") && x.parentNode) x.remove(); });
-      return norm(c.textContent);
-    }
-    var qb = f.closest(".question-block");
-    var q = qb && qb.querySelector(".q-text");
-    return q ? norm(q.textContent) : "";
-  }
-
-  // ניקוד - רק אם כתוב בשאלון. "(8 נקודות)" בסוף סעיף א(2) הוא הניקוד שכתוב לסעיף א׳
-  function pointsFor(f){
-    var qb = f.closest(".question-block");
-    var lbl = qb && qb.querySelector(".part-label");
-    var letter = lbl ? norm(lbl.textContent).charAt(0) : null;
-    function pts(el){ var m = norm(el && el.textContent).match(/\((\d+)\s*נקודות\)/); return m ? m[1] : null; }
-    if(qb && letter){
-      var group = [qb], s;
-      for(s = qb.previousElementSibling; s && !s.classList.contains("exam-tag"); s = s.previousElementSibling){ if(s.classList.contains("question-block")) group.unshift(s); }
-      for(s = qb.nextElementSibling; s && !s.classList.contains("exam-tag"); s = s.nextElementSibling){ if(s.classList.contains("question-block")) group.push(s); }
-      group = group.filter(function(q){ var l = q.querySelector(".part-label"); return l && norm(l.textContent).charAt(0) === letter; });
-      for(var i = 0; i < group.length; i++){
-        var n = pts(group[i].querySelector(".q-text"));
-        if(n){
-          if(group.length === 1) return n + " נקודות (כך כתוב בשאלון).";
-          return "בשאלון כתוב (" + n + " נקודות) בסוף סעיף " + letter + "׳. איך הנקודות מתחלקות בין החלקים של הסעיף - לא כתוב בשאלון.";
-        }
-      }
-      return null;
-    }
-    var own = questionText(f).match(/\((\d+)\s*נקודות\)/);
-    return own ? own[1] + " נקודות (כך כתוב בשאלון)." : null;
-  }
-
-  var NUM_WORDS = { "שני": 2, "שתי": 2, "שלושה": 3, "שלוש": 3, "ארבעה": 4, "ארבע": 4 };
-  function autoParts(text){
-    // רשימת היגדים או מקרים ("לפניכם חמישה היגדים...") - המספרים אינם חלקי תשובה, ולא מנחשים
-    if(/היגד/.test(text) || /לפניכם\s+\S+\s+(מקרים|מצבים|משפטים)/.test(text)) return null;
-    var nums = text.match(/(?:^|\s)[1-9]\.\s/g);
-    if(nums && nums.length >= 2) return nums.length + " חלקים (ממוספרים " + nums.map(function(x){ return norm(x).replace(".", ""); }).join(", ") + ").";
-    // "ציינו שני הבדלים" - כמה פריטים צריך לכתוב
-    var m = text.match(/(?:ציינו|כתבו|הביאו|הסבירו|הציגו|תארו|העתיקו|מנו|מהם|מהן)\s+(?:[^\s]+\s+){0,2}?(שני|שתי|שלושה|שלוש|ארבעה|ארבע)\s+([א-ת"׳'״-]+)/);
-    if(m) return "צריך לכתוב " + NUM_WORDS[m[1]] + ": \"" + m[1] + " " + m[2] + "\".";
-    return null;
-  }
-
-  function addBreakdown(f, d){
-    var text = questionText(f);
-    var b = d.breakdown || {};
-    var rows = [];
-    if(b.what) rows.push(["מה שואלים?", b.what]);
-    var parts = b.parts || autoParts(text);
-    if(parts) rows.push(["כמה חלקים?", parts]);
-    var words = [];
-    WORDS.forEach(function(w){ if(w[0].test(text) && !words.some(function(x){ return x[0] === w[1]; })) words.push([w[1], w[2]]); });
-    if(words.length) rows.push(["מילות ההוראה", words]);
-    if(b.must) rows.push(["מה חייב להופיע בתשובה?", b.must]);
-    var points = pointsFor(f);
-    if(points) rows.push(["ניקוד", points]);
-    if(!rows.length) return;
-
-    var wrap = make("div", "bm-breakdown");
-    var btn = make("button", "bm-breakdown-btn", "🧩 פירוק השאלה - מה בדיוק צריך לעשות?");
-    btn.type = "button";
-    var panel = make("div", "bm-breakdown-panel");
-    panel.id = newId("bd");
-    panel.hidden = true;
-    btn.setAttribute("aria-expanded", "false");
-    btn.setAttribute("aria-controls", panel.id);
-    var dl = make("dl", "bm-bd-list");
-    rows.forEach(function(r){
-      var row = make("div", "bm-bd-row");
-      row.appendChild(make("dt", "", r[0]));
-      var dd = make("dd");
-      if(Array.isArray(r[1])){
-        var ul = make("ul", "bm-bd-words");
-        r[1].forEach(function(w){
-          var li = make("li");
-          li.appendChild(make("b", "", w[0]));
-          li.appendChild(document.createTextNode(" - " + w[1]));
-          ul.appendChild(li);
-        });
-        dd.appendChild(ul);
-      } else {
-        dd.textContent = r[1];
-      }
-      row.appendChild(dd);
-      dl.appendChild(row);
-    });
-    panel.appendChild(dl);
-    wrap.appendChild(btn); wrap.appendChild(panel);
-    btn.addEventListener("click", function(){
-      panel.hidden = !panel.hidden;
-      btn.setAttribute("aria-expanded", String(!panel.hidden));
-    });
-    f.insertAdjacentElement("beforebegin", wrap);
-  }
-
-  /* ============================================================
-     3. פתיח למשפט
+     2. פתיח למשפט
      ============================================================ */
   var startersOn = load(KEY_STARTERS, true) !== false;
 
@@ -305,7 +207,7 @@
   }
 
   /* ============================================================
-     4. רמזים מדורגים
+     3. רמזים מדורגים
      ============================================================ */
   var hintLevel = load(KEY_HINTS, {}) || {};
 
@@ -367,26 +269,15 @@
   }
 
   /* ============================================================
-     5. לכל שאלה: פירוק (בבגרות), פתיח, רמזים
+     4. לכל שאלה (חוץ משאלות בגרות): פתיח, רמזים
      ============================================================ */
-  // שאלת בגרות: בתוך שאלה מבחינה (.bagrut-block), בשלב "שאלת בגרות" של מסלול הלמידה,
-  // אחרי תגית שנת בחינה (.exam-tag), או שאלה שנפתחת במילים "שאלת בגרות"
-  function isBagrut(f, stage){
-    if(f.closest(".bagrut-part, .bagrut-block") || stage === "bagrut") return true;
-    var qb = f.closest(".question-block");
-    if(!qb) return false;
-    for(var s = qb.previousElementSibling; s; s = s.previousElementSibling){ if(s.classList.contains("exam-tag")) return true; }
-    var q = qb.querySelector(".q-text");
-    return !!q && /^שאלת בגרות/.test(norm(q.textContent));
-  }
   var anyStarter = false;
   arr(main.querySelectorAll("textarea.answer")).forEach(function(f){
     var id = f.getAttribute("data-id");
     var d = (id && ITEMS[id]) || {};
     var host = f.closest("[data-bm-stage]");
     var stage = host ? host.getAttribute("data-bm-stage") : null;
-    if(isBagrut(f, stage)) addBreakdown(f, d);
-    if(stage === "open") return;
+    if(f.hasAttribute("data-bm-bagrut") || stage === "open") return;
     if(d.starter){ addStarter(f, d.starter); anyStarter = true; }
     if(d.hints && d.hints.length) addHints(f, id, d.hints);
   });

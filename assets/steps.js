@@ -50,7 +50,7 @@
     explain: "קראו את ההסבר בעיון. כשתסיימו, לחצו \"הבא\".",
     example: "ראו איך עונים על שאלה - צעד אחר צעד. אחר כך תתרגלו בעצמכם.",
     open: "עכשיו נסו לבד - בלי פתיח ובלי רמזים. אחרי שתכתבו, אפשר לבדוק את התשובה.",
-    bagrut: "שאלת בגרות אמיתית. לפני שכותבים - פתחו את \"פירוק השאלה\"."
+    bagrut: "השאלות מבחינות בגרות אמיתיות."
   };
 
   function load(key, fallback){
@@ -179,12 +179,22 @@
     var taskChildren = children.filter(function(ch){ return endCards.indexOf(ch) === -1; });
 
     /* ---------- 1. הפריטים: שאלה פתוחה, תא בטבלה, שאלת בחירה ---------- */
+    // שאלת בגרות נשארת נקייה - בלי שורת מצב ובדיקה עצמית (אותו כלל כמו ב-assets/guide.js)
+    function isBagrut(el){
+      var host = el.closest("[data-bm-stage]");
+      if(el.closest(".bagrut-part, .bagrut-block") || (host && host.getAttribute("data-bm-stage") === "bagrut")) return true;
+      var qb = el.closest(".question-block");
+      if(!qb) return false;
+      for(var s = qb.previousElementSibling; s; s = s.previousElementSibling){ if(s.classList.contains("exam-tag")) return true; }
+      var q = qb.querySelector(".q-text");
+      return !!q && /^שאלת בגרות/.test(cleanText(q));
+    }
     var items = [];
     arr(grid.querySelectorAll("textarea.answer, input.answer, .mc-group")).forEach(function(el, i){
       if(endCards.some(function(ec){ return ec.contains(el); })) return;
       var type = el.classList.contains("mc-group") ? "mc" : (el.closest("table") ? "cell" : "text");
       var id = el.getAttribute("data-id") || el.getAttribute("data-qid") || ("item-" + i);
-      items.push({ el: el, type: type, id: id });
+      items.push({ el: el, type: type, id: id, bagrut: type === "text" && isBagrut(el) });
     });
     if(items.length < SMALL_Q) return null;
     var itemOf = new Map();
@@ -360,6 +370,7 @@
     /* ---------- 5. מצב כל שאלה ---------- */
     var status = load(KEY_STATUS, {}) || {};
     function st(it){
+      if(it.bagrut) return {};             // בשאלת בגרות אין סימון לחזרה / בדיקה עצמית
       var s = status[it.id] || {};
       if(it.type === "mc"){ var v = mcVerdict(it); return { flag: s.flag, verdict: v }; }
       return s;
@@ -372,13 +383,14 @@
       save(KEY_STATUS, status);
     }
     function needsReview(it){ var s = st(it); return !!(s.flag || s.verdict === "review"); }
-    var hasSelfCheck = items.some(function(it){ return it.type !== "mc" && it.el.parentElement.querySelector(".hint-btn"); });
+    var hasSelfCheck = items.some(function(it){ return it.type !== "mc" && !it.bagrut && it.el.parentElement.querySelector(".hint-btn"); });
+    var hasFlag = items.some(function(it){ return it.type === "text" && !it.bagrut; });
     var hasMc = items.some(function(it){ return it.type === "mc"; });
 
     /* ---------- 6. בניית הממשק ---------- */
     var ui = new Map();
     items.forEach(function(it){
-      if(it.type !== "text") return;      // בטבלה ובשאלת בחירה - אין מקום/צורך בשורת מצב
+      if(it.type !== "text" || it.bagrut) return;      // בטבלה, בשאלת בחירה ובשאלת בגרות - אין שורת מצב
       var f = it.el;
       var row = make("div", "bm-qstatus");
       var pos = make("span", "bm-qpos");
@@ -631,6 +643,7 @@
 
       // מסלול הלמידה: השלב הנוכחי מודגש, שלב שכל המשימות בו הושלמו - מסומן ✓
       var stageHere = current < tasks.length ? tasks[current].stage : "summary";
+      bar.setAttribute("data-bm-now", view === "all" ? "all" : (stageHere || ""));   // assets/guide.css: בשאלת בגרות - בלי כפתור "פתיחי משפט"
       pathItems.forEach(function(p){
         var inStage = p.key === "summary" ? tasks : tasks.filter(function(t){ return t.stage === p.key; });
         var done = inStage.every(isTaskDone);
@@ -683,7 +696,6 @@
             " כשתסיימו, לחצו \"הבא\".";
           var extra = STAGE_HINT[tc.stage];
           if(tc.stage === "guided" && window.BM_GUIDE) extra = "בשאלות יש פתיח למשפט ורמזים - השתמשו בהם כשצריך.";
-          if(tc.stage === "bagrut" && !window.BM_GUIDE) extra = "";
           if(extra) hint.textContent += " " + extra;
         }
       } else {
@@ -739,7 +751,7 @@
         stat("נבדקו", String(checked));
         stat("נכונות", String(ok), "is-ok");
       }
-      stat("דורשות חזרה", String(review.length), "is-review");
+      if(hasFlag || hasMc) stat("דורשות חזרה", String(review.length), "is-review");
 
       reviewWrap.textContent = "";
       if(review.length){
@@ -762,7 +774,7 @@
       var notes = [];
       if(hasSelfCheck) notes.push("\"נבדקה\" פירושו שהשוויתם את התשובה שלכם לתשובה שבדף (בכפתור \"הצג תשובה\") וסימנתם אם היא נכונה.");
       if(hasMc) notes.push("שאלות הבחירה נבדקות אוטומטית; תשובה לא נכונה מסומנת לחזרה.");
-      if(!hasSelfCheck && !hasMc) notes.push("בדף הזה אין תשובות לבדיקה עצמית - המורה יבדוק את התשובות. אפשר לסמן שאלות שתרצו לחזור עליהן.");
+      if(!hasSelfCheck && !hasMc && hasFlag) notes.push("בדף הזה אין תשובות לבדיקה עצמית - המורה יבדוק את התשובות. אפשר לסמן שאלות שתרצו לחזור עליהן.");
       sumNote.textContent = notes.join(" ");
     }
 
