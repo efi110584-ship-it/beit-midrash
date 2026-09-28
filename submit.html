@@ -7,18 +7,18 @@
 <meta name="description" content="הגשת מטלה או דף עבודה - בית המדרש הדיגיטלי">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --gold: #b8873a;
-    --gold-dark: #8f6526;
-    --blue: #1f3a5f;
-    --blue-dark: #142743;
-    --bg: #faf6ee;
+    --gold: #FF7A1A;
+    --gold-dark: #B8520A;
+    --blue: #2F62B0;
+    --blue-dark: #24539C;
+    --bg: #EEF3FB;
     --card: #ffffff;
-    --border: #e4d9c3;
-    --text: #2b2b2b;
-    --muted: #6b6b6b;
+    --border: #DCE4F1;
+    --text: #0E1B33;
+    --muted: #56637A;
     --success: #2f7d4f;
     --error: #b3372c;
   }
@@ -164,6 +164,21 @@
   }
   .again-btn:hover { background: #eef2f7; }
   form[hidden], .success-panel[hidden] { display: none; }
+
+  /* ===== עיצוב מודרני (2026) - שכבת עיצוב בלבד ===== */
+  body{ font-family:'Rubik','Heebo',Arial,sans-serif; }
+  h1, h2{ font-family:'Rubik','Heebo',sans-serif; }
+  .card{ border-radius:12px; box-shadow:0 6px 20px rgba(21,40,61,.08); }
+  input[type="text"], select, textarea{ background:#F4F5F7; border-color:transparent; min-height:46px; }
+  input[type="text"]:focus, select:focus, textarea:focus{ background:#fff; outline:2px solid var(--blue); }
+  .file-drop{ background:#F4F5F7; border:2px dashed #C9CFD8; }
+  .submit-btn{ border-radius:8px; min-height:50px; }
+  .submit-btn:hover:not(:disabled){ background:var(--gold); color:#fff; }
+  input[type="text"], select, textarea{ background:#EEF3FB; }
+  .file-drop{ background:#EEF3FB; border-color:#B9CBEA; }
+  .again-btn{ border-radius:8px; }
+  .success-panel .icon{ background:#2F7D6C; }
+  .success-panel h2{ color:#2F7D6C; }
 </style>
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
