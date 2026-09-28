@@ -13,21 +13,21 @@
 :root{
   /* אותם טוקנים בדיוק כמו בכל דפי העבודה (ראו assets/worksheet-theme.css) -
      כדי שדף הבית ירגיש כחלק מאותו אתר, לא כעמוד נפרד עם עיצוב משלו. */
-  --ink: #15283D;
-  --ink-2: #1E3550;
+  --ink: #0B2A5B;
+  --ink-2: #123A78;
   --ink-soft: #5A6576;
-  --paper: #F4F5F7;
+  --paper: #EEF3FB;
   --paper-card: #FFFFFF;
-  --paper-2: #EEF0F3;
-  --gold: #E0A93B;
-  --gold-text: #8A5A00;
-  --gold-light: #E0A93B;
-  --teal: #2F7D6C;
-  --teal-light: #E3EFEC;
-  --gold-tag-bg: #FBEFD6;
-  --text: #15202E;
-  --text-soft: #5A6576;
-  --border: #E3E6EB;
+  --paper-2: #E3EBF7;
+  --gold: #FF7A1A;
+  --gold-text: #B8520A;
+  --gold-light: #FF7A1A;
+  --teal: #0D8A63;
+  --teal-light: #E1F4EC;
+  --gold-tag-bg: #FFEBDC;
+  --text: #0E1B33;
+  --text-soft: #56637A;
+  --border: #DCE4F1;
   --focus: #1857C4;
   --radius: 10px;
   --shadow: 0 2px 10px rgba(31,58,77,0.08);
@@ -212,6 +212,33 @@ a.a11y-toggle[href="submit.html"]:hover{ color:var(--ink); filter:brightness(1.0
 .unit-tile-done{ margin-top:auto; font-weight:500; }
 .continue-card{ border-inline-start:none; border-radius:12px; }
 @media (max-width:640px){ .unit-grid{ grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); } .unit-tile{ min-height:104px; } }
+
+/* ===== צבעים: כחול וכתום (ספורטיבי) ===== */
+.site-header, .class-picker-section{ background-color:var(--ink); }
+.class-picker-section{ background-image:radial-gradient(circle at 96% -40%, rgba(31,111,235,.45) 0 120px, transparent 121px); }
+.class-chip{ white-space:nowrap; flex:none; }
+.brand-sub{ color:#BFD0EA; }
+.a11y-toggle, .class-chip{ border-color:rgba(255,255,255,.35); }
+a.a11y-toggle[href="submit.html"], .class-chip[aria-selected="true"]{ color:#fff; }
+a.a11y-toggle[href="submit.html"]:hover{ color:#fff; }
+.class-section > h2{ font-weight:800; }
+.unit-tile{ border-top:none; padding:0; overflow:hidden; gap:0; }
+.unit-tile > *{ padding-inline:1.1rem; }
+.unit-tile-icon{ align-self:stretch; display:flex; align-items:center; height:56px; margin-bottom:.7rem; font-size:1.5rem; background:#1F6FEB; }
+.unit-tile > :last-child{ padding-bottom:1rem; }
+.unit-tile.subject-tnk .unit-tile-icon{ background:#1F6FEB; }
+.unit-tile.subject-tsb .unit-tile-icon{ background:#FF7A1A; }
+.unit-tile.subject-heb .unit-tile-icon{ background:#12A37A; }
+.unit-tile.subject-exam .unit-tile-icon{ background:#0B2A5B; }
+.unit-tile.subject-teacher .unit-tile-icon{ background:#7C4DDB; }
+.unit-tile:hover{ box-shadow:0 10px 26px rgba(11,42,91,.16); }
+.unit-tile-done{ color:var(--teal); }
+.continue-card{ background:linear-gradient(90deg, #0B2A5B, #123A78); }
+.continue-icon{ color:var(--gold-light); }
+.a11y-contrast .unit-tile-icon{ background:#fff !important; border-bottom:2px solid #000; }
+.a11y-contrast .class-picker-section{ background-image:none; }
+.a11y-contrast .continue-card{ background:#000; }
+@media (max-width:640px){ .unit-tile-icon{ height:46px; } .unit-tile > *{ padding-inline:.8rem; } }
 
 </style>
 <link rel="stylesheet" href="assets/a11y.css">
