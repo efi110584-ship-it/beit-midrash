@@ -552,3 +552,24 @@ body .qb-card textarea.answer{ font-size:.95rem; }
   body .qb-root{ background:#fff !important; color:var(--ink) !important; border:1.4px solid var(--paper-line) !important; }
   body .qb-root-pasuk{ color:var(--ink) !important; }
 }
+
+/* ===== צבעים: כחול וכתום (ספורטיבי) ===== */
+:root{
+  --paper:#EEF3FB; --paper-line:#DCE4F1; --ink:#0B2A5B; --ink-soft:#56637A;
+  --gold:#FF7A1A; --gold-soft:#FF7A1A; --gold-text:#B8520A; --teal:#0D8A63; --teal-soft:#E1F4EC;
+  --m-navy:#0B2A5B; --m-gold:#FF7A1A; --m-text:#0E1B33; --m-muted:#56637A; --m-field:#EEF3FB; --m-quote:#F3F6FC;
+}
+header{ background-color:var(--m-navy); background-image:radial-gradient(circle at 94% -30%, rgba(31,111,235,.45) 0 150px, transparent 151px); }
+.breadcrumbs{ color:#BFD0EA; }
+header p.sub{ color:#BFD0EA; }
+.topic-icon{ background:#1F6FEB; color:#fff; }
+.card:nth-of-type(3n+2) .topic-icon{ background:#FF7A1A; }
+.card:nth-of-type(3n) .topic-icon{ background:#12A37A; }
+.hint-box{ background:#E1F4EC; }
+.btn.primary:hover{ color:#fff; }
+.topic-pill.active{ background:#1F6FEB; border-color:#1F6FEB; }
+body .qb-root{ background-color:var(--m-navy); background-image:radial-gradient(circle at 4% 100%, rgba(31,111,235,.5) 0 70px, transparent 71px); }
+body .qb-card{ border-top:4px solid #1F6FEB; }
+body .qb-card:nth-child(2n){ border-top-color:#FF7A1A; }
+.progress-fill{ background:linear-gradient(90deg, #1F6FEB, #12A37A); }
+@media print{ header{ background-image:none !important; } body .qb-root{ background-image:none !important; } }
