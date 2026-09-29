@@ -16,13 +16,12 @@
   table.mishkal-table thead th{ background:var(--acc-soft); font-weight:700; font-size:.85rem; }
   table.mishkal-table td.word-cell{ font-family:'Frank Ruhl Libre', serif; font-weight:700; font-size:1.02rem; }
   table.mishkal-table td.note-cell{ font-size:.8rem; color:var(--ink-soft); }
-  table.mishkal-table input.answer{ width:100%; min-width:6rem; box-sizing:border-box; padding:.35rem .5rem; font-size:.9rem; border:1.5px solid var(--paper-line); border-radius:6px; background:#fff; }
-  table.mishkal-table input.answer:focus{ outline:3px solid var(--focus-ring); outline-offset:1px; border-color:var(--acc); }
-  table.mishkal-table input.answer.filled{ border-color:var(--teal); background:var(--teal-soft); }
+  table.mishkal-table input.answer, table.mishkal-table select.answer{ width:100%; min-width:6rem; box-sizing:border-box; padding:.35rem .5rem; font-size:.9rem; border:1.5px solid var(--paper-line); border-radius:6px; background:#fff; }
+  table.mishkal-table input.answer:focus, table.mishkal-table select.answer:focus{ outline:3px solid var(--focus-ring); outline-offset:1px; border-color:var(--acc); }
+  table.mishkal-table input.answer.filled, table.mishkal-table select.answer.filled{ border-color:var(--teal); background:var(--teal-soft); }
   table.mishkal-table tr.row-hard td.word-cell{ color:var(--rust); }
   .row-num{ color:var(--ink-soft); font-size:.8rem; width:1.8rem; text-align:center; }
   .difficulty-flag{ display:inline-block; font-size:.68rem; font-weight:700; color:#fff; background:var(--rust); border-radius:999px; padding:.05rem .5rem; margin-inline-start:.4rem; vertical-align:middle; }
-  .reveal-wrap{ margin-top:1rem; }
   #answerKey{ margin-top:.8rem; }
   #answerKey table.mishkal-table td{ font-size:.88rem; }
   #answerKey td.ans-shoresh, #answerKey td.ans-mishkal{ font-weight:700; color:var(--teal); }
@@ -123,61 +122,29 @@
           <table class="mishkal-table">
             <thead><tr><th class="row-num">#</th><th>מילה / משפט</th><th>שורש</th><th>בניין</th><th>משקל</th></tr></thead>
             <tbody>
-              <tr><td class="row-num">1</td><td class="word-cell">אוֹפֶה</td><td><input type="text" class="answer" data-id="r1-shoresh" aria-label="שורש, שורה 1"></td><td><input type="text" class="answer" data-id="r1-binyan" aria-label="בניין, שורה 1"></td><td><input type="text" class="answer" data-id="r1-mishkal" aria-label="משקל, שורה 1"></td></tr>
-              <tr><td class="row-num">2</td><td class="word-cell">בּוֹנֶה</td><td><input type="text" class="answer" data-id="r2-shoresh" aria-label="שורש, שורה 2"></td><td><input type="text" class="answer" data-id="r2-binyan" aria-label="בניין, שורה 2"></td><td><input type="text" class="answer" data-id="r2-mishkal" aria-label="משקל, שורה 2"></td></tr>
-              <tr><td class="row-num">3</td><td class="word-cell">קוֹנֶה</td><td><input type="text" class="answer" data-id="r3-shoresh" aria-label="שורש, שורה 3"></td><td><input type="text" class="answer" data-id="r3-binyan" aria-label="בניין, שורה 3"></td><td><input type="text" class="answer" data-id="r3-mishkal" aria-label="משקל, שורה 3"></td></tr>
-              <tr><td class="row-num">4</td><td class="word-cell">שׁוֹמֵר <span class="note-cell">(שורש שלם - לא נחי)</span></td><td><input type="text" class="answer" data-id="r4-shoresh" aria-label="שורש, שורה 4"></td><td><input type="text" class="answer" data-id="r4-binyan" aria-label="בניין, שורה 4"></td><td><input type="text" class="answer" data-id="r4-mishkal" aria-label="משקל, שורה 4"></td></tr>
-              <tr><td class="row-num">5</td><td class="word-cell">מוֹרֶה</td><td><input type="text" class="answer" data-id="r5-shoresh" aria-label="שורש, שורה 5"></td><td><input type="text" class="answer" data-id="r5-binyan" aria-label="בניין, שורה 5"></td><td><input type="text" class="answer" data-id="r5-mishkal" aria-label="משקל, שורה 5"></td></tr>
-              <tr><td class="row-num">6</td><td class="word-cell">מוֹרִיד</td><td><input type="text" class="answer" data-id="r6-shoresh" aria-label="שורש, שורה 6"></td><td><input type="text" class="answer" data-id="r6-binyan" aria-label="בניין, שורה 6"></td><td><input type="text" class="answer" data-id="r6-mishkal" aria-label="משקל, שורה 6"></td></tr>
-              <tr><td class="row-num">7</td><td class="word-cell">מַדְרִיךְ</td><td><input type="text" class="answer" data-id="r7-shoresh" aria-label="שורש, שורה 7"></td><td><input type="text" class="answer" data-id="r7-binyan" aria-label="בניין, שורה 7"></td><td><input type="text" class="answer" data-id="r7-mishkal" aria-label="משקל, שורה 7"></td></tr>
-              <tr><td class="row-num">8</td><td class="word-cell">מַלְחִין</td><td><input type="text" class="answer" data-id="r8-shoresh" aria-label="שורש, שורה 8"></td><td><input type="text" class="answer" data-id="r8-binyan" aria-label="בניין, שורה 8"></td><td><input type="text" class="answer" data-id="r8-mishkal" aria-label="משקל, שורה 8"></td></tr>
-              <tr><td class="row-num">9</td><td class="word-cell">הָאוֹפֶה מֵכִין לֶחֶם.</td><td><input type="text" class="answer" data-id="r9-shoresh" aria-label="שורש, שורה 9"></td><td><input type="text" class="answer" data-id="r9-binyan" aria-label="בניין, שורה 9"></td><td><input type="text" class="answer" data-id="r9-mishkal" aria-label="משקל, שורה 9"></td></tr>
-              <tr><td class="row-num">10</td><td class="word-cell">הַמּוֹרֶה נִכְנָס לַכִּתָּה.</td><td><input type="text" class="answer" data-id="r10-shoresh" aria-label="שורש, שורה 10"></td><td><input type="text" class="answer" data-id="r10-binyan" aria-label="בניין, שורה 10"></td><td><input type="text" class="answer" data-id="r10-mishkal" aria-label="משקל, שורה 10"></td></tr>
-              <tr><td class="row-num">11</td><td class="word-cell">הוּא בּוֹנֶה בַּיִת חָדָשׁ.</td><td><input type="text" class="answer" data-id="r11-shoresh" aria-label="שורש, שורה 11"></td><td><input type="text" class="answer" data-id="r11-binyan" aria-label="בניין, שורה 11"></td><td><input type="text" class="answer" data-id="r11-mishkal" aria-label="משקל, שורה 11"></td></tr>
-              <tr><td class="row-num">12</td><td class="word-cell">הַמַּדְרִיךְ הִגִּיעַ בַּזְּמַן.</td><td><input type="text" class="answer" data-id="r12-shoresh" aria-label="שורש, שורה 12"></td><td><input type="text" class="answer" data-id="r12-binyan" aria-label="בניין, שורה 12"></td><td><input type="text" class="answer" data-id="r12-mishkal" aria-label="משקל, שורה 12"></td></tr>
-              <tr class="row-hard"><td class="row-num">13</td><td class="word-cell">קוֹרֵא <span class="difficulty-flag">קשה</span> <span class="note-cell">(גזרת ל"א, לא ל"ה)</span></td><td><input type="text" class="answer" data-id="r13-shoresh" aria-label="שורש, שורה 13"></td><td><input type="text" class="answer" data-id="r13-binyan" aria-label="בניין, שורה 13"></td><td><input type="text" class="answer" data-id="r13-mishkal" aria-label="משקל, שורה 13"></td></tr>
-              <tr class="row-hard"><td class="row-num">14</td><td class="word-cell">שָׁר <span class="difficulty-flag">קשה</span> <span class="note-cell">(מ"לשיר")</span></td><td><input type="text" class="answer" data-id="r14-shoresh" aria-label="שורש, שורה 14"></td><td><input type="text" class="answer" data-id="r14-binyan" aria-label="בניין, שורה 14"></td><td><input type="text" class="answer" data-id="r14-mishkal" aria-label="משקל, שורה 14"></td></tr>
-              <tr class="row-hard"><td class="row-num">15</td><td class="word-cell">מֵבִין <span class="difficulty-flag">קשה</span> <span class="note-cell">(מ"הבין")</span></td><td><input type="text" class="answer" data-id="r15-shoresh" aria-label="שורש, שורה 15"></td><td><input type="text" class="answer" data-id="r15-binyan" aria-label="בניין, שורה 15"></td><td><input type="text" class="answer" data-id="r15-mishkal" aria-label="משקל, שורה 15"></td></tr>
-              <tr class="row-hard"><td class="row-num">16</td><td class="word-cell">מֵקִים <span class="difficulty-flag">קשה</span> <span class="note-cell">(מ"הקים")</span></td><td><input type="text" class="answer" data-id="r16-shoresh" aria-label="שורש, שורה 16"></td><td><input type="text" class="answer" data-id="r16-binyan" aria-label="בניין, שורה 16"></td><td><input type="text" class="answer" data-id="r16-mishkal" aria-label="משקל, שורה 16"></td></tr>
-              <tr class="row-hard"><td class="row-num">17</td><td class="word-cell">הַיֶּלֶד קוֹרֵא סֵפֶר מְעַנְיֵן. <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r17-shoresh" aria-label="שורש, שורה 17"></td><td><input type="text" class="answer" data-id="r17-binyan" aria-label="בניין, שורה 17"></td><td><input type="text" class="answer" data-id="r17-mishkal" aria-label="משקל, שורה 17"></td></tr>
-              <tr class="row-hard"><td class="row-num">18</td><td class="word-cell">הוּא שָׁר בַּמִּקְלַחַת. <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r18-shoresh" aria-label="שורש, שורה 18"></td><td><input type="text" class="answer" data-id="r18-binyan" aria-label="בניין, שורה 18"></td><td><input type="text" class="answer" data-id="r18-mishkal" aria-label="משקל, שורה 18"></td></tr>
-              <tr class="row-hard"><td class="row-num">19</td><td class="word-cell">אֲנִי מֵבִין אֶת הַהֶסְבֵּר. <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r19-shoresh" aria-label="שורש, שורה 19"></td><td><input type="text" class="answer" data-id="r19-binyan" aria-label="בניין, שורה 19"></td><td><input type="text" class="answer" data-id="r19-mishkal" aria-label="משקל, שורה 19"></td></tr>
+              <tr><td class="row-num">1</td><td class="word-cell">אוֹפֶה</td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r1-shoresh" aria-label="שורש, שורה 1"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r1-binyan" aria-label="בניין, שורה 1"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r1-mishkal" aria-label="משקל, שורה 1"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">2</td><td class="word-cell">בּוֹנֶה</td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r2-shoresh" aria-label="שורש, שורה 2"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r2-binyan" aria-label="בניין, שורה 2"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r2-mishkal" aria-label="משקל, שורה 2"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">3</td><td class="word-cell">קוֹנֶה</td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r3-shoresh" aria-label="שורש, שורה 3"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r3-binyan" aria-label="בניין, שורה 3"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r3-mishkal" aria-label="משקל, שורה 3"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">4</td><td class="word-cell">שׁוֹמֵר <span class="note-cell">(שורש שלם - לא נחי)</span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r4-shoresh" aria-label="שורש, שורה 4"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r4-binyan" aria-label="בניין, שורה 4"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r4-mishkal" aria-label="משקל, שורה 4"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">5</td><td class="word-cell">מוֹרֶה</td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r5-shoresh" aria-label="שורש, שורה 5"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r5-binyan" aria-label="בניין, שורה 5"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r5-mishkal" aria-label="משקל, שורה 5"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">6</td><td class="word-cell">מוֹרִיד</td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r6-shoresh" aria-label="שורש, שורה 6"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r6-binyan" aria-label="בניין, שורה 6"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r6-mishkal" aria-label="משקל, שורה 6"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">7</td><td class="word-cell">מַדְרִיךְ</td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r7-shoresh" aria-label="שורש, שורה 7"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r7-binyan" aria-label="בניין, שורה 7"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r7-mishkal" aria-label="משקל, שורה 7"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">8</td><td class="word-cell">מַלְחִין</td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r8-shoresh" aria-label="שורש, שורה 8"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r8-binyan" aria-label="בניין, שורה 8"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r8-mishkal" aria-label="משקל, שורה 8"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">9</td><td class="word-cell">הָאוֹפֶה מֵכִין לֶחֶם.</td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r9-shoresh" aria-label="שורש, שורה 9"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r9-binyan" aria-label="בניין, שורה 9"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r9-mishkal" aria-label="משקל, שורה 9"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">10</td><td class="word-cell">הַמּוֹרֶה נִכְנָס לַכִּתָּה.</td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r10-shoresh" aria-label="שורש, שורה 10"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r10-binyan" aria-label="בניין, שורה 10"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r10-mishkal" aria-label="משקל, שורה 10"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">11</td><td class="word-cell">הוּא בּוֹנֶה בַּיִת חָדָשׁ.</td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r11-shoresh" aria-label="שורש, שורה 11"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r11-binyan" aria-label="בניין, שורה 11"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r11-mishkal" aria-label="משקל, שורה 11"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">12</td><td class="word-cell">הַמַּדְרִיךְ הִגִּיעַ בַּזְּמַן.</td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r12-shoresh" aria-label="שורש, שורה 12"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r12-binyan" aria-label="בניין, שורה 12"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r12-mishkal" aria-label="משקל, שורה 12"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr class="row-hard"><td class="row-num">13</td><td class="word-cell">קוֹרֵא <span class="difficulty-flag">קשה</span> <span class="note-cell">(גזרת ל"א, לא ל"ה)</span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r13-shoresh" aria-label="שורש, שורה 13"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r13-binyan" aria-label="בניין, שורה 13"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r13-mishkal" aria-label="משקל, שורה 13"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr class="row-hard"><td class="row-num">14</td><td class="word-cell">שָׁר <span class="difficulty-flag">קשה</span> <span class="note-cell">(מ"לשיר")</span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r14-shoresh" aria-label="שורש, שורה 14"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r14-binyan" aria-label="בניין, שורה 14"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r14-mishkal" aria-label="משקל, שורה 14"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr class="row-hard"><td class="row-num">15</td><td class="word-cell">מֵבִין <span class="difficulty-flag">קשה</span> <span class="note-cell">(מ"הבין")</span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r15-shoresh" aria-label="שורש, שורה 15"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r15-binyan" aria-label="בניין, שורה 15"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r15-mishkal" aria-label="משקל, שורה 15"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr class="row-hard"><td class="row-num">16</td><td class="word-cell">מֵקִים <span class="difficulty-flag">קשה</span> <span class="note-cell">(מ"הקים")</span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r16-shoresh" aria-label="שורש, שורה 16"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r16-binyan" aria-label="בניין, שורה 16"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r16-mishkal" aria-label="משקל, שורה 16"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr class="row-hard"><td class="row-num">17</td><td class="word-cell">הַיֶּלֶד קוֹרֵא סֵפֶר מְעַנְיֵן. <span class="difficulty-flag">קשה</span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r17-shoresh" aria-label="שורש, שורה 17"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r17-binyan" aria-label="בניין, שורה 17"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r17-mishkal" aria-label="משקל, שורה 17"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr class="row-hard"><td class="row-num">18</td><td class="word-cell">הוּא שָׁר בַּמִּקְלַחַת. <span class="difficulty-flag">קשה</span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r18-shoresh" aria-label="שורש, שורה 18"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r18-binyan" aria-label="בניין, שורה 18"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r18-mishkal" aria-label="משקל, שורה 18"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr class="row-hard"><td class="row-num">19</td><td class="word-cell">אֲנִי מֵבִין אֶת הַהֶסְבֵּר. <span class="difficulty-flag">קשה</span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r19-shoresh" aria-label="שורש, שורה 19"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r19-binyan" aria-label="בניין, שורה 19"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r19-mishkal" aria-label="משקל, שורה 19"><option value="" selected disabled>בחרו משקל</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מַקְטִיל">מַקְטִיל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
             </tbody>
           </table>
         </div>
 
-        <div class="reveal-wrap">
-          <button class="btn" type="button" id="toggleAnswers">🔎 הצג את כל התשובות</button>
-          <div id="answerKey" hidden>
-            <div class="table-wrap">
-              <table class="mishkal-table">
-                <thead><tr><th class="row-num">#</th><th>מילה</th><th>שורש</th><th>בניין</th><th>משקל</th></tr></thead>
-                <tbody>
-                  <tr><td class="row-num">1</td><td>אוֹפֶה</td><td class="ans-shoresh">א־פ־ה</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
-                  <tr><td class="row-num">2</td><td>בּוֹנֶה</td><td class="ans-shoresh">ב־נ־ה</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
-                  <tr><td class="row-num">3</td><td>קוֹנֶה</td><td class="ans-shoresh">ק־נ־ה</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
-                  <tr><td class="row-num">4</td><td>שׁוֹמֵר</td><td class="ans-shoresh">ש־מ־ר</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
-                  <tr><td class="row-num">5</td><td>מוֹרֶה</td><td class="ans-shoresh">י־ר־ה</td><td>הפעיל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
-                  <tr><td class="row-num">6</td><td>מוֹרִיד</td><td class="ans-shoresh">י־ר־ד</td><td>הפעיל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
-                  <tr><td class="row-num">7</td><td>מַדְרִיךְ</td><td class="ans-shoresh">ד־ר־ך</td><td>הפעיל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
-                  <tr><td class="row-num">8</td><td>מַלְחִין</td><td class="ans-shoresh">ל־ח־ן</td><td>הפעיל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
-                  <tr><td class="row-num">9</td><td>הָאוֹפֶה מכין...</td><td class="ans-shoresh">א־פ־ה</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
-                  <tr><td class="row-num">10</td><td>הַמּוֹרֶה נכנס...</td><td class="ans-shoresh">י־ר־ה</td><td>הפעיל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
-                  <tr><td class="row-num">11</td><td>הוּא בּוֹנֶה בית...</td><td class="ans-shoresh">ב־נ־ה</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
-                  <tr><td class="row-num">12</td><td>הַמַּדְרִיךְ הגיע...</td><td class="ans-shoresh">ד־ר־ך</td><td>הפעיל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
-                  <tr><td class="row-num">13</td><td>קוֹרֵא</td><td class="ans-shoresh">ק־ר־א</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
-                  <tr><td class="row-num">14</td><td>שָׁר</td><td class="ans-shoresh">ש־י־ר</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
-                  <tr><td class="row-num">15</td><td>מֵבִין</td><td class="ans-shoresh">ב־י־ן</td><td>הפעיל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
-                  <tr><td class="row-num">16</td><td>מֵקִים</td><td class="ans-shoresh">ק־ו־ם</td><td>הפעיל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
-                  <tr><td class="row-num">17</td><td>הַיֶּלֶד קוֹרֵא ספר...</td><td class="ans-shoresh">ק־ר־א</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
-                  <tr><td class="row-num">18</td><td>הוּא שָׁר במקלחת...</td><td class="ans-shoresh">ש־י־ר</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
-                  <tr><td class="row-num">19</td><td>אני מֵבִין את...</td><td class="ans-shoresh">ב־י־ן</td><td>הפעיל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <p style="font-size:.82rem; color:var(--ink-soft); margin-top:.5rem;">💡 שימו לב ל<b>שׁוֹמֵר</b> - שורש שלם לגמרי, שנראה בדיוק כמו קוֹטֵל בלי שום "שחזור". וְ<b>שָׁר</b> ו<b>מֵבִין</b> - למרות שהם נראים קצרים ושונים לגמרי מקוֹטֵל/מַקְטִיל, המשקל המשוחזר שלהם הוא בדיוק אותו הדבר.</p>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -232,6 +199,49 @@
 
     <section class="card" style="grid-column: 1 / -1;">
       <div class="card-head">
+        <span class="card-tag">בדיקה</span>
+        <h2 class="card-title">סיימתם? בדקו את התשובות שלכם</h2>
+      </div>
+      <div class="card-body">
+        <p style="font-size:.88rem; color:var(--ink-soft); margin:0 0 .6rem;">הכפתור נפתח רק אחרי שממלאים את כל השדות בטבלה ואת כל שאלות הבחירה למעלה. בלחיצה, כל תשובה תסומן ב-✓ (נכון) או ב-✗ (לא נכון).</p>
+        <p style="text-align:center;">
+          <button class="btn primary" type="button" id="checkAnswersBtn" disabled>✅ בדקו תשובות</button>
+        </p>
+        <p class="check-gate-note" id="checkGateNote" aria-live="polite">מלאו את כל השדות (כולל שאלות הבחירה) כדי לפתוח את כפתור הבדיקה.</p>
+        <div id="answerKey" hidden>
+          <div class="table-wrap">
+            <table class="mishkal-table">
+              <thead><tr><th class="row-num">#</th><th>מילה</th><th>שורש</th><th>בניין</th><th>משקל</th></tr></thead>
+              <tbody>
+                <tr><td class="row-num">1</td><td>אוֹפֶה</td><td class="ans-shoresh">א־פ־ה</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
+                <tr><td class="row-num">2</td><td>בּוֹנֶה</td><td class="ans-shoresh">ב־נ־ה</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
+                <tr><td class="row-num">3</td><td>קוֹנֶה</td><td class="ans-shoresh">ק־נ־ה</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
+                <tr><td class="row-num">4</td><td>שׁוֹמֵר</td><td class="ans-shoresh">ש־מ־ר</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
+                <tr><td class="row-num">5</td><td>מוֹרֶה</td><td class="ans-shoresh">י־ר־ה</td><td>הפעיל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
+                <tr><td class="row-num">6</td><td>מוֹרִיד</td><td class="ans-shoresh">י־ר־ד</td><td>הפעיל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
+                <tr><td class="row-num">7</td><td>מַדְרִיךְ</td><td class="ans-shoresh">ד־ר־ך</td><td>הפעיל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
+                <tr><td class="row-num">8</td><td>מַלְחִין</td><td class="ans-shoresh">ל־ח־ן</td><td>הפעיל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
+                <tr><td class="row-num">9</td><td>הָאוֹפֶה מכין...</td><td class="ans-shoresh">א־פ־ה</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
+                <tr><td class="row-num">10</td><td>הַמּוֹרֶה נכנס...</td><td class="ans-shoresh">י־ר־ה</td><td>הפעיל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
+                <tr><td class="row-num">11</td><td>הוּא בּוֹנֶה בית...</td><td class="ans-shoresh">ב־נ־ה</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
+                <tr><td class="row-num">12</td><td>הַמַּדְרִיךְ הגיע...</td><td class="ans-shoresh">ד־ר־ך</td><td>הפעיל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
+                <tr><td class="row-num">13</td><td>קוֹרֵא</td><td class="ans-shoresh">ק־ר־א</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
+                <tr><td class="row-num">14</td><td>שָׁר</td><td class="ans-shoresh">ש־י־ר</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
+                <tr><td class="row-num">15</td><td>מֵבִין</td><td class="ans-shoresh">ב־י־ן</td><td>הפעיל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
+                <tr><td class="row-num">16</td><td>מֵקִים</td><td class="ans-shoresh">ק־ו־ם</td><td>הפעיל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
+                <tr><td class="row-num">17</td><td>הַיֶּלֶד קוֹרֵא ספר...</td><td class="ans-shoresh">ק־ר־א</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
+                <tr><td class="row-num">18</td><td>הוּא שָׁר במקלחת...</td><td class="ans-shoresh">ש־י־ר</td><td>קל</td><td class="ans-mishkal">קוֹטֵל</td></tr>
+                <tr><td class="row-num">19</td><td>אני מֵבִין את...</td><td class="ans-shoresh">ב־י־ן</td><td>הפעיל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:.82rem; color:var(--ink-soft); margin-top:.5rem;">💡 שימו לב ל<b>שׁוֹמֵר</b> - שורש שלם לגמרי, שנראה בדיוק כמו קוֹטֵל בלי שום "שחזור". וְ<b>שָׁר</b> ו<b>מֵבִין</b> - למרות שהם נראים קצרים ושונים לגמרי מקוֹטֵל/מַקְטִיל, המשקל המשוחזר שלהם הוא בדיוק אותו הדבר.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
         <span class="card-tag">סיכום</span>
         <h2 class="card-title">מה למדנו</h2>
       </div>
@@ -259,11 +269,42 @@
 
 <footer class="credit">עברית - משקלים · שיעור 2 · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
+<script src="assets/mishkal-answer-check.js"></script>
 <script>
 const STORAGE_KEY = 'ivrit-mishkalim-2-answers';
 const NAME_KEY = 'ivrit-mishkalim-2-student';
+const ANSWER_KEY = {
+  'r1-shoresh': 'א־פ־ה', 'r1-binyan': 'קל', 'r1-mishkal': 'קוֹטֵל',
+  'r2-shoresh': 'ב־נ־ה', 'r2-binyan': 'קל', 'r2-mishkal': 'קוֹטֵל',
+  'r3-shoresh': 'ק־נ־ה', 'r3-binyan': 'קל', 'r3-mishkal': 'קוֹטֵל',
+  'r4-shoresh': 'ש־מ־ר', 'r4-binyan': 'קל', 'r4-mishkal': 'קוֹטֵל',
+  'r5-shoresh': 'י־ר־ה', 'r5-binyan': 'הפעיל', 'r5-mishkal': 'מַקְטִיל',
+  'r6-shoresh': 'י־ר־ד', 'r6-binyan': 'הפעיל', 'r6-mishkal': 'מַקְטִיל',
+  'r7-shoresh': 'ד־ר־ך', 'r7-binyan': 'הפעיל', 'r7-mishkal': 'מַקְטִיל',
+  'r8-shoresh': 'ל־ח־ן', 'r8-binyan': 'הפעיל', 'r8-mishkal': 'מַקְטִיל',
+  'r9-shoresh': 'א־פ־ה', 'r9-binyan': 'קל', 'r9-mishkal': 'קוֹטֵל',
+  'r10-shoresh': 'י־ר־ה', 'r10-binyan': 'הפעיל', 'r10-mishkal': 'מַקְטִיל',
+  'r11-shoresh': 'ב־נ־ה', 'r11-binyan': 'קל', 'r11-mishkal': 'קוֹטֵל',
+  'r12-shoresh': 'ד־ר־ך', 'r12-binyan': 'הפעיל', 'r12-mishkal': 'מַקְטִיל',
+  'r13-shoresh': 'ק־ר־א', 'r13-binyan': 'קל', 'r13-mishkal': 'קוֹטֵל',
+  'r14-shoresh': 'ש־י־ר', 'r14-binyan': 'קל', 'r14-mishkal': 'קוֹטֵל',
+  'r15-shoresh': 'ב־י־ן', 'r15-binyan': 'הפעיל', 'r15-mishkal': 'מַקְטִיל',
+  'r16-shoresh': 'ק־ו־ם', 'r16-binyan': 'הפעיל', 'r16-mishkal': 'מַקְטִיל',
+  'r17-shoresh': 'ק־ר־א', 'r17-binyan': 'קל', 'r17-mishkal': 'קוֹטֵל',
+  'r18-shoresh': 'ש־י־ר', 'r18-binyan': 'קל', 'r18-mishkal': 'קוֹטֵל',
+  'r19-shoresh': 'ב־י־ן', 'r19-binyan': 'הפעיל', 'r19-mishkal': 'מַקְטִיל'
+};
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const mcGroups = Array.from(document.querySelectorAll('.mc-group'));
+const answerKey = document.getElementById('answerKey');
+const checker = MishkalAnswerCheck.wire({
+  fields: textareas.map(el => ({ el, expected: ANSWER_KEY[el.dataset.id] })),
+  mcGroups: mcGroups,
+  checkBtn: document.getElementById('checkAnswersBtn'),
+  gateNote: document.getElementById('checkGateNote'),
+  onChecked: () => { answerKey.hidden = false; },
+  onCleared: () => { answerKey.hidden = true; }
+});
 const progressFill = document.getElementById('progressFill');
 const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
@@ -323,17 +364,6 @@ function saveAnswers(){
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); flashSaved(); }catch(e){ console.error(e); }
 }
 
-function applyMcVisual(option, correct){
-  const group = option.closest('.mc-group');
-  group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong'));
-  option.classList.add(correct ? 'is-correct' : 'is-wrong');
-  const feedback = group.closest('.question-block').querySelector('.mc-feedback');
-  if(feedback){
-    feedback.textContent = correct ? '✓ נכון!' : 'לא בדיוק - נסו שוב';
-    feedback.className = 'mc-feedback ' + (correct ? 'correct' : 'wrong');
-  }
-}
-
 function loadAnswers(){
   try{
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -346,13 +376,14 @@ function loadAnswers(){
           const option = group.querySelector('.mc-option[data-value="' + v + '"]');
           if(option){
             option.querySelector('input[type="radio"]').checked = true;
-            applyMcVisual(option, option.dataset.correct === 'true');
+            option.classList.add('is-selected');
           }
         }
       });
     }
   }catch(e){}
   updateProgress();
+  checker.updateReadiness();
 }
 
 textareas.forEach(t => {
@@ -362,24 +393,17 @@ textareas.forEach(t => {
     clearTimeout(saveTimer);
     saveTimer = setTimeout(saveAnswers, 500);
   });
+  t.addEventListener('change', () => {
+    markFilled(t);
+    updateProgress();
+    saveAnswers();
+  });
 });
 
 mcGroups.forEach(group => {
   group.querySelectorAll('.mc-option').forEach(option => {
-    option.addEventListener('click', () => {
-      const radio = option.querySelector('input[type="radio"]');
-      radio.checked = true;
-      applyMcVisual(option, option.dataset.correct === 'true');
-      saveAnswers();
-    });
+    option.addEventListener('click', () => { saveAnswers(); });
   });
-});
-
-const toggleBtn = document.getElementById('toggleAnswers');
-const answerKey = document.getElementById('answerKey');
-toggleBtn.addEventListener('click', () => {
-  answerKey.hidden = !answerKey.hidden;
-  toggleBtn.textContent = answerKey.hidden ? '🔎 הצג את כל התשובות' : '🙈 הסתר את התשובות';
 });
 
 document.getElementById('clearBtn').addEventListener('click', () => {
@@ -387,10 +411,11 @@ document.getElementById('clearBtn').addEventListener('click', () => {
   textareas.forEach(t => { t.value = ''; markFilled(t); });
   mcGroups.forEach(group => {
     group.querySelectorAll('input[type="radio"]').forEach(r => { r.checked = false; });
-    group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong'));
+    group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong', 'is-selected'));
     const feedback = group.closest('.question-block').querySelector('.mc-feedback');
     if(feedback){ feedback.textContent = ''; feedback.className = 'mc-feedback'; }
   });
+  checker.clearAllMarks();
   updateProgress();
   saveAnswers();
 });

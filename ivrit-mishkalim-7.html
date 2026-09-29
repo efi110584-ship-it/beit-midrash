@@ -14,13 +14,12 @@
   table.mishkal-table thead th{ background:var(--acc-soft); font-weight:700; font-size:.85rem; }
   table.mishkal-table td.word-cell{ font-family:'Frank Ruhl Libre', serif; font-weight:700; font-size:1.02rem; }
   table.mishkal-table td.note-cell{ font-size:.8rem; color:var(--ink-soft); }
-  table.mishkal-table input.answer{ width:100%; min-width:6.5rem; box-sizing:border-box; padding:.35rem .5rem; font-size:.9rem; border:1.5px solid var(--paper-line); border-radius:6px; background:#fff; }
-  table.mishkal-table input.answer:focus{ outline:3px solid var(--focus-ring); outline-offset:1px; border-color:var(--acc); }
-  table.mishkal-table input.answer.filled{ border-color:var(--teal); background:var(--teal-soft); }
+  table.mishkal-table input.answer, table.mishkal-table select.answer{ width:100%; min-width:6.5rem; box-sizing:border-box; padding:.35rem .5rem; font-size:.9rem; border:1.5px solid var(--paper-line); border-radius:6px; background:#fff; }
+  table.mishkal-table input.answer:focus, table.mishkal-table select.answer:focus{ outline:3px solid var(--focus-ring); outline-offset:1px; border-color:var(--acc); }
+  table.mishkal-table input.answer.filled, table.mishkal-table select.answer.filled{ border-color:var(--teal); background:var(--teal-soft); }
   table.mishkal-table tr.row-hard td.word-cell{ color:var(--rust); }
   .row-num{ color:var(--ink-soft); font-size:.8rem; width:1.8rem; text-align:center; }
   .difficulty-flag{ display:inline-block; font-size:.68rem; font-weight:700; color:#fff; background:var(--rust); border-radius:999px; padding:.05rem .5rem; margin-inline-start:.4rem; vertical-align:middle; }
-  .reveal-wrap{ margin-top:1rem; }
   #answerKey{ margin-top:.8rem; }
   #answerKey table.mishkal-table td{ font-size:.85rem; }
   #answerKey td.ans-meaning, #answerKey td.ans-mishkal{ font-weight:700; color:var(--teal); }
@@ -118,43 +117,20 @@
           <table class="mishkal-table">
             <thead><tr><th class="row-num">#</th><th>משפט</th><th>פירוש בהקשר</th><th>משקל</th></tr></thead>
             <tbody>
-              <tr><td class="row-num">1</td><td class="word-cell">קָרָאתִי <b>סֵפֶר</b> מְרַתֵּק.</td><td><input type="text" class="answer" data-id="r1-meaning" aria-label="פירוש, שורה 1"></td><td><input type="text" class="answer" data-id="r1-mishkal" aria-label="משקל, שורה 1"></td></tr>
-              <tr><td class="row-num">2</td><td class="word-cell">אַבָּא שֶׁלִּי עוֹבֵד כְּ<b>סַפָּר</b> בָּעִיר.</td><td><input type="text" class="answer" data-id="r2-meaning" aria-label="פירוש, שורה 2"></td><td><input type="text" class="answer" data-id="r2-mishkal" aria-label="משקל, שורה 2"></td></tr>
-              <tr><td class="row-num">3</td><td class="word-cell">הַיֶּלֶד <b>מַשְׁקֶה</b> אֶת הַפְּרָחִים בְּכָל בֹּקֶר.</td><td><input type="text" class="answer" data-id="r3-meaning" aria-label="פירוש, שורה 3"></td><td><input type="text" class="answer" data-id="r3-mishkal" aria-label="משקל, שורה 3"></td></tr>
-              <tr><td class="row-num">4</td><td class="word-cell">עַל הַשֻּׁלְחָן הָיָה <b>מַשְׁקֶה</b> קַר.</td><td><input type="text" class="answer" data-id="r4-meaning" aria-label="פירוש, שורה 4"></td><td><input type="text" class="answer" data-id="r4-mishkal" aria-label="משקל, שורה 4"></td></tr>
-              <tr><td class="row-num">5</td><td class="word-cell"><b>אִרְגּוּן</b> הַחֶדֶר לִפְנֵי הַמְּסִבָּה לָקַח שָׁעָה.</td><td><input type="text" class="answer" data-id="r5-meaning" aria-label="פירוש, שורה 5"></td><td><input type="text" class="answer" data-id="r5-mishkal" aria-label="משקל, שורה 5"></td></tr>
-              <tr><td class="row-num">6</td><td class="word-cell">הָ<b>אִרְגּוּן</b> שֶׁלָּנוּ עוֹזֵר לְנִזְקָקִים.</td><td><input type="text" class="answer" data-id="r6-meaning" aria-label="פירוש, שורה 6"></td><td><input type="text" class="answer" data-id="r6-mishkal" aria-label="משקל, שורה 6"></td></tr>
-              <tr class="row-hard"><td class="row-num">7</td><td class="word-cell">הָ<b>עוֹלֶה</b> הֶחָדָשׁ הִגִּיעַ לָאָרֶץ. <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r7-meaning" aria-label="פירוש, שורה 7"></td><td><input type="text" class="answer" data-id="r7-mishkal" aria-label="משקל, שורה 7"></td></tr>
-              <tr class="row-hard"><td class="row-num">8</td><td class="word-cell">מְחִיר הַלֶּחֶם <b>עוֹלֶה</b> כָּל שָׁנָה. <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r8-meaning" aria-label="פירוש, שורה 8"></td><td><input type="text" class="answer" data-id="r8-mishkal" aria-label="משקל, שורה 8"></td></tr>
-              <tr class="row-hard"><td class="row-num">9</td><td class="word-cell">יֵשׁ לִי הַרְבֵּה <b>כֶּסֶף</b> בָּאַרְנָק. <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r9-meaning" aria-label="פירוש, שורה 9"></td><td><input type="text" class="answer" data-id="r9-mishkal" aria-label="משקל, שורה 9"></td></tr>
-              <tr class="row-hard"><td class="row-num">10</td><td class="word-cell">סַבָּא שֶׁלִּי הָיָה <b>כַּסָּף</b> מֻמְחֶה. <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r10-meaning" aria-label="פירוש, שורה 10"></td><td><input type="text" class="answer" data-id="r10-mishkal" aria-label="משקל, שורה 10"></td></tr>
+              <tr><td class="row-num">1</td><td class="word-cell">קָרָאתִי <b>סֵפֶר</b> מְרַתֵּק.</td><td><span class="answer-wrap"><select class="answer" data-id="r1-meaning" aria-label="פירוש, שורה 1"><option value="" selected disabled>בחרו פירוש</option><option value="שם עצם - חפץ לקריאה">שם עצם - חפץ לקריאה</option><option value="שם עצם - בעל מקצוע">שם עצם - בעל מקצוע</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r1-mishkal" aria-label="משקל, שורה 1"><option value="" selected disabled>בחרו משקל</option><option value="קֶטֶל">קֶטֶל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="קִטּוּל">קִטּוּל</option><option value="קוֹטֵל">קוֹטֵל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">2</td><td class="word-cell">אַבָּא שֶׁלִּי עוֹבֵד כְּ<b>סַפָּר</b> בָּעִיר.</td><td><span class="answer-wrap"><select class="answer" data-id="r2-meaning" aria-label="פירוש, שורה 2"><option value="" selected disabled>בחרו פירוש</option><option value="שם עצם - חפץ לקריאה">שם עצם - חפץ לקריאה</option><option value="שם עצם - בעל מקצוע">שם עצם - בעל מקצוע</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r2-mishkal" aria-label="משקל, שורה 2"><option value="" selected disabled>בחרו משקל</option><option value="קֶטֶל">קֶטֶל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="קִטּוּל">קִטּוּל</option><option value="קוֹטֵל">קוֹטֵל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">3</td><td class="word-cell">הַיֶּלֶד <b>מַשְׁקֶה</b> אֶת הַפְּרָחִים בְּכָל בֹּקֶר.</td><td><span class="answer-wrap"><select class="answer" data-id="r3-meaning" aria-label="פירוש, שורה 3"><option value="" selected disabled>בחרו פירוש</option><option value="פועל">פועל</option><option value="שם עצם">שם עצם</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r3-mishkal" aria-label="משקל, שורה 3"><option value="" selected disabled>בחרו משקל</option><option value="קֶטֶל">קֶטֶל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="קִטּוּל">קִטּוּל</option><option value="קוֹטֵל">קוֹטֵל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">4</td><td class="word-cell">עַל הַשֻּׁלְחָן הָיָה <b>מַשְׁקֶה</b> קַר.</td><td><span class="answer-wrap"><select class="answer" data-id="r4-meaning" aria-label="פירוש, שורה 4"><option value="" selected disabled>בחרו פירוש</option><option value="פועל">פועל</option><option value="שם עצם">שם עצם</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r4-mishkal" aria-label="משקל, שורה 4"><option value="" selected disabled>בחרו משקל</option><option value="קֶטֶל">קֶטֶל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="קִטּוּל">קִטּוּל</option><option value="קוֹטֵל">קוֹטֵל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">5</td><td class="word-cell"><b>אִרְגּוּן</b> הַחֶדֶר לִפְנֵי הַמְּסִבָּה לָקַח שָׁעָה.</td><td><span class="answer-wrap"><select class="answer" data-id="r5-meaning" aria-label="פירוש, שורה 5"><option value="" selected disabled>בחרו פירוש</option><option value="שם פעולה (הפעולה עצמה)">שם פעולה (הפעולה עצמה)</option><option value="שם עצם - גוף/מוסד">שם עצם - גוף/מוסד</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r5-mishkal" aria-label="משקל, שורה 5"><option value="" selected disabled>בחרו משקל</option><option value="קֶטֶל">קֶטֶל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="קִטּוּל">קִטּוּל</option><option value="קוֹטֵל">קוֹטֵל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">6</td><td class="word-cell">הָ<b>אִרְגּוּן</b> שֶׁלָּנוּ עוֹזֵר לְנִזְקָקִים.</td><td><span class="answer-wrap"><select class="answer" data-id="r6-meaning" aria-label="פירוש, שורה 6"><option value="" selected disabled>בחרו פירוש</option><option value="שם פעולה (הפעולה עצמה)">שם פעולה (הפעולה עצמה)</option><option value="שם עצם - גוף/מוסד">שם עצם - גוף/מוסד</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r6-mishkal" aria-label="משקל, שורה 6"><option value="" selected disabled>בחרו משקל</option><option value="קֶטֶל">קֶטֶל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="קִטּוּל">קִטּוּל</option><option value="קוֹטֵל">קוֹטֵל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr class="row-hard"><td class="row-num">7</td><td class="word-cell">הָ<b>עוֹלֶה</b> הֶחָדָשׁ הִגִּיעַ לָאָרֶץ. <span class="difficulty-flag">קשה</span></td><td><span class="answer-wrap"><select class="answer" data-id="r7-meaning" aria-label="פירוש, שורה 7"><option value="" selected disabled>בחרו פירוש</option><option value="שם עצם - עולה חדש">שם עצם - עולה חדש</option><option value="פועל - מתייקר">פועל - מתייקר</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r7-mishkal" aria-label="משקל, שורה 7"><option value="" selected disabled>בחרו משקל</option><option value="קֶטֶל">קֶטֶל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="קִטּוּל">קִטּוּל</option><option value="קוֹטֵל">קוֹטֵל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr class="row-hard"><td class="row-num">8</td><td class="word-cell">מְחִיר הַלֶּחֶם <b>עוֹלֶה</b> כָּל שָׁנָה. <span class="difficulty-flag">קשה</span></td><td><span class="answer-wrap"><select class="answer" data-id="r8-meaning" aria-label="פירוש, שורה 8"><option value="" selected disabled>בחרו פירוש</option><option value="שם עצם - עולה חדש">שם עצם - עולה חדש</option><option value="פועל - מתייקר">פועל - מתייקר</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r8-mishkal" aria-label="משקל, שורה 8"><option value="" selected disabled>בחרו משקל</option><option value="קֶטֶל">קֶטֶל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="קִטּוּל">קִטּוּל</option><option value="קוֹטֵל">קוֹטֵל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr class="row-hard"><td class="row-num">9</td><td class="word-cell">יֵשׁ לִי הַרְבֵּה <b>כֶּסֶף</b> בָּאַרְנָק. <span class="difficulty-flag">קשה</span></td><td><span class="answer-wrap"><select class="answer" data-id="r9-meaning" aria-label="פירוש, שורה 9"><option value="" selected disabled>בחרו פירוש</option><option value="שם עצם - מטבע/מתכת">שם עצם - מטבע/מתכת</option><option value="שם עצם - בעל מקצוע">שם עצם - בעל מקצוע</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r9-mishkal" aria-label="משקל, שורה 9"><option value="" selected disabled>בחרו משקל</option><option value="קֶטֶל">קֶטֶל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="קִטּוּל">קִטּוּל</option><option value="קוֹטֵל">קוֹטֵל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr class="row-hard"><td class="row-num">10</td><td class="word-cell">סַבָּא שֶׁלִּי הָיָה <b>כַּסָּף</b> מֻמְחֶה. <span class="difficulty-flag">קשה</span></td><td><span class="answer-wrap"><select class="answer" data-id="r10-meaning" aria-label="פירוש, שורה 10"><option value="" selected disabled>בחרו פירוש</option><option value="שם עצם - מטבע/מתכת">שם עצם - מטבע/מתכת</option><option value="שם עצם - בעל מקצוע">שם עצם - בעל מקצוע</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r10-mishkal" aria-label="משקל, שורה 10"><option value="" selected disabled>בחרו משקל</option><option value="קֶטֶל">קֶטֶל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="קִטּוּל">קִטּוּל</option><option value="קוֹטֵל">קוֹטֵל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
             </tbody>
           </table>
         </div>
 
-        <div class="reveal-wrap">
-          <button class="btn" type="button" id="toggleAnswers">🔎 הצג את כל התשובות</button>
-          <div id="answerKey" hidden>
-            <div class="table-wrap">
-              <table class="mishkal-table">
-                <thead><tr><th class="row-num">#</th><th>מילה</th><th>פירוש בהקשר</th><th>משקל</th></tr></thead>
-                <tbody>
-                  <tr><td class="row-num">1</td><td>סֵפֶר</td><td class="ans-meaning">שם עצם - חפץ לקריאה</td><td class="ans-mishkal">קֶטֶל</td></tr>
-                  <tr><td class="row-num">2</td><td>סַפָּר</td><td class="ans-meaning">שם עצם - בעל מקצוע</td><td class="ans-mishkal">קַטָּל</td></tr>
-                  <tr><td class="row-num">3</td><td>מַשְׁקֶה</td><td class="ans-meaning">פועל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
-                  <tr><td class="row-num">4</td><td>מַשְׁקֶה</td><td class="ans-meaning">שם עצם</td><td class="ans-mishkal">מַקְטִיל</td></tr>
-                  <tr><td class="row-num">5</td><td>אִרְגּוּן</td><td class="ans-meaning">שם פעולה (הפעולה עצמה)</td><td class="ans-mishkal">קִטּוּל</td></tr>
-                  <tr><td class="row-num">6</td><td>אִרְגּוּן</td><td class="ans-meaning">שם עצם - גוף/מוסד</td><td class="ans-mishkal">קִטּוּל</td></tr>
-                  <tr><td class="row-num">7</td><td>עוֹלֶה</td><td class="ans-meaning">שם עצם - עולה חדש</td><td class="ans-mishkal">קוֹטֵל</td></tr>
-                  <tr><td class="row-num">8</td><td>עוֹלֶה</td><td class="ans-meaning">פועל - מתייקר</td><td class="ans-mishkal">קוֹטֵל</td></tr>
-                  <tr><td class="row-num">9</td><td>כֶּסֶף</td><td class="ans-meaning">שם עצם - מטבע/מתכת</td><td class="ans-mishkal">קֶטֶל</td></tr>
-                  <tr><td class="row-num">10</td><td>כַּסָּף</td><td class="ans-meaning">שם עצם - בעל מקצוע</td><td class="ans-mishkal">קַטָּל</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <p style="font-size:.82rem; color:var(--ink-soft); margin-top:.5rem;">💡 שימו לב לתבנית שחוזרת: סֵפֶר/סַפָּר וְכֶסֶף/כַּסָּף - באותן אותיות בדיוק, אבל בשני משקלים שונים (קֶטֶל מול קַטָּל), לפי ההקשר. לעומת זאת עוֹלֶה וְאִרְגּוּן ומַשְׁקֶה - נשארים באותו משקל, רק התפקיד או המשמעות משתנים.</p>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -209,6 +185,40 @@
 
     <section class="card" style="grid-column: 1 / -1;">
       <div class="card-head">
+        <span class="card-tag">בדיקה</span>
+        <h2 class="card-title">סיימתם? בדקו את התשובות שלכם</h2>
+      </div>
+      <div class="card-body">
+        <p style="font-size:.88rem; color:var(--ink-soft); margin:0 0 .6rem;">הכפתור נפתח רק אחרי שממלאים את כל השדות בטבלה ואת כל שאלות הבחירה למעלה. בלחיצה, כל תשובה תסומן ב-✓ (נכון) או ב-✗ (לא נכון).</p>
+        <p style="text-align:center;">
+          <button class="btn primary" type="button" id="checkAnswersBtn" disabled>✅ בדקו תשובות</button>
+        </p>
+        <p class="check-gate-note" id="checkGateNote" aria-live="polite">מלאו את כל השדות (כולל שאלות הבחירה) כדי לפתוח את כפתור הבדיקה.</p>
+        <div id="answerKey" hidden>
+          <div class="table-wrap">
+            <table class="mishkal-table">
+              <thead><tr><th class="row-num">#</th><th>מילה</th><th>פירוש בהקשר</th><th>משקל</th></tr></thead>
+              <tbody>
+                <tr><td class="row-num">1</td><td>סֵפֶר</td><td class="ans-meaning">שם עצם - חפץ לקריאה</td><td class="ans-mishkal">קֶטֶל</td></tr>
+                <tr><td class="row-num">2</td><td>סַפָּר</td><td class="ans-meaning">שם עצם - בעל מקצוע</td><td class="ans-mishkal">קַטָּל</td></tr>
+                <tr><td class="row-num">3</td><td>מַשְׁקֶה</td><td class="ans-meaning">פועל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
+                <tr><td class="row-num">4</td><td>מַשְׁקֶה</td><td class="ans-meaning">שם עצם</td><td class="ans-mishkal">מַקְטִיל</td></tr>
+                <tr><td class="row-num">5</td><td>אִרְגּוּן</td><td class="ans-meaning">שם פעולה (הפעולה עצמה)</td><td class="ans-mishkal">קִטּוּל</td></tr>
+                <tr><td class="row-num">6</td><td>אִרְגּוּן</td><td class="ans-meaning">שם עצם - גוף/מוסד</td><td class="ans-mishkal">קִטּוּל</td></tr>
+                <tr><td class="row-num">7</td><td>עוֹלֶה</td><td class="ans-meaning">שם עצם - עולה חדש</td><td class="ans-mishkal">קוֹטֵל</td></tr>
+                <tr><td class="row-num">8</td><td>עוֹלֶה</td><td class="ans-meaning">פועל - מתייקר</td><td class="ans-mishkal">קוֹטֵל</td></tr>
+                <tr><td class="row-num">9</td><td>כֶּסֶף</td><td class="ans-meaning">שם עצם - מטבע/מתכת</td><td class="ans-mishkal">קֶטֶל</td></tr>
+                <tr><td class="row-num">10</td><td>כַּסָּף</td><td class="ans-meaning">שם עצם - בעל מקצוע</td><td class="ans-mishkal">קַטָּל</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:.82rem; color:var(--ink-soft); margin-top:.5rem;">💡 שימו לב לתבנית שחוזרת: סֵפֶר/סַפָּר וְכֶסֶף/כַּסָּף - באותן אותיות בדיוק, אבל בשני משקלים שונים (קֶטֶל מול קַטָּל), לפי ההקשר. לעומת זאת עוֹלֶה וְאִרְגּוּן ומַשְׁקֶה - נשארים באותו משקל, רק התפקיד או המשמעות משתנים.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
         <span class="card-tag">סיכום</span>
         <h2 class="card-title">מה למדנו</h2>
       </div>
@@ -236,11 +246,33 @@
 
 <footer class="credit">עברית - משקלים · שיעור 7 · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
+<script src="assets/mishkal-answer-check.js"></script>
 <script>
 const STORAGE_KEY = 'ivrit-mishkalim-7-answers';
 const NAME_KEY = 'ivrit-mishkalim-7-student';
+const ANSWER_KEY = {
+  'r1-meaning': 'שם עצם - חפץ לקריאה', 'r1-mishkal': 'קֶטֶל',
+  'r2-meaning': 'שם עצם - בעל מקצוע', 'r2-mishkal': 'קַטָּל',
+  'r3-meaning': 'פועל', 'r3-mishkal': 'מַקְטִיל',
+  'r4-meaning': 'שם עצם', 'r4-mishkal': 'מַקְטִיל',
+  'r5-meaning': 'שם פעולה (הפעולה עצמה)', 'r5-mishkal': 'קִטּוּל',
+  'r6-meaning': 'שם עצם - גוף/מוסד', 'r6-mishkal': 'קִטּוּל',
+  'r7-meaning': 'שם עצם - עולה חדש', 'r7-mishkal': 'קוֹטֵל',
+  'r8-meaning': 'פועל - מתייקר', 'r8-mishkal': 'קוֹטֵל',
+  'r9-meaning': 'שם עצם - מטבע/מתכת', 'r9-mishkal': 'קֶטֶל',
+  'r10-meaning': 'שם עצם - בעל מקצוע', 'r10-mishkal': 'קַטָּל'
+};
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const mcGroups = Array.from(document.querySelectorAll('.mc-group'));
+const answerKey = document.getElementById('answerKey');
+const checker = MishkalAnswerCheck.wire({
+  fields: textareas.map(el => ({ el, expected: ANSWER_KEY[el.dataset.id] })),
+  mcGroups: mcGroups,
+  checkBtn: document.getElementById('checkAnswersBtn'),
+  gateNote: document.getElementById('checkGateNote'),
+  onChecked: () => { answerKey.hidden = false; },
+  onCleared: () => { answerKey.hidden = true; }
+});
 const progressFill = document.getElementById('progressFill');
 const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
@@ -300,17 +332,6 @@ function saveAnswers(){
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); flashSaved(); }catch(e){ console.error(e); }
 }
 
-function applyMcVisual(option, correct){
-  const group = option.closest('.mc-group');
-  group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong'));
-  option.classList.add(correct ? 'is-correct' : 'is-wrong');
-  const feedback = group.closest('.question-block').querySelector('.mc-feedback');
-  if(feedback){
-    feedback.textContent = correct ? '✓ נכון!' : 'לא בדיוק - נסו שוב';
-    feedback.className = 'mc-feedback ' + (correct ? 'correct' : 'wrong');
-  }
-}
-
 function loadAnswers(){
   try{
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -323,13 +344,14 @@ function loadAnswers(){
           const option = group.querySelector('.mc-option[data-value="' + v + '"]');
           if(option){
             option.querySelector('input[type="radio"]').checked = true;
-            applyMcVisual(option, option.dataset.correct === 'true');
+            option.classList.add('is-selected');
           }
         }
       });
     }
   }catch(e){}
   updateProgress();
+  checker.updateReadiness();
 }
 
 textareas.forEach(t => {
@@ -339,24 +361,17 @@ textareas.forEach(t => {
     clearTimeout(saveTimer);
     saveTimer = setTimeout(saveAnswers, 500);
   });
+  t.addEventListener('change', () => {
+    markFilled(t);
+    updateProgress();
+    saveAnswers();
+  });
 });
 
 mcGroups.forEach(group => {
   group.querySelectorAll('.mc-option').forEach(option => {
-    option.addEventListener('click', () => {
-      const radio = option.querySelector('input[type="radio"]');
-      radio.checked = true;
-      applyMcVisual(option, option.dataset.correct === 'true');
-      saveAnswers();
-    });
+    option.addEventListener('click', () => { saveAnswers(); });
   });
-});
-
-const toggleBtn = document.getElementById('toggleAnswers');
-const answerKey = document.getElementById('answerKey');
-toggleBtn.addEventListener('click', () => {
-  answerKey.hidden = !answerKey.hidden;
-  toggleBtn.textContent = answerKey.hidden ? '🔎 הצג את כל התשובות' : '🙈 הסתר את התשובות';
 });
 
 document.getElementById('clearBtn').addEventListener('click', () => {
@@ -364,10 +379,11 @@ document.getElementById('clearBtn').addEventListener('click', () => {
   textareas.forEach(t => { t.value = ''; markFilled(t); });
   mcGroups.forEach(group => {
     group.querySelectorAll('input[type="radio"]').forEach(r => { r.checked = false; });
-    group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong'));
+    group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong', 'is-selected'));
     const feedback = group.closest('.question-block').querySelector('.mc-feedback');
     if(feedback){ feedback.textContent = ''; feedback.className = 'mc-feedback'; }
   });
+  checker.clearAllMarks();
   updateProgress();
   saveAnswers();
 });

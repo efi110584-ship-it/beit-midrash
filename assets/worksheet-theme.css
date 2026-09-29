@@ -394,6 +394,29 @@ main{ max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 2rem; }
   font-size:.75rem; margin-inline-start:.4rem; animation: popIn .3s ease;
 }
 
+/* בדיקת תשובות רק בסיום (וי/איקס לכל שדה) */
+.answer-wrap{ display:flex; align-items:center; gap:.3rem; }
+.answer-wrap .answer{ flex:1 1 auto; min-width:0; }
+.answer-mark{
+  display:inline-flex; align-items:center; justify-content:center; flex:none;
+  width:1.3rem; height:1.3rem; border-radius:50%; color:#fff;
+  font-size:.75rem; font-weight:700; animation: popIn .3s ease;
+}
+.answer-mark.correct{ background: var(--teal); }
+.answer-mark.wrong{ background: var(--rust); }
+input.answer.is-correct, select.answer.is-correct{ border-color: var(--teal); background: var(--teal-soft); }
+input.answer.is-wrong, select.answer.is-wrong{ border-color: var(--rust); background: var(--rust-soft); }
+select.answer{
+  width:100%; font-family:'Heebo',sans-serif; font-size:.9rem; line-height:1.5;
+  padding:.5rem .6rem; border:1.5px solid var(--paper-line); border-radius:8px;
+  background-color:#fff; color:var(--ink); direction:rtl; transition: border-color .2s ease, box-shadow .2s ease;
+}
+select.answer:focus{ outline:none; border-color:var(--acc); box-shadow:0 0 0 3px rgba(0,0,0,0.08); }
+select.answer.filled{ border-color:var(--teal); }
+.mc-option.is-selected{ border-color: var(--acc); background: var(--acc-soft); }
+.btn:disabled, .btn[disabled]{ opacity:.45; cursor:not-allowed; pointer-events:none; }
+.check-gate-note{ font-size:.82rem; color: var(--ink-soft); margin:.4rem 0 0; }
+
 textarea.answer, input.answer{
   width:100%; min-height: 60px; resize: vertical;
   font-family:'Heebo',sans-serif; font-size: .9rem; line-height: 1.6;
