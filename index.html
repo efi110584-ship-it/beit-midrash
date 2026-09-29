@@ -131,8 +131,23 @@ a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible
 
 .class-section{ margin-bottom:1.4rem; }
 .class-section > h2{ font-size:1.1rem; border-bottom:2px solid var(--gold); padding-bottom:0.3rem; margin-bottom:0.7rem; }
-.unit-category{ font-size:.95rem; font-weight:800; color:var(--text-soft); text-transform:none; margin:1rem 0 0.4rem; padding-inline-start:0.1rem; }
+.unit-category{ font-size:.95rem; font-weight:800; color:var(--text-soft); text-transform:none; margin:1rem 0 0.4rem; padding-inline-start:0.1rem; scroll-margin-top:5.5rem; }
 .unit-category:first-of-type{ margin-top:0; }
+
+.teacher-quickjump{ display:flex; flex-wrap:wrap; gap:.5rem; margin:0 0 1.2rem; padding:.7rem; background:var(--paper-card); border:1px solid var(--border); border-radius:var(--radius); }
+.teacher-quickjump-btn{
+  display:inline-flex; align-items:center; gap:.4rem;
+  background:transparent; border:1.5px solid var(--border); color:var(--ink);
+  padding:.4rem .85rem; border-radius:999px; cursor:pointer;
+  font-size:.85rem; font-weight:600; font-family:var(--font-body); white-space:nowrap;
+  transition: background .15s ease, border-color .15s ease;
+}
+.teacher-quickjump-btn:hover{ border-color:var(--gold); background:var(--paper-2); }
+.teacher-quickjump-icon{ font-size:1.05rem; line-height:1; }
+@media (max-width:640px){
+  .teacher-quickjump{ flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .teacher-quickjump-btn{ flex:none; }
+}
 
 .unit-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:0.6rem; }
 
@@ -420,6 +435,10 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
       icon:"\u{1F5DD}️", title:"מחוון תשובות - פתוח תפתח",
       desc:"תשובות תמציתיות ברמת בגרות לכל 46 שאלות דפי העבודה על 8 נושאי היחידה, עם הפסוקים ורש\"י לצד כל שאלה ואפשרות הקראה.",
       chapters:8, chaptersLabel:"נושאים", url:"ptp-answers-hub.html" },
+    { key:"ivrit-binyanim-gzarot-answers", class:"teacher", subject:"מורה", category:"עברית - בניינים וגזרות",
+      icon:"\u{1F5DD}️", title:"מחוון תשובות - בניינים וגזרות",
+      desc:"מפתחות התשובות לשני דפי התרגול: 20 מילים קשות מגזרת השלמים לזיהוי שורש ובניין, ו-20 מילים קשות ברבים לזיהוי שורש וגזרה.",
+      chapters:2, chaptersLabel:"דפי תרגול", url:"ivrit-binyanim-gzarot-answers.html" },
     { key:"ivrit-hafan-answers", class:"teacher", subject:"מורה", category:"עברית - גזרות",
       icon:"\u{1F5DD}️", title:'מחוון תשובות - גזרת חפ"נ וחפי"צ',
       desc:"מפתח תשובות מלא לדף העבודה על גזרות חפ\"נ וחפי\"צ - שורש, בניין, שם הפועל ושם הפעולה לכל משפט.",
@@ -455,11 +474,7 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
     { key:"ivrit-mishkalim-answers", class:"teacher", subject:"מורה", category:"עברית - משקלים",
       icon:"\u{1F5DD}️", title:"מחוון מרוכז - יחידת משקלים",
       desc:"כל מפתחות התשובות של שמונת שיעורי יחידת המשקלים ושל המבחן המסכם, במקום אחד - בלי צורך לפתוח כל שיעור בנפרד.",
-      chapters:8, chaptersLabel:"שיעורים", url:"ivrit-mishkalim-answers.html" },
-    { key:"ivrit-binyanim-gzarot-answers", class:"teacher", subject:"מורה", category:"עברית - בניינים וגזרות",
-      icon:"\u{1F5DD}️", title:"מחוון תשובות - בניינים וגזרות",
-      desc:"מפתחות התשובות לשני דפי התרגול: 20 מילים קשות מגזרת השלמים לזיהוי שורש ובניין, ו-20 מילים קשות ברבים לזיהוי שורש וגזרה.",
-      chapters:2, chaptersLabel:"דפי תרגול", url:"ivrit-binyanim-gzarot-answers.html" }
+      chapters:8, chaptersLabel:"שיעורים", url:"ivrit-mishkalim-answers.html" }
   ];
 
   var CLASS_ORDER = ["יא","יב"];
@@ -470,6 +485,15 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
   function getProgressRegistry(){
     try{ return JSON.parse(localStorage.getItem("site-progress-v1") || "{}"); }
     catch(e){ return {}; }
+  }
+
+  var TEACHER_CATEGORY_ICONS = {
+    "מבחנים":"📝", "ספר בראשית":"📖", "ספר ישעיהו":"📜", "עזרא ונחמיה":"🏛️",
+    "פרקי נביאים":"📯", "ספר יונה":"🐋", "לקט מצוות":"📋", "פתוח תפתח":"🤲",
+    "עברית - בניינים וגזרות":"🧩", "עברית - גזרות":"🔤", "עברית - משקלים":"⚖️"
+  };
+  function categorySlug(cat){
+    return "cat-" + String(cat).replace(/[^א-תa-zA-Z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   }
 
   function renderUnits(){
@@ -503,8 +527,17 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
           if(!byCategory[cat]){ byCategory[cat] = []; categoryOrder.push(cat); }
           byCategory[cat].push(u);
         });
+        html += '<nav class="teacher-quickjump" aria-label="ניווט מהיר למחוונים">';
         categoryOrder.forEach(function(cat){
-          html += '<h3 class="unit-category">' + escapeHtml(cat) + '</h3>';
+          html += '<button type="button" class="teacher-quickjump-btn" data-jump="' + escapeAttr(categorySlug(cat)) + '">' +
+            '<span class="teacher-quickjump-icon" aria-hidden="true">' + (TEACHER_CATEGORY_ICONS[cat] || '🗂️') + '</span>' +
+            '<span>' + escapeHtml(cat) + '</span>' +
+          '</button>';
+        });
+        html += '</nav>';
+        categoryOrder.forEach(function(cat){
+          html += '<h3 class="unit-category" id="' + categorySlug(cat) + '">' +
+            '<span aria-hidden="true">' + (TEACHER_CATEGORY_ICONS[cat] || '🗂️') + '</span> ' + escapeHtml(cat) + '</h3>';
           html += '<div class="unit-grid">';
           byCategory[cat].forEach(function(u){ html += unitCardHtml(u, registry); });
           html += '</div>';
@@ -602,6 +635,14 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
       }
     });
   }
+
+  /* ניווט מהיר באזור האישי - לחיצה על כפתור נושא גוללת לקטגוריה המתאימה */
+  contentRoot.addEventListener("click", function(e){
+    var btn = e.target.closest(".teacher-quickjump-btn");
+    if(!btn) return;
+    var target = document.getElementById(btn.getAttribute("data-jump"));
+    if(target) target.scrollIntoView({ behavior:"smooth", block:"start" });
+  });
 
   /* קישור ישיר מדף עבודה בחזרה לכיתה הנכונה, למשל index.html#tab-yb */
   (function applyHashTab(){
