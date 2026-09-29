@@ -150,7 +150,7 @@
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.fillStyle = '#FFFFFF';
     ctx.fillRect(0, 0, PAGE_W, PAGE_H);
-    ops.concat([{ t: 'text', font: FONTS.footer.font, text: 'עמוד ' + n + ' מתוך ' + total + '   ·   בית המדרש הדיגיטלי', x: PAGE_W / 2, y: PAGE_H - MARGIN + 16, align: 'center', color: MUTED }])
+    ops.concat([{ t: 'text', font: FONTS.footer.font, text: 'עמוד ' + n + ' מתוך ' + total + '   ·   הכיתה הדיגיטלית', x: PAGE_W / 2, y: PAGE_H - MARGIN + 16, align: 'center', color: MUTED }])
       .forEach(function(op){
         if(op.t === 'rect'){
           ctx.fillStyle = op.fill;
@@ -204,7 +204,7 @@
       add(img);
       add('\nendstream\nendobj\n');
     });
-    obj(infoObj, '<< /Title ' + pdfText(title) + ' /Creator ' + pdfText('בית המדרש הדיגיטלי') + ' >>');
+    obj(infoObj, '<< /Title ' + pdfText(title) + ' /Creator ' + pdfText('הכיתה הדיגיטלית') + ' >>');
     var xref = pos, size = infoObj + 1;
     var table = 'xref\n0 ' + size + '\n0000000000 65535 f \n';
     for(var n = 1; n < size; n++) table += ('0000000000' + offsets[n]).slice(-10) + ' 00000 n \n';
