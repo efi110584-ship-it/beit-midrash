@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>עברית — משקלים · מבחן מסכם</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .topic-head{ display:flex; align-items:center; gap:.5rem; margin:1.4rem 0 .7rem; padding-bottom:.35rem; border-bottom:2px solid var(--paper-line); }
+  .topic-head:first-child{ margin-top:0; }
+  .topic-num{ display:inline-flex; align-items:center; justify-content:center; min-width:1.7rem; height:1.7rem; border-radius:999px; background:var(--acc); color:#fff; font-weight:800; font-size:.85rem; }
+  .topic-head h3{ margin:0; font-size:1rem; color:var(--ink); }
+  #resultsPanel{ display:none; }
+  #resultsPanel.show{ display:block; }
+  .score-hero{ text-align:center; padding:1.2rem; background:var(--acc-soft); border-radius:12px; margin-bottom:1.1rem; }
+  .score-hero .big-score{ font-size:2.4rem; font-weight:900; font-family:'Frank Ruhl Libre', serif; color:var(--acc); }
+  .score-hero .big-score small{ font-size:1.1rem; font-weight:600; color:var(--ink-soft); }
+  table.topic-score{ width:100%; border-collapse:collapse; font-size:.9rem; margin-bottom:1rem; }
+  table.topic-score th, table.topic-score td{ border:1px solid var(--paper-line); padding:.5rem .65rem; text-align:right; }
+  table.topic-score thead th{ background:var(--acc-soft); font-weight:700; font-size:.85rem; }
+  table.topic-score td.score-cell{ font-weight:700; font-variant-numeric: tabular-nums; }
+  table.topic-score tr.needs-practice td.score-cell{ color:var(--rust); }
+  table.topic-score tr.mastered td.score-cell{ color:var(--teal); }
+  .practice-link{ font-size:.85rem; }
+  .practice-link.mastered-note{ color:var(--teal); font-weight:600; }
+  #submitTestBtn{ display:block; margin:1.4rem auto 0; }
+</style>
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
+</head>
+<body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="ivrit-hub.html">עברית - דקדוק</a>
+  <span class="sep">›</span>
+  <a href="ivrit-mishkalim-hub.html">משקלים</a>
+  <span class="sep">›</span>
+  <span class="current">מבחן מסכם</span>
+</nav>
+
+<header>
+  <div class="eyebrow">עברית · דקדוק · משקלים · מבחן מסכם</div>
+  <h1>📋 מבחן סיום היחידה</h1>
+  <p class="sub">25 שאלות על כל מה שנלמד ביחידה. בסיום תקבלו ציון כללי ופירוט לפי נושא - כדי לדעת בדיוק מה כדאי לתרגל שוב.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 25 שאלות נענו</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות במבחן"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main id="main-content">
+  <div class="grid" id="grid">
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">הוראות</span>
+        <h2 class="card-title">איך עונים על המבחן</h2>
+      </div>
+      <div class="card-body">
+        <p>ענו על כל 25 השאלות (כולן בחירה מתוך 4 אפשרויות). התשובות שלכם נשמרות אוטומטית תוך כדי מילוי. בסיום, לחצו על הכפתור "בדקו תשובות" בתחתית העמוד, ותקבלו ציון כללי ופירוט לפי כל אחד משבעת הנושאים - עם קישור ישיר לשיעור המתאים לכל נושא שכדאי לחזק.</p>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">מבחן</span>
+        <h2 class="card-title">25 שאלות</h2>
+      </div>
+      <div class="card-body">
+
+        <div class="topic-head"><span class="topic-num">1</span><h3>זיהוי משקל בסיסי</h3></div>
+
+        <div class="question-block" data-topic="t1">
+          <div class="question-row"><span class="q-num">1</span><span class="q-text">מהו המשקל של המילה "נַגָּן"?</span></div>
+          <div class="mc-group test-mc" data-qid="q1">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q1"> קַטָּל</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q1"> מִקְטָל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q1"> קַטְלָן</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q1"> קוֹטֵל</label>
+          </div>
+        </div>
+
+        <div class="question-block" data-topic="t1">
+          <div class="question-row"><span class="q-num">2</span><span class="q-text">מהו המשקל של המילה "מִכְתָּב"?</span></div>
+          <div class="mc-group test-mc" data-qid="q2">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q2"> קַטָּל</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q2"> מִקְטָל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q2"> קַטְלָן</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q2"> מְקַטֵּל</label>
+          </div>
+        </div>
+
+        <div class="question-block" data-topic="t1">
+          <div class="question-row"><span class="q-num">3</span><span class="q-text">מהו המשקל של המילה "קַבְּלָן"?</span></div>
+          <div class="mc-group test-mc" data-qid="q3">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q3"> קַטָּל</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q3"> מִקְטָל</label>
+            <label class="mc-option" data-value="c" data-correct="true"><input type="radio" name="q3"> קַטְלָן</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q3"> קוֹטֵל</label>
+          </div>
+        </div>
+
+        <div class="question-block" data-topic="t1">
+          <div class="question-row"><span class="q-num">4</span><span class="q-text">מהו המשקל של המילה "מִגְרָשׁ"?</span></div>
+          <div class="mc-group test-mc" data-qid="q4">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q4"> קַטָּל</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q4"> מִקְטָל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q4"> קַטְלָן</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q4"> מַקְטִיל</label>
+          </div>
+        </div>
+
+        <div class="topic-head"><span class="topic-num">2</span><h3>משקל בגזרות הנחים</h3></div>
+
+        <div class="question-block" data-topic="t2">
+          <div class="question-row"><span class="q-num">5</span><span class="q-text">"מוֹרִיד" (שורש י־ר־ד) - מהו משקלה?</span></div>
+          <div class="mc-group test-mc" data-qid="q5">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q5"> קוֹטֵל</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q5"> מַקְטִיל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q5"> מְקַטֵּל</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q5"> קָטוּל</label>
+          </div>
+        </div>
+
+        <div class="question-block" data-topic="t2">
+          <div class="question-row"><span class="q-num">6</span><span class="q-text">"קוֹרֵא" (שורש ק־ר־א) - מהו משקלה?</span></div>
+          <div class="mc-group test-mc" data-qid="q6">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q6"> קוֹטֵל</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q6"> מַקְטִיל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q6"> קַטָּל</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q6"> מִקְטָל</label>
+          </div>
+        </div>
+
+        <div class="question-block" data-topic="t2">
+          <div class="question-row"><span class="q-num">7</span><span class="q-text">"מֵבִין" (שורש ב־י־ן) - מהו משקלה?</span></div>
+          <div class="mc-group test-mc" data-qid="q7">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q7"> קוֹטֵל</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q7"> מַקְטִיל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q7"> נִקְטָל</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q7"> קַטְלָן</label>
+          </div>
+        </div>
+
+        <div class="question-block" data-topic="t2">
+          <div class="question-row"><span class="q-num">8</span><span class="q-text">"שָׁר" (שורש שֹ־י־ר) - מהו משקלה?</span></div>
+          <div class="mc-group test-mc" data-qid="q8">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q8"> קוֹטֵל</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q8"> מַקְטִיל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q8"> קֶטֶל</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q8"> קָטוּל</label>
+          </div>
+        </div>
+
+        <div class="question-block" data-topic="t2">
+          <div class="question-row"><span class="q-num">9</span><span class="q-text">"מֵקִים" (שורש ק־ו־ם) - מהו משקלה?</span></div>
+          <div class="mc-group test-mc" data-qid="q9">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q9"> קוֹטֵל</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q9"> מַקְטִיל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q9"> מְקַטֵּל</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q9"> מֻקְטָל</label>
+          </div>
+        </div>
+
+        <div class="topic-head"><span class="topic-num">3</span><h3>בינוני והקשר שלו למשקל</h3></div>
+
+        <div class="question-block" data-topic="t3">
+          <div class="question-row"><span class="q-num">10</span><span class="q-text">לאיזה בניין שייכת הצורה "נִשְׁלַח"?</span></div>
+          <div class="mc-group test-mc" data-qid="q10">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q10"> קל</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q10"> נפעל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q10"> פיעל</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q10"> הפעיל</label>
+          </div>
+        </div>
+
+        <div class="question-block" data-topic="t3">
+          <div class="question-row"><span class="q-num">11</span><span class="q-text">מהו הבניין של "מוֹכֵר" במשפט "המוכר בחנות עזר לי"?</span></div>
+          <div class="mc-group test-mc" data-qid="q11">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q11"> קל</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q11"> הפעיל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q11"> פיעל</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q11"> נפעל</label>
+          </div>
+        </div>
+
+        <div class="question-block" data-topic="t3">
+          <div class="question-row"><span class="q-num">12</span><span class="q-text">"מִשְׂחָק" (מגרש המשחקים) - האם זו צורת בינוני של איזשהו בניין?</span></div>
+          <div class="mc-group test-mc" data-qid="q12">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q12"> כן, של בניין פיעל</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q12"> לא, אין פועל "לְמַשְׂחֵק"</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q12"> כן, של בניין קל</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q12"> כן, של בניין הפעיל</label>
+          </div>
+        </div>
+
+        <div class="topic-head"><span class="topic-num">4</span><h3>שמות פעולה</h3></div>
+
+        <div class="question-block" data-topic="t4">
+          <div class="question-row"><span class="q-num">13</span><span class="q-text">מהו משקל שם הפעולה של בניין הפעיל?</span></div>
+          <div class="mc-group test-mc" data-qid="q13">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q13"> קִטּוּל</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q13"> קְטָלָה</label>
+            <label class="mc-option" data-value="c" data-correct="true"><input type="radio" name="q13"> הַקְטָלָה</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q13"> קֶטֶל</label>
+          </div>
+        </div>
+
+        <div class="question-block" data-topic="t4">
+          <div class="question-row"><span class="q-num">14</span><span class="q-text">"בִּטּוּי" ו"נִתּוּחַ" הם שמות פעולה של איזה בניין?</span></div>
+          <div class="mc-group test-mc" data-qid="q14">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q14"> הפעיל</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q14"> פיעל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q14"> התפעל</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q14"> קל</label>
+          </div>
+        </div>
+
+        <div class="question-block" data-topic="t4">
+          <div class="question-row"><span class="q-num">15</span><span class="q-text">"בַּקָּשָׁה" ו"קַבָּלָה" הן שמות פעולה של בניין פיעל, בדיוק כמו "בִּטּוּי". מדוע משקלן שונה?</span></div>
+          <div class="mc-group test-mc" data-qid="q15">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q15"> טעות - הן לא שייכות לפיעל</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q15"> לבניין פיעל יש שני משקלי שם-פעולה אפשריים: קִטּוּל וגם קְטָלָה</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q15"> הן שמות פעולה של בניין קל</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q15"> אין להן משקל בכלל</label>
+          </div>
+        </div>
+
+        <div class="topic-head"><span class="topic-num">5</span><h3>משמעות המשקל</h3></div>
+
+        <div class="question-block" data-topic="t5">
+          <div class="question-row"><span class="q-num">16</span><span class="q-text">איזו מהמילים הבאות היא בעלת מקצוע במשקל קַטָּל?</span></div>
+          <div class="mc-group test-mc" data-qid="q16">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q16"> נַגָּר</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q16"> סוֹפֵר</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q16"> מוֹרֶה</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q16"> מְעַבֵּד</label>
+          </div>
+        </div>
+
+        <div class="question-block" data-topic="t5">
+          <div class="question-row"><span class="q-num">17</span><span class="q-text">המילה "מִגְדָּל" מתחילה ב-מ' כמו מילים רבות של בעלי מקצוע. האם היא באמת בעלת מקצוע?</span></div>
+          <div class="mc-group test-mc" data-qid="q17">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q17"> כן</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q17"> לא - "מגדל" הוא מבנה גבוה, לא בעל מקצוע</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q17"> רק לפעמים</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q17"> אי אפשר לדעת בלי הקשר</label>
+          </div>
+        </div>
+
+        <div class="question-block" data-topic="t5">
+          <div class="question-row"><span class="q-num">18</span><span class="q-text">נַגָּר, קַבְּלָן, סוֹפֵר, מוֹרֶה ומְעַבֵּד - מה משותף לכולן, למרות שהן בכמה משקלים שונים?</span></div>
+          <div class="mc-group test-mc" data-qid="q18">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q18"> כולן באותו משקל</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q18"> כולן בעלות מקצוע</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q18"> כולן משורש אחד</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q18"> כולן צורות בינוני</label>
+          </div>
+        </div>
+
+        <div class="topic-head"><span class="topic-num">6</span><h3>שורש+משקל לעומת בסיס+צורן</h3></div>
+
+        <div class="question-block" data-topic="t6">
+          <div class="question-row"><span class="q-num">19</span><span class="q-text">"מוּזִיקַאי" - באיזו דרך תצורה היא נוצרה?</span></div>
+          <div class="mc-group test-mc" data-qid="q19">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q19"> שורש+משקל</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q19"> בסיס+צורן (מוזיקה + אי)</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q19"> הלחם בסיסים</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q19"> אי אפשר לדעת</label>
+          </div>
+        </div>
+
+        <div class="question-block" data-topic="t6">
+          <div class="question-row"><span class="q-num">20</span><span class="q-text">"נַגָּר" - באיזו דרך תצורה היא נוצרה?</span></div>
+          <div class="mc-group test-mc" data-qid="q20">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="q20"> שורש+משקל</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="q20"> בסיס+צורן</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q20"> הלחם בסיסים</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q20"> אי אפשר לדעת</label>
+          </div>
+        </div>
+
+        <div class="question-block" data-topic="t6">
+          <div class="question-row"><span class="q-num">21</span><span class="q-text">מהי בדיקת האימות לזיהוי בסיס+צורן?</span></div>
+          <div class="mc-group test-mc" data-qid="q21">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q21"> בודקים אם המילה מתחילה ב-מ'</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q21"> מסירים את החלק החשוד, ובודקים אם נשארת מילה קיימת</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q21"> בודקים את מספר האותיות במילה</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q21"> בודקים אם יש ניקוד קמץ</label>
+          </div>
+        </div>
+
+        <div class="question-block" data-topic="t6">
+          <div class="question-row"><span class="q-num">22</span><span class="q-text">"מִגְדָּל" נראית כאילו אפשר לפרק אותה ל-"מ" + "גדל". האם זו מילת בסיס+צורן?</span></div>
+          <div class="mc-group test-mc" data-qid="q22">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q22"> כן, "גדל" היא הבסיס</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q22"> לא - "גדל" לבדה איננה מילה עצמאית קיימת, זו שורש+משקל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q22"> כן, כי היא מתחילה ב-מ'</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q22"> אי אפשר לדעת בלי הקשר</label>
+          </div>
+        </div>
+
+        <div class="topic-head"><span class="topic-num">7</span><h3>ההקשר קובע</h3></div>
+
+        <div class="question-block" data-topic="t7">
+          <div class="question-row"><span class="q-num">23</span><span class="q-text">"הוא עובד כְּסַפָּר בעיר הגדולה" - מהו משקל המילה "ספר" כאן?</span></div>
+          <div class="mc-group test-mc" data-qid="q23">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q23"> קֶטֶל</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q23"> קַטָּל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q23"> מִקְטָל</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q23"> קוֹטֵל</label>
+          </div>
+        </div>
+
+        <div class="question-block" data-topic="t7">
+          <div class="question-row"><span class="q-num">24</span><span class="q-text">"על השולחן היה משקה קר" - מהו משקל המילה "משקה" כאן?</span></div>
+          <div class="mc-group test-mc" data-qid="q24">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q24"> קוֹטֵל</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q24"> מַקְטִיל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q24"> מְקַטֵּל</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q24"> קַטְלָן</label>
+          </div>
+        </div>
+
+        <div class="question-block" data-topic="t7">
+          <div class="question-row"><span class="q-num">25</span><span class="q-text">"ארגון החדר לפני המסיבה לקח שעה" - מהו משקל המילה "ארגון" כאן?</span></div>
+          <div class="mc-group test-mc" data-qid="q25">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="q25"> קְטָלָה</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="q25"> קִטּוּל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="q25"> הַקְטָלָה</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="q25"> קֶטֶל</label>
+          </div>
+        </div>
+
+        <button class="btn primary" type="button" id="submitTestBtn">✅ בדקו תשובות</button>
+      </div>
+    </section>
+
+    <section class="card" id="resultsCard" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תוצאות</span>
+        <h2 class="card-title">הציון שלכם</h2>
+      </div>
+      <div class="card-body">
+        <div id="resultsPanel">
+          <div class="score-hero">
+            <div class="big-score" id="overallScore">-- <small>/ 25</small></div>
+            <p style="margin:.4rem 0 0; font-size:.9rem; color:var(--ink-soft);" id="overallMsg"></p>
+          </div>
+          <table class="topic-score">
+            <thead><tr><th>נושא</th><th>ציון</th><th>המלצה</th></tr></thead>
+            <tbody id="topicScoreBody"></tbody>
+          </table>
+        </div>
+        <p id="resultsPlaceholder" style="color:var(--ink-soft); font-size:.9rem;">ענו על כל השאלות למעלה ולחצו "בדקו תשובות" כדי לראות כאן את התוצאות.</p>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-body">
+        <p style="display:flex; gap:.6rem; flex-wrap:wrap; margin:0;"><a class="btn primary" href="ivrit-mishkalim-hub.html">➡️ חזרה למפת היחידה</a></p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<div class="toolbar">
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="עברית - משקלים - מבחן מסכם" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
+
+<footer class="credit">עברית - משקלים · מבחן מסכם · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'ivrit-mishkalim-final-test-answers';
+const NAME_KEY = 'ivrit-mishkalim-final-test-student';
+
+const TOPICS = {
+  t1: { name: 'זיהוי משקל בסיסי', lesson: 'ivrit-mishkalim-1.html' },
+  t2: { name: 'משקל בגזרות הנחים', lesson: 'ivrit-mishkalim-2.html' },
+  t3: { name: 'בינוני והקשר שלו למשקל', lesson: 'ivrit-mishkalim-3.html' },
+  t4: { name: 'שמות פעולה', lesson: 'ivrit-mishkalim-4.html' },
+  t5: { name: 'משמעות המשקל', lesson: 'ivrit-mishkalim-5.html' },
+  t6: { name: 'שורש+משקל לעומת בסיס+צורן', lesson: 'ivrit-mishkalim-6.html' },
+  t7: { name: 'ההקשר קובע', lesson: 'ivrit-mishkalim-7.html' }
+};
+
+const mcGroups = Array.from(document.querySelectorAll('.mc-group.test-mc'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+const hiddenFields = mcGroups.map(group => {
+  const input = document.createElement('input');
+  input.type = 'hidden';
+  input.className = 'answer';
+  input.dataset.id = group.dataset.qid;
+  group.closest('.question-block').appendChild(input);
+  return input;
+});
+const textareas = hiddenFields;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{ localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value })); }catch(e){}
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){ const data = JSON.parse(raw); nameInput.value = data.name || ''; classInput.value = data.cls || ''; }
+  }catch(e){}
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const answered = mcGroups.filter(g => g.querySelector('input[type="radio"]:checked')).length;
+  const pct = mcGroups.length ? Math.round(answered / mcGroups.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = answered + ' / ' + mcGroups.length + ' שאלות נענו';
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function syncHiddenField(group){
+  const field = hiddenFields.find(f => f.dataset.id === group.dataset.qid);
+  const checked = group.querySelector('input[type="radio"]:checked');
+  if(field) field.value = checked ? checked.closest('.mc-option').textContent.trim() : '';
+}
+
+function saveAnswers(){
+  const data = {};
+  mcGroups.forEach(group => {
+    const checked = group.querySelector('input[type="radio"]:checked');
+    if(checked){ data['mc:' + group.dataset.qid] = checked.closest('.mc-option').dataset.value; }
+  });
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); flashSaved(); }catch(e){ console.error(e); }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      mcGroups.forEach(group => {
+        const v = data['mc:' + group.dataset.qid];
+        if(v){
+          const option = group.querySelector('.mc-option[data-value="' + v + '"]');
+          if(option){ option.querySelector('input[type="radio"]').checked = true; }
+        }
+      });
+    }
+  }catch(e){}
+  mcGroups.forEach(syncHiddenField);
+  updateProgress();
+}
+
+mcGroups.forEach(group => {
+  group.querySelectorAll('.mc-option').forEach(option => {
+    option.addEventListener('click', () => {
+      const radio = option.querySelector('input[type="radio"]');
+      radio.checked = true;
+      syncHiddenField(group);
+      updateProgress();
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(saveAnswers, 400);
+    });
+  });
+});
+
+function gradeTest(){
+  const topicStats = {};
+  Object.keys(TOPICS).forEach(t => { topicStats[t] = { correct: 0, total: 0 }; });
+  let overallCorrect = 0;
+
+  mcGroups.forEach(group => {
+    const block = group.closest('.question-block');
+    const topic = block.dataset.topic;
+    const checked = group.querySelector('input[type="radio"]:checked');
+    group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong'));
+    topicStats[topic].total++;
+    if(checked){
+      const option = checked.closest('.mc-option');
+      const correct = option.dataset.correct === 'true';
+      option.classList.add(correct ? 'is-correct' : 'is-wrong');
+      if(!correct){
+        const correctOption = group.querySelector('.mc-option[data-correct="true"]');
+        if(correctOption) correctOption.classList.add('is-correct');
+      }
+      if(correct){ topicStats[topic].correct++; overallCorrect++; }
+    } else {
+      const correctOption = group.querySelector('.mc-option[data-correct="true"]');
+      if(correctOption) correctOption.classList.add('is-correct');
+    }
+  });
+
+  document.getElementById('overallScore').innerHTML = overallCorrect + ' <small>/ 25</small>';
+  const overallMsg = document.getElementById('overallMsg');
+  if(overallCorrect === 25){
+    overallMsg.textContent = 'מצוין! שליטה מלאה בכל נושאי היחידה.';
+  } else if(overallCorrect >= 20){
+    overallMsg.textContent = 'ציון טוב מאוד! כדאי לחזק רק את הנושאים המסומנים למטה.';
+  } else {
+    overallMsg.textContent = 'כדאי לחזור על השיעורים המסומנים למטה לפני שממשיכים.';
+  }
+
+  const tbody = document.getElementById('topicScoreBody');
+  tbody.innerHTML = '';
+  Object.keys(TOPICS).forEach(t => {
+    const stats = topicStats[t];
+    const tr = document.createElement('tr');
+    const perfect = stats.correct === stats.total;
+    tr.className = perfect ? 'mastered' : 'needs-practice';
+    const recCell = perfect
+      ? '<span class="practice-link mastered-note">✓ שולט/ת בנושא</span>'
+      : '<a class="practice-link" href="' + TOPICS[t].lesson + '">🔁 תרגלו שוב: ' + TOPICS[t].name + '</a>';
+    tr.innerHTML = '<td>' + TOPICS[t].name + '</td><td class="score-cell">' + stats.correct + ' / ' + stats.total + '</td><td>' + recCell + '</td>';
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById('resultsPanel').classList.add('show');
+  document.getElementById('resultsPlaceholder').style.display = 'none';
+  saveAnswers();
+  document.getElementById('resultsCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+document.getElementById('submitTestBtn').addEventListener('click', () => {
+  const unanswered = mcGroups.filter(g => !g.querySelector('input[type="radio"]:checked')).length;
+  if(unanswered > 0){
+    if(!confirm('נותרו ' + unanswered + ' שאלות ללא תשובה. לבדוק בכל זאת?')) return;
+  }
+  gradeTest();
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות שכתבתם? אי אפשר לשחזר לאחר מכן.')) return;
+  mcGroups.forEach(group => {
+    group.querySelectorAll('input[type="radio"]').forEach(r => { r.checked = false; });
+    group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong'));
+    syncHiddenField(group);
+  });
+  document.getElementById('resultsPanel').classList.remove('show');
+  document.getElementById('resultsPlaceholder').style.display = '';
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
+
+loadStudentInfo();
+loadAnswers();
+</script>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<script>
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+<script src="assets/progress-tracker.js"></script>
+<script>
+(function(){
+  var submitLink = document.getElementById('submitLink');
+  if(!submitLink) return;
+  var nameEl = document.getElementById('studentName');
+  var classEl = document.getElementById('studentClass');
+  function updateSubmitLink(){
+    var params = new URLSearchParams();
+    params.set('assignment', 'עברית - משקלים - מבחן מסכם');
+    if(nameEl && nameEl.value.trim()) params.set('name', nameEl.value.trim());
+    if(classEl && classEl.value.trim()) params.set('cls', classEl.value.trim());
+    submitLink.href = 'submit.html?' + params.toString();
+  }
+  [nameEl, classEl].forEach(function(el){ if(el) el.addEventListener('input', updateSubmitLink); });
+  updateSubmitLink();
+})();
+</script>
+<script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
+<script>
+(function(){
+  var btn = document.getElementById('directSubmitBtn');
+  if(!btn) return;
+  btn.addEventListener('click', function(){
+    if(!nameInput.value.trim()){
+      nameInput.focus();
+      alert('לפני ההגשה, כתבו למעלה את שמכם.');
+      return;
+    }
+    if(!confirm('לשלוח את התשובות שמילאתם ישירות למורה עכשיו? לא ניתן לבטל את השליחה.')) return;
+    var originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'שולח...';
+    window.BeitMidrashDirectSubmit.send({
+      studentName: nameInput.value.trim(),
+      studentClass: classInput.value.trim(),
+      assignment: 'עברית - משקלים - מבחן מסכם',
+      fields: textareas
+    }).then(function(data){
+      if(data && data.ok){
+        alert('ההגשה נשלחה בהצלחה למורה!');
+      } else {
+        throw new Error((data && data.error) || 'שגיאה לא ידועה');
+      }
+    }).catch(function(err){
+      alert('משהו השתבש בשליחה: ' + err.message + '\nאפשר לנסות שוב, או להשתמש בכפתור "הגשת מטלה" הרגיל.');
+    }).finally(function(){
+      btn.disabled = false;
+      btn.textContent = originalText;
+    });
+  });
+})();
+</script>
+</body>
+</html>
