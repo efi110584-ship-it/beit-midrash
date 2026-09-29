@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>עברית — משקלים · שיעור 1: מהו משקל?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
+<style>
+  .weight-arrow{ display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; font-family:'Frank Ruhl Libre', serif; font-weight:800; font-size:1.15rem; margin:.5rem 0; }
+  .weight-arrow .box{ display:inline-flex; align-items:center; justify-content:center; min-width:3.4rem; padding:.35rem .6rem; border-radius:8px; background:var(--acc-soft); border:1.5px solid var(--acc); }
+  .weight-arrow .op{ color:var(--ink-soft); font-weight:400; font-size:1rem; }
+  .letter-map{ display:flex; gap:1.1rem; flex-wrap:wrap; margin:.6rem 0; font-family:'Frank Ruhl Libre', serif; font-size:1.1rem; }
+  .letter-map .pair{ display:flex; flex-direction:column; align-items:center; gap:.15rem; }
+  .letter-map .pair .from{ color:var(--ink-soft); font-size:.85rem; }
+  .letter-map .pair .arrow{ font-size:.8rem; color:var(--ink-soft); }
+  .letter-map .pair .to{ font-weight:800; color:var(--acc); }
+</style>
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
+</head>
+<body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="ivrit-hub.html">עברית - דקדוק</a>
+  <span class="sep">›</span>
+  <a href="ivrit-mishkalim-hub.html">משקלים</a>
+  <span class="sep">›</span>
+  <span class="current">שיעור 1</span>
+</nav>
+
+<header>
+  <div class="eyebrow">עברית · דקדוק · משקלים · שיעור 1 מתוך 8</div>
+  <h1>מהו משקל?</h1>
+  <p class="sub">התבנית הקבועה של שם - איך מוצאים אותה בגזרת השלמים, צעד אחר צעד.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 17 שאלות</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בשיעור"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main id="main-content">
+  <div class="grid" id="grid">
+
+    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">הסבר</span>
+        <h2 class="card-title">מהו משקל?</h2>
+      </div>
+      <div class="card-body">
+        <p>משקל הוא התבנית הקבועה של שם - בדיוק כמו שבניין הוא התבנית הקבועה של פועל.</p>
+        <div class="weight-arrow">
+          <span>בפועל:</span><span class="box">שורש</span><span class="op">+</span><span class="box">בניין</span>
+        </div>
+        <div class="weight-arrow">
+          <span>בשם:</span><span class="box">שורש</span><span class="op">+</span><span class="box">משקל</span>
+        </div>
+        <p>בשיעור הזה נלמד למצוא משקל במילים מגזרת השלמים בלבד (שורש שאין בו אותיות נ', י', ו' או ה' במקומות "בעייתיים") - בגזרות האחרות עוד נעסוק בשיעור הבא.</p>
+        <div class="remember-block">
+          <span class="src">🧭 שיטת העבודה (בגזרת השלמים)</span>
+          1. מוצאים את השורש.<br>
+          2. מחליפים את אותיות השורש באותיות ק־ט־ל (לפי הסדר).<br>
+          3. כל שאר המבנה - האותיות שאינן מהשורש, הניקוד ואם יש דגשים - נשאר בדיוק כפי שהיה במילה המקורית.
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה 1</span>
+        <h2 class="card-title">נַגָּן</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">מצאו את המשקל של</span> נַגָּן</div>
+        <ol class="bm-example-steps">
+          <li><b>מוצאים שורש.</b> נַגָּן ← נ־ג־נ.</li>
+          <li><b>מחליפים כל אות שורש באות המקבילה במילה ק־ט־ל.</b></li>
+        </ol>
+        <div class="letter-map">
+          <div class="pair"><span class="from">נ</span><span class="arrow">↓</span><span class="to">ק</span></div>
+          <div class="pair"><span class="from">ג</span><span class="arrow">↓</span><span class="to">ט</span></div>
+          <div class="pair"><span class="from">נ</span><span class="arrow">↓</span><span class="to">ל</span></div>
+        </div>
+        <ol class="bm-example-steps" start="3">
+          <li><b>כל שאר המבנה (הניקוד, הדגש באות האמצעית) נשאר.</b></li>
+        </ol>
+        <div class="bm-answer-card" data-kind="official">
+          <div class="bm-answer-head" data-kind="official"><span class="bm-answer-badge">✅ התשובה</span></div>
+          <p>שורש: נ־ג־נ &nbsp;|&nbsp; משקל: <b>קַטָּל</b></p>
+        </div>
+        <p class="bm-example-why">✓ שימו לב: קודם תמיד מוצאים שורש, ורק אז - משקל.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה 2</span>
+        <h2 class="card-title">זַמָּר</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">מצאו את המשקל של</span> זַמָּר</div>
+        <ol class="bm-example-steps">
+          <li><b>שורש:</b> ז־מ־ר.</li>
+          <li><b>מחליפים באותיות ק־ט־ל:</b> ז→ק, מ→ט, ר→ל.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="official">
+          <div class="bm-answer-head" data-kind="official"><span class="bm-answer-badge">✅ התשובה</span></div>
+          <p>שורש: ז־מ־ר &nbsp;|&nbsp; משקל: <b>קַטָּל</b></p>
+        </div>
+        <p class="bm-example-why">✓ נַגָּן וְזַמָּר - שתי מילים שונות לגמרי במשמעות, אבל באותו משקל בדיוק: קַטָּל.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה 3</span>
+        <h2 class="card-title">מִכְתָּב</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">מצאו את המשקל של</span> מִכְתָּב</div>
+        <ol class="bm-example-steps">
+          <li><b>שורש:</b> כ־ת־ב (המ"ם בתחילת המילה אינה חלק מהשורש).</li>
+          <li><b>מחליפים רק את אותיות השורש:</b> כ→ק, ת→ט, ב→ל - והמ"ם נשארת במקומה.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="official">
+          <div class="bm-answer-head" data-kind="official"><span class="bm-answer-badge">✅ התשובה</span></div>
+          <p>שורש: כ־ת־ב &nbsp;|&nbsp; משקל: <b>מִקְטָל</b></p>
+        </div>
+        <p class="bm-example-why">✓ אות שאינה מהשורש (כמו המ"ם כאן) נשארת בדיוק במקומה גם במשקל.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✏️ דוגמה פתורה 4</span>
+        <h2 class="card-title">קַבְּלָן</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">מצאו את המשקל של</span> קַבְּלָן</div>
+        <ol class="bm-example-steps">
+          <li><b>שורש:</b> ק־ב־ל.</li>
+          <li><b>מחליפים באותיות ק־ט־ל, והנ"ן בסוף המילה נשארת:</b> ק→ק, ב→ט, ל→ל, ונ' בסוף.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="official">
+          <div class="bm-answer-head" data-kind="official"><span class="bm-answer-badge">✅ התשובה</span></div>
+          <p>שורש: ק־ב־ל &nbsp;|&nbsp; משקל: <b>קַטְלָן</b></p>
+        </div>
+        <p class="bm-example-why">✓ הסיומת "ן" בסוף המילה היא חלק מהמשקל עצמו (קַטְלָן), ולא מהשורש.</p>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided">
+      <div class="card-head">
+        <span class="card-tag">מתרגלים ביחד</span>
+        <h2 class="card-title">מִגְדָּל</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-g1">מצאו שורש ומשקל למילה: מִגְדָּל</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-g1" data-id="g1" placeholder="שורש: ... | משקל: ..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שורש: ג־ד־ל | משקל: מִקְטָל</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided">
+      <div class="card-head">
+        <span class="card-tag">מתרגלים ביחד</span>
+        <h2 class="card-title">מִסְפָּר</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-g2">מצאו שורש ומשקל למילה: מִסְפָּר</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-g2" data-id="g2" placeholder="שורש: ... | משקל: ..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שורש: ס־פ־ר | משקל: מִקְטָל</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided">
+      <div class="card-head">
+        <span class="card-tag">מתרגלים ביחד</span>
+        <h2 class="card-title">מִשְׁקָל</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-g3">מצאו שורש ומשקל למילה: מִשְׁקָל (כן, גם למילה "משקל" עצמה יש משקל...)</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-g3" data-id="g3" placeholder="שורש: ... | משקל: ..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שורש: ש־ק־ל | משקל: מִקְטָל</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="guided">
+      <div class="card-head">
+        <span class="card-tag">מתרגלים ביחד</span>
+        <h2 class="card-title">הַחַיָּט תָּפַר לִי חֲלִיפָה חֲדָשָׁה.</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-g4">מצאו שורש ומשקל למילה המודגשת: <b>הַחַיָּט</b> תָּפַר לי חליפה חדשה.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-g4" data-id="g4" placeholder="שורש: ... | משקל: ..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שורש: ח־י־ט | משקל: קַטָּל</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="open">
+      <div class="card-head">
+        <span class="card-tag">מנסים לבד</span>
+        <h2 class="card-title">נַגָּר</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-o1">מצאו שורש ומשקל למילה: נַגָּר</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-o1" data-id="o1" placeholder="שורש: ... | משקל: ..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שורש: נ־ג־ר | משקל: קַטָּל</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="open">
+      <div class="card-head">
+        <span class="card-tag">מנסים לבד</span>
+        <h2 class="card-title">טַבָּח</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-o2">מצאו שורש ומשקל למילה: טַבָּח (במשמעות של "מי שמבשל")</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-o2" data-id="o2" placeholder="שורש: ... | משקל: ..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שורש: ט־ב־ח | משקל: קַטָּל</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="open">
+      <div class="card-head">
+        <span class="card-tag">מנסים לבד</span>
+        <h2 class="card-title">סַפָּר</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-o3">מצאו שורש ומשקל למילה: סַפָּר (במשמעות של "מי שמסתפרים אצלו")</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-o3" data-id="o3" placeholder="שורש: ... | משקל: ..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שורש: ס־פ־ר | משקל: קַטָּל</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="open">
+      <div class="card-head">
+        <span class="card-tag">מנסים לבד</span>
+        <h2 class="card-title">חַיָּט</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-o4">מצאו שורש ומשקל למילה: חַיָּט</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-o4" data-id="o4" placeholder="שורש: ... | משקל: ..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שורש: ח־י־ט | משקל: קַטָּל</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="open">
+      <div class="card-head">
+        <span class="card-tag">מנסים לבד</span>
+        <h2 class="card-title">רַקְדָן</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-o5">מצאו שורש ומשקל למילה: רַקְדָן</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-o5" data-id="o5" placeholder="שורש: ... | משקל: ..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שורש: ר־ק־ד | משקל: קַטְלָן</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="open">
+      <div class="card-head">
+        <span class="card-tag">מנסים לבד</span>
+        <h2 class="card-title">שַׂחְקָן</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">10</span><span class="q-text" id="a11y-lbl-o6">מצאו שורש ומשקל למילה: שַׂחְקָן</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-o6" data-id="o6" placeholder="שורש: ... | משקל: ..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שורש: ש־ח־ק | משקל: קַטְלָן</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="open">
+      <div class="card-head">
+        <span class="card-tag">מנסים לבד</span>
+        <h2 class="card-title">הַזַּמָּר שָׁר בַּקוֹנְצֶרְט.</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">11</span><span class="q-text" id="a11y-lbl-o7">מצאו שורש ומשקל למילה המודגשת: הַ<b>זַּמָּר</b> שָׁר בַּקוֹנְצֶרְט.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-o7" data-id="o7" placeholder="שורש: ... | משקל: ..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שורש: ז־מ־ר | משקל: קַטָּל</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="open">
+      <div class="card-head">
+        <span class="card-tag">מנסים לבד</span>
+        <h2 class="card-title">קִבַּלְנוּ מִכְתָּב מִסַּבְתָּא.</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">12</span><span class="q-text" id="a11y-lbl-o8">מצאו שורש ומשקל למילה המודגשת: קיבלנו <b>מִכְתָּב</b> מסבתא.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-o8" data-id="o8" placeholder="שורש: ... | משקל: ..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שורש: כ־ת־ב | משקל: מִקְטָל</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="open">
+      <div class="card-head">
+        <span class="card-tag">מנסים לבד</span>
+        <h2 class="card-title">בָּעִיר הַזֹּאת יֵשׁ מִגְדָּל גָּבוֹהַּ.</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">13</span><span class="q-text" id="a11y-lbl-o9">מצאו שורש ומשקל למילה המודגשת: בעיר הזאת יש <b>מִגְדָּל</b> גבוה.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-o9" data-id="o9" placeholder="שורש: ... | משקל: ..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שורש: ג־ד־ל | משקל: מִקְטָל</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="open">
+      <div class="card-head">
+        <span class="card-tag">מנסים לבד</span>
+        <h2 class="card-title">הַשַּׂחְקָן קִבֵּל פְּרָס.</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">14</span><span class="q-text" id="a11y-lbl-o10">מצאו שורש ומשקל למילה המודגשת: <b>הַשַּׂחְקָן</b> קיבל פרס.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-o10" data-id="o10" placeholder="שורש: ... | משקל: ..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שורש: ש־ח־ק | משקל: קַטְלָן</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="open">
+      <div class="card-head">
+        <span class="card-tag">מנסים לבד</span>
+        <h2 class="card-title">הַנַּגָּר בָּנָה אָרוֹן חָדָשׁ.</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">15</span><span class="q-text" id="a11y-lbl-o11">מצאו שורש ומשקל למילה המודגשת: <b>הַנַּגָּר</b> בנה ארון חדש.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-o11" data-id="o11" placeholder="שורש: ... | משקל: ..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שורש: נ־ג־ר | משקל: קַטָּל</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="open">
+      <div class="card-head">
+        <span class="card-tag">מנסים לבד</span>
+        <h2 class="card-title">מָה הַמִּסְפָּר הָאָהוּב עָלַיִךְ?</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">16</span><span class="q-text" id="a11y-lbl-o12">מצאו שורש ומשקל למילה המודגשת: מה <b>הַמִּסְפָּר</b> האהוב עלייך?</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-o12" data-id="o12" placeholder="שורש: ... | משקל: ..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שורש: ס־פ־ר | משקל: מִקְטָל</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="open">
+      <div class="card-head">
+        <span class="card-tag">מנסים לבד</span>
+        <h2 class="card-title">הָרַקְדָן הוֹפִיעַ עַל הַבָּמָה.</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">17</span><span class="q-text" id="a11y-lbl-o13">מצאו שורש ומשקל למילה המודגשת: <b>הָרַקְדָן</b> הופיע על הבמה.</span></div>
+          <textarea class="answer" aria-labelledby="a11y-lbl-o13" data-id="o13" placeholder="שורש: ... | משקל: ..."></textarea>
+          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+          <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שורש: ר־ק־ד | משקל: קַטְלָן</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="open">
+      <div class="card-head">
+        <span class="card-tag">מיון: זוג באותו משקל</span>
+        <h2 class="card-title">מצאו את הזוג הנכון</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">18</span><span class="q-text" id="a11y-lbl-mc1">מהרשימה: נַגָּר, מִכְתָּב, זַמָּר, קַבְּלָן - איזה זוג מילים נמצא באותו משקל?</span></div>
+          <div class="mc-group" data-qid="mc1">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="mc1"> נַגָּר וְזַמָּר</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="mc1"> נַגָּר וּמִכְתָּב</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="mc1"> מִכְתָּב וְקַבְּלָן</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="mc1"> זַמָּר וְקַבְּלָן</label>
+          </div>
+          <p class="mc-feedback" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" data-stage="open">
+      <div class="card-head">
+        <span class="card-tag">מיון: יוצא דופן</span>
+        <h2 class="card-title">מצאו את יוצא הדופן</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">19</span><span class="q-text" id="a11y-lbl-mc2">מהרשימה: מִגְדָּל, מִסְפָּר, מִשְׁקָל, קַבְּלָן - איזו מילה יוצאת דופן במשקל שלה?</span></div>
+          <div class="mc-group" data-qid="mc2">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="mc2"> מִגְדָּל</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="mc2"> מִסְפָּר</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="mc2"> מִשְׁקָל</label>
+            <label class="mc-option" data-value="d" data-correct="true"><input type="radio" name="mc2"> קַבְּלָן</label>
+          </div>
+          <p class="mc-feedback" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
+    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">✅ סיכום</span>
+        <h2 class="card-title">מה למדנו בשיעור הזה</h2>
+      </div>
+      <div class="card-body">
+        <ul class="bm-learned">
+          <li><b>משקל</b> הוא התבנית הקבועה של שם - בדיוק כמו שבניין הוא התבנית הקבועה של פועל.</li>
+          <li><b>שיטת העבודה בגזרת השלמים:</b> מוצאים שורש ← מחליפים את אותיות השורש באותיות ק־ט־ל ← כל השאר נשאר כפי שהיה.</li>
+          <li><b>דוגמאות:</b> נַגָּן וְזַמָּר - משקל קַטָּל. מִכְתָּב - משקל מִקְטָל. קַבְּלָן - משקל קַטְלָן.</li>
+          <li><b>כלל מרכזי:</b> קודם מוצאים שורש, ורק אחר כך משקל.</li>
+        </ul>
+        <p style="margin-top:1rem;"><a class="btn primary" href="ivrit-mishkalim-hub.html">➡️ חזרה למפת היחידה</a></p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<div class="toolbar">
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="עברית - משקלים - שיעור 1" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
+
+<footer class="credit">עברית - משקלים · שיעור 1 · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'ivrit-mishkalim-1-answers';
+const NAME_KEY = 'ivrit-mishkalim-1-student';
+const textareas = Array.from(document.querySelectorAll('.answer'));
+const mcGroups = Array.from(document.querySelectorAll('.mc-group'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{ localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value })); }catch(e){}
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){ const data = JSON.parse(raw); nameInput.value = data.name || ''; classInput.value = data.cls || ''; }
+  }catch(e){}
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  mcGroups.forEach(group => {
+    const checked = group.querySelector('input[type="radio"]:checked');
+    if(checked){ data['mc:' + group.dataset.qid] = checked.closest('.mc-option').dataset.value; }
+  });
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); flashSaved(); }catch(e){ console.error(e); }
+}
+
+function applyMcVisual(option, correct){
+  const group = option.closest('.mc-group');
+  group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong'));
+  option.classList.add(correct ? 'is-correct' : 'is-wrong');
+  const feedback = group.closest('.question-block').querySelector('.mc-feedback');
+  if(feedback){
+    feedback.textContent = correct ? '✓ נכון!' : 'לא בדיוק - נסו שוב';
+    feedback.className = 'mc-feedback ' + (correct ? 'correct' : 'wrong');
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => { if(data[t.dataset.id]){ t.value = data[t.dataset.id]; markFilled(t); } });
+      mcGroups.forEach(group => {
+        const v = data['mc:' + group.dataset.qid];
+        if(v){
+          const option = group.querySelector('.mc-option[data-value="' + v + '"]');
+          if(option){
+            option.querySelector('input[type="radio"]').checked = true;
+            applyMcVisual(option, option.dataset.correct === 'true');
+          }
+        }
+      });
+    }
+  }catch(e){}
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+mcGroups.forEach(group => {
+  group.querySelectorAll('.mc-option').forEach(option => {
+    option.addEventListener('click', () => {
+      const radio = option.querySelector('input[type="radio"]');
+      radio.checked = true;
+      applyMcVisual(option, option.dataset.correct === 'true');
+      saveAnswers();
+    });
+  });
+});
+
+document.querySelectorAll('.hint-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = btn.nextElementSibling;
+    const showing = box.hidden;
+    box.hidden = !showing;
+    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  });
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות שכתבתם? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  mcGroups.forEach(group => {
+    group.querySelectorAll('input[type="radio"]').forEach(r => { r.checked = false; });
+    group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong'));
+    const feedback = group.closest('.question-block').querySelector('.mc-feedback');
+    if(feedback){ feedback.textContent = ''; feedback.className = 'mc-feedback'; }
+  });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
+
+let originalHeights = [];
+window.addEventListener('beforeprint', () => {
+  originalHeights = textareas.map(t => t.style.height);
+  textareas.forEach(t => { t.style.height = 'auto'; t.style.height = (t.scrollHeight + 4) + 'px'; });
+});
+window.addEventListener('afterprint', () => {
+  textareas.forEach((t, i) => { t.style.height = originalHeights[i] || ''; });
+});
+
+loadStudentInfo();
+loadAnswers();
+</script>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<script>
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+<script src="assets/progress-tracker.js"></script>
+<script>
+(function(){
+  var submitLink = document.getElementById('submitLink');
+  if(!submitLink) return;
+  var nameEl = document.getElementById('studentName');
+  var classEl = document.getElementById('studentClass');
+  function updateSubmitLink(){
+    var params = new URLSearchParams();
+    params.set('assignment', 'עברית - משקלים - שיעור 1');
+    if(nameEl && nameEl.value.trim()) params.set('name', nameEl.value.trim());
+    if(classEl && classEl.value.trim()) params.set('cls', classEl.value.trim());
+    submitLink.href = 'submit.html?' + params.toString();
+  }
+  [nameEl, classEl].forEach(function(el){ if(el) el.addEventListener('input', updateSubmitLink); });
+  updateSubmitLink();
+})();
+</script>
+<script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
+<script>
+(function(){
+  var btn = document.getElementById('directSubmitBtn');
+  if(!btn) return;
+  btn.addEventListener('click', function(){
+    if(!nameInput.value.trim()){
+      nameInput.focus();
+      alert('לפני ההגשה, כתבו למעלה את שמכם.');
+      return;
+    }
+    if(!confirm('לשלוח את התשובות שמילאתם ישירות למורה עכשיו? לא ניתן לבטל את השליחה.')) return;
+    var originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'שולח...';
+    window.BeitMidrashDirectSubmit.send({
+      studentName: nameInput.value.trim(),
+      studentClass: classInput.value.trim(),
+      assignment: 'עברית - משקלים - שיעור 1',
+      fields: textareas
+    }).then(function(data){
+      if(data && data.ok){
+        alert('ההגשה נשלחה בהצלחה למורה!');
+      } else {
+        throw new Error((data && data.error) || 'שגיאה לא ידועה');
+      }
+    }).catch(function(err){
+      alert('משהו השתבש בשליחה: ' + err.message + '\nאפשר לנסות שוב, או להשתמש בכפתור "הגשת מטלה" הרגיל.');
+    }).finally(function(){
+      btn.disabled = false;
+      btn.textContent = originalText;
+    });
+  });
+})();
+</script>
+<script src="assets/guide/ivrit-mishkalim-1.js"></script>
+<script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
+</body>
+</html>
