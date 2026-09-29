@@ -14,13 +14,12 @@
   table.mishkal-table thead th{ background:var(--acc-soft); font-weight:700; font-size:.85rem; }
   table.mishkal-table td.word-cell{ font-family:'Frank Ruhl Libre', serif; font-weight:700; font-size:1.02rem; }
   table.mishkal-table td.note-cell{ font-size:.8rem; color:var(--ink-soft); }
-  table.mishkal-table input.answer{ width:100%; min-width:6.5rem; box-sizing:border-box; padding:.35rem .5rem; font-size:.9rem; border:1.5px solid var(--paper-line); border-radius:6px; background:#fff; }
-  table.mishkal-table input.answer:focus{ outline:3px solid var(--focus-ring); outline-offset:1px; border-color:var(--acc); }
-  table.mishkal-table input.answer.filled{ border-color:var(--teal); background:var(--teal-soft); }
+  table.mishkal-table input.answer, table.mishkal-table select.answer{ width:100%; min-width:6.5rem; box-sizing:border-box; padding:.35rem .5rem; font-size:.9rem; border:1.5px solid var(--paper-line); border-radius:6px; background:#fff; }
+  table.mishkal-table input.answer:focus, table.mishkal-table select.answer:focus{ outline:3px solid var(--focus-ring); outline-offset:1px; border-color:var(--acc); }
+  table.mishkal-table input.answer.filled, table.mishkal-table select.answer.filled{ border-color:var(--teal); background:var(--teal-soft); }
   table.mishkal-table tr.row-hard td.word-cell{ color:var(--rust); }
   .row-num{ color:var(--ink-soft); font-size:.8rem; width:1.8rem; text-align:center; }
   .difficulty-flag{ display:inline-block; font-size:.68rem; font-weight:700; color:#fff; background:var(--rust); border-radius:999px; padding:.05rem .5rem; margin-inline-start:.4rem; vertical-align:middle; }
-  .reveal-wrap{ margin-top:1rem; }
   #answerKey{ margin-top:.8rem; }
   #answerKey table.mishkal-table td{ font-size:.88rem; }
   #answerKey td.ans-mishkal, #answerKey td.ans-meaning{ font-weight:700; color:var(--teal); }
@@ -105,54 +104,28 @@
         <h2 class="card-title">זהו משקל ומשמעות לכל מילה</h2>
       </div>
       <div class="card-body">
-        <p style="font-size:.88rem; color:var(--ink-soft); margin:0 0 .7rem;">השלימו את הטבלה - מהקל לקשה. בעמודת המשמעות אפשר לכתוב, למשל: בעל מקצוע/תפקיד, שם תואר, מקום/מבנה, חפץ. מילים עם <span class="difficulty-flag">קשה</span> דורשות תשומת לב מיוחדת.</p>
+        <p style="font-size:.88rem; color:var(--ink-soft); margin:0 0 .7rem;">השלימו את הטבלה - מהקל לקשה, ובחרו מהרשימה בכל עמודה. מילים עם <span class="difficulty-flag">קשה</span> דורשות תשומת לב מיוחדת.</p>
         <div class="table-wrap">
           <table class="mishkal-table">
             <thead><tr><th class="row-num">#</th><th>מילה</th><th>משקל</th><th>משמעות</th></tr></thead>
             <tbody>
-              <tr><td class="row-num">1</td><td class="word-cell">נַגָּר</td><td><input type="text" class="answer" data-id="r1-mishkal" aria-label="משקל, שורה 1"></td><td><input type="text" class="answer" data-id="r1-meaning" aria-label="משמעות, שורה 1"></td></tr>
-              <tr><td class="row-num">2</td><td class="word-cell">מוֹרֶה</td><td><input type="text" class="answer" data-id="r2-mishkal" aria-label="משקל, שורה 2"></td><td><input type="text" class="answer" data-id="r2-meaning" aria-label="משמעות, שורה 2"></td></tr>
-              <tr><td class="row-num">3</td><td class="word-cell">מְעַבֵּד</td><td><input type="text" class="answer" data-id="r3-mishkal" aria-label="משקל, שורה 3"></td><td><input type="text" class="answer" data-id="r3-meaning" aria-label="משמעות, שורה 3"></td></tr>
-              <tr><td class="row-num">4</td><td class="word-cell">מְסַפֵּר</td><td><input type="text" class="answer" data-id="r4-mishkal" aria-label="משקל, שורה 4"></td><td><input type="text" class="answer" data-id="r4-meaning" aria-label="משמעות, שורה 4"></td></tr>
-              <tr><td class="row-num">5</td><td class="word-cell">קַבְּלָן</td><td><input type="text" class="answer" data-id="r5-mishkal" aria-label="משקל, שורה 5"></td><td><input type="text" class="answer" data-id="r5-meaning" aria-label="משמעות, שורה 5"></td></tr>
-              <tr><td class="row-num">6</td><td class="word-cell">שַׂחְקָן</td><td><input type="text" class="answer" data-id="r6-mishkal" aria-label="משקל, שורה 6"></td><td><input type="text" class="answer" data-id="r6-meaning" aria-label="משמעות, שורה 6"></td></tr>
-              <tr><td class="row-num">7</td><td class="word-cell">מִגְדָּל <span class="note-cell">(שימו לב: לא בעל מקצוע!)</span></td><td><input type="text" class="answer" data-id="r7-mishkal" aria-label="משקל, שורה 7"></td><td><input type="text" class="answer" data-id="r7-meaning" aria-label="משמעות, שורה 7"></td></tr>
-              <tr><td class="row-num">8</td><td class="word-cell">מִכְתָּב</td><td><input type="text" class="answer" data-id="r8-mishkal" aria-label="משקל, שורה 8"></td><td><input type="text" class="answer" data-id="r8-meaning" aria-label="משמעות, שורה 8"></td></tr>
-              <tr><td class="row-num">9</td><td class="word-cell">יָדוּעַ</td><td><input type="text" class="answer" data-id="r9-mishkal" aria-label="משקל, שורה 9"></td><td><input type="text" class="answer" data-id="r9-meaning" aria-label="משמעות, שורה 9"></td></tr>
-              <tr><td class="row-num">10</td><td class="word-cell">מֻגְבָּל</td><td><input type="text" class="answer" data-id="r10-mishkal" aria-label="משקל, שורה 10"></td><td><input type="text" class="answer" data-id="r10-meaning" aria-label="משמעות, שורה 10"></td></tr>
-              <tr class="row-hard"><td class="row-num">11</td><td class="word-cell">סוֹפֵר <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r11-mishkal" aria-label="משקל, שורה 11"></td><td><input type="text" class="answer" data-id="r11-meaning" aria-label="משמעות, שורה 11"></td></tr>
-              <tr class="row-hard"><td class="row-num">12</td><td class="word-cell">מְקֻשָּׁט <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r12-mishkal" aria-label="משקל, שורה 12"></td><td><input type="text" class="answer" data-id="r12-meaning" aria-label="משמעות, שורה 12"></td></tr>
-              <tr class="row-hard"><td class="row-num">13</td><td class="word-cell">הוּא כַּתָּב בְּעִתּוֹן גָּדוֹל. <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r13-mishkal" aria-label="משקל, שורה 13"></td><td><input type="text" class="answer" data-id="r13-meaning" aria-label="משמעות, שורה 13"></td></tr>
+              <tr><td class="row-num">1</td><td class="word-cell">נַגָּר</td><td><span class="answer-wrap"><select class="answer" data-id="r1-mishkal" aria-label="משקל, שורה 1"><option value="" selected disabled>בחרו משקל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="מְקַטֵּל">מְקַטֵּל</option><option value="קַטְלָן">קַטְלָן</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מִקְטָל">מִקְטָל</option><option value="קָטוּל">קָטוּל</option><option value="מֻקְטָל">מֻקְטָל</option><option value="מְקֻטָּל">מְקֻטָּל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r1-meaning" aria-label="משמעות, שורה 1"><option value="" selected disabled>בחרו משמעות</option><option value="בעל מקצוע">בעל מקצוע</option><option value="בעל תפקיד">בעל תפקיד</option><option value="בעל עיסוק">בעל עיסוק</option><option value="מקום/מבנה">מקום/מבנה</option><option value="חפץ/מסמך">חפץ/מסמך</option><option value="שם תואר">שם תואר</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">2</td><td class="word-cell">מוֹרֶה</td><td><span class="answer-wrap"><select class="answer" data-id="r2-mishkal" aria-label="משקל, שורה 2"><option value="" selected disabled>בחרו משקל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="מְקַטֵּל">מְקַטֵּל</option><option value="קַטְלָן">קַטְלָן</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מִקְטָל">מִקְטָל</option><option value="קָטוּל">קָטוּל</option><option value="מֻקְטָל">מֻקְטָל</option><option value="מְקֻטָּל">מְקֻטָּל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r2-meaning" aria-label="משמעות, שורה 2"><option value="" selected disabled>בחרו משמעות</option><option value="בעל מקצוע">בעל מקצוע</option><option value="בעל תפקיד">בעל תפקיד</option><option value="בעל עיסוק">בעל עיסוק</option><option value="מקום/מבנה">מקום/מבנה</option><option value="חפץ/מסמך">חפץ/מסמך</option><option value="שם תואר">שם תואר</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">3</td><td class="word-cell">מְעַבֵּד</td><td><span class="answer-wrap"><select class="answer" data-id="r3-mishkal" aria-label="משקל, שורה 3"><option value="" selected disabled>בחרו משקל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="מְקַטֵּל">מְקַטֵּל</option><option value="קַטְלָן">קַטְלָן</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מִקְטָל">מִקְטָל</option><option value="קָטוּל">קָטוּל</option><option value="מֻקְטָל">מֻקְטָל</option><option value="מְקֻטָּל">מְקֻטָּל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r3-meaning" aria-label="משמעות, שורה 3"><option value="" selected disabled>בחרו משמעות</option><option value="בעל מקצוע">בעל מקצוע</option><option value="בעל תפקיד">בעל תפקיד</option><option value="בעל עיסוק">בעל עיסוק</option><option value="מקום/מבנה">מקום/מבנה</option><option value="חפץ/מסמך">חפץ/מסמך</option><option value="שם תואר">שם תואר</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">4</td><td class="word-cell">מְסַפֵּר</td><td><span class="answer-wrap"><select class="answer" data-id="r4-mishkal" aria-label="משקל, שורה 4"><option value="" selected disabled>בחרו משקל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="מְקַטֵּל">מְקַטֵּל</option><option value="קַטְלָן">קַטְלָן</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מִקְטָל">מִקְטָל</option><option value="קָטוּל">קָטוּל</option><option value="מֻקְטָל">מֻקְטָל</option><option value="מְקֻטָּל">מְקֻטָּל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r4-meaning" aria-label="משמעות, שורה 4"><option value="" selected disabled>בחרו משמעות</option><option value="בעל מקצוע">בעל מקצוע</option><option value="בעל תפקיד">בעל תפקיד</option><option value="בעל עיסוק">בעל עיסוק</option><option value="מקום/מבנה">מקום/מבנה</option><option value="חפץ/מסמך">חפץ/מסמך</option><option value="שם תואר">שם תואר</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">5</td><td class="word-cell">קַבְּלָן</td><td><span class="answer-wrap"><select class="answer" data-id="r5-mishkal" aria-label="משקל, שורה 5"><option value="" selected disabled>בחרו משקל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="מְקַטֵּל">מְקַטֵּל</option><option value="קַטְלָן">קַטְלָן</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מִקְטָל">מִקְטָל</option><option value="קָטוּל">קָטוּל</option><option value="מֻקְטָל">מֻקְטָל</option><option value="מְקֻטָּל">מְקֻטָּל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r5-meaning" aria-label="משמעות, שורה 5"><option value="" selected disabled>בחרו משמעות</option><option value="בעל מקצוע">בעל מקצוע</option><option value="בעל תפקיד">בעל תפקיד</option><option value="בעל עיסוק">בעל עיסוק</option><option value="מקום/מבנה">מקום/מבנה</option><option value="חפץ/מסמך">חפץ/מסמך</option><option value="שם תואר">שם תואר</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">6</td><td class="word-cell">שַׂחְקָן</td><td><span class="answer-wrap"><select class="answer" data-id="r6-mishkal" aria-label="משקל, שורה 6"><option value="" selected disabled>בחרו משקל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="מְקַטֵּל">מְקַטֵּל</option><option value="קַטְלָן">קַטְלָן</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מִקְטָל">מִקְטָל</option><option value="קָטוּל">קָטוּל</option><option value="מֻקְטָל">מֻקְטָל</option><option value="מְקֻטָּל">מְקֻטָּל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r6-meaning" aria-label="משמעות, שורה 6"><option value="" selected disabled>בחרו משמעות</option><option value="בעל מקצוע">בעל מקצוע</option><option value="בעל תפקיד">בעל תפקיד</option><option value="בעל עיסוק">בעל עיסוק</option><option value="מקום/מבנה">מקום/מבנה</option><option value="חפץ/מסמך">חפץ/מסמך</option><option value="שם תואר">שם תואר</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">7</td><td class="word-cell">מִגְדָּל <span class="note-cell">(שימו לב: לא בעל מקצוע!)</span></td><td><span class="answer-wrap"><select class="answer" data-id="r7-mishkal" aria-label="משקל, שורה 7"><option value="" selected disabled>בחרו משקל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="מְקַטֵּל">מְקַטֵּל</option><option value="קַטְלָן">קַטְלָן</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מִקְטָל">מִקְטָל</option><option value="קָטוּל">קָטוּל</option><option value="מֻקְטָל">מֻקְטָל</option><option value="מְקֻטָּל">מְקֻטָּל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r7-meaning" aria-label="משמעות, שורה 7"><option value="" selected disabled>בחרו משמעות</option><option value="בעל מקצוע">בעל מקצוע</option><option value="בעל תפקיד">בעל תפקיד</option><option value="בעל עיסוק">בעל עיסוק</option><option value="מקום/מבנה">מקום/מבנה</option><option value="חפץ/מסמך">חפץ/מסמך</option><option value="שם תואר">שם תואר</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">8</td><td class="word-cell">מִכְתָּב</td><td><span class="answer-wrap"><select class="answer" data-id="r8-mishkal" aria-label="משקל, שורה 8"><option value="" selected disabled>בחרו משקל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="מְקַטֵּל">מְקַטֵּל</option><option value="קַטְלָן">קַטְלָן</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מִקְטָל">מִקְטָל</option><option value="קָטוּל">קָטוּל</option><option value="מֻקְטָל">מֻקְטָל</option><option value="מְקֻטָּל">מְקֻטָּל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r8-meaning" aria-label="משמעות, שורה 8"><option value="" selected disabled>בחרו משמעות</option><option value="בעל מקצוע">בעל מקצוע</option><option value="בעל תפקיד">בעל תפקיד</option><option value="בעל עיסוק">בעל עיסוק</option><option value="מקום/מבנה">מקום/מבנה</option><option value="חפץ/מסמך">חפץ/מסמך</option><option value="שם תואר">שם תואר</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">9</td><td class="word-cell">יָדוּעַ</td><td><span class="answer-wrap"><select class="answer" data-id="r9-mishkal" aria-label="משקל, שורה 9"><option value="" selected disabled>בחרו משקל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="מְקַטֵּל">מְקַטֵּל</option><option value="קַטְלָן">קַטְלָן</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מִקְטָל">מִקְטָל</option><option value="קָטוּל">קָטוּל</option><option value="מֻקְטָל">מֻקְטָל</option><option value="מְקֻטָּל">מְקֻטָּל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r9-meaning" aria-label="משמעות, שורה 9"><option value="" selected disabled>בחרו משמעות</option><option value="בעל מקצוע">בעל מקצוע</option><option value="בעל תפקיד">בעל תפקיד</option><option value="בעל עיסוק">בעל עיסוק</option><option value="מקום/מבנה">מקום/מבנה</option><option value="חפץ/מסמך">חפץ/מסמך</option><option value="שם תואר">שם תואר</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">10</td><td class="word-cell">מֻגְבָּל</td><td><span class="answer-wrap"><select class="answer" data-id="r10-mishkal" aria-label="משקל, שורה 10"><option value="" selected disabled>בחרו משקל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="מְקַטֵּל">מְקַטֵּל</option><option value="קַטְלָן">קַטְלָן</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מִקְטָל">מִקְטָל</option><option value="קָטוּל">קָטוּל</option><option value="מֻקְטָל">מֻקְטָל</option><option value="מְקֻטָּל">מְקֻטָּל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r10-meaning" aria-label="משמעות, שורה 10"><option value="" selected disabled>בחרו משמעות</option><option value="בעל מקצוע">בעל מקצוע</option><option value="בעל תפקיד">בעל תפקיד</option><option value="בעל עיסוק">בעל עיסוק</option><option value="מקום/מבנה">מקום/מבנה</option><option value="חפץ/מסמך">חפץ/מסמך</option><option value="שם תואר">שם תואר</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr class="row-hard"><td class="row-num">11</td><td class="word-cell">סוֹפֵר <span class="difficulty-flag">קשה</span></td><td><span class="answer-wrap"><select class="answer" data-id="r11-mishkal" aria-label="משקל, שורה 11"><option value="" selected disabled>בחרו משקל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="מְקַטֵּל">מְקַטֵּל</option><option value="קַטְלָן">קַטְלָן</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מִקְטָל">מִקְטָל</option><option value="קָטוּל">קָטוּל</option><option value="מֻקְטָל">מֻקְטָל</option><option value="מְקֻטָּל">מְקֻטָּל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r11-meaning" aria-label="משמעות, שורה 11"><option value="" selected disabled>בחרו משמעות</option><option value="בעל מקצוע">בעל מקצוע</option><option value="בעל תפקיד">בעל תפקיד</option><option value="בעל עיסוק">בעל עיסוק</option><option value="מקום/מבנה">מקום/מבנה</option><option value="חפץ/מסמך">חפץ/מסמך</option><option value="שם תואר">שם תואר</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr class="row-hard"><td class="row-num">12</td><td class="word-cell">מְקֻשָּׁט <span class="difficulty-flag">קשה</span></td><td><span class="answer-wrap"><select class="answer" data-id="r12-mishkal" aria-label="משקל, שורה 12"><option value="" selected disabled>בחרו משקל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="מְקַטֵּל">מְקַטֵּל</option><option value="קַטְלָן">קַטְלָן</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מִקְטָל">מִקְטָל</option><option value="קָטוּל">קָטוּל</option><option value="מֻקְטָל">מֻקְטָל</option><option value="מְקֻטָּל">מְקֻטָּל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r12-meaning" aria-label="משמעות, שורה 12"><option value="" selected disabled>בחרו משמעות</option><option value="בעל מקצוע">בעל מקצוע</option><option value="בעל תפקיד">בעל תפקיד</option><option value="בעל עיסוק">בעל עיסוק</option><option value="מקום/מבנה">מקום/מבנה</option><option value="חפץ/מסמך">חפץ/מסמך</option><option value="שם תואר">שם תואר</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr class="row-hard"><td class="row-num">13</td><td class="word-cell">הוּא כַּתָּב בְּעִתּוֹן גָּדוֹל. <span class="difficulty-flag">קשה</span></td><td><span class="answer-wrap"><select class="answer" data-id="r13-mishkal" aria-label="משקל, שורה 13"><option value="" selected disabled>בחרו משקל</option><option value="קַטָּל">קַטָּל</option><option value="מַקְטִיל">מַקְטִיל</option><option value="מְקַטֵּל">מְקַטֵּל</option><option value="קַטְלָן">קַטְלָן</option><option value="קוֹטֵל">קוֹטֵל</option><option value="מִקְטָל">מִקְטָל</option><option value="קָטוּל">קָטוּל</option><option value="מֻקְטָל">מֻקְטָל</option><option value="מְקֻטָּל">מְקֻטָּל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r13-meaning" aria-label="משמעות, שורה 13"><option value="" selected disabled>בחרו משמעות</option><option value="בעל מקצוע">בעל מקצוע</option><option value="בעל תפקיד">בעל תפקיד</option><option value="בעל עיסוק">בעל עיסוק</option><option value="מקום/מבנה">מקום/מבנה</option><option value="חפץ/מסמך">חפץ/מסמך</option><option value="שם תואר">שם תואר</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
             </tbody>
           </table>
         </div>
 
-        <div class="reveal-wrap">
-          <button class="btn" type="button" id="toggleAnswers">🔎 הצג את כל התשובות</button>
-          <div id="answerKey" hidden>
-            <div class="table-wrap">
-              <table class="mishkal-table">
-                <thead><tr><th class="row-num">#</th><th>מילה</th><th>משקל</th><th>משמעות</th></tr></thead>
-                <tbody>
-                  <tr><td class="row-num">1</td><td>נַגָּר</td><td class="ans-mishkal">קַטָּל</td><td class="ans-meaning">בעל מקצוע</td></tr>
-                  <tr><td class="row-num">2</td><td>מוֹרֶה</td><td class="ans-mishkal">מַקְטִיל</td><td class="ans-meaning">בעל תפקיד</td></tr>
-                  <tr><td class="row-num">3</td><td>מְעַבֵּד</td><td class="ans-mishkal">מְקַטֵּל</td><td class="ans-meaning">בעל עיסוק</td></tr>
-                  <tr><td class="row-num">4</td><td>מְסַפֵּר</td><td class="ans-mishkal">מְקַטֵּל</td><td class="ans-meaning">בעל עיסוק</td></tr>
-                  <tr><td class="row-num">5</td><td>קַבְּלָן</td><td class="ans-mishkal">קַטְלָן</td><td class="ans-meaning">בעל מקצוע</td></tr>
-                  <tr><td class="row-num">6</td><td>שַׂחְקָן</td><td class="ans-mishkal">קַטְלָן</td><td class="ans-meaning">בעל מקצוע</td></tr>
-                  <tr><td class="row-num">7</td><td>מִגְדָּל</td><td class="ans-mishkal">מִקְטָל</td><td class="ans-meaning">מקום/מבנה</td></tr>
-                  <tr><td class="row-num">8</td><td>מִכְתָּב</td><td class="ans-mishkal">מִקְטָל</td><td class="ans-meaning">חפץ/מסמך</td></tr>
-                  <tr><td class="row-num">9</td><td>יָדוּעַ</td><td class="ans-mishkal">קָטוּל</td><td class="ans-meaning">שם תואר</td></tr>
-                  <tr><td class="row-num">10</td><td>מֻגְבָּל</td><td class="ans-mishkal">מֻקְטָל</td><td class="ans-meaning">שם תואר</td></tr>
-                  <tr><td class="row-num">11</td><td>סוֹפֵר</td><td class="ans-mishkal">קוֹטֵל</td><td class="ans-meaning">בעל מקצוע</td></tr>
-                  <tr><td class="row-num">12</td><td>מְקֻשָּׁט</td><td class="ans-mishkal">מְקֻטָּל</td><td class="ans-meaning">שם תואר</td></tr>
-                  <tr><td class="row-num">13</td><td>כַּתָּב</td><td class="ans-mishkal">קַטָּל</td><td class="ans-meaning">בעל מקצוע</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <p style="font-size:.82rem; color:var(--ink-soft); margin-top:.5rem;">💡 שימו לב: שורות 1, 5, 6, 11 ו-13 - חמישה משקלים שונים לגמרי (קַטָּל, קַטְלָן, קוֹטֵל...), וכולם מבטאים "בעל מקצוע". וְ<b>מִגְדָּל</b> (שורה 7) - נראה דומה בצורתו ל"מעבד"/"מספר" (שניהם מתחילים ב-מ), אבל משמעותו שונה לגמרי - הוא לא בעל מקצוע.</p>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -207,6 +180,43 @@
 
     <section class="card" style="grid-column: 1 / -1;">
       <div class="card-head">
+        <span class="card-tag">בדיקה</span>
+        <h2 class="card-title">סיימתם? בדקו את התשובות שלכם</h2>
+      </div>
+      <div class="card-body">
+        <p style="font-size:.88rem; color:var(--ink-soft); margin:0 0 .6rem;">הכפתור נפתח רק אחרי שממלאים את כל השדות בטבלה ואת כל שאלות הבחירה למעלה. בלחיצה, כל תשובה תסומן ב-✓ (נכון) או ב-✗ (לא נכון).</p>
+        <p style="text-align:center;">
+          <button class="btn primary" type="button" id="checkAnswersBtn" disabled>✅ בדקו תשובות</button>
+        </p>
+        <p class="check-gate-note" id="checkGateNote" aria-live="polite">מלאו את כל השדות (כולל שאלות הבחירה) כדי לפתוח את כפתור הבדיקה.</p>
+        <div id="answerKey" hidden>
+          <div class="table-wrap">
+            <table class="mishkal-table">
+              <thead><tr><th class="row-num">#</th><th>מילה</th><th>משקל</th><th>משמעות</th></tr></thead>
+              <tbody>
+                <tr><td class="row-num">1</td><td>נַגָּר</td><td class="ans-mishkal">קַטָּל</td><td class="ans-meaning">בעל מקצוע</td></tr>
+                <tr><td class="row-num">2</td><td>מוֹרֶה</td><td class="ans-mishkal">מַקְטִיל</td><td class="ans-meaning">בעל תפקיד</td></tr>
+                <tr><td class="row-num">3</td><td>מְעַבֵּד</td><td class="ans-mishkal">מְקַטֵּל</td><td class="ans-meaning">בעל עיסוק</td></tr>
+                <tr><td class="row-num">4</td><td>מְסַפֵּר</td><td class="ans-mishkal">מְקַטֵּל</td><td class="ans-meaning">בעל עיסוק</td></tr>
+                <tr><td class="row-num">5</td><td>קַבְּלָן</td><td class="ans-mishkal">קַטְלָן</td><td class="ans-meaning">בעל מקצוע</td></tr>
+                <tr><td class="row-num">6</td><td>שַׂחְקָן</td><td class="ans-mishkal">קַטְלָן</td><td class="ans-meaning">בעל מקצוע</td></tr>
+                <tr><td class="row-num">7</td><td>מִגְדָּל</td><td class="ans-mishkal">מִקְטָל</td><td class="ans-meaning">מקום/מבנה</td></tr>
+                <tr><td class="row-num">8</td><td>מִכְתָּב</td><td class="ans-mishkal">מִקְטָל</td><td class="ans-meaning">חפץ/מסמך</td></tr>
+                <tr><td class="row-num">9</td><td>יָדוּעַ</td><td class="ans-mishkal">קָטוּל</td><td class="ans-meaning">שם תואר</td></tr>
+                <tr><td class="row-num">10</td><td>מֻגְבָּל</td><td class="ans-mishkal">מֻקְטָל</td><td class="ans-meaning">שם תואר</td></tr>
+                <tr><td class="row-num">11</td><td>סוֹפֵר</td><td class="ans-mishkal">קוֹטֵל</td><td class="ans-meaning">בעל מקצוע</td></tr>
+                <tr><td class="row-num">12</td><td>מְקֻשָּׁט</td><td class="ans-mishkal">מְקֻטָּל</td><td class="ans-meaning">שם תואר</td></tr>
+                <tr><td class="row-num">13</td><td>כַּתָּב</td><td class="ans-mishkal">קַטָּל</td><td class="ans-meaning">בעל מקצוע</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:.82rem; color:var(--ink-soft); margin-top:.5rem;">💡 שימו לב: שורות 1, 5, 6, 11 ו-13 - חמישה משקלים שונים לגמרי (קַטָּל, קַטְלָן, קוֹטֵל...), וכולם מבטאים "בעל מקצוע". וְ<b>מִגְדָּל</b> (שורה 7) - נראה דומה בצורתו ל"מעבד"/"מספר" (שניהם מתחילים ב-מ), אבל משמעותו שונה לגמרי - הוא לא בעל מקצוע.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
         <span class="card-tag">סיכום</span>
         <h2 class="card-title">מה למדנו</h2>
       </div>
@@ -234,11 +244,36 @@
 
 <footer class="credit">עברית - משקלים · שיעור 5 · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
+<script src="assets/mishkal-answer-check.js"></script>
 <script>
 const STORAGE_KEY = 'ivrit-mishkalim-5-answers';
 const NAME_KEY = 'ivrit-mishkalim-5-student';
+const ANSWER_KEY = {
+  'r1-mishkal': 'קַטָּל', 'r1-meaning': 'בעל מקצוע',
+  'r2-mishkal': 'מַקְטִיל', 'r2-meaning': 'בעל תפקיד',
+  'r3-mishkal': 'מְקַטֵּל', 'r3-meaning': 'בעל עיסוק',
+  'r4-mishkal': 'מְקַטֵּל', 'r4-meaning': 'בעל עיסוק',
+  'r5-mishkal': 'קַטְלָן', 'r5-meaning': 'בעל מקצוע',
+  'r6-mishkal': 'קַטְלָן', 'r6-meaning': 'בעל מקצוע',
+  'r7-mishkal': 'מִקְטָל', 'r7-meaning': 'מקום/מבנה',
+  'r8-mishkal': 'מִקְטָל', 'r8-meaning': 'חפץ/מסמך',
+  'r9-mishkal': 'קָטוּל', 'r9-meaning': 'שם תואר',
+  'r10-mishkal': 'מֻקְטָל', 'r10-meaning': 'שם תואר',
+  'r11-mishkal': 'קוֹטֵל', 'r11-meaning': 'בעל מקצוע',
+  'r12-mishkal': 'מְקֻטָּל', 'r12-meaning': 'שם תואר',
+  'r13-mishkal': 'קַטָּל', 'r13-meaning': 'בעל מקצוע'
+};
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const mcGroups = Array.from(document.querySelectorAll('.mc-group'));
+const answerKey = document.getElementById('answerKey');
+const checker = MishkalAnswerCheck.wire({
+  fields: textareas.map(el => ({ el, expected: ANSWER_KEY[el.dataset.id] })),
+  mcGroups: mcGroups,
+  checkBtn: document.getElementById('checkAnswersBtn'),
+  gateNote: document.getElementById('checkGateNote'),
+  onChecked: () => { answerKey.hidden = false; },
+  onCleared: () => { answerKey.hidden = true; }
+});
 const progressFill = document.getElementById('progressFill');
 const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
@@ -298,17 +333,6 @@ function saveAnswers(){
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); flashSaved(); }catch(e){ console.error(e); }
 }
 
-function applyMcVisual(option, correct){
-  const group = option.closest('.mc-group');
-  group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong'));
-  option.classList.add(correct ? 'is-correct' : 'is-wrong');
-  const feedback = group.closest('.question-block').querySelector('.mc-feedback');
-  if(feedback){
-    feedback.textContent = correct ? '✓ נכון!' : 'לא בדיוק - נסו שוב';
-    feedback.className = 'mc-feedback ' + (correct ? 'correct' : 'wrong');
-  }
-}
-
 function loadAnswers(){
   try{
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -321,13 +345,14 @@ function loadAnswers(){
           const option = group.querySelector('.mc-option[data-value="' + v + '"]');
           if(option){
             option.querySelector('input[type="radio"]').checked = true;
-            applyMcVisual(option, option.dataset.correct === 'true');
+            option.classList.add('is-selected');
           }
         }
       });
     }
   }catch(e){}
   updateProgress();
+  checker.updateReadiness();
 }
 
 textareas.forEach(t => {
@@ -337,24 +362,17 @@ textareas.forEach(t => {
     clearTimeout(saveTimer);
     saveTimer = setTimeout(saveAnswers, 500);
   });
+  t.addEventListener('change', () => {
+    markFilled(t);
+    updateProgress();
+    saveAnswers();
+  });
 });
 
 mcGroups.forEach(group => {
   group.querySelectorAll('.mc-option').forEach(option => {
-    option.addEventListener('click', () => {
-      const radio = option.querySelector('input[type="radio"]');
-      radio.checked = true;
-      applyMcVisual(option, option.dataset.correct === 'true');
-      saveAnswers();
-    });
+    option.addEventListener('click', () => { saveAnswers(); });
   });
-});
-
-const toggleBtn = document.getElementById('toggleAnswers');
-const answerKey = document.getElementById('answerKey');
-toggleBtn.addEventListener('click', () => {
-  answerKey.hidden = !answerKey.hidden;
-  toggleBtn.textContent = answerKey.hidden ? '🔎 הצג את כל התשובות' : '🙈 הסתר את התשובות';
 });
 
 document.getElementById('clearBtn').addEventListener('click', () => {
@@ -362,10 +380,11 @@ document.getElementById('clearBtn').addEventListener('click', () => {
   textareas.forEach(t => { t.value = ''; markFilled(t); });
   mcGroups.forEach(group => {
     group.querySelectorAll('input[type="radio"]').forEach(r => { r.checked = false; });
-    group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong'));
+    group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong', 'is-selected'));
     const feedback = group.closest('.question-block').querySelector('.mc-feedback');
     if(feedback){ feedback.textContent = ''; feedback.className = 'mc-feedback'; }
   });
+  checker.clearAllMarks();
   updateProgress();
   saveAnswers();
 });

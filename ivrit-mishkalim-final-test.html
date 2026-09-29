@@ -356,7 +356,10 @@
           </div>
         </div>
 
-        <button class="btn primary" type="button" id="submitTestBtn">✅ בדקו תשובות</button>
+        <p style="text-align:center;">
+          <button class="btn primary" type="button" id="submitTestBtn" disabled>✅ בדקו תשובות</button>
+        </p>
+        <p class="check-gate-note" id="checkGateNote" aria-live="polite">ענו על כל 25 השאלות כדי לפתוח את כפתור הבדיקה.</p>
       </div>
     </section>
 
@@ -465,6 +468,16 @@ function updateProgress(){
   progressFill.style.width = pct + '%';
   if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
   progressLabel.textContent = answered + ' / ' + mcGroups.length + ' שאלות נענו';
+  updateCheckReadiness(answered);
+}
+
+function updateCheckReadiness(answeredCount){
+  const answered = answeredCount === undefined ? mcGroups.filter(g => g.querySelector('input[type="radio"]:checked')).length : answeredCount;
+  const ready = answered === mcGroups.length;
+  const submitBtn = document.getElementById('submitTestBtn');
+  const gateNote = document.getElementById('checkGateNote');
+  submitBtn.disabled = !ready;
+  if(gateNote) gateNote.textContent = ready ? 'כל השאלות נענו - אפשר ללחוץ "בדקו תשובות".' : 'ענו על כל 25 השאלות כדי לפתוח את כפתור הבדיקה.';
 }
 
 function flashSaved(){
@@ -576,10 +589,8 @@ function gradeTest(){
 }
 
 document.getElementById('submitTestBtn').addEventListener('click', () => {
-  const unanswered = mcGroups.filter(g => !g.querySelector('input[type="radio"]:checked')).length;
-  if(unanswered > 0){
-    if(!confirm('נותרו ' + unanswered + ' שאלות ללא תשובה. לבדוק בכל זאת?')) return;
-  }
+  const answered = mcGroups.filter(g => g.querySelector('input[type="radio"]:checked')).length;
+  if(answered < mcGroups.length) return;
   gradeTest();
 });
 

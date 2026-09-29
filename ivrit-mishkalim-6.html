@@ -14,13 +14,12 @@
   table.mishkal-table thead th{ background:var(--acc-soft); font-weight:700; font-size:.85rem; }
   table.mishkal-table td.word-cell{ font-family:'Frank Ruhl Libre', serif; font-weight:700; font-size:1.02rem; }
   table.mishkal-table td.note-cell{ font-size:.8rem; color:var(--ink-soft); }
-  table.mishkal-table input.answer{ width:100%; min-width:6.5rem; box-sizing:border-box; padding:.35rem .5rem; font-size:.9rem; border:1.5px solid var(--paper-line); border-radius:6px; background:#fff; }
-  table.mishkal-table input.answer:focus{ outline:3px solid var(--focus-ring); outline-offset:1px; border-color:var(--acc); }
-  table.mishkal-table input.answer.filled{ border-color:var(--teal); background:var(--teal-soft); }
+  table.mishkal-table input.answer, table.mishkal-table select.answer{ width:100%; min-width:6.5rem; box-sizing:border-box; padding:.35rem .5rem; font-size:.9rem; border:1.5px solid var(--paper-line); border-radius:6px; background:#fff; }
+  table.mishkal-table input.answer:focus, table.mishkal-table select.answer:focus{ outline:3px solid var(--focus-ring); outline-offset:1px; border-color:var(--acc); }
+  table.mishkal-table input.answer.filled, table.mishkal-table select.answer.filled{ border-color:var(--teal); background:var(--teal-soft); }
   table.mishkal-table tr.row-hard td.word-cell{ color:var(--rust); }
   .row-num{ color:var(--ink-soft); font-size:.8rem; width:1.8rem; text-align:center; }
   .difficulty-flag{ display:inline-block; font-size:.68rem; font-weight:700; color:#fff; background:var(--rust); border-radius:999px; padding:.05rem .5rem; margin-inline-start:.4rem; vertical-align:middle; }
-  .reveal-wrap{ margin-top:1rem; }
   #answerKey{ margin-top:.8rem; }
   #answerKey table.mishkal-table td{ font-size:.85rem; }
   #answerKey td.ans-way, #answerKey td.ans-detail{ font-weight:700; color:var(--teal); }
@@ -64,7 +63,7 @@
 <p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
-  <span class="progress-label" id="progressLabel">0 / 22 שדות</span>
+  <span class="progress-label" id="progressLabel">0 / 33 שדות</span>
   <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בשיעור"><div class="progress-fill" id="progressFill"></div></div>
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
@@ -104,49 +103,24 @@
         <h2 class="card-title">זהו את דרך התצורה, ופרטו</h2>
       </div>
       <div class="card-body">
-        <p style="font-size:.88rem; color:var(--ink-soft); margin:0 0 .7rem;">לכל מילה: כתבו "שורש+משקל" או "בסיס+צורן", ואז פרטו (שורש ומשקל, או בסיס וצורן). מילים עם <span class="difficulty-flag">קשה</span> דורשות תשומת לב מיוחדת.</p>
+        <p style="font-size:.88rem; color:var(--ink-soft); margin:0 0 .7rem;">לכל מילה: בחרו את דרך התצורה, ואז פרטו - בסיס/שורש בעמודה אחת, וצורן/משקל בעמודה השנייה (בהתאם לדרך התצורה שבחרתם). מילים עם <span class="difficulty-flag">קשה</span> דורשות תשומת לב מיוחדת.</p>
         <div class="table-wrap">
           <table class="mishkal-table">
-            <thead><tr><th class="row-num">#</th><th>מילה</th><th>דרך תצורה</th><th>פירוט</th></tr></thead>
+            <thead><tr><th class="row-num">#</th><th>מילה</th><th>דרך תצורה</th><th>בסיס / שורש</th><th>צורן / משקל</th></tr></thead>
             <tbody>
-              <tr><td class="row-num">1</td><td class="word-cell">מוּזִיקַאי</td><td><input type="text" class="answer" data-id="r1-way" aria-label="דרך תצורה, שורה 1"></td><td><input type="text" class="answer" data-id="r1-detail" aria-label="פירוט, שורה 1"></td></tr>
-              <tr><td class="row-num">2</td><td class="word-cell">טֶנִיסַאי</td><td><input type="text" class="answer" data-id="r2-way" aria-label="דרך תצורה, שורה 2"></td><td><input type="text" class="answer" data-id="r2-detail" aria-label="פירוט, שורה 2"></td></tr>
-              <tr><td class="row-num">3</td><td class="word-cell">יוֹמִי <span class="note-cell">("ביקור יומי")</span></td><td><input type="text" class="answer" data-id="r3-way" aria-label="דרך תצורה, שורה 3"></td><td><input type="text" class="answer" data-id="r3-detail" aria-label="פירוט, שורה 3"></td></tr>
-              <tr><td class="row-num">4</td><td class="word-cell">פִּתְאוֹמִי</td><td><input type="text" class="answer" data-id="r4-way" aria-label="דרך תצורה, שורה 4"></td><td><input type="text" class="answer" data-id="r4-detail" aria-label="פירוט, שורה 4"></td></tr>
-              <tr><td class="row-num">5</td><td class="word-cell">נַגָּר</td><td><input type="text" class="answer" data-id="r5-way" aria-label="דרך תצורה, שורה 5"></td><td><input type="text" class="answer" data-id="r5-detail" aria-label="פירוט, שורה 5"></td></tr>
-              <tr><td class="row-num">6</td><td class="word-cell">מִכְתָּב</td><td><input type="text" class="answer" data-id="r6-way" aria-label="דרך תצורה, שורה 6"></td><td><input type="text" class="answer" data-id="r6-detail" aria-label="פירוט, שורה 6"></td></tr>
-              <tr><td class="row-num">7</td><td class="word-cell">קַבְּלָן</td><td><input type="text" class="answer" data-id="r7-way" aria-label="דרך תצורה, שורה 7"></td><td><input type="text" class="answer" data-id="r7-detail" aria-label="פירוט, שורה 7"></td></tr>
-              <tr class="row-hard"><td class="row-num">8</td><td class="word-cell">פְּסִיכוֹלוֹגִית <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r8-way" aria-label="דרך תצורה, שורה 8"></td><td><input type="text" class="answer" data-id="r8-detail" aria-label="פירוט, שורה 8"></td></tr>
-              <tr class="row-hard"><td class="row-num">9</td><td class="word-cell">אֲמֶרִיקָאִי <span class="difficulty-flag">קשה</span> <span class="note-cell">(שימו לב: ה"ה" של "אמריקה" נשמטת)</span></td><td><input type="text" class="answer" data-id="r9-way" aria-label="דרך תצורה, שורה 9"></td><td><input type="text" class="answer" data-id="r9-detail" aria-label="פירוט, שורה 9"></td></tr>
-              <tr class="row-hard"><td class="row-num">10</td><td class="word-cell">מִגְדָּל <span class="difficulty-flag">קשה</span> <span class="note-cell">(שימו לב היטב!)</span></td><td><input type="text" class="answer" data-id="r10-way" aria-label="דרך תצורה, שורה 10"></td><td><input type="text" class="answer" data-id="r10-detail" aria-label="פירוט, שורה 10"></td></tr>
-              <tr class="row-hard"><td class="row-num">11</td><td class="word-cell">הוּא מוּזִיקַאי מוּכְשָׁר. <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r11-way" aria-label="דרך תצורה, שורה 11"></td><td><input type="text" class="answer" data-id="r11-detail" aria-label="פירוט, שורה 11"></td></tr>
+              <tr><td class="row-num">1</td><td class="word-cell">מוּזִיקַאי</td><td><span class="answer-wrap"><select class="answer" data-id="r1-way" aria-label="דרך תצורה, שורה 1"><option value="" selected disabled>בחרו</option><option value="בסיס+צורן">בסיס+צורן</option><option value="שורש+משקל">שורש+משקל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r1-part1" aria-label="בסיס/שורש, שורה 1"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r1-part2" aria-label="צורן/משקל, שורה 1"><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">2</td><td class="word-cell">טֶנִיסַאי</td><td><span class="answer-wrap"><select class="answer" data-id="r2-way" aria-label="דרך תצורה, שורה 2"><option value="" selected disabled>בחרו</option><option value="בסיס+צורן">בסיס+צורן</option><option value="שורש+משקל">שורש+משקל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r2-part1" aria-label="בסיס/שורש, שורה 2"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r2-part2" aria-label="צורן/משקל, שורה 2"><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">3</td><td class="word-cell">יוֹמִי <span class="note-cell">("ביקור יומי")</span></td><td><span class="answer-wrap"><select class="answer" data-id="r3-way" aria-label="דרך תצורה, שורה 3"><option value="" selected disabled>בחרו</option><option value="בסיס+צורן">בסיס+צורן</option><option value="שורש+משקל">שורש+משקל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r3-part1" aria-label="בסיס/שורש, שורה 3"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r3-part2" aria-label="צורן/משקל, שורה 3"><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">4</td><td class="word-cell">פִּתְאוֹמִי</td><td><span class="answer-wrap"><select class="answer" data-id="r4-way" aria-label="דרך תצורה, שורה 4"><option value="" selected disabled>בחרו</option><option value="בסיס+צורן">בסיס+צורן</option><option value="שורש+משקל">שורש+משקל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r4-part1" aria-label="בסיס/שורש, שורה 4"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r4-part2" aria-label="צורן/משקל, שורה 4"><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">5</td><td class="word-cell">נַגָּר</td><td><span class="answer-wrap"><select class="answer" data-id="r5-way" aria-label="דרך תצורה, שורה 5"><option value="" selected disabled>בחרו</option><option value="בסיס+צורן">בסיס+צורן</option><option value="שורש+משקל">שורש+משקל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r5-part1" aria-label="בסיס/שורש, שורה 5"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r5-part2" aria-label="צורן/משקל, שורה 5"><option value="" selected disabled>בחרו משקל</option><option value="קַטָּל">קַטָּל</option><option value="מִקְטָל">מִקְטָל</option><option value="קַטְלָן">קַטְלָן</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">6</td><td class="word-cell">מִכְתָּב</td><td><span class="answer-wrap"><select class="answer" data-id="r6-way" aria-label="דרך תצורה, שורה 6"><option value="" selected disabled>בחרו</option><option value="בסיס+צורן">בסיס+צורן</option><option value="שורש+משקל">שורש+משקל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r6-part1" aria-label="בסיס/שורש, שורה 6"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r6-part2" aria-label="צורן/משקל, שורה 6"><option value="" selected disabled>בחרו משקל</option><option value="קַטָּל">קַטָּל</option><option value="מִקְטָל">מִקְטָל</option><option value="קַטְלָן">קַטְלָן</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr><td class="row-num">7</td><td class="word-cell">קַבְּלָן</td><td><span class="answer-wrap"><select class="answer" data-id="r7-way" aria-label="דרך תצורה, שורה 7"><option value="" selected disabled>בחרו</option><option value="בסיס+צורן">בסיס+צורן</option><option value="שורש+משקל">שורש+משקל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r7-part1" aria-label="בסיס/שורש, שורה 7"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r7-part2" aria-label="צורן/משקל, שורה 7"><option value="" selected disabled>בחרו משקל</option><option value="קַטָּל">קַטָּל</option><option value="מִקְטָל">מִקְטָל</option><option value="קַטְלָן">קַטְלָן</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr class="row-hard"><td class="row-num">8</td><td class="word-cell">פְּסִיכוֹלוֹגִית <span class="difficulty-flag">קשה</span></td><td><span class="answer-wrap"><select class="answer" data-id="r8-way" aria-label="דרך תצורה, שורה 8"><option value="" selected disabled>בחרו</option><option value="בסיס+צורן">בסיס+צורן</option><option value="שורש+משקל">שורש+משקל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r8-part1" aria-label="בסיס/שורש, שורה 8"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r8-part2" aria-label="צורן/משקל, שורה 8"><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr class="row-hard"><td class="row-num">9</td><td class="word-cell">אֲמֶרִיקָאִי <span class="difficulty-flag">קשה</span> <span class="note-cell">(שימו לב: ה"ה" של "אמריקה" נשמטת)</span></td><td><span class="answer-wrap"><select class="answer" data-id="r9-way" aria-label="דרך תצורה, שורה 9"><option value="" selected disabled>בחרו</option><option value="בסיס+צורן">בסיס+צורן</option><option value="שורש+משקל">שורש+משקל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r9-part1" aria-label="בסיס/שורש, שורה 9"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r9-part2" aria-label="צורן/משקל, שורה 9"><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr class="row-hard"><td class="row-num">10</td><td class="word-cell">מִגְדָּל <span class="difficulty-flag">קשה</span> <span class="note-cell">(שימו לב היטב!)</span></td><td><span class="answer-wrap"><select class="answer" data-id="r10-way" aria-label="דרך תצורה, שורה 10"><option value="" selected disabled>בחרו</option><option value="בסיס+צורן">בסיס+צורן</option><option value="שורש+משקל">שורש+משקל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r10-part1" aria-label="בסיס/שורש, שורה 10"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><select class="answer" data-id="r10-part2" aria-label="צורן/משקל, שורה 10"><option value="" selected disabled>בחרו משקל</option><option value="קַטָּל">קַטָּל</option><option value="מִקְטָל">מִקְטָל</option><option value="קַטְלָן">קַטְלָן</option></select><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
+              <tr class="row-hard"><td class="row-num">11</td><td class="word-cell">הוּא מוּזִיקַאי מוּכְשָׁר. <span class="difficulty-flag">קשה</span></td><td><span class="answer-wrap"><select class="answer" data-id="r11-way" aria-label="דרך תצורה, שורה 11"><option value="" selected disabled>בחרו</option><option value="בסיס+צורן">בסיס+צורן</option><option value="שורש+משקל">שורש+משקל</option></select><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r11-part1" aria-label="בסיס/שורש, שורה 11"><span class="answer-mark" aria-hidden="true"></span></span></td><td><span class="answer-wrap"><input type="text" class="answer" data-id="r11-part2" aria-label="צורן/משקל, שורה 11"><span class="answer-mark" aria-hidden="true"></span></span></td></tr>
             </tbody>
           </table>
-        </div>
-
-        <div class="reveal-wrap">
-          <button class="btn" type="button" id="toggleAnswers">🔎 הצג את כל התשובות</button>
-          <div id="answerKey" hidden>
-            <div class="table-wrap">
-              <table class="mishkal-table">
-                <thead><tr><th class="row-num">#</th><th>מילה</th><th>דרך תצורה</th><th>פירוט</th></tr></thead>
-                <tbody>
-                  <tr><td class="row-num">1</td><td>מוּזִיקַאי</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">בסיס: מוזיקה | צורן: אי</td></tr>
-                  <tr><td class="row-num">2</td><td>טֶנִיסַאי</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">בסיס: טניס | צורן: אי</td></tr>
-                  <tr><td class="row-num">3</td><td>יוֹמִי</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">בסיס: יום | צורן: י</td></tr>
-                  <tr><td class="row-num">4</td><td>פִּתְאוֹמִי</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">בסיס: פתאום | צורן: י</td></tr>
-                  <tr><td class="row-num">5</td><td>נַגָּר</td><td class="ans-way">שורש+משקל</td><td class="ans-detail">שורש: נ־ג־ר | משקל: קַטָּל</td></tr>
-                  <tr><td class="row-num">6</td><td>מִכְתָּב</td><td class="ans-way">שורש+משקל</td><td class="ans-detail">שורש: כ־ת־ב | משקל: מִקְטָל</td></tr>
-                  <tr><td class="row-num">7</td><td>קַבְּלָן</td><td class="ans-way">שורש+משקל</td><td class="ans-detail">שורש: ק־ב־ל | משקל: קַטְלָן</td></tr>
-                  <tr><td class="row-num">8</td><td>פְּסִיכוֹלוֹגִית</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">בסיס: פסיכולוג | צורן: ית</td></tr>
-                  <tr><td class="row-num">9</td><td>אֲמֶרִיקָאִי</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">בסיס: אמריקה (בלי ה') | צורן: אי</td></tr>
-                  <tr><td class="row-num">10</td><td>מִגְדָּל</td><td class="ans-way">שורש+משקל</td><td class="ans-detail">שורש: ג־ד־ל | משקל: מִקְטָל</td></tr>
-                  <tr><td class="row-num">11</td><td>מוּזִיקַאי</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">בסיס: מוזיקה | צורן: אי</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <p style="font-size:.82rem; color:var(--ink-soft); margin-top:.5rem;">💡 שימו לב לשורה 10: <b>מִגְדָּל</b> נראית כמו מילה שיכולה להיות "מ+גדל" (בסיס+צורן), אבל "גדל" לבד אינו שם עצם קיים - זה שורש (ג־ד־ל) שהוכנס למשקל מִקְטָל. תמיד בודקים אם מה שנשאר הוא באמת מילה קיימת.</p>
-          </div>
         </div>
       </div>
     </section>
@@ -202,6 +176,41 @@
 
     <section class="card" style="grid-column: 1 / -1;">
       <div class="card-head">
+        <span class="card-tag">בדיקה</span>
+        <h2 class="card-title">סיימתם? בדקו את התשובות שלכם</h2>
+      </div>
+      <div class="card-body">
+        <p style="font-size:.88rem; color:var(--ink-soft); margin:0 0 .6rem;">הכפתור נפתח רק אחרי שממלאים את כל השדות בטבלה ואת כל שאלות הבחירה למעלה. בלחיצה, כל תשובה תסומן ב-✓ (נכון) או ב-✗ (לא נכון).</p>
+        <p style="text-align:center;">
+          <button class="btn primary" type="button" id="checkAnswersBtn" disabled>✅ בדקו תשובות</button>
+        </p>
+        <p class="check-gate-note" id="checkGateNote" aria-live="polite">מלאו את כל השדות (כולל שאלות הבחירה) כדי לפתוח את כפתור הבדיקה.</p>
+        <div id="answerKey" hidden>
+          <div class="table-wrap">
+            <table class="mishkal-table">
+              <thead><tr><th class="row-num">#</th><th>מילה</th><th>דרך תצורה</th><th>בסיס / שורש</th><th>צורן / משקל</th></tr></thead>
+              <tbody>
+                <tr><td class="row-num">1</td><td>מוּזִיקַאי</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">מוזיקה</td><td class="ans-detail">אי</td></tr>
+                <tr><td class="row-num">2</td><td>טֶנִיסַאי</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">טניס</td><td class="ans-detail">אי</td></tr>
+                <tr><td class="row-num">3</td><td>יוֹמִי</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">יום</td><td class="ans-detail">י</td></tr>
+                <tr><td class="row-num">4</td><td>פִּתְאוֹמִי</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">פתאום</td><td class="ans-detail">י</td></tr>
+                <tr><td class="row-num">5</td><td>נַגָּר</td><td class="ans-way">שורש+משקל</td><td class="ans-detail">נ־ג־ר</td><td class="ans-detail">קַטָּל</td></tr>
+                <tr><td class="row-num">6</td><td>מִכְתָּב</td><td class="ans-way">שורש+משקל</td><td class="ans-detail">כ־ת־ב</td><td class="ans-detail">מִקְטָל</td></tr>
+                <tr><td class="row-num">7</td><td>קַבְּלָן</td><td class="ans-way">שורש+משקל</td><td class="ans-detail">ק־ב־ל</td><td class="ans-detail">קַטְלָן</td></tr>
+                <tr><td class="row-num">8</td><td>פְּסִיכוֹלוֹגִית</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">פסיכולוג</td><td class="ans-detail">ית</td></tr>
+                <tr><td class="row-num">9</td><td>אֲמֶרִיקָאִי</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">אמריקה (בלי ה')</td><td class="ans-detail">אי</td></tr>
+                <tr><td class="row-num">10</td><td>מִגְדָּל</td><td class="ans-way">שורש+משקל</td><td class="ans-detail">ג־ד־ל</td><td class="ans-detail">מִקְטָל</td></tr>
+                <tr><td class="row-num">11</td><td>מוּזִיקַאי</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">מוזיקה</td><td class="ans-detail">אי</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="font-size:.82rem; color:var(--ink-soft); margin-top:.5rem;">💡 שימו לב לשורה 10: <b>מִגְדָּל</b> נראית כמו מילה שיכולה להיות "מ+גדל" (בסיס+צורן), אבל "גדל" לבד אינו שם עצם קיים - זה שורש (ג־ד־ל) שהוכנס למשקל מִקְטָל. תמיד בודקים אם מה שנשאר הוא באמת מילה קיימת.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
         <span class="card-tag">סיכום</span>
         <h2 class="card-title">מה למדנו</h2>
       </div>
@@ -229,11 +238,34 @@
 
 <footer class="credit">עברית - משקלים · שיעור 6 · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
+<script src="assets/mishkal-answer-check.js"></script>
 <script>
 const STORAGE_KEY = 'ivrit-mishkalim-6-answers';
 const NAME_KEY = 'ivrit-mishkalim-6-student';
+const ANSWER_KEY = {
+  'r1-way': 'בסיס+צורן', 'r1-part1': 'מוזיקה', 'r1-part2': 'אי',
+  'r2-way': 'בסיס+צורן', 'r2-part1': 'טניס', 'r2-part2': 'אי',
+  'r3-way': 'בסיס+צורן', 'r3-part1': 'יום', 'r3-part2': 'י',
+  'r4-way': 'בסיס+צורן', 'r4-part1': 'פתאום', 'r4-part2': 'י',
+  'r5-way': 'שורש+משקל', 'r5-part1': 'נ־ג־ר', 'r5-part2': 'קַטָּל',
+  'r6-way': 'שורש+משקל', 'r6-part1': 'כ־ת־ב', 'r6-part2': 'מִקְטָל',
+  'r7-way': 'שורש+משקל', 'r7-part1': 'ק־ב־ל', 'r7-part2': 'קַטְלָן',
+  'r8-way': 'בסיס+צורן', 'r8-part1': 'פסיכולוג', 'r8-part2': 'ית',
+  'r9-way': 'בסיס+צורן', 'r9-part1': 'אמריקה', 'r9-part2': 'אי',
+  'r10-way': 'שורש+משקל', 'r10-part1': 'ג־ד־ל', 'r10-part2': 'מִקְטָל',
+  'r11-way': 'בסיס+צורן', 'r11-part1': 'מוזיקה', 'r11-part2': 'אי'
+};
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const mcGroups = Array.from(document.querySelectorAll('.mc-group'));
+const answerKey = document.getElementById('answerKey');
+const checker = MishkalAnswerCheck.wire({
+  fields: textareas.map(el => ({ el, expected: ANSWER_KEY[el.dataset.id] })),
+  mcGroups: mcGroups,
+  checkBtn: document.getElementById('checkAnswersBtn'),
+  gateNote: document.getElementById('checkGateNote'),
+  onChecked: () => { answerKey.hidden = false; },
+  onCleared: () => { answerKey.hidden = true; }
+});
 const progressFill = document.getElementById('progressFill');
 const progressTrack = document.getElementById('progressTrack');
 const progressLabel = document.getElementById('progressLabel');
@@ -293,17 +325,6 @@ function saveAnswers(){
   try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); flashSaved(); }catch(e){ console.error(e); }
 }
 
-function applyMcVisual(option, correct){
-  const group = option.closest('.mc-group');
-  group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong'));
-  option.classList.add(correct ? 'is-correct' : 'is-wrong');
-  const feedback = group.closest('.question-block').querySelector('.mc-feedback');
-  if(feedback){
-    feedback.textContent = correct ? '✓ נכון!' : 'לא בדיוק - נסו שוב';
-    feedback.className = 'mc-feedback ' + (correct ? 'correct' : 'wrong');
-  }
-}
-
 function loadAnswers(){
   try{
     const raw = localStorage.getItem(STORAGE_KEY);
@@ -316,13 +337,14 @@ function loadAnswers(){
           const option = group.querySelector('.mc-option[data-value="' + v + '"]');
           if(option){
             option.querySelector('input[type="radio"]').checked = true;
-            applyMcVisual(option, option.dataset.correct === 'true');
+            option.classList.add('is-selected');
           }
         }
       });
     }
   }catch(e){}
   updateProgress();
+  checker.updateReadiness();
 }
 
 textareas.forEach(t => {
@@ -332,24 +354,17 @@ textareas.forEach(t => {
     clearTimeout(saveTimer);
     saveTimer = setTimeout(saveAnswers, 500);
   });
+  t.addEventListener('change', () => {
+    markFilled(t);
+    updateProgress();
+    saveAnswers();
+  });
 });
 
 mcGroups.forEach(group => {
   group.querySelectorAll('.mc-option').forEach(option => {
-    option.addEventListener('click', () => {
-      const radio = option.querySelector('input[type="radio"]');
-      radio.checked = true;
-      applyMcVisual(option, option.dataset.correct === 'true');
-      saveAnswers();
-    });
+    option.addEventListener('click', () => { saveAnswers(); });
   });
-});
-
-const toggleBtn = document.getElementById('toggleAnswers');
-const answerKey = document.getElementById('answerKey');
-toggleBtn.addEventListener('click', () => {
-  answerKey.hidden = !answerKey.hidden;
-  toggleBtn.textContent = answerKey.hidden ? '🔎 הצג את כל התשובות' : '🙈 הסתר את התשובות';
 });
 
 document.getElementById('clearBtn').addEventListener('click', () => {
@@ -357,10 +372,11 @@ document.getElementById('clearBtn').addEventListener('click', () => {
   textareas.forEach(t => { t.value = ''; markFilled(t); });
   mcGroups.forEach(group => {
     group.querySelectorAll('input[type="radio"]').forEach(r => { r.checked = false; });
-    group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong'));
+    group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong', 'is-selected'));
     const feedback = group.closest('.question-block').querySelector('.mc-feedback');
     if(feedback){ feedback.textContent = ''; feedback.className = 'mc-feedback'; }
   });
+  checker.clearAllMarks();
   updateProgress();
   saveAnswers();
 });
