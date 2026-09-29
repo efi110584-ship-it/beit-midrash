@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>עברית — משקלים · שיעור 4: שמות פעולה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  table.mishkal-table{ width:100%; border-collapse:collapse; font-size:.92rem; }
+  table.mishkal-table th, table.mishkal-table td{ border:1px solid var(--paper-line); padding:.5rem .6rem; text-align:right; vertical-align:middle; }
+  table.mishkal-table thead th{ background:var(--acc-soft); font-weight:700; font-size:.85rem; }
+  table.mishkal-table td.word-cell{ font-family:'Frank Ruhl Libre', serif; font-weight:700; font-size:1.02rem; }
+  table.mishkal-table td.note-cell{ font-size:.8rem; color:var(--ink-soft); }
+  table.mishkal-table input.answer{ width:100%; min-width:5.5rem; box-sizing:border-box; padding:.35rem .5rem; font-size:.9rem; border:1.5px solid var(--paper-line); border-radius:6px; background:#fff; }
+  table.mishkal-table input.answer:focus{ outline:3px solid var(--focus-ring); outline-offset:1px; border-color:var(--acc); }
+  table.mishkal-table input.answer.filled{ border-color:var(--teal); background:var(--teal-soft); }
+  table.mishkal-table tr.row-hard td.word-cell{ color:var(--rust); }
+  .row-num{ color:var(--ink-soft); font-size:.8rem; width:1.8rem; text-align:center; }
+  .difficulty-flag{ display:inline-block; font-size:.68rem; font-weight:700; color:#fff; background:var(--rust); border-radius:999px; padding:.05rem .5rem; margin-inline-start:.4rem; vertical-align:middle; }
+  .reveal-wrap{ margin-top:1rem; }
+  #answerKey{ margin-top:.8rem; }
+  #answerKey table.mishkal-table td{ font-size:.88rem; }
+  #answerKey td.ans-binyan, #answerKey td.ans-shempeula{ font-weight:700; color:var(--teal); }
+</style>
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
+</head>
+<body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="ivrit-hub.html">עברית - דקדוק</a>
+  <span class="sep">›</span>
+  <a href="ivrit-mishkalim-hub.html">משקלים</a>
+  <span class="sep">›</span>
+  <span class="current">שיעור 4</span>
+</nav>
+
+<header>
+  <div class="eyebrow">עברית · דקדוק · משקלים · שיעור 4 מתוך 8</div>
+  <h1>שמות פעולה</h1>
+  <p class="sub">השם של הפעולה עצמה - ולמה אסור לומר "פיעל = קיטול".</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 30 שדות</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בשיעור"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main id="main-content">
+  <div class="grid" id="grid">
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">הסבר</span>
+        <h2 class="card-title">שם פעולה - השם של הפעולה עצמה</h2>
+      </div>
+      <div class="card-body">
+        <p>שם פעולה הוא <b>השם של הפעולה</b>: הוא הקשיב ← <b>הקשבה</b>; הוא ניתח ← <b>ניתוח</b>. לכל בניין יש דגם (או דגמים) אופייניים לשמות הפעולה שלו.</p>
+        <div class="table-wrap">
+          <table class="mishkal-table">
+            <thead><tr><th>פועל</th><th>בניין</th><th>שם פעולה</th></tr></thead>
+            <tbody>
+              <tr><td class="word-cell">הִקְשִׁיב</td><td>הפעיל</td><td class="word-cell">הַקְשָׁבָה</td></tr>
+              <tr><td class="word-cell">בִּטֵּא</td><td>פיעל</td><td class="word-cell">בִּטּוּי</td></tr>
+              <tr><td class="word-cell">נִתֵּחַ</td><td>פיעל</td><td class="word-cell">נִתּוּחַ</td></tr>
+              <tr><td class="word-cell">הִתְנַגֵּחַ</td><td>התפעל</td><td class="word-cell">הִתְנַגְּחוּת</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="caution-block">
+          <span class="src">⚠️ זהירות - אל תגידו "פיעל = קיטול"!</span>
+          זה נכון רק לפעמים. גם <b>בִּקֵּשׁ</b> (פיעל) וגם <b>קִבֵּל</b> (פיעל) הם פיעל - אבל שמות הפעולה שלהם הם <b>בַּקָּשָׁה</b> ו<b>קַבָּלָה</b>, בדגם שונה (קְטָלָה) מ"ביטוי"/"ניתוח" (קִטּוּל). <br><b>קִטּוּל הוא אחד ממשקלי שמות הפעולה הנפוצים של פיעל - לא היחיד.</b>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תרגול</span>
+        <h2 class="card-title">מצאו בניין ושם פעולה לכל פועל</h2>
+      </div>
+      <div class="card-body">
+        <p style="font-size:.88rem; color:var(--ink-soft); margin:0 0 .7rem;">השלימו את הטבלה - מהקל לקשה. מילים עם <span class="difficulty-flag">קשה</span> דורשות תשומת לב מיוחדת.</p>
+        <div class="table-wrap">
+          <table class="mishkal-table">
+            <thead><tr><th class="row-num">#</th><th>פועל</th><th>בניין</th><th>שם פעולה</th></tr></thead>
+            <tbody>
+              <tr><td class="row-num">1</td><td class="word-cell">הִקְשִׁיב</td><td><input type="text" class="answer" data-id="r1-binyan" aria-label="בניין, שורה 1"></td><td><input type="text" class="answer" data-id="r1-shempeula" aria-label="שם פעולה, שורה 1"></td></tr>
+              <tr><td class="row-num">2</td><td class="word-cell">הִסִּיחַ <span class="note-cell">("הסיח דעת")</span></td><td><input type="text" class="answer" data-id="r2-binyan" aria-label="בניין, שורה 2"></td><td><input type="text" class="answer" data-id="r2-shempeula" aria-label="שם פעולה, שורה 2"></td></tr>
+              <tr><td class="row-num">3</td><td class="word-cell">הֶעֱמִיד</td><td><input type="text" class="answer" data-id="r3-binyan" aria-label="בניין, שורה 3"></td><td><input type="text" class="answer" data-id="r3-shempeula" aria-label="שם פעולה, שורה 3"></td></tr>
+              <tr><td class="row-num">4</td><td class="word-cell">הוֹדִיעַ</td><td><input type="text" class="answer" data-id="r4-binyan" aria-label="בניין, שורה 4"></td><td><input type="text" class="answer" data-id="r4-shempeula" aria-label="שם פעולה, שורה 4"></td></tr>
+              <tr><td class="row-num">5</td><td class="word-cell">בִּטֵּא</td><td><input type="text" class="answer" data-id="r5-binyan" aria-label="בניין, שורה 5"></td><td><input type="text" class="answer" data-id="r5-shempeula" aria-label="שם פעולה, שורה 5"></td></tr>
+              <tr><td class="row-num">6</td><td class="word-cell">נִתֵּחַ</td><td><input type="text" class="answer" data-id="r6-binyan" aria-label="בניין, שורה 6"></td><td><input type="text" class="answer" data-id="r6-shempeula" aria-label="שם פעולה, שורה 6"></td></tr>
+              <tr><td class="row-num">7</td><td class="word-cell">אִרְגֵּן</td><td><input type="text" class="answer" data-id="r7-binyan" aria-label="בניין, שורה 7"></td><td><input type="text" class="answer" data-id="r7-shempeula" aria-label="שם פעולה, שורה 7"></td></tr>
+              <tr class="row-hard"><td class="row-num">8</td><td class="word-cell">בִּקֵּשׁ <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r8-binyan" aria-label="בניין, שורה 8"></td><td><input type="text" class="answer" data-id="r8-shempeula" aria-label="שם פעולה, שורה 8"></td></tr>
+              <tr class="row-hard"><td class="row-num">9</td><td class="word-cell">קִבֵּל <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r9-binyan" aria-label="בניין, שורה 9"></td><td><input type="text" class="answer" data-id="r9-shempeula" aria-label="שם פעולה, שורה 9"></td></tr>
+              <tr><td class="row-num">10</td><td class="word-cell">הִתְנַגֵּחַ</td><td><input type="text" class="answer" data-id="r10-binyan" aria-label="בניין, שורה 10"></td><td><input type="text" class="answer" data-id="r10-shempeula" aria-label="שם פעולה, שורה 10"></td></tr>
+              <tr><td class="row-num">11</td><td class="word-cell">הִתְדַּבֵּר</td><td><input type="text" class="answer" data-id="r11-binyan" aria-label="בניין, שורה 11"></td><td><input type="text" class="answer" data-id="r11-shempeula" aria-label="שם פעולה, שורה 11"></td></tr>
+              <tr><td class="row-num">12</td><td class="word-cell">הִתְלַבֵּשׁ</td><td><input type="text" class="answer" data-id="r12-binyan" aria-label="בניין, שורה 12"></td><td><input type="text" class="answer" data-id="r12-shempeula" aria-label="שם פעולה, שורה 12"></td></tr>
+              <tr class="row-hard"><td class="row-num">13</td><td class="word-cell">הִסְבִּיר <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r13-binyan" aria-label="בניין, שורה 13"></td><td><input type="text" class="answer" data-id="r13-shempeula" aria-label="שם פעולה, שורה 13"></td></tr>
+              <tr class="row-hard"><td class="row-num">14</td><td class="word-cell">הִשְׁתַּתֵּף <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r14-binyan" aria-label="בניין, שורה 14"></td><td><input type="text" class="answer" data-id="r14-shempeula" aria-label="שם פעולה, שורה 14"></td></tr>
+              <tr class="row-hard"><td class="row-num">15</td><td class="word-cell">הָאִרְגּוּן שֶׁל הַחֶדֶר לָקַח זְמַן. <span class="difficulty-flag">קשה</span> <span class="note-cell">(מצאו את הפועל שממנו נוצר "ארגון")</span></td><td><input type="text" class="answer" data-id="r15-binyan" aria-label="בניין, שורה 15"></td><td><input type="text" class="answer" data-id="r15-shempeula" aria-label="שם פעולה, שורה 15"></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="reveal-wrap">
+          <button class="btn" type="button" id="toggleAnswers">🔎 הצג את כל התשובות</button>
+          <div id="answerKey" hidden>
+            <div class="table-wrap">
+              <table class="mishkal-table">
+                <thead><tr><th class="row-num">#</th><th>פועל</th><th>בניין</th><th>שם פעולה</th></tr></thead>
+                <tbody>
+                  <tr><td class="row-num">1</td><td>הִקְשִׁיב</td><td class="ans-binyan">הפעיל</td><td class="ans-shempeula">הַקְשָׁבָה</td></tr>
+                  <tr><td class="row-num">2</td><td>הִסִּיחַ</td><td class="ans-binyan">הפעיל</td><td class="ans-shempeula">הַסָּחָה</td></tr>
+                  <tr><td class="row-num">3</td><td>הֶעֱמִיד</td><td class="ans-binyan">הפעיל</td><td class="ans-shempeula">הַעֲמָדָה</td></tr>
+                  <tr><td class="row-num">4</td><td>הוֹדִיעַ</td><td class="ans-binyan">הפעיל</td><td class="ans-shempeula">הוֹדָעָה</td></tr>
+                  <tr><td class="row-num">5</td><td>בִּטֵּא</td><td class="ans-binyan">פיעל</td><td class="ans-shempeula">בִּטּוּי</td></tr>
+                  <tr><td class="row-num">6</td><td>נִתֵּחַ</td><td class="ans-binyan">פיעל</td><td class="ans-shempeula">נִתּוּחַ</td></tr>
+                  <tr><td class="row-num">7</td><td>אִרְגֵּן</td><td class="ans-binyan">פיעל</td><td class="ans-shempeula">אִרְגּוּן</td></tr>
+                  <tr><td class="row-num">8</td><td>בִּקֵּשׁ</td><td class="ans-binyan">פיעל</td><td class="ans-shempeula">בַּקָּשָׁה</td></tr>
+                  <tr><td class="row-num">9</td><td>קִבֵּל</td><td class="ans-binyan">פיעל</td><td class="ans-shempeula">קַבָּלָה</td></tr>
+                  <tr><td class="row-num">10</td><td>הִתְנַגֵּחַ</td><td class="ans-binyan">התפעל</td><td class="ans-shempeula">הִתְנַגְּחוּת</td></tr>
+                  <tr><td class="row-num">11</td><td>הִתְדַּבֵּר</td><td class="ans-binyan">התפעל</td><td class="ans-shempeula">הִדַּבְּרוּת</td></tr>
+                  <tr><td class="row-num">12</td><td>הִתְלַבֵּשׁ</td><td class="ans-binyan">התפעל</td><td class="ans-shempeula">הִתְלַבְּשׁוּת</td></tr>
+                  <tr><td class="row-num">13</td><td>הִסְבִּיר</td><td class="ans-binyan">הפעיל</td><td class="ans-shempeula">הַסְבָּרָה</td></tr>
+                  <tr><td class="row-num">14</td><td>הִשְׁתַּתֵּף</td><td class="ans-binyan">התפעל</td><td class="ans-shempeula">הִשְׁתַּתְּפוּת</td></tr>
+                  <tr><td class="row-num">15</td><td>אִרְגֵּן</td><td class="ans-binyan">פיעל</td><td class="ans-shempeula">אִרְגּוּן</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p style="font-size:.82rem; color:var(--ink-soft); margin-top:.5rem;">💡 שימו לב לשורות 8-9: <b>בַּקָּשָׁה</b> ו<b>קַבָּלָה</b> - שתיהן מבניין פיעל, אבל בדגם שם פעולה שונה (קְטָלָה) מ"ביטוי"/"ניתוח"/"ארגון" (קִטּוּל). לכן אי אפשר לומר "פיעל = קיטול" באופן מוחלט.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">מיון</span>
+        <h2 class="card-title">ארבע שאלות בחירה - שימו לב למלכודות</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">1</span><span class="q-text">מהרשימה: בִּטּוּי, נִתּוּחַ, קַבָּלָה, אִרְגּוּן - איזו מילה שונה מהשלוש האחרות בדגם שם הפעולה שלה, אף שכולן מבניין פיעל?</span></div>
+          <div class="mc-group" data-qid="mc1">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="mc1"> בִּטּוּי</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="mc1"> נִתּוּחַ</label>
+            <label class="mc-option" data-value="c" data-correct="true"><input type="radio" name="mc1"> קַבָּלָה</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="mc1"> אִרְגּוּן</label>
+          </div>
+          <p class="mc-feedback" aria-live="polite"></p>
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">2</span><span class="q-text">לאיזה בניין שייך הפועל שממנו נוצר שם הפעולה "הַקְשָׁבָה"?</span></div>
+          <div class="mc-group" data-qid="mc2">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="mc2"> קל</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="mc2"> פיעל</label>
+            <label class="mc-option" data-value="c" data-correct="true"><input type="radio" name="mc2"> הפעיל</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="mc2"> התפעל</label>
+          </div>
+          <p class="mc-feedback" aria-live="polite"></p>
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">3</span><span class="q-text">מהרשימה: הִתְנַגְּחוּת, הִתְלַבְּשׁוּת, הַסְבָּרָה, הִשְׁתַּתְּפוּת - איזו מילה יוצאת דופן, כי הבניין שלה שונה מהשלוש האחרות?</span></div>
+          <div class="mc-group" data-qid="mc3">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="mc3"> הִתְנַגְּחוּת</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="mc3"> הִתְלַבְּשׁוּת</label>
+            <label class="mc-option" data-value="c" data-correct="true"><input type="radio" name="mc3"> הַסְבָּרָה</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="mc3"> הִשְׁתַּתְּפוּת</label>
+          </div>
+          <p class="mc-feedback" aria-live="polite"></p>
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">4</span><span class="q-text">מהרשימה: בַּקָּשָׁה, קַבָּלָה, בִּטּוּי, הוֹדָעָה - אילו שתי מילים נמצאות באותו דגם שם פעולה (קְטָלָה)?</span></div>
+          <div class="mc-group" data-qid="mc4">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="mc4"> בַּקָּשָׁה וְקַבָּלָה</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="mc4"> בַּקָּשָׁה וּבִטּוּי</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="mc4"> קַבָּלָה וְהוֹדָעָה</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="mc4"> בִּטּוּי וְהוֹדָעָה</label>
+          </div>
+          <p class="mc-feedback" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">סיכום</span>
+        <h2 class="card-title">מה למדנו</h2>
+      </div>
+      <div class="card-body">
+        <p>שם פעולה הוא השם של הפעולה עצמה. הפעיל יוצר בדרך כלל הַקְטָלָה (הַקְשָׁבָה, הַסְבָּרָה), והתפעל יוצר הִתְקַטְּלוּת (הִתְנַגְּחוּת, הִשְׁתַּתְּפוּת). פיעל יכול ליצור <b>שני</b> דגמים שונים - קִטּוּל (בִּטּוּי, נִתּוּחַ, אִרְגּוּן) וגם קְטָלָה (בַּקָּשָׁה, קַבָּלָה) - ולכן אי אפשר לומר "פיעל = קיטול" כלל מוחלט.</p>
+        <p style="display:flex; gap:.6rem; flex-wrap:wrap;"><a class="btn primary" href="ivrit-mishkalim-hub.html">➡️ חזרה למפת היחידה</a></p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<div class="toolbar">
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="עברית - משקלים - שיעור 4" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
+
+<footer class="credit">עברית - משקלים · שיעור 4 · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'ivrit-mishkalim-4-answers';
+const NAME_KEY = 'ivrit-mishkalim-4-student';
+const textareas = Array.from(document.querySelectorAll('.answer'));
+const mcGroups = Array.from(document.querySelectorAll('.mc-group'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{ localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value })); }catch(e){}
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){ const data = JSON.parse(raw); nameInput.value = data.name || ''; classInput.value = data.cls || ''; }
+  }catch(e){}
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שדות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  mcGroups.forEach(group => {
+    const checked = group.querySelector('input[type="radio"]:checked');
+    if(checked){ data['mc:' + group.dataset.qid] = checked.closest('.mc-option').dataset.value; }
+  });
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); flashSaved(); }catch(e){ console.error(e); }
+}
+
+function applyMcVisual(option, correct){
+  const group = option.closest('.mc-group');
+  group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong'));
+  option.classList.add(correct ? 'is-correct' : 'is-wrong');
+  const feedback = group.closest('.question-block').querySelector('.mc-feedback');
+  if(feedback){
+    feedback.textContent = correct ? '✓ נכון!' : 'לא בדיוק - נסו שוב';
+    feedback.className = 'mc-feedback ' + (correct ? 'correct' : 'wrong');
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => { if(data[t.dataset.id]){ t.value = data[t.dataset.id]; markFilled(t); } });
+      mcGroups.forEach(group => {
+        const v = data['mc:' + group.dataset.qid];
+        if(v){
+          const option = group.querySelector('.mc-option[data-value="' + v + '"]');
+          if(option){
+            option.querySelector('input[type="radio"]').checked = true;
+            applyMcVisual(option, option.dataset.correct === 'true');
+          }
+        }
+      });
+    }
+  }catch(e){}
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+mcGroups.forEach(group => {
+  group.querySelectorAll('.mc-option').forEach(option => {
+    option.addEventListener('click', () => {
+      const radio = option.querySelector('input[type="radio"]');
+      radio.checked = true;
+      applyMcVisual(option, option.dataset.correct === 'true');
+      saveAnswers();
+    });
+  });
+});
+
+const toggleBtn = document.getElementById('toggleAnswers');
+const answerKey = document.getElementById('answerKey');
+toggleBtn.addEventListener('click', () => {
+  answerKey.hidden = !answerKey.hidden;
+  toggleBtn.textContent = answerKey.hidden ? '🔎 הצג את כל התשובות' : '🙈 הסתר את התשובות';
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות שכתבתם? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  mcGroups.forEach(group => {
+    group.querySelectorAll('input[type="radio"]').forEach(r => { r.checked = false; });
+    group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong'));
+    const feedback = group.closest('.question-block').querySelector('.mc-feedback');
+    if(feedback){ feedback.textContent = ''; feedback.className = 'mc-feedback'; }
+  });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
+
+loadStudentInfo();
+loadAnswers();
+</script>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<script>
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+<script src="assets/progress-tracker.js"></script>
+<script>
+(function(){
+  var submitLink = document.getElementById('submitLink');
+  if(!submitLink) return;
+  var nameEl = document.getElementById('studentName');
+  var classEl = document.getElementById('studentClass');
+  function updateSubmitLink(){
+    var params = new URLSearchParams();
+    params.set('assignment', 'עברית - משקלים - שיעור 4');
+    if(nameEl && nameEl.value.trim()) params.set('name', nameEl.value.trim());
+    if(classEl && classEl.value.trim()) params.set('cls', classEl.value.trim());
+    submitLink.href = 'submit.html?' + params.toString();
+  }
+  [nameEl, classEl].forEach(function(el){ if(el) el.addEventListener('input', updateSubmitLink); });
+  updateSubmitLink();
+})();
+</script>
+<script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
+<script>
+(function(){
+  var btn = document.getElementById('directSubmitBtn');
+  if(!btn) return;
+  btn.addEventListener('click', function(){
+    if(!nameInput.value.trim()){
+      nameInput.focus();
+      alert('לפני ההגשה, כתבו למעלה את שמכם.');
+      return;
+    }
+    if(!confirm('לשלוח את התשובות שמילאתם ישירות למורה עכשיו? לא ניתן לבטל את השליחה.')) return;
+    var originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'שולח...';
+    window.BeitMidrashDirectSubmit.send({
+      studentName: nameInput.value.trim(),
+      studentClass: classInput.value.trim(),
+      assignment: 'עברית - משקלים - שיעור 4',
+      fields: textareas
+    }).then(function(data){
+      if(data && data.ok){
+        alert('ההגשה נשלחה בהצלחה למורה!');
+      } else {
+        throw new Error((data && data.error) || 'שגיאה לא ידועה');
+      }
+    }).catch(function(err){
+      alert('משהו השתבש בשליחה: ' + err.message + '\nאפשר לנסות שוב, או להשתמש בכפתור "הגשת מטלה" הרגיל.');
+    }).finally(function(){
+      btn.disabled = false;
+      btn.textContent = originalText;
+    });
+  });
+})();
+</script>
+</body>
+</html>
