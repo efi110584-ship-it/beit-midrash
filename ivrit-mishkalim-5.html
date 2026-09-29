@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>עברית — משקלים · שיעור 5: משמעות המשקל</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  table.mishkal-table{ width:100%; border-collapse:collapse; font-size:.92rem; }
+  table.mishkal-table th, table.mishkal-table td{ border:1px solid var(--paper-line); padding:.5rem .6rem; text-align:right; vertical-align:middle; }
+  table.mishkal-table thead th{ background:var(--acc-soft); font-weight:700; font-size:.85rem; }
+  table.mishkal-table td.word-cell{ font-family:'Frank Ruhl Libre', serif; font-weight:700; font-size:1.02rem; }
+  table.mishkal-table td.note-cell{ font-size:.8rem; color:var(--ink-soft); }
+  table.mishkal-table input.answer{ width:100%; min-width:6.5rem; box-sizing:border-box; padding:.35rem .5rem; font-size:.9rem; border:1.5px solid var(--paper-line); border-radius:6px; background:#fff; }
+  table.mishkal-table input.answer:focus{ outline:3px solid var(--focus-ring); outline-offset:1px; border-color:var(--acc); }
+  table.mishkal-table input.answer.filled{ border-color:var(--teal); background:var(--teal-soft); }
+  table.mishkal-table tr.row-hard td.word-cell{ color:var(--rust); }
+  .row-num{ color:var(--ink-soft); font-size:.8rem; width:1.8rem; text-align:center; }
+  .difficulty-flag{ display:inline-block; font-size:.68rem; font-weight:700; color:#fff; background:var(--rust); border-radius:999px; padding:.05rem .5rem; margin-inline-start:.4rem; vertical-align:middle; }
+  .reveal-wrap{ margin-top:1rem; }
+  #answerKey{ margin-top:.8rem; }
+  #answerKey table.mishkal-table td{ font-size:.88rem; }
+  #answerKey td.ans-mishkal, #answerKey td.ans-meaning{ font-weight:700; color:var(--teal); }
+</style>
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
+</head>
+<body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">בית המדרש הדיגיטלי</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="ivrit-hub.html">עברית - דקדוק</a>
+  <span class="sep">›</span>
+  <a href="ivrit-mishkalim-hub.html">משקלים</a>
+  <span class="sep">›</span>
+  <span class="current">שיעור 5</span>
+</nav>
+
+<header>
+  <div class="eyebrow">עברית · דקדוק · משקלים · שיעור 5 מתוך 8</div>
+  <h1>משמעות המשקל</h1>
+  <p class="sub">אותה משמעות (כמו "בעל מקצוע") יכולה להופיע בכמה משקלים שונים - ולכן משמעות בלבד אינה מספיקה כדי לקבוע משקל.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 26 שדות</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בשיעור"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main id="main-content">
+  <div class="grid" id="grid">
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">הסבר</span>
+        <h2 class="card-title">"בעל מקצוע" הוא לא משקל - הוא משמעות</h2>
+      </div>
+      <div class="card-body">
+        <p>למשקלים מסוימים יש משמעות שחוזרת על עצמה בהרבה מילים - למשל, כמה משקלים "אוהבים" לתאר <b>בעל מקצוע או בעל תפקיד</b>. אבל שימו לב: <b>המשמעות הזו יכולה להופיע ביותר ממשקל אחד.</b></p>
+        <div class="table-wrap">
+          <table class="mishkal-table">
+            <thead><tr><th>משקל</th><th>דוגמאות</th><th>משמעות משותפת</th></tr></thead>
+            <tbody>
+              <tr><td class="word-cell">קַטָּל</td><td>נַגָּר, זַמָּר</td><td>בעל מקצוע</td></tr>
+              <tr><td class="word-cell">מַקְטִיל</td><td>מַדְרִיךְ, מוֹרֶה</td><td>בעל תפקיד</td></tr>
+              <tr><td class="word-cell">מְקַטֵּל</td><td>מְעַבֵּד, מְסַפֵּר</td><td>בעל עיסוק</td></tr>
+              <tr><td class="word-cell">קַטְלָן</td><td>קַבְּלָן, שַׂחְקָן</td><td>בעל מקצוע</td></tr>
+              <tr><td class="word-cell">קוֹטֵל</td><td>סוֹפֵר, שׁוֹמֵר</td><td>בעל מקצוע</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="remember-block">
+          <span class="src">🧭 מסקנה חשובה</span>
+          <b>"בעל מקצוע" אינו משקל</b> - הוא משמעות שיכולה להופיע בכמה משקלים שונים לגמרי (קַטָּל, מַקְטִיל, מְקַטֵּל, קַטְלָן, קוֹטֵל וכו'). לכן אי אפשר לזהות משקל רק לפי המשמעות - צריך תמיד לבדוק את השורש והתבנית עצמה, כמו שלמדנו בשיעורים הקודמים.
+        </div>
+        <p style="font-size:.85rem; color:var(--ink-soft);">💡 תזכורת משיעור 4: גם ההפך נכון - שם פעולה (המשמעות "הפעולה עצמה") יכול להופיע ביותר ממשקל אחד, תלוי בבניין (הַקְשָׁבָה לעומת בִּטּוּי).</p>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תרגול</span>
+        <h2 class="card-title">זהו משקל ומשמעות לכל מילה</h2>
+      </div>
+      <div class="card-body">
+        <p style="font-size:.88rem; color:var(--ink-soft); margin:0 0 .7rem;">השלימו את הטבלה - מהקל לקשה. בעמודת המשמעות אפשר לכתוב, למשל: בעל מקצוע/תפקיד, שם תואר, מקום/מבנה, חפץ. מילים עם <span class="difficulty-flag">קשה</span> דורשות תשומת לב מיוחדת.</p>
+        <div class="table-wrap">
+          <table class="mishkal-table">
+            <thead><tr><th class="row-num">#</th><th>מילה</th><th>משקל</th><th>משמעות</th></tr></thead>
+            <tbody>
+              <tr><td class="row-num">1</td><td class="word-cell">נַגָּר</td><td><input type="text" class="answer" data-id="r1-mishkal" aria-label="משקל, שורה 1"></td><td><input type="text" class="answer" data-id="r1-meaning" aria-label="משמעות, שורה 1"></td></tr>
+              <tr><td class="row-num">2</td><td class="word-cell">מוֹרֶה</td><td><input type="text" class="answer" data-id="r2-mishkal" aria-label="משקל, שורה 2"></td><td><input type="text" class="answer" data-id="r2-meaning" aria-label="משמעות, שורה 2"></td></tr>
+              <tr><td class="row-num">3</td><td class="word-cell">מְעַבֵּד</td><td><input type="text" class="answer" data-id="r3-mishkal" aria-label="משקל, שורה 3"></td><td><input type="text" class="answer" data-id="r3-meaning" aria-label="משמעות, שורה 3"></td></tr>
+              <tr><td class="row-num">4</td><td class="word-cell">מְסַפֵּר</td><td><input type="text" class="answer" data-id="r4-mishkal" aria-label="משקל, שורה 4"></td><td><input type="text" class="answer" data-id="r4-meaning" aria-label="משמעות, שורה 4"></td></tr>
+              <tr><td class="row-num">5</td><td class="word-cell">קַבְּלָן</td><td><input type="text" class="answer" data-id="r5-mishkal" aria-label="משקל, שורה 5"></td><td><input type="text" class="answer" data-id="r5-meaning" aria-label="משמעות, שורה 5"></td></tr>
+              <tr><td class="row-num">6</td><td class="word-cell">שַׂחְקָן</td><td><input type="text" class="answer" data-id="r6-mishkal" aria-label="משקל, שורה 6"></td><td><input type="text" class="answer" data-id="r6-meaning" aria-label="משמעות, שורה 6"></td></tr>
+              <tr><td class="row-num">7</td><td class="word-cell">מִגְדָּל <span class="note-cell">(שימו לב: לא בעל מקצוע!)</span></td><td><input type="text" class="answer" data-id="r7-mishkal" aria-label="משקל, שורה 7"></td><td><input type="text" class="answer" data-id="r7-meaning" aria-label="משמעות, שורה 7"></td></tr>
+              <tr><td class="row-num">8</td><td class="word-cell">מִכְתָּב</td><td><input type="text" class="answer" data-id="r8-mishkal" aria-label="משקל, שורה 8"></td><td><input type="text" class="answer" data-id="r8-meaning" aria-label="משמעות, שורה 8"></td></tr>
+              <tr><td class="row-num">9</td><td class="word-cell">יָדוּעַ</td><td><input type="text" class="answer" data-id="r9-mishkal" aria-label="משקל, שורה 9"></td><td><input type="text" class="answer" data-id="r9-meaning" aria-label="משמעות, שורה 9"></td></tr>
+              <tr><td class="row-num">10</td><td class="word-cell">מֻגְבָּל</td><td><input type="text" class="answer" data-id="r10-mishkal" aria-label="משקל, שורה 10"></td><td><input type="text" class="answer" data-id="r10-meaning" aria-label="משמעות, שורה 10"></td></tr>
+              <tr class="row-hard"><td class="row-num">11</td><td class="word-cell">סוֹפֵר <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r11-mishkal" aria-label="משקל, שורה 11"></td><td><input type="text" class="answer" data-id="r11-meaning" aria-label="משמעות, שורה 11"></td></tr>
+              <tr class="row-hard"><td class="row-num">12</td><td class="word-cell">מְקֻשָּׁט <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r12-mishkal" aria-label="משקל, שורה 12"></td><td><input type="text" class="answer" data-id="r12-meaning" aria-label="משמעות, שורה 12"></td></tr>
+              <tr class="row-hard"><td class="row-num">13</td><td class="word-cell">הוּא כַּתָּב בְּעִתּוֹן גָּדוֹל. <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r13-mishkal" aria-label="משקל, שורה 13"></td><td><input type="text" class="answer" data-id="r13-meaning" aria-label="משמעות, שורה 13"></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="reveal-wrap">
+          <button class="btn" type="button" id="toggleAnswers">🔎 הצג את כל התשובות</button>
+          <div id="answerKey" hidden>
+            <div class="table-wrap">
+              <table class="mishkal-table">
+                <thead><tr><th class="row-num">#</th><th>מילה</th><th>משקל</th><th>משמעות</th></tr></thead>
+                <tbody>
+                  <tr><td class="row-num">1</td><td>נַגָּר</td><td class="ans-mishkal">קַטָּל</td><td class="ans-meaning">בעל מקצוע</td></tr>
+                  <tr><td class="row-num">2</td><td>מוֹרֶה</td><td class="ans-mishkal">מַקְטִיל</td><td class="ans-meaning">בעל תפקיד</td></tr>
+                  <tr><td class="row-num">3</td><td>מְעַבֵּד</td><td class="ans-mishkal">מְקַטֵּל</td><td class="ans-meaning">בעל עיסוק</td></tr>
+                  <tr><td class="row-num">4</td><td>מְסַפֵּר</td><td class="ans-mishkal">מְקַטֵּל</td><td class="ans-meaning">בעל עיסוק</td></tr>
+                  <tr><td class="row-num">5</td><td>קַבְּלָן</td><td class="ans-mishkal">קַטְלָן</td><td class="ans-meaning">בעל מקצוע</td></tr>
+                  <tr><td class="row-num">6</td><td>שַׂחְקָן</td><td class="ans-mishkal">קַטְלָן</td><td class="ans-meaning">בעל מקצוע</td></tr>
+                  <tr><td class="row-num">7</td><td>מִגְדָּל</td><td class="ans-mishkal">מִקְטָל</td><td class="ans-meaning">מקום/מבנה</td></tr>
+                  <tr><td class="row-num">8</td><td>מִכְתָּב</td><td class="ans-mishkal">מִקְטָל</td><td class="ans-meaning">חפץ/מסמך</td></tr>
+                  <tr><td class="row-num">9</td><td>יָדוּעַ</td><td class="ans-mishkal">קָטוּל</td><td class="ans-meaning">שם תואר</td></tr>
+                  <tr><td class="row-num">10</td><td>מֻגְבָּל</td><td class="ans-mishkal">מֻקְטָל</td><td class="ans-meaning">שם תואר</td></tr>
+                  <tr><td class="row-num">11</td><td>סוֹפֵר</td><td class="ans-mishkal">קוֹטֵל</td><td class="ans-meaning">בעל מקצוע</td></tr>
+                  <tr><td class="row-num">12</td><td>מְקֻשָּׁט</td><td class="ans-mishkal">מְקֻטָּל</td><td class="ans-meaning">שם תואר</td></tr>
+                  <tr><td class="row-num">13</td><td>כַּתָּב</td><td class="ans-mishkal">קַטָּל</td><td class="ans-meaning">בעל מקצוע</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p style="font-size:.82rem; color:var(--ink-soft); margin-top:.5rem;">💡 שימו לב: שורות 1, 5, 6, 11 ו-13 - חמישה משקלים שונים לגמרי (קַטָּל, קַטְלָן, קוֹטֵל...), וכולם מבטאים "בעל מקצוע". וְ<b>מִגְדָּל</b> (שורה 7) - נראה דומה בצורתו ל"מעבד"/"מספר" (שניהם מתחילים ב-מ), אבל משמעותו שונה לגמרי - הוא לא בעל מקצוע.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">מיון</span>
+        <h2 class="card-title">ארבע שאלות בחירה - שימו לב למלכודות</h2>
+      </div>
+      <div class="card-body">
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">1</span><span class="q-text">נַגָּר, מוֹרֶה, מְעַבֵּד, קַבְּלָן - למרות שכולן במשקלים שונים, מה משותף לכולן מבחינת המשמעות?</span></div>
+          <div class="mc-group" data-qid="mc1">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="mc1"> כולן שמות תואר</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="mc1"> כולן מבטאות בעל מקצוע/תפקיד</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="mc1"> כולן שמות פעולה</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="mc1"> כולן שמות מקום</label>
+          </div>
+          <p class="mc-feedback" aria-live="polite"></p>
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">2</span><span class="q-text">מהרשימה: מְעַבֵּד, מִגְדָּל, מְסַפֵּר, מַדְרִיךְ - איזו מילה שונה מהשלוש האחרות מבחינת המשמעות (אינה מבטאת בעל עיסוק/תפקיד)?</span></div>
+          <div class="mc-group" data-qid="mc2">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="mc2"> מְעַבֵּד</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="mc2"> מִגְדָּל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="mc2"> מְסַפֵּר</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="mc2"> מַדְרִיךְ</label>
+          </div>
+          <p class="mc-feedback" aria-live="polite"></p>
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">3</span><span class="q-text">מהו המשקל של הַמִּילָה "סוֹפֵר" (במשמעות "מי שכותב ספרים")?</span></div>
+          <div class="mc-group" data-qid="mc3">
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="mc3"> קוֹטֵל</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="mc3"> מַקְטִיל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="mc3"> מְקַטֵּל</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="mc3"> קַטְלָן</label>
+          </div>
+          <p class="mc-feedback" aria-live="polite"></p>
+        </div>
+        <div class="question-block">
+          <div class="question-row"><span class="q-num">4</span><span class="q-text">מהרשימה: יָדוּעַ, מֻגְבָּל, מְקֻשָּׁט, נַגָּר - איזו מילה יוצאת דופן מבחינת המשמעות (אינה שם תואר)?</span></div>
+          <div class="mc-group" data-qid="mc4">
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="mc4"> יָדוּעַ</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="mc4"> מֻגְבָּל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="mc4"> מְקֻשָּׁט</label>
+            <label class="mc-option" data-value="d" data-correct="true"><input type="radio" name="mc4"> נַגָּר</label>
+          </div>
+          <p class="mc-feedback" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">סיכום</span>
+        <h2 class="card-title">מה למדנו</h2>
+      </div>
+      <div class="card-body">
+        <p>"בעל מקצוע" אינו משקל - הוא משמעות שיכולה להופיע בכמה משקלים שונים לגמרי: קַטָּל (נַגָּר), מַקְטִיל (מוֹרֶה), מְקַטֵּל (מְעַבֵּד), קַטְלָן (קַבְּלָן), קוֹטֵל (סוֹפֵר). לכן אסור לקבוע משקל לפי המשמעות בלבד - תמיד בודקים את השורש והתבנית. וגם ההפך נכון: מילים שנראות דומות (כמו מְעַבֵּד ומִגְדָּל, שתיהן מתחילות ב-מ) יכולות להיות שונות לגמרי במשמעות.</p>
+        <p style="display:flex; gap:.6rem; flex-wrap:wrap;"><a class="btn primary" href="ivrit-mishkalim-hub.html">➡️ חזרה למפת היחידה</a></p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<div class="toolbar">
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="עברית - משקלים - שיעור 5" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
+
+<footer class="credit">עברית - משקלים · שיעור 5 · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'ivrit-mishkalim-5-answers';
+const NAME_KEY = 'ivrit-mishkalim-5-student';
+const textareas = Array.from(document.querySelectorAll('.answer'));
+const mcGroups = Array.from(document.querySelectorAll('.mc-group'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{ localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value })); }catch(e){}
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){ const data = JSON.parse(raw); nameInput.value = data.name || ''; classInput.value = data.cls || ''; }
+  }catch(e){}
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שדות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  mcGroups.forEach(group => {
+    const checked = group.querySelector('input[type="radio"]:checked');
+    if(checked){ data['mc:' + group.dataset.qid] = checked.closest('.mc-option').dataset.value; }
+  });
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); flashSaved(); }catch(e){ console.error(e); }
+}
+
+function applyMcVisual(option, correct){
+  const group = option.closest('.mc-group');
+  group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong'));
+  option.classList.add(correct ? 'is-correct' : 'is-wrong');
+  const feedback = group.closest('.question-block').querySelector('.mc-feedback');
+  if(feedback){
+    feedback.textContent = correct ? '✓ נכון!' : 'לא בדיוק - נסו שוב';
+    feedback.className = 'mc-feedback ' + (correct ? 'correct' : 'wrong');
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => { if(data[t.dataset.id]){ t.value = data[t.dataset.id]; markFilled(t); } });
+      mcGroups.forEach(group => {
+        const v = data['mc:' + group.dataset.qid];
+        if(v){
+          const option = group.querySelector('.mc-option[data-value="' + v + '"]');
+          if(option){
+            option.querySelector('input[type="radio"]').checked = true;
+            applyMcVisual(option, option.dataset.correct === 'true');
+          }
+        }
+      });
+    }
+  }catch(e){}
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+mcGroups.forEach(group => {
+  group.querySelectorAll('.mc-option').forEach(option => {
+    option.addEventListener('click', () => {
+      const radio = option.querySelector('input[type="radio"]');
+      radio.checked = true;
+      applyMcVisual(option, option.dataset.correct === 'true');
+      saveAnswers();
+    });
+  });
+});
+
+const toggleBtn = document.getElementById('toggleAnswers');
+const answerKey = document.getElementById('answerKey');
+toggleBtn.addEventListener('click', () => {
+  answerKey.hidden = !answerKey.hidden;
+  toggleBtn.textContent = answerKey.hidden ? '🔎 הצג את כל התשובות' : '🙈 הסתר את התשובות';
+});
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות שכתבתם? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  mcGroups.forEach(group => {
+    group.querySelectorAll('input[type="radio"]').forEach(r => { r.checked = false; });
+    group.querySelectorAll('.mc-option').forEach(o => o.classList.remove('is-correct', 'is-wrong'));
+    const feedback = group.closest('.question-block').querySelector('.mc-feedback');
+    if(feedback){ feedback.textContent = ''; feedback.className = 'mc-feedback'; }
+  });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
+
+loadStudentInfo();
+loadAnswers();
+</script>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<script>
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+<script src="assets/progress-tracker.js"></script>
+<script>
+(function(){
+  var submitLink = document.getElementById('submitLink');
+  if(!submitLink) return;
+  var nameEl = document.getElementById('studentName');
+  var classEl = document.getElementById('studentClass');
+  function updateSubmitLink(){
+    var params = new URLSearchParams();
+    params.set('assignment', 'עברית - משקלים - שיעור 5');
+    if(nameEl && nameEl.value.trim()) params.set('name', nameEl.value.trim());
+    if(classEl && classEl.value.trim()) params.set('cls', classEl.value.trim());
+    submitLink.href = 'submit.html?' + params.toString();
+  }
+  [nameEl, classEl].forEach(function(el){ if(el) el.addEventListener('input', updateSubmitLink); });
+  updateSubmitLink();
+})();
+</script>
+<script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
+<script>
+(function(){
+  var btn = document.getElementById('directSubmitBtn');
+  if(!btn) return;
+  btn.addEventListener('click', function(){
+    if(!nameInput.value.trim()){
+      nameInput.focus();
+      alert('לפני ההגשה, כתבו למעלה את שמכם.');
+      return;
+    }
+    if(!confirm('לשלוח את התשובות שמילאתם ישירות למורה עכשיו? לא ניתן לבטל את השליחה.')) return;
+    var originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'שולח...';
+    window.BeitMidrashDirectSubmit.send({
+      studentName: nameInput.value.trim(),
+      studentClass: classInput.value.trim(),
+      assignment: 'עברית - משקלים - שיעור 5',
+      fields: textareas
+    }).then(function(data){
+      if(data && data.ok){
+        alert('ההגשה נשלחה בהצלחה למורה!');
+      } else {
+        throw new Error((data && data.error) || 'שגיאה לא ידועה');
+      }
+    }).catch(function(err){
+      alert('משהו השתבש בשליחה: ' + err.message + '\nאפשר לנסות שוב, או להשתמש בכפתור "הגשת מטלה" הרגיל.');
+    }).finally(function(){
+      btn.disabled = false;
+      btn.textContent = originalText;
+    });
+  });
+})();
+</script>
+</body>
+</html>
