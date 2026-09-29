@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>עברית — משקלים · שיעור 6: שורש+משקל לעומת בסיס+צורן</title>
+<title>עברית — משקלים · שיעור 7: ההקשר קובע</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@
   .reveal-wrap{ margin-top:1rem; }
   #answerKey{ margin-top:.8rem; }
   #answerKey table.mishkal-table td{ font-size:.85rem; }
-  #answerKey td.ans-way, #answerKey td.ans-detail{ font-weight:700; color:var(--teal); }
+  #answerKey td.ans-meaning, #answerKey td.ans-mishkal{ font-weight:700; color:var(--teal); }
 </style>
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
@@ -40,13 +40,13 @@
   <span class="sep">›</span>
   <a href="ivrit-mishkalim-hub.html">משקלים</a>
   <span class="sep">›</span>
-  <span class="current">שיעור 6</span>
+  <span class="current">שיעור 7</span>
 </nav>
 
 <header>
-  <div class="eyebrow">עברית · דקדוק · משקלים · שיעור 6 מתוך 8</div>
-  <h1>שורש+משקל לעומת בסיס+צורן</h1>
-  <p class="sub">לפני שמחפשים משקל, בודקים איך המילה נוצרה בכלל.</p>
+  <div class="eyebrow">עברית · דקדוק · משקלים · שיעור 7 מתוך 8</div>
+  <h1>ההקשר קובע</h1>
+  <p class="sub">אותה מילה כתובה יכולה להתפרש בכמה דרכים - ורק המשפט מגלה איזו.</p>
   <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
 
   <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
@@ -64,7 +64,7 @@
 <p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
 <div class="progress-wrap">
-  <span class="progress-label" id="progressLabel">0 / 22 שדות</span>
+  <span class="progress-label" id="progressLabel">0 / 20 שדות</span>
   <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בשיעור"><div class="progress-fill" id="progressFill"></div></div>
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
@@ -75,51 +75,59 @@
     <section class="card" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">הסבר</span>
-        <h2 class="card-title">שתי דרכים ליצור מילה חדשה</h2>
+        <h2 class="card-title">קודם קוראים את המשפט, ורק אז מנתחים מילה</h2>
       </div>
       <div class="card-body">
-        <p>עד עכשיו למדנו שמילה נוצרת כך: <b>שורש (3 אותיות) + משקל</b> (התבנית). אבל יש גם דרך שנייה ליצור מילה: <b>בסיס + צורן</b> - לוקחים <b>מילה שכבר קיימת</b> (הבסיס) ומוסיפים לה תוספת (הצורן).</p>
+        <p><b>כלל-על:</b> לעולם לא מנתחים מילה בודדת מנותקת ממשפט. אותה שרשרת אותיות יכולה להתפרש בכמה דרכים שונות - וההחלטה איזו פרשנות נכונה תלויה <b>רק</b> במשפט שסביבה.</p>
+        <p>יש שני סוגים של מקרים:</p>
+        <p><b>סוג א׳ - גם המשקל משתנה:</b></p>
         <div class="table-wrap">
           <table class="mishkal-table">
-            <thead><tr><th>מילה</th><th>דרך תצורה</th><th>פירוט</th></tr></thead>
+            <thead><tr><th>משפט</th><th>פירוש המילה</th><th>משקל</th></tr></thead>
             <tbody>
-              <tr><td class="word-cell">מוּזִיקַאי</td><td>בסיס + צורן</td><td>בסיס: <b>מוּזִיקָה</b> (מילה קיימת) + צורן: <b>אִי</b> (=בעל עיסוק)</td></tr>
-              <tr><td class="word-cell">נַגָּר</td><td>שורש + משקל</td><td>שורש: <b>נ־ג־ר</b> (לא מילה בפני עצמה!) + משקל: <b>קַטָּל</b></td></tr>
+              <tr><td>קָרָאתִי <b>סֵפֶר</b> מְעַנְיֵן.</td><td>שם עצם - חפץ לקריאה</td><td class="word-cell">קֶטֶל</td></tr>
+              <tr><td>אַבָּא שֶׁלִּי עוֹבֵד כְּ<b>סַפָּר</b>.</td><td>שם עצם - בעל מקצוע</td><td class="word-cell">קַטָּל</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><b>סוג ב׳ - המשקל נשאר זהה, רק המשמעות/התפקיד משתנים:</b></p>
+        <div class="table-wrap">
+          <table class="mishkal-table">
+            <thead><tr><th>משפט</th><th>פירוש המילה</th><th>משקל</th></tr></thead>
+            <tbody>
+              <tr><td>הַיֶּלֶד <b>מַשְׁקֶה</b> אֶת הַפְּרָחִים.</td><td>פועל</td><td class="word-cell">מַקְטִיל</td></tr>
+              <tr><td>עַל הַשֻּׁלְחָן הָיָה <b>מַשְׁקֶה</b> קַר.</td><td>שם עצם</td><td class="word-cell">מַקְטִיל (זהה!)</td></tr>
             </tbody>
           </table>
         </div>
         <div class="remember-block">
-          <span class="src">🧭 בדיקת אימות - איך מחליטים?</span>
-          שאלו: <b>אם מסירים את החלק החשוד (הצורן), האם נשארת מילה קיימת ומוכרת בעברית?</b><br>
-          • כן נשארת מילה קיימת (כמו "מוזיקה" ב"מוזיקאי") ← <b>בסיס + צורן</b>.<br>
-          • לא - מה שנשאר הוא רק 3 אותיות בלי משמעות עצמאית (כמו נ־ג־ר) ← <b>שורש + משקל</b>.
+          <span class="src">🧭 כלל מרכזי</span>
+          קוראים את כל המשפט <b>לפני</b> שמחליטים מהי המילה. לפעמים ההקשר משנה גם את המשקל (כמו סֵפֶר/סַפָּר), ולפעמים המשקל נשאר זהה אך המשמעות או התפקיד במשפט משתנים (כמו מַשְׁקֶה).
         </div>
-        <p style="font-size:.85rem; color:var(--ink-soft);">💡 שימו לב: גם "פִּזְמוֹנַאי" נוצר כך - בסיס <b>פִּזְמוֹן</b> (מילה קיימת) + צורן <b>אִי</b>. העובדה שגם ל"פזמון" עצמו יש שורש ומשקל משלו לא משנה - השאלה כאן היא רק איך <b>נוצרה מילת ה-אי</b> החדשה.</p>
       </div>
     </section>
 
     <section class="card" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תרגול</span>
-        <h2 class="card-title">זהו את דרך התצורה, ופרטו</h2>
+        <h2 class="card-title">זהו את פירוש המילה המודגשת בהקשר, ואת משקלה</h2>
       </div>
       <div class="card-body">
-        <p style="font-size:.88rem; color:var(--ink-soft); margin:0 0 .7rem;">לכל מילה: כתבו "שורש+משקל" או "בסיס+צורן", ואז פרטו (שורש ומשקל, או בסיס וצורן). מילים עם <span class="difficulty-flag">קשה</span> דורשות תשומת לב מיוחדת.</p>
+        <p style="font-size:.88rem; color:var(--ink-soft); margin:0 0 .7rem;">בכל שורה: קראו את המשפט קודם, ורק אז כתבו את פירוש המילה המודגשת (חלק דיבור/משמעות) ואת משקלה. מילים עם <span class="difficulty-flag">קשה</span> דורשות תשומת לב מיוחדת.</p>
         <div class="table-wrap">
           <table class="mishkal-table">
-            <thead><tr><th class="row-num">#</th><th>מילה</th><th>דרך תצורה</th><th>פירוט</th></tr></thead>
+            <thead><tr><th class="row-num">#</th><th>משפט</th><th>פירוש בהקשר</th><th>משקל</th></tr></thead>
             <tbody>
-              <tr><td class="row-num">1</td><td class="word-cell">מוּזִיקַאי</td><td><input type="text" class="answer" data-id="r1-way" aria-label="דרך תצורה, שורה 1"></td><td><input type="text" class="answer" data-id="r1-detail" aria-label="פירוט, שורה 1"></td></tr>
-              <tr><td class="row-num">2</td><td class="word-cell">טֶנִיסַאי</td><td><input type="text" class="answer" data-id="r2-way" aria-label="דרך תצורה, שורה 2"></td><td><input type="text" class="answer" data-id="r2-detail" aria-label="פירוט, שורה 2"></td></tr>
-              <tr><td class="row-num">3</td><td class="word-cell">יוֹמִי <span class="note-cell">("ביקור יומי")</span></td><td><input type="text" class="answer" data-id="r3-way" aria-label="דרך תצורה, שורה 3"></td><td><input type="text" class="answer" data-id="r3-detail" aria-label="פירוט, שורה 3"></td></tr>
-              <tr><td class="row-num">4</td><td class="word-cell">פִּתְאוֹמִי</td><td><input type="text" class="answer" data-id="r4-way" aria-label="דרך תצורה, שורה 4"></td><td><input type="text" class="answer" data-id="r4-detail" aria-label="פירוט, שורה 4"></td></tr>
-              <tr><td class="row-num">5</td><td class="word-cell">נַגָּר</td><td><input type="text" class="answer" data-id="r5-way" aria-label="דרך תצורה, שורה 5"></td><td><input type="text" class="answer" data-id="r5-detail" aria-label="פירוט, שורה 5"></td></tr>
-              <tr><td class="row-num">6</td><td class="word-cell">מִכְתָּב</td><td><input type="text" class="answer" data-id="r6-way" aria-label="דרך תצורה, שורה 6"></td><td><input type="text" class="answer" data-id="r6-detail" aria-label="פירוט, שורה 6"></td></tr>
-              <tr><td class="row-num">7</td><td class="word-cell">קַבְּלָן</td><td><input type="text" class="answer" data-id="r7-way" aria-label="דרך תצורה, שורה 7"></td><td><input type="text" class="answer" data-id="r7-detail" aria-label="פירוט, שורה 7"></td></tr>
-              <tr class="row-hard"><td class="row-num">8</td><td class="word-cell">פְּסִיכוֹלוֹגִית <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r8-way" aria-label="דרך תצורה, שורה 8"></td><td><input type="text" class="answer" data-id="r8-detail" aria-label="פירוט, שורה 8"></td></tr>
-              <tr class="row-hard"><td class="row-num">9</td><td class="word-cell">אֲמֶרִיקָאִי <span class="difficulty-flag">קשה</span> <span class="note-cell">(שימו לב: ה"ה" של "אמריקה" נשמטת)</span></td><td><input type="text" class="answer" data-id="r9-way" aria-label="דרך תצורה, שורה 9"></td><td><input type="text" class="answer" data-id="r9-detail" aria-label="פירוט, שורה 9"></td></tr>
-              <tr class="row-hard"><td class="row-num">10</td><td class="word-cell">מִגְדָּל <span class="difficulty-flag">קשה</span> <span class="note-cell">(שימו לב היטב!)</span></td><td><input type="text" class="answer" data-id="r10-way" aria-label="דרך תצורה, שורה 10"></td><td><input type="text" class="answer" data-id="r10-detail" aria-label="פירוט, שורה 10"></td></tr>
-              <tr class="row-hard"><td class="row-num">11</td><td class="word-cell">הוּא מוּזִיקַאי מוּכְשָׁר. <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r11-way" aria-label="דרך תצורה, שורה 11"></td><td><input type="text" class="answer" data-id="r11-detail" aria-label="פירוט, שורה 11"></td></tr>
+              <tr><td class="row-num">1</td><td class="word-cell">קָרָאתִי <b>סֵפֶר</b> מְרַתֵּק.</td><td><input type="text" class="answer" data-id="r1-meaning" aria-label="פירוש, שורה 1"></td><td><input type="text" class="answer" data-id="r1-mishkal" aria-label="משקל, שורה 1"></td></tr>
+              <tr><td class="row-num">2</td><td class="word-cell">אַבָּא שֶׁלִּי עוֹבֵד כְּ<b>סַפָּר</b> בָּעִיר.</td><td><input type="text" class="answer" data-id="r2-meaning" aria-label="פירוש, שורה 2"></td><td><input type="text" class="answer" data-id="r2-mishkal" aria-label="משקל, שורה 2"></td></tr>
+              <tr><td class="row-num">3</td><td class="word-cell">הַיֶּלֶד <b>מַשְׁקֶה</b> אֶת הַפְּרָחִים בְּכָל בֹּקֶר.</td><td><input type="text" class="answer" data-id="r3-meaning" aria-label="פירוש, שורה 3"></td><td><input type="text" class="answer" data-id="r3-mishkal" aria-label="משקל, שורה 3"></td></tr>
+              <tr><td class="row-num">4</td><td class="word-cell">עַל הַשֻּׁלְחָן הָיָה <b>מַשְׁקֶה</b> קַר.</td><td><input type="text" class="answer" data-id="r4-meaning" aria-label="פירוש, שורה 4"></td><td><input type="text" class="answer" data-id="r4-mishkal" aria-label="משקל, שורה 4"></td></tr>
+              <tr><td class="row-num">5</td><td class="word-cell"><b>אִרְגּוּן</b> הַחֶדֶר לִפְנֵי הַמְּסִבָּה לָקַח שָׁעָה.</td><td><input type="text" class="answer" data-id="r5-meaning" aria-label="פירוש, שורה 5"></td><td><input type="text" class="answer" data-id="r5-mishkal" aria-label="משקל, שורה 5"></td></tr>
+              <tr><td class="row-num">6</td><td class="word-cell">הָ<b>אִרְגּוּן</b> שֶׁלָּנוּ עוֹזֵר לְנִזְקָקִים.</td><td><input type="text" class="answer" data-id="r6-meaning" aria-label="פירוש, שורה 6"></td><td><input type="text" class="answer" data-id="r6-mishkal" aria-label="משקל, שורה 6"></td></tr>
+              <tr class="row-hard"><td class="row-num">7</td><td class="word-cell">הָ<b>עוֹלֶה</b> הֶחָדָשׁ הִגִּיעַ לָאָרֶץ. <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r7-meaning" aria-label="פירוש, שורה 7"></td><td><input type="text" class="answer" data-id="r7-mishkal" aria-label="משקל, שורה 7"></td></tr>
+              <tr class="row-hard"><td class="row-num">8</td><td class="word-cell">מְחִיר הַלֶּחֶם <b>עוֹלֶה</b> כָּל שָׁנָה. <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r8-meaning" aria-label="פירוש, שורה 8"></td><td><input type="text" class="answer" data-id="r8-mishkal" aria-label="משקל, שורה 8"></td></tr>
+              <tr class="row-hard"><td class="row-num">9</td><td class="word-cell">יֵשׁ לִי הַרְבֵּה <b>כֶּסֶף</b> בָּאַרְנָק. <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r9-meaning" aria-label="פירוש, שורה 9"></td><td><input type="text" class="answer" data-id="r9-mishkal" aria-label="משקל, שורה 9"></td></tr>
+              <tr class="row-hard"><td class="row-num">10</td><td class="word-cell">סַבָּא שֶׁלִּי הָיָה <b>כַּסָּף</b> מֻמְחֶה. <span class="difficulty-flag">קשה</span></td><td><input type="text" class="answer" data-id="r10-meaning" aria-label="פירוש, שורה 10"></td><td><input type="text" class="answer" data-id="r10-mishkal" aria-label="משקל, שורה 10"></td></tr>
             </tbody>
           </table>
         </div>
@@ -129,23 +137,22 @@
           <div id="answerKey" hidden>
             <div class="table-wrap">
               <table class="mishkal-table">
-                <thead><tr><th class="row-num">#</th><th>מילה</th><th>דרך תצורה</th><th>פירוט</th></tr></thead>
+                <thead><tr><th class="row-num">#</th><th>מילה</th><th>פירוש בהקשר</th><th>משקל</th></tr></thead>
                 <tbody>
-                  <tr><td class="row-num">1</td><td>מוּזִיקַאי</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">בסיס: מוזיקה | צורן: אי</td></tr>
-                  <tr><td class="row-num">2</td><td>טֶנִיסַאי</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">בסיס: טניס | צורן: אי</td></tr>
-                  <tr><td class="row-num">3</td><td>יוֹמִי</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">בסיס: יום | צורן: י</td></tr>
-                  <tr><td class="row-num">4</td><td>פִּתְאוֹמִי</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">בסיס: פתאום | צורן: י</td></tr>
-                  <tr><td class="row-num">5</td><td>נַגָּר</td><td class="ans-way">שורש+משקל</td><td class="ans-detail">שורש: נ־ג־ר | משקל: קַטָּל</td></tr>
-                  <tr><td class="row-num">6</td><td>מִכְתָּב</td><td class="ans-way">שורש+משקל</td><td class="ans-detail">שורש: כ־ת־ב | משקל: מִקְטָל</td></tr>
-                  <tr><td class="row-num">7</td><td>קַבְּלָן</td><td class="ans-way">שורש+משקל</td><td class="ans-detail">שורש: ק־ב־ל | משקל: קַטְלָן</td></tr>
-                  <tr><td class="row-num">8</td><td>פְּסִיכוֹלוֹגִית</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">בסיס: פסיכולוג | צורן: ית</td></tr>
-                  <tr><td class="row-num">9</td><td>אֲמֶרִיקָאִי</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">בסיס: אמריקה (בלי ה') | צורן: אי</td></tr>
-                  <tr><td class="row-num">10</td><td>מִגְדָּל</td><td class="ans-way">שורש+משקל</td><td class="ans-detail">שורש: ג־ד־ל | משקל: מִקְטָל</td></tr>
-                  <tr><td class="row-num">11</td><td>מוּזִיקַאי</td><td class="ans-way">בסיס+צורן</td><td class="ans-detail">בסיס: מוזיקה | צורן: אי</td></tr>
+                  <tr><td class="row-num">1</td><td>סֵפֶר</td><td class="ans-meaning">שם עצם - חפץ לקריאה</td><td class="ans-mishkal">קֶטֶל</td></tr>
+                  <tr><td class="row-num">2</td><td>סַפָּר</td><td class="ans-meaning">שם עצם - בעל מקצוע</td><td class="ans-mishkal">קַטָּל</td></tr>
+                  <tr><td class="row-num">3</td><td>מַשְׁקֶה</td><td class="ans-meaning">פועל</td><td class="ans-mishkal">מַקְטִיל</td></tr>
+                  <tr><td class="row-num">4</td><td>מַשְׁקֶה</td><td class="ans-meaning">שם עצם</td><td class="ans-mishkal">מַקְטִיל</td></tr>
+                  <tr><td class="row-num">5</td><td>אִרְגּוּן</td><td class="ans-meaning">שם פעולה (הפעולה עצמה)</td><td class="ans-mishkal">קִטּוּל</td></tr>
+                  <tr><td class="row-num">6</td><td>אִרְגּוּן</td><td class="ans-meaning">שם עצם - גוף/מוסד</td><td class="ans-mishkal">קִטּוּל</td></tr>
+                  <tr><td class="row-num">7</td><td>עוֹלֶה</td><td class="ans-meaning">שם עצם - עולה חדש</td><td class="ans-mishkal">קוֹטֵל</td></tr>
+                  <tr><td class="row-num">8</td><td>עוֹלֶה</td><td class="ans-meaning">פועל - מתייקר</td><td class="ans-mishkal">קוֹטֵל</td></tr>
+                  <tr><td class="row-num">9</td><td>כֶּסֶף</td><td class="ans-meaning">שם עצם - מטבע/מתכת</td><td class="ans-mishkal">קֶטֶל</td></tr>
+                  <tr><td class="row-num">10</td><td>כַּסָּף</td><td class="ans-meaning">שם עצם - בעל מקצוע</td><td class="ans-mishkal">קַטָּל</td></tr>
                 </tbody>
               </table>
             </div>
-            <p style="font-size:.82rem; color:var(--ink-soft); margin-top:.5rem;">💡 שימו לב לשורה 10: <b>מִגְדָּל</b> נראית כמו מילה שיכולה להיות "מ+גדל" (בסיס+צורן), אבל "גדל" לבד אינו שם עצם קיים - זה שורש (ג־ד־ל) שהוכנס למשקל מִקְטָל. תמיד בודקים אם מה שנשאר הוא באמת מילה קיימת.</p>
+            <p style="font-size:.82rem; color:var(--ink-soft); margin-top:.5rem;">💡 שימו לב לתבנית שחוזרת: סֵפֶר/סַפָּר וְכֶסֶף/כַּסָּף - באותן אותיות בדיוק, אבל בשני משקלים שונים (קֶטֶל מול קַטָּל), לפי ההקשר. לעומת זאת עוֹלֶה וְאִרְגּוּן ומַשְׁקֶה - נשארים באותו משקל, רק התפקיד או המשמעות משתנים.</p>
           </div>
         </div>
       </div>
@@ -158,42 +165,42 @@
       </div>
       <div class="card-body">
         <div class="question-block">
-          <div class="question-row"><span class="q-num">1</span><span class="q-text">מהרשימה: מוּזִיקַאי, טֶנִיסַאי, יוֹמִי, נַגָּר - איזו מילה שונה מהשלוש האחרות מבחינת דרך התצורה?</span></div>
+          <div class="question-row"><span class="q-num">1</span><span class="q-text">באיזה משפט המילה "ספר" היא שם עצם במשמעות "בעל מקצוע", ולא "חפץ לקריאה"?</span></div>
           <div class="mc-group" data-qid="mc1">
-            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="mc1"> מוּזִיקַאי</label>
-            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="mc1"> טֶנִיסַאי</label>
-            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="mc1"> יוֹמִי</label>
-            <label class="mc-option" data-value="d" data-correct="true"><input type="radio" name="mc1"> נַגָּר</label>
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="mc1"> קראתי ספר מרתק.</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="mc1"> אבא שלי עובד כספר בעיר.</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="mc1"> קניתי ספר חדש בחנות.</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="mc1"> הספר שכתבתי יצא לאור.</label>
           </div>
           <p class="mc-feedback" aria-live="polite"></p>
         </div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">2</span><span class="q-text">איך יודעים שמילה נוצרה מבסיס+צורן, ולא משורש+משקל?</span></div>
+          <div class="question-row"><span class="q-num">2</span><span class="q-text">מהו המשקל של "משקה" במשפט "הילד משקה את הפרחים"?</span></div>
           <div class="mc-group" data-qid="mc2">
-            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="mc2"> אם מסירים את הצורן החשוד, נשארת מילה קיימת ומוכרת בעברית</label>
-            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="mc2"> אם יש במילה יותר משלוש אותיות</label>
-            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="mc2"> אם המילה מתחילה באות מ'</label>
-            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="mc2"> אם המילה ארוכה במיוחד</label>
+            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="mc2"> קוֹטֵל</label>
+            <label class="mc-option" data-value="b" data-correct="true"><input type="radio" name="mc2"> מַקְטִיל</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="mc2"> מְקַטֵּל</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="mc2"> קַטְלָן</label>
           </div>
           <p class="mc-feedback" aria-live="polite"></p>
         </div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">3</span><span class="q-text">מהרשימה: מִגְדָּל, מִכְתָּב, מוּזִיקַאי, קַבְּלָן - איזו מילה שונה מהשלוש האחרות, כי היא נוצרה מבסיס+צורן?</span></div>
+          <div class="question-row"><span class="q-num">3</span><span class="q-text">באיזה משפט המילה "ארגון" מתפקדת כשם פעולה (הפעולה עצמה), ולא כשם עצם (גוף/מוסד)?</span></div>
           <div class="mc-group" data-qid="mc3">
-            <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="mc3"> מִגְדָּל</label>
-            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="mc3"> מִכְתָּב</label>
-            <label class="mc-option" data-value="c" data-correct="true"><input type="radio" name="mc3"> מוּזִיקַאי</label>
-            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="mc3"> קַבְּלָן</label>
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="mc3"> ארגון החדר לפני המסיבה לקח שעה.</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="mc3"> הארגון שלנו עוזר לנזקקים.</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="mc3"> הארגון פרסם הודעה רשמית.</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="mc3"> חברי הארגון נפגשו אתמול.</label>
           </div>
           <p class="mc-feedback" aria-live="polite"></p>
         </div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">4</span><span class="q-text">"פְּסִיכוֹלוֹגִית" - מהו הבסיס שממנו נוצרה המילה?</span></div>
+          <div class="question-row"><span class="q-num">4</span><span class="q-text">איזו מהמילים הבאות משנה את משקלהּ לגמרי כשמשמעותה משתנה (בשונה מ"ארגון" ו"משקה", ששומרות על אותו משקל)?</span></div>
           <div class="mc-group" data-qid="mc4">
-            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="mc4"> פְּסִיכוֹלוֹג</label>
-            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="mc4"> פְּסִיכוֹ</label>
-            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="mc4"> לוֹגִית</label>
-            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="mc4"> פְּסִיכוֹלוֹגְיָה</label>
+            <label class="mc-option" data-value="a" data-correct="true"><input type="radio" name="mc4"> סֵפֶר / סַפָּר</label>
+            <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="mc4"> מַשְׁקֶה (פועל/שם עצם)</label>
+            <label class="mc-option" data-value="c" data-correct="false"><input type="radio" name="mc4"> אִרְגּוּן (פעולה/מוסד)</label>
+            <label class="mc-option" data-value="d" data-correct="false"><input type="radio" name="mc4"> עוֹלֶה (עולה חדש/מתייקר)</label>
           </div>
           <p class="mc-feedback" aria-live="polite"></p>
         </div>
@@ -206,8 +213,8 @@
         <h2 class="card-title">מה למדנו</h2>
       </div>
       <div class="card-body">
-        <p>לפני שמחפשים משקל, בודקים איך המילה נוצרה: <b>שורש+משקל</b> (שלוש אותיות שורש שהוכנסו לתוך תבנית, כמו נַגָּר) או <b>בסיס+צורן</b> (מילה קיימת שקיבלה תוספת, כמו מוּזִיקַאי מ"מוזיקה"). בדיקת האימות: אם מסירים את החלק החשוד ונשארת מילה קיימת - זה בסיס+צורן. אם נשארות רק אותיות בלי משמעות עצמאית - זה שורש+משקל. מילים שמתחילות באות שנראית כמו תחילית (כמו מ') לא תמיד הן בסיס+צורן - כמו שראינו ב"מגדל".</p>
-        <p style="display:flex; gap:.6rem; flex-wrap:wrap;"><a class="btn primary" href="ivrit-mishkalim-7.html">➡️ לשיעור הבא</a><a class="btn" href="ivrit-mishkalim-hub.html">מפת היחידה</a></p>
+        <p>לעולם לא מנתחים מילה בלי לקרוא את המשפט סביבה. לפעמים ההקשר קובע משקל שונה לגמרי (סֵפֶר מול סַפָּר, כֶּסֶף מול כַּסָּף), ולפעמים המשקל נשאר זהה אך המשמעות או התפקיד במשפט משתנים (מַשְׁקֶה, אִרְגּוּן, עוֹלֶה). בשני המקרים - הכלל זהה: <b>קוראים קודם, מנתחים אחר כך.</b></p>
+        <p style="display:flex; gap:.6rem; flex-wrap:wrap;"><a class="btn primary" href="ivrit-mishkalim-hub.html">➡️ חזרה למפת היחידה</a></p>
       </div>
     </section>
 
@@ -215,7 +222,7 @@
 </main>
 
 <div class="toolbar">
-  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="עברית - משקלים - שיעור 6" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="עברית - משקלים - שיעור 7" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
   <button class="btn" id="printBtn">🖨️ הדפסה</button>
   <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
 </div>
@@ -227,11 +234,11 @@
   <p class="bm-send-last" id="bmSendLast" hidden></p>
 </div>
 
-<footer class="credit">עברית - משקלים · שיעור 6 · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+<footer class="credit">עברית - משקלים · שיעור 7 · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
 
 <script>
-const STORAGE_KEY = 'ivrit-mishkalim-6-answers';
-const NAME_KEY = 'ivrit-mishkalim-6-student';
+const STORAGE_KEY = 'ivrit-mishkalim-7-answers';
+const NAME_KEY = 'ivrit-mishkalim-7-student';
 const textareas = Array.from(document.querySelectorAll('.answer'));
 const mcGroups = Array.from(document.querySelectorAll('.mc-group'));
 const progressFill = document.getElementById('progressFill');
@@ -398,7 +405,7 @@ loadAnswers();
   var classEl = document.getElementById('studentClass');
   function updateSubmitLink(){
     var params = new URLSearchParams();
-    params.set('assignment', 'עברית - משקלים - שיעור 6');
+    params.set('assignment', 'עברית - משקלים - שיעור 7');
     if(nameEl && nameEl.value.trim()) params.set('name', nameEl.value.trim());
     if(classEl && classEl.value.trim()) params.set('cls', classEl.value.trim());
     submitLink.href = 'submit.html?' + params.toString();
@@ -426,7 +433,7 @@ loadAnswers();
     window.BeitMidrashDirectSubmit.send({
       studentName: nameInput.value.trim(),
       studentClass: classInput.value.trim(),
-      assignment: 'עברית - משקלים - שיעור 6',
+      assignment: 'עברית - משקלים - שיעור 7',
       fields: textareas
     }).then(function(data){
       if(data && data.ok){
