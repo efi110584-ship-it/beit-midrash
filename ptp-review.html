@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פתוח תפתח — דף חזרה: שאלות ותשובות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
+<style>
+.qa-list{ display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:.7rem; }
+.recap-q-num{ flex:none; min-width:1.6rem; }
+.card-title span{ margin-inline-end:.2rem; }
+.topic-jump{ text-align:center; margin:0 auto 1.4rem; max-width:1200px; padding:0 1rem; display:flex; gap:.5rem; justify-content:center; flex-wrap:wrap; }
+section.card{ scroll-margin-top: 1rem; }
+/* מצב תרגול: התשובות מוסתרות עד לחיצה על השאלה */
+body.quiz-mode .recap-qa{ cursor:pointer; }
+body.quiz-mode .recap-qa:focus-visible{ outline:3px solid var(--focus-ring, #1E2761); outline-offset:2px; }
+body.quiz-mode .recap-qa:not(.revealed) .recap-a{ filter: blur(6px); user-select:none; }
+body.quiz-mode .recap-qa:not(.revealed)::after{ content:"לחצו כדי לגלות את התשובה"; display:block; font-size:.78rem; color:var(--ink-soft); margin-top:.3rem; }
+@media print{
+  .topic-jump, .toolbar, .game-nav{ display:none !important; }
+  body.quiz-mode .recap-qa .recap-a{ filter:none !important; }
+  body.quiz-mode .recap-qa::after{ display:none !important; }
+  .recap-qa{ break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">הכיתה הדיגיטלית</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-yb">כיתה י"ב</a>
+  <span class="sep">›</span>
+  <a href="ptp-hub.html">פתוח תפתח</a>
+  <span class="sep">›</span>
+  <span class="current">דף חזרה</span>
+</nav>
+
+<header>
+  <div class="eyebrow">תושב"ע · כיתה י"ב · חוברת "פתוח תפתח"</div>
+  <h1>פתוח תפתח — דף חזרה</h1>
+  <p class="sub">כל שמונת נושאי היחידה במבט אחד: משפט סיכום קצר לכל נושא, ואחריו שאלות ותשובות קצרות (58 בסך הכול). רוצים לבדוק את עצמכם? הפעילו את "מצב תרגול" - התשובות יוסתרו עד שתלחצו על השאלה.</p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="game-nav" style="text-align:center; margin:0 0 1.2rem;">
+  <a href="ptp-hub.html" style="display:inline-flex; align-items:center; gap:.4rem; color:var(--ink-soft); text-decoration:none; font-size:1rem; font-weight:700; border:1.5px solid var(--paper-line); border-radius:999px; padding:.4rem 1rem; background:var(--paper-card);">→ חזרה לדף העבודה של היחידה</a>
+</div>
+
+<div class="toolbar" style="padding-bottom:1.2rem;">
+  <button class="btn primary" id="quizBtn" type="button" aria-pressed="false">🙈 מצב תרגול: הסתירו תשובות</button>
+  <button class="btn" id="printBtn" type="button">🖨️ הדפיסו לחזרה</button>
+</div>
+
+<nav class="topic-jump" aria-label="מעבר מהיר לנושא">
+  <a class="chip-link" href="#topic-1"><span class="chip-icon" aria-hidden="true">📜</span>עקרונות מנחים כלפי העני</a> <a class="chip-link" href="#topic-2"><span class="chip-icon" aria-hidden="true">💰</span>שמיטת כספים</a> <a class="chip-link" href="#topic-3"><span class="chip-icon" aria-hidden="true">🤝</span>צדקה והלוואה</a> <a class="chip-link" href="#topic-4"><span class="chip-icon" aria-hidden="true">🎁</span>מצוות הענקה</a> <a class="chip-link" href="#topic-5"><span class="chip-icon" aria-hidden="true">📈</span>איסור ריבית</a> <a class="chip-link" href="#topic-6"><span class="chip-icon" aria-hidden="true">🔑</span>דיני משכון</a> <a class="chip-link" href="#topic-7"><span class="chip-icon" aria-hidden="true">⏰</span>הלנת שכר</a> <a class="chip-link" href="#topic-8"><span class="chip-icon" aria-hidden="true">🌾</span>מתנות עניים</a>
+</nav>
+
+<main id="main-content">
+  <div class="grid" id="grid">
+
+    <section class="card" id="topic-1" style="grid-column: 1 / -1; --acc:#8A5C21; --acc-soft:#F3E7D2;">
+      <div class="card-head">
+        <span class="card-tag">נושא 1 · מבוא</span>
+        <h2 class="card-title"><span aria-hidden="true">📜</span> עקרונות מנחים כלפי העני</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">במדבר קיבלו כולם מן בשווה; בארץ ישראל כל אחד דואג לפרנסתו, ונוצרים עשירים ועניים. לכן התורה מדריכה כיצד לנהוג בעני - לא רק לתת צדקה "טכנית", אלא לחשוב לטווח ארוך, לשמור על כבודו ולחנך לערבות.</div>
+        <div class="qa-list">
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">1.</span>מדוע דווקא בכניסה לארץ מתעורר הצורך במצוות כלפי העני?</div>
+            <div class="recap-a"><b>✓</b> במעבר מקיום "ניסי" (המן במדבר, שניתן לכולם בשווה) לקיום "טבעי" בארץ, כל אחד דואג לפרנסתו - ונוצרים מעמדות של עשירים ועניים.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">2.</span>מהי המעלה הגבוהה ביותר בצדקה לפי הרמב"ם?</div>
+            <div class="recap-a"><b>✓</b> לחזק את העני לפני שייפול - במתנה, הלוואה, שותפות או מציאת עבודה - כדי שלא יצטרך לבריות ("והחזקת בו").</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">3.</span>מדוע מתן צדקה כשהנותן והמקבל אינם מכירים זה את זה נחשב למעלה גבוהה?</div>
+            <div class="recap-a"><b>✓</b> כי זו מצווה לשמה, והעני אינו מתבייש (כמו "לשכת חשאים" במקדש).</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">4.</span>מהי המעלה הנמוכה ביותר?</div>
+            <div class="recap-a"><b>✓</b> לתת לעני בעצב (בפנים זועפות).</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">5.</span>מהם שלושת העקרונות המנחים של היחידה?</div>
+            <div class="recap-a"><b>✓</b> (א) חשיבות הנתינה. (ב) קיום העני ושיקומו. (ג) שמירה על כבוד העני.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">6.</span>אילו שתי תועלות יש להדרכת התורה בנתינה?</div>
+            <div class="recap-a"><b>✓</b> היא מביאה לסולידריות (ערבות) חברתית, ויוצרת יחס ראוי ומאוזן לצבירת רכוש פרטי.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="topic-2" style="grid-column: 1 / -1; --acc:#3F6E66; --acc-soft:#E4EEEA;">
+      <div class="card-head">
+        <span class="card-tag">נושא 2 · דברים ט"ו, א-י"א</span>
+        <h2 class="card-title"><span aria-hidden="true">💰</span> שמיטת כספים</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">"מקץ שבע שנים תעשה שמיטה" - בשנה השביעית המלווה מוותר על החוב, ואסור לו לתבוע אותו. זה מעבר לצדק הטבעי: חסד עם העני.</div>
+        <div class="qa-list">
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">7.</span>מהו הדין הבסיסי של שמיטת כספים?</div>
+            <div class="recap-a"><b>✓</b> בסוף שבע שנים המלווה משמט (מוותר על) את החוב - "לא יגוש את רעהו", כלומר אסור לו לתבוע את ההלוואה.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">8.</span>פרשו: "שמוט", "בעל משה", "ידו אשר ישה ברעהו".</div>
+            <div class="recap-a"><b>✓</b> שמוט = לעזוב, לוותר. בעל משה = המלווה (נושה). אשר ישה ברעהו = החוב שהלווה לחברו.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">9.</span>מה מגיע למלווה לפי הצדק הטבעי, ומה התורה דורשת ממנו?</div>
+            <div class="recap-a"><b>✓</b> לפי הצדק הטבעי - לקבל את כספו בחזרה. התורה דורשת לוותר על הכסף המגיע לו בדין, כדי לעשות חסד עם העני.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">10.</span>ממי מותר לגבות חוב גם בשנת השמיטה?</div>
+            <div class="recap-a"><b>✓</b> מנכרי - "את הנכרי תגוש"; רק לגבי "אחיך" - "תשמט ידך".</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">11.</span>מהי הסתירה בין פסוק ד' לפסוק י"א?</div>
+            <div class="recap-a"><b>✓</b> פסוק ד': "אפס כי לא יהיה בך אביון". פסוק י"א: "כי לא יחדל אביון מקרב הארץ".</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">12.</span>כיצד מיישב רש"י את הסתירה?</div>
+            <div class="recap-a"><b>✓</b> כשעושים רצון ה' - "אביונים באחרים ולא בכם"; וכשאין עושים רצונו - "אביונים בכם".</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">13.</span>כיצד מסביר הרב קוק את מהות השמיטה?</div>
+            <div class="recap-a"><b>✓</b> "שנת שקט ושלווה, באין נוגש ורודה" - שנת שוויון, שבה אין רכוש פרטי מסוים ולא זכות קפדנית, ושלום אלוקי שורר על הכול.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="topic-3" style="grid-column: 1 / -1; --acc:#8B4A34; --acc-soft:#F1E2DA;">
+      <div class="card-head">
+        <span class="card-tag">נושא 3 · דברים ט"ו, ז-י"א</span>
+        <h2 class="card-title"><span aria-hidden="true">🤝</span> צדקה והלוואה</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">"פתח תפתח את ידך לו" - חובה לתת לעני, בצדקה או בהלוואה, בלב טוב ובלי לחשוש מהשמיטה המתקרבת.</div>
+        <div class="qa-list">
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">14.</span>אילו שני דברים אסור לעשות כשפוגשים אביון (פס' ז)?</div>
+            <div class="recap-a"><b>✓</b> "לא תאמץ את לבבך" - לא להקשיח את הלב; "ולא תקפוץ את ידך" - לא לסגור את היד ולסרב לתת.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">15.</span>מדוע מצוות ההלוואה סמוכה לשמיטת כספים?</div>
+            <div class="recap-a"><b>✓</b> כי אדם עלול לחשוש להלוות לפני שנת השמיטה, שמא יפסיד את כספו - והתורה מזהירה מכך.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">16.</span>מהי האזהרה ומהי ההבטחה בפסוקים ט-י?</div>
+            <div class="recap-a"><b>✓</b> האזהרה: "השמר לך פן יהיה דבר עם לבבך בליעל" - לא לסרב להלוות בגלל השמיטה. ההבטחה: "בגלל הדבר הזה יברכך ה'".</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">17.</span>מה לומדים מהכפילות "פתח תפתח" ו"נתון תתן"?</div>
+            <div class="recap-a"><b>✓</b> לפי רש"י - שיש לתת גם כמה פעמים, "אפילו מאה פעמים".</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">18.</span>מה פירוש "כי" ב"כי פתח תפתח"?</div>
+            <div class="recap-a"><b>✓</b> לפי רש"י - "כי" כאן בלשון "אלא".</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">19.</span>מהי המצווה "והעבט תעביטנו"?</div>
+            <div class="recap-a"><b>✓</b> לפי רש"י - "אם לא רצה במתנה, תן לו בהלוואה"; כך שומרים על כבוד העני שמתבייש לקבל צדקה.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">20.</span>כמה צריך לתת לעני?</div>
+            <div class="recap-a"><b>✓</b> "די מחסורו" - את מה שחסר לו, אבל "אין אתה מצווה להעשירו".</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">21.</span>מהו סדר העדיפויות בנתינה?</div>
+            <div class="recap-a"><b>✓</b> "שעריך" - עניי עירך קודמים לעניי עיר אחרת.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="topic-4" style="grid-column: 1 / -1; --acc:#7A4A73; --acc-soft:#EFE3EC;">
+      <div class="card-head">
+        <span class="card-tag">נושא 4 · דברים ט"ו, י"ב-י"ח</span>
+        <h2 class="card-title"><span aria-hidden="true">🎁</span> מצוות הענקה</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">עבד עברי עובד שש שנים ויוצא לחופשי בשביעית. התורה מצווה לא לשלחו "ריקם", אלא להעניק לו מתנה כדי שיוכל להתחיל חיים חדשים.</div>
+        <div class="qa-list">
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">22.</span>כמה שנים עובד עבד עברי?</div>
+            <div class="recap-a"><b>✓</b> שש שנים; בשנה השביעית הוא יוצא לחופשי.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">23.</span>מדוע דין עבד עברי נשנה בספר דברים, אחרי שכבר נאמר בשמות?</div>
+            <div class="recap-a"><b>✓</b> בגלל שני חידושים: (1) "או העבריה" - גם אישה שנמכרה בגנבתה יוצאת בשש שנים. (2) מצוות "הענק תעניק".</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">24.</span>ממה מעניקים לעבד המשתחרר?</div>
+            <div class="recap-a"><b>✓</b> "מצאנך ומגרנך ומיקבך" - ולפי רש"י, מ"אשר ברכך": מכל דבר שיש בו ברכה (ולא פרדות, שאינן בכלל ברכה).</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">25.</span>מה הקשר בין יציאת מצרים למצוות ההענקה?</div>
+            <div class="recap-a"><b>✓</b> "וזכרת כי עבד היית" - ה' העניק לנו מביזת מצרים וביזת הים, ולכן גם אנחנו מעניקים לעבד.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">26.</span>עד מתי עובד "עבד עולם" (עבד נרצע)?</div>
+            <div class="recap-a"><b>✓</b> עד שנת היובל - "עולם" כאן הוא "עולמו של יובל".</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">27.</span>מהו היסוד המוסרי של ההענקה?</div>
+            <div class="recap-a"><b>✓</b> לתת לעבד, שנמכר בגלל עוניו, בסיס כלכלי להתחלה חדשה - שלא ייצא בידיים ריקות.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">28.</span>כיצד מתבטא רעיון ההענקה בחוק הישראלי כיום?</div>
+            <div class="recap-a"><b>✓</b> פיצויי פיטורין, מענק שחרור לחיילים, שיתוף עובדים ברווחים ותשלום גמלאות (פרופ' עמוס פריש).</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">29.</span>באילו שתי דרכים חייב האדון לפתור את מצבה של אמה עבריה?</div>
+            <div class="recap-a"><b>✓</b> לשאת אותה לאישה כראוי, או לשחרר אותה.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="topic-5" style="grid-column: 1 / -1; --acc:#3E5A8C; --acc-soft:#E2E7F2;">
+      <div class="card-head">
+        <span class="card-tag">נושא 5 · דברים כ"ג, כ-כ"א</span>
+        <h2 class="card-title"><span aria-hidden="true">📈</span> איסור ריבית</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">"לא תשיך לאחיך נשך" - אסור לקחת ריבית מישראל על הלוואה של כסף, אוכל או כל דבר. ההלוואה צריכה להיות חסד, לא עסק.</div>
+        <div class="qa-list">
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">30.</span>על אילו הלוואות אסור לקחת ריבית?</div>
+            <div class="recap-a"><b>✓</b> "נשך כסף, נשך אוכל, נשך כל דבר אשר יִשָּׁך" - על כסף, על אוכל ועל כל דבר אחר.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">31.</span>מדוע נקראת הריבית "נשך"?</div>
+            <div class="recap-a"><b>✓</b> לפי רש"י - היא כנשיכת נחש: בתחילה קטנה ואינה מורגשת, ופתאום מתנפחת ולוקחת ממון רב.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">32.</span>איסור ריבית כבר נאמר בשמות ובויקרא. מה המשמעות של כך שהוא נשנה שוב בדברים?</div>
+            <div class="recap-a"><b>✓</b> זהו איסור שחוזר ונשנה בתורה - ולכן המלווה בריבית עובר בכמה לאווין.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">33.</span>מה מוסיף ספר דברים על שמות וויקרא בדין ריבית?</div>
+            <div class="recap-a"><b>✓</b> את ההיתר לקחת ריבית מנכרי - "לנכרי תשיך ולאחיך לא תשיך".</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">34.</span>מהו ההיגיון המסחרי בלקיחת ריבית?</div>
+            <div class="recap-a"><b>✓</b> המלווה אינו יכול להשתמש בכספו בזמן ההלוואה, והריבית היא "שכר" על השימוש בכסף - שני הצדדים מסכימים לה.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">35.</span>מדוע מותר לקחת ריבית מנכרי ואסור מ"אחיך"?</div>
+            <div class="recap-a"><b>✓</b> לפי הרמב"ן - ריבית נעשית בהסכמת שניהם, ולכן אינה גזל; היא נאסרה רק מצד האחווה והחסד שבין ישראל. (לעומת זאת, גזל גוי אסור.)</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">36.</span>מהו היסוד המשותף לאיסור ריבית ולשמיטת כספים?</div>
+            <div class="recap-a"><b>✓</b> לפי הרמב"ן - שתיהן חסד וויתור בין אחים, ונחשבות לצדקה.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">37.</span>מה התגמול לשומר מצוות אלה?</div>
+            <div class="recap-a"><b>✓</b> "למען יברכך ה' אלוקיך בכל משלח ידך" - הברכה נזכרת רק על צדקה וחסד.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="topic-6" style="grid-column: 1 / -1; --acc:#5A6629; --acc-soft:#E9EDDC;">
+      <div class="card-head">
+        <span class="card-tag">נושא 6 · דברים כ"ד, ו; י-י"ג</span>
+        <h2 class="card-title"><span aria-hidden="true">🔑</span> דיני משכון</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">משכון הוא חפץ שהמלווה לוקח מהלווה כבטוחה לחוב. התורה מגבילה אותו: לא לוקחים כלי אוכל נפש, לא נכנסים לבית הלווה, ומחזירים את המשכון בזמן.</div>
+        <div class="qa-list">
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">38.</span>מהו משכון?</div>
+            <div class="recap-a"><b>✓</b> חפץ שהמלווה לוקח מהלווה, כדי שאם לא ישלם בזמן - יוכל לגבות ממנו את חובו.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">39.</span>האם מותר למשכן כל חפץ?</div>
+            <div class="recap-a"><b>✓</b> לא - "לא יחבול רחיים ורכב כי נפש הוא חובל": אסור למשכן כלים שעושים בהם אוכל נפש.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">40.</span>היכן עומד המלווה כשהוא לוקח את המשכון, ומדוע?</div>
+            <div class="recap-a"><b>✓</b> "בחוץ תעמוד" - אסור לו להיכנס לבית הלווה, כדי לשמור על כבודו ועל פרטיותו.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">41.</span>מה פירוש "לא תשכב בעבוטו"?</div>
+            <div class="recap-a"><b>✓</b> לפי רש"י - לא תשכב כשהמשכון של העני נמצא אצלך; יש להחזירו לו כשהוא צריך אותו.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">42.</span>מתי מחזירים כסות לילה, ומתי כסות יום?</div>
+            <div class="recap-a"><b>✓</b> כסות לילה - מחזירים לפני השקיעה ("כבוא השמש"). כסות יום - מחזירים לכל היום, ולוקחים שוב בשקיעה.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">43.</span>"וברכך" ו"ולך תהיה צדקה" - מה תלוי בלווה ומה מתקיים תמיד?</div>
+            <div class="recap-a"><b>✓</b> "וברכך" תלוי בלווה (אם יברך); "ולך תהיה צדקה" מתקיים בכל מקרה - גם אם אינו מברך.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="topic-7" style="grid-column: 1 / -1; --acc:#8A6A21; --acc-soft:#F4EBC7;">
+      <div class="card-head">
+        <span class="card-tag">נושא 7 · דברים כ"ד, י"ד-ט"ו</span>
+        <h2 class="card-title"><span aria-hidden="true">⏰</span> הלנת שכר</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">"ביומו תתן שכרו ולא תבוא עליו השמש" - חובה לשלם לפועל בזמן. ספר דברים מדגיש את הפועל העני, שחייו תלויים בשכרו.</div>
+        <div class="qa-list">
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">44.</span>מהי המצווה "ביומו תתן שכרו"?</div>
+            <div class="recap-a"><b>✓</b> לשלם לשכיר את שכרו ביום שסיים לעבוד, לפני שקיעת השמש - ולא לדחות ("להלין") את התשלום.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">45.</span>האם האיסור חל רק על פועל עני?</div>
+            <div class="recap-a"><b>✓</b> לא - הוא חל על כל עובד; אבל בספר דברים הנוסח מכוון במיוחד לעובד עני.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">46.</span>מה מוסיף ספר דברים על האיסור שבויקרא?</div>
+            <div class="recap-a"><b>✓</b> לפי רש"י - מי שעושק שכיר עני ואביון עובר בשני לאווים ("לא תעשוק" בויקרא, ו"לא תעשוק שכיר עני" כאן).</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">47.</span>כלפי מי מודגשת המצווה לפי רש"י?</div>
+            <div class="recap-a"><b>✓</b> אביון (התאב לכל דבר), גר צדק ("מגרך"), גר תושב ("בשעריך") - ו"אשר בארצך" מרבה גם שכר בהמה וכלים.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">48.</span>מה פירוש "ואליו הוא נושא את נפשו"?</div>
+            <div class="recap-a"><b>✓</b> הפועל מסכן את חייו בשביל השכר - "עלה בכבש ונתלה באילן"; לכן השכר חיוני לו.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">49.</span>מה קורה אם השכיר קורא אל ה' נגד המעסיק?</div>
+            <div class="recap-a"><b>✓</b> "ולא יקרא עליך אל ה' והיה בך חטא" - המעסיק ייענש על כך.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">50.</span>האם הלנת שכר היא חטא רק אם הפועל קורא אל ה'?</div>
+            <div class="recap-a"><b>✓</b> לא - לפי רש"י יש חטא "מכל מקום", גם אם לא קרא; הקריאה רק מוסיפה חומרה.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="topic-8" style="grid-column: 1 / -1; --acc:#2C7A6B; --acc-soft:#DCEFE9;">
+      <div class="card-head">
+        <span class="card-tag">נושא 8 · דברים כ"ד, י"ט-כ"א</span>
+        <h2 class="card-title"><span aria-hidden="true">🌾</span> מתנות עניים</h2>
+      </div>
+      <div class="card-body">
+        <div class="story-summary">בעל השדה משאיר חלק מהיבול לגר, ליתום ולאלמנה: שכחה בשדה, פאה באילן ("לא תפאר") ועוללות בכרם. העני אוסף בעצמו - וכך נשמר כבודו.</div>
+        <div class="qa-list">
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">51.</span>אילו מצוות נזכרות בפסוקים?</div>
+            <div class="recap-a"><b>✓</b> שכחה בשדה ("ושכחת עומר"), פאה ושכחה באילן ("לא תפאר אחריך"), ועוללות בכרם ("לא תעולל").</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">52.</span>למי שייכות המתנות?</div>
+            <div class="recap-a"><b>✓</b> "לגר ליתום ולאלמנה יהיה".</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">53.</span>מדוע נסמכו מצוות אלה לכניסה לארץ?</div>
+            <div class="recap-a"><b>✓</b> כדי ללמד את בעלי השדות, לקראת החיים החקלאיים בארץ, כיצד לשתף את החלשים ביבול.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">54.</span>מה לומדים מ"עומר" ומ"לא תשוב לקחתו"?</div>
+            <div class="recap-a"><b>✓</b> "עומר" - ולא גדיש (ערימה גדולה). "לא תשוב" - רק מה ששכח מאחוריו הוא שכחה, לא מה שלפניו.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">55.</span>האם מצווה שנעשתה בלי כוונה מזכה בברכה?</div>
+            <div class="recap-a"><b>✓</b> כן - לפי רש"י, מי שנפלה ממנו מטבע (סלע), ועני מצא אותה והתפרנס ממנה - "הרי הוא מתברך עליה"; קל וחומר מי שנותן בכוונה.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">56.</span>מה פירוש "לא תפאר" ו"אחריך"?</div>
+            <div class="recap-a"><b>✓</b> "לא תפאר" - לא תיטול את כל "תפארתו" של העץ: מכאן שמשאירים פאה באילן. "אחריך" - זו שכחה.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">57.</span>מה פירוש "לא תעולל"?</div>
+            <div class="recap-a"><b>✓</b> לא לקחת את העוללות - אשכולות קטנים ולא מפותחים - אלא להשאירם לעניים.</div>
+          </div>
+          <div class="recap-qa">
+            <div class="recap-q"><span class="recap-q-num">58.</span>מה משותף לכל מתנות העניים?</div>
+            <div class="recap-a"><b>✓</b> הנותן אינו בוחר את המקבל ואינו נותן מידו; העני אוסף בעצמו - וכך נשמרים עצמאותו וכבודו.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="credit">פתוח תפתח · דף חזרה - שאלות ותשובות קצרות</footer>
+
+<script>
+(function(){
+  document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+
+  var quizBtn = document.getElementById('quizBtn');
+  var items = Array.prototype.slice.call(document.querySelectorAll('.recap-qa'));
+
+  function setQuiz(on){
+    document.body.classList.toggle('quiz-mode', on);
+    quizBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    quizBtn.textContent = on ? '👀 הציגו את כל התשובות' : '🙈 מצב תרגול: הסתירו תשובות';
+    items.forEach(function(it){
+      it.classList.remove('revealed');
+      if(on){
+        it.setAttribute('tabindex', '0');
+        it.setAttribute('role', 'button');
+        it.setAttribute('aria-expanded', 'false');
+      } else {
+        it.removeAttribute('tabindex');
+        it.removeAttribute('role');
+        it.removeAttribute('aria-expanded');
+      }
+    });
+  }
+
+  function toggleItem(it){
+    if(!document.body.classList.contains('quiz-mode')) return;
+    var open = it.classList.toggle('revealed');
+    it.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+
+  quizBtn.addEventListener('click', function(){
+    setQuiz(!document.body.classList.contains('quiz-mode'));
+  });
+  items.forEach(function(it){
+    it.addEventListener('click', function(){ toggleItem(it); });
+    it.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggleItem(it); }
+    });
+  });
+})();
+</script>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<script>
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>
