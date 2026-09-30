@@ -22,6 +22,7 @@
   var FONT_STEPS = { "-1":0.9, "0":1, "1":1.15, "2":1.3, "3":1.5 };
   var MIN_STEP = -1, MAX_STEP = 3;
   var root = document.documentElement;
+  var SELF_SRC = (document.currentScript && document.currentScript.src) || "";
 
   function load(key){ try{ return localStorage.getItem(key); }catch(e){ return null; } }
   function save(key, val){ try{ localStorage.setItem(key, val); }catch(e){ /* אחסון חסום - ההגדרה תחול רק בדף הנוכחי */ } }
@@ -219,6 +220,19 @@
     if(ownPanel) setupDisclosure(document.getElementById("a11y-toggle"), ownPanel, null);
     else buildWidget();
     syncControls();
+    loadQuickNav();
+  }
+
+  /* ---------- כפתור "מעבר מהיר" בין כיתות ויחידות - assets/quick-nav.js ---------- */
+  function loadQuickNav(){
+    if(!SELF_SRC || document.querySelector(".bm-qnav")) return;
+    var base = SELF_SRC.replace(/a11y\.js(\?.*)?$/, "");
+    var link = document.createElement("link");
+    link.rel = "stylesheet"; link.href = base + "quick-nav.css";
+    document.head.appendChild(link);
+    var script = document.createElement("script");
+    script.src = base + "quick-nav.js";
+    document.body.appendChild(script);
   }
 
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
