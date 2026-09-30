@@ -95,8 +95,6 @@
         '</div>' +
       '</nav>';
     wrap.innerHTML = html;
-    // בדף הבית אין כפתור נגישות צף - אז הכפתור יורד לפינה עצמה
-    if(!document.querySelector(".bm-a11y")) wrap.classList.add("bm-qnav--solo");
     document.body.appendChild(wrap);
 
     var toggle = wrap.querySelector(".bm-qnav-toggle");
