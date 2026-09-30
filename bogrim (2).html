@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תוכנית הבוגרים | הכיתה הדיגיטלית</title>
+<meta name="description" content="תוכנית הבוגרים - ממשיכים ללוות את בוגרי בית הספר גם אחרי י&quot;ב: שיעור חודשי, אירועי בוגרים, ליווי בשירות, קריירה, לימודים ומלגות.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   תוכנית הבוגרים
+   הטוקנים והרכיבים לקוחים מדף הבית (index.html) - אותו כחול/כתום,
+   אותו פונט (Rubik), אותם כרטיסים עם פס-אייקון צבעוני - כדי שהעמוד
+   ירגיש חלק מהאתר, רק חגיגי מעט יותר.
+   ============================================================ */
+:root{
+  --ink:#0B2A5B;
+  --ink-2:#123A78;
+  --blue:#2F62B0;
+  --blue-dark:#24539C;
+  --blue-bright:#1F6FEB;
+  --paper:#E9EFF9;
+  --paper-card:#FFFFFF;
+  --paper-2:#F4F7FC;
+  --gold:#FF7A1A;
+  --gold-text:#B8520A;
+  --gold-tag-bg:#FFEBDC;
+  --teal:#0D8A63;
+  --green:#12A37A;
+  --purple:#7C4DDB;
+  --text:#0E1B33;
+  --text-soft:#4E5B72;
+  --border:#DCE4F1;
+  --focus:#1857C4;
+  --radius:12px;
+  --shadow:0 4px 14px rgba(11,42,91,.10);
+  --shadow-hover:0 10px 26px rgba(11,42,91,.16);
+  --font-body:"Rubik","Heebo","Arial Hebrew",sans-serif;
+  --font-scale:1;
+  --nav-h:0px;
+}
+html{ font-size:calc(100% * var(--font-scale)); scroll-behavior:smooth; }
+*,*::before,*::after{ box-sizing:border-box; }
+body{ margin:0; background:var(--paper); color:var(--text); font-family:var(--font-body); line-height:1.7; overflow-x:hidden; }
+h1,h2,h3{ font-family:var(--font-body); color:var(--ink); margin:0; line-height:1.3; }
+p{ margin:0; }
+a{ color:var(--blue-dark); }
+img,svg{ max-width:100%; }
+
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
+  outline:3px solid var(--focus); outline-offset:3px; border-radius:6px;
+}
+.on-dark a:focus-visible, .on-dark button:focus-visible{ outline-color:#FFD2AE; }
+
+.visually-hidden{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+.skip-link{
+  position:absolute; right:1rem; top:-60px; z-index:500;
+  background:var(--ink); color:#fff; padding:.8rem 1.2rem; border-radius:0 0 8px 8px;
+  text-decoration:none; font-weight:700; transition:top .2s;
+}
+.skip-link:focus{ top:0; }
+
+.wrap{ max-width:1100px; margin:0 auto; padding-inline:1.25rem; }
+
+/* ===== Header - כמו בדף הבית ===== */
+.site-header{ background:var(--blue); color:#fff; }
+.header-inner{ display:flex; align-items:center; justify-content:space-between; gap:1rem; padding-block:.8rem; padding-inline-end:3.2rem; /* מקום לכפתור הנגישות הצף */ }
+.brand{ display:flex; align-items:center; gap:.7rem; color:#fff; text-decoration:none; min-height:44px; }
+.brand svg{ color:#FFB27A; flex:none; }
+.brand-name{ font-weight:700; font-size:1.15rem; }
+.brand-sub{ display:block; font-size:.82rem; color:#E6EEFA; font-weight:400; }
+.header-link{
+  display:inline-flex; align-items:center; gap:.4rem; min-height:44px;
+  color:#fff; text-decoration:none; border:1.5px solid rgba(255,255,255,.4);
+  padding:.45rem .9rem; border-radius:8px; font-weight:500; white-space:nowrap;
+}
+.header-link:hover{ border-color:#FFB27A; color:#FFE3CF; }
+
+/* ===== Hero ===== */
+.hero{
+  position:relative; color:#fff; overflow:hidden;
+  background:
+    linear-gradient(174deg, var(--blue) 0 calc(100% - 26px), var(--gold) calc(100% - 26px) calc(100% - 16px), var(--paper) calc(100% - 16px));
+}
+.hero-inner{ display:grid; grid-template-columns:1.15fr .85fr; gap:2rem; align-items:center; padding-block:3rem 4.5rem; }
+.breadcrumb{ font-size:.9rem; color:#E6EEFA; margin-bottom:1.1rem; }
+.breadcrumb a{ color:#fff; }
+.eyebrow{
+  display:inline-block; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.3);
+  color:#fff; font-weight:500; font-size:.92rem; padding:.3rem .8rem; border-radius:999px; margin-bottom:1rem;
+}
+.hero h1{ color:#fff; font-size:clamp(2rem, 4.6vw, 3.2rem); font-weight:800; letter-spacing:-.01em; margin-bottom:1rem; }
+.hero h1 .accent{ color:#FFC196; }
+.hero-lead{ font-size:clamp(1.05rem, 1.8vw, 1.25rem); color:#F1F5FC; max-width:36rem; margin-bottom:1.8rem; }
+.hero-actions{ display:flex; flex-wrap:wrap; gap:.8rem; }
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+  min-height:48px; padding:.7rem 1.4rem; border-radius:10px;
+  font-family:inherit; font-size:1.05rem; font-weight:700; text-decoration:none; cursor:pointer;
+  border:2px solid transparent; transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.btn-primary{ background:var(--gold); color:#1A1206; box-shadow:0 6px 18px rgba(255,122,26,.35); }
+.btn-primary:hover{ transform:translateY(-1px); background:#FF8A36; }
+.btn-ghost{ background:transparent; color:#fff; border-color:rgba(255,255,255,.55); }
+.btn-ghost:hover{ background:rgba(255,255,255,.1); }
+.btn-outline{ background:#fff; color:var(--ink); border-color:var(--border); }
+.btn-outline:hover{ border-color:var(--blue); }
+
+.hero-art{ display:flex; justify-content:center; }
+.hero-art svg{ width:100%; max-width:360px; height:auto; }
+
+/* ===== Stats strip ===== */
+.stats{ position:relative; margin-top:-2.2rem; z-index:2; }
+.stats-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:.9rem; }
+.stat{ background:#fff; border-radius:var(--radius); box-shadow:var(--shadow); padding:1.1rem 1.2rem; border-top:4px solid var(--gold); }
+.stat:nth-child(2){ border-top-color:var(--blue-bright); }
+.stat:nth-child(3){ border-top-color:var(--green); }
+.stat-num{ display:block; font-size:1.9rem; font-weight:800; color:var(--ink); line-height:1.1; }
+.stat-label{ display:block; color:var(--text-soft); font-size:.98rem; }
+
+/* ===== Section nav (sticky) ===== */
+.section-nav{ position:sticky; top:0; z-index:40; background:rgba(233,239,249,.94); backdrop-filter:saturate(1.2) blur(6px); border-bottom:1px solid var(--border); margin-top:2rem; }
+.section-nav ul{ list-style:none; margin:0; padding:.5rem 0; display:flex; gap:.4rem; overflow-x:auto; scrollbar-width:thin; -webkit-overflow-scrolling:touch; }
+.section-nav a{
+  display:inline-flex; align-items:center; min-height:44px; padding:.35rem .95rem; border-radius:8px;
+  white-space:nowrap; text-decoration:none; color:var(--ink); font-weight:500; font-size:.97rem;
+  border:1.5px solid transparent;
+}
+.section-nav a:hover{ border-color:var(--border); background:#fff; }
+.section-nav a[aria-current="true"]{ background:var(--ink); color:#fff; }
+
+/* ===== Sections ===== */
+.section{ padding-block:3.2rem; scroll-margin-top:4rem; }
+.section.alt{ background:var(--paper-2); }
+.section.white{ background:#fff; }
+.section-head{ max-width:44rem; margin-bottom:1.8rem; }
+.kicker{ display:block; color:#9E4508; font-weight:700; font-size:.95rem; margin-bottom:.35rem; }
+.section-head h2{ font-size:clamp(1.55rem, 3vw, 2.1rem); font-weight:800; margin-bottom:.6rem; }
+.section-head p{ color:var(--text-soft); font-size:1.08rem; }
+
+/* ===== Letter ===== */
+.letter{
+  position:relative; background:#fff; border-radius:16px; box-shadow:var(--shadow);
+  padding:2rem 2.2rem; max-width:52rem; border-inline-start:6px solid var(--gold);
+}
+.letter p{ font-size:1.1rem; margin-bottom:.9rem; }
+.letter .sign{ margin-top:1.2rem; font-weight:700; color:var(--ink); }
+.letter .sign span{ display:block; font-weight:400; color:var(--text-soft); font-size:.98rem; }
+.draft-badge{
+  display:inline-block; margin-bottom:1rem; background:#FFF4CC; color:#6B4E00; border:1px dashed #B08A00;
+  font-size:.85rem; font-weight:700; padding:.2rem .7rem; border-radius:6px;
+}
+
+/* ===== About ===== */
+.about-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+.about-card{ background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1.4rem 1.3rem; }
+.about-card h3{ font-size:1.2rem; margin-bottom:.5rem; display:flex; align-items:center; gap:.55rem; }
+.about-card .ic{ display:inline-flex; width:40px; height:40px; border-radius:10px; align-items:center; justify-content:center; background:var(--gold-tag-bg); font-size:1.25rem; flex:none; }
+.about-card p{ color:var(--text-soft); }
+
+/* ===== Path / timeline ===== */
+.path{ list-style:none; margin:0; padding:0; position:relative; display:grid; gap:1rem; }
+.path::before{ content:""; position:absolute; top:.6rem; bottom:.6rem; right:21px; width:3px; background:linear-gradient(var(--gold), var(--blue-bright)); border-radius:3px; }
+.path-step{ position:relative; padding-inline-start:4rem; }
+.path-dot{
+  position:absolute; right:0; top:.2rem; width:45px; height:45px; border-radius:50%;
+  background:#fff; border:3px solid var(--blue-bright); display:flex; align-items:center; justify-content:center;
+  font-weight:800; color:var(--ink); font-size:1rem;
+}
+.path-step:first-child .path-dot{ border-color:var(--gold); }
+.path-card{ background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1rem 1.2rem; }
+.path-when{ display:inline-block; font-size:.88rem; font-weight:700; color:var(--blue-dark); background:#E5EEFD; padding:.1rem .6rem; border-radius:6px; margin-bottom:.35rem; }
+.path-card h3{ font-size:1.12rem; margin-bottom:.25rem; }
+.path-card p{ color:var(--text-soft); }
+.path-note{ margin-top:1.2rem; background:var(--ink); color:#fff; border-radius:var(--radius); padding:1rem 1.2rem; }
+.path-note strong{ color:#FFC196; }
+
+/* ===== Activity cards - בסגנון כרטיסי היחידות בדף הבית ===== */
+.cards{ display:grid; grid-template-columns:repeat(auto-fill, minmax(250px,1fr)); gap:1rem; }
+.card{ background:#fff; border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column; transition:box-shadow .2s ease, transform .2s ease; }
+.card:hover{ box-shadow:var(--shadow-hover); transform:translateY(-2px); }
+.card-icon{ height:56px; display:flex; align-items:center; padding-inline:1.2rem; font-size:1.55rem; background:var(--blue-bright); }
+.card.c-orange .card-icon{ background:var(--gold); }
+.card.c-green .card-icon{ background:var(--green); }
+.card.c-navy .card-icon{ background:var(--ink); }
+.card.c-purple .card-icon{ background:var(--purple); }
+.card-body{ padding:1rem 1.2rem 1.2rem; display:flex; flex-direction:column; gap:.45rem; flex:1; }
+.card h3{ font-size:1.18rem; }
+.card p{ color:var(--text-soft); }
+.card ul{ margin:.1rem 0 0; padding-inline-start:1.1rem; color:var(--text-soft); }
+.card li{ margin-bottom:.15rem; }
+.card-how{ margin-top:auto; padding-top:.6rem; border-top:1px dashed var(--border); font-size:.95rem; color:var(--ink); }
+.card-how b{ color:var(--gold-text); }
+
+/* ===== Center band ===== */
+.center-band{ display:grid; grid-template-columns:auto 1fr; gap:1.6rem; align-items:center; background:linear-gradient(120deg, var(--ink), var(--blue-dark)); color:#fff; border-radius:18px; padding:2rem; }
+.center-band h2{ color:#fff; font-size:clamp(1.4rem, 2.6vw, 1.9rem); margin-bottom:.5rem; }
+.center-band p{ color:#E6EEFA; margin-bottom:.6rem; }
+.center-band .kicker{ color:#FFC196; }
+.center-band svg{ width:120px; height:120px; }
+.milestones{ list-style:none; padding:0; margin:.8rem 0 0; display:flex; flex-wrap:wrap; gap:.5rem; }
+.milestones li{ background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25); padding:.3rem .8rem; border-radius:8px; font-size:.95rem; }
+
+/* ===== Involve ===== */
+.involve{ display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:.8rem; list-style:none; margin:0; padding:0; }
+.involve li{ background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1rem 1.1rem; display:flex; gap:.8rem; align-items:flex-start; }
+.involve .ic{ font-size:1.4rem; line-height:1.4; flex:none; }
+.involve b{ display:block; color:var(--ink); }
+.involve span.t{ color:var(--text-soft); font-size:.97rem; }
+
+/* ===== Join steps + contact ===== */
+.steps{ list-style:none; margin:0 0 2rem; padding:0; display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; counter-reset:st; }
+.steps li{ background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:1.2rem; position:relative; counter-increment:st; }
+.steps li::before{ content:counter(st); display:flex; align-items:center; justify-content:center; width:40px; height:40px; border-radius:50%; background:var(--gold); color:#1A1206; font-weight:800; margin-bottom:.6rem; }
+.steps h3{ font-size:1.1rem; margin-bottom:.25rem; }
+.steps p{ color:var(--text-soft); }
+
+.contact-card{ background:#fff; border:2px solid var(--blue); border-radius:16px; padding:1.6rem; display:grid; grid-template-columns:1fr auto; gap:1.2rem; align-items:center; }
+.contact-card h3{ font-size:1.35rem; margin-bottom:.3rem; }
+.contact-role{ color:var(--text-soft); }
+.contact-actions{ display:flex; flex-wrap:wrap; gap:.6rem; }
+.contact-actions .btn-primary{ box-shadow:none; }
+.contact-pending{ color:var(--text-soft); font-size:.98rem; margin-top:.5rem; }
+
+/* ===== Footer ===== */
+.site-footer{ text-align:center; padding:1.6rem 1rem 2rem; color:var(--text-soft); font-size:.9rem; border-top:1px solid var(--border); }
+
+/* ===== Mobile sticky CTA ===== */
+.mobile-cta{ display:none; }
+
+/* ===== Reveal animation (עדין; מכבד prefers-reduced-motion) ===== */
+.reveal{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
+.reveal.in{ opacity:1; transform:none; }
+.no-js .reveal{ opacity:1; transform:none; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  .reveal{ opacity:1; transform:none; transition:none; }
+  *{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+}
+
+/* ===== High contrast (מופעל ע"י assets/a11y.js) ===== */
+.a11y-contrast body{ --paper:#fff; --paper-2:#fff; --border:#000; --text:#000; --text-soft:#000; --ink:#000; --gold-text:#7A4E00; }
+.a11y-contrast .hero, .a11y-contrast .site-header, .a11y-contrast .center-band, .a11y-contrast .path-note{ background:#000 !important; }
+.a11y-contrast .card, .a11y-contrast .about-card, .a11y-contrast .path-card, .a11y-contrast .steps li, .a11y-contrast .involve li, .a11y-contrast .stat, .a11y-contrast .letter{ border:2px solid #000 !important; }
+.a11y-contrast .card-icon{ background:#fff !important; border-bottom:2px solid #000; }
+
+/* ===== Responsive ===== */
+@media (max-width:900px){
+  .hero-inner{ grid-template-columns:1fr; padding-block:2.2rem 4rem; }
+  .hero-art{ display:none; }
+  .about-grid, .steps{ grid-template-columns:1fr; }
+  .contact-card{ grid-template-columns:1fr; }
+}
+@media (max-width:640px){
+  .header-inner{ flex-wrap:wrap; }
+  .brand-sub{ display:none; }
+  .stats-grid{ grid-template-columns:1fr; gap:.6rem; }
+  .stat{ padding:.8rem 1rem; }
+  .stat-num{ font-size:1.4rem; }
+  .header-link{ display:none; } /* בטלפון יש כפתור קבוע בתחתית */
+  .section{ padding-block:2.4rem; }
+  .letter{ padding:1.4rem 1.2rem; }
+  .center-band{ grid-template-columns:1fr; padding:1.5rem 1.2rem; }
+  .center-band svg{ width:80px; height:80px; }
+  .cards{ grid-template-columns:1fr; }
+  .hero-actions .btn{ flex:1 1 100%; }
+  body{ padding-bottom:76px; }
+  .mobile-cta{
+    display:flex; position:fixed; bottom:0; left:0; right:0; z-index:60;
+    padding:.6rem 1rem calc(.6rem + env(safe-area-inset-bottom)); background:rgba(255,255,255,.96);
+    border-top:1px solid var(--border); box-shadow:0 -4px 14px rgba(11,42,91,.08);
+    transition:transform .25s ease;
+  }
+  .mobile-cta .btn{ width:100%; }
+  /* מפנים מקום לכפתורים הצפים של האתר: "מעבר מהיר" (למטה-ימין) ונגישות (למעלה-שמאל) */
+  .mobile-cta{ padding-inline-start:3.6rem; }
+  .section-nav ul{ padding-inline-end:3rem; }
+  .mobile-cta.hidden{ transform:translateY(110%); }
+}
+</style>
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
+</head>
+<body class="no-js">
+<script>document.body.classList.remove("no-js");</script>
+
+<a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
+
+<header class="site-header on-dark">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 48 48" width="36" height="36" aria-hidden="true" focusable="false">
+        <path d="M6 10 C6 8 8 7 10 7 L22 7 L22 39 L10 39 C8 39 6 38 6 36 Z" fill="none" stroke="currentColor" stroke-width="2.2"/>
+        <path d="M42 10 C42 8 40 7 38 7 L26 7 L26 39 L38 39 C40 39 42 38 42 36 Z" fill="none" stroke="currentColor" stroke-width="2.2"/>
+      </svg>
+      <span><span class="brand-name">הכיתה הדיגיטלית</span><span class="brand-sub">חזרה לדף הבית</span></span>
+    </a>
+    <a class="header-link" href="#contact">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M4 6h16v10H8l-4 4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      יצירת קשר
+    </a>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+
+  <!-- ===== פתיחה ===== -->
+  <section class="hero on-dark" aria-labelledby="hero-title">
+    <div class="wrap hero-inner">
+      <div>
+        <nav class="breadcrumb" aria-label="מיקום באתר">
+          <a href="index.html">הכיתה הדיגיטלית</a> &raquo; <span aria-current="page">תוכנית הבוגרים</span>
+        </nav>
+        <span class="eyebrow">תוכנית הבוגרים</span>
+        <h1 id="hero-title">סיימתם את י"ב.<br><span class="accent">הבית נשאר שלכם.</span></h1>
+        <p class="hero-lead">תוכנית הבוגרים ממשיכה ללוות אתכם גם אחרי התיכון – בשירות, בלימודים, בעבודה ובבניית הבית. שיעור קבוע, מפגשים עם החבר'ה, ויד מושטת כשצריך.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact">אני רוצה להישאר בקשר</a>
+          <a class="btn btn-ghost" href="#activities">מה יש בתוכנית?</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <!-- איור מופשט: בית, ודרך של נקודות (מחזורים) שיוצאת ממנו וחוזרת אליו -->
+        <svg viewBox="0 0 360 300" focusable="false">
+          <path d="M60 250 C 110 150, 240 290, 300 120" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round"/>
+          <g fill="none" stroke="#fff" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+            <path d="M190 120 L260 62 L330 120"/>
+            <path d="M204 112 V190 H316 V112"/>
+          </g>
+          <rect x="246" y="140" width="28" height="50" rx="4" fill="#FF7A1A"/>
+          <circle cx="60" cy="250" r="13" fill="#FFC196"/>
+          <circle cx="104" cy="206" r="11" fill="#fff" opacity=".9"/>
+          <circle cx="150" cy="210" r="11" fill="#FFC196" opacity=".9"/>
+          <circle cx="196" cy="234" r="10" fill="#fff" opacity=".8"/>
+          <circle cx="42" cy="196" r="7" fill="#fff" opacity=".45"/>
+          <circle cx="126" cy="262" r="7" fill="#fff" opacity=".45"/>
+          <circle cx="230" cy="250" r="7" fill="#FFC196" opacity=".6"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== נתונים בולטים (מתוך מסמך המקור) ===== -->
+  <section class="stats" aria-label="התוכנית במספרים">
+    <div class="wrap stats-grid">
+      <div class="stat"><span class="stat-num">9 מחזורים</span><span class="stat-label">של בוגרים, מתשע"ח ועד תשפ"ו</span></div>
+      <div class="stat"><span class="stat-num">שיעור בחודש</span><span class="stat-label">בבית הכנסת הגדול, לפני ראש חודש</span></div>
+      <div class="stat"><span class="stat-num">3 אירועי שיא</span><span class="stat-label">בכל שנה – לכל המחזורים יחד</span></div>
+    </div>
+  </section>
+
+  <!-- ===== ניווט בתוך העמוד ===== -->
+  <nav class="section-nav" aria-label="חלקי העמוד">
+    <div class="wrap">
+      <ul>
+        <li><a href="#letter">דבר הרכז</a></li>
+        <li><a href="#about">מהי התוכנית</a></li>
+        <li><a href="#path">הדרך שלכם</a></li>
+        <li><a href="#activities">מה מחכה לכם</a></li>
+        <li><a href="#involve">לקחת חלק</a></li>
+        <li><a href="#contact">נשארים בקשר</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ===== דבר רכז הבוגרים ===== -->
+  <!-- טיוטה: במסמך המקור אין "דבר רכז". הנוסח מוצע - יש לאשר אותו ולמחוק את התג "נוסח מוצע" לפני פרסום. -->
+  <section id="letter" class="section" aria-labelledby="letter-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker">דבר רכז הבוגרים</span>
+        <h2 id="letter-title">הקשר שלנו לא נגמר ביום הסיום</h2>
+      </div>
+      <article class="letter reveal">
+        <span class="draft-badge">נוסח מוצע – ממתין לאישור</span>
+        <p>בוגרים יקרים,</p>
+        <p>יום הסיום של י"ב הוא לא יום הפרידה שלנו. הייתם חלק מהבית הזה שנים, ואני רוצה להמשיך ללוות אתכם גם עכשיו – בצבא או בשירות הלאומי, בלימודים, בעבודה, ובהמשך גם בבניית הבית.</p>
+        <p>תוכנית הבוגרים נולדה ממחשבה פשוטה: לכל אחד מכם צריך להיות מקום לחזור אליו. מקום ללמוד בו, לפגוש חברים מהמחזור ומהמחזורים האחרים, לבקש עזרה כשצריך – ולפעמים גם לתת יד למי שבא אחריכם.</p>
+        <p>הדלת פתוחה. בואו לשיעור, תגיעו לאירוע, תרימו טלפון. אני כאן.</p>
+        <p class="sign">הרב אפרים לוי<span>רכז הבוגרים</span></p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== מהי התוכנית ===== -->
+  <section id="about" class="section white" aria-labelledby="about-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker">מהי תוכנית הבוגרים</span>
+        <h2 id="about-title">קהילה שממשיכה איתכם הלאה</h2>
+        <p>השנים שאחרי התיכון מלאות בהחלטות גדולות. התוכנית נועדה לתת לכם עוגן, חברים וכתובת – בכל שלב.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-card reveal">
+          <h3><span class="ic" aria-hidden="true">🤝</span>למי היא מיועדת?</h3>
+          <p>לכל בוגרי בית הספר, מכל המחזורים. דגש מיוחד על השנים הראשונות אחרי הסיום – חיילים, בני ובנות שירות לאומי, תלמידי ישיבות ומכינות.</p>
+        </div>
+        <div class="about-card reveal">
+          <h3><span class="ic" aria-hidden="true">🧭</span>מה המטרה?</h3>
+          <p>לשמור על הקשר, לחזק את השייכות, ולעזור לכם להצליח – ברוח, בשירות, בלימודים, בתעסוקה ובזוגיות.</p>
+        </div>
+        <div class="about-card reveal">
+          <h3><span class="ic" aria-hidden="true">🏠</span>למה להישאר בקשר?</h3>
+          <p>כי יש כאן רשת של בוגרים שעוזרים לבוגרים: מידע, הזדמנויות, חברים מוכרים – ומישהו שמכיר אתכם ובאמת שואל מה שלומכם.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== הדרך מתלמיד לבוגר ===== -->
+  <section id="path" class="section" aria-labelledby="path-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker">הדרך שלכם</span>
+        <h2 id="path-title">מהתיכון והלאה – אנחנו איתכם בכל שלב</h2>
+        <p>כל שלב בחיים מביא איתו צרכים אחרים. כך התוכנית מלווה אתכם לאורך הדרך:</p>
+      </div>
+      <ol class="path">
+        <li class="path-step reveal">
+          <span class="path-dot" aria-hidden="true">1</span>
+          <div class="path-card">
+            <span class="path-when">סוף י"ב</span>
+            <h3>יוצאים לדרך</h3>
+            <p>בטקס הסיום או לקראת הגיוס מקבלים מאיתנו ערכת "מזל טוב / גיוס קל" – מתנה קטנה שאומרת: אנחנו לא נעלמים.</p>
+          </div>
+        </li>
+        <li class="path-step reveal">
+          <span class="path-dot" aria-hidden="true">2</span>
+          <div class="path-card">
+            <span class="path-when">השנה הראשונה</span>
+            <h3>שיחה אישית, אחת לרבעון</h3>
+            <p>השנה הראשונה היא שנת מעבר, ולא תמיד קלה. בדצמבר, במרץ וביוני נרים אליכם טלפון לשמוע איך אתם מסתדרים. ואם משהו מסתבך בשירות או במסגרת – נעזור לפנות לגורמים הנכונים.</p>
+          </div>
+        </li>
+        <li class="path-step reveal">
+          <span class="path-dot" aria-hidden="true">3</span>
+          <div class="path-card">
+            <span class="path-when">שנים 2–4 אחרי הסיום</span>
+            <h3>שחרור, לימודים – ולחזור למסע</h3>
+            <p>מידע על מלגות, פסיכומטרי ושיפור בגרויות לקראת הלימודים. ומי שרוצה – יכול לחזור אל "מסע תקומה" כמלווה של תלמידי י"א–י"ב.</p>
+          </div>
+        </li>
+        <li class="path-step reveal">
+          <span class="path-dot" aria-hidden="true">4</span>
+          <div class="path-card">
+            <span class="path-when">שנים 3–5</span>
+            <h3>להיות "אח בוגר"</h3>
+            <p>בוגרים שבאקדמיה או בשנים שאחרי השירות יכולים לחנוך תלמידי תיכון ולעזור להם לקראת המבחנים.</p>
+          </div>
+        </li>
+        <li class="path-step reveal">
+          <span class="path-dot" aria-hidden="true">5</span>
+          <div class="path-card">
+            <span class="path-when">מגיל 21 ומעלה</span>
+            <h3>זוגיות ובניין הבית</h3>
+            <p>ליווי דיסקרטי ומכבד בשלב חיפוש הזוגיות, חיבור לשדכניות שעובדות עם בית הספר, וסדנת "תקשורת וזוגיות".</p>
+          </div>
+        </li>
+        <li class="path-step reveal">
+          <span class="path-dot" aria-hidden="true">6</span>
+          <div class="path-card">
+            <span class="path-when">4–10 שנים אחרי הסיום</span>
+            <h3>קריירה ורשת קשרים</h3>
+            <p>משרות, הזדמנויות עסקיות ומפגשי נטוורקינג בין בוגרים ותיקים לבוגרים צעירים. והבוגרים שהצליחו פותחים דלת למי שבא אחריהם.</p>
+          </div>
+        </li>
+      </ol>
+      <p class="path-note reveal"><strong>לאורך כל הדרך:</strong> שיעור חודשי, אירועי בוגרים לכל המחזורים, ופינת "בוגר השבוע".</p>
+    </div>
+  </section>
+
+  <!-- ===== הפעילות ===== -->
+  <section id="activities" class="section white" aria-labelledby="act-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker">מה מחכה לכם</span>
+        <h2 id="act-title">הפעילות והאפשרויות לבוגרים</h2>
+        <p>בוחרים מה מתאים לכם – אפשר להגיע לאירוע אחד בשנה, ואפשר להיות חלק מהכול.</p>
+      </div>
+      <div class="cards">
+
+        <article class="card c-blue reveal">
+          <div class="card-icon" aria-hidden="true">📖</div>
+          <div class="card-body">
+            <h3>שיעור תורני חודשי</h3>
+            <p>מסגרת לימוד קבועה שמחזיקה אתכם גם כשהחיים עמוסים. לומדים בחבורה, עם רבנים ומרצים מתחלפים.</p>
+            <ul>
+              <li>בכל יום חמישי שלפני ראש חודש</li>
+              <li>בבית הכנסת הגדול</li>
+              <li>ערבי שיא באלול (סליחות) ובאדר (פורים)</li>
+            </ul>
+            <p class="card-how"><b>איך משתתפים?</b> פשוט מגיעים. ויש גם בית מדרש לבוגרים.</p>
+          </div>
+        </article>
+
+        <article class="card c-orange reveal">
+          <div class="card-icon" aria-hidden="true">🎉</div>
+          <div class="card-body">
+            <h3>אירועי בוגרים</h3>
+            <p>שלושה מפגשים גדולים בשנה, לכל המחזורים יחד – להיפגש, להיזכר ולהכיר.</p>
+            <ul>
+              <li>תשרי – אירוע פתיחת שנה</li>
+              <li>כסלו – מסיבת חנוכה</li>
+              <li>אייר – על האש וגיבוש</li>
+            </ul>
+            <p class="card-how"><b>איך משתתפים?</b> ההרשמה לכל אירוע נעשית מראש – עקבו אחרי העדכונים.</p>
+          </div>
+        </article>
+
+        <article class="card c-green reveal">
+          <div class="card-icon" aria-hidden="true">🛡️</div>
+          <div class="card-body">
+            <h3>ליווי אישי בשירות ובשנה הראשונה</h3>
+            <p>ערכת "מזל טוב / גיוס קל" לבוגרי השנה, ושיחת טלפון אישית אחת לרבעון בשנה הראשונה – כדי לשמוע איך אתם באמת.</p>
+            <p>בצבא, בשירות הלאומי, בישיבה או במכינה – אם יש קושי, אתם לא לבד. במקרה הצורך נעזור מול הגורמים המתאימים במסגרת.</p>
+            <p class="card-how"><b>איך משתתפים?</b> ודאו שהפרטים שלכם מעודכנים אצלנו, ופנו לרכז הבוגרים בכל שלב.</p>
+          </div>
+        </article>
+
+        <article class="card c-purple reveal">
+          <div class="card-icon" aria-hidden="true">💼</div>
+          <div class="card-body">
+            <h3>תעסוקה וקריירה</h3>
+            <p>רשת של "בוגרים עוזרים לבוגרים": בוגרים בעלי עסקים, משרות והזדמנויות.</p>
+            <ul>
+              <li>קבוצת וואטסאפ "דרושים – בוגרים" לפרסום משרות</li>
+              <li>כנס נטוורקינג פעמיים בשנה (ינואר ויולי)</li>
+            </ul>
+            <p class="card-how"><b>יש לכם עסק או משרה פנויה?</b> ספרו לנו – נפרסם לבוגרים.</p>
+          </div>
+        </article>
+
+        <article class="card c-orange reveal">
+          <div class="card-icon" aria-hidden="true">⭐</div>
+          <div class="card-body">
+            <h3>בוגר השבוע</h3>
+            <p>בכל יום ראשון נספר על בוגר או בוגרת שעשו דרך – בעסק, בלימודים, בשירות או בהתנדבות. השראה אמיתית, מאנשים שישבו באותן כיתות.</p>
+            <p class="card-how"><b>מכירים סיפור שכדאי לספר?</b> שלחו לנו.</p>
+          </div>
+        </article>
+
+        <article class="card c-blue reveal">
+          <div class="card-icon" aria-hidden="true">🎓</div>
+          <div class="card-body">
+            <h3>לימודים, פסיכומטרי ומלגות</h3>
+            <p>אחרי השחרור מגיע זמן ההחלטות. נעזור לכם להתמצא ולמצות את הזכויות שלכם.</p>
+            <ul>
+              <li>מידע מרוכז על מלגות, וסיוע בהגשה (מרץ–אפריל)</li>
+              <li>קורסי פסיכומטרי ושיפור בגרויות (מאי–אוגוסט) – אנחנו פועלים להשיג מחירי קבוצה לבוגרים</li>
+              <li>חיבור למרכזי הצעירים ברשות המקומית</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card c-purple reveal">
+          <div class="card-icon" aria-hidden="true">💍</div>
+          <div class="card-body">
+            <h3>זוגיות ובניין הבית</h3>
+            <p>לבוגרים מגיל 21 ומעלה: "כרטיס בוגר" דיסקרטי ומאובטח, חיבור לשדכניות שעובדות עם בית הספר, וסדנת "תקשורת וזוגיות" – בנובמבר ובמאי.</p>
+            <p class="card-how"><b>איך משתתפים?</b> פונים לרכז הבוגרים. הכול בדיסקרטיות מלאה.</p>
+          </div>
+        </article>
+
+        <article class="card c-green reveal">
+          <div class="card-icon" aria-hidden="true">🧭</div>
+          <div class="card-body">
+            <h3>מסע תקומה</h3>
+            <p>המסע של י"א–י"ב בעקבות תולדות עם ישראל. בוגרים (בדרך כלל 2–4 שנים אחרי הסיום) חוזרים אליו כמלווים ומנחים את מעגלי השיח בערבים.</p>
+            <p class="card-how"><b>איך משתתפים?</b> כחודש לפני המסע (לרוב במרץ–אפריל) יש יום הכנה למלווים.</p>
+          </div>
+        </article>
+
+        <article class="card c-navy reveal">
+          <div class="card-icon" aria-hidden="true">🌱</div>
+          <div class="card-body">
+            <h3>חונכות – "אח בוגר"</h3>
+            <p>מעבירים את המקל הלאה: בוגרים חונכים תלמידי תיכון שזקוקים לעזרה, בזום או פנים אל פנים, לקראת תקופות המבחנים.</p>
+            <p class="card-how"><b>איך משתתפים?</b> החיבור בין חונכים לתלמידים נעשה באוקטובר. החונכות בהתנדבות או תמורת מלגה.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== מרכז הבוגרים (בהקמה) ===== -->
+  <section class="section" aria-labelledby="center-title">
+    <div class="wrap">
+      <div class="center-band on-dark reveal">
+        <svg viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+          <circle cx="60" cy="60" r="56" fill="rgba(255,255,255,.1)"/>
+          <g fill="none" stroke="#FFC196" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+            <path d="M28 58 L60 32 L92 58"/><path d="M36 52 V88 H84 V52"/>
+          </g>
+          <rect x="53" y="66" width="14" height="22" rx="2" fill="#FF7A1A"/>
+        </svg>
+        <div>
+          <span class="kicker">בדרך</span>
+          <h2 id="center-title">מרכז בוגרים – בית משלנו</h2>
+          <p>קהילה צריכה בית. אנחנו פועלים להקים מרכז בוגרים: מקום ללמוד בו, להיפגש, לשבת עם קפה ולעבוד – בשיתוף הרב נורדמן והעירייה.</p>
+          <p>את השיפוץ נעשה יחד, בימי התנדבות של הבוגרים.</p>
+          <ul class="milestones">
+            <li>2026 – איתור המקום, שיפוץ והצטיידות</li>
+            <li>ינואר 2027 – היעד לחנוכת הבית</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== לקחת חלק ===== -->
+  <section id="involve" class="section alt" aria-labelledby="involve-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker">לקחת חלק</span>
+        <h2 id="involve-title">רוצים לתת בחזרה?</h2>
+        <p>התוכנית נבנית על ידי הבוגרים עצמם. אלה המקומות שבהם אפשר להשתלב:</p>
+      </div>
+      <ul class="involve">
+        <li class="reveal"><span class="ic" aria-hidden="true">🗂️</span><span><b>ועד הבוגרים</b><span class="t">צוות היגוי עם נציגים מכל המחזורים, שמתכנן את אירועי השנה.</span></span></li>
+        <li class="reveal"><span class="ic" aria-hidden="true">☕</span><span><b>צוות השיעור החודשי</b><span class="t">אחריות על הכיבוד ועל הפצת ההזמנות.</span></span></li>
+        <li class="reveal"><span class="ic" aria-hidden="true">🧭</span><span><b>מלווה במסע תקומה</b><span class="t">להיות דמות משמעותית לתלמידי י"א–י"ב.</span></span></li>
+        <li class="reveal"><span class="ic" aria-hidden="true">🌱</span><span><b>חונך "אח בוגר"</b><span class="t">לעזור לתלמיד תיכון להצליח.</span></span></li>
+        <li class="reveal"><span class="ic" aria-hidden="true">💼</span><span><b>בעלי עסקים ומנהלים</b><span class="t">לפרסם משרות ולפתוח דלת לבוגרים צעירים.</span></span></li>
+        <li class="reveal"><span class="ic" aria-hidden="true">🔨</span><span><b>ימי התנדבות</b><span class="t">להקים יחד את מרכז הבוגרים.</span></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== נשארים בקשר ===== -->
+  <section id="contact" class="section white" aria-labelledby="contact-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker">נשארים בקשר</span>
+        <h2 id="contact-title">איך מצטרפים?</h2>
+        <p>שלושה צעדים קטנים – ואתם בפנים.</p>
+      </div>
+      <ol class="steps">
+        <li class="reveal"><h3>מעדכנים פרטים</h3><p>מספרים לנו איפה אתם היום – שירות, לימודים או עבודה – כדי שנוכל ללוות אתכם נכון.</p></li>
+        <li class="reveal"><h3>מצטרפים לקהילה</h3><p>מקבלים עדכונים על השיעור החודשי, על האירועים ועל משרות והזדמנויות.</p></li>
+        <li class="reveal"><h3>בוחרים איך להשתתף</h3><p>מגיעים לשיעור או לאירוע, מתנדבים, חונכים – כל אחד בקצב שלו.</p></li>
+      </ol>
+
+      <div class="contact-card reveal">
+        <div>
+          <h3>הרב אפרים לוי</h3>
+          <p class="contact-role">רכז הבוגרים</p>
+          <p id="contact-pending" class="contact-pending">פרטי יצירת הקשר יתפרסמו כאן בקרוב.</p>
+        </div>
+        <div id="contact-actions" class="contact-actions"></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>תוכנית הבוגרים &middot; <a href="index.html">הכיתה הדיגיטלית</a> &middot; מתעדכן ע"י הרב אפרים</p>
+</footer>
+
+<div class="mobile-cta" id="mobile-cta">
+  <a class="btn btn-primary" href="#contact">אני רוצה להישאר בקשר</a>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============ פרטי יצירת קשר ============
+     במסמך המקור אין עדיין טלפון, דוא"ל, קישור לקבוצת וואטסאפ או טופס.
+     כשיהיו - ממלאים כאן, והכפתורים יופיעו אוטומטית באזור "נשארים בקשר".
+     דוגמה:  whatsapp: "https://chat.whatsapp.com/...."
+             phone:    "05X-XXXXXXX"
+             email:    "name@example.com"
+             form:     "https://forms.gle/...."   (טופס עדכון פרטים) */
+  var CONTACT = {
+    form: "",
+    whatsapp: "",
+    phone: "",
+    email: ""
+  };
+
+  var actions = document.getElementById("contact-actions");
+  var pending = document.getElementById("contact-pending");
+  var items = [];
+  if(CONTACT.form) items.push({ href:CONTACT.form, label:"לעדכון פרטים בטופס", cls:"btn-primary", ext:true });
+  if(CONTACT.whatsapp) items.push({ href:CONTACT.whatsapp, label:"הצטרפות לקבוצת הבוגרים בוואטסאפ", cls:"btn-outline", ext:true });
+  if(CONTACT.phone) items.push({ href:"tel:" + CONTACT.phone.replace(/[^\d+]/g,""), label:"התקשרו: " + CONTACT.phone, cls:"btn-outline" });
+  if(CONTACT.email) items.push({ href:"mailto:" + CONTACT.email, label:"כתבו לי במייל", cls:"btn-outline" });
+
+  items.forEach(function(it){
+    var a = document.createElement("a");
+    a.className = "btn " + it.cls;
+    a.href = it.href;
+    a.textContent = it.label;
+    if(it.ext){ a.target = "_blank"; a.rel = "noopener"; a.setAttribute("aria-label", it.label + " (נפתח בחלון חדש)"); }
+    actions.appendChild(a);
+  });
+  if(items.length && pending) pending.hidden = true;
+
+  /* ============ אנימציות כניסה עדינות ============ */
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reveals = document.querySelectorAll(".reveal");
+  if(reduce || !("IntersectionObserver" in window)){
+    reveals.forEach(function(el){ el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { rootMargin:"0px 0px -8% 0px" });
+    reveals.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ============ סימון החלק הנוכחי בניווט ============ */
+  var links = Array.prototype.slice.call(document.querySelectorAll(".section-nav a"));
+  var sections = links.map(function(a){ return document.querySelector(a.getAttribute("href")); });
+  function markCurrent(){
+    var y = window.scrollY + window.innerHeight * 0.3;
+    var idx = -1;
+    sections.forEach(function(s, i){ if(s && s.offsetTop <= y) idx = i; });
+    links.forEach(function(a, i){
+      if(i === idx){
+        a.setAttribute("aria-current", "true");
+        if(a.scrollIntoView && a.parentNode.parentNode.scrollWidth > a.parentNode.parentNode.clientWidth){
+          var ul = a.parentNode.parentNode, r = a.getBoundingClientRect(), ur = ul.getBoundingClientRect();
+          if(r.left < ur.left || r.right > ur.right) ul.scrollLeft += (r.left - ur.left) - 16;
+        }
+      } else a.removeAttribute("aria-current");
+    });
+  }
+
+  /* ============ כפתור קבוע בטלפון - נעלם כשהגענו לאזור הקשר ============ */
+  var cta = document.getElementById("mobile-cta");
+  var contact = document.getElementById("contact");
+  var hero = document.querySelector(".hero");
+  function toggleCta(){
+    if(!cta) return;
+    var top = contact.getBoundingClientRect().top;
+    var heroBottom = hero.getBoundingClientRect().bottom;
+    var hide = top < window.innerHeight * 0.9 || heroBottom > 0;
+    cta.classList.toggle("hidden", hide);
+    var link = cta.querySelector("a");
+    if(hide){ link.setAttribute("tabindex","-1"); cta.setAttribute("aria-hidden","true"); }
+    else { link.removeAttribute("tabindex"); cta.removeAttribute("aria-hidden"); }
+  }
+
+  var ticking = false;
+  window.addEventListener("scroll", function(){
+    if(ticking) return; ticking = true;
+    requestAnimationFrame(function(){ markCurrent(); toggleCta(); ticking = false; });
+  }, { passive:true });
+  window.addEventListener("resize", function(){ markCurrent(); toggleCta(); });
+  markCurrent(); toggleCta();
+})();
+</script>
+</body>
+</html>
