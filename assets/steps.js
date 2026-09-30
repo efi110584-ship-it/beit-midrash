@@ -107,6 +107,27 @@
 
   function applyAll(){ instances.forEach(function(i){ i.apply(); }); }
 
+  /* ---------- "שלחו למורה" רק בסוף הפרק ----------
+     בדף שהכפתור שלו מסומן data-bm-send-after="summary" (דפי התנ"ך), כפתור
+     השליחה מופיע רק במסך הסיכום - אחרי המשימה האחרונה - ולא מתחת לכל
+     משימה. בתצוגה המלאה ("הצג את כל השאלות") הוא מופיע כרגיל בסוף הדף. */
+  var sendBtn = document.getElementById("sendToTeacherBtn");
+  var lockSend = !!sendBtn && sendBtn.getAttribute("data-bm-send-after") === "summary";
+  var sendNote = null;
+  if(lockSend){
+    sendNote = make("p", "bm-send-locked-note", "📤 השליחה למורה תיפתח בסוף הפרק - אחרי שתסיימו את כל המשימות ותגיעו לסיכום.");
+    sendBtn.insertAdjacentElement("afterend", sendNote);
+  }
+  function updateSendLock(){
+    if(!lockSend || !instances.length) return;
+    var inst = instances.filter(function(i){ return !i.root.hidden; })[0] || instances[0];
+    var locked = !inst.atEnd();
+    sendBtn.hidden = locked;
+    sendNote.hidden = !locked;
+    var panel = document.getElementById("bmSendPanel");
+    if(locked && panel && !panel.hidden){ panel.hidden = true; sendBtn.setAttribute("aria-expanded", "false"); }
+  }
+
   /* ---------- אירועים משותפים: הקלדה, בחירה, ניקוי, הדפסה ---------- */
   var lastSaveTimer = null;
   function onChange(e){
@@ -575,6 +596,7 @@
       setOff(pills, view === "all");
       viewBtn.textContent = view === "all" ? "חזרה לתצוגה לפי משימות" : "📋 הצג את כל השאלות";
       refresh();
+      updateSendLock();
     }
 
     function go(idx, fromUser){
@@ -780,6 +802,7 @@
 
     return {
       root: root,
+      atEnd: function(){ return single || view === "all" || current >= tasks.length; },
       apply: apply,
       refresh: refresh,
       saveLast: saveLast,

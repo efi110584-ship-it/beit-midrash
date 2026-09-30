@@ -144,3 +144,8 @@ html.a11y-contrast .bm-path, html.a11y-contrast .bm-path-btn{ border-color:#0000
 @media print{
   .bm-taskbar, .bm-task-nav, .bm-summary, .bm-qstatus, .bm-selfcheck, .bm-choice-done{ display:none !important; }
 }
+
+/* "שלחו למורה" נפתח רק בסוף הפרק (assets/steps.js - data-bm-send-after="summary") */
+.bm-send-locked-note{ flex-basis:100%; margin:0; text-align:center; font-size:.9rem; color: var(--ink-soft, #4B6577); }
+.bm-send-locked-note[hidden], #sendToTeacherBtn[hidden]{ display:none !important; }
+@media print{ .bm-send-locked-note{ display:none !important; } }
