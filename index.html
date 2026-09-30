@@ -448,6 +448,28 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
      מדף עבודה, כמו index.html#tab-yb) תמיד מדלג ישר על השער. */
   (function entryGate(){
     var ROLE_KEY = "bm-homepage-role";
+
+    /* גיבוי כפול: localStorage הוא הראשי, אבל בדפדפנים/מצבים שבהם הוא
+       נחסם או מתאפס (הרחבות פרטיות, מדיניות דפדפן וכו') עוגיה עם תוקף
+       שנה שומרת על הבחירה בכל זאת. קוראים משני המקורות ומעדיפים כל
+       ערך "student" שנמצא. */
+    function readRole(){
+      try{
+        var fromStorage = localStorage.getItem(ROLE_KEY);
+        if(fromStorage) return fromStorage;
+      }catch(e){}
+      var match = document.cookie.match(/(?:^|; )bm-homepage-role=(student)(?:;|$)/);
+      return match ? match[1] : null;
+    }
+    function writeRole(value){
+      try{ localStorage.setItem(ROLE_KEY, value); }catch(e){}
+      try{ document.cookie = "bm-homepage-role=" + value + "; max-age=31536000; path=/; SameSite=Lax"; }catch(e){}
+    }
+    function clearRole(){
+      try{ localStorage.removeItem(ROLE_KEY); }catch(e){}
+      try{ document.cookie = "bm-homepage-role=; max-age=0; path=/; SameSite=Lax"; }catch(e){}
+    }
+
     var gate = document.getElementById("entryGate");
     var site = document.getElementById("site-content");
     if(!gate || !site) return;
@@ -459,10 +481,7 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
       if(studentBtn) studentBtn.focus();
     }
 
-    var savedRole = null;
-    try{ savedRole = localStorage.getItem(ROLE_KEY); }catch(e){}
-
-    if(location.hash || savedRole === "student"){
+    if(location.hash || readRole() === "student"){
       showSite();
     } else {
       showGate();
@@ -471,7 +490,7 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
     var studentBtn = document.getElementById("gateStudentBtn");
     if(studentBtn){
       studentBtn.addEventListener("click", function(){
-        try{ localStorage.setItem(ROLE_KEY, "student"); }catch(e){}
+        writeRole("student");
         showSite();
       });
     }
@@ -479,7 +498,7 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
     var staffBtn = document.getElementById("gateStaffBtn");
     if(staffBtn){
       staffBtn.addEventListener("click", function(){
-        try{ localStorage.setItem(ROLE_KEY, "student"); }catch(e){}
+        writeRole("student");
         showSite();
         var teacherTab = document.getElementById("tab-teacher");
         if(teacherTab) teacherTab.click();
@@ -489,7 +508,7 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
     var resetBtn = document.getElementById("resetRoleBtn");
     if(resetBtn){
       resetBtn.addEventListener("click", function(){
-        try{ localStorage.removeItem(ROLE_KEY); }catch(e){}
+        clearRole();
         history.replaceState(null, "", location.pathname);
         showGate();
       });
