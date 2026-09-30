@@ -272,11 +272,91 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
 /* ===== קישור "תוכנית הבוגרים" בכותרת - בטלפון הכפתורים יורדים שורה במקום לחרוג מהמסך ===== */
 @media (max-width:640px){ .header-actions{ flex-wrap:wrap; justify-content:center; width:100%; } }
 
+/* ===== שער כניסה - תלמיד/ה או בוגר/ת ===== */
+.entry-gate{
+  position:fixed; inset:0; z-index:500;
+  background:radial-gradient(1100px 700px at 50% -10%, #163A72 0%, var(--ink) 55%, #081D42 100%);
+  display:flex; align-items:center; justify-content:center;
+  padding:2.5rem 1.25rem; overflow-y:auto;
+}
+.entry-gate[hidden]{ display:none; }
+.entry-gate-inner{ max-width:720px; width:100%; display:flex; flex-direction:column; align-items:center; text-align:center; }
+.entry-gate-brand{ display:flex; align-items:center; gap:.7rem; color:#fff; margin-bottom:clamp(1.8rem,5vw,3rem); }
+.entry-gate-mark{ color:var(--gold); flex-shrink:0; }
+.entry-gate-name{ font-family:var(--font-display); font-weight:800; font-size:1.1rem; }
+.entry-gate-title{ font-family:var(--font-display); font-weight:900; font-size:clamp(1.5rem,4vw,2.1rem); color:#fff; margin:0 0 .6rem; }
+.entry-gate-lead{ color:#C9D6EE; font-size:1.05rem; margin:0 0 2.2rem; max-width:30rem; }
+.entry-gate-cards{ display:flex; gap:1.25rem; width:100%; }
+.entry-gate-card{
+  flex:1; background:#fff; border:0; border-top:5px solid var(--gold);
+  border-radius:16px; padding:1.8rem 1.4rem; min-height:250px;
+  display:flex; flex-direction:column; align-items:center; gap:.85rem; text-align:center;
+  text-decoration:none; cursor:pointer; font-family:inherit;
+  box-shadow:0 10px 26px rgba(0,0,0,.22); transition:transform .15s ease, box-shadow .15s ease;
+}
+.entry-gate-card:hover, .entry-gate-card:focus-visible{ transform:translateY(-3px); box-shadow:0 16px 34px rgba(0,0,0,.3); }
+.entry-gate-card--alumni{ border-top-color:var(--teal); }
+.entry-gate-icon{ width:58px; height:58px; border-radius:50%; background:var(--gold-tag-bg); color:var(--gold-text); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.entry-gate-card--alumni .entry-gate-icon{ background:var(--teal-light); color:var(--teal); }
+.entry-gate-card-title{ font-family:var(--font-display); font-weight:800; font-size:1.25rem; color:var(--ink); }
+.entry-gate-card-desc{ font-size:.9rem; color:var(--text-soft); line-height:1.6; }
+.entry-gate-card-cta{ margin-top:auto; display:inline-flex; align-items:center; gap:.4rem; font-weight:700; font-size:.88rem; color:var(--gold-text); }
+.entry-gate-card--alumni .entry-gate-card-cta{ color:var(--teal); }
+.entry-gate-staff-link{ margin-top:1.8rem; background:none; border:0; color:#9FB3D6; font-size:.85rem; text-decoration:underline; cursor:pointer; font-family:inherit; padding:.4rem; }
+.entry-gate-staff-link:hover{ color:#fff; }
+.link-reset-role{ background:none; border:0; color:inherit; text-decoration:underline; cursor:pointer; font:inherit; padding:0; }
+@media (max-width:640px){
+  .entry-gate-cards{ flex-direction:column; }
+  .entry-gate-card{ min-height:0; }
+}
+
 </style>
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
 </head>
 <body>
+
+<div id="entryGate" class="entry-gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+  <div class="entry-gate-inner">
+    <div class="entry-gate-brand">
+      <span class="entry-gate-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="34" height="34">
+          <path d="M6 10 C6 8 8 7 10 7 L22 7 L22 39 L10 39 C8 39 6 38 6 36 Z" fill="none" stroke="currentColor" stroke-width="2.4"/>
+          <path d="M42 10 C42 8 40 7 38 7 L26 7 L26 39 L38 39 C40 39 42 38 42 36 Z" fill="none" stroke="currentColor" stroke-width="2.4"/>
+          <line x1="24" y1="7" x2="24" y2="39" stroke="currentColor" stroke-width="1.4" opacity="0.55"/>
+        </svg>
+      </span>
+      <span class="entry-gate-name">הבית הדיגיטלי של תיכון יש"י</span>
+    </div>
+    <h1 id="gateTitle" class="entry-gate-title">ברוכים הבאים הביתה</h1>
+    <p class="entry-gate-lead">כדי שנציג לכם בדיוק את מה שרלוונטי - ספרו לנו מי אתם</p>
+    <div class="entry-gate-cards">
+      <button type="button" class="entry-gate-card" id="gateStudentBtn">
+        <span class="entry-gate-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="30" height="30"><path d="M4 6.5C4 5.7 4.7 5 5.5 5H11a3 3 0 0 1 1 .18V19A3 3 0 0 0 11 18.5H5.5C4.7 18.5 4 17.8 4 17V6.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M20 6.5C20 5.7 19.3 5 18.5 5H13a3 3 0 0 0-1 .18V19a3 3 0 0 1 1-.5h5.5c.8 0 1.5-.7 1.5-1.5V6.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="entry-gate-card-title">תלמיד/ה נוכחי/ת</span>
+        <span class="entry-gate-card-desc">חומרי לימוד בתנ"ך, תושב"ע ועברית לכיתות י"א-י"ב</span>
+        <span class="entry-gate-card-cta">כניסה לחומרי הלימוד
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </button>
+      <a class="entry-gate-card entry-gate-card--alumni" href="bogrim.html">
+        <span class="entry-gate-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="30" height="30"><path d="M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-8 2c-3 0-5.2 1.8-5.2 4v2h8.4v-2c0-1.1.4-2.1 1.1-2.9A8 8 0 0 0 8 13Zm8 0c-.8 0-1.5.13-2.2.37A4.9 4.9 0 0 1 15 17v2h6v-2c0-2.2-2.2-4-5-4Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="entry-gate-card-title">בוגר/ת</span>
+        <span class="entry-gate-card-desc">קהילת הבוגרים - שיעור קבוע, מפגשים וליווי אחרי י"ב</span>
+        <span class="entry-gate-card-cta">כניסה לתוכנית הבוגרים
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+    </div>
+    <button type="button" class="entry-gate-staff-link" id="gateStaffBtn">עובד/ת צוות? כניסה לאזור האישי</button>
+  </div>
+</div>
+
+<div id="site-content" hidden>
 
 <a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
 
@@ -353,12 +433,68 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
 </main>
 
 <footer class="site-footer">
-  <p>הבית הדיגיטלי של תיכון יש"י &middot; מתעדכן ע"י הרב אפרים</p>
+  <p>הבית הדיגיטלי של תיכון יש"י &middot; מתעדכן ע"י הרב אפרים &middot; <button type="button" class="link-reset-role" id="resetRoleBtn">לא אני - בחרו מחדש</button></p>
 </footer>
+
+</div><!-- /site-content -->
 
 <script>
 (function(){
   "use strict";
+
+  /* ============ שער כניסה - תלמיד/ה או בוגר/ת ============
+     בביקור ראשון (בלי hash וגם בלי בחירה שמורה) מוצג שער מלא-מסך;
+     תלמיד/ה שבחרו פעם לא יראו אותו שוב. קישור פנימי עם hash (חזרה
+     מדף עבודה, כמו index.html#tab-yb) תמיד מדלג ישר על השער. */
+  (function entryGate(){
+    var ROLE_KEY = "bm-homepage-role";
+    var gate = document.getElementById("entryGate");
+    var site = document.getElementById("site-content");
+    if(!gate || !site) return;
+
+    function showSite(){ gate.hidden = true; site.hidden = false; }
+    function showGate(){
+      gate.hidden = false; site.hidden = true;
+      var studentBtn = document.getElementById("gateStudentBtn");
+      if(studentBtn) studentBtn.focus();
+    }
+
+    var savedRole = null;
+    try{ savedRole = localStorage.getItem(ROLE_KEY); }catch(e){}
+
+    if(location.hash || savedRole === "student"){
+      showSite();
+    } else {
+      showGate();
+    }
+
+    var studentBtn = document.getElementById("gateStudentBtn");
+    if(studentBtn){
+      studentBtn.addEventListener("click", function(){
+        try{ localStorage.setItem(ROLE_KEY, "student"); }catch(e){}
+        showSite();
+      });
+    }
+
+    var staffBtn = document.getElementById("gateStaffBtn");
+    if(staffBtn){
+      staffBtn.addEventListener("click", function(){
+        try{ localStorage.setItem(ROLE_KEY, "student"); }catch(e){}
+        showSite();
+        var teacherTab = document.getElementById("tab-teacher");
+        if(teacherTab) teacherTab.click();
+      });
+    }
+
+    var resetBtn = document.getElementById("resetRoleBtn");
+    if(resetBtn){
+      resetBtn.addEventListener("click", function(){
+        try{ localStorage.removeItem(ROLE_KEY); }catch(e){}
+        history.replaceState(null, "", location.pathname);
+        showGate();
+      });
+    }
+  })();
 
   /* ============ יחידות הלימוד ============
      האתר מציג בכוונה רק כרטיס אחד לכל ספר/יחידה מרכזית - לא כרטיס
