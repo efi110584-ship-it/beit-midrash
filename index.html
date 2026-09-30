@@ -353,6 +353,7 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
       </a>
     </div>
     <button type="button" class="entry-gate-staff-link" id="gateStaffBtn">עובד/ת צוות? כניסה לאזור האישי</button>
+    <p id="gateDebugLine" style="margin-top:1.4rem; font-size:.72rem; color:#7A8CAE; direction:ltr; unicode-bidi:plain-text;" dir="ltr"></p>
   </div>
 </div>
 
@@ -470,6 +471,18 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
       try{ document.cookie = "bm-homepage-role=; max-age=0; path=/; SameSite=Lax"; }catch(e){}
     }
 
+    /* שורת אבחון זמנית - עוזרת לאתר למה בחירה לא נשמרת אצל משתמש מסוים.
+       להסיר אחרי שהבעיה נפתרת. */
+    function updateDebugLine(){
+      var line = document.getElementById("gateDebugLine");
+      if(!line) return;
+      var lsVal = "?";
+      try{ lsVal = localStorage.getItem(ROLE_KEY) === null ? "(none)" : localStorage.getItem(ROLE_KEY); }catch(e){ lsVal = "(blocked: " + e.message + ")"; }
+      var cookieMatch = document.cookie.match(/(?:^|; )bm-homepage-role=([^;]*)/);
+      var cookieVal = cookieMatch ? cookieMatch[1] : "(none)";
+      line.textContent = "debug: localStorage=" + lsVal + " | cookie=" + cookieVal + " | hash=" + (location.hash || "(none)") + " | url=" + location.href;
+    }
+
     var gate = document.getElementById("entryGate");
     var site = document.getElementById("site-content");
     if(!gate || !site) return;
@@ -481,6 +494,8 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
       if(studentBtn) studentBtn.focus();
     }
 
+    updateDebugLine();
+
     if(location.hash || readRole() === "student"){
       showSite();
     } else {
@@ -491,6 +506,7 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
     if(studentBtn){
       studentBtn.addEventListener("click", function(){
         writeRole("student");
+        updateDebugLine();
         showSite();
       });
     }
@@ -499,6 +515,7 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
     if(staffBtn){
       staffBtn.addEventListener("click", function(){
         writeRole("student");
+        updateDebugLine();
         showSite();
         var teacherTab = document.getElementById("tab-teacher");
         if(teacherTab) teacherTab.click();
@@ -509,6 +526,7 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
     if(resetBtn){
       resetBtn.addEventListener("click", function(){
         clearRole();
+        updateDebugLine();
         history.replaceState(null, "", location.pathname);
         showGate();
       });
