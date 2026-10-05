@@ -369,9 +369,10 @@
         </div>
 
         <div class="toolbar" style="justify-content:flex-start; padding:0; margin-top:.8rem;">
-          <button class="btn" type="button" id="checkAnswersBtn">✓ בדקו לי את התשובות</button>
+          <button class="btn" type="button" id="checkAnswersBtn" disabled>✓ בדקו לי את התשובות</button>
           <span class="check-summary" id="checkSummary" role="status" aria-live="polite"></span>
         </div>
+        <p class="bm-send-gate-note" id="checkGateNote" style="text-align:start; margin:.3rem 0 0;">מלאו את כל 37 המשפטים כדי לפתוח את כפתור הבדיקה.</p>
 
         <button class="hint-btn" type="button" id="answerKeyBtn" data-gated="true">🔒 הצג את כל התשובות (נדרש קוד מהמורה)</button>
         <div class="hint-box" hidden>
@@ -610,8 +611,23 @@ function checkAnswer(input){
 
 const checkAnswersBtn = document.getElementById('checkAnswersBtn');
 const checkSummary = document.getElementById('checkSummary');
+const checkGateNote = document.getElementById('checkGateNote');
+const gradedFields = textareas.filter(t => t.dataset.id in CORRECT_ANSWERS);
+
+// הכפתור נעול עד שממלאים את כל 37 המשפטים - בדיקה רק אחרי שסיימו את כל הדף,
+// לא אחרי כל משימה בנפרד.
+function allGradedFieldsFilled(){
+  return gradedFields.every(t => t.value.trim().length > 0);
+}
+function updateCheckReadiness(){
+  const ready = allGradedFieldsFilled();
+  if(checkAnswersBtn) checkAnswersBtn.disabled = !ready;
+  if(checkGateNote) checkGateNote.hidden = ready;
+}
+
 if(checkAnswersBtn){
   checkAnswersBtn.addEventListener('click', () => {
+    if(!allGradedFieldsFilled()) return;
     let correct = 0, attempted = 0;
     textareas.forEach(input => {
       if(!(input.dataset.id in CORRECT_ANSWERS)) return;
@@ -629,10 +645,12 @@ textareas.forEach(t => {
     // בדיקה חוזרת חיה: הסימון האדום נשאר כל עוד התשובה לא נכונה,
     // והופך לוי ירוק ברגע שהיא מתוקנת (לא נעלם סתם כי עורכים).
     if(t.dataset.id in CORRECT_ANSWERS){
-      checkAnswer(t);
+      updateCheckReadiness();
+      if(t.classList.contains('is-correct') || t.classList.contains('is-wrong')) checkAnswer(t);
     }
   });
 });
+updateCheckReadiness();
 </script>
 
 <script>

@@ -147,9 +147,10 @@
 </tbody></table></div>
 
         <div class="toolbar" style="justify-content:flex-start; padding:0; margin-top:.8rem;">
-          <button class="btn" type="button" id="checkAnswersBtn">✓ בדקו לי את התשובות</button>
+          <button class="btn" type="button" id="checkAnswersBtn" disabled>✓ בדקו לי את התשובות</button>
           <span class="check-summary" id="checkSummary" role="status" aria-live="polite"></span>
         </div>
+        <p class="bm-send-gate-note" id="checkGateNote" style="text-align:start; margin:.3rem 0 0;">מלאו את כל 62 המילים כדי לפתוח את כפתור הבדיקה.</p>
       </div>
     </section>
 
@@ -336,8 +337,23 @@ function checkAnswer(input){
 
 const checkAnswersBtn = document.getElementById('checkAnswersBtn');
 const checkSummary = document.getElementById('checkSummary');
+const checkGateNote = document.getElementById('checkGateNote');
+const gradedFields = textareas.filter(t => t.dataset.id in CORRECT_ANSWERS);
+
+// הכפתור נעול עד שממלאים את כל 62 המילים - בדיקה רק אחרי שסיימו את כל הדף,
+// לא אחרי כל משימה בנפרד.
+function allGradedFieldsFilled(){
+  return gradedFields.every(t => t.value.trim().length > 0);
+}
+function updateCheckReadiness(){
+  const ready = allGradedFieldsFilled();
+  if(checkAnswersBtn) checkAnswersBtn.disabled = !ready;
+  if(checkGateNote) checkGateNote.hidden = ready;
+}
+
 if(checkAnswersBtn){
   checkAnswersBtn.addEventListener('click', () => {
+    if(!allGradedFieldsFilled()) return;
     let correct = 0, attempted = 0;
     textareas.forEach(input => {
       if(!(input.dataset.id in CORRECT_ANSWERS)) return;
@@ -352,11 +368,13 @@ if(checkAnswersBtn){
 
 textareas.forEach(t => {
   t.addEventListener('input', () => {
-    if(t.dataset.id in CORRECT_ANSWERS && (t.classList.contains('is-correct') || t.classList.contains('is-wrong'))){
-      checkAnswer(t);
+    if(t.dataset.id in CORRECT_ANSWERS){
+      updateCheckReadiness();
+      if(t.classList.contains('is-correct') || t.classList.contains('is-wrong')) checkAnswer(t);
     }
   });
 });
+updateCheckReadiness();
 
 document.getElementById('clearBtn').addEventListener('click', () => {
   if(!confirm('למחוק את כל התשובות שכתבתם? אי אפשר לשחזר לאחר מכן.')) return;
