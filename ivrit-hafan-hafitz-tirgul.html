@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>עברית — גזרת חפ"נ וחפי"צ - תרגול</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/worksheet-theme.css">
+<style>
+  .hafan-sentence{ text-align:right; white-space:normal; font-size:.85rem; line-height:1.55; min-width:210px; }
+  .hafan-sentence .num{ color:var(--ink-soft); font-weight:700; margin-inline-end:.25rem; }
+  table.fill-grid.hafan-table th, table.fill-grid.hafan-table td.na-cell{ text-align:center; }
+  table.fill-grid.hafan-table thead{ position:sticky; top:0; z-index:2; }
+  table.fill-grid.hafan-table thead th{ box-shadow:0 1px 0 var(--paper-line); }
+  /* גלילה פנימית עם כותרת קפואה - overflow-x:auto לבד לא מספיק ל-sticky, צריך גם ציר Y מוגדר במפורש */
+  .hafan-scroll-wrap{ max-height:65vh; overflow-y:auto; border:1px solid var(--paper-line); border-radius:8px; }
+  table.fill-grid.hafan-table td.na-cell{ color:var(--ink-soft); font-size:.9rem; background:rgba(0,0,0,.02); }
+  table.fill-grid.hafan-table td input.answer.table-cell{ font-size:.82rem; padding:.35rem .5rem; text-align:right; min-width:70px; min-height:auto; height:2.3rem; background:#fff; }
+  .answer-cell{ position:relative; }
+  .check-mark{ position:absolute; top:2px; left:4px; font-size:.9rem; font-weight:900; line-height:1; pointer-events:none; }
+  .check-mark.is-correct{ color:#2E7D4F; }
+  .check-mark.is-wrong{ color:#B3261E; }
+  input.answer.table-cell.is-correct{ border-color:#2E7D4F; background:#EAF6EF; }
+  input.answer.table-cell.is-wrong{ border-color:#B3261E; background:#FBEAE9; }
+  .check-summary{ font-size:.85rem; font-weight:700; color:var(--ink); margin-inline-start:.6rem; }
+  .hafan-note{ font-size:.82rem; color:var(--ink-soft); line-height:1.65; background:var(--paper-card); border-right:3px solid var(--gold); border-radius:6px; padding:.6rem .85rem; margin-top:.7rem; }
+  table.answer-key{ width:100%; border-collapse:collapse; font-size:.8rem; }
+  table.answer-key th, table.answer-key td{ border:1px solid var(--paper-line); padding:.4rem .55rem; vertical-align:top; text-align:center; }
+  table.answer-key thead th{ background:var(--acc-soft); color:var(--ink); font-weight:700; }
+  table.answer-key td.hafan-sentence{ text-align:right; font-size:.8rem; }
+</style>
+<link rel="stylesheet" href="assets/steps.css">
+<link rel="stylesheet" href="assets/guide.css">
+<link rel="stylesheet" href="assets/a11y.css">
+<script src="assets/a11y.js"></script>
+</head>
+<body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
+
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">הכיתה הדיגיטלית</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="ivrit-hafan-hafitz.html">גזרת חפ"נ וחפי"צ</a>
+  <span class="sep">›</span>
+  <span class="current">תרגול</span>
+</nav>
+
+<header>
+  <div class="eyebrow">עברית · דקדוק · כיתה י"א</div>
+  <h1>גזרת חפ"נ וחפי"צ — תרגול</h1>
+  <p class="sub">לפניכם שלושים ושבעה משפטים, ובכל משפט פועל מודגש. השלימו לכל פועל את השורש, את הבניין, את שם הפועל, ואת שם הפעולה (כשקיים). תא המסומן ב"–" אומר שאין לפועל צורה כזו. הכול נשמר אוטומטית במכשיר שלכם. לא בטוחים? אפשר לחזור ל<a href="ivrit-hafan-hafitz.html">דף ההסבר</a>.</p>
+  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
+
+  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
+      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
+      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  </svg>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
+
+<div class="progress-wrap">
+  <span class="progress-label" id="progressLabel">0 / 126 שדות</span>
+  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
+
+<main id="main-content">
+  <div class="grid" id="grid">
+
+
+    <!-- תרגול -->
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">תרגול</span>
+        <h2 class="card-title">37 משפטים - השלימו שורש, בניין, שם הפועל ושם פעולה</h2>
+      </div>
+      <div class="card-body">
+        <p class="pasuk-block-note">הפועל המודגש בכל משפט שייך לגזרת חפ"נ (חסר פ"נ) או לגזרת חפי"צ (חסר פ"י/צ"). מלאו את הפרטים הדקדוקיים בעמודות שלצד המשפט.</p>
+
+        <div class="table-wrap hafan-scroll-wrap"><table class="fill-grid hafan-table">
+<thead><tr><th></th><th>שורש</th><th>בניין</th><th>שם הפועל</th><th>שם פעולה</th></tr></thead>
+<tbody>
+<tr>
+<td class="hafan-sentence"><span class="num">1.</span> המפעלים <b>נִצָּבִים</b> על אדמה חקלאית.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q1-shoresh" aria-label="שורש, משפט 1"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q1-binyan" aria-label="בניין, משפט 1"></td>
+<td class="na-cell">–</td>
+<td class="na-cell">–</td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">2.</span> את <b>תַּצִּיגִי</b> לפני את האורח.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q2-shoresh" aria-label="שורש, משפט 2"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q2-binyan" aria-label="בניין, משפט 2"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q2-hapoal" aria-label="שם הפועל, משפט 2"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q2-peula" aria-label="שם פעולה, משפט 2"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">3.</span> <b>הִצַּלְתִּי</b> אתכם מהשעמום.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q3-shoresh" aria-label="שורש, משפט 3"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q3-binyan" aria-label="בניין, משפט 3"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q3-hapoal" aria-label="שם הפועל, משפט 3"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q3-peula" aria-label="שם פעולה, משפט 3"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">4.</span> <b>הַצִּיתוּ</b> את האש!</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q4-shoresh" aria-label="שורש, משפט 4"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q4-binyan" aria-label="בניין, משפט 4"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q4-hapoal" aria-label="שם הפועל, משפט 4"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q4-peula" aria-label="שם פעולה, משפט 4"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">5.</span> דעתו <b>הֻבְּעָה</b> בפנינו.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q5-shoresh" aria-label="שורש, משפט 5"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q5-binyan" aria-label="בניין, משפט 5"></td>
+<td class="na-cell">–</td>
+<td class="na-cell">–</td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">6.</span> חשבתי שהיא <b>מֻכֶּרֶת</b> לכולם.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q6-shoresh" aria-label="שורש, משפט 6"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q6-binyan" aria-label="בניין, משפט 6"></td>
+<td class="na-cell">–</td>
+<td class="na-cell">–</td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">7.</span> <b>הִצַּעְתִּי</b> לו הצעה מעניינת.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q7-shoresh" aria-label="שורש, משפט 7"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q7-binyan" aria-label="בניין, משפט 7"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q7-hapoal" aria-label="שם הפועל, משפט 7"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q7-peula" aria-label="שם פעולה, משפט 7"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">8.</span> <b>הִבַּעְתִּי</b> את הסכמתי.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q8-shoresh" aria-label="שורש, משפט 8"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q8-binyan" aria-label="בניין, משפט 8"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q8-hapoal" aria-label="שם הפועל, משפט 8"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q8-peula" aria-label="שם פעולה, משפט 8"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">9.</span> חוטי הכבלים <b>נִתְּקוּ</b> ממקומם.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q9-shoresh" aria-label="שורש, משפט 9"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q9-binyan" aria-label="בניין, משפט 9"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q9-hapoal" aria-label="שם הפועל, משפט 9"></td>
+<td class="na-cell">–</td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">10.</span> מדליית כסף <b>נִתֶּנֶת</b> לשחיין.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q10-shoresh" aria-label="שורש, משפט 10"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q10-binyan" aria-label="בניין, משפט 10"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q10-hapoal" aria-label="שם הפועל, משפט 10"></td>
+<td class="na-cell">–</td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">11.</span> <b>תַּסִּיעִי</b> אותם לשדה התעופה.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q11-shoresh" aria-label="שורש, משפט 11"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q11-binyan" aria-label="בניין, משפט 11"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q11-hapoal" aria-label="שם הפועל, משפט 11"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q11-peula" aria-label="שם פעולה, משפט 11"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">12.</span> <b>נִצַּלְתִּי</b> הודות לרופא.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q12-shoresh" aria-label="שורש, משפט 12"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q12-binyan" aria-label="בניין, משפט 12"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q12-hapoal" aria-label="שם הפועל, משפט 12"></td>
+<td class="na-cell">–</td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">13.</span> הוא <b>הִתְבַּלְבֵּל</b> בין שני התאריכים.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q13-shoresh" aria-label="שורש, משפט 13"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q13-binyan" aria-label="בניין, משפט 13"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q13-hapoal" aria-label="שם הפועל, משפט 13"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q13-peula" aria-label="שם פעולה, משפט 13"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">14.</span> התלמידים <b>שָׁמְרוּ</b> על הכיתה נקייה.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q14-shoresh" aria-label="שורש, משפט 14"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q14-binyan" aria-label="בניין, משפט 14"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q14-hapoal" aria-label="שם הפועל, משפט 14"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q14-peula" aria-label="שם פעולה, משפט 14"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">15.</span> מרוב התרגשות <b>הִזַּעְתִּי</b>.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q15-shoresh" aria-label="שורש, משפט 15"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q15-binyan" aria-label="בניין, משפט 15"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q15-hapoal" aria-label="שם הפועל, משפט 15"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q15-peula" aria-label="שם פעולה, משפט 15"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">16.</span> <b>יַקִּיפוּ</b> את בימת בית הכנסת.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q16-shoresh" aria-label="שורש, משפט 16"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q16-binyan" aria-label="בניין, משפט 16"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q16-hapoal" aria-label="שם הפועל, משפט 16"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q16-peula" aria-label="שם פעולה, משפט 16"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">17.</span> הם <b>יַצִּיבוּ</b> את העמוד בצד.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q17-shoresh" aria-label="שורש, משפט 17"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q17-binyan" aria-label="בניין, משפט 17"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q17-hapoal" aria-label="שם הפועל, משפט 17"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q17-peula" aria-label="שם פעולה, משפט 17"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">18.</span> הם <b>יַגִּידוּ</b> לי מה השעה.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q18-shoresh" aria-label="שורש, משפט 18"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q18-binyan" aria-label="בניין, משפט 18"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q18-hapoal" aria-label="שם הפועל, משפט 18"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q18-peula" aria-label="שם פעולה, משפט 18"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">19.</span> אל <b>תַּפִּילִי</b> את הצלחת.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q19-shoresh" aria-label="שורש, משפט 19"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q19-binyan" aria-label="בניין, משפט 19"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q19-hapoal" aria-label="שם הפועל, משפט 19"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q19-peula" aria-label="שם פעולה, משפט 19"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">20.</span> השיח <b>נִטַּע</b> בגינת הירק.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q20-shoresh" aria-label="שורש, משפט 20"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q20-binyan" aria-label="בניין, משפט 20"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q20-hapoal" aria-label="שם הפועל, משפט 20"></td>
+<td class="na-cell">–</td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">21.</span> מסקנות המחקר <b>יֻסְּקוּ</b>.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q21-shoresh" aria-label="שורש, משפט 21"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q21-binyan" aria-label="בניין, משפט 21"></td>
+<td class="na-cell">–</td>
+<td class="na-cell">–</td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">22.</span> <b>אֶסַּע</b> כדי לנוח באילת.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q22-shoresh" aria-label="שורש, משפט 22"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q22-binyan" aria-label="בניין, משפט 22"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q22-hapoal" aria-label="שם הפועל, משפט 22"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q22-peula" aria-label="שם פעולה, משפט 22"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">23.</span> הפועלים <b>מַתִּיכִים</b> את הזהב.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q23-shoresh" aria-label="שורש, משפט 23"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q23-binyan" aria-label="בניין, משפט 23"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q23-hapoal" aria-label="שם הפועל, משפט 23"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q23-peula" aria-label="שם פעולה, משפט 23"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">24.</span> הסלט <b>מֻגָּש</b> בקערת זכוכית.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q24-shoresh" aria-label="שורש, משפט 24"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q24-binyan" aria-label="בניין, משפט 24"></td>
+<td class="na-cell">–</td>
+<td class="na-cell">–</td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">25.</span> את <b>תִּפְּלִי</b> אם לא תיזהרי.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q25-shoresh" aria-label="שורש, משפט 25"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q25-binyan" aria-label="בניין, משפט 25"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q25-hapoal" aria-label="שם הפועל, משפט 25"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q25-peula" aria-label="שם פעולה, משפט 25"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">26.</span> אנו <b>נִטַּע</b> את עץ הקלמנטינות.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q26-shoresh" aria-label="שורש, משפט 26"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q26-binyan" aria-label="בניין, משפט 26"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q26-hapoal" aria-label="שם הפועל, משפט 26"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q26-peula" aria-label="שם פעולה, משפט 26"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">27.</span> המורה <b>תִּרְגְּמָה</b> את השיר לאנגלית.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q27-shoresh" aria-label="שורש, משפט 27"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q27-binyan" aria-label="בניין, משפט 27"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q27-hapoal" aria-label="שם הפועל, משפט 27"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q27-peula" aria-label="שם פעולה, משפט 27"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">28.</span> המתכת <b>הֻתְּכָה</b>.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q28-shoresh" aria-label="שורש, משפט 28"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q28-binyan" aria-label="בניין, משפט 28"></td>
+<td class="na-cell">–</td>
+<td class="na-cell">–</td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">29.</span> הדמיון <b>נִצַּת</b> בזמן הכתיבה.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q29-shoresh" aria-label="שורש, משפט 29"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q29-binyan" aria-label="בניין, משפט 29"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q29-hapoal" aria-label="שם הפועל, משפט 29"></td>
+<td class="na-cell">–</td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">30.</span> המפקדות <b>תַּבֵּטְנָה</b> על החיילות.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q30-shoresh" aria-label="שורש, משפט 30"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q30-binyan" aria-label="בניין, משפט 30"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q30-hapoal" aria-label="שם הפועל, משפט 30"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q30-peula" aria-label="שם פעולה, משפט 30"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">31.</span> הם אינם <b>מֻכָּרִים</b> לי.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q31-shoresh" aria-label="שורש, משפט 31"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q31-binyan" aria-label="בניין, משפט 31"></td>
+<td class="na-cell">–</td>
+<td class="na-cell">–</td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">32.</span> אנו <b>נִצֹּר</b> כלים מחימר.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q32-shoresh" aria-label="שורש, משפט 32"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q32-binyan" aria-label="בניין, משפט 32"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q32-hapoal" aria-label="שם הפועל, משפט 32"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q32-peula" aria-label="שם פעולה, משפט 32"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">33.</span> היא <b>תִּטֹּל</b> אחרי הארוחה.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q33-shoresh" aria-label="שורש, משפט 33"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q33-binyan" aria-label="בניין, משפט 33"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q33-hapoal" aria-label="שם הפועל, משפט 33"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q33-peula" aria-label="שם פעולה, משפט 33"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">34.</span> אחותי <b>תַּכִּיר</b> את מילות השיר.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q34-shoresh" aria-label="שורש, משפט 34"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q34-binyan" aria-label="בניין, משפט 34"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q34-hapoal" aria-label="שם הפועל, משפט 34"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q34-peula" aria-label="שם פעולה, משפט 34"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">35.</span> הבניינים <b>מֻקָּפִים</b> בצמחיה.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q35-shoresh" aria-label="שורש, משפט 35"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q35-binyan" aria-label="בניין, משפט 35"></td>
+<td class="na-cell">–</td>
+<td class="na-cell">–</td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">36.</span> היא <b>כָּתְבָה</b> מכתב לחברה.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q36-shoresh" aria-label="שורש, משפט 36"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q36-binyan" aria-label="בניין, משפט 36"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q36-hapoal" aria-label="שם הפועל, משפט 36"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q36-peula" aria-label="שם פעולה, משפט 36"></td>
+</tr>
+<tr>
+<td class="hafan-sentence"><span class="num">37.</span> <b>נִגַּשְׁנוּ</b> לספור את הנוכחים.</td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q37-shoresh" aria-label="שורש, משפט 37"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q37-binyan" aria-label="בניין, משפט 37"></td>
+<td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q37-hapoal" aria-label="שם הפועל, משפט 37"></td>
+<td class="na-cell">–</td>
+</tr>
+</tbody></table></div>
+
+        <div class="hafan-note">
+          <b>לתשומת לב:</b><br>
+          משפט 13: השורש נג"ש נוטה בעבר ובהווה כמו נפעל, אך בעתיד, בציווי ובשם הפועל הוא "שואל" צורות מבניין קל (לגשת, ייגש, גש).<br>
+          משפט 33 (**): קיימים חילוקי דעות מילוניים לגבי שורש "הזיע" - י-ז-ע או ז-ו-ע. כדאי לבדוק מול המקור שלמדתם בכיתה.
+        </div>
+
+        <div class="toolbar" style="justify-content:flex-start; padding:0; margin-top:.8rem;">
+          <button class="btn" type="button" id="checkAnswersBtn" disabled>✓ בדקו לי את התשובות</button>
+          <span class="check-summary" id="checkSummary" role="status" aria-live="polite"></span>
+        </div>
+        <p class="bm-send-gate-note" id="checkGateNote" style="text-align:start; margin:.3rem 0 0;">מלאו את כל 37 המשפטים כדי לפתוח את כפתור הבדיקה.</p>
+
+        <button class="hint-btn" type="button" id="answerKeyBtn" data-gated="true">🔒 הצג את כל התשובות (נדרש קוד מהמורה)</button>
+        <div class="hint-box" hidden>
+          <div class="table-wrap"><table class="answer-key">
+<thead><tr><th></th><th>שורש</th><th>בניין</th><th>שם הפועל</th><th>שם פעולה</th></tr></thead>
+<tbody>
+<tr><td class="hafan-sentence"><span class="num">1.</span> המפעלים נִצָּבִים על אדמה חקלאית.</td><td>י-צ-ב (חפי"צ)</td><td>נִפְעַל</td><td>-</td><td>-</td></tr><tr><td class="hafan-sentence"><span class="num">2.</span> את תַּצִּיגִי לפני את האורח.</td><td>י-צ-ג (חפי"צ)</td><td>הִפְעִיל</td><td>לְהַצִּיג</td><td>הַצָּגָה</td></tr><tr><td class="hafan-sentence"><span class="num">3.</span> הִצַּלְתִּי אתכם מהשעמום.</td><td>נ-צ-ל (חפ"נ)</td><td>הִפְעִיל</td><td>לְהַצִּיל</td><td>הַצָּלָה</td></tr><tr><td class="hafan-sentence"><span class="num">4.</span> הַצִּיתוּ את האש!</td><td>י-צ-ת (חפי"צ)</td><td>הִפְעִיל</td><td>לְהַצִּית</td><td>הַצָּתָה</td></tr><tr><td class="hafan-sentence"><span class="num">5.</span> דעתו הֻבְּעָה בפנינו.</td><td>נ-ב-ע (חפ"נ)</td><td>הֻפְעַל</td><td>-</td><td>-</td></tr><tr><td class="hafan-sentence"><span class="num">6.</span> חשבתי שהיא מֻכֶּרֶת לכולם.</td><td>נ-כ-ר (חפ"נ)</td><td>הֻפְעַל</td><td>-</td><td>-</td></tr><tr><td class="hafan-sentence"><span class="num">7.</span> הִצַּעְתִּי לו הצעה מעניינת.</td><td>י-צ-ע (חפי"צ)</td><td>הִפְעִיל</td><td>לְהַצִּיעַ</td><td>הַצָּעָה</td></tr><tr><td class="hafan-sentence"><span class="num">8.</span> הִבַּעְתִּי את הסכמתי.</td><td>נ-ב-ע (חפ"נ)</td><td>הִפְעִיל</td><td>לְהַבִּיעַ</td><td>הַבָּעָה</td></tr><tr><td class="hafan-sentence"><span class="num">9.</span> חוטי הכבלים נִתְּקוּ ממקומם.</td><td>נ-ת-ק (חפ"נ)</td><td>נִפְעַל</td><td>לְהִנָּתֵק</td><td>-</td></tr><tr><td class="hafan-sentence"><span class="num">10.</span> מדליית כסף נִתֶּנֶת לשחיין.</td><td>נ-ת-ן (חפ"נ)</td><td>נִפְעַל</td><td>לְהִנָּתֵן</td><td>-</td></tr><tr><td class="hafan-sentence"><span class="num">11.</span> תַּסִּיעִי אותם לשדה התעופה.</td><td>נ-ס-ע (חפ"נ)</td><td>הִפְעִיל</td><td>לְהַסִּיעַ</td><td>הַסָּעָה</td></tr><tr><td class="hafan-sentence"><span class="num">12.</span> נִצַּלְתִּי הודות לרופא.</td><td>נ-צ-ל (חפ"נ)</td><td>נִפְעַל</td><td>לְהִנָּצֵל</td><td>-</td></tr><tr><td class="hafan-sentence"><span class="num">13.</span> הוא הִתְבַּלְבֵּל בין שני התאריכים.</td><td>ב-ל-ב-ל</td><td>הִתְפַּעֵל</td><td>לְהִתְבַּלְבֵּל</td><td>הִתְבַּלְבְּלוּת</td></tr><tr><td class="hafan-sentence"><span class="num">14.</span> התלמידים שָׁמְרוּ על הכיתה נקייה.</td><td>ש-מ-ר</td><td>קַל (פָּעַל)</td><td>לִשְׁמֹר</td><td>שְׁמִירָה</td></tr><tr><td class="hafan-sentence"><span class="num">15.</span> מרוב התרגשות הִזַּעְתִּי.</td><td>י-ז-ע (חפי"צ) **</td><td>הִפְעִיל</td><td>לְהַזִּיעַ</td><td>הַזָּעָה</td></tr><tr><td class="hafan-sentence"><span class="num">16.</span> יַקִּיפוּ את בימת בית הכנסת.</td><td>נ-ק-ף (חפ"נ)</td><td>הִפְעִיל</td><td>לְהַקִּיף</td><td>הַקָּפָה</td></tr><tr><td class="hafan-sentence"><span class="num">17.</span> הם יַצִּיבוּ את העמוד בצד.</td><td>י-צ-ב (חפי"צ)</td><td>הִפְעִיל</td><td>לְהַצִּיב</td><td>הַצָּבָה</td></tr><tr><td class="hafan-sentence"><span class="num">18.</span> הם יַגִּידוּ לי מה השעה.</td><td>נ-ג-ד (חפ"נ)</td><td>הִפְעִיל</td><td>לְהַגִּיד</td><td>הַגָּדָה</td></tr><tr><td class="hafan-sentence"><span class="num">19.</span> אל תַּפִּילִי את הצלחת.</td><td>נ-פ-ל (חפ"נ)</td><td>הִפְעִיל</td><td>לְהַפִּיל</td><td>הַפָּלָה</td></tr><tr><td class="hafan-sentence"><span class="num">20.</span> השיח נִטַּע בגינת הירק.</td><td>נ-ט-ע (חפ"נ)</td><td>נִפְעַל</td><td>לְהִנָּטַע</td><td>-</td></tr><tr><td class="hafan-sentence"><span class="num">21.</span> מסקנות המחקר יֻסְּקוּ.</td><td>נ-ס-ק (חפ"נ)</td><td>הֻפְעַל</td><td>-</td><td>-</td></tr><tr><td class="hafan-sentence"><span class="num">22.</span> אֶסַּע כדי לנוח באילת.</td><td>נ-ס-ע (חפ"נ)</td><td>קַל (פָּעַל)</td><td>לִנְסֹעַ</td><td>נְסִיעָה</td></tr><tr><td class="hafan-sentence"><span class="num">23.</span> הפועלים מַתִּיכִים את הזהב.</td><td>נ-ת-ך (חפ"נ)</td><td>הִפְעִיל</td><td>לְהַתִּיךְ</td><td>הַתָּכָה</td></tr><tr><td class="hafan-sentence"><span class="num">24.</span> הסלט מֻגָּש בקערת זכוכית.</td><td>נ-ג-ש (חפ"נ)</td><td>הֻפְעַל</td><td>-</td><td>-</td></tr><tr><td class="hafan-sentence"><span class="num">25.</span> את תִּפְּלִי אם לא תיזהרי.</td><td>נ-פ-ל (חפ"נ)</td><td>קַל (פָּעַל)</td><td>לִפֹּל / לִנְפֹּל</td><td>נְפִילָה</td></tr><tr><td class="hafan-sentence"><span class="num">26.</span> אנו נִטַּע את עץ הקלמנטינות.</td><td>נ-ט-ע (חפ"נ)</td><td>קַל (פָּעַל)</td><td>לִנְטֹעַ</td><td>נְטִיעָה</td></tr><tr><td class="hafan-sentence"><span class="num">27.</span> המורה תִּרְגְּמָה את השיר לאנגלית.</td><td>ת-ר-ג-ם</td><td>פִּעֵל</td><td>לְתַרְגֵּם</td><td>תִּרְגּוּם</td></tr><tr><td class="hafan-sentence"><span class="num">28.</span> המתכת הֻתְּכָה.</td><td>נ-ת-ך (חפ"נ)</td><td>הֻפְעַל</td><td>-</td><td>-</td></tr><tr><td class="hafan-sentence"><span class="num">29.</span> הדמיון נִצַּת בזמן הכתיבה.</td><td>י-צ-ת (חפי"צ)</td><td>נִפְעַל</td><td>לְהִיצַת</td><td>-</td></tr><tr><td class="hafan-sentence"><span class="num">30.</span> המפקדות תַּבֵּטְנָה על החיילות.</td><td>נ-ב-ט (חפ"נ)</td><td>הִפְעִיל</td><td>לְהַבִּיט</td><td>הַבָּטָה</td></tr><tr><td class="hafan-sentence"><span class="num">31.</span> הם אינם מֻכָּרִים לי.</td><td>נ-כ-ר (חפ"נ)</td><td>הֻפְעַל</td><td>-</td><td>-</td></tr><tr><td class="hafan-sentence"><span class="num">32.</span> אנו נִצֹּר כלים מחימר.</td><td>י-צ-ר (חפי"צ)</td><td>קַל (פָּעַל)</td><td>לָצוּר</td><td>יְצִּירָה</td></tr><tr><td class="hafan-sentence"><span class="num">33.</span> היא תִּטֹּל אחרי הארוחה.</td><td>נ-ט-ל (חפ"נ)</td><td>קַל (פָּעַל)</td><td>לִטֹּל / לִנְטֹל</td><td>נְטִילָה</td></tr><tr><td class="hafan-sentence"><span class="num">34.</span> אחותי תַּכִּיר את מילות השיר.</td><td>נ-כ-ר (חפ"נ)</td><td>הִפְעִיל</td><td>לְהַכִּיר</td><td>הַכָּרָה</td></tr><tr><td class="hafan-sentence"><span class="num">35.</span> הבניינים מֻקָּפִים בצמחיה.</td><td>נ-ק-ף (חפ"נ)</td><td>הֻפְעַל</td><td>-</td><td>-</td></tr><tr><td class="hafan-sentence"><span class="num">36.</span> היא כָּתְבָה מכתב לחברה.</td><td>כ-ת-ב</td><td>קַל (פָּעַל)</td><td>לִכְתֹּב</td><td>כְּתִיבָה</td></tr><tr><td class="hafan-sentence"><span class="num">37.</span> נִגַּשְׁנוּ לספור את הנוכחים.</td><td>נ-ג-ש (חפ"נ)</td><td>נִפְעַל *</td><td>לָגֶשֶׁת (יוצא דופן)</td><td>-</td></tr>
+</tbody></table></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט">
+  <a href="ivrit-hafan-hafitz.html">‹ חזרה להסבר</a>
+  <a href="index.html#tab-ya">↺ חזרה ליחידה</a>
+  <span></span>
+</nav>
+<div class="toolbar">
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="עברית - גזרת חפ&quot;נ וחפי&quot;צ" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn">🖨️ הדפסה</button>
+  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+</div>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<div class="bm-save-info" id="printHelp">
+  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
+  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
+  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
+
+<footer class="credit">עברית - גזרת חפ"נ וחפי"צ · תרגול · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
+
+<script>
+const STORAGE_KEY = 'ivrit-hafan-hafitz-answers';
+const NAME_KEY = 'ivrit-hafan-hafitz-student';
+const textareas = Array.from(document.querySelectorAll('.answer'));
+const progressFill = document.getElementById('progressFill');
+const progressTrack = document.getElementById('progressTrack');
+const progressLabel = document.getElementById('progressLabel');
+const saveNote = document.getElementById('saveNote');
+const nameInput = document.getElementById('studentName');
+const classInput = document.getElementById('studentClass');
+const printNameLine = document.getElementById('printNameLine');
+let saveTimer = null;
+let noteTimer = null;
+
+function updatePrintNameLine(){
+  const name = (nameInput.value || '').trim();
+  const cls = (classInput.value || '').trim();
+  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
+  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
+}
+
+function saveStudentInfo(){
+  try{
+    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function loadStudentInfo(){
+  try{
+    const raw = localStorage.getItem(NAME_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      nameInput.value = data.name || '';
+      classInput.value = data.cls || '';
+    }
+  }catch(e){ /* אחסון חסום */ }
+  updatePrintNameLine();
+}
+
+function updateProgress(){
+  const filled = textareas.filter(t => t.value.trim().length > 0).length;
+  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
+  progressFill.style.width = pct + '%';
+  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
+  progressLabel.textContent = filled + ' / ' + textareas.length + ' שדות';
+}
+
+function markFilled(t){
+  if(t.value.trim().length > 0) t.classList.add('filled');
+  else t.classList.remove('filled');
+}
+
+function flashSaved(){
+  saveNote.classList.add('show');
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
+}
+
+function saveAnswers(){
+  const data = {};
+  textareas.forEach(t => { data[t.dataset.id] = t.value; });
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    flashSaved();
+  }catch(e){
+    console.error('שגיאת שמירה', e);
+  }
+}
+
+function loadAnswers(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const data = JSON.parse(raw);
+      textareas.forEach(t => {
+        if(data[t.dataset.id]){
+          t.value = data[t.dataset.id];
+          markFilled(t);
+        }
+      });
+    }
+  }catch(e){
+    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
+  }
+  updateProgress();
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    markFilled(t);
+    updateProgress();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveAnswers, 500);
+  });
+});
+
+document.querySelectorAll('.hint-btn').forEach(btn => {
+  if(btn.dataset.gated) return;
+  btn.addEventListener('click', () => {
+    const box = btn.nextElementSibling;
+    const showing = box.hidden;
+    box.hidden = !showing;
+    btn.textContent = showing ? '🙈 הסתר תשובות' : '🔎 הצג את כל התשובות';
+  });
+});
+
+const ANSWER_KEY_CODE = '5703531';
+const answerKeyBtn = document.getElementById('answerKeyBtn');
+if(answerKeyBtn){
+  answerKeyBtn.addEventListener('click', () => {
+    const box = answerKeyBtn.nextElementSibling;
+    if(!box.hidden){
+      box.hidden = true;
+      answerKeyBtn.textContent = '🔒 הצג את כל התשובות (נדרש קוד מהמורה)';
+      return;
+    }
+    const code = prompt('הקלידו את הקוד שקיבלתם מהמורה כדי לפתוח את מפתח התשובות:');
+    if(code === null) return;
+    if(code.trim() === ANSWER_KEY_CODE){
+      box.hidden = false;
+      answerKeyBtn.textContent = '🙈 הסתר תשובות';
+    } else {
+      alert('קוד שגוי. נסו שוב, או שאלו את המורה.');
+    }
+  });
+}
+
+document.getElementById('clearBtn').addEventListener('click', () => {
+  if(!confirm('למחוק את כל התשובות שכתבתם? אי אפשר לשחזר לאחר מכן.')) return;
+  textareas.forEach(t => { t.value = ''; markFilled(t); });
+  updateProgress();
+  saveAnswers();
+});
+
+document.getElementById('printBtn').addEventListener('click', () => {
+  if(!nameInput.value.trim()){
+    nameInput.focus();
+    alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.');
+    return;
+  }
+  window.print();
+});
+
+[nameInput, classInput].forEach(inp => {
+  inp.addEventListener('input', saveStudentInfo);
+});
+
+loadStudentInfo();
+loadAnswers();
+
+const CORRECT_ANSWERS = {"q1-shoresh": "י-צ-ב (חפי\"צ)", "q1-binyan": "נִפְעַל", "q2-shoresh": "י-צ-ג (חפי\"צ)", "q2-binyan": "הִפְעִיל", "q2-hapoal": "לְהַצִּיג", "q2-peula": "הַצָּגָה", "q3-shoresh": "נ-צ-ל (חפ\"נ)", "q3-binyan": "הִפְעִיל", "q3-hapoal": "לְהַצִּיל", "q3-peula": "הַצָּלָה", "q4-shoresh": "י-צ-ת (חפי\"צ)", "q4-binyan": "הִפְעִיל", "q4-hapoal": "לְהַצִּית", "q4-peula": "הַצָּתָה", "q5-shoresh": "נ-ב-ע (חפ\"נ)", "q5-binyan": "הֻפְעַל", "q6-shoresh": "נ-כ-ר (חפ\"נ)", "q6-binyan": "הֻפְעַל", "q7-shoresh": "י-צ-ע (חפי\"צ)", "q7-binyan": "הִפְעִיל", "q7-hapoal": "לְהַצִּיעַ", "q7-peula": "הַצָּעָה", "q8-shoresh": "נ-ב-ע (חפ\"נ)", "q8-binyan": "הִפְעִיל", "q8-hapoal": "לְהַבִּיעַ", "q8-peula": "הַבָּעָה", "q9-shoresh": "נ-ת-ק (חפ\"נ)", "q9-binyan": "נִפְעַל", "q9-hapoal": "לְהִנָּתֵק", "q10-shoresh": "נ-ת-ן (חפ\"נ)", "q10-binyan": "נִפְעַל", "q10-hapoal": "לְהִנָּתֵן", "q11-shoresh": "נ-ס-ע (חפ\"נ)", "q11-binyan": "הִפְעִיל", "q11-hapoal": "לְהַסִּיעַ", "q11-peula": "הַסָּעָה", "q12-shoresh": "נ-צ-ל (חפ\"נ)", "q12-binyan": "נִפְעַל", "q12-hapoal": "לְהִנָּצֵל", "q13-shoresh": "ב-ל-ב-ל", "q13-binyan": "הִתְפַּעֵל", "q13-hapoal": "לְהִתְבַּלְבֵּל", "q13-peula": "הִתְבַּלְבְּלוּת", "q14-shoresh": "ש-מ-ר", "q14-binyan": "קַל (פָּעַל)", "q14-hapoal": "לִשְׁמֹר", "q14-peula": "שְׁמִירָה", "q15-shoresh": "י-ז-ע (חפי\"צ) **", "q15-binyan": "הִפְעִיל", "q15-hapoal": "לְהַזִּיעַ", "q15-peula": "הַזָּעָה", "q16-shoresh": "נ-ק-ף (חפ\"נ)", "q16-binyan": "הִפְעִיל", "q16-hapoal": "לְהַקִּיף", "q16-peula": "הַקָּפָה", "q17-shoresh": "י-צ-ב (חפי\"צ)", "q17-binyan": "הִפְעִיל", "q17-hapoal": "לְהַצִּיב", "q17-peula": "הַצָּבָה", "q18-shoresh": "נ-ג-ד (חפ\"נ)", "q18-binyan": "הִפְעִיל", "q18-hapoal": "לְהַגִּיד", "q18-peula": "הַגָּדָה", "q19-shoresh": "נ-פ-ל (חפ\"נ)", "q19-binyan": "הִפְעִיל", "q19-hapoal": "לְהַפִּיל", "q19-peula": "הַפָּלָה", "q20-shoresh": "נ-ט-ע (חפ\"נ)", "q20-binyan": "נִפְעַל", "q20-hapoal": "לְהִנָּטַע", "q21-shoresh": "נ-ס-ק (חפ\"נ)", "q21-binyan": "הֻפְעַל", "q22-shoresh": "נ-ס-ע (חפ\"נ)", "q22-binyan": "קַל (פָּעַל)", "q22-hapoal": "לִנְסֹעַ", "q22-peula": "נְסִיעָה", "q23-shoresh": "נ-ת-ך (חפ\"נ)", "q23-binyan": "הִפְעִיל", "q23-hapoal": "לְהַתִּיךְ", "q23-peula": "הַתָּכָה", "q24-shoresh": "נ-ג-ש (חפ\"נ)", "q24-binyan": "הֻפְעַל", "q25-shoresh": "נ-פ-ל (חפ\"נ)", "q25-binyan": "קַל (פָּעַל)", "q25-hapoal": "לִפֹּל / לִנְפֹּל", "q25-peula": "נְפִילָה", "q26-shoresh": "נ-ט-ע (חפ\"נ)", "q26-binyan": "קַל (פָּעַל)", "q26-hapoal": "לִנְטֹעַ", "q26-peula": "נְטִיעָה", "q27-shoresh": "ת-ר-ג-ם", "q27-binyan": "פִּעֵל", "q27-hapoal": "לְתַרְגֵּם", "q27-peula": "תִּרְגּוּם", "q28-shoresh": "נ-ת-ך (חפ\"נ)", "q28-binyan": "הֻפְעַל", "q29-shoresh": "י-צ-ת (חפי\"צ)", "q29-binyan": "נִפְעַל", "q29-hapoal": "לְהִיצַת", "q30-shoresh": "נ-ב-ט (חפ\"נ)", "q30-binyan": "הִפְעִיל", "q30-hapoal": "לְהַבִּיט", "q30-peula": "הַבָּטָה", "q31-shoresh": "נ-כ-ר (חפ\"נ)", "q31-binyan": "הֻפְעַל", "q32-shoresh": "י-צ-ר (חפי\"צ)", "q32-binyan": "קַל (פָּעַל)", "q32-hapoal": "לָצוּר", "q32-peula": "יְצִּירָה", "q33-shoresh": "נ-ט-ל (חפ\"נ)", "q33-binyan": "קַל (פָּעַל)", "q33-hapoal": "לִטֹּל / לִנְטֹל", "q33-peula": "נְטִילָה", "q34-shoresh": "נ-כ-ר (חפ\"נ)", "q34-binyan": "הִפְעִיל", "q34-hapoal": "לְהַכִּיר", "q34-peula": "הַכָּרָה", "q35-shoresh": "נ-ק-ף (חפ\"נ)", "q35-binyan": "הֻפְעַל", "q36-shoresh": "כ-ת-ב", "q36-binyan": "קַל (פָּעַל)", "q36-hapoal": "לִכְתֹּב", "q36-peula": "כְּתִיבָה", "q37-shoresh": "נ-ג-ש (חפ\"נ)", "q37-binyan": "נִפְעַל *", "q37-hapoal": "לָגֶשֶׁת (יוצא דופן)"};
+
+function normalizeHafanAnswer(str){
+  return (str || '')
+    .replace(/\([^)]*\)/g, '')       // הסרת הערות בסוגריים, למשל "(חפי\"צ)"
+    .replace(/[\u0591-\u05C7]/g, '') // הסרת ניקוד וטעמים
+    .replace(/[*\-\u05BE]/g, '')     // הסרת כוכביות ומקפים/מקף עברי
+    .replace(/\s+/g, '')              // הסרת רווחים
+    .trim();
+}
+
+// השוואה סלחנית נוספת: מתעלמת גם מאותיות ו/י שמייצגות תנועה (כתיב מלא
+// מול כתיב חסר) - כדי ש"לנטול" (כתיב מלא, כמו שתלמיד מקליד בלי ניקוד)
+// יתקבל מול "לִנְטֹל" שבתשובון (שאחרי הסרת ניקוד הופך ל"לנטל" בכתיב חסר).
+function skeletonHafanAnswer(str){
+  return normalizeHafanAnswer(str).replace(/[\u05D5\u05D9]/g, '');
+}
+
+function checkAnswer(input){
+  const correctRaw = CORRECT_ANSWERS[input.dataset.id];
+  let cell = input.nextElementSibling;
+  if(correctRaw && !cell){
+    // בדף הזה חסר תא ה-✓/✗ ליד כל שדה (ולכן הבדיקה לא סימנה כלום) - יוצרים אותו בזמן הבדיקה
+    cell = document.createElement('span');
+    cell.className = 'check-mark';
+    cell.setAttribute('aria-hidden', 'true');
+    input.after(cell);
+  }
+  if(!correctRaw || !cell) return null;
+  const studentNorm = normalizeHafanAnswer(input.value);
+  input.classList.remove('is-correct', 'is-wrong');
+  cell.classList.remove('is-correct', 'is-wrong');
+  cell.textContent = '';
+  input.removeAttribute('aria-invalid');
+  if(!studentNorm) return null;
+  const alternatives = correctRaw.split('/').map(s => s.trim());
+  const normAlts = alternatives.map(normalizeHafanAnswer);
+  const skelAlts = alternatives.map(skeletonHafanAnswer);
+  const studentSkel = skeletonHafanAnswer(input.value);
+  const isCorrect = normAlts.indexOf(studentNorm) !== -1 || skelAlts.indexOf(studentSkel) !== -1;
+  input.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
+  cell.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
+  // משוב נגיש ליד השדה: הסימן ✓/✗ מקבל גם מילים, ומקושר לשדה עצמו
+  cell.innerHTML = isCorrect ? '\u2713<span class="bm-sr-only"> - נכון</span>' : '\u2717<span class="bm-sr-only"> - לא נכון, נסו שוב</span>';
+  if(!cell.id) cell.id = 'mark-' + input.dataset.id;
+  input.setAttribute('aria-describedby', cell.id);
+  input.setAttribute('aria-invalid', isCorrect ? 'false' : 'true');
+  return isCorrect;
+}
+
+const checkAnswersBtn = document.getElementById('checkAnswersBtn');
+const checkSummary = document.getElementById('checkSummary');
+const checkGateNote = document.getElementById('checkGateNote');
+const gradedFields = textareas.filter(t => t.dataset.id in CORRECT_ANSWERS);
+
+// הכפתור נעול עד שממלאים את כל 37 המשפטים - בדיקה רק אחרי שסיימו את כל הדף,
+// לא אחרי כל משימה בנפרד.
+function allGradedFieldsFilled(){
+  return gradedFields.every(t => t.value.trim().length > 0);
+}
+function updateCheckReadiness(){
+  const ready = allGradedFieldsFilled();
+  if(checkAnswersBtn) checkAnswersBtn.disabled = !ready;
+  if(checkGateNote) checkGateNote.hidden = ready;
+}
+
+if(checkAnswersBtn){
+  checkAnswersBtn.addEventListener('click', () => {
+    if(!allGradedFieldsFilled()) return;
+    let correct = 0, attempted = 0;
+    textareas.forEach(input => {
+      if(!(input.dataset.id in CORRECT_ANSWERS)) return;
+      const result = checkAnswer(input);
+      if(result !== null){ attempted++; if(result) correct++; }
+    });
+    checkSummary.textContent = attempted
+      ? `\u2713 ${correct} \u05de\u05ea\u05d5\u05da ${attempted} \u05e9\u05e0\u05d5\u05e1\u05d5`
+      : '\u05e2\u05d3\u05d9\u05d9\u05df \u05dc\u05d0 \u05de\u05d9\u05dc\u05d0\u05ea\u05dd \u05d0\u05e3 \u05ea\u05e9\u05d5\u05d1\u05d4';
+  });
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    // בדיקה חוזרת חיה: הסימון האדום נשאר כל עוד התשובה לא נכונה,
+    // והופך לוי ירוק ברגע שהיא מתוקנת (לא נעלם סתם כי עורכים).
+    if(t.dataset.id in CORRECT_ANSWERS){
+      updateCheckReadiness();
+      if(t.classList.contains('is-correct') || t.classList.contains('is-wrong')) checkAnswer(t);
+    }
+  });
+});
+updateCheckReadiness();
+</script>
+
+<script>
+(function(){
+  var table = document.querySelector('table.hafan-table');
+  if(!table) return;
+  var rows = Array.from(table.querySelectorAll('tbody > tr'));
+  var numCols = 4;
+  // matrix[rowIndex][colIndex] = input element, or null בתא "–"
+  var matrix = rows.map(function(tr){
+    var tds = Array.from(tr.children).slice(1); // דילוג על תא המשפט
+    return tds.map(function(td){ return td.querySelector('input.answer'); });
+  });
+
+  function findPos(input){
+    for(var r = 0; r < matrix.length; r++){
+      var c = matrix[r].indexOf(input);
+      if(c !== -1) return { r: r, c: c };
+    }
+    return null;
+  }
+
+  function focusCell(r, c){
+    var el = matrix[r] && matrix[r][c];
+    if(!el) return false;
+    el.focus();
+    el.select();
+    return true;
+  }
+
+  function moveVertical(pos, dir){
+    var r = pos.r + dir;
+    while(r >= 0 && r < matrix.length){
+      if(focusCell(r, pos.c)) return;
+      r += dir;
+    }
+  }
+
+  function moveHorizontal(pos, dir){
+    var c = pos.c + dir;
+    while(c >= 0 && c < numCols){
+      if(focusCell(pos.r, c)) return;
+      c += dir;
+    }
+  }
+
+  table.addEventListener('keydown', function(e){
+    var input = e.target;
+    if(!input.matches || !input.matches('input.answer')) return;
+    var pos = findPos(input);
+    if(!pos) return;
+
+    if(e.key === 'ArrowDown' || e.key === 'Enter'){
+      e.preventDefault();
+      moveVertical(pos, 1);
+    } else if(e.key === 'ArrowUp'){
+      e.preventDefault();
+      moveVertical(pos, -1);
+    } else if(e.key === 'ArrowRight'){
+      if(input.selectionStart === 0 && input.selectionEnd === 0){
+        e.preventDefault();
+        moveHorizontal(pos, -1); // מבחינה חזותית ימינה = טור קודם ב-DOM
+      }
+    } else if(e.key === 'ArrowLeft'){
+      if(input.selectionStart === input.value.length && input.selectionEnd === input.value.length){
+        e.preventDefault();
+        moveHorizontal(pos, 1); // מבחינה חזותית שמאלה = טור הבא ב-DOM
+      }
+    }
+  });
+})();
+</script>
+
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<script>
+(function(){
+  var btn = document.getElementById('toTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('show', window.scrollY > 400);
+  }, { passive:true });
+  btn.addEventListener('click', function(){
+    window.scrollTo({ top:0, behavior:'smooth' });
+  });
+})();
+</script>
+
+<script>
+(function(){
+  var submitLink = document.getElementById('submitLink');
+  if(!submitLink) return;
+  var nameEl = document.getElementById('studentName');
+  var classEl = document.getElementById('studentClass');
+  function updateSubmitLink(){
+    var params = new URLSearchParams();
+    params.set('assignment', 'עברית - גזרת חפ"נ וחפי"צ');
+    if(nameEl && nameEl.value.trim()) params.set('name', nameEl.value.trim());
+    if(classEl && classEl.value.trim()) params.set('cls', classEl.value.trim());
+    submitLink.href = 'submit.html?' + params.toString();
+  }
+  [nameEl, classEl].forEach(function(el){ if(el) el.addEventListener('input', updateSubmitLink); });
+  updateSubmitLink();
+})();
+</script>
+<script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js"></script>
+<script>
+(function(){
+  var btn = document.getElementById('directSubmitBtn');
+  if(!btn) return;
+  btn.addEventListener('click', function(){
+    if(!nameInput.value.trim()){
+      nameInput.focus();
+      alert('לפני ההגשה, כתבו למעלה את שמכם.');
+      return;
+    }
+    if(!confirm('לשלוח את התשובות שמילאתם ישירות למורה עכשיו? לא ניתן לבטל את השליחה.')) return;
+    var originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'שולח...';
+    window.BeitMidrashDirectSubmit.send({
+      studentName: nameInput.value.trim(),
+      studentClass: classInput.value.trim(),
+      assignment: 'עברית - גזרת חפ"נ וחפי"צ',
+      fields: textareas
+    }).then(function(data){
+      if(data && data.ok){
+        alert('ההגשה נשלחה בהצלחה למורה!');
+      } else {
+        throw new Error((data && data.error) || 'שגיאה לא ידועה');
+      }
+    }).catch(function(err){
+      alert('משהו השתבש בשליחה: ' + err.message + '\nאפשר לנסות שוב, או להשתמש בכפתור "הגשת מטלה" הרגיל.');
+    }).finally(function(){
+      btn.disabled = false;
+      btn.textContent = originalText;
+    });
+  });
+})();
+</script>
+<script src="assets/steps.js"></script>
+<script src="assets/guide.js"></script>
+</body>
+</html>
