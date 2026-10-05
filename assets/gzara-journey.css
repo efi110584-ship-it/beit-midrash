@@ -12,9 +12,9 @@
 .gj-banner{ text-align:center; font-size:.85rem; font-weight:600; color:var(--ink-soft); margin:0 0 1rem; }
 
 .gj-progress{ display:flex; justify-content:center; gap:.4rem; margin:0 0 1.6rem; flex-wrap:wrap; }
-.gj-dot{ width:2rem; height:2rem; border-radius:50%; display:flex; align-items:center; justify-content:center;
-  font-size:.92rem; font-weight:800; background:#fff; color:var(--ink-soft); border:2px solid var(--paper-line);
-  transition:all .25s ease; flex:none; cursor:pointer; }
+.gj-dot{ width:2.5rem; height:2.5rem; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-family:'Heebo',sans-serif; font-size:.92rem; font-weight:800; background:#fff; color:var(--ink-soft); border:2px solid var(--paper-line);
+  transition:all .25s ease; flex:none; cursor:pointer; padding:0; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
 .gj-dot:hover{ border-color:var(--gold); transform:translateY(-2px); }
 .gj-dot:focus-visible{ outline:3px solid var(--gold); outline-offset:2px; }
 .gj-dot.gj-done{ background:var(--teal); color:#fff; border-color:var(--teal); }
