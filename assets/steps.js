@@ -315,7 +315,13 @@
       tasks.push({ blocks: blocks.slice(), size: totalSize, kind: "regular" });   // דף קצר - משימה אחת
     } else {
       blocks.forEach(function(b){
-        if(!cur || cur.stage !== b.stage || (cur.size > 0 && (cur.kind !== b.kind || cur.size >= MIN_Q || cur.size + b.size > MAX_Q))){
+        // כרטיס עם data-keep-together: כל השאלות שבו נשארות במשימה אחת
+        // (לא נחצות ב-4/7, גם לא מתמזגות עם הכרטיס שלפני/אחרי).
+        var curCard = cur && cur.blocks.length ? cur.blocks[cur.blocks.length - 1].card : null;
+        var curKeep = !!(curCard && curCard.hasAttribute("data-keep-together"));
+        var cardChanged = curCard && curCard !== b.card;
+        var breakForKeep = cardChanged && (curKeep || b.card.hasAttribute("data-keep-together"));
+        if(!cur || cur.stage !== b.stage || (cur.size > 0 && (cur.kind !== b.kind || breakForKeep || (!curKeep && (cur.size >= MIN_Q || cur.size + b.size > MAX_Q))))){
           cur = { blocks: [], size: 0, kind: b.kind, stage: b.stage };
           tasks.push(cur);
         }
