@@ -223,7 +223,13 @@ window.BeitMidrashJourney = (function(){
 
     var screens = data.screens.map(renderScreen);
     screens.forEach(function(s){ stage.appendChild(s); });
-    screens.forEach(function(_, i){ progress.appendChild(el('div', 'gj-dot', String(i + 1))); });
+    screens.forEach(function(_, i){
+      var dot = el('div', 'gj-dot', String(i + 1));
+      dot.setAttribute('role', 'button');
+      dot.setAttribute('tabindex', '0');
+      dot.setAttribute('aria-label', 'מסך ' + (i + 1) + ' מתוך ' + screens.length);
+      progress.appendChild(dot);
+    });
     var dots = Array.from(progress.children);
 
     var current = 0;
@@ -242,6 +248,14 @@ window.BeitMidrashJourney = (function(){
       // רק במעברים הבאים (לחיצה על "הלאה") גוללים לתחילת המסך החדש.
       if(!skipScroll) stage.scrollIntoView({ behavior:'smooth', block:'start' });
     }
+
+    // מעבר ישיר בין מסכים על ידי לחיצה על המספר שלהם בפס ההתקדמות
+    dots.forEach(function(d, i){
+      d.addEventListener('click', function(){ go(i); });
+      d.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(i); }
+      });
+    });
 
     var resultIndex = data.screens.findIndex(function(s){ return s.type === 'result'; });
 
