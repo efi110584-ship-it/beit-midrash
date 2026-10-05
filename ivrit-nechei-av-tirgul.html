@@ -19,6 +19,13 @@
   .hafan-scroll-wrap{ max-height:65vh; overflow-y:auto; border:1px solid var(--paper-line); border-radius:8px; }
   table.fill-grid.hafan-table td.na-cell{ color:var(--ink-soft); font-size:1.125rem; background:rgba(0,0,0,.02); }
   table.fill-grid.hafan-table td input.answer.table-cell{ font-size:1.125rem; padding:.3rem .45rem; text-align:right; min-width:60px; min-height:auto; height:2.1rem; background:#fff; }
+  .answer-cell{ position:relative; }
+  .check-mark{ position:absolute; top:2px; left:4px; font-size:1rem; font-weight:900; line-height:1; pointer-events:none; }
+  .check-mark.is-correct{ color:#2E7D4F; }
+  .check-mark.is-wrong{ color:#B3261E; }
+  input.answer.table-cell.is-correct{ border-color:#2E7D4F; background:#EAF6EF; }
+  input.answer.table-cell.is-wrong{ border-color:#B3261E; background:#FBEAE9; }
+  .check-summary{ font-size:.95rem; font-weight:700; color:var(--ink); margin-inline-start:.6rem; }
 </style>
 <link rel="stylesheet" href="assets/steps.css">
 <link rel="stylesheet" href="assets/a11y.css">
@@ -213,6 +220,11 @@
 <td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="q19-peula" aria-label="שם פעולה, משפט 19"></td>
 </tr>
 </tbody></table></div>
+        <div class="toolbar" style="justify-content:flex-start; padding:0; margin-top:.8rem;">
+          <button class="btn" type="button" id="checkAnswersBtn" disabled>✓ בדקו לי את התשובות</button>
+          <span class="check-summary" id="checkSummary" role="status" aria-live="polite"></span>
+        </div>
+        <p class="bm-send-gate-note" id="checkGateNote" style="text-align:start; margin:.3rem 0 0;">מלאו את כל 19 המשפטים כדי לפתוח את כפתור הבדיקה.</p>
       </div>
     </section>
 
@@ -358,6 +370,91 @@ document.getElementById('printBtn').addEventListener('click', () => {
   }
   window.print();
 });
+</script>
+
+<script>
+const CORRECT_ANSWERS = {"q1-shoresh": "מ-ו-ת", "q1-binyan": "הפעיל", "q1-hapoal": "להמית", "q1-peula": "המתה", "q2-shoresh": "ק-ו-ם", "q2-binyan": "הפעיל", "q2-hapoal": "להקים", "q2-peula": "הקמה", "q3-shoresh": "ש-ו-ב", "q3-binyan": "קל/פעל", "q3-hapoal": "לשוב", "q3-peula": "שיבה", "q4-shoresh": "ל-מ-ד", "q4-binyan": "קל/פעל", "q4-hapoal": "ללמוד", "q4-peula": "למידה", "q5-shoresh": "פ-ר-ס-ם", "q5-binyan": "פיעל", "q5-hapoal": "לפרסם", "q5-peula": "פרסום", "q6-shoresh": "ק-ו-ם", "q6-binyan": "קל/פעל", "q6-hapoal": "לקום", "q6-peula": "קימה", "q7-shoresh": "מ-ו-ת", "q7-binyan": "קל/פעל", "q7-hapoal": "למות", "q7-peula": "מיתה", "q8-shoresh": "ש-י-ם", "q8-binyan": "קל/פעל", "q8-hapoal": "לשים", "q8-peula": "שימה", "q9-shoresh": "מ-ו-ת", "q9-binyan": "קל/פעל", "q9-hapoal": "למות", "q9-peula": "מיתה", "q10-shoresh": "ש-י-ם", "q10-binyan": "הופעל", "q11-shoresh": "ק-ו-ם", "q11-binyan": "הופעל", "q12-shoresh": "ב-ו-א", "q12-binyan": "קל/פעל", "q12-hapoal": "לבוא", "q12-peula": "ביאה", "q13-shoresh": "ש-מ-ר", "q13-binyan": "קל/פעל", "q13-hapoal": "לשמור", "q13-peula": "שמירה", "q14-shoresh": "ב-ו-א", "q14-binyan": "הפעיל", "q14-hapoal": "להביא", "q14-peula": "הבאה", "q15-shoresh": "ת-ר-ג-ם", "q15-binyan": "פיעל", "q15-hapoal": "לתרגם", "q15-peula": "תרגום", "q16-shoresh": "ק-ו-ם", "q16-binyan": "קל/פעל", "q16-hapoal": "לקום", "q16-peula": "קימה", "q17-shoresh": "ש-י-ר", "q17-binyan": "קל/פעל", "q17-hapoal": "לשיר", "q17-peula": "שירה", "q18-shoresh": "ש-ו-ב", "q18-binyan": "הפעיל", "q18-hapoal": "להשיב", "q18-peula": "השבה", "q19-shoresh": "ש-י-ר", "q19-binyan": "קל/פעל", "q19-hapoal": "לשיר", "q19-peula": "שירה"};
+
+function normalizeHafanAnswer(str){
+  return (str || '')
+    .replace(/\([^)]*\)/g, '')
+    .replace(/[\u0591-\u05C7]/g, '')
+    .replace(/[*\-\u05BE]/g, '')
+    .replace(/\s+/g, '')
+    .trim();
+}
+function skeletonHafanAnswer(str){
+  return normalizeHafanAnswer(str).replace(/[\u05D5\u05D9]/g, '');
+}
+
+function checkAnswer(input){
+  const correctRaw = CORRECT_ANSWERS[input.dataset.id];
+  let cell = input.nextElementSibling;
+  if(correctRaw && !cell){
+    cell = document.createElement('span');
+    cell.className = 'check-mark';
+    cell.setAttribute('aria-hidden', 'true');
+    input.after(cell);
+  }
+  if(!correctRaw || !cell) return null;
+  const studentNorm = normalizeHafanAnswer(input.value);
+  input.classList.remove('is-correct', 'is-wrong');
+  cell.classList.remove('is-correct', 'is-wrong');
+  cell.textContent = '';
+  input.removeAttribute('aria-invalid');
+  if(!studentNorm) return null;
+  const alternatives = correctRaw.split('/').map(s => s.trim());
+  const normAlts = alternatives.map(normalizeHafanAnswer);
+  const skelAlts = alternatives.map(skeletonHafanAnswer);
+  const studentSkel = skeletonHafanAnswer(input.value);
+  const isCorrect = normAlts.indexOf(studentNorm) !== -1 || skelAlts.indexOf(studentSkel) !== -1;
+  input.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
+  cell.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
+  cell.innerHTML = isCorrect ? '\u2713<span class="bm-sr-only"> - נכון</span>' : '\u2717<span class="bm-sr-only"> - לא נכון, נסו שוב</span>';
+  if(!cell.id) cell.id = 'mark-' + input.dataset.id;
+  input.setAttribute('aria-describedby', cell.id);
+  input.setAttribute('aria-invalid', isCorrect ? 'false' : 'true');
+  return isCorrect;
+}
+
+const checkAnswersBtn = document.getElementById('checkAnswersBtn');
+const checkSummary = document.getElementById('checkSummary');
+const checkGateNote = document.getElementById('checkGateNote');
+const gradedFields = textareas.filter(t => t.dataset.id in CORRECT_ANSWERS);
+
+function allGradedFieldsFilled(){
+  return gradedFields.every(t => t.value.trim().length > 0);
+}
+function updateCheckReadiness(){
+  const ready = allGradedFieldsFilled();
+  if(checkAnswersBtn) checkAnswersBtn.disabled = !ready;
+  if(checkGateNote) checkGateNote.hidden = ready;
+}
+
+if(checkAnswersBtn){
+  checkAnswersBtn.addEventListener('click', () => {
+    if(!allGradedFieldsFilled()) return;
+    let correct = 0, attempted = 0;
+    textareas.forEach(input => {
+      if(!(input.dataset.id in CORRECT_ANSWERS)) return;
+      const result = checkAnswer(input);
+      if(result !== null){ attempted++; if(result) correct++; }
+    });
+    checkSummary.textContent = attempted
+      ? `\u2713 ${correct} \u05de\u05ea\u05d5\u05da ${attempted} \u05e9\u05e0\u05d5\u05e1\u05d5`
+      : '\u05e2\u05d3\u05d9\u05d9\u05df \u05dc\u05d0 \u05de\u05d9\u05dc\u05d0\u05ea\u05dd \u05d0\u05e3 \u05ea\u05e9\u05d5\u05d1\u05d4';
+  });
+}
+
+textareas.forEach(t => {
+  t.addEventListener('input', () => {
+    if(t.dataset.id in CORRECT_ANSWERS){
+      updateCheckReadiness();
+      if(t.classList.contains('is-correct') || t.classList.contains('is-wrong')) checkAnswer(t);
+    }
+  });
+});
+updateCheckReadiness();
 </script>
 
 <script>
