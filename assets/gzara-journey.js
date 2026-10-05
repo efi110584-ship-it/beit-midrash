@@ -229,6 +229,22 @@ window.BeitMidrashJourney = (function(){
 
     var resultIndex = data.screens.findIndex(function(s){ return s.type === 'result'; });
 
+    // כפתור "הקודם" - זהה בכל מסך (חוץ מהראשון, ששם אין לאן לחזור, ומסך
+    // התוצאה, ששם יש כבר "חזרה על ההסבר"). חוזר צעד אחד בלי לגעת במצב
+    // המשחק/השאלון של המסך שאליו חוזרים.
+    function makePrevButton(i){
+      var prevBtn = el('button', 'gj-prev', '→ הקודם');
+      if(i === 0) prevBtn.hidden = true;
+      prevBtn.addEventListener('click', function(){ go(current - 1); });
+      return prevBtn;
+    }
+    function insertNavRow(screenEl, i, nextBtn){
+      var row = el('div', 'gj-nav-row');
+      row.appendChild(makePrevButton(i));
+      row.appendChild(nextBtn);
+      screenEl.querySelector('.gj-card').insertAdjacentElement('afterend', row);
+    }
+
     data.screens.forEach(function(sData, i){
       var screenEl = screens[i];
 
@@ -241,14 +257,14 @@ window.BeitMidrashJourney = (function(){
           });
           go(0);
         });
-        return; // אין כפתור "הלאה" במסך התוצאה
+        return; // אין כפתור "הלאה"/"הקודם" במסך התוצאה
       }
 
       if(sData.type === 'trap'){
         var nextBtn = el('button', 'gj-next', sData.nextLabel || 'הלאה ←');
         nextBtn.disabled = true;
         nextBtn.addEventListener('click', function(){ if(!nextBtn.disabled) go(current + 1); });
-        screenEl.querySelector('.gj-card').insertAdjacentElement('afterend', nextBtn);
+        insertNavRow(screenEl, i, nextBtn);
         screenEl.querySelectorAll('[data-trap]').forEach(function(choiceBtn){
           choiceBtn.addEventListener('click', function(){
             var right = choiceBtn.dataset.trap === '1';
@@ -269,7 +285,7 @@ window.BeitMidrashJourney = (function(){
           if(ctl.state.i < ctl.state.questions.length){ ctl.showQuestion(); gNext.hidden = true; }
           else { go(current + 1); }
         });
-        screenEl.querySelector('.gj-card').insertAdjacentElement('afterend', gNext);
+        insertNavRow(screenEl, i, gNext);
         ctl.onChoice = function(value){
           ctl.answer(value, function(done){
             gNext.hidden = false;
@@ -284,6 +300,9 @@ window.BeitMidrashJourney = (function(){
         gameControllers[i] = qctl;
         var resultEl = screens[resultIndex];
         var resultData = data.screens[resultIndex];
+        var prevOnly = el('div', 'gj-nav-row');
+        prevOnly.appendChild(makePrevButton(i));
+        screenEl.querySelector('.gj-card').insertAdjacentElement('afterend', prevOnly);
         qctl.onChoice = function(value){
           qctl.answer(value, function(done){
             if(done){
@@ -307,7 +326,7 @@ window.BeitMidrashJourney = (function(){
       // מסכי מידע רגילים: intro / teach / rule / examSteps / rootsTable / exceptions / summary
       var plainNext = el('button', 'gj-next', sData.nextLabel || 'הלאה ←');
       plainNext.addEventListener('click', function(){ go(current + 1); });
-      screenEl.querySelector('.gj-card').insertAdjacentElement('afterend', plainNext);
+      insertNavRow(screenEl, i, plainNext);
     });
 
     go(0, true);
