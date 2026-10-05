@@ -188,7 +188,26 @@
     confirmSend(data);
   }
 
+  /* ---------- בדפים עם חלוקה למשימות (assets/steps.js) - השליחה נפתחת רק במשימה האחרונה ---------- */
+  var gateNote = null;
+  function applyStepsGate(){
+    var steps = window.BeitMidrashSteps;
+    if(!steps || typeof steps.isAtEnd !== 'function') return; /* אין חלוקה למשימות בדף הזה */
+    var atEnd = steps.isAtEnd();
+    btn.disabled = !atEnd;
+    btn.title = atEnd ? '' : 'השליחה נפתחת במשימה האחרונה בדף';
+    if(!atEnd && !gateNote){
+      gateNote = el('span', 'bm-send-gate-note', '🔒 השליחה תיפתח במשימה האחרונה בדף');
+      btn.insertAdjacentElement('afterend', gateNote);
+    } else if(atEnd && gateNote){
+      gateNote.remove();
+      gateNote = null;
+    }
+  }
+  document.addEventListener('bm-steps-change', applyStepsGate);
+
   btn.addEventListener('click', start);
   panel.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !btn.disabled) close(); });
   showLast();
+  applyStepsGate();
 })();

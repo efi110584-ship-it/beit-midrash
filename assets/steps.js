@@ -103,7 +103,8 @@
     instances.forEach(function(i){ need += i.totalNeed(); done += i.totalDone(); });
     return need ? Math.round(done / need * 100) : 0;
   }
-  window.BeitMidrashSteps = { requiredPercent: requiredPercent };
+  function isAtEnd(){ return instances.every(function(i){ return i.atEnd(); }); }
+  window.BeitMidrashSteps = { requiredPercent: requiredPercent, isAtEnd: isAtEnd };
 
   function applyAll(){ instances.forEach(function(i){ i.apply(); }); }
 
@@ -575,6 +576,7 @@
       setOff(pills, view === "all");
       viewBtn.textContent = view === "all" ? "חזרה לתצוגה לפי משימות" : "📋 הצג את כל השאלות";
       refresh();
+      document.dispatchEvent(new CustomEvent("bm-steps-change"));
     }
 
     function go(idx, fromUser){
@@ -785,6 +787,7 @@
       saveLast: saveLast,
       totalNeed: totalNeed,
       totalDone: totalDone,
+      atEnd: function(){ return single || view === "all" || current >= tasks.length - 1; },
       owns: function(el){ return grid.contains(el); },
       afterClear: function(){
         if(!items.some(isFilled)){ status = {}; save(KEY_STATUS, status); }

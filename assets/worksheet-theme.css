@@ -446,7 +446,8 @@ table.fill-grid thead th{ background: var(--acc-soft); color: var(--ink); font-s
 table.fill-grid th.row-label{ background: rgba(0,0,0,.03); font-weight:700; white-space:nowrap; font-size:.78rem; }
 table.fill-grid td textarea.answer.table-cell{ min-height:44px; font-size:.8rem; padding:.3rem .4rem; }
 
-.toolbar{ max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 2.5rem; display:flex; justify-content:center; gap: .8rem; flex-wrap: wrap; }
+.toolbar{ max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 2.5rem; display:flex; justify-content:center; align-items:center; gap: .8rem; flex-wrap: wrap; }
+.bm-send-gate-note{ font-size:.82rem; color: var(--ink-soft); flex-basis:100%; text-align:center; }
 .btn{ font-family:'Heebo',sans-serif; font-size: .88rem; font-weight: 600; padding: .6rem 1.3rem; border-radius: 999px; border: 1.5px solid var(--ink); background: transparent; color: var(--ink); cursor:pointer; transition: all .2s ease; }
 .btn:hover{ background: var(--ink); color: var(--paper-card); transform: translateY(-1px); }
 .btn:active{ transform: translateY(0); }
