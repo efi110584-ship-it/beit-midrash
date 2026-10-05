@@ -17,6 +17,13 @@
   .hafan-scroll-wrap{ max-height:65vh; overflow-y:auto; border:1px solid var(--paper-line); border-radius:8px; }
   table.fill-grid.hafan-table td.na-cell{ color:var(--ink-soft); font-size:.9rem; background:rgba(0,0,0,.02); }
   table.fill-grid.hafan-table td input.answer.table-cell{ font-size:.82rem; padding:.35rem .5rem; text-align:right; min-width:70px; min-height:auto; height:2.3rem; background:#fff; }
+  .answer-cell{ position:relative; }
+  .check-mark{ position:absolute; top:2px; left:4px; font-size:.9rem; font-weight:900; line-height:1; pointer-events:none; }
+  .check-mark.is-correct{ color:#2E7D4F; }
+  .check-mark.is-wrong{ color:#B3261E; }
+  input.answer.table-cell.is-correct{ border-color:#2E7D4F; background:#EAF6EF; }
+  input.answer.table-cell.is-wrong{ border-color:#B3261E; background:#FBEAE9; }
+  .check-summary{ font-size:.85rem; font-weight:700; color:var(--ink); margin-inline-start:.6rem; }
   .card-body h3{ font-family:'Frank Ruhl Libre', serif; font-weight:700; font-size:.98rem; color:var(--ink); margin:0; }
   .card-body ol{ margin:0; padding-inline-start:1.4rem; display:flex; flex-direction:column; gap:.45rem; }
   .card-body ol li{ line-height:1.55; }
@@ -271,6 +278,11 @@
 <td class="na-cell">–</td>
 </tr>
 </tbody></table></div>
+        <div class="toolbar" style="justify-content:flex-start; padding:0; margin-top:.8rem;">
+          <button class="btn" type="button" id="checkAnswersBtn1" disabled>✓ בדקו לי את התשובות</button>
+          <span class="check-summary" id="checkSummary1" role="status" aria-live="polite"></span>
+        </div>
+        <p class="bm-send-gate-note" id="checkGateNote1" style="text-align:start; margin:.3rem 0 0;">מלאו את כל 19 המשפטים כדי לפתוח את כפתור הבדיקה.</p>
       </div>
     </section>
 
@@ -394,6 +406,11 @@
 <td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="ex1-18-gzara" aria-label="גזרה, משפט 18"></td>
 </tr>
 </tbody></table></div>
+        <div class="toolbar" style="justify-content:flex-start; padding:0; margin-top:.8rem;">
+          <button class="btn" type="button" id="checkAnswersBtn2" disabled>✓ בדקו לי את התשובות</button>
+          <span class="check-summary" id="checkSummary2" role="status" aria-live="polite"></span>
+        </div>
+        <p class="bm-send-gate-note" id="checkGateNote2" style="text-align:start; margin:.3rem 0 0;">מלאו את כל 18 המשפטים כדי לפתוח את כפתור הבדיקה.</p>
       </div>
     </section>
 
@@ -445,6 +462,11 @@
 <td class="answer-cell"><input type="text" class="answer table-cell" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" data-id="ex2-6-gzara" aria-label="גזרה, שורש 6"></td>
 </tr>
 </tbody></table></div>
+        <div class="toolbar" style="justify-content:flex-start; padding:0; margin-top:.8rem;">
+          <button class="btn" type="button" id="checkAnswersBtn3" disabled>✓ בדקו לי את התשובות</button>
+          <span class="check-summary" id="checkSummary3" role="status" aria-live="polite"></span>
+        </div>
+        <p class="bm-send-gate-note" id="checkGateNote3" style="text-align:start; margin:.3rem 0 0;">מלאו את כל 6 השורשים כדי לפתוח את כפתור הבדיקה.</p>
       </div>
     </section>
 
@@ -602,6 +624,137 @@ document.getElementById('printBtn').addEventListener('click', () => {
   }
   window.print();
 });
+</script>
+
+<script>
+/* בדיקת תשובות אוטומטית (ירוק/אדום) לשלושת התרגילים הסגורים בדף -
+   הכפתור של כל תרגיל נעול עד שממלאים אותו במלואו, בדיוק כמו בדף
+   חפ"נ וחפי"צ. */
+const CORRECT_ANSWERS = {
+  // תרגול - שורש, בניין, שם הפועל, שם פעולה
+  "q1-shoresh": "כ-ת-ב", "q1-binyan": "קל/פעל", "q1-hapoal": "לכתוב", "q1-peula": "כתיבה",
+  "q2-shoresh": "א-כ-ל", "q2-binyan": "קל/פעל", "q2-hapoal": "לאכול", "q2-peula": "אכילה",
+  "q3-shoresh": "א-מ-ר", "q3-binyan": "קל/פעל", "q3-hapoal": "לומר", "q3-peula": "אמירה",
+  "q4-shoresh": "א-מ-ת", "q4-binyan": "פיעל", "q4-hapoal": "לאמת", "q4-peula": "אימות",
+  "q5-shoresh": "א-כ-ל", "q5-binyan": "קל/פעל", "q5-hapoal": "לאכול", "q5-peula": "אכילה",
+  "q6-shoresh": "פ-ר-ס-ם", "q6-binyan": "פיעל", "q6-hapoal": "לפרסם", "q6-peula": "פרסום",
+  "q7-shoresh": "א-כ-ל", "q7-binyan": "קל/פעל", "q7-hapoal": "לאכול", "q7-peula": "אכילה",
+  "q8-shoresh": "א-ב-ד", "q8-binyan": "קל/פעל", "q8-hapoal": "לאבוד", "q8-peula": "אבידה",
+  "q9-shoresh": "א-ז-ר", "q9-binyan": "התפעל", "q9-hapoal": "להתאזר",
+  "q10-shoresh": "א-ז-ן", "q10-binyan": "הפעיל", "q10-hapoal": "להאזין", "q10-peula": "האזנה",
+  "q11-shoresh": "א-מ-ת", "q11-binyan": "פועל/הופעל",
+  "q12-shoresh": "פ-ג-ש", "q12-binyan": "קל/פעל", "q12-hapoal": "לפגוש", "q12-peula": "פגישה",
+  "q13-shoresh": "א-כ-ל", "q13-binyan": "קל/פעל", "q13-hapoal": "לאכול", "q13-peula": "אכילה",
+  "q14-shoresh": "ש-ד-ר-ג", "q14-binyan": "פיעל", "q14-hapoal": "לשדרג", "q14-peula": "שדרוג",
+  "q15-shoresh": "א-מ-ר", "q15-binyan": "קל/פעל", "q15-hapoal": "לומר", "q15-peula": "אמירה",
+  "q16-shoresh": "א-ז-ן", "q16-binyan": "הפעיל", "q16-hapoal": "להאזין", "q16-peula": "האזנה",
+  "q17-shoresh": "א-כ-ל", "q17-binyan": "נפעל", "q17-hapoal": "להיאכל/להאכל",
+  "q18-shoresh": "א-מ-ר", "q18-binyan": "קל/פעל", "q18-hapoal": "לומר", "q18-peula": "אמירה",
+  "q19-shoresh": "א-כ-ל", "q19-binyan": "נפעל", "q19-hapoal": "להיאכל/להאכל",
+  // תרגיל 1 - שורש, בניין, גזרה
+  "ex1-1-shoresh": "א-כ-ל", "ex1-1-binyan": "קל/פעל", "ex1-1-gzara": "נפ\"א",
+  "ex1-2-shoresh": "א-ס-ף", "ex1-2-binyan": "קל/פעל", "ex1-2-gzara": "שלמים",
+  "ex1-3-shoresh": "א-ר-ג-ן", "ex1-3-binyan": "פיעל", "ex1-3-gzara": "מרובעים",
+  "ex1-4-shoresh": "א-פ-ה", "ex1-4-binyan": "קל/פעל", "ex1-4-gzara": "נפ\"א ונחי ל\"ה/נפ\"א+ל\"ה",
+  "ex1-5-shoresh": "א-ר-ב", "ex1-5-binyan": "קל/פעל", "ex1-5-gzara": "נפ\"א",
+  "ex1-6-shoresh": "א-ה-ד", "ex1-6-binyan": "קל/פעל", "ex1-6-gzara": "נפ\"א",
+  "ex1-7-shoresh": "א-כ-ל", "ex1-7-binyan": "נפעל", "ex1-7-gzara": "שלמים",
+  "ex1-8-shoresh": "א-ב-ח-ן", "ex1-8-binyan": "פיעל", "ex1-8-gzara": "מרובעים",
+  "ex1-9-shoresh": "א-ב-ה", "ex1-9-binyan": "קל/פעל", "ex1-9-gzara": "נפ\"א ונחי ל\"ה/נפ\"א+ל\"ה",
+  "ex1-10-shoresh": "א-ב-ד", "ex1-10-binyan": "פיעל", "ex1-10-gzara": "שלמים",
+  "ex1-11-shoresh": "א-ה-ב", "ex1-11-binyan": "קל/פעל", "ex1-11-gzara": "נפ\"א",
+  "ex1-12-shoresh": "א-ח-ס-ן", "ex1-12-binyan": "פיעל", "ex1-12-gzara": "מרובעים",
+  "ex1-13-shoresh": "א-מ-ר", "ex1-13-binyan": "קל/פעל", "ex1-13-gzara": "שלמים",
+  "ex1-14-shoresh": "א-כ-ז-ב", "ex1-14-binyan": "התפעל", "ex1-14-gzara": "מרובעים",
+  "ex1-15-shoresh": "א-ח-ז", "ex1-15-binyan": "קל/פעל", "ex1-15-gzara": "נפ\"א",
+  "ex1-16-shoresh": "א-ס-ר", "ex1-16-binyan": "קל/פעל", "ex1-16-gzara": "נפ\"א",
+  "ex1-17-shoresh": "א-מ-ן", "ex1-17-binyan": "הפעיל", "ex1-17-gzara": "נפ\"א",
+  "ex1-18-shoresh": "א-ב-ד", "ex1-18-binyan": "קל/פעל", "ex1-18-gzara": "נפ\"א",
+  // תרגיל 2 - עתיד אני/הוא, גזרה
+  "ex2-1-atid-ani": "אֹכַל/אוכל", "ex2-1-atid-hu": "יֹאכַל/יאכל", "ex2-1-gzara": "נפ\"א",
+  "ex2-2-atid-ani": "אֶאֱסֹף/אאסוף", "ex2-2-atid-hu": "יֶאֱסֹף/יאסוף", "ex2-2-gzara": "נפ\"א",
+  "ex2-3-atid-ani": "אֹמַר/אומר", "ex2-3-atid-hu": "יֹאמַר/יאמר", "ex2-3-gzara": "נפ\"א",
+  "ex2-4-atid-ani": "אֶאֱרֹב/אארוב", "ex2-4-atid-hu": "יֶאֱרֹב/יארוב", "ex2-4-gzara": "נפ\"א",
+  "ex2-5-atid-ani": "אֹפֶה/אופה", "ex2-5-atid-hu": "יֹאפֶה/יאפה", "ex2-5-gzara": "נפ\"א ונחי ל\"ה/נפ\"א+ל\"ה",
+  "ex2-6-atid-ani": "אֶאֱהַב/אאהב", "ex2-6-atid-hu": "יֶאֱהַב/יאהב", "ex2-6-gzara": "נפ\"א"
+};
+
+function normalizeHafanAnswer(str){
+  return (str || '')
+    .replace(/\([^)]*\)/g, '')
+    .replace(/[֑-ׇ]/g, '')
+    .replace(/[*\-־]/g, '')
+    .replace(/\s+/g, '')
+    .trim();
+}
+function skeletonHafanAnswer(str){
+  return normalizeHafanAnswer(str).replace(/[וי]/g, '');
+}
+function checkAnswer(input){
+  const correctRaw = CORRECT_ANSWERS[input.dataset.id];
+  let cell = input.nextElementSibling;
+  if(correctRaw && !cell){
+    cell = document.createElement('span');
+    cell.className = 'check-mark';
+    cell.setAttribute('aria-hidden', 'true');
+    input.after(cell);
+  }
+  if(!correctRaw || !cell) return null;
+  const studentNorm = normalizeHafanAnswer(input.value);
+  input.classList.remove('is-correct', 'is-wrong');
+  cell.classList.remove('is-correct', 'is-wrong');
+  cell.textContent = '';
+  input.removeAttribute('aria-invalid');
+  if(!studentNorm) return null;
+  const alternatives = correctRaw.split('/').map(s => s.trim());
+  const normAlts = alternatives.map(normalizeHafanAnswer);
+  const skelAlts = alternatives.map(skeletonHafanAnswer);
+  const studentSkel = skeletonHafanAnswer(input.value);
+  const isCorrect = normAlts.indexOf(studentNorm) !== -1 || skelAlts.indexOf(studentSkel) !== -1;
+  input.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
+  cell.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
+  cell.innerHTML = isCorrect ? '✓<span class="bm-sr-only"> - נכון</span>' : '✗<span class="bm-sr-only"> - לא נכון, נסו שוב</span>';
+  if(!cell.id) cell.id = 'mark-' + input.dataset.id;
+  input.setAttribute('aria-describedby', cell.id);
+  input.setAttribute('aria-invalid', isCorrect ? 'false' : 'true');
+  return isCorrect;
+}
+
+function wireCheckGroup(idPrefixes, btnId, summaryId, gateNoteId){
+  const btn = document.getElementById(btnId);
+  const summary = document.getElementById(summaryId);
+  const gateNote = document.getElementById(gateNoteId);
+  if(!btn) return;
+  const fields = textareas.filter(t => idPrefixes.some(p => t.dataset.id.indexOf(p) === 0) && t.dataset.id in CORRECT_ANSWERS);
+  function allFilled(){ return fields.every(t => t.value.trim().length > 0); }
+  function updateReadiness(){
+    const ready = allFilled();
+    btn.disabled = !ready;
+    if(gateNote) gateNote.hidden = ready;
+  }
+  btn.addEventListener('click', () => {
+    if(!allFilled()) return;
+    let correct = 0, attempted = 0;
+    fields.forEach(input => {
+      const result = checkAnswer(input);
+      if(result !== null){ attempted++; if(result) correct++; }
+    });
+    if(summary) summary.textContent = attempted
+      ? `✓ ${correct} מתוך ${attempted} נכונות`
+      : 'עדיין לא מילאתם אף תשובה';
+  });
+  fields.forEach(t => {
+    t.addEventListener('input', () => {
+      updateReadiness();
+      if(t.classList.contains('is-correct') || t.classList.contains('is-wrong')) checkAnswer(t);
+    });
+  });
+  updateReadiness();
+}
+
+wireCheckGroup(['q'], 'checkAnswersBtn1', 'checkSummary1', 'checkGateNote1');
+wireCheckGroup(['ex1-'], 'checkAnswersBtn2', 'checkSummary2', 'checkGateNote2');
+wireCheckGroup(['ex2-'], 'checkAnswersBtn3', 'checkSummary3', 'checkGateNote3');
 </script>
 
 <script>
