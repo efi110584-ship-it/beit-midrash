@@ -8,10 +8,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/gzara-journey.css">
 <style>
   .to-tirgul{ display:flex; justify-content:center; padding:0 0 2.5rem; }
   .to-tirgul a{ font-family:'Heebo',sans-serif; font-size:1rem; font-weight:700; padding:.8rem 1.8rem; border-radius:999px; background:var(--acc); color:#fff; text-decoration:none; box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .15s ease; }
   .to-tirgul a:hover{ transform:translateY(-1px); box-shadow:var(--shadow-hover); }
+  .deepen-inner{ padding:1.4rem 0 0; }
 </style>
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
@@ -32,7 +34,7 @@
 <header>
   <div class="eyebrow">עברית · דקדוק · כיתה י&quot;א</div>
   <h1>גזרת נחי פ&quot;ו — הסבר</h1>
-  <p class="sub">הסבר על הגזרה: איך מזהים אותה ואיך היא מתנהגת בבניינים השונים. בסוף העמוד - קישור לדף התרגול.</p>
+  <p class="sub">מסע למידה קצר, צעד-צעד: עד הסוף תדעו לזהות פ&quot;ו תוך שניות. בסוף העמוד - קישור לדף התרגול.</p>
 
   <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
     <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
@@ -43,22 +45,33 @@
 </header>
 
 <main id="main-content">
-  <div class="grid" id="grid">
 
+  <!-- מסע הלמידה האינטראקטיבי - ראו assets/gzara-journey.js -->
+  <div id="journeyRoot"></div>
 
-    <!-- הסבר על הגזרה -->
-    <section class="card" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">הסבר</span>
-        <h2 class="card-title">מה מייחדת את גזרת נחי פ&quot;ו</h2>
+  <div class="gj-wrap">
+    <details class="gj-deepen">
+      <summary>📚 למי שרוצה להעמיק - ההסבר המלא</summary>
+      <div class="deepen-inner">
+        <div class="grid" id="grid">
+
+          <!-- הסבר על הגזרה -->
+          <section class="card" style="grid-column: 1 / -1;">
+            <div class="card-head">
+              <span class="card-tag">הסבר</span>
+              <h2 class="card-title">מה מייחדת את גזרת נחי פ&quot;ו</h2>
+            </div>
+            <div class="card-body">
+              <p>שורשים שהאות הראשונה כתובה כ-י' (כגון י.ר.ד, י.ש.ב, י.ל.ד, י.ד.ע), אך במקורם התחילו באות ו' - ולכן הם &quot;נחי פ&quot;ו&quot; ולא &quot;נחי פ&quot;י&quot;. בבניין קל, ה-י' הראשונית נעלמת לגמרי בעתיד (יֵרֵד ולא &quot;ייִרד&quot;) ובשם הפועל מופיעה תבנית מיוחדת ויוצאת דופן (לָרֶדֶת, לָשֶׁבֶת, לָדַעַת).</p>
+              <p>לעומת זאת, בבניין הפעיל ה-ו' המקורית &quot;חוזרת&quot; וניכרת כתנועת חולם: הוֹרִיד, הוֹשִׁיב, הוֹדִיעַ. גם בבניינים נפעל והופעל האות מופיעה בבירור.</p>
+            </div>
+          </section>
+
+        </div>
       </div>
-      <div class="card-body">
-        <p>שורשים שהאות הראשונה כתובה כ-י' (כגון י.ר.ד, י.ש.ב, י.ל.ד, י.ד.ע), אך במקורם התחילו באות ו' - ולכן הם "נחי פ"ו" ולא "נחי פ"י". בבניין קל, ה-י' הראשונית נעלמת לגמרי בעתיד (יֵרֵד ולא "ייִרד") ובשם הפועל מופיעה תבנית מיוחדת ויוצאת דופן (לָרֶדֶת, לָשֶׁבֶת, לָדַעַת).</p>
-        <p>לעומת זאת, בבניין הפעיל ה-ו' המקורית "חוזרת" וניכרת כתנועת חולם: הוֹרִיד, הוֹשִׁיב, הוֹדִיעַ. גם בבניינים נפעל והופעל האות מופיעה בבירור.</p>
-      </div>
-    </section>
-
+    </details>
   </div>
+
 </main>
 
 <p class="to-tirgul"><a href="ivrit-nechei-pv-tirgul.html">לתרגול ›</a></p>
@@ -70,6 +83,137 @@
 </nav>
 
 <footer class="credit">עברית - גזרת נחי פ&quot;ו</footer>
+
+<script src="assets/gzara-journey.js"></script>
+<script>
+var PV_JOURNEY = {
+  screens: [
+    {
+      type: 'intro',
+      heroCard: true,
+      lede: 'היום נלמד טריק פשוט שיעזור לנו לזהות את הגזרה.',
+      tag: 'פ"ו = נחי פ"ו',
+      sub: 'האות הראשונה כתובה כ-<b>י\'</b>, אבל במקור הייתה <b>ו\'</b> - והיא חוזרת בבניין הפעיל.',
+      rootHtml: 'י־ר־ד',
+      letterHtml: 'יֵרֵד'
+    },
+    {
+      type: 'teach',
+      title: 'איך אני יודע שזו פ"ו?',
+      lede1: 'יש לנו פועל, אותו שורש, בבניין הפעיל:',
+      baseHtml: 'יֵרֵד',
+      arrowLabel: 'אותו שורש, בבניין הפעיל',
+      futureHtml: 'ה<span class="gj-hl">וֹ</span>רִיד',
+      lede2: '👀 רואים שה-וֹ\' "חוזרת"?',
+      tag: '⭐ זה סימן לפ"ו!'
+    },
+    {
+      type: 'rule',
+      heroCard: true,
+      eyebrow: '⭐ כלל הזהב',
+      ruleHtml: 'ה<span class="gj-hl">וֹ</span>... בהפעיל ← פ"ו',
+      lede: 'בבניין קל, ה-י\' (שבמקור הייתה ו\') נעלמת לגמרי. בבניין הפעיל היא "חוזרת" כתנועת חולם.',
+      examples: [
+        { html: 'ה<span class="gj-hl">וֹ</span>רִיד', tag: '✓ פ"ו' },
+        { html: 'ה<span class="gj-hl">וֹ</span>שִׁיב', tag: '✓ פ"ו' },
+        { html: 'ה<span class="gj-hl">וֹ</span>דִיעַ', tag: '✓ פ"ו' }
+      ]
+    },
+    {
+      type: 'trap',
+      title: '⚠️ רגע! הוֹריד או הוּרד?',
+      lede: 'שני פעלים שנראים דומים מאוד:',
+      baseHtml: 'הוּא הוֹרִיד קובץ',
+      arrowLabel: 'מול',
+      trapHtml: 'הקובץ הוּרַד מהאתר',
+      question: 'באיזה פועל יש שם פועל ("להוריד")?',
+      choiceA: { label: 'הוֹרִיד', right: true },
+      choiceB: { label: 'הוּרַד', right: false },
+      feedbackOk: '🎉 נכון! "הוריד" הוא בניין הפעיל - יש לו שם פועל ("להוריד"). "הוּרַד" הוא בניין הופעל (סביל) - לבניין הזה אין שם פועל.',
+      feedbackBad: '💡 לא בדיוק - "הוריד" (הפעיל) הוא מי שהוריד משהו, ויש לו שם פועל: "להוריד". "הוּרַד" (הופעל) הוא הסביל - לבניין הזה אין שם פועל.'
+    },
+    {
+      type: 'game',
+      title: '🎯 פ"ו או שלמים?',
+      optionA: { label: '🟢 פ"ו', value: 'פו' },
+      optionB: { label: '🔵 שלמים', value: 'שלמים' },
+      wrongHint: '💡 כמעט! בבניין קל האות הראשונה נעלמת לגמרי?',
+      questions: [
+        { html: 'הוֹדִיעַ', answer: 'פו' },
+        { html: 'פָּגַשׁ', answer: 'שלמים' },
+        { html: 'הוֹרִיד', answer: 'פו' },
+        { html: 'כָּתַב', answer: 'שלמים' },
+        { html: 'הוֹשִׁיב', answer: 'פו' }
+      ]
+    },
+    {
+      type: 'examSteps',
+      title: '🧭 הצעדים שלנו במבחן',
+      steps: [
+        '1️⃣ מוצאים את השורש',
+        '2️⃣ בודקים: פ"י בכתיב (ולא פ"א)?',
+        '3️⃣ מטים לבניין הפעיל',
+        '4️⃣ בודקים: הופיעה "הוֹ..." בהתחלה?'
+      ],
+      finalTag: '🎯 פ"ו!'
+    },
+    {
+      type: 'rootsTable',
+      title: '🧠 כמה שורשי פ"ו נפוצים',
+      lede: 'השורשים האלה נכתבים ב-י\', אך במקורם היו ב-ו\' (כפי שרואים בבניין הפעיל).',
+      columns: ['שורש', 'קל ← הפעיל'],
+      rows: [
+        ['י.ר.ד', 'יֵרֵד ← הוֹרִיד'],
+        ['י.ש.ב', 'יֵשֵׁב ← הוֹשִׁיב'],
+        ['י.ל.ד', 'יִוָּלֵד ← הוֹלִיד'],
+        ['י.ד.ע', 'יֵדַע ← הוֹדִיעַ']
+      ]
+    },
+    {
+      type: 'exceptions',
+      title: '⚠️ שם הפועל - צורה מיוחדת',
+      rootsHtml: 'י.ר.ד, י.ש.ב, י.ד.ע',
+      lede: 'בבניין קל, שם הפועל של השורשים האלה אינו רגיל - הוא מקבל תבנית יוצאת דופן:',
+      leftHtml: 'לָרֶדֶת',
+      rightHtml: 'לָשֶׁבֶת',
+      note: '💡 צורות יוצאות דופן כאלה פשוט צריך לזכור בעל-פה.'
+    },
+    {
+      type: 'summary',
+      title: 'כל הכבוד!',
+      points: [
+        'האות הראשונה נכתבת כ-<b>י\'</b>, אבל במקור הייתה <b>ו\'</b>.',
+        'בבניין קל בעתיד האות הראשונה נעלמת לגמרי (יֵרֵד).',
+        'בבניין הפעיל ה-וֹ\' "חוזרת" ונשמעת (הוֹרִיד).'
+      ],
+      bigRuleHtml: '⭐ ה<span class="gj-hl">וֹ</span>... בהפעיל = פ"ו'
+    },
+    {
+      type: 'finalQuiz',
+      title: '📝 בדיקת הבנה לפני התרגול',
+      lede: 'ענו על 5 שאלות קצרות - ואז אפשר להמשיך לתרגול.',
+      optionA: { label: '🟢 פ"ו', value: 'פו' },
+      optionB: { label: '🔵 שלמים', value: 'שלמים' },
+      wrongHint: '💡 כמעט! בבניין קל האות הראשונה נעלמת לגמרי?',
+      passPercent: 60,
+      passMsgGood: 'אתם מוכנים לתרגול.',
+      passMsgRetry: 'כדאי לחזור על כלל הזהב פעם נוספת, ואז לנסות שוב.',
+      questions: [
+        { html: 'הוֹדִיעַ', answer: 'פו' },
+        { html: 'כָּתְבוּ', answer: 'שלמים' },
+        { html: 'הוֹשִׁיב', answer: 'פו' },
+        { html: 'פָּגְשׁוּ', answer: 'שלמים' },
+        { html: 'הוֹרִיד', answer: 'פו' }
+      ]
+    },
+    {
+      type: 'result',
+      practiceHref: 'ivrit-nechei-pv-tirgul.html'
+    }
+  ]
+};
+BeitMidrashJourney.init(document.getElementById('journeyRoot'), PV_JOURNEY);
+</script>
 
 </body>
 </html>

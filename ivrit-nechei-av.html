@@ -8,10 +8,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/gzara-journey.css">
 <style>
   .to-tirgul{ display:flex; justify-content:center; padding:0 0 2.5rem; }
   .to-tirgul a{ font-family:'Heebo',sans-serif; font-size:1rem; font-weight:700; padding:.8rem 1.8rem; border-radius:999px; background:var(--acc); color:#fff; text-decoration:none; box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .15s ease; }
   .to-tirgul a:hover{ transform:translateY(-1px); box-shadow:var(--shadow-hover); }
+  .deepen-inner{ padding:1.4rem 0 0; }
 </style>
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
@@ -32,7 +34,7 @@
 <header>
   <div class="eyebrow">עברית · דקדוק · כיתה י&quot;א</div>
   <h1>גזרת נחי ע&quot;ו — הסבר</h1>
-  <p class="sub">הסבר על הגזרה: איך מזהים אותה ואיך היא מתנהגת בבניינים השונים. בסוף העמוד - קישור לדף התרגול.</p>
+  <p class="sub">מסע למידה קצר, צעד-צעד: עד הסוף תדעו לזהות ע&quot;ו/ע&quot;י תוך שניות. בסוף העמוד - קישור לדף התרגול.</p>
 
   <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
     <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
@@ -43,22 +45,33 @@
 </header>
 
 <main id="main-content">
-  <div class="grid" id="grid">
 
+  <!-- מסע הלמידה האינטראקטיבי - ראו assets/gzara-journey.js -->
+  <div id="journeyRoot"></div>
 
-    <!-- הסבר על הגזרה -->
-    <section class="card" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">הסבר</span>
-        <h2 class="card-title">מה מייחדת את גזרת נחי ע&quot;ו</h2>
+  <div class="gj-wrap">
+    <details class="gj-deepen">
+      <summary>📚 למי שרוצה להעמיק - ההסבר המלא</summary>
+      <div class="deepen-inner">
+        <div class="grid" id="grid">
+
+          <!-- הסבר על הגזרה -->
+          <section class="card" style="grid-column: 1 / -1;">
+            <div class="card-head">
+              <span class="card-tag">הסבר</span>
+              <h2 class="card-title">מה מייחדת את גזרת נחי ע&quot;ו</h2>
+            </div>
+            <div class="card-body">
+              <p>שורשים שהאות האמצעית ו' או י' (כגון ק.ו.ם, ש.י.ר, מ.ו.ת, ש.י.ם, ש.ו.ב, ב.ו.א). באמצע השורש - האות הזו נעלמת כמעט תמיד ומופיעה רק כתנועה ארוכה: בעבר היא הופכת ל-&quot;ָ&quot; (קָם, שָׁב), בעתיד ל-&quot;וּ&quot;/&quot;י&quot; (יָקוּם, יָשׁוּב), ובשם הפועל ל-&quot;וֹ&quot;/&quot;י&quot; עם ה' בסוף (לָקוּם, לָשִׁיר).</p>
+              <p>בבניינים הכבדים יותר (הפעיל, הופעל) - האות האמצעית &quot;חוזרת&quot; וניכרת בבירור: הֵקִים, הוּקַם.</p>
+            </div>
+          </section>
+
+        </div>
       </div>
-      <div class="card-body">
-        <p>שורשים שהאות האמצעית ו' או י' (כגון ק.ו.ם, ש.י.ר, מ.ו.ת, ש.י.ם, ש.ו.ב, ב.ו.א). באמצע השורש - האות הזו נעלמת כמעט תמיד ומופיעה רק כתנועה ארוכה: בעבר היא הופכת ל-"ָ" (קָם, שָׁב), בעתיד ל-"וּ"/"י" (יָקוּם, יָשׁוּב), ובשם הפועל ל-"וֹ"/"י" עם ה' בסוף (לָקוּם, לָשִׁיר).</p>
-        <p>בבניינים הכבדים יותר (הפעיל, הופעל) - האות האמצעית "חוזרת" וניכרת בבירור: הֵקִים, הוּקַם.</p>
-      </div>
-    </section>
-
+    </details>
   </div>
+
 </main>
 
 <p class="to-tirgul"><a href="ivrit-nechei-av-tirgul.html">לתרגול ›</a></p>
@@ -70,6 +83,139 @@
 </nav>
 
 <footer class="credit">עברית - גזרת נחי ע&quot;ו</footer>
+
+<script src="assets/gzara-journey.js"></script>
+<script>
+var AV_JOURNEY = {
+  screens: [
+    {
+      type: 'intro',
+      heroCard: true,
+      lede: 'היום נלמד טריק פשוט שיעזור לנו לזהות את הגזרה.',
+      tag: 'ע"ו / ע"י = נחי ע"ו',
+      sub: 'האות האמצעית בשורש היא <b>ו\' או י\'</b> - ובעבר היא כמעט נעלמת.',
+      rootHtml: 'ק־<span class="gj-hl">ו</span>־ם',
+      letterHtml: 'קָם'
+    },
+    {
+      type: 'teach',
+      title: 'איך אני יודע שזו ע"ו/ע"י?',
+      lede1: 'יש לנו פועל בעבר:',
+      baseHtml: 'קָם',
+      arrowLabel: 'סופרים את האותיות שרואים',
+      futureHtml: 'ק־ם',
+      lede2: '👀 רואים רק 2 אותיות בעבר, במקום 3?',
+      tag: '⭐ זה סימן לע"ו/ע"י!'
+    },
+    {
+      type: 'rule',
+      heroCard: true,
+      eyebrow: '⭐ כלל הזהב',
+      ruleHtml: '2 אותיות בעבר ← ע"ו/ע"י',
+      lede: 'כשפועל בעבר נראה כאילו יש לו רק <b>2 אותיות שורש</b> (לא 3), זה סימן לנחי ע"ו/ע"י.',
+      examples: [
+        { html: 'קָם', tag: '✓ ע"ו (ק.ו.ם)' },
+        { html: 'שָׁר', tag: '✓ ע"י (ש.י.ר)' },
+        { html: 'בָּא', tag: '✓ ע"ו (ב.ו.א)' }
+      ]
+    },
+    {
+      type: 'trap',
+      title: '⚠️ רגע! שימו לב',
+      lede: 'אותו שורש בדיוק (ק.ו.ם), אבל בבניין אחר:',
+      baseHtml: 'קָם',
+      arrowLabel: 'אותו שורש, בבניין הפעיל',
+      trapHtml: 'הֵקִים',
+      question: 'האם זו עדיין אותה גזרה - ע"ו?',
+      choiceA: { label: 'כן - עדיין ע"ו', right: true },
+      choiceB: { label: 'לא - זו גזרה אחרת', right: false },
+      feedbackOk: '🎉 נכון! זה אותו שורש (ק.ו.ם). בבניינים הכבדים (הפעיל, הופעל) האות האמצעית "חוזרת" ונשמעת, אבל זו עדיין אותה גזרה.',
+      feedbackBad: '💡 לא בדיוק - זה עדיין אותו שורש ק.ו.ם! בבניין הפעיל (הֵקִים) האות האמצעית חוזרת ונשמעת, בשונה מבניין קל (קָם) שבו היא נעלמת.'
+    },
+    {
+      type: 'game',
+      title: '🎯 ע"ו/ע"י או שלמים?',
+      optionA: { label: '🟢 ע"ו/ע"י', value: 'עו' },
+      optionB: { label: '🔵 שלמים', value: 'שלמים' },
+      wrongHint: '💡 כמעט! ספרו: כמה אותיות שורש רואים בעבר?',
+      questions: [
+        { html: 'קָם', answer: 'עו' },
+        { html: 'שָׁמַר', answer: 'שלמים' },
+        { html: 'שָׁב', answer: 'עו' },
+        { html: 'כָּתַב', answer: 'שלמים' },
+        { html: 'בָּא', answer: 'עו' }
+      ]
+    },
+    {
+      type: 'examSteps',
+      title: '🧭 הצעדים שלנו במבחן',
+      steps: [
+        '1️⃣ מעבירים לעבר, גוף "הוא"',
+        '2️⃣ סופרים: כמה אותיות שורש רואים?',
+        '3️⃣ רואים רק 2? זה כנראה ע"ו/ע"י',
+        '4️⃣ מאמתים: מחפשים מילה מאותה משפחה עם ו\'/י\' באמצע (יָקוּם, לָקוּם)'
+      ],
+      finalTag: '🎯 ע"ו/ע"י!'
+    },
+    {
+      type: 'rootsTable',
+      title: '🧠 כמה שורשי ע"ו/ע"י נפוצים',
+      lede: 'אלה דוגמאות שכיחות - לא רשימה סגורה. כל שורש שבאמצעו ו\' או י\' שנעלמת שייך לגזרה הזו.',
+      columns: ['שורש', 'עבר ← עתיד'],
+      rows: [
+        ['ק.ו.ם', 'קָם ← יָקוּם'],
+        ['ש.י.ר', 'שָׁר ← יָשִׁיר'],
+        ['מ.ו.ת', 'מֵת ← יָמוּת'],
+        ['ש.י.ם', 'שָׂם ← יָשִׂים'],
+        ['ש.ו.ב', 'שָׁב ← יָשׁוּב'],
+        ['ב.ו.א', 'בָּא ← יָבוֹא']
+      ]
+    },
+    {
+      type: 'exceptions',
+      title: '⚠️ שימו לב: עבר והווה נראים אותו הדבר',
+      rootsHtml: 'ק.ו.ם, ש.י.ר, ב.ו.א ועוד',
+      lede: 'בלי ניקוד, אי אפשר להבדיל בין עבר להווה באותה מילה בדיוק:',
+      leftHtml: 'קָם (עבר)',
+      rightHtml: 'קָם (הווה)',
+      note: '💡 במבחן: מכריע ההקשר של המשפט - מי עושה את הפעולה, ומתי.'
+    },
+    {
+      type: 'summary',
+      title: 'כל הכבוד!',
+      points: [
+        'שורשים שבהם האות האמצעית ו\' או י\' "נעלמת" ברוב הצורות.',
+        'בעבר נראה כאילו יש רק <b>2 אותיות</b> (קָם, שָׁב).',
+        'בבניין הפעיל/הופעל האות האמצעית "חוזרת" ונשמעת (הֵקִים, הוּקַם).'
+      ],
+      bigRuleHtml: '⭐ 2 אותיות בעבר = ע"ו/ע"י'
+    },
+    {
+      type: 'finalQuiz',
+      title: '📝 בדיקת הבנה לפני התרגול',
+      lede: 'ענו על 5 שאלות קצרות - ואז אפשר להמשיך לתרגול.',
+      optionA: { label: '🟢 ע"ו/ע"י', value: 'עו' },
+      optionB: { label: '🔵 שלמים', value: 'שלמים' },
+      wrongHint: '💡 כמעט! ספרו: כמה אותיות שורש רואים בעבר?',
+      passPercent: 60,
+      passMsgGood: 'אתם מוכנים לתרגול.',
+      passMsgRetry: 'כדאי לחזור על כלל הזהב פעם נוספת, ואז לנסות שוב.',
+      questions: [
+        { html: 'קָם', answer: 'עו' },
+        { html: 'לָמְדוּ', answer: 'שלמים' },
+        { html: 'מֵת', answer: 'עו' },
+        { html: 'שָׁמְרוּ', answer: 'שלמים' },
+        { html: 'שָׁב', answer: 'עו' }
+      ]
+    },
+    {
+      type: 'result',
+      practiceHref: 'ivrit-nechei-av-tirgul.html'
+    }
+  ]
+};
+BeitMidrashJourney.init(document.getElementById('journeyRoot'), AV_JOURNEY);
+</script>
 
 </body>
 </html>

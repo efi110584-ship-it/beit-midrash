@@ -8,10 +8,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/gzara-journey.css">
 <style>
   .to-tirgul{ display:flex; justify-content:center; padding:0 0 2.5rem; }
   .to-tirgul a{ font-family:'Heebo',sans-serif; font-size:1rem; font-weight:700; padding:.8rem 1.8rem; border-radius:999px; background:var(--acc); color:#fff; text-decoration:none; box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .15s ease; }
   .to-tirgul a:hover{ transform:translateY(-1px); box-shadow:var(--shadow-hover); }
+  .deepen-inner{ padding:1.4rem 0 0; }
 </style>
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
@@ -30,7 +32,7 @@
 <header>
   <div class="eyebrow">עברית · דקדוק · כיתה י"א</div>
   <h1>גזרת חפ"נ וחפי"צ — הסבר</h1>
-  <p class="sub">הסבר על הגזרה: איך מזהים אותה ואיך היא מתנהגת בבניינים השונים. בסוף העמוד - קישור לדף התרגול.</p>
+  <p class="sub">מסע למידה קצר, צעד-צעד: עד הסוף תדעו לזהות חפ"נ וחפי"צ תוך שניות. בסוף העמוד - קישור לדף התרגול.</p>
 
   <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
     <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
@@ -41,23 +43,34 @@
 </header>
 
 <main id="main-content">
-  <div class="grid" id="grid">
 
+  <!-- מסע הלמידה האינטראקטיבי - ראו assets/gzara-journey.js -->
+  <div id="journeyRoot"></div>
 
-    <!-- הסבר על הגזרה -->
-    <section class="card" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">הסבר</span>
-        <h2 class="card-title">מה מייחד את גזרות חפ"נ וחפי"צ</h2>
+  <div class="gj-wrap">
+    <details class="gj-deepen">
+      <summary>📚 למי שרוצה להעמיק - ההסבר המלא</summary>
+      <div class="deepen-inner">
+        <div class="grid" id="grid">
+
+          <!-- הסבר על הגזרה -->
+          <section class="card" style="grid-column: 1 / -1;">
+            <div class="card-head">
+              <span class="card-tag">הסבר</span>
+              <h2 class="card-title">מה מייחד את גזרות חפ"נ וחפי"צ</h2>
+            </div>
+            <div class="card-body">
+              <p><b>חסרי פ"נ (חפ"נ)</b> - שורשים שהאות הראשונה שלהם היא האות נ, והיא נעלמת באחד ההטיות - למשל: <b>נָפַל</b>, <b>נוֹפֵל</b>, <b>יִפֹּל</b> (בעתיד, בכתיב חולם חסר - בלי הנו"ן) - ובאות שאחריה מופיע דגש חזק, כפיצוי על הנו"ן שנעלמה.</p>
+              <p><b>חסרי פי"צ (חפי"צ)</b> - אלו שורשים שמתחילים באותיות י-צ (ויש בצ' דגש חזק, כפיצוי על היו"ד שנבלעה), ולאחריהן אחת מהאותיות ב-ק-ע-ת-ג-ר (כגון י.צ.ג, י.צ.ב, י.צ.ע, י.צ.ת, י.צ.ק, י.צ.ר). היו"ד הראשונה נעלמת בדיוק כמו הנו"ן בחפ"נ: <b>הִצִּיג</b> (ולא "הִיצִיג"), <b>יַצִּיב</b> (ולא "יְיַצִיב").</p>
+              <p>שתי הגזרות מתנהגות אותו הדבר: האות הראשונה של השורש נעלמת ומשאירה דגש חזק באות שאחריה. לכן קל להתבלבל ביניהן - הדרך לזהות היא לבדוק אם האות הנעלמת היא נ' (חפ"נ) או י' שאחריה צ' (חפי"צ).</p>
+            </div>
+          </section>
+
+        </div>
       </div>
-      <div class="card-body">
-        <p><b>חסרי פ"נ (חפ"נ)</b> - שורשים שהאות הראשונה שלהם היא האות נ, והיא נעלמת באחד ההטיות - למשל: <b>נָפַל</b>, <b>נוֹפֵל</b>, <b>יִפֹּל</b> (בעתיד, בכתיב חולם חסר - בלי הנו"ן) - ובאות שאחריה מופיע דגש חזק, כפיצוי על הנו"ן שנעלמה.</p>
-        <p><b>חסרי פי"צ (חפי"צ)</b> - אלו שורשים שמתחילים באותיות י-צ (ויש בצ' דגש חזק, כפיצוי על היו"ד שנבלעה), ולאחריהן אחת מהאותיות ב-ק-ע-ת-ג-ר (כגון י.צ.ג, י.צ.ב, י.צ.ע, י.צ.ת, י.צ.ק, י.צ.ר). היו"ד הראשונה נעלמת בדיוק כמו הנו"ן בחפ"נ: <b>הִצִּיג</b> (ולא "הִיצִיג"), <b>יַצִּיב</b> (ולא "יְיַצִיב").</p>
-        <p>שתי הגזרות מתנהגות אותו הדבר: האות הראשונה של השורש נעלמת ומשאירה דגש חזק באות שאחריה. לכן קל להתבלבל ביניהן - הדרך לזהות היא לבדוק אם האות הנעלמת היא נ' (חפ"נ) או י' שאחריה צ' (חפי"צ).</p>
-      </div>
-    </section>
-
+    </details>
   </div>
+
 </main>
 
 <p class="to-tirgul"><a href="ivrit-hafan-hafitz-tirgul.html">לתרגול ›</a></p>
@@ -69,6 +82,139 @@
 </nav>
 
 <footer class="credit">עברית - גזרת חפ"נ וחפי"צ</footer>
+
+<script src="assets/gzara-journey.js"></script>
+<script>
+var HAFAN_JOURNEY = {
+  screens: [
+    {
+      type: 'intro',
+      heroCard: true,
+      lede: 'היום נלמד טריק פשוט שיעזור לנו לזהות שתי גזרות שמתנהגות אותו הדבר.',
+      tag: 'חפ"נ + חפי"צ',
+      sub: 'האות הראשונה בשורש "נעלמת" ומשאירה <b>דגש חזק</b> באות שאחריה.',
+      rootHtml: 'נ־פ־ל',
+      letterHtml: 'נָפַל'
+    },
+    {
+      type: 'teach',
+      title: 'איך אני יודע שזו חפ"נ?',
+      lede1: 'יש לנו פועל בעבר:',
+      baseHtml: 'נָפַל',
+      arrowLabel: 'מעבירים אותו לעתיד',
+      futureHtml: 'יִ<span class="gj-hl">פּ</span>ֹל',
+      lede2: '👀 איפה הנ\'? נעלמה! ובמקומה - דגש חזק בפ\'.',
+      tag: '⭐ זה סימן לחפ"נ!'
+    },
+    {
+      type: 'rule',
+      heroCard: true,
+      eyebrow: '⭐ כלל הזהב',
+      ruleHtml: 'אות ראשונה נעלמת + דגש חזק ← חפ"נ/חפי"צ',
+      lede: 'נ\' בהתחלה (חפ"נ), או י\' לפני צ\' (חפי"צ) - נעלמת ומשאירה דגש חזק באות שאחריה.',
+      examples: [
+        { html: 'יִ<span class="gj-hl">פּ</span>ֹל', tag: '✓ חפ"נ (נ.פ.ל)' },
+        { html: 'ה<span class="gj-hl">צּ</span>ִיג', tag: '✓ חפי"צ (י.צ.ג)' },
+        { html: 'י<span class="gj-hl">צּ</span>ִיב', tag: '✓ חפי"צ (י.צ.ב)' }
+      ]
+    },
+    {
+      type: 'trap',
+      title: '⚠️ רגע! כל פועל שמתחיל ב-נ\' הוא חפ"נ?',
+      lede: 'שני פעלים שמתחילים ב-נ\':',
+      baseHtml: 'נָפַל ← יִפֹּל',
+      arrowLabel: 'מול',
+      trapHtml: 'נָהַג ← יִנְהַג',
+      question: 'באיזה מהם הנ\' נעלמת בעתיד?',
+      choiceA: { label: 'נָפַל ← יִפֹּל', right: true },
+      choiceB: { label: 'נָהַג ← יִנְהַג', right: false },
+      feedbackOk: '🎉 נכון! ב"יִפֹּל" (נ.פ.ל) הנ\' נעלמה והשאירה דגש בפ\'. ב"יִנְהַג" (נ.ה.ג) הנ\' נשארת - זה שורש שלם רגיל, לא חפ"נ.',
+      feedbackBad: '💡 לא בדיוק - ב"יִפֹּל" (נ.פ.ל) הנ\' נעלמת ומשאירה דגש חזק בפ\'. ב"יִנְהַג" (נ.ה.ג) הנ\' נשארת - זה שורש שלם רגיל, לא חפ"נ.'
+    },
+    {
+      type: 'game',
+      title: '🎯 חפ"נ/חפי"צ או שלמים?',
+      optionA: { label: '🟢 חפ"נ/חפי"צ', value: 'חפן' },
+      optionB: { label: '🔵 שלמים', value: 'שלמים' },
+      wrongHint: '💡 כמעט! בודקים בעתיד: האות הראשונה נעלמת ויש דגש חזק אחריה?',
+      questions: [
+        { html: 'יִפֹּל', answer: 'חפן' },
+        { html: 'יִנְהַג', answer: 'שלמים' },
+        { html: 'יַצִּיג', answer: 'חפן' },
+        { html: 'יִפְגֹּשׁ', answer: 'שלמים' },
+        { html: 'יִגַּשׁ', answer: 'חפן' }
+      ]
+    },
+    {
+      type: 'examSteps',
+      title: '🧭 הצעדים שלנו במבחן',
+      steps: [
+        '1️⃣ מוצאים את השורש',
+        '2️⃣ בודקים: האות הראשונה נ\', או י\' ולפניה צ\'?',
+        '3️⃣ מטים לעתיד',
+        '4️⃣ בודקים: האות הראשונה נעלמה, ויש דגש חזק אחריה?'
+      ],
+      finalTag: '🎯 חפ"נ / חפי"צ!'
+    },
+    {
+      type: 'rootsTable',
+      title: '🧠 כמה שורשי חפ"נ וחפי"צ נפוצים',
+      lede: 'אלה דוגמאות שכיחות - לא רשימה סגורה.',
+      columns: ['שורש', 'עבר ← עתיד'],
+      rows: [
+        ['נ.פ.ל', 'נָפַל ← יִפֹּל'],
+        ['נ.ת.ן', 'נָתַן ← יִתֵּן'],
+        ['נ.ג.ש', 'נִגַּשׁ ← יִגַּשׁ'],
+        ['י.צ.ג', 'הִצִּיג ← יַצִּיג'],
+        ['י.צ.ב', 'הִצִּיב ← יַצִּיב'],
+        ['י.צ.ת', 'הִצִּית ← יַצִּית']
+      ]
+    },
+    {
+      type: 'exceptions',
+      title: '⚠️ שורש מיוחד: נ.ג.ש',
+      rootsHtml: 'נ.ג.ש (לָגֶשֶׁת)',
+      lede: 'השורש הזה "שואל" צורות משני בניינים שונים:',
+      leftHtml: 'נִגַּשׁ (עבר/הווה - כמו נפעל)',
+      rightHtml: 'לָגֶשֶׁת (עתיד/ציווי/שם הפועל - כמו קל)',
+      note: '💡 זו תופעה חריגה שכדאי פשוט לזכור לקראת המבחן.'
+    },
+    {
+      type: 'summary',
+      title: 'כל הכבוד!',
+      points: [
+        'חפ"נ: הנ\' הראשונה נעלמת, ונותרת דגש חזק באות שאחריה.',
+        'חפי"צ: הי\' שלפני צ\' נעלמת, וגם היא משאירה דגש חזק.',
+        'בודקים תמיד בעתיד - זה המקום שבו האות נעלמת.'
+      ],
+      bigRuleHtml: '⭐ אות ראשונה נעלמת + דגש = חפ"נ/חפי"צ'
+    },
+    {
+      type: 'finalQuiz',
+      title: '📝 בדיקת הבנה לפני התרגול',
+      lede: 'ענו על 5 שאלות קצרות - ואז אפשר להמשיך לתרגול.',
+      optionA: { label: '🟢 חפ"נ/חפי"צ', value: 'חפן' },
+      optionB: { label: '🔵 שלמים', value: 'שלמים' },
+      wrongHint: '💡 כמעט! בודקים בעתיד: האות הראשונה נעלמת ויש דגש חזק אחריה?',
+      passPercent: 60,
+      passMsgGood: 'אתם מוכנים לתרגול.',
+      passMsgRetry: 'כדאי לחזור על כלל הזהב פעם נוספת, ואז לנסות שוב.',
+      questions: [
+        { html: 'יִפֹּל', answer: 'חפן' },
+        { html: 'יִנְהַג', answer: 'שלמים' },
+        { html: 'תַּצִּיג', answer: 'חפן' },
+        { html: 'יִפְגֹּשׁ', answer: 'שלמים' },
+        { html: 'יִתֵּן', answer: 'חפן' }
+      ]
+    },
+    {
+      type: 'result',
+      practiceHref: 'ivrit-hafan-hafitz-tirgul.html'
+    }
+  ]
+};
+BeitMidrashJourney.init(document.getElementById('journeyRoot'), HAFAN_JOURNEY);
+</script>
 
 </body>
 </html>

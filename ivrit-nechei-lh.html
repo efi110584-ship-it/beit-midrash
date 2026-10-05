@@ -8,10 +8,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/gzara-journey.css">
 <style>
   .to-tirgul{ display:flex; justify-content:center; padding:0 0 2.5rem; }
   .to-tirgul a{ font-family:'Heebo',sans-serif; font-size:1rem; font-weight:700; padding:.8rem 1.8rem; border-radius:999px; background:var(--acc); color:#fff; text-decoration:none; box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .15s ease; }
   .to-tirgul a:hover{ transform:translateY(-1px); box-shadow:var(--shadow-hover); }
+  .deepen-inner{ padding:1.4rem 0 0; }
 </style>
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
@@ -32,7 +34,7 @@
 <header>
   <div class="eyebrow">עברית · דקדוק · כיתה י&quot;א</div>
   <h1>גזרת נחי ל&quot;ה — הסבר</h1>
-  <p class="sub">הסבר על הגזרה: איך מזהים אותה ואיך היא מתנהגת בבניינים השונים. בסוף העמוד - קישור לדף התרגול.</p>
+  <p class="sub">מסע למידה קצר, צעד-צעד: עד הסוף תדעו לזהות ל&quot;ה תוך שניות. בסוף העמוד - קישור לדף התרגול.</p>
 
   <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
     <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
@@ -43,22 +45,33 @@
 </header>
 
 <main id="main-content">
-  <div class="grid" id="grid">
 
+  <!-- מסע הלמידה האינטראקטיבי - ראו assets/gzara-journey.js -->
+  <div id="journeyRoot"></div>
 
-    <!-- הסבר על הגזרה -->
-    <section class="card" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">הסבר</span>
-        <h2 class="card-title">מה מייחדת את גזרת נחי ל&quot;ה</h2>
+  <div class="gj-wrap">
+    <details class="gj-deepen">
+      <summary>📚 למי שרוצה להעמיק - ההסבר המלא</summary>
+      <div class="deepen-inner">
+        <div class="grid" id="grid">
+
+          <!-- הסבר על הגזרה -->
+          <section class="card" style="grid-column: 1 / -1;">
+            <div class="card-head">
+              <span class="card-tag">הסבר</span>
+              <h2 class="card-title">מה מייחדת את גזרת נחי ל&quot;ה</h2>
+            </div>
+            <div class="card-body">
+              <p>שורשים שהאות השלישית ה' (וברוב המקרים, האות המקורית הייתה י' שהתחלפה בה' בסוף המילה). האות ה' בסוף השורש כמעט תמיד &quot;נעלמת&quot; ומוחלפת בתנועה: בעבר היא הופכת ל-ה' שקטה (בָּנָה), אך כשמוסיפים סיומת היא נעלמת (בָּנְתָה, בָּנִיתִי).</p>
+              <p>בעתיד היא הופכת לתנועת &quot;ה&quot; בסוף המילה (יִבְנֶה), ובשם הפועל היא הופכת לתנועת &quot;וֹ&quot; (לִבְנוֹת). הגזרה הזו מופיעה בהרבה מאוד שורשים בעברית - כמעט כל שורש שנראה כאילו &quot;חסר אות שלישית&quot; שייך אליה.</p>
+            </div>
+          </section>
+
+        </div>
       </div>
-      <div class="card-body">
-        <p>שורשים שהאות השלישית ה' (וברוב המקרים, האות המקורית הייתה י' שהתחלפה בה' בסוף המילה). האות ה' בסוף השורש כמעט תמיד "נעלמת" ומוחלפת בתנועה: בעבר היא הופכת ל-ה' שקטה (בָּנָה), אך כשמוסיפים סיומת היא נעלמת (בָּנְתָה, בָּנִיתִי).</p>
-        <p>בעתיד היא הופכת לתנועת "ה" בסוף המילה (יִבְנֶה), ובשם הפועל היא הופכת לתנועת "וֹ" (לִבְנוֹת). הגזרה הזו מופיעה בהרבה מאוד שורשים בעברית - כמעט כל שורש שנראה כאילו "חסר אות שלישית" שייך אליה.</p>
-      </div>
-    </section>
-
+    </details>
   </div>
+
 </main>
 
 <p class="to-tirgul"><a href="ivrit-nechei-lh-tirgul.html">לתרגול ›</a></p>
@@ -70,6 +83,138 @@
 </nav>
 
 <footer class="credit">עברית - גזרת נחי ל&quot;ה</footer>
+
+<script src="assets/gzara-journey.js"></script>
+<script>
+var LH_JOURNEY = {
+  screens: [
+    {
+      type: 'intro',
+      heroCard: true,
+      lede: 'היום נלמד טריק פשוט שיעזור לנו לזהות את הגזרה.',
+      tag: 'ל"ה = נחי ל"ה',
+      sub: 'האות השלישית בשורש היא <b>ה\'</b> - וברוב הצורות היא "נעלמת" ומוחלפת בתנועה.',
+      rootHtml: 'ב־נ־<span class="gj-hl">ה</span>',
+      letterHtml: 'בָּנָה'
+    },
+    {
+      type: 'teach',
+      title: 'איך אני יודע שזו ל"ה?',
+      lede1: 'יש לנו פועל:',
+      baseHtml: 'בָּנָה',
+      arrowLabel: 'מעבירים אותו לשם הפועל',
+      futureHtml: 'לִבְנ<span class="gj-hl">וֹ</span>ת',
+      lede2: '👀 רואים שה-ה\' הפכה ל"וֹ"?',
+      tag: '⭐ זה סימן לל"ה!'
+    },
+    {
+      type: 'rule',
+      heroCard: true,
+      eyebrow: '⭐ כלל הזהב',
+      ruleHtml: 'ל...נ<span class="gj-hl">וֹ</span>ת ← ל"ה',
+      lede: 'שם הפועל מסתיים ב"-וֹת", והאות השלישית בשורש "התחלפה" ב-"וֹ".',
+      examples: [
+        { html: 'לִבְנ<span class="gj-hl">וֹ</span>ת', tag: '✓ ל"ה' },
+        { html: 'לַעֲשׂ<span class="gj-hl">וֹ</span>ת', tag: '✓ ל"ה' },
+        { html: 'לִקְנ<span class="gj-hl">וֹ</span>ת', tag: '✓ ל"ה' }
+      ]
+    },
+    {
+      type: 'trap',
+      title: '⚠️ רגע! נ\' בהתחלה - בניין או גוף?',
+      lede: 'שני משפטים עם "נ" בהתחלת המילה:',
+      baseHtml: 'אֲנַחְנוּ נִבְנֶה בית',
+      arrowLabel: 'מול',
+      trapHtml: 'הבית יִבָּנֶה',
+      question: 'באיזו מילה ה-נ\' היא חלק מהבניין (נפעל), ולא רק סימן לגוף "אנחנו"?',
+      choiceA: { label: 'נִבְנֶה (אנחנו)', right: false },
+      choiceB: { label: 'יִבָּנֶה', right: true },
+      feedbackOk: '🎉 נכון! ב"יִבָּנֶה" יש דגש חזק בבי"ת - זה נפעל (הבית נבנה על ידי מישהו). ב"אנחנו נבנה" אין דגש - זו צורת קל רגילה, גוף "אנחנו" שבונה בעצמו.',
+      feedbackBad: '💡 לא בדיוק - ב"יִבָּנֶה" יש דגש חזק בבי"ת (בּ), וזה הסימן לנפעל. ב"אנחנו נבנה" אין דגש - זו צורת קל רגילה, גוף "אנחנו".'
+    },
+    {
+      type: 'game',
+      title: '🎯 ל"ה או לא?',
+      optionA: { label: '🟢 ל"ה', value: 'לה' },
+      optionB: { label: '🔵 שלמים', value: 'שלמים' },
+      wrongHint: '💡 כמעט! בשם הפועל - נגמר ב"-וֹת"?',
+      questions: [
+        { html: 'לִבְנוֹת', answer: 'לה' },
+        { html: 'לִשְׁמֹר', answer: 'שלמים' },
+        { html: 'לַעֲשׂוֹת', answer: 'לה' },
+        { html: 'לִכְתֹּב', answer: 'שלמים' },
+        { html: 'לִקְנוֹת', answer: 'לה' }
+      ]
+    },
+    {
+      type: 'examSteps',
+      title: '🧭 הצעדים שלנו במבחן',
+      steps: [
+        '1️⃣ מוצאים את השורש',
+        '2️⃣ מטים לשם הפועל (ל-... )',
+        '3️⃣ בודקים: האות השלישית בשורש הפכה ל"וֹ"?',
+        '4️⃣ נזהרים מ-נ\' בתחילת מילה שהיא רק גוף "אנחנו", לא נפעל'
+      ],
+      finalTag: '🎯 ל"ה!'
+    },
+    {
+      type: 'rootsTable',
+      title: '🧠 כמה שורשי ל"ה נפוצים',
+      lede: 'זו אחת הגזרות הנפוצות ביותר בעברית - הדוגמאות כאן הן רק חלק קטן.',
+      columns: ['שורש', 'עבר ← שם הפועל'],
+      rows: [
+        ['ב.נ.ה', 'בָּנָה ← לִבְנוֹת'],
+        ['ע.ש.ה', 'עָשָׂה ← לַעֲשׂוֹת'],
+        ['ק.נ.ה', 'קָנָה ← לִקְנוֹת'],
+        ['פ.נ.ה', 'פָּנָה ← לִפְנוֹת'],
+        ['ר.א.ה', 'רָאָה ← לִרְאוֹת']
+      ]
+    },
+    {
+      type: 'exceptions',
+      title: '⚠️ שורש מפתיע: ר.א.ה',
+      rootsHtml: 'ר.א.ה (לִרְאוֹת)',
+      lede: 'למרות שיש בו א\' - הוא לא ל"א! האות האחרונה בשורש היא ה\', ולכן הוא מתנהג כמו כל שורש ל"ה:',
+      leftHtml: 'לִרְאוֹת',
+      rightHtml: 'יִרְאֶה',
+      note: '💡 תמיד בודקים את האות האחרונה בשורש - לא כל א\' באמצע המילה משנה את הגזרה.'
+    },
+    {
+      type: 'summary',
+      title: 'כל הכבוד!',
+      points: [
+        'האות השלישית בשורש היא <b>ה\'</b> - ברוב הצורות היא "נעלמת".',
+        'בעתיד היא הופכת לתנועת "ה" (יִבְנֶה).',
+        'בשם הפועל היא הופכת ל"וֹ" (לִבְנוֹת).'
+      ],
+      bigRuleHtml: '⭐ ל...נ<span class="gj-hl">וֹ</span>ת = ל"ה'
+    },
+    {
+      type: 'finalQuiz',
+      title: '📝 בדיקת הבנה לפני התרגול',
+      lede: 'ענו על 5 שאלות קצרות - ואז אפשר להמשיך לתרגול.',
+      optionA: { label: '🟢 ל"ה', value: 'לה' },
+      optionB: { label: '🔵 שלמים', value: 'שלמים' },
+      wrongHint: '💡 כמעט! בשם הפועל - נגמר ב"-וֹת"?',
+      passPercent: 60,
+      passMsgGood: 'אתם מוכנים לתרגול.',
+      passMsgRetry: 'כדאי לחזור על כלל הזהב פעם נוספת, ואז לנסות שוב.',
+      questions: [
+        { html: 'לִבְנוֹת', answer: 'לה' },
+        { html: 'לִכְתֹּב', answer: 'שלמים' },
+        { html: 'לִקְנוֹת', answer: 'לה' },
+        { html: 'לִשְׁמֹר', answer: 'שלמים' },
+        { html: 'לִפְנוֹת', answer: 'לה' }
+      ]
+    },
+    {
+      type: 'result',
+      practiceHref: 'ivrit-nechei-lh-tirgul.html'
+    }
+  ]
+};
+BeitMidrashJourney.init(document.getElementById('journeyRoot'), LH_JOURNEY);
+</script>
 
 </body>
 </html>

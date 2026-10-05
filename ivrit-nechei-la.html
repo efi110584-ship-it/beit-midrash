@@ -8,10 +8,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/gzara-journey.css">
 <style>
   .to-tirgul{ display:flex; justify-content:center; padding:0 0 2.5rem; }
   .to-tirgul a{ font-family:'Heebo',sans-serif; font-size:1rem; font-weight:700; padding:.8rem 1.8rem; border-radius:999px; background:var(--acc); color:#fff; text-decoration:none; box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .15s ease; }
   .to-tirgul a:hover{ transform:translateY(-1px); box-shadow:var(--shadow-hover); }
+  .deepen-inner{ padding:1.4rem 0 0; }
 </style>
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
@@ -32,7 +34,7 @@
 <header>
   <div class="eyebrow">עברית · דקדוק · כיתה י&quot;א</div>
   <h1>גזרת נחי ל&quot;א — הסבר</h1>
-  <p class="sub">הסבר על הגזרה: איך מזהים אותה ואיך היא מתנהגת בבניינים השונים. בסוף העמוד - קישור לדף התרגול.</p>
+  <p class="sub">מסע למידה קצר, צעד-צעד: עד הסוף תדעו להבדיל ל&quot;א מל&quot;ה תוך שניות. בסוף העמוד - קישור לדף התרגול.</p>
 
   <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
     <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
@@ -43,22 +45,33 @@
 </header>
 
 <main id="main-content">
-  <div class="grid" id="grid">
 
+  <!-- מסע הלמידה האינטראקטיבי - ראו assets/gzara-journey.js -->
+  <div id="journeyRoot"></div>
 
-    <!-- הסבר על הגזרה -->
-    <section class="card" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">הסבר</span>
-        <h2 class="card-title">מה מייחדת את גזרת נחי ל&quot;א</h2>
+  <div class="gj-wrap">
+    <details class="gj-deepen">
+      <summary>📚 למי שרוצה להעמיק - ההסבר המלא</summary>
+      <div class="deepen-inner">
+        <div class="grid" id="grid">
+
+          <!-- הסבר על הגזרה -->
+          <section class="card" style="grid-column: 1 / -1;">
+            <div class="card-head">
+              <span class="card-tag">הסבר</span>
+              <h2 class="card-title">מה מייחדת את גזרת נחי ל&quot;א</h2>
+            </div>
+            <div class="card-body">
+              <p>שורשים שהאות השלישית א' (כגון ק.ר.א, מ.צ.א, ב.ר.א). האל&quot;ף בסוף השורש &quot;שקטה&quot; - לא נהגית כעיצור אלא רק מציינת שההברה שלפניה מוטעמת. בעבר היא מתנהגת כמעט כמו שורש שלם (קָרָא, קָרְאָה, קָרָאתִי).</p>
+              <p>בעתיד ובשם הפועל היא נשארת ואינה הופכת לתנועת &quot;וֹ&quot; כמו בגזרת ל&quot;ה (לִקְרֹא ולא &quot;לקרות&quot;). לכן קל להתבלבל בין ל&quot;א לל&quot;ה - הבדיקה הפשוטה: אם בהטיה נשמעת א' - זו ל&quot;א; אם יש ה'/י' - זו ל&quot;ה.</p>
+            </div>
+          </section>
+
+        </div>
       </div>
-      <div class="card-body">
-        <p>שורשים שהאות השלישית א' (כגון ק.ר.א, מ.צ.א, ב.ר.א). האל"ף בסוף השורש "שקטה" - לא נהגית כעיצור אלא רק מציינת שההברה שלפניה מוטעמת. בעבר היא מתנהגת כמעט כמו שורש שלם (קָרָא, קָרְאָה, קָרָאתִי).</p>
-        <p>בעתיד ובשם הפועל היא נשארת ואינה הופכת לתנועת "וֹ" כמו בגזרת ל"ה (לִקְרֹא ולא "לקרות"). לכן קל להתבלבל בין ל"א לל"ה - הבדיקה הפשוטה: אם בהטיה נשמעת א' - זו ל"א; אם יש ה'/י' - זו ל"ה.</p>
-      </div>
-    </section>
-
+    </details>
   </div>
+
 </main>
 
 <p class="to-tirgul"><a href="ivrit-nechei-la-tirgul.html">לתרגול ›</a></p>
@@ -70,6 +83,137 @@
 </nav>
 
 <footer class="credit">עברית - גזרת נחי ל&quot;א</footer>
+
+<script src="assets/gzara-journey.js"></script>
+<script>
+var LA_JOURNEY = {
+  screens: [
+    {
+      type: 'intro',
+      heroCard: true,
+      lede: 'היום נלמד טריק פשוט שיעזור לנו לזהות את הגזרה, ולא להתבלבל עם גזרה דומה.',
+      tag: 'ל"א = נחי ל"א',
+      sub: 'האות השלישית בשורש היא <b>א\'</b> - "שקטה", אבל נשארת בכל הצורות.',
+      rootHtml: 'ק־ר־<span class="gj-hl">א</span>',
+      letterHtml: '<span class="gj-hl">א׳</span>'
+    },
+    {
+      type: 'teach',
+      title: 'איך אני יודע שזו ל"א?',
+      lede1: 'יש לנו פועל:',
+      baseHtml: 'קוֹרֵא',
+      arrowLabel: 'מעבירים אותו לשם הפועל',
+      futureHtml: 'לִקְרֹ<span class="gj-hl">א</span>',
+      lede2: '👀 האל"ף נשארת! היא לא הופכת ל"וֹ" כמו בגזרת ל"ה.',
+      tag: '⭐ זה סימן לל"א!'
+    },
+    {
+      type: 'rule',
+      heroCard: true,
+      eyebrow: '⭐ כלל הזהב',
+      ruleHtml: 'לִקְר<span class="gj-hl">א</span> ← ל"א (לא "לקרות"!)',
+      lede: 'בשם הפועל ובעתיד, האל"ף האחרונה בשורש <b>נשארת</b> - היא לא הופכת לשום תנועה אחרת.',
+      examples: [
+        { html: 'לִקְר<span class="gj-hl">א</span>', tag: '✓ ל"א' },
+        { html: 'לִמְצ<span class="gj-hl">א</span>', tag: '✓ ל"א' },
+        { html: 'לִבְר<span class="gj-hl">א</span>', tag: '✓ ל"א' }
+      ]
+    },
+    {
+      type: 'trap',
+      title: '⚠️ רגע! ל"א או ל"ה?',
+      lede: 'שני שורשים שנראים דומים:',
+      baseHtml: 'לִקְרֹא',
+      arrowLabel: 'מול',
+      trapHtml: 'לִבְנוֹת',
+      question: 'באיזו מילה האות האחרונה בשורש נשמעת כאל"ף?',
+      choiceA: { label: 'לִקְרֹא', right: true },
+      choiceB: { label: 'לִבְנוֹת', right: false },
+      feedbackOk: '🎉 נכון! ב"לקרוא" האל"ף (א\') נשארת ונשמעת. לכן זו ל"א.',
+      feedbackBad: '💡 לא - ב"לבנות" האות השלישית בשורש היא ה\' שהפכה ל"וֹ". זו גזרת ל"ה, לא ל"א.'
+    },
+    {
+      type: 'game',
+      title: '🎯 ל"א או ל"ה?',
+      optionA: { label: '🟢 ל"א', value: 'לא' },
+      optionB: { label: '🔵 ל"ה', value: 'לה' },
+      wrongHint: '💡 כמעט! נשמעת א\' בסוף? ל"א. הפכה ל"וֹ"? ל"ה.',
+      questions: [
+        { html: 'לִקְרֹא', answer: 'לא' },
+        { html: 'לִבְנוֹת', answer: 'לה' },
+        { html: 'לִמְצֹא', answer: 'לא' },
+        { html: 'לִפְנוֹת', answer: 'לה' },
+        { html: 'לִבְרֹא', answer: 'לא' }
+      ]
+    },
+    {
+      type: 'examSteps',
+      title: '🧭 הצעדים שלנו במבחן',
+      steps: [
+        '1️⃣ מוצאים את השורש',
+        '2️⃣ מטים לשם הפועל (לכתוב "ל..." )',
+        '3️⃣ בודקים את האות האחרונה בשורש',
+        '4️⃣ נשמעת א\'? ל"א. הפכה ל"וֹ"? ל"ה'
+      ],
+      finalTag: '🎯 ל"א!'
+    },
+    {
+      type: 'rootsTable',
+      title: '🧠 כמה שורשי ל"א נפוצים',
+      lede: 'אלה דוגמאות שכיחות - לא רשימה סגורה. כל שורש שהאות השלישית בו היא א\' שנשארת שייך לגזרה הזו.',
+      columns: ['שורש', 'עבר ← שם הפועל'],
+      rows: [
+        ['ק.ר.א', 'קָרָא ← לִקְרֹא'],
+        ['מ.צ.א', 'מָצָא ← לִמְצֹא'],
+        ['ב.ר.א', 'בָּרָא ← לִבְרֹא'],
+        ['ש.נ.א', 'שָׂנֵא ← לִשְׂנֹא']
+      ]
+    },
+    {
+      type: 'exceptions',
+      title: '⚠️ בעבר - כמעט נראה שלם',
+      rootsHtml: 'ק.ר.א, מ.צ.א, ב.ר.א',
+      lede: 'בעבר, שורשי ל"א כמעט ולא "מתנהגים" כמו גזרה - הם נראים כמעט כמו שורש שלם:',
+      leftHtml: 'קָרָאתִי',
+      rightHtml: 'קָרָאנוּ',
+      note: '💡 ההבדל האמיתי מופיע רק בעתיד ובשם הפועל - שם האל"ף נשארת ולא הופכת לתנועה אחרת (בשונה מל"ה).'
+    },
+    {
+      type: 'summary',
+      title: 'כל הכבוד!',
+      points: [
+        'האות השלישית בשורש היא <b>א\'</b> - "שקטה" אבל תמיד נשארת.',
+        'בעתיד ובשם הפועל היא לא הופכת ל"וֹ" (בשונה מל"ה).',
+        'קל להתבלבל עם ל"ה - הבדיקה: נשמעת א\'? ל"א. הפכה ל-וֹ? ל"ה.'
+      ],
+      bigRuleHtml: '⭐ לִקְר<span class="gj-hl">א</span> = ל"א'
+    },
+    {
+      type: 'finalQuiz',
+      title: '📝 בדיקת הבנה לפני התרגול',
+      lede: 'ענו על 5 שאלות קצרות - ואז אפשר להמשיך לתרגול.',
+      optionA: { label: '🟢 ל"א', value: 'לא' },
+      optionB: { label: '🔵 ל"ה', value: 'לה' },
+      wrongHint: '💡 כמעט! נשמעת א\' בסוף? ל"א. הפכה ל"וֹ"? ל"ה.',
+      passPercent: 60,
+      passMsgGood: 'אתם מוכנים לתרגול.',
+      passMsgRetry: 'כדאי לחזור על כלל הזהב פעם נוספת, ואז לנסות שוב.',
+      questions: [
+        { html: 'לִקְרֹא', answer: 'לא' },
+        { html: 'לַעֲשׂוֹת', answer: 'לה' },
+        { html: 'לִמְצֹא', answer: 'לא' },
+        { html: 'לִקְנוֹת', answer: 'לה' },
+        { html: 'לִבְרֹא', answer: 'לא' }
+      ]
+    },
+    {
+      type: 'result',
+      practiceHref: 'ivrit-nechei-la-tirgul.html'
+    }
+  ]
+};
+BeitMidrashJourney.init(document.getElementById('journeyRoot'), LA_JOURNEY);
+</script>
 
 </body>
 </html>

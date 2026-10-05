@@ -8,10 +8,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/worksheet-theme.css">
+<link rel="stylesheet" href="assets/gzara-journey.css">
 <style>
   .to-tirgul{ display:flex; justify-content:center; padding:0 0 2.5rem; }
   .to-tirgul a{ font-family:'Heebo',sans-serif; font-size:1rem; font-weight:700; padding:.8rem 1.8rem; border-radius:999px; background:var(--acc); color:#fff; text-decoration:none; box-shadow:var(--shadow); transition:transform .15s ease, box-shadow .15s ease; }
   .to-tirgul a:hover{ transform:translateY(-1px); box-shadow:var(--shadow-hover); }
+  .deepen-inner{ padding:1.4rem 0 0; }
 </style>
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
@@ -32,7 +34,7 @@
 <header>
   <div class="eyebrow">עברית · דקדוק · כיתה י&quot;א</div>
   <h1>גזרת כפולים (ע&quot;ע) — הסבר</h1>
-  <p class="sub">הסבר על הגזרה: איך מזהים אותה ואיך היא מתנהגת בבניינים השונים. בסוף העמוד - קישור לדף התרגול.</p>
+  <p class="sub">מסע למידה קצר, צעד-צעד: עד הסוף תדעו לזהות כפולים תוך שניות. בסוף העמוד - קישור לדף התרגול.</p>
 
   <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
     <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
@@ -43,22 +45,33 @@
 </header>
 
 <main id="main-content">
-  <div class="grid" id="grid">
 
+  <!-- מסע הלמידה האינטראקטיבי - ראו assets/gzara-journey.js -->
+  <div id="journeyRoot"></div>
 
-    <!-- הסבר על הגזרה -->
-    <section class="card" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">הסבר</span>
-        <h2 class="card-title">מה מייחדת את גזרת הכפולים</h2>
+  <div class="gj-wrap">
+    <details class="gj-deepen">
+      <summary>📚 למי שרוצה להעמיק - ההסבר המלא</summary>
+      <div class="deepen-inner">
+        <div class="grid" id="grid">
+
+          <!-- הסבר על הגזרה -->
+          <section class="card" style="grid-column: 1 / -1;">
+            <div class="card-head">
+              <span class="card-tag">הסבר</span>
+              <h2 class="card-title">מה מייחדת את גזרת הכפולים</h2>
+            </div>
+            <div class="card-body">
+              <p>שורשים שיש בהם למעשה רק שני עיצורים שונים, כי האות השנייה והשלישית זהות (כגון ס.ב.ב, ח.ג.ג, ת.מ.ם). כשמוסיפים לשורש סיומת שמתחילה בעיצור (כמו בגוף ראשון ושני בעבר), הכפילות &quot;מתכווצת&quot;: סַבּוֹתִי (ולא &quot;סבבתי&quot;).</p>
+              <p>כשאין סיומת עיצורית (גוף שלישי, רבים) - הכפילות נשארת גלויה: סָבַב, סָבְבוּ. בעתיד ובשם הפועל מופיעה תבנית מיוחדת עם תנועת חולם: יָסֹב, לָסֹב. בבניין הפעיל האות הכפולה מופיעה פעם אחת בלבד, עם תנועה ארוכה: הֵסֵב.</p>
+            </div>
+          </section>
+
+        </div>
       </div>
-      <div class="card-body">
-        <p>שורשים שיש בהם למעשה רק שני עיצורים שונים, כי האות השנייה והשלישית זהות (כגון ס.ב.ב, ח.ג.ג, ת.מ.ם). כשמוסיפים לשורש סיומת שמתחילה בעיצור (כמו בגוף ראשון ושני בעבר), הכפילות "מתכווצת": סַבּוֹתִי (ולא "סבבתי").</p>
-        <p>כשאין סיומת עיצורית (גוף שלישי, רבים) - הכפילות נשארת גלויה: סָבַב, סָבְבוּ. בעתיד ובשם הפועל מופיעה תבנית מיוחדת עם תנועת חולם: יָסֹב, לָסֹב. בבניין הפעיל האות הכפולה מופיעה פעם אחת בלבד, עם תנועה ארוכה: הֵסֵב.</p>
-      </div>
-    </section>
-
+    </details>
   </div>
+
 </main>
 
 <p class="to-tirgul"><a href="ivrit-kfulim-tirgul.html">לתרגול ›</a></p>
@@ -70,6 +83,137 @@
 </nav>
 
 <footer class="credit">עברית - גזרת כפולים</footer>
+
+<script src="assets/gzara-journey.js"></script>
+<script>
+var KFULIM_JOURNEY = {
+  screens: [
+    {
+      type: 'intro',
+      heroCard: true,
+      lede: 'היום נלמד טריק פשוט שיעזור לנו לזהות את הגזרה.',
+      tag: 'כפולים = ע"ע',
+      sub: 'האות השנייה והשלישית בשורש <b>זהות</b> - ולפעמים הן "מתכווצות" למכה אחת.',
+      rootHtml: 'ס־<span class="gj-hl">ב</span>־ב',
+      letterHtml: 'סָבַב'
+    },
+    {
+      type: 'teach',
+      title: 'איך אני יודע שזו ע"ע?',
+      lede1: 'יש לנו פועל, בלי סיומת עיצורית:',
+      baseHtml: 'סָבַב',
+      arrowLabel: 'כשמוסיפים סיומת (אני/אתה)',
+      futureHtml: 'ס<span class="gj-hl">בּוֹ</span>תִי',
+      lede2: '👀 שתי האותיות הזהות התכווצו למכה אחת!',
+      tag: '⭐ זה סימן לע"ע!'
+    },
+    {
+      type: 'rule',
+      heroCard: true,
+      eyebrow: '⭐ כלל הזהב',
+      ruleHtml: 'עם סיומת - הכפילות מתכווצת ← ע"ע',
+      lede: 'בגוף שלישי (הוא/הם) הכפילות נשארת גלויה. בגוף ראשון/שני (אני/אתה) עם סיומת - היא מתכווצת לתנועה אחת.',
+      examples: [
+        { html: 'סָ<span class="gj-hl">בַב</span>', tag: '✓ ע"ע (בלי סיומת)' },
+        { html: 'ס<span class="gj-hl">בּוֹ</span>תִי', tag: '✓ ע"ע (עם סיומת)' },
+        { html: 'ה<span class="gj-hl">סֵ</span>ב', tag: '✓ ע"ע (הפעיל)' }
+      ]
+    },
+    {
+      type: 'trap',
+      title: '⚠️ רגע! לפעמים הדגש נעלם',
+      lede: 'שתי צורות של "לסוב" בעבר:',
+      baseHtml: 'הֵם סָבְבוּ',
+      arrowLabel: 'מול',
+      trapHtml: 'אני סַבּוֹתִי',
+      question: 'באיזה משפט שתי האותיות הזהות נראות ונשמעות בנפרד?',
+      choiceA: { label: 'הֵם סָבְבוּ', right: true },
+      choiceB: { label: 'אני סַבּוֹתִי', right: false },
+      feedbackOk: '🎉 נכון! ב"סָבְבוּ" (רבים, בלי סיומת עיצורית) שתי האותיות הזהות (ב-ב) נשמעות בנפרד. ב"סַבּוֹתִי" (עם הסיומת "-תי") הן התכווצו לתנועה אחת.',
+      feedbackBad: '💡 לא בדיוק - ב"סבותי" (עם סיומת "-תי") שתי האותיות הזהות מתכווצות לתנועה אחת ("וֹ"). ב"סָבְבוּ" (בלי סיומת עיצורית) הן נשארות ונשמעות בנפרד.'
+    },
+    {
+      type: 'game',
+      title: '🎯 ע"ע או שלמים?',
+      optionA: { label: '🟢 ע"ע', value: 'עע' },
+      optionB: { label: '🔵 שלמים', value: 'שלמים' },
+      wrongHint: '💡 כמעט! האות השנייה והשלישית בשורש זהות?',
+      questions: [
+        { html: 'סָבַב', answer: 'עע' },
+        { html: 'כָּתַב', answer: 'שלמים' },
+        { html: 'חָגְגָה', answer: 'עע' },
+        { html: 'לָמְדָה', answer: 'שלמים' },
+        { html: 'קֻלַּל', answer: 'עע' }
+      ]
+    },
+    {
+      type: 'examSteps',
+      title: '🧭 הצעדים שלנו במבחן',
+      steps: [
+        '1️⃣ מוצאים את השורש',
+        '2️⃣ בודקים: האות השנייה והשלישית זהות?',
+        '3️⃣ בודקים אם יש סיומת עיצורית (אני/אתה)',
+        '4️⃣ אם כן - הכפילות התכווצה לתנועה אחת'
+      ],
+      finalTag: '🎯 ע"ע!'
+    },
+    {
+      type: 'rootsTable',
+      title: '🧠 כמה שורשי ע"ע נפוצים',
+      lede: 'שורשים שבהם האות השנייה והשלישית זהות.',
+      columns: ['שורש', 'דוגמה'],
+      rows: [
+        ['ס.ב.ב', 'סָבַב / סַבּוֹתִי'],
+        ['ח.ג.ג', 'חָגַג / חָגַגְתִּי'],
+        ['ת.מ.ם', 'תַּם / תַּמּוּ'],
+        ['ק.ל.ל', 'קִלֵּל (פיעל)']
+      ]
+    },
+    {
+      type: 'exceptions',
+      title: '⚠️ שורש מיוחד: ת.מ.ם',
+      rootsHtml: 'ת.מ.ם (לָתֹם)',
+      lede: 'בשונה משורשים כפולים אחרים, שם הפועל כאן מקוצר בצורה מיוחדת:',
+      leftHtml: 'לָתֹם',
+      rightHtml: '(ולא "לתמום")',
+      note: '💡 זו צורה יוצאת דופן שכדאי לזכור בעל-פה.'
+    },
+    {
+      type: 'summary',
+      title: 'כל הכבוד!',
+      points: [
+        'האות השנייה והשלישית בשורש זהות (ס.ב.ב, ח.ג.ג).',
+        'בלי סיומת עיצורית - הכפילות נשארת גלויה (סָבְבוּ).',
+        'עם סיומת עיצורית (אני/אתה) - היא מתכווצת לתנועה אחת (סַבּוֹתִי).'
+      ],
+      bigRuleHtml: '⭐ שתי אותיות זהות = ע"ע'
+    },
+    {
+      type: 'finalQuiz',
+      title: '📝 בדיקת הבנה לפני התרגול',
+      lede: 'ענו על 5 שאלות קצרות - ואז אפשר להמשיך לתרגול.',
+      optionA: { label: '🟢 ע"ע', value: 'עע' },
+      optionB: { label: '🔵 שלמים', value: 'שלמים' },
+      wrongHint: '💡 כמעט! האות השנייה והשלישית בשורש זהות?',
+      passPercent: 60,
+      passMsgGood: 'אתם מוכנים לתרגול.',
+      passMsgRetry: 'כדאי לחזור על כלל הזהב פעם נוספת, ואז לנסות שוב.',
+      questions: [
+        { html: 'סָבַב', answer: 'עע' },
+        { html: 'לָמְדוּ', answer: 'שלמים' },
+        { html: 'חָגַג', answer: 'עע' },
+        { html: 'כָּתְבוּ', answer: 'שלמים' },
+        { html: 'תַּם', answer: 'עע' }
+      ]
+    },
+    {
+      type: 'result',
+      practiceHref: 'ivrit-kfulim-tirgul.html'
+    }
+  ]
+};
+BeitMidrashJourney.init(document.getElementById('journeyRoot'), KFULIM_JOURNEY);
+</script>
 
 </body>
 </html>
