@@ -45,10 +45,15 @@ h2{ font-size:1.15rem; color:var(--ink); margin:1.5rem 0 .55rem; display:flex; a
 h2 .n{ display:inline-flex; width:28px; height:28px; border-radius:50%; background:var(--ink); color:#fff; font-size:.9rem; align-items:center; justify-content:center; }
 h2:first-of-type{ margin-top:0; }
 
-.tw{ overflow-x:auto; }
+/* .tw לא עוטף יותר בגלילה אופקית - overflow על אב של thead מבטל position:sticky על הכותרת.
+   לשתי הטבלאות הרחבות (pillars, cal) אין ברירה - הן זקוקות לגלילה אופקית במסכים צרים,
+   ולכן רק בהן הכותרת לא תהיה מקובעת. */
+.tw{ }
+.tw:has(table.pillars), .tw:has(table.cal){ overflow-x:auto; }
 table{ width:100%; border-collapse:collapse; font-size:.93rem; }
 th, td{ border:1px solid var(--border); padding:.5rem .65rem; text-align:right; vertical-align:top; }
-thead th{ background:var(--ink); color:#fff; font-weight:700; }
+thead{ position:sticky; top:0; z-index:2; }
+thead th{ background:var(--ink); color:#fff; font-weight:700; box-shadow:0 1px 0 var(--border); }
 tbody th{ background:var(--head); color:var(--ink); font-weight:700; white-space:nowrap; }
 td ul{ margin:0; padding-inline-start:1.05rem; }
 td li{ margin-bottom:.15rem; }

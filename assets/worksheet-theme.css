@@ -253,7 +253,7 @@ main{ max-width: 1200px; margin: 0 auto; padding: 0 1.5rem 2rem; }
   border-top: 3px solid var(--acc);
   border-radius: 14px;
   box-shadow: var(--shadow);
-  overflow: hidden;
+  overflow: clip; /* לא hidden: overflow:hidden הופך את הכרטיס למיכל גלילה ומשבש position:sticky בתוך טבלאות שבתוכו */
   display:flex; flex-direction: column;
   transition: box-shadow .25s ease, transform .25s ease;
 }
@@ -433,7 +433,13 @@ textarea.answer, input.answer{
 textarea.answer:focus, input.answer:focus{ outline: none; border-color: var(--acc); box-shadow: 0 0 0 3px rgba(0,0,0,0.08); }
 textarea.answer.filled, input.answer.filled{ border-color: var(--teal); }
 
-.table-wrap{ overflow-x:auto; }
+/* הערה: table-wrap לא עוטף יותר בגלילה אופקית (overflow-x) - overflow בכל ציר על אב של thead
+   מבטל position:sticky על הכותרת (מגבלה אמיתית של הדפדפן), וזה היה המכשול לכותרות מקובעות. */
+.table-wrap{ }
+/* כותרת טבלה דביקה - נשארת גלויה בגלילה. position:sticky חייב להיות על thead ולא על ה-th,
+   כי בדפדפנים מבוססי Chromium sticky על תא טבלה (th/td) לא עובד כשל-table יש border-collapse:collapse. */
+table thead{ position: sticky; top: 0; z-index: 2; }
+table thead th{ background: var(--acc-soft, #fff); box-shadow: 0 1px 0 var(--paper-line, #ddd); }
 table.fill-grid{ width:100%; border-collapse: collapse; font-size:.82rem; }
 table.fill-grid th, table.fill-grid td{ border: 1px solid var(--paper-line); padding: .35rem; vertical-align: top; }
 table.fill-grid thead th{ background: var(--acc-soft); color: var(--ink); font-size:.78rem; font-weight:700; }
