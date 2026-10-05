@@ -10,7 +10,7 @@
    להחליף את הטקסטים/הדוגמאות, ולקרוא ל-BeitMidrashJourney.init(...)
    מהעמוד החדש. שום שינוי בקובץ הזה לא נדרש.
 
-   סוגי מסכים (screen.type): intro, teach, rule, trap, game, examSteps,
+   סוגי מסכים (screen.type): intro, method, teach, rule, trap, game, examSteps,
    rootsTable, exceptions, summary, finalQuiz, result.
    ============================================================ */
 window.BeitMidrashJourney = (function(){
@@ -37,6 +37,22 @@ window.BeitMidrashJourney = (function(){
           (screen.sub ? '<p class="gj-lede" style="margin-top:1.1rem;">' + screen.sub + '</p>' : '') +
           '<div class="gj-giant">' + screen.rootHtml + '</div>' +
           '<div class="gj-giant">' + screen.letterHtml + '</div>';
+        break;
+
+      case 'method':
+        card.innerHTML =
+          '<h2 class="gj-h2">' + screen.title + '</h2>' +
+          '<p class="gj-lede">' + screen.lede + '</p>' +
+          '<div class="gj-method-steps">' +
+            '<div class="gj-method-step"><span class="gj-method-label">הוא אתמול</span><span class="gj-method-word">' + screen.pastHtml + '</span></div>' +
+            '<div class="gj-method-arrow">›</div>' +
+            '<div class="gj-method-step"><span class="gj-method-label">הוא עכשיו</span><span class="gj-method-word">' + screen.presentHtml + '</span></div>' +
+            '<div class="gj-method-arrow">›</div>' +
+            '<div class="gj-method-step"><span class="gj-method-label">הוא מחר</span><span class="gj-method-word">' + screen.futureHtml + '</span></div>' +
+          '</div>' +
+          '<div class="gj-method-note"><b>🔤 השורש:</b> ' + screen.rootNote + '</div>' +
+          '<div class="gj-method-note gj-method-weak"><b>🔎 הגזרה:</b> ' + screen.gzaraNote + '</div>' +
+          '<div class="gj-tag" style="margin-top:.6rem;">' + screen.positionTag + '</div>';
         break;
 
       case 'teach':

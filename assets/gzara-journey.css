@@ -37,6 +37,21 @@
   background:var(--teal-soft); border-radius:999px; padding:.45rem 1.1rem; margin-top:.9rem; }
 .gj-arrow-step{ font-size:1.3rem; color:var(--gold); margin:.5rem 0; font-weight:600; }
 
+/* השיטה הקבועה: הוא אתמול / הוא עכשיו / הוא מחר */
+.gj-method-steps{ display:flex; align-items:center; justify-content:center; gap:.7rem; flex-wrap:wrap; margin:1.5rem 0 1.3rem; }
+.gj-method-step{ display:flex; flex-direction:column; align-items:center; gap:.35rem; background:var(--paper-card);
+  border:2px solid var(--paper-line); border-radius:16px; padding:.9rem 1.3rem; min-width:7.5rem; }
+.gj-method-label{ font-family:'Heebo',sans-serif; font-size:.8rem; font-weight:700; color:var(--ink-soft); }
+.gj-method-word{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.55rem; color:var(--ink); }
+.gj-method-arrow{ font-size:1.4rem; color:var(--gold); font-weight:700; }
+.gj-method-note{ max-width:34rem; margin:.8rem auto 0; text-align:center; line-height:1.65; font-size:1.05rem;
+  color:var(--ink); background:var(--teal-soft); border-radius:14px; padding:.9rem 1.2rem; }
+.gj-method-note.gj-method-weak{ background:var(--acc-soft, rgba(169,117,46,.16)); }
+@media (max-width:520px){
+  .gj-method-steps{ flex-direction:column; }
+  .gj-method-arrow{ transform:rotate(90deg); }
+}
+
 .gj-examples{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.9rem; margin-top:1.4rem; }
 .gj-ex-card{ background:var(--paper-card); border-radius:16px; padding:1.1rem .8rem; text-align:center; }
 .gj-ex-card .gj-word{ font-family:'Frank Ruhl Libre',serif; font-weight:900; font-size:1.65rem; color:var(--ink); }
