@@ -550,9 +550,29 @@
     var doneMsg = make("p", "bm-task-done");
     doneMsg.setAttribute("role", "status");
     nav.appendChild(prevBtn); nav.appendChild(navCount); nav.appendChild(nextBtn); nav.appendChild(doneMsg);
-    (endCards.length ? grid : summary).insertAdjacentElement("afterend", nav);
+    var navAnchor = endCards.length ? grid : summary;
+    navAnchor.insertAdjacentElement("afterend", nav);
     prevBtn.addEventListener("click", function(){ go(current - 1, true); });
     nextBtn.addEventListener("click", function(){ go(current + 1, true); });
+
+    // אם למשימה הנוכחית יש toolbar פנימי בכרטיס עצמו (למשל "בדקו לי את
+    // התשובות") - "הקודם/הבא" עובר לשם, לאותה שורה, במקום להופיע בנפרד
+    // מתחת לכל האזור. בדף/משימה בלי toolbar כזה - הניווט נשאר במקומו הרגיל.
+    function placeNav(){
+      var host = null;
+      if(view !== "all" && !single && current < tasks.length){
+        tasks[current].blocks.some(function(b){
+          var t = b.card.querySelector(":scope > .card-body > .toolbar");
+          if(t){ host = t; return true; }
+          return false;
+        });
+      }
+      if(host){
+        if(nav.parentElement !== host) host.appendChild(nav);
+      } else if(nav.parentElement !== navAnchor.parentElement || nav.previousElementSibling !== navAnchor){
+        navAnchor.insertAdjacentElement("afterend", nav);
+      }
+    }
 
     /* ---------- 7. מצב תצוגה ומיקום ---------- */
     var current = single ? 0 : Math.max(0, Math.min(tasks.length, parseInt(load(KEY_POS, 0), 10) || 0));
@@ -578,6 +598,7 @@
       endCards.forEach(function(ch){ setOff(ch, !all && current < tasks.length); });
       if(!all && current < tasks.length) markSeen(tasks[current]);
       setOff(summary, !all && current < tasks.length);
+      placeNav();
       setOff(nav, all);
       setOff(pills, view === "all");
       viewBtn.textContent = view === "all" ? "חזרה לתצוגה לפי משימות" : "📋 הצג את כל השאלות";

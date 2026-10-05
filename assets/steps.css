@@ -102,6 +102,9 @@
 .bm-task-nav .btn[hidden]{ display:none; }
 .bm-nav-count{ font-weight:800; color: var(--ink-soft); }
 .bm-task-done{ flex-basis:100%; order:-1; margin:0; text-align:center; font-weight:800; font-size:1.1rem; color: var(--teal); min-height:1.6em; }
+/* כש"הקודם/הבא" עובר לתוך toolbar פנימי של הכרטיס (ליד "בדקו לי את
+   התשובות") - באותה שורה, בלי המרווח הגדול שמתאים למיקום הרגיל */
+.toolbar > .bm-task-nav{ margin:0; flex:1 1 auto; justify-content:flex-end; }
 
 /* ---------- סיכום ---------- */
 .bm-summary{
