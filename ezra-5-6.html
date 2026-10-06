@@ -130,17 +130,10 @@
 </p></details>
 
 <main id="main-content">
-  <section class="bm-lesson-start" data-lesson-kind="history" aria-labelledby="lesson-goal">
-    <h2 id="lesson-goal">מה נלמד היום?</h2>
-    <p><strong>המטרה:</strong> נזהה את האתגר המתואר בפרק, נסביר את ההתמודדות עמו ונבסס את ההסבר על פסוק.</p>
-    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
-    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
-    <div class="bm-lesson-tools"></div>
-  </section>
   <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="intro" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרקים</span>
         <h2 class="card-title">מה קורה בפרקים ה'-ו'?</h2>
@@ -153,30 +146,8 @@
       </div>
     </section>
 
-    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
-    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">✏️ דוגמה פתורה</span>
-        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
-      </div>
-      <div class="card-body">
-        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: מתי הסתיימה בניית המקדש, ואיזה חג חגג העם חודש אחר כך?</div>
-        <ol class="bm-example-steps">
-          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) מתי הסתיימה הבנייה. (2) איזה חג חגגו.</li>
-          <li><b>מחפשים בתקציר את המילה "מסתיימת":</b> <span class="bm-quote">הבנייה מסתיימת בהצלחה בשנה השישית למלכות דריוש</span>.</li>
-          <li><b>מחפשים את החלק השני.</b> הוא מתחיל במילים "חודש לאחר מכן": <span class="bm-quote">חוגג העם במקדש החדש את חג הפסח בשמחה גדולה</span>.</li>
-          <li><b>כותבים לפי החלקים</b> - במילים שלכם.</li>
-        </ol>
-        <div class="bm-answer-card" data-kind="suggested">
-          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
-          <p>בניית המקדש הסתיימה בשנה השישית למלכות דריוש. חודש אחר כך העם חגג במקדש החדש את חג הפסח, בשמחה גדולה.</p>
-        </div>
-        <p class="bm-example-why">✓ בשאלה על זמן ("מתי") מחפשים בטקסט מילים של זמן: "בשנה", "חודש לאחר מכן".</p>
-      </div>
-    </section>
-
     <!-- נושא 1 -->
-    <div class="topic-col" data-stage="guided">
+    <div class="topic-col" data-stage="learn_together">
     <div class="topic-banner" style="--acc:#8A5C21; --acc-soft:#F4ECE1;">
       <span class="topic-icon" aria-hidden="true">📢</span>
       <div>
@@ -321,7 +292,7 @@
     </div>
 
     <!-- נושא 4 -->
-    <div class="topic-col" data-stage="open">
+    <div class="topic-col">
     <div class="topic-banner" style="--acc:#B0762B; --acc-soft:#F5E9D6;">
       <span class="topic-icon" aria-hidden="true">🍞</span>
       <div>
@@ -550,7 +521,5 @@ loadAnswers();
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
 <script src="assets/send-to-teacher.js?v=1"></script>
-<script src="assets/learning-supports.js"></script>
-<script src="assets/lesson-tools.js"></script>
 </body>
 </html>
