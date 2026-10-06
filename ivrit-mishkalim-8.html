@@ -40,6 +40,7 @@
 </style>
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
+<link rel="stylesheet" href="assets/lesson-tools.css">
 </head>
 <body>
 <a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
@@ -83,6 +84,13 @@
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main id="main-content">
+  <section class="bm-lesson-start" data-lesson-kind="grammar" aria-labelledby="lesson-goal">
+    <h2 id="lesson-goal">מה נלמד היום?</h2>
+    <p><strong>המטרה:</strong> נשלב את דרכי הזיהוי שנלמדו ביחידה וננמק את הפתרון בעזרת דוגמה.</p>
+    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
+    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
+    <div class="bm-lesson-tools"></div>
+  </section>
   <div class="grid" id="grid">
 
     <section class="card" style="grid-column: 1 / -1;">
@@ -192,7 +200,7 @@
           </div>
         </div>
 
-        <p style="font-size:.88rem; color:var(--ink-soft); margin:0 0 .6rem;">הכפתור נפתח רק אחרי שממלאים את כל השדות כאן ובכל הטבלאות למעלה, וגם את כל שאלות הבחירה למטה. בלחיצה, כל תשובה תסומן ב-✓ (נכון) או ב-✗ (לא נכון) - חוץ מ"נימוק", ששם אין ניסוח יחיד נכון, ולכן אפשר להשוות אותו לנימוק לדוגמה במפתח.</p>
+        <p style="font-size:.88rem; color:var(--ink-soft); margin:0 0 .6rem;">הכפתור נפתח רק אחרי שממלאים את כל השדות כאן ובכל הטבלאות למעלה, וגם את כל שאלות הבחירה למטה. בלחיצה, כל תשובה שמילאתם תסומן ב-✓ (נכון) או ב-✗ (לא נכון) - חוץ מ"נימוק", ששם אין ניסוח יחיד נכון, ולכן אפשר להשוות אותו לנימוק לדוגמה במפתח.</p>
         <p style="text-align:center;">
           <button class="btn primary" type="button" id="checkAnswersBtn" disabled>✅ בדקו תשובות</button>
         </p>
@@ -553,5 +561,7 @@ loadAnswers();
   });
 })();
 </script>
+<script src="assets/learning-supports.js"></script>
+<script src="assets/lesson-tools.js"></script>
 </body>
 </html>

@@ -84,6 +84,7 @@
 <link rel="stylesheet" href="assets/guide.css">
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
+<link rel="stylesheet" href="assets/lesson-tools.css">
 </head>
 <body>
 <a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
@@ -124,11 +125,18 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
-<p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
+<details class="bm-resources"><summary>סרטונים, מצגות וחומרי עזר</summary><p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
   <a class="chip-link" href="yechezkel-36-37-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
-</p>
+</p></details>
 
 <main id="main-content">
+  <section class="bm-lesson-start" data-lesson-kind="prophets" aria-labelledby="lesson-goal">
+    <h2 id="lesson-goal">מה נלמד היום?</h2>
+    <p><strong>המטרה:</strong> נזהה מסר מרכזי בנבואה ונבסס אותו על פסוק ועל ההסבר הנלמד בשיעור.</p>
+    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
+    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
+    <div class="bm-lesson-tools"></div>
+  </section>
   <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
@@ -266,10 +274,10 @@
         </div>
 
         <div class="qb-card">
-          <p class="q-cue">מחלוקת תלמודית (סנהדרין צ"ב ע"ב): רבי אליעזר - "מתים שהחיה יחזקאל עמדו על רגליהם, אמרו שירה ומתו"; רבי יהודה - "באמת משל היה"</p>
+          <p class="q-cue">מחלוקת תלמודית (סנהדרין צ"ב ע"ב): רבי אליעזר - "מתים שהחיה יחזקאל עמדו על רגליהם, אמרו שירה ומתו"; רבי יהודה - "אמת משל היה"; רבי נחמיה - "אלא באמת משל היה"</p>
           <div class="qb-meforesh">
             <span class="qb-src">תלמוד בבלי, סנהדרין צ"ב ע"ב</span>
-            רבי אליעזר אומר: מתים שהחיה יחזקאל עמדו על רגליהם, ואמרו שירה ומתו. רבי יהודה אומר: באמת משל היה. רבי אליעזר בנו של רבי יוסי הגלילי אומר: מתים שהחיה יחזקאל עלו לארץ ישראל, ונשאו נשים והולידו בנים ובנות.
+            רבי אליעזר אומר: מתים שהחיה יחזקאל עמדו על רגליהם, ואמרו שירה ומתו. רבי יהודה אומר: אמת משל היה. רבי נחמיה משיב: אם אמת, למה משל? ואם משל, למה אמת? אלא באמת משל היה. רבי אליעזר בנו של רבי יוסי הגלילי אומר: מתים שהחיה יחזקאל עלו לארץ ישראל, ונשאו נשים והולידו בנים ובנות.
             <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yech3637-mp-3">אישור</button></div>
           </div>
           <div class="question-block">
@@ -345,7 +353,7 @@
           <li><b>הרי ישראל:</b> ההרים השוממים יתנו שוב פרי, "כִּי קֵרְבוּ לָבוֹא".</li>
           <li><b>מידה כנגד מידה:</b> אותו עיקרון שהביא לגלות, מביא עכשיו עונש על הגויים.</li>
           <li><b>העצמות היבשות:</b> "הֲתִחְיֶינָה הָעֲצָמוֹת הָאֵלֶּה?" - "וְנָתַתִּי רוּחִי בָכֶם וִחְיִיתֶם".</li>
-          <li><b>משל או מציאות:</b> רבי אליעזר אומר שהמתים קמו באמת, ורבי יהודה אומר: "באמת משל היה".</li>
+          <li><b>משל או מציאות:</b> רבי אליעזר אומר שהמתים קמו באמת, רבי יהודה אומר "אמת משל היה", ורבי נחמיה אומר "אלא באמת משל היה".</li>
           <li><b>שני העצים:</b> יהודה ויוסף יהיו "לְעֵץ אֶחָד" - "וְלֹא יִהְיוּ עוֹד לִשְׁנֵי גוֹיִם".</li>
         </ul>
       </div>
@@ -519,5 +527,7 @@ loadAnswers();
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
 <script src="assets/send-to-teacher.js"></script>
+<script src="assets/learning-supports.js"></script>
+<script src="assets/lesson-tools.js"></script>
 </body>
 </html>
