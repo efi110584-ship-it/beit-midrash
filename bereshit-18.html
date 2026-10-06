@@ -152,17 +152,10 @@
 </p></details>
 
 <main id="main-content">
-  <section class="bm-lesson-start" data-lesson-kind="torah" aria-labelledby="lesson-goal">
-    <h2 id="lesson-goal">מה נלמד היום?</h2>
-    <p><strong>המטרה:</strong> נסביר רעיון מרכזי בפרק בעזרת פסוק ופירוש אחד, ונבחין בין הפסוק לבין הסבר הפרשן.</p>
-    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
-    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
-    <div class="bm-lesson-tools"></div>
-  </section>
   <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="intro" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק י"ח?</h2>
@@ -175,30 +168,8 @@
       </div>
     </section>
 
-    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
-    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">✏️ דוגמה פתורה</span>
-        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
-      </div>
-      <div class="card-body">
-        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: מה קורה בחלק הראשון של הפרק, ומה קורה בחלק השני?</div>
-        <ol class="bm-example-steps">
-          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) החלק הראשון של הפרק. (2) החלק השני.</li>
-          <li><b>מחפשים בתקציר את החלק הראשון:</b> <span class="bm-quote">ביקור שלושה מלאכים באוהל אברהם באלוני ממרא</span>, והם מבשרים שייוולד בן.</li>
-          <li><b>מחפשים את החלק השני.</b> הוא מתחיל במילים "בהמשך הפרק": <span class="bm-quote">ה' משתף את אברהם בכוונתו להשמיד את סדום ועמורה</span>.</li>
-          <li><b>כותבים לפי החלקים</b> - כל חלק במשפט משלו, במילים שלכם.</li>
-        </ol>
-        <div class="bm-answer-card" data-kind="suggested">
-          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
-          <p>בחלק הראשון שלושה מלאכים באים לאוהל של אברהם. אברהם מארח אותם יפה, והם מבשרים שבעוד שנה ייוולד בן לאברהם ולשרה. בחלק השני ה' מגלה לאברהם שהוא עומד להשמיד את סדום ועמורה, ואברהם מתפלל שה' יציל את העיר בזכות הצדיקים שבה.</p>
-        </div>
-        <p class="bm-example-why">✓ התשובה עונה על שני החלקים, וכל חלק מבוסס על משפט מהתקציר. מילים כמו "בהמשך" עוזרות לראות איפה מתחיל חלק חדש.</p>
-      </div>
-    </section>
-
     <!-- נושא 1 -->
-    <div class="topic-col" data-stage="guided">
+    <div class="topic-col" data-stage="learn_together">
     <div class="topic-banner" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
       <span class="topic-icon" aria-hidden="true">🍞</span>
       <div>
@@ -481,7 +452,7 @@
     </div>
 
     <!-- נושא 5 -->
-    <div class="topic-col" data-stage="open">
+    <div class="topic-col">
     <div class="topic-banner" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
       <span class="topic-icon" aria-hidden="true">🙏</span>
       <div>
@@ -551,6 +522,28 @@
     </div>
 
     <!-- שאלות בגרות (שלב ג׳): נושאים חוזרים מקובץ שאלות הבגרות של המורה -->
+    <!-- שאלה בגרות לדוגמה (שלב ג׳): דוגמה פתורה על שאלת בגרות אמיתית מהפרק, צעד אחר צעד -->
+    <section class="card" data-stage="bagrut_example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎓 דוגמה: פתרון שאלת בגרות</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלת בגרות לדוגמה · שאלון 2381</span> לפי רש"י, הסבר את ההבדל בין הצחוק של אברהם (בפרק י"ז, פסוק י"ז) ובין הצחוק של שרה (בפרק י"ח, פסוק י"ב). (רש"י: "'ויפל אברהם על פניו ויצחק' - זה תרגם אונקלוס: וחדי, לשון שמחה. ושל שרה לשון מחוך (=לעג). למדת שאברהם האמין ושמח, ושרה לא האמינה ולגלגה. וזהו שהקפיד הקב"ה על שרה ולא הקפיד על אברהם".)</div>
+        <ol class="bm-example-steps">
+          <li><b>קוראים את השאלה פעמיים, ומזהים מה בדיוק מבקשים.</b> המילה "הבדל" דורשת להשוות שני דברים - לא להסביר רק אחד מהם.</li>
+          <li><b>קוראים את דברי רש"י בעיון.</b> רש"י מתרגם כל צחוק במילה אחרת: הצחוק של אברהם - "וחדי" (לשון שמחה), הצחוק של שרה - "מחוך" (לשון לעג).</li>
+          <li><b>בונים את התשובה משני חלקים:</b> (1) הצחוק של אברהם - שמחה, כי האמין בבשורה. (2) הצחוק של שרה - לעג, כי לא האמינה בה.</li>
+          <li><b>מוסיפים את התוצאה,</b> כפי שרש"י עצמו מציין: בגלל ההבדל הזה ה' הקפיד דווקא על שרה, ולא על אברהם.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>לפי רש"י, הצחוק של אברהם היה צחוק של שמחה - הוא האמין בבשורה ושמח בה. לעומתו, הצחוק של שרה היה צחוק של לעג - היא לא האמינה שהבשורה תתקיים. בגלל ההבדל הזה ה' הקפיד דווקא על שרה, ולא על אברהם.</p>
+        </div>
+        <p class="bm-example-why">✓ כך גם בשאלות הבגרות שבהמשך הדף: קוראים בעיון את דברי הפרשן, מזהים מה בדיוק נשאלים, ובונים תשובה מנומקת - הפעם בלי אפשרות לראות תשובה, בדיוק כמו בבחינה האמיתית.</p>
+      </div>
+    </section>
+
     <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">🎓 שאלות בגרות</span>
@@ -562,8 +555,6 @@
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">על פי רש"י, הסבר מדוע סיפר ה' לאברהם על כוונתו להשחית את סדום.</span></div>
           <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> כי אברהם נחשב לאב רוחני של אומות העולם, וה' לא רצה לפגוע באחת מהן בלי להודיע לו.</div>
         </div>
         <div class="exam-tag">📅 מאגר שאלות ותשובות מבגרויות (שאלון 2381)</div>
         <div class="pasuk-block mini">עיין בפסוקים י'-י"ב.</div>
@@ -571,22 +562,16 @@
         <div class="question-block">
           <div class="question-row"><span class="part-label">ג&nbsp;(1)</span><span class="q-text" id="bg-lbl-2">הסבר מהי התמיהה של רמב"ן.</span></div>
           <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> התמיהה: איך ייתכן ששרה הנביאה הצדקת לא האמינה לדברי מלאכים?</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ג&nbsp;(2)</span><span class="q-text" id="bg-lbl-3">כתוב בלשונך כיצד רמב"ן מיישב את התמיהה.</span></div>
           <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> יישוב התמיהה על פי רמב"ן: אברהם זיהה מיד שמדובר במלאכים, אבל שרה לא ידעה שהם מלאכים ולכן לא האמינה לדבריהם.</div>
         </div>
         <div class="exam-tag">📅 מאגר שאלות ותשובות מבגרויות (שאלון 2381)</div>
         <div class="meforesh-block"><span class="src">רש"י (לפרק י"ז פסוק י"ז)</span>"'ויפל אברהם על פניו ויצחק' - זה תרגם אונקלוס: וחדי. לשון שמחה. ושל שרה לשון מחוך (=לעג) למדת שאברהם האמין ושמח, ושרה לא האמינה ולגלגה. וזהו שהקפיד הקב"ה על שרה ולא הקפיד על אברהם".</div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">(2)</span><span class="q-text" id="bg-lbl-4">לפי רש"י, הסבר את ההבדל בין הצחוק של אברהם (בפרק י"ז, פסוק י"ז) ובין הצחוק של שרה (בפרק י"ח, פסוק י"ב).</span></div>
           <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> לפי רש"י הצחוק של שרה ביטא לעג, חוסר אמונה בבשורה ששמעה, והצחוק של אברהם ביטא שמחה.</div>
         </div>
       </div>
     </section>
@@ -886,7 +871,5 @@ loadUnits();
 <script src="assets/guide/bereshit-18.js"></script>
 <script src="assets/steps.js?v=1"></script>
 <script src="assets/guide.js"></script>
-<script src="assets/learning-supports.js"></script>
-<script src="assets/lesson-tools.js"></script>
 </body>
 </html>

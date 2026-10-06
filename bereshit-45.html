@@ -163,17 +163,10 @@
 </p></details>
 
 <main id="main-content">
-  <section class="bm-lesson-start" data-lesson-kind="torah" aria-labelledby="lesson-goal">
-    <h2 id="lesson-goal">מה נלמד היום?</h2>
-    <p><strong>המטרה:</strong> נסביר רעיון מרכזי בפרק בעזרת פסוק ופירוש אחד, ונבחין בין הפסוק לבין הסבר הפרשן.</p>
-    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
-    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
-    <div class="bm-lesson-tools"></div>
-  </section>
   <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="intro" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק מ"ה?</h2>
@@ -186,30 +179,8 @@
       </div>
     </section>
 
-    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
-    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">✏️ דוגמה פתורה</span>
-        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
-      </div>
-      <div class="card-body">
-        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: איך הגיבו האחים כשיוסף התגלה אליהם, ומה עשה יוסף?</div>
-        <ol class="bm-example-steps">
-          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) איך הגיבו האחים. (2) מה עשה יוסף.</li>
-          <li><b>מחפשים בתקציר את החלק הראשון:</b> <span class="bm-quote">האחים נבהלים ואינם מסוגלים לענות</span>.</li>
-          <li><b>מחפשים את החלק השני.</b> הוא מתחיל במילה "אך": <span class="bm-quote">יוסף מקרב אותם ומרגיע אותם</span>.</li>
-          <li><b>כותבים לפי החלקים</b> - כל חלק במשפט משלו.</li>
-        </ol>
-        <div class="bm-answer-card" data-kind="suggested">
-          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
-          <p>כשיוסף התגלה, האחים נבהלו כל כך שלא הצליחו לענות לו. יוסף קירב אותם אליו והרגיע אותם.</p>
-        </div>
-        <p class="bm-example-why">✓ התשובה עונה על שני החלקים. מילים כמו "אך" ו"אבל" מסמנות שיש כאן שני דברים שונים.</p>
-      </div>
-    </section>
-
     <!-- נושא 1 -->
-    <div class="topic-col" data-stage="guided">
+    <div class="topic-col" data-stage="learn_together">
     <div class="topic-banner" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
       <span class="topic-icon" aria-hidden="true">💔</span>
       <div>
@@ -313,7 +284,7 @@
     </div>
 
     <!-- נושא 3 -->
-    <div class="topic-col" data-stage="open">
+    <div class="topic-col">
     <div class="topic-banner" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
       <span class="topic-icon" aria-hidden="true">🐫</span>
       <div>
@@ -362,6 +333,28 @@
     </div>
 
     <!-- שאלות בגרות (שלב ג׳): נושאים חוזרים מקובץ שאלות הבגרות של המורה -->
+    <!-- שאלה בגרות לדוגמה (שלב ג׳): דוגמה פתורה על שאלת בגרות אמיתית מהפרק, צעד אחר צעד -->
+    <section class="card" data-stage="bagrut_example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎓 דוגמה: פתרון שאלת בגרות</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלת בגרות לדוגמה · תשפ״ב (2022), קיץ</span> הסבירו את עקרון "הסיבתיות הכפולה".</div>
+        <ol class="bm-example-steps">
+          <li><b>קוראים את השאלה פעמיים, ומזהים מה בדיוק מבקשים.</b> זה מונח שנלמד בכיתה - צריך להסביר את המשמעות שלו, לא להביא דוגמה (הדוגמה מתבקשת רק בשאלה הבאה).</li>
+          <li><b>מפרקים את המונח למילים:</b> "סיבתיות" = סיבה למה דבר קרה. "כפולה" = שתי סיבות, לא רק אחת.</li>
+          <li><b>נזכרים בהקשר שבו המונח נלמד:</b> מאורע אחד יכול להיות מוסבר בשני מישורים - הגלוי (מה שבני האדם עשו ורצו) והנסתר (מה שה' כיוון מאחורי הקלעים).</li>
+          <li><b>כותבים את ההגדרה בצורה כללית,</b> כך שתתאים לכל מאורע, לא רק לסיפור הספציפי של יוסף ואחיו.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>עקרון "הסיבתיות הכפולה" אומר שלכל מאורע יש שתי סיבות במקביל: סיבה גלויה - מה שבני האדם עשו ורצו מתוך שיקוליהם שלהם, וסיבה אלוקית נסתרת - התכנית שה' מכוון מאחורי הקלעים, אף שהאדם אינו מודע לה בזמן המעשה.</p>
+        </div>
+        <p class="bm-example-why">✓ כך גם בשאלת הבגרות הבאה שבהמשך הדף: מתבקשים להראות איך העיקרון הזה בא לידי ביטוי בפסוקים עצמם - הפעם בלי אפשרות לראות תשובה, בדיוק כמו בבחינה האמיתית.</p>
+      </div>
+    </section>
+
     <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">🎓 שאלות בגרות</span>
@@ -373,28 +366,20 @@
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">על פי מה שלמדתם, הסבירו מדוע יוסף התגלה לאחיו בעקבות נאום יהודה.</span></div>
           <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> בעקבות הנאום יוסף לא יכול לעמוד בצער אביו; יוסף מתרגש ממסירותם של האחים ושל יהודה לבנימין; רחמיו של יוסף על האחים התעוררו בעקבות מצוקתם הרבה; יוסף הבין מהנאום שהאחים חזרו בתשובה.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">מדוע ביקש יוסף שכל הנוכחים יצאו לפני שהתגלה לאחיו?<br>(8 נקודות)</span></div>
           <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> יוסף רצה למנוע חרפה לאחים - לא לספר על אחיו שהם כאלו.<br>או: רצה למנוע מכשול לאחים - שלא ירצו בהם במצרים.<br>או: חשש ממה שיאמרו עליו כמי שנמכר על ידי אחיו לעבד.</div>
         </div>
         <div class="exam-tag">📅 תשפ״ב (2022), קיץ · שאלה 5</div>
         <div class="pasuk-block mini">עיינו בפסוקים ה'–ח'.</div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">הסבירו את עקרון "הסיבתיות הכפולה".</span></div>
           <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> למאורע יש סיבה גלויה לעיני האדם, וסיבה אלוקית נסתרת.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">כיצד עקרון "הסיבתיות הכפולה" בא לידי ביטוי בדברי יוסף לאחיו בפסוקים ה'–ח'?<br>(10 נקודות)</span></div>
           <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> יוסף אמר לאחים שהם מכרו אותו כדי להרע לו, ואילו ה' כיוון שיוסף יוכל לעזור להם בשעת הרעב.</div>
         </div>
       </div>
     </section>
@@ -584,7 +569,5 @@ loadAnswers();
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
 <script src="assets/send-to-teacher.js?v=1"></script>
-<script src="assets/learning-supports.js"></script>
-<script src="assets/lesson-tools.js"></script>
 </body>
 </html>

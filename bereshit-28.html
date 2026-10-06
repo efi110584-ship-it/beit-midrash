@@ -163,17 +163,10 @@
 </p></details>
 
 <main id="main-content">
-  <section class="bm-lesson-start" data-lesson-kind="torah" aria-labelledby="lesson-goal">
-    <h2 id="lesson-goal">מה נלמד היום?</h2>
-    <p><strong>המטרה:</strong> נסביר רעיון מרכזי בפרק בעזרת פסוק ופירוש אחד, ונבחין בין הפסוק לבין הסבר הפרשן.</p>
-    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
-    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
-    <div class="bm-lesson-tools"></div>
-  </section>
   <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="intro" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק כ"ח, פסוקים י'-כ"ב (יציאת יעקב לחרן, סולם יעקב)?</h2>
@@ -186,30 +179,8 @@
       </div>
     </section>
 
-    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
-    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">✏️ דוגמה פתורה</span>
-        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
-      </div>
-      <div class="card-body">
-        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: למה יצא יעקב מבאר שבע, ולאן הוא הלך?</div>
-        <ol class="bm-example-steps">
-          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) למה יצא. (2) לאן הלך.</li>
-          <li><b>מחפשים בתקציר את החלק הראשון:</b> <span class="bm-quote">בורח מפני עשיו אחיו</span>.</li>
-          <li><b>מחפשים את החלק השני:</b> <span class="bm-quote">בדרכו לחרן אל בית לבן אחי אמו</span>.</li>
-          <li><b>כותבים לפי החלקים</b> - במילים שלכם, במשפט שלם.</li>
-        </ol>
-        <div class="bm-answer-card" data-kind="suggested">
-          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
-          <p>יעקב יצא מבאר שבע כי הוא בורח מעשיו אחיו. הוא הלך לחרן, לבית של לבן, האח של אמו.</p>
-        </div>
-        <p class="bm-example-why">✓ התשובה עונה על שני החלקים: למה, ולאן. "אחי אמו" = האח של אמו: כשיש ביטוי קשה, מסבירים אותו במילים פשוטות.</p>
-      </div>
-    </section>
-
     <!-- נושא 1 -->
-    <div class="topic-col" data-stage="guided">
+    <div class="topic-col" data-stage="learn_together">
     <div class="topic-banner" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
       <span class="topic-icon" aria-hidden="true">🪜</span>
       <div>
@@ -322,7 +293,7 @@
     </div>
 
     <!-- נושא 3 -->
-    <div class="topic-col" data-stage="open">
+    <div class="topic-col">
     <div class="topic-banner" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
       <span class="topic-icon" aria-hidden="true">🕊️</span>
       <div>
@@ -387,6 +358,28 @@
     </div>
 
     <!-- שאלות בגרות (שלב ג׳): נושאים חוזרים מקובץ שאלות הבגרות של המורה -->
+    <!-- שאלה בגרות לדוגמה (שלב ג׳): דוגמה פתורה על שאלת בגרות אמיתית מהפרק, צעד אחר צעד -->
+    <section class="card" data-stage="bagrut_example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎓 דוגמה: פתרון שאלת בגרות</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלת בגרות לדוגמה · תשפ״ד (2024), קיץ</span> על פי רמב"ן, מה מסמל מראה ה' הניצב על הסולם? הסבירו את הראיה שרמב"ן מביא לדבריו מפסוק ט"ו. (רמב"ן, מעובד: "הראה ליעקב בחלום הנבואה כי כל הנעשה בעולם נעשה על ידי המלאכים... והראה ליעקב כי הוא יתברך ניצב על הסולם, ומבטיחו... להודיע שהוא לא יהיה ביד המלאכים, אבל יהיה בהשגחת ה', ויהיה עימו תמיד כמו שאמר 'והנה אנוכי עמך' (פסוק ט"ו)".)</div>
+        <ol class="bm-example-steps">
+          <li><b>קוראים את השאלה פעמיים, ומזהים את שני חלקיה:</b> (1) מה מסמל ה' הניצב על הסולם. (2) מהי הראיה (ההוכחה) שרמב"ן מביא מתוך פסוק ט"ו דווקא.</li>
+          <li><b>קוראים את דברי רמב"ן בעיון.</b> הוא מבחין בין המלאכים (העולים והיורדים - הם אמצעי להנהגת העולם) לבין ה' עצמו, הניצב מעליהם.</li>
+          <li><b>בונים את התשובה משני חלקים:</b> (1) ה' הניצב על הסולם מסמל שה' משגיח על יעקב באופן ישיר, ולא רק באמצעות שליחים (המלאכים). (2) הראיה: רמב"ן מצטט את פסוק ט"ו - "וְהִנֵּה אָנֹכִי עִמָּךְ" - שבו ה' עצמו מדבר אל יעקב ומבטיח להיות איתו תמיד, לא דרך מלאך.</li>
+          <li><b>מקשרים בין שני החלקים במפורש,</b> כדי שהתשובה תראה שהראיה אכן תומכת בפרשנות שניתנה בחלק הראשון.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>ה' הניצב על הסולם מסמל שה' משגיח באופן ישיר על יעקב, ולא באמצעות המלאכים בלבד. הראיה לכך מפסוק ט"ו: ה' עצמו אומר ליעקב "וְהִנֵּה אָנֹכִי עִמָּךְ וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ" - דיבור ישיר שמלווה אותו תמיד, ולא רק דרך שליחים.</p>
+        </div>
+        <p class="bm-example-why">✓ כך גם בשאר שאלות הבגרות שבהמשך הדף: קוראים בעיון את דברי הפרשן, מזהים את חלקי השאלה, ובונים תשובה מנומקת מתוך הפסוקים - הפעם בלי אפשרות לראות תשובה, בדיוק כמו בבחינה האמיתית.</p>
+      </div>
+    </section>
+
     <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">🎓 שאלות בגרות</span>
@@ -398,39 +391,27 @@
         <div class="question-block">
           <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">כתבו בלשונכם הבטחה אחת שהבטיח ה' ליעקב עצמו, והבטחה אחת שהבטיח ה' לזרעו של יעקב.</span></div>
           <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> ליעקב - ישמור על יעקב. לזרעו - ייתן לזרעו את ארץ כנען.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">"וַיַּחֲלֹם וְהִנֵּה סֻלָּם מֻצָּב אַרְצָה... וְהִנֵּה מַלְאֲכֵי אֱלֹהִים עֹלִים וְיֹרְדִים בּוֹ. וְהִנֵּה ה' נִצָּב עָלָיו" (פסוקים י"ב–י"ג).<br>על פי מה שלמדתם, מה רצה ה' ללמד את יעקב באמצעות מראה המלאכים העולים והיורדים בסולם?<br>(8 נקודות)</span></div>
           <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> שה' שומר עליו גם בארץ ישראל וגם ביציאתו ממנה לארץ אחרת.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">עיינו בפסוקים שלפניכם.<br>הבטחת ה' ליעקב: "וְהִנֵּה אָנֹכִי עִמָּךְ וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ" (פסוק ט"ו).<br>דברי יעקב לאחר ההבטחה: "אִם יִהְיֶה אֱלֹהִים עִמָּדִי וּשְׁמָרַנִי בַּדֶּרֶךְ הַזֶּה אֲשֶׁר אָנֹכִי הוֹלֵךְ" (פסוק כ').<br>מהי השאלה המתעוררת מן ההשוואה בין שני הפסוקים?</span></div>
           <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> מדוע יעקב מתנה את קיום הנדר בשמירת ה', הרי שמירת ה' מובטחת לו. האם לא האמין יעקב להבטחת ה'?</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">על פי מה שלמדתם, מהי התשובה על השאלה המתעוררת מהשוואה זו?<br>(8 נקודות)</span></div>
           <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> יעקב האמין בהבטחת ה', אך חשש שחטאיו יגרמו לכך שהוא לא יהיה ראוי להבטחה זו.<br>או: לשון הנדר אינה תנאי. "אם יהיה ה' עמדי" במשמעות של כאשר יהיה ה' עמדי ויתקיימו הבטחותיו - אשלם את הנדר.</div>
         </div>
         <div class="meforesh-block"><span class="src">מעובד על פי רמב"ן</span>"'והנה סולם מוצב ארצה'. הראה ליעקב בחלום הנבואה כי כל הנעשה בעולם נעשה על ידי המלאכים. והראה ליעקב כי הוא יתברך [ה'] ניצב על הסולם. ומבטיחו ליעקב בהבטחה גדולה להודיע שהוא לא יהיה ביד המלאכים, אבל יהיה בהשגחת ה', ויהיה עימו תמיד כמו שאמר 'והנה אנוכי עמך' (פסוק ט"ו)".</div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ג&nbsp;(1)</span><span class="q-text" id="bg-lbl-5">על פי רמב"ן, מה מסמל מראה המלאכים העולים והיורדים בסולם?</span></div>
           <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> הם מסמלים את השגחת ה' על העולם באמצעות שליחים (מלאכים).</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ג&nbsp;(2)</span><span class="q-text" id="bg-lbl-6">על פי רמב"ן, מה מסמל מראה ה' הניצב על הסולם? הסבירו את הראיה שרמב"ן מביא לדבריו מפסוק ט"ו.<br>(5 נקודות)</span></div>
           <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> ה' משגיח באופן ישיר על יעקב ולא באמצעות המלאכים. הראיה: דברי ה' שיהיה עם יעקב וילווה אותו.</div>
         </div>
       </div>
     </section>
@@ -620,7 +601,5 @@ loadAnswers();
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
 <script src="assets/send-to-teacher.js?v=1"></script>
-<script src="assets/learning-supports.js"></script>
-<script src="assets/lesson-tools.js"></script>
 </body>
 </html>

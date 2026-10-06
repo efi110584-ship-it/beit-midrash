@@ -163,17 +163,10 @@
 </p></details>
 
 <main id="main-content">
-  <section class="bm-lesson-start" data-lesson-kind="torah" aria-labelledby="lesson-goal">
-    <h2 id="lesson-goal">מה נלמד היום?</h2>
-    <p><strong>המטרה:</strong> נסביר רעיון מרכזי בפרק בעזרת פסוק ופירוש אחד, ונבחין בין הפסוק לבין הסבר הפרשן.</p>
-    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
-    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
-    <div class="bm-lesson-tools"></div>
-  </section>
   <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="intro" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק ל"ז?</h2>
@@ -186,30 +179,8 @@
       </div>
     </section>
 
-    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
-    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">✏️ דוגמה פתורה</span>
-        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
-      </div>
-      <div class="card-body">
-        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: מה הציע ראובן לעשות ליוסף, ומה הציע יהודה?</div>
-        <ol class="bm-example-steps">
-          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) ההצעה של ראובן. (2) ההצעה של יהודה.</li>
-          <li><b>מחפשים בתקציר את השם "ראובן":</b> <span class="bm-quote">ראובן מציע להשליכו לבור, כדי להצילו בסתר ולהשיבו לאביו</span>.</li>
-          <li><b>מחפשים את השם "יהודה":</b> <span class="bm-quote">מציע יהודה למכור את יוסף לאורחת ישמעאלים העוברת שם, במקום להורגו</span>.</li>
-          <li><b>כותבים לפי החלקים</b> - כל הצעה במשפט משלה.</li>
-        </ol>
-        <div class="bm-answer-card" data-kind="suggested">
-          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
-          <p>ראובן הציע לזרוק את יוסף לבור, כי רצה להציל אותו בסתר ולהחזיר אותו לאביו. יהודה הציע למכור את יוסף לשיירה של ישמעאלים, במקום להרוג אותו.</p>
-        </div>
-        <p class="bm-example-why">✓ כששואלים על שתי דמויות, מחפשים בטקסט את השם של כל אחת מהן, וכותבים על כל אחת בנפרד.</p>
-      </div>
-    </section>
-
     <!-- נושא 1 -->
-    <div class="topic-col" data-stage="guided">
+    <div class="topic-col" data-stage="learn_together">
     <div class="topic-banner" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
       <span class="topic-icon" aria-hidden="true">🌾</span>
       <div>
@@ -329,7 +300,7 @@
     </div>
 
     <!-- נושא 3 -->
-    <div class="topic-col" data-stage="open">
+    <div class="topic-col">
     <div class="topic-banner" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
       <span class="topic-icon" aria-hidden="true">😭</span>
       <div>
@@ -376,6 +347,28 @@
     </div>
 
     <!-- שאלות בגרות (שלב ג׳): נושאים חוזרים מקובץ שאלות הבגרות של המורה -->
+    <!-- שאלה בגרות לדוגמה (שלב ג׳): דוגמה פתורה על שאלת בגרות אמיתית מהפרק, צעד אחר צעד -->
+    <section class="card" data-stage="bagrut_example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎓 דוגמה: פתרון שאלת בגרות</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלת בגרות לדוגמה · תשפ״ה (2025), חורף</span> רש"י (לפסוק י'): "'ויגער בו' - לפי שהיה מטיל שנאה עליו". על פי רש"י, הסבירו מדוע גער יעקב ביוסף בפני האחים.</div>
+        <ol class="bm-example-steps">
+          <li><b>קוראים את השאלה פעמיים, ומזהים מה בדיוק מבקשים.</b> המילה "מדוע" דורשת סיבה - למה יעקב בחר לגעור, לא רק מה הוא אמר.</li>
+          <li><b>קוראים את דברי רש"י בעיון.</b> רש"י מסביר שהגערה קשורה לכך שהחלום (שגם ההורים משתחווים ליוסף) "מטיל שנאה עליו" - כלומר גורם לאחים לשנוא אותו עוד יותר.</li>
+          <li><b>בונים את התשובה כמשפט סיבה-תוצאה:</b> הסיבה - יעקב חשש מהתגובה של האחים לסיפור החלום. התוצאה - הוא גער ביוסף כדי לצמצם את השנאה שהחלום מעורר.</li>
+          <li><b>כותבים בלשון עצמאית,</b> לא מעתיקים את לשון רש"י כלשונה.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>יעקב גער ביוסף מפני שהוא חשש שסיפור החלום - שבו גם ההורים משתחווים לו - יגרום לאחים לשנוא אותו עוד יותר. הגערה נועדה לצמצם את השנאה שהחלום עלול לעורר בין האחים ליוסף.</p>
+        </div>
+        <p class="bm-example-why">✓ כך גם בשאר שאלות הבגרות שבהמשך הדף: קוראים בעיון את דברי הפרשן, מזהים מה בדיוק נשאלים, ובונים תשובה מנומקת - הפעם בלי אפשרות לראות תשובה, בדיוק כמו בבחינה האמיתית.</p>
+      </div>
+    </section>
+
     <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">🎓 שאלות בגרות</span>
@@ -386,42 +379,30 @@
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">רש"י (לפסוק י'): "'ויגער בו' - לפי שהיה מטיל שנאה עליו".<br>על פי רש"י, הסבירו מדוע גער יעקב ביוסף בפני האחים.</span></div>
           <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> יעקב חושש שהאחים ישנאו את יוסף בגלל החלומות, ולכן הוא גוער בו על שסיפר להם אותם.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">רש"י (לפסוק י"א): "'ואביו שמר את הדבר' - היה ממתין ומצפה מתי יבוא".<br>על פי רש"י, הסבירו מה חשב יעקב בליבו על החלומות של יוסף.<br>(8 נקודות)</span></div>
           <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> יעקב חשב בליבו שהחלומות עתידים להתגשם.</div>
         </div>
         <div class="exam-tag">📅 תשפ״ב (2022), חורף · שאלה 4</div>
         <div class="meforesh-block"><span class="src">ספורנו (לפסוק ג')</span>"'ועשה לו כתנת פסים' - לאות שיהיה הוא [יוסף] המנהיג בבית ובשדה".</div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ג&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">על פי ספורנו, מה הייתה המטרה של עשיית כתונת פסים ליוסף?</span></div>
           <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> שיוסף צריך להנהיג את בית יעקב.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ג&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">לאור דברי ספורנו, האם המסר של עשיית כתונת הפסים ליוסף דומה למסר של החלומות שחלם יוסף או שונה ממנו? נמק את תשובתך.<br>(6 נקודות)</span></div>
           <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> דומה למסר של החלומות. משניהם עולה שיוסף נועד להנהיג את בית יעקב.</div>
         </div>
         <div class="exam-tag">📅 תשפ״ה (2025), חורף · שאלה 5</div>
         <div class="pasuk-block mini">עיינו בפסוקים ו'–י"א.<br>יוסף מספר לבני משפחתו על שני חלומות שחלם.</div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-5">כתבו נקודת דמיון אחת בין החלומות ושני הבדלים ביניהם.</span></div>
           <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> נקודת דמיון: משתחווים ליוסף. הבדלים: סמלים שונים - אלומות / צבא השמיים. בחלום השני יוסף עצמו מופיע, בניגוד לראשון שבו הוא מסומל כאלומה. בחלום הראשון רק הבנים מסומלים, ובחלום השני גם ההורים.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-6">כיצד השפיעו חלומותיו של יוסף על היחס של האחים אליו? בססו את תשובתכם על הכתוב בפרק.<br>(9 נקודות)</span></div>
           <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> הם שונאים אותו יותר: "ויוסיפו עוד שנא אותו", "ויקנאו בו אחיו", "הנה בעל החלומות הלזה בא", "ונראה מה יהיו חלומותיו".</div>
         </div>
       </div>
     </section>
@@ -611,7 +592,5 @@ loadAnswers();
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
 <script src="assets/send-to-teacher.js?v=1"></script>
-<script src="assets/learning-supports.js"></script>
-<script src="assets/lesson-tools.js"></script>
 </body>
 </html>

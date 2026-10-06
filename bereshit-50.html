@@ -163,17 +163,10 @@
 </p></details>
 
 <main id="main-content">
-  <section class="bm-lesson-start" data-lesson-kind="torah" aria-labelledby="lesson-goal">
-    <h2 id="lesson-goal">מה נלמד היום?</h2>
-    <p><strong>המטרה:</strong> נסביר רעיון מרכזי בפרק בעזרת פסוק ופירוש אחד, ונבחין בין הפסוק לבין הסבר הפרשן.</p>
-    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
-    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
-    <div class="bm-lesson-tools"></div>
-  </section>
   <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="intro" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק נ' (מות יעקב, יחסי יוסף ואחיו)?</h2>
@@ -186,30 +179,8 @@
       </div>
     </section>
 
-    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
-    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">✏️ דוגמה פתורה</span>
-        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
-      </div>
-      <div class="card-body">
-        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: מה ביקש יוסף מפרעה, ולמה?</div>
-        <ol class="bm-example-steps">
-          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) מה ביקש. (2) למה ביקש.</li>
-          <li><b>מחפשים בתקציר את השם "פרעה":</b> <span class="bm-quote">יוסף מבקש רשות מפרעה לקיים את שבועתו לאביו ולקוברו בארץ כנען</span>.</li>
-          <li><b>מפרידים את המשפט:</b> מה ביקש = רשות לקבור את אביו בארץ כנען. למה = כי נשבע לאביו.</li>
-          <li><b>כותבים לפי החלקים</b> - במילים שלכם.</li>
-        </ol>
-        <div class="bm-answer-card" data-kind="suggested">
-          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
-          <p>יוסף ביקש מפרעה רשות לקבור את אביו יעקב בארץ כנען. הוא ביקש זאת כי נשבע לאביו שיקבור אותו שם.</p>
-        </div>
-        <p class="bm-example-why">✓ התשובה עונה על "מה" ועל "למה". לפעמים שני החלקים נמצאים באותו משפט, וצריך להפריד ביניהם.</p>
-      </div>
-    </section>
-
     <!-- נושא 1 -->
-    <div class="topic-col" data-stage="guided">
+    <div class="topic-col" data-stage="learn_together">
     <div class="topic-banner" style="--acc:#3E5A8C; --acc-soft:#E2E7F2;">
       <span class="topic-icon" aria-hidden="true">🎗️</span>
       <div>
@@ -327,7 +298,7 @@
     </div>
 
     <!-- נושא 3 -->
-    <div class="topic-col" data-stage="open">
+    <div class="topic-col">
     <div class="topic-banner" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
       <span class="topic-icon" aria-hidden="true">💀</span>
       <div>
@@ -378,6 +349,28 @@
     </div>
 
     <!-- שאלות בגרות (שלב ג׳): נושאים חוזרים מקובץ שאלות הבגרות של המורה -->
+    <!-- שאלה בגרות לדוגמה (שלב ג׳): דוגמה פתורה על שאלת בגרות אמיתית מהפרק, צעד אחר צעד -->
+    <section class="card" data-stage="bagrut_example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎓 דוגמה: פתרון שאלת בגרות</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלת בגרות לדוגמה · תשפ״ב (2022), חורף</span> רש"י (לפסוק ט"ז): "'אביך צוה' - שינו בדבר מפני השלום, כי לא ציווה יעקב כן, שלא נחשד יוסף בעיניו". על פי רש"י, מה עשו האחים בעקבות חשש זה? בתשובתך הסבר את הביטוי "שינו בדבר".</div>
+        <ol class="bm-example-steps">
+          <li><b>קוראים את השאלה פעמיים, ומזהים את שני חלקיה:</b> (1) מה עשו האחים בפועל. (2) מה פירוש הביטוי "שינו בדבר" - דורש הסבר נפרד, לא רק ציטוט.</li>
+          <li><b>קוראים את דברי רש"י בעיון.</b> הוא אומר שהאחים טענו שיעקב ציווה לפני מותו שיוסף יסלח להם - אבל רש"י מבהיר: "לא ציווה יעקב כן".</li>
+          <li><b>בונים את התשובה משני חלקים:</b> (1) מה עשו - האחים אמרו ליוסף שיעקב ציווה עליו לסלוח להם, אף שזה לא נכון. (2) הסבר הביטוי "שינו בדבר" - הם שינו את המציאות, כלומר בדו דבר שלא נאמר באמת, מתוך כוונה טובה - לשמור על השלום במשפחה.</li>
+          <li><b>כותבים כל חלק בנפרד ובבירור,</b> ומוודאים שהביטוי "שינו בדבר" אכן מוסבר במילים, לא רק מצוטט.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>בעקבות חששם, האחים אמרו ליוסף שיעקב ציווה לפני מותו שיסלח להם - אף שלמעשה יעקב מעולם לא אמר זאת. הביטוי "שינו בדבר" פירושו שהם בדו דבר שלא היה באמת, כלומר שינו את המציאות - אך עשו זאת מתוך כוונה טובה, כדי לשמור על השלום בין האחים ליוסף.</p>
+        </div>
+        <p class="bm-example-why">✓ כך גם בשאר שאלות הבגרות שבהמשך הדף: מזהים את כל חלקי השאלה, קוראים בעיון את דברי הפרשן, ובונים תשובה מלאה לכל חלק - הפעם בלי אפשרות לראות תשובה, בדיוק כמו בבחינה האמיתית.</p>
+      </div>
+    </section>
+
     <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">🎓 שאלות בגרות</span>
@@ -388,14 +381,10 @@
         <div class="question-block">
           <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">עיין בפסוקים א'–י"ג. ציין מה עשו בעקבות מותו של יעקב בכל אחד מן המקומות האלה:<br>מצרים –<br>גרן האטד –<br>מערת שדה המכפלה –</span></div>
           <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> מצרים – חנטו את יעקב ובכו עליו שבעים יום. תהלוכת אבל לכיוון ארץ כנען של נכבדי מצרים.<br>גרן האטד – מספד גדול למשך שבוע ימים של אנשי מצרים ובית יעקב.<br>מערת שדה המכפלה – קבורת יעקב על ידי בניו.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">על פי מה שלמדת, הסבר מדוע התורה מאריכה בתיאור האבל על יעקב.<br>(10 נקודות)</span></div>
           <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> כדי ללמד על מעמדו הרם של יוסף, ו/או על תרומתו של יעקב, או ההוקרה שלה זכה יעקב במצרים.</div>
         </div>
         <div class="exam-tag">📅 תשפ״ב (2022), חורף · שאלה 5</div>
         <div class="pasuk-block mini">עיין בפסוקים ט"ו–כ"א.</div>
@@ -403,14 +392,10 @@
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">ממה חששו האחים?</span></div>
           <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> שיוסף ינקום בהם על מכירתו.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">על פי רש"י, מה עשו האחים בעקבות חשש זה? בתשובתך הסבר את הביטוי "שינו בדבר".<br>(10 נקודות)</span></div>
           <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> שינו בדבר – אמרו דבר שלא נאמר להם, "שינו" את המציאות. האחים עשו זאת כדי שיהיה שלום בינם לבין יוסף במשפחת יעקב.</div>
         </div>
       </div>
     </section>
@@ -600,7 +585,5 @@ loadAnswers();
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
 <script src="assets/send-to-teacher.js?v=1"></script>
-<script src="assets/learning-supports.js"></script>
-<script src="assets/lesson-tools.js"></script>
 </body>
 </html>

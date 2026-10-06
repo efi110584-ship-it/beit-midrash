@@ -163,17 +163,10 @@
 </p></details>
 
 <main id="main-content">
-  <section class="bm-lesson-start" data-lesson-kind="torah" aria-labelledby="lesson-goal">
-    <h2 id="lesson-goal">מה נלמד היום?</h2>
-    <p><strong>המטרה:</strong> נסביר רעיון מרכזי בפרק בעזרת פסוק ופירוש אחד, ונבחין בין הפסוק לבין הסבר הפרשן.</p>
-    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
-    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
-    <div class="bm-lesson-tools"></div>
-  </section>
   <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="intro" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק מ"ד (נאום יהודה)?</h2>
@@ -186,30 +179,8 @@
       </div>
     </section>
 
-    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
-    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">✏️ דוגמה פתורה</span>
-        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
-      </div>
-      <div class="card-body">
-        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: איפה נמצא הגביע, ומה עשו האחים כשזה התגלה?</div>
-        <ol class="bm-example-steps">
-          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) איפה נמצא הגביע. (2) מה עשו האחים.</li>
-          <li><b>מחפשים בתקציר.</b> שני החלקים נמצאים במשפט אחד: <span class="bm-quote">כשמתגלה הגביע דווקא באמתחת בנימין, קורעים האחים את בגדיהם וחוזרים כולם העירה</span>.</li>
-          <li><b>מבינים מילים קשות:</b> "אמתחת" = שק, תיק של מסע.</li>
-          <li><b>כותבים לפי החלקים</b> - במילים שלכם.</li>
-        </ol>
-        <div class="bm-answer-card" data-kind="suggested">
-          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
-          <p>הגביע נמצא בשק של בנימין. כשזה התגלה, האחים קרעו את הבגדים שלהם, וכולם חזרו יחד לעיר.</p>
-        </div>
-        <p class="bm-example-why">✓ התשובה עונה על שני החלקים. שימו לב: "חוזרים כולם" - האחים לא עזבו את בנימין לבד. פרט קטן כזה חשוב להבנת הפרק.</p>
-      </div>
-    </section>
-
     <!-- נושא 1 -->
-    <div class="topic-col" data-stage="guided">
+    <div class="topic-col" data-stage="learn_together">
     <div class="topic-banner" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
       <span class="topic-icon" aria-hidden="true">🏆</span>
       <div>
@@ -320,7 +291,7 @@
     </div>
 
     <!-- נושא 3 -->
-    <div class="topic-col" data-stage="open">
+    <div class="topic-col">
     <div class="topic-banner" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
       <span class="topic-icon" aria-hidden="true">🗣️</span>
       <div>
@@ -385,6 +356,28 @@
     </div>
 
     <!-- שאלות בגרות (שלב ג׳): נושאים חוזרים מקובץ שאלות הבגרות של המורה -->
+    <!-- שאלה בגרות לדוגמה (שלב ג׳): דוגמה פתורה על שאלת בגרות אמיתית מהפרק, צעד אחר צעד -->
+    <section class="card" data-stage="bagrut_example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎓 דוגמה: פתרון שאלת בגרות</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלת בגרות לדוגמה · תשפ״ה (2025), קיץ</span> על פי אברבנאל, כתבו בלשונכם מהי המטרה של ניסיון הגביע. (אברבנאל, לפרק מ"ג: "כי הנה עם כל הניסיון שעשה יוסף לאחיו בעלילת המרגלים, עוד נשאר ספק בליבו, האם היה להם אהבה עם בנימין... ולכן רצה להביא את בנימין בפרט בניסיון הגביע ולראות אם ישתדלו להצילו".)</div>
+        <ol class="bm-example-steps">
+          <li><b>קוראים את השאלה פעמיים, ומזהים מה בדיוק מבקשים.</b> "בלשונכם" אומר שאסור להעתיק את לשון אברבנאל - צריך לנסח מחדש.</li>
+          <li><b>קוראים את דברי אברבנאל בעיון.</b> הוא מסביר שגם אחרי עלילת המרגלים עדיין נשאר ספק בלב יוסף - האם האחים אוהבים את בנימין, או שונאים אותו כמו ששנאו את יוסף עצמו.</li>
+          <li><b>מזהים את מטרת הניסיון:</b> יוסף מתכנן מצב (עלילת הגביע) שבו בנימין נמצא בסכנה, כדי לראות אם האחים ינסו להציל אותו או יפקירו אותו כפי שעשו ליוסף.</li>
+          <li><b>כותבים בלשון עצמאית,</b> במשפט אחד או שניים שמסכם את המטרה.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>מטרת ניסיון הגביע הייתה לבדוק אם האחים תיקנו את דרכיהם ביחס לבנימין - האם הם אוהבים אותו ומוכנים להגן עליו, או שהם עדיין שונאים את בני רחל כפי ששנאו בעבר את יוסף.</p>
+        </div>
+        <p class="bm-example-why">✓ כך גם בשאר שאלות הבגרות שבהמשך הדף: קוראים בעיון את דברי הפרשן, מנסחים אותם מחדש במילים שלכם, ובונים תשובה מדויקת - הפעם בלי אפשרות לראות תשובה, בדיוק כמו בבחינה האמיתית.</p>
+      </div>
+    </section>
+
     <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">🎓 שאלות בגרות</span>
@@ -396,35 +389,25 @@
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">על פי אברבנאל, כתבו בלשונכם מהי המטרה של ניסיון הגביע.</span></div>
           <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> על פי אברבנאל, יוסף רצה לבדוק אם האחים תיקנו את דרכיהם ואם שוררת אחווה ביניהם לבין בנימין.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">האם האחים עמדו בניסיון זה? נמקו את תשובתכם.<br>(8 נקודות)</span></div>
           <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> כן. הם היו מוכנים להיכנס למאסר ולהיות לעבדים בגלל המעשים שיוחסו לבנימין.</div>
         </div>
         <div class="exam-tag">📅 תשפ״ד (2024), קיץ · שאלה 5</div>
         <div class="pasuk-block mini">עיינו בפרק מ"ד, פסוקים י"ח–כ"ב.</div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">יהודה ניסה לעורר את הרחמים של יוסף ולפייס אותו.<br>הביאו לכך דוגמה אחת מן הכתוב.</span></div>
           <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> יהודה מתאר את הקשר הקרוב בין יעקב לבנימין, מסביר שהיעדרו של בנימין עלול להביא למותו של יעקב, מציין שיעקב הוא אב שכול, ומדגיש את גילו המבוגר של יעקב והסבל שעבר. יהודה משתמש בביטויים מעוררי רחמים: אב זקן, נער, ילד זקונים.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">יש הטוענים כי בנאום יהודה יש אמירות תקיפות כלפי יוסף.<br>על פי מה שלמדתם, הביאו מן הכתוב רמז אחד לכך, והסבירו רמז זה.<br>(8 נקודות)</span></div>
           <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> "ואל יחר אפך" - מכך שיהודה אומר ליוסף שלא יכעס, סימן שהוא מתכנן לומר בנאום דברים שעלולים להכעיס.<br>או: "ויגש" - לשון מלחמה.<br>או: תיאור הפגישה הראשונה מרמז שיוסף ניסה להתנכל לאחים מן ההתחלה.</div>
         </div>
         <div class="exam-tag">📅 תשפ״א (2021), קיץ · שאלה 5</div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">א</span><span class="q-text" id="bg-lbl-5">עיין בפסוקים א'-ה'.<br>על פי פסוקים אלה, כתוב בלשונך ארבעה פרטים שיוסף מצווה על האיש "אשר על ביתו".<br>(8 נקודות)</span></div>
           <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> למלא מזון בשקים של האחים כפי שהם יכולים לסחוב, להחזיר לכל אחד מהאחים את כספו בשק שלו, להטמין את הגביע בשק של בנימין, לרדוף אחרי האחים, להאשים את האחים בגניבת הגביע.</div>
         </div>
       </div>
     </section>
@@ -614,7 +597,5 @@ loadAnswers();
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
 <script src="assets/send-to-teacher.js?v=1"></script>
-<script src="assets/learning-supports.js"></script>
-<script src="assets/lesson-tools.js"></script>
 </body>
 </html>

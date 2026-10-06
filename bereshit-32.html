@@ -163,17 +163,10 @@
 </p></details>
 
 <main id="main-content">
-  <section class="bm-lesson-start" data-lesson-kind="torah" aria-labelledby="lesson-goal">
-    <h2 id="lesson-goal">מה נלמד היום?</h2>
-    <p><strong>המטרה:</strong> נסביר רעיון מרכזי בפרק בעזרת פסוק ופירוש אחד, ונבחין בין הפסוק לבין הסבר הפרשן.</p>
-    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
-    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
-    <div class="bm-lesson-tools"></div>
-  </section>
   <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="intro" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרקים</span>
         <h2 class="card-title">מה קורה בפרקים ל"ב-ל"ג?</h2>
@@ -186,30 +179,8 @@
       </div>
     </section>
 
-    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
-    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">✏️ דוגמה פתורה</span>
-        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
-      </div>
-      <div class="card-body">
-        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: באילו שלוש דרכים מתכונן יעקב למפגש עם עשיו?</div>
-        <ol class="bm-example-steps">
-          <li><b>מפרקים את השאלה.</b> צריך למצוא שלושה דברים - שלוש דרכים.</li>
-          <li><b>מחפשים בתקציר.</b> המילים "בשלוש דרכים" מראות איפה הרשימה מתחילה: <span class="bm-quote">הוא מחלק את מחנהו לשניים, שולח מנחה גדולה לעשיו, ומתפלל לה' שיצילו</span>.</li>
-          <li><b>מפרידים את המשפט לשלושה חלקים</b> - כל דרך לבד.</li>
-          <li><b>כותבים רשימה ממוספרת</b> - כל דרך בשורה.</li>
-        </ol>
-        <div class="bm-answer-card" data-kind="suggested">
-          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
-          <p>1. יעקב מחלק את המחנה שלו לשני מחנות. 2. הוא שולח לעשיו מתנה גדולה (מנחה). 3. הוא מתפלל לה' שיציל אותו.</p>
-        </div>
-        <p class="bm-example-why">✓ כשהשאלה מבקשת כמה דברים, כותבים רשימה ממוספרת וסופרים שיש בה את כל מה שביקשו.</p>
-      </div>
-    </section>
-
     <!-- נושא 1 -->
-    <div class="topic-col" data-stage="guided">
+    <div class="topic-col" data-stage="learn_together">
     <div class="topic-banner" style="--acc:#3E5A8C; --acc-soft:#E2E7F2;">
       <span class="topic-icon" aria-hidden="true">😨</span>
       <div>
@@ -326,7 +297,7 @@
     </div>
 
     <!-- נושא 3 -->
-    <div class="topic-col" data-stage="open">
+    <div class="topic-col">
     <div class="topic-banner" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
       <span class="topic-icon" aria-hidden="true">🤝</span>
       <div>
@@ -373,6 +344,28 @@
     </div>
 
     <!-- שאלות בגרות (שלב ג׳): נושאים חוזרים מקובץ שאלות הבגרות של המורה -->
+    <!-- שאלה בגרות לדוגמה (שלב ג׳): דוגמה פתורה על שאלת בגרות אמיתית מהפרק, צעד אחר צעד -->
+    <section class="card" data-stage="bagrut_example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎓 דוגמה: פתרון שאלת בגרות</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלת בגרות לדוגמה · תשפ״ב (2022), קיץ</span> רמב"ן (לפרק י"ב, פסוק ו'): "כל מה שאירע לאבות סימן לבנים". הסבירו את דברי רמב"ן.</div>
+        <ol class="bm-example-steps">
+          <li><b>קוראים את השאלה פעמיים, ומזהים מה בדיוק מבקשים.</b> המילה "הסבירו" דורשת לפרש את הכלל במילים שלכם, לא רק לחזור עליו כלשונו.</li>
+          <li><b>מפרקים את המשפט של רמב"ן למילים:</b> "מה שאירע לאבות" = מה שקרה לאברהם, יצחק ויעקב. "סימן לבנים" = רמז או סימן למה שיקרה לצאצאיהם, עם ישראל.</li>
+          <li><b>מנסחים את הכלל במילים פשוטות משלכם,</b> בלי להעתיק את לשון רמב"ן.</li>
+          <li><b>בודקים שהתשובה עומדת בפני עצמה</b> - שאפשר להבין אותה גם בלי לראות את המשפט המקורי של רמב"ן.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>לדעת רמב"ן, מה שקרה לאבות האומה (אברהם, יצחק ויעקב) הוא לא רק סיפור על העבר, אלא גם סימן ורמז למה שעתיד לקרות לצאצאיהם, עם ישראל, בדורות הבאים.</p>
+        </div>
+        <p class="bm-example-why">✓ כך גם בשאר שאלות הבגרות שבהמשך הדף: מפרקים את דברי הפרשן למילים, מנסחים אותם מחדש במילים שלכם, ובודקים שהתשובה עומדת בפני עצמה - הפעם בלי אפשרות לראות תשובה, בדיוק כמו בבחינה האמיתית.</p>
+      </div>
+    </section>
+
     <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">🎓 שאלות בגרות</span>
@@ -383,42 +376,30 @@
         <div class="question-block">
           <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">על פי מה שלמדתם, כיצד התכונן יעקב למפגש עם עשו? כתבו שלוש פעולות שעשה יעקב.</span></div>
           <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> דורון, תפילה, וחצה את המחנות. כל ציטוט מתאים יתקבל.</div>
         </div>
         <div class="pasuk-block mini">עיינו בפסוקים כ"ד–ל"א.</div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-2">רמב"ן (לפרק י"ב, פסוק ו'): "כל מה שאירע לאבות סימן לבנים".<br>הסבירו את דברי רמב"ן.</span></div>
           <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> סיפורי האבות מלמדים מה יקרה בעתיד לעם ישראל.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-3">רמב"ן (לפסוק כ"ו): "והעניין כי המאורע כולו רמז לדורותיו, שיהיה דור בזרעו של יעקב יתגבר עשו עליהם [...] ויש [אפילו] דורות אחרים שעשו עימנו כזה ויותר רע מזה, והכול סבלנו ועבר עלינו כמו שרמז: 'ויבא יעקב שלם' (בראשית ל"ג, י"ח)".<br>על פי רמב"ן, ציינו שני דברים שאפשר ללמוד על הדורות הבאים מן המאבק של יעקב במלאך.</span></div>
           <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> יהיו דורות שמלכות רומא תכבוש את עם ישראל, ועם זאת בסופו של דבר עם ישראל יתגבר ויצא מכך.</div>
         </div>
         <div class="meforesh-block"><span class="src">רמב"ן (לפסוק ד')</span>"נכתבה הפרשה הזו להודיע [...] שהוא [יעקב] לא בטח בצדקתו והשתדל בהצלה בכל יכולתו [...] וראוי לנו לאחוז [לאמץ את] דרכו של צדיק שנזמין [נכין] עצמנו לשלושת הדברים שהזמין הוא את עצמו".</div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ג</span><span class="q-text" id="bg-lbl-4">על פי רמב"ן, מהו המסר הנלמד לדורות מן האופן שבו התכונן יעקב למפגש עם עשו?<br>(6 נקודות)</span></div>
           <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> ראוי להשתדל בכל הכוח ולא רק לסמוך על ה', ועם זאת יש להתפלל לה'.</div>
         </div>
         <div class="exam-tag">📅 תשפ״ה (2025), חורף · שאלה 4</div>
         <div class="pasuk-block mini">עיינו בפרק ל"ג, פסוקים א'–ט"ו.<br>מן הכתוב עולה כי יש הבדל בין היחס של יעקב כלפי עשו לבין היחס של עשו כלפי יעקב.</div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-5">מהו היחס של יעקב כלפי עשו? הביאו דוגמה אחת מן הכתוב שבה יחס זה בא לידי ביטוי.</span></div>
           <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> יעקב חושש מעשו. כל דוגמה מתאימה תתקבל מהכינויים או מההצעות שהציעו זה לזה. לדוגמה: "ויחץ את הילדים" (פסוק א'), "ויאמר למצוא חן בעיני אדני" (פסוק ח').</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-6">מהו היחס של עשו כלפי יעקב? הביאו דוגמה אחת מן הכתוב שבה יחס זה בא לידי ביטוי.<br>(9 נקודות)</span></div>
           <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> עשו מחפש את קרבתו של יעקב. כל דוגמה מתאימה תתקבל מן הכינויים או ההצעות שהציעו זה לזה. לדוגמה: "ויאמר עשו יש לי רב אחי" (פסוק ט').</div>
         </div>
       </div>
     </section>
@@ -609,7 +590,5 @@ loadAnswers();
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
 <script src="assets/send-to-teacher.js?v=1"></script>
-<script src="assets/learning-supports.js"></script>
-<script src="assets/lesson-tools.js"></script>
 </body>
 </html>

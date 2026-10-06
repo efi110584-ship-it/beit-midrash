@@ -156,17 +156,10 @@
 </p></details>
 
 <main id="main-content">
-  <section class="bm-lesson-start" data-lesson-kind="torah" aria-labelledby="lesson-goal">
-    <h2 id="lesson-goal">מה נלמד היום?</h2>
-    <p><strong>המטרה:</strong> נסביר רעיון מרכזי בפרק בעזרת פסוק ופירוש אחד, ונבחין בין הפסוק לבין הסבר הפרשן.</p>
-    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
-    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
-    <div class="bm-lesson-tools"></div>
-  </section>
   <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="intro" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרק ט"ו?</h2>
@@ -179,30 +172,8 @@
       </div>
     </section>
 
-    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
-    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">✏️ דוגמה פתורה</span>
-        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
-      </div>
-      <div class="card-body">
-        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: במה שונה התגובה של אברם להבטחת הזרע מהתגובה שלו להבטחת הארץ?</div>
-        <ol class="bm-example-steps">
-          <li><b>מפרקים את השאלה.</b> זו שאלת השוואה: (1) איך הגיב אברם להבטחת הזרע. (2) איך הגיב להבטחת הארץ. (3) מה ההבדל.</li>
-          <li><b>מחפשים בתקציר את החלק הראשון:</b> <span class="bm-quote">אברם מאמין בלי לשאול שום אות</span>.</li>
-          <li><b>מחפשים את החלק השני:</b> <span class="bm-quote">אברם כן מבקש אות</span>.</li>
-          <li><b>כותבים לפי החלקים</b>, ובסוף משפט אחד שמסכם את ההבדל.</li>
-        </ol>
-        <div class="bm-answer-card" data-kind="suggested">
-          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
-          <p>כשה' הבטיח לאברם זרע רב כמו הכוכבים, אברם האמין בלי לבקש שום אות. אבל כשה' הבטיח לו את הארץ, אברם כן ביקש אות ושאל: "במה אדע כי אירשנה". ההבדל: על הזרע הוא לא ביקש סימן, ועל הארץ ביקש.</p>
-        </div>
-        <p class="bm-example-why">✓ בשאלת השוואה כותבים את שני הצדדים, ואחר כך את ההבדל. כל צד מבוסס על משפט מהתקציר.</p>
-      </div>
-    </section>
-
     <!-- נושא 1 -->
-    <div class="topic-col" data-stage="guided">
+    <div class="topic-col" data-stage="learn_together">
     <div class="topic-banner" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
       <span class="topic-icon" aria-hidden="true">⭐</span>
       <div>
@@ -546,8 +517,8 @@
       </div>
     </section>
 
-    <!-- נושא 5 -->
-    <div class="topic-col" data-stage="open">
+    <!-- נושא 5 (ממשיך את שלב "לומדים ביחד") -->
+    <div class="topic-col">
     <div class="topic-banner" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
       <span class="topic-icon" aria-hidden="true">🔥</span>
       <div>
@@ -627,6 +598,28 @@
     </div>
     </div>
 
+    <!-- שאלה בגרות לדוגמה (שלב ג׳): דוגמה פתורה על שאלת בגרות אמיתית מהפרק, צעד אחר צעד -->
+    <section class="card" data-stage="bagrut_example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎓 דוגמה: פתרון שאלת בגרות</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלת בגרות לדוגמה · שאלון 2381</span> על פי פירוש שלמדת, הסבר מהי משמעות המילה "צדקה" בפסוק "וְהֶאֱמִן בַּה' וַיַּחְשְׁבֶהָ לּוֹ צְדָקָה" (פסוק ו'), ולמי המילה "וַיַּחְשְׁבֶהָ" מתייחסת - מי חשב, ועל מי הוא חשב זאת?</div>
+        <ol class="bm-example-steps">
+          <li><b>קוראים את השאלה פעמיים, ומזהים כמה חלקים יש בה.</b> כאן שני חלקים: (1) מהי משמעות "צדקה". (2) למי מתייחסת המילה "וַיַּחְשְׁבֶהָ" - מי הסובייקט (מי חשב) ומי האובייקט (על מי חשב).</li>
+          <li><b>מאתרים את הפרשן הרלוונטי.</b> "על פי פירוש שלמדת" מכוון לפרשנות שנלמדה בכיתה - כאן יש שתי אפשרויות לגיטימיות, רש"י ורמב"ן, שחלוקים בדיוק בשאלה מי חשב את מי.</li>
+          <li><b>בונים תשובה לכל חלק, לפי פרשן אחד בעקביות:</b> לפי רש"י - "צדקה" פירושה זכות, וה' הוא שחשב את אמונת אברם לזכותו. לפי רמב"ן - "צדקה" פירושה חסד, ואברם הוא שחשב שההבטחה היא חסד ולא בזכות עצמו.</li>
+          <li><b>לא מערבבים בין הפרשנים באותה תשובה</b> - בוחרים אחד ומציגים אותו במלואו (או את שניהם, כל אחד בנפרד ובבירור).</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>אפשר לקבל אחת מן התשובות האלה: לפי רש"י, "צדקה" במשמעות זכות - ה' החשיב את אמונת אברהם לזכות. או לפי רמב"ן, "צדקה" במשמעות חסד - אברהם החשיב את הבטחת ה' כחסד, וחשב שהוא יזכה להבטחות ה' בגלל חסדי ה' כלפיו ולא בזכות עצמו.</p>
+        </div>
+        <p class="bm-example-why">✓ כך גם בשאלת הבגרות שבהמשך הדף: מזהים כמה חלקים יש בשאלה, מאתרים את הפרשן הרלוונטי, ובונים תשובה מנומקת - הפעם בלי אפשרות לראות תשובה, בדיוק כמו בבחינה האמיתית.</p>
+      </div>
+    </section>
+
     <!-- שאלות בגרות (שלב ג׳): נושאים חוזרים מקובץ שאלות הבגרות של המורה -->
     <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
@@ -639,8 +632,6 @@
         <div class="question-block">
           <div class="question-row"><span class="part-label">(2)</span><span class="q-text" id="bg-lbl-1">על פי פירוש שלמדת, הסבר מהי משמעות המילה "צדקה" בפסוק זה, ולמי המילה "וַיַּחְשְׁבֶהָ" מתייחסת - מי חשב, ועל מי הוא חשב זאת?</span></div>
           <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> אפשר לקבל אחת מן התשובות האלה בהתאמה:<br>"צדקה" במשמעות זכות: ה' החשיב את אמונת אברהם לזכות (על פי רש"י).<br>או: "צדקה" במשמעות חסד: אברהם החשיב את הבטחת ה' כחסד - חשב שהוא יזכה להבטחות ה' בגלל חסדי ה' כלפיו ולא בזכות עצמו (על פי רמב"ן).</div>
         </div>
       </div>
     </section>
@@ -941,7 +932,5 @@ loadUnits();
 <script src="assets/guide/bereshit-15.js"></script>
 <script src="assets/steps.js?v=1"></script>
 <script src="assets/guide.js"></script>
-<script src="assets/learning-supports.js"></script>
-<script src="assets/lesson-tools.js"></script>
 </body>
 </html>

@@ -163,17 +163,10 @@
 </p></details>
 
 <main id="main-content">
-  <section class="bm-lesson-start" data-lesson-kind="torah" aria-labelledby="lesson-goal">
-    <h2 id="lesson-goal">מה נלמד היום?</h2>
-    <p><strong>המטרה:</strong> נסביר רעיון מרכזי בפרק בעזרת פסוק ופירוש אחד, ונבחין בין הפסוק לבין הסבר הפרשן.</p>
-    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
-    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
-    <div class="bm-lesson-tools"></div>
-  </section>
   <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרקים -->
-    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="intro" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרקים</span>
         <h2 class="card-title">מה קורה בפרקים מ"ב-מ"ג?</h2>
@@ -186,30 +179,8 @@
       </div>
     </section>
 
-    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
-    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">✏️ דוגמה פתורה</span>
-        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
-      </div>
-      <div class="card-body">
-        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: למה ירדו אחי יוסף למצרים, ומי מהם לא ירד?</div>
-        <ol class="bm-example-steps">
-          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) למה ירדו. (2) מי לא ירד.</li>
-          <li><b>מחפשים בתקציר.</b> התשובה לשני החלקים נמצאת במשפט הראשון: <span class="bm-quote">הרעב הכבד מביא את אחי יוסף (מלבד בנימין) לרדת למצרים לשבור בר</span>.</li>
-          <li><b>מבינים מילים קשות:</b> "מלבד" = חוץ מ. "לשבור בר" = לקנות תבואה (אוכל).</li>
-          <li><b>כותבים לפי החלקים</b> - במילים שלכם.</li>
-        </ol>
-        <div class="bm-answer-card" data-kind="suggested">
-          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
-          <p>האחים ירדו למצרים כי היה רעב כבד, והם רצו לקנות שם אוכל. בנימין לא ירד איתם.</p>
-        </div>
-        <p class="bm-example-why">✓ התשובה עונה על שני החלקים. מילים קשות מהטקסט ("מלבד", "לשבור בר") הוסברו במילים פשוטות.</p>
-      </div>
-    </section>
-
     <!-- נושא 1 -->
-    <div class="topic-col" data-stage="guided">
+    <div class="topic-col" data-stage="learn_together">
     <div class="topic-banner" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
       <span class="topic-icon" aria-hidden="true">🌾</span>
       <div>
@@ -258,7 +229,7 @@
     </div>
 
     <!-- נושא 2 -->
-    <div class="topic-col" data-stage="open">
+    <div class="topic-col">
     <div class="topic-banner" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
       <span class="topic-icon" aria-hidden="true">🤲</span>
       <div>
@@ -305,6 +276,28 @@
     </div>
 
     <!-- שאלות בגרות (שלב ג׳): נושאים חוזרים מקובץ שאלות הבגרות של המורה -->
+    <!-- שאלה בגרות לדוגמה (שלב ג׳): דוגמה פתורה על שאלת בגרות אמיתית מהפרק, צעד אחר צעד -->
+    <section class="card" data-stage="bagrut_example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎓 דוגמה: פתרון שאלת בגרות</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלת בגרות לדוגמה · תשפ״ד (2024), קיץ</span> "וַיַּרְא יוֹסֵף אֶת אֶחָיו... וַיִּתְנַכֵּר אֲלֵיהֶם" (פסוק ז'). כתבו שתי פעולות שעשה יוסף שבהן ההתנכרות שלו לאחיו באה לידי ביטוי.</div>
+        <ol class="bm-example-steps">
+          <li><b>קוראים את השאלה פעמיים, ומזהים כמה דברים מבקשים.</b> המילה "שתי פעולות" אומרת בדיוק כמה דברים צריך למצוא - לא פחות, ולא עוד הסברים מסביב.</li>
+          <li><b>קוראים את הפסוקים שלפני ואחרי פסוק ז',</b> ומחפשים כל מעשה או דיבור של יוסף כלפי האחים.</li>
+          <li><b>בוחרים שתי פעולות שונות וברורות,</b> למשל: הוא מדבר איתם קשות, או מאשים אותם בריגול, או אוסר אותם, או מאיים עליהם.</li>
+          <li><b>כותבים כל פעולה כמשפט נפרד וברור,</b> במילים שלכם.</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>שתי פעולות שבהן באה לידי ביטוי התנכרותו של יוסף: הוא דיבר אל אחיו קשות והאשים אותם בריגול, ולאחר מכן אסר אותם למשמר שלושה ימים.</p>
+        </div>
+        <p class="bm-example-why">✓ כך גם בשאר שאלות הבגרות שבהמשך הדף: מזהים בדיוק כמה פרטים מבקשים, חוזרים לפסוקים, ובונים תשובה מדויקת - הפעם בלי אפשרות לראות תשובה, בדיוק כמו בבחינה האמיתית.</p>
+      </div>
+    </section>
+
     <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">🎓 שאלות בגרות</span>
@@ -316,40 +309,28 @@
         <div class="question-block">
           <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">כתבו שתי פעולות שעשה יוסף שבהן ההתנכרות שלו לאחיו באה לידי ביטוי.</span></div>
           <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> דיבר איתם קשות, האשים אותם בריגול, אסר את האחים לשלושה ימים, אסר את שמעון, איים עליהם שאם לא יביאו את בנימין הם ימותו.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">על פי מה שלמדתם, כתבו תשובה אחת על השאלה מדוע יוסף התנכר לאחיו.<br>(8 נקודות)</span></div>
           <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> רצה שיחזרו בתשובה, רצה לבדוק את יחסם אליו, רצה לקיים את החלומות, רצה לצער אותם כעונש.</div>
         </div>
         <div class="exam-tag">📅 תשפ״ד (2024), קיץ · שאלה 4</div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">מה שליט מצרים (יוסף) מחליט בנוגע לאחים בפסוקים ט"ו–י"ז, ומה הוא מחליט בנוגע לאחים בפסוקים י"ח–כ'?</span></div>
           <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> ט"ו–י"ז: כל האחים ילכו למאסר, ואחד מהם יחזור ארצה להביא את בנימין.<br>י"ח–כ': שמעון יישאר במאסר, ויתר האחים רשאים לחזור לארץ כנען להביא את בנימין.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">על פי מה שלמדתם, מדוע רק לאחר דברי יוסף שבפסוקים י"ח–כ' האחים מביעים חרטה על מכירת יוסף?<br>(8 נקודות)</span></div>
           <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> שהות האחים בבית הסוהר מזכירה להם את מצבו של יוסף, והצורך לבשר ליעקב שאחד הבנים חסר מזכיר להם את מכירת יוסף.</div>
         </div>
         <div class="exam-tag">📅 תש״ף (2020), קיץ · שאלה 5</div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-5">עיין בפרק מ"ב, פסוקים כ"ו-כ"ח.<br>מדוע נחרדו האחים ממציאת כספם באמתחותיהם?</span></div>
           <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> חוששים שיואשמו גם בגנבה של הכסף.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-6">עיין בפרק מ"ב, פסוקים כ"א-כ"ב.<br>הסבר נקודת דמיון אחת בין תגובת האחים בפסוק כ"א על דברי יוסף ובין תגובתם בפסוקים כ"ו-כ"ח על מציאת כספם באמתחותיהם.<br>(8 נקודות)</span></div>
           <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> בשני המקרים האחים מבינים שהאירוע (החשד בריגול והחזרת הכסף) הוא מאת ה'.</div>
         </div>
       </div>
     </section>
@@ -539,7 +520,5 @@ loadAnswers();
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
 <script src="assets/send-to-teacher.js?v=1"></script>
-<script src="assets/learning-supports.js"></script>
-<script src="assets/lesson-tools.js"></script>
 </body>
 </html>

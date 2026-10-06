@@ -161,17 +161,10 @@
 </p></details>
 
 <main id="main-content">
-  <section class="bm-lesson-start" data-lesson-kind="torah" aria-labelledby="lesson-goal">
-    <h2 id="lesson-goal">מה נלמד היום?</h2>
-    <p><strong>המטרה:</strong> נסביר רעיון מרכזי בפרק בעזרת פסוק ופירוש אחד, ונבחין בין הפסוק לבין הסבר הפרשן.</p>
-    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
-    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
-    <div class="bm-lesson-tools"></div>
-  </section>
   <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
-    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
+    <section class="card" data-stage="intro" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">תקציר הפרק</span>
         <h2 class="card-title">מה קורה בפרקים כ"ז-כ"ח:ד?</h2>
@@ -184,30 +177,8 @@
       </div>
     </section>
 
-    <!-- דוגמה פתורה (שלב ג׳): שאלה לדוגמה על תקציר הפרק, ותשובה אפשרית -->
-    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">✏️ דוגמה פתורה</span>
-        <h2 class="card-title">איך עונים על שאלה? - דוגמה צעד אחר צעד</h2>
-      </div>
-      <div class="card-body">
-        <div class="bm-example-q"><span class="bm-example-label">שאלה לדוגמה · על תקציר הפרק</span> לפי תקציר הפרק: איזו ברכה קיבל עשיו, ומה הוא תכנן לעשות ליעקב?</div>
-        <ol class="bm-example-steps">
-          <li><b>מפרקים את השאלה.</b> יש בה שני חלקים: (1) הברכה של עשיו. (2) מה תכנן לעשות ליעקב.</li>
-          <li><b>מחפשים בתקציר את החלק הראשון.</b> עשיו מקבל ברכה שונה: <span class="bm-quote">לחיות על חרבו, לשעבד לאחיו, ובבוא היום לפרוק את עולו</span>.</li>
-          <li><b>מחפשים את החלק השני:</b> <span class="bm-quote">עשיו שוטם את יעקב ומתכנן להורגו לאחר מות אביהם</span>.</li>
-          <li><b>כותבים לפי החלקים</b> - כל חלק במשפט משלו, במילים שלכם.</li>
-        </ol>
-        <div class="bm-answer-card" data-kind="suggested">
-          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
-          <p>עשיו קיבל ברכה שונה מהברכה של יעקב: שיחיה על החרב, שיהיה משועבד לאחיו, ושיום אחד יוכל להשתחרר ממנו. עשיו שנא את יעקב ותכנן להרוג אותו אחרי שאביהם ימות.</p>
-        </div>
-        <p class="bm-example-why">✓ התשובה עונה על שני החלקים, וכל חלק מבוסס על משפט מהתקציר. "שוטם" = שונא - כשיש מילה קשה, מסבירים אותה במילים שלנו.</p>
-      </div>
-    </section>
-
     <!-- נושא 1 -->
-    <div class="topic-col" data-stage="guided">
+    <div class="topic-col" data-stage="learn_together">
     <div class="topic-banner" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
       <span class="topic-icon" aria-hidden="true">🎯</span>
       <div>
@@ -365,7 +336,7 @@
     </div>
 
     <!-- נושא 4 -->
-    <div class="topic-col" data-stage="open">
+    <div class="topic-col">
     <div class="topic-banner" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
       <span class="topic-icon" aria-hidden="true">🎒</span>
       <div>
@@ -419,6 +390,28 @@
     </div>
 
     <!-- שאלות בגרות (שלב ג׳): נושאים חוזרים מקובץ שאלות הבגרות של המורה -->
+    <!-- שאלה בגרות לדוגמה (שלב ג׳): דוגמה פתורה על שאלת בגרות אמיתית מהפרק, צעד אחר צעד -->
+    <section class="card" data-stage="bagrut_example" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">🎓 דוגמה: פתרון שאלת בגרות</span>
+        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
+      </div>
+      <div class="card-body">
+        <div class="bm-example-q"><span class="bm-example-label">שאלת בגרות לדוגמה · תשפ״ה (2025), קיץ</span> רש"י לפסוק י"ט: "'אנכי' - אנוכי המביא לך, ועשו הוא בכורך". מהי השאלה המתעוררת על דברי יעקב לאביו שעליה רש"י עונה, ומהי תשובת רש"י לשאלה זו?</div>
+        <ol class="bm-example-steps">
+          <li><b>קוראים את השאלה פעמיים, ומזהים את שני החלקים שמתבקשים בפירוש: "השאלה:" ו"התשובה:".</b> כשהשאלה בנויה כך, חשוב לכתוב את שני החלקים בנפרד ובאותו סדר.</li>
+          <li><b>קוראים את דברי רש"י בעיון.</b> רש"י מפרש את המילה "אנכי" כך שהיא מתחלקת לשניים: "אנוכי המביא לך" (זה יעקב המדבר) "ועשו הוא בכורך" (המשך דברי יעקב, לא הכחשה).</li>
+          <li><b>מזהים את הקושי שהביא את רש"י לפרש כך:</b> יעקב אומר ליצחק "אָנֹכִי עֵשָׂו בְּכֹרֶךָ" - משפט שנשמע כשקר ברור (יעקב טוען שהוא עשיו). רש"י מיישב זאת על ידי פיסוק אחר של המשפט, כך שיעקב לא משקר.</li>
+          <li><b>כותבים את שני החלקים בנפרד ובבירור:</b> השאלה - איך יעקב יכול לומר "אנכי עשו" בלי לשקר? התשובה - רש"י מפרש שיעקב אמר שני משפטים נפרדים: "אני המביא לך [את המאכל]", ו"עשו הוא בכורך" [שאתה מבקש לברך].</li>
+        </ol>
+        <div class="bm-answer-card" data-kind="suggested">
+          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית</span></div>
+          <p>השאלה: איך יכול יעקב לומר ליצחק "אנכי עשו בכורך" בלי לשקר באופן מפורש? התשובה: לדעת רש"י, יעקב למעשה אמר שני משפטים נפרדים ולא שיקר - "אנוכי" הוא שמביא לך את המאכל, ו"עשו הוא בכורך" (הבן שאתה מבקש לברך).</p>
+        </div>
+        <p class="bm-example-why">✓ כך גם בשאר שאלות הבגרות שבהמשך הדף: כשהשאלה מבקשת "שאלה" ו"תשובה" בנפרד, כותבים כל חלק במפורש ובסדר המבוקש - הפעם בלי אפשרות לראות תשובה, בדיוק כמו בבחינה האמיתית.</p>
+      </div>
+    </section>
+
     <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
       <div class="card-head">
         <span class="card-tag">🎓 שאלות בגרות</span>
@@ -429,41 +422,29 @@
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">על פי מה שלמדת, מה הייתה הברכה שתכנן יצחק לברך בה את עשו, ומדוע הוא תכנן לברך אותו בברכה זו?</span></div>
           <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> רמב"ן - יצחק לא ידע שעשו רשע, ולכן רצה לברך את בכורו בברכת העם והארץ.<br>רד"ק - יצחק לא חשב שעשו ראוי לרשת אותו, ולכן תכנן לברך אותו בברכת חיזוק בלבד.<br>רש"ר הירש - יצחק ראה הן בעשו והן ביעקב יורשים, ולכן רצה לברך את עשו בברכת החומר ואת יעקב בברכת הרוח.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">על פי מה שלמדת, מדוע פעלה רבקה כדי לבטל את תוכניתו של יצחק?<br>(8 נקודות)</span></div>
           <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> רבקה קיבלה בנבואה שיעקב עדיף על עשו. רבקה הכירה ברשעותו של עשו. רבקה לא הייתה מודעת לתכניתו של יצחק לברך את עשו בברכת חיזוק בלבד, ועל כן פעלה כנגד תכניתו. רבקה חלקה על תכניתו של יצחק לפצל את הברכות בין יעקב לעשו.</div>
         </div>
         <div class="exam-tag">📅 תשפ״ה (2025), קיץ · שאלה 4</div>
         <div class="pasuk-block mini">עיינו בפסוקים י"ח–כ"ז.</div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">על פי מה שלמדתם, מדוע חשד יצחק שיעקב הוא העומד לפניו?</span></div>
           <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> מהירות הגעתו לאחר הציד; הקול היה קולו של יעקב; הדיבור המנומס מתאים ליעקב ולא לעשו; השימוש בשם ה' מתאים גם הוא רק ליעקב. [נדרשת תשובה אחת מאלה.]</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">רש"י לפסוק י"ט: "'אנכי' - אנוכי המביא לך, ועשו הוא בכורך".<br>מהי השאלה המתעוררת על דברי יעקב לאביו שעליה רש"י עונה, ומהי תשובת רש"י לשאלה זו?<br>השאלה:<br>התשובה:<br>(8 נקודות)</span></div>
           <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> השאלה המתעוררת: כיצד ייתכן שיעקב מרמה את אביו ומשתמש בדבר שקר בדבריו?<br>תשובת רש"י: יעקב נקט ביטוי סתום, שאפשר לפרשו כדבר אמת כאשר מחלקים אותו לשניים: אנוכי מביא לך ציד, ועשו הוא בכורך.</div>
         </div>
         <div class="exam-tag">📅 תשפ״א (2021), קיץ · שאלה 4</div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-5">עיין בפסוקים כ"ח-כ"ט.<br>על פי פסוקים אלה, ציין שתי ברכות מתחומים שונים שבהן יצחק מברך את יעקב.</span></div>
           <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> שפע חומרי, שלטון על עמים אחרים, שמי שמברך אותו יתברך ומי שמקלל אותו יתקלל.</div>
         </div>
         <div class="question-block">
           <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-6">עיין בפרק כ"ח, פסוקים ג'-ד'.<br>מה יצחק מוסיף בברכה זו על הברכה שבירך את יעקב בפרק כ"ז, פסוקים כ"ח-כ"ט?<br>(8 נקודות)</span></div>
           <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> את ברכת אברהם על הזרע וארץ ישראל.</div>
         </div>
       </div>
     </section>
@@ -653,7 +634,5 @@ loadAnswers();
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
 <script src="assets/send-to-teacher.js?v=1"></script>
-<script src="assets/learning-supports.js"></script>
-<script src="assets/lesson-tools.js"></script>
 </body>
 </html>
