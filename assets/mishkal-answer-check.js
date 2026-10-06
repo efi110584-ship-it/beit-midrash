@@ -44,13 +44,38 @@ window.MishkalAnswerCheck = (function(){
     var wrap = f.el.closest('.answer-wrap');
     var mark = wrap ? wrap.querySelector('.answer-mark') : null;
     if(mark){ mark.textContent = ''; mark.className = 'answer-mark'; mark.removeAttribute('aria-label'); }
+    var note = wrap && wrap.querySelector('.bm-field-feedback');
+    if(note) note.remove();
+    var described = (f.el.getAttribute('aria-describedby') || '').split(/\s+/).filter(function(id){ return id !== 'bm-feedback-' + f.el.dataset.id; });
+    if(described.length) f.el.setAttribute('aria-describedby', described.join(' ')); else f.el.removeAttribute('aria-describedby');
+    f.el.removeAttribute('aria-invalid');
   }
 
   function gradeField(f){
-    if(f.grade === false) return;
+    clearFieldMark(f);
+    if(f.grade === false || !isFieldFilled(f) || f.expected == null) return;
     var expectedList = Array.isArray(f.expected) ? f.expected : [f.expected];
     var ok = expectedList.some(function(exp){ return exactMatch(f.el.value, exp); });
     markField(f, ok);
+    var wrap=f.el.closest('.answer-wrap');
+    if(wrap){
+      var note=document.createElement('span');
+      note.className='bm-field-feedback';
+      note.id='bm-feedback-'+f.el.dataset.id;
+      var expected=expectedList[0];
+      var name=f.el.getAttribute('aria-label')||'';
+      var explanation;
+      if(/משקל/.test(name)) explanation='המשקל הוא '+expected+'. השוו לתבנית ושמרו על הניקוד והאותיות הנוספות.';
+      else if(/שורש/.test(name)) explanation='השורש הוא '+expected+'. חפשו את האותיות המשותפות למילים מאותה משפחה.';
+      else if(/בניין/.test(name)) explanation='הבניין הוא '+expected+'. השוו לצורת הפועל ולדגמי הבינוני בטבלת ההסבר.';
+      else if(/חלק דיבור|תפקיד/.test(name)) explanation='חלק הדיבור הוא '+expected+'. בדקו את תפקיד המילה במשפט: פעולה, שם או תכונה.';
+      else explanation='התשובה המצופה היא '+expected+'. עיינו בהסבר ובדוגמה שלפני הטבלה.';
+      note.textContent=ok ? 'נכון' : 'נסו שוב: '+explanation;
+      wrap.appendChild(note);
+      var existing=f.el.getAttribute('aria-describedby');
+      f.el.setAttribute('aria-describedby',(existing?existing+' ':'')+note.id);
+      f.el.setAttribute('aria-invalid',ok?'false':'true');
+    }
   }
 
   function gradeMcGroup(group){
@@ -86,26 +111,28 @@ window.MishkalAnswerCheck = (function(){
     var gateNote = config.gateNote;
     var onChecked = config.onChecked;
     var onCleared = config.onCleared;
+    var exam = /final-test/.test(location.pathname);
+    if(gateNote) gateNote.setAttribute('role','status');
 
     function allFilled(){
       return fields.every(isFieldFilled) && mcGroups.every(isMcAnswered);
     }
 
     function updateReadiness(){
-      var ready = allFilled();
+      var ready = exam ? allFilled() : fields.some(isFieldFilled) || mcGroups.some(isMcAnswered);
       checkBtn.disabled = !ready;
       if(gateNote) gateNote.textContent = ready
-        ? 'כל השדות מלאים - אפשר ללחוץ "בדקו תשובות".'
-        : 'מלאו את כל השדות (כולל שאלות הבחירה) כדי לפתוח את כפתור הבדיקה.';
+        ? (exam ? 'כל השדות מלאים - אפשר ללחוץ "בדקו תשובות".' : 'אפשר לבדוק את התשובות שמילאתם, לתקן ולהמשיך למקבץ הבא.')
+        : (exam ? 'מלאו את כל השדות (כולל שאלות הבחירה) כדי לפתוח את כפתור הבדיקה.' : 'מלאו תשובה אחת לפחות כדי לבדוק ולהתקדם בקצב שלכם.');
     }
 
     function runCheck(){
-      if(!allFilled()) return;
+      if(exam ? !allFilled() : !fields.some(isFieldFilled) && !mcGroups.some(isMcAnswered)) return;
       fields.forEach(gradeField);
       mcGroups.forEach(gradeMcGroup);
       checkBtn.textContent = '🔄 בדקו שוב';
       if(gateNote) gateNote.textContent = 'נבדק! אפשר לתקן תשובות וללחוץ שוב על "בדקו שוב" בכל שלב.';
-      if(typeof onChecked === 'function') onChecked();
+      if(allFilled() && typeof onChecked === 'function') onChecked();
     }
 
     function clearAllMarks(){
@@ -131,8 +158,29 @@ window.MishkalAnswerCheck = (function(){
     });
 
     fields.forEach(function(f){
-      f.el.addEventListener('input', updateReadiness);
-      f.el.addEventListener('change', updateReadiness);
+      function changed(){ clearFieldMark(f); updateReadiness(); }
+      f.el.addEventListener('input', changed);
+      f.el.addEventListener('change', changed);
+    });
+
+    // Practice tables display five rows at a time; hidden rows keep all answers.
+    if(!exam) document.querySelectorAll('table.mishkal-table').forEach(function(table){
+      var rows=Array.prototype.slice.call(table.querySelectorAll('tbody tr')).filter(function(row){ return !!row.querySelector('.answer'); });
+      if(rows.length<=5) return;
+      var page=0, all=false, pages=Math.ceil(rows.length/5);
+      var nav=document.createElement('nav');nav.className='bm-table-nav';nav.setAttribute('aria-label','מקבצי תרגול במשקלים');
+      function button(text,action){ var b=document.createElement('button');b.type='button';b.textContent=text;b.addEventListener('click',action);nav.appendChild(b);return b; }
+      var prev=button('המקבץ הקודם',function(){page=Math.max(0,page-1);render();});
+      var label=document.createElement('span');label.setAttribute('role','status');nav.appendChild(label);
+      var next=button('המקבץ הבא',function(){page=Math.min(pages-1,page+1);render();});
+      var toggle=button('הצגת כל השורות',function(){all=!all;render();});
+      function render(){
+        rows.forEach(function(row,index){row.classList.toggle('bm-practice-hidden',!all && Math.floor(index/5)!==page);});
+        label.textContent=all ? 'כל '+rows.length+' השורות' : 'מקבץ '+(page+1)+' מתוך '+pages+' · שורות '+(page*5+1)+'–'+Math.min(rows.length,(page+1)*5);
+        prev.disabled=all||page===0;next.disabled=all||page===pages-1;
+        toggle.textContent=all?'חזרה למקבצים':'הצגת כל השורות';
+      }
+      table.parentElement.insertAdjacentElement('afterend',nav);render();
     });
 
     checkBtn.addEventListener('click', runCheck);
