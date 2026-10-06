@@ -40,3 +40,10 @@ html.a11y-contrast .bm-review-count{color:#000;}
 .bm-resources p{margin:.7rem 0 0!important;}
 @media(max-width:640px){.bm-resources{margin-inline:.5rem;}}
 @media print{.bm-resources{display:none!important;}}
+/* Keep wide practice tables inside their cards on narrow screens. */
+@media screen and (max-width: 620px){
+  .grid{grid-template-columns:minmax(0,1fr);}
+  .grid > .card{min-width:0;max-width:100%;}
+  .card-body{min-width:0;overflow-wrap:break-word;}
+  .table-wrap{max-width:100%;overflow-x:auto;}
+}
