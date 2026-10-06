@@ -120,6 +120,7 @@
         lastSaveTimer = setTimeout(i.saveLast, 600);
       }
     });
+    document.dispatchEvent(new CustomEvent("bm-steps-change"));
   }
   document.addEventListener("input", onChange);
   document.addEventListener("change", onChange);
@@ -814,7 +815,7 @@
       saveLast: saveLast,
       totalNeed: totalNeed,
       totalDone: totalDone,
-      atEnd: function(){ return single || view === "all" || current >= tasks.length - 1; },
+      atEnd: function(){ return single || view === "all" || current >= tasks.length - 1 || totalDone() >= totalNeed(); },
       owns: function(el){ return grid.contains(el); },
       afterClear: function(){
         if(!items.some(isFilled)){ status = {}; save(KEY_STATUS, status); }
