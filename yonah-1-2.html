@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="assets/steps.css">
 <link rel="stylesheet" href="assets/guide.css">
 <link rel="stylesheet" href="assets/a11y.css">
+<link rel="stylesheet" href="assets/lesson-tools.css">
 <script src="assets/a11y.js"></script>
 </head>
 <body>
@@ -53,13 +54,33 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
-<p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
+<details class="bm-resources"><summary>סרטונים, מצגות וחומרי עזר</summary><p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
   <a class="chip-link" href="https://youtu.be/3Yvoumg-J1k?si=QVFixWFZGu8_nx35" target="_blank" rel="noopener"><span class="chip-icon" aria-hidden="true">🎥</span>צפייה בסרטון על פרק א׳</a>
   <a class="chip-link" href="https://www.canva.com/design/DAHECoh4BAM/B7uaqqaneiPFEzt_G2WURg/view?utm_content=DAHECoh4BAM&amp;utm_campaign=designshare&amp;utm_medium=link&amp;utm_source=viewer" target="_blank" rel="noopener"><span class="chip-icon" aria-hidden="true">💥</span>מצגת קומיקס - פרק א׳-ב׳</a>
   <a class="chip-link" href="yonah-1-2-flowchart.html"><span class="chip-icon" aria-hidden="true">🗺️</span>תרשים זרימה עם הפרשנים</a>
-</p>
+</p></details>
 
 <main id="main-content">
+  <section class="bm-lesson-start" data-lesson-kind="prophets" aria-labelledby="lesson-goal">
+    <h2 id="lesson-goal">יונה א׳–ב׳: מתחילים בצעד קטן</h2>
+    <p><strong>המטרה:</strong> להסביר מה השתנה אצל המלחים ולבסס את ההסבר על פסוק.</p>
+    <p><strong>לפעילות הראשונה:</strong> הקדישו כ־15 דקות לקריאת התקציר, לבדיקת ההבנה ולעיון בדוגמה. אחר כך המשיכו למשימות בקצב שלכם או לפי הנחיית המורה.</p>
+    <button type="button" class="btn primary" data-lesson-start>מתחילים את המסלול</button>
+    <div class="bm-lesson-tools">
+      <details><summary>מילון קצר למילים שבפרק</summary>
+        <dl><dt>שליחות</dt><dd>משימה שהנביא מקבל מה׳.</dd><dt>נינווה</dt><dd>העיר שאליה נשלח יונה להזהיר את תושביה.</dd><dt>תרשיש</dt><dd>היעד שאליו יונה מפליג כשהוא מנסה להימנע מהשליחות.</dd><dt>גורל</dt><dd>דרך להכריע בבחירה; בפרק המלחים מטילים גורלות כדי לברר בשל מי הסערה.</dd><dt>נדר</dt><dd>התחייבות שאדם מקבל על עצמו.</dd></dl>
+      </details>
+      <details><summary>בונים תשובה: טענה, ראיה והסבר</summary>
+        <p>זו טיוטה אישית שנשמרת במכשיר. היא אינה נשלחת למורה ואינה נבדקת אוטומטית. אחרי שבדקתם אותה, העתיקו אותה לשדה של השאלה המתאימה.</p>
+        <label>1. טענה — מה השתנה אצל המלחים?<textarea data-builder-part placeholder="בתחילת הפרק... ובסופו..."></textarea></label>
+        <label>2. ראיה — ציטוט קצר ומספר פסוק<textarea data-builder-part placeholder="בפסוק... נאמר: ..."></textarea></label>
+        <label>3. הסבר — איך הראיה מוכיחה את הטענה?<textarea data-builder-part placeholder="הפסוק מלמד ש..."></textarea></label>
+        <button type="button" data-build-answer>מציגים את הטיוטה</button>
+        <button type="button" data-builder-clear>ניקוי הטיוטה</button>
+        <p class="bm-builder-result" data-builder-result role="status" hidden></p>
+      </details>
+    </div>
+  </section>
   <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הסיפור לפני השאלות -->
@@ -85,6 +106,29 @@
           <div class="step"><span class="step-icon" aria-hidden="true">🌊</span>יונה מושלך לים - הים נרגע</div>
           <div class="arrow" aria-hidden="true">←</div>
           <div class="step"><span class="step-icon" aria-hidden="true">🐋</span>דג גדול בולע את יונה</div>
+        </div>
+
+        <div class="bm-read-controls">
+          <button type="button" data-read-story>הקראת התקציר</button>
+          <button type="button" data-stop-reading disabled>עצירה</button>
+          <label>מהירות <select data-read-speed><option value="0.8">איטית</option><option value="1" selected>רגילה</option></select></label>
+          <span data-read-note role="status"></span>
+        </div>
+        <div class="bm-knowledge-check">
+          <h3>קראנו — עכשיו בודקים שהבנו</h3>
+          <div data-knowledge-check data-explanation="ה׳ שולח את יונה לנינווה, אך יונה מפליג לתרשיש (א׳, ב׳–ג׳).">
+            <fieldset><legend>1. לאן יונה נשלח, ולאן הוא מפליג?</legend>
+              <label><input type="radio" name="yonah-understanding-1" value="correct"> נשלח לנינווה ומפליג לתרשיש</label>
+              <label><input type="radio" name="yonah-understanding-1" value="retry"> נשלח לתרשיש ומפליג לנינווה</label>
+            </fieldset><button type="button">בדיקת תשובה</button><p class="bm-check-feedback" role="status"></p>
+          </div>
+          <div data-knowledge-check data-explanation="בתחילה המלחים זועקים איש אל אלוהיו (א׳, ה׳), ובסוף הם יראים את ה׳, זובחים ונודרים נדרים (א׳, ט״ז).">
+            <fieldset><legend>2. איזו ראיה מתאימה לשינוי אצל המלחים?</legend>
+              <label><input type="radio" name="yonah-understanding-2" value="retry"> יונה יורד אל ירכתי הספינה ונרדם</label>
+              <label><input type="radio" name="yonah-understanding-2" value="correct"> המלחים יראים את ה׳ וזובחים לו זבח</label>
+            </fieldset><button type="button">בדיקת תשובה</button><p class="bm-check-feedback" role="status"></p>
+          </div>
+          <p>הבדיקה מיועדת לתרגול בלבד. אפשר לטעות, לקרוא את ההסבר ולנסות שוב.</p>
         </div>
       </div>
     </section>
@@ -672,5 +716,7 @@ loadAnswers();
 <script src="assets/guide/yonah-1-2.js"></script>
 <script src="assets/steps.js?v=1"></script>
 <script src="assets/guide.js"></script>
+<script src="assets/learning-supports.js"></script>
+<script src="assets/lesson-tools.js"></script>
 </body>
 </html>

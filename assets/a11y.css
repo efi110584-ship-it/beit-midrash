@@ -237,3 +237,8 @@ input[type="radio"]:focus-visible, input[type="checkbox"]:focus-visible{ outline
 html.a11y-contrast .bm-send-panel{ background:#FFFFFF !important; border-color:#000000 !important; }
 html.a11y-contrast .bm-save-info, html.a11y-contrast .bm-send-note, html.a11y-contrast .bm-send-last{ color:#000000 !important; }
 @media print{ .bm-send-panel, .bm-save-info{ display:none !important; } }
+
+/* כפתורים נוחים למגע ומשוב מיקוד ברור */
+.bm-a11y-toggle{width:44px;height:44px;min-width:44px;min-height:44px;}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #1857C4;outline-offset:3px;}
+html.a11y-contrast .privacy-note,html.a11y-contrast .progress-label{color:#000!important;}

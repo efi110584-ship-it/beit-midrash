@@ -310,6 +310,22 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
   .entry-gate-card{ min-height:0; }
 }
 
+
+body{background:#E9EFF9;}
+.class-section:first-of-type > h2{color:#0B2A5B;}
+.status-line{color:#34465F;}
+.bm-student-home .alumni-link{display:none;}
+.tab[aria-selected="true"]{color:#0B2A5B;}
+@media(max-width:640px){
+  .site-header{position:relative;}
+  .header-inner{gap:.6rem;padding:.8rem 1rem;}
+  .brand{width:100%;flex-wrap:wrap;gap:.5rem;}
+  .brand-text{flex:1;min-width:0;}
+  .brand-text h1{font-size:1.2rem;line-height:1.35;}
+  .brand-sub{font-size:.85rem;}
+  .header-actions{justify-content:flex-start!important;}
+  .a11y-toggle{min-height:44px;}
+}
 </style>
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
@@ -474,7 +490,7 @@ body{ background:linear-gradient(174deg, #2F62B0 0 calc(100% - 150px), #FF7A1A c
     var site = document.getElementById("site-content");
     if(!gate || !site) return;
 
-    function showSite(){ gate.hidden = true; site.hidden = false; }
+    function showSite(){ gate.hidden = true; site.hidden = false; document.body.classList.toggle("bm-student-home", readRole() === "student"); }
     function showGate(){
       gate.hidden = false; site.hidden = true;
       var studentBtn = document.getElementById("gateStudentBtn");

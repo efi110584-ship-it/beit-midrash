@@ -215,6 +215,21 @@
 
   function init(){
     setupSkipLinks();
+    document.querySelectorAll('textarea.answer,input.answer,select.answer').forEach(function(field,index){
+      if(field.hasAttribute('aria-label') || field.hasAttribute('aria-labelledby') || (field.labels && field.labels.length)) return;
+      var block=field.closest('.question-block,.bagrut-part,.bagrut-block');
+      var question=block && block.querySelector('.q-text,.bagrut-part-label,p');
+      var row=field.closest('tr');
+      if(question){
+        if(!question.id) question.id='bm-answer-label-'+index;
+        field.setAttribute('aria-labelledby',question.id);
+      }else if(row){
+        var table=row.closest('table');
+        var heading=table && table.querySelectorAll('thead th')[field.closest('td').cellIndex];
+        var word=row.querySelector('.word-cell') || row.cells[1] || row.cells[0];
+        field.setAttribute('aria-label',(heading ? heading.textContent.trim() : 'תשובה')+' — '+word.textContent.trim());
+      }else field.setAttribute('aria-label','תשובה '+(index+1));
+    });
     each(".hint-btn", syncHintButton);
     var ownPanel = document.getElementById("a11y-panel");
     if(ownPanel) setupDisclosure(document.getElementById("a11y-toggle"), ownPanel, null);

@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="assets/guide.css">
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
+<link rel="stylesheet" href="assets/lesson-tools.css">
 </head>
 <body>
 <a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
@@ -54,6 +55,13 @@
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main id="main-content">
+  <section class="bm-lesson-start" data-lesson-kind="chinuch" aria-labelledby="lesson-goal">
+    <h2 id="lesson-goal">מה נלמד היום?</h2>
+    <p><strong>המטרה:</strong> נסביר את המצווה, את שורש המצווה ואת אחת מהלכותיה, ונבחין בין המקור להסבר שלנו.</p>
+    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
+    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
+    <div class="bm-lesson-tools"></div>
+  </section>
   <div class="grid" id="grid" data-answer-kind="suggested">
     <!-- הסבר קצר (שלב ג׳) -->
     <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
@@ -76,7 +84,7 @@
         </div>
         <div class="story-summary">
           <div class="story-label"><span aria-hidden="true">🍞</span>ואפשר על פת?</div>
-          בקידוש - מי שהפת חביבה עליו יותר יכול לקדש על הפת. בהבדלה - תמיד על יין, כי במוצאי שבת רוב האנשים רוצים יותר לשתות מלאכול (כבר אכלו סעודה גדולה בשבת).
+          בקידוש - מי שהפת חביבה עליו יותר יכול לקדש על הפת. בהבדלה - לפי הקטע הנלמד אין מבדילים על פת, אלא על יין, כי במוצאי שבת רוב האנשים רוצים יותר לשתות מלאכול (כבר אכלו סעודה גדולה בשבת). בהלכה קיימת גם אפשרות להבדיל על חמר מדינה בתנאים המתאימים (שולחן ערוך, אורח חיים רצ״ו, ב׳).
         </div>
         <div class="story-summary">
           <div class="story-label"><span aria-hidden="true">🥄</span>הלכות שמעוררות את הלב</div>
@@ -187,7 +195,7 @@
       <div class="card-body">
         <div class="pasuk-block">ואף על פי שביציאת היום לא אמרו כן אלא שחייבו להבדיל ביין, על כל פנים גם בזה צדקו - כי רוב העולם יתאוו אל השתייה במוצאי שבת יותר מן האכילה, לפי שכבר קבעו סעודה גדולה ביום לכבוד השבת.</div>
         <div class="question-block">
-          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-9">מדוע בהבדלה חייבו חכמים להבדיל דווקא על יין, ולא נתנו את האפשרות להבדיל על פת כמו בקידוש?</span></div>
+          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-9">לפי הקטע בספר החינוך, מדוע בהבדלה חייבו חכמים להבדיל על יין, ולא נתנו את האפשרות להבדיל על פת כמו בקידוש?</span></div>
           <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
         </div>
       </div>
@@ -399,7 +407,7 @@
           <li><b>המצווה:</b> "זכור את יום השבת לקדשו" - לומר דברים על גדולת השבת בכניסתה (קידוש) וביציאתה (הבדלה).</li>
           <li><b>על יין:</b> חכמים אמרו לומר אותם על כוס של רביעית.</li>
           <li><b>השורש:</b> "לפי התעוררות האדם ומעשהו, יתפעל אל הדברים" - המעשה מעורר את הלב לזכור את גדולת היום ואת חידוש העולם.</li>
-          <li><b>קידוש והבדלה:</b> בקידוש - אפשר על הפת, אם היא חביבה יותר. בהבדלה - תמיד על יין.</li>
+          <li><b>קידוש והבדלה:</b> בקידוש - אפשר על הפת, אם היא חביבה יותר. לפי הקטע הנלמד, בהבדלה אין מבדילים על פת אלא על יין. בהלכה קיימת גם אפשרות להבדיל על חמר מדינה בתנאים המתאימים.</li>
           <li><b>הלכות מעוררות:</b> כוס רביעית, הדחת הכוס, לא לטעום לפני הקידוש, לקדש במקום סעודה.</li>
           <li><b>על מי?</b> בכל מקום ובכל זמן, גם נשים. מי שקידש בדברים בלי יין - "דיעבד יצא ידי תורה".</li>
         </ul>
@@ -624,5 +632,7 @@ loadAnswers();
 <script src="assets/guide/kidush-shabbat.js"></script>
 <script src="assets/steps.js?v=1"></script>
 <script src="assets/guide.js"></script>
+<script src="assets/learning-supports.js"></script>
+<script src="assets/lesson-tools.js"></script>
 </body>
 </html>

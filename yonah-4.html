@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="assets/guide.css">
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
+<link rel="stylesheet" href="assets/lesson-tools.css">
 </head>
 <body>
 <a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
@@ -53,12 +54,19 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
-<p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
+<details class="bm-resources"><summary>סרטונים, מצגות וחומרי עזר</summary><p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
   <a class="chip-link" href="https://youtu.be/ya2TT8pozF8?si=Oxzl9xqAMplNHdT1" target="_blank" rel="noopener"><span class="chip-icon" aria-hidden="true">🎥</span>צפייה בסרטון על פרק ד׳</a>
   <a class="chip-link" href="yonah-3-4-flowchart.html"><span class="chip-icon" aria-hidden="true">🗺️</span>תרשים זרימה עם הפרשנים</a>
-</p>
+</p></details>
 
 <main id="main-content">
+  <section class="bm-lesson-start" data-lesson-kind="prophets" aria-labelledby="lesson-goal">
+    <h2 id="lesson-goal">מה נלמד היום?</h2>
+    <p><strong>המטרה:</strong> נזהה מסר מרכזי בנבואה ונבסס אותו על פסוק ועל ההסבר הנלמד בשיעור.</p>
+    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
+    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
+    <div class="bm-lesson-tools"></div>
+  </section>
   <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הסיפור -->
@@ -701,5 +709,7 @@ loadUnits();
 <script src="assets/guide/yonah-4.js"></script>
 <script src="assets/steps.js?v=1"></script>
 <script src="assets/guide.js"></script>
+<script src="assets/learning-supports.js"></script>
+<script src="assets/lesson-tools.js"></script>
 </body>
 </html>

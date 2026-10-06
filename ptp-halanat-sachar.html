@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="assets/guide.css">
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
+<link rel="stylesheet" href="assets/lesson-tools.css">
 </head>
 <body>
 <a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
@@ -43,6 +44,13 @@
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main id="main-content">
+  <section class="bm-lesson-start" data-lesson-kind="sources" aria-labelledby="lesson-goal">
+    <h2 id="lesson-goal">מה נלמד היום?</h2>
+    <p><strong>המטרה:</strong> ננסח תשובה ברורה, נביא ראיה מהמקור ונסביר כיצד היא תומכת בתשובה.</p>
+    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
+    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
+    <div class="bm-lesson-tools"></div>
+  </section>
   <div class="grid" id="grid">
     <!-- תקציר המצווה - לפני הפסוקים, כדי שהתלמיד ידע על מה מדובר -->
     <section class="card mitzva-brief" data-stage="explain" style="grid-column: 1 / -1;">
@@ -411,5 +419,7 @@ loadAnswers();
 <script src="assets/guide/ptp-halanat-sachar.js"></script>
 <script src="assets/steps.js?v=1"></script>
 <script src="assets/guide.js"></script>
+<script src="assets/learning-supports.js"></script>
+<script src="assets/lesson-tools.js"></script>
 </body>
 </html>

@@ -84,6 +84,7 @@
 <link rel="stylesheet" href="assets/guide.css">
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
+<link rel="stylesheet" href="assets/lesson-tools.css">
 </head>
 <body>
 <a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
@@ -124,13 +125,20 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
-<p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
+<details class="bm-resources"><summary>סרטונים, מצגות וחומרי עזר</summary><p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
   <a class="chip-link" href="nechemia-3-12-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
   <a class="chip-link" href="nechemia-3-12-text.html"><span class="chip-icon" aria-hidden="true">🔍</span>קריאה אינטראקטיבית בפסוקים</a>
   <a class="chip-link" href="nechemia-3-12-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
-</p>
+</p></details>
 
 <main id="main-content">
+  <section class="bm-lesson-start" data-lesson-kind="history" aria-labelledby="lesson-goal">
+    <h2 id="lesson-goal">מה נלמד היום?</h2>
+    <p><strong>המטרה:</strong> נזהה את האתגר המתואר בפרק, נסביר את ההתמודדות עמו ונבסס את ההסבר על פסוק.</p>
+    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
+    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
+    <div class="bm-lesson-tools"></div>
+  </section>
   <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
@@ -233,7 +241,7 @@
     <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
       <div class="qb-root">
         <span class="qb-root-icon" aria-hidden="true">😏</span>
-        <div class="qb-root-label">נחמיה ד', א'-ו'</div>
+        <div class="qb-root-label">נחמיה ג׳, ל״ג–ל״ח</div>
         <div class="qb-root-pasuk">
           <div class="pasuk-gloss">סנבלט שומע על בניית החומה, כועס ולועג ליהודים</div>
           <div class="pasuk-line"><b>א':</b> וַיְהִי כַּאֲשֶׁר שָׁמַע סַנְבַלַּט כִּי אֲנַחְנוּ בוֹנִים אֶת הַחוֹמָה, וַיִּחַר לוֹ וַיִּכְעַס הַרְבֵּה, וַיַּלְעֵג עַל הַיְּהוּדִים.</div>
@@ -288,7 +296,7 @@
     <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
       <div class="qb-root">
         <span class="qb-root-icon" aria-hidden="true">⚔️</span>
-        <div class="qb-root-label">נחמיה ד', ז'-כ"ג</div>
+        <div class="qb-root-label">נחמיה ד׳, א׳–י״ז</div>
         <div class="qb-root-pasuk">
           <div class="pasuk-line"><b>ח':</b> וַיִּקְשְׁרוּ כֻלָּם יַחְדָּו לָבוֹא לְהִלָּחֵם בִּירוּשָׁלָם, וְלַעֲשׂוֹת לוֹ תּוֹעָה.</div>
           <div class="pasuk-line"><b>י"א:</b> וַיֹּאמְרוּ צָרֵינוּ: לֹא יֵדְעוּ וְלֹא יִרְאוּ עַד אֲשֶׁר נָבוֹא אֶל תּוֹכָם וַהֲרַגְנוּם, וְהִשְׁבַּתְנוּ אֶת הַמְּלָאכָה.</div>
@@ -559,5 +567,7 @@ loadAnswers();
 <script src="assets/guide.js"></script>
 <script src="assets/direct-submit.js"></script>
 <script src="assets/send-to-teacher.js?v=1"></script>
+<script src="assets/learning-supports.js"></script>
+<script src="assets/lesson-tools.js"></script>
 </body>
 </html>

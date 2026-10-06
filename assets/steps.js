@@ -666,7 +666,7 @@
         t.pill.classList.toggle("is-done", done);
         t.pill.classList.toggle("has-flag", flagged);
         if(idx === current && view !== "all") t.pill.setAttribute("aria-current", "step"); else t.pill.removeAttribute("aria-current");
-        t.pill.setAttribute("aria-label", "משימה " + (idx + 1) + ": " + (t.stage ? STAGE[t.stage].name + " - " : "") + t.title + (done ? " - הושלמה" : "") + (flagged ? " - יש בה שאלות לחזרה" : ""));
+        t.pill.setAttribute("aria-label", "משימה " + (idx + 1) + ": " + (t.stage ? STAGE[t.stage].name + " - " : "") + t.title + (done ? (t.need ? " - מולאה" : " - נצפתה") : "") + (flagged ? " - יש בה שאלות לחזרה" : ""));
         t.segFill.style.width = (t.need ? Math.round(taskDone(t) / t.need * 100) : (done ? 100 : 0)) + "%";
       });
       if(current === tasks.length && view !== "all") sumPill.setAttribute("aria-current", "step"); else sumPill.removeAttribute("aria-current");
@@ -680,7 +680,7 @@
         var here = view !== "all" && p.key === stageHere;
         p.btn.parentElement.classList.toggle("is-done", done);
         if(here) p.btn.setAttribute("aria-current", "step"); else p.btn.removeAttribute("aria-current");
-        p.btn.setAttribute("aria-label", "שלב במסלול: " + p.name + (done ? " - הושלם" : "") + (here ? " - אתם כאן" : ""));
+        p.btn.setAttribute("aria-label", "שלב במסלול: " + p.name + (done ? (p.key === "explain" || p.key === "example" ? " - נצפה" : " - מולא") : "") + (here ? " - אתם כאן" : ""));
       });
 
       // הרבה משימות - מציגים רק את הראשונה, האחרונה ואלה שליד הנוכחית, ולא "קיר" של מספרים
@@ -702,7 +702,7 @@
         progLabel.textContent = "עניתם על " + done + " מתוך " + need + " שאלות חובה";
         track.setAttribute("aria-valuetext", progLabel.textContent);
       } else {
-        progLabel.textContent = "הושלמו " + tasksDone + " מתוך " + tasks.length + " משימות";
+        progLabel.textContent = "נצפו או מולאו " + tasksDone + " מתוך " + tasks.length + " משימות";
         track.setAttribute("aria-valuetext", progLabel.textContent + ", " + pct + "% משאלות החובה");
       }
 
@@ -776,7 +776,7 @@
         stats.appendChild(box);
       }
       stat("הושלמו", totalDone() + " מתוך " + totalNeed() + " שאלות חובה", "is-done");
-      if(!single) stat("משימות שהושלמו", tasksDone + " מתוך " + tasks.length);
+      if(!single) stat("משימות שנצפו או מולאו", tasksDone + " מתוך " + tasks.length);
       if(hasSelfCheck || hasMc){
         stat("נבדקו", String(checked));
         stat("נכונות", String(ok), "is-ok");

@@ -26,6 +26,7 @@
 </style>
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
+<link rel="stylesheet" href="assets/lesson-tools.css?v=20261006-mobile">
 </head>
 <body>
 <a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
@@ -69,6 +70,13 @@
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main id="main-content">
+  <section class="bm-lesson-start" data-lesson-kind="grammar" aria-labelledby="lesson-goal">
+    <h2 id="lesson-goal">מה נלמד היום?</h2>
+    <p><strong>המטרה:</strong> נבחין בין שורש ומשקל לבין בסיס וצורן, ונסביר כיצד המילה נוצרה.</p>
+    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
+    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
+    <div class="bm-lesson-tools"></div>
+  </section>
   <div class="grid" id="grid">
 
     <section class="card" style="grid-column: 1 / -1;">
@@ -180,7 +188,7 @@
         <h2 class="card-title">סיימתם? בדקו את התשובות שלכם</h2>
       </div>
       <div class="card-body">
-        <p style="font-size:.88rem; color:var(--ink-soft); margin:0 0 .6rem;">הכפתור נפתח רק אחרי שממלאים את כל השדות בטבלה ואת כל שאלות הבחירה למעלה. בלחיצה, כל תשובה תסומן ב-✓ (נכון) או ב-✗ (לא נכון).</p>
+        <p style="font-size:.88rem; color:var(--ink-soft); margin:0 0 .6rem;">אפשר לעבוד במקבצים קצרים ולבדוק גם לפני שסיימתם את כל הדף. רק התשובות שמילאתם ייבדקו. בלחיצה, כל תשובה שמילאתם תסומן ב-✓ (נכון) או ב-✗ (לא נכון).</p>
         <p style="text-align:center;">
           <button class="btn primary" type="button" id="checkAnswersBtn" disabled>✅ בדקו תשובות</button>
         </p>
@@ -215,7 +223,7 @@
         <h2 class="card-title">מה למדנו</h2>
       </div>
       <div class="card-body">
-        <p>לפני שמחפשים משקל, בודקים איך המילה נוצרה: <b>שורש+משקל</b> (שלוש אותיות שורש שהוכנסו לתוך תבנית, כמו נַגָּר) או <b>בסיס+צורן</b> (מילה קיימת שקיבלה תוספת, כמו מוּזִיקַאי מ"מוזיקה"). בדיקת האימות: אם מסירים את החלק החשוד ונשארת מילה קיימת - זה בסיס+צורן. אם נשארות רק אותיות בלי משמעות עצמאית - זה שורש+משקל. מילים שמתחילות באות שנראית כמו תחילית (כמו מ') לא תמיד הן בסיס+צורן - כמו שראינו ב"מגדל".</p>
+        <p>לפני שמחפשים משקל, בודקים איך המילה נוצרה: <b>שורש+משקל</b> (אותיות שורש שהוכנסו לתבנית, כמו נַגָּר) או <b>בסיס+צורן</b> (בסיס שמני שקיבל צורן בעל משמעות, כמו מוּזִיקַאי מ"מוזיקה"). הסרת החלק החשוד היא רמז לבדיקה, ולא הוכחה בפני עצמה: צריך לזהות גם את הבסיס וגם את משמעות הצורן. למשל, גָּדַל היא מילה קיימת, אך מִגְדָּל נוצר מן השורש ג־ד־ל במשקל מִקְטָל; המ״ם היא חלק מן המשקל.</p>
         <p style="display:flex; gap:.6rem; flex-wrap:wrap;"><a class="btn primary" href="ivrit-mishkalim-7.html">➡️ לשיעור הבא</a><a class="btn" href="ivrit-mishkalim-hub.html">מפת היחידה</a></p>
       </div>
     </section>
@@ -459,5 +467,7 @@ loadAnswers();
   });
 })();
 </script>
+<script src="assets/learning-supports.js"></script>
+<script src="assets/lesson-tools.js"></script>
 </body>
 </html>

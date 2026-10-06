@@ -108,6 +108,7 @@
 <link rel="stylesheet" href="assets/guide.css">
 <link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
+<link rel="stylesheet" href="assets/lesson-tools.css">
 </head>
 <body>
 <a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
@@ -148,13 +149,20 @@
 </div>
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
-<p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
+<details class="bm-resources"><summary>סרטונים, מצגות וחומרי עזר</summary><p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
   <a class="chip-link" href="bereshit-15-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
   <a class="chip-link" href="bereshit-15-text.html"><span class="chip-icon" aria-hidden="true">🔍</span>קריאה אינטראקטיבית בפסוקים</a>
   <a class="chip-link" href="bereshit-15-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
-</p>
+</p></details>
 
 <main id="main-content">
+  <section class="bm-lesson-start" data-lesson-kind="torah" aria-labelledby="lesson-goal">
+    <h2 id="lesson-goal">מה נלמד היום?</h2>
+    <p><strong>המטרה:</strong> נסביר רעיון מרכזי בפרק בעזרת פסוק ופירוש אחד, ונבחין בין הפסוק לבין הסבר הפרשן.</p>
+    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
+    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
+    <div class="bm-lesson-tools"></div>
+  </section>
   <div class="grid" id="grid" data-answer-kind="suggested">
 
     <!-- תקציר הפרק -->
@@ -166,7 +174,7 @@
       <div class="card-body">
         <div class="story-summary">
           <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
-          לאחר הפרידה מלוט ומלחמת המלכים (סוף פרק י"ג-י"ד), ה' נגלה אל אברם במחזה ומבטיח לו שכר גדול. אברם מתלונן שאין לו יורש, ואליעזר עבדו עתיד לרשת אותו - אך ה' מבטיח לו שדווקא בן שייצא ממעיו יירש אותו, ומראה לו את ריבוי הכוכבים כסמל לריבוי זרעו. אברם מאמין בלי לשאול שום אות. כשה' ממשיך ומבטיח לו גם את הארץ, אברם כן מבקש אות: "במה אדע כי אירשנה". ה' מצווה עליו טקס ברית מיוחד - בקיעת בהמות והנחתן זו מול זו, כשהציפורים דווקא לא נבקעות. עם רדת החשיכה נופלת על אברם תרדמה, ובה מתגלה לו חזון קשה: זרעו ישועבד בארץ נכריה 400 שנה, אך בסופו של דבר יֵצא ברכוש גדול. לבסוף עוברים "תנור עשן ולפיד אש" בין הבתרים, וה' כורת עם אברם ברית רשמית - הבטחת הארץ מנהר מצרים ועד נהר פרת, ארץ עשרת העמים.
+          לאחר הפרידה מלוט ומלחמת המלכים (סוף פרק י"ג-י"ד), ה' נגלה אל אברם במחזה ומבטיח לו שכר גדול. אברם מתלונן שאין לו יורש, ואליעזר עבדו עתיד לרשת אותו - אך ה' מבטיח לו שדווקא בן שייצא ממעיו יירש אותו, ומראה לו את ריבוי הכוכבים כסמל לריבוי זרעו. אברם מאמין בלי לשאול שום אות. כשה' ממשיך ומבטיח לו גם את הארץ, אברם כן מבקש אות: "במה אדע כי אירשנה". ה' מצווה עליו טקס ברית מיוחד - בקיעת בהמות והנחתן זו מול זו, כשהציפורים דווקא לא נבקעות. עם רדת החשיכה נופלת על אברם תרדמה, ובה מתגלה לו חזון קשה: זרעו יהיה גר בארץ לא לו ובהמשך יסבול שעבוד ועינוי. תקופת הגרות נמשכת 400 שנה לפי רש״י, מלידת יצחק עד יציאת מצרים; השהייה במצרים נמשכה 210 שנה, ולא כל התקופה הייתה שעבוד, אך בסופו של דבר יֵצא ברכוש גדול. לבסוף עוברים "תנור עשן ולפיד אש" בין הבתרים, וה' כורת עם אברם ברית רשמית - הבטחת הארץ מנהר מצרים ועד נהר פרת, ארץ עשרת העמים.
         </div>
       </div>
     </section>
@@ -451,7 +459,7 @@
         <div class="qb-root-pasuk">
           <div class="pasuk-gloss">תרדמה ואימה חשוכה גדולה נופלות על אברם</div>
           <div class="pasuk-line"><b>יב:</b> וַיְהִי הַשֶּׁמֶשׁ לָבוֹא וְתַרְדֵּמָה נָפְלָה עַל אַבְרָם, וְהִנֵּה אֵימָה חֲשֵׁכָה גְדֹלָה נֹפֶלֶת עָלָיו.</div>
-          <div class="pasuk-gloss">ה' מבשר על גלות ושעבוד זרעו של אברם 400 שנה בארץ נכריה</div>
+          <div class="pasuk-gloss">ה' מבשר על גרות, שעבוד ועינוי; לפי רש״י, 400 שנות הגרות נמנות מלידת יצחק</div>
           <div class="pasuk-line"><b>יג:</b> וַיֹּאמֶר לְאַבְרָם: יָדֹעַ תֵּדַע כִּי גֵר יִהְיֶה זַרְעֲךָ בְּאֶרֶץ לֹא לָהֶם, וַעֲבָדוּם וְעִנּוּ אֹתָם אַרְבַּע מֵאוֹת שָׁנָה.</div>
           <div class="pasuk-gloss">ה' מבטיח לדון את האומה המשעבדת, ושזרעו של אברם ייצא ברכוש גדול</div>
           <div class="pasuk-line"><b>יד:</b> וְגַם אֶת הַגּוֹי אֲשֶׁר יַעֲבֹדוּ דָּן אָנֹכִי, וְאַחֲרֵי כֵן יֵצְאוּ בִּרְכֻשׁ גָּדוֹל.</div>
@@ -461,7 +469,7 @@
           <div class="pasuk-line"><b>טז:</b> וְדוֹר רְבִיעִי יָשׁוּבוּ הֵנָּה, כִּי לֹא שָׁלֵם עֲוֹן הָאֱמֹרִי עַד הֵנָּה.</div>
         </div>
         <div class="mini-timeline" role="img" aria-label="שלבי חזון הגלות והגאולה">
-          <div class="step fail"><span class="step-icon" aria-hidden="true">😢</span>גלות ושעבוד<br><small>400 שנה</small></div>
+          <div class="step fail"><span class="step-icon" aria-hidden="true">😢</span>גרות, שעבוד ועינוי<br><small>400 שנות גרות לפי רש״י</small></div>
           <div class="arrow" aria-hidden="true">←</div>
           <div class="step"><span class="step-icon" aria-hidden="true">⚖️</span>עונש לאומה המשעבדת</div>
           <div class="arrow" aria-hidden="true">←</div>
@@ -484,7 +492,7 @@
             <div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-9">מהם עיקרי הדברים שה' מודיע לאברם על עתיד זרעו בפסוקים י"ג-י"ד?</span></div>
             <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
             <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> זרעו יהיה גר בארץ זרה, ישועבד ויעונה 400 שנה - אך ה' יעניש את המשעבד, ובדור הרביעי ישובו לארץ עם רכוש גדול.</div>
+            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> זרעו יהיה גר בארץ לא לו ויסבול שעבוד ועינוי. לפי רש״י, 400 השנים נמנות מלידת יצחק עד יציאת מצרים, והשהייה במצרים נמשכה 210 שנה. ה' יעניש את המשעבד, ובדור הרביעי ישובו לארץ עם רכוש גדול.</div>
           </div>
         </div>
 
@@ -529,7 +537,7 @@
               <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">ציפורים שלמות (תור וגוזל)</td><td style="padding:.5rem .6rem;">לא נבתרו (פסוק י')</td><td style="padding:.5rem .6rem;">מסמלות את עם ישראל - יתקיים לעולם</td></tr>
               <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">העיט היורד</td><td style="padding:.5rem .6rem;">אברם מבריח אותו מעל הפגרים (פסוק י"א)</td><td style="padding:.5rem .6rem;">דחיית מבקשי כליית ישראל לאורך הדורות</td></tr>
               <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">תרדמה ואימה חשוכה</td><td style="padding:.5rem .6rem;">נופלות על אברם עם רדת החשכה (פסוק י"ב)</td><td style="padding:.5rem .6rem;">רמז לצרות וחשכת הגלויות העתידיות</td></tr>
-              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">גזרת השעבוד</td><td style="padding:.5rem .6rem;">זרעו יגור בארץ נכריה ויעונה 400 שנה (פסוק י"ג)</td><td style="padding:.5rem .6rem;">גלות קשה, אך שלב הכרחי בדרך לקיום ההבטחה</td></tr>
+              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">גזרת השעבוד</td><td style="padding:.5rem .6rem;">זרעו יהיה גר בארץ לא לו ויסבול שעבוד ועינוי (פסוק י"ג); לפי רש״י, 400 השנים הן תקופת הגרות מלידת יצחק</td><td style="padding:.5rem .6rem;">גלות קשה, אך שלב הכרחי בדרך לקיום ההבטחה</td></tr>
               <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">עונש למשעבד ורכוש גדול</td><td style="padding:.5rem .6rem;">ה' דן את האומה המשעבדת; זרעו יצא ברכוש רב (פסוק י"ד)</td><td style="padding:.5rem .6rem;">הגלות מסתיימת בצדק ובשגשוג, לא בריקנות</td></tr>
               <tr><td style="padding:.5rem .6rem; font-weight:700;">שיבה בדור הרביעי</td><td style="padding:.5rem .6rem;">"כִּי לֹא שָׁלֵם עֲוֹן הָאֱמֹרִי עַד הֵנָּה" (פסוק ט"ז)</td><td style="padding:.5rem .6rem;">מועד השיבה תלוי גם בחטאי הכנענים, לא רק בסבל ישראל</td></tr>
             </tbody>
@@ -648,7 +656,7 @@
           <li><b>הבטחת הזרע:</b> ה׳ מראה לאברם את הכוכבים: "כֹּה יִהְיֶה זַרְעֶךָ". אברם מאמין בלי לבקש אות.</li>
           <li><b>"במה אדע":</b> על הארץ אברם כן מבקש אות. לפי הרמב״ן, הוא חשש שחטא ימנע את ירושת הארץ.</li>
           <li><b>הטקס:</b> אברם ביתר את הבהמות, אבל "וְאֶת הַצִּפֹּר לֹא בָתָר". לפי רש״י זה רמז שישראל "קיימין לעולם".</li>
-          <li><b>גזירת הגלות:</b> זרעו של אברם יהיה גר ומשועבד 400 שנה, ואחר כך "יֵצְאוּ בִּרְכֻשׁ גָּדוֹל".</li>
+          <li><b>גזירת הגלות:</b> זרעו של אברם יהיה גר בארץ לא לו ויסבול שעבוד ועינוי. לפי רש״י, 400 השנים הן תקופת הגרות מלידת יצחק, ולא 400 שנות שעבוד במצרים, ואחר כך "יֵצְאוּ בִּרְכֻשׁ גָּדוֹל".</li>
           <li><b>כריתת הברית:</b> "תַנּוּר עָשָׁן וְלַפִּיד אֵשׁ" עוברים בין הבתרים, וה׳ מבטיח את הארץ "מִנְּהַר מִצְרַיִם עַד הַנָּהָר הַגָּדֹל נְהַר פְּרָת".</li>
         </ul>
       </div>
@@ -933,5 +941,7 @@ loadUnits();
 <script src="assets/guide/bereshit-15.js"></script>
 <script src="assets/steps.js?v=1"></script>
 <script src="assets/guide.js"></script>
+<script src="assets/learning-supports.js"></script>
+<script src="assets/lesson-tools.js"></script>
 </body>
 </html>

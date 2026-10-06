@@ -65,9 +65,13 @@
   function collect(){
     var items = [], total = 0;
     document.querySelectorAll('.answer').forEach(function(f){
-      if(f.tagName !== 'TEXTAREA' && f.tagName !== 'INPUT') return;
+      if(!/^(TEXTAREA|INPUT|SELECT)$/.test(f.tagName)) return;
+      if(f.matches('input[type=radio], input[type=checkbox]')) return;
       total++;
       var v = clean(f.value) ? String(f.value).trim() : '';
+      if(f.tagName === 'SELECT' && v){
+        v = Array.prototype.filter.call(f.options, function(o){ return o.selected && !o.disabled; }).map(function(o){ return clean(o.textContent); }).join(', ');
+      }
       if(v) items.push({ label: labelOf(f), value: v });
     });
     document.querySelectorAll('.mc-group').forEach(function(g){
@@ -138,7 +142,7 @@
       var ul = el('ul', 'bm-send-list');
       ul.appendChild(el('li', null, 'שם: ' + clean(nameEl.value)));
       ul.appendChild(el('li', null, 'כיתה: ' + (classEl && clean(classEl.value) ? clean(classEl.value) : 'לא כתבתם כיתה')));
-      ul.appendChild(el('li', null, (data.items.length === 1 ? 'תשובה אחת' : data.items.length + ' תשובות') + ' מתוך ' + data.total + ' שאלות בדף' + (data.items.length < data.total ? ' (שאלות בלי תשובה לא יישלחו)' : '')));
+      ul.appendChild(el('li', null, (data.items.length === 1 ? 'תשובה אחת' : data.items.length + ' תשובות') + ' מתוך ' + data.total + ' סעיפי תשובה בדף' + (data.items.length < data.total ? ' (שאלות בלי תשובה לא יישלחו)' : '')));
       panel.appendChild(ul);
       panel.appendChild(el('p', 'bm-send-note', 'רק זה נשלח - שום דבר אחר מהמחשב. אי אפשר לבטל שליחה, אבל אפשר לשלוח שוב אחר כך, והגרסה החדשה תגיע למורה.'));
       var a = actions();
