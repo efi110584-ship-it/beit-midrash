@@ -11,6 +11,10 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
+  /* שאלות בגרות שחולקות אותו מקור: המקור מופיע פעם אחת, והשאלות מתפרסות לרוחב זו לצד זו */
+  .bg-row{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+  .bg-row .question-block{ flex:1 1 300px; min-width:0; }
+
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
@@ -79,20 +83,31 @@
     border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
   }
 
+  /* דף רחב: עמודה אחת יותר רחבה, כדי שכל קובית תוכל להתפרס לרוחב (מקור מול שאלה) */
+  main{ max-width:1320px; }
+
   .qb-branches{
-    display:flex; flex-wrap:wrap; gap:1.1rem;
+    display:flex; flex-direction:column; gap:1.3rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
     content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
   }
   .qb-card{
-    flex:1 1 260px;
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
-    min-width:0;
+    padding:1.2rem 1.4rem; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.6rem; align-items:start;
   }
-  .qb-card > *{ width:100%; max-width:640px; }
+  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - עם קו מפריד ביניהם */
+  .qb-source{ display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+  .qb-question{
+    display:flex; flex-direction:column; gap:.5rem; min-width:0;
+    border-right:2px solid var(--acc-soft); padding-right:1.5rem;
+  }
+  @media (max-width:760px){
+    .qb-card{ grid-template-columns:1fr; gap:1rem; }
+    .qb-question{ border-right:none; padding-right:0; border-top:2px solid var(--acc-soft); padding-top:.9rem; }
+  }
   .qb-meforesh{
     font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
@@ -205,46 +220,46 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "הַדָּבָר אֲשֶׁר חָזָה יְשַׁעְיָהוּ בֶּן אָמוֹץ עַל יְהוּדָה וִירוּשָׁלִָם" (פסוק א') לעומת כותרת פרק א'</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מה משותף בין כותרת פרק ב' לכותרת פרק א', ובמה שונה תוכן הפרק שאחריה מתוכן פרק א'?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הכותרת דומה לפרק א', אך בעוד שם התוכחה על החטא, כאן חזון תיקון ונחמה - עתיד מפואר של הר בית ה' וירושלים.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "הַדָּבָר אֲשֶׁר חָזָה יְשַׁעְיָהוּ בֶּן אָמוֹץ עַל יְהוּדָה וִירוּשָׁלִָם" (פסוק א') לעומת כותרת פרק א'</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מה משותף בין כותרת פרק ב' לכותרת פרק א', ובמה שונה תוכן הפרק שאחריה מתוכן פרק א'?</span></div>
+<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הכותרת דומה לפרק א', אך בעוד שם התוכחה על החטא, כאן חזון תיקון ונחמה - עתיד מפואר של הר בית ה' וירושלים.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְהָיָה בְּאַחֲרִית הַיָּמִים" (פסוק ב')</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רד"ק, פסוק ב'</span>
+
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְהָיָה בְּאַחֲרִית הַיָּמִים" (פסוק ב')</p><div class="qb-meforesh">
+<span class="qb-src">רד"ק, פסוק ב'</span>
             כל מקום שנאמר "באחרית הימים" - הוא ימות המשיח.
-          </div>
-          <div class="qb-meforesh" style="margin-top:.6rem;">
-            <span class="qb-src">דעת מקרא</span>
+          </div><div class="qb-meforesh" style="margin-top:.6rem;">
+<span class="qb-src">דעת מקרא</span>
             בתנ"ך מופיע ביטוי זה לעיתים במשמעות של עתיד קרוב יותר, במשמעות "הימים העתידיים" (ולאו דווקא ימות המשיח דווקא).
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">לפי הרד"ק, מהי המשמעות של הביטוי "אחרית הימים"? ובאיזו משמעות נוספת, שונה מזו של הרד"ק, ניתן להבין ביטוי זה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי הרד"ק, "אחרית הימים" הם ימות המשיח - עתיד רחוק; ניתן גם להבינו כעתיד קרוב יותר, בלי הכרח לתקופה משיחית.</div>
-          </div>
-        </div>
+          </div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">לפי הרד"ק, מהי המשמעות של הביטוי "אחרית הימים"? ובאיזו משמעות נוספת, שונה מזו של הרד"ק, ניתן להבין ביטוי זה?</span></div>
+<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי הרד"ק, "אחרית הימים" הם ימות המשיח - עתיד רחוק; ניתן גם להבינו כעתיד קרוב יותר, בלי הכרח לתקופה משיחית.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְנָהֲרוּ אֵלָיו כָּל הַגּוֹיִם" (פסוק ב') לעומת "לְכוּ וְנַעֲלֶה אֶל הַר ה'" (פסוק ג')</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">מלבי"ם, פסוק ב' - "וְנָהֲרוּ"</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְנָהֲרוּ אֵלָיו כָּל הַגּוֹיִם" (פסוק ב') לעומת "לְכוּ וְנַעֲלֶה אֶל הַר ה'" (פסוק ג')</p><div class="qb-meforesh">
+<span class="qb-src">מלבי"ם, פסוק ב' - "וְנָהֲרוּ"</span>
             ימשכו אליו כנהר המושך והולך אל הים - כלומר, ימשכו אל הר בית ה' מרוב חשקם וכיסופם אליו.
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מה מבקשים הגויים למצוא בהר בית ה' על פי פסוק ג', ומדוע דווקא מירושלים - ולא ממקום אחר - עתידה לצאת התורה שתדריך אותם?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הגויים מבקשים ללמוד מדרכי ה' - הדרכה מוסרית. ירושלים היא מקור התורה כי בה שוכן בית המקדש, מקום נוכחות ה'.</div>
-          </div>
-        </div>
+          </div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מה מבקשים הגויים למצוא בהר בית ה' על פי פסוק ג', ומדוע דווקא מירושלים - ולא ממקום אחר - עתידה לצאת התורה שתדריך אותם?</span></div>
+<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הגויים מבקשים ללמוד מדרכי ה' - הדרכה מוסרית. ירושלים היא מקור התורה כי בה שוכן בית המקדש, מקום נוכחות ה'.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -270,40 +285,40 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְשָׁפַט בֵּין הַגּוֹיִם וְהוֹכִיחַ לְעַמִּים רַבִּים" (פסוק ד')</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רד"ק, פסוק ד'</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְשָׁפַט בֵּין הַגּוֹיִם וְהוֹכִיחַ לְעַמִּים רַבִּים" (פסוק ד')</p><div class="qb-meforesh">
+<span class="qb-src">רד"ק, פסוק ד'</span>
             אמר: כי אם יהיה בין גוי לגוי מלחמה או תביעות, יבואו למשפט לפני מלך המשיח, שיהא אדון כל הארץ. ומפני זה לא תהיה מלחמה בין עם לעם, כי הוא ישלים ביניהם ולא יצטרכו לכלי מלחמה, וכתתו אותם לעשות מהם כלי לעבודת האדמה.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yeshayahu2-mp-1">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">על פי הרד"ק, מיהו זה שישפוט בין הגויים, וכיצד בדיוק תמנע השפיטה הזאת מלחמות בין העמים?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי הרד"ק, השופט הוא מלך המשיח - עמים יבואו לפניו למשפט במקום למלחמה, ולכן לא יזדקקו לכלי מלחמה.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="yeshayahu2-mp-1" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">על פי הרד"ק, מיהו זה שישפוט בין הגויים, וכיצד בדיוק תמנע השפיטה הזאת מלחמות בין העמים?</span></div>
+<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי הרד"ק, השופט הוא מלך המשיח - עמים יבואו לפניו למשפט במקום למלחמה, ולכן לא יזדקקו לכלי מלחמה.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְכִתְּתוּ חַרְבוֹתָם לְאִתִּים וַחֲנִיתוֹתֵיהֶם לְמַזְמֵרוֹת" (פסוק ד')</p>
-          <div class="flowchart" role="img" aria-label="שינוי ייעודם של כלי המלחמה לכלי עבודת אדמה">
-            <div class="flow-step">
-              <span class="flow-node">1</span>
-              <div class="flow-card"><span class="flow-title"><span class="flow-icon" aria-hidden="true">⚔️</span>חֶרֶב וַחֲנִית - כלי מלחמה</span></div>
-            </div>
-            <div class="flow-arrow" aria-hidden="true">↓ כתתו</div>
-            <div class="flow-step">
-              <span class="flow-node">2</span>
-              <div class="flow-card"><span class="flow-title"><span class="flow-icon" aria-hidden="true">🌾</span>אֵת וּמַזְמֵרָה - כלי עבודת אדמה</span></div>
-            </div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">איזה שינוי מעשי, לפי חלקי הפסוק, יעברו כלי הנשק בעתיד - ומה מסמל שינוי זה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> החרב תהפוך לאת והחנית למזמרה - כלי מלחמה לכלי עבודת אדמה, סמל למעבר לעולם של שלום ויצירה.</div>
-          </div>
-        </div>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְכִתְּתוּ חַרְבוֹתָם לְאִתִּים וַחֲנִיתוֹתֵיהֶם לְמַזְמֵרוֹת" (פסוק ד')</p><div aria-label="שינוי ייעודם של כלי המלחמה לכלי עבודת אדמה" class="flowchart" role="img">
+<div class="flow-step">
+<span class="flow-node">1</span>
+<div class="flow-card"><span class="flow-title"><span aria-hidden="true" class="flow-icon">⚔️</span>חֶרֶב וַחֲנִית - כלי מלחמה</span></div>
+</div>
+<div aria-hidden="true" class="flow-arrow">↓ כתתו</div>
+<div class="flow-step">
+<span class="flow-node">2</span>
+<div class="flow-card"><span class="flow-title"><span aria-hidden="true" class="flow-icon">🌾</span>אֵת וּמַזְמֵרָה - כלי עבודת אדמה</span></div>
+</div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">איזה שינוי מעשי, לפי חלקי הפסוק, יעברו כלי הנשק בעתיד - ומה מסמל שינוי זה?</span></div>
+<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> החרב תהפוך לאת והחנית למזמרה - כלי מלחמה לכלי עבודת אדמה, סמל למעבר לעולם של שלום ויצירה.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -340,27 +355,36 @@
       <div class="card-body">
         <div class="exam-tag">📅 תשפ״ד (2024), קיץ · שאלה 6</div>
         <div class="pasuk-block mini">עיינו בחזון אחרית הימים שבפרק ב', פסוקים א'–ד'.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">"וְכִתְּתוּ חַרְבוֹתָם לְאִתִּים וַחֲנִיתוֹתֵיהֶם לְמַזְמֵרוֹת" (פסוק ד').<br>הסבירו את הפעולה המתוארת בפסוק, וכתבו מי הם אלה שיעשו פעולה זו.</span></div>
-          <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">על פי פסוקים ב'–ד', הסבירו מה יביא למימוש הפעולה המתוארת בנבואה "וְכִתְּתוּ חַרְבוֹתָם לְאִתִּים וַחֲנִיתוֹתֵיהֶם לְמַזְמֵרוֹת" (פסוק ד').<br>(8 נקודות)</span></div>
-          <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְכִתְּתוּ חַרְבוֹתָם לְאִתִּים וַחֲנִיתוֹתֵיהֶם לְמַזְמֵרוֹת" (פסוק ד')</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">"וְכִתְּתוּ חַרְבוֹתָם לְאִתִּים וַחֲנִיתוֹתֵיהֶם לְמַזְמֵרוֹת" (פסוק ד').<br>הסבירו את הפעולה המתוארת בפסוק, וכתבו מי הם אלה שיעשו פעולה זו.</span></div>
+            <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְשָׁפַט בֵּין הַגּוֹיִם וְהוֹכִיחַ לְעַמִּים רַבִּים" (פסוק ד') - מה קורה לפני "וכיתתו"?</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">על פי פסוקים ב'–ד', הסבירו מה יביא למימוש הפעולה המתוארת בנבואה "וְכִתְּתוּ חַרְבוֹתָם לְאִתִּים וַחֲנִיתוֹתֵיהֶם לְמַזְמֵרוֹת" (פסוק ד').<br>(8 נקודות)</span></div>
+            <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
         <div class="exam-tag">📅 תשפ״ב (2022), קיץ · שאלה 6</div>
         <div class="pasuk-block mini">עיינו בפרק ב', פסוקים א'–ד'.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">על פי פסוקים אלה, מה יהיה מעמדה של ירושלים באחרית הימים?</span></div>
-          <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">רד"ק (לפסוק ד'): "אמר כי אם יהיה בין גוי לגוי מלחמה או תביעות ביניהם, יבואו למשפט לפני מלך המשיח שיהא אדון כל העמים, והוא יוכיח להם ויאמר למי שימצא בו העוול: ישר המעוות [תקן את העוול] לבעל דינך. ומפני זה לא תהיה מלחמה בין עם לעם, כי הוא ישלים ביניהם, ולא יצטרכו לכלי מלחמה, וכתתו אותם לעשות מהם כלי לעבודת האדמה".<br>על פי רד"ק, הסבירו את הקשר בין תחילת הפסוק "וְשָׁפַט בֵּין הַגּוֹיִם וְהוֹכִיחַ לְעַמִּים רַבִּים" ובין ההמשך שלו "לֹא יִשָּׂא גוֹי אֶל גּוֹי חֶרֶב".<br>(6 נקודות)</span></div>
-          <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ג</span><span class="q-text" id="bg-lbl-5">עיינו בפרק ב', פסוקים א'–ה'.<br>ר' יוסף קרא (לפרק ב', פסוק ה'): "וכך אמר להם נביא לישראל: האומות, שאינן יוצאי ירך יעקב, עתידין להיות מואסין בהבליהם, ואומרים זה לזה 'לכו ונעלה אל הר ה' אל בית אלקי יעקב' (פסוק ג'); אתם בני יעקב, שאתם 'בית יעקב' (פסוק ה'), על אחת כמה וכמה שהדין עליכם להתקין עצמכם לשוב מדרכיכם הרעים, ו'לכו ונלכה באור ה'' (פסוק ה')".<br>הסבירו את הקשר בין קריאת הנביא לבית יעקב בפסוק ה' לבין התנהגות העמים בזמן הגאולה בפסוק ג'.<br>(4 נקודות)</span></div>
-          <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "נָכוֹן יִהְיֶה הַר בֵּית ה' בְּרֹאשׁ הֶהָרִים... וְנָהֲרוּ אֵלָיו כָּל הַגּוֹיִם" (פסוק ב')</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">על פי פסוקים אלה, מה יהיה מעמדה של ירושלים באחרית הימים?</span></div>
+            <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת (רד"ק): "יבואו למשפט לפני מלך המשיח... ולא יצטרכו לכלי מלחמה"</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">רד"ק (לפסוק ד'): "אמר כי אם יהיה בין גוי לגוי מלחמה או תביעות ביניהם, יבואו למשפט לפני מלך המשיח שיהא אדון כל העמים, והוא יוכיח להם ויאמר למי שימצא בו העוול: ישר המעוות [תקן את העוול] לבעל דינך. ומפני זה לא תהיה מלחמה בין עם לעם, כי הוא ישלים ביניהם, ולא יצטרכו לכלי מלחמה, וכתתו אותם לעשות מהם כלי לעבודת האדמה".<br>על פי רד"ק, הסבירו את הקשר בין תחילת הפסוק "וְשָׁפַט בֵּין הַגּוֹיִם וְהוֹכִיחַ לְעַמִּים רַבִּים" ובין ההמשך שלו "לֹא יִשָּׂא גוֹי אֶל גּוֹי חֶרֶב".<br>(6 נקודות)</span></div>
+            <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת (ר' יוסף קרא): "לכו ונעלה אל הר ה'" (העמים, פסוק ג') מול "לכו ונלכה באור ה'" (בית יעקב, פסוק ה')</p>
+            <div class="question-row"><span class="part-label">ג</span><span class="q-text" id="bg-lbl-5">עיינו בפרק ב', פסוקים א'–ה'.<br>ר' יוסף קרא (לפרק ב', פסוק ה'): "וכך אמר להם נביא לישראל: האומות, שאינן יוצאי ירך יעקב, עתידין להיות מואסין בהבליהם, ואומרים זה לזה 'לכו ונעלה אל הר ה' אל בית אלקי יעקב' (פסוק ג'); אתם בני יעקב, שאתם 'בית יעקב' (פסוק ה'), על אחת כמה וכמה שהדין עליכם להתקין עצמכם לשוב מדרכיכם הרעים, ו'לכו ונלכה באור ה'' (פסוק ה')".<br>הסבירו את הקשר בין קריאת הנביא לבית יעקב בפסוק ה' לבין התנהגות העמים בזמן הגאולה בפסוק ג'.<br>(4 נקודות)</span></div>
+            <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
       </div>
     </section>

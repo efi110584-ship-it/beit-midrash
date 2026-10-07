@@ -11,6 +11,10 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
+  /* שאלות בגרות שחולקות אותו מקור: המקור מופיע פעם אחת, והשאלות מתפרסות לרוחב זו לצד זו */
+  .bg-row{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+  .bg-row .question-block{ flex:1 1 300px; min-width:0; }
+
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
@@ -79,20 +83,31 @@
     border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
   }
 
+  /* דף רחב: עמודה אחת יותר רחבה, כדי שכל קובית תוכל להתפרס לרוחב (מקור מול שאלה) */
+  main{ max-width:1320px; }
+
   .qb-branches{
-    display:flex; flex-wrap:wrap; gap:1.1rem;
+    display:flex; flex-direction:column; gap:1.3rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
     content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
   }
   .qb-card{
-    flex:1 1 260px;
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
-    min-width:0;
+    padding:1.2rem 1.4rem; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.6rem; align-items:start;
   }
-  .qb-card > *{ width:100%; max-width:640px; }
+  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - עם קו מפריד ביניהם */
+  .qb-source{ display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+  .qb-question{
+    display:flex; flex-direction:column; gap:.5rem; min-width:0;
+    border-right:2px solid var(--acc-soft); padding-right:1.5rem;
+  }
+  @media (max-width:760px){
+    .qb-card{ grid-template-columns:1fr; gap:1rem; }
+    .qb-question{ border-right:none; padding-right:0; border-top:2px solid var(--acc-soft); padding-top:.9rem; }
+  }
   .qb-meforesh{
     font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
@@ -203,24 +218,24 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "נַחֲמוּ נַחֲמוּ עַמִּי" (פסוק א') - כפילות המילה "נחמו"</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מדוע, לדעתכם, פותח הנביא בכפילות "נַחֲמוּ נַחֲמוּ"? מה מבשר פסוק זה, בהשוואה לטון ששרר בפרק א' ובפרק ה' שכבר למדנו?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הכפילות מדגישה את עוצמת הניחומים - בניגוד לתוכחה והקינה בפרקים א' וה', כאן מתבשר לראשונה סיום העונש ותחילת הנחמה.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "נַחֲמוּ נַחֲמוּ עַמִּי" (פסוק א') - כפילות המילה "נחמו"</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מדוע, לדעתכם, פותח הנביא בכפילות "נַחֲמוּ נַחֲמוּ"? מה מבשר פסוק זה, בהשוואה לטון ששרר בפרק א' ובפרק ה' שכבר למדנו?</span></div>
+<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הכפילות מדגישה את עוצמת הניחומים - בניגוד לתוכחה והקינה בפרקים א' וה', כאן מתבשר לראשונה סיום העונש ותחילת הנחמה.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "כִּי מָלְאָה צְבָאָהּ כִּי נִרְצָה עֲוֹנָהּ, כִּי לָקְחָה מִיַּד ה' כִּפְלַיִם בְּכָל חַטֹּאתֶיהָ" (פסוק ב')</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מהי הבשורה המרכזית שיש להעביר לירושלים בפסוק זה, ומדוע יש צורך "לדבר על לבה" - כלומר, לפנות אליה בדברי חיזוק ולא רק להודיע לה עובדה יבשה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הבשורה: תקופת העונש הסתיימה, עוון ירושלים נסלח וקיבלה עונש כפול. יש לדבר על ליבה כי היא שרויה בייאוש ונדרשים דברי חיזוק רגשיים, לא רק הודעה עובדתית.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "כִּי מָלְאָה צְבָאָהּ כִּי נִרְצָה עֲוֹנָהּ, כִּי לָקְחָה מִיַּד ה' כִּפְלַיִם בְּכָל חַטֹּאתֶיהָ" (פסוק ב')</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מהי הבשורה המרכזית שיש להעביר לירושלים בפסוק זה, ומדוע יש צורך "לדבר על לבה" - כלומר, לפנות אליה בדברי חיזוק ולא רק להודיע לה עובדה יבשה?</span></div>
+<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הבשורה: תקופת העונש הסתיימה, עוון ירושלים נסלח וקיבלה עונש כפול. יש לדבר על ליבה כי היא שרויה בייאוש ונדרשים דברי חיזוק רגשיים, לא רק הודעה עובדתית.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -261,29 +276,29 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "כָּל גֶּיא יִנָּשֵׂא וְכָל הַר וְגִבְעָה יִשְׁפָּלוּ... וְנִגְלָה כְּבוֹד ה'" (פסוקים ד'-ה')</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">תארו במילים שלכם את ארבעת שינויי הנוף הנדרשים כדי להכין את "דרך ה'". לאיזה אירוע היסטורי מוקדם יותר, שכבר למדתם עליו, מזכירה תמונת המסע הזאת?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ארבעת השינויים: הגיא יינשא, ההר יושפל, הדרך העקומה תיושר, וההרים יהפכו לבקעה - כל המכשולים יוסרו, כפי שביציאת מצרים ראה העם את כבוד ה' מתגלה.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "כָּל גֶּיא יִנָּשֵׂא וְכָל הַר וְגִבְעָה יִשְׁפָּלוּ... וְנִגְלָה כְּבוֹד ה'" (פסוקים ד'-ה')</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">תארו במילים שלכם את ארבעת שינויי הנוף הנדרשים כדי להכין את "דרך ה'". לאיזה אירוע היסטורי מוקדם יותר, שכבר למדתם עליו, מזכירה תמונת המסע הזאת?</span></div>
+<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> ארבעת השינויים: הגיא יינשא, ההר יושפל, הדרך העקומה תיושר, וההרים יהפכו לבקעה - כל המכשולים יוסרו, כפי שביציאת מצרים ראה העם את כבוד ה' מתגלה.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "כָּל הַבָּשָׂר חָצִיר... יָבֵשׁ חָצִיר נָבֵל צִיץ, וּדְבַר אֱלֹקֵינוּ יָקוּם לְעוֹלָם" (פסוקים ו'-ח')</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">מצודת דוד, פסוקים ו', ח'</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "כָּל הַבָּשָׂר חָצִיר... יָבֵשׁ חָצִיר נָבֵל צִיץ, וּדְבַר אֱלֹקֵינוּ יָקוּם לְעוֹלָם" (פסוקים ו'-ח')</p><div class="qb-meforesh">
+<span class="qb-src">מצודת דוד, פסוקים ו', ח'</span>
             "קוֹל אֹמֵר קְרָא" - קול הנבואה אומר לנביא לקרוא ולהכריז ברבים. "וְאָמַר" - כאילו הנביא שואל: מה אקרא? וקול הנבואה משיב לומר: כל הבשר חציר, וכל חסדם וגבורתם [אינם נצחיים]. "יָבֵשׁ חָצִיר" - העם חלוש כחציר, וכל חסד שעושים דומה לציץ השדה הנובל במהרה.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yeshayahu40-mp-1">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">איזה ניגוד עומד במרכז פסוקים אלה, ומה, על פי מצודת דוד, נמשל לחציר ולציץ הנובל?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הניגוד: ארעיות בני האדם (חציר וציץ נובלים) מול נצחיות דבר ה'. לפי מצודת דוד, החציר נמשל לעם עצמו - חולף וכלה, בשונה מדבר ה' שאינו משתנה.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="yeshayahu40-mp-1" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">איזה ניגוד עומד במרכז פסוקים אלה, ומה, על פי מצודת דוד, נמשל לחציר ולציץ הנובל?</span></div>
+<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הניגוד: ארעיות בני האדם (חציר וציץ נובלים) מול נצחיות דבר ה'. לפי מצודת דוד, החציר נמשל לעם עצמו - חולף וכלה, בשונה מדבר ה' שאינו משתנה.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -315,37 +330,37 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "הָרִימִי בַכֹּחַ קוֹלֵךְ... הָרִימִי אַל תִּירָאִי" (פסוק ט')</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מיהי "מבשרת ציון", ומהי הבשורה שעליה להכריז בקול רם וללא פחד לערי יהודה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> "מבשרת ציון" - ירושלים עצמה, הנקראת לעלות על הר גבוה ולהכריז בקול רם: "הנה אלוקיכם" - ה' שב ומתגלה לעמו.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "הָרִימִי בַכֹּחַ קוֹלֵךְ... הָרִימִי אַל תִּירָאִי" (פסוק ט')</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מיהי "מבשרת ציון", ומהי הבשורה שעליה להכריז בקול רם וללא פחד לערי יהודה?</span></div>
+<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> "מבשרת ציון" - ירושלים עצמה, הנקראת לעלות על הר גבוה ולהכריז בקול רם: "הנה אלוקיכם" - ה' שב ומתגלה לעמו.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "הִנֵּה אֲדֹנָי ה' בְּחָזָק יָבוֹא" (פסוק י') לעומת "כְּרֹעֶה עֶדְרוֹ יִרְעֶה... וּבְחֵיקוֹ יִשָּׂא" (פסוק י"א)</p>
-          <div class="vs-compare" role="img" aria-label="שני התיאורים המשלימים של ה' בפרק - גיבור חזק ורועה רחמן">
-            <div class="vs-side vs-a">
-              <span class="vs-icon" aria-hidden="true">💪</span>
-              <div class="vs-title">אֲדֹנָי ה' בְּחָזָק יָבוֹא</div>
-              <div class="vs-desc">גיבור כובש, שזרועו מושלת לו.</div>
-            </div>
-            <div class="vs-mid" aria-hidden="true">וגם</div>
-            <div class="vs-side vs-b">
-              <span class="vs-icon" aria-hidden="true">🐑</span>
-              <div class="vs-title">כְּרֹעֶה עֶדְרוֹ יִרְעֶה</div>
-              <div class="vs-desc">רועה עדין, הנושא טלאים בחיקו.</div>
-            </div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">שני התיאורים הסמוכים של ה' בפסוקים אלה נראים כמנוגדים זה לזה. הסבירו כל אחד מהם בקצרה, והציעו כיצד הם דווקא משלימים זה את זה.</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> תיאור אחד מציג את ה' כגיבור כובש בעוצמה; השני כרועה עדין הנושא טלאים בחיקו - עוצמתו פועלת דווקא כדי להגן על עמו בחמלה.</div>
-          </div>
-        </div>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "הִנֵּה אֲדֹנָי ה' בְּחָזָק יָבוֹא" (פסוק י') לעומת "כְּרֹעֶה עֶדְרוֹ יִרְעֶה... וּבְחֵיקוֹ יִשָּׂא" (פסוק י"א)</p><div aria-label="שני התיאורים המשלימים של ה' בפרק - גיבור חזק ורועה רחמן" class="vs-compare" role="img">
+<div class="vs-side vs-a">
+<span aria-hidden="true" class="vs-icon">💪</span>
+<div class="vs-title">אֲדֹנָי ה' בְּחָזָק יָבוֹא</div>
+<div class="vs-desc">גיבור כובש, שזרועו מושלת לו.</div>
+</div>
+<div aria-hidden="true" class="vs-mid">וגם</div>
+<div class="vs-side vs-b">
+<span aria-hidden="true" class="vs-icon">🐑</span>
+<div class="vs-title">כְּרֹעֶה עֶדְרוֹ יִרְעֶה</div>
+<div class="vs-desc">רועה עדין, הנושא טלאים בחיקו.</div>
+</div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">שני התיאורים הסמוכים של ה' בפסוקים אלה נראים כמנוגדים זה לזה. הסבירו כל אחד מהם בקצרה, והציעו כיצד הם דווקא משלימים זה את זה.</span></div>
+<textarea aria-labelledby="a11y-lbl-6" class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> תיאור אחד מציג את ה' כגיבור כובש בעוצמה; השני כרועה עדין הנושא טלאים בחיקו - עוצמתו פועלת דווקא כדי להגן על עמו בחמלה.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -382,33 +397,45 @@
       <div class="card-body">
         <div class="exam-tag">📅 תשפ״ה (2025), קיץ · שאלה 8</div>
         <div class="pasuk-block mini">עיינו בפסוקים א'–ה'.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">"נַחֲמוּ נַחֲמוּ עַמִּי" (פסוק א').<br>על פי פסוקים א'–ב', את מי יש לנחם, ומהי הנחמה?</span></div>
-          <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">על פי פסוקים ג'–ה', לשם מה יש לסלול דרך, ומה מיוחד בדרך זו?<br>(8 נקודות)</span></div>
-          <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "נַחֲמוּ נַחֲמוּ עַמִּי" (פסוק א')</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">"נַחֲמוּ נַחֲמוּ עַמִּי" (פסוק א').<br>על פי פסוקים א'–ב', את מי יש לנחם, ומהי הנחמה?</span></div>
+            <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "קוֹל קוֹרֵא: בַּמִּדְבָּר פַּנּוּ דֶּרֶךְ ה'... וְהָיָה הֶעָקֹב לְמִישׁוֹר" (פסוקים ג'-ד')</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">על פי פסוקים ג'–ה', לשם מה יש לסלול דרך, ומה מיוחד בדרך זו?<br>(8 נקודות)</span></div>
+            <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
         <div class="exam-tag">📅 תשפ״ה (2025), קיץ · שאלה 8</div>
         <div class="pasuk-block mini">עיינו בפסוק ח'.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">על פי פירוש שלמדתם, מהו הנמשל לדימוי "יָבֵשׁ חָצִיר נָבֵל צִיץ"?</span></div>
-          <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">מהו הקשר בין דימוי זה להמשך הפסוק? הסבירו את תשובתכם.<br>(7 נקודות)</span></div>
-          <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "כָּל הַבָּשָׂר חָצִיר... יָבֵשׁ חָצִיר נָבֵל צִיץ" (פסוקים ו'-ח')</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">על פי פירוש שלמדתם, מהו הנמשל לדימוי "יָבֵשׁ חָצִיר נָבֵל צִיץ"?</span></div>
+            <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "יָבֵשׁ חָצִיר נָבֵל צִיץ, וּדְבַר אֱלֹקֵינוּ יָקוּם לְעוֹלָם" (פסוק ח')</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">מהו הקשר בין דימוי זה להמשך הפסוק? הסבירו את תשובתכם.<br>(7 נקודות)</span></div>
+            <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
         <div class="exam-tag">📅 תשפ״ב (2022), קיץ · שאלה 7</div>
         <div class="pasuk-block mini">עיינו בפסוקים י'–י"א.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-5">על פי מה שלמדתם, איזו מידה של ה' מתגלה בפסוק י'? נמקו את תשובתכם.</span></div>
-          <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-6">על פי מה שלמדתם, איזו מידה של ה' מתגלה בפסוק י"א? נמקו את תשובתכם.<br>(6 נקודות)</span></div>
-          <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "הִנֵּה אֲדֹנָי ה' בְּחָזָק יָבוֹא" (פסוק י')</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-5">על פי מה שלמדתם, איזו מידה של ה' מתגלה בפסוק י'? נמקו את תשובתכם.</span></div>
+            <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "כְּרֹעֶה עֶדְרוֹ יִרְעֶה, בִּזְרֹעוֹ יְקַבֵּץ טְלָאִים וּבְחֵיקוֹ יִשָּׂא" (פסוק י"א)</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-6">על פי מה שלמדתם, איזו מידה של ה' מתגלה בפסוק י"א? נמקו את תשובתכם.<br>(6 נקודות)</span></div>
+            <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
       </div>
     </section>

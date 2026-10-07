@@ -11,6 +11,10 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
+  /* שאלות בגרות שחולקות אותו מקור: המקור מופיע פעם אחת, והשאלות מתפרסות לרוחב זו לצד זו */
+  .bg-row{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+  .bg-row .question-block{ flex:1 1 300px; min-width:0; }
+
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
@@ -79,20 +83,31 @@
     border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
   }
 
+  /* דף רחב: עמודה אחת יותר רחבה, כדי שכל קובית תוכל להתפרס לרוחב (מקור מול שאלה) */
+  main{ max-width:1320px; }
+
   .qb-branches{
-    display:flex; flex-wrap:wrap; gap:1.1rem;
+    display:flex; flex-direction:column; gap:1.3rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
     content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
   }
   .qb-card{
-    flex:1 1 260px;
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
-    min-width:0;
+    padding:1.2rem 1.4rem; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.6rem; align-items:start;
   }
-  .qb-card > *{ width:100%; max-width:640px; }
+  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - עם קו מפריד ביניהם */
+  .qb-source{ display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+  .qb-question{
+    display:flex; flex-direction:column; gap:.5rem; min-width:0;
+    border-right:2px solid var(--acc-soft); padding-right:1.5rem;
+  }
+  @media (max-width:760px){
+    .qb-card{ grid-template-columns:1fr; gap:1rem; }
+    .qb-question{ border-right:none; padding-right:0; border-top:2px solid var(--acc-soft); padding-top:.9rem; }
+  }
   .qb-meforesh{
     font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
@@ -205,44 +220,44 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "רוּחַ חָכְמָה וּבִינָה, רוּחַ עֵצָה וּגְבוּרָה, רוּחַ דַּעַת וְיִרְאַת ה'" (פסוק ב')</p>
-          <div class="mini-timeline detail" role="img" aria-label="ששת בחינות רוח ה' שינוחו על המלך, בשלושה זוגות">
-            <div class="step">
-              <span class="step-icon" aria-hidden="true">🧠</span><b>חָכְמָה וּבִינָה</b>
-              <small>יכולת שכלית להבין ולהחליט</small>
-            </div>
-            <div class="arrow" aria-hidden="true">←</div>
-            <div class="step">
-              <span class="step-icon" aria-hidden="true">🛡️</span><b>עֵצָה וּגְבוּרָה</b>
-              <small>יכולת לתכנן ולבצע במעשה</small>
-            </div>
-            <div class="arrow" aria-hidden="true">←</div>
-            <div class="step">
-              <span class="step-icon" aria-hidden="true">🙏</span><b>דַּעַת וְיִרְאַת ה'</b>
-              <small>קשר וקרבה לרצון ה'</small>
-            </div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מנו את שלושת זוגות התכונות שברוח ה' המנוחה על המלך, וכתבו במילים שלכם מה מוסיפה כל תכונה למלך כמנהיג.</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> חכמה ובינה - יכולת להבין ולהחליט נכון. עצה וגבורה - יכולת לתכנן ולבצע בכוח. דעת ויראת ה' - קרבה מתמדת לרצון ה', שמכוונת את שאר התכונות למטרה ראויה.</div>
-          </div>
-        </div>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "רוּחַ חָכְמָה וּבִינָה, רוּחַ עֵצָה וּגְבוּרָה, רוּחַ דַּעַת וְיִרְאַת ה'" (פסוק ב')</p><div aria-label="ששת בחינות רוח ה' שינוחו על המלך, בשלושה זוגות" class="mini-timeline detail" role="img">
+<div class="step">
+<span aria-hidden="true" class="step-icon">🧠</span><b>חָכְמָה וּבִינָה</b>
+<small>יכולת שכלית להבין ולהחליט</small>
+</div>
+<div aria-hidden="true" class="arrow">←</div>
+<div class="step">
+<span aria-hidden="true" class="step-icon">🛡️</span><b>עֵצָה וּגְבוּרָה</b>
+<small>יכולת לתכנן ולבצע במעשה</small>
+</div>
+<div aria-hidden="true" class="arrow">←</div>
+<div class="step">
+<span aria-hidden="true" class="step-icon">🙏</span><b>דַּעַת וְיִרְאַת ה'</b>
+<small>קשר וקרבה לרצון ה'</small>
+</div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מנו את שלושת זוגות התכונות שברוח ה' המנוחה על המלך, וכתבו במילים שלכם מה מוסיפה כל תכונה למלך כמנהיג.</span></div>
+<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> חכמה ובינה - יכולת להבין ולהחליט נכון. עצה וגבורה - יכולת לתכנן ולבצע בכוח. דעת ויראת ה' - קרבה מתמדת לרצון ה', שמכוונת את שאר התכונות למטרה ראויה.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְלֹא לְמַרְאֵה עֵינָיו יִשְׁפּוֹט... וְשָׁפַט בְּצֶדֶק דַּלִּים" (פסוקים ג'-ד')</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רד"ק, פסוק ד'</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְלֹא לְמַרְאֵה עֵינָיו יִשְׁפּוֹט... וְשָׁפַט בְּצֶדֶק דַּלִּים" (פסוקים ג'-ד')</p><div class="qb-meforesh">
+<span class="qb-src">רד"ק, פסוק ד'</span>
             "וְשָׁפַט בְּצֶדֶק דַּלִּים" - שלא יישא פנים לעשירים; אלא ישפוט בצדק את הדלים ויוכיח בישרות לעניי הארץ, כדי שלא ייגזלו וייעשקו.
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">במה שונה שיטת המשפט של מלך זה משיטת משפט "רגילה", המבוססת על ראייה ושמיעה? מדוע ייחוד זה חשוב במיוחד למשפט הדלים?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> משפט רגיל מתבסס על מראה עיניים ושמיעת אוזניים, וחשוף להטעיה. המלך המתואר שופט מתוך תפיסה פנימית אמיתית - ולכן דווקא הדלים זוכים ממנו למשפט צדק.</div>
-          </div>
-        </div>
+          </div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">במה שונה שיטת המשפט של מלך זה משיטת משפט "רגילה", המבוססת על ראייה ושמיעה? מדוע ייחוד זה חשוב במיוחד למשפט הדלים?</span></div>
+<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> משפט רגיל מתבסס על מראה עיניים ושמיעת אוזניים, וחשוף להטעיה. המלך המתואר שופט מתוך תפיסה פנימית אמיתית - ולכן דווקא הדלים זוכים ממנו למשפט צדק.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -272,34 +287,34 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְגָר זְאֵב עִם כֶּבֶשׂ, וְנָמֵר עִם גְּדִי יִרְבָּץ" (פסוק ו')</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רמב"ם, הלכות מלכים פרק י"ב, הלכה א'</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְגָר זְאֵב עִם כֶּבֶשׂ, וְנָמֵר עִם גְּדִי יִרְבָּץ" (פסוק ו')</p><div class="qb-meforesh">
+<span class="qb-src">רמב"ם, הלכות מלכים פרק י"ב, הלכה א'</span>
             אל יעלה על הלב שבימות המשיח יבטל דבר ממנהגו של עולם... אלא עולם כמנהגו נוהג. וזה שנאמר בישעיה "וגר זאב עם כבש" - משל וחידה: עניין הדבר שיהיו ישראל יושבים לבטח עם רשעי עכו"ם המשולים כזאבים ונמרים.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yeshayahu11-mp-1">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">לפי הרמב"ם, האם תיאור הזאב עם הכבש הוא תיאור מילולי ממש של שינוי בטבע החיות, או משל? מהו, לדעתו, הנמשל?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי הרמב"ם, זהו משל: העולם ימשיך כמנהגו, וישראל יחיה בשלום עם אומות שהיו כמותרות "כזאבים ונמרים" - השינוי הוא ביחסי בני אדם, לא בטבע החיות.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="yeshayahu11-mp-1" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">לפי הרמב"ם, האם תיאור הזאב עם הכבש הוא תיאור מילולי ממש של שינוי בטבע החיות, או משל? מהו, לדעתו, הנמשל?</span></div>
+<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי הרמב"ם, זהו משל: העולם ימשיך כמנהגו, וישראל יחיה בשלום עם אומות שהיו כמותרות "כזאבים ונמרים" - השינוי הוא ביחסי בני אדם, לא בטבע החיות.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְשִׁעֲשַׁע יוֹנֵק עַל חֻר פָּתֶן... כִּי מָלְאָה הָאָרֶץ דֵּעָה אֶת ה'" (פסוקים ח'-ט')</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רמב"ן, פירוש לויקרא כ"ו, ו'</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְשִׁעֲשַׁע יוֹנֵק עַל חֻר פָּתֶן... כִּי מָלְאָה הָאָרֶץ דֵּעָה אֶת ה'" (פסוקים ח'-ט')</p><div class="qb-meforesh">
+<span class="qb-src">רמב"ן, פירוש לויקרא כ"ו, ו'</span>
             כי תהיה ארץ ישראל, בעת קיום המצוות, כאשר היה העולם מתחילתו קודם חטאו של אדם הראשון - אין חיה ורמש ממית אדם... ובהיות ארץ ישראל על השלמות, תושבת רעת מנהגם ויעמדו על הטבע הראשון אשר הושם בהם ביצירתם.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="yeshayahu11-mp-2">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">כיצד מבין הרמב"ן את אותם הפסוקים, ובמה משנתו שונה ממשנת הרמב"ם שבקוביה הסמוכה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי הרמב"ן, מדובר בשינוי טבעי ממשי - הארץ תחזור למצבה שלפני חטא אדם הראשון, בניגוד לרמב"ם הרואה בכך משל בלבד.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="yeshayahu11-mp-2" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">כיצד מבין הרמב"ן את אותם הפסוקים, ובמה משנתו שונה ממשנת הרמב"ם שבקוביה הסמוכה?</span></div>
+<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי הרמב"ן, מדובר בשינוי טבעי ממשי - הארץ תחזור למצבה שלפני חטא אדם הראשון, בניגוד לרמב"ם הרואה בכך משל בלבד.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -325,14 +340,14 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "שֹׁרֶשׁ יִשַׁי אֲשֶׁר עֹמֵד לְנֵס עַמִּים, אֵלָיו גּוֹיִם יִדְרֹשׁוּ" (פסוק י')</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מהו התפקיד החדש שמקבל "שורש ישי" בפסוק זה, מעבר לתפקידו כמלך צדק על ישראל (שתואר בפסוקים א'-ה')? הראו כיצד פסוק זה מתקשר לחזון "כל הגויים ינהרו אליו" שראינו בפרק ב'.</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שורש ישי הופך ל"נס" שאליו ידרשו כל הגויים - כמו בפרק ב' ("ונהרו אליו כל הגויים"): ההנהגה הצודקת, לא כוח צבאי, היא שתמשוך את העמים.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "שֹׁרֶשׁ יִשַׁי אֲשֶׁר עֹמֵד לְנֵס עַמִּים, אֵלָיו גּוֹיִם יִדְרֹשׁוּ" (פסוק י')</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מהו התפקיד החדש שמקבל "שורש ישי" בפסוק זה, מעבר לתפקידו כמלך צדק על ישראל (שתואר בפסוקים א'-ה')? הראו כיצד פסוק זה מתקשר לחזון "כל הגויים ינהרו אליו" שראינו בפרק ב'.</span></div>
+<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> שורש ישי הופך ל"נס" שאליו ידרשו כל הגויים - כמו בפרק ב' ("ונהרו אליו כל הגויים"): ההנהגה הצודקת, לא כוח צבאי, היא שתמשוך את העמים.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -369,32 +384,44 @@
       <div class="card-body">
         <div class="exam-tag">📅 תשפ״ב (2022), קיץ · שאלה 6</div>
         <div class="pasuk-block mini">עיינו בפרק י"א, פסוקים ו'–ח'.<br>יש המפרשים פסוקים אלה בדרך המשל ויש המפרשים אותם בדרך הפשט.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">על פי דרך המשל, הסבירו את הנמשל.</span></div>
-          <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">על פי דרך הפשט, מה יתרחש בזמן הגאולה?<br>(6 נקודות)</span></div>
-          <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְגָר זְאֵב עִם כֶּבֶשׂ, וְנָמֵר עִם גְּדִי יִרְבָּץ" (פסוק ו') - לפי דרך המשל</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">על פי דרך המשל, הסבירו את הנמשל.</span></div>
+            <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: אותו פסוק, הפעם לפי דרך הפשט - שינוי ממשי בטבע בעלי החיים</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">על פי דרך הפשט, מה יתרחש בזמן הגאולה?<br>(6 נקודות)</span></div>
+            <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
         <div class="exam-tag">📅 תשפ״ג (2023), קיץ · שאלה 9</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">"וְיָצָא חֹטֶר מִגֵּזַע יִשָׁי" (פסוק א').<br>הסבירו את המשל והנמשל שבפסוק א'.</span></div>
-          <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">"וַהֲרִיחוֹ בְּיִרְאַת ה' וְלֹא לְמַרְאֵה עֵינָיו יִשְׁפּוֹט" (פסוק ג').<br>מצודת דוד (לפסוק ג'): "'והריחו' - לפי שהריח היא הרגשה קלה מאוד, לכן קורא להרגשה קלה בשם ריח, ורצה לומר במעט הבנה והתבוננות ירגיש ויבחין בבני אדם הטובים המה אם רעים".<br>על פי מצודת דוד, הסבירו מה מייחד את דרך השיפוט של המלך, ומדוע הנביא משתמש בדימוי של חוש הריח.<br>(6 נקודות)</span></div>
-          <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְיָצָא חֹטֶר מִגֵּזַע יִשָׁי" (פסוק א')</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">"וְיָצָא חֹטֶר מִגֵּזַע יִשָׁי" (פסוק א').<br>הסבירו את המשל והנמשל שבפסוק א'.</span></div>
+            <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת (מצודת דוד): "'והריחו' - במעט הבנה והתבוננות ירגיש ויבחין בבני אדם... אם רעים"</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">"וַהֲרִיחוֹ בְּיִרְאַת ה' וְלֹא לְמַרְאֵה עֵינָיו יִשְׁפּוֹט" (פסוק ג').<br>מצודת דוד (לפסוק ג'): "'והריחו' - לפי שהריח היא הרגשה קלה מאוד, לכן קורא להרגשה קלה בשם ריח, ורצה לומר במעט הבנה והתבוננות ירגיש ויבחין בבני אדם הטובים המה אם רעים".<br>על פי מצודת דוד, הסבירו מה מייחד את דרך השיפוט של המלך, ומדוע הנביא משתמש בדימוי של חוש הריח.<br>(6 נקודות)</span></div>
+            <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
         <div class="exam-tag">📅 תשפ״ג (2023), קיץ · שאלה 9</div>
         <div class="pasuk-block mini">עיינו בפסוקים ו'–ט'.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-5">הסבירו בלשונכם את שני חלקי הפסוק שלפניכם.<br>"לֹא יָרֵעוּ וְלֹא יַשְׁחִיתוּ בְּכָל הַר קָדְשִׁי" –<br>"כִּי מָלְאָה הָאָרֶץ דֵּעָה אֶת ה' כַּמַּיִם לַיָּם מְכַסִּים" –</span></div>
-          <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-6">הסבירו את הקשר בין שני חלקי הפסוק.<br>(6 נקודות)</span></div>
-          <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "לֹא יָרֵעוּ וְלֹא יַשְׁחִיתוּ בְּכָל הַר קָדְשִׁי... כִּי מָלְאָה הָאָרֶץ דֵּעָה אֶת ה'" (פסוק ט')</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-5">הסבירו בלשונכם את שני חלקי הפסוק שלפניכם.<br>"לֹא יָרֵעוּ וְלֹא יַשְׁחִיתוּ בְּכָל הַר קָדְשִׁי" –<br>"כִּי מָלְאָה הָאָרֶץ דֵּעָה אֶת ה' כַּמַּיִם לַיָּם מְכַסִּים" –</span></div>
+            <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: איך הידיעה את ה' (חלק ב') מביאה לכך שלא ירעו ולא ישחיתו (חלק א')?</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-6">הסבירו את הקשר בין שני חלקי הפסוק.<br>(6 נקודות)</span></div>
+            <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
       </div>
     </section>
