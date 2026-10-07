@@ -1,5 +1,4 @@
 @charset "utf-8";
-@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
 /* ======================================================================
    הכיתה הדיגיטלית - קובץ העיצוב היחיד של האתר
    ----------------------------------------------------------------------
@@ -185,9 +184,14 @@ main:where([data-css~="theme"], [data-css~="theme"] *){ max-width: 1200px; margi
   font-size:.85rem; font-weight:700; color: var(--acc);
   background:#fff; border:1.5px solid var(--acc); border-radius:999px;
   padding:.3rem .7rem; }
-.grid:where([data-css~="theme"], [data-css~="theme"] *){ display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.4rem; align-items: start; }
+.grid:where([data-css~="theme"], [data-css~="theme"] *){ display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 1.4rem; align-items: start; }
+.grid:where([data-css~="theme"], [data-css~="theme"] *) > *{ min-width:0; }
 @media (max-width: 620px){
-  .grid:where([data-css~="theme"], [data-css~="theme"] *){ grid-template-columns: 1fr; }
+  .grid:where([data-css~="theme"], [data-css~="theme"] *){ grid-template-columns: minmax(0, 1fr); }
+  /* כרטיס עם style="grid-column: span 2" יצר בטלפון עמודה שנייה מדומה, וכל כרטיס שני נדחס לרוחב 0 */
+  .grid:where([data-css~="theme"], [data-css~="theme"] *) > *{ grid-column: 1 / -1 !important; }
+  /* טבלה רחבה נגללת הצידה בתוך עצמה, במקום להיחתך בתוך הכרטיס */
+  .table-wrap:where([data-css~="theme"], [data-css~="theme"] *){ max-width:100%; overflow-x:auto; }
 }
 .card:where([data-css~="theme"], [data-css~="theme"] *){ background: var(--paper-card);
   border: 1px solid var(--paper-line);
@@ -206,15 +210,15 @@ main:where([data-css~="theme"], [data-css~="theme"] *){ max-width: 1200px; margi
 .pasuk-block:where([data-css~="theme"], [data-css~="theme"] *) b{ color: var(--teal); font-weight: 700; font-family:"Heebo",sans-serif; font-size:.78rem; }
 .pasuk-block.mini:where([data-css~="theme"], [data-css~="theme"] *){ font-size:.82rem; padding:.4rem .65rem; margin-bottom:.5rem; }
 .pasuk-block-note:where([data-css~="theme"], [data-css~="theme"] *){ font-size:.86rem; line-height:1.6; color: var(--ink-soft); }
-.pasuk-block:where([data-css~="theme"], [data-css~="theme"] *) q{ font-style: italic; }
+.pasuk-block:where([data-css~="theme"], [data-css~="theme"] *) q{ font-style:normal; }
 .meforesh-block:where([data-css~="theme"], [data-css~="theme"] *){ background: var(--rust-soft); border-right: 3px solid var(--rust); border-radius: 6px; padding: .55rem .75rem; font-size: .84rem; line-height: 1.55; color: #5c3324; }
 .meforesh-block:where([data-css~="theme"], [data-css~="theme"] *) .src{ display:block; font-weight: 700; color: var(--rust); margin-bottom: .15rem; font-size: .78rem; }
-.meforesh-block:where([data-css~="theme"], [data-css~="theme"] *) q{ font-style: italic; }
+.meforesh-block:where([data-css~="theme"], [data-css~="theme"] *) q{ font-style:normal; }
 .remember-block:where([data-css~="theme"], [data-css~="theme"] *){ background: #FBEFD1; border-right: 3px solid var(--gold); border-radius: 6px; padding: .55rem .75rem; font-size: .84rem; line-height: 1.55; color: #5a4212; }
 .remember-block:where([data-css~="theme"], [data-css~="theme"] *) .src{ display:flex; align-items:center; gap:.35rem; font-weight: 700; color: var(--gold-text); margin-bottom: .2rem; font-size: .78rem; }
 .bagrut-block:where([data-css~="theme"], [data-css~="theme"] *){ background: #E4EEEA; border-right: 3px solid var(--teal); border-radius: 6px; padding: .7rem .9rem; font-size: .84rem; line-height: 1.55; color: #1d3d38; }
 .bagrut-block:where([data-css~="theme"], [data-css~="theme"] *) .src{ display:flex; align-items:center; gap:.35rem; font-weight: 700; color: var(--teal); margin-bottom: .2rem; font-size: .78rem; }
-.bagrut-block:where([data-css~="theme"], [data-css~="theme"] *) .bagrut-note{ font-size: .74rem; font-style: italic; color: #3a6058; margin: -.1rem 0 .4rem; }
+.bagrut-block:where([data-css~="theme"], [data-css~="theme"] *) .bagrut-note{ font-size: .74rem; font-style:normal; color: #3a6058; margin: -.1rem 0 .4rem; }
 .bagrut-block:where([data-css~="theme"], [data-css~="theme"] *) p{ margin: 0 0 .35rem; }
 .bagrut-block:where([data-css~="theme"], [data-css~="theme"] *) p:last-of-type{ margin-bottom: .6rem; }
 .bagrut-block:where([data-css~="theme"], [data-css~="theme"] *) textarea.answer{ margin-bottom: .5rem; }
@@ -415,6 +419,8 @@ main:where([data-css~="theme"], [data-css~="theme"] *){ max-width:1100px; }
 .card-title:where([data-css~="theme"], [data-css~="theme"] *){ font-family:"Rubik",sans-serif; font-size:1.3rem; }
 .card-body:where([data-css~="theme"], [data-css~="theme"] *){ padding:1rem 1.4rem 1.4rem; }
 .story-summary:where([data-css~="theme"], [data-css~="theme"] *){ border:none; background:none; padding:0; font-size:1.02rem; line-height:1.75; }
+/* שורות קריאה באורך נוח (עד כ-80 תווים) - שורה ארוכה מדי מקשה לעבור לשורה הבאה */
+.story-summary:where([data-css~="theme"], [data-css~="theme"] *), .card-body:where([data-css~="theme"], [data-css~="theme"] *) > p, .brief-lead:where([data-css~="theme"], [data-css~="theme"] *), .qb-root-note:where([data-css~="theme"], [data-css~="theme"] *){ max-width:80ch; }
 .topic-banner:where([data-css~="theme"], [data-css~="theme"] *){ background:none; border-right:none; padding:0; }
 .topic-icon:where([data-css~="theme"], [data-css~="theme"] *){ width:3rem; height:3rem; border-radius:10px; background:var(--acc-soft); display:flex; align-items:center; justify-content:center; font-size:1.5rem; }
 .topic-eyebrow:where([data-css~="theme"], [data-css~="theme"] *){ color:var(--m-muted); letter-spacing:0; font-weight:400; font-size:.85rem; }
@@ -460,7 +466,7 @@ body:where([data-css~="theme"], [data-css~="theme"] *) .qb-card textarea.answer{
   body:where([data-css~="theme"], [data-css~="theme"] *) .qb-root-pasuk{ color:var(--ink) !important; }
 }
 :root:where([data-css~="theme"], [data-css~="theme"] *){ --paper:#EEF3FB; --paper-line:#DCE4F1; --ink:#0B2A5B; --ink-soft:#56637A;
-  --gold:#FF7A1A; --gold-soft:#FF7A1A; --gold-text:#B8520A; --teal:#0D8A63; --teal-soft:#E1F4EC;
+  --gold:#FF7A1A; --gold-soft:#FF7A1A; --gold-text:#A3470A; --teal:#0A7352; --teal-soft:#E1F4EC;
   --m-navy:#0B2A5B; --m-gold:#FF7A1A; --m-text:#0E1B33; --m-muted:#56637A; --m-field:#EEF3FB; --m-quote:#F3F6FC; }
 header:where([data-css~="theme"], [data-css~="theme"] *){ background-color:var(--m-navy); background-image:radial-gradient(circle at 94% -30%, rgba(31,111,235,.45) 0 150px, transparent 151px); }
 .breadcrumbs:where([data-css~="theme"], [data-css~="theme"] *){ color:#BFD0EA; }
@@ -500,12 +506,13 @@ header:where([data-css~="theme"], [data-css~="theme"] *){ background:#0B2A5B; }
 textarea.answer:where([data-css~="theme"], [data-css~="theme"] *), input.answer:where([data-css~="theme"], [data-css~="theme"] *), select.answer:where([data-css~="theme"], [data-css~="theme"] *){ border:1px solid #8292A8; }
 select.answer:where([data-css~="theme"], [data-css~="theme"] *){ max-width:100%;min-height:44px; }
 @media (max-width:640px){
-  header:where([data-css~="theme"], [data-css~="theme"] *){ padding:1.2rem 1rem; }
+  header:where([data-css~="theme"], [data-css~="theme"] *){ padding:1.2rem 1rem 3.6rem; }
   header:where([data-css~="theme"], [data-css~="theme"] *) h1{ font-size:1.65rem;line-height:1.35;overflow-wrap:anywhere; }
   header:where([data-css~="theme"], [data-css~="theme"] *) p.sub{ font-size:1rem;line-height:1.65; }
   .card-body:where([data-css~="theme"], [data-css~="theme"] *){ padding:1rem; }
   .student-bar:where([data-css~="theme"], [data-css~="theme"] *){ flex-wrap:wrap;gap:.6rem; }
   .btn:where([data-css~="theme"], [data-css~="theme"] *), .hint-btn:where([data-css~="theme"], [data-css~="theme"] *), .chip-link:where([data-css~="theme"], [data-css~="theme"] *){ min-height:44px; }
+  .chip-link:where([data-css~="theme"], [data-css~="theme"] *){ white-space:normal; max-width:100%; }
 }
 @media print{
   header:where([data-css~="theme"], [data-css~="theme"] *), .breadcrumbs:where([data-css~="theme"], [data-css~="theme"] *){ background:#fff!important; }
@@ -725,7 +732,7 @@ h1:where([data-css~="questions"], [data-css~="questions"] *){ font-family:"Frank
 .cross-ref-note:where([data-css~="chapter-text"], [data-css~="chapter-text"] *){ background:var(--paper-card); border:1.5px dashed var(--paper-line); border-radius:10px;
     padding:.7rem 1rem; font-size:.85rem; color:var(--ink-soft); margin:.7rem 0; }
 .muted-pasuk:where([data-css~="chapter-text"], [data-css~="chapter-text"] *){ background:var(--paper-2); border-radius:10px; padding:.8rem 1rem; font-size:.95rem;
-    line-height:1.9; color:var(--ink-soft); margin:.7rem 0; font-style:italic; }
+    line-height:1.9; color:var(--ink-soft); margin:.7rem 0; font-style:normal; }
 .muted-pasuk:where([data-css~="chapter-text"], [data-css~="chapter-text"] *) b{ font-style:normal; color:var(--ink); }
 .pmodal-overlay:where([data-css~="chapter-text"], [data-css~="chapter-text"] *){ position:fixed; inset:0; background:rgba(31,29,23,.6); display:flex; align-items:center; justify-content:center;
     padding:1rem; z-index:500; }
@@ -741,7 +748,7 @@ h1:where([data-css~="questions"], [data-css~="questions"] *){ font-family:"Frank
 .pmodal-badge:where([data-css~="chapter-text"], [data-css~="chapter-text"] *){ display:inline-block; font-size:.78rem; font-weight:800; color:#fff; background:var(--pmodal-acc, var(--ink));
     padding:.35rem .9rem; border-radius:999px; margin-bottom:.9rem; font-family:"Frank Ruhl Libre",serif; }
 .pmodal-q:where([data-css~="chapter-text"], [data-css~="chapter-text"] *){ font-weight:800; margin:0 0 1rem; font-family:"Frank Ruhl Libre",serif; font-size:1.05rem; line-height:1.5; color:var(--ink); }
-.pmodal-quote:where([data-css~="chapter-text"], [data-css~="chapter-text"] *){ font-style:italic; border-right:3px solid var(--pmodal-acc,var(--ink)); padding:.15rem .8rem;
+.pmodal-quote:where([data-css~="chapter-text"], [data-css~="chapter-text"] *){ font-style:normal; border-right:3px solid var(--pmodal-acc,var(--ink)); padding:.15rem .8rem;
     margin:0 0 .9rem; color:var(--ink); font-size:.9rem; line-height:1.65; background:var(--paper-card);
     border-radius:0 8px 8px 0; }
 .pmodal-a-label:where([data-css~="chapter-text"], [data-css~="chapter-text"] *){ font-size:.78rem; font-weight:800; color:var(--pmodal-acc, var(--ink)); margin:0 0 .25rem; }
@@ -807,7 +814,7 @@ h1:where([data-css~="summary"], [data-css~="summary"] *){ font-family:"Frank Ruh
    tpl-ezra-1-2  (18 דפים: ezra-1-2.html, ezra-3-4.html, ezra-5-6.html ...)
    חל על: דפים עם data-css~="tpl-ezra-1-2"
    ====================================================================== */
-.q-cue:where([data-css~="tpl-ezra-1-2"], [data-css~="tpl-ezra-1-2"] *){ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
+.q-cue:where([data-css~="tpl-ezra-1-2"], [data-css~="tpl-ezra-1-2"] *){ font-size:.8rem; color:var(--acc); font-style:normal; margin:0 0 .35rem; }
 .bg-row:where([data-css~="tpl-ezra-1-2"], [data-css~="tpl-ezra-1-2"] *){ display:flex; flex-wrap:wrap; gap:1.4rem; }
 .bg-row:where([data-css~="tpl-ezra-1-2"], [data-css~="tpl-ezra-1-2"] *) .question-block{ flex:1 1 300px; min-width:0; }
 .qb-meforesh:where([data-css~="tpl-ezra-1-2"], [data-css~="tpl-ezra-1-2"] *){ position:relative; }
@@ -848,7 +855,7 @@ main:where([data-css~="tpl-ezra-1-2"], [data-css~="tpl-ezra-1-2"] *){ max-width:
 @media (max-width:760px){
   .qb-card:where([data-css~="tpl-ezra-1-2"], [data-css~="tpl-ezra-1-2"] *){ grid-template-columns:1fr; gap:1rem; }
 }
-.qb-meforesh:where([data-css~="tpl-ezra-1-2"], [data-css~="tpl-ezra-1-2"] *){ font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+.qb-meforesh:where([data-css~="tpl-ezra-1-2"], [data-css~="tpl-ezra-1-2"] *){ font-size:.82rem; font-style:normal; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
     padding:.75rem .9rem; box-shadow:var(--shadow); }
 .qb-meforesh:where([data-css~="tpl-ezra-1-2"], [data-css~="tpl-ezra-1-2"] *) .qb-src{ display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
@@ -865,7 +872,7 @@ main:where([data-css~="tpl-ezra-1-2"], [data-css~="tpl-ezra-1-2"] *){ max-width:
    tpl-bereshit-25  (14 דפים: bereshit-25.html, bereshit-27.html, bereshit-28.html ...)
    חל על: דפים עם data-css~="tpl-bereshit-25"
    ====================================================================== */
-.q-cue:where([data-css~="tpl-bereshit-25"], [data-css~="tpl-bereshit-25"] *){ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
+.q-cue:where([data-css~="tpl-bereshit-25"], [data-css~="tpl-bereshit-25"] *){ font-size:.8rem; color:var(--acc); font-style:normal; margin:0 0 .35rem; }
 .bg-row:where([data-css~="tpl-bereshit-25"], [data-css~="tpl-bereshit-25"] *){ display:flex; flex-wrap:wrap; gap:1.4rem; }
 .bg-row:where([data-css~="tpl-bereshit-25"], [data-css~="tpl-bereshit-25"] *) .question-block{ flex:1 1 300px; min-width:0; }
 .qb-meforesh:where([data-css~="tpl-bereshit-25"], [data-css~="tpl-bereshit-25"] *){ position:relative; }
@@ -930,7 +937,7 @@ main:where([data-css~="tpl-bereshit-25"], [data-css~="tpl-bereshit-25"] *){ max-
 @media (max-width:760px){
   .qb-card:where([data-css~="tpl-bereshit-25"], [data-css~="tpl-bereshit-25"] *){ grid-template-columns:1fr; gap:1rem; }
 }
-.qb-meforesh:where([data-css~="tpl-bereshit-25"], [data-css~="tpl-bereshit-25"] *){ font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+.qb-meforesh:where([data-css~="tpl-bereshit-25"], [data-css~="tpl-bereshit-25"] *){ font-size:.82rem; font-style:normal; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
     padding:.75rem .9rem; box-shadow:var(--shadow); }
 .qb-meforesh:where([data-css~="tpl-bereshit-25"], [data-css~="tpl-bereshit-25"] *) .qb-src{ display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
@@ -1029,7 +1036,7 @@ main:where([data-css~="answers-hub"], [data-css~="answers-hub"] *) .grid{ displa
     padding:.65rem .85rem; display:flex; flex-direction:column; gap:.3rem; margin-top:.5rem; }
 .ans-label:where([data-css~="answers-hub"], [data-css~="answers-hub"] *){ font-weight:800; font-size:.72rem; color:var(--teal); text-transform:uppercase; letter-spacing:.02em; }
 .ans-text:where([data-css~="answers-hub"], [data-css~="answers-hub"] *){ font-size:.88rem; line-height:1.6; color:var(--ink); }
-.q-cue:where([data-css~="answers-hub"], [data-css~="answers-hub"] *){ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
+.q-cue:where([data-css~="answers-hub"], [data-css~="answers-hub"] *){ font-size:.8rem; color:var(--acc); font-style:normal; margin:0 0 .35rem; }
 .card:where([data-css~="answers-hub"], [data-css~="answers-hub"] *) .question-block + .question-block{ margin-top:.9rem; }
 .card[style*="--acc"]:where([data-css~="answers-hub"], [data-css~="answers-hub"] *) .card-head, .topic-banner:where([data-css~="answers-hub"], [data-css~="answers-hub"] *){  }
 
@@ -1072,6 +1079,16 @@ table.fill-grid.hafan-table:where([data-css~="tirgul"], [data-css~="tirgul"] *) 
 input.answer.table-cell.is-correct:where([data-css~="tirgul"], [data-css~="tirgul"] *){ border-color:#2E7D4F; background:#EAF6EF; }
 input.answer.table-cell.is-wrong:where([data-css~="tirgul"], [data-css~="tirgul"] *){ border-color:#B3261E; background:#FBEAE9; }
 .check-summary:where([data-css~="tirgul"], [data-css~="tirgul"] *){ font-size:.95rem; font-weight:700; color:var(--ink); margin-inline-start:.6rem; }
+
+/* בטלפון הטבלה נגללת הצידה - עמודת המשפט נשארת מוצמדת בצד ימין, כדי לראות את המשפט בזמן המילוי */
+@media (max-width:620px){
+  table.fill-grid.hafan-table:where([data-css~="tirgul"], [data-css~="tirgul"] *, [data-css~="tirgul-2"], [data-css~="tirgul-2"] *) .hafan-sentence{
+    position:sticky; right:0; z-index:1; min-width:140px; background:#FFFFFF; box-shadow:-2px 0 0 var(--paper-line);
+  }
+  table.fill-grid.hafan-table:where([data-css~="tirgul"], [data-css~="tirgul"] *, [data-css~="tirgul-2"], [data-css~="tirgul-2"] *) thead th:first-child{
+    position:sticky; right:0; z-index:3;
+  }
+}
 
 /* ======================================================================
    matching-game  (4 דפים: ahavat-gerim-matching-game.html, lo-tasur-matching-game.html, yonah-1-2-matching-game.html ...)
@@ -1268,7 +1285,7 @@ main:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .grid{ di
     padding:.65rem .85rem; display:flex; flex-direction:column; gap:.3rem; }
 .ans-label:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-weight:800; font-size:.72rem; color:var(--teal); text-transform:uppercase; letter-spacing:.02em; }
 .ans-text:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.88rem; line-height:1.6; color:var(--ink); }
-.q-cue:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+.q-cue:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.8rem; color:var(--acc); font-style:normal; margin:.6rem 0 .35rem; flex-basis:100%; }
 .qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ position:relative; }
 .qb-meforesh-foot:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ display:flex; justify-content:flex-end; margin-top:.5rem; }
 .mp-tile-btn:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-family:"Heebo",sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
@@ -1330,7 +1347,7 @@ main:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .grid{ di
     padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
     min-width:0; }
 .qb-card:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) > *{ width:100%; max-width:640px; }
-.qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+.qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.82rem; font-style:normal; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
     padding:.75rem .9rem; box-shadow:var(--shadow); }
 .qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .qb-src{ display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
@@ -1342,7 +1359,7 @@ main:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .grid{ di
 .qb-card:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
 .qb-card:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
 .qb-card:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
-.q-cue:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+.q-cue:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.8rem; color:var(--acc); font-style:normal; margin:.6rem 0 .35rem; flex-basis:100%; }
 .qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ position:relative; }
 .qb-meforesh-foot:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ display:flex; justify-content:flex-end; margin-top:.5rem; }
 .mp-tile-btn:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-family:"Heebo",sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
@@ -1394,7 +1411,7 @@ main:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .grid{ di
     padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
     min-width:0; }
 .qb-card:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) > *{ width:100%; max-width:640px; }
-.qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+.qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.82rem; font-style:normal; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
     padding:.75rem .9rem; box-shadow:var(--shadow); }
 .qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .qb-src{ display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
@@ -1406,7 +1423,7 @@ main:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .grid{ di
 .qb-card:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
 .qb-card:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
 .qb-card:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
-.q-cue:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+.q-cue:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.8rem; color:var(--acc); font-style:normal; margin:.6rem 0 .35rem; flex-basis:100%; }
 .qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ position:relative; }
 .qb-meforesh-foot:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ display:flex; justify-content:flex-end; margin-top:.5rem; }
 .mp-tile-btn:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-family:"Heebo",sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
@@ -1452,7 +1469,7 @@ main:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .grid{ di
     padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
     min-width:0; }
 .qb-card:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) > *{ width:100%; max-width:640px; }
-.qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+.qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.82rem; font-style:normal; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
     padding:.75rem .9rem; box-shadow:var(--shadow); }
 .qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .qb-src{ display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
@@ -1464,7 +1481,7 @@ main:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .grid{ di
 .qb-card:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
 .qb-card:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
 .qb-card:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
-.q-cue:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+.q-cue:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.8rem; color:var(--acc); font-style:normal; margin:.6rem 0 .35rem; flex-basis:100%; }
 .q-topic:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ display:flex; align-items:center; gap:.5rem; font-family:"Frank Ruhl Libre",serif; font-weight:800;
     font-size:.92rem; color:#fff; background:var(--acc); border-radius:9px; padding:.55rem .9rem;
     margin:0 0 .6rem; box-shadow:0 4px 12px rgba(0,0,0,.18); }
@@ -1512,7 +1529,7 @@ main:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .grid{ di
     padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
     min-width:0; }
 .qb-card:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) > *{ width:100%; max-width:640px; }
-.qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+.qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.82rem; font-style:normal; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
     padding:.75rem .9rem; box-shadow:var(--shadow); }
 .qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .qb-src{ display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
@@ -1524,7 +1541,7 @@ main:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .grid{ di
 .qb-card:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
 .qb-card:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
 .qb-card:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
-.q-cue:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.8rem; color:var(--acc); font-style:italic; margin:.6rem 0 .35rem; flex-basis:100%; }
+.q-cue:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.8rem; color:var(--acc); font-style:normal; margin:.6rem 0 .35rem; flex-basis:100%; }
 .qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ position:relative; }
 .qb-meforesh-foot:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ display:flex; justify-content:flex-end; margin-top:.5rem; }
 .mp-tile-btn:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-family:"Heebo",sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
@@ -1572,7 +1589,7 @@ main:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .grid{ di
     padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
     min-width:0; }
 .qb-card:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) > *{ width:100%; max-width:640px; }
-.qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+.qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *){ font-size:.82rem; font-style:normal; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
     padding:.75rem .9rem; box-shadow:var(--shadow); }
 .qb-meforesh:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .qb-src{ display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
@@ -1634,7 +1651,7 @@ main:where([data-css~="answers-hub-2"], [data-css~="answers-hub-2"] *) .grid{ di
 .pmodal-badge:where([data-css~="chapter-text-2"], [data-css~="chapter-text-2"] *){ display:inline-block; font-size:.78rem; font-weight:800; color:#fff; background:var(--pmodal-acc, var(--ink));
     padding:.35rem .9rem; border-radius:999px; margin-bottom:.9rem; font-family:"Frank Ruhl Libre",serif; }
 .pmodal-q:where([data-css~="chapter-text-2"], [data-css~="chapter-text-2"] *){ font-weight:800; margin:0 0 1rem; font-family:"Frank Ruhl Libre",serif; font-size:1.05rem; line-height:1.5; color:var(--ink); }
-.pmodal-quote:where([data-css~="chapter-text-2"], [data-css~="chapter-text-2"] *){ font-style:italic; border-right:3px solid var(--pmodal-acc,var(--ink)); padding:.15rem .8rem;
+.pmodal-quote:where([data-css~="chapter-text-2"], [data-css~="chapter-text-2"] *){ font-style:normal; border-right:3px solid var(--pmodal-acc,var(--ink)); padding:.15rem .8rem;
     margin:0 0 .9rem; color:var(--ink); font-size:.9rem; line-height:1.65; background:var(--paper-card);
     border-radius:0 8px 8px 0; }
 .pmodal-a-label:where([data-css~="chapter-text-2"], [data-css~="chapter-text-2"] *){ font-size:.78rem; font-weight:800; color:var(--pmodal-acc, var(--ink)); margin:0 0 .25rem; }
@@ -1670,7 +1687,7 @@ table:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *
 .w:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *), .tw:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *), .ex:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *) .w{ font-family:"Frank Ruhl Libre","David",serif }
 .r:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *){ color:var(--red) }
 .bin:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *) th, .bin:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *) td{ border:1.5px solid #555;text-align:center;padding:8px 10px }
-.bin:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *) thead{ position:sticky;top:74px;z-index:2 }
+.bin:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *) thead{ position:sticky;top:0;z-index:2 }
 .bin:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *) thead th{ background:#f8cbb8;font-weight:800;min-width:110px;box-shadow:0 1px 0 var(--line) }
 .bin:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *) .corner{ background:var(--accent) }
 .bin:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *) .side{ background:#f2a283;font-weight:800;font-size:1.15rem }
@@ -1692,7 +1709,7 @@ table:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *
 .gz:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *) .root{ display:block;font-size:.75rem;color:#6b6259;letter-spacing:1px }
 .test:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *){ width:100%;max-width:820px }
 .test:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *) th, .test:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *) td{ border:1px solid #666;padding:8px;height:44px;text-align:center }
-.test:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *) thead{ position:sticky;top:74px;z-index:2 }
+.test:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *) thead{ position:sticky;top:0;z-index:2 }
 .test:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *) thead th{ background:#f8cbb8;box-shadow:0 1px 0 var(--line) }
 .test:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *) .n{ width:50px;background:#f4f4f4 }
 .test:where([data-css~="tpl-ivrit-binyanim"], [data-css~="tpl-ivrit-binyanim"] *) .tw{ font-size:1.45rem;font-weight:700;width:160px }
@@ -1808,7 +1825,7 @@ h1:where([data-css~="flashcards"], [data-css~="flashcards"] *){ font-family:"Fra
    bereshit-12  (1 דפים: bereshit-12.html)
    חל על: דפים עם data-css~="bereshit-12"
    ====================================================================== */
-.q-cue:where([data-css~="bereshit-12"], [data-css~="bereshit-12"] *){ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
+.q-cue:where([data-css~="bereshit-12"], [data-css~="bereshit-12"] *){ font-size:.8rem; color:var(--acc); font-style:normal; margin:0 0 .35rem; }
 .bg-row:where([data-css~="bereshit-12"], [data-css~="bereshit-12"] *){ display:flex; flex-wrap:wrap; gap:1.4rem; }
 .bg-row:where([data-css~="bereshit-12"], [data-css~="bereshit-12"] *) .question-block{ flex:1 1 300px; min-width:0; }
 .qb-meforesh:where([data-css~="bereshit-12"], [data-css~="bereshit-12"] *){ position:relative; }
@@ -1876,7 +1893,7 @@ main:where([data-css~="bereshit-12"], [data-css~="bereshit-12"] *){ max-width:13
 @media (max-width:760px){
   .qb-card:where([data-css~="bereshit-12"], [data-css~="bereshit-12"] *){ grid-template-columns:1fr; gap:1rem; }
 }
-.qb-meforesh:where([data-css~="bereshit-12"], [data-css~="bereshit-12"] *){ font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+.qb-meforesh:where([data-css~="bereshit-12"], [data-css~="bereshit-12"] *){ font-size:.82rem; font-style:normal; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
     padding:.75rem .9rem; box-shadow:var(--shadow); }
 .qb-meforesh:where([data-css~="bereshit-12"], [data-css~="bereshit-12"] *) .qb-src{ display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
@@ -1893,7 +1910,7 @@ main:where([data-css~="bereshit-12"], [data-css~="bereshit-12"] *){ max-width:13
    bereshit-15  (1 דפים: bereshit-15.html)
    חל על: דפים עם data-css~="bereshit-15"
    ====================================================================== */
-.q-cue:where([data-css~="bereshit-15"], [data-css~="bereshit-15"] *){ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
+.q-cue:where([data-css~="bereshit-15"], [data-css~="bereshit-15"] *){ font-size:.8rem; color:var(--acc); font-style:normal; margin:0 0 .35rem; }
 .bg-row:where([data-css~="bereshit-15"], [data-css~="bereshit-15"] *){ display:flex; flex-wrap:wrap; gap:1.4rem; }
 .bg-row:where([data-css~="bereshit-15"], [data-css~="bereshit-15"] *) .question-block{ flex:1 1 300px; min-width:0; }
 .qb-meforesh:where([data-css~="bereshit-15"], [data-css~="bereshit-15"] *){ position:relative; }
@@ -1951,7 +1968,7 @@ main:where([data-css~="bereshit-15"], [data-css~="bereshit-15"] *){ max-width:13
 @media (max-width:760px){
   .qb-card:where([data-css~="bereshit-15"], [data-css~="bereshit-15"] *){ grid-template-columns:1fr; gap:1rem; }
 }
-.qb-meforesh:where([data-css~="bereshit-15"], [data-css~="bereshit-15"] *){ font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+.qb-meforesh:where([data-css~="bereshit-15"], [data-css~="bereshit-15"] *){ font-size:.82rem; font-style:normal; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
     padding:.75rem .9rem; box-shadow:var(--shadow); }
 .qb-meforesh:where([data-css~="bereshit-15"], [data-css~="bereshit-15"] *) .qb-src{ display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
@@ -1995,7 +2012,7 @@ main:where([data-css~="bereshit-15"], [data-css~="bereshit-15"] *){ max-width:13
 .pmodal-badge:where([data-css~="chapter-text-3"], [data-css~="chapter-text-3"] *){ display:inline-block; font-size:.78rem; font-weight:800; color:#fff; background:var(--pmodal-acc, var(--ink));
     padding:.35rem .9rem; border-radius:999px; margin-bottom:.9rem; font-family:"Frank Ruhl Libre",serif; }
 .pmodal-q:where([data-css~="chapter-text-3"], [data-css~="chapter-text-3"] *){ font-weight:800; margin:0 0 1rem; font-family:"Frank Ruhl Libre",serif; font-size:1.05rem; line-height:1.5; color:var(--ink); }
-.pmodal-quote:where([data-css~="chapter-text-3"], [data-css~="chapter-text-3"] *){ font-style:italic; border-right:3px solid var(--pmodal-acc,var(--ink)); padding:.15rem .8rem;
+.pmodal-quote:where([data-css~="chapter-text-3"], [data-css~="chapter-text-3"] *){ font-style:normal; border-right:3px solid var(--pmodal-acc,var(--ink)); padding:.15rem .8rem;
     margin:0 0 .9rem; color:var(--ink); font-size:.9rem; line-height:1.65; background:var(--paper-card);
     border-radius:0 8px 8px 0; }
 .pmodal-a-label:where([data-css~="chapter-text-3"], [data-css~="chapter-text-3"] *){ font-size:.78rem; font-weight:800; color:var(--pmodal-acc, var(--ink)); margin:0 0 .25rem; }
@@ -2007,7 +2024,7 @@ main:where([data-css~="bereshit-15"], [data-css~="bereshit-15"] *){ max-width:13
    bereshit-17  (1 דפים: bereshit-17.html)
    חל על: דפים עם data-css~="bereshit-17"
    ====================================================================== */
-.q-cue:where([data-css~="bereshit-17"], [data-css~="bereshit-17"] *){ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
+.q-cue:where([data-css~="bereshit-17"], [data-css~="bereshit-17"] *){ font-size:.8rem; color:var(--acc); font-style:normal; margin:0 0 .35rem; }
 .bg-row:where([data-css~="bereshit-17"], [data-css~="bereshit-17"] *){ display:flex; flex-wrap:wrap; gap:1.4rem; }
 .bg-row:where([data-css~="bereshit-17"], [data-css~="bereshit-17"] *) .question-block{ flex:1 1 300px; min-width:0; }
 .qb-meforesh:where([data-css~="bereshit-17"], [data-css~="bereshit-17"] *){ position:relative; }
@@ -2059,7 +2076,7 @@ main:where([data-css~="bereshit-17"], [data-css~="bereshit-17"] *){ max-width:13
 @media (max-width:760px){
   .qb-card:where([data-css~="bereshit-17"], [data-css~="bereshit-17"] *){ grid-template-columns:1fr; gap:1rem; }
 }
-.qb-meforesh:where([data-css~="bereshit-17"], [data-css~="bereshit-17"] *){ font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+.qb-meforesh:where([data-css~="bereshit-17"], [data-css~="bereshit-17"] *){ font-size:.82rem; font-style:normal; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
     padding:.75rem .9rem; box-shadow:var(--shadow); }
 .qb-meforesh:where([data-css~="bereshit-17"], [data-css~="bereshit-17"] *) .qb-src{ display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
@@ -2104,7 +2121,7 @@ main:where([data-css~="bereshit-17"], [data-css~="bereshit-17"] *){ max-width:13
     padding:.35rem .9rem; border-radius:999px; margin-bottom:.9rem; font-family:"Frank Ruhl Libre",serif; }
 .pmodal-q-label:where([data-css~="chapter-text-4"], [data-css~="chapter-text-4"] *){ font-size:.78rem; font-weight:800; color:var(--pmodal-acc, var(--ink)); margin:0 0 .25rem; }
 .pmodal-q:where([data-css~="chapter-text-4"], [data-css~="chapter-text-4"] *){ font-weight:800; margin:0 0 1rem; font-family:"Frank Ruhl Libre",serif; font-size:1.05rem; line-height:1.5; color:var(--ink); }
-.pmodal-quote:where([data-css~="chapter-text-4"], [data-css~="chapter-text-4"] *){ font-style:italic; border-right:3px solid var(--pmodal-acc,var(--ink)); padding:.15rem .8rem;
+.pmodal-quote:where([data-css~="chapter-text-4"], [data-css~="chapter-text-4"] *){ font-style:normal; border-right:3px solid var(--pmodal-acc,var(--ink)); padding:.15rem .8rem;
     margin:0 0 .9rem; color:var(--ink); font-size:.9rem; line-height:1.65; background:var(--paper-card);
     border-radius:0 8px 8px 0; }
 .pmodal-a-label:where([data-css~="chapter-text-4"], [data-css~="chapter-text-4"] *){ font-size:.78rem; font-weight:800; color:var(--pmodal-acc, var(--ink)); margin:0 0 .25rem; }
@@ -2116,7 +2133,7 @@ main:where([data-css~="bereshit-17"], [data-css~="bereshit-17"] *){ max-width:13
    bereshit-18  (1 דפים: bereshit-18.html)
    חל על: דפים עם data-css~="bereshit-18"
    ====================================================================== */
-.q-cue:where([data-css~="bereshit-18"], [data-css~="bereshit-18"] *){ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
+.q-cue:where([data-css~="bereshit-18"], [data-css~="bereshit-18"] *){ font-size:.8rem; color:var(--acc); font-style:normal; margin:0 0 .35rem; }
 .bg-row:where([data-css~="bereshit-18"], [data-css~="bereshit-18"] *){ display:flex; flex-wrap:wrap; gap:1.4rem; }
 .bg-row:where([data-css~="bereshit-18"], [data-css~="bereshit-18"] *) .question-block{ flex:1 1 300px; min-width:0; }
 .q-topic:where([data-css~="bereshit-18"], [data-css~="bereshit-18"] *){ display:flex; align-items:center; gap:.5rem; font-family:"Frank Ruhl Libre",serif; font-weight:800;
@@ -2170,7 +2187,7 @@ main:where([data-css~="bereshit-18"], [data-css~="bereshit-18"] *){ max-width:13
 @media (max-width:760px){
   .qb-card:where([data-css~="bereshit-18"], [data-css~="bereshit-18"] *){ grid-template-columns:1fr; gap:1rem; }
 }
-.qb-meforesh:where([data-css~="bereshit-18"], [data-css~="bereshit-18"] *){ font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+.qb-meforesh:where([data-css~="bereshit-18"], [data-css~="bereshit-18"] *){ font-size:.82rem; font-style:normal; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
     padding:.75rem .9rem; box-shadow:var(--shadow); }
 .qb-meforesh:where([data-css~="bereshit-18"], [data-css~="bereshit-18"] *) .qb-src{ display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
@@ -2187,7 +2204,7 @@ main:where([data-css~="bereshit-18"], [data-css~="bereshit-18"] *){ max-width:13
    bereshit-22  (1 דפים: bereshit-22.html)
    חל על: דפים עם data-css~="bereshit-22"
    ====================================================================== */
-.q-cue:where([data-css~="bereshit-22"], [data-css~="bereshit-22"] *){ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
+.q-cue:where([data-css~="bereshit-22"], [data-css~="bereshit-22"] *){ font-size:.8rem; color:var(--acc); font-style:normal; margin:0 0 .35rem; }
 .bg-row:where([data-css~="bereshit-22"], [data-css~="bereshit-22"] *){ display:flex; flex-wrap:wrap; gap:1.4rem; }
 .bg-row:where([data-css~="bereshit-22"], [data-css~="bereshit-22"] *) .question-block{ flex:1 1 300px; min-width:0; }
 .qb-meforesh:where([data-css~="bereshit-22"], [data-css~="bereshit-22"] *){ position:relative; }
@@ -2241,7 +2258,7 @@ main:where([data-css~="bereshit-22"], [data-css~="bereshit-22"] *){ max-width:13
 @media (max-width:760px){
   .qb-card:where([data-css~="bereshit-22"], [data-css~="bereshit-22"] *){ grid-template-columns:1fr; gap:1rem; }
 }
-.qb-meforesh:where([data-css~="bereshit-22"], [data-css~="bereshit-22"] *){ font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+.qb-meforesh:where([data-css~="bereshit-22"], [data-css~="bereshit-22"] *){ font-size:.82rem; font-style:normal; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
     padding:.75rem .9rem; box-shadow:var(--shadow); }
 .qb-meforesh:where([data-css~="bereshit-22"], [data-css~="bereshit-22"] *) .qb-src{ display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
@@ -2903,7 +2920,7 @@ table.simanim:where([data-css~="ivrit-gzarot-simanim"], [data-css~="ivrit-gzarot
 table.simanim:where([data-css~="ivrit-gzarot-simanim"], [data-css~="ivrit-gzarot-simanim"] *) a.gz-link{ font-family:"Heebo",sans-serif; font-weight:700; font-size:.9rem; color:#fff; background:var(--acc);
     border-radius:999px; padding:.35rem .9rem; text-decoration:none; display:inline-block; white-space:nowrap; }
 table.simanim:where([data-css~="ivrit-gzarot-simanim"], [data-css~="ivrit-gzarot-simanim"] *) a.gz-link:hover{ box-shadow:var(--shadow-hover); }
-tr.gz-regular:where([data-css~="ivrit-gzarot-simanim"], [data-css~="ivrit-gzarot-simanim"] *) td{ background:var(--acc-soft); font-style:italic; }
+tr.gz-regular:where([data-css~="ivrit-gzarot-simanim"], [data-css~="ivrit-gzarot-simanim"] *) td{ background:var(--acc-soft); font-style:normal; }
 
 /* ======================================================================
    answers-4  (1 דפים: ivrit-hafan-hafitz-answers.html)
@@ -3129,7 +3146,7 @@ table.topic-score:where([data-css~="ivrit-mishkalim-final-test"], [data-css~="iv
 .guide-box:where([data-css~="hub-3"], [data-css~="hub-3"] *) h2{ margin:0 0 .6rem; font-size:1.15rem; color:#5a4212; }
 .guide-steps:where([data-css~="hub-3"], [data-css~="hub-3"] *){ margin:0; padding-inline-start:1.3rem; display:flex; flex-direction:column; gap:.55rem; font-size:.92rem; line-height:1.6; color:#5a4212; }
 .guide-steps:where([data-css~="hub-3"], [data-css~="hub-3"] *) b{ display:block; margin-bottom:.15rem; }
-.guide-q:where([data-css~="hub-3"], [data-css~="hub-3"] *){ font-style:italic; color:#7a5c1d; }
+.guide-q:where([data-css~="hub-3"], [data-css~="hub-3"] *){ font-style:normal; color:#7a5c1d; }
 
 /* ======================================================================
    ivrit-nechei-pa  (1 דפים: ivrit-nechei-pa.html)
@@ -3380,7 +3397,7 @@ iframe:where([data-css~="view-presentation"], [data-css~="view-presentation"] *)
    yeshayahu-1  (1 דפים: yeshayahu-1.html)
    חל על: דפים עם data-css~="yeshayahu-1"
    ====================================================================== */
-.q-cue:where([data-css~="yeshayahu-1"], [data-css~="yeshayahu-1"] *){ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
+.q-cue:where([data-css~="yeshayahu-1"], [data-css~="yeshayahu-1"] *){ font-size:.8rem; color:var(--acc); font-style:normal; margin:0 0 .35rem; }
 .bg-row:where([data-css~="yeshayahu-1"], [data-css~="yeshayahu-1"] *){ display:flex; flex-wrap:wrap; gap:1.4rem; }
 .bg-row:where([data-css~="yeshayahu-1"], [data-css~="yeshayahu-1"] *) .question-block{ flex:1 1 300px; min-width:0; }
 .qb-meforesh:where([data-css~="yeshayahu-1"], [data-css~="yeshayahu-1"] *){ position:relative; }
@@ -3434,7 +3451,7 @@ main:where([data-css~="yeshayahu-1"], [data-css~="yeshayahu-1"] *){ max-width:13
 @media (max-width:760px){
   .qb-card:where([data-css~="yeshayahu-1"], [data-css~="yeshayahu-1"] *){ grid-template-columns:1fr; gap:1rem; }
 }
-.qb-meforesh:where([data-css~="yeshayahu-1"], [data-css~="yeshayahu-1"] *){ font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
+.qb-meforesh:where([data-css~="yeshayahu-1"], [data-css~="yeshayahu-1"] *){ font-size:.82rem; font-style:normal; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
     padding:.75rem .9rem; box-shadow:var(--shadow); }
 .qb-meforesh:where([data-css~="yeshayahu-1"], [data-css~="yeshayahu-1"] *) .qb-src{ display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
@@ -3634,6 +3651,73 @@ main:where([data-css~="תבנית-דף-עבודה-אינטראקטיבי--1"], [
   .question:where([data-css~="תבנית-דף-עבודה-אינטראקטיבי--1"], [data-css~="תבנית-דף-עבודה-אינטראקטיבי--1"] *), .name-card:where([data-css~="תבנית-דף-עבודה-אינטראקטיבי--1"], [data-css~="תבנית-דף-עבודה-אינטראקטיבי--1"] *){ border:1px solid #999; break-inside:avoid; }
 }
 
+/* ######################################################################
+   איחוד עיצובי: דפי חזרה, סיכום, משחקים וכרטיסיות
+   ######################################################################
+   הדפים האלה נבנו בתבנית ישנה (רקע שמנת, כותרת מרכזית בגופן עם תגים).
+   כאן הם מקבלים את אותה שפה חזותית של דפי העבודה, כדי שהתלמיד ירגיש
+   שהוא באותו מקום בכל דף:
+     - אותה פלטה (כחול-כהה, כתום, ירוק) - דרך החלפת משתני הצבע בלבד;
+     - אותה כותרת: פס כחול-כהה לרוחב כל המסך, כותרת לבנה מיושרת לימין;
+     - אותו גופן ממשק (Rubik). פסוקים וניקוד נשארים ב-Frank Ruhl Libre.
+   כל הצבעים עומדים ביחס ניגודיות AA. מצב "ניגודיות גבוהה" (חלק a11y,
+   שבא אחרי החלק הזה) ממשיך לגבור.
+   ###################################################################### */
+
+/* --- פלטה --- */
+:root:where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="wheel"], [data-css~="matching-game"], [data-css~="flashcards"]){
+  --paper:#E9EFF9; --card:#FFFFFF; --ink:#0E1B33; --ink-soft:#56637A;
+  --navy:#0B2A5B; --navy-soft:#E3EBF7;
+  --gold:#A3470A; --gold-soft:#FFEBDC;
+  --green:#0A7352; --green-soft:#E1F4EC;
+  --border:#DCE4F1;
+}
+:root:where([data-css~="tpl-ivrit-binyanim"]){
+  --bg:#E9EFF9; --ink:#0E1B33; --muted:#56637A; --line:#DCE4F1;
+}
+
+/* --- גופן ממשק --- */
+:where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="wheel"], [data-css~="matching-game"], [data-css~="flashcards"], [data-css~="tpl-ivrit-binyanim"]) body{
+  font-family:'Rubik','Heebo',sans-serif; line-height:1.7;
+}
+:where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="wheel"], [data-css~="matching-game"], [data-css~="flashcards"], [data-css~="tpl-ivrit-binyanim"]) h1,
+:where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="flashcards"]) .topic-heading,
+:where([data-css~="matching-game"]) #winScreen h2{
+  font-family:'Rubik','Heebo',sans-serif; font-weight:700;
+}
+
+/* --- פס הכותרת: שביל הניווט + כותרת הדף על רקע כחול-כהה לרוחב כל המסך --- */
+:where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="wheel"], [data-css~="matching-game"], [data-css~="flashcards"]) .breadcrumbs{
+  max-width:none; margin:0;
+  padding:.9rem max(1.2rem, calc((100% - 1100px) / 2 + 1.2rem)) .2rem;
+  background:var(--navy); color:#C3D3EC;
+}
+:where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="wheel"], [data-css~="matching-game"], [data-css~="flashcards"]) .breadcrumbs a{ color:#FFFFFF; }
+:where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="wheel"], [data-css~="matching-game"], [data-css~="flashcards"]) .breadcrumbs .sep{ color:#7F93B5; }
+:where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="wheel"], [data-css~="matching-game"], [data-css~="flashcards"]) .breadcrumbs .current{ color:#FF7A1A; font-weight:500; }
+:where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="wheel"], [data-css~="matching-game"], [data-css~="flashcards"]) .wrap{ padding-top:0; }
+:where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="wheel"], [data-css~="matching-game"], [data-css~="flashcards"]) .wrap > header{
+  text-align:right; margin:0 0 1.3rem; padding:.9rem 0 1.9rem;
+  background:var(--navy); box-shadow:0 0 0 100vmax var(--navy); clip-path:inset(0 -100vmax);
+}
+:where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="wheel"], [data-css~="matching-game"], [data-css~="flashcards"]) .wrap > header h1{
+  color:#FFFFFF; font-size:clamp(1.5rem, 1.05rem + 2vw, 2.3rem); line-height:1.3; margin:.2rem 0 .5rem;
+}
+:where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="wheel"], [data-css~="matching-game"], [data-css~="flashcards"]) .wrap > header .sub{
+  color:#C3D3EC; max-width:65ch; line-height:1.65;
+}
+:where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="wheel"], [data-css~="matching-game"], [data-css~="flashcards"]) .game-nav{ text-align:right; }
+:where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="wheel"], [data-css~="matching-game"], [data-css~="flashcards"]) .game-nav a{
+  min-height:44px; background:#FFFFFF; border:1.5px solid var(--border); color:var(--navy); border-radius:10px;
+}
+:where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="wheel"], [data-css~="matching-game"], [data-css~="flashcards"]) .game-nav a:hover{ border-color:var(--navy); background:var(--navy-soft); }
+@media print{
+  :where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="wheel"], [data-css~="matching-game"], [data-css~="flashcards"]) .wrap > header{ background:none; box-shadow:none; clip-path:none; }
+  :where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="wheel"], [data-css~="matching-game"], [data-css~="flashcards"]) .wrap > header h1{ color:var(--navy); }
+  :where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="wheel"], [data-css~="matching-game"], [data-css~="flashcards"]) .wrap > header .sub{ color:var(--ink-soft); }
+  :where([data-css~="questions"], [data-css~="summary"], [data-css~="summary-2"], [data-css~="wheel"], [data-css~="matching-game"], [data-css~="flashcards"]) .breadcrumbs{ display:none; }
+}
+
 /* ======================================================================
    steps: דף עבודה במשימות: פס משימות, מסלול למידה, סטטוס שאלה
    חל על: דפים עם data-css~="steps"
@@ -3709,8 +3793,13 @@ main:where([data-css~="תבנית-דף-עבודה-אינטראקטיבי--1"], [
 .bm-task-nav:where([data-css~="steps"], [data-css~="steps"] *){ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:.8rem; margin:1.4rem 0 .8rem; }
 .bm-task-nav:where([data-css~="steps"], [data-css~="steps"] *) .btn{ font-size:1.05rem; min-height:48px; padding:.6rem 1.5rem; }
 .bm-task-nav:where([data-css~="steps"], [data-css~="steps"] *) .btn[hidden]{ display:none; }
+.bm-task-nav:where([data-css~="steps"], [data-css~="steps"] *) .bm-next{ background:var(--gold); border-color:var(--gold); color:var(--ink); font-weight:700; box-shadow:0 4px 14px rgba(255,122,26,.32); }
+.bm-task-nav:where([data-css~="steps"], [data-css~="steps"] *) .bm-next:hover{ background:var(--ink); border-color:var(--ink); color:#FFFFFF; }
+html.a11y-contrast:where([data-css~="steps"]) .bm-task-nav .bm-next{ background:#000000; border-color:#000000; color:#FFFFFF; box-shadow:none; }
 .bm-nav-count:where([data-css~="steps"], [data-css~="steps"] *){ font-weight:800; color: var(--ink-soft); }
 .bm-task-done:where([data-css~="steps"], [data-css~="steps"] *){ flex-basis:100%; order:-1; margin:0; text-align:center; font-weight:800; font-size:1.1rem; color: var(--teal); min-height:1.6em; }
+.bm-task-done:where([data-css~="steps"], [data-css~="steps"] *):not(:empty){ background:var(--teal-soft); border:2px solid var(--teal); border-radius:12px; padding:.65rem 1rem; animation:bmCheer .5s cubic-bezier(.2,1.35,.4,1); }
+@keyframes bmCheer{ 0%{ transform:scale(.85); opacity:0; } 100%{ transform:none; opacity:1; } }
 .toolbar:where([data-css~="steps"], [data-css~="steps"] *) > .bm-task-nav{ margin:0; flex:1 1 auto; justify-content:flex-end; }
 .bm-summary:where([data-css~="steps"], [data-css~="steps"] *){ background: var(--paper-card); border:1.5px solid var(--paper-line); border-top:4px solid var(--teal);
   border-radius:14px; box-shadow: var(--shadow); padding:1.2rem 1.4rem; margin:1.4rem 0 0;
@@ -3829,11 +3918,11 @@ html.a11y-contrast:where([data-css~="guide"], [data-css~="guide"] *) .bm-answer-
 html{ font-size: calc(100% * var(--font-scale, 1)); }
 .bm-skip-link{ position:absolute; top:0; right:1rem; z-index:10000;
   transform: translateY(-130%);
-  background:#1F3A4D; color:#FFFFFF;
+  background:#0B2A5B; color:#FFFFFF;
   padding:.8rem 1.25rem; border-radius:0 0 10px 10px;
   font-family:"Heebo","Arial Hebrew",sans-serif; font-weight:700; font-size:1.05rem;
   text-decoration:none; }
-.bm-skip-link:focus{ transform:none; outline:3px solid #C99A4C; outline-offset:2px; }
+.bm-skip-link:focus{ transform:none; outline:3px solid #FF7A1A; outline-offset:2px; }
 #main-content:focus, #main:focus{ outline:none; }
 .bm-sr-only{ position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
   overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
@@ -3841,33 +3930,33 @@ html{ font-size: calc(100% * var(--font-scale, 1)); }
   direction:rtl; font-family:"Heebo","Arial Hebrew",sans-serif; line-height:1.4; }
 .bm-a11y-toggle{ display:inline-flex; align-items:center; justify-content:center;
   width:34px; height:34px; padding:0;
-  background:#1F3A4D; color:#FFFFFF;
-  border:1.5px solid #C99A4C; border-radius:50%;
+  background:#0B2A5B; color:#FFFFFF;
+  border:1.5px solid #FF7A1A; border-radius:50%;
   font-family:inherit; cursor:pointer; opacity:.85;
   box-shadow:0 2px 6px rgba(0,0,0,.2); }
 .bm-a11y-toggle svg{ width:18px; height:18px; }
 .bm-a11y-toggle:hover, .bm-a11y-toggle:focus-visible, .bm-a11y-toggle[aria-expanded="true"]{ opacity:1; }
 .bm-a11y-toggle-text{ position:absolute; width:1px; height:1px; padding:0; margin:-1px;
   overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
-.bm-a11y-toggle:hover{ background:#2C4A60; }
-.bm-a11y-toggle[aria-expanded="true"]{ background:#C99A4C; color:#1F3A4D; border-color:#1F3A4D; }
+.bm-a11y-toggle:hover{ background:#1A3F7A; }
+.bm-a11y-toggle[aria-expanded="true"]{ background:#FF7A1A; color:#0B2A5B; border-color:#0B2A5B; }
 .bm-a11y button:focus-visible{ outline:3px solid #1857C4; outline-offset:3px; }
 .bm-a11y-panel{ position:absolute; top:calc(100% + .5rem); left:0;
   width:min(21rem, calc(100vw - 1.2rem));
   max-height:calc(100vh - 4rem); overflow-y:auto;
   display:flex; flex-direction:column; gap:.6rem;
-  background:#F7F1E1; color:#1F3A4D;
-  border:2px solid #1F3A4D; border-radius:14px;
+  background:#FFFFFF; color:#0B2A5B;
+  border:2px solid #0B2A5B; border-radius:14px;
   padding:1rem; box-shadow:0 10px 30px rgba(0,0,0,.28); }
 .bm-a11y-panel[hidden]{ display:none; }
-.bm-a11y-title{ margin:0 0 .1rem; font-weight:800; font-size:1.1rem; color:#1F3A4D; }
+.bm-a11y-title{ margin:0 0 .1rem; font-weight:800; font-size:1.1rem; color:#0B2A5B; }
 .bm-a11y-row{ display:flex; align-items:center; gap:.45rem; }
 .bm-a11y-label{ font-weight:700; margin-inline-end:auto; }
 .bm-a11y-level-wrap{ min-width:3.4rem; text-align:center; font-weight:800; }
 .bm-a11y-panel button{ font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer;
-  color:#1F3A4D; background:#FFFFFF;
-  border:1.5px solid #1F3A4D; border-radius:10px; min-height:44px; }
-.bm-a11y-panel button:hover{ background:#F3E7D2; }
+  color:#0B2A5B; background:#FFFFFF;
+  border:1.5px solid #0B2A5B; border-radius:10px; min-height:44px; }
+.bm-a11y-panel button:hover{ background:#E3EBF7; }
 .bm-a11y-step{ min-width:48px; padding:0 .6rem; font-size:1.1rem !important; }
 .bm-a11y-switch, .bm-a11y-reset{ width:100%; padding:.55rem .9rem; text-align:right;
   display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
@@ -3875,12 +3964,18 @@ html{ font-size: calc(100% * var(--font-scale, 1)); }
   display:inline-flex; align-items:center; justify-content:center; flex:none;
   width:1.3rem; height:1.3rem; border:2px solid currentColor; border-radius:5px;
   font-size:.9rem; line-height:1; }
-.bm-a11y-switch[aria-pressed="true"]{ background:#1F3A4D; color:#FFFFFF; }
-.bm-a11y-switch[aria-pressed="true"]:hover{ background:#2C4A60; }
+.bm-a11y-switch[aria-pressed="true"]{ background:#0B2A5B; color:#FFFFFF; }
+.bm-a11y-switch[aria-pressed="true"]:hover{ background:#1A3F7A; }
 .bm-a11y-switch[aria-pressed="true"]::after{ content:"✓"; content:"✓" / ""; }
 .bm-a11y-reset{ border-style:dashed !important; }
 .bm-a11y-panel [aria-disabled="true"]{ opacity:.45; cursor:not-allowed; }
-.bm-a11y-note{ margin:0; font-size:.9rem; color:#4B6577; }
+.bm-a11y-note{ margin:0; font-size:.9rem; color:#56637A; }
+/* בטלפון: שביל הניווט לא נכנס מתחת לכפתור הנגישות העגול (בפינה השמאלית-העליונה),
+   ובתחתית הדף יש מקום, כדי שהכפתורים הצפים לא יסתירו את השורות האחרונות */
+@media (max-width:640px){
+  nav.breadcrumbs, nav.crumb{ padding-left:3.8rem; }
+  body{ padding-bottom:4.5rem; }
+}
 @media print{
   .bm-a11y, .bm-skip-link{ display:none !important; }
 }
@@ -4073,52 +4168,52 @@ body.quiz-mode:where([data-css~="ptp-review"], [data-css~="ptp-review"] *) .reca
    חל על: כל הדפים
    ====================================================================== */
 .bm-qnav{ position:fixed; right:1rem; bottom:1rem; z-index:451;
-  direction:rtl; font-family:"Heebo","Arial Hebrew",sans-serif; line-height:1.4; }
-.bm-qnav-toggle{ display:inline-flex; align-items:center; gap:.2rem;
-  min-height:19px; padding:.05rem .4rem .05rem .45rem;
-  background:#C99A4C; color:#1F3A4D;
-  border:1px solid #1F3A4D; border-radius:999px;
-  font-family:inherit; font-size:.6rem; font-weight:700; line-height:1.2; cursor:pointer;
-  box-shadow:0 1px 4px rgba(0,0,0,.22); }
-.bm-qnav-toggle svg{ width:10px; height:10px; }
-.bm-qnav-toggle:hover{ background:#D8AE66; }
-.bm-qnav-toggle[aria-expanded="true"]{ background:#1F3A4D; color:#FFFFFF; border-color:#C99A4C; }
+  direction:rtl; font-family:'Rubik','Heebo','Arial Hebrew',sans-serif; line-height:1.4; }
+.bm-qnav-toggle{ display:inline-flex; align-items:center; gap:.4rem;
+  min-height:40px; padding:.35rem .95rem .35rem .85rem;
+  background:#FF7A1A; color:#0B2A5B;
+  border:1px solid #0B2A5B; border-radius:999px;
+  font-family:inherit; font-size:.9rem; font-weight:700; line-height:1.2; cursor:pointer;
+  box-shadow:0 3px 10px rgba(11,42,91,.25); }
+.bm-qnav-toggle svg{ width:16px; height:16px; }
+.bm-qnav-toggle:hover{ background:#FF9A4D; }
+.bm-qnav-toggle[aria-expanded="true"]{ background:#0B2A5B; color:#FFFFFF; border-color:#FF7A1A; }
 .bm-qnav button:focus-visible, .bm-qnav a:focus-visible{ outline:3px solid #1857C4; outline-offset:3px; }
 .bm-qnav-panel{ position:absolute; bottom:calc(100% + .6rem); right:0;
   width:min(20rem, calc(100vw - 2.4rem));
   max-height:calc(100vh - 5rem); overflow-y:auto;
   display:flex; flex-direction:column; gap:.6rem;
-  background:#F7F1E1; color:#1F3A4D;
-  border:2px solid #1F3A4D; border-radius:14px;
+  background:#FFFFFF; color:#0B2A5B;
+  border:2px solid #0B2A5B; border-radius:14px;
   padding:1rem; box-shadow:0 10px 30px rgba(0,0,0,.28); }
 .bm-qnav-panel[hidden]{ display:none; }
 .bm-qnav-title{ margin:0; font-weight:800; font-size:1.1rem; }
 .bm-qnav-grades{ display:grid; grid-template-columns:1fr 1fr; gap:.4rem; }
 .bm-qnav-grade{ min-height:44px; font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer;
-  color:#1F3A4D; background:#FFFFFF; border:1.5px solid #1F3A4D; border-radius:10px; }
-.bm-qnav-grade:hover{ background:#F3E7D2; }
-.bm-qnav-grade[aria-pressed="true"]{ background:#1F3A4D; color:#FFFFFF; }
+  color:#0B2A5B; background:#FFFFFF; border:1.5px solid #0B2A5B; border-radius:10px; }
+.bm-qnav-grade:hover{ background:#E3EBF7; }
+.bm-qnav-grade[aria-pressed="true"]{ background:#0B2A5B; color:#FFFFFF; }
 .bm-qnav-units{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.35rem; }
 .bm-qnav-units[hidden]{ display:none; }
 .bm-qnav-units a{ display:flex; align-items:center; gap:.55rem; min-height:44px; padding:.4rem .75rem;
-  background:#FFFFFF; color:#1F3A4D; text-decoration:none; font-weight:600;
-  border:1.5px solid #D9CBA8; border-radius:10px; }
-.bm-qnav-units a:hover{ border-color:#1F3A4D; background:#FBF6EA; }
-.bm-qnav-units a.is-here{ border-color:#C99A4C; background:#F3E7D2; font-weight:800; }
+  background:#FFFFFF; color:#0B2A5B; text-decoration:none; font-weight:600;
+  border:1.5px solid #DCE4F1; border-radius:10px; }
+.bm-qnav-units a:hover{ border-color:#0B2A5B; background:#F4F7FC; }
+.bm-qnav-units a.is-here{ border-color:#FF7A1A; background:#E3EBF7; font-weight:800; }
 .bm-qnav-icon{ font-size:1.15rem; flex:none; }
 .bm-qnav-name{ flex:1; }
-.bm-qnav-here{ font-size:.75rem; font-weight:700; color:#FFFFFF; background:#1F3A4D;
+.bm-qnav-here{ font-size:.75rem; font-weight:700; color:#FFFFFF; background:#0B2A5B;
   border-radius:999px; padding:.1rem .55rem; white-space:nowrap; }
-.bm-qnav-units a.bm-qnav-all{ border-style:dashed; justify-content:center; font-size:.9rem; color:#4B6577; }
-.bm-qnav-footer{ display:grid; grid-template-columns:1fr 1fr; gap:.4rem; border-top:1px solid #D9CBA8; padding-top:.6rem; }
+.bm-qnav-units a.bm-qnav-all{ border-style:dashed; justify-content:center; font-size:.9rem; color:#56637A; }
+.bm-qnav-footer{ display:grid; grid-template-columns:1fr 1fr; gap:.4rem; border-top:1px solid #DCE4F1; padding-top:.6rem; }
 .bm-qnav-footer a{ display:flex; align-items:center; justify-content:center; gap:.35rem; min-height:44px;
-  color:#1F3A4D; text-decoration:none; font-weight:700; font-size:.92rem;
-  background:#FFFFFF; border:1.5px solid #1F3A4D; border-radius:10px; }
-.bm-qnav-footer a:hover{ background:#F3E7D2; }
+  color:#0B2A5B; text-decoration:none; font-weight:700; font-size:.92rem;
+  background:#FFFFFF; border:1.5px solid #0B2A5B; border-radius:10px; }
+.bm-qnav-footer a:hover{ background:#E3EBF7; }
 @media (max-width:480px){
   .bm-qnav{ right:.75rem; bottom:.75rem; }
-  .bm-qnav-toggle{ width:22px; height:22px; min-height:0; padding:0; justify-content:center; }
-  .bm-qnav-toggle svg{ width:12px; height:12px; }
+  .bm-qnav-toggle{ width:44px; height:44px; min-height:0; padding:0; justify-content:center; }
+  .bm-qnav-toggle svg{ width:20px; height:20px; }
   .bm-qnav-toggle-text{ position:absolute; width:1px; height:1px; padding:0; margin:-1px;
     overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 }
