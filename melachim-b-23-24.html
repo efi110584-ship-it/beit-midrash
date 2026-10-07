@@ -11,6 +11,10 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
+  /* שאלות בגרות שחולקות אותו מקור: המקור מופיע פעם אחת, והשאלות מתפרסות לרוחב זו לצד זו */
+  .bg-row{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+  .bg-row .question-block{ flex:1 1 300px; min-width:0; }
+
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
@@ -49,20 +53,31 @@
     border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
   }
 
+  /* דף רחב: עמודה אחת יותר רחבה, כדי שכל קובית תוכל להתפרס לרוחב (מקור מול שאלה) */
+  main{ max-width:1320px; }
+
   .qb-branches{
-    display:flex; flex-wrap:wrap; gap:1.1rem;
+    display:flex; flex-direction:column; gap:1.3rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
     content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
   }
   .qb-card{
-    flex:1 1 260px;
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
-    min-width:0;
+    padding:1.2rem 1.4rem; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.6rem; align-items:start;
   }
-  .qb-card > *{ width:100%; max-width:640px; }
+  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - עם קו מפריד ביניהם */
+  .qb-source{ display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+  .qb-question{
+    display:flex; flex-direction:column; gap:.5rem; min-width:0;
+    border-right:2px solid var(--acc-soft); padding-right:1.5rem;
+  }
+  @media (max-width:760px){
+    .qb-card{ grid-template-columns:1fr; gap:1rem; }
+    .qb-question{ border-right:none; padding-right:0; border-top:2px solid var(--acc-soft); padding-top:.9rem; }
+  }
   .qb-meforesh{
     font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
@@ -170,24 +185,24 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "עם הארץ" - אנשים מכובדים שהמליכו את יהואחז - נדרשים לשלם את הקנס שהטיל מלך מצרים</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">"עם הארץ" ממליך את יהואחז, אך פרעה נכה מדיח אותו כמעט מיד וגובה קנס כבד דווקא מאותו "עם הארץ" שהמליך אותו. מה מלמד מהלך זה על מידת השליטה האמיתית שנותרה לעם היהודי בבחירת מלכיו בשלב זה של ההיסטוריה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> העונש על מי שהמליך את יהואחז מלמד שמצרים רואה בכך אתגר לסמכותה - בחירת המלך היא אשליה; בפועל מצרים שולטת בכל צעד מדיני של יהודה.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "עם הארץ" - אנשים מכובדים שהמליכו את יהואחז - נדרשים לשלם את הקנס שהטיל מלך מצרים</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">"עם הארץ" ממליך את יהואחז, אך פרעה נכה מדיח אותו כמעט מיד וגובה קנס כבד דווקא מאותו "עם הארץ" שהמליך אותו. מה מלמד מהלך זה על מידת השליטה האמיתית שנותרה לעם היהודי בבחירת מלכיו בשלב זה של ההיסטוריה?</span></div>
+<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> העונש על מי שהמליך את יהואחז מלמד שמצרים רואה בכך אתגר לסמכותה - בחירת המלך היא אשליה; בפועל מצרים שולטת בכל צעד מדיני של יהודה.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: פרעה נכה משנה את שם אליקים ליהויקים - מעשה המבטא שליטה מוחלטת של המלך הזר</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">שינוי השם מ"אליקים" ל"יהויקים" בידי פרעה נכה מזכיר מקרים דומים בתנ"ך (כגון שינוי שם צדקיהו בהמשך). מהי המשמעות הסמלית של שינוי שם מלך בידי מלך זר, מעבר לפעולה מנהלית גרידא?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שינוי שם מבטא בעלות ושליטה - כשם שאב הנותן שם לילדו מבטא מרות, כך מלך זר המשנה שם מלך שהוא ממנה מבטא שמלכותו תלויה לחלוטין ברצונו.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: פרעה נכה משנה את שם אליקים ליהויקים - מעשה המבטא שליטה מוחלטת של המלך הזר</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">שינוי השם מ"אליקים" ל"יהויקים" בידי פרעה נכה מזכיר מקרים דומים בתנ"ך (כגון שינוי שם צדקיהו בהמשך). מהי המשמעות הסמלית של שינוי שם מלך בידי מלך זר, מעבר לפעולה מנהלית גרידא?</span></div>
+<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> שינוי שם מבטא בעלות ושליטה - כשם שאב הנותן שם לילדו מבטא מרות, כך מלך זר המשנה שם מלך שהוא ממנה מבטא שמלכותו תלויה לחלוטין ברצונו.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -215,19 +230,19 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">הערה: הפסוק בכ"ד, ד' מזכיר במפורש את שפיכות הדמים של מנשה, אך גם יהויקים עצמו שפך דם נקי - רצח הנביא אוריה, המתואר בירמיהו כ"ו</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">השוואה מבנית, מלכים ב' כ"ד, ד' וירמיהו כ"ו</span>
+
+
+
+<div class="qb-source"><p class="q-cue">הערה: הפסוק בכ"ד, ד' מזכיר במפורש את שפיכות הדמים של מנשה, אך גם יהויקים עצמו שפך דם נקי - רצח הנביא אוריה, המתואר בירמיהו כ"ו</p><div class="qb-meforesh">
+<span class="qb-src">השוואה מבנית, מלכים ב' כ"ד, ד' וירמיהו כ"ו</span>
             הפסוק מזכיר את "דם הנקי" ששפך מנשה - אך אנו לומדים כי גם יהויקים עצמו שפך דם נקי, כשרצח את הנביא אוריה בן שמעיהו שהתנבא כדברי ירמיהו, כמסופר בירמיהו פרק כ"ו.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="mb2324-mp-1">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">הכתוב מזכיר בפירוש את "חַטֹּאת מְנַשֶּׁה" בהקשר לחורבן העתידי, אך משמיט אזכור מפורש לחטא שפיכות הדמים של יהויקים עצמו (רצח אוריה), אף שהוא מתועד בירמיהו כ"ו. מדוע, לדעתכם, בוחר ספר מלכים "לייחס" את האחריות דווקא למנשה ולא ליהויקים עצמו, שחטא בפועל בדם נקי גם הוא?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ספר מלכים מראה שהחורבן הוא תוצאה מצטברת של דפוס חטא שהחל במנשה והמשיך לדורות, כולל יהויקים - החטא הפך לתופעה שיטתית, לא חריגה חד-פעמית.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="mb2324-mp-1" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">הכתוב מזכיר בפירוש את "חַטֹּאת מְנַשֶּׁה" בהקשר לחורבן העתידי, אך משמיט אזכור מפורש לחטא שפיכות הדמים של יהויקים עצמו (רצח אוריה), אף שהוא מתועד בירמיהו כ"ו. מדוע, לדעתכם, בוחר ספר מלכים "לייחס" את האחריות דווקא למנשה ולא ליהויקים עצמו, שחטא בפועל בדם נקי גם הוא?</span></div>
+<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> ספר מלכים מראה שהחורבן הוא תוצאה מצטברת של דפוס חטא שהחל במנשה והמשיך לדורות, כולל יהויקים - החטא הפך לתופעה שיטתית, לא חריגה חד-פעמית.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -255,34 +270,34 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: קרב כרכמיש (בשנה הרביעית ליהויקים) הכריע לטובת בבל, וכל אזורי החסות המצרית נפלו לידי מלך בבל</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">יהודה, שהייתה נתונה בתחילת מלכות יהויקים תחת חסות מצרית, מוצאת עצמה לפתע תחת חסות בבלית לאחר קרב כרכמיש - בלי שהיא עצמה נקטה כל פעולה. מה מלמד מהלך זה על מעמדה האמיתי של ממלכת יהודה בזירה הבינלאומית באותה תקופה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יהודה הפכה לגורם פסיבי לחלוטין - גורלה נקבע על ידי קרבות בין מצרים ובבל, ללא כל מעורבות יהודית - מציאות שתחריף עד לחורבן המוחלט.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: קרב כרכמיש (בשנה הרביעית ליהויקים) הכריע לטובת בבל, וכל אזורי החסות המצרית נפלו לידי מלך בבל</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">יהודה, שהייתה נתונה בתחילת מלכות יהויקים תחת חסות מצרית, מוצאת עצמה לפתע תחת חסות בבלית לאחר קרב כרכמיש - בלי שהיא עצמה נקטה כל פעולה. מה מלמד מהלך זה על מעמדה האמיתי של ממלכת יהודה בזירה הבינלאומית באותה תקופה?</span></div>
+<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> יהודה הפכה לגורם פסיבי לחלוטין - גורלה נקבע על ידי קרבות בין מצרים ובבל, ללא כל מעורבות יהודית - מציאות שתחריף עד לחורבן המוחלט.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: יהויקים היה כפוף לבבל שלוש שנים, ואז מרד בה - כנראה בעידודה של מצרים המובסת</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">יהויקים בוחר למרוד בבבל דווקא לאחר שראה במו עיניו כיצד בבל ניצחה את מצרים בקרב כרכמיש, וכיצד מצרים "נעלמה" מהזירה. מה, לדעתכם, המניע לבחירה מדינית זו, שלכאורה נראית הרת סיכון גבוה במיוחד?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יהויקים כנראה הימר על עידוד מצרי או ריחוק בבל - הימור שגוי: נבוכדנאצר מגיב בנחישות, ויהויקים מת במרד, מה שמלמד על חוסר ראייה מדינית ריאלית.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: יהויקים היה כפוף לבבל שלוש שנים, ואז מרד בה - כנראה בעידודה של מצרים המובסת</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">יהויקים בוחר למרוד בבבל דווקא לאחר שראה במו עיניו כיצד בבל ניצחה את מצרים בקרב כרכמיש, וכיצד מצרים "נעלמה" מהזירה. מה, לדעתכם, המניע לבחירה מדינית זו, שלכאורה נראית הרת סיכון גבוה במיוחד?</span></div>
+<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> יהויקים כנראה הימר על עידוד מצרי או ריחוק בבל - הימור שגוי: נבוכדנאצר מגיב בנחישות, ויהויקים מת במרד, מה שמלמד על חוסר ראייה מדינית ריאלית.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: יהויקים מת במהלך המרד, ובנו יהויכין יורש את מלוכתו הקצרה בת שלושה החודשים</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">מותו של יהויקים במהלך מרדו בבבל, שלא כתוצאה מהוצאה להורג מפורשת בידי האויב, משאיר עמימות מסוימת בנוגע לנסיבות מותו. מדוע, לדעתכם, בוחר הכתוב שלא לפרט את נסיבות מותו, בניגוד לתיאורים המפורטים של סוף מלכים אחרים בהמשך הפרק?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> העמימות סביב מות יהויקים, בניגוד לתיאורי יהויכין וצדקיהו, משקפת שהוא אינו לא צדיק ולא סמל טרגי - אלא חוליה חולפת בשרשרת ההתדרדרות.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: יהויקים מת במהלך המרד, ובנו יהויכין יורש את מלוכתו הקצרה בת שלושה החודשים</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">מותו של יהויקים במהלך מרדו בבבל, שלא כתוצאה מהוצאה להורג מפורשת בידי האויב, משאיר עמימות מסוימת בנוגע לנסיבות מותו. מדוע, לדעתכם, בוחר הכתוב שלא לפרט את נסיבות מותו, בניגוד לתיאורים המפורטים של סוף מלכים אחרים בהמשך הפרק?</span></div>
+<textarea aria-labelledby="a11y-lbl-6" class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> העמימות סביב מות יהויקים, בניגוד לתיאורי יהויכין וצדקיהו, משקפת שהוא אינו לא צדיק ולא סמל טרגי - אלא חוליה חולפת בשרשרת ההתדרדרות.</div>
+</div></div></div>
 
       </div>
     </div>

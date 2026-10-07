@@ -11,6 +11,10 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
+  /* שאלות בגרות שחולקות אותו מקור: המקור מופיע פעם אחת, והשאלות מתפרסות לרוחב זו לצד זו */
+  .bg-row{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+  .bg-row .question-block{ flex:1 1 300px; min-width:0; }
+
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
@@ -49,20 +53,31 @@
     border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
   }
 
+  /* דף רחב: עמודה אחת יותר רחבה, כדי שכל קובית תוכל להתפרס לרוחב (מקור מול שאלה) */
+  main{ max-width:1320px; }
+
   .qb-branches{
-    display:flex; flex-wrap:wrap; gap:1.1rem;
+    display:flex; flex-direction:column; gap:1.3rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
     content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
   }
   .qb-card{
-    flex:1 1 260px;
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
-    min-width:0;
+    padding:1.2rem 1.4rem; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.6rem; align-items:start;
   }
-  .qb-card > *{ width:100%; max-width:640px; }
+  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - עם קו מפריד ביניהם */
+  .qb-source{ display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+  .qb-question{
+    display:flex; flex-direction:column; gap:.5rem; min-width:0;
+    border-right:2px solid var(--acc-soft); padding-right:1.5rem;
+  }
+  @media (max-width:760px){
+    .qb-card{ grid-template-columns:1fr; gap:1rem; }
+    .qb-question{ border-right:none; padding-right:0; border-top:2px solid var(--acc-soft); padding-top:.9rem; }
+  }
   .qb-meforesh{
     font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
@@ -171,29 +186,29 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: הכתוב משתמש בפעלים רבים המתארים הליך הדרגתי - החל מבמות, דרך חצרות המקדש, ועד להיכל עצמו</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">תיאור חטאי מנשה מתקדם בהדרגה ממרחק (במות בשדה) אל מרכז הקדושה (חצרות המקדש, ולבסוף ההיכל עצמו). מדוע, לדעתכם, בחר הכתוב להציג את החטא כתהליך מדורג ולא כמעשה חד-פעמי?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ההדרגתיות ממחישה כיצד חטא שהחל "בשוליים" הלך והחריף עד שחדר ללב הקודש - עבודה זרה נוטה להתפשט אם לא עוצרים אותה מוקדם.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: הכתוב משתמש בפעלים רבים המתארים הליך הדרגתי - החל מבמות, דרך חצרות המקדש, ועד להיכל עצמו</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">תיאור חטאי מנשה מתקדם בהדרגה ממרחק (במות בשדה) אל מרכז הקדושה (חצרות המקדש, ולבסוף ההיכל עצמו). מדוע, לדעתכם, בחר הכתוב להציג את החטא כתהליך מדורג ולא כמעשה חד-פעמי?</span></div>
+<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> ההדרגתיות ממחישה כיצד חטא שהחל "בשוליים" הלך והחריף עד שחדר ללב הקודש - עבודה זרה נוטה להתפשט אם לא עוצרים אותה מוקדם.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">רלב"ג: מנשה היה הורג כל מי שלא הסכים לעבוד עבודת גילולים, כמו שעשתה איזבל אשת אחאב שהרגה את נביאי ה'</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רלב"ג, מלכים ב' כ"א</span>
+
+
+
+<div class="qb-source"><p class="q-cue">רלב"ג: מנשה היה הורג כל מי שלא הסכים לעבוד עבודת גילולים, כמו שעשתה איזבל אשת אחאב שהרגה את נביאי ה'</p><div class="qb-meforesh">
+<span class="qb-src">רלב"ג, מלכים ב' כ"א</span>
             מנשה היה הורג כל מי שלא הסכים לעבוד עבודת גילולים, והנביאים המוכיחים אותם - כמו שעשתה איזבל (אשת אחאב) שהרגה את נביאי ה'.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="mb21-mp-1">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">רלב"ג משווה בין רדיפת מנשה אחר מוכיחיו לרדיפת איזבל אחר נביאי ה' בממלכת ישראל. גם מנשה וגם אחאב הפכו לסמלי חטא מובהקים בתנ"ך - האם קיים קשר, לדעתכם, בין עבודה זרה לשפיכות דמים, או מדובר בשני חטאים נפרדים המצטרפים במקרה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> מי שמאמץ עבודה זרה חייב לחסל את הקול הנבואי המאיים על שלטונו - שפיכות דמים אינה תוספת מקרית אלא תוצאה טבעית שלה, ולכן שני החטאים מופיעים תמיד יחד, כמו אצל אחאב.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="mb21-mp-1" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">רלב"ג משווה בין רדיפת מנשה אחר מוכיחיו לרדיפת איזבל אחר נביאי ה' בממלכת ישראל. גם מנשה וגם אחאב הפכו לסמלי חטא מובהקים בתנ"ך - האם קיים קשר, לדעתכם, בין עבודה זרה לשפיכות דמים, או מדובר בשני חטאים נפרדים המצטרפים במקרה?</span></div>
+<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> מי שמאמץ עבודה זרה חייב לחסל את הקול הנבואי המאיים על שלטונו - שפיכות דמים אינה תוספת מקרית אלא תוצאה טבעית שלה, ולכן שני החטאים מופיעים תמיד יחד, כמו אצל אחאב.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -220,24 +235,24 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "קו שומרון" - כלי בנייה המשווה ומיישר בנייה; "מחיית הצלחת" - ניקוי כלי אכילה עד תום</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">הנבואה משתמשת בשני דימויים מעולם היום-יום - כלי בנייה ("קו") וניקוי כלים ("מחיית הצלחת") - כדי לתאר חורבן לאומי איום. מהו היתרון בבחירת דימויים מוכרים ופשוטים דווקא, לתיאור אסון כה גדול?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> "קו המשקולת" מבטיח דיוק מוחלט בין גורל ירושלים לשומרון; "מחיית הצלחת" מבטאת ריקון מוחלט וסופי - דימויים מוכרים ההופכים את הנבואה לממשית יותר.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "קו שומרון" - כלי בנייה המשווה ומיישר בנייה; "מחיית הצלחת" - ניקוי כלי אכילה עד תום</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">הנבואה משתמשת בשני דימויים מעולם היום-יום - כלי בנייה ("קו") וניקוי כלים ("מחיית הצלחת") - כדי לתאר חורבן לאומי איום. מהו היתרון בבחירת דימויים מוכרים ופשוטים דווקא, לתיאור אסון כה גדול?</span></div>
+<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> "קו המשקולת" מבטיח דיוק מוחלט בין גורל ירושלים לשומרון; "מחיית הצלחת" מבטאת ריקון מוחלט וסופי - דימויים מוכרים ההופכים את הנבואה לממשית יותר.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְנָטִיתִי עַל יְרוּשָׁלַם אֵת קָו שֹׁמְרוֹן" - השוואה מפורשת בין גורל ירושלים לגורל שומרון שכבר חרבה</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">הנבואה משווה במפורש בין גורל יהודה וירושלים לבין גורל ממלכת ישראל ושומרון, שכבר חרבה כמאה שנה לפני כן. מה משמעות ההשוואה הזו, ומדוע היא כה מטלטלת עבור שומעיה ביהודה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> תושבי יהודה התנחמו בכך שממלכתם שונה מישראל החוטאת; ההשוואה מנפצת את האשליה - גם ירושלים אינה חסינה מדין אם היא הולכת באותה דרך.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְנָטִיתִי עַל יְרוּשָׁלַם אֵת קָו שֹׁמְרוֹן" - השוואה מפורשת בין גורל ירושלים לגורל שומרון שכבר חרבה</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">הנבואה משווה במפורש בין גורל יהודה וירושלים לבין גורל ממלכת ישראל ושומרון, שכבר חרבה כמאה שנה לפני כן. מה משמעות ההשוואה הזו, ומדוע היא כה מטלטלת עבור שומעיה ביהודה?</span></div>
+<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> תושבי יהודה התנחמו בכך שממלכתם שונה מישראל החוטאת; ההשוואה מנפצת את האשליה - גם ירושלים אינה חסינה מדין אם היא הולכת באותה דרך.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -266,24 +281,24 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: ספר מלכים אינו מזכיר כלל את תשובת מנשה המתוארת בדברי הימים</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">גם שנים רבות אחרי מותו של מנשה, פסוקים בפרקים כ"ג וכ"ד מזכירים במפורש את "חַטֹּאת מְנַשֶּׁה" כגורם המכריע לחורבן. מדוע, לדעתכם, נותר עונש החורבן בעינו, אף שלפי דברי הימים מנשה עצמו שב בתשובה בסוף ימיו?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> תשובת מנשה כיפרה על חטאו הפרטי, אך לא ביטלה את הנזק המצטבר של 55 שנות עבודה זרה על העם - נזק חברתי-רוחני שממשיך לפעול גם אחרי חזרתו בתשובה.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: ספר מלכים אינו מזכיר כלל את תשובת מנשה המתוארת בדברי הימים</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">גם שנים רבות אחרי מותו של מנשה, פסוקים בפרקים כ"ג וכ"ד מזכירים במפורש את "חַטֹּאת מְנַשֶּׁה" כגורם המכריע לחורבן. מדוע, לדעתכם, נותר עונש החורבן בעינו, אף שלפי דברי הימים מנשה עצמו שב בתשובה בסוף ימיו?</span></div>
+<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> תשובת מנשה כיפרה על חטאו הפרטי, אך לא ביטלה את הנזק המצטבר של 55 שנות עבודה זרה על העם - נזק חברתי-רוחני שממשיך לפעול גם אחרי חזרתו בתשובה.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: ספר מלכים ב' מסתיים בתיאור מלכות אמון, בנו של מנשה, שהלך בדרכי אביו ונרצח על ידי עבדיו</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">אמון, בנו של מנשה, ממשיך בדרך אביו אך מולך רק שנתיים לפני שהוא נרצח במרד פנימי. מה, לדעתכם, ההבדל המהותי בין תיאורו הקצר של אמון לבין תיאורו הארוך והמפורט של מנשה עצמו?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> תיאורו הארוך של מנשה משקף שהוא היה החוטא המכריע והמייסד; תיאורו הקצר של אמון מלמד שהוא רק המשיך דרך קיימת - וסופו האלים מרמז על יציבות מתערערת.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: ספר מלכים ב' מסתיים בתיאור מלכות אמון, בנו של מנשה, שהלך בדרכי אביו ונרצח על ידי עבדיו</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">אמון, בנו של מנשה, ממשיך בדרך אביו אך מולך רק שנתיים לפני שהוא נרצח במרד פנימי. מה, לדעתכם, ההבדל המהותי בין תיאורו הקצר של אמון לבין תיאורו הארוך והמפורט של מנשה עצמו?</span></div>
+<textarea aria-labelledby="a11y-lbl-6" class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> תיאורו הארוך של מנשה משקף שהוא היה החוטא המכריע והמייסד; תיאורו הקצר של אמון מלמד שהוא רק המשיך דרך קיימת - וסופו האלים מרמז על יציבות מתערערת.</div>
+</div></div></div>
 
       </div>
     </div>

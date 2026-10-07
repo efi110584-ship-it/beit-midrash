@@ -11,6 +11,10 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
+  /* שאלות בגרות שחולקות אותו מקור: המקור מופיע פעם אחת, והשאלות מתפרסות לרוחב זו לצד זו */
+  .bg-row{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+  .bg-row .question-block{ flex:1 1 300px; min-width:0; }
+
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
@@ -49,20 +53,31 @@
     border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
   }
 
+  /* דף רחב: עמודה אחת יותר רחבה, כדי שכל קובית תוכל להתפרס לרוחב (מקור מול שאלה) */
+  main{ max-width:1320px; }
+
   .qb-branches{
-    display:flex; flex-wrap:wrap; gap:1.1rem;
+    display:flex; flex-direction:column; gap:1.3rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
     content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
   }
   .qb-card{
-    flex:1 1 260px;
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
-    min-width:0;
+    padding:1.2rem 1.4rem; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.6rem; align-items:start;
   }
-  .qb-card > *{ width:100%; max-width:640px; }
+  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - עם קו מפריד ביניהם */
+  .qb-source{ display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+  .qb-question{
+    display:flex; flex-direction:column; gap:.5rem; min-width:0;
+    border-right:2px solid var(--acc-soft); padding-right:1.5rem;
+  }
+  @media (max-width:760px){
+    .qb-card{ grid-template-columns:1fr; gap:1rem; }
+    .qb-question{ border-right:none; padding-right:0; border-top:2px solid var(--acc-soft); padding-top:.9rem; }
+  }
   .qb-meforesh{
     font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
@@ -174,24 +189,24 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: שלוש עשרה שנה לאחר שמונה עזרא הסופר להנהיג את יושבי יהודה, המצב עדיין "בכי רע"</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">חנני מדווח לנחמיה על מצבם הקשה של שבי ציון, שלוש עשרה שנה אחרי שעזרא הסופר החל לפעול. מדוע, לדעתכם, לא הביאה פעילותו הרוחנית של עזרא לשיפור במצבם הפיזי-ביטחוני של תושבי ירושלים?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שליחות עזרא הייתה רוחנית-משפטית ולא ביטחונית-בניינית. תיקון החומות דורש סמכות מדינית שונה (מינוי כפחה) - ולכן נדרשה שליחות נפרדת של נחמיה.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: שלוש עשרה שנה לאחר שמונה עזרא הסופר להנהיג את יושבי יהודה, המצב עדיין "בכי רע"</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">חנני מדווח לנחמיה על מצבם הקשה של שבי ציון, שלוש עשרה שנה אחרי שעזרא הסופר החל לפעול. מדוע, לדעתכם, לא הביאה פעילותו הרוחנית של עזרא לשיפור במצבם הפיזי-ביטחוני של תושבי ירושלים?</span></div>
+<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> שליחות עזרא הייתה רוחנית-משפטית ולא ביטחונית-בניינית. תיקון החומות דורש סמכות מדינית שונה (מינוי כפחה) - ולכן נדרשה שליחות נפרדת של נחמיה.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וָאֱהִי צָם וּמִתְפַּלֵּל לִפְנֵי אֱלֹקֵי הַשָּׁמָיִם" (א', ד')</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">נחמיה, איש חצר המלכות המכובד, מגיב לידיעה קשה בבכי, אבל, צום ותפילה ממושכת - ולא בפעולה מיידית. מה מלמדת תגובתו הראשונית על סדר הפעולות הנכון בעיניו, לפני שהוא פונה לפתרון מעשי?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> נחמיה אינו ממהר לפעולה מדינית לפני שהוא מעבד את הצער ופונה לה' בתפילה - רק לאחר תקופת התבודדות הוא ניגש לפעול בפועל.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וָאֱהִי צָם וּמִתְפַּלֵּל לִפְנֵי אֱלֹקֵי הַשָּׁמָיִם" (א', ד')</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">נחמיה, איש חצר המלכות המכובד, מגיב לידיעה קשה בבכי, אבל, צום ותפילה ממושכת - ולא בפעולה מיידית. מה מלמדת תגובתו הראשונית על סדר הפעולות הנכון בעיניו, לפני שהוא פונה לפתרון מעשי?</span></div>
+<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> נחמיה אינו ממהר לפעולה מדינית לפני שהוא מעבד את הצער ופונה לה' בתפילה - רק לאחר תקופת התבודדות הוא ניגש לפעול בפועל.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -220,24 +235,24 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: נחמיה פותח בווידוי ("גַּם אֲנִי וּבֵית אָבִי חָטָאנוּ") לפני שהוא מבקש</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">נחמיה מזכיר בתפילתו במפורש את הבטחת ה' למשה על קיבוץ גלויות, ופותח בווידוי חטאים. מה תפקידם של שני האלמנטים הללו (הזכרת ההבטחה, והווידוי) בבניית תפילתו?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הווידוי מכיר בכך שהמצב הקשה הוא תוצאת חטאי העם, לא עוול שרירותי; הזכרת ההבטחה למשה מבססת שהתשועה היא מימוש הבטחה קיימת.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: נחמיה פותח בווידוי ("גַּם אֲנִי וּבֵית אָבִי חָטָאנוּ") לפני שהוא מבקש</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">נחמיה מזכיר בתפילתו במפורש את הבטחת ה' למשה על קיבוץ גלויות, ופותח בווידוי חטאים. מה תפקידם של שני האלמנטים הללו (הזכרת ההבטחה, והווידוי) בבניית תפילתו?</span></div>
+<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הווידוי מכיר בכך שהמצב הקשה הוא תוצאת חטאי העם, לא עוול שרירותי; הזכרת ההבטחה למשה מבססת שהתשועה היא מימוש הבטחה קיימת.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וּתְנֵהוּ לְרַחֲמִים לִפְנֵי הָאִישׁ הַזֶּה" - נחמיה מתפלל לפני שפגש עדיין את המלך</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">תפילתו של נחמיה מסתיימת בבקשה קונקרטית - רחמי המלך - עוד לפני שהתקיימה הפגישה עמו. מה מלמד סדר זה (תפילה ואז מעשה) על אופן פעולתו של נחמיה בכלל?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> נחמיה מקדים תפילה לכל מהלך משמעותי, עוד לפני שנקרתה לו הזדמנות - כבר כאן מתגלה השילוב האופייני לו בין אמונה בהשגחה לבין נכונות לפעול.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וּתְנֵהוּ לְרַחֲמִים לִפְנֵי הָאִישׁ הַזֶּה" - נחמיה מתפלל לפני שפגש עדיין את המלך</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">תפילתו של נחמיה מסתיימת בבקשה קונקרטית - רחמי המלך - עוד לפני שהתקיימה הפגישה עמו. מה מלמד סדר זה (תפילה ואז מעשה) על אופן פעולתו של נחמיה בכלל?</span></div>
+<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> נחמיה מקדים תפילה לכל מהלך משמעותי, עוד לפני שנקרתה לו הזדמנות - כבר כאן מתגלה השילוב האופייני לו בין אמונה בהשגחה לבין נכונות לפעול.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -265,34 +280,34 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">מלבי"ם: "שמה שאמר 'אם על המלך טוב' היה בלבו אל המלך העליון, שהתפלל שייטב הדבר בעיניו... רק באמירה אמר זאת אל המלך" - כלומר, תפילת נחמיה הייתה תוך כדי פנייתו למלך</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">מלבי"ם, נחמיה ב', ה'</span>
+
+
+
+<div class="qb-source"><p class="q-cue">מלבי"ם: "שמה שאמר 'אם על המלך טוב' היה בלבו אל המלך העליון, שהתפלל שייטב הדבר בעיניו... רק באמירה אמר זאת אל המלך" - כלומר, תפילת נחמיה הייתה תוך כדי פנייתו למלך</p><div class="qb-meforesh">
+<span class="qb-src">מלבי"ם, נחמיה ב', ה'</span>
             "שמה שאמר 'אם על המלך טוב' היה בלבו אל המלך העליון, שהתפלל שייטב הדבר בעיניו ופועל ידיו ירצה, רק באמירה אמר זאת אל המלך" - כלומר, שתפילת נחמיה הייתה תוך כדי, "ובאותה נשימה", בה פנה למלך.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="nechemia12-mp-1">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">לפי המלבי"ם, נחמיה מתפלל לה' "באותה נשימה" שבה הוא פונה למלך בבקשתו. מה מלמד תיאור זה על מהות הביטחון של נחמיה בה', לעומת האפשרות לראות בפנייתו למלך פעולה מדינית גרידא?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> נחמיה רואה את הפנייה למלך כביטוי לאותה אמונה עצמה - התפילה וההשתדלות מתרחשות באותו רגע, לא כשני שלבים נפרדים; אין סתירה בין ביטחון בה' לפעולה אנושית.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="nechemia12-mp-1" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">לפי המלבי"ם, נחמיה מתפלל לה' "באותה נשימה" שבה הוא פונה למלך בבקשתו. מה מלמד תיאור זה על מהות הביטחון של נחמיה בה', לעומת האפשרות לראות בפנייתו למלך פעולה מדינית גרידא?</span></div>
+<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> נחמיה רואה את הפנייה למלך כביטוי לאותה אמונה עצמה - התפילה וההשתדלות מתרחשות באותו רגע, לא כשני שלבים נפרדים; אין סתירה בין ביטחון בה' לפעולה אנושית.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">רש"י/מלבי"ם: מקום קברות האבות היה יקר וקדוש בעיני הפרסים, ולכן נחמיה בוחר לנסח כך את בקשתו</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">מלבי"ם, נחמיה ב', ג'</span>
+
+
+
+<div class="qb-source"><p class="q-cue">רש"י/מלבי"ם: מקום קברות האבות היה יקר וקדוש בעיני הפרסים, ולכן נחמיה בוחר לנסח כך את בקשתו</p><div class="qb-meforesh">
+<span class="qb-src">מלבי"ם, נחמיה ב', ג'</span>
             "כי מקום קברות האבות היה יקר וקדוש בעיני הפרסיים." בחכמתו המדינית נחמיה נזהר שלא לחשוף בתחילת דו-השיח את כל תכניותיו, ומנצל את הבירור הנוסף של המלך לבקש את הבקשה במלואה.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="nechemia12-mp-2">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">נחמיה חוזר פעמיים על הביטוי "עיר קברות אבותי" ולא מזכיר תחילה את כוונתו לבנות את החומות. מה החוכמה המדינית בבחירת ניסוח זה, ומדוע היה חשוב לנחמיה שהמלך לא יחשוב שהוא מבקש לחזק את ירושלים כ"עיר מורדת"?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> "עיר קברות אבותי" מציג את הבקשה כמונעת מכבוד לאבות, לא ממטרה מדינית - ולכן נחמיה חושף את תכניתו המלאה רק כשהמלך מבקש פירוט.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="nechemia12-mp-2" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">נחמיה חוזר פעמיים על הביטוי "עיר קברות אבותי" ולא מזכיר תחילה את כוונתו לבנות את החומות. מה החוכמה המדינית בבחירת ניסוח זה, ומדוע היה חשוב לנחמיה שהמלך לא יחשוב שהוא מבקש לחזק את ירושלים כ"עיר מורדת"?</span></div>
+<textarea aria-labelledby="a11y-lbl-6" class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> "עיר קברות אבותי" מציג את הבקשה כמונעת מכבוד לאבות, לא ממטרה מדינית - ולכן נחמיה חושף את תכניתו המלאה רק כשהמלך מבקש פירוט.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -322,29 +337,29 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">רש"י פס' י"ב: "ובהמה אין עמי" - "הם הלכו לשבור ולהפיל חומות העיר בלילה ולהרבות פרצותיה, למען יהיו בני העיר למחר להוטים ומסכימים בעצה אחת עם נחמיה לבנות חומות העיר"</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רש"י, נחמיה ב', י"ג</span>
+
+
+
+<div class="qb-source"><p class="q-cue">רש"י פס' י"ב: "ובהמה אין עמי" - "הם הלכו לשבור ולהפיל חומות העיר בלילה ולהרבות פרצותיה, למען יהיו בני העיר למחר להוטים ומסכימים בעצה אחת עם נחמיה לבנות חומות העיר"</p><div class="qb-meforesh">
+<span class="qb-src">רש"י, נחמיה ב', י"ג</span>
             "ובהמה אין עמי כי אם הבהמה אשר אני רוכב בה - והם הלכו לשבור ולהפיל חומות העיר בלילה ולהרבות פרצותיה, למען יהיו בני העיר למחר להוטים ומסכימים בעצה אחת עם נחמיה לבנות חומות העיר, וכן מוכיח המעשה בתוך הפרשה."
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="nechemia12-mp-3">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">נחמיה סורק את החומה בסתר, "וְלֹא הִגַּדְתִּי לְאָדָם מָה אֱלֹקַי נֹתֵן אֶל לִבִּי לַעֲשׂוֹת". מה החוכמה המנהיגותית בכך שהוא בודק את המצב בעצמו לפני שהוא פונה אל ראשי העם בקריאה לפעולה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> נחמיה מקדים לימוד חשאי של המצב בשטח לפני שהוא פונה לציבור, כדי להציג תוכנית מדויקת, למנוע דליפת מידע לצרים ולחזק את אמינותו כמנהיג.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="nechemia12-mp-3" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">נחמיה סורק את החומה בסתר, "וְלֹא הִגַּדְתִּי לְאָדָם מָה אֱלֹקַי נֹתֵן אֶל לִבִּי לַעֲשׂוֹת". מה החוכמה המנהיגותית בכך שהוא בודק את המצב בעצמו לפני שהוא פונה אל ראשי העם בקריאה לפעולה?</span></div>
+<textarea aria-labelledby="a11y-lbl-7" class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> נחמיה מקדים לימוד חשאי של המצב בשטח לפני שהוא פונה לציבור, כדי להציג תוכנית מדויקת, למנוע דליפת מידע לצרים ולחזק את אמינותו כמנהיג.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וָאַגִּיד לָהֶם אֶת יַד אֱלֹקַי אֲשֶׁר הִיא טוֹבָה עָלַי, וְאַף דִּבְרֵי הַמֶּלֶךְ" (ב', י"ח)</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">נחמיה מציג לראשי העם שני נימוקים משולבים לכך שהבנייה תצליח: "יד אלוקי הטובה עלי" (השגחה) ו"דברי המלך אשר אמר לי" (רישיון מדיני). מדוע היה חשוב לו להביא את שני הנימוקים יחד ולא להסתפק באחד מהם?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> נימוק ה"יד אלוקית" לבדו נראה מופשט, ורישיון המלך לבדו חסר עומק רוחני - השילוב מציג תמונה שלמה שמצליחה לרתום את כולם.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וָאַגִּיד לָהֶם אֶת יַד אֱלֹקַי אֲשֶׁר הִיא טוֹבָה עָלַי, וְאַף דִּבְרֵי הַמֶּלֶךְ" (ב', י"ח)</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">נחמיה מציג לראשי העם שני נימוקים משולבים לכך שהבנייה תצליח: "יד אלוקי הטובה עלי" (השגחה) ו"דברי המלך אשר אמר לי" (רישיון מדיני). מדוע היה חשוב לו להביא את שני הנימוקים יחד ולא להסתפק באחד מהם?</span></div>
+<textarea aria-labelledby="a11y-lbl-8" class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> נימוק ה"יד אלוקית" לבדו נראה מופשט, ורישיון המלך לבדו חסר עומק רוחני - השילוב מציג תמונה שלמה שמצליחה לרתום את כולם.</div>
+</div></div></div>
 
       </div>
     </div>

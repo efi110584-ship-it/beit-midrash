@@ -11,6 +11,10 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
+  /* שאלות בגרות שחולקות אותו מקור: המקור מופיע פעם אחת, והשאלות מתפרסות לרוחב זו לצד זו */
+  .bg-row{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+  .bg-row .question-block{ flex:1 1 300px; min-width:0; }
+
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
@@ -49,20 +53,31 @@
     border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
   }
 
+  /* דף רחב: עמודה אחת יותר רחבה, כדי שכל קובית תוכל להתפרס לרוחב (מקור מול שאלה) */
+  main{ max-width:1320px; }
+
   .qb-branches{
-    display:flex; flex-wrap:wrap; gap:1.1rem;
+    display:flex; flex-direction:column; gap:1.3rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
     content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
   }
   .qb-card{
-    flex:1 1 260px;
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
-    min-width:0;
+    padding:1.2rem 1.4rem; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.6rem; align-items:start;
   }
-  .qb-card > *{ width:100%; max-width:640px; }
+  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - עם קו מפריד ביניהם */
+  .qb-source{ display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+  .qb-question{
+    display:flex; flex-direction:column; gap:.5rem; min-width:0;
+    border-right:2px solid var(--acc-soft); padding-right:1.5rem;
+  }
+  @media (max-width:760px){
+    .qb-card{ grid-template-columns:1fr; gap:1rem; }
+    .qb-question{ border-right:none; padding-right:0; border-top:2px solid var(--acc-soft); padding-top:.9rem; }
+  }
   .qb-meforesh{
     font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
@@ -174,29 +189,29 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "מֵקִים דְּבַר עַבְדּוֹ... הָאֹמֵר לְכוֹרֶשׁ רֹעִי וְכָל חֶפְצִי יַשְׁלִם" (ישעיהו מ"ד, כ"ו-כ"ח); "כֹּה אָמַר ה' לִמְשִׁיחוֹ לְכוֹרֶשׁ" (ישעיהו מ"ה, א'); "לְפִי מְלֹאת לְבָבֶל שִׁבְעִים שָׁנָה אֶפְקֹד אֶתְכֶם" (ירמיהו כ"ט, י')</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">ישעיהו הנביא מנבא על "כורש" בשמו, מאות שנים לפני שנולד, כמי שיצווה על בניין ירושלים וייסוד ההיכל; ירמיהו מנבא שגלות בבל תימשך 70 שנה ואז ישוב ה' את עמו. כיצד פסוק הפתיחה של עזרא א' (המכונה כאן "פסוק הפתיחה") מציג את הצהרת כורש כהגשמה ישירה של שתי הנבואות הללו גם יחד?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הפסוק פותח "לִכְלוֹת דְּבַר ה' מִפִּי יִרְמְיָה" - מציג את המהלך כמימוש נבואת ירמיהו. הבחירה בכורש ממלאת גם את נבואת ישעיהו שכינתה אותו "רועי" - שני חוטי הנבואה נפגשים כאן.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "מֵקִים דְּבַר עַבְדּוֹ... הָאֹמֵר לְכוֹרֶשׁ רֹעִי וְכָל חֶפְצִי יַשְׁלִם" (ישעיהו מ"ד, כ"ו-כ"ח); "כֹּה אָמַר ה' לִמְשִׁיחוֹ לְכוֹרֶשׁ" (ישעיהו מ"ה, א'); "לְפִי מְלֹאת לְבָבֶל שִׁבְעִים שָׁנָה אֶפְקֹד אֶתְכֶם" (ירמיהו כ"ט, י')</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">ישעיהו הנביא מנבא על "כורש" בשמו, מאות שנים לפני שנולד, כמי שיצווה על בניין ירושלים וייסוד ההיכל; ירמיהו מנבא שגלות בבל תימשך 70 שנה ואז ישוב ה' את עמו. כיצד פסוק הפתיחה של עזרא א' (המכונה כאן "פסוק הפתיחה") מציג את הצהרת כורש כהגשמה ישירה של שתי הנבואות הללו גם יחד?</span></div>
+<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הפסוק פותח "לִכְלוֹת דְּבַר ה' מִפִּי יִרְמְיָה" - מציג את המהלך כמימוש נבואת ירמיהו. הבחירה בכורש ממלאת גם את נבואת ישעיהו שכינתה אותו "רועי" - שני חוטי הנבואה נפגשים כאן.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "כֹּל מַמְלְכוֹת הָאָרֶץ נָתַן לִי ה' אֱלֹקֵי הַשָּׁמָיִם... וְיַעַל לִירוּשָׁלַיִם" (עזרא א', ב'-ד')</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">מה מעורר ציפייה לגאולה באותה שעה?</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "כֹּל מַמְלְכוֹת הָאָרֶץ נָתַן לִי ה' אֱלֹקֵי הַשָּׁמָיִם... וְיַעַל לִירוּשָׁלַיִם" (עזרא א', ב'-ד')</p><div class="qb-meforesh">
+<span class="qb-src">מה מעורר ציפייה לגאולה באותה שעה?</span>
             (א) כורש הכניע את מלכות בבל שהחריבה את המקדש. (ב) הנביא ירמיהו ניבא על גלות של 70 שנה, והזמן הזה הסתיים.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="ezra12-mp-1">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">הרב קוק השווה בין הצהרת כורש להצהרת בלפור (1917), ואמר שבלפור היה "נעלה" יותר מכורש. במה, לדעתכם, יכולה הצהרה מודרנית להיחשב "נעלה" יותר מהצהרה מקראית שמומשה במלואה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> כורש היה "מלך כשר" אך "החמיץ" - לא עמד בעקביות מאחורי הצהרתו. בלפור "עמד בצדקו מתחילה ועד סוף" - העקביות היא המבחן האמיתי של הצהרה, לא רגע ההכרזה.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="ezra12-mp-1" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">הרב קוק השווה בין הצהרת כורש להצהרת בלפור (1917), ואמר שבלפור היה "נעלה" יותר מכורש. במה, לדעתכם, יכולה הצהרה מודרנית להיחשב "נעלה" יותר מהצהרה מקראית שמומשה במלואה?</span></div>
+<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> כורש היה "מלך כשר" אך "החמיץ" - לא עמד בעקביות מאחורי הצהרתו. בלפור "עמד בצדקו מתחילה ועד סוף" - העקביות היא המבחן האמיתי של הצהרה, לא רגע ההכרזה.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -224,14 +239,14 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: הנוסח הרשמי שנמצא בגנזי המלך דריוש, לעומת הנוסח שסופר לאוזני העולים בפרק א'</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">בפרק א' ההצהרה מסופרת כדברי כורש עצמו ("קול בכל מלכותו... בית ה' אלוקי השמים"), ואילו בפרק ו' מובא נוסח ארשמי-רשמי, מפורט מאוד, הכולל מידות בניין ומקור מימון. מדוע, לדעתכם, נשמר לצד הסיפור העברי גם המסמך הרשמי המדויק, על כל פרטיו הטכניים?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> המסמך הרשמי, שנשמר בגנזי המלכות, מאפשר בהמשך לדחות טענות מתנכלים ולהוכיח שהבנייה נעשית ברשות המלכות - וממחיש את הסגנון של רשימות ומסמכים רשמיים האופייני לספרי עזרא ונחמיה.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: הנוסח הרשמי שנמצא בגנזי המלך דריוש, לעומת הנוסח שסופר לאוזני העולים בפרק א'</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">בפרק א' ההצהרה מסופרת כדברי כורש עצמו ("קול בכל מלכותו... בית ה' אלוקי השמים"), ואילו בפרק ו' מובא נוסח ארשמי-רשמי, מפורט מאוד, הכולל מידות בניין ומקור מימון. מדוע, לדעתכם, נשמר לצד הסיפור העברי גם המסמך הרשמי המדויק, על כל פרטיו הטכניים?</span></div>
+<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> המסמך הרשמי, שנשמר בגנזי המלכות, מאפשר בהמשך לדחות טענות מתנכלים ולהוכיח שהבנייה נעשית ברשות המלכות - וממחיש את הסגנון של רשימות ומסמכים רשמיים האופייני לספרי עזרא ונחמיה.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -261,19 +276,19 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "עַל הַכֵּלִים הַנּוֹתְרִים... בָּבֶלָה יוּבָאוּ וְשָׁמָּה יִהְיוּ עַד יוֹם פָּקְדִי אֹתָם" (ירמיהו כ"ז, כ"א-כ"ב)</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">מיהו ששבצר?</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "עַל הַכֵּלִים הַנּוֹתְרִים... בָּבֶלָה יוּבָאוּ וְשָׁמָּה יִהְיוּ עַד יוֹם פָּקְדִי אֹתָם" (ירמיהו כ"ז, כ"א-כ"ב)</p><div class="qb-meforesh">
+<span class="qb-src">מיהו ששבצר?</span>
             לפי הצעת ראב"ע ורלב"ג, ששבצר הוא כינויו הנכרי (הפרסי) של זרובבל, המוזכר בהמשך, בפרק ב'.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="ezra12-mp-2">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">ירמיהו ניבא שכלי בית ה' הנותרים בבבל "ישובו אל המקום הזה" ביום פקידת ה' את עמו. באיזה אופן מוגבלת ההגשמה של נבואה זו בפרק א' - הן בהיקף העלייה עצמה והן בכלים שהוחזרו?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> העלייה בפרק א' אינה המונית - עולים בעיקר ראשי אבות, ולא כלל העם, וגם לא כל כלי המקדש חוזרים - מול ההצהרה הגדולה, ההתממשות בפועל היא רק שלב ראשון.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="ezra12-mp-2" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">ירמיהו ניבא שכלי בית ה' הנותרים בבבל "ישובו אל המקום הזה" ביום פקידת ה' את עמו. באיזה אופן מוגבלת ההגשמה של נבואה זו בפרק א' - הן בהיקף העלייה עצמה והן בכלים שהוחזרו?</span></div>
+<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> העלייה בפרק א' אינה המונית - עולים בעיקר ראשי אבות, ולא כלל העם, וגם לא כל כלי המקדש חוזרים - מול ההצהרה הגדולה, ההתממשות בפועל היא רק שלב ראשון.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -303,49 +318,49 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "שׁוּבִי בְתוּלַת יִשְׂרָאֵל, שֻׁבִי אֶל עָרַיִךְ אֵלֶּה" (ירמיהו ל"א, כ')</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">כותרת רשימת העולים - "וַיָּשׁוּבוּ... אִישׁ לְעִירוֹ" - מרמזת לנבואת ירמיהו "שֻׁבִי אֶל עָרַיִךְ אֵלֶּה". מה, לדעתכם, המשמעות של כך שהעולים חוזרים דווקא איש-איש למקום ישיבת משפחתו לפני החורבן, ולא מתיישבים באופן כללי בארץ?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> החזרה איש-איש לעירו מבטאת המשכיות היסטורית - העולים שומרים את מסורת מקומות מגורי משפחותיהם, ומקיימים במדויק את נבואת ירמיהו על שיבה "אל עריך אלה".</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "שׁוּבִי בְתוּלַת יִשְׂרָאֵל, שֻׁבִי אֶל עָרַיִךְ אֵלֶּה" (ירמיהו ל"א, כ')</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">כותרת רשימת העולים - "וַיָּשׁוּבוּ... אִישׁ לְעִירוֹ" - מרמזת לנבואת ירמיהו "שֻׁבִי אֶל עָרַיִךְ אֵלֶּה". מה, לדעתכם, המשמעות של כך שהעולים חוזרים דווקא איש-איש למקום ישיבת משפחתו לפני החורבן, ולא מתיישבים באופן כללי בארץ?</span></div>
+<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> החזרה איש-איש לעירו מבטאת המשכיות היסטורית - העולים שומרים את מסורת מקומות מגורי משפחותיהם, ומקיימים במדויק את נבואת ירמיהו על שיבה "אל עריך אלה".</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: זרובבל בן שאלתיאל, ויהושע בן יהוצדק - עומדים בראש רשימת המנהיגים (ב', ב')</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">ייחוסם של המנהיגים</span>
-            <b>זרובבל בן שאלתיאל</b> - לפי רשימת יוחסין בספר דברי הימים, הוא נינו של יהויכין מלך יהודה, ומיוחס ישירות לדוד המלך; זרובבל נתמנה לפחה (מושל אזורי). <b>יהושע בן יהוצדק</b> - צאצא ישיר לאהרן הכהן, כפי שהוא מיוחס בספר דברי הימים.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="ezra12-mp-3">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">מדוע, לדעתכם, חשוב לספר עזרא לציין דווקא את הייחוס המלכותי (בית דוד) של זרובבל ואת הייחוס הכהוני (בית אהרן) של יהושע, בראש רשימת עשרות אלפי עולים?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ציון הייחוס המלכותי והכהוני מלמד שהעלייה היא חידוש של ההנהגה הלגיטימית - מלכות בית דוד וכהונת בית אהרן - שני עמודי היסוד של הממלכה טרם החורבן.</div>
-          </div>
-        </div>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: זרובבל בן שאלתיאל, ויהושע בן יהוצדק - עומדים בראש רשימת המנהיגים (ב', ב')</p><div class="qb-meforesh">
+<span class="qb-src">ייחוסם של המנהיגים</span>
+<b>זרובבל בן שאלתיאל</b> - לפי רשימת יוחסין בספר דברי הימים, הוא נינו של יהויכין מלך יהודה, ומיוחס ישירות לדוד המלך; זרובבל נתמנה לפחה (מושל אזורי). <b>יהושע בן יהוצדק</b> - צאצא ישיר לאהרן הכהן, כפי שהוא מיוחס בספר דברי הימים.
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="ezra12-mp-3" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">מדוע, לדעתכם, חשוב לספר עזרא לציין דווקא את הייחוס המלכותי (בית דוד) של זרובבל ואת הייחוס הכהוני (בית אהרן) של יהושע, בראש רשימת עשרות אלפי עולים?</span></div>
+<textarea aria-labelledby="a11y-lbl-6" class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> ציון הייחוס המלכותי והכהוני מלמד שהעלייה היא חידוש של ההנהגה הלגיטימית - מלכות בית דוד וכהונת בית אהרן - שני עמודי היסוד של הממלכה טרם החורבן.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: הרשימה כוללת גם "אֲנָשִׁים... אֲשֶׁר לֹא יָכְלוּ לְהַגִּיד בֵּית אֲבוֹתָם וְזַרְעָם, אִם מִיִּשְׂרָאֵל הֵם" (ב', נ"ט)</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">מלבד ראשי האבות והמנהיגים, כוללת הרשימה גם כוהנים, לוויים, ואנשים "עם בעיות ייחוס" שלא הצליחו להוכיח את שושלתם. מה מלמדת ההקפדה של הכתוב לפרט ולסווג את העולים לפי קבוצות אלו על אופיה של החברה החדשה שקמה בירושלים?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ההקפדה על ייחוס כוהנים ולוויים מלמדת על חשיבות הזהות המשפחתית לצורך שירות בקודש; הכללת בעלי ייחוס מסופק, בלי פסילה, מלמדת על גישה מכילה עד לבירור העתידי.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: הרשימה כוללת גם "אֲנָשִׁים... אֲשֶׁר לֹא יָכְלוּ לְהַגִּיד בֵּית אֲבוֹתָם וְזַרְעָם, אִם מִיִּשְׂרָאֵל הֵם" (ב', נ"ט)</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">מלבד ראשי האבות והמנהיגים, כוללת הרשימה גם כוהנים, לוויים, ואנשים "עם בעיות ייחוס" שלא הצליחו להוכיח את שושלתם. מה מלמדת ההקפדה של הכתוב לפרט ולסווג את העולים לפי קבוצות אלו על אופיה של החברה החדשה שקמה בירושלים?</span></div>
+<textarea aria-labelledby="a11y-lbl-7" class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> ההקפדה על ייחוס כוהנים ולוויים מלמדת על חשיבות הזהות המשפחתית לצורך שירות בקודש; הכללת בעלי ייחוס מסופק, בלי פסילה, מלמדת על גישה מכילה עד לבירור העתידי.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "כְּמִדַּת יְדָם נָתְנוּ לְאוֹצַר הַמְּלָאכָה... לְפִי כֹחָם" (ב', ס"ט)</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">הפרק מסתיים בכך שראשי האבות נותנים נדבות לבניין המקדש "כפי כוחם" - כל אחד לפי יכולתו. מדוע, לדעתכם, בחר הכתוב לסיים את רשימת העולים דווקא בפרט הזה, של נדבה אישית ומדורגת?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הסיום בנדבה האישית מלמד שהעלייה היא מהלך שכל אדם שותף בו לפי יכולתו - רשימת היוחסין הופכת לתיאור ציבור מגובש, מהמנהיג ועד היחיד האלמוני.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "כְּמִדַּת יְדָם נָתְנוּ לְאוֹצַר הַמְּלָאכָה... לְפִי כֹחָם" (ב', ס"ט)</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">הפרק מסתיים בכך שראשי האבות נותנים נדבות לבניין המקדש "כפי כוחם" - כל אחד לפי יכולתו. מדוע, לדעתכם, בחר הכתוב לסיים את רשימת העולים דווקא בפרט הזה, של נדבה אישית ומדורגת?</span></div>
+<textarea aria-labelledby="a11y-lbl-8" class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הסיום בנדבה האישית מלמד שהעלייה היא מהלך שכל אדם שותף בו לפי יכולתו - רשימת היוחסין הופכת לתיאור ציבור מגובש, מהמנהיג ועד היחיד האלמוני.</div>
+</div></div></div>
 
       </div>
     </div>

@@ -11,6 +11,10 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
+  /* שאלות בגרות שחולקות אותו מקור: המקור מופיע פעם אחת, והשאלות מתפרסות לרוחב זו לצד זו */
+  .bg-row{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+  .bg-row .question-block{ flex:1 1 300px; min-width:0; }
+
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
@@ -49,20 +53,31 @@
     border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
   }
 
+  /* דף רחב: עמודה אחת יותר רחבה, כדי שכל קובית תוכל להתפרס לרוחב (מקור מול שאלה) */
+  main{ max-width:1320px; }
+
   .qb-branches{
-    display:flex; flex-wrap:wrap; gap:1.1rem;
+    display:flex; flex-direction:column; gap:1.3rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
     content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
   }
   .qb-card{
-    flex:1 1 260px;
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
-    min-width:0;
+    padding:1.2rem 1.4rem; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.6rem; align-items:start;
   }
-  .qb-card > *{ width:100%; max-width:640px; }
+  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - עם קו מפריד ביניהם */
+  .qb-source{ display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+  .qb-question{
+    display:flex; flex-direction:column; gap:.5rem; min-width:0;
+    border-right:2px solid var(--acc-soft); padding-right:1.5rem;
+  }
+  @media (max-width:760px){
+    .qb-card{ grid-template-columns:1fr; gap:1rem; }
+    .qb-question{ border-right:none; padding-right:0; border-top:2px solid var(--acc-soft); padding-top:.9rem; }
+  }
   .qb-meforesh{
     font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
@@ -170,24 +185,24 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: גלות זו כוללת דווקא את "הֶחָרָשׁ וְהַמַּסְגֵּר" - בעלי מקצוע היכולים לייצר נשק (או, לדעה אחרת, תלמידי חכמים)</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">בבל בוחרת להגלות דווקא את השרים, גיבורי החיל, ובעלי מקצוע היכולים לייצר כלי נשק ("הֶחָרָשׁ וְהַמַּסְגֵּר"), ומשאירה מאחור רק את "דַּלַּת עַם הָאָרֶץ". מה ההיגיון האסטרטגי בבחירה סלקטיבית זו של מי מגורש ומי נשאר?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> בבל מנטרלת כל יכולת מרד עתידית - הגליית ההנהגה, הכוח הצבאי ויכולת ייצור הנשק משאירה אוכלוסייה חסרת יכולת ארגון; "דלת העם" נשארת כדי לעבד את הקרקע ולשלם מיסים.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: גלות זו כוללת דווקא את "הֶחָרָשׁ וְהַמַּסְגֵּר" - בעלי מקצוע היכולים לייצר נשק (או, לדעה אחרת, תלמידי חכמים)</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">בבל בוחרת להגלות דווקא את השרים, גיבורי החיל, ובעלי מקצוע היכולים לייצר כלי נשק ("הֶחָרָשׁ וְהַמַּסְגֵּר"), ומשאירה מאחור רק את "דַּלַּת עַם הָאָרֶץ". מה ההיגיון האסטרטגי בבחירה סלקטיבית זו של מי מגורש ומי נשאר?</span></div>
+<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> בבל מנטרלת כל יכולת מרד עתידית - הגליית ההנהגה, הכוח הצבאי ויכולת ייצור הנשק משאירה אוכלוסייה חסרת יכולת ארגון; "דלת העם" נשארת כדי לעבד את הקרקע ולשלם מיסים.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: הכתוב מדגיש ששאלה מרכזית מטרידה את שבי הגולה - האם הקיום בבבל זמני, או שמא הקיום ביהודה הוא הזמני</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">גלות החרש והמסגר (גלות יהויכין) מותירה את שבי הגולה בבבל במצב של אי-ודאות עמוקה: האם מדובר בשלב זמני שיסתיים בשיבה מהירה, או שמא זהו רק השלב הראשון בתהליך גלות ארוך וסופי? מדוע, לדעתכם, נשארה שאלה זו פתוחה ולא הוכרעה מיד?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אי-הוודאות נובעת מכך שממלכת יהודה עדיין קיימת תחת צדקיהו, עם מקדש עומד - רק בדיעבד, לאחר חורבן המקדש, מתברר שגלות החרש והמסגר הייתה תחנה ראשונה בלבד.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: הכתוב מדגיש ששאלה מרכזית מטרידה את שבי הגולה - האם הקיום בבבל זמני, או שמא הקיום ביהודה הוא הזמני</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">גלות החרש והמסגר (גלות יהויכין) מותירה את שבי הגולה בבבל במצב של אי-ודאות עמוקה: האם מדובר בשלב זמני שיסתיים בשיבה מהירה, או שמא זהו רק השלב הראשון בתהליך גלות ארוך וסופי? מדוע, לדעתכם, נשארה שאלה זו פתוחה ולא הוכרעה מיד?</span></div>
+<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> אי-הוודאות נובעת מכך שממלכת יהודה עדיין קיימת תחת צדקיהו, עם מקדש עומד - רק בדיעבד, לאחר חורבן המקדש, מתברר שגלות החרש והמסגר הייתה תחנה ראשונה בלבד.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -215,19 +230,19 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">רד"ק: ה' שם בלבו של צדקיהו שימרוד במלך בבל, כדי שימצא מלך בבל טענה להחריב את יהודה ולהוציאם לגלות, כפי שה' הבטיח</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רד"ק, מלכים ב' כ"ד, כ'</span>
+
+
+
+<div class="qb-source"><p class="q-cue">רד"ק: ה' שם בלבו של צדקיהו שימרוד במלך בבל, כדי שימצא מלך בבל טענה להחריב את יהודה ולהוציאם לגלות, כפי שה' הבטיח</p><div class="qb-meforesh">
+<span class="qb-src">רד"ק, מלכים ב' כ"ד, כ'</span>
             "כִּי עַל אַף ה' הָיְתָה בִירוּשָׁלַם וּבִיהוּדָה עַד הִשְׁלִיכוֹ אֹתָם מֵעַל פָּנָיו" - ה' שם בלבו של צדקיהו שימרוד במלך בבל, כדי שימצא מלך בבל טענה להחריב את יהודה ולהוציא אותם לגלות, כפי שה' הבטיח.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="mb2425-mp-1">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">לפי הרד"ק, מרד צדקיהו הוא הן החלטה חופשית שלו (המרד הוא מעשה שלו) והן ביטוי לתכנית אלוקית מכוונת (ה' שם זאת בלבו). כיצד יכולות שתי הרמות הללו - האלוקית והאנושית - להתקיים יחד באותו אירוע היסטורי אחד, בלי לסתור זו את זו?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הרד"ק: "סיבתיות כפולה" - מבחינת צדקיהו זו החלטה מדינית אנושית לגמרי; מבחינת ההשגחה, בחירתו החופשית משרתת תוכנית עליונה שכבר נועדה להביא לחורבן.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="mb2425-mp-1" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">לפי הרד"ק, מרד צדקיהו הוא הן החלטה חופשית שלו (המרד הוא מעשה שלו) והן ביטוי לתכנית אלוקית מכוונת (ה' שם זאת בלבו). כיצד יכולות שתי הרמות הללו - האלוקית והאנושית - להתקיים יחד באותו אירוע היסטורי אחד, בלי לסתור זו את זו?</span></div>
+<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הרד"ק: "סיבתיות כפולה" - מבחינת צדקיהו זו החלטה מדינית אנושית לגמרי; מבחינת ההשגחה, בחירתו החופשית משרתת תוכנית עליונה שכבר נועדה להביא לחורבן.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -255,24 +270,24 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: לפי חז"ל, החיילים הבבליים נכנסו למקדש בז' באב, אך שרפו אותו בפועל בט' באב</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">חז"ל קבעו את תענית ט' באב, אף שלפי המסורת הכניסה עצמה למקדש הייתה כבר בז' באב. מדוע, לדעתכם, בחרו חז"ל לקבוע את יום האבל דווקא ביום שבו הושלמה שריפת המקדש בפועל, ולא ביום הפריצה הראשונית אליו?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ט' באב מסמל את השלמת החורבן - שריפת המקדש עד תום, לא רק הפרתו הראשונית - ולכן דווקא רגע האל-חזור הזה נחקק כיום האבל המרכזי.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: לפי חז"ל, החיילים הבבליים נכנסו למקדש בז' באב, אך שרפו אותו בפועל בט' באב</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">חז"ל קבעו את תענית ט' באב, אף שלפי המסורת הכניסה עצמה למקדש הייתה כבר בז' באב. מדוע, לדעתכם, בחרו חז"ל לקבוע את יום האבל דווקא ביום שבו הושלמה שריפת המקדש בפועל, ולא ביום הפריצה הראשונית אליו?</span></div>
+<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> ט' באב מסמל את השלמת החורבן - שריפת המקדש עד תום, לא רק הפרתו הראשונית - ולכן דווקא רגע האל-חזור הזה נחקק כיום האבל המרכזי.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: צדקיהו מנסה להימלט אך נתפס - הרגו את בניו לעיניו ואת עיניו עצמו עיוורו, כך שראה את בניו נהרגים אך לא ראה מעולם את בבל עצמה</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">עיוורונו של צדקיהו מתרחש בסמיכות מיוחדת - לאחר שראה את בניו נרצחים, ולפני שהגיע לבבל. כך הוא "יגיע לבבל אך לא יראה אותה" - התקיימות מדויקת של נבואה סותרת לכאורה (יחזקאל שניבא שיובא לבבל, וירמיהו שניבא שלא יראה אותה). מה מלמד יישוב הסתירה הזה על אופי הגשמת נבואות המקרא?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> נבואות שנראות סותרות מתקיימות במקביל בדיוק רב - עיוורון צדקיהו הוא הפתרון היחיד המאפשר גם שיובא לבבל (יחזקאל) וגם שלא יראה אותה (ירמיהו).</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: צדקיהו מנסה להימלט אך נתפס - הרגו את בניו לעיניו ואת עיניו עצמו עיוורו, כך שראה את בניו נהרגים אך לא ראה מעולם את בבל עצמה</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">עיוורונו של צדקיהו מתרחש בסמיכות מיוחדת - לאחר שראה את בניו נרצחים, ולפני שהגיע לבבל. כך הוא "יגיע לבבל אך לא יראה אותה" - התקיימות מדויקת של נבואה סותרת לכאורה (יחזקאל שניבא שיובא לבבל, וירמיהו שניבא שלא יראה אותה). מה מלמד יישוב הסתירה הזה על אופי הגשמת נבואות המקרא?</span></div>
+<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> נבואות שנראות סותרות מתקיימות במקביל בדיוק רב - עיוורון צדקיהו הוא הפתרון היחיד המאפשר גם שיובא לבבל (יחזקאל) וגם שלא יראה אותה (ירמיהו).</div>
+</div></div></div>
 
       </div>
     </div>
@@ -300,24 +315,24 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: רצח גדליה בידי ישמעאל בן נתניה גורם לגלות שארית הפליטה שנותרה בארץ - סוף כל נוכחות יהודית מאורגנת בארץ ישראל</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">רצח גדליה בן אחיקם, המונה לאחראי על שארית הפליטה, מוביל לגלותה של אותה שארית עצמה. מה הטרגיות המיוחדת שבכך שדווקא מעשה שנעשה, לפי הנחת הרוצחים, "למען ישראל" (כנגד המינוי הבבלי) מביא לתוצאה ההפוכה - חורבן מוחלט יותר?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ישמעאל בן נתניה כנראה ראה עצמו כפועל לכבוד ישראל, אך מעשהו הכשיל את ההזדמנות היחידה לקיום יהודי בארץ - קנאות לא מחושבת שהביאה לתוצאה ההפוכה ממטרתה.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: רצח גדליה בידי ישמעאל בן נתניה גורם לגלות שארית הפליטה שנותרה בארץ - סוף כל נוכחות יהודית מאורגנת בארץ ישראל</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">רצח גדליה בן אחיקם, המונה לאחראי על שארית הפליטה, מוביל לגלותה של אותה שארית עצמה. מה הטרגיות המיוחדת שבכך שדווקא מעשה שנעשה, לפי הנחת הרוצחים, "למען ישראל" (כנגד המינוי הבבלי) מביא לתוצאה ההפוכה - חורבן מוחלט יותר?</span></div>
+<textarea aria-labelledby="a11y-lbl-6" class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> ישמעאל בן נתניה כנראה ראה עצמו כפועל לכבוד ישראל, אך מעשהו הכשיל את ההזדמנות היחידה לקיום יהודי בארץ - קנאות לא מחושבת שהביאה לתוצאה ההפוכה ממטרתה.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: ספר מלכים מסתיים בתיאור התרוממות מעמדו של יהויכין בחצר בבל, עשרים ושבע שנה אחרי החורבן</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">בניגוד לכל התיאורים הקודרים בפרק, הפסוקים האחרונים בספר מלכים מתארים דווקא מעמד של כבוד ליהויכין הגולה. מדוע, לדעתכם, בחר מחבר הספר לסיים דווקא בנימה זו, ולא לסיים בתיאור החורבן והגלות עצמם?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> סיום הספר במעמד הכבוד ליהויכין משמר את "גחלת בית דוד" - השושלת לא נכחדה, ופרט זה מרמז שעדיין קיים בסיס לעתיד גאולה.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: ספר מלכים מסתיים בתיאור התרוממות מעמדו של יהויכין בחצר בבל, עשרים ושבע שנה אחרי החורבן</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">בניגוד לכל התיאורים הקודרים בפרק, הפסוקים האחרונים בספר מלכים מתארים דווקא מעמד של כבוד ליהויכין הגולה. מדוע, לדעתכם, בחר מחבר הספר לסיים דווקא בנימה זו, ולא לסיים בתיאור החורבן והגלות עצמם?</span></div>
+<textarea aria-labelledby="a11y-lbl-7" class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> סיום הספר במעמד הכבוד ליהויכין משמר את "גחלת בית דוד" - השושלת לא נכחדה, ופרט זה מרמז שעדיין קיים בסיס לעתיד גאולה.</div>
+</div></div></div>
 
       </div>
     </div>

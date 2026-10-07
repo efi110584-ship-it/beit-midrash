@@ -11,6 +11,10 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
+  /* שאלות בגרות שחולקות אותו מקור: המקור מופיע פעם אחת, והשאלות מתפרסות לרוחב זו לצד זו */
+  .bg-row{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+  .bg-row .question-block{ flex:1 1 300px; min-width:0; }
+
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
@@ -49,20 +53,31 @@
     border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
   }
 
+  /* דף רחב: עמודה אחת יותר רחבה, כדי שכל קובית תוכל להתפרס לרוחב (מקור מול שאלה) */
+  main{ max-width:1320px; }
+
   .qb-branches{
-    display:flex; flex-wrap:wrap; gap:1.1rem;
+    display:flex; flex-direction:column; gap:1.3rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
     content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
   }
   .qb-card{
-    flex:1 1 260px;
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
-    min-width:0;
+    padding:1.2rem 1.4rem; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.6rem; align-items:start;
   }
-  .qb-card > *{ width:100%; max-width:640px; }
+  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - עם קו מפריד ביניהם */
+  .qb-source{ display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+  .qb-question{
+    display:flex; flex-direction:column; gap:.5rem; min-width:0;
+    border-right:2px solid var(--acc-soft); padding-right:1.5rem;
+  }
+  @media (max-width:760px){
+    .qb-card{ grid-template-columns:1fr; gap:1rem; }
+    .qb-question{ border-right:none; padding-right:0; border-top:2px solid var(--acc-soft); padding-top:.9rem; }
+  }
   .qb-meforesh{
     font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
@@ -178,24 +193,24 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וַיָּכִינוּ הַמִּזְבֵּחַ עַל מְכוֹנֹתָיו כִּי בְאֵימָה עֲלֵיהֶם מֵעַמֵּי הָאֲרָצוֹת" (ג', ג')</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">הכתוב מדגיש שהמזבח הוקם "בְּאֵימָה... מֵעַמֵּי הָאֲרָצוֹת" - כלומר, מתוך פחד, ולא רק מתוך התלהבות דתית. מה מלמד שילוב זה בין פחד לזירוז דתי על מצבם הריאלי של שבי ציון מיד עם הגעתם?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> השילוב מלמד שהשבים אינם בעמדת ביטחון - קבוצה קטנה המוקפת עמים עוינים, זקוקה גם לביטחון ריאלי וגם רוחני. הזירוז לבנות את המזבח לפני ההיכל מלמד שחידוש הקשר עם ה' קדם לבניית מבנה של קבע.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וַיָּכִינוּ הַמִּזְבֵּחַ עַל מְכוֹנֹתָיו כִּי בְאֵימָה עֲלֵיהֶם מֵעַמֵּי הָאֲרָצוֹת" (ג', ג')</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">הכתוב מדגיש שהמזבח הוקם "בְּאֵימָה... מֵעַמֵּי הָאֲרָצוֹת" - כלומר, מתוך פחד, ולא רק מתוך התלהבות דתית. מה מלמד שילוב זה בין פחד לזירוז דתי על מצבם הריאלי של שבי ציון מיד עם הגעתם?</span></div>
+<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> השילוב מלמד שהשבים אינם בעמדת ביטחון - קבוצה קטנה המוקפת עמים עוינים, זקוקה גם לביטחון ריאלי וגם רוחני. הזירוז לבנות את המזבח לפני ההיכל מלמד שחידוש הקשר עם ה' קדם לבניית מבנה של קבע.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "מִיּוֹם אֶחָד לַחֹדֶשׁ הַשְּׁבִיעִי הֵחֵלּוּ לְהַעֲלוֹת עֹלוֹת לַה', וְהֵיכַל ה' לֹא יֻסָּד" (ג', ו')</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">הכתוב מציין במפורש שהעלאת הקרבנות החלה "וְהֵיכַל ה' לֹא יֻסָּד" - כלומר, לפני שהונח אפילו יסוד הבניין. מה מלמד סדר עדיפויות זה (מזבח וקרבנות לפני מבנה) על התפיסה שבבסיס חידוש עבודת המקדש?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> העיקר בעיני שבי ציון הוא חידוש העבודה עצמה, לא ההידור החיצוני של המבנה - המבנה הוא רק מסגרת, והעבודה יכולה להתחדש מיד כשאפשר.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "מִיּוֹם אֶחָד לַחֹדֶשׁ הַשְּׁבִיעִי הֵחֵלּוּ לְהַעֲלוֹת עֹלוֹת לַה', וְהֵיכַל ה' לֹא יֻסָּד" (ג', ו')</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">הכתוב מציין במפורש שהעלאת הקרבנות החלה "וְהֵיכַל ה' לֹא יֻסָּד" - כלומר, לפני שהונח אפילו יסוד הבניין. מה מלמד סדר עדיפויות זה (מזבח וקרבנות לפני מבנה) על התפיסה שבבסיס חידוש עבודת המקדש?</span></div>
+<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> העיקר בעיני שבי ציון הוא חידוש העבודה עצמה, לא ההידור החיצוני של המבנה - המבנה הוא רק מסגרת, והעבודה יכולה להתחדש מיד כשאפשר.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -229,14 +244,14 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְאֵין הָעָם מַכִּירִים קוֹל תְּרוּעַת הַשִּׂמְחָה לְקוֹל בְּכִי הָעָם" (ג', י"ג)</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מדוע, לדעתכם, בכו דווקא הזקנים שזכרו את הבית הראשון, בעוד שאר העם הריע בשמחה? מה ניתן ללמוד מכך על הפער בין דורות בחוויית שיבת ציון?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הזקנים, שראו את הבית הראשון, משווים בינו לבין ההיכל הצנוע ומצטערים; הצעירים, שלא ידעוהו, חווים את הרגע כהישג עצום - הפער ממחיש כמה שונה חוויית אותו אירוע לפי דור.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְאֵין הָעָם מַכִּירִים קוֹל תְּרוּעַת הַשִּׂמְחָה לְקוֹל בְּכִי הָעָם" (ג', י"ג)</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מדוע, לדעתכם, בכו דווקא הזקנים שזכרו את הבית הראשון, בעוד שאר העם הריע בשמחה? מה ניתן ללמוד מכך על הפער בין דורות בחוויית שיבת ציון?</span></div>
+<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הזקנים, שראו את הבית הראשון, משווים בינו לבין ההיכל הצנוע ומצטערים; הצעירים, שלא ידעוהו, חווים את הרגע כהישג עצום - הפער ממחיש כמה שונה חוויית אותו אירוע לפי דור.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -266,29 +281,29 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "כִּי כָכֶם נִדְרוֹשׁ לֵאלֹקֵיכֶם, וְלוֹ אֲנַחְנוּ זֹבְחִים" (ד', ב')</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">מיהם צרי יהודה ובנימין, ומהי כוונתם בבקשה?</span>
-            <b>רש"י:</b> העכו"ם אשר הושיב סנחריב בארץ ישראל (מדובר באוכלוסייה שעברה תהליך של גיור, לפחות חלקי, לא בגויים של ממש). בקשתם להשתתף בבנייה לא הייתה בקשה כנה אלא תירוץ לעכב את המלאכה. <b>מלבי"ם:</b> סבור שאכן רצו להצטרף, אולם הצטרפותם אינה אפשרית משתי סיבות - רוחנית: הם אינם נחשבים חלק מעם ישראל אלא עובדים בשיתוף; ופורמלית: המנדט של כורש ניתן רק למי שנחשב ישראל.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="ezra34-mp-1">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">השוו בין הסבר רש"י להסבר מלבי"ם לזהות צרי יהודה ובנימין ולכוונת בקשתם. מה ההבדל המרכזי בין ההסברים בנוגע לכנות הבקשה, ומהי בכל זאת הסיבה המשותפת לשתיהם לדחייתה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, הבקשה הייתה תמרון ציני מלכתחילה. לפי מלבי"ם, היא הייתה כנה אך נדחית כי הצרים אינם עם ישראל והמנדט של כורש הותר רק להם - שני הפרשנים מסכימים על דחיית הבקשה.</div>
-          </div>
-        </div>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "כִּי כָכֶם נִדְרוֹשׁ לֵאלֹקֵיכֶם, וְלוֹ אֲנַחְנוּ זֹבְחִים" (ד', ב')</p><div class="qb-meforesh">
+<span class="qb-src">מיהם צרי יהודה ובנימין, ומהי כוונתם בבקשה?</span>
+<b>רש"י:</b> העכו"ם אשר הושיב סנחריב בארץ ישראל (מדובר באוכלוסייה שעברה תהליך של גיור, לפחות חלקי, לא בגויים של ממש). בקשתם להשתתף בבנייה לא הייתה בקשה כנה אלא תירוץ לעכב את המלאכה. <b>מלבי"ם:</b> סבור שאכן רצו להצטרף, אולם הצטרפותם אינה אפשרית משתי סיבות - רוחנית: הם אינם נחשבים חלק מעם ישראל אלא עובדים בשיתוף; ופורמלית: המנדט של כורש ניתן רק למי שנחשב ישראל.
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="ezra34-mp-1" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">השוו בין הסבר רש"י להסבר מלבי"ם לזהות צרי יהודה ובנימין ולכוונת בקשתם. מה ההבדל המרכזי בין ההסברים בנוגע לכנות הבקשה, ומהי בכל זאת הסיבה המשותפת לשתיהם לדחייתה?</span></div>
+<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי רש"י, הבקשה הייתה תמרון ציני מלכתחילה. לפי מלבי"ם, היא הייתה כנה אך נדחית כי הצרים אינם עם ישראל והמנדט של כורש הותר רק להם - שני הפרשנים מסכימים על דחיית הבקשה.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "לֹא לָכֶם וָלָנוּ לִבְנוֹת בַּיִת לֵאלֹקֵינוּ" (ד', ג')</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">זרובבל ויהושע מנמקים את הדחייה בכך ש"אֲנַחְנוּ יַחַד נִבְנֶה... כַּאֲשֶׁר צִוָּנוּ הַמֶּלֶךְ כּוֹרֶשׁ" - כלומר, נסמכים על ההרשאה הרשמית של כורש. מדוע, לדעתכם, בחרו להשתמש דווקא בנימוק הפורמלי-מדיני הזה, ולא (למשל) בנימוק דתי גרידא?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> השימוש בנימוק הפורמלי (הרשאת כורש) מעניק לדחייה תוקף אובייקטיבי, במקום עימות דתי סבוך - נימוק שהצרים אמורים לקבל, אך אינם מקבלים בשקט.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "לֹא לָכֶם וָלָנוּ לִבְנוֹת בַּיִת לֵאלֹקֵינוּ" (ד', ג')</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">זרובבל ויהושע מנמקים את הדחייה בכך ש"אֲנַחְנוּ יַחַד נִבְנֶה... כַּאֲשֶׁר צִוָּנוּ הַמֶּלֶךְ כּוֹרֶשׁ" - כלומר, נסמכים על ההרשאה הרשמית של כורש. מדוע, לדעתכם, בחרו להשתמש דווקא בנימוק הפורמלי-מדיני הזה, ולא (למשל) בנימוק דתי גרידא?</span></div>
+<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> השימוש בנימוק הפורמלי (הרשאת כורש) מעניק לדחייה תוקף אובייקטיבי, במקום עימות דתי סבוך - נימוק שהצרים אמורים לקבל, אך אינם מקבלים בשקט.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -318,29 +333,29 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְסֹכְרִים עֲלֵיהֶם יוֹעֲצִים לְהָפֵר עֲצָתָם" (ד', ה')</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">מלבי"ם, ד', ד'-ה'</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְסֹכְרִים עֲלֵיהֶם יוֹעֲצִים לְהָפֵר עֲצָתָם" (ד', ה')</p><div class="qb-meforesh">
+<span class="qb-src">מלבי"ם, ד', ד'-ה'</span>
             "וחשבו מחשבות לבטל הבניין: ופעם היו מרפים את ידיהם, היינו מטילים בהם עצלות בל יעשו השתדלות בענין הבנין; ופעם מבהלים אותם מלבנות ע"י שהטילו עליהם אימה; ופעם שוכרים עליהם יועצים להפר את הבנין. וזה נמשך כל ימי כורש, שבימיו נשבת הבנין עד מלכות דריוש, שאז החלו לבנות."
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="ezra34-mp-2">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">לפי מלבי"ם, שלוש שיטות שונות ננקטו כנגד הבונים - ריפיון ידיים (עצלות), הבהלה (אימה), ושכירת יועצים. במה שונה כל אחת משיטות ההתנכלות הללו, ומדוע, לדעתכם, נדרשו שלוש שיטות שונות ולא רק אחת?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ריפיון ידיים פועל מבפנים ומחליש מוטיבציה; הבהלה פועלת מבחוץ ביצירת פחד; שכירת יועצים גורמת לשלטונות לעצור מלמעלה - שילוב שלוש השיטות הצליח לעצור את הבנייה.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="ezra34-mp-2" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">לפי מלבי"ם, שלוש שיטות שונות ננקטו כנגד הבונים - ריפיון ידיים (עצלות), הבהלה (אימה), ושכירת יועצים. במה שונה כל אחת משיטות ההתנכלות הללו, ומדוע, לדעתכם, נדרשו שלוש שיטות שונות ולא רק אחת?</span></div>
+<textarea aria-labelledby="a11y-lbl-6" class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> ריפיון ידיים פועל מבפנים ומחליש מוטיבציה; הבהלה פועלת מבחוץ ביצירת פחד; שכירת יועצים גורמת לשלטונות לעצור מלמעלה - שילוב שלוש השיטות הצליח לעצור את הבנייה.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְהָיְתָה בְטֵלָה עַד שְׁנַת שְׁתַּיִם לְמַלְכוּת דָּרְיָוֶשׁ" (ד', כ"ד)</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">בין פסוק ה' לפסוק כ"ד (שאותו קראנו כאן ברצף) מובאות בפרק ד' אגרות תלונה נוספות, המתייחסות בעצם לתקופה מאוחרת יותר (ימי אחשוורוש וארתחשסתא) ועוסקות בבניית חומת ירושלים ולא במקדש. מה, לדעתכם, ההיגיון מאחורי סידור הפרק כך שהוא "קופץ" כרונולוגית, ולא הולך לפי סדר הזמנים?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> המחבר ארגן את הפרק לפי נושא (התנכלויות שכנים) ולא כרונולוגית - כדי להדגיש תופעה חוזרת של ניסיונות לעכב את היישוב היהודי, הן במקדש והן בחומה.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְהָיְתָה בְטֵלָה עַד שְׁנַת שְׁתַּיִם לְמַלְכוּת דָּרְיָוֶשׁ" (ד', כ"ד)</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">בין פסוק ה' לפסוק כ"ד (שאותו קראנו כאן ברצף) מובאות בפרק ד' אגרות תלונה נוספות, המתייחסות בעצם לתקופה מאוחרת יותר (ימי אחשוורוש וארתחשסתא) ועוסקות בבניית חומת ירושלים ולא במקדש. מה, לדעתכם, ההיגיון מאחורי סידור הפרק כך שהוא "קופץ" כרונולוגית, ולא הולך לפי סדר הזמנים?</span></div>
+<textarea aria-labelledby="a11y-lbl-7" class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> המחבר ארגן את הפרק לפי נושא (התנכלויות שכנים) ולא כרונולוגית - כדי להדגיש תופעה חוזרת של ניסיונות לעכב את היישוב היהודי, הן במקדש והן בחומה.</div>
+</div></div></div>
 
       </div>
     </div>
