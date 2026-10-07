@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl" data-css="theme bereshit-12 steps guide lesson-tools">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,135 +7,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/worksheet-theme.css">
-<style>
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
+<link rel="stylesheet" href="assets/site.css?v=1">
 
-  /* שאלות בגרות שחולקות אותו מקור: המקור מופיע פעם אחת, והשאלות מתפרסות לרוחב זו לצד זו */
-  .bg-row{ display:flex; flex-wrap:wrap; gap:1.4rem; }
-  .bg-row .question-block{ flex:1 1 300px; min-width:0; }
 
-  /* אישור הבנת פרשן - כפתור קטן בתחתית כל קובית מפרש, במקום רשימת סיכום נפרדת */
-  .qb-meforesh{ position:relative; }
-  .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
-  .mp-tile-btn{
-    font-family:'Heebo',sans-serif; font-size:.72rem; font-weight:700; cursor:pointer; min-height:30px;
-    padding:.3rem .8rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
-    transition:background .2s ease, color .2s ease, border-color .2s ease; flex:none;
-  }
-  .mp-tile-btn:hover{ background:var(--acc); color:#fff; }
-  .qb-meforesh.completed{ background:var(--teal-soft); border-color:var(--teal); }
-  .qb-meforesh.completed .qb-src{ color:var(--teal); }
-  .qb-meforesh.completed .mp-tile-btn{ background:var(--teal); border-color:var(--teal); color:#fff; }
 
-  /* ========== רכיבי עזר קיימים, בגודל מוקטן לשימוש בתוך קוביות ========== */
-  .mini-timeline.detail .step{ flex:1 1 140px; text-align:center; gap:.3rem; padding:.6rem .6rem; }
-  .mini-timeline.detail .step b{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.88rem; color:var(--ink); }
-  .mini-timeline.detail .step small{ display:block; font-size:.68rem; line-height:1.35; color:var(--ink-soft); }
-  .mini-timeline.detail .step small.why{ color:var(--rust); font-weight:700; }
-  .mini-timeline{ margin-top:.7rem; }
-  .mini-timeline.compact .step{ font-size:.68rem; padding:.4rem .3rem; }
-  .step.fail{ background:var(--rust-soft); border-color:var(--rust); }
-  .step.fail small{ color:var(--rust); font-weight:700; }
 
-  .vs-compare{ display:flex; align-items:stretch; gap:0; margin:.7rem 0; border-radius:12px; overflow:hidden; box-shadow:var(--shadow); }
-  .vs-side{ flex:1; padding:.7rem .8rem; display:flex; flex-direction:column; align-items:center; text-align:center; gap:.3rem; }
-  .vs-a{ background:var(--teal-soft); }
-  .vs-b{ background:var(--acc-soft); }
-  .vs-icon{ font-size:1.35rem; }
-  .vs-title{ font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.85rem; color:var(--ink); }
-  .vs-desc{ font-size:.72rem; line-height:1.45; color:var(--ink-soft); }
-  .vs-mid{ flex:none; width:2rem; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:.72rem; color:#fff; background:var(--ink); }
-
-  .plan-reality{ display:flex; flex-direction:column; gap:.55rem; margin:.7rem 0; }
-  .pr-row{ display:flex; flex-direction:column; gap:.3rem; }
-  .pr-label{ font-weight:800; font-size:.76rem; color:var(--acc); }
-
-  .flowchart{ display:flex; flex-direction:column; align-items:center; gap:0; margin:.7rem 0; }
-  .flow-step{ display:flex; align-items:center; gap:.6rem; width:100%; }
-  .flow-node{
-    flex:none; width:1.6rem; height:1.6rem; border-radius:50%; background:var(--acc); color:#fff;
-    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.8rem;
-  }
-  .flow-card{ flex:1; background:#fff; border:1.5px solid var(--paper-line); border-radius:10px; padding:.5rem .7rem; }
-  .flow-title{ font-size:.78rem; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:.4rem; }
-  .flow-icon{ font-size:.95rem; }
-  .flow-arrow{ color:var(--acc); font-size:1rem; margin:.1rem 0; }
-
-  .topic-col{ grid-column: 1 / -1; margin-top:2.6rem; display:flex; flex-direction:column; min-width:0; }
-  .grid > .topic-col:first-child{ margin-top:0; }
-
-  /* ========== תרשים-זרימה: קוביית-שורש שמסתעפת לקוביות-שאלה ========== */
-  .qb-topic{ min-width:0; }
-  .qb-root{
-    max-width:680px; margin:0 auto; background:#fff; border:2.5px solid var(--acc); border-radius:16px;
-    padding:1rem 1.3rem; text-align:center; box-shadow:var(--shadow); position:relative; z-index:1;
-  }
-  .qb-root-icon{ font-size:1.5rem; display:block; margin-bottom:.35rem; }
-  .qb-root-label{ font-size:.72rem; font-weight:800; color:var(--acc); text-transform:uppercase; letter-spacing:.03em; margin-bottom:.3rem; }
-  .qb-root-pasuk{ font-size:.92rem; line-height:1.85; color:var(--ink); text-align:center; }
-  .qb-root-pasuk b{ color:var(--acc); font-weight:800; }
-  .qb-root-note{ font-size:.8rem; color:var(--ink-soft); margin-top:.5rem; }
-  .pasuk-gloss{
-    font-family:'Heebo',sans-serif; font-weight:700; font-size:.72rem; color:var(--acc);
-    text-transform:uppercase; letter-spacing:.02em; margin:.75rem 0 .2rem;
-  }
-  .qb-root-pasuk .pasuk-gloss:first-child{ margin-top:0; }
-  .pasuk-line{ margin-bottom:.15rem; }
-
-  .qb-connector{ width:2.5px; height:24px; background:var(--acc); margin:0 auto; position:relative; }
-  .qb-connector::after{
-    content:""; position:absolute; bottom:-1px; right:50%; transform:translateX(50%);
-    border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
-  }
-
-  /* דף רחב: עמודה אחת יותר רחבה, כדי שכל קובית תוכל להתפרס לרוחב (מקור מול שאלה) */
-  main{ max-width:1320px; }
-
-  .qb-branches{
-    display:flex; flex-direction:column; gap:1.3rem;
-    position:relative; padding-top:22px; margin-top:-22px;
-  }
-  .qb-branches::before{
-    content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
-  }
-  .qb-card{
-    background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1.2rem 1.4rem; box-shadow:var(--shadow);
-    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.3rem; align-items:stretch;
-  }
-  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - כל צד במסגרת משלו, ושניהם
-     תמיד נמתחים לאותו גובה (שורה אחת בגריד). התוכן בכל צד ממורכז אנכית בתוך המסגרת,
-     כך שגם כשצד אחד קצר בהרבה מהשני אין שטח ריק ולא-מטופל - יש מסגרת נעימה ומלאה. */
-  .qb-source, .qb-question{
-    display:flex; flex-direction:column; justify-content:center; gap:.65rem; min-width:0;
-    background:#F8F8F6; border:1.5px solid var(--paper-line); border-radius:12px; padding:1rem 1.2rem;
-  }
-  @media (max-width:760px){
-    .qb-card{ grid-template-columns:1fr; gap:1rem; }
-  }
-  .qb-meforesh{
-    font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
-    background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
-    padding:.75rem .9rem; box-shadow:var(--shadow);
-  }
-  .qb-meforesh .qb-src{
-    display:flex; align-items:center; gap:.4rem; font-style:normal; font-weight:800; color:var(--acc);
-    font-size:.8rem; margin-bottom:.35rem;
-  }
-  .qb-meforesh .qb-src::before{ content:"💬"; font-size:1.05rem; line-height:1; }
-  .qb-card .question-block{ display:flex; flex-direction:column; gap:.5rem; }
-  .qb-card .question-row{ align-items:flex-start; }
-  .qb-card .q-text{ font-size:.86rem; line-height:1.5; }
-  .qb-card textarea.answer{ min-height:85px; font-size:.85rem; padding:.55rem .7rem; }
-  .qb-card .hint-btn{ font-size:.76rem; padding:.4rem .8rem; align-self:flex-start; }
-  .qb-card .hint-box{ font-size:.8rem; padding:.6rem .75rem; }
-</style>
-<link rel="stylesheet" href="assets/steps.css">
-<link rel="stylesheet" href="assets/guide.css">
-<link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
-<link rel="stylesheet" href="assets/lesson-tools.css">
+
 </head>
 <body>
 <a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>

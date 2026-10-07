@@ -27,7 +27,7 @@
    לאותו שלב). משימה לא חוצה שלבים; משימת קריאה (בלי שאלות) נחשבת
    הושלמה אחרי שצפו בה. כרטיסי שלב "summary" (מה למדנו, תרגול נוסף)
    מוצגים במסך הסיכום.
-   העיצוב ב-assets/steps.css.
+   העיצוב ב-assets/site.css (חלק "steps").
    ============================================================ */
 (function(){
   "use strict";
@@ -684,7 +684,7 @@
 
       // מסלול הלמידה: השלב הנוכחי מודגש, שלב שכל המשימות בו הושלמו - מסומן ✓
       var stageHere = current < tasks.length ? tasks[current].stage : "summary";
-      bar.setAttribute("data-bm-now", view === "all" ? "all" : (stageHere || ""));   // assets/guide.css: בשאלת בגרות - בלי כפתור "פתיחי משפט"
+      bar.setAttribute("data-bm-now", view === "all" ? "all" : (stageHere || ""));   // assets/site.css (guide): בשאלת בגרות - בלי כפתור "פתיחי משפט"
       pathItems.forEach(function(p){
         var inStage = p.key === "summary" ? tasks : tasks.filter(function(t){ return t.stage === p.key; });
         var done = inStage.every(isTaskDone);

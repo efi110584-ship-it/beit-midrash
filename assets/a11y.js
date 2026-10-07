@@ -11,7 +11,7 @@
 
    אם בדף כבר יש תפריט נגישות משלו (דף הבית, #a11y-panel) - הסקריפט
    רק מחבר אליו את ההתנהגות. בכל דף אחר הוא מוסיף כפתור נגישות צף.
-   העיצוב של כל זה נמצא ב-assets/a11y.css.
+   העיצוב של כל זה נמצא ב-assets/site.css (חלק "a11y").
    ============================================================ */
 (function(){
   "use strict";
@@ -242,9 +242,6 @@
   function loadQuickNav(){
     if(!SELF_SRC || document.querySelector(".bm-qnav")) return;
     var base = SELF_SRC.replace(/a11y\.js(\?.*)?$/, "");
-    var link = document.createElement("link");
-    link.rel = "stylesheet"; link.href = base + "quick-nav.css";
-    document.head.appendChild(link);
     var script = document.createElement("script");
     script.src = base + "quick-nav.js";
     document.body.appendChild(script);

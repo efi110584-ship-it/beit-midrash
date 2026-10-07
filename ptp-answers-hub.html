@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl" data-css="theme answers-hub">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,52 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/worksheet-theme.css">
-<style>
+<link rel="stylesheet" href="assets/site.css?v=1">
 
-  .teacher-note{
-    max-width:760px; margin:0 auto 1.4rem; text-align:center; font-size:.88rem; color:var(--ink-soft);
-    background:var(--paper-card); border:1.5px solid var(--paper-line); border-radius:12px; padding:.8rem 1.1rem;
-  }
-  .chapter-picker{ display:flex; flex-wrap:wrap; gap:.6rem; justify-content:center; margin:0 0 1.6rem; }
-  .chapter-btn{
-    font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:.95rem; cursor:pointer;
-    padding:.55rem 1.2rem; border-radius:999px; border:2px solid var(--paper-line); background:#fff; color:var(--ink);
-    transition:border-color .2s ease, background .2s ease, color .2s ease, transform .15s ease;
-  }
-  .chapter-btn:hover{ transform:translateY(-1px); }
-  .chapter-btn[aria-selected="true"]{ background:var(--acc); border-color:var(--acc); color:#fff; }
-  .chapter-panel{ display:none; }
-  .chapter-panel.active{ display:block; }
-  main .grid{ display:grid; }
-  .chapter-head{
-    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.8rem;
-    background:var(--paper-card); border:1.5px solid var(--paper-line); border-radius:14px;
-    padding:1rem 1.3rem; margin-bottom:1.4rem;
-  }
-  .chapter-head h2{ margin:0; font-family:'Frank Ruhl Libre',serif; font-size:1.25rem; color:var(--ink); }
-  .chapter-head .sub-small{ margin:.2rem 0 0; font-size:.82rem; color:var(--ink-soft); }
-  .speak-btn{
-    font-family:'Heebo',sans-serif; font-size:.8rem; font-weight:700; cursor:pointer; white-space:nowrap;
-    padding:.5rem 1rem; border-radius:999px; border:1.5px solid var(--acc); background:#fff; color:var(--acc);
-    display:inline-flex; align-items:center; gap:.4rem; transition:background .2s ease, color .2s ease;
-  }
-  .speak-btn:hover{ background:var(--acc); color:#fff; }
-  .speak-btn.speaking{ background:var(--teal); border-color:var(--teal); color:#fff; }
-  .speak-btn[disabled]{ opacity:.45; cursor:not-allowed; }
-  .speak-btn.small{ font-size:.72rem; padding:.35rem .75rem; align-self:flex-start; }
-  .speak-btn.topic-speak-btn{ flex:none; margin-inline-start:auto; }
-  .ans-block{
-    background:var(--teal-soft); border:1.5px solid var(--teal); border-radius:10px;
-    padding:.65rem .85rem; display:flex; flex-direction:column; gap:.3rem; margin-top:.5rem;
-  }
-  .ans-label{ font-weight:800; font-size:.72rem; color:var(--teal); text-transform:uppercase; letter-spacing:.02em; }
-  .ans-text{ font-size:.88rem; line-height:1.6; color:var(--ink); }
-  .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
-  .card .question-block + .question-block{ margin-top:.9rem; }
-  .card[style*="--acc"] .card-head, .topic-banner{ }
-</style>
-<link rel="stylesheet" href="assets/a11y.css">
+
 <script src="assets/a11y.js"></script>
 </head>
 <body>

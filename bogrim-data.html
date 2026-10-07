@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl" data-css="theme bogrim-data">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,58 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/worksheet-theme.css">
-<style>
-  .bg-wrap{ max-width:1180px; margin:0 auto; padding:0 1rem; }
-  .bg-stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.8rem; margin:1.2rem 0 1.6rem; }
-  .bg-stat{ background:var(--paper-card); border:1px solid var(--paper-line); border-top:4px solid var(--acc); border-radius:10px; padding:.9rem 1rem; text-align:center; box-shadow:var(--shadow); }
-  .bg-stat .n{ font-family:'Frank Ruhl Libre',serif; font-weight:900; font-size:1.7rem; color:var(--ink); display:block; }
-  .bg-stat .l{ font-size:.8rem; color:var(--ink-soft); margin-top:.15rem; }
-  .bg-stat.combat{ border-top-color:#8B4A34; }
-  .bg-stat.combat .n{ color:#8B4A34; }
+<link rel="stylesheet" href="assets/site.css?v=1">
 
-  .bg-panel{ background:var(--paper-card); border:1px solid var(--paper-line); border-radius:10px; padding:1rem 1.1rem; margin-bottom:1.4rem; box-shadow:var(--shadow); }
-  .bg-panel h2{ font-family:'Frank Ruhl Libre',serif; font-size:1.15rem; margin:0 0 .8rem; color:var(--ink); }
 
-  .bg-filters{ display:flex; flex-wrap:wrap; gap:.6rem; align-items:end; margin-bottom:.9rem; }
-  .bg-filter{ display:flex; flex-direction:column; gap:.25rem; font-size:.8rem; color:var(--ink-soft); }
-  .bg-filter select, .bg-filter input[type="text"]{ font-family:inherit; font-size:.9rem; padding:.4rem .55rem; border:1px solid var(--paper-line); border-radius:7px; background:#fff; min-width:9rem; }
-  .bg-filter.grow input{ min-width:14rem; }
-  .bg-check{ display:flex; align-items:center; gap:.4rem; font-size:.85rem; padding-bottom:.45rem; }
-  .bg-count{ font-size:.82rem; color:var(--ink-soft); margin-bottom:.5rem; }
-
-  /* הטבלה הזו רחבה מדי (min-width:820px) ומוכרחה בגלילה אופקית - לכן רק בה הכותרת לא תהיה מקובעת */
-  .bg-table-wrap{ overflow-x:auto; }
-  table.bg-table{ width:100%; border-collapse:collapse; font-size:.82rem; min-width:820px; }
-  table.bg-table th, table.bg-table td{ border:1px solid var(--paper-line); padding:.45rem .55rem; text-align:center; vertical-align:top; }
-  table.bg-table thead th{ background:var(--acc-soft); color:var(--ink); font-weight:700; cursor:pointer; user-select:none; white-space:nowrap; }
-  table.bg-table thead th:hover{ background:var(--gold-soft); color:#fff; }
-  table.bg-table td.name{ text-align:right; font-weight:600; white-space:nowrap; }
-  table.bg-table td.detail, table.bg-table td.work{ text-align:right; }
-  table.bg-table tbody tr:nth-child(even){ background:rgba(0,0,0,.02); }
-  .badge{ display:inline-block; padding:.1rem .5rem; border-radius:999px; font-size:.72rem; font-weight:700; }
-  .badge.yes{ background:#F1E2DA; color:#8B4A34; }
-  .badge.no{ background:transparent; color:var(--ink-soft); }
-  .status-chip{ display:inline-block; padding:.15rem .5rem; border-radius:999px; font-size:.75rem; font-weight:600; white-space:nowrap; }
-  .status-service{ background:#E4EEEA; color:#3F6E66; }
-  .status-national{ background:#F3E7D2; color:#8A5C21; }
-  .status-none{ background:#F1E2DA; color:#8B4A34; }
-  .status-future{ background:#EAEAF5; color:#4B4B8A; }
-  .status-unknown{ background:#EEE; color:#777; }
-
-  .bg-sub-table{ width:100%; border-collapse:collapse; font-size:.82rem; margin-top:.6rem; }
-  .bg-sub-table th, .bg-sub-table td{ border:1px solid var(--paper-line); padding:.5rem .6rem; text-align:right; vertical-align:top; }
-  .bg-sub-table thead th{ background:var(--acc-soft); color:var(--ink); font-weight:700; text-align:center; }
-  .bg-names-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:.4rem .8rem; margin-top:.5rem; }
-  .bg-names-grid span{ font-size:.85rem; padding:.25rem .1rem; border-bottom:1px dashed var(--paper-line); }
-  .bg-note{ font-size:.82rem; color:var(--ink-soft); line-height:1.6; background:#F3E7D2; border-right:3px solid var(--gold); border-radius:6px; padding:.6rem .85rem; margin-bottom:1rem; }
-
-  .bg-tabs{ display:flex; gap:.4rem; flex-wrap:wrap; margin-bottom:1rem; }
-  .bg-tab-btn{ font-family:inherit; font-size:.88rem; font-weight:600; padding:.5rem 1rem; border-radius:999px; border:1.5px solid var(--paper-line); background:#fff; color:var(--ink); cursor:pointer; }
-  .bg-tab-btn[aria-selected="true"]{ background:var(--acc); color:#fff; border-color:var(--acc); }
-  .bg-tabpanel[hidden]{ display:none; }
-</style>
-<link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
 </head>
 <body>

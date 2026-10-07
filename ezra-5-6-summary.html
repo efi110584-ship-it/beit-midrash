@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl" data-css="summary-2">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,82 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@600;800&family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --paper:#FBF6EE; --card:#FFFFFF; --ink:#2B2419; --ink-soft:#5A5142;
-    --navy:#1E2761; --navy-soft:#E7E9F5;
-    --gold:#8A5C21; --gold-soft:#F4ECE1;
-    --green:#1F7A4D; --green-soft:#E4EEEA;
-    --border:#E4DACB;
-  }
-  *{box-sizing:border-box;}
-  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Heebo',sans-serif; line-height:1.6; }
-  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem 1.2rem 3rem; }
-  header{ text-align:center; padding:1rem 0 .4rem; }
-  h1{ font-family:'Frank Ruhl Libre',serif; font-size:2rem; margin:.2rem 0; color:var(--navy); }
-  .sub{ color:var(--ink-soft); font-size:1.02rem; margin:0; max-width:760px; margin-inline:auto; }
+<link rel="stylesheet" href="assets/site.css?v=1">
 
-  .breadcrumbs{ max-width:1100px; margin:1rem auto 0; padding:0 1.2rem; font-size:.85rem; color:var(--ink-soft); }
-  .breadcrumbs a{ color:var(--navy); text-decoration:none; }
-  .breadcrumbs a:hover{ text-decoration:underline; }
-  .breadcrumbs .sep{ margin:0 .35rem; color:var(--border); }
-  .breadcrumbs .current{ color:var(--ink-soft); }
-
-  .game-nav{ text-align:center; margin:.6rem 0 0; }
-  .game-nav a{
-    display:inline-flex; align-items:center; gap:.4rem; color:var(--navy); text-decoration:none;
-    font-size:.9rem; font-weight:700; border:1.5px solid var(--navy); border-radius:999px; padding:.4rem 1rem;
-  }
-  .game-nav a:hover{ background:var(--navy-soft); }
-
-  .intro-card{
-    background:var(--card); border:1.5px solid var(--border); border-radius:14px;
-    padding:1.1rem 1.3rem; margin:1.6rem 0; box-shadow:0 3px 10px rgba(0,0,0,.06); font-size:.94rem;
-  }
-  .intro-label{ font-weight:800; color:var(--navy); font-size:.8rem; text-transform:uppercase; letter-spacing:.03em; margin-bottom:.5rem; }
-
-  .topic-section{ margin:2rem 0; }
-  .topic-heading{
-    display:flex; align-items:center; gap:.6rem; margin:0 0 .7rem;
-    font-family:'Frank Ruhl Libre',serif; font-weight:800; font-size:1.25rem; color:var(--navy);
-    border-right:5px solid var(--acc, var(--navy)); padding-right:.6rem;
-  }
-  .topic-heading .icon{ font-size:1.4rem; }
-  .topic-heading .range{ font-size:.78rem; font-weight:600; color:var(--ink-soft); margin-inline-start:.4rem; }
-
-  .narrative{ font-size:.94rem; line-height:1.75; margin:0 0 1rem; }
-
-  .mp-label{
-    display:flex; align-items:center; gap:.4rem; font-size:.78rem; font-weight:800; color:var(--acc, var(--navy));
-    text-transform:uppercase; letter-spacing:.02em; margin:0 0 .6rem;
-  }
-  .mp-label::before{ content:"💬"; font-size:.95rem; }
-  .mp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; align-items:start; }
-  .mp-card{
-    background:var(--card); border:1.5px solid var(--border); border-right:5px solid var(--acc, var(--navy));
-    border-radius:14px; padding:1rem 1.1rem; box-shadow:0 3px 10px rgba(0,0,0,.06);
-  }
-  .mp-src{
-    display:flex; align-items:center; gap:.4rem; font-weight:800; color:var(--acc, var(--navy));
-    font-size:.92rem; margin-bottom:.6rem;
-  }
-  .mp-src::before{ content:"💬"; font-size:1.05rem; line-height:1; }
-  .mp-line{ font-size:.88rem; margin-bottom:.45rem; }
-  .mp-line:last-child{ margin-bottom:0; }
-  .mp-tag{ font-weight:800; }
-  .mp-tag.ask{ color:var(--gold); }
-  .mp-tag.answer{ color:var(--green); }
-
-  .site-footer{ text-align:center; color:var(--ink-soft); font-size:.85rem; margin-top:2rem; }
-
-  .to-top-btn{
-    position:fixed; bottom:1.2rem; left:1.2rem; width:2.8rem; height:2.8rem; border-radius:50%;
-    background:var(--navy); color:#fff; border:none; font-size:1.2rem; cursor:pointer; opacity:0;
-    pointer-events:none; transition:opacity .2s ease; box-shadow:0 3px 10px rgba(0,0,0,.2);
-  }
-  .to-top-btn.show{ opacity:1; pointer-events:auto; }
-</style>
-<link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
 </head>
 <body>

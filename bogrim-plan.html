@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl" data-css="bogrim-plan">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,99 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;800&display=swap" rel="stylesheet">
-<style>
-:root{
-  --ink:#0B2A5B; --blue:#2F62B0; --paper:#E9EFF9; --head:#E3EBF7; --border:#CBD6E8;
-  --text:#0E1B33; --soft:#4E5B72; --gold:#FF7A1A; --focus:#1857C4;
-  --p1:#B3261E; --p2:#1F6FEB; --p3:#0F7A55; --p4:#7C4DDB; --p5:#C25A00;
-  --font:"Rubik","Heebo","Arial Hebrew",sans-serif; --font-scale:1;
-}
-html{ font-size:calc(100% * var(--font-scale)); }
-*,*::before,*::after{ box-sizing:border-box; }
-body{ margin:0; background:var(--paper); color:var(--text); font-family:var(--font); line-height:1.5; }
-a{ color:var(--blue); }
-a:focus-visible, button:focus-visible{ outline:3px solid var(--focus); outline-offset:3px; border-radius:6px; }
-.skip-link{ position:absolute; right:1rem; top:-60px; z-index:500; background:var(--ink); color:#fff; padding:.8rem 1.2rem; border-radius:0 0 8px 8px; text-decoration:none; font-weight:700; }
-.skip-link:focus{ top:0; }
+<link rel="stylesheet" href="assets/site.css?v=1">
 
-.top{ background:var(--blue); color:#fff; font-size:.92rem; }
-.top .in{ max-width:1180px; margin:0 auto; padding:.7rem 1.25rem; padding-inline-end:3.2rem; }
-.top a{ color:#fff; }
-.top .sep{ opacity:.7; margin:0 .35rem; }
-
-.page{ max-width:1180px; margin:1.2rem auto 2rem; padding:0 1.25rem; }
-.sheet{ background:#fff; border-radius:14px; box-shadow:0 4px 14px rgba(11,42,91,.10); padding:1.6rem 1.8rem; }
-
-.doc-head{ display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; border-bottom:3px solid var(--ink); padding-bottom:.8rem; margin-bottom:1.1rem; }
-.doc-head h1{ margin:0; font-size:1.7rem; font-weight:800; color:var(--ink); }
-.doc-meta{ margin-top:.25rem; color:var(--soft); }
-.doc-meta span + span::before{ content:"·"; margin:0 .5rem; }
-.btn{ display:inline-flex; align-items:center; gap:.4rem; min-height:44px; padding:.5rem 1.1rem; border-radius:10px; border:0; background:var(--gold); color:#1A1206; font-family:inherit; font-size:1rem; font-weight:700; cursor:pointer; }
-
-.flow{ display:flex; flex-wrap:wrap; align-items:center; gap:.35rem; margin-bottom:1.3rem; font-weight:700; font-size:.92rem; }
-.flow span{ background:var(--head); color:var(--ink); padding:.3rem .7rem; border-radius:6px; }
-.flow i{ font-style:normal; color:var(--soft); }
-
-h2{ font-size:1.15rem; color:var(--ink); margin:1.5rem 0 .55rem; display:flex; align-items:center; gap:.5rem; }
-h2 .n{ display:inline-flex; width:28px; height:28px; border-radius:50%; background:var(--ink); color:#fff; font-size:.9rem; align-items:center; justify-content:center; }
-h2:first-of-type{ margin-top:0; }
-
-/* .tw לא עוטף יותר בגלילה אופקית - overflow על אב של thead מבטל position:sticky על הכותרת.
-   לשתי הטבלאות הרחבות (pillars, cal) אין ברירה - הן זקוקות לגלילה אופקית במסכים צרים,
-   ולכן רק בהן הכותרת לא תהיה מקובעת. */
-.tw{ }
-.tw:has(table.pillars), .tw:has(table.cal){ overflow-x:auto; }
-table{ width:100%; border-collapse:collapse; font-size:.93rem; }
-th, td{ border:1px solid var(--border); padding:.5rem .65rem; text-align:right; vertical-align:top; }
-thead{ position:sticky; top:0; z-index:2; }
-thead th{ background:var(--ink); color:#fff; font-weight:700; box-shadow:0 1px 0 var(--border); }
-tbody th{ background:var(--head); color:var(--ink); font-weight:700; white-space:nowrap; }
-td ul{ margin:0; padding-inline-start:1.05rem; }
-td li{ margin-bottom:.15rem; }
-td li:last-child{ margin-bottom:0; }
-.muted{ color:var(--soft); }
-
-table.pillars{ min-width:900px; }
-table.pillars tbody th{ width:12%; color:#fff; white-space:normal; }
-table.pillars tr.r1 th{ background:var(--p1); } table.pillars tr.r2 th{ background:var(--p2); }
-table.pillars tr.r3 th{ background:var(--p3); } table.pillars tr.r4 th{ background:var(--p4); }
-table.pillars tr.r5 th{ background:var(--p5); }
-table.pillars th small{ display:block; font-weight:400; opacity:.92; }
-table.pillars td:nth-child(2){ width:20%; }
-table.pillars td:nth-child(3){ width:36%; }
-
-table.cal{ min-width:640px; }
-table.cal tbody th{ width:16%; }
-
-.gate{ max-width:30rem; margin:2rem auto; background:#fff; border-radius:14px; padding:1.5rem; text-align:center; box-shadow:0 4px 14px rgba(11,42,91,.10); }
-.gate p{ color:var(--soft); margin:.3rem 0 1rem; }
-
-.a11y-contrast body{ --paper:#fff; --head:#fff; --border:#000; --text:#000; --soft:#000; --ink:#000; }
-
-@media (max-width:640px){
-  .sheet{ padding:1.1rem 1rem; }
-  .doc-head h1{ font-size:1.35rem; }
-  .btn{ width:100%; justify-content:center; }
-}
-
-@media print{
-  @page{ size:A4 landscape; margin:10mm; }
-  body{ background:#fff; font-size:9.5pt; }
-  .top, .no-print, .gate, .skip-link, .bm-a11y, .bm-qnav{ display:none !important; }
-  .page{ margin:0; padding:0; max-width:none; }
-  .sheet{ box-shadow:none; padding:0; border-radius:0; }
-  .tw{ overflow:visible; }
-  table.pillars, table.cal{ min-width:0; }
-  table{ font-size:8.4pt; }
-  th, td{ padding:.22rem .45rem; }
-  tr{ break-inside:avoid; }
-  h2{ break-after:avoid; margin-top:1rem; }
-  thead th, tbody th, h2 .n, .flow span{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .pb{ break-before:page; }
-  .keep{ break-inside:avoid; }
-}
-</style>
-<link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
 </head>
 <body>

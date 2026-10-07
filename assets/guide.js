@@ -21,7 +21,7 @@
        breakdown: { ... } } } };   // breakdown - כבר לא מוצג בדף
    סוג התשובה: data-answer-kind="official|suggested" על כרטיס (או על
    main); כותרת "תשובה מוצעת" / "תשובה אפשרית" בתיבת התשובה גוברת תמיד.
-   העיצוב ב-assets/guide.css.
+   העיצוב ב-assets/site.css (חלק "guide").
    ============================================================ */
 (function(){
   "use strict";

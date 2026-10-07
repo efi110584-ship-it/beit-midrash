@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl" data-css="theme chapter-text-2">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,66 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/worksheet-theme.css">
-<style>
-  .pasuk-flow{ font-size:1.12rem; line-height:2.3; color:var(--ink); }
-  .v-num{
-    display:inline-flex; align-items:center; justify-content:center; width:1.55rem; height:1.55rem;
-    border-radius:50%; background:var(--acc-soft); color:var(--acc); font-weight:800; font-size:.72rem;
-    margin-inline-end:.3rem; vertical-align:middle; font-family:'Heebo',sans-serif;
-  }
-  .hot-word{
-    background:none; border:none; padding:0 .12rem; margin:0 .05rem; font:inherit; font-weight:800;
-    color:var(--acc); cursor:pointer; border-bottom:2.5px dotted var(--acc); border-radius:2px;
-    transition:background .15s ease;
-  }
-  .hot-word:hover, .hot-word:focus-visible{ background:var(--acc-soft); outline:none; }
-  .hot-word .hw-icon{ font-size:.78em; margin-inline-start:.12rem; }
-  .legend{
-    display:flex; flex-wrap:wrap; gap:.6rem 1.4rem; justify-content:center; align-items:center;
-    font-size:.85rem; color:var(--ink-soft); margin:0 0 1.2rem;
-  }
-  .legend b{ color:var(--ink); }
-  .legend .hot-word{ pointer-events:none; }
-  .cross-ref-note{
-    background:var(--paper-card); border:1.5px dashed var(--paper-line); border-radius:10px;
-    padding:.7rem 1rem; font-size:.85rem; color:var(--ink-soft); margin:.7rem 0;
-  }
+<link rel="stylesheet" href="assets/site.css?v=1">
 
-  .pmodal-overlay{
-    position:fixed; inset:0; background:rgba(31,29,23,.6); display:flex; align-items:center; justify-content:center;
-    padding:1rem; z-index:500;
-  }
-  .pmodal-overlay[hidden]{ display:none; }
-  .pmodal-box{
-    background:#fff; border-radius:18px; max-width:480px; width:100%; padding:1.7rem 1.7rem 1.5rem;
-    box-shadow:0 24px 60px rgba(0,0,0,.35); position:relative; max-height:82vh; overflow-y:auto;
-    border-top:6px solid var(--pmodal-acc, var(--ink));
-    animation:pmodalIn .18s ease;
-  }
-  @keyframes pmodalIn{ from{ opacity:0; transform:translateY(10px) scale(.98); } to{ opacity:1; transform:none; } }
-  .pmodal-close{
-    position:absolute; top:.7rem; left:.7rem; background:var(--paper-2); border:none; width:2.1rem; height:2.1rem;
-    border-radius:50%; cursor:pointer; font-size:1.05rem; color:var(--ink-soft); line-height:1;
-  }
-  .pmodal-close:hover{ background:var(--paper); }
-  .pmodal-badge{
-    display:inline-block; font-size:.78rem; font-weight:800; color:#fff; background:var(--pmodal-acc, var(--ink));
-    padding:.35rem .9rem; border-radius:999px; margin-bottom:.9rem; font-family:'Frank Ruhl Libre',serif;
-  }
-  .pmodal-q{ font-weight:800; margin:0 0 1rem; font-family:'Frank Ruhl Libre',serif; font-size:1.05rem; line-height:1.5; color:var(--ink); }
-  .pmodal-quote{
-    font-style:italic; border-right:3px solid var(--pmodal-acc,var(--ink)); padding:.15rem .8rem;
-    margin:0 0 .9rem; color:var(--ink); font-size:.9rem; line-height:1.65; background:var(--paper-card);
-    border-radius:0 8px 8px 0;
-  }
-  .pmodal-a-label{ font-size:.78rem; font-weight:800; color:var(--pmodal-acc, var(--ink)); margin:0 0 .25rem; }
-  .pmodal-a{ font-size:.95rem; line-height:1.75; color:var(--ink-soft); }
 
-  .topic-banner{ margin-top:2.4rem; }
-  .grid > .topic-banner:first-of-type{ margin-top:0; }
-</style>
-<link rel="stylesheet" href="assets/a11y.css">
 <script src="assets/a11y.js"></script>
 </head>
 <body>
