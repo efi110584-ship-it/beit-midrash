@@ -10,6 +10,10 @@
 <link rel="stylesheet" href="assets/worksheet-theme.css">
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
+
+  /* שאלות בגרות שחולקות אותו מקור: המקור מופיע פעם אחת, והשאלות מתפרסות לרוחב זו לצד זו */
+  .bg-row{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+  .bg-row .question-block{ flex:1 1 300px; min-width:0; }
   .q-topic{
     display:flex; align-items:center; gap:.5rem; font-family:'Frank Ruhl Libre',serif; font-weight:800;
     font-size:.92rem; color:#fff; background:var(--acc); border-radius:9px; padding:.55rem .9rem;
@@ -69,20 +73,31 @@
     border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
   }
 
+  /* דף רחב: עמודה אחת יותר רחבה, כדי שכל קובית תוכל להתפרס לרוחב (מקור מול שאלה) */
+  main{ max-width:1320px; }
+
   .qb-branches{
-    display:flex; flex-wrap:wrap; gap:1.1rem;
+    display:flex; flex-direction:column; gap:1.3rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
     content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
   }
   .qb-card{
-    flex:1 1 260px;
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
-    min-width:0;
+    padding:1.2rem 1.4rem; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.6rem; align-items:start;
   }
-  .qb-card > *{ width:100%; max-width:640px; }
+  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - עם קו מפריד ביניהם */
+  .qb-source{ display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+  .qb-question{
+    display:flex; flex-direction:column; gap:.5rem; min-width:0;
+    border-right:2px solid var(--acc-soft); padding-right:1.5rem;
+  }
+  @media (max-width:760px){
+    .qb-card{ grid-template-columns:1fr; gap:1rem; }
+    .qb-question{ border-right:none; padding-right:0; border-top:2px solid var(--acc-soft); padding-top:.9rem; }
+  }
   .qb-meforesh{
     font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
@@ -203,26 +218,26 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "יֻקַּח נָא מְעַט מַיִם... וְאֶקְחָה פַת לֶחֶם" (פס' ד'-ה') לעומת "בֶּן בָּקָר רַךְ וָטוֹב... חֶמְאָה וְחָלָב" (פס' ז'-ח')</p>
-          <div class="question-block">
-            <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>צדיקים אומרים מעט ועושים הרבה</p>
-            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מה מציע אברהם לאורחים במילים (פס' ג'-ה'), ומה הוא בפועל מגיש להם (פס' ו'-ח')? מה זה מלמד על מידת הכנסת האורחים שלו?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אברהם מציע במילים מעט ("פת לחם") אך בפועל מגיש סעודה עשירה - הפער מלמד על ענווה ונדיבות אמיתית.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "יֻקַּח נָא מְעַט מַיִם... וְאֶקְחָה פַת לֶחֶם" (פס' ד'-ה') לעומת "בֶּן בָּקָר רַךְ וָטוֹב... חֶמְאָה וְחָלָב" (פס' ז'-ח')</p></div><div class="qb-question"><div class="question-block">
+<p class="q-topic"><span aria-hidden="true" class="q-topic-icon">🎯</span>צדיקים אומרים מעט ועושים הרבה</p>
+<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מה מציע אברהם לאורחים במילים (פס' ג'-ה'), ומה הוא בפועל מגיש להם (פס' ו'-ח')? מה זה מלמד על מידת הכנסת האורחים שלו?</span></div>
+<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> אברהם מציע במילים מעט ("פת לחם") אך בפועל מגיש סעודה עשירה - הפער מלמד על ענווה ונדיבות אמיתית.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וַיְמַהֵר אַבְרָהָם... וְאֶל הַבָּקָר רָץ אַבְרָהָם... מַהֲרִי..." (פס' ו'-ז')</p>
-          <div class="question-block">
-            <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>פעלי הזריזות בהכנסת האורחים</p>
-            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">אילו פעלים חוזרים בקטע, ומה הם מדגישים באופיו של אברהם כמארח?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הפעלים "וירץ", "וימהר" ו"מהרי" מדגישים זריזות והתלהבות - אברהם, שרה והנער שותפים כולם במלאכה.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וַיְמַהֵר אַבְרָהָם... וְאֶל הַבָּקָר רָץ אַבְרָהָם... מַהֲרִי..." (פס' ו'-ז')</p></div><div class="qb-question"><div class="question-block">
+<p class="q-topic"><span aria-hidden="true" class="q-topic-icon">🎯</span>פעלי הזריזות בהכנסת האורחים</p>
+<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">אילו פעלים חוזרים בקטע, ומה הם מדגישים באופיו של אברהם כמארח?</span></div>
+<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הפעלים "וירץ", "וימהר" ו"מהרי" מדגישים זריזות והתלהבות - אברהם, שרה והנער שותפים כולם במלאכה.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -256,64 +271,64 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "שׁוֹב אָשׁוּב אֵלֶיךָ כָּעֵת חַיָּה, וְהִנֵּה בֵן לְשָׂרָה אִשְׁתֶּךָ... וְשָׂרָה שֹׁמַעַת" (פס' י')</p>
-          <div class="question-block">
-            <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>הבשורה לאברהם ושרה על לידת יצחק</p>
-            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מה מבטיח האורח לאברהם בפסוק י', ומדוע מודגש שגם שרה שומעת זאת מפתח האוהל?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> האורח מבטיח שבעוד שנה ייוולד לשרה בן; היא שומעת מפתח האוהל כי הבשורה מכוונת גם אליה במישרין.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "שׁוֹב אָשׁוּב אֵלֶיךָ כָּעֵת חַיָּה, וְהִנֵּה בֵן לְשָׂרָה אִשְׁתֶּךָ... וְשָׂרָה שֹׁמַעַת" (פס' י')</p></div><div class="qb-question"><div class="question-block">
+<p class="q-topic"><span aria-hidden="true" class="q-topic-icon">🎯</span>הבשורה לאברהם ושרה על לידת יצחק</p>
+<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מה מבטיח האורח לאברהם בפסוק י', ומדוע מודגש שגם שרה שומעת זאת מפתח האוהל?</span></div>
+<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> האורח מבטיח שבעוד שנה ייוולד לשרה בן; היא שומעת מפתח האוהל כי הבשורה מכוונת גם אליה במישרין.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וַתִּצְחַק שָׂרָה בְּקִרְבָּהּ... אַחֲרֵי בְלֹתִי הָיְתָה לִּי עֶדְנָה וַאדֹנִי זָקֵן" (פס' י"ב)</p>
-          <div class="question-block">
-            <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>צחוקה של שרה וסיבותיו</p>
-            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">מדוע צחקה שרה בקרבה, ובמה בדיוק היא מטילה ספק?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שרה תמהה מפני זקנתה וזקנת אברהם - קשה לה להאמין שבגיל כה מופלג עוד תלד.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וַתִּצְחַק שָׂרָה בְּקִרְבָּהּ... אַחֲרֵי בְלֹתִי הָיְתָה לִּי עֶדְנָה וַאדֹנִי זָקֵן" (פס' י"ב)</p></div><div class="qb-question"><div class="question-block">
+<p class="q-topic"><span aria-hidden="true" class="q-topic-icon">🎯</span>צחוקה של שרה וסיבותיו</p>
+<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">מדוע צחקה שרה בקרבה, ובמה בדיוק היא מטילה ספק?</span></div>
+<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> שרה תמהה מפני זקנתה וזקנת אברהם - קשה לה להאמין שבגיל כה מופלג עוד תלד.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <div class="qb-meforesh">
-            <span class="qb-src">רמב"ן (ט"ו) ד"ה 'ותכחש שרה לאמר'</span>
+
+
+<div class="qb-source"><div class="qb-meforesh">
+<span class="qb-src">רמב"ן (ט"ו) ד"ה 'ותכחש שרה לאמר'</span>
             אני תמה בנביאה הצדקת איך תכחש באשר אמר השם לנביא, וגם למה לא האמינה לדברי מלאכי אלוהים. והנראה בעיני כי המלאכים האלה הנראים כאנשים באו אל אברהם, והוא בחכמתו הכיר בהם... ושרה שומעת, ולא ידעה כי מלאכי עליון הם... ואולי, לא ראתה אותם כלל.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-1">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>פשר הכחשתה של שרה לפי הרמב"ן</p>
-            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">לפי הרמב"ן, כיצד ייתכן שנביאה צדקת כשרה מכחישה את דבר ה'? ומדוע ייתכן שלא ידעה שמדובר במלאכים?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הרמב"ן: אברהם הכיר שהם מלאכים, אך שרה לא ידעה זאת וחשבה שמדובר בדברי אנשים רגילים, לא בדבר ה'.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit18-mp-1" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<p class="q-topic"><span aria-hidden="true" class="q-topic-icon">🎯</span>פשר הכחשתה של שרה לפי הרמב"ן</p>
+<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">לפי הרמב"ן, כיצד ייתכן שנביאה צדקת כשרה מכחישה את דבר ה'? ומדוע ייתכן שלא ידעה שמדובר במלאכים?</span></div>
+<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הרמב"ן: אברהם הכיר שהם מלאכים, אך שרה לא ידעה זאת וחשבה שמדובר בדברי אנשים רגילים, לא בדבר ה'.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <div class="vs-compare" role="img" aria-label="השוואה: צחוק שרה בפרק י״ח מול צחוק אברהם בפרק י״ז">
-            <div class="vs-side vs-a">
-              <span class="vs-icon" aria-hidden="true">😔</span>
-              <div class="vs-title">שרה (פרק י"ח)</div>
-              <div class="vs-desc">"וַתִּצְחַק שָׂרָה בְּקִרְבָּהּ" - צחוק של ספק ותמיהה.</div>
-            </div>
-            <div class="vs-mid" aria-hidden="true">מול</div>
-            <div class="vs-side vs-b">
-              <span class="vs-icon" aria-hidden="true">😄</span>
-              <div class="vs-title">אברהם (פרק י"ז)</div>
-              <div class="vs-desc">"וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק" - לפי רש"י, צחוק של שמחה ואמונה.</div>
-            </div>
-          </div>
-          <div class="question-block">
-            <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>השוואה בין צחוק שרה לצחוק אברהם</p>
-            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">השוו בין צחוקה של שרה כאן לצחוקו של אברהם בפרק הקודם (י"ז) - במה הם דומים ובמה שונים?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, צחוק אברהם היה צחוק שמחה ואמונה, וצחוק שרה ביטא ספק - ולכן דווקא היא נענית בתמיהת ה' "היפלא מה' דבר".</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><div aria-label="השוואה: צחוק שרה בפרק י״ח מול צחוק אברהם בפרק י״ז" class="vs-compare" role="img">
+<div class="vs-side vs-a">
+<span aria-hidden="true" class="vs-icon">😔</span>
+<div class="vs-title">שרה (פרק י"ח)</div>
+<div class="vs-desc">"וַתִּצְחַק שָׂרָה בְּקִרְבָּהּ" - צחוק של ספק ותמיהה.</div>
+</div>
+<div aria-hidden="true" class="vs-mid">מול</div>
+<div class="vs-side vs-b">
+<span aria-hidden="true" class="vs-icon">😄</span>
+<div class="vs-title">אברהם (פרק י"ז)</div>
+<div class="vs-desc">"וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק" - לפי רש"י, צחוק של שמחה ואמונה.</div>
+</div>
+</div></div><div class="qb-question"><div class="question-block">
+<p class="q-topic"><span aria-hidden="true" class="q-topic-icon">🎯</span>השוואה בין צחוק שרה לצחוק אברהם</p>
+<div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">השוו בין צחוקה של שרה כאן לצחוקו של אברהם בפרק הקודם (י"ז) - במה הם דומים ובמה שונים?</span></div>
+<textarea aria-labelledby="a11y-lbl-6" class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי רש"י, צחוק אברהם היה צחוק שמחה ואמונה, וצחוק שרה ביטא ספק - ולכן דווקא היא נענית בתמיהת ה' "היפלא מה' דבר".</div>
+</div></div></div>
 
       </div>
     </div>
@@ -345,35 +360,35 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <div class="qb-meforesh">
-            <span class="qb-src">רש"י (י"ז) ד"ה 'הַמְכַסֶּה אֲנִי' - בתמיה</span>
+
+
+<div class="qb-source"><div class="qb-meforesh">
+<span class="qb-src">רש"י (י"ז) ד"ה 'הַמְכַסֶּה אֲנִי' - בתמיה</span>
             אשר אני עושה בסדום - לא יפה לי לעשות דבר זה שלא מדעתו: אני נתתי לו את הארץ הזאת, וחמשה כרכין הללו שלו הן... קראתי אותו אברהם, אב המון גוים, ואשמיד את הבנים ולא אודיע לאב שהוא אוהבי?
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-2">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>הסיבה לגילוי תוכנית סדום לאברהם</p>
-            <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">לפי רש"י, מדוע מחליט ה' לגלות לאברהם את התכנית להשמיד את סדום?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, ה' נתן לאברהם את הארץ וקראו "אב המון גויים" - לכן "לא יפה" להשמיד את סדום בלי להודיע לו.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit18-mp-2" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<p class="q-topic"><span aria-hidden="true" class="q-topic-icon">🎯</span>הסיבה לגילוי תוכנית סדום לאברהם</p>
+<div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">לפי רש"י, מדוע מחליט ה' לגלות לאברהם את התכנית להשמיד את סדום?</span></div>
+<textarea aria-labelledby="a11y-lbl-7" class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי רש"י, ה' נתן לאברהם את הארץ וקראו "אב המון גויים" - לכן "לא יפה" להשמיד את סדום בלי להודיע לו.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "כִּי יְדַעְתִּיו לְמַעַן אֲשֶׁר יְצַוֶּה אֶת בָּנָיו" (פס' י"ט)</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רש"י (י"ט) ד"ה 'כי ידעתיו'</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "כִּי יְדַעְתִּיו לְמַעַן אֲשֶׁר יְצַוֶּה אֶת בָּנָיו" (פס' י"ט)</p><div class="qb-meforesh">
+<span class="qb-src">רש"י (י"ט) ד"ה 'כי ידעתיו'</span>
             לשון חיבה... שהמחבב את האדם מקרבו אצלו ויודעו ומכירו. ולמה ידעתיו? למען אשר יצוה - לפי שהוא מצוה את בניו עליי לשמור דרכיי.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-3">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>משמעות הבחירה באברהם</p>
-            <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">מה פירוש המילה "ידעתיו" לפי רש"י, ומדוע נבחר אברהם, לפי פסוק זה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> "ידעתיו", לפי רש"י, לשון חיבה וקירבה. אברהם נבחר כי יצווה את ביתו לשמור את דרך ה' - לעשות צדקה ומשפט.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit18-mp-3" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<p class="q-topic"><span aria-hidden="true" class="q-topic-icon">🎯</span>משמעות הבחירה באברהם</p>
+<div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">מה פירוש המילה "ידעתיו" לפי רש"י, ומדוע נבחר אברהם, לפי פסוק זה?</span></div>
+<textarea aria-labelledby="a11y-lbl-8" class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> "ידעתיו", לפי רש"י, לשון חיבה וקירבה. אברהם נבחר כי יצווה את ביתו לשמור את דרך ה' - לעשות צדקה ומשפט.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -403,49 +418,49 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <div class="qb-meforesh">
-            <span class="qb-src">רש"י (כ"א) ד"ה 'הכצעקתה'</span>
+
+
+<div class="qb-source"><div class="qb-meforesh">
+<span class="qb-src">רש"י (כ"א) ד"ה 'הכצעקתה'</span>
             הבאה אלי עשו - ואם עומדים במרדם, כלה אני עושה בהם. ואם לא - יעמדו במרדם, אדעה מה אעשה להיפרע מהן ביסורין ולא אכלה אותן.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-4">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>משמעות הביטוי "הכצעקתה"</p>
-            <div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-9">לפי רש"י, מה יעשה ה' אם אנשי סדום יעמדו במרדם, ומה אם לא?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, אם יעמדו במרדם - ה' ישמידם כליל; ואם לא - ה' יידע להיפרע מהם ביסורים, בלי לכלותם.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit18-mp-4" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<p class="q-topic"><span aria-hidden="true" class="q-topic-icon">🎯</span>משמעות הביטוי "הכצעקתה"</p>
+<div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-9">לפי רש"י, מה יעשה ה' אם אנשי סדום יעמדו במרדם, ומה אם לא?</span></div>
+<textarea aria-labelledby="a11y-lbl-9" class="answer" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי רש"י, אם יעמדו במרדם - ה' ישמידם כליל; ואם לא - ה' יידע להיפרע מהם ביסורים, בלי לכלותם.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <div class="qb-meforesh">
-            <span class="qb-src">פרקי דרבי אליעזר, פרק כ"ה</span>
+
+
+<div class="qb-source"><div class="qb-meforesh">
+<span class="qb-src">פרקי דרבי אליעזר, פרק כ"ה</span>
             הכריזו בסדום ואמרו: כל מי שהוא מחזיק בידו בפת לחם לעני לגר לאביון - יישרף באש. פלוטית, בתו של לוט, הייתה נשואה לאחד מגדולי סדום; ראתה עני אחד מדוקדק ברחובות העיר, רגמה נפשה - מה הייתה עושה? בכל יום כשהייתה יוצאת לשאוב מים, הייתה נותנת בכדה מכל מזון הבית ומכלכלת אותו. אמרו אנשי סדום: העני הזה מאין הוא חי?! עד שגילו הדבר והוציאו אותה להישרף. אמרה: ריבונו של עולם, עשה משפטי ודיני! ועלתה צעקתה לפני כיסא הכבוד.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-5">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>סיפור פלוטית בת לוט וחוקי סדום</p>
-            <div class="question-row"><span class="q-num">10</span><span class="q-text" id="a11y-lbl-10">ספרו בקצרה, לפי פרקי דרבי אליעזר, את סיפור פלוטית בת לוט. מה הוא מלמד על אופי החוק בסדום?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-10" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> בסדום הכריזו שהמחזיק ביד עני ייענש בשריפה. פלוטית ריחמה על עני והאכילה אותו בסתר, ונשרפה כשנתגלה - הרוע בסדום היה חוק רשמי, לא רק התפרצות יחידים.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit18-mp-5" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<p class="q-topic"><span aria-hidden="true" class="q-topic-icon">🎯</span>סיפור פלוטית בת לוט וחוקי סדום</p>
+<div class="question-row"><span class="q-num">10</span><span class="q-text" id="a11y-lbl-10">ספרו בקצרה, לפי פרקי דרבי אליעזר, את סיפור פלוטית בת לוט. מה הוא מלמד על אופי החוק בסדום?</span></div>
+<textarea aria-labelledby="a11y-lbl-10" class="answer" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> בסדום הכריזו שהמחזיק ביד עני ייענש בשריפה. פלוטית ריחמה על עני והאכילה אותו בסתר, ונשרפה כשנתגלה - הרוע בסדום היה חוק רשמי, לא רק התפרצות יחידים.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <div class="qb-meforesh">
-            <span class="qb-src">נחמה ליבוביץ'</span>
+
+
+<div class="qb-source"><div class="qb-meforesh">
+<span class="qb-src">נחמה ליבוביץ'</span>
             הרע נהפך לפעולה חוקית, עשיית הרע נהפכת לחוק החברה. אין הרע דבר הנעשה בצנעה שיש להתבייש בפניו, גם אין הרשע נעשה בגלוי ע"י התפרצות ספונטנית של המונים פרועים ומוסתים מפרי סדר וחוקי חברה, אלא הוא הוא הסדר והוא חוק החברה - והעובר עליו ועושה, על פי עצת ליבו, את הטוב, הרי הוא פורע מוסר וחוק, ואחת דתו למות.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-6">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>אופי הרוע המוסדי בסדום</p>
-            <div class="question-row"><span class="q-num">11</span><span class="q-text" id="a11y-lbl-11">לפי נחמה ליבוביץ', מה ההבדל בין רוע "רגיל" (הנעשה בסתר או כהתפרצות המונית) לרוע שבסדום? נגדו זאת לאופי ביתו של אברהם.</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-11" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי נחמה ליבוביץ', בסדום הרוע עצמו הפך לחוק, ועושה החסד נחשב עבריין - בניגוד לבית אברהם, שם הכנסת אורחים היא הנורמה.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit18-mp-6" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<p class="q-topic"><span aria-hidden="true" class="q-topic-icon">🎯</span>אופי הרוע המוסדי בסדום</p>
+<div class="question-row"><span class="q-num">11</span><span class="q-text" id="a11y-lbl-11">לפי נחמה ליבוביץ', מה ההבדל בין רוע "רגיל" (הנעשה בסתר או כהתפרצות המונית) לרוע שבסדום? נגדו זאת לאופי ביתו של אברהם.</span></div>
+<textarea aria-labelledby="a11y-lbl-11" class="answer" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי נחמה ליבוביץ', בסדום הרוע עצמו הפך לחוק, ועושה החסד נחשב עבריין - בניגוד לבית אברהם, שם הכנסת אורחים היא הנורמה.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -477,45 +492,45 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <div class="question-block">
-            <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>שיטת המיקוח של אברהם על סדום</p>
-            <div class="question-row"><span class="q-num">12</span><span class="q-text" id="a11y-lbl-12">תארו את שיטת המיקוח של אברהם על סדום (מ-50 צדיקים ועד 10). באילו ביטויי ענווה הוא משתמש כלפי ה'?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-12" data-id="q12" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אברהם מבקש להציל את העיר, ויורד בהדרגה מחמישים עד עשרה צדיקים, תוך שימוש בלשונות ענווה ("עפר ואפר") ובקשת רשות חוזרת ("אולי").</div>
-          </div>
-        </div>
+
+<div class="qb-source"></div><div class="qb-question"><div class="question-block">
+<p class="q-topic"><span aria-hidden="true" class="q-topic-icon">🎯</span>שיטת המיקוח של אברהם על סדום</p>
+<div class="question-row"><span class="q-num">12</span><span class="q-text" id="a11y-lbl-12">תארו את שיטת המיקוח של אברהם על סדום (מ-50 צדיקים ועד 10). באילו ביטויי ענווה הוא משתמש כלפי ה'?</span></div>
+<textarea aria-labelledby="a11y-lbl-12" class="answer" data-id="q12" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> אברהם מבקש להציל את העיר, ויורד בהדרגה מחמישים עד עשרה צדיקים, תוך שימוש בלשונות ענווה ("עפר ואפר") ובקשת רשות חוזרת ("אולי").</div>
+</div></div></div>
 
         <div class="qb-card">
-          <div class="qb-meforesh">
-            <span class="qb-src">רש"י (כ"ג) ד"ה 'ויגש אברהם'</span>
+
+
+<div class="qb-source"><div class="qb-meforesh">
+<span class="qb-src">רש"י (כ"ג) ד"ה 'ויגש אברהם'</span>
             מצינו הגשה למלחמה - ויגש יואב (שמואל ב י', י"ג). הגשה לפיוס - ויגש אליו יהודה (בראשית מ"ד, י"ח). והגשה לתפילה - ויגש אליהו הנביא (מלכים א י"ח). לכל אלה ניגש אברהם: לדבר קשות, לפיוס ולתפילה.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-7">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>שלוש הכוונות בפניית אברהם אל ה'</p>
-            <div class="question-row"><span class="q-num">13</span><span class="q-text" id="a11y-lbl-13">לפי רש"י, באילו שלוש כוונות ניגש אברהם אל ה' בבקשתו על סדום?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-13" data-id="q13" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, אברהם ניגש בשלוש כוונות: לדבר קשות, לפייס ולבקש רחמים, ולהתפלל.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit18-mp-7" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<p class="q-topic"><span aria-hidden="true" class="q-topic-icon">🎯</span>שלוש הכוונות בפניית אברהם אל ה'</p>
+<div class="question-row"><span class="q-num">13</span><span class="q-text" id="a11y-lbl-13">לפי רש"י, באילו שלוש כוונות ניגש אברהם אל ה' בבקשתו על סדום?</span></div>
+<textarea aria-labelledby="a11y-lbl-13" class="answer" data-id="q13" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי רש"י, אברהם ניגש בשלוש כוונות: לדבר קשות, לפייס ולבקש רחמים, ולהתפלל.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">מושג מפתח: "בְּתוֹךְ הָעִיר" (פסוק כ"ד)</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">נחמה ליבוביץ', עיונים חדשים בספר בראשית, עמ' 131-132</span>
+
+
+
+<div class="qb-source"><p class="q-cue">מושג מפתח: "בְּתוֹךְ הָעִיר" (פסוק כ"ד)</p><div class="qb-meforesh">
+<span class="qb-src">נחמה ליבוביץ', עיונים חדשים בספר בראשית, עמ' 131-132</span>
             אמנם יש בכוח המיעוט להכריע גורל המקום לכף זכות, אבל רק אם אותם מעטים בודדים צדיקים הם, מעורים ומעורבים בחיי העיר, בעסקיה, במשאה ובמתנה, אם מופיעים ומשפיעים הם בציבוריותה. אבל אם אין אותם בודדים אלא נחבאים וחיים חיי צדקות בחדרי חדרים - הם את נפשם, אולי, יצילו, אך בוודאי אין זכותם יכולה להגן על העיר.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit18-mp-8">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <p class="q-topic"><span class="q-topic-icon" aria-hidden="true">🎯</span>תנאי "בתוך העיר" להגנה על הציבור</p>
-            <div class="question-row"><span class="q-num">14</span><span class="q-text" id="a11y-lbl-14">לפי נחמה ליבוביץ', מהו התנאי "בתוך העיר" הנדרש מן הצדיקים כדי שיוכלו להגן על כלל תושביה? מדוע צדיקים "נחבאים" אינם עומדים בתנאי זה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-14" data-id="q14" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי נחמה ליבוביץ', רק צדיקים המעורים בחיי העיר יכולים להגן עליה; צדיקים המסתתרים עשויים להציל רק את עצמם.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit18-mp-8" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<p class="q-topic"><span aria-hidden="true" class="q-topic-icon">🎯</span>תנאי "בתוך העיר" להגנה על הציבור</p>
+<div class="question-row"><span class="q-num">14</span><span class="q-text" id="a11y-lbl-14">לפי נחמה ליבוביץ', מהו התנאי "בתוך העיר" הנדרש מן הצדיקים כדי שיוכלו להגן על כלל תושביה? מדוע צדיקים "נחבאים" אינם עומדים בתנאי זה?</span></div>
+<textarea aria-labelledby="a11y-lbl-14" class="answer" data-id="q14" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי נחמה ליבוביץ', רק צדיקים המעורים בחיי העיר יכולים להגן עליה; צדיקים המסתתרים עשויים להציל רק את עצמם.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -559,13 +574,17 @@
         <div class="exam-tag">📅 מאגר שאלות ותשובות מבגרויות (שאלון 2381)</div>
         <div class="pasuk-block mini">עיין בפסוקים י'-י"ב.</div>
         <div class="meforesh-block"><span class="src">רמב"ן</span>"אני תמה בנביאה הצדקת... למה לא האמינה לדברי מלאכי א-להים? והנראה בעיניי כי המלאכים האלה הנראים כאנשים באו אל אברהם, והוא בחכמתו הכיר בהם [שהם מלאכים]... ושרה שומעת, ולא ידעה כי מלאכי עליון הם".</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ג&nbsp;(1)</span><span class="q-text" id="bg-lbl-2">הסבר מהי התמיהה של רמב"ן.</span></div>
-          <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ג&nbsp;(2)</span><span class="q-text" id="bg-lbl-3">כתוב בלשונך כיצד רמב"ן מיישב את התמיהה.</span></div>
-          <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "אני תמה בנביאה הצדקת... למה לא האמינה לדברי מלאכי א-להים?"</p>
+            <div class="question-row"><span class="part-label">ג&nbsp;(1)</span><span class="q-text" id="bg-lbl-2">הסבר מהי התמיהה של רמב"ן.</span></div>
+            <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "הוא בחכמתו הכיר בהם... ושרה שומעת, ולא ידעה כי מלאכי עליון הם"</p>
+            <div class="question-row"><span class="part-label">ג&nbsp;(2)</span><span class="q-text" id="bg-lbl-3">כתוב בלשונך כיצד רמב"ן מיישב את התמיהה.</span></div>
+            <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
         <div class="exam-tag">📅 מאגר שאלות ותשובות מבגרויות (שאלון 2381)</div>
         <div class="meforesh-block"><span class="src">רש"י (לפרק י"ז פסוק י"ז)</span>"'ויפל אברהם על פניו ויצחק' - זה תרגם אונקלוס: וחדי. לשון שמחה. ושל שרה לשון מחוך (=לעג) למדת שאברהם האמין ושמח, ושרה לא האמינה ולגלגה. וזהו שהקפיד הקב"ה על שרה ולא הקפיד על אברהם".</div>

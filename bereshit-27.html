@@ -11,6 +11,10 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
+  /* שאלות בגרות שחולקות אותו מקור: המקור מופיע פעם אחת, והשאלות מתפרסות לרוחב זו לצד זו */
+  .bg-row{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+  .bg-row .question-block{ flex:1 1 300px; min-width:0; }
+
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
@@ -79,20 +83,31 @@
     border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
   }
 
+  /* דף רחב: עמודה אחת יותר רחבה, כדי שכל קובית תוכל להתפרס לרוחב (מקור מול שאלה) */
+  main{ max-width:1320px; }
+
   .qb-branches{
-    display:flex; flex-wrap:wrap; gap:1.1rem;
+    display:flex; flex-direction:column; gap:1.3rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
     content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
   }
   .qb-card{
-    flex:1 1 260px;
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
-    min-width:0;
+    padding:1.2rem 1.4rem; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.6rem; align-items:start;
   }
-  .qb-card > *{ width:100%; max-width:640px; }
+  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - עם קו מפריד ביניהם */
+  .qb-source{ display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+  .qb-question{
+    display:flex; flex-direction:column; gap:.5rem; min-width:0;
+    border-right:2px solid var(--acc-soft); padding-right:1.5rem;
+  }
+  @media (max-width:760px){
+    .qb-card{ grid-template-columns:1fr; gap:1rem; }
+    .qb-question{ border-right:none; padding-right:0; border-top:2px solid var(--acc-soft); padding-top:.9rem; }
+  }
   .qb-meforesh{
     font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
@@ -197,29 +212,29 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וַתִּכְהֶיןָ עֵינָיו מֵרְאֹת" (פסוק א')</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רש"י, פסוק א' - "וַתִּכְהֶיןָ עֵינָיו"</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וַתִּכְהֶיןָ עֵינָיו מֵרְאֹת" (פסוק א')</p><div class="qb-meforesh">
+<span class="qb-src">רש"י, פסוק א' - "וַתִּכְהֶיןָ עֵינָיו"</span>
             מכהות ראייתו - מרוב עשן ידוע [של קטורת] שהיו נשות עשיו מקטירות לעבודה זרה. ורבותינו דרשו מכאן: מכהות מראות עינו - מן העקידה, כשעקדו אביו על גבי המזבח והיה מבט המלאכים בוכים ונטפו דמעות לתוך עיניו.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit27-mp-1">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">הביאו את שני ההסברים שמביא רש"י לעיוורונו של יצחק. איזה מהם קושר את העיוורון לעשיו, ואיזה קושר אותו לעקידה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הסבר א': עיניו כהו מעשן קטורת עבודה זרה של נשות עשיו. הסבר ב': כהו מדמעות המלאכים שירדו בעת העקדה.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit27-mp-1" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">הביאו את שני ההסברים שמביא רש"י לעיוורונו של יצחק. איזה מהם קושר את העיוורון לעשיו, ואיזה קושר אותו לעקידה?</span></div>
+<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הסבר א': עיניו כהו מעשן קטורת עבודה זרה של נשות עשיו. הסבר ב': כהו מדמעות המלאכים שירדו בעת העקדה.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "הִנֵּה נָא זָקַנְתִּי, לֹא יָדַעְתִּי יוֹם מוֹתִי... בַּעֲבוּר תְּבָרֶכְךָ נַפְשִׁי" (פסוקים ב'-ד')</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מדוע דורש יצחק דווקא מטעמים מציד לפני שיברך את עשיו - מה, לדעתכם, הקשר בין האוכל לבין הברכה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> המטעמים נועדו ליצור מצב רוח מרומם אצל יצחק ("בעבור תברכך נפשי"), ואולי גם לבחון את מסירותו של עשיו לאביו.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "הִנֵּה נָא זָקַנְתִּי, לֹא יָדַעְתִּי יוֹם מוֹתִי... בַּעֲבוּר תְּבָרֶכְךָ נַפְשִׁי" (פסוקים ב'-ד')</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מדוע דורש יצחק דווקא מטעמים מציד לפני שיברך את עשיו - מה, לדעתכם, הקשר בין האוכל לבין הברכה?</span></div>
+<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> המטעמים נועדו ליצור מצב רוח מרומם אצל יצחק ("בעבור תברכך נפשי"), ואולי גם לבחון את מסירותו של עשיו לאביו.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -253,29 +268,29 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "הֵן עֵשָׂו אָחִי אִישׁ שָׂעִר וְאָנֹכִי אִישׁ חָלָק... וְהֵבֵאתִי עָלַי קְלָלָה וְלֹא בְרָכָה" (פסוק י"ב)</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">ממה חושש יעקב לפני שהוא נכנס אל אביו, ואיזו תשובה נותנת לו רבקה על חששו זה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יעקב חושש שיצחק יגלה במשמוש שהוא חלק, ייחשב למרמה ויקבל קללה במקום ברכה. רבקה עונה: "עלי קללתך בני" - מקבלת עליה את הסיכון.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "הֵן עֵשָׂו אָחִי אִישׁ שָׂעִר וְאָנֹכִי אִישׁ חָלָק... וְהֵבֵאתִי עָלַי קְלָלָה וְלֹא בְרָכָה" (פסוק י"ב)</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">ממה חושש יעקב לפני שהוא נכנס אל אביו, ואיזו תשובה נותנת לו רבקה על חששו זה?</span></div>
+<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> יעקב חושש שיצחק יגלה במשמוש שהוא חלק, ייחשב למרמה ויקבל קללה במקום ברכה. רבקה עונה: "עלי קללתך בני" - מקבלת עליה את הסיכון.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וַיְמֻשֵּׁהוּ וַיֹּאמֶר: הַקֹּל קוֹל יַעֲקֹב וְהַיָּדַיִם יְדֵי עֵשָׂו... וַיְבָרְכֵהוּ" (פסוק כ"ג)</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רש"י, פסוק כ"ג - "הַקֹּל קוֹל יַעֲקֹב"</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וַיְמֻשֵּׁהוּ וַיֹּאמֶר: הַקֹּל קוֹל יַעֲקֹב וְהַיָּדַיִם יְדֵי עֵשָׂו... וַיְבָרְכֵהוּ" (פסוק כ"ג)</p><div class="qb-meforesh">
+<span class="qb-src">רש"י, פסוק כ"ג - "הַקֹּל קוֹל יַעֲקֹב"</span>
             שהיה מדבר בלשון תחנונים, אבל עשו בלשון קנטוריא. דבר אחר: מכיר היה קולו שהוא כקול יעקב, שהרי לא דבר אליו אלא פעם אחת "אנכי עשו בכרך" - והשאר היה משיבו במישוש.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit27-mp-2">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">יצחק מזהה בקול משהו שאינו מתאים לזיהוי הידיים, ובכל זאת מברך - מדוע, לדעתכם, המישוש (הידיים) גובר בסופו של דבר על הקול בקבלת ההחלטה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יצחק, שאינו רואה, סומך על חוש המישוש - הידיים השעירות שהוכנו לתרמית - יותר מהחשד שעורר הקול.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit27-mp-2" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">יצחק מזהה בקול משהו שאינו מתאים לזיהוי הידיים, ובכל זאת מברך - מדוע, לדעתכם, המישוש (הידיים) גובר בסופו של דבר על הקול בקבלת ההחלטה?</span></div>
+<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> יצחק, שאינו רואה, סומך על חוש המישוש - הידיים השעירות שהוכנו לתרמית - יותר מהחשד שעורר הקול.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -307,29 +322,29 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וַיֶּחֱרַד יִצְחָק חֲרָדָה גְּדֹלָה עַד מְאֹד... גַּם בָּרוּךְ יִהְיֶה" (פסוקים ל"ג)</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רש"י, פסוק ל"ג - "גַּם בָּרוּךְ יִהְיֶה"</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וַיֶּחֱרַד יִצְחָק חֲרָדָה גְּדֹלָה עַד מְאֹד... גַּם בָּרוּךְ יִהְיֶה" (פסוקים ל"ג)</p><div class="qb-meforesh">
+<span class="qb-src">רש"י, פסוק ל"ג - "גַּם בָּרוּךְ יִהְיֶה"</span>
             הרהרתי אחריו וראיתי בו רוח הקדש שיהא ברוך, גם כשראיתי את עשו בא לא נתקררה דעתי, ולפי הפשט - כשראה גיהנם פתוחה תחתיו נתחרט ואמר: מעתה גם ברוך יהיה.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit27-mp-3">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מדוע, על אף החרדה הגדולה שאחזה בו כשגילה את התרמית, אינו מבטל יצחק את ברכתו ליעקב? הביאו את אחד ההסברים לכך.</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, יצחק מבין ברוח הקודש שהברכה ליעקב ראויה ומקבל זאת. לפי הפשט, בראותו את עתידו הרוחני של עשיו הוא משלים עם כך שהברכה שייכת ליעקב.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit27-mp-3" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מדוע, על אף החרדה הגדולה שאחזה בו כשגילה את התרמית, אינו מבטל יצחק את ברכתו ליעקב? הביאו את אחד ההסברים לכך.</span></div>
+<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי רש"י, יצחק מבין ברוח הקודש שהברכה ליעקב ראויה ומקבל זאת. לפי הפשט, בראותו את עתידו הרוחני של עשיו הוא משלים עם כך שהברכה שייכת ליעקב.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "הֲכִי קָרָא שְׁמוֹ יַעֲקֹב וַיַּעְקְבֵנִי זֶה פַעֲמַיִם - אֶת בְּכֹרָתִי לָקָח וְהִנֵּה עַתָּה לָקַח בִּרְכָתִי" (פסוק ל"ו)</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">עשיו משחק על שם "יעקב" במילה "ויעקבני". הסבירו את משחק המילים הזה, וכתבו לאילו שני מעשים של יעקב הוא מתייחס.</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> "ויעקבני" משחק על השורש "עקב" ומשמעו רימה/עקף בערמה - עשיו מתייחס ללקיחת הבכורה (פרק כ"ה) ולקיחת הברכה (כאן) כשני מעשי מרמה.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "הֲכִי קָרָא שְׁמוֹ יַעֲקֹב וַיַּעְקְבֵנִי זֶה פַעֲמַיִם - אֶת בְּכֹרָתִי לָקָח וְהִנֵּה עַתָּה לָקַח בִּרְכָתִי" (פסוק ל"ו)</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">עשיו משחק על שם "יעקב" במילה "ויעקבני". הסבירו את משחק המילים הזה, וכתבו לאילו שני מעשים של יעקב הוא מתייחס.</span></div>
+<textarea aria-labelledby="a11y-lbl-6" class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> "ויעקבני" משחק על השורש "עקב" ומשמעו רימה/עקף בערמה - עשיו מתייחס ללקיחת הבכורה (פרק כ"ה) ולקיחת הברכה (כאן) כשני מעשי מרמה.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -361,29 +376,29 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְקוּם בְּרַח לְךָ אֶל לָבָן אָחִי חָרָנָה... עַד אֲשֶׁר תָּשׁוּב חֲמַת אָחִיךָ" (פסוקים מ"ג-מ"ד)</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">כיצד פועלת רבקה כדי להגן על יעקב, ומדוע, לדעתכם, היא בוחרת לנמק ליצחק את שליחת יעקב בטעם אחר לגמרי (חשש מנישואין לבנות כנען, בהמשך הפרק) ולא בסכנת הנקמה של עשיו?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> רבקה שולחת את יעקב לחרן לזמן מוגבל, להצילו מנקמת עשיו, אך מנמקת זאת ליצחק בחשש מנישואי כנען - כדי לא לחשוף את זממו של עשיו.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְקוּם בְּרַח לְךָ אֶל לָבָן אָחִי חָרָנָה... עַד אֲשֶׁר תָּשׁוּב חֲמַת אָחִיךָ" (פסוקים מ"ג-מ"ד)</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">כיצד פועלת רבקה כדי להגן על יעקב, ומדוע, לדעתכם, היא בוחרת לנמק ליצחק את שליחת יעקב בטעם אחר לגמרי (חשש מנישואין לבנות כנען, בהמשך הפרק) ולא בסכנת הנקמה של עשיו?</span></div>
+<textarea aria-labelledby="a11y-lbl-7" class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> רבקה שולחת את יעקב לחרן לזמן מוגבל, להצילו מנקמת עשיו, אך מנמקת זאת ליצחק בחשש מנישואי כנען - כדי לא לחשוף את זממו של עשיו.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְיִתֶּן לְךָ אֶת בִּרְכַּת אַבְרָהָם... לְרִשְׁתְּךָ אֶת אֶרֶץ מְגֻרֶיךָ" (פרק כ"ח, פסוק ד')</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רמב"ן, על ברכת אברהם בפרק כ"ח</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְיִתֶּן לְךָ אֶת בִּרְכַּת אַבְרָהָם... לְרִשְׁתְּךָ אֶת אֶרֶץ מְגֻרֶיךָ" (פרק כ"ח, פסוק ד')</p><div class="qb-meforesh">
+<span class="qb-src">רמב"ן, על ברכת אברהם בפרק כ"ח</span>
             עתה חזר [יצחק] וברכו ברכה מפורשת - "ברכת אברהם" - שהיא ירושת הארץ וההבטחה לזרעו, בנפרד מברכת השפע והממשל שכבר נתן לו בטעות תחת דמות עשיו. וזאת, כדי שתהיה ליעקב ברכת הארץ מדעת ומרצון אביו, ולא רק מתוך תרמית.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit27-mp-4">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">במה שונה הברכה שמברך יצחק את יעקב כאן, ביודעין ומרצון, מהברכה שקיבל ממנו בפרק כ"ז בתרמית? מדוע חשוב שיעקב יקבל ברכה זו ה"ברכה השנייה" בפירוש ולא רק בהיסח הדעת?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הברכה בפרק כ"ז ניתנה ליעקב שלא ביודעין; ברכת אברהם בפרק כ"ח ניתנת ביודעין ומרצון מלא, כולל הבטחת הארץ - כך יעקב מקבל את הירושה בהסכמה גלויה, לא רק מתרמית.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit27-mp-4" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">במה שונה הברכה שמברך יצחק את יעקב כאן, ביודעין ומרצון, מהברכה שקיבל ממנו בפרק כ"ז בתרמית? מדוע חשוב שיעקב יקבל ברכה זו ה"ברכה השנייה" בפירוש ולא רק בהיסח הדעת?</span></div>
+<textarea aria-labelledby="a11y-lbl-8" class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הברכה בפרק כ"ז ניתנה ליעקב שלא ביודעין; ברכת אברהם בפרק כ"ח ניתנת ביודעין ומרצון מלא, כולל הבטחת הארץ - כך יעקב מקבל את הירושה בהסכמה גלויה, לא רק מתרמית.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -419,32 +434,44 @@
       </div>
       <div class="card-body">
         <div class="exam-tag">📅 תשפ״א (2021), קיץ · שאלה 4</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">על פי מה שלמדת, מה הייתה הברכה שתכנן יצחק לברך בה את עשו, ומדוע הוא תכנן לברך אותו בברכה זו?</span></div>
-          <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">על פי מה שלמדת, מדוע פעלה רבקה כדי לבטל את תוכניתו של יצחק?<br>(8 נקודות)</span></div>
-          <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "הִנֵּה נָא זָקַנְתִּי, לֹא יָדַעְתִּי יוֹם מוֹתִי... בַּעֲבוּר תְּבָרֶכְךָ נַפְשִׁי" (פסוקים ב'-ד')</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">על פי מה שלמדת, מה הייתה הברכה שתכנן יצחק לברך בה את עשו, ומדוע הוא תכנן לברך אותו בברכה זו?</span></div>
+            <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְעַתָּה בְנִי שְׁמַע בְּקֹלִי... לֶךְ נָא אֶל הַצֹּאן וְקַח לִי מִשָּׁם שְׁנֵי גְּדָיֵי עִזִּים" (פסוקים ח'-ט')</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">על פי מה שלמדת, מדוע פעלה רבקה כדי לבטל את תוכניתו של יצחק?<br>(8 נקודות)</span></div>
+            <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
         <div class="exam-tag">📅 תשפ״ה (2025), קיץ · שאלה 4</div>
         <div class="pasuk-block mini">עיינו בפסוקים י"ח–כ"ז.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">על פי מה שלמדתם, מדוע חשד יצחק שיעקב הוא העומד לפניו?</span></div>
-          <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">רש"י לפסוק י"ט: "'אנכי' - אנוכי המביא לך, ועשו הוא בכורך".<br>מהי השאלה המתעוררת על דברי יעקב לאביו שעליה רש"י עונה, ומהי תשובת רש"י לשאלה זו?<br>השאלה:<br>התשובה:<br>(8 נקודות)</span></div>
-          <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיְמֻשֵּׁהוּ וַיֹּאמֶר: הַקֹּל קוֹל יַעֲקֹב וְהַיָּדַיִם יְדֵי עֵשָׂו" (פסוק כ"ג)</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">על פי מה שלמדתם, מדוע חשד יצחק שיעקב הוא העומד לפניו?</span></div>
+            <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת (רש"י, פסוק י"ט): "'אנכי' - אנוכי המביא לך, ועשו הוא בכורך"</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">רש"י לפסוק י"ט: "'אנכי' - אנוכי המביא לך, ועשו הוא בכורך".<br>מהי השאלה המתעוררת על דברי יעקב לאביו שעליה רש"י עונה, ומהי תשובת רש"י לשאלה זו?<br>השאלה:<br>התשובה:<br>(8 נקודות)</span></div>
+            <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
         <div class="exam-tag">📅 תשפ״א (2021), קיץ · שאלה 4</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-5">עיין בפסוקים כ"ח-כ"ט.<br>על פי פסוקים אלה, ציין שתי ברכות מתחומים שונים שבהן יצחק מברך את יעקב.</span></div>
-          <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-6">עיין בפרק כ"ח, פסוקים ג'-ד'.<br>מה יצחק מוסיף בברכה זו על הברכה שבירך את יעקב בפרק כ"ז, פסוקים כ"ח-כ"ט?<br>(8 נקודות)</span></div>
-          <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "מִטַּל הַשָּׁמַיִם וּמִשְׁמַנֵּי הָאָרֶץ... אֹרְרֶיךָ אָרוּר וּמְבָרֲכֶיךָ בָּרוּךְ" (פסוקים כ"ח-כ"ט)</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-5">עיין בפסוקים כ"ח-כ"ט.<br>על פי פסוקים אלה, ציין שתי ברכות מתחומים שונים שבהן יצחק מברך את יעקב.</span></div>
+            <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְיִתֶּן לְךָ אֶת בִּרְכַּת אַבְרָהָם... לְרִשְׁתְּךָ אֶת אֶרֶץ מְגֻרֶיךָ" (פרק כ"ח, פסוקים ג'-ד')</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-6">עיין בפרק כ"ח, פסוקים ג'-ד'.<br>מה יצחק מוסיף בברכה זו על הברכה שבירך את יעקב בפרק כ"ז, פסוקים כ"ח-כ"ט?<br>(8 נקודות)</span></div>
+            <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
       </div>
     </section>

@@ -11,6 +11,10 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
+  /* שאלות בגרות שחולקות אותו מקור: המקור מופיע פעם אחת, והשאלות מתפרסות לרוחב זו לצד זו */
+  .bg-row{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+  .bg-row .question-block{ flex:1 1 300px; min-width:0; }
+
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
@@ -79,20 +83,31 @@
     border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
   }
 
+  /* דף רחב: עמודה אחת יותר רחבה, כדי שכל קובית תוכל להתפרס לרוחב (מקור מול שאלה) */
+  main{ max-width:1320px; }
+
   .qb-branches{
-    display:flex; flex-wrap:wrap; gap:1.1rem;
+    display:flex; flex-direction:column; gap:1.3rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
     content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
   }
   .qb-card{
-    flex:1 1 260px;
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
-    min-width:0;
+    padding:1.2rem 1.4rem; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.6rem; align-items:start;
   }
-  .qb-card > *{ width:100%; max-width:640px; }
+  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - עם קו מפריד ביניהם */
+  .qb-source{ display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+  .qb-question{
+    display:flex; flex-direction:column; gap:.5rem; min-width:0;
+    border-right:2px solid var(--acc-soft); padding-right:1.5rem;
+  }
+  @media (max-width:760px){
+    .qb-card{ grid-template-columns:1fr; gap:1rem; }
+    .qb-question{ border-right:none; padding-right:0; border-top:2px solid var(--acc-soft); padding-top:.9rem; }
+  }
   .qb-meforesh{
     font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
@@ -203,33 +218,33 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְהִנֵּה מַלְאֲכֵי אֱלֹהִים עֹלִים וְיֹרְדִים בּוֹ" (פסוק י"ב)</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רש"י, פסוק י"ב - "עֹלִים וְיֹרְדִים"</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְהִנֵּה מַלְאֲכֵי אֱלֹהִים עֹלִים וְיֹרְדִים בּוֹ" (פסוק י"ב)</p><div class="qb-meforesh">
+<span class="qb-src">רש"י, פסוק י"ב - "עֹלִים וְיֹרְדִים"</span>
             עולים תחילה ואחר כך יורדים - מלאכים שליווהו בארץ אין יוצאים חוצה לארץ, עלו לרקיע וירדו מלאכי חוצה לארץ ללוותו.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit28-mp-1">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מדוע, לפי רש"י, המלאכים בחלום קודם "עולים" ורק אחר כך "יורדים"? מה מלמד סדר זה על ליווי המלאכים את האדם?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, המלאכים המלווים בארץ אינם ממשיכים מחוצה לה - הם "עולים" בגבול הארץ, ובמקומם "יורדים" מלאכים אחרים ללוותו בחוץ לארץ.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit28-mp-1" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מדוע, לפי רש"י, המלאכים בחלום קודם "עולים" ורק אחר כך "יורדים"? מה מלמד סדר זה על ליווי המלאכים את האדם?</span></div>
+<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי רש"י, המלאכים המלווים בארץ אינם ממשיכים מחוצה לה - הם "עולים" בגבול הארץ, ובמקומם "יורדים" מלאכים אחרים ללוותו בחוץ לארץ.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "אֲנִי ה' אֱלֹהֵי אַבְרָהָם אָבִיךָ וֵאלֹהֵי יִצְחָק... הָאָרֶץ אֲשֶׁר אַתָּה שֹׁכֵב עָלֶיהָ לְךָ אֶתְּנֶנָּה" (פסוק י"ג)</p>
-          <div class="remember-block">
-            <div class="src"><span aria-hidden="true">⭐</span>שימו לב</div>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "אֲנִי ה' אֱלֹהֵי אַבְרָהָם אָבִיךָ וֵאלֹהֵי יִצְחָק... הָאָרֶץ אֲשֶׁר אַתָּה שֹׁכֵב עָלֶיהָ לְךָ אֶתְּנֶנָּה" (פסוק י"ג)</p><div class="remember-block">
+<div class="src"><span aria-hidden="true">⭐</span>שימו לב</div>
             ה' חוזר ומבטיח ליעקב את אותן ההבטחות שהובטחו לאברהם וליצחק: ירושת הארץ, ריבוי הזרע, וברכה לכל משפחות האדמה.
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מדוע, לדעתכם, ה' בוחר להזכיר ליעקב דווקא כעת, בצאתו לבדו וחסר-כול מארץ כנען, את השייכות שלו לשלשלת אברהם ויצחק ואת הבטחת הארץ?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יעקב יוצא בורח, לבדו וללא רכוש. דווקא ברגע השפל ה' מחזק אותו ומזכיר שהוא ממשיך את שלשלת אברהם ויצחק, וגם הארץ שהוא עוזב עדיין מובטחת לו.</div>
-          </div>
-        </div>
+          </div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מדוע, לדעתכם, ה' בוחר להזכיר ליעקב דווקא כעת, בצאתו לבדו וחסר-כול מארץ כנען, את השייכות שלו לשלשלת אברהם ויצחק ואת הבטחת הארץ?</span></div>
+<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> יעקב יוצא בורח, לבדו וללא רכוש. דווקא ברגע השפל ה' מחזק אותו ומזכיר שהוא ממשיך את שלשלת אברהם ויצחק, וגם הארץ שהוא עוזב עדיין מובטחת לו.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -259,34 +274,34 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְהִנֵּה אָנֹכִי עִמָּךְ וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ" (פסוק ט"ו)</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רש"י, פסוק ט"ו - "וּשְׁמַרְתִּיךָ"</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְהִנֵּה אָנֹכִי עִמָּךְ וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ" (פסוק ט"ו)</p><div class="qb-meforesh">
+<span class="qb-src">רש"י, פסוק ט"ו - "וּשְׁמַרְתִּיךָ"</span>
             לפי שהיה ירא מעשיו ומלבן.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit28-mp-2">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מפני מי, לפי רש"י, זקוק יעקב במיוחד להבטחת השמירה כרגע? מה זה מלמד על מצבו הנפשי בצאתו לדרך?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, יעקב זקוק להבטחת שמירה מפני שני איומים: עשיו שממנו הוא בורח, ולבן שאליו הוא הולך ואינו יודע למה לצפות.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit28-mp-2" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מפני מי, לפי רש"י, זקוק יעקב במיוחד להבטחת השמירה כרגע? מה זה מלמד על מצבו הנפשי בצאתו לדרך?</span></div>
+<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי רש"י, יעקב זקוק להבטחת שמירה מפני שני איומים: עשיו שממנו הוא בורח, ולבן שאליו הוא הולך ואינו יודע למה לצפות.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "אָכֵן יֵשׁ ה' בַּמָּקוֹם הַזֶּה וְאָנֹכִי לֹא יָדָעְתִּי" (פסוק ט"ז)</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רש"י, פסוק ט"ז - "וְאָנֹכִי לֹא יָדָעְתִּי"</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "אָכֵן יֵשׁ ה' בַּמָּקוֹם הַזֶּה וְאָנֹכִי לֹא יָדָעְתִּי" (פסוק ט"ז)</p><div class="qb-meforesh">
+<span class="qb-src">רש"י, פסוק ט"ז - "וְאָנֹכִי לֹא יָדָעְתִּי"</span>
             שאילו ידעתי לא ישנתי במקום קדוש כזה.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit28-mp-3">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">מה מתחרט עליו יעקב, לפי רש"י, במילים "ואנכי לא ידעתי"? ומה מלמדת תגובתו - "וייקץ... ויירא ויאמר מה נורא המקום הזה" - על האופן שבו הוא קולט את קדושת המקום?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יעקב מצטער שלא ידע מראש שהמקום קדוש; תגובתו המיידית - יראה והכרזה "מה נורא המקום הזה" - מלמדת שהוא קולט מיד את קדושתו.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit28-mp-3" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">מה מתחרט עליו יעקב, לפי רש"י, במילים "ואנכי לא ידעתי"? ומה מלמדת תגובתו - "וייקץ... ויירא ויאמר מה נורא המקום הזה" - על האופן שבו הוא קולט את קדושת המקום?</span></div>
+<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> יעקב מצטער שלא ידע מראש שהמקום קדוש; תגובתו המיידית - יראה והכרזה "מה נורא המקום הזה" - מלמדת שהוא קולט מיד את קדושתו.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -316,42 +331,42 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: השוו בין פסוק ט"ו ("וְהִנֵּה אָנֹכִי עִמָּךְ...") לבין פסוק כ' ("אִם יִהְיֶה אֱלֹהִים עִמָּדִי...")</p>
-          <div class="vs-compare" role="img" aria-label="השוואה בין הבטחות ה' ליעקב לבין נדר יעקב">
-            <div class="vs-side vs-a">
-              <span class="vs-icon" aria-hidden="true">🙏</span>
-              <div class="vs-title">הַבְטָחוֹת ה' לְיַעֲקֹב</div>
-              <div class="vs-desc">"אנכי עמך", "ושמרתיך בכל אשר תלך", "והשיבותיך אל האדמה הזאת".</div>
-            </div>
-            <div class="vs-mid" aria-hidden="true">מול</div>
-            <div class="vs-side vs-b">
-              <span class="vs-icon" aria-hidden="true">🕊️</span>
-              <div class="vs-title">נֶדֶר יַעֲקֹב</div>
-              <div class="vs-desc">"אם יהיה אלוקים עמדי", "ושמרני בדרך", "ושבתי בשלום אל בית אבי".</div>
-            </div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">שימו לב שנדרו של יעקב חוזר כמעט מילה במילה על הבטחות ה' לו קודם לכן. מה, לדעתכם, מבקש יעקב "להחזיר" לה' באמצעות הנדר, ומדוע ניסח אותו דווקא כך?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יעקב מנסח את נדרו כהד להבטחות ה' - קבלת עול מלכות שמים, קידוש המקום והפרשת מעשר, כתגובת תודה על מה שכבר הובטח לו.</div>
-          </div>
-        </div>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: השוו בין פסוק ט"ו ("וְהִנֵּה אָנֹכִי עִמָּךְ...") לבין פסוק כ' ("אִם יִהְיֶה אֱלֹהִים עִמָּדִי...")</p><div aria-label="השוואה בין הבטחות ה' ליעקב לבין נדר יעקב" class="vs-compare" role="img">
+<div class="vs-side vs-a">
+<span aria-hidden="true" class="vs-icon">🙏</span>
+<div class="vs-title">הַבְטָחוֹת ה' לְיַעֲקֹב</div>
+<div class="vs-desc">"אנכי עמך", "ושמרתיך בכל אשר תלך", "והשיבותיך אל האדמה הזאת".</div>
+</div>
+<div aria-hidden="true" class="vs-mid">מול</div>
+<div class="vs-side vs-b">
+<span aria-hidden="true" class="vs-icon">🕊️</span>
+<div class="vs-title">נֶדֶר יַעֲקֹב</div>
+<div class="vs-desc">"אם יהיה אלוקים עמדי", "ושמרני בדרך", "ושבתי בשלום אל בית אבי".</div>
+</div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">שימו לב שנדרו של יעקב חוזר כמעט מילה במילה על הבטחות ה' לו קודם לכן. מה, לדעתכם, מבקש יעקב "להחזיר" לה' באמצעות הנדר, ומדוע ניסח אותו דווקא כך?</span></div>
+<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> יעקב מנסח את נדרו כהד להבטחות ה' - קבלת עול מלכות שמים, קידוש המקום והפרשת מעשר, כתגובת תודה על מה שכבר הובטח לו.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וַיִּדַּר יַעֲקֹב נֶדֶר... אִם יִהְיֶה אֱלֹהִים עִמָּדִי" (פסוק כ')</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רמב"ן, פסוק כ' - וטעם הנדר</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וַיִּדַּר יַעֲקֹב נֶדֶר... אִם יִהְיֶה אֱלֹהִים עִמָּדִי" (פסוק כ')</p><div class="qb-meforesh">
+<span class="qb-src">רמב"ן, פסוק כ' - וטעם הנדר</span>
             אמרו בבראשית רבה: אמר רבי איבו: לא יהיה אלוהים אחר עמדי, כתוב: "יהיה ה' לי לאלוהים" - אלא מכאן שאין מן הצדיקים לבטוח בעולם הזה, ומיתכן עוד על דרך הפשט שהספיק בדבר, אבל בכל העתיד יאמר הכתוב כן, כמו אם אשר עשיתי, וכן יואם יהיה היובל לבני ישראל (במדבר לו, ד).
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit28-mp-4">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">מדוע, לדעת הרמב"ן, נודר יעקב "אם" למרות שה' כבר הבטיח לו הבטחה מוחלטת? האם יש כאן, לדעתכם, ספק אמיתי של יעקב בקיום הבטחות ה'?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הרמב"ן: אין הצדיקים בוטחים בעולם הזה בביטחון מוחלט - לכן גם יעקב מתנה את נדרו ב"אם", לא מספק אלא מענווה.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit28-mp-4" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">מדוע, לדעת הרמב"ן, נודר יעקב "אם" למרות שה' כבר הבטיח לו הבטחה מוחלטת? האם יש כאן, לדעתכם, ספק אמיתי של יעקב בקיום הבטחות ה'?</span></div>
+<textarea aria-labelledby="a11y-lbl-6" class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הרמב"ן: אין הצדיקים בוטחים בעולם הזה בביטחון מוחלט - לכן גם יעקב מתנה את נדרו ב"אם", לא מספק אלא מענווה.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -388,30 +403,38 @@
       <div class="card-body">
         <div class="exam-tag">📅 תשפ״ד (2024), קיץ · שאלה 3</div>
         <div class="pasuk-block mini">עיינו בפסוקים י"ב–ט"ו.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">כתבו בלשונכם הבטחה אחת שהבטיח ה' ליעקב עצמו, והבטחה אחת שהבטיח ה' לזרעו של יעקב.</span></div>
-          <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">"וַיַּחֲלֹם וְהִנֵּה סֻלָּם מֻצָּב אַרְצָה... וְהִנֵּה מַלְאֲכֵי אֱלֹהִים עֹלִים וְיֹרְדִים בּוֹ. וְהִנֵּה ה' נִצָּב עָלָיו" (פסוקים י"ב–י"ג).<br>על פי מה שלמדתם, מה רצה ה' ללמד את יעקב באמצעות מראה המלאכים העולים והיורדים בסולם?<br>(8 נקודות)</span></div>
-          <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">עיינו בפסוקים שלפניכם.<br>הבטחת ה' ליעקב: "וְהִנֵּה אָנֹכִי עִמָּךְ וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ" (פסוק ט"ו).<br>דברי יעקב לאחר ההבטחה: "אִם יִהְיֶה אֱלֹהִים עִמָּדִי וּשְׁמָרַנִי בַּדֶּרֶךְ הַזֶּה אֲשֶׁר אָנֹכִי הוֹלֵךְ" (פסוק כ').<br>מהי השאלה המתעוררת מן ההשוואה בין שני הפסוקים?</span></div>
-          <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">על פי מה שלמדתם, מהי התשובה על השאלה המתעוררת מהשוואה זו?<br>(8 נקודות)</span></div>
-          <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "אֲנִי ה' אֱלֹהֵי אַבְרָהָם אָבִיךָ... הָאָרֶץ אֲשֶׁר אַתָּה שֹׁכֵב עָלֶיהָ לְךָ אֶתְּנֶנָּה וּלְזַרְעֶךָ" (פסוק י"ג)</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">כתבו בלשונכם הבטחה אחת שהבטיח ה' ליעקב עצמו, והבטחה אחת שהבטיח ה' לזרעו של יעקב.</span></div>
+            <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">"וַיַּחֲלֹם וְהִנֵּה סֻלָּם מֻצָּב אַרְצָה... וְהִנֵּה מַלְאֲכֵי אֱלֹהִים עֹלִים וְיֹרְדִים בּוֹ. וְהִנֵּה ה' נִצָּב עָלָיו" (פסוקים י"ב–י"ג).<br>על פי מה שלמדתם, מה רצה ה' ללמד את יעקב באמצעות מראה המלאכים העולים והיורדים בסולם?<br>(8 נקודות)</span></div>
+            <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">עיינו בפסוקים שלפניכם.<br>הבטחת ה' ליעקב: "וְהִנֵּה אָנֹכִי עִמָּךְ וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ" (פסוק ט"ו).<br>דברי יעקב לאחר ההבטחה: "אִם יִהְיֶה אֱלֹהִים עִמָּדִי וּשְׁמָרַנִי בַּדֶּרֶךְ הַזֶּה אֲשֶׁר אָנֹכִי הוֹלֵךְ" (פסוק כ').<br>מהי השאלה המתעוררת מן ההשוואה בין שני הפסוקים?</span></div>
+            <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: ראו שוב את שתי ההבטחות שבשאלה הקודמת (פסוקים ט"ו, כ')</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">על פי מה שלמדתם, מהי התשובה על השאלה המתעוררת מהשוואה זו?<br>(8 נקודות)</span></div>
+            <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
         <div class="meforesh-block"><span class="src">מעובד על פי רמב"ן</span>"'והנה סולם מוצב ארצה'. הראה ליעקב בחלום הנבואה כי כל הנעשה בעולם נעשה על ידי המלאכים. והראה ליעקב כי הוא יתברך [ה'] ניצב על הסולם. ומבטיחו ליעקב בהבטחה גדולה להודיע שהוא לא יהיה ביד המלאכים, אבל יהיה בהשגחת ה', ויהיה עימו תמיד כמו שאמר 'והנה אנוכי עמך' (פסוק ט"ו)".</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ג&nbsp;(1)</span><span class="q-text" id="bg-lbl-5">על פי רמב"ן, מה מסמל מראה המלאכים העולים והיורדים בסולם?</span></div>
-          <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ג&nbsp;(2)</span><span class="q-text" id="bg-lbl-6">על פי רמב"ן, מה מסמל מראה ה' הניצב על הסולם? הסבירו את הראיה שרמב"ן מביא לדבריו מפסוק ט"ו.<br>(5 נקודות)</span></div>
-          <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "כל הנעשה בעולם נעשה על ידי המלאכים"</p>
+            <div class="question-row"><span class="part-label">ג&nbsp;(1)</span><span class="q-text" id="bg-lbl-5">על פי רמב"ן, מה מסמל מראה המלאכים העולים והיורדים בסולם?</span></div>
+            <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "הוא יתברך ניצב על הסולם... יהיה בהשגחת ה', ויהיה עימו תמיד כמו שאמר 'והנה אנוכי עמך'"</p>
+            <div class="question-row"><span class="part-label">ג&nbsp;(2)</span><span class="q-text" id="bg-lbl-6">על פי רמב"ן, מה מסמל מראה ה' הניצב על הסולם? הסבירו את הראיה שרמב"ן מביא לדבריו מפסוק ט"ו.<br>(5 נקודות)</span></div>
+            <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
       </div>
     </section>

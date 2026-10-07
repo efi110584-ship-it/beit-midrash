@@ -11,6 +11,10 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
+  /* שאלות בגרות שחולקות אותו מקור: המקור מופיע פעם אחת, והשאלות מתפרסות לרוחב זו לצד זו */
+  .bg-row{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+  .bg-row .question-block{ flex:1 1 300px; min-width:0; }
+
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
@@ -79,20 +83,31 @@
     border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
   }
 
+  /* דף רחב: עמודה אחת יותר רחבה, כדי שכל קובית תוכל להתפרס לרוחב (מקור מול שאלה) */
+  main{ max-width:1320px; }
+
   .qb-branches{
-    display:flex; flex-wrap:wrap; gap:1.1rem;
+    display:flex; flex-direction:column; gap:1.3rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
     content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
   }
   .qb-card{
-    flex:1 1 260px;
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
-    min-width:0;
+    padding:1.2rem 1.4rem; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.6rem; align-items:start;
   }
-  .qb-card > *{ width:100%; max-width:640px; }
+  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - עם קו מפריד ביניהם */
+  .qb-source{ display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+  .qb-question{
+    display:flex; flex-direction:column; gap:.5rem; min-width:0;
+    border-right:2px solid var(--acc-soft); padding-right:1.5rem;
+  }
+  @media (max-width:760px){
+    .qb-card{ grid-template-columns:1fr; gap:1rem; }
+    .qb-question{ border-right:none; padding-right:0; border-top:2px solid var(--acc-soft); padding-top:.9rem; }
+  }
   .qb-meforesh{
     font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
@@ -205,36 +220,36 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וַיִּבְכּוּ אֹתוֹ מִצְרַיִם שִׁבְעִים יוֹם" (פסוק ג')</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רש"י, פסוק ג' - "וַיִּבְכּוּ אֹתוֹ מִצְרַיִם"</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וַיִּבְכּוּ אֹתוֹ מִצְרַיִם שִׁבְעִים יוֹם" (פסוק ג')</p><div class="qb-meforesh">
+<span class="qb-src">רש"י, פסוק ג' - "וַיִּבְכּוּ אֹתוֹ מִצְרַיִם"</span>
             לפי שבאה להם ברכה לרגליו, שכלה הרעב.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit50-mp-1">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">לפי רש"י, מדוע בוכים דווקא המצרים - ולא רק בני משפחתו - על מות יעקב שבעים יום? מה מלמד הדבר על מעמדו של יוסף ומשפחתו במצרים?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, המצרים בוכים על יעקב לכבוד יוסף, כי בזכות בואו כלה הרעב ובאה ברכה לארץ - עדות למעמדו הרם של יוסף.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit50-mp-1" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">לפי רש"י, מדוע בוכים דווקא המצרים - ולא רק בני משפחתו - על מות יעקב שבעים יום? מה מלמד הדבר על מעמדו של יוסף ומשפחתו במצרים?</span></div>
+<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי רש"י, המצרים בוכים על יעקב לכבוד יוסף, כי בזכות בואו כלה הרעב ובאה ברכה לארץ - עדות למעמדו הרם של יוסף.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: שלושת שלבי האבל על יעקב</p>
-          <div class="mini-timeline">
-            <div class="step"><span class="step-icon" aria-hidden="true">🇪🇬</span>שבעים יום אבל במצרים</div>
-            <div class="arrow" aria-hidden="true">←</div>
-            <div class="step"><span class="step-icon" aria-hidden="true">🚶</span>מסע והספד בגורן האטד</div>
-            <div class="arrow" aria-hidden="true">←</div>
-            <div class="step"><span class="step-icon" aria-hidden="true">🪦</span>קבורה במערת המכפלה</div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">תארו את שלושת שלבי האבל על יעקב, כפי שהם מופיעים בפרק. מה משותף לכל שלושת השלבים מבחינת גודל הכבוד שנעשה ליעקב?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> שלב א' - שבעים ימי אבל במצרים. שלב ב' - מסע הלוויה עם מספד בגורן האטד. שלב ג' - קבורה במערת המכפלה, לצד האבות והאמהות - כבוד יוצא דופן ליעקב.</div>
-          </div>
-        </div>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: שלושת שלבי האבל על יעקב</p><div class="mini-timeline">
+<div class="step"><span aria-hidden="true" class="step-icon">🇪🇬</span>שבעים יום אבל במצרים</div>
+<div aria-hidden="true" class="arrow">←</div>
+<div class="step"><span aria-hidden="true" class="step-icon">🚶</span>מסע והספד בגורן האטד</div>
+<div aria-hidden="true" class="arrow">←</div>
+<div class="step"><span aria-hidden="true" class="step-icon">🪦</span>קבורה במערת המכפלה</div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">תארו את שלושת שלבי האבל על יעקב, כפי שהם מופיעים בפרק. מה משותף לכל שלושת השלבים מבחינת גודל הכבוד שנעשה ליעקב?</span></div>
+<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> שלב א' - שבעים ימי אבל במצרים. שלב ב' - מסע הלוויה עם מספד בגורן האטד. שלב ג' - קבורה במערת המכפלה, לצד האבות והאמהות - כבוד יוצא דופן ליעקב.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -264,34 +279,34 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "אָבִיךָ צִוָּה לִפְנֵי מוֹתוֹ לֵאמֹר..." (פסוק ט"ז)</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רש"י, פסוק ט"ז - "אָבִיךָ צִוָּה"</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "אָבִיךָ צִוָּה לִפְנֵי מוֹתוֹ לֵאמֹר..." (פסוק ט"ז)</p><div class="qb-meforesh">
+<span class="qb-src">רש"י, פסוק ט"ז - "אָבִיךָ צִוָּה"</span>
             שינו בדבר מפני השלום, כי לא ציווה יעקב כן, שלא נחשד יוסף בעיניו.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit50-mp-2">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">לפי רש"י, האם יעקב באמת ציווה את הציווי הזה? מה ההסבר שנותן רש"י לכך שהאחים ייחסו ליעקב דברים שלא אמר, ומה ניתן ללמוד מכך על גבולות ה"שינוי מפני השלום"?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, יעקב מעולם לא ציווה זאת - האחים בדו זאת מחששם, ושינו מהאמת "מפני השלום". מכאן שמותר לשנות מהאמת לשם שלום, אך בזהירות.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit50-mp-2" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">לפי רש"י, האם יעקב באמת ציווה את הציווי הזה? מה ההסבר שנותן רש"י לכך שהאחים ייחסו ליעקב דברים שלא אמר, ומה ניתן ללמוד מכך על גבולות ה"שינוי מפני השלום"?</span></div>
+<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי רש"י, יעקב מעולם לא ציווה זאת - האחים בדו זאת מחששם, ושינו מהאמת "מפני השלום". מכאן שמותר לשנות מהאמת לשם שלום, אך בזהירות.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "הֲתַחַת אֱלֹהִים אָנִי? ...אַתֶּם חֲשַׁבְתֶּם עָלַי רָעָה - אֱלֹהִים חֲשָׁבָהּ לְטֹבָה" (פסוקים י"ט-כ')</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רד"ק, על תגובת יוסף</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "הֲתַחַת אֱלֹהִים אָנִי? ...אַתֶּם חֲשַׁבְתֶּם עָלַי רָעָה - אֱלֹהִים חֲשָׁבָהּ לְטֹבָה" (פסוקים י"ט-כ')</p><div class="qb-meforesh">
+<span class="qb-src">רד"ק, על תגובת יוסף</span>
             ראה שמת אביהם, ירא פן ינקום בו יוסף, מלהרע לנו; ועתה כיוון שמת, יש לנו לחוש שלא ישיב לנו כל הרעה אשר גמלנוהו.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit50-mp-3">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">כיצד עונה יוסף לחשש האחים? הסבירו את שתי הטענות שבתשובתו - "התחת אלוקים אני" מצד אחד, ו"אלוקים חשבה לטובה" מצד שני.</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> "התחת אלוקים אני" - יוסף אומר שאין לו סמכות לשפוט במקום אלוקים. "אלוקים חשבה לטובה" - הוא רואה במכירתו תוכנית אלוקית שהצילה עם רב מרעב.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit50-mp-3" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">כיצד עונה יוסף לחשש האחים? הסבירו את שתי הטענות שבתשובתו - "התחת אלוקים אני" מצד אחד, ו"אלוקים חשבה לטובה" מצד שני.</span></div>
+<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> "התחת אלוקים אני" - יוסף אומר שאין לו סמכות לשפוט במקום אלוקים. "אלוקים חשבה לטובה" - הוא רואה במכירתו תוכנית אלוקית שהצילה עם רב מרעב.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -321,28 +336,28 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "פָּקֹד יִפְקֹד אֱלֹהִים אֶתְכֶם וְהַעֲלִתֶם אֶת עַצְמֹתַי מִזֶּה" (פסוק כ"ה)</p>
-          <div class="remember-block">
-            <div class="src"><span aria-hidden="true">🔗</span>קיום השבועה</div>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "פָּקֹד יִפְקֹד אֱלֹהִים אֶתְכֶם וְהַעֲלִתֶם אֶת עַצְמֹתַי מִזֶּה" (פסוק כ"ה)</p><div class="remember-block">
+<div class="src"><span aria-hidden="true">🔗</span>קיום השבועה</div>
             השבועה מתקיימת בפועל בספר שמות: <q>וַיִּקַּח מֹשֶׁה אֶת עַצְמוֹת יוֹסֵף עִמּוֹ, כִּי הַשְׁבֵּעַ הִשְׁבִּיעַ אֶת בְּנֵי יִשְׂרָאֵל</q> (שמות י"ג, י"ט) - ובספר יהושע: <q>וְאֶת עַצְמוֹת יוֹסֵף... קָבְרוּ בִשְׁכֶם</q> (יהושע כ"ד, ל"ב).
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מדוע, לדעתכם, חשוב ליוסף להשביע דווקא שבועה על העלאת עצמותיו, ולא להסתפק בכך שנקבר בכבוד במצרים?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יוסף מביע אמונה שהגאולה תתקיים ושהשהות במצרים זמנית - השבעת אחיו להעלות את עצמותיו קושרת אותו לגורל העם ומזכירה שמצרים אינה ביתם הסופי.</div>
-          </div>
-        </div>
+          </div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מדוע, לדעתכם, חשוב ליוסף להשביע דווקא שבועה על העלאת עצמותיו, ולא להסתפק בכך שנקבר בכבוד במצרים?</span></div>
+<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> יוסף מביע אמונה שהגאולה תתקיים ושהשהות במצרים זמנית - השבעת אחיו להעלות את עצמותיו קושרת אותו לגורל העם ומזכירה שמצרים אינה ביתם הסופי.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: השוו בין השבועה שהשביע יעקב את יוסף (פרק מ"ז) לשבועה שמשביע יוסף את אחיו כאן</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">כתבו במילים שלכם במה דומה ובמה שונה שתי השבועות הללו - שבועת יעקב ליוסף על קבורתו בארץ כנען, מול שבועת יוסף לאחיו על העלאת עצמותיו.</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> דמיון: שני אבות זקנים משביעים את בניהם לקשור את גופתם לארץ ישראל. שוני: יעקב נקבר מיד, ואילו עצמות יוסף יישארו במצרים עד הגאולה - שבועתו מבטאת אמונה נמשכת לאורך כל השעבוד.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: השוו בין השבועה שהשביע יעקב את יוסף (פרק מ"ז) לשבועה שמשביע יוסף את אחיו כאן</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">כתבו במילים שלכם במה דומה ובמה שונה שתי השבועות הללו - שבועת יעקב ליוסף על קבורתו בארץ כנען, מול שבועת יוסף לאחיו על העלאת עצמותיו.</span></div>
+<textarea aria-labelledby="a11y-lbl-6" class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> דמיון: שני אבות זקנים משביעים את בניהם לקשור את גופתם לארץ ישראל. שוני: יעקב נקבר מיד, ואילו עצמות יוסף יישארו במצרים עד הגאולה - שבועתו מבטאת אמונה נמשכת לאורך כל השעבוד.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -378,24 +393,32 @@
       </div>
       <div class="card-body">
         <div class="exam-tag">📅 תשפ״ב (2022), חורף · שאלה 5</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">עיין בפסוקים א'–י"ג. ציין מה עשו בעקבות מותו של יעקב בכל אחד מן המקומות האלה:<br>מצרים –<br>גרן האטד –<br>מערת שדה המכפלה –</span></div>
-          <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">על פי מה שלמדת, הסבר מדוע התורה מאריכה בתיאור האבל על יעקב.<br>(10 נקודות)</span></div>
-          <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיִּבְכּוּ אֹתוֹ מִצְרַיִם שִׁבְעִים יוֹם" / "וַיִּסְפְּדוּ שָׁם מִסְפֵּד גָּדוֹל" / "וַיִּקְבְּרוּ אֹתוֹ בִּמְעָרַת שְׂדֵה הַמַּכְפֵּלָה"</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">עיין בפסוקים א'–י"ג. ציין מה עשו בעקבות מותו של יעקב בכל אחד מן המקומות האלה:<br>מצרים –<br>גרן האטד –<br>מערת שדה המכפלה –</span></div>
+            <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: שימו לב לכמות התחנות ולאורך התיאור - מצרים, גורן האטד, מערת המכפלה</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">על פי מה שלמדת, הסבר מדוע התורה מאריכה בתיאור האבל על יעקב.<br>(10 נקודות)</span></div>
+            <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
         <div class="exam-tag">📅 תשפ״ב (2022), חורף · שאלה 5</div>
         <div class="pasuk-block mini">עיין בפסוקים ט"ו–כ"א.</div>
         <div class="meforesh-block"><span class="src">רש"י (לפסוק ט"ז)</span>"'אביך צוה' - שינו בדבר מפני השלום, כי לא ציווה יעקב כן, שלא נחשד יוסף בעיניו".</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">ממה חששו האחים?</span></div>
-          <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">על פי רש"י, מה עשו האחים בעקבות חשש זה? בתשובתך הסבר את הביטוי "שינו בדבר".<br>(10 נקודות)</span></div>
-          <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיִּרְאוּ אֲחֵי יוֹסֵף כִּי מֵת אֲבִיהֶם וַיֹּאמְרוּ: לוּ יִשְׂטְמֵנוּ יוֹסֵף" (פסוק ט"ו)</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">ממה חששו האחים?</span></div>
+            <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת (רש"י): "'אביך צוה' - שינו בדבר מפני השלום, כי לא ציווה יעקב כן"</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">על פי רש"י, מה עשו האחים בעקבות חשש זה? בתשובתך הסבר את הביטוי "שינו בדבר".<br>(10 נקודות)</span></div>
+            <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
       </div>
     </section>

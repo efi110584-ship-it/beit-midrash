@@ -11,6 +11,10 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
+  /* שאלות בגרות שחולקות אותו מקור: המקור מופיע פעם אחת, והשאלות מתפרסות לרוחב זו לצד זו */
+  .bg-row{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+  .bg-row .question-block{ flex:1 1 300px; min-width:0; }
+
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
@@ -79,20 +83,31 @@
     border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
   }
 
+  /* דף רחב: עמודה אחת יותר רחבה, כדי שכל קובית תוכל להתפרס לרוחב (מקור מול שאלה) */
+  main{ max-width:1320px; }
+
   .qb-branches{
-    display:flex; flex-wrap:wrap; gap:1.1rem;
+    display:flex; flex-direction:column; gap:1.3rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
     content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
   }
   .qb-card{
-    flex:1 1 260px;
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
-    min-width:0;
+    padding:1.2rem 1.4rem; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.6rem; align-items:start;
   }
-  .qb-card > *{ width:100%; max-width:640px; }
+  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - עם קו מפריד ביניהם */
+  .qb-source{ display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+  .qb-question{
+    display:flex; flex-direction:column; gap:.5rem; min-width:0;
+    border-right:2px solid var(--acc-soft); padding-right:1.5rem;
+  }
+  @media (max-width:760px){
+    .qb-card{ grid-template-columns:1fr; gap:1rem; }
+    .qb-question{ border-right:none; padding-right:0; border-top:2px solid var(--acc-soft); padding-top:.9rem; }
+  }
   .qb-meforesh{
     font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
@@ -205,24 +220,24 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְיוֹסֵף הִכִּיר אֶת אֶחָיו, וְהֵם לֹא הִכִּרֻהוּ" (פסוק ח')</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מהן, לדעתכם, הסיבות האפשריות לכך שיוסף מזהה את אחיו, אך הם אינם מזהים אותו? (חִשבו הן על שינוי חיצוני והן על ציפייה נפשית).</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יוסף התבגר לבוש כמשנה למלך מצרי, מגולח ודובר מצרית - שינוי עצום. האחים משוכנעים שהוא מת ואינם מנסים לזהותו; יוסף לעומתם יודע בדיוק מי הם.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְיוֹסֵף הִכִּיר אֶת אֶחָיו, וְהֵם לֹא הִכִּרֻהוּ" (פסוק ח')</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מהן, לדעתכם, הסיבות האפשריות לכך שיוסף מזהה את אחיו, אך הם אינם מזהים אותו? (חִשבו הן על שינוי חיצוני והן על ציפייה נפשית).</span></div>
+<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> יוסף התבגר לבוש כמשנה למלך מצרי, מגולח ודובר מצרית - שינוי עצום. האחים משוכנעים שהוא מת ואינם מנסים לזהותו; יוסף לעומתם יודע בדיוק מי הם.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "אֲבָל אֲשֵׁמִים אֲנַחְנוּ עַל אָחִינוּ... עַל כֵּן בָּאָה אֵלֵינוּ הַצָּרָה הַזֹּאת" (פסוקים כ"א-כ"ב)</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מה מגלים האחים על עצמם בפסוקים אלה, ומדוע דווקא צרתם הנוכחית (החשד במרגלות) מעוררת בהם הודאה בחטא הישן?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> האחים מגלים שלא שכחו את מכירת יוסף ומרגישים אשמה עמוקה - חוסר האונים מול השלטון המצרי מזכיר להם את חוסר האונים של יוסף מולם, ולכן דווקא כעת מתעוררת ההודאה.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "אֲבָל אֲשֵׁמִים אֲנַחְנוּ עַל אָחִינוּ... עַל כֵּן בָּאָה אֵלֵינוּ הַצָּרָה הַזֹּאת" (פסוקים כ"א-כ"ב)</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מה מגלים האחים על עצמם בפסוקים אלה, ומדוע דווקא צרתם הנוכחית (החשד במרגלות) מעוררת בהם הודאה בחטא הישן?</span></div>
+<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> האחים מגלים שלא שכחו את מכירת יוסף ומרגישים אשמה עמוקה - חוסר האונים מול השלטון המצרי מזכיר להם את חוסר האונים של יוסף מולם, ולכן דווקא כעת מתעוררת ההודאה.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -252,24 +267,24 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "אָנֹכִי אֶעֶרְבֶנּוּ, מִיָּדִי תְּבַקְשֶׁנּוּ... וְחָטָאתִי לְךָ כָּל הַיָּמִים" (פרק מ"ג, פסוק ט')</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מה מציע יהודה ליעקב כדי לשכנעו לשלוח את בנימין? במה שונה התחייבותו של יהודה כאן מהתנהגותו בפרק ל"ז, כאשר הציע למכור את יוסף?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יהודה מציע ערבות אישית מוחלטת - "לחטוא לאביו כל הימים" אם לא ישיב את בנימין. שינוי דרמטי מפרק ל"ז, בו יזם את מכירת האח - עדות להתפתחות מוסרית.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "אָנֹכִי אֶעֶרְבֶנּוּ, מִיָּדִי תְּבַקְשֶׁנּוּ... וְחָטָאתִי לְךָ כָּל הַיָּמִים" (פרק מ"ג, פסוק ט')</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מה מציע יהודה ליעקב כדי לשכנעו לשלוח את בנימין? במה שונה התחייבותו של יהודה כאן מהתנהגותו בפרק ל"ז, כאשר הציע למכור את יוסף?</span></div>
+<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> יהודה מציע ערבות אישית מוחלטת - "לחטוא לאביו כל הימים" אם לא ישיב את בנימין. שינוי דרמטי מפרק ל"ז, בו יזם את מכירת האח - עדות להתפתחות מוסרית.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וַיְמַהֵר יוֹסֵף כִּי נִכְמְרוּ רַחֲמָיו אֶל אָחִיו וַיְבַקֵּשׁ לִבְכּוֹת" (פרק מ"ג, פסוק ל')</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">מדוע, לדעתכם, בוחר יוסף להסתיר את דמעותיו ולא להתגלות מיד לאחיו כשהוא רואה את בנימין - למרות הרגש העז שהוא חש?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ייתכן שיוסף רוצה לבחון אם אחיו השתנו לפני שיתגלה אליהם - מבחן הגביע בודק אם ינטשו את בנימין כפי שנטשו אותו, או יגנו עליו.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וַיְמַהֵר יוֹסֵף כִּי נִכְמְרוּ רַחֲמָיו אֶל אָחִיו וַיְבַקֵּשׁ לִבְכּוֹת" (פרק מ"ג, פסוק ל')</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">מדוע, לדעתכם, בוחר יוסף להסתיר את דמעותיו ולא להתגלות מיד לאחיו כשהוא רואה את בנימין - למרות הרגש העז שהוא חש?</span></div>
+<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> ייתכן שיוסף רוצה לבחון אם אחיו השתנו לפני שיתגלה אליהם - מבחן הגביע בודק אם ינטשו את בנימין כפי שנטשו אותו, או יגנו עליו.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -306,31 +321,43 @@
       <div class="card-body">
         <div class="exam-tag">📅 תשפ״ד (2024), קיץ · שאלה 4</div>
         <div class="pasuk-block mini">"וַיַּרְא יוֹסֵף אֶת אֶחָיו... וַיִּתְנַכֵּר אֲלֵיהֶם" (פסוק ז').</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">כתבו שתי פעולות שעשה יוסף שבהן ההתנכרות שלו לאחיו באה לידי ביטוי.</span></div>
-          <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">על פי מה שלמדתם, כתבו תשובה אחת על השאלה מדוע יוסף התנכר לאחיו.<br>(8 נקודות)</span></div>
-          <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיִּתְנַכֵּר אֲלֵיהֶם וַיְדַבֵּר אִתָּם קָשׁוֹת" (פסוק ז'-ח')</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">כתבו שתי פעולות שעשה יוסף שבהן ההתנכרות שלו לאחיו באה לידי ביטוי.</span></div>
+            <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיִּזְכֹּר יוֹסֵף אֵת הַחֲלֹמוֹת אֲשֶׁר חָלַם לָהֶם" (פסוק ט')</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">על פי מה שלמדתם, כתבו תשובה אחת על השאלה מדוע יוסף התנכר לאחיו.<br>(8 נקודות)</span></div>
+            <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
         <div class="exam-tag">📅 תשפ״ד (2024), קיץ · שאלה 4</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">מה שליט מצרים (יוסף) מחליט בנוגע לאחים בפסוקים ט"ו–י"ז, ומה הוא מחליט בנוגע לאחים בפסוקים י"ח–כ'?</span></div>
-          <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">על פי מה שלמדתם, מדוע רק לאחר דברי יוסף שבפסוקים י"ח–כ' האחים מביעים חרטה על מכירת יוסף?<br>(8 נקודות)</span></div>
-          <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: ההחלטה הראשונה (פסוקים ט"ו-י"ז) מול ההחלטה השנייה (פסוקים י"ח-כ') - שינוי בתוכנית יוסף</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">מה שליט מצרים (יוסף) מחליט בנוגע לאחים בפסוקים ט"ו–י"ז, ומה הוא מחליט בנוגע לאחים בפסוקים י"ח–כ'?</span></div>
+            <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: מה משתנה בין שתי ההחלטות של יוסף, ומה זה מעורר אצל האחים</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">על פי מה שלמדתם, מדוע רק לאחר דברי יוסף שבפסוקים י"ח–כ' האחים מביעים חרטה על מכירת יוסף?<br>(8 נקודות)</span></div>
+            <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
         <div class="exam-tag">📅 תש״ף (2020), קיץ · שאלה 5</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-5">עיין בפרק מ"ב, פסוקים כ"ו-כ"ח.<br>מדוע נחרדו האחים ממציאת כספם באמתחותיהם?</span></div>
-          <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-6">עיין בפרק מ"ב, פסוקים כ"א-כ"ב.<br>הסבר נקודת דמיון אחת בין תגובת האחים בפסוק כ"א על דברי יוסף ובין תגובתם בפסוקים כ"ו-כ"ח על מציאת כספם באמתחותיהם.<br>(8 נקודות)</span></div>
-          <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: האחים מוצאים בבהלה שכספם הושב להם בשקיהם (פסוקים כ"ו-כ"ח)</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-5">עיין בפרק מ"ב, פסוקים כ"ו-כ"ח.<br>מדוע נחרדו האחים ממציאת כספם באמתחותיהם?</span></div>
+            <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "אֲבָל אֲשֵׁמִים אֲנַחְנוּ עַל אָחִינוּ... עַל כֵּן בָּאָה אֵלֵינוּ הַצָּרָה הַזֹּאת" (פסוק כ"א-כ"ב)</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-6">עיין בפרק מ"ב, פסוקים כ"א-כ"ב.<br>הסבר נקודת דמיון אחת בין תגובת האחים בפסוק כ"א על דברי יוסף ובין תגובתם בפסוקים כ"ו-כ"ח על מציאת כספם באמתחותיהם.<br>(8 נקודות)</span></div>
+            <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
       </div>
     </section>

@@ -11,6 +11,10 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
+  /* שאלות בגרות שחולקות אותו מקור: המקור מופיע פעם אחת, והשאלות מתפרסות לרוחב זו לצד זו */
+  .bg-row{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+  .bg-row .question-block{ flex:1 1 300px; min-width:0; }
+
   /* אישור הבנת פרשן - כפתור קטן בתחתית כל קובית מפרש, במקום רשימת סיכום נפרדת */
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
@@ -66,20 +70,31 @@
     border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
   }
 
+  /* דף רחב: עמודה אחת יותר רחבה, כדי שכל קובית תוכל להתפרס לרוחב (מקור מול שאלה) */
+  main{ max-width:1320px; }
+
   .qb-branches{
-    display:flex; flex-wrap:wrap; gap:1.1rem;
+    display:flex; flex-direction:column; gap:1.3rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
     content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
   }
   .qb-card{
-    flex:1 1 260px;
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
-    min-width:0;
+    padding:1.2rem 1.4rem; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.6rem; align-items:start;
   }
-  .qb-card > *{ width:100%; max-width:640px; }
+  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - עם קו מפריד ביניהם */
+  .qb-source{ display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+  .qb-question{
+    display:flex; flex-direction:column; gap:.5rem; min-width:0;
+    border-right:2px solid var(--acc-soft); padding-right:1.5rem;
+  }
+  @media (max-width:760px){
+    .qb-card{ grid-template-columns:1fr; gap:1rem; }
+    .qb-question{ border-right:none; padding-right:0; border-top:2px solid var(--acc-soft); padding-top:.9rem; }
+  }
   .qb-meforesh{
     font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
@@ -186,42 +201,42 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וַיְהִי אַבְרָם בֶּן תִּשְׁעִים שָׁנָה וְתֵשַׁע שָׁנִים... אֲנִי אֵל שַׁדַּי" (פסוק א')</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">בן כמה היה אברם כשה' נגלה אליו בפרק זה? באיזה שם מכנה ה' את עצמו, ומה הוא מבקש מאברהם?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> אברם היה בן תשעים ותשע. ה' מכנה עצמו "אל שדי" ומבקש ממנו להתהלך לפניו ולהיות תמים - לעבוד את ה' בשלמות ובנאמנות מלאה.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וַיְהִי אַבְרָם בֶּן תִּשְׁעִים שָׁנָה וְתֵשַׁע שָׁנִים... אֲנִי אֵל שַׁדַּי" (פסוק א')</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">בן כמה היה אברם כשה' נגלה אליו בפרק זה? באיזה שם מכנה ה' את עצמו, ומה הוא מבקש מאברהם?</span></div>
+<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> אברם היה בן תשעים ותשע. ה' מכנה עצמו "אל שדי" ומבקש ממנו להתהלך לפניו ולהיות תמים - לעבוד את ה' בשלמות ובנאמנות מלאה.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "הָאֱלֹהִים אֲשֶׁר הִתְהַלְּכוּ אֲבֹתַי לְפָנָיו" (מדרש תנחומא)</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">מדרש תנחומא, "לך לך" ו'</span>
+
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "הָאֱלֹהִים אֲשֶׁר הִתְהַלְּכוּ אֲבֹתַי לְפָנָיו" (מדרש תנחומא)</p><div class="qb-meforesh">
+<span class="qb-src">מדרש תנחומא, "לך לך" ו'</span>
             התהלך לפני והיה תמים. למה האבות היו דרכם לפני הקב"ה? לנשיא שהוא מהלך וזקניו מהלכין לפניו, והזקנים מודיע כבודו של נשיא. כך היו אבות העולם הולכים לפניו, שנאמר "הָאֱלֹהִים אֲשֶׁר הִתְהַלְּכוּ אֲבֹתַי לְפָנָיו".
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit17-mp-1">אישור</button></div>
-          </div>
-          <div class="vs-compare" role="img" aria-label="המשל: זקנים לפני הנשיא, והנמשל: האבות לפני ה'">
-            <div class="vs-side vs-a">
-              <span class="vs-icon" aria-hidden="true">👴</span>
-              <div class="vs-title">המשל</div>
-              <div class="vs-desc">הזקנים הולכים לפני הנשיא, ובכך מודיעים לכול את כבודו.</div>
-            </div>
-            <div class="vs-mid" aria-hidden="true">⟵</div>
-            <div class="vs-side vs-b">
-              <span class="vs-icon" aria-hidden="true">🌍</span>
-              <div class="vs-title">הנמשל</div>
-              <div class="vs-desc">האבות הולכים לפני ה', ובכך מודיעים בעולם את כבודו.</div>
-            </div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מה מוסיף המדרש בהבנת "התהלך לפני"? למה הוא מדמה את יחסי האבות עם ה', ומה נלמד מכך על תפקידו של עם ישראל?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> המדרש מדמה זאת לזקנים ההולכים לפני הנשיא ומכריזים את כבודו - כך על עם ישראל לייצג את דרך ה' בעולם, לפרסם אמונה ולעשות צדקה ומשפט.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit17-mp-1" type="button">אישור</button></div>
+</div><div aria-label="המשל: זקנים לפני הנשיא, והנמשל: האבות לפני ה'" class="vs-compare" role="img">
+<div class="vs-side vs-a">
+<span aria-hidden="true" class="vs-icon">👴</span>
+<div class="vs-title">המשל</div>
+<div class="vs-desc">הזקנים הולכים לפני הנשיא, ובכך מודיעים לכול את כבודו.</div>
+</div>
+<div aria-hidden="true" class="vs-mid">⟵</div>
+<div class="vs-side vs-b">
+<span aria-hidden="true" class="vs-icon">🌍</span>
+<div class="vs-title">הנמשל</div>
+<div class="vs-desc">האבות הולכים לפני ה', ובכך מודיעים בעולם את כבודו.</div>
+</div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מה מוסיף המדרש בהבנת "התהלך לפני"? למה הוא מדמה את יחסי האבות עם ה', ומה נלמד מכך על תפקידו של עם ישראל?</span></div>
+<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> המדרש מדמה זאת לזקנים ההולכים לפני הנשיא ומכריזים את כבודו - כך על עם ישראל לייצג את דרך ה' בעולם, לפרסם אמונה ולעשות צדקה ומשפט.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -266,39 +281,39 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "הִמּוֹל לָכֶם כָּל זָכָר... וּבֶן שְׁמֹנַת יָמִים יִמּוֹל" (פסוקים י'-י"ב)</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מהם עיקרי הציווי בפסוקים י'-י"ג - את מי מלים, מתי, ולכמה זמן?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יש למול כל זכר - יליד בית או עבד - ביום השמיני ללידתו, לדורות עולם.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "הִמּוֹל לָכֶם כָּל זָכָר... וּבֶן שְׁמֹנַת יָמִים יִמּוֹל" (פסוקים י'-י"ב)</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מהם עיקרי הציווי בפסוקים י'-י"ג - את מי מלים, מתי, ולכמה זמן?</span></div>
+<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> יש למול כל זכר - יליד בית או עבד - ביום השמיני ללידתו, לדורות עולם.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וּנְמַלְתֶּם אֵת בְּשַׂר עָרְלַתְכֶם" (פסוק י"א)</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">ספר החינוך, מצוה ב'</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וּנְמַלְתֶּם אֵת בְּשַׂר עָרְלַתְכֶם" (פסוק י"א)</p><div class="qb-meforesh">
+<span class="qb-src">ספר החינוך, מצוה ב'</span>
             והעם הנבחר חפץ השם יתברך להשלים תכונתו, ורצה להיות ההשלמה על ידי האדם, ולא בראו שלם מבטן, לרמוז אליו כי כאשר תושלם צורת גופו על ידו, כן בידו להשלים צורת נפשו בהכשר פעולותיו.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit17-mp-2">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">לפי ספר החינוך, מה מסמל הציווי למול דווקא איבר בגוף? מה זה מלמד על תפקידו של האדם?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ה' הותיר את הגוף חסר, לרמוז שכשם שבידו להשלים את גופו (במילה), כך בידו להשלים גם את נפשו ומידותיו.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit17-mp-2" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">לפי ספר החינוך, מה מסמל הציווי למול דווקא איבר בגוף? מה זה מלמד על תפקידו של האדם?</span></div>
+<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> ה' הותיר את הגוף חסר, לרמוז שכשם שבידו להשלים את גופו (במילה), כך בידו להשלים גם את נפשו ומידותיו.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְעָרֵל זָכָר אֲשֶׁר לֹא יִמּוֹל... וְנִכְרְתָה הַנֶּפֶשׁ הַהִוא" (פסוק י"ד)</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מה קורה, לפי פסוק י"ד, למי שלא נימול? ואילו שני ביטויים חוזרים בקטע ומדגישים שזו מצווה נצחית?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> מי שלא נימול נענש בכרת. "לדרתיכם" ו"ברית עולם" מדגישים שזו מצווה נצחית.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְעָרֵל זָכָר אֲשֶׁר לֹא יִמּוֹל... וְנִכְרְתָה הַנֶּפֶשׁ הַהִוא" (פסוק י"ד)</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מה קורה, לפי פסוק י"ד, למי שלא נימול? ואילו שני ביטויים חוזרים בקטע ומדגישים שזו מצווה נצחית?</span></div>
+<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> מי שלא נימול נענש בכרת. "לדרתיכם" ו"ברית עולם" מדגישים שזו מצווה נצחית.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -325,42 +340,42 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "לִבְרִית עוֹלָם, לִהְיוֹת לְךָ לֵאלֹהִים וּלְזַרְעֲךָ אַחֲרֶיךָ" (פסוק ז')</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">אברבנאל (פסוק ז') - "לִבְרִית עוֹלָם"</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "לִבְרִית עוֹלָם, לִהְיוֹת לְךָ לֵאלֹהִים וּלְזַרְעֲךָ אַחֲרֶיךָ" (פסוק ז')</p><div class="qb-meforesh">
+<span class="qb-src">אברבנאל (פסוק ז') - "לִבְרִית עוֹלָם"</span>
             ר"ל [רצונו לומר] נצחי ומתמיד. והברית הוא: "להיות לך לאלהים ולזרעך אחריך", ר"ל שתדבק ההשגחה באברהם כל ימיו, וגם כן תדבק בזרעו בסבתו וזכותו - וזה טעם "אחריך".
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit17-mp-3">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">לפי אברבנאל, מה משמעות הביטוי "לברית עולם"? ומה כולל הביטוי "להיות לך לאלהים ולזרעך אחריך"?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> "לברית עולם" - ברית נצחית. "להיות לך לאלהים" - השגחת ה' תדבק באברהם ובזרעו.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit17-mp-3" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">לפי אברבנאל, מה משמעות הביטוי "לברית עולם"? ומה כולל הביטוי "להיות לך לאלהים ולזרעך אחריך"?</span></div>
+<textarea aria-labelledby="a11y-lbl-6" class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> "לברית עולם" - ברית נצחית. "להיות לך לאלהים" - השגחת ה' תדבק באברהם ובזרעו.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְאַתָּה אֶת בְּרִיתִי תִשְׁמֹר" (פסוק ט') לעומת "לְזַרְעֲךָ נָתַתִּי אֶת הָאָרֶץ הַזֹּאת" (ט"ו, י"ח)</p>
-          <div class="vs-compare" role="img" aria-label="השוואה: ברית בין הבתרים חד-צדדית מול ברית המילה דו-צדדית">
-            <div class="vs-side vs-a">
-              <span class="vs-icon" aria-hidden="true">🔥</span>
-              <div class="vs-title">ברית בין הבתרים (פרק ט"ו)</div>
-              <div class="vs-desc">ברית חד-צדדית - רק ה' מתחייב לתת את הארץ.</div>
-            </div>
-            <div class="vs-mid" aria-hidden="true">מול</div>
-            <div class="vs-side vs-b">
-              <span class="vs-icon" aria-hidden="true">✂️</span>
-              <div class="vs-title">ברית המילה (פרק י"ז)</div>
-              <div class="vs-desc">ברית דו-צדדית - גם אברהם מתחייב למול את עצמו ואת ביתו.</div>
-            </div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">השוו בין ברית בין הבתרים (פרק ט"ו) לברית המילה (פרק י"ז) - מה ההבדל בסוג הברית?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ברית בין הבתרים חד-צדדית - רק ה' מתחייב. ברית המילה דו-צדדית - גם אברהם מתחייב, בגופו.</div>
-          </div>
-        </div>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְאַתָּה אֶת בְּרִיתִי תִשְׁמֹר" (פסוק ט') לעומת "לְזַרְעֲךָ נָתַתִּי אֶת הָאָרֶץ הַזֹּאת" (ט"ו, י"ח)</p><div aria-label="השוואה: ברית בין הבתרים חד-צדדית מול ברית המילה דו-צדדית" class="vs-compare" role="img">
+<div class="vs-side vs-a">
+<span aria-hidden="true" class="vs-icon">🔥</span>
+<div class="vs-title">ברית בין הבתרים (פרק ט"ו)</div>
+<div class="vs-desc">ברית חד-צדדית - רק ה' מתחייב לתת את הארץ.</div>
+</div>
+<div aria-hidden="true" class="vs-mid">מול</div>
+<div class="vs-side vs-b">
+<span aria-hidden="true" class="vs-icon">✂️</span>
+<div class="vs-title">ברית המילה (פרק י"ז)</div>
+<div class="vs-desc">ברית דו-צדדית - גם אברהם מתחייב למול את עצמו ואת ביתו.</div>
+</div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">השוו בין ברית בין הבתרים (פרק ט"ו) לברית המילה (פרק י"ז) - מה ההבדל בסוג הברית?</span></div>
+<textarea aria-labelledby="a11y-lbl-7" class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> ברית בין הבתרים חד-צדדית - רק ה' מתחייב. ברית המילה דו-צדדית - גם אברהם מתחייב, בגופו.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -403,39 +418,39 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "כִּי אַב הֲמוֹן גּוֹיִם נְתַתִּיךָ" (פסוק ה') לעומת "כִּי שָׂרָה שְׁמָהּ" (פסוק ט"ו)</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">מה משמעות השם "אברהם" ("אב המון גויים") לעומת "אברם"? ומה משמעות השם "שרה" לעומת "שרי"?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> "אברם" הפך ל"אברהם" - אב המון גויים. "שרי" (בעלות פרטית) הפך ל"שרה" - שם כללי. השינוי מרחיב את שליחותם לכלל-אנושית.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "כִּי אַב הֲמוֹן גּוֹיִם נְתַתִּיךָ" (פסוק ה') לעומת "כִּי שָׂרָה שְׁמָהּ" (פסוק ט"ו)</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">מה משמעות השם "אברהם" ("אב המון גויים") לעומת "אברם"? ומה משמעות השם "שרה" לעומת "שרי"?</span></div>
+<textarea aria-labelledby="a11y-lbl-8" class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> "אברם" הפך ל"אברהם" - אב המון גויים. "שרי" (בעלות פרטית) הפך ל"שרה" - שם כללי. השינוי מרחיב את שליחותם לכלל-אנושית.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק" (פסוק י"ז) לעומת "לוּ יִשְׁמָעֵאל יִחְיֶה לְפָנֶיךָ" (פסוק י"ח)</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רש"י (פסוק י"ז) - "וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק"</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק" (פסוק י"ז) לעומת "לוּ יִשְׁמָעֵאל יִחְיֶה לְפָנֶיךָ" (פסוק י"ח)</p><div class="qb-meforesh">
+<span class="qb-src">רש"י (פסוק י"ז) - "וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק"</span>
             זה תרגם אונקלוס: וחדי (=ושמח) - לשון שמחה.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit17-mp-4">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-9">לפי רש"י (בשם אונקלוס), האם הצחוק של אברהם בפסוק י"ז הוא צחוק של ספק או של שמחה? ומה מבקש אברהם בפסוק הבא?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, זהו צחוק של שמחה ולא ספק - ומיד אחר כך אברהם מבקש רק שישמעאל יחיה, כמי שאינו רואה עצמו ראוי לבקש יותר.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit17-mp-4" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-9">לפי רש"י (בשם אונקלוס), האם הצחוק של אברהם בפסוק י"ז הוא צחוק של ספק או של שמחה? ומה מבקש אברהם בפסוק הבא?</span></div>
+<textarea aria-labelledby="a11y-lbl-9" class="answer" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי רש"י, זהו צחוק של שמחה ולא ספק - ומיד אחר כך אברהם מבקש רק שישמעאל יחיה, כמי שאינו רואה עצמו ראוי לבקש יותר.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק... וְקָרָאתָ אֶת שְׁמוֹ יִצְחָק" (פסוקים י"ז, י"ט)</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">10</span><span class="q-text" id="a11y-lbl-10">מאיזו מילה בפרק נגזר השם "יצחק" שניתן לבן העתיד להיוולד?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-10" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> השם "יצחק" נגזר מ"וַיִּצְחָק" - צחוק השמחה של אברהם למשמע הבשורה.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וַיִּפֹּל אַבְרָהָם עַל פָּנָיו וַיִּצְחָק... וְקָרָאתָ אֶת שְׁמוֹ יִצְחָק" (פסוקים י"ז, י"ט)</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">10</span><span class="q-text" id="a11y-lbl-10">מאיזו מילה בפרק נגזר השם "יצחק" שניתן לבן העתיד להיוולד?</span></div>
+<textarea aria-labelledby="a11y-lbl-10" class="answer" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> השם "יצחק" נגזר מ"וַיִּצְחָק" - צחוק השמחה של אברהם למשמע הבשורה.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -462,28 +477,28 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וַיָּמָל אֶת בְּשַׂר עָרְלָתָם בְּעֶצֶם הַיּוֹם הַזֶּה" (פסוק כ"ג)</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רש"י (פסוק כ"ג) - "בְּעֶצֶם הַיּוֹם הַזֶּה"</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וַיָּמָל אֶת בְּשַׂר עָרְלָתָם בְּעֶצֶם הַיּוֹם הַזֶּה" (פסוק כ"ג)</p><div class="qb-meforesh">
+<span class="qb-src">רש"י (פסוק כ"ג) - "בְּעֶצֶם הַיּוֹם הַזֶּה"</span>
             בו ביום שנצטווה, ביום ולא בלילה, לא נתיירא לא מן הגויים ולא מן הלצנים, ושלא יהיו אויביו ובני דורו אומרים: אילו ראינוהו לא הנחנוהו למול ולקיים מצוותו של מקום.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit17-mp-5">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">11</span><span class="q-text" id="a11y-lbl-11">מה מדגישה התורה בביטוי "בעצם היום הזה" לגבי אופן קיום המצווה על ידי אברהם?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-11" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי רש"י, אברהם מל מיד באותו יום, ביום (לא בלילה) ובגלוי - בלי לחשוש מהגויים או מאויביו.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit17-mp-5" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">11</span><span class="q-text" id="a11y-lbl-11">מה מדגישה התורה בביטוי "בעצם היום הזה" לגבי אופן קיום המצווה על ידי אברהם?</span></div>
+<textarea aria-labelledby="a11y-lbl-11" class="answer" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי רש"י, אברהם מל מיד באותו יום, ביום (לא בלילה) ובגלוי - בלי לחשוש מהגויים או מאויביו.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">12</span><span class="q-text" id="a11y-lbl-12">פרק י"ז מתאר שלוש הבטחות מרכזיות לאברהם ולזרעו. מהן?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-12" data-id="q12" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הבטחת הזרע, הבטחת הארץ, וההבטחה החדשה - "להיות לך לאלוקים ולזרעך אחריך".</div>
-          </div>
-        </div>
+
+<div class="qb-source"></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">12</span><span class="q-text" id="a11y-lbl-12">פרק י"ז מתאר שלוש הבטחות מרכזיות לאברהם ולזרעו. מהן?</span></div>
+<textarea aria-labelledby="a11y-lbl-12" class="answer" data-id="q12" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הבטחת הזרע, הבטחת הארץ, וההבטחה החדשה - "להיות לך לאלוקים ולזרעך אחריך".</div>
+</div></div></div>
 
       </div>
     </div>

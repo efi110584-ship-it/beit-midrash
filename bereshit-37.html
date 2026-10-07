@@ -11,6 +11,10 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
+  /* שאלות בגרות שחולקות אותו מקור: המקור מופיע פעם אחת, והשאלות מתפרסות לרוחב זו לצד זו */
+  .bg-row{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+  .bg-row .question-block{ flex:1 1 300px; min-width:0; }
+
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
@@ -79,20 +83,31 @@
     border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
   }
 
+  /* דף רחב: עמודה אחת יותר רחבה, כדי שכל קובית תוכל להתפרס לרוחב (מקור מול שאלה) */
+  main{ max-width:1320px; }
+
   .qb-branches{
-    display:flex; flex-wrap:wrap; gap:1.1rem;
+    display:flex; flex-direction:column; gap:1.3rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
     content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
   }
   .qb-card{
-    flex:1 1 260px;
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
-    min-width:0;
+    padding:1.2rem 1.4rem; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.6rem; align-items:start;
   }
-  .qb-card > *{ width:100%; max-width:640px; }
+  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - עם קו מפריד ביניהם */
+  .qb-source{ display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+  .qb-question{
+    display:flex; flex-direction:column; gap:.5rem; min-width:0;
+    border-right:2px solid var(--acc-soft); padding-right:1.5rem;
+  }
+  @media (max-width:760px){
+    .qb-card{ grid-template-columns:1fr; gap:1rem; }
+    .qb-question{ border-right:none; padding-right:0; border-top:2px solid var(--acc-soft); padding-top:.9rem; }
+  }
   .qb-meforesh{
     font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
@@ -207,39 +222,39 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "יוֹסֵף בֶּן שְׁבַע עֶשְׂרֵה שָׁנָה... וְהוּא נַעַר... וַיָּבֵא יוֹסֵף אֶת דִּבָּתָם רָעָה אֶל אֲבִיהֶם" (פסוק ב') - לכאורה כפל מיותר בין הגיל לכינוי "נער"</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רש"י, פסוק ב' - "וְהוּא נַעַר"</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "יוֹסֵף בֶּן שְׁבַע עֶשְׂרֵה שָׁנָה... וְהוּא נַעַר... וַיָּבֵא יוֹסֵף אֶת דִּבָּתָם רָעָה אֶל אֲבִיהֶם" (פסוק ב') - לכאורה כפל מיותר בין הגיל לכינוי "נער"</p><div class="qb-meforesh">
+<span class="qb-src">רש"י, פסוק ב' - "וְהוּא נַעַר"</span>
             הָיָה עוֹשֶׂה מַעֲשֵׂה נַעֲרוּת: מְתַקֵּן בִּשְׂעָרוֹ, מְמַשְׁמֵשׁ בְּעֵינָיו, כְּדֵי שֶׁיִּהְיֶה נִרְאֶה יָפֶה.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit37-mp-1">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">הפסוק כבר מציין את גילו של יוסף - שבע עשרה שנה - ומיד לאחר מכן מכנה אותו שוב "נַעַר". לכאורה זהו כפל מיותר, שהרי כבר ידוע גילו. כיצד פותר רש"י את הקושי הזה, ומה הוא מלמד על התנהגותו של יוסף?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> רש"י: לכאורה מיותר לחזור ולומר "נער" אחרי שכבר נמסר גילו (17) - אלא שהמילה מתארת התנהגות: יוסף היה "עושה מעשה נערות" (מתקן שיער וממשמש בעיניו), ומיד אחר כך גם הביא לאביו דיבה רעה על אחיו - שילוב שמספיק לעורר שנאה עוד לפני חלומותיו.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit37-mp-1" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">הפסוק כבר מציין את גילו של יוסף - שבע עשרה שנה - ומיד לאחר מכן מכנה אותו שוב "נַעַר". לכאורה זהו כפל מיותר, שהרי כבר ידוע גילו. כיצד פותר רש"י את הקושי הזה, ומה הוא מלמד על התנהגותו של יוסף?</span></div>
+<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> רש"י: לכאורה מיותר לחזור ולומר "נער" אחרי שכבר נמסר גילו (17) - אלא שהמילה מתארת התנהגות: יוסף היה "עושה מעשה נערות" (מתקן שיער וממשמש בעיניו), ומיד אחר כך גם הביא לאביו דיבה רעה על אחיו - שילוב שמספיק לעורר שנאה עוד לפני חלומותיו.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְיִשְׂרָאֵל אָהַב אֶת יוֹסֵף מִכָּל בָּנָיו... וְלֹא יָכְלוּ דַּבְּרוֹ לְשָׁלֹם" (פסוקים ג'-ד')</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מהו הביטוי שמלמד על חומרת שנאת האחים ליוסף עוד לפני שסופרו החלומות? מדוע דווקא מעשה הכתונת מעורר שנאה כה גדולה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> "ולא יכלו דברו לשלום" מלמד ששנאתם עזה עד כדי חוסר יכולת לתקשר בנימוס. הכתונת מעוררת שנאה כסמל גלוי להעדפת יעקב את יוסף.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְיִשְׂרָאֵל אָהַב אֶת יוֹסֵף מִכָּל בָּנָיו... וְלֹא יָכְלוּ דַּבְּרוֹ לְשָׁלֹם" (פסוקים ג'-ד')</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">מהו הביטוי שמלמד על חומרת שנאת האחים ליוסף עוד לפני שסופרו החלומות? מדוע דווקא מעשה הכתונת מעורר שנאה כה גדולה?</span></div>
+<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> "ולא יכלו דברו לשלום" מלמד ששנאתם עזה עד כדי חוסר יכולת לתקשר בנימוס. הכתונת מעוררת שנאה כסמל גלוי להעדפת יעקב את יוסף.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְהִנֵּה קָמָה אֲלֻמָּתִי... וַתִּשְׁתַּחֲוֶיןָ לַאֲלֻמָּתִי" (פסוק ז') לעומת "הַשֶּׁמֶשׁ וְהַיָּרֵחַ וְאַחַד עָשָׂר כּוֹכָבִים מִשְׁתַּחֲוִים לִי" (פסוק ט')</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מה משותף לשני חלומות יוסף, ובמה שונה החלום השני מהראשון (שימו לב למי הוא כולל)? מדוע דווקא החלום השני מעורר גם את תגובת האב, ולא רק את תגובת האחים?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> משותף: בשני החלומות מישהו משתחווה ליוסף - סמל להתעלותו. הבדל: בראשון רק האלומות; בשני גם השמש והירח (ההורים) מצטרפים - ולכן דווקא הוא מעורר את גערת אביו.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְהִנֵּה קָמָה אֲלֻמָּתִי... וַתִּשְׁתַּחֲוֶיןָ לַאֲלֻמָּתִי" (פסוק ז') לעומת "הַשֶּׁמֶשׁ וְהַיָּרֵחַ וְאַחַד עָשָׂר כּוֹכָבִים מִשְׁתַּחֲוִים לִי" (פסוק ט')</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">מה משותף לשני חלומות יוסף, ובמה שונה החלום השני מהראשון (שימו לב למי הוא כולל)? מדוע דווקא החלום השני מעורר גם את תגובת האב, ולא רק את תגובת האחים?</span></div>
+<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> משותף: בשני החלומות מישהו משתחווה ליוסף - סמל להתעלותו. הבדל: בראשון רק האלומות; בשני גם השמש והירח (ההורים) מצטרפים - ולכן דווקא הוא מעורר את גערת אביו.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -271,29 +286,29 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וְהַבּוֹר רֵק אֵין בּוֹ מָיִם" (פסוק כ"ד)</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רש"י, פסוק כ"ד - "וְהַבּוֹר רֵק אֵין בּוֹ מָיִם"</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וְהַבּוֹר רֵק אֵין בּוֹ מָיִם" (פסוק כ"ד)</p><div class="qb-meforesh">
+<span class="qb-src">רש"י, פסוק כ"ד - "וְהַבּוֹר רֵק אֵין בּוֹ מָיִם"</span>
             מַשְׁמָע שֶׁנֶּאֱמַר "וְהַבּוֹר רֵק", אֵינִי יוֹדֵעַ שֶׁאֵין בּוֹ מַיִם? מַה תַּלְמוּד לוֹמַר "אֵין בּוֹ מָיִם" - מַיִם אֵין בּוֹ, אֲבָל נְחָשִׁים וְעַקְרַבִּים יֵשׁ בּוֹ.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit37-mp-2">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">מה מוסיף רש"י על פשט הפסוק, ומה מלמד חידוש זה על ממשות הסכנה שבה מציב ראובן את יוסף - גם אם בכוונה להצילו בסופו של דבר?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> רש"י: הבור ריק ממים אך לא מסכנה - יש בו נחשים ועקרבים, כך שהצלת ראובן חלקית ומסוכנת, לא מוצא בטוח.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit37-mp-2" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">מה מוסיף רש"י על פשט הפסוק, ומה מלמד חידוש זה על ממשות הסכנה שבה מציב ראובן את יוסף - גם אם בכוונה להצילו בסופו של דבר?</span></div>
+<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> רש"י: הבור ריק ממים אך לא מסכנה - יש בו נחשים ועקרבים, כך שהצלת ראובן חלקית ומסוכנת, לא מוצא בטוח.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "מַה בֶּצַע כִּי נַהֲרֹג אֶת אָחִינוּ... כִּי אָחִינוּ בְשָׂרֵנוּ הוּא" (פסוקים כ"ו-כ"ז)</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מהם שני הנימוקים שמעלה יהודה כדי לשכנע את אחיו למכור את יוסף במקום להרגו? האם, לדעתכם, ההצעה של יהודה מעידה על יחס מוסרי טוב יותר כלפי יוסף, או רק על פתרון "פחות רע"?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> נימוק א׳: אין תועלת ברצח. נימוק ב׳: "אחינו בשרנו הוא". הצעת יהודה מונעת רצח אך עדיין מוכרת אח לעבדות - שיפור יחסי, לא פתרון מוסרי מלא.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "מַה בֶּצַע כִּי נַהֲרֹג אֶת אָחִינוּ... כִּי אָחִינוּ בְשָׂרֵנוּ הוּא" (פסוקים כ"ו-כ"ז)</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">מהם שני הנימוקים שמעלה יהודה כדי לשכנע את אחיו למכור את יוסף במקום להרגו? האם, לדעתכם, ההצעה של יהודה מעידה על יחס מוסרי טוב יותר כלפי יוסף, או רק על פתרון "פחות רע"?</span></div>
+<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> נימוק א׳: אין תועלת ברצח. נימוק ב׳: "אחינו בשרנו הוא". הצעת יהודה מונעת רצח אך עדיין מוכרת אח לעבדות - שיפור יחסי, לא פתרון מוסרי מלא.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -323,24 +338,24 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וַיִּטְבְּלוּ אֶת הַכֻּתֹּנֶת בַּדָּם... כְּתֹנֶת בְּנִי, חַיָּה רָעָה אֲכָלָתְהוּ" (פסוקים ל"א-ל"ג)</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">כיצד יוצרים האחים את הרושם המטעה, ומדוע הם בוחרים דווקא בדרך זו (הצגת פריט לבוש מוכתם בדם) ולא בשקר מילולי ישיר?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> הם טובלים את הכתונת בדם שעיר ומציגים אותה ליעקב בלי לשקר בפירוש, ומניחים לו להסיק לבד - הטעיה עקיפה בלי שקר ישיר.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וַיִּטְבְּלוּ אֶת הַכֻּתֹּנֶת בַּדָּם... כְּתֹנֶת בְּנִי, חַיָּה רָעָה אֲכָלָתְהוּ" (פסוקים ל"א-ל"ג)</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">כיצד יוצרים האחים את הרושם המטעה, ומדוע הם בוחרים דווקא בדרך זו (הצגת פריט לבוש מוכתם בדם) ולא בשקר מילולי ישיר?</span></div>
+<textarea aria-labelledby="a11y-lbl-6" class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הם טובלים את הכתונת בדם שעיר ומציגים אותה ליעקב בלי לשקר בפירוש, ומניחים לו להסיק לבד - הטעיה עקיפה בלי שקר ישיר.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וַיְמָאֵן לְהִתְנַחֵם, וַיֹּאמֶר: כִּי אֵרֵד אֶל בְּנִי אָבֵל שְׁאֹלָה" (פסוק ל"ה)</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">מדוע, לדעתכם, מסרב יעקב להתנחם, בניגוד להתמודדות הרגילה עם אבל שבסופו של דבר פוחתת עם הזמן?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יעקב מסרב להתנחם מעומק אבלו על בנו האהוב; יש מפרשים הרואים ברפיון נחמתו רמז לכך שברמה מסוימת חש שיוסף עודנו חי.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וַיְמָאֵן לְהִתְנַחֵם, וַיֹּאמֶר: כִּי אֵרֵד אֶל בְּנִי אָבֵל שְׁאֹלָה" (פסוק ל"ה)</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">מדוע, לדעתכם, מסרב יעקב להתנחם, בניגוד להתמודדות הרגילה עם אבל שבסופו של דבר פוחתת עם הזמן?</span></div>
+<textarea aria-labelledby="a11y-lbl-7" class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> יעקב מסרב להתנחם מעומק אבלו על בנו האהוב; יש מפרשים הרואים ברפיון נחמתו רמז לכך שברמה מסוימת חש שיוסף עודנו חי.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -376,33 +391,45 @@
       </div>
       <div class="card-body">
         <div class="exam-tag">📅 תשפ״ה (2025), חורף · שאלה 5</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">רש"י (לפסוק י'): "'ויגער בו' - לפי שהיה מטיל שנאה עליו".<br>על פי רש"י, הסבירו מדוע גער יעקב ביוסף בפני האחים.</span></div>
-          <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">רש"י (לפסוק י"א): "'ואביו שמר את הדבר' - היה ממתין ומצפה מתי יבוא".<br>על פי רש"י, הסבירו מה חשב יעקב בליבו על החלומות של יוסף.<br>(8 נקודות)</span></div>
-          <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת (רש"י, פסוק י'): "'ויגער בו' - לפי שהיה מטיל שנאה עליו"</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">רש"י (לפסוק י'): "'ויגער בו' - לפי שהיה מטיל שנאה עליו".<br>על פי רש"י, הסבירו מדוע גער יעקב ביוסף בפני האחים.</span></div>
+            <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת (רש"י, פסוק י"א): "'ואביו שמר את הדבר' - היה ממתין ומצפה מתי יבוא"</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">רש"י (לפסוק י"א): "'ואביו שמר את הדבר' - היה ממתין ומצפה מתי יבוא".<br>על פי רש"י, הסבירו מה חשב יעקב בליבו על החלומות של יוסף.<br>(8 נקודות)</span></div>
+            <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
         <div class="exam-tag">📅 תשפ״ב (2022), חורף · שאלה 4</div>
         <div class="meforesh-block"><span class="src">ספורנו (לפסוק ג')</span>"'ועשה לו כתנת פסים' - לאות שיהיה הוא [יוסף] המנהיג בבית ובשדה".</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ג&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">על פי ספורנו, מה הייתה המטרה של עשיית כתונת פסים ליוסף?</span></div>
-          <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ג&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">לאור דברי ספורנו, האם המסר של עשיית כתונת הפסים ליוסף דומה למסר של החלומות שחלם יוסף או שונה ממנו? נמק את תשובתך.<br>(6 נקודות)</span></div>
-          <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת (ספורנו): "לאות שיהיה הוא המנהיג בבית ובשדה"</p>
+            <div class="question-row"><span class="part-label">ג&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">על פי ספורנו, מה הייתה המטרה של עשיית כתונת פסים ליוסף?</span></div>
+            <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: השוו למסר שבחלומות יוסף (אלומות משתחוות, שמש-ירח-כוכבים)</p>
+            <div class="question-row"><span class="part-label">ג&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">לאור דברי ספורנו, האם המסר של עשיית כתונת הפסים ליוסף דומה למסר של החלומות שחלם יוסף או שונה ממנו? נמק את תשובתך.<br>(6 נקודות)</span></div>
+            <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
         <div class="exam-tag">📅 תשפ״ה (2025), חורף · שאלה 5</div>
         <div class="pasuk-block mini">עיינו בפסוקים ו'–י"א.<br>יוסף מספר לבני משפחתו על שני חלומות שחלם.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-5">כתבו נקודת דמיון אחת בין החלומות ושני הבדלים ביניהם.</span></div>
-          <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-6">כיצד השפיעו חלומותיו של יוסף על היחס של האחים אליו? בססו את תשובתכם על הכתוב בפרק.<br>(9 נקודות)</span></div>
-          <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "קָמָה אֲלֻמָּתִי... וַתִּשְׁתַּחֲוֶיןָ לַאֲלֻמָּתִי" (פסוק ז') לעומת "הַשֶּׁמֶשׁ וְהַיָּרֵחַ וְאַחַד עָשָׂר כּוֹכָבִים מִשְׁתַּחֲוִים לִי" (פסוק ט')</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-5">כתבו נקודת דמיון אחת בין החלומות ושני הבדלים ביניהם.</span></div>
+            <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וַיִּשְׂנְאוּ אֹתוֹ, וְלֹא יָכְלוּ דַּבְּרוֹ לְשָׁלֹם" (פסוק ד') / "וַיְקַנְאוּ בוֹ אֶחָיו" (פסוק י"א)</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-6">כיצד השפיעו חלומותיו של יוסף על היחס של האחים אליו? בססו את תשובתכם על הכתוב בפרק.<br>(9 נקודות)</span></div>
+            <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
       </div>
     </section>

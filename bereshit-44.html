@@ -11,6 +11,10 @@
 <style>
   .q-cue{ font-size:.8rem; color:var(--acc); font-style:italic; margin:0 0 .35rem; }
 
+  /* שאלות בגרות שחולקות אותו מקור: המקור מופיע פעם אחת, והשאלות מתפרסות לרוחב זו לצד זו */
+  .bg-row{ display:flex; flex-wrap:wrap; gap:1.4rem; }
+  .bg-row .question-block{ flex:1 1 300px; min-width:0; }
+
   .qb-meforesh{ position:relative; }
   .qb-meforesh-foot{ display:flex; justify-content:flex-end; margin-top:.5rem; }
   .mp-tile-btn{
@@ -79,20 +83,31 @@
     border-style:solid; border-width:8px 6px 0 6px; border-color:var(--acc) transparent transparent transparent;
   }
 
+  /* דף רחב: עמודה אחת יותר רחבה, כדי שכל קובית תוכל להתפרס לרוחב (מקור מול שאלה) */
+  main{ max-width:1320px; }
+
   .qb-branches{
-    display:flex; flex-wrap:wrap; gap:1.1rem;
+    display:flex; flex-direction:column; gap:1.3rem;
     position:relative; padding-top:22px; margin-top:-22px;
   }
   .qb-branches::before{
     content:""; position:absolute; top:0; left:6%; right:6%; height:2.5px; background:var(--acc-soft);
   }
   .qb-card{
-    flex:1 1 260px;
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
-    padding:1rem 1.1rem; box-shadow:var(--shadow); display:flex; flex-direction:column; align-items:center; gap:.65rem;
-    min-width:0;
+    padding:1.2rem 1.4rem; box-shadow:var(--shadow);
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.6rem; align-items:start;
   }
-  .qb-card > *{ width:100%; max-width:640px; }
+  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - עם קו מפריד ביניהם */
+  .qb-source{ display:flex; flex-direction:column; gap:.65rem; min-width:0; }
+  .qb-question{
+    display:flex; flex-direction:column; gap:.5rem; min-width:0;
+    border-right:2px solid var(--acc-soft); padding-right:1.5rem;
+  }
+  @media (max-width:760px){
+    .qb-card{ grid-template-columns:1fr; gap:1rem; }
+    .qb-question{ border-right:none; padding-right:0; border-top:2px solid var(--acc-soft); padding-top:.9rem; }
+  }
   .qb-meforesh{
     font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
     background:var(--acc-soft); border:2px solid var(--acc); border-radius:12px;
@@ -203,34 +218,34 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: מדוע, לפי אברבנאל, בוחר יוסף להטמין את הגביע דווקא באמתחת בנימין?</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">אברבנאל, על מטרת העלילה</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: מדוע, לפי אברבנאל, בוחר יוסף להטמין את הגביע דווקא באמתחת בנימין?</p><div class="qb-meforesh">
+<span class="qb-src">אברבנאל, על מטרת העלילה</span>
             על כל הניסיון שעשה יוסף לאחיו בעלילת המרגלים, עוד נשאר לו ספק בלבו: האם יש להם אהבה עם בנימין בן אמו, או שמא עדיין שונאים הם את בני רחל. ולכן רצה להביא את בנימין דווקא, ולראות אם ישתדלו להצילו מעונש - ולא יעזבוהו כפי שעזבו את יוסף.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit44-mp-1">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מהו, לפי אברבנאל, המבחן האמיתי שיוסף רוצה לערוך לאחיו בעלילת הגביע? מדוע לא הספיק לו מבחן המרגלים בפרק מ"ב?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-1" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי אברבנאל, יוסף בוחן אם השתנה יחס אחיו לבני רחל - מבחן המרגלים הוכיח רק חרטה כללית, לא שינוי אמיתי כלפי בן רחל השני.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit44-mp-1" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">מהו, לפי אברבנאל, המבחן האמיתי שיוסף רוצה לערוך לאחיו בעלילת הגביע? מדוע לא הספיק לו מבחן המרגלים בפרק מ"ב?</span></div>
+<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי אברבנאל, יוסף בוחן אם השתנה יחס אחיו לבני רחל - מבחן המרגלים הוכיח רק חרטה כללית, לא שינוי אמיתי כלפי בן רחל השני.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: הגדרת הרמב"ם ל"תשובה גמורה"</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">רמב"ם, הלכות תשובה פ"ב</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: הגדרת הרמב"ם ל"תשובה גמורה"</p><div class="qb-meforesh">
+<span class="qb-src">רמב"ם, הלכות תשובה פ"ב</span>
             אי זו היא תשובה גמורה? זה שבא לידו דבר שעבר בו, ואפשר בידו לעשותו, ופירש ולא עשה מפני התשובה - לא מיראה ולא מכשלון כוח.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit44-mp-2">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">התאימו את הגדרת הרמב"ם ל"תשובה גמורה" למצב שיוסף מעמיד את אחיו בו. מהו "הדבר שעבר בו" שהאחים ניצבים בפניו שוב, ומדוע מבחן זה, ולא כל מבחן אחר, יוכל להוכיח תשובה גמורה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-2" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי הרמב"ם, תשובה גמורה מתבררת כשהאדם ניצב שוב באותו מצב ובוחר אחרת - יוסף מעמיד את אחיו בהזדמנות "להיפטר" מבן רחל אחר; רק סירובם לנטוש את בנימין יוכיח תשובה גמורה.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit44-mp-2" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">התאימו את הגדרת הרמב"ם ל"תשובה גמורה" למצב שיוסף מעמיד את אחיו בו. מהו "הדבר שעבר בו" שהאחים ניצבים בפניו שוב, ומדוע מבחן זה, ולא כל מבחן אחר, יוכל להוכיח תשובה גמורה?</span></div>
+<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי הרמב"ם, תשובה גמורה מתבררת כשהאדם ניצב שוב באותו מצב ובוחר אחרת - יוסף מעמיד את אחיו בהזדמנות "להיפטר" מבן רחל אחר; רק סירובם לנטוש את בנימין יוכיח תשובה גמורה.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -262,29 +277,29 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "הָאֱלֹהִים מָצָא אֶת עֲוֹן עֲבָדֶיךָ" (פסוק ט"ז)</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">ספורנו, פסוק ט"ז - "הָאֱלֹהִים מָצָא אֶת עֲוֹן עֲבָדֶיךָ"</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "הָאֱלֹהִים מָצָא אֶת עֲוֹן עֲבָדֶיךָ" (פסוק ט"ז)</p><div class="qb-meforesh">
+<span class="qb-src">ספורנו, פסוק ט"ז - "הָאֱלֹהִים מָצָא אֶת עֲוֹן עֲבָדֶיךָ"</span>
             לא בשביל זה אנו נענשים, שלא חטאנו בזה כלל - אלא בשביל עוון ראשונים; רצה האל להענישנו ולהיפרע ממנו על ידך.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit44-mp-3">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">לפי ספורנו, על איזה חטא בדיוק מדבר יהודה כשהוא אומר "האלוקים מצא את עוון עבדיך" - הרי הם יודעים שהם חפים מגניבת הגביע? מה מלמד הדבר על תודעת האחריות שפיתחו האחים?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-3" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> לפי ספורנו, יהודה אינו מדבר על חטא הגניבה שממנו הם חפים, אלא רואה בכך עונש שמימי על מכירת יוסף - תודעת האחריות שלהם כה עמוקה שגם באשמת שווא הם מייחסים זאת לחטאם הישן.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit44-mp-3" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">לפי ספורנו, על איזה חטא בדיוק מדבר יהודה כשהוא אומר "האלוקים מצא את עוון עבדיך" - הרי הם יודעים שהם חפים מגניבת הגביע? מה מלמד הדבר על תודעת האחריות שפיתחו האחים?</span></div>
+<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי ספורנו, יהודה אינו מדבר על חטא הגניבה שממנו הם חפים, אלא רואה בכך עונש שמימי על מכירת יוסף - תודעת האחריות שלהם כה עמוקה שגם באשמת שווא הם מייחסים זאת לחטאם הישן.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "הִנֶּנּוּ עֲבָדִים לַאדֹנִי, גַּם אֲנַחְנוּ" מול "הָאִישׁ אֲשֶׁר נִמְצָא הַגָּבִיעַ בְּיָדוֹ הוּא יִהְיֶה לִּי עָבֶד" (פסוקים ט"ז-י"ז)</p>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">מה ההבדל בין הצעת יהודה (שכל האחים יהיו עבדים) לתשובת יוסף (רק בנימין)? מדוע, לדעתכם, מסרב יוסף להצעת יהודה - והרי לכאורה זו הצעה נדיבה יותר כלפי יוסף?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-4" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> יהודה מציע ערבות קולקטיבית, הקלה יותר נפשית; יוסף מתעקש שרק בנימין ייענש - יוצר בכוונה את אותו מצב שממנו ברחו לפני עשרים ושתיים שנה.</div>
-          </div>
-        </div>
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "הִנֶּנּוּ עֲבָדִים לַאדֹנִי, גַּם אֲנַחְנוּ" מול "הָאִישׁ אֲשֶׁר נִמְצָא הַגָּבִיעַ בְּיָדוֹ הוּא יִהְיֶה לִּי עָבֶד" (פסוקים ט"ז-י"ז)</p></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">מה ההבדל בין הצעת יהודה (שכל האחים יהיו עבדים) לתשובת יוסף (רק בנימין)? מדוע, לדעתכם, מסרב יוסף להצעת יהודה - והרי לכאורה זו הצעה נדיבה יותר כלפי יוסף?</span></div>
+<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> יהודה מציע ערבות קולקטיבית, הקלה יותר נפשית; יוסף מתעקש שרק בנימין ייענש - יוצר בכוונה את אותו מצב שממנו ברחו לפני עשרים ושתיים שנה.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -314,42 +329,42 @@
       <div class="qb-branches">
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: "וַיִּגַּשׁ אֵלָיו יְהוּדָה" (פסוק י"ח)</p>
-          <div class="qb-meforesh">
-            <span class="qb-src">מדרש רבה, ויגש צג, א - שלוש דעות על "וַיִּגַּשׁ"</span>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: "וַיִּגַּשׁ אֵלָיו יְהוּדָה" (פסוק י"ח)</p><div class="qb-meforesh">
+<span class="qb-src">מדרש רבה, ויגש צג, א - שלוש דעות על "וַיִּגַּשׁ"</span>
             רבי יהודה אומר: הגשה למלחמה - כמו "וַיִּגַּשׁ אַבְרָם" (מלחמת המלכים). רבי נחמיה אמר: הגשה לפיוס - כמו "וַיִּגְּשׁוּ בְנֵי יְהוּדָה אֶל יְהוֹשֻׁעַ" (יהושע י"ד). רבנן אמרי: הגשה לתפילה - כמו "וַיִּגַּשׁ אֵלִיָּהוּ הַנָּבִיא" (מלכים א', י"ח). רבי אלעזר פשט לה לכולן כאחת: אם למלחמה - הריני בא, אם לפיוס - הריני בא, אם לתפילה - הריני בא.
-            <div class="qb-meforesh-foot"><button type="button" class="mp-tile-btn" data-unit-id="bereshit44-mp-4">אישור</button></div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">הציגו את שלוש הדעות במדרש על משמעות הפועל "ויגש", ואת דעת ר' אלעזר המשלבת ביניהן. לאיזו מן הדעות אתם נוטים, ולמה?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> ר' יהודה: מלחמה. ר' נחמיה: פיוס. רבנן: תפילה ורחמים. ר' אלעזר: יהודה מוכן לכל האפשרויות - גישה זהירה למי שאינו יודע כיצד יגיב השליט.</div>
-          </div>
-        </div>
+            <div class="qb-meforesh-foot"><button class="mp-tile-btn" data-unit-id="bereshit44-mp-4" type="button">אישור</button></div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">הציגו את שלוש הדעות במדרש על משמעות הפועל "ויגש", ואת דעת ר' אלעזר המשלבת ביניהן. לאיזו מן הדעות אתם נוטים, ולמה?</span></div>
+<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> ר' יהודה: מלחמה. ר' נחמיה: פיוס. רבנן: תפילה ורחמים. ר' אלעזר: יהודה מוכן לכל האפשרויות - גישה זהירה למי שאינו יודע כיצד יגיב השליט.</div>
+</div></div></div>
 
         <div class="qb-card">
-          <p class="q-cue">תזכורת: נאום יהודה כ"נאום פיוס" - מטרתו לרכך את השליט המצרי ולבטל את הגזרה על בנימין</p>
-          <div class="vs-compare" role="img" aria-label="שני האמצעים המרכזיים בנאום הפיוס של יהודה">
-            <div class="vs-side vs-a">
-              <span class="vs-icon" aria-hidden="true">🎩</span>
-              <div class="vs-title">דִּבְרֵי חֲנֻפָּה</div>
-              <div class="vs-desc">"כי כמוך כפרעה" - השוואת יוסף לפרעה, כבוד והחנפה לשליט.</div>
-            </div>
-            <div class="vs-mid" aria-hidden="true">+</div>
-            <div class="vs-side vs-b">
-              <span class="vs-icon" aria-hidden="true">💔</span>
-              <div class="vs-title">מְעוֹרְרֵי רַחֲמִים</div>
-              <div class="vs-desc">תיאור זקנת האב, אבלו על אח שמת, ונפשו הקשורה בנפש בנימין.</div>
-            </div>
-          </div>
-          <div class="question-block">
-            <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">אתרו בנאום יהודה (פסוקים י"ח-ל"ד בחומש) דוגמה אחת לדברי חנופה, ודוגמה אחת לביטוי שנועד לעורר רחמים. מה, לדעתכם, יעיל יותר בנאום שכזה - חנופה לשליט או עוררות רחמים - ומדוע?</span></div>
-            <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
-            <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-            <div class="hint-box" hidden><b>✓ תשובה מוצעת:</b> חנופה: "כי כמוך כפרעה" - יהודה מדמה את יוסף לפרעה. עוררות רחמים: תיאור צערו הצפוי של האב הזקן אם ימות בנימין. שילוב שני האמצעים, כפי שעושה יהודה, הוא לרוב היעיל ביותר.</div>
-          </div>
-        </div>
+
+
+
+<div class="qb-source"><p class="q-cue">תזכורת: נאום יהודה כ"נאום פיוס" - מטרתו לרכך את השליט המצרי ולבטל את הגזרה על בנימין</p><div aria-label="שני האמצעים המרכזיים בנאום הפיוס של יהודה" class="vs-compare" role="img">
+<div class="vs-side vs-a">
+<span aria-hidden="true" class="vs-icon">🎩</span>
+<div class="vs-title">דִּבְרֵי חֲנֻפָּה</div>
+<div class="vs-desc">"כי כמוך כפרעה" - השוואת יוסף לפרעה, כבוד והחנפה לשליט.</div>
+</div>
+<div aria-hidden="true" class="vs-mid">+</div>
+<div class="vs-side vs-b">
+<span aria-hidden="true" class="vs-icon">💔</span>
+<div class="vs-title">מְעוֹרְרֵי רַחֲמִים</div>
+<div class="vs-desc">תיאור זקנת האב, אבלו על אח שמת, ונפשו הקשורה בנפש בנימין.</div>
+</div>
+</div></div><div class="qb-question"><div class="question-block">
+<div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">אתרו בנאום יהודה (פסוקים י"ח-ל"ד בחומש) דוגמה אחת לדברי חנופה, ודוגמה אחת לביטוי שנועד לעורר רחמים. מה, לדעתכם, יעיל יותר בנאום שכזה - חנופה לשליט או עוררות רחמים - ומדוע?</span></div>
+<textarea aria-labelledby="a11y-lbl-6" class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
+<button class="hint-btn" type="button">🔎 הצג תשובה</button>
+<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> חנופה: "כי כמוך כפרעה" - יהודה מדמה את יוסף לפרעה. עוררות רחמים: תיאור צערו הצפוי של האב הזקן אם ימות בנימין. שילוב שני האמצעים, כפי שעושה יהודה, הוא לרוב היעיל ביותר.</div>
+</div></div></div>
 
       </div>
     </div>
@@ -386,23 +401,31 @@
       <div class="card-body">
         <div class="exam-tag">📅 תשפ״ה (2025), קיץ · שאלה 5</div>
         <div class="meforesh-block"><span class="src">אברבנאל (לפרק מ"ג)</span>"כי הנה עם כל הניסיון שעשה יוסף לאחיו בעלילת המרגלים, עוד נשאר ספק בליבו, האם היה להם אהבה עם בנימין, או אם היו עדיין שונאים את בני רחל אימו [בנימין]. ולכן רצה להביא את בנימין בפרט בניסיון הגביע ולראות אם ישתדלו להצילו".</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">על פי אברבנאל, כתבו בלשונכם מהי המטרה של ניסיון הגביע.</span></div>
-          <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">האם האחים עמדו בניסיון זה? נמקו את תשובתכם.<br>(8 נקודות)</span></div>
-          <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת (אברבנאל): "רצה להביא את בנימין בפרט בניסיון הגביע ולראות אם ישתדלו להצילו"</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(1)</span><span class="q-text" id="bg-lbl-1">על פי אברבנאל, כתבו בלשונכם מהי המטרה של ניסיון הגביע.</span></div>
+            <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: האם האחים התאספו סביב בנימין, או הפקירו אותו כפי שעשו ליוסף?</p>
+            <div class="question-row"><span class="part-label">ב&nbsp;(2)</span><span class="q-text" id="bg-lbl-2">האם האחים עמדו בניסיון זה? נמקו את תשובתכם.<br>(8 נקודות)</span></div>
+            <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
         <div class="exam-tag">📅 תשפ״ד (2024), קיץ · שאלה 5</div>
         <div class="pasuk-block mini">עיינו בפרק מ"ד, פסוקים י"ח–כ"ב.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">יהודה ניסה לעורר את הרחמים של יוסף ולפייס אותו.<br>הביאו לכך דוגמה אחת מן הכתוב.</span></div>
-          <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-        </div>
-        <div class="question-block">
-          <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">יש הטוענים כי בנאום יהודה יש אמירות תקיפות כלפי יוסף.<br>על פי מה שלמדתם, הביאו מן הכתוב רמז אחד לכך, והסבירו רמז זה.<br>(8 נקודות)</span></div>
-          <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+        <div class="bg-row">
+          <div class="question-block">
+            <p class="q-cue">תזכורת: יהודה מתאר את הקשר בין יעקב לבנימין, ואת הסבל שייגרם לאביו הזקן אם בנימין לא ישוב (פסוקים י"ט-ל"א)</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(1)</span><span class="q-text" id="bg-lbl-3">יהודה ניסה לעורר את הרחמים של יוסף ולפייס אותו.<br>הביאו לכך דוגמה אחת מן הכתוב.</span></div>
+            <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
+          <div class="question-block">
+            <p class="q-cue">תזכורת: "וְאַל יִחַר אַפְּךָ בְּעַבְדֶּךָ, כִּי כָמוֹךָ כְּפַרְעֹה" (פסוק י"ח)</p>
+            <div class="question-row"><span class="part-label">א&nbsp;(2)</span><span class="q-text" id="bg-lbl-4">יש הטוענים כי בנאום יהודה יש אמירות תקיפות כלפי יוסף.<br>על פי מה שלמדתם, הביאו מן הכתוב רמז אחד לכך, והסבירו רמז זה.<br>(8 נקודות)</span></div>
+            <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
+          </div>
         </div>
         <div class="exam-tag">📅 תשפ״א (2021), קיץ · שאלה 5</div>
         <div class="question-block">
