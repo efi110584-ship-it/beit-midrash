@@ -66,17 +66,17 @@
   .qb-card{
     background:#fff; border:1.5px solid var(--paper-line); border-top:5px solid var(--acc); border-radius:14px;
     padding:1.2rem 1.4rem; box-shadow:var(--shadow);
-    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.6rem; align-items:start;
+    display:grid; grid-template-columns:1.1fr 1fr; gap:0 1.3rem; align-items:stretch;
   }
-  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - עם קו מפריד ביניהם */
-  .qb-source{ display:flex; flex-direction:column; gap:.65rem; min-width:0; }
-  .qb-question{
-    display:flex; flex-direction:column; gap:.5rem; min-width:0;
-    border-right:2px solid var(--acc-soft); padding-right:1.5rem;
+  /* מקור (ציטוט/פרשן/המחשה) מימין, שאלה ותשובה משמאל - כל צד במסגרת משלו, ושניהם
+     תמיד נמתחים לאותו גובה (שורה אחת בגריד). התוכן בכל צד ממורכז אנכית בתוך המסגרת,
+     כך שגם כשצד אחד קצר בהרבה מהשני אין שטח ריק ולא-מטופל - יש מסגרת נעימה ומלאה. */
+  .qb-source, .qb-question{
+    display:flex; flex-direction:column; justify-content:center; gap:.65rem; min-width:0;
+    background:#F8F8F6; border:1.5px solid var(--paper-line); border-radius:12px; padding:1rem 1.2rem;
   }
   @media (max-width:760px){
     .qb-card{ grid-template-columns:1fr; gap:1rem; }
-    .qb-question{ border-right:none; padding-right:0; border-top:2px solid var(--acc-soft); padding-top:.9rem; }
   }
   .qb-meforesh{
     font-size:.82rem; font-style:italic; color:var(--ink); line-height:1.6;
