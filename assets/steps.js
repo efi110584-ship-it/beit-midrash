@@ -339,6 +339,11 @@
       for(var i = tasks.length - 1; i > 0; i--){
         var t = tasks[i], p = tasks[i - 1];
         if(p.stage !== t.stage) continue;
+        // משימה ריקה תמיד מתמזגת; משימה קטנה לא מתמזגת אם מישהו מהצדדים
+        // מסומן data-keep-together - גם אם קטנה, היא נשארת מסך נפרד.
+        var tKeep = t.size > 0 && t.blocks.length && t.blocks[0].card.hasAttribute("data-keep-together");
+        var pKeep = p.blocks.length && p.blocks[p.blocks.length - 1].card.hasAttribute("data-keep-together");
+        if(t.size > 0 && (tKeep || pKeep)) continue;
         if(t.size === 0 || (t.size < SMALL_Q && p.kind === t.kind && p.size + t.size <= MAX_Q)){
           p.blocks = p.blocks.concat(t.blocks);
           p.size += t.size;
