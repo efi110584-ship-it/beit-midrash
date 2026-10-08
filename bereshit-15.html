@@ -407,12 +407,12 @@
     <!-- טבלת סיכום: ברית בין הבתרים -->
     <section class="card" style="grid-column: 1 / -1;">
       <div class="card-head">
-        <span class="card-tag">טבלת סיכום</span>
+        <span class="card-tag">🧩 משחק התאמה</span>
         <h2 class="card-title">ברית בין הבתרים - מרכיבי הטקס ומשמעותם</h2>
       </div>
       <div class="card-body">
         <div class="table-wrap">
-          <table style="width:100%; border-collapse:collapse; font-size:1rem; text-align:right;">
+          <table data-match-game style="width:100%; border-collapse:collapse; font-size:1rem; text-align:right;">
             <thead>
               <tr style="border-bottom:1.5px solid var(--paper-line); background:var(--acc-soft);">
                 <th style="padding:.5rem .6rem;">מרכיב בטקס / בנבואה</th>
@@ -421,14 +421,15 @@
               </tr>
             </thead>
             <tbody>
-              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">הבקשה לאות</td><td style="padding:.5rem .6rem;">אברם שואל: "בַּמָּה אֵדַע כִּי אִירָשֶׁנָּה" (פסוק ח')</td><td style="padding:.5rem .6rem;">ביקש ודאות שההבטחה תתקיים גם אם יחטא הוא או זרעו</td></tr>
-              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">בהמות מבותרות (עגלה, עז, איל)</td><td style="padding:.5rem .6rem;">נבתרו לשניים והונחו זו מול זו (פסוק י')</td><td style="padding:.5rem .6rem;">מסמלות את אומות העולם - עתידות לכלות ולחלוף</td></tr>
-              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">ציפורים שלמות (תור וגוזל)</td><td style="padding:.5rem .6rem;">לא נבתרו (פסוק י')</td><td style="padding:.5rem .6rem;">מסמלות את עם ישראל - יתקיים לעולם</td></tr>
-              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">העיט היורד</td><td style="padding:.5rem .6rem;">אברם מבריח אותו מעל הפגרים (פסוק י"א)</td><td style="padding:.5rem .6rem;">דחיית מבקשי כליית ישראל לאורך הדורות</td></tr>
-              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">תרדמה ואימה חשוכה</td><td style="padding:.5rem .6rem;">נופלות על אברם עם רדת החשכה (פסוק י"ב)</td><td style="padding:.5rem .6rem;">רמז לצרות וחשכת הגלויות העתידיות</td></tr>
-              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">גזרת השעבוד</td><td style="padding:.5rem .6rem;">זרעו יהיה גר בארץ לא לו ויסבול שעבוד ועינוי (פסוק י"ג); לפי רש״י, 400 השנים הן תקופת הגרות מלידת יצחק</td><td style="padding:.5rem .6rem;">גלות קשה, אך שלב הכרחי בדרך לקיום ההבטחה</td></tr>
+              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">הבקשה לאות</td><td style="padding:.5rem .6rem;">אברם שואל: "בַּמָּה אֵדַע כִּי אִירָשֶׁנָּה" (פסוק ח')</td><td style="padding:.5rem .6rem;">לפי הרמב"ן: ביקש ודאות שההבטחה תתקיים "על כל פנים" - גם אם יחטא הוא או זרעו, וגם אם הכנענים יעשו תשובה</td></tr>
+              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">בהמות מבותרות (עגלה, עז, איל)</td><td style="padding:.5rem .6rem;">נבתרו לשניים והונחו זו מול זו (פסוק י')</td><td style="padding:.5rem .6rem;">לפי רש"י: האומות - "שיהיו כלין והולכין"</td></tr>
+              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">ציפורים שלמות (תור וגוזל)</td><td style="padding:.5rem .6rem;">לא נבתרו (פסוק י')</td><td style="padding:.5rem .6rem;">לפי רש"י: ישראל - "שיהיו קיימין לעולם"</td></tr>
+              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">העיט היורד</td><td style="padding:.5rem .6rem;">אברם מבריח אותו מעל הפגרים (פסוק י"א)</td><td style="padding:.5rem .6rem;">לפי רש"י: רמז לדוד שיבוא לכלות את האומות - ומן השמים לא מניחים לו עד שיבוא מלך המשיח</td></tr>
+              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">תרדמה ואימה חשוכה</td><td style="padding:.5rem .6rem;">נופלות על אברם עם רדת החשכה (פסוק י"ב)</td><td style="padding:.5rem .6rem;">לפי רש"י: "רמז לצרות וחושך של גלויות"</td></tr>
+              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">גזרת השעבוד</td><td style="padding:.5rem .6rem;">"גֵר יִהְיֶה זַרְעֲךָ בְּאֶרֶץ לֹא לָהֶם, וַעֲבָדוּם וְעִנּוּ אֹתָם אַרְבַּע מֵאוֹת שָׁנָה" (פסוק י"ג)</td><td style="padding:.5rem .6rem;">לפי הרב חנן פורת: הגלות והיציאה בנס בונות קשר לארץ שאינו טבעי אלא מצו ה' - ולכן נצחי</td></tr>
               <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">עונש למשעבד ורכוש גדול</td><td style="padding:.5rem .6rem;">ה' דן את האומה המשעבדת; זרעו יצא ברכוש רב (פסוק י"ד)</td><td style="padding:.5rem .6rem;">הגלות מסתיימת בצדק ובשגשוג, לא בריקנות</td></tr>
-              <tr><td style="padding:.5rem .6rem; font-weight:700;">שיבה בדור הרביעי</td><td style="padding:.5rem .6rem;">"כִּי לֹא שָׁלֵם עֲוֹן הָאֱמֹרִי עַד הֵנָּה" (פסוק ט"ז)</td><td style="padding:.5rem .6rem;">מועד השיבה תלוי גם בחטאי הכנענים, לא רק בסבל ישראל</td></tr>
+              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">שיבה בדור הרביעי</td><td style="padding:.5rem .6rem;">"כִּי לֹא שָׁלֵם עֲוֹן הָאֱמֹרִי עַד הֵנָּה" (פסוק ט"ז)</td><td style="padding:.5rem .6rem;">מועד השיבה תלוי גם בחטאי הכנענים, לא רק בסבל ישראל</td></tr>
+              <tr><td style="padding:.5rem .6rem; font-weight:700;">תנור עשן ולפיד אש</td><td style="padding:.5rem .6rem;">עוברים בין הבתרים, ואברם אינו עובר (פסוק י"ז)</td><td style="padding:.5rem .6rem;">לפי רש"י: "שלוחו של שכינה שהוא אש" - ה' לבדו מתחייב: ברית חד-צדדית</td></tr>
             </tbody>
           </table>
         </div>
@@ -858,6 +859,7 @@ loadUnits();
 })();
 </script>
 <script src="assets/guide/bereshit-15.js"></script>
+<script src="assets/match-table.js"></script>
 <script src="assets/steps.js?v=2"></script>
 <script src="assets/guide.js"></script>
 </body>
