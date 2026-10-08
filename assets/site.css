@@ -4220,3 +4220,21 @@ body.quiz-mode:where([data-css~="ptp-review"], [data-css~="ptp-review"] *) .reca
 @media print{
   .bm-qnav{ display:none !important; }
 }
+
+/* ============================================================
+   תגיות מיומנות ומושג בכרטיסי השאלות (לפי קובצי תנ"ך חמד):
+   בראש צד המקור - מה התלמיד מתרגל בשאלה הזו.
+   ============================================================ */
+.skill-tags{ display:flex; flex-wrap:wrap; gap:.35rem; margin:0; }
+.skill-tag{
+  display:inline-flex; align-items:baseline; gap:.3rem;
+  font-size:.76rem; line-height:1.45; font-weight:400;
+  padding:.2rem .65rem; border-radius:999px;
+  background:var(--acc-soft, #EEF2F6); color:#2E3640;
+  border:1px solid color-mix(in srgb, var(--acc, #3F6E66) 35%, transparent);
+}
+.skill-tag b{ color:var(--acc, #3F6E66); font-weight:700; white-space:nowrap; }
+@media print{
+  .skill-tag{ background:none; border-color:#999; color:#000; }
+  .skill-tag b{ color:#000; }
+}
