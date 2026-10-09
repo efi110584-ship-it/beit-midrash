@@ -40,8 +40,8 @@
       '<button type="button" class="mm-link mm-show">הצגת הטבלה המלאה</button></div>' +
       '<p class="mm-feedback" role="status" aria-live="polite"></p>' +
       '<div class="mm-board">' +
-        '<div class="mm-col"><div class="mm-col-label" id="mmL' + uid + '">מה נאמר או נעשה</div><div class="mm-list mm-left" role="group" aria-labelledby="mmL' + uid + '"></div></div>' +
-        '<div class="mm-col"><div class="mm-col-label" id="mmR' + uid + '">המשמעות</div><div class="mm-list mm-right" role="group" aria-labelledby="mmR' + uid + '"></div></div>' +
+        '<div class="mm-col-label" id="mmL' + uid + '" style="grid-column:1;grid-row:1">מה נאמר או נעשה</div>' +
+        '<div class="mm-col-label" id="mmR' + uid + '" style="grid-column:2;grid-row:1">המשמעות</div>' +
       '</div>' +
       '<div class="mm-win" hidden><p class="mm-win-line"></p>' +
       '<button type="button" class="mm-btn mm-again">↺ לשחק שוב</button></div>';
@@ -50,18 +50,22 @@
     wrap.hidden = true;
     wrap.classList.add("mm-table");
 
-    var left = game.querySelector(".mm-left"), right = game.querySelector(".mm-right");
+    // שתי העמודות על אותה רשת: כרטיס בשורה k מימין וכרטיס בשורה k משמאל באותו גובה בדיוק
+    var board = game.querySelector(".mm-board");
+    var labelL = game.querySelector('[id^="mmL"]').id, labelR = game.querySelector('[id^="mmR"]').id;
     var doneEl = game.querySelector(".mm-done"), triesEl = game.querySelector(".mm-tries");
     var fb = game.querySelector(".mm-feedback"), win = game.querySelector(".mm-win");
     var showBtn = game.querySelector(".mm-show");
-    var narrow = window.matchMedia("(max-width: 700px)");
     var selL = null, selR = null, done = 0, tries = 0;
 
     function say(msg, kind){ fb.textContent = msg; fb.className = "mm-feedback" + (kind ? " " + kind : ""); }
 
-    function card(side, row){
-      var b = el("button", "mm-card");
+    function card(side, row, k){
+      var b = el("button", "mm-card " + (side === "L" ? "mm-left" : "mm-right"));
       b.type = "button";
+      b.style.gridColumn = side === "L" ? "1" : "2";
+      b.style.gridRow = String(k + 2);
+      b.setAttribute("aria-describedby", side === "L" ? labelL : labelR);
       b.setAttribute("aria-pressed", "false");
       b.dataset.id = row.id;
       b.innerHTML = side === "L"
@@ -78,11 +82,6 @@
       if(side === "L"){ setSel(selL, false); selL = (selL === b) ? null : b; setSel(selL, !!selL); }
       else { setSel(selR, false); selR = (selR === b) ? null : b; setSel(selR, !!selR); }
       if(selL && selR) check();
-      else if(selL && side === "L" && narrow.matches){
-        var first = right.querySelector(".mm-card:not(.is-ok)");
-        if(first) first.scrollIntoView({ behavior: "smooth", block: "center" });
-        say("עכשיו בחרו את המשמעות המתאימה.");
-      }
     }
 
     function check(){
@@ -97,10 +96,6 @@
         say("✓ נכון! " + (done < rows.length ? "המשיכו לזוג הבא." : ""), "ok");
         selL = selR = null;
         if(done === rows.length) finish();
-        else if(narrow.matches){
-          var next = left.querySelector(".mm-card:not(.is-ok)");
-          if(next) next.scrollIntoView({ behavior: "smooth", block: "center" });
-        }
       } else {
         [a, b].forEach(function(x){ x.classList.add("is-bad"); });
         say("✗ לא מתאים - קראו שוב את שני הכרטיסים ונסו זוג אחר.", "bad");
@@ -117,9 +112,9 @@
     }
 
     function start(){
-      left.innerHTML = ""; right.innerHTML = "";
-      rows.forEach(function(r){ left.appendChild(card("L", r)); });
-      shuffle(rows).forEach(function(r){ right.appendChild(card("R", r)); });
+      Array.prototype.forEach.call(board.querySelectorAll(".mm-card"), function(c){ c.remove(); });
+      rows.forEach(function(r, k){ board.appendChild(card("L", r, k)); });
+      shuffle(rows).forEach(function(r, k){ board.appendChild(card("R", r, k)); });
       selL = selR = null; done = 0; tries = 0;
       doneEl.textContent = 0; triesEl.textContent = 0;
       win.hidden = true; wrap.hidden = true; showBtn.hidden = false;
@@ -132,7 +127,7 @@
     });
     game.querySelector(".mm-again").addEventListener("click", function(){
       start();
-      var f = left.querySelector(".mm-card"); if(f) f.focus();
+      var f = board.querySelector(".mm-left"); if(f) f.focus();
     });
     start();
   }
