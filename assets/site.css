@@ -4291,3 +4291,10 @@ body.quiz-mode:where([data-css~="ptp-review"], [data-css~="ptp-review"] *) .reca
 /* הסבר פשוט מעל כל פסוק בתיבת הפסוקים שליד השאלה (ישעיהו) */
 .pasuk-block .pasuk-gloss{ margin:.55rem 0 .1rem; text-transform:none; letter-spacing:0; font-size:.8em; font-weight:500; line-height:1.45; color:var(--ink-soft, #55606b); }
 .pasuk-block .pasuk-gloss:first-child{ margin-top:0; }
+
+/* פתוח תפתח (ptp-hub): כותרת קטנה מעל כל שאלה בכרטיסי qb */
+.q-topic:where([data-css~="ptp-hub"], [data-css~="ptp-hub"] *){ display:flex; align-items:center; gap:.5rem; font-family:"Frank Ruhl Libre",serif; font-weight:800;
+    font-size:.92rem; color:#fff; background:var(--acc); border-radius:9px; padding:.55rem .9rem;
+    margin:0 0 .6rem; box-shadow:0 4px 12px rgba(0,0,0,.18); }
+.q-topic-icon:where([data-css~="ptp-hub"], [data-css~="ptp-hub"] *){ font-size:1.1rem; line-height:1; flex:none; }
+.qb-question .fill-row:where([data-css~="ptp-hub"], [data-css~="ptp-hub"] *){ margin:.45rem 0; }
