@@ -4287,3 +4287,7 @@ body.quiz-mode:where([data-css~="ptp-review"], [data-css~="ptp-review"] *) .reca
   .mm-game{ display:none !important; }
   .mm-table[hidden]{ display:block !important; }
 }
+
+/* הסבר פשוט מעל כל פסוק בתיבת הפסוקים שליד השאלה (ישעיהו) */
+.pasuk-block .pasuk-gloss{ margin:.55rem 0 .1rem; text-transform:none; letter-spacing:0; font-size:.8em; font-weight:500; line-height:1.45; color:var(--ink-soft, #55606b); }
+.pasuk-block .pasuk-gloss:first-child{ margin-top:0; }
