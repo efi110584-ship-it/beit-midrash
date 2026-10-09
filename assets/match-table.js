@@ -32,16 +32,20 @@
     });
     if(rows.length < 2) return;
 
+    // תוויות אפשר לקבוע לכל טבלה: data-left-label, data-right-label, data-intro
+    var lblL = table.dataset.leftLabel || "מה נאמר או נעשה";
+    var lblR = table.dataset.rightLabel || "המשמעות";
+    var intro = table.dataset.intro || "הקישו על מה שנאמר או נעשה בטקס, ואחר כך על המשמעות שלו.";
     var game = el("div", "mm-game");
     game.innerHTML =
-      '<p class="mm-intro">🧩 <b>משחק התאמה:</b> הקישו על מה שנאמר או נעשה בטקס, ואחר כך על המשמעות שלו.</p>' +
+      '<p class="mm-intro">🧩 <b>משחק התאמה:</b> ' + intro + '</p>' +
       '<div class="mm-bar"><span class="mm-stat">✓ <b class="mm-done">0</b> / ' + rows.length + '</span>' +
       '<span class="mm-stat">ניסיונות: <b class="mm-tries">0</b></span>' +
       '<button type="button" class="mm-link mm-show">הצגת הטבלה המלאה</button></div>' +
       '<p class="mm-feedback" role="status" aria-live="polite"></p>' +
       '<div class="mm-board">' +
-        '<div class="mm-col-label" id="mmL' + uid + '" style="grid-column:1;grid-row:1">מה נאמר או נעשה</div>' +
-        '<div class="mm-col-label" id="mmR' + uid + '" style="grid-column:2;grid-row:1">המשמעות</div>' +
+        '<div class="mm-col-label" id="mmL' + uid + '" style="grid-column:1;grid-row:1">' + lblL + '</div>' +
+        '<div class="mm-col-label" id="mmR' + uid + '" style="grid-column:2;grid-row:1">' + lblR + '</div>' +
       '</div>' +
       '<div class="mm-win" hidden><p class="mm-win-line"></p>' +
       '<button type="button" class="mm-btn mm-again">↺ לשחק שוב</button></div>';
