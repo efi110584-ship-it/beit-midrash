@@ -12,7 +12,7 @@
 
 
 <script src="assets/a11y.js"></script>
-</head>
+<script src="assets/ivrit-completion.js"></script></head>
 <body>
 <a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
@@ -439,7 +439,7 @@ textareas.forEach(t => {
   t.addEventListener('input', () => {
     if(t.dataset.id in CORRECT_ANSWERS){
       updateCheckReadiness();
-      if(t.classList.contains('is-correct') || t.classList.contains('is-wrong')) checkAnswer(t);
+      clearHebrewAnswerMark(t);
     }
   });
 });

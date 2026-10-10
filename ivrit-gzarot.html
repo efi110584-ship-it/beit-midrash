@@ -5,7 +5,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@400;700;900&family=Assistant:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css?v=8">
 <script src="assets/a11y.js"></script>
-</head><body>
+<script src="assets/ivrit-completion.js"></script></head><body>
 <a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 <nav class="crumb" aria-label="נתיב ניווט">
   <a href="index.html">הכיתה הדיגיטלית</a>
@@ -90,9 +90,7 @@ testInputs.forEach(function(t){
   t.addEventListener(evt, function(){
     clearTimeout(testSaveTimer);
     testSaveTimer = setTimeout(testSaveAnswers, 400);
-    if(t.classList.contains('is-correct') || t.classList.contains('is-wrong')){
-      testCheckOne(t);
-    }
+    clearHebrewAnswerMark(t);
   });
 });
 
@@ -126,8 +124,16 @@ function testCheckOne(input){
 
 var testCheckBtn = document.getElementById('testCheckBtn');
 var testCheckSummary = document.getElementById('testCheckSummary');
+function testReady(){
+  var ready=testInputs.every(function(input){return input.value.trim().length>0;});
+  testCheckBtn.disabled=!ready;
+  if(!ready)testCheckSummary.textContent='מלאו את כל הטבלה כדי לבדוק תשובות.';
+}
+testInputs.forEach(function(input){['input','change'].forEach(function(event){input.addEventListener(event,testReady);});});
+testReady();
 if(testCheckBtn){
   testCheckBtn.addEventListener('click', function(){
+    if(testCheckBtn.disabled)return;
     var correct = 0, attempted = 0;
     testInputs.forEach(function(input){
       if(!(input.dataset.id in TEST_CORRECT_ANSWERS)) return;

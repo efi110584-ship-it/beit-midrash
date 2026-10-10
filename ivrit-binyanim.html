@@ -5,7 +5,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@400;700;900&family=Assistant:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css?v=8">
 <script src="assets/a11y.js"></script>
-</head><body>
+<script src="assets/ivrit-completion.js"></script></head><body>
 <a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 <nav class="crumb" aria-label="נתיב ניווט">
   <a href="index.html">הכיתה הדיגיטלית</a>
@@ -57,9 +57,7 @@ hard20Inputs.forEach(function(t){
   t.addEventListener(evt, function(){
     clearTimeout(hard20SaveTimer);
     hard20SaveTimer = setTimeout(hard20SaveAnswers, 400);
-    if(t.classList.contains('is-correct') || t.classList.contains('is-wrong')){
-      hard20CheckOne(t);
-    }
+    clearHebrewAnswerMark(t);
   });
 });
 
@@ -85,8 +83,16 @@ function hard20CheckOne(input){
 
 var hard20CheckBtn = document.getElementById('hard20CheckBtn');
 var hard20CheckSummary = document.getElementById('hard20CheckSummary');
+function hard20Ready(){
+  var ready=hard20Inputs.every(function(input){return input.value.trim().length>0;});
+  hard20CheckBtn.disabled=!ready;
+  if(!ready)hard20CheckSummary.textContent='מלאו את כל הטבלה כדי לבדוק תשובות.';
+}
+hard20Inputs.forEach(function(input){['input','change'].forEach(function(event){input.addEventListener(event,hard20Ready);});});
+hard20Ready();
 if(hard20CheckBtn){
   hard20CheckBtn.addEventListener('click', function(){
+    if(hard20CheckBtn.disabled)return;
     var correct = 0, attempted = 0;
     hard20Inputs.forEach(function(input){
       if(!(input.dataset.id in HARD20_CORRECT_ANSWERS)) return;
