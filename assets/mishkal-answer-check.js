@@ -119,15 +119,15 @@ window.MishkalAnswerCheck = (function(){
     }
 
     function updateReadiness(){
-      var ready = exam ? allFilled() : fields.some(isFieldFilled) || mcGroups.some(isMcAnswered);
+      var ready = allFilled();
       checkBtn.disabled = !ready;
       if(gateNote) gateNote.textContent = ready
-        ? (exam ? 'כל השדות מלאים - אפשר ללחוץ "בדקו תשובות".' : 'אפשר לבדוק את התשובות שמילאתם, לתקן ולהמשיך למקבץ הבא.')
-        : (exam ? 'מלאו את כל השדות (כולל שאלות הבחירה) כדי לפתוח את כפתור הבדיקה.' : 'מלאו תשובה אחת לפחות כדי לבדוק ולהתקדם בקצב שלכם.');
+        ? 'כל השדות מלאים — אפשר לבדוק תשובות.'
+        : 'מלאו את כל השדות ושאלות הבחירה כדי לבדוק את המשימה.';
     }
 
     function runCheck(){
-      if(exam ? !allFilled() : !fields.some(isFieldFilled) && !mcGroups.some(isMcAnswered)) return;
+      if(!allFilled()) return;
       fields.forEach(gradeField);
       mcGroups.forEach(gradeMcGroup);
       checkBtn.textContent = '🔄 בדקו שוב';
@@ -161,26 +161,6 @@ window.MishkalAnswerCheck = (function(){
       function changed(){ clearFieldMark(f); updateReadiness(); }
       f.el.addEventListener('input', changed);
       f.el.addEventListener('change', changed);
-    });
-
-    // Practice tables display five rows at a time; hidden rows keep all answers.
-    if(!exam) document.querySelectorAll('table.mishkal-table').forEach(function(table){
-      var rows=Array.prototype.slice.call(table.querySelectorAll('tbody tr')).filter(function(row){ return !!row.querySelector('.answer'); });
-      if(rows.length<=5) return;
-      var page=0, all=false, pages=Math.ceil(rows.length/5);
-      var nav=document.createElement('nav');nav.className='bm-table-nav';nav.setAttribute('aria-label','מקבצי תרגול במשקלים');
-      function button(text,action){ var b=document.createElement('button');b.type='button';b.textContent=text;b.addEventListener('click',action);nav.appendChild(b);return b; }
-      var prev=button('המקבץ הקודם',function(){page=Math.max(0,page-1);render();});
-      var label=document.createElement('span');label.setAttribute('role','status');nav.appendChild(label);
-      var next=button('המקבץ הבא',function(){page=Math.min(pages-1,page+1);render();});
-      var toggle=button('הצגת כל השורות',function(){all=!all;render();});
-      function render(){
-        rows.forEach(function(row,index){row.classList.toggle('bm-practice-hidden',!all && Math.floor(index/5)!==page);});
-        label.textContent=all ? 'כל '+rows.length+' השורות' : 'מקבץ '+(page+1)+' מתוך '+pages+' · שורות '+(page*5+1)+'–'+Math.min(rows.length,(page+1)*5);
-        prev.disabled=all||page===0;next.disabled=all||page===pages-1;
-        toggle.textContent=all?'חזרה למקבצים':'הצגת כל השורות';
-      }
-      table.parentElement.insertAdjacentElement('afterend',nav);render();
     });
 
     checkBtn.addEventListener('click', runCheck);

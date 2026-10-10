@@ -173,42 +173,24 @@ window.BeitMidrashJourney = (function(){
 
   /* ---------- מנגנון משחק/שאלון (משותף ל-game ו-finalQuiz) ---------- */
   function makeGameController(screenEl, screenData){
-    var state = { i: 0, correct: 0, questions: screenData.questions };
-    var wordEl = screenEl.querySelector('[data-gq-word]');
-    var counterEl = screenEl.querySelector('[data-gq-counter]');
-    var scoreEl = screenEl.querySelector('[data-gq-score]');
-    var feedbackOk = screenEl.querySelector('[data-gq-feedback="ok"]');
-    var feedbackBad = screenEl.querySelector('[data-gq-feedback="bad"]');
-    var choiceBtns = screenEl.querySelectorAll('[data-gq-choice]');
-
-    function showQuestion(){
-      feedbackOk.classList.remove('gj-show');
-      feedbackBad.classList.remove('gj-show');
-      choiceBtns.forEach(function(b){ b.disabled = false; });
-      var q = state.questions[state.i];
-      wordEl.innerHTML = q.html;
-      counterEl.textContent = 'שאלה ' + (state.i + 1) + ' מתוך ' + state.questions.length;
-      scoreEl.textContent = state.correct + ' / ' + state.i;
-    }
-
-    function answer(value, onAnswered){
-      var right = normalize(value) === normalize(state.questions[state.i].answer);
-      if(right) state.correct++;
-      feedbackOk.classList.toggle('gj-show', right);
-      feedbackBad.classList.toggle('gj-show', !right);
-      choiceBtns.forEach(function(b){ b.disabled = true; });
-      state.i++;
-      scoreEl.textContent = state.correct + ' / ' + Math.min(state.i, state.questions.length);
-      var done = state.i >= state.questions.length;
-      if(onAnswered) onAnswered(done);
-    }
-
-    choiceBtns.forEach(function(b){
-      b.addEventListener('click', function(){ controller.onChoice && controller.onChoice(b.dataset.gqChoice); });
+    var state={i:0,correct:0,questions:screenData.questions};
+    var card=screenEl.querySelector('.gj-card');
+    card.innerHTML='<h2 class="gj-h2">'+(screenData.title||'תרגול')+'</h2><p>מלאו את כל הטבלה ולחצו על בדיקת תשובות.</p><div style="overflow:auto"><table class="gj-roots-table"><thead><tr><th>מילה</th><th>תשובה</th><th>בדיקה</th></tr></thead><tbody>'+state.questions.map(function(q,i){return '<tr><th scope="row">'+q.html+'</th><td><select data-journey-row="'+i+'" aria-label="תשובה בשורה '+(i+1)+'"><option value="">בחרו תשובה</option><option value="'+screenData.optionA.value+'">'+screenData.optionA.label+'</option><option value="'+screenData.optionB.value+'">'+screenData.optionB.label+'</option></select></td><td><span data-journey-mark="'+i+'" aria-live="polite"></span></td></tr>';}).join('')+'</tbody></table></div><p data-journey-status role="status"></p><button class="gj-next" data-journey-check disabled>בדיקת תשובות</button><button class="gj-next" data-journey-continue hidden>לסיכום ←</button>';
+    var inputs=Array.from(card.querySelectorAll('[data-journey-row]')),check=card.querySelector('[data-journey-check]'),next=card.querySelector('[data-journey-continue]'),status=card.querySelector('[data-journey-status]');
+    var marks=Array.from(card.querySelectorAll('[data-journey-mark]'));
+    function readiness(){check.disabled=inputs.some(function(input){return !input.value;});}
+    function clear(){marks.forEach(function(mark){mark.textContent='';});status.textContent='';next.hidden=true;state.i=0;state.correct=0;readiness();}
+    inputs.forEach(function(input){input.addEventListener('change',clear);});
+    check.addEventListener('click',function(){
+      if(check.disabled)return;state.correct=0;
+      inputs.forEach(function(input,i){var ok=normalize(input.value)===normalize(state.questions[i].answer);if(ok)state.correct++;marks[i].textContent=ok?'✓ נכון':'✗ טעות';marks[i].style.color=ok?'#167137':'#b42318';input.setAttribute('aria-invalid',String(!ok));});
+      state.i=state.questions.length;status.textContent=state.correct+' מתוך '+state.questions.length+' תשובות נכונות.';
+      if(screenData.type==='finalQuiz')next.hidden=false;
+      else if(controller.onChoice)controller.onChoice(null);
     });
-
-    var controller = { state: state, showQuestion: showQuestion, answer: answer, onChoice: null };
-    return controller;
+    next.addEventListener('click',function(){if(controller.onChoice)controller.onChoice(null);});
+    var controller={state:state,showQuestion:readiness,answer:function(value,callback){if(callback)callback(true);},onChoice:null,reset:function(){inputs.forEach(function(input){input.value='';input.removeAttribute('aria-invalid');});clear();}};
+    readiness();return controller;
   }
 
   /* ---------- אתחול מלא ---------- */
@@ -278,6 +260,7 @@ window.BeitMidrashJourney = (function(){
         var retryBtn = screenEl.querySelector('[data-retry]');
         retryBtn.addEventListener('click', function(){
           Object.keys(gameControllers).forEach(function(k){
+            gameControllers[k].reset();
             gameControllers[k].state.i = 0;
             gameControllers[k].state.correct = 0;
           });
@@ -291,13 +274,19 @@ window.BeitMidrashJourney = (function(){
         nextBtn.disabled = true;
         nextBtn.addEventListener('click', function(){ if(!nextBtn.disabled) go(current + 1); });
         insertNavRow(screenEl, i, nextBtn);
+        var picked=null;
+        var checkTrap=el('button','gj-next','בדיקת תשובה');checkTrap.disabled=true;
+        screenEl.querySelector('.gj-card').appendChild(checkTrap);
         screenEl.querySelectorAll('[data-trap]').forEach(function(choiceBtn){
-          choiceBtn.addEventListener('click', function(){
-            var right = choiceBtn.dataset.trap === '1';
-            screenEl.querySelector('[data-feedback="ok"]').classList.toggle('gj-show', right);
-            screenEl.querySelector('[data-feedback="bad"]').classList.toggle('gj-show', !right);
-            if(right) nextBtn.disabled = false;
+          choiceBtn.addEventListener('click',function(){picked=choiceBtn;checkTrap.disabled=false;nextBtn.disabled=true;
+            screenEl.querySelectorAll('[data-trap]').forEach(function(b){b.setAttribute('aria-pressed',String(b===picked));});
+            screenEl.querySelector('[data-feedback="ok"]').classList.remove('gj-show');screenEl.querySelector('[data-feedback="bad"]').classList.remove('gj-show');
           });
+        });
+        checkTrap.addEventListener('click',function(){if(!picked)return;var right=picked.dataset.trap==='1';
+          screenEl.querySelector('[data-feedback="ok"]').classList.toggle('gj-show',right);
+          screenEl.querySelector('[data-feedback="bad"]').classList.toggle('gj-show',!right);
+          nextBtn.disabled=false;
         });
         return;
       }

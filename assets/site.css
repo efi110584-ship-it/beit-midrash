@@ -4298,3 +4298,8 @@ body.quiz-mode:where([data-css~="ptp-review"], [data-css~="ptp-review"] *) .reca
     margin:0 0 .6rem; box-shadow:0 4px 12px rgba(0,0,0,.18); }
 .q-topic-icon:where([data-css~="ptp-hub"], [data-css~="ptp-hub"] *){ font-size:1.1rem; line-height:1; flex:none; }
 .qb-question .fill-row:where([data-css~="ptp-hub"], [data-css~="ptp-hub"] *){ margin:.45rem 0; }
+
+/* שדות בטבלת תרגול במסע הגזרות */
+.gj-roots-table select:where([data-css~='gzara'], [data-css~='gzara'] *){font:inherit;min-height:44px;max-width:100%;padding:8px;border:1px solid var(--paper-line);border-radius:7px;background:#fff;color:var(--ink);}
+.gj-roots-table [data-journey-mark]{font-weight:700;white-space:nowrap;}
+
