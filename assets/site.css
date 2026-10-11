@@ -4303,3 +4303,22 @@ body.quiz-mode:where([data-css~="ptp-review"], [data-css~="ptp-review"] *) .reca
 .gj-roots-table select:where([data-css~='gzara'], [data-css~='gzara'] *){font:inherit;min-height:44px;max-width:100%;padding:8px;border:1px solid var(--paper-line);border-radius:7px;background:#fff;color:var(--ink);}
 .gj-roots-table [data-journey-mark]{font-weight:700;white-space:nowrap;}
 
+
+/* ===== טבלת נקודות מרכזיות - הפרשנים (סוף דף העבודה) ===== */
+.key-points{ margin-top:1.1rem; }
+.key-points h3{ margin:0 0 .35rem; font-size:1.12rem; color:var(--acc, #3F6E66); }
+.key-points .kp-tip{ margin:0 0 .6rem; font-size:.93rem; background:var(--acc-soft, #E4EEEA); border-radius:8px; padding:.45rem .7rem; }
+.kp-table{ width:100%; border-collapse:collapse; font-size:.96rem; text-align:right; }
+.kp-table th{ background:var(--acc-soft, #E4EEEA); color:var(--acc, #3F6E66); padding:.5rem .6rem; border:1px solid var(--paper-line, #e4ddd0); font-weight:700; }
+.kp-table td{ padding:.5rem .6rem; border:1px solid var(--paper-line, #e4ddd0); vertical-align:top; line-height:1.6; }
+.kp-table td.kp-who{ font-weight:700; color:var(--acc, #3F6E66); white-space:nowrap; }
+.kp-table .kp-ref{ display:block; font-weight:500; font-size:.8rem; color:var(--ink-soft, #5a5248); }
+.kp-table .kp-key{ font-family:'Frank Ruhl Libre', serif; }
+@media (max-width: 720px){
+  .kp-table thead{ display:none; }
+  .kp-table, .kp-table tbody, .kp-table tr, .kp-table td{ display:block; width:auto; }
+  .kp-table tr{ border:1px solid var(--paper-line, #e4ddd0); border-inline-start:4px solid var(--acc, #3F6E66); border-radius:10px; margin-bottom:.7rem; overflow:hidden; }
+  .kp-table td{ border:none; padding:.35rem .7rem; white-space:normal; }
+  .kp-table td::before{ content:attr(data-label); display:block; font-size:.76rem; font-weight:700; color:var(--acc, #3F6E66); }
+}
+@media print{ .kp-table th{ background:none; color:#000; } .kp-table td.kp-who{ color:#000; } }
