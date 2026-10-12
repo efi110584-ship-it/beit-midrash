@@ -4363,3 +4363,10 @@ body.quiz-mode:where([data-css~="ptp-review"], [data-css~="ptp-review"] *) .reca
   .gzb-passage p{ font-size:1rem; }
 }
 @media print{ .gz-tabs, .gzb-tools, .gzb-model{ display:none !important; } }
+
+/* ===== נחי פ"א: רשימת השורשים ===== */
+.pa-list{ background:#FBF3E4; border:1px solid #E6D2AE; border-radius:10px; padding:.6rem .9rem; margin:.6rem 0 .8rem; }
+.pa-list-title{ margin:0 0 .35rem; font-weight:700; color:#5A3E1E; }
+.pa-roots{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fill, minmax(10.5rem, 1fr)); gap:.3rem .8rem; }
+.pa-roots li{ font-size:1.05rem; }
+.pa-note{ font-size:.85rem; color:#7A5A2E; }
