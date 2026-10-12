@@ -4322,3 +4322,44 @@ body.quiz-mode:where([data-css~="ptp-review"], [data-css~="ptp-review"] *) .reca
   .kp-table td::before{ content:attr(data-label); display:block; font-size:.76rem; font-weight:700; color:var(--acc, #3F6E66); }
 }
 @media print{ .kp-table th{ background:none; color:#000; } .kp-table td.kp-who{ color:#000; } }
+
+/* ===== יחידות הגזרות: לשוניות לפי סדר הלימוד + תרגול בסגנון בגרות ===== */
+.gz-tabs{ max-width:1100px; margin:.6rem auto .2rem; padding:0 16px; display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; font-family:'Heebo','Rubik',sans-serif; }
+.gz-tabs-label{ font-weight:600; color:#5A4A3A; font-size:.92rem; }
+.gz-tabs ol{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:.35rem; }
+.gz-tabs a{ display:inline-flex; align-items:center; gap:.35rem; padding:.32rem .7rem; border:1px solid #D9CBB4; border-radius:999px; background:#FFFDF8; color:#3A2E22; text-decoration:none; font-size:.92rem; line-height:1.2; }
+.gz-tabs a:hover{ border-color:#A9752E; background:#FBF3E4; }
+.gz-tabs a:focus-visible{ outline:3px solid #3F6E66; outline-offset:2px; }
+.gz-tabs a[aria-current="page"]{ background:#3F6E66; border-color:#3F6E66; color:#fff; font-weight:600; }
+.gz-tabs .gz-n{ display:inline-grid; place-items:center; width:1.35em; height:1.35em; border-radius:50%; background:#EFE4D2; color:#5A4A3A; font-size:.78rem; font-weight:700; }
+.gz-tabs a[aria-current="page"] .gz-n{ background:#fff; color:#3F6E66; }
+.gzb-wrap{ display:grid; gap:20px; margin-top:20px; }
+.gzb-card .gzb-cum{ background:#EEF5F3; border-inline-start:4px solid #3F6E66; padding:.55rem .8rem; border-radius:6px; margin:0 0 .7rem; }
+.gzb-card .gzb-instr{ font-weight:600; margin:.2rem 0 .6rem; }
+.gzb-passage{ background:#FFFDF8; border:1px solid #E6D9C3; border-radius:10px; padding:.8rem 1rem; margin-bottom:.9rem; }
+.gzb-passage h3{ margin:0 0 .35rem; font-family:'Frank Ruhl Libre',serif; font-size:1.15rem; color:#5A3E1E; }
+.gzb-passage p{ margin:0; line-height:2.05; font-size:1.06rem; }
+.gzb-v{ background:#FBF0D9; border-radius:4px; padding:0 .2rem; white-space:nowrap; }
+.gzb-table td.gzb-word{ font-size:1.12rem; font-weight:600; white-space:nowrap; }
+.gzb-table td.gzb-sent{ line-height:1.7; min-width:14rem; }
+.gzb-hint{ color:#7A5A2E; font-weight:600; white-space:nowrap; }
+.gzb-select{ width:100%; min-width:7.5rem; padding:.35rem .3rem; border:1.5px solid #CBB894; border-radius:6px; background:#fff; font:inherit; font-size:.95rem; }
+.gzb-select:focus-visible{ outline:3px solid #3F6E66; outline-offset:1px; }
+.gzb-select.is-correct{ border-color:#2E7D4F; background:#EAF6EF; }
+.gzb-select.is-wrong{ border-color:#B3261E; background:#FBEAE9; }
+.gzb-card .check-mark{ font-weight:700; margin-inline-start:.25rem; }
+.gzb-card .check-mark.is-correct{ color:#2E7D4F; }
+.gzb-card .check-mark.is-wrong{ color:#B3261E; }
+.gzb-card input.answer.is-correct{ border-color:#2E7D4F; background:#EAF6EF; }
+.gzb-card input.answer.is-wrong{ border-color:#B3261E; background:#FBEAE9; }
+.gzb-tip{ font-size:.92rem; color:#5A4A3A; margin:.7rem 0 0; }
+.gzb-tools{ justify-content:flex-start; padding:0; margin-top:.8rem; gap:.7rem; flex-wrap:wrap; align-items:center; }
+.gzb-model{ margin-top:.7rem; border:1px dashed #CBB894; border-radius:8px; padding:.5rem .8rem; background:#FFFDF8; }
+.gzb-model summary{ cursor:pointer; font-weight:600; color:#3F6E66; }
+.gzb-model p{ margin:.5rem 0 0; line-height:1.8; }
+.gzb-card textarea.answer{ width:100%; box-sizing:border-box; }
+@media (max-width:720px){
+  .gz-tabs a{ font-size:.86rem; padding:.28rem .55rem; }
+  .gzb-passage p{ font-size:1rem; }
+}
+@media print{ .gz-tabs, .gzb-tools, .gzb-model{ display:none !important; } }
