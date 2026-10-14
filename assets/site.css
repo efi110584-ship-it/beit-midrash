@@ -4371,21 +4371,3 @@ body.quiz-mode:where([data-css~="ptp-review"], [data-css~="ptp-review"] *) .reca
 .pa-roots li{ font-size:1.05rem; }
 .pa-note{ font-size:.85rem; color:#7A5A2E; }
 
-/* ===== תיבות "מדפי החמד": העמקה / 5 יח"ל / שיח ===== */
-.hemed-box{ margin:.8rem 0 .2rem; border:1px solid #D9CBB4; border-radius:10px; background:#FFFDF8; }
-.hemed-box > summary{ cursor:pointer; padding:.55rem .8rem; font-weight:600; color:#3A2E22; list-style:none; display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; }
-.hemed-box > summary::-webkit-details-marker{ display:none; }
-.hemed-box > summary::before{ content:"◂"; color:#A9752E; transition:transform .15s; }
-.hemed-box[open] > summary::before{ transform:rotate(-90deg); }
-.hemed-box > summary:focus-visible{ outline:3px solid #3F6E66; outline-offset:2px; border-radius:10px; }
-.hd-tag{ font-size:.78rem; font-weight:700; padding:.12rem .55rem; border-radius:999px; background:#E7F0EE; color:#2F5C55; white-space:nowrap; }
-.hd-five .hd-tag{ background:#F7E6E3; color:#8A2F22; }
-.hd-talk .hd-tag{ background:#EEE8F5; color:#5B3F7A; }
-.hd-body{ padding:.2rem .9rem .8rem; line-height:1.85; }
-.hd-body p{ margin:.45rem 0; }
-.hd-src{ background:#F6F1E7; border-inline-start:3px solid #A9752E; padding:.5rem .7rem; border-radius:6px; margin:.5rem 0; }
-.hd-src b{ color:#6B4A1F; }
-.hd-q{ font-weight:600; color:#2F5C55; }
-.hd-ans{ background:#EEF5F3; padding:.45rem .7rem; border-radius:6px; }
-.hd-pasuk{ font-family:'Frank Ruhl Libre',serif; font-size:1.08rem; }
-@media print{ .hemed-box{ break-inside:avoid; } .hemed-box:not([open]) > .hd-body{ display:block; } }
