@@ -4607,3 +4607,9 @@ body.fc-open:where([data-css~="index"], [data-css~="index"] *){ overflow:hidden;
 .tt-grade-comment:where([data-css~="index"], [data-css~="index"] *){ display:block; max-width:16rem; font-size:.8rem; color:#4E5B72; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .tt-board-head:where([data-css~="index"], [data-css~="index"] *) .tt-btns{ flex-wrap:wrap; justify-content:flex-end; }
 .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .view-grade{ border:2px solid #000; }
+
+/* ===== לוח הגשות: יחידה ונושא ===== */
+.tt-filter-item:where([data-css~="index"], [data-css~="index"] *){ display:flex; align-items:center; gap:8px; flex:1 1 240px; min-width:0; }
+.tt-filter-item:where([data-css~="index"], [data-css~="index"] *) .tt-select{ flex:1 1 auto; min-width:0; width:auto; }
+.tt-select:disabled:where([data-css~="index"], [data-css~="index"] *){ background:#F4F7FC; color:#6E7F9C; }
+.tt-unit:where([data-css~="index"], [data-css~="index"] *){ display:block; font-size:.8rem; color:#4E5B72; margin-bottom:1px; }

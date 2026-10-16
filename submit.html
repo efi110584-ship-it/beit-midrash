@@ -41,8 +41,21 @@
       </div>
 
       <div class="field">
-        <label for="assignment">שם המטלה / דף העבודה <span class="required-mark">*</span></label>
-        <input type="text" id="assignment" name="assignment" placeholder="לדוגמה: דף עבודה - יונה פרק ג׳" required>
+        <label for="unitSelect">יחידה <span class="required-mark">*</span></label>
+        <select id="unitSelect" name="unit" required>
+          <option value="" disabled selected>בחרו יחידה</option>
+        </select>
+      </div>
+
+      <div class="field" id="topicField" hidden>
+        <label for="topicSelect">נושא / פרק <span class="required-mark">*</span></label>
+        <select id="topicSelect" name="topic" required></select>
+      </div>
+
+      <div class="field" id="otherField" hidden>
+        <label for="assignment">שם המטלה <span class="required-mark">*</span></label>
+        <input type="text" id="assignment" name="assignment" placeholder="לדוגמה: עבודת סיכום על ספר יונה">
+        <p class="hint">רק אם המטלה לא מופיעה ברשימה.</p>
       </div>
 
       <div class="field">
@@ -72,6 +85,7 @@
   </main>
 </div>
 
+<script src="assets/units-data.js"></script>
 <script src="assets/bm-api.js"></script>
 <script>
 (function () {
@@ -86,6 +100,69 @@
   var successPanel = document.getElementById('successPanel');
   var againBtn = document.getElementById('againBtn');
   var fileInput = document.getElementById('fileInput');
+
+  /* ---------- יחידה ← נושא (מתוך assets/units-data.js) ----------
+     המטלה נשלחת כ"יחידה · נושא", כדי שבלוח ההגשות כל נושא יקבל שורה וציון משלו. */
+  var T = window.BM_TASKS;
+  var unitSelect = document.getElementById('unitSelect');
+  var topicSelect = document.getElementById('topicSelect');
+  var topicField = document.getElementById('topicField');
+  var otherField = document.getElementById('otherField');
+  var otherInput = document.getElementById('assignment');
+  var UNITS_LIST = T ? T.units() : [];
+  var OTHER = '__other';
+
+  function opt(value, text){ var o = document.createElement('option'); o.value = value; o.textContent = text; return o; }
+  ['יא', 'יב'].forEach(function(cls){
+    var group = document.createElement('optgroup');
+    group.label = cls === 'יא' ? 'כיתה י"א' : 'כיתה י"ב';
+    UNITS_LIST.forEach(function(u, i){ if(u.class === cls) group.appendChild(opt(String(i), u.title)); });
+    if(group.children.length) unitSelect.appendChild(group);
+  });
+  unitSelect.appendChild(opt(OTHER, 'מטלה אחרת (לכתוב בעצמי)'));
+
+  function fillTopics(){
+    var v = unitSelect.value;
+    topicSelect.innerHTML = '';
+    if(v === OTHER || v === ''){
+      topicField.hidden = true;
+      otherField.hidden = v !== OTHER;
+      otherInput.required = v === OTHER;
+      return;
+    }
+    var u = UNITS_LIST[+v];
+    topicSelect.appendChild(opt('', 'בחרו נושא'));
+    topicSelect.options[0].disabled = true;
+    topicSelect.options[0].selected = true;
+    (u.topics || []).forEach(function(t, j){ topicSelect.appendChild(opt(String(j), t.title)); });
+    topicSelect.appendChild(opt('all', 'כל היחידה / עבודה כללית'));
+    topicField.hidden = false;
+    otherField.hidden = true;
+    otherInput.required = false;
+  }
+  unitSelect.addEventListener('change', fillTopics);
+
+  function currentAssignment(){
+    var v = unitSelect.value;
+    if(v === OTHER) return otherInput.value.trim();
+    if(v === '' || !topicSelect.value) return '';
+    var u = UNITS_LIST[+v];
+    return T.assignmentFor(u, topicSelect.value === 'all' ? null : u.topics[+topicSelect.value]);
+  }
+
+  /* קישור מדף עבודה (?assignment=...): בוחרים את היחידה והנושא המתאימים, ואם אין - "מטלה אחרת" */
+  function prefillAssignment(text){
+    var c = T ? T.classify(text) : null;
+    var ui = -1;
+    if(c) UNITS_LIST.forEach(function(u, i){ if(u.title === c.unit) ui = i; });
+    if(ui === -1){
+      unitSelect.value = OTHER; fillTopics(); otherInput.value = text; return;
+    }
+    unitSelect.value = String(ui); fillTopics();
+    (UNITS_LIST[ui].topics || []).forEach(function(t, j){
+      if(T.fileSafe(t.title) === c.topic) topicSelect.value = String(j);
+    });
+  }
 
   // מילוי מראש מפרמטרים בכתובת - מגיע מקישור "הגשת מטלה" מתוך דף עבודה עצמו
   (function prefillFromQuery(){
@@ -105,7 +182,7 @@
         if(opt.value === qCls) opt.selected = true;
       });
     }
-    if(qAssignment) document.getElementById('assignment').value = qAssignment;
+    if(qAssignment) prefillAssignment(qAssignment);
   })();
   function showError(msg) {
     errorBox.textContent = msg;
@@ -134,11 +211,15 @@
 
     var studentName = document.getElementById('studentName').value.trim();
     var studentClass = document.getElementById('studentClass').value;
-    var assignment = document.getElementById('assignment').value.trim();
+    var assignment = currentAssignment();
     var notes = document.getElementById('notes').value.trim();
     var file = fileInput.files[0];
 
     if (!studentName || !studentClass || !assignment || !file) {
+      if (studentName && studentClass && file && !assignment) {
+        showError(unitSelect.value === OTHER ? 'כתבו את שם המטלה.' : 'בחרו יחידה ונושא.');
+        return;
+      }
       showError('נא למלא את כל שדות החובה (מסומנים ב-*) ולצרף קובץ.');
       return;
     }
@@ -187,6 +268,7 @@
 
   againBtn.addEventListener('click', function () {
     form.reset();
+    fillTopics();
     form.hidden = false;
     successPanel.hidden = true;
     clearError();

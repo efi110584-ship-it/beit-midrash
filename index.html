@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=13">
+<link rel="stylesheet" href="assets/site.css?v=14">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -254,6 +254,7 @@
 </div><!-- /site-content -->
 
 <script src="assets/bm-api.js"></script>
+<script src="assets/units-data.js"></script>
 <script src="assets/flashcards-data.js"></script>
 <script>
 (function(){
@@ -333,239 +334,9 @@
   })();
 
   /* ============ יחידות הלימוד ============
-     האתר מציג בכוונה רק כרטיס אחד לכל ספר/יחידה מרכזית - לא כרטיס
-     נפרד לכל פרק/מצווה. הכניסה לפרקים/למצוות הספציפיים מתבצעת מתוך
-     עמוד-המרכז (ה-hub) של כל יחידה. כדי להוסיף/לשנות יחידה, עורכים
-     את הרשימה הזו בלבד. */
-  var UNITS = [
-    { key:"yonah", class:"יא", subject:"תנך",
-      icon:"\u{1F30A}", title:"ספר יונה",
-      desc:"מסע קריאה בארבעה פרקי הספר - שאלות, פרשנים והעמקה, פרק אחר פרק.",
-      chapters:3, chaptersLabel:"פרקים", url:"yonah-hub.html",
-      topics:[
-        { title:"פרקים א'-ב' - הבריחה לתרשיש ותפילת יונה", url:"yonah-1-2.html", k:"נינוה דג מלחים" },
-        { title:"פרק ג' - נינוה שבה בתשובה", url:"yonah-3.html", k:"נינוה תשובה" },
-        { title:"פרק ד' - הקיקיון", url:"yonah-4.html", k:"קיקיון" },
-        { title:"שאלות בגרות אמיתיות - ספר יונה", url:"yonah-bagrut-questions.html", k:"בגרות", extra:true }
-      ] },
-    { key:"leket", class:"יא", subject:"תושבע",
-      icon:"\u{1F4DC}", title:"לקט מצוות",
-      desc:"קובץ המצוות הנלמדות השנה - הגדרה, שורש, דינים ולמעשה לכל מצווה.",
-      chapters:15, chaptersLabel:"מצוות", url:"leket-mitzvot-hub.html",
-      topics:[
-        { title:"אהבת הגרים (מצוה תל\"א)", url:"ahavat-gerim.html", k:"גר" },
-        { title:"אהבת ישראל (מצוה רמ\"ג)", url:"ahavat-israel.html" },
-        { title:"הלוואה לעני (מצוה ס\"ז)", url:"halvaa.html" },
-        { title:"כיבוד הורים (מצוה ל\"ג)", url:"kibud-avot.html", k:"אב ואם" },
-        { title:"כיבוד חכמים (מצוה רנ\"ז)", url:"kibud-chachamim.html" },
-        { title:"קידוש החודש (רמב\"ם, עשה קנ\"ג)", url:"kidush-hachodesh.html" },
-        { title:"קידוש השבת (מצוה ל\"א)", url:"kidush-shabbat.html", k:"שבת" },
-        { title:"שלא לשבור עצם בפסח (מצוה ט\"ז)", url:"korban-pesach.html", k:"קרבן פסח" },
-        { title:"קריאת שמע (מצוה ת\"כ)", url:"kriat-shema.html" },
-        { title:"לא תעשוק ושכר שכיר (מצוות רכ\"ח ור\"ל)", url:"lo-taashok-schar-sachir.html", k:"שכר" },
-        { title:"לא תסור (מצוה תצ\"ו)", url:"lo-tasur.html" },
-        { title:"אונאת דברים (מצוה של\"ח)", url:"onaat-dvarim.html" },
-        { title:"תלמוד תורה (מצוה תי\"ט)", url:"talmud-torah.html" },
-        { title:"תפילה (מצוה תל\"ג)", url:"tefila.html" },
-        { title:"תוכחה (מצוה רל\"ט)", url:"tochacha.html" }
-      ] },
-    { key:"bereshit", class:"יא", subject:"תנך",
-      icon:"\u{1F3DE}️", title:"ספר בראשית",
-      desc:"מסע קריאה בפרקי ספר בראשית - שאלות, פרשנים והעמקה, פרק אחר פרק.",
-      chapters:14, chaptersLabel:"פרקים", url:"bereshit-hub.html",
-      topics:[
-        { title:"פרק י\"ב - לך לך וירידה למצרים", url:"bereshit-12.html", k:"אברהם שרה" },
-        { title:"פרק ט\"ו - ברית בין הבתרים", url:"bereshit-15.html", k:"אברהם" },
-        { title:"פרק י\"ז - ברית המילה", url:"bereshit-17.html", k:"אברהם" },
-        { title:"פרק י\"ח - הכנסת אורחים וסדום", url:"bereshit-18.html", k:"אברהם שרה" },
-        { title:"פרק כ\"ב - עקדת יצחק", url:"bereshit-22.html", k:"אברהם עקדה" },
-        { title:"פרק כ\"ה - מכירת הבכורה", url:"bereshit-25.html", k:"יעקב עשו" },
-        { title:"פרקים כ\"ז-כ\"ח - גניבת הברכות", url:"bereshit-27.html", k:"יעקב עשו יצחק" },
-        { title:"פרק כ\"ח - סולם יעקב", url:"bereshit-28.html", k:"יעקב" },
-        { title:"פרקים ל\"ב-ל\"ג - המאבק והפיוס", url:"bereshit-32.html", k:"יעקב עשו" },
-        { title:"פרק ל\"ז - מכירת יוסף", url:"bereshit-37.html", k:"יוסף אחיו" },
-        { title:"פרק מ\"ב - ירידת האחים למצרים", url:"bereshit-42.html", k:"יוסף אחיו" },
-        { title:"פרק מ\"ד - נאום יהודה", url:"bereshit-44.html", k:"יוסף אחיו גביע" },
-        { title:"פרק מ\"ה - התוודעות יוסף", url:"bereshit-45.html", k:"יוסף אחיו" },
-        { title:"פרק נ' - מות יעקב ויוסף ואחיו", url:"bereshit-50.html", k:"יוסף אחיו" }
-      ] },
-    { key:"yeshayahu", class:"יא", subject:"תנך",
-      icon:"\u{1F4DC}", title:"ספר ישעיהו",
-      desc:"נבואות ישעיהו - חזון ישעיהו, משל הכרם, חזון האחרית, הצום הרצוי ונחמת ירושלים.",
-      chapters:6, chaptersLabel:"יחידות", url:"yeshayahu-hub.html",
-      topics:[
-        { title:"פרק א' - חזון ישעיהו", url:"yeshayahu-1.html" },
-        { title:"פרק ב' - חזון הר בית ה' (אחרית הימים)", url:"yeshayahu-2.html", k:"אחרית" },
-        { title:"פרק ה' - משל הכרם", url:"yeshayahu-5.html", k:"כרם" },
-        { title:"פרק י\"א - חזון האחרית", url:"yeshayahu-11.html", k:"משיח" },
-        { title:"פרק מ' - נחמת ירושלים", url:"yeshayahu-40.html", k:"נחמו" },
-        { title:"פרק נ\"ח - הצום הרצוי", url:"yeshayahu-58.html", k:"צום" }
-      ] },
-    { key:"ivrit", class:"יא", subject:"עברית",
-      icon:"\u{1F4D3}", title:"עברית - דקדוק",
-      desc:"כל חומרי הדקדוק במקום אחד - בניינים, גזרות ותרגול.",
-      chapters:12, chaptersLabel:"קטגוריות", url:"ivrit-hub.html",
-      topics:[
-        { title:"גזרת השלמים", url:"ivrit-shlemim-unit.html", k:"שלמים" },
-        { title:"גזרת המרובעים", url:"ivrit-merubaim-unit.html" },
-        { title:"גזרת חפ\"נ (חסרי פ\"נ)", url:"ivrit-hafan-unit.html", k:"חפן" },
-        { title:"גזרת חפי\"צ (חסרי פ\"יצ)", url:"ivrit-hafitz-unit.html" },
-        { title:"גזרת נחי פ\"א", url:"ivrit-nechei-pa-unit.html" },
-        { title:"גזרת נחי פ\"ו (פ\"י/ו)", url:"ivrit-nechei-pv-unit.html", k:"פי" },
-        { title:"גזרת נחי ע\"ו (ע\"י/ו)", url:"ivrit-nechei-av-unit.html", k:"עי" },
-        { title:"גזרת נחי ל\"א", url:"ivrit-nechei-la-unit.html" },
-        { title:"גזרת נחי ל\"ה (ל\"י/ה)", url:"ivrit-nechei-lh-unit.html", k:"לי" },
-        { title:"גזרת הכפולים (ע\"ע)", url:"ivrit-kfulim-unit.html" },
-        { title:"בניינים - טבלה ותרגול", url:"ivrit-binyanim.html", k:"בניין" },
-        { title:"משקלים", url:"ivrit-mishkalim-hub.html", k:"משקל" },
-        { title:"טבלת הגזרות ותרגול", url:"ivrit-gzarot.html", k:"גזרות", extra:true },
-        { title:"טבלת סימני זיהוי לגזרות", url:"ivrit-gzarot-simanim.html", k:"סימנים", extra:true },
-        { title:"מבחן מסכם על הגזרות", url:"ivrit-gzarot-final-test.html", k:"מבחן", extra:true }
-      ] },
-    { key:"devarim", class:"יב", subject:"תנך",
-      icon:"\u{1F4D6}", title:"ספר דברים",
-      desc:"נאומו האחרון של משה רבנו לעם ישראל - יחידת הפתיחה לספר דברים.",
-      chapters:1, chaptersLabel:"יחידות", url:"petichah.html",
-      topics:[
-        { title:"יחידת הפתיחה - נאומו האחרון של משה", url:"petichah.html", k:"משה" }
-      ] },
-    { key:"ezra-nechemia", class:"יב", subject:"תנך",
-      icon:"\u{1F4EF}", title:"עזרא ונחמיה",
-      desc:"תקופת בית שני - הצהרת כורש, בניין המקדש, עליית עזרא, בניית חומת ירושלים ומנהיגותו של נחמיה.",
-      chapters:8, chaptersLabel:"פרקים", url:"ezra-nechemia-hub.html",
-      topics:[
-        { title:"עזרא א'-ב' - הצהרת כורש והעליות בימיו", url:"ezra-1-2.html", k:"כורש" },
-        { title:"עזרא ג'-ד' - בניית המזבח והעיכובים בבנייה", url:"ezra-3-4.html", k:"מקדש" },
-        { title:"עזרא ה'-ו' - חידוש בניית המקדש", url:"ezra-5-6.html", k:"מקדש" },
-        { title:"עזרא ז' - עליית עזרא הסופר", url:"ezra-7.html" },
-        { title:"נחמיה א'-ב' - עליית נחמיה", url:"nechemia-1-2.html" },
-        { title:"נחמיה ג'-י\"ב - בניית החומה", url:"nechemia-3-12.html", k:"חומה" },
-        { title:"נחמיה ה' - בניינה הפנימי של ירושלים", url:"nechemia-5.html", k:"עניים" },
-        { title:"נחמיה י', י\"ג - המצב הרוחני בימי נחמיה", url:"nechemia-10-13.html", k:"שבת" }
-      ] },
-    { key:"neviim", class:"יב", subject:"תנך",
-      icon:"\u{1F4A7}", title:"פרקי נביאים",
-      desc:"מלכי יהודה האחרונים בספר מלכים ב', נבואות ירמיהו לפני החורבן ואחריו, ונבואות הגאולה של יחזקאל.",
-      chapters:10, chaptersLabel:"פרקים", url:"neviim-hub.html",
-      topics:[
-        { title:"מלכים ב' כ\"א - מלכות מנשה", url:"melachim-b-21.html", k:"מנשה" },
-        { title:"מלכים ב' כ\"ב-כ\"ג - מלכות יאשיהו", url:"melachim-b-22-23.html", k:"יאשיהו" },
-        { title:"מלכים ב' כ\"ג-כ\"ד - ימי יהואחז ויהויקים", url:"melachim-b-23-24.html" },
-        { title:"מלכים ב' כ\"ד-כ\"ה - ימי יהויכין וצדקיהו", url:"melachim-b-24-25.html", k:"חורבן" },
-        { title:"ירמיהו א' - הקדשת ירמיהו", url:"yirmiyahu-1.html" },
-        { title:"ירמיהו ז', כ\"ו - נבואת היכל ה' ומשפט ירמיהו", url:"yirmiyahu-7-26.html" },
-        { title:"ירמיהו כ\"ח - נביאי השקר", url:"yirmiyahu-28.html", k:"חנניה" },
-        { title:"ירמיהו ל\"א - נבואת נחמה", url:"yirmiyahu-31.html" },
-        { title:"ירמיהו ל\"ו - המגילה וקריעתה", url:"yirmiyahu-36.html" },
-        { title:"יחזקאל ל\"ו-ל\"ז - נבואות הגאולה", url:"yechezkel-36-37.html", k:"עצמות" }
-      ] },
-    { key:"ptp", class:"יב", subject:"תושבע",
-      icon:"\u2696\uFE0F", title:"פתוח תפתח",
-      desc:"יחידת המצוות שבספר דברים - שמיטת כספים, צדקה, ריבית, משכון ועוד.",
-      chapters:8, chaptersLabel:"נושאים", url:"ptp-hub.html",
-      topics:[
-        { title:"מבוא ליחידת \"פתוח תפתח\"", url:"ptp-mavo.html" },
-        { title:"שמיטת כספים", url:"ptp-shmitat-ksafim.html" },
-        { title:"צדקה והלוואה", url:"ptp-tzedaka-halvaa.html" },
-        { title:"איסור ריבית", url:"ptp-ribit.html" },
-        { title:"דיני משכון", url:"ptp-mashkon.html" },
-        { title:"הלנת שכר", url:"ptp-halanat-sachar.html" },
-        { title:"מצוות הענקה", url:"ptp-hanaka.html" },
-        { title:"מתנות עניים", url:"ptp-matnot-aniyim.html" }
-      ] },
-    { key:"yonah-exam", class:"teacher", subject:"מבחן", category:"מבחנים",
-      icon:"\u{1F4DD}", title:"מבחן מסכם - ספר יונה",
-      desc:"מבחן דיגיטלי מקיף על כל ארבעת פרקי הספר. הכניסה למבחן דורשת קוד מהמורה.",
-      chapters:1, chaptersLabel:"מבחן", url:"yonah-exam.html" },
-    { key:"bereshit-answers", class:"teacher", subject:"מורה", category:"ספר בראשית",
-      icon:"\u{1F5DD}️", title:"מחוון תשובות - פרקי אברהם ושרה",
-      desc:"תשובות תמציתיות ברמת בגרות לכל שאלות דפי העבודה בחמשת פרקי אברהם ושרה, עם אפשרות הקראה לכל נושא.",
-      chapters:5, chaptersLabel:"פרקים", url:"bereshit-answers-hub.html" },
-    { key:"bereshit-yaakov-esav-answers", class:"teacher", subject:"מורה", category:"ספר בראשית",
-      icon:"\u{1F5DD}️", title:"מחוון תשובות - פרקי יעקב ועשיו",
-      desc:"תשובות תמציתיות ברמת בגרות לכל שאלות דפי העבודה בפרקי יעקב ועשיו (כ\"ה, כ\"ז-כ\"ח, ל\"ב-ל\"ג), עם אפשרות הקראה לכל נושא.",
-      chapters:4, chaptersLabel:"פרקים", url:"bereshit-yaakov-esav-answers-hub.html" },
-    { key:"bereshit-yosef-answers", class:"teacher", subject:"מורה", category:"ספר בראשית",
-      icon:"\u{1F5DD}️", title:"מחוון תשובות - פרקי יוסף ואחיו",
-      desc:"תשובות תמציתיות ברמת בגרות לכל שאלות דפי העבודה בפרקי יוסף ואחיו (ל\"ז, מ\"ב-מ\"ג, מ\"ד, מ\"ה, נ'), עם אפשרות הקראה לכל נושא.",
-      chapters:5, chaptersLabel:"פרקים", url:"bereshit-yosef-answers-hub.html" },
-    { key:"yeshayahu-answers", class:"teacher", subject:"מורה", category:"ספר ישעיהו",
-      icon:"\u{1F5DD}️", title:"מחוון תשובות - ספר ישעיהו",
-      desc:"תשובות תמציתיות ברמת בגרות לכל שאלות דפי העבודה בששת פרקי ישעיהו, עם אפשרות הקראה לכל נושא.",
-      chapters:6, chaptersLabel:"פרקים", url:"yeshayahu-answers-hub.html" },
-    { key:"ezra-nechemia-answers", class:"teacher", subject:"מורה", category:"עזרא ונחמיה",
-      icon:"\u{1F5DD}️", title:"מחוון תשובות - עזרא ונחמיה",
-      desc:"תשובות תמציתיות ברמת בגרות לכל שאלות דפי העבודה בשמונת פרקי עזרא ונחמיה, עם אפשרות הקראה לכל נושא.",
-      chapters:8, chaptersLabel:"פרקים", url:"ezra-nechemia-answers-hub.html" },
-    { key:"neviim-answers", class:"teacher", subject:"מורה", category:"פרקי נביאים",
-      icon:"\u{1F5DD}️", title:"מחוון תשובות - פרקי נביאים",
-      desc:"תשובות תמציתיות ברמת בגרות לכל שאלות דפי העבודה בעשרת פרקי מלכים ב', ירמיהו ויחזקאל, עם אפשרות הקראה לכל נושא.",
-      chapters:10, chaptersLabel:"פרקים", url:"neviim-answers-hub.html" },
-    { key:"yonah-answers", class:"teacher", subject:"מורה", category:"ספר יונה",
-      icon:"\u{1F5DD}️", title:"מחוון תשובות - ספר יונה",
-      desc:"תשובות תמציתיות ברמת בגרות לכל 43 שאלות דף העבודה על פרקי יונה, עם הפסוקים והפרשנים לצד כל שאלה ואפשרות הקראה.",
-      chapters:3, chaptersLabel:"פרקים", url:"yonah-answers-hub.html" },
-    { key:"leket-answers", class:"teacher", subject:"מורה", category:"לקט מצוות",
-      icon:"\u{1F5DD}️", title:"מחוון תשובות - לקט מצוות",
-      desc:"תשובות תמציתיות ברמת בגרות לכל 185 שאלות דפי העבודה על 15 המצוות, עם מקורות ספר החינוך לצד כל שאלה ואפשרות הקראה.",
-      chapters:15, chaptersLabel:"מצוות", url:"leket-mitzvot-answers-hub.html" },
-    { key:"ptp-answers", class:"teacher", subject:"מורה", category:"פתוח תפתח",
-      icon:"\u{1F5DD}️", title:"מחוון תשובות - פתוח תפתח",
-      desc:"תשובות תמציתיות ברמת בגרות לכל 46 שאלות דפי העבודה על 8 נושאי היחידה, עם הפסוקים ורש\"י לצד כל שאלה ואפשרות הקראה.",
-      chapters:8, chaptersLabel:"נושאים", url:"ptp-answers-hub.html" },
-    { key:"petichah-answers", class:"teacher", subject:"מורה", category:"ספר דברים",
-      icon:"\u{1F5DD}️", title:"מחוון תשובות - יחידת הפתיחה",
-      desc:"תשובות מלאות ברמת בגרות לכל 42 שאלות דף העבודה, על ששת נושאי יחידת הפתיחה לספר דברים - מבוססות על חוברת הלימוד והתשובות המקוריות של המורה.",
-      chapters:6, chaptersLabel:"נושאים", url:"petichah-answers.html" },
-    { key:"ivrit-binyanim-gzarot-answers", class:"teacher", subject:"מורה", category:"עברית - בניינים וגזרות",
-      icon:"\u{1F5DD}️", title:"מחוון תשובות - בניינים וגזרות",
-      desc:"מפתחות התשובות לשני דפי התרגול: 20 מילים קשות מגזרת השלמים לזיהוי שורש ובניין, ו-20 מילים קשות ברבים לזיהוי שורש וגזרה.",
-      chapters:2, chaptersLabel:"דפי תרגול", url:"ivrit-binyanim-gzarot-answers.html" },
-    { key:"ivrit-hafan-answers", class:"teacher", subject:"מורה", category:"עברית - גזרות",
-      icon:"\u{1F5DD}️", title:'מחוון תשובות - גזרת חפ"נ וחפי"צ',
-      desc:"מפתח תשובות מלא לדף העבודה על גזרות חפ\"נ וחפי\"צ - שורש, בניין, שם הפועל ושם הפעולה לכל משפט.",
-      chapters:37, chaptersLabel:"משפטים", url:"ivrit-hafan-hafitz-answers.html" },
-    { key:"ivrit-lh-answers", class:"teacher", subject:"מורה", category:"עברית - גזרות",
-      icon:"\u{1F5DD}️", title:'מחוון תשובות - גזרת נחי ל"ה',
-      desc:"מפתח תשובות מלא לדף העבודה על גזרת נחי ל\"ה - שורש, בניין, שם הפועל ושם הפעולה לכל משפט.",
-      chapters:20, chaptersLabel:"משפטים", url:"ivrit-nechei-lh-answers.html" },
-    { key:"ivrit-pa-answers", class:"teacher", subject:"מורה", category:"עברית - גזרות",
-      icon:"\u{1F5DD}️", title:'מחוון תשובות - גזרת נחי פ"א',
-      desc:"מפתח תשובות מלא לדף העבודה על גזרת נחי פ\"א - שורש, בניין, שם הפועל ושם הפעולה לכל משפט.",
-      chapters:19, chaptersLabel:"משפטים", url:"ivrit-nechei-pa-answers.html" },
-    { key:"ivrit-la-answers", class:"teacher", subject:"מורה", category:"עברית - גזרות",
-      icon:"\u{1F5DD}️", title:'מחוון תשובות - גזרת נחי ל"א',
-      desc:"מפתח תשובות מלא לדף העבודה על גזרת נחי ל\"א - שורש, בניין, שם הפועל ושם הפעולה לכל משפט.",
-      chapters:21, chaptersLabel:"משפטים", url:"ivrit-nechei-la-answers.html" },
-    { key:"ivrit-pv-answers", class:"teacher", subject:"מורה", category:"עברית - גזרות",
-      icon:"\u{1F5DD}️", title:'מחוון תשובות - גזרת נחי פ"ו',
-      desc:"מפתח תשובות מלא לדף העבודה על גזרת נחי פ\"ו - שורש, בניין, שם הפועל ושם הפעולה לכל משפט.",
-      chapters:18, chaptersLabel:"משפטים", url:"ivrit-nechei-pv-answers.html" },
-    { key:"ivrit-av-answers", class:"teacher", subject:"מורה", category:"עברית - גזרות",
-      icon:"\u{1F5DD}️", title:'מחוון תשובות - גזרת נחי ע"ו',
-      desc:"מפתח תשובות מלא לדף העבודה על גזרת נחי ע\"ו - שורש, בניין, שם הפועל ושם הפעולה לכל משפט.",
-      chapters:19, chaptersLabel:"משפטים", url:"ivrit-nechei-av-answers.html" },
-    { key:"ivrit-kfulim-answers", class:"teacher", subject:"מורה", category:"עברית - גזרות",
-      icon:"\u{1F5DD}️", title:'מחוון תשובות - גזרת כפולים',
-      desc:"מפתח תשובות מלא לדף העבודה על גזרת הכפולים (ע\"ע) - שורש, בניין, שם הפועל ושם הפעולה לכל משפט.",
-      chapters:15, chaptersLabel:"משפטים", url:"ivrit-kfulim-answers.html" },
-    { key:"ivrit-final-test-answers", class:"teacher", subject:"מורה", category:"עברית - גזרות",
-      icon:"\u{1F5DD}️", title:"מחוון תשובות - מבחן מסכם על הגזרות",
-      desc:"מפתח תשובות מלא ל-62 המילים במבחן המסכם - שורש וגזרה לכל מילה, כולל שמות פעולה ושמות עצם.",
-      chapters:62, chaptersLabel:"מילים", url:"ivrit-gzarot-final-test-answers.html" },
-    { key:"ivrit-mishkalim-answers", class:"teacher", subject:"מורה", category:"עברית - משקלים",
-      icon:"\u{1F5DD}️", title:"מחוון מרוכז - יחידת משקלים",
-      desc:"כל מפתחות התשובות של שמונת שיעורי יחידת המשקלים ושל המבחן המסכם, במקום אחד - בלי צורך לפתוח כל שיעור בנפרד.",
-      chapters:8, chaptersLabel:"שיעורים", url:"ivrit-mishkalim-answers.html" },
-    { key:"bogrim-data", class:"teacher", subject:"מורה", category:"בוגרים",
-      icon:"\u{1F393}", title:"בוגרים - ניתוח ומיון",
-      desc:"נתוני כל מחזורי הבוגרים (א-ט) במקום אחד - שירות צבאי ולאומי, קרבי, השכלה ותעסוקה, עם סינון ומיון. פרטי, לעיני הצוות בלבד.",
-      chapters:9, chaptersLabel:"מחזורים", url:"bogrim-data.html" },
-    { key:"bogrim-plan", class:"teacher", subject:"מורה", category:"בוגרים",
-      icon:"\u{1F5FA}️", title:"תוכנית עבודה - בוגרים",
-      desc:"תוכנית העבודה השנתית של תוכנית הבוגרים לפי תבנית המוסד: ייעוד, חזון, מטרות, יעדי SMART וחמשת הצירים, עם לוח שנתי. ניתן להדפיס או לשמור כ-PDF.",
-      chapters:5, chaptersLabel:"צירים", url:"bogrim-plan.html" }
-  ];
+     הרשימה עצמה (וגם הנושאים של כל יחידה) נמצאת ב-assets/units-data.js,
+     כי גם טופס ההגשה, דפי העבודה ולוח ההגשות משתמשים בה. */
+  var UNITS = window.BM_UNITS || [];
 
   var CLASS_ORDER = ["יא","יב"];
   var state = { activeClass:"יא" };
@@ -704,14 +475,16 @@
           '<div class="tt-subj" id="ttSubj" role="group" aria-label="סינון לפי מקצוע"></div>' +
           '<div class="tt-status" id="ttStatus" role="group" aria-label="סינון לפי סטטוס"></div>' +
           '<div class="tt-filter">' +
-            '<label for="ttTask" class="tt-label">מטלה</label>' +
-            '<select id="ttTask" class="tt-select"></select>' +
+            '<span class="tt-filter-item"><label for="ttUnit" class="tt-label">יחידה</label>' +
+            '<select id="ttUnit" class="tt-select"></select></span>' +
+            '<span class="tt-filter-item"><label for="ttTopic" class="tt-label">נושא</label>' +
+            '<select id="ttTopic" class="tt-select"></select></span>' +
           '</div>' +
           '<p class="tt-msg" id="ttBoardMsg" role="status" aria-live="polite">טוען הגשות…</p>' +
           '<div class="tt-table-wrap" id="ttTableWrap" hidden>' +
             '<table class="tt-table">' +
               '<caption class="visually-hidden">רשימת ההגשות</caption>' +
-              '<thead><tr><th scope="col">תלמיד/ה</th><th scope="col">מטלה</th><th scope="col">כיתה</th><th scope="col">תאריך</th><th scope="col">סטטוס</th><th scope="col">ציון</th><th scope="col"><span class="visually-hidden">פעולה</span></th></tr></thead>' +
+              '<thead><tr><th scope="col">תלמיד/ה</th><th scope="col">יחידה ונושא</th><th scope="col">כיתה</th><th scope="col">תאריך</th><th scope="col">סטטוס</th><th scope="col">ציון</th><th scope="col"><span class="visually-hidden">פעולה</span></th></tr></thead>' +
               '<tbody id="ttRows"></tbody>' +
             '</table>' +
           '</div>' +
@@ -721,7 +494,7 @@
     );
   }
 
-  var board = { rows:[], subj:"all", status:"all", task:"all" };
+  var board = { rows:[], subj:"all", status:"all", unit:"all", topic:"all" };
   var SUBJ_CLASS = { 'תנ"ך':"tnk", 'תושב"ע':"tsb", "עברית":"heb" };
   var STATUS_INFO = {
     pending:{ label:"ממתין לבדיקה", cls:"pending" },
@@ -799,14 +572,17 @@
     document.getElementById("ttExport").addEventListener("click", exportGrades);
     document.getElementById("ttSubj").addEventListener("click", function(e){
       var b = e.target.closest("[data-subj]"); if(!b) return;
-      board.subj = b.getAttribute("data-subj"); board.task = "all"; renderBoard();
+      board.subj = b.getAttribute("data-subj"); board.unit = "all"; board.topic = "all"; renderBoard();
     });
     document.getElementById("ttStatus").addEventListener("click", function(e){
       var b = e.target.closest("[data-status]"); if(!b) return;
       board.status = b.getAttribute("data-status"); renderBoard();
     });
-    document.getElementById("ttTask").addEventListener("change", function(e){
-      board.task = e.target.value; renderBoard();
+    document.getElementById("ttUnit").addEventListener("change", function(e){
+      board.unit = e.target.value; board.topic = "all"; renderBoard();
+    });
+    document.getElementById("ttTopic").addEventListener("change", function(e){
+      board.topic = e.target.value; renderBoard();
     });
     document.getElementById("ttRows").addEventListener("click", function(e){
       var v = e.target.closest("[data-view]");
@@ -833,12 +609,15 @@
     apiPost({ action:"list", password:teacherToken() }).then(function(res){
       if(handleAuthFailure(res)) return;
       if(!res || !res.ok){ msg.textContent = (res && res.error) || "טעינת ההגשות לא הצליחה."; return; }
+      var classify = (window.BM_TASKS && window.BM_TASKS.classify) || function(t){ return { unit:"אחר", topic:t }; };
       board.rows = (res.submissions || []).map(function(x){
         return { id:x.id || "", name:x.student || "", task:x.task || "", subject:x.subject || 'תנ"ך',
                  cls:x.cls === "יא" ? 'י"א' : (x.cls === "יב" ? 'י"ב' : (x.cls || "")),
                  date:x.date || "", status:x.status || "pending", url:x.url || "", notes:x.notes || "",
-                 grade:x.grade == null ? "" : String(x.grade), comment:x.comment || "" };
+                 grade:x.grade == null ? "" : String(x.grade), comment:x.comment || "",
+                 unit:"", topic:"" };
       });
+      board.rows.forEach(function(r){ var c = classify(r.task); r.unit = c.unit; r.topic = c.topic; });
       msg.textContent = "";
       renderBoard();
     }).catch(function(){ netError(msg); });
@@ -849,7 +628,8 @@
     if(!subjEl) return;
     var all = board.rows;
     var bySubj = all.filter(function(r){ return board.subj === "all" || r.subject === board.subj; });
-    var byTask = bySubj.filter(function(r){ return board.task === "all" || r.task === board.task; });
+    var byUnit = bySubj.filter(function(r){ return board.unit === "all" || r.unit === board.unit; });
+    var byTask = byUnit.filter(function(r){ return board.topic === "all" || r.topic === board.topic; });
     var shown = byTask.filter(function(r){ return board.status === "all" || r.status === board.status; });
     board.shown = shown;
 
@@ -865,12 +645,29 @@
         '<span class="tt-stat-num">' + n + '</span><span class="tt-stat-label">' + escapeHtml(s[1]) + '</span></button>';
     }).join("");
 
-    var tasks = [];
-    bySubj.forEach(function(r){ if(tasks.indexOf(r.task) === -1) tasks.push(r.task); });
-    var taskSel = document.getElementById("ttTask");
-    taskSel.innerHTML = '<option value="all">כל המטלות</option>' + tasks.map(function(t){
-      return '<option value="' + escapeAttr(t) + '"' + (t === board.task ? " selected" : "") + '>' + escapeHtml(t) + '</option>';
+    /* רשימות הבחירה: יחידות שיש בהן הגשות, ונושאים שיש בהם הגשות ביחידה שנבחרה.
+       הסדר כמו באתר (סדר היחידות והפרקים), ו"אחר" בסוף. */
+    var unitOrder = (window.BM_TASKS ? window.BM_TASKS.units() : []).map(function(u){ return u.title; });
+    function orderOf(list, x){ var i = list.indexOf(x); return i === -1 ? 999 : i; }
+    var units = [];
+    bySubj.forEach(function(r){ if(units.indexOf(r.unit) === -1) units.push(r.unit); });
+    units.sort(function(a, b){ return orderOf(unitOrder, a) - orderOf(unitOrder, b); });
+    function countIn(list, key, val){ return list.filter(function(r){ return r[key] === val; }).length; }
+    document.getElementById("ttUnit").innerHTML = '<option value="all">כל היחידות</option>' + units.map(function(u){
+      return '<option value="' + escapeAttr(u) + '"' + (u === board.unit ? " selected" : "") + '>' + escapeHtml(u) + ' (' + countIn(bySubj, "unit", u) + ')</option>';
     }).join("");
+    var topicOrder = [];
+    (window.BM_TASKS ? window.BM_TASKS.units() : []).forEach(function(u){
+      if(u.title === board.unit) (u.topics || []).forEach(function(t){ topicOrder.push(window.BM_TASKS.fileSafe(t.title)); });
+    });
+    var topics = [];
+    byUnit.forEach(function(r){ if(topics.indexOf(r.topic) === -1) topics.push(r.topic); });
+    topics.sort(function(a, b){ return orderOf(topicOrder, a) - orderOf(topicOrder, b); });
+    var topicSel = document.getElementById("ttTopic");
+    topicSel.disabled = board.unit === "all";
+    topicSel.innerHTML = '<option value="all">' + (board.unit === "all" ? "בחרו קודם יחידה" : "כל הנושאים") + '</option>' + (board.unit === "all" ? "" : topics.map(function(t){
+      return '<option value="' + escapeAttr(t) + '"' + (t === board.topic ? " selected" : "") + '>' + escapeHtml(t) + ' (' + countIn(byUnit, "topic", t) + ')</option>';
+    }).join(""));
 
     var wrap = document.getElementById("ttTableWrap");
     var msg = document.getElementById("ttBoardMsg");
@@ -883,9 +680,10 @@
     }
     document.getElementById("ttRows").innerHTML = shown.map(function(r){
       var st = STATUS_INFO[r.status] || STATUS_INFO.pending;
-      var task = /^https:\/\//.test(r.url || "")
-        ? '<a href="' + escapeAttr(r.url) + '" target="_blank" rel="noopener">' + escapeHtml(r.task) + '</a>'
-        : escapeHtml(r.task);
+      var label = r.topic || r.task;
+      var task = '<span class="tt-unit">' + escapeHtml(r.unit) + '</span>' + (/^https:\/\//.test(r.url || "")
+        ? '<a href="' + escapeAttr(r.url) + '" target="_blank" rel="noopener">' + escapeHtml(label) + '</a>'
+        : escapeHtml(label));
       var notes = r.notes ? '<span class="tt-notes">' + escapeHtml(r.notes) + '</span>' : '';
       return '<tr>' +
         '<td>' + escapeHtml(r.name) + '</td>' +
@@ -1426,9 +1224,9 @@
     var msg = document.getElementById("ttBoardMsg");
     if(!rows.length){ msg.textContent = "אין מה להוריד - הלוח ריק בסינון הזה."; return; }
     function cell(v){ v = String(v == null ? "" : v); return /[",\r\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
-    var lines = [["תלמיד/ה","כיתה","מקצוע","מטלה","תאריך","סטטוס","ציון","הערה"].map(cell).join(",")];
+    var lines = [["תלמיד/ה","כיתה","מקצוע","יחידה","נושא","תאריך","סטטוס","ציון","הערה"].map(cell).join(",")];
     rows.forEach(function(r){
-      lines.push([r.name, r.cls, r.subject, r.task, r.date, (STATUS_INFO[r.status] || STATUS_INFO.pending).label, r.grade, r.comment].map(cell).join(","));
+      lines.push([r.name, r.cls, r.subject, r.unit, r.topic || r.task, r.date, (STATUS_INFO[r.status] || STATUS_INFO.pending).label, r.grade, r.comment].map(cell).join(","));
     });
     var blob = new Blob(["\uFEFF" + lines.join("\r\n")], { type:"text/csv;charset=utf-8" });
     var a = document.createElement("a");
@@ -1475,7 +1273,7 @@
   function showViewed(){
     var r = viewer.list[viewer.i];
     if(!r) return;
-    viewEl.viewTitle.textContent = r.name + " · " + r.task;
+    viewEl.viewTitle.textContent = r.name + " · " + r.unit + " · " + (r.topic || r.task);
     viewEl.viewMeta.textContent = [r.subject, r.cls, r.date, (STATUS_INFO[r.status] || STATUS_INFO.pending).label].filter(Boolean).join(" · ");
     viewEl.viewNotes.hidden = !r.notes;
     viewEl.viewNotes.textContent = r.notes || "";

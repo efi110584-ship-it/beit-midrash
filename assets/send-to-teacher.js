@@ -14,7 +14,14 @@
   var nameEl = document.getElementById('studentName');
   var classEl = document.getElementById('studentClass');
   var lastEl = document.getElementById('bmSendLast');
+  /* שם המטלה למורה: "יחידה · נושא" (למשל "לקט מצוות · אהבת ישראל"), לפי הדף הזה
+     ברשימת היחידות (assets/units-data.js). כך כל נושא מקבל אצל המורה שורה וציון משלו. */
   var assignment = btn.getAttribute('data-assignment') || document.title;
+  (function(){
+    var T = window.BM_TASKS;
+    var where = T && T.findByPage(location.pathname.split('/').pop() || '');
+    if(where) assignment = T.assignmentFor(where.unit, where.topic);
+  })();
   var KEY = 'bm-sent:' + (location.pathname.split('/').pop() || 'index.html');
 
   /* דף שאין לו שמירה משלו לשם ולכיתה (data-bm-persist) - שומרים כאן */
