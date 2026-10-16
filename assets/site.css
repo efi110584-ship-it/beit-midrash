@@ -4419,3 +4419,55 @@ body.quiz-mode:where([data-css~="ptp-review"], [data-css~="ptp-review"] *) .reca
 .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .unit-tile-badge{ border:1px solid #000; color:#000; }
 .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .unit-dot{ outline:1px solid #000; }
 .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .progress-legend{ color:#000; }
+
+/* ===== דף הבית: "המשיכו" + כניסה לכרטיסיות ===== */
+.home-actions:where([data-css~="index"], [data-css~="index"] *){ display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:14px; margin:0 0 1.1rem; }
+#continue-root:where([data-css~="index"], [data-css~="index"] *){ display:contents; }
+.home-actions:where([data-css~="index"], [data-css~="index"] *) .continue-card{ margin:0; }
+.practice-card:where([data-css~="index"], [data-css~="index"] *){ display:flex; align-items:center; gap:.9rem; width:100%; min-height:64px; padding:.9rem 1.2rem; background:#fff; color:#0E1B33; border:1px solid #DCE4F1; border-top:3px solid #FF7A1A; border-radius:12px; text-align:right; cursor:pointer; font:inherit; box-shadow:0 4px 14px rgba(11,42,91,.12); transition:box-shadow .2s ease, transform .2s ease; }
+.practice-card[hidden]:where([data-css~="index"], [data-css~="index"] *){ display:none; }
+.practice-card:hover:where([data-css~="index"], [data-css~="index"] *){ box-shadow:0 10px 26px rgba(11,42,91,.16); transform:translateY(-2px); }
+.practice-icon:where([data-css~="index"], [data-css~="index"] *){ font-size:1.5rem; flex:none; }
+.practice-title:where([data-css~="index"], [data-css~="index"] *){ display:block; font-family:var(--font-display); font-weight:700; font-size:1.15rem; color:#0B2A5B; }
+.practice-meta:where([data-css~="index"], [data-css~="index"] *){ display:block; font-size:.95rem; color:#4E5B72; }
+
+/* ===== דף הבית: חלון הכרטיסיות ===== */
+body.fc-open:where([data-css~="index"], [data-css~="index"] *){ overflow:hidden; }
+.fc-overlay:where([data-css~="index"], [data-css~="index"] *){ position:fixed; inset:0; z-index:400; background:rgba(11,42,91,.55); display:flex; align-items:center; justify-content:center; padding:20px; }
+.fc-overlay[hidden]:where([data-css~="index"], [data-css~="index"] *){ display:none; }
+.fc-dialog:where([data-css~="index"], [data-css~="index"] *){ width:100%; max-width:560px; max-height:calc(100vh - 40px); overflow-y:auto; background:#F4F7FC; border-radius:18px; padding:24px; display:flex; flex-direction:column; gap:16px; box-shadow:0 30px 60px rgba(0,0,0,.3); color:#0E1B33; }
+.fc-head:where([data-css~="index"], [data-css~="index"] *){ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+.fc-title:where([data-css~="index"], [data-css~="index"] *){ font-family:"Heebo", sans-serif; font-size:18px; font-weight:700; color:#0E1B33; margin:0; }
+.fc-progress-text:where([data-css~="index"], [data-css~="index"] *){ margin:2px 0 0; font-size:14px; color:#4E5B72; }
+.fc-close:where([data-css~="index"], [data-css~="index"] *){ flex:none; width:44px; height:44px; border:0; border-radius:10px; background:transparent; color:#0E1B33; font-size:20px; cursor:pointer; }
+.fc-close:hover:where([data-css~="index"], [data-css~="index"] *){ background:#E3EBF7; }
+.fc-decks:where([data-css~="index"], [data-css~="index"] *){ display:flex; flex-wrap:wrap; gap:6px; }
+.fc-deck:where([data-css~="index"], [data-css~="index"] *){ padding:7px 14px; min-height:36px; border-radius:999px; background:#fff; border:1px solid #DCE4F1; color:#123A78; font-size:14px; cursor:pointer; font-family:inherit; }
+.fc-deck[aria-pressed="true"]:where([data-css~="index"], [data-css~="index"] *){ background:#123A78; border-color:#123A78; color:#fff; font-weight:700; }
+.fc-bar:where([data-css~="index"], [data-css~="index"] *){ height:6px; background:#DCE4F1; border-radius:999px; overflow:hidden; }
+.fc-bar-fill:where([data-css~="index"], [data-css~="index"] *){ height:100%; width:0; background:#0D8A63; transition:width .3s ease; }
+.fc-play:where([data-css~="index"], [data-css~="index"] *){ display:flex; flex-direction:column; gap:16px; }
+.fc-play[hidden]:where([data-css~="index"], [data-css~="index"] *), .fc-done[hidden]:where([data-css~="index"], [data-css~="index"] *){ display:none; }
+.fc-card:where([data-css~="index"], [data-css~="index"] *){ min-height:220px; width:100%; background:#fff; border:1px solid #DCE4F1; border-top:4px solid #2F62B0; border-radius:14px; padding:28px; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:12px; text-align:center; cursor:pointer; font:inherit; color:#0E1B33; }
+.fc-card.is-answer:where([data-css~="index"], [data-css~="index"] *){ border-top-color:#0D8A63; }
+.fc-side:where([data-css~="index"], [data-css~="index"] *){ font-size:13px; font-weight:700; color:#4E5B72; }
+.fc-text:where([data-css~="index"], [data-css~="index"] *){ font-family:"Frank Ruhl Libre", serif; font-size:30px; font-weight:700; line-height:1.3; color:#0E1B33; }
+.fc-hint:where([data-css~="index"], [data-css~="index"] *){ font-size:13px; color:#6E7F9C; }
+.fc-actions:where([data-css~="index"], [data-css~="index"] *){ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.fc-again:where([data-css~="index"], [data-css~="index"] *), .fc-know:where([data-css~="index"], [data-css~="index"] *){ padding:14px; min-height:48px; border:0; border-radius:12px; font-weight:700; font-size:16px; cursor:pointer; font-family:inherit; }
+.fc-again:where([data-css~="index"], [data-css~="index"] *){ background:#FFEBDC; color:#8A3D07; }
+.fc-know:where([data-css~="index"], [data-css~="index"] *){ background:#0D8A63; color:#fff; }
+.fc-again:hover:where([data-css~="index"], [data-css~="index"] *), .fc-know:hover:where([data-css~="index"], [data-css~="index"] *){ filter:brightness(.96); }
+.fc-done:where([data-css~="index"], [data-css~="index"] *){ background:#fff; border-radius:14px; padding:28px; text-align:center; display:flex; flex-direction:column; gap:12px; align-items:center; }
+.fc-done-title:where([data-css~="index"], [data-css~="index"] *){ margin:0; font-family:"Frank Ruhl Libre", serif; font-size:28px; font-weight:700; color:#0E1B33; }
+.fc-done-sub:where([data-css~="index"], [data-css~="index"] *){ margin:0; font-size:15px; color:#4E5B72; }
+.fc-reset:where([data-css~="index"], [data-css~="index"] *){ background:#123A78; color:#fff; font-weight:700; padding:12px 22px; min-height:44px; border:0; border-radius:10px; cursor:pointer; font-family:inherit; font-size:16px; }
+:where([data-css~="index"], [data-css~="index"] *)media (max-width:480px){
+  .fc-dialog:where([data-css~="index"], [data-css~="index"] *){ padding:18px; }
+  .fc-text:where([data-css~="index"], [data-css~="index"] *){ font-size:24px; }
+  .fc-card:where([data-css~="index"], [data-css~="index"] *){ min-height:180px; padding:20px; }
+}
+.a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .practice-card, .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .fc-card, .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .fc-deck, .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .fc-done{ border:2px solid #000; }
+.a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .fc-dialog{ background:#fff; border:2px solid #000; }
+.a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .fc-again{ background:#fff; color:#000; border:2px solid #000; }
+.a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .fc-know, .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .fc-reset, .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .fc-deck[aria-pressed="true"]{ background:#000; color:#fff; }
