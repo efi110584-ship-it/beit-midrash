@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=11">
+<link rel="stylesheet" href="assets/site.css?v=12">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -171,6 +171,29 @@
 <footer class="site-footer">
   <p>הבית הדיגיטלי של תיכון יש"י &middot; מתעדכן ע"י הרב אפרים &middot; <button type="button" class="link-reset-role" id="resetRoleBtn">לא אני - בחרו מחדש</button></p>
 </footer>
+
+<div class="fc-overlay" id="viewOverlay" hidden>
+  <div class="fc-dialog view-dialog" id="viewDialog" role="dialog" aria-modal="true" aria-labelledby="viewTitle">
+    <div class="fc-head">
+      <div>
+        <h2 class="fc-title" id="viewTitle"></h2>
+        <p class="fc-progress-text" id="viewMeta"></p>
+      </div>
+      <button type="button" class="fc-close" id="viewClose" aria-label="סגירת העבודה">✕</button>
+    </div>
+    <p class="view-notes" id="viewNotes" hidden></p>
+    <div class="view-frame-wrap">
+      <iframe class="view-frame" id="viewFrame" title="העבודה של התלמיד" loading="lazy" referrerpolicy="no-referrer"></iframe>
+    </div>
+    <p class="view-help">לא רואים את העבודה? ודאו שאתם מחוברים בדפדפן הזה לחשבון Google של בית הספר, או <a id="viewOpenDrive" href="#" target="_blank" rel="noopener">פתחו אותה בדרייב</a>.</p>
+    <div class="view-actions">
+      <button type="button" class="tt-btn" id="viewPrev">→ הקודמת</button>
+      <span class="view-pos" id="viewPos" aria-live="polite"></span>
+      <button type="button" class="tt-btn" id="viewNext">הבאה ←</button>
+      <button type="button" class="tt-btn tt-btn--primary" id="viewCheck">סימון כנבדק</button>
+    </div>
+  </div>
+</div>
 
 <div class="fc-overlay" id="loginOverlay" hidden>
   <form class="fc-dialog login-dialog" id="loginForm" role="dialog" aria-modal="true" aria-labelledby="loginTitle" novalidate>
@@ -770,6 +793,8 @@
       board.task = e.target.value; renderBoard();
     });
     document.getElementById("ttRows").addEventListener("click", function(e){
+      var v = e.target.closest("[data-view]");
+      if(v){ openViewer(v.getAttribute("data-view"), v); return; }
       var b = e.target.closest("[data-check]"); if(!b) return;
       var id = b.getAttribute("data-check");
       b.disabled = true; b.textContent = "מסמנים…";
@@ -809,6 +834,7 @@
     var bySubj = all.filter(function(r){ return board.subj === "all" || r.subject === board.subj; });
     var byTask = bySubj.filter(function(r){ return board.task === "all" || r.task === board.task; });
     var shown = byTask.filter(function(r){ return board.status === "all" || r.status === board.status; });
+    board.shown = shown;
 
     subjEl.innerHTML = [["all","כל המקצועות"],['תנ"ך','תנ"ך'],['תושב"ע','תושב"ע'],["עברית","עברית"]].map(function(s){
       var n = s[0] === "all" ? all.length : all.filter(function(r){ return r.subject === s[0]; }).length;
@@ -850,7 +876,10 @@
         '<td>' + escapeHtml(r.cls) + '</td>' +
         '<td class="tt-date">' + escapeHtml(r.date || "-") + '</td>' +
         '<td><span class="tt-pill tt-pill--' + st.cls + '">' + st.label + '</span></td>' +
-        '<td>' + (r.status === "pending" ? '<button type="button" class="tt-btn tt-btn--small" data-check="' + escapeAttr(r.id) + '">סימון כנבדק</button>' : '') + '</td>' +
+        '<td class="tt-actions">' +
+          (r.id ? '<button type="button" class="tt-btn tt-btn--small tt-btn--view" data-view="' + escapeAttr(r.id) + '">צפייה</button>' : '') +
+          (r.status === "pending" ? '<button type="button" class="tt-btn tt-btn--small" data-check="' + escapeAttr(r.id) + '">סימון כנבדק</button>' : '') +
+        '</td>' +
       '</tr>';
     }).join("");
 
@@ -1368,6 +1397,89 @@
       else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
     });
   })();
+
+  /* ============ צפייה בעבודה בתוך האתר ============
+     הקובץ נשאר בדרייב הפרטי של המורה ומוצג כאן בתצוגה של Google.
+     רק מי שמחובר לחשבון עם הרשאה לקובץ יראה אותו. */
+  var viewer = { list:[], i:-1, opener:null };
+  var viewEl = {};
+  ["viewOverlay","viewDialog","viewTitle","viewMeta","viewNotes","viewFrame","viewOpenDrive","viewPrev","viewNext","viewPos","viewCheck","viewClose"]
+    .forEach(function(id){ viewEl[id] = document.getElementById(id); });
+
+  function viewableRows(){
+    return (board.shown || []).filter(function(r){ return r.id && /^[\w-]{10,}$/.test(r.id); });
+  }
+  function openViewer(id, opener){
+    viewer.list = viewableRows();
+    viewer.i = viewer.list.map(function(r){ return r.id; }).indexOf(id);
+    if(viewer.i === -1) return;
+    viewer.opener = opener || document.activeElement;
+    viewEl.viewOverlay.hidden = false;
+    document.body.classList.add("fc-open");
+    showViewed();
+    viewEl.viewClose.focus();
+  }
+  function closeViewer(){
+    viewEl.viewOverlay.hidden = true;
+    viewEl.viewFrame.removeAttribute("src");
+    document.body.classList.remove("fc-open");
+    renderBoard();
+    var again = document.querySelector('[data-view="' + (viewer.list[viewer.i] || {}).id + '"]');
+    var target = again || viewer.opener;
+    if(target && target.focus) target.focus();
+  }
+  function showViewed(){
+    var r = viewer.list[viewer.i];
+    if(!r) return;
+    viewEl.viewTitle.textContent = r.name + " · " + r.task;
+    viewEl.viewMeta.textContent = [r.subject, r.cls, r.date, (STATUS_INFO[r.status] || STATUS_INFO.pending).label].filter(Boolean).join(" · ");
+    viewEl.viewNotes.hidden = !r.notes;
+    viewEl.viewNotes.textContent = r.notes || "";
+    viewEl.viewFrame.src = "https://drive.google.com/file/d/" + encodeURIComponent(r.id) + "/preview";
+    viewEl.viewOpenDrive.href = /^https:\/\//.test(r.url || "") ? r.url : ("https://drive.google.com/file/d/" + encodeURIComponent(r.id) + "/view");
+    viewEl.viewPos.textContent = "עבודה " + (viewer.i + 1) + " מתוך " + viewer.list.length;
+    viewEl.viewPrev.disabled = viewer.i <= 0;
+    viewEl.viewNext.disabled = viewer.i >= viewer.list.length - 1;
+    viewEl.viewCheck.hidden = r.status !== "pending";
+    viewEl.viewCheck.disabled = false;
+    viewEl.viewCheck.textContent = "סימון כנבדק";
+    /* כפתור שהיה בפוקוס נעלם או ננעל (סוף הרשימה, אחרי סימון) - לא להשאיר את הפוקוס באוויר */
+    var f = document.activeElement;
+    if(!f || f === document.body || f.disabled || f.hidden) (viewEl.viewNext.disabled ? viewEl.viewClose : viewEl.viewNext).focus();
+  }
+  if(viewEl.viewOverlay){
+    viewEl.viewClose.addEventListener("click", closeViewer);
+    viewEl.viewOverlay.addEventListener("click", function(e){ if(e.target === viewEl.viewOverlay) closeViewer(); });
+    viewEl.viewPrev.addEventListener("click", function(){ if(viewer.i > 0){ viewer.i--; showViewed(); } });
+    viewEl.viewNext.addEventListener("click", function(){ if(viewer.i < viewer.list.length - 1){ viewer.i++; showViewed(); } });
+    viewEl.viewCheck.addEventListener("click", function(){
+      var r = viewer.list[viewer.i];
+      if(!r) return;
+      viewEl.viewCheck.disabled = true;
+      viewEl.viewCheck.textContent = "מסמנים…";
+      apiPost({ action:"markChecked", password:teacherToken(), fileId:r.id, checked:true }).then(function(res){
+        if(handleAuthFailure(res)){ closeViewer(); return; }
+        if(res && res.ok){
+          board.rows.forEach(function(x){ if(x.id === r.id) x.status = "checked"; });
+          r.status = "checked";
+          /* ממשיכים לבאה בתור, אם יש */
+          if(viewer.i < viewer.list.length - 1) viewer.i++;
+          showViewed();
+          viewEl.viewPos.textContent = "✓ סומן כנבדק · " + viewEl.viewPos.textContent;
+        } else {
+          viewEl.viewCheck.disabled = false; viewEl.viewCheck.textContent = "סימון כנבדק";
+          alert((res && res.error) || "הסימון לא הצליח.");
+        }
+      }).catch(function(){
+        viewEl.viewCheck.disabled = false; viewEl.viewCheck.textContent = "סימון כנבדק";
+        alert("אין חיבור לשרת כרגע. נסו שוב.");
+      });
+    });
+    trapFocus(viewEl.viewDialog, closeViewer);
+    document.addEventListener("keydown", function(e){
+      if(e.key === "Escape" && !viewEl.viewOverlay.hidden && !viewEl.viewDialog.contains(e.target)){ e.preventDefault(); closeViewer(); }
+    });
+  }
 
   /* ============ הודעה מהמורה (פס מתחת לכותרת) ============
      סגירה נשמרת לפי טביעה של הטקסט - הודעה חדשה תופיע שוב. */

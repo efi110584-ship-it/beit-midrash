@@ -4570,3 +4570,26 @@ body.fc-open:where([data-css~="index"], [data-css~="index"] *){ overflow:hidden;
 .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .tt-card, .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .tt-stat, .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .tt-tab, .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .tt-table-wrap{ border:2px solid #000; }
 .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .tt-tab[aria-pressed="true"], .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .tt-btn--primary{ background:#000; color:#fff; }
 .tt-notes:where([data-css~="index"], [data-css~="index"] *){ display:block; margin-top:2px; font-size:.82rem; color:#4E5B72; }
+
+/* ===== דף הבית: צפייה בעבודת תלמיד ===== */
+.view-dialog:where([data-css~="index"], [data-css~="index"] *){ max-width:980px; height:calc(100vh - 40px); gap:12px; }
+.view-notes:where([data-css~="index"], [data-css~="index"] *){ margin:0; padding:8px 12px; background:#fff; border:1px solid #DCE4F1; border-radius:10px; font-size:.95rem; color:#0E1B33; }
+.view-notes[hidden]:where([data-css~="index"], [data-css~="index"] *){ display:none; }
+.view-frame-wrap:where([data-css~="index"], [data-css~="index"] *){ flex:1 1 auto; min-height:300px; background:#fff; border:1px solid #DCE4F1; border-radius:12px; overflow:hidden; }
+.view-frame:where([data-css~="index"], [data-css~="index"] *){ display:block; width:100%; height:100%; border:0; }
+.view-help:where([data-css~="index"], [data-css~="index"] *){ margin:0; font-size:.85rem; color:#4E5B72; }
+.view-help:where([data-css~="index"], [data-css~="index"] *) a{ color:#123A78; }
+.view-actions:where([data-css~="index"], [data-css~="index"] *){ display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+.view-pos:where([data-css~="index"], [data-css~="index"] *){ flex:1 1 auto; text-align:center; font-size:.92rem; color:#4E5B72; font-variant-numeric:tabular-nums; }
+.view-actions:where([data-css~="index"], [data-css~="index"] *) .tt-btn--primary{ margin-inline-start:auto; }
+.view-actions:where([data-css~="index"], [data-css~="index"] *) [hidden]{ display:none; }
+.tt-actions:where([data-css~="index"], [data-css~="index"] *){ white-space:nowrap; }
+.tt-actions:where([data-css~="index"], [data-css~="index"] *) .tt-btn + .tt-btn{ margin-inline-start:6px; }
+.tt-btn--view:where([data-css~="index"], [data-css~="index"] *){ background:#E3EBF7; border-color:#E3EBF7; }
+:where([data-css~="index"], [data-css~="index"] *)media (max-width:600px){
+  .view-dialog:where([data-css~="index"], [data-css~="index"] *){ padding:14px; height:calc(100vh - 20px); }
+  .view-pos:where([data-css~="index"], [data-css~="index"] *){ flex-basis:100%; order:-1; }
+}
+.tt:where([data-css~="index"], [data-css~="index"] *), .tt-board:where([data-css~="index"], [data-css~="index"] *){ max-width:100%; min-width:0; }
+.tt-table-wrap:where([data-css~="index"], [data-css~="index"] *){ width:100%; max-width:100%; min-width:0; }
+.tt-table-wrap:where([data-css~="index"], [data-css~="index"] *){ position:relative; } /* תוויות נסתרות בטבלה לא יברחו מהגלילה */
