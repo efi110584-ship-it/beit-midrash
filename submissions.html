@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>לוח הגשות | הבית הדיגיטלי של תיכון יש"י</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f5f3ee; --card:#ffffff; --ink:#1f2a37; --muted:#6b7280; --line:#e5e1d8;
+    --brand:#1e4d6b; --brand-soft:#e3edf3; --accent:#c98a2b; --new:#2f855a; --new-soft:#e6f4ec; --err:#b42318;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Heebo",system-ui,sans-serif;font-size:16px;line-height:1.5}
+  .wrap{max-width:980px;margin:0 auto;padding:20px 16px 48px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+  h1{margin:0;font-size:26px;font-weight:800;color:var(--brand)}
+  .sub{color:var(--muted);font-size:14px}
+  a.back{color:var(--brand);text-decoration:none;font-weight:500}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+  /* כניסה */
+  #gate{max-width:380px;margin:60px auto 0;text-align:center}
+  #gate h2{margin:0 0 6px;font-size:20px}
+  #gate p{margin:0 0 16px;color:var(--muted);font-size:14px}
+  input,select,button{font:inherit}
+  input[type=password],input[type=search],select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+  input:focus,select:focus{outline:2px solid var(--brand);outline-offset:1px}
+  .btn{display:inline-block;border:0;border-radius:10px;padding:11px 18px;background:var(--brand);color:#fff;font-weight:700;cursor:pointer}
+  .btn:disabled{opacity:.6;cursor:default}
+  .btn.ghost{background:transparent;color:var(--brand);border:1px solid var(--brand)}
+  #gate .btn{width:100%;margin-top:10px}
+  .msg{margin-top:10px;font-size:14px;min-height:20px}
+  .msg.err{color:var(--err)}
+  /* לוח */
+  #board{display:none}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center}
+  .stat b{display:block;font-size:24px;color:var(--brand)}
+  .stat span{font-size:13px;color:var(--muted)}
+  .tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+  .tab{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 16px;cursor:pointer;font-weight:500}
+  .tab.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .filters{display:grid;grid-template-columns:2fr 2fr 1fr;gap:8px;margin-bottom:14px}
+  .views{display:flex;gap:6px}
+  .views .tab{flex:1;text-align:center}
+  .list{display:flex;flex-direction:column;gap:8px}
+  .row{display:grid;grid-template-columns:1.4fr 1.6fr 1fr auto;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .row .who{font-weight:700}
+  .row .cls{display:inline-block;font-size:12px;background:var(--brand-soft);color:var(--brand);border-radius:6px;padding:1px 7px;margin-inline-start:6px;font-weight:500}
+  .row .when{color:var(--muted);font-size:14px}
+  .badge{font-size:12px;background:var(--new-soft);color:var(--new);border-radius:6px;padding:1px 7px;margin-inline-start:6px;font-weight:700}
+  .row a{color:var(--brand);font-weight:700;text-decoration:none;white-space:nowrap}
+  .group{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .group summary{list-style:none;cursor:pointer;padding:12px 14px;display:flex;justify-content:space-between;gap:10px;font-weight:700}
+  .group summary::-webkit-details-marker{display:none}
+  .group summary .count{color:var(--muted);font-weight:500;font-size:14px}
+  .group ul{margin:0;padding:0 14px 12px;list-style:none}
+  .group li{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:15px}
+  .group li a{color:var(--brand);text-decoration:none;font-weight:500}
+  .empty{text-align:center;color:var(--muted);padding:30px}
+  .toolbar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .updated{font-size:13px;color:var(--muted)}
+  @media (max-width:640px){
+    h1{font-size:22px}
+    .filters{grid-template-columns:1fr}
+    .row{grid-template-columns:1fr auto;grid-template-areas:"who link" "what what" "when when";gap:4px 10px}
+    .row .who{grid-area:who}.row .what{grid-area:what}.row .when{grid-area:when}.row a{grid-area:link}
+    .stat b{font-size:20px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>לוח הגשות</h1>
+      <div class="sub">הבית הדיגיטלי של תיכון יש"י · למורה בלבד</div>
+    </div>
+    <a class="back" href="index.html">← חזרה לאתר</a>
+  </header>
+
+  <!-- מסך סיסמה -->
+  <form id="gate" class="card" autocomplete="off">
+    <h2>כניסה ללוח</h2>
+    <p>הקלד את הסיסמה כדי לראות את הגשות התלמידים</p>
+    <input type="password" id="pw" placeholder="סיסמה" aria-label="סיסמה" required>
+    <button class="btn" id="go" type="submit">כניסה</button>
+    <div class="msg" id="gateMsg"></div>
+  </form>
+
+  <!-- הלוח -->
+  <section id="board">
+    <div class="stats">
+      <div class="stat"><b id="sTotal">0</b><span>הגשות</span></div>
+      <div class="stat"><b id="sStudents">0</b><span>תלמידים שהגישו</span></div>
+      <div class="stat"><b id="sNew">0</b><span>ב-48 השעות האחרונות</span></div>
+    </div>
+
+    <div class="toolbar">
+      <div class="tabs" id="clsTabs">
+        <button class="tab on" data-c="">הכול</button>
+        <button class="tab" data-c='י"א'>י"א</button>
+        <button class="tab" data-c='י"ב'>י"ב</button>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span class="updated" id="updated"></span>
+        <button class="btn ghost" id="refresh" type="button">רענון</button>
+        <button class="btn ghost" id="logout" type="button">יציאה</button>
+      </div>
+    </div>
+
+    <div class="filters">
+      <input type="search" id="q" placeholder="חיפוש לפי שם תלמיד…" aria-label="חיפוש">
+      <select id="asg" aria-label="מטלה"><option value="">כל המטלות</option></select>
+      <div class="views" id="views">
+        <button class="tab on" data-v="list" type="button">לפי זמן</button>
+        <button class="tab" data-v="asg" type="button">לפי מטלה</button>
+      </div>
+    </div>
+
+    <div id="out" class="list"></div>
+  </section>
+</div>
+
+<script>
+/* ===== הגדרה: כתובת ה-Web App של Google Apps Script (מסתיימת ב-/exec) ===== */
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkhxAu28oe10-Mli0tSUj-pb0rpxGmEioPdquopkPrnIvKw2TZmZw1PmlwhDZ3AUSPXw/exec';
+
+var KEY_STORE = 'bm_board_key';
+var data = [], cls = '', view = 'list';
+var $ = function (id) { return document.getElementById(id); };
+
+function store(k, v) { try { v === null ? sessionStorage.removeItem(k) : sessionStorage.setItem(k, v); } catch (e) {} }
+function load(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+function fmt(ts) {
+  var d = new Date(ts);
+  return d.toLocaleDateString('he-IL', { day: 'numeric', month: 'numeric' }) + ' · ' +
+         d.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+}
+var isNew = function (ts) { return Date.now() - ts < 48 * 3600 * 1000; };
+
+function fetchList(key) {
+  var url = SCRIPT_URL + '?action=list&key=' + encodeURIComponent(key) + '&t=' + Date.now();
+  return fetch(url, { method: 'GET', redirect: 'follow' }).then(function (r) { return r.json(); });
+}
+
+function enter(key, silent) {
+  if (SCRIPT_URL.indexOf('script.google.com') < 0) {
+    $('gateMsg').className = 'msg err';
+    $('gateMsg').textContent = 'חסרה כתובת הסקריפט בקוד הדף (SCRIPT_URL).';
+    return;
+  }
+  $('go').disabled = true;
+  $('gateMsg').className = 'msg';
+  $('gateMsg').textContent = silent ? '' : 'טוען הגשות…';
+  fetchList(key).then(function (res) {
+    $('go').disabled = false;
+    if (!res.ok) {
+      store(KEY_STORE, null);
+      $('gateMsg').className = 'msg err';
+      $('gateMsg').textContent = res.error || 'שגיאה';
+      $('gate').style.display = ''; $('board').style.display = 'none';
+      return;
+    }
+    store(KEY_STORE, key);
+    data = res.items || [];
+    $('updated').textContent = 'עודכן ' + fmt(res.generated || Date.now());
+    $('gate').style.display = 'none'; $('board').style.display = 'block';
+    fillAssignments(); render();
+  }).catch(function () {
+    $('go').disabled = false;
+    $('gateMsg').className = 'msg err';
+    $('gateMsg').textContent = 'אין חיבור לשרת. נסה שוב בעוד רגע.';
+  });
+}
+
+function fillAssignments() {
+  var sel = $('asg'), cur = sel.value, seen = {};
+  data.forEach(function (i) { seen[i.assignment] = (seen[i.assignment] || 0) + 1; });
+  sel.innerHTML = '<option value="">כל המטלות</option>' + Object.keys(seen).sort().map(function (a) {
+    return '<option value="' + esc(a) + '">' + esc(a) + ' (' + seen[a] + ')</option>';
+  }).join('');
+  sel.value = seen[cur] ? cur : '';
+}
+
+function filtered() {
+  var q = $('q').value.trim(), a = $('asg').value;
+  return data.filter(function (i) {
+    return (!cls || i.cls === cls) && (!a || i.assignment === a) && (!q || i.student.indexOf(q) > -1);
+  });
+}
+
+function render() {
+  var items = filtered(), out = $('out');
+  var students = {}; items.forEach(function (i) { students[i.cls + '|' + i.student] = 1; });
+  $('sTotal').textContent = items.length;
+  $('sStudents').textContent = Object.keys(students).length;
+  $('sNew').textContent = items.filter(function (i) { return isNew(i.date); }).length;
+
+  if (!items.length) { out.innerHTML = '<div class="empty">אין הגשות שמתאימות לסינון</div>'; return; }
+
+  if (view === 'list') {
+    out.innerHTML = items.map(function (i) {
+      return '<div class="row">' +
+        '<div class="who">' + esc(i.student) + '<span class="cls">' + esc(i.cls) + '</span></div>' +
+        '<div class="what">' + esc(i.assignment) + (isNew(i.date) ? '<span class="badge">חדש</span>' : '') + '</div>' +
+        '<div class="when">' + fmt(i.date) + '</div>' +
+        '<a href="' + esc(i.url) + '" target="_blank" rel="noopener">פתח קובץ</a>' +
+      '</div>';
+    }).join('');
+  } else {
+    var groups = {};
+    items.forEach(function (i) { (groups[i.assignment] = groups[i.assignment] || []).push(i); });
+    out.innerHTML = Object.keys(groups).sort().map(function (a) {
+      var g = groups[a];
+      return '<details class="group" open><summary><span>' + esc(a) + '</span><span class="count">' + g.length + ' הגשות</span></summary><ul>' +
+        g.map(function (i) {
+          return '<li><span>' + esc(i.student) + ' <span class="cls">' + esc(i.cls) + '</span>' + (isNew(i.date) ? '<span class="badge">חדש</span>' : '') +
+                 '</span><span><span class="when" style="color:var(--muted);font-size:14px">' + fmt(i.date) + '</span> · <a href="' + esc(i.url) + '" target="_blank" rel="noopener">פתח</a></span></li>';
+        }).join('') + '</ul></details>';
+    }).join('');
+  }
+}
+
+$('gate').addEventListener('submit', function (e) { e.preventDefault(); enter($('pw').value.trim()); });
+$('q').addEventListener('input', render);
+$('asg').addEventListener('change', render);
+$('refresh').addEventListener('click', function () { var k = load(KEY_STORE); if (k) enter(k, true); });
+$('logout').addEventListener('click', function () {
+  store(KEY_STORE, null); data = []; $('pw').value = '';
+  $('board').style.display = 'none'; $('gate').style.display = ''; $('gateMsg').textContent = '';
+});
+document.querySelectorAll('#clsTabs .tab').forEach(function (b) {
+  b.addEventListener('click', function () {
+    cls = b.getAttribute('data-c');
+    document.querySelectorAll('#clsTabs .tab').forEach(function (x) { x.classList.toggle('on', x === b); });
+    render();
+  });
+});
+document.querySelectorAll('#views .tab').forEach(function (b) {
+  b.addEventListener('click', function () {
+    view = b.getAttribute('data-v');
+    document.querySelectorAll('#views .tab').forEach(function (x) { x.classList.toggle('on', x === b); });
+    $('out').className = view === 'list' ? 'list' : 'list';
+    render();
+  });
+});
+
+(function () { var k = load(KEY_STORE); if (k) enter(k, true); })();
+</script>
+</body>
+</html>
