@@ -4613,3 +4613,19 @@ body.fc-open:where([data-css~="index"], [data-css~="index"] *){ overflow:hidden;
 .tt-filter-item:where([data-css~="index"], [data-css~="index"] *) .tt-select{ flex:1 1 auto; min-width:0; width:auto; }
 .tt-select:disabled:where([data-css~="index"], [data-css~="index"] *){ background:#F4F7FC; color:#6E7F9C; }
 .tt-unit:where([data-css~="index"], [data-css~="index"] *){ display:block; font-size:.8rem; color:#4E5B72; margin-bottom:1px; }
+
+/* ===== בקרת שיעור ===== */
+.lesson-join-name:where([data-css~="index"], [data-css~="index"] *){ flex-basis:100%; display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px; padding-top:10px; border-top:1px dashed #9FB3D6; }
+.lesson-join-name[hidden]:where([data-css~="index"], [data-css~="index"] *){ display:none; }
+.lesson-join-notice:where([data-css~="index"], [data-css~="index"] *){ flex-basis:100%; margin:0; padding:8px 12px; border-radius:10px; background:#FFEBDC; color:#8A3D07; font-size:.95rem; }
+.lesson-join-input--name:where([data-css~="index"], [data-css~="index"] *){ width:14rem; max-width:100%; letter-spacing:normal; text-align:right; direction:rtl; font-family:inherit; font-size:1rem; }
+.tt-check:where([data-css~="index"], [data-css~="index"] *){ display:flex; align-items:flex-start; gap:8px; padding:8px 10px; border:1px solid #DCE4F1; border-radius:10px; background:#F4F7FC; font-size:.92rem; cursor:pointer; }
+.tt-check:where([data-css~="index"], [data-css~="index"] *) input{ width:18px; height:18px; margin-top:2px; flex:none; accent-color:#123A78; }
+.tt-live[hidden]:where([data-css~="index"], [data-css~="index"] *){ display:none; }
+.tt-live:where([data-css~="index"], [data-css~="index"] *){ border-color:#BFD0EA; }
+.tt-live-dot:where([data-css~="index"], [data-css~="index"] *){ display:inline-block; width:10px; height:10px; border-radius:50%; background:#0D8A63; vertical-align:middle; margin-inline-start:6px; animation:ttPulse 1.6s ease-in-out infinite; }
+:where([data-css~="index"], [data-css~="index"] *)keyframes ttPulse{ 0%,100%{ opacity:1 } 50%{ opacity:.35 } }
+.tt-live-sum:where([data-css~="index"], [data-css~="index"] *){ display:flex; flex-wrap:wrap; gap:8px; }
+.tt-live-chip:where([data-css~="index"], [data-css~="index"] *){ padding:6px 12px; border-radius:999px; background:#F4F7FC; border:1px solid #DCE4F1; font-size:.92rem; }
+.tt-live-table:where([data-css~="index"], [data-css~="index"] *){ min-width:620px; }
+.tt-live-out:where([data-css~="index"], [data-css~="index"] *) td{ background:#FFF7F0; }

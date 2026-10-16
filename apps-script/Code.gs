@@ -8,6 +8,8 @@
  * 3. הודעה מהמורה בדף הבית.
  * 4. קוד לשיעור.
  * 5. ציון והערה לכל עבודה (רק המורה רואה אותם).
+ * 6. בקרת שיעור: בזמן שיעור עם קוד, המורה רואה מי מהתלמידים נמצא בדף ומי יצא ממנו.
+ *    התלמיד רואה על המסך שהבקרה פעילה. המידע נשמר עד 6 שעות ונמחק לבד.
  *
  * הסיסמה לא כתובה כאן. קובעים אותה ב: הגדרות הפרויקט (גלגל השיניים) > מאפייני סקריפט
  *   שם המאפיין: TEACHER_PASSWORD     ערך: הסיסמה שבחרתם
@@ -24,6 +26,9 @@ var DATE_FORMAT = 'dd.MM.yyyy';
 var MAX_BYTES = 5 * 1024 * 1024;   // 5MB, כמו באתר
 var NOTIFY_BY_EMAIL = true;        // מייל למורה על כל הגשה חדשה
 var LESSON_HOURS = 12;             // כמה שעות קוד לשיעור נשאר בתוקף
+var MONITOR_CLASSES = ['יא'];      // כיתות שבהן אפשר להפעיל בקרת שיעור (כרגע רק י"א)
+var AWAY_GRACE_SEC = 15;           // יציאה קצרה מזה (למשל מעבר בין דפים באתר) לא נספרת
+var GONE_AFTER_SEC = 150;          // תלמיד שלא דיווח זמן כזה - "לא מחובר"
 
 // מטלות שרוצים לראות בהן גם "לא הוגש".
 // הסקריפט בודק אילו תלמידים (תיקיות אישיות) עוד לא הגישו את המטלה.
@@ -54,6 +59,9 @@ function doPost(e) {
     // הגשה רגילה מהאתר (בלי action) - בדיוק כמו היום
     if (!data.action || data.action === 'submit') return json_(saveSubmission_(data));
 
+    // דיווח נוכחות מדף של תלמיד בזמן שיעור עם בקרה (בלי סיסמה - רק עם קוד השיעור)
+    if (data.action === 'presence') return json_(presence_(data));
+
     // כל השאר - רק עם סיסמה
     if (!checkPassword_(data.password)) return json_({ ok: false, auth: false, error: 'סיסמה שגויה' });
 
@@ -62,7 +70,8 @@ function doPost(e) {
       case 'list':            return json_({ ok: true, submissions: listSubmissions_() });
       case 'markChecked':     return json_(markChecked_(data.fileId, data.checked !== false));
       case 'setAnnouncement': return json_(setAnnouncement_(data.text));
-      case 'createLesson':    return json_(createLesson_(data.url, data.label));
+      case 'createLesson':    return json_(createLesson_(data.url, data.label, data.monitor === true, data.cls));
+      case 'presenceList':    return json_(presenceList_());
       case 'clearLesson':     PropertiesService.getScriptProperties().deleteProperty('LESSON'); return json_({ ok: true });
       case 'setGrade':        return json_(setGrade_(data.fileId, data.grade, data.comment));
     }
@@ -289,21 +298,95 @@ function setAnnouncement_(text) {
 }
 
 // ---------- קוד לשיעור ----------
-function createLesson_(url, label) {
+function createLesson_(url, label, monitor, cls) {
   url = String(url || '').trim();
   if (!/^[\w.-]+\.html(#[\w-]+)?$/.test(url)) return { ok: false, error: 'כתובת עמוד לא תקינה' };
+  cls = normClass_(cls);
+  if (monitor && MONITOR_CLASSES.indexOf(cls) < 0) return { ok: false, error: 'בקרת שיעור פעילה כרגע רק לכיתה י"א' };
   var code = String(Math.floor(1000 + Math.random() * 9000));
-  var lesson = { code: code, url: url, label: clean_(label).slice(0, 120), created: Date.now() };
+  var lesson = { code: code, url: url, label: clean_(label).slice(0, 120), created: Date.now(),
+                 monitor: !!monitor, cls: monitor ? cls : '' };
   PropertiesService.getScriptProperties().setProperty('LESSON', JSON.stringify(lesson));
-  return { ok: true, code: code, url: url, label: lesson.label };
+  return { ok: true, code: code, url: url, label: lesson.label, monitor: lesson.monitor };
 }
 
 function findLesson_(code) {
   var l = getJson_('LESSON');
   if (l && String(code || '') === l.code && Date.now() - l.created < LESSON_HOURS * 3600 * 1000) {
-    return { ok: true, url: l.url, label: l.label };
+    return { ok: true, url: l.url, label: l.label, monitor: !!l.monitor, cls: l.cls || '',
+             until: l.created + LESSON_HOURS * 3600 * 1000 };
   }
   return { ok: false, error: 'הקוד לא נמצא' };
+}
+
+// ---------- בקרת שיעור ----------
+// כל דף באתר שנפתח בזמן שיעור עם בקרה מדווח: "in" (התלמיד בדף), "out" (יצא מהדף),
+// "bye" (יצא ממצב שיעור). שומרים רק בזיכרון זמני (CacheService) - נמחק לבד אחרי 6 שעות.
+function activeMonitoredLesson_() {
+  var l = getJson_('LESSON');
+  if (!l || !l.monitor || Date.now() - l.created >= LESSON_HOURS * 3600 * 1000) return null;
+  return l;
+}
+
+function presence_(d) {
+  var l = activeMonitoredLesson_();
+  if (!l || String(d.code || '') !== l.code) return { ok: false, ended: true };
+  var sid = String(d.sid || '').replace(/[^\w-]/g, '').slice(0, 40);
+  if (!sid) return { ok: false, error: 'חסר מזהה' };
+  var name = clean_(d.name).slice(0, 60);
+  var page = String(d.page || '').slice(0, 80);
+  if (!/^[\w.-]+\.html$/.test(page)) page = '';
+  var state = d.state === 'out' ? 'out' : (d.state === 'bye' ? 'bye' : 'in');
+  var t = Number(d.t) || Date.now();
+
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(5000)) return { ok: false, busy: true };
+  try {
+    var cache = CacheService.getScriptCache();
+    var key = 'pres_' + l.code;
+    var all = {};
+    try { all = JSON.parse(cache.get(key) || '{}'); } catch (e) { all = {}; }
+    var now = Date.now();
+    var p = all[sid] || { name: name, leaves: 0, state: 'in', outSince: 0, t: 0 };
+    if (t < (p.t || 0)) return { ok: true, leaves: p.leaves };   // דיווח ישן שהגיע מאוחר - מתעלמים
+    p.t = t;
+    if (name) p.name = name;
+    if (page) p.page = page;
+    if (state === 'out') {
+      if (p.state !== 'out') { p.state = 'out'; p.outSince = now; }
+    } else if (state === 'in') {
+      if (p.state === 'out' && now - p.outSince > AWAY_GRACE_SEC * 1000) p.leaves++;
+      p.state = 'in';
+      p.outSince = 0;
+    } else {
+      p.state = 'bye';
+    }
+    p.last = now;
+    all[sid] = p;
+    cache.put(key, JSON.stringify(all), 21600);
+    return { ok: true, leaves: p.leaves };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function presenceList_() {
+  var l = activeMonitoredLesson_();
+  if (!l) return { ok: true, lesson: null, students: [] };
+  var all = {};
+  try { all = JSON.parse(CacheService.getScriptCache().get('pres_' + l.code) || '{}'); } catch (e) { all = {}; }
+  var now = Date.now();
+  var out = Object.keys(all).map(function (sid) {
+    var p = all[sid];
+    var status;
+    if (p.state === 'bye') status = 'bye';
+    else if (p.state === 'out') status = (now - p.outSince > AWAY_GRACE_SEC * 1000) ? 'out' : 'in';
+    else status = (now - p.last > GONE_AFTER_SEC * 1000) ? 'gone' : 'in';
+    return { name: p.name || '', page: p.page || '', status: status, leaves: p.leaves || 0,
+             outFor: p.state === 'out' ? Math.round((now - p.outSince) / 1000) : 0,
+             lastAgo: Math.round((now - (p.last || now)) / 1000) };
+  });
+  return { ok: true, lesson: { code: l.code, label: l.label, url: l.url, cls: l.cls }, students: out };
 }
 
 // ---------- סיסמה ----------
