@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=12">
+<link rel="stylesheet" href="assets/site.css?v=13">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -186,11 +186,23 @@
       <iframe class="view-frame" id="viewFrame" title="העבודה של התלמיד" loading="lazy" referrerpolicy="no-referrer"></iframe>
     </div>
     <p class="view-help">לא רואים את העבודה? ודאו שאתם מחוברים בדפדפן הזה לחשבון Google של בית הספר, או <a id="viewOpenDrive" href="#" target="_blank" rel="noopener">פתחו אותה בדרייב</a>.</p>
+    <form class="view-grade" id="viewGrade" novalidate>
+      <span class="view-grade-field">
+        <label for="viewGradeInput" class="tt-label">ציון</label>
+        <input id="viewGradeInput" class="view-grade-input" type="text" inputmode="numeric" maxlength="3" placeholder="0-100" autocomplete="off">
+      </span>
+      <span class="view-grade-field view-grade-field--wide">
+        <label for="viewCommentInput" class="tt-label">הערה</label>
+        <input id="viewCommentInput" class="view-comment-input" type="text" maxlength="300" placeholder="לא חובה" autocomplete="off">
+      </span>
+      <button type="submit" class="tt-btn tt-btn--primary" id="viewGradeSave">שמירת ציון</button>
+      <p class="view-grade-msg" id="viewGradeMsg" role="status" aria-live="polite"></p>
+    </form>
     <div class="view-actions">
       <button type="button" class="tt-btn" id="viewPrev">→ הקודמת</button>
       <span class="view-pos" id="viewPos" aria-live="polite"></span>
       <button type="button" class="tt-btn" id="viewNext">הבאה ←</button>
-      <button type="button" class="tt-btn tt-btn--primary" id="viewCheck">סימון כנבדק</button>
+      <button type="button" class="tt-btn" id="viewCheck">סימון כנבדק בלי ציון</button>
     </div>
   </div>
 </div>
@@ -684,7 +696,10 @@
         '<div class="tt-card tt-board">' +
           '<div class="tt-board-head">' +
             '<h3 class="tt-h">לוח הגשות</h3>' +
-            '<button type="button" class="tt-btn" id="ttBoardRefresh">רענון</button>' +
+            '<span class="tt-btns">' +
+              '<button type="button" class="tt-btn" id="ttExport">הורדת הציונים</button>' +
+              '<button type="button" class="tt-btn" id="ttBoardRefresh">רענון</button>' +
+            '</span>' +
           '</div>' +
           '<div class="tt-subj" id="ttSubj" role="group" aria-label="סינון לפי מקצוע"></div>' +
           '<div class="tt-status" id="ttStatus" role="group" aria-label="סינון לפי סטטוס"></div>' +
@@ -696,7 +711,7 @@
           '<div class="tt-table-wrap" id="ttTableWrap" hidden>' +
             '<table class="tt-table">' +
               '<caption class="visually-hidden">רשימת ההגשות</caption>' +
-              '<thead><tr><th scope="col">תלמיד/ה</th><th scope="col">מטלה</th><th scope="col">כיתה</th><th scope="col">תאריך</th><th scope="col">סטטוס</th><th scope="col"><span class="visually-hidden">פעולה</span></th></tr></thead>' +
+              '<thead><tr><th scope="col">תלמיד/ה</th><th scope="col">מטלה</th><th scope="col">כיתה</th><th scope="col">תאריך</th><th scope="col">סטטוס</th><th scope="col">ציון</th><th scope="col"><span class="visually-hidden">פעולה</span></th></tr></thead>' +
               '<tbody id="ttRows"></tbody>' +
             '</table>' +
           '</div>' +
@@ -781,6 +796,7 @@
     });
 
     document.getElementById("ttBoardRefresh").addEventListener("click", loadBoard);
+    document.getElementById("ttExport").addEventListener("click", exportGrades);
     document.getElementById("ttSubj").addEventListener("click", function(e){
       var b = e.target.closest("[data-subj]"); if(!b) return;
       board.subj = b.getAttribute("data-subj"); board.task = "all"; renderBoard();
@@ -820,7 +836,8 @@
       board.rows = (res.submissions || []).map(function(x){
         return { id:x.id || "", name:x.student || "", task:x.task || "", subject:x.subject || 'תנ"ך',
                  cls:x.cls === "יא" ? 'י"א' : (x.cls === "יב" ? 'י"ב' : (x.cls || "")),
-                 date:x.date || "", status:x.status || "pending", url:x.url || "", notes:x.notes || "" };
+                 date:x.date || "", status:x.status || "pending", url:x.url || "", notes:x.notes || "",
+                 grade:x.grade == null ? "" : String(x.grade), comment:x.comment || "" };
       });
       msg.textContent = "";
       renderBoard();
@@ -876,6 +893,10 @@
         '<td>' + escapeHtml(r.cls) + '</td>' +
         '<td class="tt-date">' + escapeHtml(r.date || "-") + '</td>' +
         '<td><span class="tt-pill tt-pill--' + st.cls + '">' + st.label + '</span></td>' +
+        '<td class="tt-grade"' + (r.comment ? ' title="' + escapeAttr(r.comment) + '"' : '') + '>' +
+          (r.grade !== "" ? '<b>' + escapeHtml(r.grade) + '</b>' : '<span aria-hidden="true">-</span>') +
+          (r.comment ? '<span class="tt-grade-comment">' + escapeHtml(r.comment) + '</span>' : '') +
+        '</td>' +
         '<td class="tt-actions">' +
           (r.id ? '<button type="button" class="tt-btn tt-btn--small tt-btn--view" data-view="' + escapeAttr(r.id) + '">צפייה</button>' : '') +
           (r.status === "pending" ? '<button type="button" class="tt-btn tt-btn--small" data-check="' + escapeAttr(r.id) + '">סימון כנבדק</button>' : '') +
@@ -1398,12 +1419,35 @@
     });
   })();
 
+  /* ============ הורדת הציונים (קובץ שנפתח באקסל) ============
+     מה שמוצג כרגע בלוח, לפי הסינון שנבחר. */
+  function exportGrades(){
+    var rows = board.shown || [];
+    var msg = document.getElementById("ttBoardMsg");
+    if(!rows.length){ msg.textContent = "אין מה להוריד - הלוח ריק בסינון הזה."; return; }
+    function cell(v){ v = String(v == null ? "" : v); return /[",\r\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
+    var lines = [["תלמיד/ה","כיתה","מקצוע","מטלה","תאריך","סטטוס","ציון","הערה"].map(cell).join(",")];
+    rows.forEach(function(r){
+      lines.push([r.name, r.cls, r.subject, r.task, r.date, (STATUS_INFO[r.status] || STATUS_INFO.pending).label, r.grade, r.comment].map(cell).join(","));
+    });
+    var blob = new Blob(["\uFEFF" + lines.join("\r\n")], { type:"text/csv;charset=utf-8" });
+    var a = document.createElement("a");
+    var d = new Date();
+    a.href = URL.createObjectURL(blob);
+    a.download = "ציונים " + d.getDate() + "." + (d.getMonth() + 1) + "." + d.getFullYear() + ".csv";
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1000);
+    msg.textContent = "✓ הקובץ ירד (" + rows.length + " שורות). אפשר לפתוח אותו באקסל.";
+  }
+
   /* ============ צפייה בעבודה בתוך האתר ============
      הקובץ נשאר בדרייב הפרטי של המורה ומוצג כאן בתצוגה של Google.
      רק מי שמחובר לחשבון עם הרשאה לקובץ יראה אותו. */
   var viewer = { list:[], i:-1, opener:null };
   var viewEl = {};
-  ["viewOverlay","viewDialog","viewTitle","viewMeta","viewNotes","viewFrame","viewOpenDrive","viewPrev","viewNext","viewPos","viewCheck","viewClose"]
+  ["viewOverlay","viewDialog","viewTitle","viewMeta","viewNotes","viewFrame","viewOpenDrive","viewPrev","viewNext","viewPos","viewCheck","viewClose",
+   "viewGrade","viewGradeInput","viewCommentInput","viewGradeSave","viewGradeMsg"]
     .forEach(function(id){ viewEl[id] = document.getElementById(id); });
 
   function viewableRows(){
@@ -1438,11 +1482,17 @@
     viewEl.viewFrame.src = "https://drive.google.com/file/d/" + encodeURIComponent(r.id) + "/preview";
     viewEl.viewOpenDrive.href = /^https:\/\//.test(r.url || "") ? r.url : ("https://drive.google.com/file/d/" + encodeURIComponent(r.id) + "/view");
     viewEl.viewPos.textContent = "עבודה " + (viewer.i + 1) + " מתוך " + viewer.list.length;
+    if(!viewer.keepMsg) viewEl.viewGradeMsg.textContent = "";
+    viewer.keepMsg = false;
     viewEl.viewPrev.disabled = viewer.i <= 0;
     viewEl.viewNext.disabled = viewer.i >= viewer.list.length - 1;
     viewEl.viewCheck.hidden = r.status !== "pending";
+    viewEl.viewGradeInput.value = r.grade || "";
+    viewEl.viewCommentInput.value = r.comment || "";
+    viewEl.viewGradeSave.disabled = false;
+    viewEl.viewGradeSave.textContent = r.grade !== "" ? "עדכון הציון" : "שמירת ציון";
     viewEl.viewCheck.disabled = false;
-    viewEl.viewCheck.textContent = "סימון כנבדק";
+    viewEl.viewCheck.textContent = "סימון כנבדק בלי ציון";
     /* כפתור שהיה בפוקוס נעלם או ננעל (סוף הרשימה, אחרי סימון) - לא להשאיר את הפוקוס באוויר */
     var f = document.activeElement;
     if(!f || f === document.body || f.disabled || f.hidden) (viewEl.viewNext.disabled ? viewEl.viewClose : viewEl.viewNext).focus();
@@ -1467,12 +1517,49 @@
           showViewed();
           viewEl.viewPos.textContent = "✓ סומן כנבדק · " + viewEl.viewPos.textContent;
         } else {
-          viewEl.viewCheck.disabled = false; viewEl.viewCheck.textContent = "סימון כנבדק";
+          viewEl.viewCheck.disabled = false; viewEl.viewCheck.textContent = "סימון כנבדק בלי ציון";
           alert((res && res.error) || "הסימון לא הצליח.");
         }
       }).catch(function(){
-        viewEl.viewCheck.disabled = false; viewEl.viewCheck.textContent = "סימון כנבדק";
+        viewEl.viewCheck.disabled = false; viewEl.viewCheck.textContent = "סימון כנבדק בלי ציון";
         alert("אין חיבור לשרת כרגע. נסו שוב.");
+      });
+    });
+    viewEl.viewGradeInput.addEventListener("input", function(){
+      var clean = viewEl.viewGradeInput.value.replace(/\D/g, "").slice(0, 3);
+      if(clean !== viewEl.viewGradeInput.value) viewEl.viewGradeInput.value = clean;
+    });
+    viewEl.viewGrade.addEventListener("submit", function(e){
+      e.preventDefault();
+      var r = viewer.list[viewer.i];
+      if(!r) return;
+      var g = viewEl.viewGradeInput.value.trim();
+      var c = viewEl.viewCommentInput.value.trim();
+      if(g !== "" && (+g > 100)){ viewEl.viewGradeMsg.textContent = "הציון צריך להיות בין 0 ל-100."; viewEl.viewGradeInput.focus(); return; }
+      if(g === "" && c === "" && r.grade === "" && !r.comment){ viewEl.viewGradeMsg.textContent = "כתבו ציון או הערה."; viewEl.viewGradeInput.focus(); return; }
+      viewEl.viewGradeSave.disabled = true;
+      viewEl.viewGradeMsg.textContent = "שומרים…";
+      apiPost({ action:"setGrade", password:teacherToken(), fileId:r.id, grade:g, comment:c }).then(function(res){
+        if(handleAuthFailure(res)){ closeViewer(); return; }
+        if(res && res.ok){
+          var cleared = res.grade === "" && res.comment === "";
+          board.rows.forEach(function(x){
+            if(x.id !== r.id) return;
+            x.grade = res.grade; x.comment = res.comment;
+            if(!cleared) x.status = "checked";
+          });
+          viewEl.viewGradeMsg.textContent = cleared ? "✓ הציון נמחק." : ("✓ נשמר: " + r.name + (res.grade !== "" ? " - " + res.grade : ""));
+          viewer.keepMsg = true;
+          if(!cleared && viewer.i < viewer.list.length - 1) viewer.i++;  /* ממשיכים לעבודה הבאה */
+          showViewed();
+          if(!viewEl.viewOverlay.hidden) viewEl.viewGradeInput.focus();
+        } else {
+          viewEl.viewGradeSave.disabled = false;
+          viewEl.viewGradeMsg.textContent = (res && res.error) || "השמירה לא הצליחה.";
+        }
+      }).catch(function(){
+        viewEl.viewGradeSave.disabled = false;
+        viewEl.viewGradeMsg.textContent = "אין חיבור לשרת כרגע. נסו שוב.";
       });
     });
     trapFocus(viewEl.viewDialog, closeViewer);

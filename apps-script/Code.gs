@@ -7,6 +7,7 @@
  * 2. לוח הגשות למורה: מציג את כל ההגשות, כולל אלה שכבר היו בתיקיות. מוגן בסיסמה.
  * 3. הודעה מהמורה בדף הבית.
  * 4. קוד לשיעור.
+ * 5. ציון והערה לכל עבודה (רק המורה רואה אותם).
  *
  * הסיסמה לא כתובה כאן. קובעים אותה ב: הגדרות הפרויקט (גלגל השיניים) > מאפייני סקריפט
  *   שם המאפיין: TEACHER_PASSWORD     ערך: הסיסמה שבחרתם
@@ -63,6 +64,7 @@ function doPost(e) {
       case 'setAnnouncement': return json_(setAnnouncement_(data.text));
       case 'createLesson':    return json_(createLesson_(data.url, data.label));
       case 'clearLesson':     PropertiesService.getScriptProperties().deleteProperty('LESSON'); return json_({ ok: true });
+      case 'setGrade':        return json_(setGrade_(data.fileId, data.grade, data.comment));
     }
     return json_({ ok: false, error: 'פעולה לא מוכרת' });
   } catch (err) {
@@ -133,6 +135,12 @@ function listSubmissions_() {
     }
     addMissing_(cls, students, out);
   });
+  var grades = gradeMap_();
+  out.forEach(function (x) {
+    var g = x.id && grades[x.id];
+    x.grade = g ? g.g : '';
+    x.comment = g ? g.c : '';
+  });
   out.sort(function (a, b) { return b.time - a.time; });
   return out;
 }
@@ -200,6 +208,34 @@ function markChecked_(fileId, checked) {
   var props = PropertiesService.getScriptProperties();
   if (checked) props.setProperty('chk_' + fileId, '1'); else props.deleteProperty('chk_' + fileId);
   return { ok: true };
+}
+
+// ---------- ציונים ----------
+// נשמרים במאפייני הסקריפט, ליד הסימון "נבדק": grade_<מזהה הקובץ> = {g: ציון, c: הערה}
+function gradeMap_() {
+  var props = PropertiesService.getScriptProperties().getProperties();
+  var map = {};
+  Object.keys(props).forEach(function (k) {
+    if (k.indexOf('grade_') !== 0) return;
+    try { map[k.slice(6)] = JSON.parse(props[k]); } catch (e) { /* ערך פגום - מדלגים */ }
+  });
+  return map;
+}
+
+function setGrade_(fileId, grade, comment) {
+  if (!/^[\w-]{10,}$/.test(String(fileId || ''))) return { ok: false, error: 'מזהה קובץ לא תקין' };
+  var g = String(grade == null ? '' : grade).trim();
+  var c = clean_(comment).slice(0, 300);
+  if (g !== '' && !/^\d{1,3}$/.test(g)) return { ok: false, error: 'הציון צריך להיות מספר בין 0 ל-100' };
+  if (g !== '' && Number(g) > 100) return { ok: false, error: 'הציון צריך להיות מספר בין 0 ל-100' };
+  var props = PropertiesService.getScriptProperties();
+  if (g === '' && c === '') {
+    props.deleteProperty('grade_' + fileId);       // מחיקת ציון
+  } else {
+    props.setProperty('grade_' + fileId, JSON.stringify({ g: g, c: c, t: Date.now() }));
+    props.setProperty('chk_' + fileId, '1');       // עבודה עם ציון נחשבת "נבדקה"
+  }
+  return { ok: true, grade: g, comment: c };
 }
 
 // ---------- הודעה מהמורה ----------

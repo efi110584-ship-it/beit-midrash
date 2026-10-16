@@ -4593,3 +4593,17 @@ body.fc-open:where([data-css~="index"], [data-css~="index"] *){ overflow:hidden;
 .tt:where([data-css~="index"], [data-css~="index"] *), .tt-board:where([data-css~="index"], [data-css~="index"] *){ max-width:100%; min-width:0; }
 .tt-table-wrap:where([data-css~="index"], [data-css~="index"] *){ width:100%; max-width:100%; min-width:0; }
 .tt-table-wrap:where([data-css~="index"], [data-css~="index"] *){ position:relative; } /* תוויות נסתרות בטבלה לא יברחו מהגלילה */
+
+/* ===== דף הבית: ציון בעבודה ===== */
+.view-grade:where([data-css~="index"], [data-css~="index"] *){ display:flex; flex-wrap:wrap; align-items:flex-end; gap:8px 12px; padding:10px 12px; background:#fff; border:1px solid #DCE4F1; border-radius:12px; }
+.view-grade-field:where([data-css~="index"], [data-css~="index"] *){ display:flex; flex-direction:column; gap:3px; }
+.view-grade-field--wide:where([data-css~="index"], [data-css~="index"] *){ flex:1 1 220px; }
+.view-grade-input:where([data-css~="index"], [data-css~="index"] *){ width:5.5rem; padding:9px 10px; border:1px solid #9FB3D6; border-radius:10px; font-family:"Rubik", sans-serif; font-size:1.15rem; text-align:center; direction:ltr; color:#0E1B33; background:#fff; }
+.view-comment-input:where([data-css~="index"], [data-css~="index"] *){ width:100%; padding:9px 10px; border:1px solid #9FB3D6; border-radius:10px; font-size:1rem; font-family:inherit; color:#0E1B33; background:#fff; }
+.view-grade-msg:where([data-css~="index"], [data-css~="index"] *){ flex-basis:100%; margin:0; font-size:.92rem; color:#0A6B4C; font-weight:700; }
+.view-grade-msg:empty:where([data-css~="index"], [data-css~="index"] *){ display:none; }
+.tt-grade:where([data-css~="index"], [data-css~="index"] *){ font-variant-numeric:tabular-nums; }
+.tt-grade:where([data-css~="index"], [data-css~="index"] *) b{ font-family:"Rubik", sans-serif; font-size:1.05rem; color:#0B2A5B; }
+.tt-grade-comment:where([data-css~="index"], [data-css~="index"] *){ display:block; max-width:16rem; font-size:.8rem; color:#4E5B72; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.tt-board-head:where([data-css~="index"], [data-css~="index"] *) .tt-btns{ flex-wrap:wrap; justify-content:flex-end; }
+.a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .view-grade{ border:2px solid #000; }
