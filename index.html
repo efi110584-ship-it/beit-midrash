@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=9">
+<link rel="stylesheet" href="assets/site.css?v=10">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -135,7 +135,14 @@
   </section>
 
   <section class="results-wrap">
-    <div id="continue-root"></div>
+    <div class="home-actions">
+      <div id="continue-root"></div>
+      <button type="button" class="practice-card" id="practiceOpenBtn" aria-haspopup="dialog" hidden>
+        <span class="practice-icon" aria-hidden="true">🗂️</span>
+        <span><span class="practice-title">תרגול לבגרות · כרטיסיות</span>
+        <span class="practice-meta" id="practiceMeta"></span></span>
+      </button>
+    </div>
     <div id="status-line" class="status-line" role="status" aria-live="polite"></div>
     <div id="content-root" class="content-root" role="tabpanel" aria-labelledby="tab-ya">
       <p class="loading-msg">טוען חומרי לימוד…</p>
@@ -148,8 +155,40 @@
   <p>הבית הדיגיטלי של תיכון יש"י &middot; מתעדכן ע"י הרב אפרים &middot; <button type="button" class="link-reset-role" id="resetRoleBtn">לא אני - בחרו מחדש</button></p>
 </footer>
 
+<div class="fc-overlay" id="fcOverlay" hidden>
+  <div class="fc-dialog" id="fcDialog" role="dialog" aria-modal="true" aria-labelledby="fcTitle" aria-describedby="fcProgress">
+    <div class="fc-head">
+      <div>
+        <h2 class="fc-title" id="fcTitle">תרגול לבגרות · <span id="fcDeckName"></span></h2>
+        <p class="fc-progress-text" id="fcProgress"></p>
+      </div>
+      <button type="button" class="fc-close" id="fcClose" aria-label="סגירת הכרטיסיות">✕</button>
+    </div>
+    <div class="fc-decks" id="fcDecks" role="group" aria-label="בחירת ערכה"></div>
+    <div class="fc-bar" aria-hidden="true"><div class="fc-bar-fill" id="fcBar"></div></div>
+    <div class="fc-play" id="fcPlay">
+      <button type="button" class="fc-card" id="fcCard">
+        <span class="fc-side" id="fcSide">שאלה</span>
+        <span class="fc-text" id="fcText"></span>
+        <span class="fc-hint" id="fcHint">לחצו כדי להפוך</span>
+      </button>
+      <div class="fc-actions">
+        <button type="button" class="fc-again" id="fcAgain">עוד לא · תחזיר לי</button>
+        <button type="button" class="fc-know" id="fcKnow">ידעתי</button>
+      </div>
+    </div>
+    <div class="fc-done" id="fcDone" hidden>
+      <p class="fc-done-title">סיימתם את כל הכרטיסיות</p>
+      <p class="fc-done-sub" id="fcDoneSub"></p>
+      <button type="button" class="fc-reset" id="fcReset">סבב חדש</button>
+    </div>
+    <div class="visually-hidden" id="fcStatus" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
 </div><!-- /site-content -->
 
+<script src="assets/flashcards-data.js"></script>
 <script>
 (function(){
   "use strict";
@@ -837,6 +876,146 @@
         '<span><span class="continue-title">המשיכו מהמקום שבו הפסקתם</span>' +
         '<span class="continue-meta">' + escapeHtml(last.title || last.page) + ' · ' + meta + '</span></span>' +
       '</a>';
+  })();
+
+  /* ============ כרטיסיות לבגרות ============
+     התוכן ב-assets/flashcards-data.js. "ידעתי" מוציא את הכרטיסייה מהתור,
+     "עוד לא" מחזיר אותה לתור, אחרי שתי הכרטיסיות הבאות. ההתקדמות נשמרת במכשיר:
+     localStorage["bm-flashcards-v1"] = { [deckKey]: {queue, known} } */
+  (function flashcards(){
+    var DECKS = window.BM_FLASHCARDS || {};
+    var deckKeys = Object.keys(DECKS).filter(function(k){ return DECKS[k] && (DECKS[k].cards || []).length; });
+    var openBtn = document.getElementById("practiceOpenBtn");
+    var overlay = document.getElementById("fcOverlay");
+    var dialog = document.getElementById("fcDialog");
+    if(!openBtn || !overlay || !deckKeys.length) return;
+
+    var STORE_KEY = "bm-flashcards-v1";
+    var el = {};
+    ["fcDeckName","fcProgress","fcDecks","fcBar","fcPlay","fcCard","fcSide","fcText","fcHint",
+     "fcAgain","fcKnow","fcDone","fcDoneSub","fcReset","fcClose","fcStatus"].forEach(function(id){ el[id] = document.getElementById(id); });
+
+    var deckKey = deckKeys[0];
+    var flipped = false;
+    var opener = null;
+
+    document.getElementById("practiceMeta").textContent =
+      deckKeys.map(function(k){ return DECKS[k].title; }).join(" · ");
+    openBtn.hidden = false;
+
+    function readAll(){
+      try{ return JSON.parse(localStorage.getItem(STORE_KEY) || "{}") || {}; }catch(e){ return {}; }
+    }
+    /* מצב הערכה, מתוקן מול התוכן הנוכחי - אם המורה הוסיף או מחק כרטיסיות */
+    function deckState(k){
+      var n = DECKS[k].cards.length;
+      var s = readAll()[k] || {};
+      var seen = {};
+      function valid(i){ i = +i; if(i >= 0 && i < n && i % 1 === 0 && !seen[i]){ seen[i] = 1; return true; } return false; }
+      var known = (s.known || []).filter(valid);
+      var queue = (s.queue || []).filter(valid);
+      for(var i = 0; i < n; i++) if(!seen[i]) queue.push(i);
+      if(!s.queue) queue = queue.filter(function(i){ return known.indexOf(i) === -1; });
+      return { queue:queue.map(Number), known:known.map(Number) };
+    }
+    function save(k, st){
+      var all = readAll();
+      all[k] = st;
+      try{ localStorage.setItem(STORE_KEY, JSON.stringify(all)); }catch(e){}
+    }
+
+    function render(){
+      var deck = DECKS[deckKey];
+      var st = deckState(deckKey);
+      var total = deck.cards.length;
+      el.fcDeckName.textContent = deck.title;
+      el.fcProgress.textContent = "ידעתי " + st.known.length + " מתוך " + total;
+      el.fcBar.style.width = Math.round(st.known.length / total * 100) + "%";
+      el.fcDecks.innerHTML = deckKeys.map(function(k){
+        return '<button type="button" class="fc-deck" data-deck="' + escapeAttr(k) + '" aria-pressed="' + (k === deckKey) + '">' +
+          escapeHtml(DECKS[k].title) + '</button>';
+      }).join("");
+
+      var cur = st.queue[0];
+      var done = cur === undefined;
+      el.fcPlay.hidden = done;
+      el.fcDone.hidden = !done;
+      if(done){
+        el.fcDoneSub.textContent = "ידעתם את כל " + total + " הכרטיסיות בערכה. אפשר להתחיל סבב חדש.";
+        return;
+      }
+      var card = deck.cards[cur];
+      el.fcCard.classList.toggle("is-answer", flipped);
+      el.fcSide.textContent = flipped ? "תשובה" : "שאלה";
+      el.fcText.textContent = card[flipped ? 1 : 0];
+      el.fcHint.textContent = flipped ? "לחצו כדי לחזור לשאלה" : "לחצו כדי להפוך";
+    }
+
+    function focusables(){
+      return Array.prototype.filter.call(
+        dialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'),
+        function(n){ return !n.disabled && n.offsetParent !== null; });
+    }
+    function open(){
+      opener = document.activeElement;
+      flipped = false;
+      render();
+      overlay.hidden = false;
+      document.body.classList.add("fc-open");
+      (el.fcPlay.hidden ? el.fcReset : el.fcCard).focus();
+    }
+    function close(){
+      overlay.hidden = true;
+      document.body.classList.remove("fc-open");
+      if(opener && opener.focus) opener.focus();
+    }
+    function act(knew){
+      var st = deckState(deckKey);
+      var cur = st.queue.shift();
+      if(cur === undefined) return;
+      if(knew) st.known.push(cur);
+      else st.queue.splice(Math.min(2, st.queue.length), 0, cur);
+      save(deckKey, st);
+      flipped = false;
+      render();
+      el.fcStatus.textContent = knew ? "סומן: ידעתי." : "הכרטיסייה תחזור בהמשך.";
+      (el.fcPlay.hidden ? el.fcReset : el.fcCard).focus();
+    }
+
+    openBtn.addEventListener("click", open);
+    el.fcClose.addEventListener("click", close);
+    overlay.addEventListener("click", function(e){ if(e.target === overlay) close(); });
+    el.fcCard.addEventListener("click", function(){
+      flipped = !flipped;
+      render();
+      el.fcStatus.textContent = (flipped ? "תשובה: " : "שאלה: ") + el.fcText.textContent;
+    });
+    el.fcKnow.addEventListener("click", function(){ act(true); });
+    el.fcAgain.addEventListener("click", function(){ act(false); });
+    el.fcReset.addEventListener("click", function(){
+      save(deckKey, { queue:DECKS[deckKey].cards.map(function(_, i){ return i; }), known:[] });
+      flipped = false;
+      render();
+      el.fcCard.focus();
+    });
+    el.fcDecks.addEventListener("click", function(e){
+      var b = e.target.closest(".fc-deck");
+      if(!b) return;
+      deckKey = b.getAttribute("data-deck");
+      flipped = false;
+      render();
+      var again = el.fcDecks.querySelector('[data-deck="' + deckKey + '"]');
+      if(again) again.focus();
+    });
+    dialog.addEventListener("keydown", function(e){
+      if(e.key === "Escape"){ e.preventDefault(); close(); return; }
+      if(e.key !== "Tab") return;
+      var f = focusables();
+      if(!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    });
   })();
 
   renderUnits();
