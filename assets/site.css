@@ -4471,3 +4471,101 @@ body.fc-open:where([data-css~="index"], [data-css~="index"] *){ overflow:hidden;
 .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .fc-dialog{ background:#fff; border:2px solid #000; }
 .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .fc-again{ background:#fff; color:#000; border:2px solid #000; }
 .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .fc-know, .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .fc-reset, .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .fc-deck[aria-pressed="true"]{ background:#000; color:#fff; }
+
+/* ===== דף הבית: הודעה מהמורה ===== */
+.announce:where([data-css~="index"], [data-css~="index"] *){ background:#FFEBDC; color:#0E1B33; border-bottom:1px solid #F6CFAF; }
+.announce[hidden]:where([data-css~="index"], [data-css~="index"] *){ display:none; }
+.announce-inner:where([data-css~="index"], [data-css~="index"] *){ max-width:1100px; margin:0 auto; padding:.7rem 1.25rem; display:flex; align-items:center; gap:.8rem; }
+.announce-tag:where([data-css~="index"], [data-css~="index"] *){ flex:none; background:#FF7A1A; color:#fff; font-weight:700; font-size:14px; padding:4px 12px; border-radius:999px; white-space:nowrap; }
+.announce-text:where([data-css~="index"], [data-css~="index"] *){ margin:0; flex:1 1 auto; min-width:0; font-size:1rem; line-height:1.5; white-space:pre-line; overflow-wrap:anywhere; }
+.announce-close:where([data-css~="index"], [data-css~="index"] *){ flex:none; width:44px; height:44px; border:0; border-radius:10px; background:transparent; color:#8A3D07; font-size:18px; cursor:pointer; }
+.announce-close:hover:where([data-css~="index"], [data-css~="index"] *){ background:#FBD9BD; }
+:where([data-css~="index"], [data-css~="index"] *)media (max-width:520px){
+  .announce-inner:where([data-css~="index"], [data-css~="index"] *){ flex-wrap:wrap; }
+  .announce-text:where([data-css~="index"], [data-css~="index"] *){ flex-basis:calc(100% - 60px); order:3; }
+  .announce-close:where([data-css~="index"], [data-css~="index"] *){ margin-inline-start:auto; }
+}
+.a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .announce{ background:#fff; border-bottom:2px solid #000; }
+.a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .announce-tag{ background:#000; }
+
+/* ===== דף הבית: קוד לשיעור (תלמידים) ===== */
+.lesson-join:where([data-css~="index"], [data-css~="index"] *){ display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; margin:0 0 1.1rem; padding:12px 16px; background:#fff; border:2px dashed #9FB3D6; border-radius:12px; }
+.lesson-join-label:where([data-css~="index"], [data-css~="index"] *){ font-weight:700; font-size:1.05rem; color:#0B2A5B; }
+.lesson-join-controls:where([data-css~="index"], [data-css~="index"] *){ display:flex; gap:8px; align-items:center; }
+.lesson-join-input:where([data-css~="index"], [data-css~="index"] *){ width:8.5rem; padding:10px 12px; border:1px solid #9FB3D6; border-radius:10px; font-family:"Rubik", sans-serif; font-size:1.2rem; letter-spacing:.2em; text-align:center; direction:ltr; color:#0E1B33; background:#fff; }
+.lesson-join-input:where([data-css~="index"], [data-css~="index"] *)::placeholder{ letter-spacing:normal; font-size:.95rem; color:#6E7F9C; }
+.lesson-join.is-error:where([data-css~="index"], [data-css~="index"] *) .lesson-join-input{ border-color:#B42318; }
+.lesson-join-btn:where([data-css~="index"], [data-css~="index"] *){ min-height:44px; padding:10px 20px; border:0; border-radius:10px; background:#FF7A1A; color:#fff; font-weight:700; font-size:1rem; cursor:pointer; font-family:inherit; }
+.lesson-join-btn:hover:where([data-css~="index"], [data-css~="index"] *){ filter:brightness(.96); }
+.lesson-join-btn:disabled:where([data-css~="index"], [data-css~="index"] *){ opacity:.6; cursor:default; }
+.lesson-join-msg:where([data-css~="index"], [data-css~="index"] *){ margin:0; flex-basis:100%; font-size:.95rem; color:#4E5B72; }
+.lesson-join-msg:empty:where([data-css~="index"], [data-css~="index"] *){ display:none; }
+.lesson-join.is-error:where([data-css~="index"], [data-css~="index"] *) .lesson-join-msg{ color:#B42318; font-weight:700; }
+.a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .lesson-join{ border-color:#000; }
+.a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .lesson-join-btn{ background:#000; }
+
+/* ===== דף הבית: כניסה לאזור האישי ===== */
+.login-dialog:where([data-css~="index"], [data-css~="index"] *){ max-width:420px; }
+.login-label:where([data-css~="index"], [data-css~="index"] *){ font-weight:700; font-size:1rem; }
+.login-input:where([data-css~="index"], [data-css~="index"] *){ width:100%; padding:12px 14px; border:1px solid #9FB3D6; border-radius:10px; font-size:1.05rem; background:#fff; color:#0E1B33; }
+.login-msg:where([data-css~="index"], [data-css~="index"] *){ margin:0; min-height:1.4em; font-size:.95rem; color:#B42318; }
+
+/* ===== דף הבית: כלי המורה ===== */
+.tt:where([data-css~="index"], [data-css~="index"] *){ display:flex; flex-direction:column; gap:14px; margin:0 0 1.4rem; }
+.tt-row:where([data-css~="index"], [data-css~="index"] *){ display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:14px; }
+.tt-card:where([data-css~="index"], [data-css~="index"] *){ background:#fff; border:1px solid #DCE4F1; border-radius:14px; padding:18px; display:flex; flex-direction:column; gap:10px; box-shadow:0 4px 14px rgba(11,42,91,.10); color:#0E1B33; min-width:0; }
+.tt-h:where([data-css~="index"], [data-css~="index"] *){ font-family:"Frank Ruhl Libre", serif; font-size:1.35rem; font-weight:700; color:#123A78; margin:0; }
+.tt-sub:where([data-css~="index"], [data-css~="index"] *){ margin:0; font-size:.92rem; color:#4E5B72; }
+.tt-label:where([data-css~="index"], [data-css~="index"] *){ font-weight:700; font-size:.95rem; }
+.tt-textarea:where([data-css~="index"], [data-css~="index"] *), .tt-select:where([data-css~="index"], [data-css~="index"] *){ width:100%; padding:10px 12px; border:1px solid #9FB3D6; border-radius:10px; font-size:1rem; font-family:inherit; color:#0E1B33; background:#fff; }
+.tt-textarea:where([data-css~="index"], [data-css~="index"] *){ resize:vertical; min-height:84px; }
+.tt-btns:where([data-css~="index"], [data-css~="index"] *){ display:flex; flex-wrap:wrap; gap:8px; }
+.tt-btn:where([data-css~="index"], [data-css~="index"] *){ min-height:44px; padding:9px 16px; border:1px solid #DCE4F1; border-radius:10px; background:#fff; color:#123A78; font-weight:700; font-size:.95rem; cursor:pointer; font-family:inherit; }
+.tt-btn:hover:where([data-css~="index"], [data-css~="index"] *){ background:#F4F7FC; }
+.tt-btn--primary:where([data-css~="index"], [data-css~="index"] *){ background:#123A78; border-color:#123A78; color:#fff; }
+.tt-btn--primary:hover:where([data-css~="index"], [data-css~="index"] *){ background:#0B2A5B; }
+.tt-btn--small:where([data-css~="index"], [data-css~="index"] *){ min-height:36px; padding:6px 12px; font-size:.88rem; white-space:nowrap; }
+.tt-btn:disabled:where([data-css~="index"], [data-css~="index"] *){ opacity:.6; cursor:default; }
+.tt-msg:where([data-css~="index"], [data-css~="index"] *){ margin:0; font-size:.95rem; color:#4E5B72; }
+.tt-msg:empty:where([data-css~="index"], [data-css~="index"] *){ display:none; }
+.tt-lesson-out:where([data-css~="index"], [data-css~="index"] *){ display:flex; flex-direction:column; align-items:center; gap:4px; }
+.tt-lesson-out:empty:where([data-css~="index"], [data-css~="index"] *){ display:none; }
+.tt-code:where([data-css~="index"], [data-css~="index"] *){ font-family:"Rubik", sans-serif; font-size:48px; font-weight:700; letter-spacing:.2em; color:#0B2A5B; direction:ltr; line-height:1.1; }
+.tt-code-label:where([data-css~="index"], [data-css~="index"] *){ font-size:.92rem; color:#4E5B72; text-align:center; }
+.tt-board-head:where([data-css~="index"], [data-css~="index"] *){ display:flex; justify-content:space-between; align-items:center; gap:10px; }
+.tt-subj:where([data-css~="index"], [data-css~="index"] *){ display:flex; flex-wrap:wrap; gap:6px; }
+.tt-tab:where([data-css~="index"], [data-css~="index"] *){ min-height:40px; padding:7px 14px; border-radius:999px; border:1px solid #DCE4F1; background:#fff; color:#123A78; font-size:.92rem; cursor:pointer; font-family:inherit; }
+.tt-tab[aria-pressed="true"]:where([data-css~="index"], [data-css~="index"] *){ background:#123A78; border-color:#123A78; color:#fff; font-weight:700; }
+.tt-count:where([data-css~="index"], [data-css~="index"] *){ display:inline-block; min-width:1.6em; padding:0 6px; margin-inline-start:4px; border-radius:999px; background:rgba(18,58,120,.1); font-size:.82rem; text-align:center; }
+.tt-tab[aria-pressed="true"]:where([data-css~="index"], [data-css~="index"] *) .tt-count{ background:rgba(255,255,255,.22); }
+.tt-status:where([data-css~="index"], [data-css~="index"] *){ display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:10px; }
+.tt-stat:where([data-css~="index"], [data-css~="index"] *){ display:flex; flex-direction:column; align-items:flex-start; gap:2px; padding:12px 14px; border:1px solid #DCE4F1; border-radius:12px; background:#fff; cursor:pointer; text-align:right; font-family:inherit; color:#0E1B33; }
+.tt-stat[aria-pressed="true"]:where([data-css~="index"], [data-css~="index"] *){ border-color:#123A78; box-shadow:inset 0 0 0 1px #123A78; background:#F4F7FC; }
+.tt-stat-num:where([data-css~="index"], [data-css~="index"] *){ font-family:"Rubik", sans-serif; font-size:1.7rem; font-weight:700; line-height:1.1; }
+.tt-stat-label:where([data-css~="index"], [data-css~="index"] *){ font-size:.9rem; color:#4E5B72; }
+.tt-stat--all:where([data-css~="index"], [data-css~="index"] *) .tt-stat-num{ color:#0E1B33; }
+.tt-stat--pending:where([data-css~="index"], [data-css~="index"] *) .tt-stat-num{ color:#B8520A; }
+.tt-stat--missing:where([data-css~="index"], [data-css~="index"] *) .tt-stat-num{ color:#123A78; }
+.tt-stat--checked:where([data-css~="index"], [data-css~="index"] *) .tt-stat-num{ color:#0D8A63; }
+.tt-filter:where([data-css~="index"], [data-css~="index"] *){ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.tt-filter:where([data-css~="index"], [data-css~="index"] *) .tt-select{ width:auto; min-width:220px; max-width:100%; }
+.tt-table-wrap:where([data-css~="index"], [data-css~="index"] *){ overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid #DCE4F1; border-radius:12px; }
+.tt-table-wrap[hidden]:where([data-css~="index"], [data-css~="index"] *){ display:none; }
+.tt-table:where([data-css~="index"], [data-css~="index"] *){ width:100%; min-width:740px; border-collapse:collapse; font-size:.95rem; }
+.tt-table:where([data-css~="index"], [data-css~="index"] *) th{ text-align:right; background:#F4F7FC; color:#4E5B72; font-weight:700; font-size:.88rem; padding:10px 12px; border-bottom:1px solid #DCE4F1; }
+.tt-table:where([data-css~="index"], [data-css~="index"] *) td{ padding:10px 12px; border-bottom:1px solid #EEF3FB; vertical-align:middle; }
+.tt-table:where([data-css~="index"], [data-css~="index"] *) tr:last-child td{ border-bottom:0; }
+.tt-table:where([data-css~="index"], [data-css~="index"] *) a{ color:#123A78; }
+.tt-date:where([data-css~="index"], [data-css~="index"] *){ white-space:nowrap; font-variant-numeric:tabular-nums; color:#4E5B72; }
+.tt-subj-tag:where([data-css~="index"], [data-css~="index"] *){ display:inline-block; padding:2px 8px; border-radius:8px; font-size:.8rem; font-weight:700; margin-inline-end:4px; white-space:nowrap; }
+.tt-subj-tag--tnk:where([data-css~="index"], [data-css~="index"] *){ background:#E3EBF7; color:#123A78; }
+.tt-subj-tag--tsb:where([data-css~="index"], [data-css~="index"] *){ background:#FBE6D4; color:#8A3D07; }
+.tt-subj-tag--heb:where([data-css~="index"], [data-css~="index"] *){ background:#DDF3EA; color:#0A6B4C; }
+.tt-pill:where([data-css~="index"], [data-css~="index"] *){ display:inline-block; padding:3px 10px; border-radius:999px; font-size:.82rem; font-weight:700; white-space:nowrap; }
+.tt-pill--pending:where([data-css~="index"], [data-css~="index"] *){ background:#FFEBDC; color:#8A3D07; }
+.tt-pill--checked:where([data-css~="index"], [data-css~="index"] *){ background:#DDF3EA; color:#0A6B4C; }
+.tt-pill--missing:where([data-css~="index"], [data-css~="index"] *){ background:#E3EBF7; color:#123A78; }
+.tt-note:where([data-css~="index"], [data-css~="index"] *){ margin:0; font-size:.88rem; color:#4E5B72; }
+.tt-note:empty:where([data-css~="index"], [data-css~="index"] *){ display:none; }
+.a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .tt-card, .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .tt-stat, .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .tt-tab, .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .tt-table-wrap{ border:2px solid #000; }
+.a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .tt-tab[aria-pressed="true"], .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .tt-btn--primary{ background:#000; color:#fff; }

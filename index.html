@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=10">
+<link rel="stylesheet" href="assets/site.css?v=11">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -124,6 +124,14 @@
   </div>
 </header>
 
+<div class="announce" id="announceBar" role="region" aria-label="עדכון מהמורה" hidden>
+  <div class="announce-inner">
+    <span class="announce-tag">עדכון מהמורה</span>
+    <p class="announce-text" id="announceText"></p>
+    <button type="button" class="announce-close" id="announceClose" aria-label="סגירת ההודעה">✕</button>
+  </div>
+</div>
+
 <main id="main-content">
 
   <section class="class-picker-section" aria-label="בחירת כיתה">
@@ -143,6 +151,15 @@
         <span class="practice-meta" id="practiceMeta"></span></span>
       </button>
     </div>
+    <form class="lesson-join" id="lessonJoin" novalidate>
+      <label for="lessonCodeInput" class="lesson-join-label">יש לכם קוד מהמורה?</label>
+      <span class="lesson-join-controls">
+        <input id="lessonCodeInput" class="lesson-join-input" type="text" inputmode="numeric" pattern="[0-9]*"
+               maxlength="4" autocomplete="off" placeholder="4 ספרות" aria-describedby="lessonJoinMsg">
+        <button type="submit" class="lesson-join-btn" id="lessonJoinBtn">כניסה</button>
+      </span>
+      <p class="lesson-join-msg" id="lessonJoinMsg" role="status" aria-live="polite"></p>
+    </form>
     <div id="status-line" class="status-line" role="status" aria-live="polite"></div>
     <div id="content-root" class="content-root" role="tabpanel" aria-labelledby="tab-ya">
       <p class="loading-msg">טוען חומרי לימוד…</p>
@@ -154,6 +171,19 @@
 <footer class="site-footer">
   <p>הבית הדיגיטלי של תיכון יש"י &middot; מתעדכן ע"י הרב אפרים &middot; <button type="button" class="link-reset-role" id="resetRoleBtn">לא אני - בחרו מחדש</button></p>
 </footer>
+
+<div class="fc-overlay" id="loginOverlay" hidden>
+  <form class="fc-dialog login-dialog" id="loginForm" role="dialog" aria-modal="true" aria-labelledby="loginTitle" novalidate>
+    <div class="fc-head">
+      <h2 class="fc-title" id="loginTitle">כניסה לאזור האישי</h2>
+      <button type="button" class="fc-close" id="loginClose" aria-label="סגירה">✕</button>
+    </div>
+    <label for="loginPassword" class="login-label">סיסמה</label>
+    <input type="password" id="loginPassword" class="login-input" autocomplete="current-password">
+    <p class="login-msg" id="loginMsg" role="status" aria-live="polite"></p>
+    <button type="submit" class="fc-reset" id="loginSubmit">כניסה</button>
+  </form>
+</div>
 
 <div class="fc-overlay" id="fcOverlay" hidden>
   <div class="fc-dialog" id="fcDialog" role="dialog" aria-modal="true" aria-labelledby="fcTitle" aria-describedby="fcProgress">
@@ -188,6 +218,7 @@
 
 </div><!-- /site-content -->
 
+<script src="assets/bm-api.js"></script>
 <script src="assets/flashcards-data.js"></script>
 <script>
 (function(){
@@ -553,6 +584,7 @@
           if(!byCategory[cat]){ byCategory[cat] = []; categoryOrder.push(cat); }
           byCategory[cat].push(u);
         });
+        html += teacherToolsHtml();
         html += '<nav class="teacher-quickjump" aria-label="ניווט מהיר למחוונים">';
         categoryOrder.forEach(function(cat){
           html += '<button type="button" class="teacher-quickjump-btn" data-jump="' + escapeAttr(categorySlug(cat)) + '">' +
@@ -578,6 +610,237 @@
     });
 
     contentRoot.innerHTML = html;
+    if(document.getElementById("teacherTools")) initTeacherTools();
+  }
+
+  /* ============ כלי המורה באזור האישי ============
+     הודעה לתלמידים, קוד לשיעור ולוח הגשות. הכול נשמר בסקריפט השרת,
+     וכל פעולה נשלחת עם הסיסמה שנשמרה בכניסה. */
+  function lessonTargetsHtml(){
+    var html = "";
+    UNITS.forEach(function(u){
+      if(u.class === "teacher") return;
+      var cls = u.class === "יא" ? 'י"א' : 'י"ב';
+      html += '<optgroup label="' + escapeAttr(u.title + " · " + cls) + '">';
+      html += '<option value="' + escapeAttr(u.url) + '" data-label="' + escapeAttr(u.title) + '">' + escapeHtml(u.title) + ' - כל היחידה</option>';
+      (u.topics || []).forEach(function(t){
+        html += '<option value="' + escapeAttr(t.url) + '" data-label="' + escapeAttr(u.title + " · " + t.title) + '">' + escapeHtml(t.title) + '</option>';
+      });
+      html += '</optgroup>';
+    });
+    return html;
+  }
+
+  function teacherToolsHtml(){
+    return (
+      '<section class="tt" id="teacherTools" aria-label="כלי מורה">' +
+        '<div class="tt-row">' +
+          '<div class="tt-card">' +
+            '<h3 class="tt-h">הודעה לתלמידים</h3>' +
+            '<p class="tt-sub">תופיע בראש דף הבית אצל כל התלמידים.</p>' +
+            '<label for="ttAnnounce" class="visually-hidden">נוסח ההודעה</label>' +
+            '<textarea id="ttAnnounce" class="tt-textarea" rows="3" maxlength="500" placeholder="לדוגמה: מחר מבחן על ספר יונה, פרקים א\'-ב\'"></textarea>' +
+            '<div class="tt-btns">' +
+              '<button type="button" class="tt-btn tt-btn--primary" id="ttAnnounceSave">פרסום</button>' +
+              '<button type="button" class="tt-btn" id="ttAnnounceClear">הסרת ההודעה</button>' +
+            '</div>' +
+            '<p class="tt-msg" id="ttAnnounceMsg" role="status" aria-live="polite"></p>' +
+          '</div>' +
+          '<div class="tt-card">' +
+            '<h3 class="tt-h">קוד לשיעור</h3>' +
+            '<p class="tt-sub">התלמידים מקלידים את הקוד בדף הבית ומגיעים ישר לדף שבחרתם.</p>' +
+            '<label for="ttLessonTarget" class="tt-label">לאן להגיע?</label>' +
+            '<select id="ttLessonTarget" class="tt-select">' + lessonTargetsHtml() + '</select>' +
+            '<div class="tt-btns"><button type="button" class="tt-btn tt-btn--primary" id="ttLessonMake">יצירת קוד</button></div>' +
+            '<div class="tt-lesson-out" id="ttLessonOut" role="status" aria-live="polite"></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="tt-card tt-board">' +
+          '<div class="tt-board-head">' +
+            '<h3 class="tt-h">לוח הגשות</h3>' +
+            '<button type="button" class="tt-btn" id="ttBoardRefresh">רענון</button>' +
+          '</div>' +
+          '<div class="tt-subj" id="ttSubj" role="group" aria-label="סינון לפי מקצוע"></div>' +
+          '<div class="tt-status" id="ttStatus" role="group" aria-label="סינון לפי סטטוס"></div>' +
+          '<div class="tt-filter">' +
+            '<label for="ttTask" class="tt-label">מטלה</label>' +
+            '<select id="ttTask" class="tt-select"></select>' +
+          '</div>' +
+          '<p class="tt-msg" id="ttBoardMsg" role="status" aria-live="polite">טוען הגשות…</p>' +
+          '<div class="tt-table-wrap" id="ttTableWrap" hidden>' +
+            '<table class="tt-table">' +
+              '<caption class="visually-hidden">רשימת ההגשות</caption>' +
+              '<thead><tr><th scope="col">תלמיד/ה</th><th scope="col">מטלה</th><th scope="col">כיתה</th><th scope="col">תאריך</th><th scope="col">סטטוס</th><th scope="col"><span class="visually-hidden">פעולה</span></th></tr></thead>' +
+              '<tbody id="ttRows"></tbody>' +
+            '</table>' +
+          '</div>' +
+          '<p class="tt-note" id="ttRosterNote"></p>' +
+        '</div>' +
+      '</section>'
+    );
+  }
+
+  var board = { rows:[], subj:"all", status:"all", task:"all", rosterSize:0 };
+  var SUBJ_CLASS = { 'תנ"ך':"tnk", 'תושב"ע':"tsb", "עברית":"heb" };
+  var STATUS_INFO = {
+    pending:{ label:"ממתין לבדיקה", cls:"pending" },
+    checked:{ label:"נבדק", cls:"checked" },
+    missing:{ label:"לא הוגש", cls:"missing" }
+  };
+
+  /* הסיסמה כבר לא בתוקף (שונתה, או נחסם) - יוצאים מהאזור האישי */
+  function handleAuthFailure(res){
+    if(res && res.code === "auth"){
+      lockTeacherArea();
+      alert((res.error || "הסיסמה לא בתוקף.") + " צריך להיכנס שוב לאזור האישי.");
+      var first = document.getElementById("tab-ya");
+      if(first) selectTab(first);
+      return true;
+    }
+    return false;
+  }
+  function netError(msgEl){
+    msgEl.textContent = "אין חיבור לשרת כרגע. בדקו את האינטרנט ונסו שוב.";
+  }
+
+  function initTeacherTools(){
+    var ann = document.getElementById("ttAnnounce");
+    var annMsg = document.getElementById("ttAnnounceMsg");
+    apiGet({ action:"announcement" }).then(function(res){
+      if(res && res.ok && !ann.value) ann.value = res.text || "";
+    }).catch(function(){});
+
+    function saveAnnouncement(text){
+      annMsg.textContent = "שומרים…";
+      apiPost({ action:"setAnnouncement", token:teacherToken(), text:text }).then(function(res){
+        if(handleAuthFailure(res)) return;
+        if(res && res.ok){
+          annMsg.textContent = res.text ? "✓ ההודעה פורסמה." : "✓ ההודעה הוסרה.";
+          showAnnouncement(res.text || "");
+        } else annMsg.textContent = (res && res.error) || "השמירה לא הצליחה.";
+      }).catch(function(){ netError(annMsg); });
+    }
+    document.getElementById("ttAnnounceSave").addEventListener("click", function(){
+      if(!ann.value.trim()){ annMsg.textContent = "כתבו קודם את נוסח ההודעה."; ann.focus(); return; }
+      saveAnnouncement(ann.value.trim());
+    });
+    document.getElementById("ttAnnounceClear").addEventListener("click", function(){
+      ann.value = "";
+      saveAnnouncement("");
+    });
+
+    var target = document.getElementById("ttLessonTarget");
+    var out = document.getElementById("ttLessonOut");
+    document.getElementById("ttLessonMake").addEventListener("click", function(){
+      var opt = target.options[target.selectedIndex];
+      if(!opt) return;
+      out.innerHTML = '<p class="tt-msg">יוצרים קוד…</p>';
+      apiPost({ action:"createLesson", token:teacherToken(), url:opt.value, label:opt.getAttribute("data-label") }).then(function(res){
+        if(handleAuthFailure(res)) return;
+        if(res && res.ok){
+          out.innerHTML =
+            '<span class="tt-code" aria-label="הקוד: ' + escapeAttr(res.code.split("").join(" ")) + '">' + escapeHtml(res.code) + '</span>' +
+            '<span class="tt-code-label">' + escapeHtml(res.label) + ' · בתוקף ' + escapeHtml(String(res.hours || 12)) + ' שעות</span>';
+        } else out.innerHTML = '<p class="tt-msg">' + escapeHtml((res && res.error) || "יצירת הקוד לא הצליחה.") + '</p>';
+      }).catch(function(){ out.innerHTML = '<p class="tt-msg">אין חיבור לשרת כרגע. נסו שוב.</p>'; });
+    });
+
+    document.getElementById("ttBoardRefresh").addEventListener("click", loadBoard);
+    document.getElementById("ttSubj").addEventListener("click", function(e){
+      var b = e.target.closest("[data-subj]"); if(!b) return;
+      board.subj = b.getAttribute("data-subj"); board.task = "all"; renderBoard();
+    });
+    document.getElementById("ttStatus").addEventListener("click", function(e){
+      var b = e.target.closest("[data-status]"); if(!b) return;
+      board.status = b.getAttribute("data-status"); renderBoard();
+    });
+    document.getElementById("ttTask").addEventListener("change", function(e){
+      board.task = e.target.value; renderBoard();
+    });
+    document.getElementById("ttRows").addEventListener("click", function(e){
+      var b = e.target.closest("[data-check]"); if(!b) return;
+      var id = b.getAttribute("data-check");
+      b.disabled = true; b.textContent = "מסמנים…";
+      apiPost({ action:"check", token:teacherToken(), id:id }).then(function(res){
+        if(handleAuthFailure(res)) return;
+        if(res && res.ok){
+          board.rows.forEach(function(r){ if(r.id === id) r.status = "checked"; });
+          renderBoard();
+          document.getElementById("ttBoardMsg").textContent = "✓ סומן כנבדק.";
+        } else { b.disabled = false; b.textContent = "סימון כנבדק"; alert((res && res.error) || "הסימון לא הצליח."); }
+      }).catch(function(){ b.disabled = false; b.textContent = "סימון כנבדק"; alert("אין חיבור לשרת כרגע. נסו שוב."); });
+    });
+    loadBoard();
+  }
+
+  function loadBoard(){
+    var msg = document.getElementById("ttBoardMsg");
+    if(!msg) return;
+    msg.textContent = "טוען הגשות…";
+    apiPost({ action:"submissions", token:teacherToken() }).then(function(res){
+      if(handleAuthFailure(res)) return;
+      if(!res || !res.ok){ msg.textContent = (res && res.error) || "טעינת ההגשות לא הצליחה."; return; }
+      board.rows = res.rows || [];
+      board.rosterSize = res.rosterSize || 0;
+      msg.textContent = "";
+      renderBoard();
+    }).catch(function(){ netError(msg); });
+  }
+
+  function renderBoard(){
+    var subjEl = document.getElementById("ttSubj");
+    if(!subjEl) return;
+    var all = board.rows;
+    var bySubj = all.filter(function(r){ return board.subj === "all" || r.subject === board.subj; });
+    var byTask = bySubj.filter(function(r){ return board.task === "all" || r.task === board.task; });
+    var shown = byTask.filter(function(r){ return board.status === "all" || r.status === board.status; });
+
+    subjEl.innerHTML = [["all","כל המקצועות"],['תנ"ך','תנ"ך'],['תושב"ע','תושב"ע'],["עברית","עברית"]].map(function(s){
+      var n = s[0] === "all" ? all.length : all.filter(function(r){ return r.subject === s[0]; }).length;
+      return '<button type="button" class="tt-tab" data-subj="' + escapeAttr(s[0]) + '" aria-pressed="' + (board.subj === s[0]) + '">' +
+        escapeHtml(s[1]) + ' <span class="tt-count">' + n + '</span></button>';
+    }).join("");
+
+    document.getElementById("ttStatus").innerHTML = [["all","כל ההגשות"],["pending","ממתינות לבדיקה"],["missing","לא הוגשו"],["checked","נבדקו"]].map(function(s){
+      var n = s[0] === "all" ? byTask.length : byTask.filter(function(r){ return r.status === s[0]; }).length;
+      return '<button type="button" class="tt-stat tt-stat--' + s[0] + '" data-status="' + s[0] + '" aria-pressed="' + (board.status === s[0]) + '">' +
+        '<span class="tt-stat-num">' + n + '</span><span class="tt-stat-label">' + escapeHtml(s[1]) + '</span></button>';
+    }).join("");
+
+    var tasks = [];
+    bySubj.forEach(function(r){ if(tasks.indexOf(r.task) === -1) tasks.push(r.task); });
+    var taskSel = document.getElementById("ttTask");
+    taskSel.innerHTML = '<option value="all">כל המטלות</option>' + tasks.map(function(t){
+      return '<option value="' + escapeAttr(t) + '"' + (t === board.task ? " selected" : "") + '>' + escapeHtml(t) + '</option>';
+    }).join("");
+
+    var wrap = document.getElementById("ttTableWrap");
+    var msg = document.getElementById("ttBoardMsg");
+    if(!shown.length){
+      wrap.hidden = true;
+      if(!msg.textContent || msg.textContent === "טוען הגשות…") msg.textContent = all.length ? "אין הגשות שמתאימות לסינון הזה." : "עדיין אין הגשות.";
+    } else {
+      wrap.hidden = false;
+      if(msg.textContent === "אין הגשות שמתאימות לסינון הזה." || msg.textContent === "עדיין אין הגשות.") msg.textContent = "";
+    }
+    document.getElementById("ttRows").innerHTML = shown.map(function(r){
+      var st = STATUS_INFO[r.status] || STATUS_INFO.pending;
+      var task = /^https:\/\//.test(r.url || "")
+        ? '<a href="' + escapeAttr(r.url) + '" target="_blank" rel="noopener">' + escapeHtml(r.task) + '</a>'
+        : escapeHtml(r.task);
+      return '<tr>' +
+        '<td>' + escapeHtml(r.name) + '</td>' +
+        '<td><span class="tt-subj-tag tt-subj-tag--' + (SUBJ_CLASS[r.subject] || "tnk") + '">' + escapeHtml(r.subject) + '</span> ' + task + '</td>' +
+        '<td>' + escapeHtml(r.cls) + '</td>' +
+        '<td class="tt-date">' + escapeHtml(r.date || "-") + '</td>' +
+        '<td><span class="tt-pill tt-pill--' + st.cls + '">' + st.label + '</span></td>' +
+        '<td>' + (r.status === "pending" ? '<button type="button" class="tt-btn tt-btn--small" data-check="' + escapeAttr(r.id) + '">סימון כנבדק</button>' : '') + '</td>' +
+      '</tr>';
+    }).join("");
+
+    document.getElementById("ttRosterNote").textContent = board.rosterSize
+      ? ""
+      : 'כדי לראות מי לא הגיש: ממלאים את רשימת התלמידים בגיליון "תלמידים" (שם התלמיד וכיתה) בקובץ ההגשות בדרייב.';
   }
 
   /* ============ מפת התקדמות ============
@@ -658,30 +921,102 @@
   }
   function escapeAttr(str){ return escapeHtml(str); }
 
+  /* ============ חיבור לסקריפט השרת (הכתובת ב-assets/bm-api.js) ============ */
+  function apiGet(params){
+    return fetch((window.BM_API_URL || "") + "?" + new URLSearchParams(params).toString())
+      .then(function(r){ return r.json(); });
+  }
+  function apiPost(body){
+    return fetch(window.BM_API_URL || "", {
+      method:"POST",
+      headers:{ "Content-Type":"text/plain;charset=utf-8" }, /* בלי preflight - Apps Script לא תומך בו */
+      body:JSON.stringify(body)
+    }).then(function(r){ return r.json(); });
+  }
+
+  /* חלון: Tab נשאר בתוכו, Esc סוגר */
+  function trapFocus(container, onClose){
+    container.addEventListener("keydown", function(e){
+      if(e.key === "Escape"){ e.preventDefault(); onClose(); return; }
+      if(e.key !== "Tab") return;
+      var f = Array.prototype.filter.call(
+        container.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'),
+        function(n){ return !n.disabled && n.offsetParent !== null; });
+      if(!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    });
+  }
+
   /* ============ בקרת כיתה ============ */
   var tabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
   var tabgroup = document.querySelector(".class-picker-inner");
 
-  var TEACHER_CODE = "5703531";
-  function isTeacherUnlocked(){
-    try{ return sessionStorage.getItem("teacherAreaUnlocked") === "1"; }
-    catch(e){ return false; }
+  /* ============ אזור אישי - כניסה בסיסמה ============
+     הסיסמה לא כתובה באתר. היא נבדקת מול סקריפט השרת (Script Properties),
+     ונשמרת רק ב-sessionStorage של הלשונית הזו - עד שסוגרים אותה. */
+  var TOKEN_KEY = "bm-teacher-token";
+  function teacherToken(){
+    try{ return sessionStorage.getItem(TOKEN_KEY) || ""; }catch(e){ return ""; }
   }
-  function unlockTeacherArea(){
-    var code = prompt("הקלידו את הקוד שקיבלתם מהמורה כדי להיכנס לאזור האישי:");
-    if(code === null) return false;
-    if(code.trim() === TEACHER_CODE){
-      try{ sessionStorage.setItem("teacherAreaUnlocked", "1"); }catch(e){}
-      return true;
-    }
-    alert("קוד שגוי. נסו שוב, או שאלו את המורה.");
-    return false;
+  function isTeacherUnlocked(){ return !!teacherToken(); }
+  function lockTeacherArea(){
+    try{ sessionStorage.removeItem(TOKEN_KEY); sessionStorage.removeItem("teacherAreaUnlocked"); }catch(e){}
   }
+
+  var loginOverlay = document.getElementById("loginOverlay");
+  var loginForm = document.getElementById("loginForm");
+  var loginInput = document.getElementById("loginPassword");
+  var loginMsg = document.getElementById("loginMsg");
+  var loginSubmit = document.getElementById("loginSubmit");
+  var loginDone = null, loginOpener = null;
+
+  function openLogin(done){
+    loginDone = done;
+    loginOpener = document.activeElement;
+    loginMsg.textContent = "";
+    loginInput.value = "";
+    loginOverlay.hidden = false;
+    document.body.classList.add("fc-open");
+    loginInput.focus();
+  }
+  function closeLogin(){
+    loginOverlay.hidden = true;
+    document.body.classList.remove("fc-open");
+    if(loginOpener && loginOpener.focus) loginOpener.focus();
+  }
+  loginForm.addEventListener("submit", function(e){
+    e.preventDefault();
+    var pw = loginInput.value.trim();
+    if(!pw){ loginMsg.textContent = "הקלידו סיסמה."; loginInput.focus(); return; }
+    loginSubmit.disabled = true;
+    loginMsg.textContent = "בודקים…";
+    apiPost({ action:"login", token:pw }).then(function(res){
+      if(res && res.ok){
+        try{
+          sessionStorage.setItem(TOKEN_KEY, pw);
+          sessionStorage.setItem("teacherAreaUnlocked", "1"); /* דפי המחוונים בודקים את זה */
+        }catch(err){}
+        closeLogin();
+        if(loginDone) loginDone();
+      } else {
+        loginMsg.textContent = (res && res.error) || "הסיסמה שגויה. נסו שוב.";
+        loginInput.select();
+      }
+    }).catch(function(){
+      loginMsg.textContent = "אין חיבור לשרת כרגע. בדקו את האינטרנט ונסו שוב.";
+    }).then(function(){ loginSubmit.disabled = false; });
+  });
+  document.getElementById("loginClose").addEventListener("click", closeLogin);
+  loginOverlay.addEventListener("click", function(e){ if(e.target === loginOverlay) closeLogin(); });
+  trapFocus(loginForm, closeLogin);
 
   function selectTab(tab, opts){
     opts = opts || {};
     if(tab.getAttribute("data-class") === "teacher" && !isTeacherUnlocked()){
-      if(!unlockTeacherArea()) return;
+      openLogin(function(){ selectTab(tab, opts); });
+      return;
     }
     tabs.forEach(function(t){
       var active = t === tab;
@@ -1015,6 +1350,76 @@
       var first = f[0], last = f[f.length - 1];
       if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
       else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    });
+  })();
+
+  /* ============ הודעה מהמורה (פס מתחת לכותרת) ============
+     סגירה נשמרת לפי טביעה של הטקסט - הודעה חדשה תופיע שוב. */
+  var ANNOUNCE_KEY = "bm-announce-dismissed";
+  function textHash(t){
+    var h = 5381;
+    for(var i = 0; i < t.length; i++) h = ((h << 5) + h + t.charCodeAt(i)) | 0;
+    return String(h >>> 0);
+  }
+  function showAnnouncement(text){
+    var bar = document.getElementById("announceBar");
+    if(!bar) return;
+    var dismissed = "";
+    try{ dismissed = localStorage.getItem(ANNOUNCE_KEY) || ""; }catch(e){}
+    if(!text || dismissed === textHash(text)){ bar.hidden = true; return; }
+    document.getElementById("announceText").textContent = text;
+    bar.hidden = false;
+  }
+  (function announcement(){
+    var closeBtn = document.getElementById("announceClose");
+    if(!closeBtn) return;
+    closeBtn.addEventListener("click", function(){
+      var text = document.getElementById("announceText").textContent;
+      try{ localStorage.setItem(ANNOUNCE_KEY, textHash(text)); }catch(e){}
+      document.getElementById("announceBar").hidden = true;
+    });
+    if(!window.BM_API_URL) return;
+    apiGet({ action:"announcement" }).then(function(res){
+      if(res && res.ok) showAnnouncement(res.text || "");
+    }).catch(function(){ /* בלי חיבור - פשוט לא מציגים */ });
+  })();
+
+  /* ============ "יש לכם קוד מהמורה?" ============ */
+  (function lessonJoin(){
+    var form = document.getElementById("lessonJoin");
+    if(!form) return;
+    var input = document.getElementById("lessonCodeInput");
+    var msg = document.getElementById("lessonJoinMsg");
+    var btn = document.getElementById("lessonJoinBtn");
+    input.addEventListener("input", function(){
+      var clean = input.value.replace(/\D/g, "").slice(0, 4);
+      if(clean !== input.value) input.value = clean;
+      msg.textContent = "";
+      form.classList.remove("is-error");
+    });
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      var code = input.value;
+      if(!/^\d{4}$/.test(code)){
+        msg.textContent = "הקוד הוא 4 ספרות.";
+        form.classList.add("is-error");
+        input.focus();
+        return;
+      }
+      btn.disabled = true;
+      msg.textContent = "בודקים…";
+      apiGet({ action:"lesson", code:code }).then(function(res){
+        if(res && res.ok && /^[\w.-]+\.html(#[\w-]+)?$/.test(res.url || "")){
+          msg.textContent = "✓ עוברים אל: " + (res.label || res.url);
+          location.href = res.url;
+        } else {
+          msg.textContent = "הקוד לא נמצא. בדקו מול הלוח.";
+          form.classList.add("is-error");
+          input.select();
+        }
+      }).catch(function(){
+        msg.textContent = "אין חיבור לשרת כרגע. נסו שוב בעוד רגע.";
+      }).then(function(){ btn.disabled = false; });
     });
   })();
 
