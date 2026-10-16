@@ -1,323 +1,277 @@
-/* ============================================================
-   הבית הדיגיטלי של תיכון יש"י - סקריפט השרת (Google Apps Script)
-   ============================================================
-   מה הסקריפט עושה:
-   1. קולט הגשות מהאתר (טופס ההגשה וכפתור "שלחו למורה") - בדיוק כמו
-      קודם: שומר את הקובץ בדרייב, רושם שורה בגיליון ושולח מייל.
-   2. הודעה מהמורה - המורה כותב באזור האישי, התלמידים רואים בדף הבית.
-   3. קוד לשיעור - המורה יוצר קוד של 4 ספרות, התלמידים מקלידים אותו
-      בדף הבית ומגיעים ישר לדף הנכון.
-   4. לוח הגשות - רשימת ההגשות לפי מקצוע, מטלה וסטטוס, עם "סימון כנבדק".
+/**
+ * הבית הדיגיטלי של תיכון יש"י - סקריפט Google Apps Script
+ *
+ * מה הסקריפט עושה:
+ * 1. קולט הגשות מהאתר (submit.html ו-assets/direct-submit.js) ושומר אותן בתיקיות הקיימות:
+ *    הגשות תלמידים > י"א / י"ב > תיקייה אישית של התלמיד > "שם התלמיד - מטלה - תאריך"
+ * 2. לוח הגשות למורה: מציג את כל ההגשות, כולל אלה שכבר היו בתיקיות. מוגן בסיסמה.
+ * 3. הודעה מהמורה בדף הבית.
+ * 4. קוד לשיעור.
+ *
+ * הסיסמה לא כתובה כאן. קובעים אותה ב: הגדרות הפרויקט (גלגל השיניים) > מאפייני סקריפט
+ *   שם המאפיין: TEACHER_PASSWORD     ערך: הסיסמה שבחרתם
+ */
 
-   הסיסמה של האזור האישי נשמרת בהגדרות הסקריפט (Script Properties)
-   בשם TEACHER_PASSWORD - לא בקוד ולא באתר.
-   ============================================================ */
+// ---------- הגדרות ----------
+var ROOT_FOLDER_ID = '1BtOgKt0cRP6h_1kb9TXUR_6EHTku9uqD'; // הגשות תלמידים - בית המדרש הדיגיטלי (לתיעוד בלבד)
+var CLASS_FOLDERS = {
+  'יא': '1b8UTqYD5MKBoR8cMvOzrfdTOwNS_97wn',
+  'יב': '1pg85VsBBaccfgY8lHoB3UaZ3RV5AoGz4'
+};
+var TZ = 'Asia/Jerusalem';
+var DATE_FORMAT = 'dd.MM.yyyy';
+var MAX_BYTES = 5 * 1024 * 1024;   // 5MB, כמו באתר
+var NOTIFY_BY_EMAIL = true;        // מייל למורה על כל הגשה חדשה
+var LESSON_HOURS = 12;             // כמה שעות קוד לשיעור נשאר בתוקף
 
-const CONFIG = {
-  FOLDER_NAME: 'הגשות תלמידים - בית המדרש',
-  SPREADSHEET_NAME: 'הבית הדיגיטלי - הגשות',
-  LOG_SHEET: 'יומן הגשות',
-  ROSTER_SHEET: 'תלמידים',
-  TZ: 'Asia/Jerusalem',
-  SEND_EMAIL: true,          // מייל למורה על כל הגשה
-  LESSON_HOURS: 12,          // כמה שעות קוד לשיעור נשאר פעיל
-  MAX_FAILED_LOGINS: 10,     // אחרי כמה ניסיונות שגויים לחסום זמנית
-  LOCKOUT_MINUTES: 15
+// מטלות שרוצים לראות בהן גם "לא הוגש".
+// הסקריפט בודק אילו תלמידים (תיקיות אישיות) עוד לא הגישו את המטלה.
+// כותבים את שם המטלה בדיוק כמו בשם הקובץ. דוגמה:  'יא': ['דף עבודה - יונה פרק א'],
+var TRACKED_TASKS = {
+  'יא': [],
+  'יב': []
 };
 
-const HEADERS = ['מזהה', 'תאריך', 'שם התלמיד', 'כיתה', 'מקצוע', 'מטלה', 'הערות',
-                 'שם הקובץ', 'קישור לקובץ', 'סטטוס', 'נבדק בתאריך'];
-const COL = { ID: 0, DATE: 1, NAME: 2, CLS: 3, SUBJECT: 4, TASK: 5, NOTES: 6,
-              FILE: 7, URL: 8, STATUS: 9, CHECKED_AT: 10 };
-const STATUS_HE = { pending: 'ממתין לבדיקה', checked: 'נבדק' };
-const SUBJECTS = ['תנ"ך', 'תושב"ע', 'עברית'];
-const PAGE_RE = /^[\w.-]+\.html(#[\w-]+)?$/;   // רק דפים של האתר עצמו
-
-/* ---------------- כניסה ---------------- */
-
+// ---------- נקודות כניסה ----------
 function doGet(e) {
-  const p = (e && e.parameter) || {};
+  var p = (e && e.parameter) || {};
   try {
-    switch (p.action) {
-      case 'announcement': return json_(getAnnouncement_());
-      case 'lesson':       return json_(findLesson_(p.code));
-      default:             return json_({ ok: true, status: 'הסקריפט פעיל' });
-    }
+    if (p.action === 'announcement') return json_({ ok: true, announcement: getJson_('ANNOUNCEMENT') });
+    if (p.action === 'lesson') return json_(findLesson_(p.code));
+    return json_({ ok: true, service: 'beit-midrash' });
   } catch (err) {
-    return json_(fail_(err));
+    return json_({ ok: false, error: msg_(err) });
   }
 }
 
 function doPost(e) {
+  var data;
+  try { data = JSON.parse(e.postData.contents); }
+  catch (err) { return json_({ ok: false, error: 'בקשה לא תקינה' }); }
+
   try {
-    const data = JSON.parse((e && e.postData && e.postData.contents) || '{}');
-    const action = data.action || 'submit';   // הגשות מהאתר לא שולחות action
-    switch (action) {
-      case 'submit':          return json_(handleSubmit_(data));
-      case 'login':           requireTeacher_(data.token); return json_({ ok: true });
-      case 'setAnnouncement': requireTeacher_(data.token); return json_(setAnnouncement_(data.text));
-      case 'createLesson':    requireTeacher_(data.token); return json_(createLesson_(data.url, data.label));
-      case 'submissions':     requireTeacher_(data.token); return json_(listSubmissions_());
-      case 'check':           requireTeacher_(data.token); return json_(markChecked_(data.id));
-      default:                return json_({ ok: false, error: 'פעולה לא מוכרת' });
+    // הגשה רגילה מהאתר (בלי action) - בדיוק כמו היום
+    if (!data.action || data.action === 'submit') return json_(saveSubmission_(data));
+
+    // כל השאר - רק עם סיסמה
+    if (!checkPassword_(data.password)) return json_({ ok: false, auth: false, error: 'סיסמה שגויה' });
+
+    switch (data.action) {
+      case 'login':           return json_({ ok: true });
+      case 'list':            return json_({ ok: true, submissions: listSubmissions_() });
+      case 'markChecked':     return json_(markChecked_(data.fileId, data.checked !== false));
+      case 'setAnnouncement': return json_(setAnnouncement_(data.text));
+      case 'createLesson':    return json_(createLesson_(data.url, data.label));
+      case 'clearLesson':     PropertiesService.getScriptProperties().deleteProperty('LESSON'); return json_({ ok: true });
     }
+    return json_({ ok: false, error: 'פעולה לא מוכרת' });
   } catch (err) {
-    return json_(fail_(err));
+    return json_({ ok: false, error: msg_(err) });
   }
 }
 
-/* ---------------- הגשות ---------------- */
+// ---------- קליטת הגשה ----------
+function saveSubmission_(d) {
+  var name = clean_(d.studentName);
+  var task = clean_(d.assignment);
+  var cls = normClass_(d.studentClass);
+  if (!name || !task || !cls || !d.fileBase64) return { ok: false, error: 'חסרים פרטים בהגשה' };
 
-function handleSubmit_(data) {
-  if (!data.studentName || !data.assignment || !data.fileBase64) {
-    throw new Error('חסרים פרטים בהגשה');
-  }
-  const lock = LockService.getScriptLock();
-  lock.waitLock(20000);
+  var bytes = Utilities.base64Decode(d.fileBase64);
+  if (bytes.length > MAX_BYTES) return { ok: false, error: 'הקובץ גדול מ-5MB' };
+
+  var file;
+  var lock = LockService.getScriptLock();
+  lock.waitLock(20000); // מונע יצירת שתי תיקיות לאותו תלמיד בהגשות בו-זמניות
   try {
-    const root = getFolder_(DriveApp.getRootFolder(), CONFIG.FOLDER_NAME);
-    const folder = getFolder_(root, data.studentClass || 'ללא כיתה');
-    const now = new Date();
-    const stamp = Utilities.formatDate(now, CONFIG.TZ, 'yyyy-MM-dd HH-mm');
-    const name = cleanName_(data.studentName + ' - ' + data.assignment + ' - ' + stamp + ' - ' + (data.fileName || 'הגשה'));
-    const blob = Utilities.newBlob(Utilities.base64Decode(data.fileBase64),
-                                   data.fileMimeType || 'application/octet-stream', name);
-    const file = folder.createFile(blob);
-    const subject = normalizeSubject_(data.subject, data.assignment);
+    var classFolder = DriveApp.getFolderById(CLASS_FOLDERS[cls]);
+    var studentFolder = findOrCreateStudentFolder_(classFolder, name);
+    var date = Utilities.formatDate(new Date(), TZ, DATE_FORMAT);
+    var fileName = safe_(name + ' - ' + task + ' - ' + date) + extension_(d.fileName, d.fileMimeType);
+    file = studentFolder.createFile(Utilities.newBlob(bytes, d.fileMimeType || 'application/octet-stream', fileName));
+    if (d.notes) file.setDescription('הערות: ' + clean_(d.notes));
+  } finally {
+    lock.releaseLock();
+  }
 
-    logSheet_().appendRow([
-      Utilities.getUuid(), now, clip_(data.studentName, 100), clip_(data.studentClass || '', 20),
-      subject, clip_(data.assignment, 200), clip_(data.notes || '', 1000),
-      file.getName(), file.getUrl(), STATUS_HE.pending, ''
-    ]);
-
-    if (CONFIG.SEND_EMAIL) {
+  if (NOTIFY_BY_EMAIL) {
+    try {
       MailApp.sendEmail({
         to: Session.getEffectiveUser().getEmail(),
-        subject: 'הגשה חדשה: ' + data.studentName + ' (' + (data.studentClass || '') + ') - ' + data.assignment,
-        htmlBody: '<div dir="rtl" style="font-family:Arial">' +
-          '<b>תלמיד/ה:</b> ' + esc_(data.studentName) + '<br>' +
-          '<b>כיתה:</b> ' + esc_(data.studentClass || '') + '<br>' +
-          '<b>מקצוע:</b> ' + esc_(subject) + '<br>' +
-          '<b>מטלה:</b> ' + esc_(data.assignment) + '<br>' +
-          (data.notes ? '<b>הערות:</b> ' + esc_(data.notes) + '<br>' : '') +
-          '<br><a href="' + file.getUrl() + '">פתיחת הקובץ בדרייב</a></div>',
-        attachments: [blob]
+        subject: 'הגשה חדשה: ' + name + ' - ' + task,
+        body: 'שם: ' + name + '\nכיתה: ' + cls + '\nמטלה: ' + task +
+              (d.notes ? '\nהערות: ' + clean_(d.notes) : '') + '\n\nקישור לקובץ: ' + file.getUrl()
       });
+    } catch (err) { /* ההגשה נשמרה גם אם המייל נכשל */ }
+  }
+  return { ok: true, fileId: file.getId() };
+}
+
+function findOrCreateStudentFolder_(classFolder, name) {
+  var target = normName_(name);
+  var it = classFolder.getFolders();
+  while (it.hasNext()) {
+    var f = it.next();
+    if (normName_(f.getName()) === target) return f;
+  }
+  return classFolder.createFolder(name); // תלמיד חדש - תיקייה אישית חדשה, באותו מבנה
+}
+
+// ---------- לוח הגשות ----------
+function listSubmissions_() {
+  var checked = checkedMap_();
+  var out = [];
+  Object.keys(CLASS_FOLDERS).forEach(function (cls) {
+    var classFolder = DriveApp.getFolderById(CLASS_FOLDERS[cls]);
+    collectFiles_(classFolder, cls, null, out, checked); // קבצים שנמצאים ישר בתיקיית הכיתה
+    var students = [];
+    var it = classFolder.getFolders();
+    while (it.hasNext()) {
+      var sf = it.next();
+      students.push(sf.getName());
+      collectFiles_(sf, cls, sf.getName(), out, checked);
     }
-    return { ok: true };
-  } finally {
-    lock.releaseLock();
+    addMissing_(cls, students, out);
+  });
+  out.sort(function (a, b) { return b.time - a.time; });
+  return out;
+}
+
+function collectFiles_(folder, cls, studentName, out, checked) {
+  var it = folder.getFiles();
+  while (it.hasNext()) {
+    var f = it.next();
+    var p = parseName_(f.getName());
+    var created = f.getDateCreated();
+    var task = p.task || p.raw;
+    out.push({
+      id: f.getId(),
+      student: studentName || p.student || '',
+      task: task,
+      subject: subjectOf_(task),
+      cls: cls,
+      date: p.date || Utilities.formatDate(created, TZ, DATE_FORMAT),
+      time: created.getTime(),
+      status: checked[f.getId()] ? 'checked' : 'pending',
+      url: f.getUrl(),
+      notes: f.getDescription() || ''
+    });
   }
 }
 
-function listSubmissions_() {
-  const values = logSheet_().getDataRange().getValues().slice(1);
-  const rows = values.filter(function (r) { return r[COL.ID]; }).map(function (r) {
-    const d = r[COL.DATE] instanceof Date ? r[COL.DATE] : new Date(r[COL.DATE]);
-    return {
-      id: String(r[COL.ID]),
-      name: String(r[COL.NAME]),
-      cls: String(r[COL.CLS]),
-      subject: normalizeSubject_(r[COL.SUBJECT], r[COL.TASK]),
-      task: String(r[COL.TASK]),
-      date: isNaN(d) ? '' : Utilities.formatDate(d, CONFIG.TZ, 'dd.MM.yyyy HH:mm'),
-      ts: isNaN(d) ? 0 : d.getTime(),
-      url: String(r[COL.URL] || ''),
-      status: String(r[COL.STATUS]) === STATUS_HE.checked ? 'checked' : 'pending'
-    };
-  });
-  rows.sort(function (a, b) { return b.ts - a.ts; });
+// "שם התלמיד - מטלה - תאריך.pdf"  (המטלה עצמה יכולה להכיל " - ")
+function parseName_(fileName) {
+  var raw = String(fileName).replace(/\.[A-Za-z0-9]{1,5}$/, '').trim();
+  var parts = raw.split(' - ').map(function (s) { return s.trim(); });
+  if (parts.length < 2) return { raw: raw };
+  var student = parts.shift();
+  var date = '';
+  if (parts.length > 1 && /^\d{1,2}[.\/-]\d{1,2}([.\/-]\d{2,4})?$/.test(parts[parts.length - 1])) date = parts.pop();
+  return { raw: raw, student: student, task: parts.join(' - '), date: date };
+}
 
-  /* "לא הוגשו": תלמידים מגיליון "תלמידים" שלא הגישו מטלה שתלמידים
-     אחרים מאותה כיתה כבר הגישו. אם הגיליון ריק - אין שורות כאלה. */
-  const roster = rosterSheet_().getDataRange().getValues().slice(1)
-    .filter(function (r) { return String(r[0]).trim(); })
-    .map(function (r) { return { name: String(r[0]).trim(), cls: normClass_(r[1]) }; });
-  const handed = {};
-  const tasks = {};
-  rows.forEach(function (r) {
-    const cls = normClass_(r.cls);
-    handed[normName_(r.name) + '|' + r.task] = true;
-    tasks[cls + '|' + r.task] = { cls: r.cls, task: r.task, subject: r.subject };
-  });
-  const missing = [];
-  Object.keys(tasks).forEach(function (k) {
-    const t = tasks[k];
-    roster.forEach(function (s) {
-      if (s.cls === normClass_(t.cls) && !handed[normName_(s.name) + '|' + t.task]) {
-        missing.push({ id: '', name: s.name, cls: t.cls, subject: t.subject, task: t.task,
-                       date: '', ts: 0, url: '', status: 'missing' });
-      }
+function addMissing_(cls, students, out) {
+  (TRACKED_TASKS[cls] || []).forEach(function (task) {
+    var nt = normTask_(task);
+    students.forEach(function (s) {
+      var ns = normName_(s);
+      var has = out.some(function (x) { return x.cls === cls && normName_(x.student) === ns && normTask_(x.task) === nt; });
+      if (!has) out.push({ id: '', student: s, task: task, subject: subjectOf_(task), cls: cls, date: '', time: 0, status: 'missing', url: '', notes: '' });
     });
   });
-
-  return { ok: true, rows: rows.concat(missing), rosterSize: roster.length };
 }
 
-function markChecked_(id) {
-  if (!id) throw new Error('חסר מזהה הגשה');
-  const lock = LockService.getScriptLock();
-  lock.waitLock(20000);
-  try {
-    const sh = logSheet_();
-    const ids = sh.getRange(1, COL.ID + 1, sh.getLastRow(), 1).getValues();
-    for (let i = 1; i < ids.length; i++) {
-      if (String(ids[i][0]) === String(id)) {
-        sh.getRange(i + 1, COL.STATUS + 1, 1, 2).setValues([[STATUS_HE.checked, new Date()]]);
-        return { ok: true };
-      }
-    }
-    throw new Error('ההגשה לא נמצאה');
-  } finally {
-    lock.releaseLock();
-  }
+function subjectOf_(task) {
+  var t = normTask_(task);
+  if (/עברית|דקדוק|גזר|בניין|בנינים|משקל|שורש|נחי|חפנ|חפיצ|כפולים|שלמים/.test(t)) return 'עברית';
+  if (/תושבע|מצוו|לקט|פתוח תפתח|צדקה|ריבית|משכון|שמיטת|הלכ|אהבת|גרים/.test(t)) return 'תושב"ע';
+  return 'תנ"ך';
 }
 
-/* ---------------- הודעה מהמורה ---------------- */
-
-function getAnnouncement_() {
-  const raw = PropertiesService.getScriptProperties().getProperty('ANNOUNCEMENT');
-  const a = raw ? JSON.parse(raw) : { text: '', updated: '' };
-  return { ok: true, text: a.text || '', updated: a.updated || '' };
+function checkedMap_() {
+  var props = PropertiesService.getScriptProperties().getProperties();
+  var map = {};
+  Object.keys(props).forEach(function (k) { if (k.indexOf('chk_') === 0) map[k.slice(4)] = true; });
+  return map;
 }
 
+function markChecked_(fileId, checked) {
+  if (!/^[\w-]{10,}$/.test(String(fileId || ''))) return { ok: false, error: 'מזהה קובץ לא תקין' };
+  var props = PropertiesService.getScriptProperties();
+  if (checked) props.setProperty('chk_' + fileId, '1'); else props.deleteProperty('chk_' + fileId);
+  return { ok: true };
+}
+
+// ---------- הודעה מהמורה ----------
 function setAnnouncement_(text) {
-  const clean = clip_(String(text || '').trim(), 500);
-  PropertiesService.getScriptProperties().setProperty('ANNOUNCEMENT',
-    JSON.stringify({ text: clean, updated: new Date().toISOString() }));
-  return { ok: true, text: clean };
+  var t = clean_(text).slice(0, 300);
+  var props = PropertiesService.getScriptProperties();
+  if (!t) { props.deleteProperty('ANNOUNCEMENT'); return { ok: true, announcement: null }; }
+  var a = { text: t, updated: Date.now() };
+  props.setProperty('ANNOUNCEMENT', JSON.stringify(a));
+  return { ok: true, announcement: a };
 }
 
-/* ---------------- קוד לשיעור ---------------- */
-
-function readLessons_() {
-  const raw = PropertiesService.getScriptProperties().getProperty('LESSONS');
-  const all = raw ? JSON.parse(raw) : {};
-  const now = Date.now();
-  Object.keys(all).forEach(function (c) { if (all[c].exp < now) delete all[c]; });
-  return all;
-}
-
+// ---------- קוד לשיעור ----------
 function createLesson_(url, label) {
-  url = String(url || '');
-  if (!PAGE_RE.test(url)) throw new Error('יעד לא תקין');
-  const lock = LockService.getScriptLock();
-  lock.waitLock(20000);
-  try {
-    const all = readLessons_();
-    let code;
-    do { code = String(1000 + Math.floor(Math.random() * 9000)); } while (all[code]);
-    all[code] = { url: url, label: clip_(String(label || url), 120),
-                  exp: Date.now() + CONFIG.LESSON_HOURS * 3600 * 1000 };
-    PropertiesService.getScriptProperties().setProperty('LESSONS', JSON.stringify(all));
-    return { ok: true, code: code, label: all[code].label, hours: CONFIG.LESSON_HOURS };
-  } finally {
-    lock.releaseLock();
-  }
+  url = String(url || '').trim();
+  if (!/^[\w.-]+\.html(#[\w-]+)?$/.test(url)) return { ok: false, error: 'כתובת עמוד לא תקינה' };
+  var code = String(Math.floor(1000 + Math.random() * 9000));
+  var lesson = { code: code, url: url, label: clean_(label).slice(0, 120), created: Date.now() };
+  PropertiesService.getScriptProperties().setProperty('LESSON', JSON.stringify(lesson));
+  return { ok: true, code: code, url: url, label: lesson.label };
 }
 
 function findLesson_(code) {
-  code = String(code || '');
-  if (!/^\d{4}$/.test(code)) return { ok: false, error: 'not_found' };
-  const l = readLessons_()[code];
-  return l ? { ok: true, url: l.url, label: l.label } : { ok: false, error: 'not_found' };
-}
-
-/* ---------------- סיסמה ---------------- */
-
-function requireTeacher_(token) {
-  const cache = CacheService.getScriptCache();
-  const fails = Number(cache.get('failed_logins') || 0);
-  if (fails >= CONFIG.MAX_FAILED_LOGINS) {
-    throw authError_('יותר מדי ניסיונות שגויים. נסו שוב בעוד ' + CONFIG.LOCKOUT_MINUTES + ' דקות.');
+  var l = getJson_('LESSON');
+  if (l && String(code || '') === l.code && Date.now() - l.created < LESSON_HOURS * 3600 * 1000) {
+    return { ok: true, url: l.url, label: l.label };
   }
-  const pw = PropertiesService.getScriptProperties().getProperty('TEACHER_PASSWORD');
-  if (!pw) throw authError_('עדיין לא נקבעה סיסמה בהגדרות הסקריפט.');
-  if (!token || String(token) !== String(pw)) {
-    cache.put('failed_logins', String(fails + 1), CONFIG.LOCKOUT_MINUTES * 60);
-    throw authError_('הסיסמה שגויה.');
-  }
+  return { ok: false, error: 'הקוד לא נמצא' };
 }
 
-function authError_(msg) { const e = new Error(msg); e.auth = true; return e; }
-
-/* ---------------- גיליונות ותיקיות ---------------- */
-
-function spreadsheet_() {
-  const props = PropertiesService.getScriptProperties();
-  const id = props.getProperty('SPREADSHEET_ID');
-  if (id) {
-    try { return SpreadsheetApp.openById(id); } catch (e) { /* נמחק - ניצור חדש */ }
-  }
-  const ss = SpreadsheetApp.create(CONFIG.SPREADSHEET_NAME);
-  DriveApp.getFileById(ss.getId()).moveTo(getFolder_(DriveApp.getRootFolder(), CONFIG.FOLDER_NAME));
-  props.setProperty('SPREADSHEET_ID', ss.getId());
-  return ss;
+// ---------- סיסמה ----------
+function checkPassword_(pw) {
+  var cache = CacheService.getScriptCache();
+  var fails = Number(cache.get('pwFails') || 0);
+  if (fails >= 10) throw new Error('יותר מדי ניסיונות. נסו שוב בעוד 10 דקות.');
+  var real = PropertiesService.getScriptProperties().getProperty('TEACHER_PASSWORD');
+  if (!real) throw new Error('עוד לא נקבעה סיסמה (TEACHER_PASSWORD במאפייני הסקריפט).');
+  if (String(pw || '') === real) return true;
+  cache.put('pwFails', String(fails + 1), 600);
+  return false;
 }
 
-function logSheet_() {
-  const ss = spreadsheet_();
-  let sh = ss.getSheetByName(CONFIG.LOG_SHEET);
-  if (!sh) {
-    sh = ss.getSheets()[0];
-    if (sh.getLastRow() > 0 || sh.getName() === CONFIG.ROSTER_SHEET) sh = ss.insertSheet();
-    sh.setName(CONFIG.LOG_SHEET);
-    sh.setRightToLeft(true);
-    sh.appendRow(HEADERS);
-    sh.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold');
-    sh.setFrozenRows(1);
-    sh.hideColumns(COL.ID + 1);
-  }
-  return sh;
+// ---------- עזר ----------
+function json_(obj) {
+  return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
+}
+function getJson_(key) {
+  var v = PropertiesService.getScriptProperties().getProperty(key);
+  try { return v ? JSON.parse(v) : null; } catch (e) { return null; }
+}
+function msg_(err) { return String((err && err.message) || err); }
+function clean_(s) { return String(s || '').replace(/\s+/g, ' ').trim(); }
+function safe_(s) { return String(s).replace(/[\\\/:*?"<>|]/g, ' ').replace(/\s+/g, ' ').trim(); }
+function normName_(s) { return clean_(s).replace(/["'׳״]/g, ''); }
+function normTask_(s) { return clean_(s).replace(/["'׳״]/g, '').replace(/[-–—,.:]/g, ' ').replace(/\s+/g, ' ').trim(); }
+function normClass_(c) {
+  var v = String(c || '').replace(/["'׳״\s]/g, '');
+  return CLASS_FOLDERS[v] ? v : '';
+}
+function extension_(fileName, mime) {
+  var m = String(fileName || '').match(/\.[A-Za-z0-9]{1,5}$/);
+  if (m) return m[0].toLowerCase();
+  var map = { 'application/pdf': '.pdf', 'image/jpeg': '.jpg', 'image/png': '.png', 'text/html': '.html',
+    'application/msword': '.doc', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': '.docx' };
+  return map[mime] || '';
 }
 
-function rosterSheet_() {
-  const ss = spreadsheet_();
-  let sh = ss.getSheetByName(CONFIG.ROSTER_SHEET);
-  if (!sh) {
-    sh = ss.insertSheet(CONFIG.ROSTER_SHEET);
-    sh.setRightToLeft(true);
-    sh.appendRow(['שם התלמיד', 'כיתה']);
-    sh.getRange(1, 1, 1, 2).setFontWeight('bold');
-    sh.setFrozenRows(1);
-  }
-  return sh;
-}
-
-function getFolder_(parent, name) {
-  const it = parent.getFoldersByName(name);
-  return it.hasNext() ? it.next() : parent.createFolder(name);
-}
-
-/* ---------------- עזרים ---------------- */
-
-function normalizeSubject_(subject, task) {
-  const s = String(subject || '').replace(/["'׳״]/g, '');
-  if (s === 'תנך') return 'תנ"ך';
-  if (s === 'תושבע') return 'תושב"ע';
-  if (s === 'עברית') return 'עברית';
-  const t = String(task || '');
-  if (/עברית|גזר|משקל|בניין|שורש/.test(t)) return 'עברית';
-  if (/פתוח תפתח|מצו|ספר החינוך|הלכ|משנה|גמרא/.test(t)) return 'תושב"ע';
-  return 'תנ"ך';
-}
-function normClass_(c) { return String(c || '').replace(/["'׳״\s]/g, ''); }
-function normName_(n) { return String(n || '').replace(/["'׳״]/g, '').replace(/\s+/g, ' ').trim(); }
-function cleanName_(s) { return String(s).replace(/[\\/:*?"<>|]/g, '-').slice(0, 200); }
-function clip_(s, n) { return String(s == null ? '' : s).slice(0, n); }
-function esc_(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-function fail_(err) { return { ok: false, error: String((err && err.message) || err), code: err && err.auth ? 'auth' : 'error' }; }
-function json_(o) { return ContentService.createTextOutput(JSON.stringify(o)).setMimeType(ContentService.MimeType.JSON); }
-
-/* ---------------- להפעלה ידנית מתוך העורך ----------------
-   בחרו "authorize" בתפריט שליד כפתור ▶ ולחצו ▶. זה מאשר הרשאות,
-   יוצר את התיקייה ואת הגיליון, ובודק שהסיסמה נקבעה. */
-function authorize() {
-  logSheet_();
-  rosterSheet_();
-  MailApp.getRemainingDailyQuota();
-  const pw = PropertiesService.getScriptProperties().getProperty('TEACHER_PASSWORD');
-  Logger.log(pw ? 'הכול מוכן. הסיסמה נקבעה.' : 'ההרשאות אושרו. עכשיו צריך לקבוע סיסמה (TEACHER_PASSWORD).');
-  Logger.log('הגיליון: ' + spreadsheet_().getUrl());
+// ---------- בדיקה ידנית ----------
+// בוחרים "בדיקה" ברשימת הפונקציות למעלה ולוחצים "הפעלה".
+// ביומן יופיע כמה הגשות נמצאו (אמור להיות בערך 40) ודוגמה של 3 הראשונות.
+function בדיקה() {
+  var list = listSubmissions_();
+  Logger.log('נמצאו ' + list.length + ' הגשות');
+  Logger.log(JSON.stringify(list.slice(0, 3), null, 2));
 }

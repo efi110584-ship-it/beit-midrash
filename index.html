@@ -639,7 +639,7 @@
             '<h3 class="tt-h">הודעה לתלמידים</h3>' +
             '<p class="tt-sub">תופיע בראש דף הבית אצל כל התלמידים.</p>' +
             '<label for="ttAnnounce" class="visually-hidden">נוסח ההודעה</label>' +
-            '<textarea id="ttAnnounce" class="tt-textarea" rows="3" maxlength="500" placeholder="לדוגמה: מחר מבחן על ספר יונה, פרקים א\'-ב\'"></textarea>' +
+            '<textarea id="ttAnnounce" class="tt-textarea" rows="3" maxlength="300" placeholder="לדוגמה: מחר מבחן על ספר יונה, פרקים א\'-ב\'"></textarea>' +
             '<div class="tt-btns">' +
               '<button type="button" class="tt-btn tt-btn--primary" id="ttAnnounceSave">פרסום</button>' +
               '<button type="button" class="tt-btn" id="ttAnnounceClear">הסרת ההודעה</button>' +
@@ -651,7 +651,10 @@
             '<p class="tt-sub">התלמידים מקלידים את הקוד בדף הבית ומגיעים ישר לדף שבחרתם.</p>' +
             '<label for="ttLessonTarget" class="tt-label">לאן להגיע?</label>' +
             '<select id="ttLessonTarget" class="tt-select">' + lessonTargetsHtml() + '</select>' +
-            '<div class="tt-btns"><button type="button" class="tt-btn tt-btn--primary" id="ttLessonMake">יצירת קוד</button></div>' +
+            '<div class="tt-btns">' +
+              '<button type="button" class="tt-btn tt-btn--primary" id="ttLessonMake">יצירת קוד</button>' +
+              '<button type="button" class="tt-btn" id="ttLessonClear">ביטול הקוד</button>' +
+            '</div>' +
             '<div class="tt-lesson-out" id="ttLessonOut" role="status" aria-live="polite"></div>' +
           '</div>' +
         '</div>' +
@@ -680,7 +683,7 @@
     );
   }
 
-  var board = { rows:[], subj:"all", status:"all", task:"all", rosterSize:0 };
+  var board = { rows:[], subj:"all", status:"all", task:"all" };
   var SUBJ_CLASS = { 'תנ"ך':"tnk", 'תושב"ע':"tsb", "עברית":"heb" };
   var STATUS_INFO = {
     pending:{ label:"ממתין לבדיקה", cls:"pending" },
@@ -688,9 +691,9 @@
     missing:{ label:"לא הוגש", cls:"missing" }
   };
 
-  /* הסיסמה כבר לא בתוקף (שונתה, או נחסם) - יוצאים מהאזור האישי */
+  /* הסיסמה כבר לא בתוקף (שונתה בינתיים) - יוצאים מהאזור האישי */
   function handleAuthFailure(res){
-    if(res && res.code === "auth"){
+    if(res && res.auth === false){
       lockTeacherArea();
       alert((res.error || "הסיסמה לא בתוקף.") + " צריך להיכנס שוב לאזור האישי.");
       var first = document.getElementById("tab-ya");
@@ -707,16 +710,17 @@
     var ann = document.getElementById("ttAnnounce");
     var annMsg = document.getElementById("ttAnnounceMsg");
     apiGet({ action:"announcement" }).then(function(res){
-      if(res && res.ok && !ann.value) ann.value = res.text || "";
+      if(res && res.ok && !ann.value) ann.value = (res.announcement && res.announcement.text) || "";
     }).catch(function(){});
 
     function saveAnnouncement(text){
       annMsg.textContent = "שומרים…";
-      apiPost({ action:"setAnnouncement", token:teacherToken(), text:text }).then(function(res){
+      apiPost({ action:"setAnnouncement", password:teacherToken(), text:text }).then(function(res){
         if(handleAuthFailure(res)) return;
         if(res && res.ok){
-          annMsg.textContent = res.text ? "✓ ההודעה פורסמה." : "✓ ההודעה הוסרה.";
-          showAnnouncement(res.text || "");
+          var text = (res.announcement && res.announcement.text) || "";
+          annMsg.textContent = text ? "✓ ההודעה פורסמה." : "✓ ההודעה הוסרה.";
+          showAnnouncement(text);
         } else annMsg.textContent = (res && res.error) || "השמירה לא הצליחה.";
       }).catch(function(){ netError(annMsg); });
     }
@@ -735,13 +739,21 @@
       var opt = target.options[target.selectedIndex];
       if(!opt) return;
       out.innerHTML = '<p class="tt-msg">יוצרים קוד…</p>';
-      apiPost({ action:"createLesson", token:teacherToken(), url:opt.value, label:opt.getAttribute("data-label") }).then(function(res){
+      apiPost({ action:"createLesson", password:teacherToken(), url:opt.value, label:opt.getAttribute("data-label") }).then(function(res){
         if(handleAuthFailure(res)) return;
         if(res && res.ok){
           out.innerHTML =
             '<span class="tt-code" aria-label="הקוד: ' + escapeAttr(res.code.split("").join(" ")) + '">' + escapeHtml(res.code) + '</span>' +
-            '<span class="tt-code-label">' + escapeHtml(res.label) + ' · בתוקף ' + escapeHtml(String(res.hours || 12)) + ' שעות</span>';
+            '<span class="tt-code-label">' + escapeHtml(res.label || opt.getAttribute("data-label")) + ' · בתוקף 12 שעות. קוד חדש מבטל את הקודם.</span>';
         } else out.innerHTML = '<p class="tt-msg">' + escapeHtml((res && res.error) || "יצירת הקוד לא הצליחה.") + '</p>';
+      }).catch(function(){ out.innerHTML = '<p class="tt-msg">אין חיבור לשרת כרגע. נסו שוב.</p>'; });
+    });
+
+    document.getElementById("ttLessonClear").addEventListener("click", function(){
+      out.innerHTML = '<p class="tt-msg">מבטלים…</p>';
+      apiPost({ action:"clearLesson", password:teacherToken() }).then(function(res){
+        if(handleAuthFailure(res)) return;
+        out.innerHTML = '<p class="tt-msg">' + (res && res.ok ? "✓ הקוד בוטל. התלמידים כבר לא יכולים להשתמש בו." : escapeHtml((res && res.error) || "הביטול לא הצליח.")) + '</p>';
       }).catch(function(){ out.innerHTML = '<p class="tt-msg">אין חיבור לשרת כרגע. נסו שוב.</p>'; });
     });
 
@@ -761,7 +773,7 @@
       var b = e.target.closest("[data-check]"); if(!b) return;
       var id = b.getAttribute("data-check");
       b.disabled = true; b.textContent = "מסמנים…";
-      apiPost({ action:"check", token:teacherToken(), id:id }).then(function(res){
+      apiPost({ action:"markChecked", password:teacherToken(), fileId:id, checked:true }).then(function(res){
         if(handleAuthFailure(res)) return;
         if(res && res.ok){
           board.rows.forEach(function(r){ if(r.id === id) r.status = "checked"; });
@@ -777,11 +789,14 @@
     var msg = document.getElementById("ttBoardMsg");
     if(!msg) return;
     msg.textContent = "טוען הגשות…";
-    apiPost({ action:"submissions", token:teacherToken() }).then(function(res){
+    apiPost({ action:"list", password:teacherToken() }).then(function(res){
       if(handleAuthFailure(res)) return;
       if(!res || !res.ok){ msg.textContent = (res && res.error) || "טעינת ההגשות לא הצליחה."; return; }
-      board.rows = res.rows || [];
-      board.rosterSize = res.rosterSize || 0;
+      board.rows = (res.submissions || []).map(function(x){
+        return { id:x.id || "", name:x.student || "", task:x.task || "", subject:x.subject || 'תנ"ך',
+                 cls:x.cls === "יא" ? 'י"א' : (x.cls === "יב" ? 'י"ב' : (x.cls || "")),
+                 date:x.date || "", status:x.status || "pending", url:x.url || "", notes:x.notes || "" };
+      });
       msg.textContent = "";
       renderBoard();
     }).catch(function(){ netError(msg); });
@@ -828,9 +843,10 @@
       var task = /^https:\/\//.test(r.url || "")
         ? '<a href="' + escapeAttr(r.url) + '" target="_blank" rel="noopener">' + escapeHtml(r.task) + '</a>'
         : escapeHtml(r.task);
+      var notes = r.notes ? '<span class="tt-notes">' + escapeHtml(r.notes) + '</span>' : '';
       return '<tr>' +
         '<td>' + escapeHtml(r.name) + '</td>' +
-        '<td><span class="tt-subj-tag tt-subj-tag--' + (SUBJ_CLASS[r.subject] || "tnk") + '">' + escapeHtml(r.subject) + '</span> ' + task + '</td>' +
+        '<td><span class="tt-subj-tag tt-subj-tag--' + (SUBJ_CLASS[r.subject] || "tnk") + '">' + escapeHtml(r.subject) + '</span> ' + task + notes + '</td>' +
         '<td>' + escapeHtml(r.cls) + '</td>' +
         '<td class="tt-date">' + escapeHtml(r.date || "-") + '</td>' +
         '<td><span class="tt-pill tt-pill--' + st.cls + '">' + st.label + '</span></td>' +
@@ -838,9 +854,9 @@
       '</tr>';
     }).join("");
 
-    document.getElementById("ttRosterNote").textContent = board.rosterSize
+    document.getElementById("ttRosterNote").textContent = all.some(function(r){ return r.status === "missing"; })
       ? ""
-      : 'כדי לראות מי לא הגיש: ממלאים את רשימת התלמידים בגיליון "תלמידים" (שם התלמיד וכיתה) בקובץ ההגשות בדרייב.';
+      : '"לא הוגשו" מופיע רק במטלות שרשומות בסקריפט (בשורה TRACKED_TASKS). רוצים לעקוב אחרי מטלה מסוימת? אפשר לבקש עזרה.';
   }
 
   /* ============ מפת התקדמות ============
@@ -992,7 +1008,7 @@
     if(!pw){ loginMsg.textContent = "הקלידו סיסמה."; loginInput.focus(); return; }
     loginSubmit.disabled = true;
     loginMsg.textContent = "בודקים…";
-    apiPost({ action:"login", token:pw }).then(function(res){
+    apiPost({ action:"login", password:pw }).then(function(res){
       if(res && res.ok){
         try{
           sessionStorage.setItem(TOKEN_KEY, pw);
@@ -1380,7 +1396,7 @@
     });
     if(!window.BM_API_URL) return;
     apiGet({ action:"announcement" }).then(function(res){
-      if(res && res.ok) showAnnouncement(res.text || "");
+      if(res && res.ok) showAnnouncement((res.announcement && res.announcement.text) || "");
     }).catch(function(){ /* בלי חיבור - פשוט לא מציגים */ });
   })();
 

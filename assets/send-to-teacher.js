@@ -128,6 +128,20 @@
       a.appendChild(button('חזרה לדף', '', close));
     });
   }
+  /* השרת שומר כל הגשה בתיקיית הכיתה - צריך כיתה שאפשר לזהות: י"א או י"ב */
+  function classCode(){
+    var api = window.BeitMidrashDirectSubmit;
+    return (api && api.classCode && classEl) ? api.classCode(classEl.value) : '';
+  }
+  function askClass(){
+    open('warn', function(h){
+      h.textContent = '✏️ כתבו את הכיתה שלכם';
+      panel.appendChild(el('p', null, 'בשורה "כיתה" שלמעלה כתבו י"א או י"ב, כדי שהתשובות יגיעו לתיקייה הנכונה אצל המורה.'));
+      var a = actions();
+      a.appendChild(button('למילוי הכיתה', 'primary', function(){ panel.hidden = true; btn.setAttribute('aria-expanded', 'false'); classEl.focus(); classEl.scrollIntoView({ block: 'center' }); }));
+      a.appendChild(button('חזרה לדף', '', close));
+    });
+  }
   function nothingYet(){
     open('warn', function(h){
       h.textContent = 'עוד לא כתבתם תשובות בדף הזה';
@@ -141,7 +155,7 @@
       panel.appendChild(el('p', null, 'זה מה שיישלח:'));
       var ul = el('ul', 'bm-send-list');
       ul.appendChild(el('li', null, 'שם: ' + clean(nameEl.value)));
-      ul.appendChild(el('li', null, 'כיתה: ' + (classEl && clean(classEl.value) ? clean(classEl.value) : 'לא כתבתם כיתה')));
+      ul.appendChild(el('li', null, 'כיתה: ' + (classCode() === 'יא' ? 'י"א' : 'י"ב')));
       ul.appendChild(el('li', null, (data.items.length === 1 ? 'תשובה אחת' : data.items.length + ' תשובות') + ' מתוך ' + data.total + ' סעיפי תשובה בדף' + (data.items.length < data.total ? ' (שאלות בלי תשובה לא יישלחו)' : '')));
       panel.appendChild(ul);
       panel.appendChild(el('p', 'bm-send-note', 'רק זה נשלח - שום דבר אחר מהמחשב. אי אפשר לבטל שליחה, אבל אפשר לשלוח שוב אחר כך, והגרסה החדשה תגיע למורה.'));
@@ -159,7 +173,7 @@
     panel.appendChild(status);
     window.BeitMidrashDirectSubmit.send({
       studentName: clean(nameEl.value),
-      studentClass: classEl ? clean(classEl.value) : '',
+      studentClass: classCode(),
       assignment: assignment,
       items: data.items,
       total: data.total
@@ -187,6 +201,7 @@
   }
   function start(){
     if(nameEl && !clean(nameEl.value)){ askName(); return; }
+    if(classEl && !classCode()){ askClass(); return; }
     var data = collect();
     if(!data.items.length){ nothingYet(); return; }
     confirmSend(data);

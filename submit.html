@@ -41,16 +41,6 @@
       </div>
 
       <div class="field">
-        <label for="subject">מקצוע <span class="required-mark">*</span></label>
-        <select id="subject" name="subject" required>
-          <option value="" disabled selected>בחרו מקצוע</option>
-          <option value='תנ"ך'>תנ"ך</option>
-          <option value='תושב"ע'>תושב"ע</option>
-          <option value="עברית">עברית</option>
-        </select>
-      </div>
-
-      <div class="field">
         <label for="assignment">שם המטלה / דף העבודה <span class="required-mark">*</span></label>
         <input type="text" id="assignment" name="assignment" placeholder="לדוגמה: דף עבודה - יונה פרק ג׳" required>
       </div>
@@ -116,16 +106,6 @@
       });
     }
     if(qAssignment) document.getElementById('assignment').value = qAssignment;
-    var qSubject = qp.get('subject') || '';
-    if(!qSubject && qAssignment){
-      if(/עברית|גזר|משקל|בניין/.test(qAssignment)) qSubject = 'עברית';
-      else if(/פתוח תפתח|מצו|ספר החינוך/.test(qAssignment)) qSubject = 'תושב"ע';
-    }
-    if(qSubject){
-      Array.prototype.forEach.call(document.getElementById('subject').options, function(opt){
-        if(opt.value === qSubject) opt.selected = true;
-      });
-    }
   })();
   function showError(msg) {
     errorBox.textContent = msg;
@@ -155,11 +135,10 @@
     var studentName = document.getElementById('studentName').value.trim();
     var studentClass = document.getElementById('studentClass').value;
     var assignment = document.getElementById('assignment').value.trim();
-    var subject = document.getElementById('subject').value;
     var notes = document.getElementById('notes').value.trim();
     var file = fileInput.files[0];
 
-    if (!studentName || !studentClass || !subject || !assignment || !file) {
+    if (!studentName || !studentClass || !assignment || !file) {
       showError('נא למלא את כל שדות החובה (מסומנים ב-*) ולצרף קובץ.');
       return;
     }
@@ -176,7 +155,6 @@
         studentName: studentName,
         studentClass: studentClass,
         assignment: assignment,
-        subject: subject,
         notes: notes,
         fileName: file.name,
         fileMimeType: file.type || 'application/octet-stream',

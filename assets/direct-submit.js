@@ -12,12 +12,12 @@
   /* הכתובת עצמה ב-assets/bm-api.js (נטען לפני הקובץ הזה) */
   var ENDPOINT_URL = window.BM_API_URL || '';
 
-  /* המקצוע לפי שם הדף - כדי שלוח ההגשות של המורה יסנן נכון */
-  function subjectForPage(){
-    var page = (location.pathname.split('/').pop() || '').toLowerCase();
-    if(/^ivrit-/.test(page)) return 'עברית';
-    if(/^(ptp-|ahavat-|halvaa|kibud-|kidush-|korban-|kriat-|lo-|onaat-|talmud-|tefila|tochacha|leket-)/.test(page)) return 'תושב"ע';
-    if(/^(bereshit-|yonah|yeshayahu-|ezra-|nechemia-|melachim-|yirmiyahu-|yechezkel-|petichah)/.test(page)) return 'תנ"ך';
+  /* סקריפט השרת שומר כל הגשה בתיקיית הכיתה, ולכן מקבל רק "יא" או "יב".
+     בדפי העבודה הכיתה נכתבת ביד ("י\"ב 2", "יב2", "12") - מתרגמים לכאן. */
+  function classCode(text){
+    var t = String(text || '').replace(/["'׳״\s.-]/g, '');
+    if(/^(יא|11)/.test(t)) return 'יא';
+    if(/^(יב|12)/.test(t)) return 'יב';
     return '';
   }
 
@@ -318,10 +318,9 @@
     return buildFile(doc).then(function(file){
       var payload = {
         studentName: opts.studentName,
-        studentClass: opts.studentClass || '',
+        studentClass: classCode(opts.studentClass) || opts.studentClass || '',
         assignment: opts.assignment,
         notes: opts.notes || '',
-        subject: opts.subject || subjectForPage(),
         fileName: file.fileName,
         fileMimeType: file.fileMimeType,
         fileBase64: file.fileBase64
@@ -336,6 +335,7 @@
 
   window.BeitMidrashDirectSubmit = {
     send: sendDirectSubmission,
+    classCode: classCode,
     /* לבדיקות ולתצוגה מקדימה: בונה את דף התשובות בלי לשלוח */
     preview: function(opts){ return fontsReady().then(function(){ return buildAnswersPdf(opts); }); }
   };
