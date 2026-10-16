@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=15">
+<link rel="stylesheet" href="assets/site.css?v=16">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -363,9 +363,6 @@
     "עברית - בניינים וגזרות":"🧩", "עברית - גזרות":"🔤", "עברית - משקלים":"⚖️",
     "בוגרים":"🎓"
   };
-  function categorySlug(cat){
-    return "cat-" + String(cat).replace(/[^א-תa-zA-Z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-  }
 
   function renderUnits(){
     var filtered = UNITS.filter(function(u){ return state.activeClass === "all" || u.class === state.activeClass; });
@@ -391,29 +388,7 @@
       html += '<section class="class-section">';
       html += '<h2>' + (CLASS_ORDER.indexOf(cls) !== -1 ? 'כיתה ' + escapeHtml(cls) + '\u200f' : (cls === "teacher" ? '🗝️ אזור אישי' : escapeHtml(cls))) + '</h2>';
       if(cls === "teacher"){
-        var byCategory = {};
-        var categoryOrder = [];
-        byClass[cls].forEach(function(u){
-          var cat = u.category || "כללי";
-          if(!byCategory[cat]){ byCategory[cat] = []; categoryOrder.push(cat); }
-          byCategory[cat].push(u);
-        });
-        html += teacherToolsHtml();
-        html += '<nav class="teacher-quickjump" aria-label="ניווט מהיר למחוונים">';
-        categoryOrder.forEach(function(cat){
-          html += '<button type="button" class="teacher-quickjump-btn" data-jump="' + escapeAttr(categorySlug(cat)) + '">' +
-            '<span class="teacher-quickjump-icon" aria-hidden="true">' + (TEACHER_CATEGORY_ICONS[cat] || '🗂️') + '</span>' +
-            '<span>' + escapeHtml(cat) + '</span>' +
-          '</button>';
-        });
-        html += '</nav>';
-        categoryOrder.forEach(function(cat){
-          html += '<h3 class="unit-category" id="' + categorySlug(cat) + '">' +
-            '<span aria-hidden="true">' + (TEACHER_CATEGORY_ICONS[cat] || '🗂️') + '</span> ' + escapeHtml(cat) + '</h3>';
-          html += '<div class="unit-grid">';
-          byCategory[cat].forEach(function(u){ html += unitCardHtml(u, registry); });
-          html += '</div>';
-        });
+        html += teacherToolsHtml(byClass[cls]);
       } else {
         html += '<div class="unit-grid">';
         byClass[cls].forEach(function(u){ html += unitCardHtml(u, registry); });
@@ -423,6 +398,7 @@
       html += '</section>';
     });
 
+    document.body.classList.toggle("is-teacher-view", state.activeClass === "teacher");
     contentRoot.innerHTML = html;
     if(document.getElementById("teacherTools")) initTeacherTools();
   }
@@ -445,9 +421,101 @@
     return html;
   }
 
-  function teacherToolsHtml(){
+  /* ============ האזור האישי: שלוש לשוניות ============
+     מחוונים ומבחנים (רשימה מקובצת לפי מקצוע + חיפוש), בשיעור (הודעה,
+     קוד לשיעור, שיעור חי) ולוח הגשות. רק לשונית אחת פתוחה בכל רגע,
+     והלשונית האחרונה נזכרת במכשיר. */
+  var TT_PANEL_KEY = "bm-teacher-panel";
+  var TK_RECENT_KEY = "bm-teacher-recent";
+  var TK_GROUPS = [
+    { id:"tnk", label:'תנ"ך', icon:"📖" },
+    { id:"tsb", label:'תושב"ע', icon:"📋" },
+    { id:"heb", label:"עברית", icon:"🔤" },
+    { id:"exam", label:"מבחנים", icon:"📝" },
+    { id:"alumni", label:"בוגרים", icon:"🎓" },
+    { id:"other", label:"כללי", icon:"🗂️" }
+  ];
+  function tkGroupOf(u){
+    var cat = u.category || "";
+    if(cat === "מבחנים") return "exam";
+    if(cat === "בוגרים") return "alumni";
+    if(/^עברית/.test(cat)) return "heb";
+    if(["לקט מצוות", "פתוח תפתח", "ספר דברים"].indexOf(cat) !== -1) return "tsb";
+    if(/^ספר |נביאים|עזרא/.test(cat)) return "tnk";
+    return "other";
+  }
+  function tkTitle(u){
+    return String(u.title).replace(/^מחוון (תשובות|מרוכז)\s*[-–—]\s*/, "").replace(/^בוגרים\s*[-–—]\s*/, "");
+  }
+  function tkMeta(u){
+    var cat = String(u.category || "").replace(/^עברית\s*-\s*/, "");
+    var t = tkTitle(u);
+    var parts = [];
+    if(cat && t.indexOf(cat) === -1 && ["מבחנים", "בוגרים"].indexOf(cat) === -1) parts.push(cat);
+    parts.push(u.chapters + " " + u.chaptersLabel);
+    return parts.join(" · ");
+  }
+  function tkNorm(str){
+    return String(str || "").replace(/[\u0591-\u05C7]/g, "").replace(/["'״׳]/g, "").replace(/[\-–—·]/g, " ").replace(/\s+/g, " ").trim().toLowerCase();
+  }
+  function tkItemHtml(u){
+    return '<li><a class="tk-item" href="' + escapeAttr(u.url) + '" data-s="' + escapeAttr(tkNorm(u.title + " " + u.category + " " + tkMeta(u))) + '">' +
+      '<span class="tk-ico" aria-hidden="true">' + (TEACHER_CATEGORY_ICONS[u.category] || u.icon || "🗂️") + '</span>' +
+      '<span class="tk-txt"><span class="tk-title">' + escapeHtml(tkTitle(u)) + '</span>' +
+      '<span class="tk-meta">' + escapeHtml(tkMeta(u)) + '</span></span>' +
+      '<span class="tk-go" aria-hidden="true">‹</span>' +
+    '</a></li>';
+  }
+  function teacherKeysHtml(units){
+    var byGroup = {};
+    units.forEach(function(u){ var g = tkGroupOf(u); (byGroup[g] = byGroup[g] || []).push(u); });
+    var groups = TK_GROUPS.filter(function(g){ return byGroup[g.id]; });
+    var chips = '<button type="button" class="tt-tab" data-tk-filter="all" aria-pressed="true">הכול<span class="tt-count">' + units.length + '</span></button>' +
+      groups.map(function(g){
+        return '<button type="button" class="tt-tab" data-tk-filter="' + g.id + '" aria-pressed="false">' + g.label + '<span class="tt-count">' + byGroup[g.id].length + '</span></button>';
+      }).join("");
+    return (
+      '<div class="tk">' +
+        '<div class="tk-tools">' +
+          '<div class="tk-search">' +
+            '<label for="tkSearch" class="visually-hidden">חיפוש מחוון</label>' +
+            '<input id="tkSearch" class="tk-search-input" type="search" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="חיפוש מחוון - למשל: ישעיהו, נחי ל&quot;ה, פסח">' +
+            '<svg class="tk-search-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
+          '</div>' +
+          '<div class="tk-filter" role="group" aria-label="סינון לפי מקצוע">' + chips + '</div>' +
+        '</div>' +
+        '<div class="tk-recent" id="tkRecent" hidden></div>' +
+        '<div class="tk-grid" id="tkGrid">' +
+          groups.map(function(g){
+            return '<section class="tk-group tk-group--' + g.id + '" data-group="' + g.id + '" aria-labelledby="tkH-' + g.id + '">' +
+              '<h3 class="tk-group-h" id="tkH-' + g.id + '"><span aria-hidden="true">' + g.icon + '</span> ' + g.label +
+                '<span class="tk-group-n">' + byGroup[g.id].length + '</span></h3>' +
+              '<ul class="tk-list">' + byGroup[g.id].map(tkItemHtml).join("") + '</ul>' +
+            '</section>';
+          }).join("") +
+        '</div>' +
+        '<p class="tk-empty" id="tkEmpty" role="status" hidden>לא נמצא מחוון כזה. נסו מילה אחרת, או לחצו "הכול".</p>' +
+      '</div>'
+    );
+  }
+  function teacherToolsHtml(units){
+    var TABS = [
+      { id:"keys", label:"מחוונים ומבחנים", icon:"📚", extra:'<span class="tt-nav-n">' + units.length + '</span>' },
+      { id:"lesson", label:"בשיעור", icon:"🧑‍🏫", extra:'<span class="tt-nav-live" id="ttNavLive" hidden>חי</span>' },
+      { id:"board", label:"לוח הגשות", icon:"📥", extra:'<span class="tt-nav-n tt-nav-n--alert" id="ttNavPending" hidden></span>' }
+    ];
     return (
       '<section class="tt" id="teacherTools" aria-label="כלי מורה">' +
+        '<div class="tt-nav" role="tablist" aria-label="האזור האישי">' +
+          TABS.map(function(t){
+            return '<button type="button" class="tt-nav-tab" role="tab" id="ttTab-' + t.id + '" data-panel="' + t.id + '" aria-controls="ttPanel-' + t.id + '" aria-selected="false" tabindex="-1">' +
+              '<span class="tt-nav-icon" aria-hidden="true">' + t.icon + '</span><span class="tt-nav-label">' + t.label + '</span>' + t.extra + '</button>';
+          }).join("") +
+        '</div>' +
+        '<div class="tt-panel" role="tabpanel" id="ttPanel-keys" aria-labelledby="ttTab-keys" hidden>' +
+          teacherKeysHtml(units) +
+        '</div>' +
+        '<div class="tt-panel" role="tabpanel" id="ttPanel-lesson" aria-labelledby="ttTab-lesson" hidden>' +
         '<div class="tt-row">' +
           '<div class="tt-card">' +
             '<h3 class="tt-h">הודעה לתלמידים</h3>' +
@@ -490,6 +558,8 @@
           '</div>' +
           '<p class="tt-note">מתעדכן לבד כל 20 שניות. יציאה קצרה מ-15 שניות (למשל מעבר בין דפים באתר) לא נספרת. האתר לא יודע לאן התלמיד יצא.</p>' +
         '</div>' +
+        '</div>' +
+        '<div class="tt-panel" role="tabpanel" id="ttPanel-board" aria-labelledby="ttTab-board" hidden>' +
         '<div class="tt-card tt-board">' +
           '<div class="tt-board-head">' +
             '<h3 class="tt-h">לוח הגשות</h3>' +
@@ -516,8 +586,101 @@
           '</div>' +
           '<p class="tt-note" id="ttRosterNote"></p>' +
         '</div>' +
+        '</div>' +
       '</section>'
     );
+  }
+
+  function initTeacherNav(){
+    var tabsEl = Array.prototype.slice.call(document.querySelectorAll("#teacherTools .tt-nav-tab"));
+    function show(id, focus){
+      tabsEl.forEach(function(t){
+        var on = t.getAttribute("data-panel") === id;
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById("ttPanel-" + t.getAttribute("data-panel")).hidden = !on;
+        if(on && focus) t.focus();
+      });
+      try{ localStorage.setItem(TT_PANEL_KEY, id); }catch(e){}
+    }
+    var start = "keys";
+    try{ start = localStorage.getItem(TT_PANEL_KEY) || "keys"; }catch(e){}
+    if(!document.getElementById("ttPanel-" + start)) start = "keys";
+    show(start);
+    tabsEl.forEach(function(t, i){
+      t.addEventListener("click", function(){ show(t.getAttribute("data-panel")); });
+      t.addEventListener("keydown", function(e){
+        var n = null;
+        if(e.key === "ArrowRight") n = (i - 1 + tabsEl.length) % tabsEl.length; /* RTL */
+        else if(e.key === "ArrowLeft") n = (i + 1) % tabsEl.length;
+        else if(e.key === "Home") n = 0;
+        else if(e.key === "End") n = tabsEl.length - 1;
+        if(n !== null){ e.preventDefault(); show(tabsEl[n].getAttribute("data-panel"), true); }
+      });
+    });
+  }
+
+  /* רשימת המחוונים: סינון לפי מקצוע, חיפוש, ו"נפתחו לאחרונה" */
+  function initTeacherKeys(){
+    var input = document.getElementById("tkSearch");
+    var grid = document.getElementById("tkGrid");
+    var empty = document.getElementById("tkEmpty");
+    var chips = Array.prototype.slice.call(document.querySelectorAll("[data-tk-filter]"));
+    var group = "all";
+    function apply(){
+      var words = tkNorm(input.value).split(" ").filter(Boolean);
+      var shown = 0;
+      Array.prototype.forEach.call(grid.querySelectorAll(".tk-group"), function(sec){
+        var inGroup = group === "all" || sec.getAttribute("data-group") === group;
+        var n = 0;
+        Array.prototype.forEach.call(sec.querySelectorAll(".tk-item"), function(a){
+          var s = a.getAttribute("data-s");
+          var ok = inGroup && words.every(function(w){ return s.indexOf(w) !== -1; });
+          a.parentNode.hidden = !ok;
+          if(ok) n++;
+        });
+        sec.hidden = n === 0;
+        shown += n;
+      });
+      empty.hidden = shown > 0;
+    }
+    chips.forEach(function(c){
+      c.addEventListener("click", function(){
+        group = c.getAttribute("data-tk-filter");
+        chips.forEach(function(x){ x.setAttribute("aria-pressed", x === c ? "true" : "false"); });
+        apply();
+      });
+    });
+    input.addEventListener("input", apply);
+    input.addEventListener("keydown", function(e){
+      if(e.key !== "Enter") return;
+      var vis = Array.prototype.filter.call(grid.querySelectorAll(".tk-item"), function(a){ return !a.parentNode.hidden; });
+      if(vis.length === 1){ e.preventDefault(); remember(vis[0].getAttribute("href")); location.href = vis[0].getAttribute("href"); }
+    });
+
+    function remember(url){
+      var list = [];
+      try{ list = JSON.parse(localStorage.getItem(TK_RECENT_KEY) || "[]"); }catch(e){}
+      list = [url].concat(list.filter(function(x){ return x !== url; })).slice(0, 4);
+      try{ localStorage.setItem(TK_RECENT_KEY, JSON.stringify(list)); }catch(e){}
+    }
+    document.getElementById("ttPanel-keys").addEventListener("click", function(e){
+      var a = e.target.closest(".tk-item, .tk-recent-chip");
+      if(a) remember(a.getAttribute("href"));
+    });
+    var recent = [];
+    try{ recent = JSON.parse(localStorage.getItem(TK_RECENT_KEY) || "[]"); }catch(e){}
+    var byUrl = {};
+    UNITS.forEach(function(u){ if(u.class === "teacher") byUrl[u.url] = u; });
+    recent = recent.filter(function(url){ return byUrl[url]; });
+    if(recent.length){
+      var box = document.getElementById("tkRecent");
+      box.innerHTML = '<span class="tk-recent-label">נפתחו לאחרונה:</span>' + recent.map(function(url){
+        var u = byUrl[url];
+        return '<a class="tk-recent-chip" href="' + escapeAttr(url) + '"><span aria-hidden="true">' + (TEACHER_CATEGORY_ICONS[u.category] || u.icon || "🗂️") + '</span> ' + escapeHtml(tkTitle(u)) + '</a>';
+      }).join("");
+      box.hidden = false;
+    }
   }
 
   var board = { rows:[], subj:"all", status:"all", unit:"all", topic:"all" };
@@ -544,6 +707,8 @@
   }
 
   function initTeacherTools(){
+    initTeacherNav();
+    initTeacherKeys();
     var ann = document.getElementById("ttAnnounce");
     var annMsg = document.getElementById("ttAnnounceMsg");
     apiGet({ action:"announcement" }).then(function(res){
@@ -656,8 +821,10 @@
     if(!card) return;
     apiPost({ action:"presenceList", password:teacherToken() }).then(function(res){
       if(handleAuthFailure(res)) return;
-      if(!res || !res.ok || !res.lesson){ card.hidden = true; return; }
+      var navLive = document.getElementById("ttNavLive");
+      if(!res || !res.ok || !res.lesson){ card.hidden = true; if(navLive) navLive.hidden = true; return; }
       card.hidden = false;
+      if(navLive) navLive.hidden = false;
       document.getElementById("ttLiveLesson").textContent = "קוד " + res.lesson.code + " · " + (res.lesson.label || res.lesson.url) + ' · כיתה י"א';
       var order = { out:0, gone:1, "in":2, bye:3 };
       var list = (res.students || []).slice().sort(function(a, b){
@@ -713,6 +880,13 @@
     var subjEl = document.getElementById("ttSubj");
     if(!subjEl) return;
     var all = board.rows;
+    var nav = document.getElementById("ttNavPending");
+    if(nav){
+      var pend = all.filter(function(r){ return r.status === "pending"; }).length;
+      nav.textContent = pend;
+      nav.hidden = !pend;
+      nav.setAttribute("aria-label", pend + " ממתינות לבדיקה");
+    }
     var bySubj = all.filter(function(r){ return board.subj === "all" || r.subject === board.subj; });
     var byUnit = bySubj.filter(function(r){ return board.unit === "all" || r.unit === board.unit; });
     var byTask = byUnit.filter(function(r){ return board.topic === "all" || r.topic === board.topic; });
@@ -1000,13 +1174,6 @@
     });
   }
 
-  /* ניווט מהיר באזור האישי - לחיצה על כפתור נושא גוללת לקטגוריה המתאימה */
-  contentRoot.addEventListener("click", function(e){
-    var btn = e.target.closest(".teacher-quickjump-btn");
-    if(!btn) return;
-    var target = document.getElementById(btn.getAttribute("data-jump"));
-    if(target) target.scrollIntoView({ behavior:"smooth", block:"start" });
-  });
 
   /* ============ חיפוש בכל האתר ============
      האינדקס נבנה מ-UNITS: כל יחידה וכל פרק/נושא שב-topics שלה.
