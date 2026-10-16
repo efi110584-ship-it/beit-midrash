@@ -109,14 +109,51 @@ function saveSubmission_(d) {
   return { ok: true, fileId: file.getId() };
 }
 
+// מחפשים את התיקייה של התלמיד בשתי הכיתות (כמו בסקריפט הקודם):
+// 1. אותו שם בדיוק ("אריה כהן", "אריה  כהן", "אריה-כהן").
+// 2. אם התלמיד כתב לפחות שתי מילים, וכולן מופיעות בשם התיקייה - גם בלי שם אמצעי,
+//    בסדר הפוך או בכתיב מלא/חסר ("איוב נועם" ← "נועם אדיסו איוב"). רק אם יש תיקייה אחת כזו.
+// 3. אחרת - תיקייה חדשה בכיתה שנשלחה.
 function findOrCreateStudentFolder_(classFolder, name) {
-  var target = normName_(name);
-  var it = classFolder.getFolders();
-  while (it.hasNext()) {
-    var f = it.next();
-    if (normName_(f.getName()) === target) return f;
+  var key = nameKey_(name);
+  var typed = looseWords_(name);
+  var close = [];
+  var ids = Object.keys(CLASS_FOLDERS);
+  for (var c = 0; c < ids.length; c++) {
+    var it = DriveApp.getFolderById(CLASS_FOLDERS[ids[c]]).getFolders();
+    while (it.hasNext()) {
+      var f = it.next();
+      if (nameKey_(f.getName()) === key) return f;
+      if (typed.length >= 2 && containsAll_(looseWords_(f.getName()), typed)) close.push(f);
+    }
   }
+  if (close.length === 1) return close[0];
   return classFolder.createFolder(name); // תלמיד חדש - תיקייה אישית חדשה, באותו מבנה
+}
+
+// מפתח להשוואת שמות: בלי רווחים, מקפים, נקודות וגרשיים
+function nameKey_(name) {
+  return String(name || '').replace(/[\s\-_.'"`׳״]/g, '');
+}
+
+// מילים בשם, בכתיב "חסר" (בלי ו', י', ובלי א' באמצע מילה), כדי ש"משיח"/"מושיח" ייחשבו אותו שם
+function looseWords_(name) {
+  return String(name || '')
+    .replace(/["'`׳״.]/g, '')
+    .split(/[\s\-_־]+/)
+    .map(function (w) { return w.replace(/[וי]/g, '').replace(/(?!^)א/g, ''); })
+    .filter(function (w) { return w.length > 0; });
+}
+
+// האם כל המילים שהתלמיד כתב נמצאות בשם התיקייה (כל מילה פעם אחת)
+function containsAll_(have, want) {
+  var pool = have.slice();
+  for (var i = 0; i < want.length; i++) {
+    var j = pool.indexOf(want[i]);
+    if (j < 0) return false;
+    pool.splice(j, 1);
+  }
+  return true;
 }
 
 // ---------- לוח הגשות ----------
@@ -168,13 +205,16 @@ function collectFiles_(folder, cls, studentName, out, checked) {
 }
 
 // "שם התלמיד - מטלה - תאריך.pdf"  (המטלה עצמה יכולה להכיל " - ")
+// מזהה גם את שמות הקבצים מהסקריפט הקודם: "... - 16-10-2026 1430"
 function parseName_(fileName) {
   var raw = String(fileName).replace(/\.[A-Za-z0-9]{1,5}$/, '').trim();
   var parts = raw.split(' - ').map(function (s) { return s.trim(); });
   if (parts.length < 2) return { raw: raw };
   var student = parts.shift();
   var date = '';
-  if (parts.length > 1 && /^\d{1,2}[.\/-]\d{1,2}([.\/-]\d{2,4})?$/.test(parts[parts.length - 1])) date = parts.pop();
+  if (parts.length > 1 && /^\d{1,2}[.\/-]\d{1,2}([.\/-]\d{2,4})?( \d{3,4}| \d{1,2}:\d{2})?$/.test(parts[parts.length - 1])) {
+    date = parts.pop().split(' ')[0].replace(/[\/-]/g, '.');
+  }
   return { raw: raw, student: student, task: parts.join(' - '), date: date };
 }
 
