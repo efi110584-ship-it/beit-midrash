@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=8">
+<link rel="stylesheet" href="assets/site.css?v=9">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -73,6 +73,20 @@
         <p class="brand-sub">חומרי לימוד לכיתות י"א–י"ב &middot; קהילת הבוגרים</p>
       </div>
       <button class="tab a11y-toggle" role="tab" aria-selected="false" data-class="teacher" id="tab-teacher">🗝️ אזור אישי</button>
+    </div>
+
+    <div class="site-search" id="siteSearch">
+      <label for="siteSearchInput" class="visually-hidden">חיפוש בכל האתר</label>
+      <input id="siteSearchInput" class="site-search-input" type="text" role="combobox"
+             aria-autocomplete="list" aria-expanded="false" aria-controls="siteSearchList"
+             autocomplete="off" spellcheck="false" enterkeyhint="search"
+             placeholder="חיפוש בכל האתר - פרק, נושא, גזרה, מצווה…">
+      <svg class="site-search-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <div class="site-search-pop" id="siteSearchPop" hidden>
+        <ul class="site-search-list" id="siteSearchList" role="listbox" aria-label="תוצאות חיפוש"></ul>
+        <p class="site-search-empty" id="siteSearchEmpty" hidden>לא נמצאו תוצאות. נסו מילה אחרת.</p>
+      </div>
+      <div class="visually-hidden" id="siteSearchStatus" role="status" aria-live="polite"></div>
     </div>
 
     <div class="header-actions" style="display:flex; align-items:center; gap:0.5rem;">
@@ -222,39 +236,138 @@
     { key:"yonah", class:"יא", subject:"תנך",
       icon:"\u{1F30A}", title:"ספר יונה",
       desc:"מסע קריאה בארבעה פרקי הספר - שאלות, פרשנים והעמקה, פרק אחר פרק.",
-      chapters:3, chaptersLabel:"פרקים", url:"yonah-hub.html" },
+      chapters:3, chaptersLabel:"פרקים", url:"yonah-hub.html",
+      topics:[
+        { title:"פרקים א'-ב' - הבריחה לתרשיש ותפילת יונה", url:"yonah-1-2.html", k:"נינוה דג מלחים" },
+        { title:"פרק ג' - נינוה שבה בתשובה", url:"yonah-3.html", k:"נינוה תשובה" },
+        { title:"פרק ד' - הקיקיון", url:"yonah-4.html", k:"קיקיון" },
+        { title:"שאלות בגרות אמיתיות - ספר יונה", url:"yonah-bagrut-questions.html", k:"בגרות", extra:true }
+      ] },
     { key:"leket", class:"יא", subject:"תושבע",
       icon:"\u{1F4DC}", title:"לקט מצוות",
       desc:"קובץ המצוות הנלמדות השנה - הגדרה, שורש, דינים ולמעשה לכל מצווה.",
-      chapters:15, chaptersLabel:"מצוות", url:"leket-mitzvot-hub.html" },
+      chapters:15, chaptersLabel:"מצוות", url:"leket-mitzvot-hub.html",
+      topics:[
+        { title:"אהבת הגרים (מצוה תל\"א)", url:"ahavat-gerim.html", k:"גר" },
+        { title:"אהבת ישראל (מצוה רמ\"ג)", url:"ahavat-israel.html" },
+        { title:"הלוואה לעני (מצוה ס\"ז)", url:"halvaa.html" },
+        { title:"כיבוד הורים (מצוה ל\"ג)", url:"kibud-avot.html", k:"אב ואם" },
+        { title:"כיבוד חכמים (מצוה רנ\"ז)", url:"kibud-chachamim.html" },
+        { title:"קידוש החודש (רמב\"ם, עשה קנ\"ג)", url:"kidush-hachodesh.html" },
+        { title:"קידוש השבת (מצוה ל\"א)", url:"kidush-shabbat.html", k:"שבת" },
+        { title:"שלא לשבור עצם בפסח (מצוה ט\"ז)", url:"korban-pesach.html", k:"קרבן פסח" },
+        { title:"קריאת שמע (מצוה ת\"כ)", url:"kriat-shema.html" },
+        { title:"לא תעשוק ושכר שכיר (מצוות רכ\"ח ור\"ל)", url:"lo-taashok-schar-sachir.html", k:"שכר" },
+        { title:"לא תסור (מצוה תצ\"ו)", url:"lo-tasur.html" },
+        { title:"אונאת דברים (מצוה של\"ח)", url:"onaat-dvarim.html" },
+        { title:"תלמוד תורה (מצוה תי\"ט)", url:"talmud-torah.html" },
+        { title:"תפילה (מצוה תל\"ג)", url:"tefila.html" },
+        { title:"תוכחה (מצוה רל\"ט)", url:"tochacha.html" }
+      ] },
     { key:"bereshit", class:"יא", subject:"תנך",
       icon:"\u{1F3DE}️", title:"ספר בראשית",
       desc:"מסע קריאה בפרקי ספר בראשית - שאלות, פרשנים והעמקה, פרק אחר פרק.",
-      chapters:14, chaptersLabel:"פרקים", url:"bereshit-hub.html" },
+      chapters:14, chaptersLabel:"פרקים", url:"bereshit-hub.html",
+      topics:[
+        { title:"פרק י\"ב - לך לך וירידה למצרים", url:"bereshit-12.html", k:"אברהם שרה" },
+        { title:"פרק ט\"ו - ברית בין הבתרים", url:"bereshit-15.html", k:"אברהם" },
+        { title:"פרק י\"ז - ברית המילה", url:"bereshit-17.html", k:"אברהם" },
+        { title:"פרק י\"ח - הכנסת אורחים וסדום", url:"bereshit-18.html", k:"אברהם שרה" },
+        { title:"פרק כ\"ב - עקדת יצחק", url:"bereshit-22.html", k:"אברהם עקדה" },
+        { title:"פרק כ\"ה - מכירת הבכורה", url:"bereshit-25.html", k:"יעקב עשו" },
+        { title:"פרקים כ\"ז-כ\"ח - גניבת הברכות", url:"bereshit-27.html", k:"יעקב עשו יצחק" },
+        { title:"פרק כ\"ח - סולם יעקב", url:"bereshit-28.html", k:"יעקב" },
+        { title:"פרקים ל\"ב-ל\"ג - המאבק והפיוס", url:"bereshit-32.html", k:"יעקב עשו" },
+        { title:"פרק ל\"ז - מכירת יוסף", url:"bereshit-37.html", k:"יוסף אחיו" },
+        { title:"פרק מ\"ב - ירידת האחים למצרים", url:"bereshit-42.html", k:"יוסף אחיו" },
+        { title:"פרק מ\"ד - נאום יהודה", url:"bereshit-44.html", k:"יוסף אחיו גביע" },
+        { title:"פרק מ\"ה - התוודעות יוסף", url:"bereshit-45.html", k:"יוסף אחיו" },
+        { title:"פרק נ' - מות יעקב ויוסף ואחיו", url:"bereshit-50.html", k:"יוסף אחיו" }
+      ] },
     { key:"yeshayahu", class:"יא", subject:"תנך",
       icon:"\u{1F4DC}", title:"ספר ישעיהו",
       desc:"נבואות ישעיהו - חזון ישעיהו, משל הכרם, חזון האחרית, הצום הרצוי ונחמת ירושלים.",
-      chapters:6, chaptersLabel:"יחידות", url:"yeshayahu-hub.html" },
+      chapters:6, chaptersLabel:"יחידות", url:"yeshayahu-hub.html",
+      topics:[
+        { title:"פרק א' - חזון ישעיהו", url:"yeshayahu-1.html" },
+        { title:"פרק ב' - חזון הר בית ה' (אחרית הימים)", url:"yeshayahu-2.html", k:"אחרית" },
+        { title:"פרק ה' - משל הכרם", url:"yeshayahu-5.html", k:"כרם" },
+        { title:"פרק י\"א - חזון האחרית", url:"yeshayahu-11.html", k:"משיח" },
+        { title:"פרק מ' - נחמת ירושלים", url:"yeshayahu-40.html", k:"נחמו" },
+        { title:"פרק נ\"ח - הצום הרצוי", url:"yeshayahu-58.html", k:"צום" }
+      ] },
     { key:"ivrit", class:"יא", subject:"עברית",
       icon:"\u{1F4D3}", title:"עברית - דקדוק",
       desc:"כל חומרי הדקדוק במקום אחד - בניינים, גזרות ותרגול.",
-      chapters:12, chaptersLabel:"קטגוריות", url:"ivrit-hub.html" },
+      chapters:12, chaptersLabel:"קטגוריות", url:"ivrit-hub.html",
+      topics:[
+        { title:"גזרת השלמים", url:"ivrit-shlemim-unit.html", k:"שלמים" },
+        { title:"גזרת המרובעים", url:"ivrit-merubaim-unit.html" },
+        { title:"גזרת חפ\"נ (חסרי פ\"נ)", url:"ivrit-hafan-unit.html", k:"חפן" },
+        { title:"גזרת חפי\"צ (חסרי פ\"יצ)", url:"ivrit-hafitz-unit.html" },
+        { title:"גזרת נחי פ\"א", url:"ivrit-nechei-pa-unit.html" },
+        { title:"גזרת נחי פ\"ו (פ\"י/ו)", url:"ivrit-nechei-pv-unit.html", k:"פי" },
+        { title:"גזרת נחי ע\"ו (ע\"י/ו)", url:"ivrit-nechei-av-unit.html", k:"עי" },
+        { title:"גזרת נחי ל\"א", url:"ivrit-nechei-la-unit.html" },
+        { title:"גזרת נחי ל\"ה (ל\"י/ה)", url:"ivrit-nechei-lh-unit.html", k:"לי" },
+        { title:"גזרת הכפולים (ע\"ע)", url:"ivrit-kfulim-unit.html" },
+        { title:"בניינים - טבלה ותרגול", url:"ivrit-binyanim.html", k:"בניין" },
+        { title:"משקלים", url:"ivrit-mishkalim-hub.html", k:"משקל" },
+        { title:"טבלת הגזרות ותרגול", url:"ivrit-gzarot.html", k:"גזרות", extra:true },
+        { title:"טבלת סימני זיהוי לגזרות", url:"ivrit-gzarot-simanim.html", k:"סימנים", extra:true },
+        { title:"מבחן מסכם על הגזרות", url:"ivrit-gzarot-final-test.html", k:"מבחן", extra:true }
+      ] },
     { key:"devarim", class:"יב", subject:"תנך",
       icon:"\u{1F4D6}", title:"ספר דברים",
       desc:"נאומו האחרון של משה רבנו לעם ישראל - יחידת הפתיחה לספר דברים.",
-      chapters:1, chaptersLabel:"יחידות", url:"petichah.html" },
+      chapters:1, chaptersLabel:"יחידות", url:"petichah.html",
+      topics:[
+        { title:"יחידת הפתיחה - נאומו האחרון של משה", url:"petichah.html", k:"משה" }
+      ] },
     { key:"ezra-nechemia", class:"יב", subject:"תנך",
       icon:"\u{1F4EF}", title:"עזרא ונחמיה",
       desc:"תקופת בית שני - הצהרת כורש, בניין המקדש, עליית עזרא, בניית חומת ירושלים ומנהיגותו של נחמיה.",
-      chapters:8, chaptersLabel:"פרקים", url:"ezra-nechemia-hub.html" },
+      chapters:8, chaptersLabel:"פרקים", url:"ezra-nechemia-hub.html",
+      topics:[
+        { title:"עזרא א'-ב' - הצהרת כורש והעליות בימיו", url:"ezra-1-2.html", k:"כורש" },
+        { title:"עזרא ג'-ד' - בניית המזבח והעיכובים בבנייה", url:"ezra-3-4.html", k:"מקדש" },
+        { title:"עזרא ה'-ו' - חידוש בניית המקדש", url:"ezra-5-6.html", k:"מקדש" },
+        { title:"עזרא ז' - עליית עזרא הסופר", url:"ezra-7.html" },
+        { title:"נחמיה א'-ב' - עליית נחמיה", url:"nechemia-1-2.html" },
+        { title:"נחמיה ג'-י\"ב - בניית החומה", url:"nechemia-3-12.html", k:"חומה" },
+        { title:"נחמיה ה' - בניינה הפנימי של ירושלים", url:"nechemia-5.html", k:"עניים" },
+        { title:"נחמיה י', י\"ג - המצב הרוחני בימי נחמיה", url:"nechemia-10-13.html", k:"שבת" }
+      ] },
     { key:"neviim", class:"יב", subject:"תנך",
       icon:"\u{1F4A7}", title:"פרקי נביאים",
       desc:"מלכי יהודה האחרונים בספר מלכים ב', נבואות ירמיהו לפני החורבן ואחריו, ונבואות הגאולה של יחזקאל.",
-      chapters:10, chaptersLabel:"פרקים", url:"neviim-hub.html" },
+      chapters:10, chaptersLabel:"פרקים", url:"neviim-hub.html",
+      topics:[
+        { title:"מלכים ב' כ\"א - מלכות מנשה", url:"melachim-b-21.html", k:"מנשה" },
+        { title:"מלכים ב' כ\"ב-כ\"ג - מלכות יאשיהו", url:"melachim-b-22-23.html", k:"יאשיהו" },
+        { title:"מלכים ב' כ\"ג-כ\"ד - ימי יהואחז ויהויקים", url:"melachim-b-23-24.html" },
+        { title:"מלכים ב' כ\"ד-כ\"ה - ימי יהויכין וצדקיהו", url:"melachim-b-24-25.html", k:"חורבן" },
+        { title:"ירמיהו א' - הקדשת ירמיהו", url:"yirmiyahu-1.html" },
+        { title:"ירמיהו ז', כ\"ו - נבואת היכל ה' ומשפט ירמיהו", url:"yirmiyahu-7-26.html" },
+        { title:"ירמיהו כ\"ח - נביאי השקר", url:"yirmiyahu-28.html", k:"חנניה" },
+        { title:"ירמיהו ל\"א - נבואת נחמה", url:"yirmiyahu-31.html" },
+        { title:"ירמיהו ל\"ו - המגילה וקריעתה", url:"yirmiyahu-36.html" },
+        { title:"יחזקאל ל\"ו-ל\"ז - נבואות הגאולה", url:"yechezkel-36-37.html", k:"עצמות" }
+      ] },
     { key:"ptp", class:"יב", subject:"תושבע",
       icon:"\u2696\uFE0F", title:"פתוח תפתח",
       desc:"יחידת המצוות שבספר דברים - שמיטת כספים, צדקה, ריבית, משכון ועוד.",
-      chapters:8, chaptersLabel:"נושאים", url:"ptp-hub.html" },
+      chapters:8, chaptersLabel:"נושאים", url:"ptp-hub.html",
+      topics:[
+        { title:"מבוא ליחידת \"פתוח תפתח\"", url:"ptp-mavo.html" },
+        { title:"שמיטת כספים", url:"ptp-shmitat-ksafim.html" },
+        { title:"צדקה והלוואה", url:"ptp-tzedaka-halvaa.html" },
+        { title:"איסור ריבית", url:"ptp-ribit.html" },
+        { title:"דיני משכון", url:"ptp-mashkon.html" },
+        { title:"הלנת שכר", url:"ptp-halanat-sachar.html" },
+        { title:"מצוות הענקה", url:"ptp-hanaka.html" },
+        { title:"מתנות עניים", url:"ptp-matnot-aniyim.html" }
+      ] },
     { key:"yonah-exam", class:"teacher", subject:"מבחן", category:"מבחנים",
       icon:"\u{1F4DD}", title:"מבחן מסכם - ספר יונה",
       desc:"מבחן דיגיטלי מקיף על כל ארבעת פרקי הספר. הכניסה למבחן דורשת קוד מהמורה.",
@@ -420,6 +533,7 @@
         html += '<div class="unit-grid">';
         byClass[cls].forEach(function(u){ html += unitCardHtml(u, registry); });
         html += '</div>';
+        html += LEGEND_HTML;
       }
       html += '</section>';
     });
@@ -427,20 +541,72 @@
     contentRoot.innerHTML = html;
   }
 
+  /* ============ מפת התקדמות ============
+     ריבוע לכל פרק. כשרשימת הפרקים (topics בלי extra) תואמת את מספר
+     הפרקים - המצב של כל ריבוע נלקח מהדף עצמו (progress-tracker.js רושם
+     כל דף עבודה בנפרד). אחרת - מחלקים את האחוז הכללי של היחידה. */
+  function unitProgress(u, registry){
+    var pages = (u.topics || []).filter(function(t){ return !t.extra; });
+    var states = [], pct = 0, i;
+    if(pages.length && pages.length === u.chapters){
+      var sum = 0;
+      pages.forEach(function(p){
+        var e = registry[p.url];
+        var v = Math.min(100, (e && e.percent) || 0);
+        sum += v;
+        states.push(v >= 100 ? "done" : (v > 0 ? "doing" : "todo"));
+      });
+      pct = Math.round(sum / pages.length);
+    } else {
+      var entry = registry[u.url];
+      pct = Math.min(100, (entry && entry.percent) || 0);
+      var done = Math.floor(pct / 100 * u.chapters);
+      for(i = 0; i < u.chapters; i++){
+        states.push(i < done ? "done" : (i === done && pct > 0 ? "doing" : "todo"));
+      }
+    }
+    return { pct:pct, states:states };
+  }
+
+  var LEGEND_HTML =
+    '<p class="progress-legend" aria-hidden="true">' +
+      '<span><span class="unit-dot is-done"></span>הושלם</span>' +
+      '<span><span class="unit-dot is-doing"></span>בתהליך</span>' +
+      '<span><span class="unit-dot"></span>עוד לא נפתח</span>' +
+    '</p>';
+
   function unitCardHtml(u, registry){
-    var entry = registry[u.url];
-    var pct = (entry && entry.percent) ? entry.percent : 0;
     var subjTagClass = u.subject === "תנך" ? "subject-tnk" : (u.subject === "תושבע" ? "subject-tsb" : (u.subject === "מבחן" ? "subject-exam" : (u.subject === "מורה" ? "subject-teacher" : "subject-heb")));
     var titleLabel = escapeHtml(u.title);
-    var doneHtml = pct >= 100 ? '<span class="unit-tile-done">✓ הושלם</span>' : (pct > 0 ? '<span class="unit-tile-done">' + pct + '%</span>' : "");
+    var metaHtml = '<span class="unit-tile-meta">' + u.chapters + ' ' + escapeHtml(u.chaptersLabel) + '</span>';
+
+    /* מחוונים ומבחנים באזור האישי - בלי מפת התקדמות */
+    if(u.class === "teacher"){
+      return (
+        '<a class="unit-tile ' + subjTagClass + '" href="' + escapeAttr(u.url) + '" aria-label="' + titleLabel + '">' +
+          '<span class="unit-tile-icon" aria-hidden="true">' + u.icon + '</span>' +
+          '<span class="unit-tile-title">' + titleLabel + '</span>' +
+          metaHtml +
+        '</a>'
+      );
+    }
+
+    var prog = unitProgress(u, registry);
+    var pct = prog.pct;
+    var badge = pct >= 100 ? '<span class="unit-tile-badge is-done">✓ הושלם</span>'
+      : (pct > 0 ? '<span class="unit-tile-badge is-doing">' + pct + '%</span>' : '<span class="unit-tile-badge">חדש</span>');
     var ariaExtra = pct >= 100 ? " - הושלם" : (pct > 0 ? " - " + pct + "% הושלם" : "");
+    var dots = prog.states.map(function(s){
+      return '<span class="unit-dot' + (s === "done" ? " is-done" : (s === "doing" ? " is-doing" : "")) + '"></span>';
+    }).join("");
 
     return (
       '<a class="unit-tile ' + subjTagClass + '" href="' + escapeAttr(u.url) + '" aria-label="' + titleLabel + ariaExtra + '">' +
+        badge +
         '<span class="unit-tile-icon" aria-hidden="true">' + u.icon + '</span>' +
         '<span class="unit-tile-title">' + titleLabel + '</span>' +
-        '<span class="unit-tile-meta">' + u.chapters + ' ' + escapeHtml(u.chaptersLabel) + '</span>' +
-        doneHtml +
+        metaHtml +
+        '<span class="unit-dots" aria-hidden="true">' + dots + '</span>' +
       '</a>'
     );
   }
@@ -517,6 +683,137 @@
     var target = document.getElementById(btn.getAttribute("data-jump"));
     if(target) target.scrollIntoView({ behavior:"smooth", block:"start" });
   });
+
+  /* ============ חיפוש בכל האתר ============
+     האינדקס נבנה מ-UNITS: כל יחידה וכל פרק/נושא שב-topics שלה.
+     יחידות האזור האישי נכנסות לחיפוש רק כשהאזור פתוח. ההתאמה מתעלמת
+     מניקוד, ממירכאות ומגרשיים - "נחי לה" ימצא את 'נחי ל"ה'. */
+  (function siteSearch(){
+    var input = document.getElementById("siteSearchInput");
+    var pop = document.getElementById("siteSearchPop");
+    var list = document.getElementById("siteSearchList");
+    var empty = document.getElementById("siteSearchEmpty");
+    var status = document.getElementById("siteSearchStatus");
+    var box = document.getElementById("siteSearch");
+    if(!input || !pop || !list) return;
+
+    var MAX_RESULTS = 8;
+    var results = [];
+    var active = -1;
+
+    function norm(s){
+      return String(s || "")
+        .replace(/[֑-ׇ]/g, "")
+        .replace(/["'׳״׳״]/g, "")
+        .replace(/[-־–—,.()/]/g, " ")
+        .replace(/\s+/g, " ")
+        .trim()
+        .toLowerCase();
+    }
+    function classLabel(u){
+      return u.class === "יא" ? 'י"א' : (u.class === "יב" ? 'י"ב' : "אזור אישי");
+    }
+    function buildIndex(){
+      var teacherOpen = isTeacherUnlocked();
+      var idx = [];
+      UNITS.forEach(function(u){
+        if(u.class === "teacher" && !teacherOpen) return;
+        var cls = classLabel(u);
+        idx.push({ title:u.title, sub:"יחידת לימוד · " + u.chapters + " " + u.chaptersLabel, cls:cls, url:u.url,
+                   head:norm(u.title), hay:norm(u.title + " " + (u.k || "")) });
+        (u.topics || []).forEach(function(t){
+          idx.push({ title:t.title, sub:u.title, cls:cls, url:t.url,
+                     head:norm(t.title), hay:norm(u.title + " " + t.title + " " + (t.k || "")) });
+        });
+      });
+      return idx;
+    }
+    function search(q){
+      var nq = norm(q);
+      if(nq.length < 2) return null;
+      var words = nq.split(" ");
+      var hits = buildIndex().filter(function(e){
+        return words.every(function(w){ return e.hay.indexOf(w) !== -1; });
+      });
+      /* קודם תוצאות שהכותרת שלהן עצמה מכילה את החיפוש */
+      hits.sort(function(a, b){
+        return (a.head.indexOf(nq) === -1 ? 1 : 0) - (b.head.indexOf(nq) === -1 ? 1 : 0);
+      });
+      return hits.slice(0, MAX_RESULTS);
+    }
+
+    function setActive(i){
+      var opts = list.querySelectorAll('[role="option"]');
+      active = i;
+      Array.prototype.forEach.call(opts, function(o, j){
+        o.setAttribute("aria-selected", j === i ? "true" : "false");
+      });
+      if(i >= 0 && opts[i]){
+        input.setAttribute("aria-activedescendant", opts[i].id);
+        opts[i].scrollIntoView({ block:"nearest" });
+      } else {
+        input.removeAttribute("aria-activedescendant");
+      }
+    }
+    function close(){
+      pop.hidden = true;
+      input.setAttribute("aria-expanded", "false");
+      setActive(-1);
+    }
+    function render(){
+      var found = search(input.value);
+      if(found === null){ close(); status.textContent = ""; return; }
+      results = found;
+      list.innerHTML = results.map(function(r, i){
+        return '<li class="site-search-opt" role="option" id="site-search-opt-' + i + '" aria-selected="false" data-i="' + i + '">' +
+          '<span class="site-search-text"><span class="site-search-title">' + escapeHtml(r.title) + '</span>' +
+          '<span class="site-search-sub">' + escapeHtml(r.sub) + '</span></span>' +
+          '<span class="site-search-cls">' + escapeHtml(r.cls) + '</span>' +
+        '</li>';
+      }).join("");
+      empty.hidden = results.length > 0;
+      list.hidden = results.length === 0;
+      pop.hidden = false;
+      input.setAttribute("aria-expanded", "true");
+      setActive(-1);
+      status.textContent = results.length ? ("נמצאו " + results.length + " תוצאות") : "לא נמצאו תוצאות";
+    }
+    function go(i){
+      var r = results[i];
+      if(r) location.href = r.url;
+    }
+
+    input.addEventListener("input", render);
+    input.addEventListener("focus", function(){ if(norm(input.value).length >= 2) render(); });
+    input.addEventListener("keydown", function(e){
+      var open = !pop.hidden && results.length > 0;
+      if(e.key === "ArrowDown"){
+        e.preventDefault();
+        if(pop.hidden) render();
+        if(results.length) setActive(active < results.length - 1 ? active + 1 : 0);
+      } else if(e.key === "ArrowUp"){
+        e.preventDefault();
+        if(open) setActive(active > 0 ? active - 1 : results.length - 1);
+      } else if(e.key === "Enter"){
+        if(open){ e.preventDefault(); go(active >= 0 ? active : 0); }
+      } else if(e.key === "Escape"){
+        if(!pop.hidden){ e.preventDefault(); close(); }
+        else if(input.value){ e.preventDefault(); input.value = ""; status.textContent = ""; }
+      }
+    });
+    list.addEventListener("mousedown", function(e){ e.preventDefault(); }); /* לא לאבד פוקוס לפני הלחיצה */
+    list.addEventListener("click", function(e){
+      var opt = e.target.closest('[role="option"]');
+      if(opt) go(+opt.getAttribute("data-i"));
+    });
+    list.addEventListener("mousemove", function(e){
+      var opt = e.target.closest('[role="option"]');
+      if(opt && +opt.getAttribute("data-i") !== active) setActive(+opt.getAttribute("data-i"));
+    });
+    document.addEventListener("click", function(e){
+      if(!box.contains(e.target)) close();
+    });
+  })();
 
   /* קישור ישיר מדף עבודה בחזרה לכיתה הנכונה, למשל index.html#tab-yb */
   (function applyHashTab(){
