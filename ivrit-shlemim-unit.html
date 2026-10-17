@@ -159,8 +159,23 @@ if(hashId){
   for(var i=0;i<tabBtns.length;i++){ if(tabBtns[i].dataset.s===hashId){ tabBtns[i].click(); break; } }
 }
 </script>
+<div class="up-sendbox" data-css="theme tirgul" style="max-width:1200px;margin:1rem auto;padding:0 1.5rem;box-sizing:border-box">
+  <div class="student-bar" id="printHeader">
+    <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..." data-bm-persist="ivrit"></label>
+    <label>כיתה: <input type="text" id="studentClass" placeholder="הכיתה שלכם..." style="width:6rem;" data-bm-persist="ivrit"></label>
+  </div>
+  <div class="toolbar">
+    <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="עברית - גזרת שלמים" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  </div>
+  <div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+  <p class="bm-send-last" id="bmSendLast" hidden></p>
+</div>
 <script src="assets/gzara-bagrut.js?v=1"></script>
 <script src="assets/bm-api.js"></script>
+<script src="assets/units-data.js"></script>
+<script src="assets/autoscore.js"></script>
+<script src="assets/direct-submit.js?v=2"></script>
+<script src="assets/send-to-teacher.js?v=2"></script>
 <script src="assets/unit-pages.js"></script>
 <script src="assets/lesson-mode.js"></script>
 <script src="assets/class-dock.js"></script>

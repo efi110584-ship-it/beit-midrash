@@ -23,7 +23,8 @@
   }
   /* לבדיקה האוטומטית בשליחה למורה (assets/autoscore.js) - בלי לסמן על המסך */
   (window.BM_SCORERS = window.BM_SCORERS || []).push(function(){
-    var fs = fields();
+    var sc = document.querySelectorAll("[data-submit-scope]");
+    var fs = fields().filter(function(f){ return !sc.length || Array.prototype.some.call(sc, function(s){ return s.contains(f); }); });
     return { correct: fs.filter(function(f){ return f.value && isRight(f); }).length, total: fs.length };
   });
   function markOf(f){

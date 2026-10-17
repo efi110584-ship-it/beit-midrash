@@ -18,9 +18,17 @@
   "use strict";
   window.BM_SCORERS = window.BM_SCORERS || [];
 
+  /* דף שמסמן חלק לשליחה (data-submit-scope, למשל שאלות הבגרות ביחידות העברית) -
+     נספר רק מה שבתוכו. בלי סימון - כל הדף */
+  function inScope(el){
+    var sc = document.querySelectorAll("[data-submit-scope]");
+    if(!sc.length) return true;
+    return Array.prototype.some.call(sc, function(s){ return s.contains(el); });
+  }
+
   function mcScore(){
     var groups = Array.prototype.filter.call(document.querySelectorAll(".mc-group"), function(g){
-      return g.querySelector('.mc-option[data-correct="true"]');
+      return g.querySelector('.mc-option[data-correct="true"]') && inScope(g);
     });
     var correct = 0;
     groups.forEach(function(g){
@@ -35,7 +43,7 @@
     if(typeof CORRECT_ANSWERS === "undefined" || typeof checkAnswer !== "function") return null;
     var keys = CORRECT_ANSWERS;
     var fields = Array.prototype.filter.call(document.querySelectorAll("input[data-id], textarea[data-id], select[data-id]"), function(f){
-      return Object.prototype.hasOwnProperty.call(keys, f.getAttribute("data-id"));
+      return Object.prototype.hasOwnProperty.call(keys, f.getAttribute("data-id")) && inScope(f);
     });
     var correct = 0;
     fields.forEach(function(f){

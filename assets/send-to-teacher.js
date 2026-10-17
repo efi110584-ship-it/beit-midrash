@@ -69,9 +69,16 @@
   }
 
   /* ---------- מה יש לשלוח ---------- */
+  /* דף שמסמן חלק לשליחה (data-submit-scope) - שולחים רק אותו */
+  function inScope(el){
+    var sc = document.querySelectorAll('[data-submit-scope]');
+    if(!sc.length) return true;
+    return Array.prototype.some.call(sc, function(s){ return s.contains(el); });
+  }
   function collect(){
     var items = [], total = 0;
     document.querySelectorAll('.answer').forEach(function(f){
+      if(!inScope(f)) return;
       if(!/^(TEXTAREA|INPUT|SELECT)$/.test(f.tagName)) return;
       if(f.matches('input[type=radio], input[type=checkbox]')) return;
       total++;
@@ -82,6 +89,7 @@
       if(v) items.push({ label: labelOf(f), value: v });
     });
     document.querySelectorAll('.mc-group').forEach(function(g){
+      if(!inScope(g)) return;
       total++;
       var checked = g.querySelector('input[type="radio"]:checked');
       if(!checked) return;

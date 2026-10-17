@@ -6,6 +6,9 @@
      עמוד 2 - התרגול: כל הטבלה בבת אחת
      עמוד 3 - שאלות בסגנון בגרות: כל השאלות יחד
    שום תוכן לא זז ולא נמחק - רק מוצג עמוד אחד בכל פעם. בהדפסה הכול מוצג.
+   התרגול (עמוד 2) הוא תרגול עצמי: בודקים לבד, ולא שולחים למורה.
+   שאלות הבגרות (עמוד 3) נשלחות למורה, עם בדיקה אוטומטית - ובלי בדיקה עצמית לפני
+   השליחה. רק הן נשלחות ונספרות (data-submit-scope - assets/send-to-teacher.js, assets/autoscore.js).
    העמוד האחרון שבו התלמיד היה נזכר במכשיר, ונרשם ל"המשיכו מהמקום שבו הפסקתם".
    ============================================================ */
 (function(){
@@ -20,6 +23,30 @@
   var bagrut = arr(document.querySelectorAll(".gzb-card"));
   if(!lesson.length || !bagrut.length) return;
 
+  /* ---------- שאלות הבגרות: הן מה שנשלח למורה ונבדק אוטומטית ---------- */
+  bagrut.forEach(function(c){
+    c.setAttribute("data-submit-scope", "");
+    /* בלי "בדקו לי" בשאלות הבגרות - המורה מקבל את התוצאה. מנקים סימונים ישנים */
+    arr(c.querySelectorAll(".gzb-tools")).forEach(function(t){ t.hidden = true; t.classList.add("up-hide"); });
+    /* גם "הציגו תשובה לדוגמה" לא מוצג לפני השליחה */
+    arr(c.querySelectorAll("details")).forEach(function(d){
+      var sm = d.querySelector("summary");
+      if(sm && /תשוב/.test(sm.textContent)) d.classList.add("up-hide");
+    });
+    arr(c.querySelectorAll(".is-correct, .is-wrong")).forEach(function(x){ x.classList.remove("is-correct", "is-wrong"); });
+    arr(c.querySelectorAll(".check-mark")).forEach(function(m){ m.textContent = ""; });
+  });
+  var bagrutNote = document.createElement("p");
+  bagrutNote.className = "up-note up-note--send";
+  bagrutNote.innerHTML = "🎓 <b>את השאלות האלה שולחים למורה.</b> עונים לבד, בלי בדיקה עצמית, ובסוף לוחצים <b>\"שלחו למורה\"</b> למטה. המורה מקבל את התשובות ואת הבדיקה האוטומטית.";
+  bagrut[0].parentNode.insertBefore(bagrutNote, bagrut[0]);
+  if(practice.length){
+    var practiceNote = document.createElement("p");
+    practiceNote.className = "up-note";
+    practiceNote.innerHTML = "✏️ <b>תרגול עצמי.</b> ממלאים את הטבלה, לוחצים <b>\"בדקו לי את התשובות\"</b> ורואים מה נכון ומה צריך לתקן. את העמוד הזה לא שולחים למורה.";
+    practice[0].parentNode.insertBefore(practiceNote, practice[0]);
+  }
+
   function rows(cards){
     return cards.reduce(function(n, c){
       return n + arr(c.querySelectorAll("tbody tr")).filter(function(tr){ return tr.querySelector(".answer"); }).length;
@@ -27,14 +54,17 @@
   }
   var PAGES = [
     { id:"explain", n:1, ico:"📖", title:"הסבר הגזרה", sub:"מה מזהים ואיך פותרים", cards:lesson },
-    { id:"practice", n:2, ico:"✏️", title:"תרגול", sub:rows(practice) + " משפטים בטבלה אחת", cards:practice },
-    { id:"bagrut", n:3, ico:"🎓", title:"שאלות בסגנון בגרות", sub:bagrut.length + " שאלות", cards:bagrut }
+    { id:"practice", n:2, ico:"✏️", title:"תרגול עצמי", sub:rows(practice) + " משפטים · בודקים לבד", cards:practice.length ? [practiceNote].concat(practice) : [] },
+    { id:"bagrut", n:3, ico:"🎓", title:"שאלות בסגנון בגרות", sub:bagrut.length + " שאלות · שולחים למורה", cards:[bagrutNote].concat(bagrut) }
   ].filter(function(p){ return p.cards.length; });
   PAGES.forEach(function(p, i){ p.n = i + 1; });
 
   /* ---------- עיצוב ---------- */
   var css =
     ".up-off{display:none !important}" +
+    ".up-note{grid-column:1 / -1;margin:0;padding:12px 16px;border-radius:14px;background:#EEF6F2;border:1px solid #CFE6DB;color:#14523F;font-size:1rem;line-height:1.55}" +
+    ".up-note--send{background:#FFF4EB;border-color:#F6CFAF;color:#7A3608}" +
+    ".up-send-hide,.up-hide{display:none !important}" +
     /* כל טבלת התרגול גלויה בדף - בלי תיבת גלילה פנימית */
     ".hafan-scroll-wrap{max-height:none !important;overflow-y:visible !important;overflow-x:auto}" +
     ".up-nav{max-width:1200px;margin:0 auto 18px;padding:0 1.5rem;box-sizing:border-box}" +
@@ -53,7 +83,7 @@
     ".up-go--next{background:#FF7A1A;border-color:#FF7A1A;color:#fff;margin-inline-start:auto}" +
     ".up-go[hidden]{display:none}" +
     "@media (max-width:700px){.up-nav{padding:0 .8rem}.up-tab{flex-direction:column;justify-content:center;text-align:center;gap:4px;min-height:70px;padding:6px 4px}.up-txt small{display:none}.up-txt b{font-size:.9rem}}" +
-    "@media print{.up-off{display:block !important}.up-nav,.up-foot{display:none !important}}";
+    "@media print{.up-off{display:block !important}.up-nav,.up-foot,.up-note{display:none !important}}";
   var st = document.createElement("style");
   st.textContent = css;
   document.head.appendChild(st);
@@ -89,6 +119,15 @@
     next.hidden = current === PAGES.length - 1;
     if(current > 0) prev.textContent = "→ הקודם: " + PAGES[current - 1].title;
     if(current < PAGES.length - 1) next.textContent = "הבא: " + PAGES[current + 1].title + " ←";
+    var onBagrut = PAGES[current].id === "bagrut";
+    ["sendToTeacherBtn", "bmSendLast"].forEach(function(id){
+      var el = document.getElementById(id); if(el) el.classList.toggle("up-send-hide", !onBagrut);
+    });
+    var panel = document.getElementById("bmSendPanel");
+    if(panel && !onBagrut) panel.hidden = true;
+    arr(document.querySelectorAll(".bm-send-gate-note:not(#checkGateNote)")).forEach(function(n){ n.classList.toggle("up-send-hide", !onBagrut); });
+    var sb = document.getElementById("sendToTeacherBtn");
+    if(sb && !sb.dataset.upLabel){ sb.dataset.upLabel = "1"; sb.textContent = "📤 שלחו למורה את שאלות הבגרות"; }
     try{ localStorage.setItem(KEY, PAGES[current].id); }catch(e){}
     if(history.replaceState) history.replaceState(null, "", "#" + PAGES[current].id);
     if(PAGES[current].id === "explain") markDone(0);
