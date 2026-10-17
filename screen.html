@@ -92,12 +92,13 @@
         return;
       }
       var r = res.results || {};
-      $("scTitle").textContent = a.type === "cloud" ? "ענן מילים" : "הצבעה";
-      $("scType").textContent = a.type === "cloud" ? "☁️ ענן מילים" : "🗳️ הצבעה";
+      $("scTitle").textContent = a.type === "cloud" ? "ענן מילים" : (a.type === "survey" ? "סקר" : "הצבעה");
+      $("scType").textContent = a.type === "cloud" ? "☁️ ענן מילים" : (a.type === "survey" ? "📋 סקר" + (a.anonymous ? " · אנונימי" : "") : "🗳️ הצבעה");
       $("scPrompt").textContent = a.prompt;
       $("scClosed").hidden = !!a.open;
       $("scCount").textContent = (r.count || 0) + (r.count === 1 ? " תלמיד ענה" : " תלמידים ענו");
-      $("scStage").innerHTML = a.type === "cloud" ? L.cloudHtml(r.words, "big")
+      $("scStage").innerHTML = a.type === "survey" ? L.surveyHtml(a, r, "big", { showTexts:true, limit:6 })
+        : a.type === "cloud" ? L.cloudHtml(r.words, "big")
         : L.pollHtml(a, r, "big") + L.reasonsHtml(a, r, "big", false, 6);
     }).catch(function(){});
   }

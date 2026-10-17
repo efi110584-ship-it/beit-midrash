@@ -41,6 +41,15 @@
   .opt::before{ content:""; flex:none; width:22px; height:22px; border-radius:50%; border:2px solid #9FB3D6; }
   .opt[aria-pressed="true"]{ border-color:var(--blue); background:#F4F7FC; }
   .opt[aria-pressed="true"]::before{ border-color:var(--blue); background:radial-gradient(circle, var(--blue) 45%, transparent 50%); }
+  .sq{ margin:0; padding:14px; border:1px solid var(--line); border-radius:14px; display:flex; flex-direction:column; gap:10px; }
+  .sq + .sq{ margin-top:12px; }
+  .sq legend{ padding:0 6px; font-weight:700; font-size:1.05rem; color:var(--ink); }
+  .sq-n{ display:inline-grid; place-items:center; width:1.6em; height:1.6em; margin-inline-end:6px; border-radius:50%; background:var(--blue); color:#fff; font-size:.85em; }
+  .scale{ display:grid; grid-template-columns:repeat(5, 1fr); gap:6px; }
+  .scale-btn{ min-height:54px; border:2px solid var(--line); border-radius:12px; background:#fff; font:inherit; font-size:1.25rem; font-weight:700; color:var(--ink); cursor:pointer; }
+  .scale-btn[aria-pressed="true"]{ border-color:var(--blue); background:var(--blue); color:#fff; }
+  .scale-ends{ display:flex; justify-content:space-between; font-size:.85rem; color:var(--muted); }
+  .anon{ margin:0; padding:8px 12px; border-radius:10px; background:#E4EEEA; color:#1F5A4D; font-size:.95rem; }
   .msg{ margin:0; font-size:.98rem; }
   .msg.is-err{ color:var(--err); } .msg.is-ok{ color:var(--ok); }
   .msg:empty{ display:none; }
@@ -101,6 +110,11 @@
         </div>
         <button type="submit" class="btn" id="lvVoteBtn" style="margin-top:12px">שליחת ההצבעה</button>
       </div>
+      <div id="lvSurveyForm" hidden>
+        <p class="anon" id="lvAnon" hidden>🔒 סקר אנונימי - המורה לא רואה מי ענה מה. אין צורך לכתוב שם.</p>
+        <div id="lvSurveyQs"></div>
+        <button type="submit" class="btn" id="lvSurveyBtn" style="margin-top:14px">שליחת הסקר</button>
+      </div>
       <p class="msg" id="lvMsg" role="status" aria-live="polite" style="margin-top:10px"></p>
     </form>
     <div class="mine" id="lvMine" hidden></div>
@@ -154,6 +168,8 @@
     if(current.type === "cloud"){
       box.innerHTML = '<span>המילים שלכם:</span>' + myAnswer.map(function(w){ return '<span class="chip">' + L.esc(w) + '</span>'; }).join("") +
         (myAnswer.length >= 3 ? '<span class="hint">(כתבתם 3 מילים - זה המקסימום)</span>' : '');
+    } else if(current.type === "survey"){
+      box.innerHTML = '<span class="chip">✓ שלחתם את הסקר</span><span class="hint">אפשר לשנות תשובות ולשלוח שוב.</span>';
     } else {
       box.innerHTML = '<span>הצבעתם: </span><span class="chip">' + L.esc(current.options[myAnswer]) + '</span><span class="hint">אפשר לשנות ולשלוח שוב.</span>';
     }
@@ -165,10 +181,11 @@
     if(!current) return;
     /* בהצבעה רואים את התוצאות רק אחרי שהצבעתם (או כשהמורה סגר) - כדי לא להשפיע */
     var canSee = current.type === "cloud" || myAnswer !== null || !current.open;
-    if(!canSee){ body.innerHTML = '<p class="hint">התוצאות יופיעו אחרי שתצביעו.</p>'; return; }
+    if(!canSee){ body.innerHTML = '<p class="hint">התוצאות יופיעו אחרי ש' + (current.type === "survey" ? "תשלחו את הסקר" : "תצביעו") + '.</p>'; return; }
     var count = (results && results.count) || 0;
     $("lvResultsH").textContent = "מה הכיתה ענתה" + (count ? " (" + count + (count === 1 ? " תלמיד)" : " תלמידים)") : "");
-    body.innerHTML = current.type === "cloud" ? L.cloudHtml(results && results.words, "normal")
+    body.innerHTML = current.type === "survey" ? L.surveyHtml(current, results, "normal", { showTexts:false })
+      : current.type === "cloud" ? L.cloudHtml(results && results.words, "normal")
       : L.pollHtml(current, results, "normal", myAnswer) + (results && results.reasons && results.reasons.length ? '<h3 class="results-h" style="margin-top:16px;font-size:1rem">למה בחרו כך</h3>' + L.reasonsHtml(current, results, "normal", false, 8) : "");
   }
 
@@ -176,7 +193,10 @@
     current = act;
     myAnswer = loadMine(act.id);
     selected = current.type === "poll" && myAnswer !== null ? myAnswer : null;
-    $("lvType").textContent = act.type === "cloud" ? "☁️ ענן מילים" : "🗳️ הצבעה";
+    $("lvType").textContent = act.type === "cloud" ? "☁️ ענן מילים" : (act.type === "survey" ? "📋 סקר" : "🗳️ הצבעה");
+    $("lvSurveyForm").hidden = act.type !== "survey";
+    $("lvAnon").hidden = !act.anonymous;
+    if(act.type === "survey") buildSurvey(act, Array.isArray(myAnswer) ? myAnswer : []);
     $("lvPrompt").textContent = act.prompt;
     $("lvCloudForm").hidden = act.type !== "cloud";
     $("lvPollForm").hidden = act.type !== "poll";
@@ -190,11 +210,40 @@
     $("lvReason").value = "";
   }
 
+  /* הסקר: שאלת בחירה, דירוג 1-5 או תשובה פתוחה */
+  var surveySel = [];
+  function buildSurvey(act, prev){
+    surveySel = act.questions.map(function(q, i){ return q.kind === "text" ? null : (prev[i] === undefined ? null : prev[i]); });
+    $("lvSurveyQs").innerHTML = act.questions.map(function(q, i){
+      var inner;
+      if(q.kind === "choice"){
+        inner = '<div class="opts" role="group" aria-label="' + L.esc(q.q) + '">' + q.options.map(function(o, j){
+          return '<button type="button" class="opt" data-q="' + i + '" data-v="' + j + '" aria-pressed="' + (surveySel[i] === j) + '">' + L.esc(o) + '</button>';
+        }).join("") + '</div>';
+      } else if(q.kind === "scale"){
+        inner = '<div class="scale" role="group" aria-label="' + L.esc(q.q) + ' - דירוג מ-1 עד 5">' + [1, 2, 3, 4, 5].map(function(v){
+          return '<button type="button" class="scale-btn" data-q="' + i + '" data-v="' + v + '" aria-pressed="' + (surveySel[i] === v) + '">' + v + '</button>';
+        }).join("") + '</div><div class="scale-ends" aria-hidden="true"><span>1 · בכלל לא</span><span>5 · מאוד</span></div>';
+      } else {
+        inner = '<label class="visually-hidden" for="lvSq' + i + '">' + L.esc(q.q) + '</label>' +
+          '<textarea id="lvSq' + i + '" data-q="' + i + '" maxlength="300">' + L.esc(prev[i] || "") + '</textarea>';
+      }
+      return '<fieldset class="sq"><legend><span class="sq-n" aria-hidden="true">' + (i + 1) + '</span>' + L.esc(q.q) + '</legend>' + inner + '</fieldset>';
+    }).join("");
+  }
+  $("lvSurveyQs").addEventListener("click", function(e){
+    var b = e.target.closest("[data-v]"); if(!b) return;
+    var qi = Number(b.getAttribute("data-q")), v = Number(b.getAttribute("data-v"));
+    surveySel[qi] = surveySel[qi] === v ? null : v;
+    Array.prototype.forEach.call(b.parentNode.children, function(x){ x.setAttribute("aria-pressed", String(Number(x.getAttribute("data-v")) === surveySel[qi])); });
+    msg("");
+  });
+
   function applyOpen(){
     var open = current && current.open;
     $("lvClosed").hidden = !!open;
     $("lvForm").hidden = !open;
-    $("lvNameField").hidden = !!savedName() && $("lvName").value.trim().length >= 2 && myAnswer !== null;
+    $("lvNameField").hidden = (current && current.anonymous) || (!!savedName() && $("lvName").value.trim().length >= 2 && myAnswer !== null);
     if(current && current.type === "cloud" && myAnswer && myAnswer.length >= 3) $("lvCloudForm").hidden = true;
   }
 
@@ -222,11 +271,19 @@
   $("lvForm").addEventListener("submit", function(e){
     e.preventDefault();
     if(!current) return;
-    var name = $("lvName").value.replace(/\s+/g, " ").trim();
-    if(name.length < 2){ $("lvNameField").hidden = false; msg("כתבו את השם שלכם.", "err"); $("lvName").focus(); return; }
+    var name = current.anonymous ? "" : $("lvName").value.replace(/\s+/g, " ").trim();
+    if(!current.anonymous && name.length < 2){ $("lvNameField").hidden = false; msg("כתבו את השם שלכם.", "err"); $("lvName").focus(); return; }
     var body = { action:"actRespond", id:current.id, sid:sid(), name:name };
     var btn;
-    if(current.type === "cloud"){
+    if(current.type === "survey"){
+      var answers = current.questions.map(function(q, i){
+        if(q.kind !== "text") return surveySel[i];
+        var ta = document.getElementById("lvSq" + i);
+        return ta && ta.value.trim() ? ta.value.trim() : null;
+      });
+      if(!answers.some(function(x){ return x !== null; })){ msg("ענו לפחות על שאלה אחת.", "err"); return; }
+      body.answers = answers; btn = $("lvSurveyBtn");
+    } else if(current.type === "cloud"){
       var w = $("lvWord").value.replace(/\s+/g, " ").trim();
       if(!w){ msg("כתבו מילה.", "err"); $("lvWord").focus(); return; }
       body.word = w; btn = $("lvWordBtn");
@@ -239,10 +296,10 @@
       .then(function(r){ return r.json(); }).then(function(res){
         btn.disabled = false;
         if(!res || !res.ok){ msg((res && res.error) || "השליחה לא הצליחה. נסו שוב.", "err"); if(res && (res.ended || res.closed)) load(); return; }
-        try{ localStorage.setItem("bm-qb-name", name); }catch(err){}
+        if(name){ try{ localStorage.setItem("bm-qb-name", name); }catch(err){} }
         myAnswer = res.mine; saveMine(current.id, myAnswer); results = res.results;
         $("lvWord").value = "";
-        msg(current.type === "cloud" ? "✓ המילה נוספה לענן." : "✓ ההצבעה נקלטה.", "ok");
+        msg(current.type === "cloud" ? "✓ המילה נוספה לענן." : (current.type === "survey" ? "✓ תודה! הסקר נשלח." : "✓ ההצבעה נקלטה."), "ok");
         applyOpen(); renderMine(); renderResults();
         if(current.type === "cloud" && myAnswer.length < 3) $("lvWord").focus();
       }).catch(function(){ btn.disabled = false; msg("אין חיבור לאינטרנט כרגע. נסו שוב.", "err"); });

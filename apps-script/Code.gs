@@ -14,7 +14,7 @@
  *    התלמיד רואה על המסך שהבקרה פעילה. המידע נשמר עד 6 שעות ונמחק לבד.
  * 7. לוח שאלות בדפי הפרקים (כמו פאדלט): התלמידים כותבים שאלות שעולות מהתקציר,
  *    כל הכיתה רואה אותן, והמורה יכול לסמן "נדון בכיתה" או למחוק.
- * 8. פעילות חיה בכיתה: ענן מילים או הצבעה על דילמה. המורה מפעיל מהאזור האישי,
+ * 8. פעילות חיה בכיתה: ענן מילים, הצבעה על דילמה או סקר (כמה שאלות, אפשר בלי שמות). המורה מפעיל מהאזור האישי,
  *    התלמידים עונים בדף "פעילות בכיתה" (live.html), והתוצאות מוצגות על המקרן (screen.html).
  *    פעילות חדשה מוחקת את התשובות של הקודמת.
  *
@@ -98,7 +98,7 @@ function doPost(e) {
       case 'setHidden':       return json_(setHidden_(data.fileId, data.hidden === true));
       case 'qbDelete':        return json_(qbDelete_(data.board, data.id));
       case 'qbMark':          return json_(qbMark_(data.board, data.id, data.done === true));
-      case 'actStart':        return json_(actStart_(data.type, data.prompt, data.options));
+      case 'actStart':        return json_(actStart_(data.type, data.prompt, data.options, data.questions, data.anonymous === true));
       case 'actOpen':         return json_(actOpen_(data.open === true));
       case 'actClear':        return json_(actClear_());
       case 'actResults':      return json_(actTeacher_());
@@ -533,7 +533,8 @@ function qbDelete_(board, id) { return qbUpdate_(board, id, function () { return
 // ---------- פעילות חיה (ענן מילים / הצבעה) ----------
 // הפעילות עצמה במאפיין ACTIVITY, וכל תשובה במאפיין נפרד: ar_<פעילות>_<תלמיד>
 function actPublic_(a) {
-  return { id: a.id, type: a.type, prompt: a.prompt, options: a.options || [], open: !!a.open, created: a.created };
+  return { id: a.id, type: a.type, prompt: a.prompt, options: a.options || [], questions: a.questions || [],
+           anonymous: !!a.anonymous, open: !!a.open, created: a.created };
 }
 function actResponses_(a) {
   var props = PropertiesService.getScriptProperties().getProperties();
@@ -566,6 +567,29 @@ function actResults_(a, withNames) {
     if (withNames) res.people = list.map(function (r) { return { name: r.n, words: r.v || [] }; });
     return res;
   }
+  if (a.type === 'survey') {
+    var named = withNames && !a.anonymous;
+    var qs = (a.questions || []).map(function (q, qi) {
+      var r = { kind: q.kind, answered: 0 };
+      if (q.kind === 'choice') r.counts = q.options.map(function () { return 0; });
+      if (q.kind === 'scale') { r.counts = [0, 0, 0, 0, 0]; r.sum = 0; }
+      if (q.kind === 'text') r.texts = [];
+      list.forEach(function (resp) {
+        var v = (resp.v || [])[qi];
+        if (v === null || v === undefined || v === '') return;
+        r.answered++;
+        if (q.kind === 'choice' && v >= 0 && v < r.counts.length) r.counts[v]++;
+        if (q.kind === 'scale' && v >= 1 && v <= 5) { r.counts[v - 1]++; r.sum += v; }
+        if (q.kind === 'text') { var x = { t: String(v) }; if (named) x.n = resp.n; r.texts.push(x); }
+      });
+      if (q.kind === 'scale') r.avg = r.answered ? Math.round(r.sum / r.answered * 10) / 10 : 0;
+      if (r.texts) r.texts = r.texts.reverse().slice(0, 80);
+      return r;
+    });
+    var sres = { count: list.length, questions: qs };
+    if (named) sres.people = list.map(function (resp) { return { name: resp.n }; });
+    return sres;
+  }
   var counts = (a.options || []).map(function () { return 0; });
   var reasons = [];
   list.forEach(function (r) {
@@ -591,9 +615,9 @@ function actRespond_(d) {
   if (!a || String(d.id || '') !== a.id) return { ok: false, ended: true, error: 'הפעילות הזאת כבר הסתיימה.' };
   if (!a.open) return { ok: false, closed: true, error: 'המורה סגר את התשובות.' };
   var sid = String(d.sid || '').replace(/[^\w-]/g, '').slice(0, 40);
-  var name = clean_(d.name).slice(0, 40);
+  var name = a.anonymous ? '' : clean_(d.name).slice(0, 40);
   if (!sid) return { ok: false, error: 'חסר מזהה' };
-  if (name.length < 2) return { ok: false, error: 'כתבו את השם שלכם.' };
+  if (!a.anonymous && name.length < 2) return { ok: false, error: 'כתבו את השם שלכם.' };
   var lock = LockService.getScriptLock();
   if (!lock.tryLock(8000)) return { ok: false, error: 'השרת עמוס. נסו שוב.' };
   try {
@@ -602,7 +626,19 @@ function actRespond_(d) {
     var prev = null;
     try { prev = JSON.parse(props.getProperty(key) || 'null'); } catch (e) {}
     var item = { n: name, t: Date.now() };
-    if (a.type === 'cloud') {
+    if (a.type === 'survey') {
+      var given = d.answers || [];
+      var answers = (a.questions || []).map(function (q, qi) {
+        var v = given[qi];
+        if (v === null || v === undefined || v === '') return null;
+        if (q.kind === 'choice') { v = Number(v); return (v >= 0 && v < q.options.length && Math.floor(v) === v) ? v : null; }
+        if (q.kind === 'scale') { v = Number(v); return (v >= 1 && v <= 5 && Math.floor(v) === v) ? v : null; }
+        v = clean_(v).slice(0, 300);
+        return v || null;
+      });
+      if (!answers.some(function (x) { return x !== null; })) return { ok: false, error: 'ענו לפחות על שאלה אחת.' };
+      item.v = answers;
+    } else if (a.type === 'cloud') {
       var w = clean_(d.word).slice(0, 25);
       if (!actWordKey_(w)) return { ok: false, error: 'כתבו מילה.' };
       var words = (prev && prev.v) || [];
@@ -618,6 +654,7 @@ function actRespond_(d) {
     }
     props.setProperty(key, JSON.stringify(item));
     return { ok: true, mine: item.v, reason: item.r || '', results: actResults_(a, false) };
+
   } finally {
     lock.releaseLock();
   }
@@ -626,10 +663,20 @@ function actDeleteResponses_() {
   var props = PropertiesService.getScriptProperties();
   Object.keys(props.getProperties()).forEach(function (k) { if (k.indexOf('ar_') === 0) props.deleteProperty(k); });
 }
-function actStart_(type, prompt, options) {
-  type = type === 'poll' ? 'poll' : 'cloud';
+function actStart_(type, prompt, options, questions, anonymous) {
+  type = (type === 'poll' || type === 'survey') ? type : 'cloud';
   prompt = clean_(prompt).slice(0, 160);
-  if (prompt.length < 3) return { ok: false, error: 'כתבו את השאלה לתלמידים.' };
+  if (prompt.length < 3) return { ok: false, error: type === 'survey' ? 'כתבו כותרת לסקר.' : 'כתבו את השאלה לתלמידים.' };
+  var qs = [];
+  if (type === 'survey') {
+    qs = (questions || []).slice(0, 8).map(function (q) {
+      var kind = (q && (q.kind === 'choice' || q.kind === 'scale')) ? q.kind : 'text';
+      var item = { q: clean_(q && q.q).slice(0, 160), kind: kind };
+      if (kind === 'choice') item.options = ((q && q.options) || []).map(function (o) { return clean_(o).slice(0, 40); }).filter(function (o) { return o; }).slice(0, 6);
+      return item;
+    }).filter(function (q) { return q.q && (q.kind !== 'choice' || q.options.length >= 2); });
+    if (!qs.length) return { ok: false, error: 'הוסיפו לפחות שאלה אחת (בשאלת בחירה - לפחות שתי אפשרויות).' };
+  }
   var opts = [];
   if (type === 'poll') {
     opts = (options || []).map(function (o) { return clean_(o).slice(0, 40); }).filter(function (o) { return o; }).slice(0, 4);
@@ -639,7 +686,8 @@ function actStart_(type, prompt, options) {
   lock.waitLock(10000);
   try {
     actDeleteResponses_();
-    var a = { id: Date.now().toString(36), type: type, prompt: prompt, options: opts, open: true, created: Date.now() };
+    var a = { id: Date.now().toString(36), type: type, prompt: prompt, options: opts, questions: qs,
+              anonymous: type === 'survey' && !!anonymous, open: true, created: Date.now() };
     PropertiesService.getScriptProperties().setProperty('ACTIVITY', JSON.stringify(a));
     return { ok: true, activity: actPublic_(a), results: actResults_(a, true) };
   } finally {

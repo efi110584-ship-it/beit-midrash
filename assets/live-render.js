@@ -62,6 +62,29 @@
     }).join("") + '</ul>';
   }
 
+  /* סקר: לכל שאלה - עמודות (בחירה / דירוג 1-5) או רשימת תשובות פתוחות.
+     opts.showTexts - להציג תשובות פתוחות (מורה ומקרן); opts.withNames - עם שמות (רק מורה, ורק בסקר עם שמות) */
+  var SCALE_LABELS = ["1 · בכלל לא", "2", "3", "4", "5 · מאוד"];
+  function surveyHtml(activity, results, size, opts){
+    opts = opts || {};
+    var qs = activity.questions || [], rs = (results && results.questions) || [];
+    return '<div class="lv-survey lv-' + (size || "normal") + '">' + qs.map(function(q, i){
+      var r = rs[i] || { answered:0 };
+      var body;
+      if(q.kind === "choice") body = pollHtml({ options:q.options }, { counts:r.counts || [] }, size);
+      else if(q.kind === "scale") body = '<p class="lv-scale-avg">ממוצע: <b>' + (r.avg || 0) + '</b> מתוך 5</p>' + pollHtml({ options:SCALE_LABELS }, { counts:r.counts || [] }, size);
+      else if(!opts.showTexts) body = '<p class="lv-none lv-none--quiet">התשובות הפתוחות מוצגות למורה.</p>';
+      else {
+        var texts = (r.texts || []).slice(0, opts.limit || 40);
+        body = texts.length ? '<ul class="lv-texts">' + texts.map(function(x){
+          return '<li class="lv-text">' + esc(x.t) + (opts.withNames && x.n ? '<span class="lv-text-name">' + esc(x.n) + '</span>' : '') + '</li>';
+        }).join("") + '</ul>' : '<p class="lv-none lv-none--quiet">עוד אין תשובות.</p>';
+      }
+      return '<section class="lv-sq"><h3 class="lv-sq-h"><span class="lv-sq-n">' + (i + 1) + '</span><span class="lv-sq-q">' + esc(q.q) + '</span>' +
+        '<span class="lv-sq-count">' + (r.answered || 0) + ' ענו</span></h3>' + body + '</section>';
+    }).join("") + '</div>';
+  }
+
   var css =
     ".lv-none{margin:0;padding:18px;text-align:center;color:#56637A;border:1px dashed #9FB3D6;border-radius:14px}" +
     ".lv-cloud{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:.15em .55em;padding:14px 8px;line-height:1.15}" +
@@ -85,6 +108,22 @@
     ".lv-reason-name{font-size:.8rem;color:#56637A}" +
     ".lv-big.lv-reasons{grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:14px}" +
     ".lv-big .lv-reason-text{font-size:1.45rem}.lv-big .lv-reason-opt{font-size:1.05rem}" +
+    ".lv-survey{display:grid;gap:14px}" +
+    ".lv-big.lv-survey{grid-template-columns:repeat(auto-fit,minmax(480px,1fr));gap:22px}" +
+    ".lv-survey.lv-big .lv-bars{gap:10px}.lv-survey.lv-big .lv-bar-top{font-size:1.3rem;margin-bottom:3px}.lv-survey.lv-big .lv-bar-track{height:22px}" +
+    ".lv-sq{display:flex;flex-direction:column;gap:10px;padding:14px;background:#fff;border:1px solid #DCE4F1;border-radius:14px}" +
+    ".lv-sq-h{display:flex;align-items:baseline;gap:8px;margin:0;font-size:1.05rem;color:#0E1B33;line-height:1.4}" +
+    ".lv-big .lv-sq-h{font-size:1.7rem}" +
+    ".lv-sq-n{flex:none;display:inline-grid;place-items:center;width:1.6em;height:1.6em;border-radius:50%;background:#123A78;color:#fff;font-size:.8em;font-family:'Rubik',sans-serif}" +
+    ".lv-sq-q{flex:1 1 auto}" +
+    ".lv-sq-count{flex:none;font-size:.8em;font-weight:400;color:#56637A;white-space:nowrap}" +
+    ".lv-scale-avg{margin:0;color:#0E1B33}.lv-scale-avg b{font-family:'Rubik',sans-serif;font-size:1.3em;color:#123A78}" +
+    ".lv-big .lv-scale-avg{font-size:1.5rem}" +
+    ".lv-none--quiet{padding:10px;font-size:.92rem}" +
+    ".lv-texts{list-style:none;margin:0;padding:0;display:grid;gap:8px}" +
+    ".lv-text{padding:8px 12px;background:#F7F9FD;border:1px solid #E3EAF5;border-radius:10px;color:#0E1B33;line-height:1.45;overflow-wrap:anywhere}" +
+    ".lv-big .lv-text{font-size:1.4rem}" +
+    ".lv-text-name{display:block;margin-top:2px;font-size:.8rem;color:#56637A}" +
     "@media (prefers-reduced-motion:reduce){.lv-word{animation:none}.lv-bar-fill{transition:none}}";
   if(!document.getElementById("lvStyle")){
     var st = document.createElement("style");
@@ -93,5 +132,5 @@
     document.head.appendChild(st);
   }
 
-  window.BM_LIVE = { esc:esc, cloudHtml:cloudHtml, pollHtml:pollHtml, reasonsHtml:reasonsHtml };
+  window.BM_LIVE = { esc:esc, cloudHtml:cloudHtml, pollHtml:pollHtml, reasonsHtml:reasonsHtml, surveyHtml:surveyHtml };
 })();
