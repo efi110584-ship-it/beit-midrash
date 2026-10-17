@@ -8,6 +8,8 @@
  * 3. הודעה מהמורה בדף הבית.
  * 4. קוד לשיעור.
  * 5. ציון והערה לכל עבודה (רק המורה רואה אותם). אפשר גם להסתיר עבודה מהלוח (הקובץ נשאר בדרייב).
+ *    בדפים עם תשובה אחת נכונה (עברית, מבחנים אמריקאיים) האתר שולח גם "בדיקה אוטומטית":
+ *    כמה תשובות נכונות מתוך כמה. היא מוצגת למורה כהצעה לציון - המורה מאשר.
  * 6. בקרת שיעור: בזמן שיעור עם קוד, המורה רואה מי מהתלמידים נמצא בדף ומי יצא ממנו.
  *    התלמיד רואה על המסך שהבקרה פעילה. המידע נשמר עד 6 שעות ונמחק לבד.
  * 7. לוח שאלות בדפי הפרקים (כמו פאדלט): התלמידים כותבים שאלות שעולות מהתקציר,
@@ -130,6 +132,8 @@ function saveSubmission_(d) {
   } finally {
     lock.releaseLock();
   }
+  var auto = autoScore_(d.autoScore);
+  if (auto) PropertiesService.getScriptProperties().setProperty('auto_' + file.getId(), JSON.stringify(auto));
 
   if (NOTIFY_BY_EMAIL) {
     try {
@@ -137,7 +141,9 @@ function saveSubmission_(d) {
         to: Session.getEffectiveUser().getEmail(),
         subject: 'הגשה חדשה: ' + name + ' - ' + task,
         body: 'שם: ' + name + '\nכיתה: ' + cls + '\nמטלה: ' + task +
-              (d.notes ? '\nהערות: ' + clean_(d.notes) : '') + '\n\nקישור לקובץ: ' + file.getUrl()
+              (d.notes ? '\nהערות: ' + clean_(d.notes) : '') +
+              (auto ? '\nבדיקה אוטומטית: ' + auto.c + ' נכונות מתוך ' + auto.t + ' (' + Math.round(auto.c * 100 / auto.t) + ')' : '') +
+              '\n\nקישור לקובץ: ' + file.getUrl()
       });
     } catch (err) { /* ההגשה נשמרה גם אם המייל נכשל */ }
   }
@@ -209,7 +215,9 @@ function listSubmissions_() {
   });
   var grades = gradeMap_();
   var hidden = hiddenMap_();
+  var autos = autoMap_();
   out.forEach(function (x) {
+    x.auto = (x.id && autos[x.id]) || null;
     var g = x.id && grades[x.id];
     x.grade = g ? g.g : '';
     x.comment = g ? g.c : '';
@@ -285,6 +293,24 @@ function markChecked_(fileId, checked) {
   var props = PropertiesService.getScriptProperties();
   if (checked) props.setProperty('chk_' + fileId, '1'); else props.deleteProperty('chk_' + fileId);
   return { ok: true };
+}
+
+// ---------- בדיקה אוטומטית ----------
+// auto_<מזהה הקובץ> = {c: נכונות, t: מתוך}. נשלח מהאתר יחד עם ההגשה.
+function autoScore_(a) {
+  if (!a) return null;
+  var c = Math.floor(Number(a.correct)), t = Math.floor(Number(a.total));
+  if (!(t > 0 && t <= 1000 && c >= 0 && c <= t)) return null;
+  return { c: c, t: t };
+}
+function autoMap_() {
+  var props = PropertiesService.getScriptProperties().getProperties();
+  var map = {};
+  Object.keys(props).forEach(function (k) {
+    if (k.indexOf('auto_') !== 0) return;
+    try { map[k.slice(5)] = JSON.parse(props[k]); } catch (e) {}
+  });
+  return map;
 }
 
 // ---------- הסתרת עבודה מהלוח ----------

@@ -107,6 +107,14 @@ window.MishkalAnswerCheck = (function(){
   function wire(config){
     var fields = config.fields || [];
     var mcGroups = config.mcGroups || [];
+    /* לבדיקה האוטומטית בשליחה למורה (assets/autoscore.js). המבחן האמריקאי נספר שם. */
+    (window.BM_SCORERS = window.BM_SCORERS || []).push(function(){
+      var gradable = fields.filter(function(f){ return f.grade !== false && f.expected != null; });
+      return { total: gradable.length, correct: gradable.filter(function(f){
+        var list = Array.isArray(f.expected) ? f.expected : [f.expected];
+        return isFieldFilled(f) && list.some(function(exp){ return exactMatch(f.el.value, exp); });
+      }).length };
+    });
     var checkBtn = config.checkBtn;
     var gateNote = config.gateNote;
     var onChecked = config.onChecked;

@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=19">
+<link rel="stylesheet" href="assets/site.css?v=20">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -861,6 +861,22 @@
     document.getElementById("ttRows").addEventListener("click", function(e){
       var v = e.target.closest("[data-view]");
       if(v){ openViewer(v.getAttribute("data-view"), v); return; }
+      var acc = e.target.closest("[data-accept]");
+      if(acc){
+        var aid = acc.getAttribute("data-accept");
+        var ar = board.rows.filter(function(x){ return x.id === aid; })[0];
+        if(!ar || !ar.auto) return;
+        acc.disabled = true; acc.textContent = "שומר…";
+        apiPost({ action:"setGrade", password:teacherToken(), fileId:aid, grade:String(ar.auto.pct), comment:ar.comment || "" }).then(function(res){
+          if(handleAuthFailure(res)) return;
+          if(res && res.ok){
+            ar.grade = res.grade; ar.comment = res.comment || ""; if(res.grade !== "") ar.status = "checked";
+            renderBoard();
+            document.getElementById("ttBoardMsg").textContent = "✓ הציון " + res.grade + " נשמר ל" + ar.name + ".";
+          } else { acc.disabled = false; acc.textContent = "אישור הציון"; alert((res && res.error) || "השמירה לא הצליחה."); }
+        }).catch(function(){ acc.disabled = false; acc.textContent = "אישור הציון"; alert("אין חיבור לשרת כרגע. נסו שוב."); });
+        return;
+      }
       var h = e.target.closest("[data-hide]");
       if(h){
         var hid = h.getAttribute("data-id"), hide = h.getAttribute("data-hide") === "1";
@@ -1056,6 +1072,7 @@
                  cls:x.cls === "יא" ? 'י"א' : (x.cls === "יב" ? 'י"ב' : (x.cls || "")),
                  date:x.date || "", status:x.status || "pending", url:x.url || "", notes:x.notes || "",
                  grade:x.grade == null ? "" : String(x.grade), comment:x.comment || "", hidden:!!x.hidden, time:x.time || 0,
+                 auto:(x.auto && x.auto.t > 0) ? { c:x.auto.c, t:x.auto.t, pct:Math.round(x.auto.c * 100 / x.auto.t) } : null,
                  unit:"", topic:"" };
       });
       board.rows.forEach(function(r){ var c = classify(r.task); r.unit = c.unit; r.topic = c.topic; });
@@ -1150,6 +1167,7 @@
 
     /* מיון: לפי העמודה שנבחרה. בתצוגה "לפי נושא" - קודם לפי סדר היחידות והנושאים באתר */
     var STATUS_ORDER = { pending:0, missing:1, checked:2 };
+    function gradeKey(r){ return r.grade !== "" ? Number(r.grade) : (r.auto ? r.auto.pct - 0.5 : -1); }
     function dateKey(r){
       var m = /^(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{4})$/.exec(r.date || "");
       return m ? (+m[3]) * 1e4 + (+m[2]) * 100 + (+m[1]) + (r.time % 86400000) / 1e9 : r.time / 1e13;
@@ -1157,7 +1175,7 @@
     function cmp(a, b){
       var k = board.sort.key, d = board.sort.dir, x, y;
       if(k === "date"){ x = dateKey(a); y = dateKey(b); }
-      else if(k === "grade"){ x = a.grade === "" ? -1 : Number(a.grade); y = b.grade === "" ? -1 : Number(b.grade); }
+      else if(k === "grade"){ x = gradeKey(a); y = gradeKey(b); }
       else if(k === "status"){ x = STATUS_ORDER[a.status] || 0; y = STATUS_ORDER[b.status] || 0; }
       else if(k === "topic"){ x = (a.unit + " " + (a.topic || a.task)); y = (b.unit + " " + (b.topic || b.task)); }
       else { x = String(a[k] || ""); y = String(b[k] || ""); }
@@ -1232,7 +1250,11 @@
         '<td class="tt-date">' + escapeHtml(r.date || "-") + '</td>' +
         '<td><span class="tt-pill tt-pill--' + st.cls + '">' + st.label + '</span></td>' +
         '<td class="tt-grade"' + (r.comment ? ' title="' + escapeAttr(r.comment) + '"' : '') + '>' +
-          (r.grade !== "" ? '<b>' + escapeHtml(r.grade) + '</b>' : '<span aria-hidden="true">-</span>') +
+          (r.grade !== "" ? '<b>' + escapeHtml(r.grade) + '</b>' + (r.auto ? ' <span class="tt-auto tt-auto--small" title="בדיקה אוטומטית: ' + r.auto.c + ' נכונות מתוך ' + r.auto.t + '">🤖 ' + r.auto.pct + '</span>' : '')
+            : (r.auto ? '<span class="tt-auto" title="בדיקה אוטומטית">🤖 <b>' + r.auto.pct + '</b></span>' +
+                '<span class="tt-grade-comment">' + r.auto.c + ' נכונות מתוך ' + r.auto.t + '</span>' +
+                (r.id && !r.hidden ? '<button type="button" class="tt-btn tt-btn--small tt-auto-accept" data-accept="' + escapeAttr(r.id) + '" aria-label="אישור ציון ' + r.auto.pct + ' ל' + escapeAttr(r.name) + '">אישור הציון</button>' : '')
+              : '<span aria-hidden="true">-</span>')) +
           (r.comment ? '<span class="tt-grade-comment">' + escapeHtml(r.comment) + '</span>' : '') +
         '</td>' +
         '<td class="tt-actions">' +
@@ -1760,9 +1782,10 @@
     var msg = document.getElementById("ttBoardMsg");
     if(!rows.length){ msg.textContent = "אין מה להוריד - הלוח ריק בסינון הזה."; return; }
     function cell(v){ v = String(v == null ? "" : v); return /[",\r\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }
-    var lines = [["תלמיד/ה","כיתה","מקצוע","יחידה","נושא","תאריך","סטטוס","ציון","הערה"].map(cell).join(",")];
+    var lines = [["תלמיד/ה","כיתה","מקצוע","יחידה","נושא","תאריך","סטטוס","ציון","הערה","בדיקה אוטומטית"].map(cell).join(",")];
     rows.forEach(function(r){
-      lines.push([r.name, r.cls, r.subject, r.unit, r.topic || r.task, r.date, (STATUS_INFO[r.status] || STATUS_INFO.pending).label, r.grade, r.comment].map(cell).join(","));
+      lines.push([r.name, r.cls, r.subject, r.unit, r.topic || r.task, r.date, (STATUS_INFO[r.status] || STATUS_INFO.pending).label, r.grade, r.comment,
+        r.auto ? r.auto.c + "/" + r.auto.t + " (" + r.auto.pct + ")" : ""].map(cell).join(","));
     });
     var blob = new Blob(["\uFEFF" + lines.join("\r\n")], { type:"text/csv;charset=utf-8" });
     var a = document.createElement("a");
@@ -1821,7 +1844,9 @@
     viewEl.viewPrev.disabled = viewer.i <= 0;
     viewEl.viewNext.disabled = viewer.i >= viewer.list.length - 1;
     viewEl.viewCheck.hidden = r.status !== "pending";
-    viewEl.viewGradeInput.value = r.grade || "";
+    viewEl.viewGradeInput.value = r.grade || (r.auto ? String(r.auto.pct) : "");
+    if(r.grade === "" && r.auto && !viewEl.viewGradeMsg.textContent)
+      viewEl.viewGradeMsg.textContent = "🤖 הציון מולא מהבדיקה האוטומטית (" + r.auto.c + " נכונות מתוך " + r.auto.t + "). אפשר לשנות לפני השמירה.";
     viewEl.viewCommentInput.value = r.comment || "";
     viewEl.viewGradeSave.disabled = false;
     viewEl.viewGradeSave.textContent = r.grade !== "" ? "עדכון הציון" : "שמירת ציון";

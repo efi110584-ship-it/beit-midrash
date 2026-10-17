@@ -270,6 +270,11 @@
     return field.dataset.id || 'שאלה';
   }
 
+  /* בדיקה אוטומטית (assets/autoscore.js): כמה תשובות נכונות מתוך כמה. null בדף בלי תשובות סגורות */
+  function autoScore(){
+    try{ return window.BM_AUTOSCORE ? window.BM_AUTOSCORE() : null; }catch(e){ return null; }
+  }
+
   function safeName(str){ return str.replace(/[\\/:*?"<>|]/g, ' '); }
 
   /* הקובץ שיישלח: PDF, ואם זה לא מצליח - HTML כמו קודם */
@@ -321,6 +326,7 @@
         studentClass: classCode(opts.studentClass) || opts.studentClass || '',
         assignment: opts.assignment,
         notes: opts.notes || '',
+        autoScore: autoScore(),
         fileName: file.fileName,
         fileMimeType: file.fileMimeType,
         fileBase64: file.fileBase64
