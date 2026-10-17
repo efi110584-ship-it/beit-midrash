@@ -10,6 +10,8 @@
  * 5. ציון והערה לכל עבודה (רק המורה רואה אותם).
  * 6. בקרת שיעור: בזמן שיעור עם קוד, המורה רואה מי מהתלמידים נמצא בדף ומי יצא ממנו.
  *    התלמיד רואה על המסך שהבקרה פעילה. המידע נשמר עד 6 שעות ונמחק לבד.
+ * 7. לוח שאלות בדפי הפרקים (כמו פאדלט): התלמידים כותבים שאלות שעולות מהתקציר,
+ *    כל הכיתה רואה אותן, והמורה יכול לסמן "נדון בכיתה" או למחוק.
  *
  * הסיסמה לא כתובה כאן. קובעים אותה ב: הגדרות הפרויקט (גלגל השיניים) > מאפייני סקריפט
  *   שם המאפיין: TEACHER_PASSWORD     ערך: הסיסמה שבחרתם
@@ -30,6 +32,11 @@ var MONITOR_CLASSES = ['יא'];      // כיתות שבהן אפשר להפעי�
 var AWAY_GRACE_SEC = 15;           // יציאה קצרה מזה (למשל מעבר בין דפים באתר) לא נספרת
 var GONE_AFTER_SEC = 150;          // תלמיד שלא דיווח זמן כזה - "לא מחובר"
 
+// דפים שיש בהם לוח שאלות (שם הדף בלי .html). כדי להוסיף לוח לפרק נוסף - מוסיפים אותו כאן.
+var QBOARDS = ['bereshit-12'];
+var QB_MAX_ITEMS = 150;            // הכי הרבה שאלות בלוח אחד
+var QB_MAX_LEN = 200;              // אורך שאלה מקסימלי
+
 // מטלות שרוצים לראות בהן גם "לא הוגש".
 // הסקריפט בודק אילו תלמידים (תיקיות אישיות) עוד לא הגישו את המטלה.
 // כותבים את שם המטלה בדיוק כמו בשם הקובץ. דוגמה:  'יא': ['דף עבודה - יונה פרק א'],
@@ -44,6 +51,7 @@ function doGet(e) {
   try {
     if (p.action === 'announcement') return json_({ ok: true, announcement: getJson_('ANNOUNCEMENT') });
     if (p.action === 'lesson') return json_(findLesson_(p.code));
+    if (p.action === 'qbList') return json_(qbList_(p.board));
     return json_({ ok: true, service: 'beit-midrash' });
   } catch (err) {
     return json_({ ok: false, error: msg_(err) });
@@ -62,6 +70,10 @@ function doPost(e) {
     // דיווח נוכחות מדף של תלמיד בזמן שיעור עם בקרה (בלי סיסמה - רק עם קוד השיעור)
     if (data.action === 'presence') return json_(presence_(data));
 
+    // לוח שאלות: הוספת שאלה ו"גם אני שואל" (בלי סיסמה)
+    if (data.action === 'qbAdd') return json_(qbAdd_(data));
+    if (data.action === 'qbLike') return json_(qbLike_(data.board, data.id));
+
     // כל השאר - רק עם סיסמה
     if (!checkPassword_(data.password)) return json_({ ok: false, auth: false, error: 'סיסמה שגויה' });
 
@@ -74,6 +86,8 @@ function doPost(e) {
       case 'presenceList':    return json_(presenceList_());
       case 'clearLesson':     PropertiesService.getScriptProperties().deleteProperty('LESSON'); return json_({ ok: true });
       case 'setGrade':        return json_(setGrade_(data.fileId, data.grade, data.comment));
+      case 'qbDelete':        return json_(qbDelete_(data.board, data.id));
+      case 'qbMark':          return json_(qbMark_(data.board, data.id, data.done === true));
     }
     return json_({ ok: false, error: 'פעולה לא מוכרת' });
   } catch (err) {
@@ -388,6 +402,77 @@ function presenceList_() {
   });
   return { ok: true, lesson: { code: l.code, label: l.label, url: l.url, cls: l.cls }, students: out };
 }
+
+// ---------- לוח שאלות ----------
+// כל שאלה נשמרת במאפיין נפרד: qb_<דף>_<מזהה>
+function qbBoard_(board) {
+  board = String(board || '');
+  return QBOARDS.indexOf(board) !== -1 ? board : '';
+}
+function qbItems_(board) {
+  var props = PropertiesService.getScriptProperties().getProperties();
+  var prefix = 'qb_' + board + '_';
+  var out = [];
+  Object.keys(props).forEach(function (k) {
+    if (k.indexOf(prefix) !== 0) return;
+    try {
+      var v = JSON.parse(props[k]);
+      out.push({ id: k.slice(prefix.length), name: v.n || '', text: v.q || '', t: v.t || 0, likes: v.l || 0, done: !!v.d });
+    } catch (e) {}
+  });
+  out.sort(function (a, b) { return b.t - a.t; });
+  return out;
+}
+function qbList_(board) {
+  board = qbBoard_(board);
+  if (!board) return { ok: false, error: 'אין לוח שאלות בדף הזה' };
+  return { ok: true, items: qbItems_(board), now: Date.now() };
+}
+function qbAdd_(d) {
+  var board = qbBoard_(d.board);
+  if (!board) return { ok: false, error: 'אין לוח שאלות בדף הזה' };
+  var name = clean_(d.name).slice(0, 40);
+  var text = clean_(d.text).slice(0, QB_MAX_LEN);
+  if (name.length < 2) return { ok: false, error: 'כתבו את השם שלכם.' };
+  if (text.length < 4) return { ok: false, error: 'כתבו שאלה.' };
+  var cache = CacheService.getScriptCache();
+  var burst = Number(cache.get('qbBurst_' + board) || 0);
+  if (burst >= 60) return { ok: false, error: 'נשלחו הרבה שאלות בבת אחת. נסו שוב בעוד דקה.' };
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(8000)) return { ok: false, error: 'השרת עמוס. נסו שוב.' };
+  try {
+    if (qbItems_(board).length >= QB_MAX_ITEMS) return { ok: false, error: 'הלוח מלא. בקשו מהמורה לפנות מקום.' };
+    var id = Date.now().toString(36) + Math.floor(Math.random() * 1296).toString(36);
+    var item = { n: name, q: text, t: Date.now(), l: 0, d: false };
+    PropertiesService.getScriptProperties().setProperty('qb_' + board + '_' + id, JSON.stringify(item));
+    cache.put('qbBurst_' + board, String(burst + 1), 60);
+    return { ok: true, item: { id: id, name: name, text: text, t: item.t, likes: 0, done: false } };
+  } finally {
+    lock.releaseLock();
+  }
+}
+function qbUpdate_(board, id, fn) {
+  board = qbBoard_(board);
+  id = String(id || '').replace(/[^a-z0-9]/g, '');
+  if (!board || !id) return { ok: false, error: 'שאלה לא נמצאה' };
+  var key = 'qb_' + board + '_' + id;
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(8000)) return { ok: false, error: 'השרת עמוס. נסו שוב.' };
+  try {
+    var props = PropertiesService.getScriptProperties();
+    var v = props.getProperty(key);
+    if (!v) return { ok: false, gone: true, error: 'השאלה כבר לא בלוח' };
+    var item = JSON.parse(v);
+    if (fn(item) === 'delete') { props.deleteProperty(key); return { ok: true }; }
+    props.setProperty(key, JSON.stringify(item));
+    return { ok: true, likes: item.l || 0, done: !!item.d };
+  } finally {
+    lock.releaseLock();
+  }
+}
+function qbLike_(board, id) { return qbUpdate_(board, id, function (it) { it.l = (it.l || 0) + 1; }); }
+function qbMark_(board, id, done) { return qbUpdate_(board, id, function (it) { it.d = done; }); }
+function qbDelete_(board, id) { return qbUpdate_(board, id, function () { return 'delete'; }); }
 
 // ---------- סיסמה ----------
 function checkPassword_(pw) {
