@@ -12,6 +12,9 @@
  *    התלמיד רואה על המסך שהבקרה פעילה. המידע נשמר עד 6 שעות ונמחק לבד.
  * 7. לוח שאלות בדפי הפרקים (כמו פאדלט): התלמידים כותבים שאלות שעולות מהתקציר,
  *    כל הכיתה רואה אותן, והמורה יכול לסמן "נדון בכיתה" או למחוק.
+ * 8. פעילות חיה בכיתה: ענן מילים או הצבעה על דילמה. המורה מפעיל מהאזור האישי,
+ *    התלמידים עונים בדף "פעילות בכיתה" (live.html), והתוצאות מוצגות על המקרן (screen.html).
+ *    פעילות חדשה מוחקת את התשובות של הקודמת.
  *
  * הסיסמה לא כתובה כאן. קובעים אותה ב: הגדרות הפרויקט (גלגל השיניים) > מאפייני סקריפט
  *   שם המאפיין: TEACHER_PASSWORD     ערך: הסיסמה שבחרתם
@@ -52,6 +55,7 @@ function doGet(e) {
     if (p.action === 'announcement') return json_({ ok: true, announcement: getJson_('ANNOUNCEMENT') });
     if (p.action === 'lesson') return json_(findLesson_(p.code));
     if (p.action === 'qbList') return json_(qbList_(p.board));
+    if (p.action === 'actCurrent') return json_(actCurrent_());
     return json_({ ok: true, service: 'beit-midrash' });
   } catch (err) {
     return json_({ ok: false, error: msg_(err) });
@@ -74,6 +78,9 @@ function doPost(e) {
     if (data.action === 'qbAdd') return json_(qbAdd_(data));
     if (data.action === 'qbLike') return json_(qbLike_(data.board, data.id));
 
+    // פעילות חיה: תשובה של תלמיד (בלי סיסמה)
+    if (data.action === 'actRespond') return json_(actRespond_(data));
+
     // כל השאר - רק עם סיסמה
     if (!checkPassword_(data.password)) return json_({ ok: false, auth: false, error: 'סיסמה שגויה' });
 
@@ -88,6 +95,10 @@ function doPost(e) {
       case 'setGrade':        return json_(setGrade_(data.fileId, data.grade, data.comment));
       case 'qbDelete':        return json_(qbDelete_(data.board, data.id));
       case 'qbMark':          return json_(qbMark_(data.board, data.id, data.done === true));
+      case 'actStart':        return json_(actStart_(data.type, data.prompt, data.options));
+      case 'actOpen':         return json_(actOpen_(data.open === true));
+      case 'actClear':        return json_(actClear_());
+      case 'actResults':      return json_(actTeacher_());
     }
     return json_({ ok: false, error: 'פעולה לא מוכרת' });
   } catch (err) {
@@ -378,7 +389,8 @@ function presence_(d) {
     p.last = now;
     all[sid] = p;
     cache.put(key, JSON.stringify(all), 21600);
-    return { ok: true, leaves: p.leaves };
+    var act = getJson_('ACTIVITY');
+    return { ok: true, leaves: p.leaves, act: (act && act.open) ? { id: act.id, prompt: act.prompt } : null };
   } finally {
     lock.releaseLock();
   }
@@ -473,6 +485,141 @@ function qbUpdate_(board, id, fn) {
 function qbLike_(board, id) { return qbUpdate_(board, id, function (it) { it.l = (it.l || 0) + 1; }); }
 function qbMark_(board, id, done) { return qbUpdate_(board, id, function (it) { it.d = done; }); }
 function qbDelete_(board, id) { return qbUpdate_(board, id, function () { return 'delete'; }); }
+
+// ---------- פעילות חיה (ענן מילים / הצבעה) ----------
+// הפעילות עצמה במאפיין ACTIVITY, וכל תשובה במאפיין נפרד: ar_<פעילות>_<תלמיד>
+function actPublic_(a) {
+  return { id: a.id, type: a.type, prompt: a.prompt, options: a.options || [], open: !!a.open, created: a.created };
+}
+function actResponses_(a) {
+  var props = PropertiesService.getScriptProperties().getProperties();
+  var prefix = 'ar_' + a.id + '_';
+  var out = [];
+  Object.keys(props).forEach(function (k) {
+    if (k.indexOf(prefix) !== 0) return;
+    try { var v = JSON.parse(props[k]); v.sid = k.slice(prefix.length); out.push(v); } catch (e) {}
+  });
+  out.sort(function (x, y) { return (x.t || 0) - (y.t || 0); });
+  return out;
+}
+function actWordKey_(w) {
+  return String(w || '').replace(/[\u0591-\u05C7]/g, '').replace(/["'״׳.,!?;:()\-–—]/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+}
+function actResults_(a, withNames) {
+  var list = actResponses_(a);
+  if (a.type === 'cloud') {
+    var map = {}, order = [];
+    list.forEach(function (r) {
+      (r.v || []).forEach(function (w) {
+        var k = actWordKey_(w);
+        if (!k) return;
+        if (!map[k]) { map[k] = { w: w, c: 0 }; order.push(k); }
+        map[k].c++;
+      });
+    });
+    var words = order.map(function (k) { return map[k]; }).sort(function (x, y) { return y.c - x.c; });
+    var res = { count: list.length, words: words };
+    if (withNames) res.people = list.map(function (r) { return { name: r.n, words: r.v || [] }; });
+    return res;
+  }
+  var counts = (a.options || []).map(function () { return 0; });
+  var reasons = [];
+  list.forEach(function (r) {
+    if (r.v >= 0 && r.v < counts.length) counts[r.v]++;
+    if (r.r) { var x = { o: r.v, r: r.r }; if (withNames) x.n = r.n; reasons.push(x); }
+  });
+  var out = { count: list.length, counts: counts, reasons: reasons.reverse().slice(0, 60) };
+  if (withNames) out.people = list.map(function (r) { return { name: r.n, o: r.v }; });
+  return out;
+}
+function actCurrent_() {
+  var a = getJson_('ACTIVITY');
+  if (!a) return { ok: true, activity: null };
+  return { ok: true, activity: actPublic_(a), results: actResults_(a, false) };
+}
+function actTeacher_() {
+  var a = getJson_('ACTIVITY');
+  if (!a) return { ok: true, activity: null };
+  return { ok: true, activity: actPublic_(a), results: actResults_(a, true) };
+}
+function actRespond_(d) {
+  var a = getJson_('ACTIVITY');
+  if (!a || String(d.id || '') !== a.id) return { ok: false, ended: true, error: 'הפעילות הזאת כבר הסתיימה.' };
+  if (!a.open) return { ok: false, closed: true, error: 'המורה סגר את התשובות.' };
+  var sid = String(d.sid || '').replace(/[^\w-]/g, '').slice(0, 40);
+  var name = clean_(d.name).slice(0, 40);
+  if (!sid) return { ok: false, error: 'חסר מזהה' };
+  if (name.length < 2) return { ok: false, error: 'כתבו את השם שלכם.' };
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(8000)) return { ok: false, error: 'השרת עמוס. נסו שוב.' };
+  try {
+    var props = PropertiesService.getScriptProperties();
+    var key = 'ar_' + a.id + '_' + sid;
+    var prev = null;
+    try { prev = JSON.parse(props.getProperty(key) || 'null'); } catch (e) {}
+    var item = { n: name, t: Date.now() };
+    if (a.type === 'cloud') {
+      var w = clean_(d.word).slice(0, 25);
+      if (!actWordKey_(w)) return { ok: false, error: 'כתבו מילה.' };
+      var words = (prev && prev.v) || [];
+      if (words.some(function (x) { return actWordKey_(x) === actWordKey_(w); })) return { ok: false, error: 'כבר כתבתם את המילה הזאת.' };
+      if (words.length >= 3) return { ok: false, error: 'אפשר לכתוב עד 3 מילים.' };
+      words.push(w);
+      item.v = words;
+    } else {
+      var v = Number(d.option);
+      if (!(v >= 0 && v < (a.options || []).length) || Math.floor(v) !== v) return { ok: false, error: 'בחרו תשובה.' };
+      item.v = v;
+      item.r = clean_(d.reason).slice(0, 140);
+    }
+    props.setProperty(key, JSON.stringify(item));
+    return { ok: true, mine: item.v, reason: item.r || '', results: actResults_(a, false) };
+  } finally {
+    lock.releaseLock();
+  }
+}
+function actDeleteResponses_() {
+  var props = PropertiesService.getScriptProperties();
+  Object.keys(props.getProperties()).forEach(function (k) { if (k.indexOf('ar_') === 0) props.deleteProperty(k); });
+}
+function actStart_(type, prompt, options) {
+  type = type === 'poll' ? 'poll' : 'cloud';
+  prompt = clean_(prompt).slice(0, 160);
+  if (prompt.length < 3) return { ok: false, error: 'כתבו את השאלה לתלמידים.' };
+  var opts = [];
+  if (type === 'poll') {
+    opts = (options || []).map(function (o) { return clean_(o).slice(0, 40); }).filter(function (o) { return o; }).slice(0, 4);
+    if (opts.length < 2) return { ok: false, error: 'צריך לפחות שתי אפשרויות להצבעה.' };
+  }
+  var lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    actDeleteResponses_();
+    var a = { id: Date.now().toString(36), type: type, prompt: prompt, options: opts, open: true, created: Date.now() };
+    PropertiesService.getScriptProperties().setProperty('ACTIVITY', JSON.stringify(a));
+    return { ok: true, activity: actPublic_(a), results: actResults_(a, true) };
+  } finally {
+    lock.releaseLock();
+  }
+}
+function actOpen_(open) {
+  var a = getJson_('ACTIVITY');
+  if (!a) return { ok: false, error: 'אין פעילות פעילה' };
+  a.open = open;
+  PropertiesService.getScriptProperties().setProperty('ACTIVITY', JSON.stringify(a));
+  return { ok: true, activity: actPublic_(a) };
+}
+function actClear_() {
+  var lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    actDeleteResponses_();
+    PropertiesService.getScriptProperties().deleteProperty('ACTIVITY');
+    return { ok: true };
+  } finally {
+    lock.releaseLock();
+  }
+}
 
 // ---------- סיסמה ----------
 function checkPassword_(pw) {

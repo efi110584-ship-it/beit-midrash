@@ -4694,3 +4694,31 @@ body.is-teacher-view .home-actions:where([data-css~="index"], [data-css~="index"
 }
 .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .tt-nav, .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .tk-group, .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .tk-search-input{ border:2px solid #000; }
 .a11y-contrast:where([data-css~="index"], [data-css~="index"] *) .tt-nav-tab[aria-selected="true"]{ background:#000; color:#fff; }
+
+/* ===== דף הבית: פעילות חיה ===== */
+.live-now:where([data-css~="index"], [data-css~="index"] *){ display:flex; align-items:center; gap:12px; margin:0 0 12px; padding:14px 18px; border-radius:16px; background:#B42318; color:#fff; text-decoration:none; box-shadow:0 8px 22px rgba(180,35,24,.28); }
+.live-now[hidden]:where([data-css~="index"], [data-css~="index"] *){ display:none; }
+.live-now:hover:where([data-css~="index"], [data-css~="index"] *){ background:#9A1B12; }
+.live-now:focus-visible:where([data-css~="index"], [data-css~="index"] *){ outline:3px solid #FF7A1A; outline-offset:3px; }
+.live-now-dot:where([data-css~="index"], [data-css~="index"] *){ flex:none; width:14px; height:14px; border-radius:50%; background:#fff; box-shadow:0 0 0 4px rgba(255,255,255,.3); animation:ttPulse 1.6s ease-in-out infinite; }
+.live-now-text:where([data-css~="index"], [data-css~="index"] *){ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:1px; }
+.live-now-text:where([data-css~="index"], [data-css~="index"] *) b{ font-size:1.15rem; }
+.live-now-prompt:where([data-css~="index"], [data-css~="index"] *){ font-size:.95rem; opacity:.92; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.live-now-go:where([data-css~="index"], [data-css~="index"] *){ flex:none; padding:6px 14px; border-radius:999px; background:#fff; color:#B42318; font-weight:700; }
+body.is-teacher-view .live-now:where([data-css~="index"], [data-css~="index"] *){ display:none; }
+.tt-btn--link:where([data-css~="index"], [data-css~="index"] *){ display:inline-flex; align-items:center; text-decoration:none; }
+.tt-act-types:where([data-css~="index"], [data-css~="index"] *){ display:grid; grid-template-columns:repeat(auto-fit, minmax(210px, 1fr)); gap:10px; }
+.tt-act-type:where([data-css~="index"], [data-css~="index"] *){ display:grid; grid-template-columns:auto 1fr; grid-template-rows:auto auto; column-gap:10px; align-items:center; padding:12px 14px; border:2px solid #DCE4F1; border-radius:12px; background:#fff; color:#0E1B33; font-family:inherit; text-align:right; cursor:pointer; }
+.tt-act-type:where([data-css~="index"], [data-css~="index"] *) .tt-act-ico{ grid-row:1 / 3; font-size:1.8rem; }
+.tt-act-type:where([data-css~="index"], [data-css~="index"] *) b{ font-size:1.02rem; color:#123A78; }
+.tt-act-type:where([data-css~="index"], [data-css~="index"] *) small{ font-size:.85rem; color:#4E5B72; }
+.tt-act-type[aria-pressed="true"]:where([data-css~="index"], [data-css~="index"] *){ border-color:#123A78; background:#F4F7FC; box-shadow:inset 0 0 0 1px #123A78; }
+.tt-act-type:focus-visible:where([data-css~="index"], [data-css~="index"] *){ outline:3px solid #FF7A1A; outline-offset:2px; }
+.tt-act-new:where([data-css~="index"], [data-css~="index"] *), .tt-act-run:where([data-css~="index"], [data-css~="index"] *){ display:flex; flex-direction:column; gap:10px; }
+.tt-act-new[hidden]:where([data-css~="index"], [data-css~="index"] *), .tt-act-run[hidden]:where([data-css~="index"], [data-css~="index"] *), .tt-act-opts-wrap[hidden]:where([data-css~="index"], [data-css~="index"] *){ display:none; }
+.tt-act-opts-wrap:where([data-css~="index"], [data-css~="index"] *){ display:flex; flex-direction:column; gap:6px; }
+.tt-act-opts:where([data-css~="index"], [data-css~="index"] *){ display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:8px; }
+.tt-act-now:where([data-css~="index"], [data-css~="index"] *){ display:flex; flex-wrap:wrap; align-items:center; gap:8px 10px; margin:0; font-size:1.1rem; }
+.tt-act-results:where([data-css~="index"], [data-css~="index"] *){ padding:10px; border:1px solid #DCE4F1; border-radius:12px; background:#FBFCFE; display:flex; flex-direction:column; gap:12px; }
+.tt-act-people:where([data-css~="index"], [data-css~="index"] *) summary{ cursor:pointer; font-weight:700; color:#123A78; min-height:36px; display:flex; align-items:center; }
+.tt-act-plist:where([data-css~="index"], [data-css~="index"] *){ margin:6px 0 0; padding-inline-start:20px; columns:240px; font-size:.92rem; }

@@ -34,6 +34,7 @@
         .then(function(r){ return r.json(); })
         .then(function(res){
           if(res && res.ended){ end(); return; }
+          if(res && res.ok) actNotice(res.act);
           if(res && res.ok && onDone) onDone(res);
         })
         .catch(function(){ /* בלי חיבור - ננסה שוב בדיווח הבא */ });
@@ -52,6 +53,12 @@
       "font:inherit;font-size:13px;padding:5px 10px;cursor:pointer;min-height:32px}" +
       ".bm-lm-exit:hover{background:rgba(255,255,255,.26)}" +
       ".bm-lm-exit:focus-visible{outline:3px solid #FF7A1A;outline-offset:2px}" +
+      ".bm-lm-act{position:fixed;left:50%;bottom:64px;transform:translateX(-50%);z-index:9999;display:flex;align-items:center;gap:10px;" +
+      "max-width:calc(100vw - 24px);padding:10px 10px 10px 16px;border-radius:14px;background:#B42318;color:#fff;" +
+      "font:700 15px/1.35 Heebo,Rubik,Arial,sans-serif;box-shadow:0 10px 26px rgba(180,35,24,.35);direction:rtl;text-decoration:none}" +
+      ".bm-lm-act-go{flex:none;padding:5px 12px;border-radius:999px;background:#fff;color:#B42318}" +
+      ".bm-lm-act-x{flex:none;border:0;background:transparent;color:#fff;font-size:18px;cursor:pointer;min-width:32px;min-height:32px}" +
+      ".bm-lm-act:focus-visible,.bm-lm-act-x:focus-visible{outline:3px solid #FF7A1A;outline-offset:2px}" +
       ".bm-lm-toast{position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:9999;max-width:calc(100vw - 32px);" +
       "padding:12px 18px;border-radius:12px;background:#FFEBDC;color:#8A3D07;border:1px solid #F6CFAF;" +
       "font:700 15px/1.4 Heebo,Rubik,Arial,sans-serif;box-shadow:0 10px 26px rgba(11,42,91,.2);direction:rtl;text-align:center}" +
@@ -84,11 +91,29 @@
     document.body.appendChild(t);
     setTimeout(function(){ t.remove(); }, 6000);
   }
+  /* המורה פתח פעילות חיה (ענן / הצבעה) - הודעה עם קישור, פעם אחת לכל פעילות */
+  var actEl = null;
+  function actNotice(act){
+    if(!act || page === "live.html"){ if(actEl && !act){ actEl.remove(); actEl = null; } return; }
+    if(st.actSeen === act.id || actEl) return;
+    actEl = document.createElement("div");
+    actEl.className = "bm-lm-act";
+    actEl.setAttribute("role", "alert");
+    actEl.innerHTML = '<a class="bm-lm-act" style="position:static;transform:none;box-shadow:none;padding:0" href="live.html">' +
+      '<span>🔴 המורה פתח פעילות</span><span class="bm-lm-act-go">להשתתפות ›</span></a>' +
+      '<button type="button" class="bm-lm-act-x" aria-label="סגירה">✕</button>';
+    function seen(){ st.actSeen = act.id; save(); }
+    actEl.querySelector("a").addEventListener("click", seen);
+    actEl.querySelector("button").addEventListener("click", function(){ seen(); actEl.remove(); actEl = null; });
+    document.body.appendChild(actEl);
+  }
+
   function end(){
     try{ localStorage.removeItem(KEY); }catch(e){}
     if(timer) clearInterval(timer);
     document.removeEventListener("visibilitychange", onVisibility);
     if(bar) bar.remove();
+    if(actEl) actEl.remove();
   }
 
   function onVisibility(){

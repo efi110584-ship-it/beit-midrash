@@ -104,6 +104,7 @@
     ".qw-act--del{color:#8B2E1F}" +
     ".qw-empty{padding:22px;text-align:center;border:1px dashed #D8C9A3;border-radius:14px;color:var(--ink-soft,#4B6577)}" +
     ".qw-teacher{margin:0 0 10px;padding:6px 12px;border-radius:10px;background:#E4EEEA;color:#1F5A4D;font-size:.9rem}" +
+    ".qw-teacher a{color:#123A78;font-weight:700;white-space:nowrap}" +
     "@media print{.qw-form,.qw-acts,.qw-live{display:none}}";
   var st = document.createElement("style");
   st.textContent = css;
@@ -114,7 +115,8 @@
   try{ savedName = localStorage.getItem("bm-qb-name") || localStorage.getItem("bm-lesson-name") || ""; }catch(e){}
   body.innerHTML =
     '<p class="qw-intro">קראתם את התקציר? כתבו <b>שאלה אחת</b> שעלתה לכם - משהו שלא הבנתם, שהפתיע אתכם או שמעניין אתכם לדעת. כל הכיתה רואה את השאלות, ונדבר עליהן בשיעור.</p>' +
-    (teacherToken() ? '<p class="qw-teacher">🗝️ אתם מחוברים כמורה: אפשר לסמן שאלה "נדון בכיתה" או למחוק אותה.</p>' : '') +
+    (teacherToken() ? '<p class="qw-teacher">🗝️ אתם מחוברים כמורה: אפשר לסמן שאלה "נדון בכיתה" או למחוק אותה. ' +
+      '<a href="screen.html?board=' + encodeURIComponent(board) + '" target="_blank" rel="noopener">📺 הצגת הלוח על המקרן</a></p>' : '') +
     '<form class="qw-form" novalidate>' +
       '<div class="qw-row">' +
         '<div class="qw-field qw-field--name"><label class="qw-label" for="qwName">השם שלכם</label>' +

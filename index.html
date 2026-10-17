@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=16">
+<link rel="stylesheet" href="assets/site.css?v=17">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -143,6 +143,11 @@
   </section>
 
   <section class="results-wrap">
+    <a class="live-now" id="liveNow" href="live.html" hidden>
+      <span class="live-now-dot" aria-hidden="true"></span>
+      <span class="live-now-text"><b>פעילות בכיתה עכשיו</b><span class="live-now-prompt" id="liveNowPrompt"></span></span>
+      <span class="live-now-go">להשתתפות ›</span>
+    </a>
     <div class="home-actions">
       <div id="continue-root"></div>
       <button type="button" class="practice-card" id="practiceOpenBtn" aria-haspopup="dialog" hidden>
@@ -264,6 +269,7 @@
 <script src="assets/bm-api.js"></script>
 <script src="assets/units-data.js"></script>
 <script src="assets/flashcards-data.js"></script>
+<script src="assets/live-render.js"></script>
 <script>
 (function(){
   "use strict";
@@ -407,7 +413,7 @@
      הודעה לתלמידים, קוד לשיעור ולוח הגשות. הכול נשמר בסקריפט השרת,
      וכל פעולה נשלחת עם הסיסמה שנשמרה בכניסה. */
   function lessonTargetsHtml(){
-    var html = "";
+    var html = '<optgroup label="בשיעור"><option value="live.html" data-label="פעילות בכיתה (ענן מילים / הצבעה)">פעילות בכיתה (ענן מילים / הצבעה)</option></optgroup>';
     UNITS.forEach(function(u){
       if(u.class === "teacher") return;
       var cls = u.class === "יא" ? 'י"א' : 'י"ב';
@@ -541,6 +547,40 @@
             '</div>' +
             '<div class="tt-lesson-out" id="ttLessonOut" role="status" aria-live="polite"></div>' +
           '</div>' +
+        '</div>' +
+        '<div class="tt-card tt-act" id="ttAct">' +
+          '<div class="tt-board-head">' +
+            '<h3 class="tt-h">פעילות חיה</h3>' +
+            '<a class="tt-btn tt-btn--link" href="screen.html" target="_blank" rel="noopener">📺 הצג על המקרן</a>' +
+          '</div>' +
+          '<div class="tt-act-new" id="ttActNew">' +
+            '<p class="tt-sub">התלמידים עונים מהטלפון: בדף הבית מופיע להם כפתור אדום "פעילות בכיתה עכשיו". התוצאות מתעדכנות כאן ועל המקרן.</p>' +
+            '<div class="tt-act-types" role="group" aria-label="סוג הפעילות">' +
+              '<button type="button" class="tt-act-type" data-type="cloud" aria-pressed="true"><span class="tt-act-ico" aria-hidden="true">☁️</span><b>ענן מילים</b><small>כל תלמיד כותב עד 3 מילים</small></button>' +
+              '<button type="button" class="tt-act-type" data-type="poll" aria-pressed="false"><span class="tt-act-ico" aria-hidden="true">🗳️</span><b>הצבעה על דילמה</b><small>בוחרים תשובה ומנמקים במשפט</small></button>' +
+            '</div>' +
+            '<label for="ttActPrompt" class="tt-label">השאלה לתלמידים</label>' +
+            '<input id="ttActPrompt" class="tt-select" type="text" maxlength="160">' +
+            '<div class="tt-act-opts-wrap" id="ttActOptsWrap" hidden>' +
+              '<span class="tt-label" id="ttActOptsLabel">האפשרויות (2 עד 4)</span>' +
+              '<div class="tt-act-opts" role="group" aria-labelledby="ttActOptsLabel">' +
+                ['כן', 'לא', 'תלוי', ''].map(function(v, i){
+                  return '<input id="ttActOpt' + i + '" class="tt-select" type="text" maxlength="40" aria-label="אפשרות ' + (i + 1) + '" value="' + v + '"' + (i === 3 ? ' placeholder="אפשרות רביעית (לא חובה)"' : '') + '>';
+                }).join("") +
+              '</div>' +
+            '</div>' +
+            '<div class="tt-btns"><button type="button" class="tt-btn tt-btn--primary" id="ttActStart">הפעלת הפעילות</button></div>' +
+          '</div>' +
+          '<div class="tt-act-run" id="ttActRun" hidden>' +
+            '<p class="tt-act-now"><span class="tt-pill" id="ttActBadge"></span><b id="ttActNowPrompt"></b></p>' +
+            '<div class="tt-btns">' +
+              '<button type="button" class="tt-btn" id="ttActToggle"></button>' +
+              '<button type="button" class="tt-btn" id="ttActClear">סיום הפעילות</button>' +
+            '</div>' +
+            '<div class="tt-act-results" id="ttActResults" aria-live="polite"></div>' +
+            '<details class="tt-act-people"><summary id="ttActPeopleSum">מי ענה</summary><div id="ttActPeople"></div></details>' +
+          '</div>' +
+          '<p class="tt-msg" id="ttActMsg" role="status" aria-live="polite"></p>' +
         '</div>' +
         '<div class="tt-card tt-live" id="ttLive" hidden>' +
           '<div class="tt-board-head">' +
@@ -709,6 +749,7 @@
   function initTeacherTools(){
     initTeacherNav();
     initTeacherKeys();
+    initActivity();
     var ann = document.getElementById("ttAnnounce");
     var annMsg = document.getElementById("ttAnnounceMsg");
     apiGet({ action:"announcement" }).then(function(res){
@@ -799,6 +840,103 @@
       }).catch(function(){ b.disabled = false; b.textContent = "סימון כנבדק"; alert("אין חיבור לשרת כרגע. נסו שוב."); });
     });
     loadBoard();
+  }
+
+  /* ============ פעילות חיה (ענן מילים / הצבעה) ============
+     ההפעלה והתוצאות כאן; התלמידים עונים ב-live.html; המקרן ב-screen.html */
+  var actPoll = null;
+  var actType = "cloud";
+  var actState = null;
+  var ACT_PLACEHOLDER = {
+    cloud:'לדוגמה: מילה אחת שמתארת את אברהם בפרק י"ב',
+    poll:'לדוגמה: האם אברם צדק כשביקש משרי לומר שהיא אחותו?'
+  };
+  function initActivity(){
+    if(actPoll){ clearInterval(actPoll); actPoll = null; }
+    var types = Array.prototype.slice.call(document.querySelectorAll(".tt-act-type"));
+    var prompt = document.getElementById("ttActPrompt");
+    var msg = document.getElementById("ttActMsg");
+    function setType(t){
+      actType = t;
+      types.forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-type") === t ? "true" : "false"); });
+      prompt.placeholder = ACT_PLACEHOLDER[t];
+      document.getElementById("ttActOptsWrap").hidden = t !== "poll";
+    }
+    types.forEach(function(b){ b.addEventListener("click", function(){ setType(b.getAttribute("data-type")); }); });
+    setType("cloud");
+
+    document.getElementById("ttActStart").addEventListener("click", function(){
+      var text = prompt.value.trim();
+      if(text.length < 3){ msg.textContent = "כתבו את השאלה לתלמידים."; prompt.focus(); return; }
+      var opts = [0, 1, 2, 3].map(function(i){ return document.getElementById("ttActOpt" + i).value.trim(); }).filter(Boolean);
+      if(actType === "poll" && opts.length < 2){ msg.textContent = "צריך לפחות שתי אפשרויות."; return; }
+      var btn = this; btn.disabled = true; msg.textContent = "מפעילים…";
+      apiPost({ action:"actStart", password:teacherToken(), type:actType, prompt:text, options:opts }).then(function(res){
+        btn.disabled = false;
+        if(handleAuthFailure(res)) return;
+        if(!res || !res.ok){ msg.textContent = (res && res.error) || "ההפעלה לא הצליחה."; return; }
+        msg.textContent = "✓ הפעילות פועלת. התלמידים יכולים לענות.";
+        prompt.value = "";
+        renderActivity(res);
+      }).catch(function(){ btn.disabled = false; netError(msg); });
+    });
+
+    document.getElementById("ttActToggle").addEventListener("click", function(){
+      if(!actState) return;
+      var btn = this; btn.disabled = true;
+      apiPost({ action:"actOpen", password:teacherToken(), open:!actState.activity.open }).then(function(res){
+        btn.disabled = false;
+        if(handleAuthFailure(res)) return;
+        if(res && res.ok){ actState.activity = res.activity; renderActivity(actState); }
+      }).catch(function(){ btn.disabled = false; netError(msg); });
+    });
+
+    document.getElementById("ttActClear").addEventListener("click", function(){
+      if(!confirm("לסיים את הפעילות? התשובות של התלמידים יימחקו.")) return;
+      var btn = this; btn.disabled = true;
+      apiPost({ action:"actClear", password:teacherToken() }).then(function(res){
+        btn.disabled = false;
+        if(handleAuthFailure(res)) return;
+        msg.textContent = res && res.ok ? "✓ הפעילות הסתיימה. אפשר להפעיל פעילות חדשה." : ((res && res.error) || "לא הצליח.");
+        renderActivity({ activity:null });
+      }).catch(function(){ btn.disabled = false; netError(msg); });
+    });
+
+    loadActivity();
+    actPoll = setInterval(function(){
+      if(!document.getElementById("ttAct")){ clearInterval(actPoll); actPoll = null; return; }
+      var panel = document.getElementById("ttPanel-lesson");
+      if(document.visibilityState === "visible" && panel && !panel.hidden && actState && actState.activity) loadActivity();
+    }, 5000);
+  }
+  function loadActivity(){
+    apiPost({ action:"actResults", password:teacherToken() }).then(function(res){
+      if(handleAuthFailure(res)) return;
+      if(res && res.ok) renderActivity(res);
+    }).catch(function(){});
+  }
+  function renderActivity(res){
+    if(!document.getElementById("ttAct")) return;
+    actState = res;
+    var a = res.activity;
+    document.getElementById("ttActNew").hidden = !!a;
+    document.getElementById("ttActRun").hidden = !a;
+    if(!a) return;
+    var r = res.results || {};
+    var L = window.BM_LIVE;
+    var badge = document.getElementById("ttActBadge");
+    badge.className = "tt-pill " + (a.open ? "tt-pill--checked" : "tt-pill--pending");
+    badge.textContent = (a.type === "cloud" ? "☁️ ענן מילים" : "🗳️ הצבעה") + " · " + (a.open ? "פתוח לתשובות" : "התשובות נעצרו");
+    document.getElementById("ttActNowPrompt").textContent = a.prompt;
+    document.getElementById("ttActToggle").textContent = a.open ? "⏸ עצירת התשובות" : "▶ פתיחה מחדש";
+    document.getElementById("ttActResults").innerHTML = !L ? "" : (a.type === "cloud" ? L.cloudHtml(r.words, "small")
+      : L.pollHtml(a, r, "small") + L.reasonsHtml(a, r, "small", true, 40));
+    var people = r.people || [];
+    document.getElementById("ttActPeopleSum").textContent = "מי ענה (" + people.length + ")";
+    document.getElementById("ttActPeople").innerHTML = people.length ? '<ul class="tt-act-plist">' + people.map(function(p){
+      var ans = a.type === "cloud" ? (p.words || []).join(", ") : (a.options[p.o] || "");
+      return '<li><b>' + escapeHtml(p.name) + '</b> - ' + escapeHtml(ans) + '</li>';
+    }).join("") + '</ul>' : '<p class="tt-note">עוד אף תלמיד לא ענה.</p>';
   }
 
   /* ============ שיעור חי (בקרת שיעור) ============ */
@@ -1648,6 +1786,21 @@
     apiGet({ action:"announcement" }).then(function(res){
       if(res && res.ok) showAnnouncement((res.announcement && res.announcement.text) || "");
     }).catch(function(){ /* בלי חיבור - פשוט לא מציגים */ });
+  })();
+
+  /* ============ כפתור "פעילות בכיתה עכשיו" לתלמידים ============ */
+  (function liveNow(){
+    var a = document.getElementById("liveNow");
+    if(!a || !window.BM_API_URL) return;
+    function check(){
+      apiGet({ action:"actCurrent" }).then(function(res){
+        var act = res && res.ok && res.activity;
+        a.hidden = !(act && act.open);
+        if(act) document.getElementById("liveNowPrompt").textContent = act.prompt;
+      }).catch(function(){});
+    }
+    check();
+    setInterval(function(){ if(document.visibilityState === "visible") check(); }, 30000);
   })();
 
   /* ============ "יש לכם קוד מהמורה?" ============
