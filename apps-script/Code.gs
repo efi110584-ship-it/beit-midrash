@@ -14,6 +14,8 @@
  *    התלמיד רואה על המסך שהבקרה פעילה. המידע נשמר עד 6 שעות ונמחק לבד.
  * 7. לוח שאלות בדפי הפרקים (כמו פאדלט): התלמידים כותבים שאלות שעולות מהתקציר,
  *    כל הכיתה רואה אותן, והמורה יכול לסמן "נדון בכיתה" או למחוק.
+ * 9. סרגל הכלים בצד המסך (assets/class-dock.js): המורה פותח לוח שיתופי מכל דף, והוא מופיע
+ *    אצל כל התלמידים. בכל רגע פתוח לוח אחד; הלוחות הקודמים נשמרים (עד QB_KEEP).
  * 8. פעילות חיה בכיתה: ענן מילים, הצבעה על דילמה או סקר (כמה שאלות, אפשר בלי שמות). המורה מפעיל מהאזור האישי,
  *    התלמידים עונים בדף "פעילות בכיתה" (live.html), והתוצאות מוצגות על המקרן (screen.html).
  *    פעילות חדשה מוחקת את התשובות של הקודמת.
@@ -37,10 +39,12 @@ var MONITOR_CLASSES = ['יא'];      // כיתות שבהן אפשר להפעי�
 var AWAY_GRACE_SEC = 15;           // יציאה קצרה מזה (למשל מעבר בין דפים באתר) לא נספרת
 var GONE_AFTER_SEC = 150;          // תלמיד שלא דיווח זמן כזה - "לא מחובר"
 
-// דפים שיש בהם לוח שאלות (שם הדף בלי .html). כדי להוסיף לוח לפרק נוסף - מוסיפים אותו כאן.
+// לוחות שאלות ישנים שהיו קבועים בדף (נשמרים כדי שאפשר לפתוח אותם שוב מהסרגל).
 var QBOARDS = ['bereshit-12'];
+var QBOARD_TITLES = [{ id: 'bereshit-12', title: 'בראשית י"ב - שאלות על התקציר', page: 'bereshit-12.html', created: 0 }];
 var QB_MAX_ITEMS = 150;            // הכי הרבה שאלות בלוח אחד
 var QB_MAX_LEN = 200;              // אורך שאלה מקסימלי
+var QB_KEEP = 60;                  // כמה לוחות מהסרגל נשמרים (הישנים נמחקים עם השאלות שלהם)
 
 // מטלות שרוצים לראות בהן גם "לא הוגש".
 // הסקריפט בודק אילו תלמידים (תיקיות אישיות) עוד לא הגישו את המטלה.
@@ -58,6 +62,7 @@ function doGet(e) {
     if (p.action === 'lesson') return json_(findLesson_(p.code));
     if (p.action === 'qbList') return json_(qbList_(p.board));
     if (p.action === 'actCurrent') return json_(actCurrent_());
+    if (p.action === 'dockState') return json_(dockState_());
     return json_({ ok: true, service: 'beit-midrash' });
   } catch (err) {
     return json_({ ok: false, error: msg_(err) });
@@ -102,6 +107,9 @@ function doPost(e) {
       case 'actOpen':         return json_(actOpen_(data.open === true));
       case 'actClear':        return json_(actClear_());
       case 'actResults':      return json_(actTeacher_());
+      case 'boardOpen':       return json_(boardOpen_(data.title, data.page));
+      case 'boardSet':        return json_(boardSet_(data.id, data.open === true));
+      case 'boardList':       return json_({ ok: true, boards: qbBoardsList_().concat(QBOARD_TITLES), active: getJson_('QB_ACTIVE') });
     }
     return json_({ ok: false, error: 'פעולה לא מוכרת' });
   } catch (err) {
@@ -463,7 +471,52 @@ function presenceList_() {
 // כל שאלה נשמרת במאפיין נפרד: qb_<דף>_<מזהה>
 function qbBoard_(board) {
   board = String(board || '');
-  return QBOARDS.indexOf(board) !== -1 ? board : '';
+  if (QBOARDS.indexOf(board) !== -1) return board;
+  if (/^d[a-z0-9]{4,14}$/.test(board) && qbBoardsList_().some(function (b) { return b.id === board; })) return board;
+  return '';
+}
+// לוח פתוח לכתיבה רק כשהוא הלוח הפעיל בסרגל.
+function qbIsOpen_(board) {
+  var a = getJson_('QB_ACTIVE');
+  return !!(a && a.id === board);
+}
+function qbBoardsList_() { return getJson_('QB_LIST') || []; }
+function boardOpen_(title, page) {
+  title = clean_(title).slice(0, 120);
+  if (title.length < 2) return { ok: false, error: 'כתבו כותרת ללוח.' };
+  page = String(page || '').slice(0, 80);
+  if (!/^[\w.-]+\.html$/.test(page)) page = '';
+  var lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    var props = PropertiesService.getScriptProperties();
+    var b = { id: 'd' + Date.now().toString(36), title: title, page: page, created: Date.now() };
+    var list = [b].concat(qbBoardsList_());
+    list.slice(QB_KEEP).forEach(function (old) {          // לוחות ישנים מאוד - נמחקים עם השאלות שלהם
+      Object.keys(props.getProperties()).forEach(function (k) { if (k.indexOf('qb_' + old.id + '_') === 0) props.deleteProperty(k); });
+    });
+    props.setProperty('QB_LIST', JSON.stringify(list.slice(0, QB_KEEP)));
+    props.setProperty('QB_ACTIVE', JSON.stringify({ id: b.id, title: b.title }));
+    return { ok: true, board: b };
+  } finally {
+    lock.releaseLock();
+  }
+}
+function boardSet_(id, open) {
+  var props = PropertiesService.getScriptProperties();
+  if (!open) { props.deleteProperty('QB_ACTIVE'); return { ok: true, active: null }; }
+  id = qbBoard_(id);
+  if (!id) return { ok: false, error: 'הלוח לא נמצא' };
+  var b = qbBoardsList_().concat(QBOARD_TITLES).filter(function (x) { return x.id === id; })[0] || { id: id, title: 'לוח שאלות' };
+  props.setProperty('QB_ACTIVE', JSON.stringify({ id: b.id, title: b.title }));
+  return { ok: true, active: { id: b.id, title: b.title } };
+}
+// מה פתוח עכשיו לתלמידים - הסרגל בודק את זה כל כמה שניות
+function dockState_() {
+  var b = getJson_('QB_ACTIVE'), a = getJson_('ACTIVITY');
+  return { ok: true,
+           board: b ? { id: b.id, title: b.title } : null,
+           activity: (a && a.open) ? { id: a.id, type: a.type, prompt: a.prompt } : null };
 }
 function qbItems_(board) {
   var props = PropertiesService.getScriptProperties().getProperties();
@@ -482,7 +535,7 @@ function qbItems_(board) {
 function qbList_(board) {
   board = qbBoard_(board);
   if (!board) return { ok: false, error: 'אין לוח שאלות בדף הזה' };
-  return { ok: true, items: qbItems_(board), now: Date.now() };
+  return { ok: true, items: qbItems_(board), open: qbIsOpen_(board), now: Date.now() };
 }
 function qbAdd_(d) {
   var board = qbBoard_(d.board);
@@ -491,6 +544,7 @@ function qbAdd_(d) {
   var text = clean_(d.text).slice(0, QB_MAX_LEN);
   if (name.length < 2) return { ok: false, error: 'כתבו את השם שלכם.' };
   if (text.length < 4) return { ok: false, error: 'כתבו שאלה.' };
+  if (!qbIsOpen_(board)) return { ok: false, closed: true, error: 'המורה סגר את הלוח.' };
   var cache = CacheService.getScriptCache();
   var burst = Number(cache.get('qbBurst_' + board) || 0);
   if (burst >= 60) return { ok: false, error: 'נשלחו הרבה שאלות בבת אחת. נסו שוב בעוד דקה.' };

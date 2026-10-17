@@ -34,7 +34,7 @@
         .then(function(r){ return r.json(); })
         .then(function(res){
           if(res && res.ended){ end(); return; }
-          if(res && res.ok) actNotice(res.act);
+          if(res && res.ok && !window.BM_DOCK) actNotice(res.act);   /* בדפים עם סרגל הכלים - הסרגל מודיע */
           if(res && res.ok && onDone) onDone(res);
         })
         .catch(function(){ /* בלי חיבור - ננסה שוב בדיווח הבא */ });

@@ -1,30 +1,25 @@
 /* ============================================================
-   לוח שאלות (כמו פאדלט) - מתחת לתקציר הפרק
+   לוח שיתופי (כמו פאדלט)
    ============================================================
-   בדף שיש בו <section data-qboard="שם-הדף"> הסקריפט בונה:
+   window.BM_QBOARD.mount(container, boardId, opts) בונה בתוך container:
    - טופס קצר: שם + שאלה (עם פתיחי משפט למי שמתקשה להתחיל)
    - לוח פתקים צבעוניים עם כל השאלות של הכיתה, מתעדכן לבד
    - כפתור "גם אני שואל/ת" על כל שאלה
    מורה שנכנס לאזור האישי (באותה לשונית) רואה גם "נדון בכיתה" ו"מחיקה".
-   השאלות נשמרות בסקריפט של המורה (Code.gs, QBOARDS).
+   הלוח נפתח מסרגל הכלים בצד המסך (assets/class-dock.js). כשהמורה סוגר
+   אותו, הטופס נעלם והשאלות נשארות לקריאה.
+   opts: { intro: טקסט מעל הטופס, onClosed: פונקציה כשהמורה סגר את הלוח }
+   מחזיר { destroy(), reload() }.
    ============================================================ */
 (function(){
   "use strict";
-  var root = document.querySelector("[data-qboard]");
-  var API = window.BM_API_URL;
-  if(!root || !API) return;
-  var board = root.getAttribute("data-qboard");
-  var body = root.querySelector(".card-body") || root;
+  if(window.BM_QBOARD) return;
   var MAX = 200;
   var POLL_MS = 15000;
   var MINE_KEY = "bm-qb-mine";
   var LIKED_KEY = "bm-qb-liked";
   var STARTERS = ["למה", "איך ייתכן ש", "מה היה קורה אם", "מה הכוונה ב", "האם"];
   var COLORS = ["#FFF3B8", "#FFD9E1", "#D6ECFF", "#D9F5E3", "#EBDFFF", "#FFE2C6"];
-
-  var items = [];
-  var lastJson = "";
-  var timer = null;
 
   function teacherToken(){ try{ return sessionStorage.getItem("bm-teacher-token") || ""; }catch(e){ return ""; } }
   function readSet(key){ try{ return JSON.parse(localStorage.getItem(key) || "[]"); }catch(e){ return []; } }
@@ -55,10 +50,10 @@
   }
 
   function get(params){
-    return fetch(API + "?" + new URLSearchParams(params).toString()).then(function(r){ return r.json(); });
+    return fetch(window.BM_API_URL + "?" + new URLSearchParams(params).toString()).then(function(r){ return r.json(); });
   }
   function post(data){
-    return fetch(API, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" }, body:JSON.stringify(data) })
+    return fetch(window.BM_API_URL, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" }, body:JSON.stringify(data) })
       .then(function(r){ return r.json(); });
   }
 
@@ -105,47 +100,57 @@
     ".qw-empty{padding:22px;text-align:center;border:1px dashed #D8C9A3;border-radius:14px;color:var(--ink-soft,#4B6577)}" +
     ".qw-teacher{margin:0 0 10px;padding:6px 12px;border-radius:10px;background:#E4EEEA;color:#1F5A4D;font-size:.9rem}" +
     ".qw-teacher a{color:#123A78;font-weight:700;white-space:nowrap}" +
+    ".qw-closed{margin:0;padding:10px 12px;border-radius:10px;background:#FFEBDC;color:#8A3D07;font-weight:700}" +
+    ".qw-closed[hidden],.qw-form[hidden]{display:none}" +
     "@media print{.qw-form,.qw-acts,.qw-live{display:none}}";
   var st = document.createElement("style");
   st.textContent = css;
   document.head.appendChild(st);
 
+  var uid = 0;
+  function mount(body, board, opts){
+  opts = opts || {};
+  uid++;
+  var P = "qw" + uid + "-";
+  var items = [];
+  var lastJson = "";
+  var isOpen = true;
   /* ---------- מבנה ---------- */
   var savedName = "";
   try{ savedName = localStorage.getItem("bm-qb-name") || localStorage.getItem("bm-lesson-name") || ""; }catch(e){}
   body.innerHTML =
-    '<p class="qw-intro">קראתם את התקציר? כתבו <b>שאלה אחת</b> שעלתה לכם - משהו שלא הבנתם, שהפתיע אתכם או שמעניין אתכם לדעת. כל הכיתה רואה את השאלות, ונדבר עליהן בשיעור.</p>' +
-    (teacherToken() ? '<p class="qw-teacher">🗝️ אתם מחוברים כמורה: אפשר לסמן שאלה "נדון בכיתה" או למחוק אותה. ' +
-      '<a href="screen.html?board=' + encodeURIComponent(board) + '" target="_blank" rel="noopener">📺 הצגת הלוח על המקרן</a></p>' : '') +
+    '<p class="qw-intro">' + (opts.intro || 'כתבו <b>שאלה אחת</b> שעלתה לכם - משהו שלא הבנתם, שהפתיע אתכם או שמעניין אתכם לדעת. כל הכיתה רואה את השאלות.') + '</p>' +
+    '<p class="qw-closed" hidden>המורה סגר את הלוח. אפשר לקרוא את השאלות, אבל לא להוסיף.</p>' +
     '<form class="qw-form" novalidate>' +
       '<div class="qw-row">' +
-        '<div class="qw-field qw-field--name"><label class="qw-label" for="qwName">השם שלכם</label>' +
-          '<input class="qw-input" id="qwName" type="text" maxlength="40" autocomplete="name" value="' + esc(savedName) + '"></div>' +
-        '<div class="qw-field qw-field--q"><label class="qw-label" for="qwText">השאלה שלכם</label>' +
-          '<textarea class="qw-text" id="qwText" maxlength="' + MAX + '" placeholder="לדוגמה: למה ה\' לא אומר לאברם לאן הוא הולך?"></textarea></div>' +
+        '<div class="qw-field qw-field--name"><label class="qw-label" for="' + P + 'name">השם שלכם</label>' +
+          '<input class="qw-input" id="' + P + 'name" type="text" maxlength="40" autocomplete="name" value="' + esc(savedName) + '"></div>' +
+        '<div class="qw-field qw-field--q"><label class="qw-label" for="' + P + 'text">השאלה שלכם</label>' +
+          '<textarea class="qw-text" id="' + P + 'text" maxlength="' + MAX + '" placeholder="כתבו כאן את השאלה…"></textarea></div>' +
       '</div>' +
       '<div class="qw-starters" role="group" aria-label="פתיחי משפט"><span class="qw-starters-label">לא יודעים איך להתחיל? בחרו:</span>' +
         STARTERS.map(function(s){ return '<button type="button" class="qw-chip" data-starter="' + esc(s) + '">' + esc(s) + '…</button>'; }).join("") +
       '</div>' +
       '<div class="qw-foot">' +
-        '<button type="submit" class="qw-btn" id="qwSend">הוספת השאלה ללוח</button>' +
-        '<span class="qw-count" id="qwCount" aria-live="polite">0/' + MAX + '</span>' +
+        '<button type="submit" class="qw-btn">הוספת השאלה ללוח</button>' +
+        '<span class="qw-count" aria-live="polite">0/' + MAX + '</span>' +
       '</div>' +
-      '<p class="qw-msg" id="qwMsg" role="status" aria-live="polite"></p>' +
+      '<p class="qw-msg" role="status" aria-live="polite"></p>' +
     '</form>' +
-    '<div class="qw-head"><span class="qw-total" id="qwTotal" aria-live="polite"></span><span class="qw-live">הלוח מתעדכן לבד</span></div>' +
-    '<ul class="qw-wall" id="qwWall" aria-label="שאלות הכיתה"></ul>' +
-    '<p class="qw-empty" id="qwEmpty" hidden>עוד אין שאלות בלוח. תהיו הראשונים!</p>';
+    '<div class="qw-head"><span class="qw-total" aria-live="polite"></span><span class="qw-live">הלוח מתעדכן לבד</span></div>' +
+    '<ul class="qw-wall" aria-label="שאלות הכיתה"></ul>' +
+    '<p class="qw-empty" hidden>עוד אין שאלות בלוח. תהיו הראשונים!</p>';
 
   var form = body.querySelector(".qw-form");
-  var nameEl = body.querySelector("#qwName");
-  var textEl = body.querySelector("#qwText");
-  var sendBtn = body.querySelector("#qwSend");
-  var countEl = body.querySelector("#qwCount");
-  var msgEl = body.querySelector("#qwMsg");
-  var wall = body.querySelector("#qwWall");
-  var emptyEl = body.querySelector("#qwEmpty");
-  var totalEl = body.querySelector("#qwTotal");
+  var nameEl = body.querySelector("#" + P + "name");
+  var textEl = body.querySelector("#" + P + "text");
+  var sendBtn = body.querySelector(".qw-btn");
+  var countEl = body.querySelector(".qw-count");
+  var msgEl = body.querySelector(".qw-msg");
+  var wall = body.querySelector(".qw-wall");
+  var emptyEl = body.querySelector(".qw-empty");
+  var totalEl = body.querySelector(".qw-total");
+  var closedEl = body.querySelector(".qw-closed");
 
   function setMsg(text, ok){ msgEl.textContent = text || ""; msgEl.classList.toggle("is-ok", !!ok); }
 
@@ -171,7 +176,7 @@
     setMsg("שולחים…", true);
     post({ action:"qbAdd", board:board, name:name, text:text }).then(function(res){
       sendBtn.disabled = false;
-      if(!res || !res.ok){ setMsg((res && res.error) || "השליחה לא הצליחה. נסו שוב."); return; }
+      if(!res || !res.ok){ setMsg((res && res.error) || "השליחה לא הצליחה. נסו שוב."); if(res && res.closed) load(); return; }
       try{ localStorage.setItem("bm-qb-name", name); }catch(err){}
       addToSet(MINE_KEY, res.item.id);
       items = [res.item].concat(items.filter(function(x){ return x.id !== res.item.id; }));
@@ -250,12 +255,29 @@
     return get({ action:"qbList", board:board }).then(function(res){
       if(!res || !res.ok){ totalEl.textContent = (res && res.error) || ""; return; }
       items = res.items || [];
+      var wasOpen = isOpen;
+      isOpen = res.open !== false;
+      form.hidden = !isOpen;
+      closedEl.hidden = isOpen;
+      if(wasOpen && !isOpen && opts.onClosed) opts.onClosed();
       render();
     }).catch(function(){ totalEl.textContent = "אין חיבור לשרת כרגע - השאלות יופיעו כשהחיבור יחזור."; });
   }
+  function onVisible(){ if(document.visibilityState === "visible") load(); }
   load();
-  timer = setInterval(function(){ if(document.visibilityState === "visible") load(); }, POLL_MS);
-  document.addEventListener("visibilitychange", function(){ if(document.visibilityState === "visible") load(); });
+  var t1 = setInterval(function(){ if(document.visibilityState === "visible") load(); }, POLL_MS);
+  document.addEventListener("visibilitychange", onVisible);
   /* "לפני X דקות" מתעדכן גם בלי שאלות חדשות */
-  setInterval(function(){ lastJson = ""; render(); }, 60000);
+  var t2 = setInterval(function(){ lastJson = ""; render(); }, 60000);
+  return {
+    reload: load,
+    destroy: function(){
+      clearInterval(t1); clearInterval(t2);
+      document.removeEventListener("visibilitychange", onVisible);
+      body.innerHTML = "";
+    }
+  };
+  }
+
+  window.BM_QBOARD = { mount: mount };
 })();
