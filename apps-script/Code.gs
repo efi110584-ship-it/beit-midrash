@@ -7,7 +7,7 @@
  * 2. לוח הגשות למורה: מציג את כל ההגשות, כולל אלה שכבר היו בתיקיות. מוגן בסיסמה.
  * 3. הודעה מהמורה בדף הבית.
  * 4. קוד לשיעור.
- * 5. ציון והערה לכל עבודה (רק המורה רואה אותם).
+ * 5. ציון והערה לכל עבודה (רק המורה רואה אותם). אפשר גם להסתיר עבודה מהלוח (הקובץ נשאר בדרייב).
  * 6. בקרת שיעור: בזמן שיעור עם קוד, המורה רואה מי מהתלמידים נמצא בדף ומי יצא ממנו.
  *    התלמיד רואה על המסך שהבקרה פעילה. המידע נשמר עד 6 שעות ונמחק לבד.
  * 7. לוח שאלות בדפי הפרקים (כמו פאדלט): התלמידים כותבים שאלות שעולות מהתקציר,
@@ -93,6 +93,7 @@ function doPost(e) {
       case 'presenceList':    return json_(presenceList_());
       case 'clearLesson':     PropertiesService.getScriptProperties().deleteProperty('LESSON'); return json_({ ok: true });
       case 'setGrade':        return json_(setGrade_(data.fileId, data.grade, data.comment));
+      case 'setHidden':       return json_(setHidden_(data.fileId, data.hidden === true));
       case 'qbDelete':        return json_(qbDelete_(data.board, data.id));
       case 'qbMark':          return json_(qbMark_(data.board, data.id, data.done === true));
       case 'actStart':        return json_(actStart_(data.type, data.prompt, data.options));
@@ -207,10 +208,12 @@ function listSubmissions_() {
     addMissing_(cls, students, out);
   });
   var grades = gradeMap_();
+  var hidden = hiddenMap_();
   out.forEach(function (x) {
     var g = x.id && grades[x.id];
     x.grade = g ? g.g : '';
     x.comment = g ? g.c : '';
+    x.hidden = !!(x.id && hidden[x.id]);
   });
   out.sort(function (a, b) { return b.time - a.time; });
   return out;
@@ -282,6 +285,21 @@ function markChecked_(fileId, checked) {
   var props = PropertiesService.getScriptProperties();
   if (checked) props.setProperty('chk_' + fileId, '1'); else props.deleteProperty('chk_' + fileId);
   return { ok: true };
+}
+
+// ---------- הסתרת עבודה מהלוח ----------
+// hid_<מזהה הקובץ> = 1. הקובץ עצמו לא נמחק מהדרייב, ואפשר להחזיר אותו ללוח.
+function hiddenMap_() {
+  var props = PropertiesService.getScriptProperties().getProperties();
+  var map = {};
+  Object.keys(props).forEach(function (k) { if (k.indexOf('hid_') === 0) map[k.slice(4)] = true; });
+  return map;
+}
+function setHidden_(fileId, hidden) {
+  if (!/^[\w-]{10,}$/.test(String(fileId || ''))) return { ok: false, error: 'מזהה קובץ לא תקין' };
+  var props = PropertiesService.getScriptProperties();
+  if (hidden) props.setProperty('hid_' + fileId, '1'); else props.deleteProperty('hid_' + fileId);
+  return { ok: true, hidden: hidden };
 }
 
 // ---------- ציונים ----------

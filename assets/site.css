@@ -4722,3 +4722,8 @@ body.is-teacher-view .live-now:where([data-css~="index"], [data-css~="index"] *)
 .tt-act-results:where([data-css~="index"], [data-css~="index"] *){ padding:10px; border:1px solid #DCE4F1; border-radius:12px; background:#FBFCFE; display:flex; flex-direction:column; gap:12px; }
 .tt-act-people:where([data-css~="index"], [data-css~="index"] *) summary{ cursor:pointer; font-weight:700; color:#123A78; min-height:36px; display:flex; align-items:center; }
 .tt-act-plist:where([data-css~="index"], [data-css~="index"] *){ margin:6px 0 0; padding-inline-start:20px; columns:240px; font-size:.92rem; }
+
+/* ===== לוח הגשות: הסתרת עבודה ===== */
+.tt-btn--quiet:where([data-css~="index"], [data-css~="index"] *){ color:#56637A; border-color:transparent; background:transparent; }
+.tt-btn--quiet:hover:where([data-css~="index"], [data-css~="index"] *){ color:#B42318; background:#FDECEA; }
+.tt-stat--hidden:where([data-css~="index"], [data-css~="index"] *) .tt-stat-num{ color:#56637A; }

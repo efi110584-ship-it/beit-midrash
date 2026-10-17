@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=17">
+<link rel="stylesheet" href="assets/site.css?v=18">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -827,6 +827,22 @@
     document.getElementById("ttRows").addEventListener("click", function(e){
       var v = e.target.closest("[data-view]");
       if(v){ openViewer(v.getAttribute("data-view"), v); return; }
+      var h = e.target.closest("[data-hide]");
+      if(h){
+        var hid = h.getAttribute("data-id"), hide = h.getAttribute("data-hide") === "1";
+        h.disabled = true;
+        apiPost({ action:"setHidden", password:teacherToken(), fileId:hid, hidden:hide }).then(function(res){
+          if(handleAuthFailure(res)) return;
+          if(res && res.ok){
+            board.rows.forEach(function(r){ if(r.id === hid) r.hidden = hide; });
+            renderBoard();
+            document.getElementById("ttBoardMsg").textContent = hide
+              ? '✓ העבודה הוסתרה מהלוח (הקובץ נשאר בדרייב). אפשר להחזיר אותה מ"הוסתרו".'
+              : "✓ העבודה חזרה ללוח.";
+          } else { h.disabled = false; alert((res && res.error) || "הפעולה לא הצליחה."); }
+        }).catch(function(){ h.disabled = false; alert("אין חיבור לשרת כרגע. נסו שוב."); });
+        return;
+      }
       var b = e.target.closest("[data-check]"); if(!b) return;
       var id = b.getAttribute("data-check");
       b.disabled = true; b.textContent = "מסמנים…";
@@ -1005,7 +1021,7 @@
         return { id:x.id || "", name:x.student || "", task:x.task || "", subject:x.subject || 'תנ"ך',
                  cls:x.cls === "יא" ? 'י"א' : (x.cls === "יב" ? 'י"ב' : (x.cls || "")),
                  date:x.date || "", status:x.status || "pending", url:x.url || "", notes:x.notes || "",
-                 grade:x.grade == null ? "" : String(x.grade), comment:x.comment || "",
+                 grade:x.grade == null ? "" : String(x.grade), comment:x.comment || "", hidden:!!x.hidden,
                  unit:"", topic:"" };
       });
       board.rows.forEach(function(r){ var c = classify(r.task); r.unit = c.unit; r.topic = c.topic; });
@@ -1017,10 +1033,20 @@
   function renderBoard(){
     var subjEl = document.getElementById("ttSubj");
     if(!subjEl) return;
-    var all = board.rows;
+    /* עבודות מוסתרות לא נספרות בשום מקום, ומופיעות רק בסינון "הוסתרו" */
+    var visibleRows = board.rows.filter(function(r){ return !r.hidden; });
+    var hiddenRows = board.rows.filter(function(r){ return r.hidden; });
+    if(board.status === "hidden" && !hiddenRows.length) board.status = "all";
+    var viewHidden = board.status === "hidden";
+    var all = viewHidden ? hiddenRows : visibleRows;
+    function narrow(rows){
+      return rows.filter(function(r){
+        return (board.subj === "all" || r.subject === board.subj) && (board.unit === "all" || r.unit === board.unit) && (board.topic === "all" || r.topic === board.topic);
+      });
+    }
     var nav = document.getElementById("ttNavPending");
     if(nav){
-      var pend = all.filter(function(r){ return r.status === "pending"; }).length;
+      var pend = visibleRows.filter(function(r){ return r.status === "pending"; }).length;
       nav.textContent = pend;
       nav.hidden = !pend;
       nav.setAttribute("aria-label", pend + " ממתינות לבדיקה");
@@ -1028,8 +1054,10 @@
     var bySubj = all.filter(function(r){ return board.subj === "all" || r.subject === board.subj; });
     var byUnit = bySubj.filter(function(r){ return board.unit === "all" || r.unit === board.unit; });
     var byTask = byUnit.filter(function(r){ return board.topic === "all" || r.topic === board.topic; });
-    var shown = byTask.filter(function(r){ return board.status === "all" || r.status === board.status; });
+    var shown = viewHidden ? byTask : byTask.filter(function(r){ return board.status === "all" || r.status === board.status; });
     board.shown = shown;
+    var visNarrow = viewHidden ? narrow(visibleRows) : byTask;
+    var hidN = viewHidden ? byTask.length : narrow(hiddenRows).length;
 
     subjEl.innerHTML = [["all","כל המקצועות"],['תנ"ך','תנ"ך'],['תושב"ע','תושב"ע'],["עברית","עברית"]].map(function(s){
       var n = s[0] === "all" ? all.length : all.filter(function(r){ return r.subject === s[0]; }).length;
@@ -1037,8 +1065,10 @@
         escapeHtml(s[1]) + ' <span class="tt-count">' + n + '</span></button>';
     }).join("");
 
-    document.getElementById("ttStatus").innerHTML = [["all","כל ההגשות"],["pending","ממתינות לבדיקה"],["missing","לא הוגשו"],["checked","נבדקו"]].map(function(s){
-      var n = s[0] === "all" ? byTask.length : byTask.filter(function(r){ return r.status === s[0]; }).length;
+    var statuses = [["all","כל ההגשות"],["pending","ממתינות לבדיקה"],["missing","לא הוגשו"],["checked","נבדקו"]];
+    if(hiddenRows.length) statuses.push(["hidden","הוסתרו"]);
+    document.getElementById("ttStatus").innerHTML = statuses.map(function(s){
+      var n = s[0] === "hidden" ? hidN : (s[0] === "all" ? visNarrow.length : visNarrow.filter(function(r){ return r.status === s[0]; }).length);
       return '<button type="button" class="tt-stat tt-stat--' + s[0] + '" data-status="' + s[0] + '" aria-pressed="' + (board.status === s[0]) + '">' +
         '<span class="tt-stat-num">' + n + '</span><span class="tt-stat-label">' + escapeHtml(s[1]) + '</span></button>';
     }).join("");
@@ -1095,7 +1125,10 @@
         '</td>' +
         '<td class="tt-actions">' +
           (r.id ? '<button type="button" class="tt-btn tt-btn--small tt-btn--view" data-view="' + escapeAttr(r.id) + '">צפייה</button>' : '') +
-          (r.status === "pending" ? '<button type="button" class="tt-btn tt-btn--small" data-check="' + escapeAttr(r.id) + '">סימון כנבדק</button>' : '') +
+          (r.status === "pending" && !r.hidden ? '<button type="button" class="tt-btn tt-btn--small" data-check="' + escapeAttr(r.id) + '">סימון כנבדק</button>' : '') +
+          (r.id ? (r.hidden
+            ? '<button type="button" class="tt-btn tt-btn--small" data-hide="0" data-id="' + escapeAttr(r.id) + '">החזרה ללוח</button>'
+            : '<button type="button" class="tt-btn tt-btn--small tt-btn--quiet" data-hide="1" data-id="' + escapeAttr(r.id) + '" aria-label="הסתרת העבודה של ' + escapeAttr(r.name) + ' מהלוח">הסתרה</button>') : '') +
         '</td>' +
       '</tr>';
     }).join("");
