@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=18">
+<link rel="stylesheet" href="assets/site.css?v=19">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -615,12 +615,18 @@
             '<select id="ttUnit" class="tt-select"></select></span>' +
             '<span class="tt-filter-item"><label for="ttTopic" class="tt-label">נושא</label>' +
             '<select id="ttTopic" class="tt-select"></select></span>' +
+            '<span class="tt-filter-item tt-view" role="group" aria-label="סידור הטבלה">' +
+              '<button type="button" class="tt-tab" data-group-view="1">📂 לפי נושא</button>' +
+              '<button type="button" class="tt-tab" data-group-view="0">📄 רשימה אחת</button>' +
+            '</span>' +
           '</div>' +
           '<p class="tt-msg" id="ttBoardMsg" role="status" aria-live="polite">טוען הגשות…</p>' +
           '<div class="tt-table-wrap" id="ttTableWrap" hidden>' +
             '<table class="tt-table">' +
               '<caption class="visually-hidden">רשימת ההגשות</caption>' +
-              '<thead><tr><th scope="col">תלמיד/ה</th><th scope="col">יחידה ונושא</th><th scope="col">כיתה</th><th scope="col">תאריך</th><th scope="col">סטטוס</th><th scope="col">ציון</th><th scope="col"><span class="visually-hidden">פעולה</span></th></tr></thead>' +
+              '<thead><tr>' + [["name","תלמיד/ה"],["topic","יחידה ונושא"],["cls","כיתה"],["date","תאריך"],["status","סטטוס"],["grade","ציון"]].map(function(c){
+                return '<th scope="col" data-sort-col="' + c[0] + '"><button type="button" class="tt-sort" data-sort="' + c[0] + '">' + c[1] + '<span class="tt-sort-ico" aria-hidden="true"></span></button></th>';
+              }).join("") + '<th scope="col"><span class="visually-hidden">פעולה</span></th></tr></thead>' +
               '<tbody id="ttRows"></tbody>' +
             '</table>' +
           '</div>' +
@@ -723,7 +729,8 @@
     }
   }
 
-  var board = { rows:[], subj:"all", status:"all", unit:"all", topic:"all" };
+  var board = { rows:[], subj:"all", status:"all", unit:"all", topic:"all", sort:{ key:"date", dir:-1 }, group:true, collapsed:{} };
+  try{ board.group = localStorage.getItem("bm-board-group") !== "0"; }catch(e){}
   var SUBJ_CLASS = { 'תנ"ך':"tnk", 'תושב"ע':"tsb", "עברית":"heb" };
   var STATUS_INFO = {
     pending:{ label:"ממתין לבדיקה", cls:"pending" },
@@ -822,7 +829,34 @@
       board.unit = e.target.value; board.topic = "all"; renderBoard();
     });
     document.getElementById("ttTopic").addEventListener("change", function(e){
+      var o = e.target.options[e.target.selectedIndex];
+      if(o && o.getAttribute("data-unit")) board.unit = o.getAttribute("data-unit");
       board.topic = e.target.value; renderBoard();
+    });
+    document.getElementById("ttTableWrap").addEventListener("click", function(e){
+      var sb = e.target.closest("[data-sort]");
+      if(sb){
+        var k = sb.getAttribute("data-sort");
+        if(board.sort.key === k) board.sort.dir = -board.sort.dir;
+        else board.sort = { key:k, dir:(k === "date" || k === "grade") ? -1 : 1 };
+        renderBoard();
+        var again = document.querySelector('[data-sort="' + k + '"]'); if(again) again.focus();
+        return;
+      }
+      var gb = e.target.closest("[data-group-key]");
+      if(gb){
+        var gk = gb.getAttribute("data-group-key");
+        board.collapsed[gk] = !board.collapsed[gk];
+        renderBoard();
+        var btn = document.querySelector('[data-group-key="' + gk.replace(/["\\]/g, "\\$&") + '"]'); if(btn) btn.focus();
+      }
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-group-view]"), function(b){
+      b.addEventListener("click", function(){
+        board.group = b.getAttribute("data-group-view") === "1";
+        try{ localStorage.setItem("bm-board-group", board.group ? "1" : "0"); }catch(e){}
+        renderBoard();
+      });
     });
     document.getElementById("ttRows").addEventListener("click", function(e){
       var v = e.target.closest("[data-view]");
@@ -1021,7 +1055,7 @@
         return { id:x.id || "", name:x.student || "", task:x.task || "", subject:x.subject || 'תנ"ך',
                  cls:x.cls === "יא" ? 'י"א' : (x.cls === "יב" ? 'י"ב' : (x.cls || "")),
                  date:x.date || "", status:x.status || "pending", url:x.url || "", notes:x.notes || "",
-                 grade:x.grade == null ? "" : String(x.grade), comment:x.comment || "", hidden:!!x.hidden,
+                 grade:x.grade == null ? "" : String(x.grade), comment:x.comment || "", hidden:!!x.hidden, time:x.time || 0,
                  unit:"", topic:"" };
       });
       board.rows.forEach(function(r){ var c = classify(r.task); r.unit = c.unit; r.topic = c.topic; });
@@ -1084,18 +1118,70 @@
     document.getElementById("ttUnit").innerHTML = '<option value="all">כל היחידות</option>' + units.map(function(u){
       return '<option value="' + escapeAttr(u) + '"' + (u === board.unit ? " selected" : "") + '>' + escapeHtml(u) + ' (' + countIn(bySubj, "unit", u) + ')</option>';
     }).join("");
-    var topicOrder = [];
-    (window.BM_TASKS ? window.BM_TASKS.units() : []).forEach(function(u){
-      if(u.title === board.unit) (u.topics || []).forEach(function(t){ topicOrder.push(window.BM_TASKS.fileSafe(t.title)); });
-    });
+    function topicOrderOf(unitTitle){
+      var list = [];
+      (window.BM_TASKS ? window.BM_TASKS.units() : []).forEach(function(u){
+        if(u.title === unitTitle) (u.topics || []).forEach(function(t){ list.push(window.BM_TASKS.fileSafe(t.title)); });
+      });
+      return list;
+    }
+    var topicOrder = topicOrderOf(board.unit);
     var topics = [];
     byUnit.forEach(function(r){ if(topics.indexOf(r.topic) === -1) topics.push(r.topic); });
     topics.sort(function(a, b){ return orderOf(topicOrder, a) - orderOf(topicOrder, b); });
     var topicSel = document.getElementById("ttTopic");
-    topicSel.disabled = board.unit === "all";
-    topicSel.innerHTML = '<option value="all">' + (board.unit === "all" ? "בחרו קודם יחידה" : "כל הנושאים") + '</option>' + (board.unit === "all" ? "" : topics.map(function(t){
-      return '<option value="' + escapeAttr(t) + '"' + (t === board.topic ? " selected" : "") + '>' + escapeHtml(t) + ' (' + countIn(byUnit, "topic", t) + ')</option>';
-    }).join(""));
+    topicSel.disabled = false;
+    if(board.unit === "all"){
+      /* בלי יחידה: כל הנושאים, מקובצים לפי יחידה. בחירת נושא בוחרת גם את היחידה שלו */
+      topicSel.innerHTML = '<option value="all">כל הנושאים</option>' + units.map(function(u){
+        var inUnit = bySubj.filter(function(r){ return r.unit === u; });
+        var ord = topicOrderOf(u), ts = [];
+        inUnit.forEach(function(r){ if(ts.indexOf(r.topic) === -1) ts.push(r.topic); });
+        ts.sort(function(a, b){ return orderOf(ord, a) - orderOf(ord, b); });
+        return '<optgroup label="' + escapeAttr(u) + '">' + ts.map(function(t){
+          return '<option value="' + escapeAttr(t) + '" data-unit="' + escapeAttr(u) + '">' + escapeHtml(t) + ' (' + countIn(inUnit, "topic", t) + ')</option>';
+        }).join("") + '</optgroup>';
+      }).join("");
+    } else {
+      topicSel.innerHTML = '<option value="all">כל הנושאים</option>' + topics.map(function(t){
+        return '<option value="' + escapeAttr(t) + '"' + (t === board.topic ? " selected" : "") + '>' + escapeHtml(t) + ' (' + countIn(byUnit, "topic", t) + ')</option>';
+      }).join("");
+    }
+
+    /* מיון: לפי העמודה שנבחרה. בתצוגה "לפי נושא" - קודם לפי סדר היחידות והנושאים באתר */
+    var STATUS_ORDER = { pending:0, missing:1, checked:2 };
+    function dateKey(r){
+      var m = /^(\d{1,2})[.\/-](\d{1,2})[.\/-](\d{4})$/.exec(r.date || "");
+      return m ? (+m[3]) * 1e4 + (+m[2]) * 100 + (+m[1]) + (r.time % 86400000) / 1e9 : r.time / 1e13;
+    }
+    function cmp(a, b){
+      var k = board.sort.key, d = board.sort.dir, x, y;
+      if(k === "date"){ x = dateKey(a); y = dateKey(b); }
+      else if(k === "grade"){ x = a.grade === "" ? -1 : Number(a.grade); y = b.grade === "" ? -1 : Number(b.grade); }
+      else if(k === "status"){ x = STATUS_ORDER[a.status] || 0; y = STATUS_ORDER[b.status] || 0; }
+      else if(k === "topic"){ x = (a.unit + " " + (a.topic || a.task)); y = (b.unit + " " + (b.topic || b.task)); }
+      else { x = String(a[k] || ""); y = String(b[k] || ""); }
+      if(typeof x === "string") return d * x.localeCompare(y, "he") || (b.time - a.time);
+      return d * (x - y) || (b.time - a.time);
+    }
+    function groupKey(r){ return r.unit + "||" + (r.topic || r.task); }
+    if(board.group){
+      shown.sort(function(a, b){
+        return (orderOf(unitOrder, a.unit) - orderOf(unitOrder, b.unit)) || a.unit.localeCompare(b.unit, "he") ||
+          (orderOf(topicOrderOf(a.unit), a.topic) - orderOf(topicOrderOf(b.unit), b.topic)) || String(a.topic || a.task).localeCompare(String(b.topic || b.task), "he") ||
+          cmp(a, b);
+      });
+    } else {
+      shown.sort(cmp);
+    }
+    board.shown = shown;
+    Array.prototype.forEach.call(document.querySelectorAll("[data-sort-col]"), function(th){
+      var k = th.getAttribute("data-sort-col");
+      th.setAttribute("aria-sort", board.sort.key === k ? (board.sort.dir > 0 ? "ascending" : "descending") : "none");
+    });
+    Array.prototype.forEach.call(document.querySelectorAll("[data-group-view]"), function(b){
+      b.setAttribute("aria-pressed", String((b.getAttribute("data-group-view") === "1") === board.group));
+    });
 
     var wrap = document.getElementById("ttTableWrap");
     var msg = document.getElementById("ttBoardMsg");
@@ -1106,16 +1192,42 @@
       wrap.hidden = false;
       if(msg.textContent === "אין הגשות שמתאימות לסינון הזה." || msg.textContent === "עדיין אין הגשות.") msg.textContent = "";
     }
+    var groupStats = {};
+    if(board.group) shown.forEach(function(r){
+      var g = groupKey(r);
+      var st = groupStats[g] || (groupStats[g] = { n:0, pending:0 });
+      st.n++; if(r.status === "pending") st.pending++;
+    });
+    var lastGroup = null;
     document.getElementById("ttRows").innerHTML = shown.map(function(r){
+      var head = "";
+      if(board.group){
+        var g = groupKey(r);
+        if(g !== lastGroup){
+          lastGroup = g;
+          var gs = groupStats[g], open = !board.collapsed[g];
+          head = '<tr class="tt-group-row"><th colspan="7" scope="colgroup">' +
+            '<button type="button" class="tt-group-btn" data-group-key="' + escapeAttr(g) + '" aria-expanded="' + open + '">' +
+              '<span class="tt-group-chev" aria-hidden="true">' + (open ? "▾" : "◂") + '</span>' +
+              '<span class="tt-subj-tag tt-subj-tag--' + (SUBJ_CLASS[r.subject] || "tnk") + '">' + escapeHtml(r.subject) + '</span>' +
+              '<span class="tt-group-title">' + escapeHtml(r.unit) + ' · <b>' + escapeHtml(r.topic || r.task) + '</b></span>' +
+              '<span class="tt-group-meta">' + gs.n + (gs.n === 1 ? " עבודה" : " עבודות") + (gs.pending ? ' · <span class="tt-group-pend">' + gs.pending + ' ממתינות</span>' : "") + '</span>' +
+            '</button></th></tr>';
+        }
+        if(board.collapsed[g]) return head;
+      }
+      return head + rowHtml(r);
+    }).join("");
+    function rowHtml(r){
       var st = STATUS_INFO[r.status] || STATUS_INFO.pending;
       var label = r.topic || r.task;
-      var task = '<span class="tt-unit">' + escapeHtml(r.unit) + '</span>' + (/^https:\/\//.test(r.url || "")
+      var task = (board.group ? '' : '<span class="tt-unit">' + escapeHtml(r.unit) + '</span>') + (/^https:\/\//.test(r.url || "")
         ? '<a href="' + escapeAttr(r.url) + '" target="_blank" rel="noopener">' + escapeHtml(label) + '</a>'
         : escapeHtml(label));
       var notes = r.notes ? '<span class="tt-notes">' + escapeHtml(r.notes) + '</span>' : '';
       return '<tr>' +
         '<td>' + escapeHtml(r.name) + '</td>' +
-        '<td><span class="tt-subj-tag tt-subj-tag--' + (SUBJ_CLASS[r.subject] || "tnk") + '">' + escapeHtml(r.subject) + '</span> ' + task + notes + '</td>' +
+        '<td>' + (board.group ? '' : '<span class="tt-subj-tag tt-subj-tag--' + (SUBJ_CLASS[r.subject] || "tnk") + '">' + escapeHtml(r.subject) + '</span> ') + task + notes + '</td>' +
         '<td>' + escapeHtml(r.cls) + '</td>' +
         '<td class="tt-date">' + escapeHtml(r.date || "-") + '</td>' +
         '<td><span class="tt-pill tt-pill--' + st.cls + '">' + st.label + '</span></td>' +
@@ -1131,7 +1243,7 @@
             : '<button type="button" class="tt-btn tt-btn--small tt-btn--quiet" data-hide="1" data-id="' + escapeAttr(r.id) + '" aria-label="הסתרת העבודה של ' + escapeAttr(r.name) + ' מהלוח">הסתרה</button>') : '') +
         '</td>' +
       '</tr>';
-    }).join("");
+    }
 
     document.getElementById("ttRosterNote").textContent = all.some(function(r){ return r.status === "missing"; })
       ? ""
