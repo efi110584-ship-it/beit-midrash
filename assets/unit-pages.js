@@ -16,6 +16,8 @@
   var PAGE = location.pathname.split("/").pop() || "";
   var KEY = "bm-unitpage:" + PAGE;
   var KEY_LAST = "bm-last-place-v1";
+  /* במחוון למורה (?key=1, assets/answer-key.js) לא רושמים התקדמות ולא "המקום האחרון" */
+  var KEYMODE = /[?&]key(=|&|$)/.test(location.search);
 
   function arr(x){ return Array.prototype.slice.call(x); }
   var lesson = ["lesson", "buildings", "method", "solved"].map(function(id){ return document.getElementById(id); }).filter(Boolean);
@@ -128,7 +130,7 @@
     arr(document.querySelectorAll(".bm-send-gate-note:not(#checkGateNote)")).forEach(function(n){ n.classList.toggle("up-send-hide", !onBagrut); });
     var sb = document.getElementById("sendToTeacherBtn");
     if(sb && !sb.dataset.upLabel){ sb.dataset.upLabel = "1"; sb.textContent = "📤 שלחו למורה את שאלות הבגרות"; }
-    try{ localStorage.setItem(KEY, PAGES[current].id); }catch(e){}
+    if(!KEYMODE){ try{ localStorage.setItem(KEY, PAGES[current].id); }catch(e){} }
     if(history.replaceState) history.replaceState(null, "", "#" + PAGES[current].id);
     if(PAGES[current].id === "explain") markDone(0);
     saveLast();
@@ -163,6 +165,7 @@
   document.addEventListener("change", refreshDone);
 
   function saveLast(){
+    if(KEYMODE) return;
     var finished = PAGES.every(function(p, j){ return isDone(p, j); });
     try{
       localStorage.setItem(KEY_LAST, JSON.stringify({
