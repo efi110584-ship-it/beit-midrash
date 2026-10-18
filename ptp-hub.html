@@ -21,6 +21,11 @@
 .bq-chip:focus-visible{ outline:3px solid #FF7A1A; outline-offset:2px; }
 .bq-panel{ background:#fff; border:1px solid #DCE4F1; border-top:4px solid var(--acc); border-radius:14px; padding:16px; }
 .bq-panel[hidden]{ display:none; }
+.bq-cta{ display:flex; align-items:center; justify-content:center; gap:8px; width:min(100% - 32px, 1200px); margin:10px auto; min-height:48px; padding:10px 18px; border:2px solid #9A3412; border-radius:14px; background:#FBE7DA; color:#7C2D12; font:inherit; font-size:1.05rem; cursor:pointer; box-sizing:border-box; }
+.bq-cta:hover{ background:#F8D6C0; }
+.bq-cta:focus-visible{ outline:3px solid #FF7A1A; outline-offset:2px; }
+.bq-cta--in{ width:100%; margin:6px 0 0; }
+@media print{ .bq-cta{ display:none !important; } }
 @media print{ .bq-chips{ display:none; } .bq-panel[hidden]{ display:block !important; } }
 </style>
 </head>
@@ -1923,6 +1928,35 @@ loadAnswers();
     });
   });
   try{ var last = document.getElementById(localStorage.getItem('ptp-hub-bq') || ''); if(last && chips.indexOf(last) !== -1) pick(last); }catch(e){}
+
+  /* קל למצוא: כפתור בולט מתחת לשורת הלשוניות, וקישור בסוף כל מצווה שיש לה שאלות בגרות */
+  function open(gid){
+    if(typeof activateTab === 'function') activateTab('bagrut');
+    var c = document.getElementById('bq-tab-' + gid);
+    if(c) pick(c);
+    var pill = document.getElementById('tab-btn-bagrut');
+    if(pill && pill.scrollIntoView) pill.scrollIntoView({ block:'nearest', inline:'center' });
+  }
+  var nav = document.getElementById('topicNav');
+  if(nav){
+    var top = document.createElement('button');
+    top.type = 'button'; top.className = 'bq-cta';
+    top.innerHTML = '🎓 <b>שאלות בגרות אמיתיות</b> - לפי מצווה <span aria-hidden="true">←</span>';
+    top.addEventListener('click', function(){ open(chips[0] ? chips[0].id.replace('bq-tab-', '') : ''); });
+    nav.parentNode.insertBefore(top, nav.nextSibling);
+  }
+  chips.forEach(function(c){
+    var gid = c.id.replace('bq-tab-', '');
+    var sec = document.getElementById('topic-' + gid);
+    var grid = sec && sec.querySelector('.grid');
+    if(!grid) return;
+    var link = document.createElement('button');
+    link.type = 'button'; link.className = 'bq-cta bq-cta--in';
+    link.style.gridColumn = '1 / -1';
+    link.innerHTML = '🎓 <b>שאלות בגרות על המצווה הזו</b> <span aria-hidden="true">←</span>';
+    link.addEventListener('click', function(){ open(gid); });
+    grid.appendChild(link);
+  });
 })();
 </script>
 <script src="assets/steps.js?v=2"></script>
