@@ -132,8 +132,9 @@ function saveSubmission_(d) {
   var lock = LockService.getScriptLock();
   lock.waitLock(20000); // מונע יצירת שתי תיקיות לאותו תלמיד בהגשות בו-זמניות
   try {
-    var classFolder = DriveApp.getFolderById(CLASS_FOLDERS[cls]);
-    var studentFolder = findOrCreateStudentFolder_(classFolder, name);
+    var histFolder = subjectOf_(task) === 'היסטוריה' ? historyClassFolder_(cls, true) : null;
+    var classFolder = histFolder || DriveApp.getFolderById(CLASS_FOLDERS[cls]);
+    var studentFolder = histFolder ? findOrCreateIn_(histFolder, name) : findOrCreateStudentFolder_(classFolder, name);
     var date = Utilities.formatDate(new Date(), TZ, DATE_FORMAT);
     var fileName = safe_(name + ' - ' + task + ' - ' + date) + extension_(d.fileName, d.fileMimeType);
     file = studentFolder.createFile(Utilities.newBlob(bytes, d.fileMimeType || 'application/octet-stream', fileName));
@@ -147,7 +148,7 @@ function saveSubmission_(d) {
   if (NOTIFY_BY_EMAIL) {
     try {
       MailApp.sendEmail({
-        to: Session.getEffectiveUser().getEmail(),
+        to: (histFolder && historyEmail_()) || Session.getEffectiveUser().getEmail(),
         subject: 'הגשה חדשה: ' + name + ' - ' + task,
         body: 'שם: ' + name + '\nכיתה: ' + cls + '\nמטלה: ' + task +
               (d.notes ? '\nהערות: ' + clean_(d.notes) : '') +
@@ -157,6 +158,31 @@ function saveSubmission_(d) {
     } catch (err) { /* ההגשה נשמרה גם אם המייל נכשל */ }
   }
   return { ok: true, fileId: file.getId() };
+}
+
+// ---------- הגשות בהיסטוריה - למורה ההיסטוריה ----------
+// במאפייני הסקריפט: HISTORY_FOLDER_ID (תיקייה ב-Drive, משותפת עם מורה ההיסטוריה)
+// ו-HISTORY_TEACHER_EMAIL (לשם נשלח המייל על הגשה חדשה). בלי HISTORY_FOLDER_ID -
+// הגשות בהיסטוריה נשמרות כמו כל השאר. בתוך התיקייה: תיקייה לכל כיתה, ובה תיקייה לכל תלמיד.
+function historyClassFolder_(cls, create) {
+  var id = PropertiesService.getScriptProperties().getProperty('HISTORY_FOLDER_ID');
+  if (!id) return null;
+  var root;
+  try { root = DriveApp.getFolderById(String(id).trim()); } catch (e) { return null; }
+  var label = cls === 'יא' ? 'כיתה י"א' : (cls === 'יב' ? 'כיתה י"ב' : 'כיתה ' + cls);
+  var it = root.getFoldersByName(label);
+  if (it.hasNext()) return it.next();
+  return create ? root.createFolder(label) : null;
+}
+function findOrCreateIn_(folder, name) {
+  var key = nameKey_(name);
+  var it = folder.getFolders();
+  while (it.hasNext()) { var f = it.next(); if (nameKey_(f.getName()) === key) return f; }
+  return folder.createFolder(name);
+}
+function historyEmail_() {
+  var e = String(PropertiesService.getScriptProperties().getProperty('HISTORY_TEACHER_EMAIL') || '').trim();
+  return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e) ? e : '';
 }
 
 // מחפשים את התיקייה של התלמיד בשתי הכיתות (כמו בסקריפט הקודם):
@@ -221,6 +247,12 @@ function listSubmissions_() {
       collectFiles_(sf, cls, sf.getName(), out, checked);
     }
     addMissing_(cls, students, out);
+    var hf = historyClassFolder_(cls, false);   // הגשות בהיסטוריה (תיקייה נפרדת, משותפת עם מורה ההיסטוריה)
+    if (hf) {
+      collectFiles_(hf, cls, null, out, checked);
+      var hit = hf.getFolders();
+      while (hit.hasNext()) { var hs = hit.next(); collectFiles_(hs, cls, hs.getName(), out, checked); }
+    }
   });
   var grades = gradeMap_();
   var hidden = hiddenMap_();
