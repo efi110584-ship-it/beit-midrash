@@ -20,7 +20,8 @@
       { key:"leket",     icon:"📜", title:"לקט מצוות",     url:"leket-mitzvot-hub.html" },
       { key:"bereshit",  icon:"🏞️", title:"ספר בראשית",    url:"bereshit-hub.html" },
       { key:"yeshayahu", icon:"📜", title:"ספר ישעיהו",    url:"yeshayahu-hub.html" },
-      { key:"ivrit",     icon:"📓", title:"עברית - דקדוק", url:"ivrit-hub.html" }
+      { key:"ivrit",     icon:"📓", title:"עברית - דקדוק", url:"ivrit-hub.html" },
+      { key:"history",   icon:"🏛️", title:"היסטוריה",      url:"history-hub.html" }
     ]},
     { key:"יב", label:'כיתה י"ב', tab:"tab-yb", units:[
       { key:"devarim",       icon:"📖", title:"ספר דברים",   url:"petichah.html" },
@@ -40,6 +41,7 @@
     [/^(ezra|nechemia)-(?!nechemia-answers)/, "ezra-nechemia"],
     [/^(melachim|yirmiyahu|yechezkel|neviim-hub)/, "neviim"],
     [/^ptp-(?!answers)/, "ptp"],
+    [/^history-/, "history"],
     [/^(leket-mitzvot-hub|ahavat-|kibud-|lo-tasur|lo-taashok|halvaa|kidush-|korban-pesach|kriat-shema|onaat-dvarim|talmud-torah|tefila|tochacha)/, "leket"]
   ];
   var STORE_KEY = "bm-quicknav-grade";

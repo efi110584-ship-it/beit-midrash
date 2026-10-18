@@ -110,7 +110,9 @@
     return need ? Math.round(done / need * 100) : 0;
   }
   function isAtEnd(){ return instances.every(function(i){ return i.atEnd(); }); }
-  window.BeitMidrashSteps = { requiredPercent: requiredPercent, isAtEnd: isAtEnd };
+  window.BeitMidrashSteps = { requiredPercent: requiredPercent, isAtEnd: isAtEnd,
+                              navs: instances.map(function(i){ return i.nav; }) };
+  document.dispatchEvent(new CustomEvent("bm-steps-ready"));
 
   function applyAll(){ instances.forEach(function(i){ i.apply(); }); }
 
@@ -828,6 +830,23 @@
       totalDone: totalDone,
       atEnd: function(){ return single || view === "all" || current >= tasks.length - 1 || totalDone() >= totalNeed(); },
       owns: function(el){ return grid.contains(el); },
+      /* לפס הניווט שבראש הדף (assets/page-nav.js): איפה התלמיד עומד, ומעבר למשימה */
+      nav: {
+        info: function(){
+          return { current: current, total: tasks.length, all: view === "all" || single, single: single, topic: c.title,
+                   tasks: tasks.map(function(t){
+                     var name = "";
+                     t.blocks.some(function(b){
+                       var h = b.title || cleanText(b.card.querySelector(".card-title, h2, h3"));
+                       if(h){ name = h; return true; }
+                       return false;
+                     });
+                     return shorten(name, 60);
+                   }) };
+        },
+        go: function(i){ go(i, true); },
+        shown: function(){ return !!(root.offsetWidth || root.offsetHeight || root.getClientRects().length); }
+      },
       afterClear: function(){
         if(!items.some(isFilled)){ status = {}; save(KEY_STATUS, status); }
         refresh();

@@ -236,6 +236,15 @@
     else buildWidget();
     syncControls();
     loadQuickNav();
+    loadPageNav();
+  }
+
+  /* ---------- פס ניווט בראש הדף (בין הפרקים ובתוך הפרק) - assets/page-nav.js ---------- */
+  function loadPageNav(){
+    if(!SELF_SRC || document.querySelector(".bm-pnav")) return;
+    var script = document.createElement("script");
+    script.src = SELF_SRC.replace(/a11y\.js(\?.*)?$/, "") + "page-nav.js";
+    document.body.appendChild(script);
   }
 
   /* ---------- כפתור "מעבר מהיר" בין כיתות ויחידות - assets/quick-nav.js ---------- */
