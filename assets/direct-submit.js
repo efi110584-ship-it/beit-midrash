@@ -20,6 +20,12 @@
     if(/^(יב|12)/.test(t)) return 'יב';
     return '';
   }
+  /* מספר הכיתה בשכבה (י"א 1-4): "י"א 3", "יא3", "11 3" -> "3". בלי מספר -> "" */
+  function sectionCode(text){
+    var t = String(text || '').replace(/["'׳״\s.-]/g, '');
+    var m = t.match(/^(?:יא|11)([1-4])$/);
+    return m ? m[1] : '';
+  }
 
   function escapeHtml(str){
     return String(str || '').replace(/[&<>"']/g, function(c){
@@ -324,6 +330,7 @@
       var payload = {
         studentName: opts.studentName,
         studentClass: classCode(opts.studentClass) || opts.studentClass || '',
+        section: opts.section || sectionCode(opts.studentClass),
         assignment: opts.assignment,
         notes: opts.notes || '',
         autoScore: autoScore(),
@@ -342,6 +349,7 @@
   window.BeitMidrashDirectSubmit = {
     send: sendDirectSubmission,
     classCode: classCode,
+    sectionCode: sectionCode,
     /* לבדיקות ולתצוגה מקדימה: בונה את דף התשובות בלי לשלוח */
     preview: function(opts){ return fontsReady().then(function(){ return buildAnswersPdf(opts); }); }
   };

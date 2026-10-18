@@ -35,7 +35,10 @@ var DATE_FORMAT = 'dd.MM.yyyy';
 var MAX_BYTES = 5 * 1024 * 1024;   // 5MB, כמו באתר
 var NOTIFY_BY_EMAIL = true;        // מייל למורה על כל הגשה חדשה
 var LESSON_HOURS = 12;             // כמה שעות קוד לשיעור נשאר בתוקף
-var MONITOR_CLASSES = ['יא'];      // כיתות שבהן אפשר להפעיל בקרת שיעור (כרגע רק י"א)
+var MONITOR_CLASSES = ['יא'];
+// עבודות שמגיעות למורה אחרת (התיקייה והמייל שלה - במאפייני הסקריפט:
+// OTHER_TEACHER_FOLDER_ID ו-OTHER_TEACHER_EMAIL). רק אצלה - לא בלוח ההגשות.
+var OTHER_TEACHER = { cls: 'יא', sections: ['1', '3'], subjects: ['תנ"ך', 'תושב"ע'] };      // כיתות שבהן אפשר להפעיל בקרת שיעור (כרגע רק י"א)
 var AWAY_GRACE_SEC = 15;           // יציאה קצרה מזה (למשל מעבר בין דפים באתר) לא נספרת
 var GONE_AFTER_SEC = 150;          // תלמיד שלא דיווח זמן כזה - "לא מחובר"
 
@@ -123,6 +126,7 @@ function saveSubmission_(d) {
   var name = clean_(d.studentName);
   var task = clean_(d.assignment);
   var cls = normClass_(d.studentClass);
+  var section = normSection_(d.section || d.studentClass);
   if (!name || !task || !cls || !d.fileBase64) return { ok: false, error: 'חסרים פרטים בהגשה' };
 
   var bytes = Utilities.base64Decode(d.fileBase64);
@@ -132,9 +136,12 @@ function saveSubmission_(d) {
   var lock = LockService.getScriptLock();
   lock.waitLock(20000); // מונע יצירת שתי תיקיות לאותו תלמיד בהגשות בו-זמניות
   try {
-    var histFolder = subjectOf_(task) === 'היסטוריה' ? historyClassFolder_(cls, true) : null;
-    var classFolder = histFolder || DriveApp.getFolderById(CLASS_FOLDERS[cls]);
-    var studentFolder = histFolder ? findOrCreateIn_(histFolder, name) : findOrCreateStudentFolder_(classFolder, name);
+    var subject = subjectOf_(task);
+    var histFolder = subject === 'היסטוריה' ? historyClassFolder_(cls, true) : null;
+    var otherFolder = (!histFolder && isOtherTeacher_(cls, section, subject)) ? otherTeacherFolder_(cls, section) : null;
+    var routed = histFolder || otherFolder;
+    var classFolder = routed || DriveApp.getFolderById(CLASS_FOLDERS[cls]);
+    var studentFolder = routed ? findOrCreateIn_(routed, name) : findOrCreateStudentFolder_(classFolder, name);
     var date = Utilities.formatDate(new Date(), TZ, DATE_FORMAT);
     var fileName = safe_(name + ' - ' + task + ' - ' + date) + extension_(d.fileName, d.fileMimeType);
     file = studentFolder.createFile(Utilities.newBlob(bytes, d.fileMimeType || 'application/octet-stream', fileName));
@@ -148,9 +155,9 @@ function saveSubmission_(d) {
   if (NOTIFY_BY_EMAIL) {
     try {
       MailApp.sendEmail({
-        to: (histFolder && historyEmail_()) || Session.getEffectiveUser().getEmail(),
+        to: (histFolder && historyEmail_()) || (otherFolder && otherTeacherEmail_()) || Session.getEffectiveUser().getEmail(),
         subject: 'הגשה חדשה: ' + name + ' - ' + task,
-        body: 'שם: ' + name + '\nכיתה: ' + cls + '\nמטלה: ' + task +
+        body: 'שם: ' + name + '\nכיתה: ' + cls + (section ? ' ' + section : '') + '\nמטלה: ' + task +
               (d.notes ? '\nהערות: ' + clean_(d.notes) : '') +
               (auto ? '\nבדיקה אוטומטית: ' + auto.c + ' נכונות מתוך ' + auto.t + ' (' + Math.round(auto.c * 100 / auto.t) + ')' : '') +
               '\n\nקישור לקובץ: ' + file.getUrl()
@@ -180,6 +187,33 @@ function findOrCreateIn_(folder, name) {
   while (it.hasNext()) { var f = it.next(); if (nameKey_(f.getName()) === key) return f; }
   return folder.createFolder(name);
 }
+// מספר הכיתה בשכבה ("3", או "יא3" / "י"א 3") -> "3"
+function normSection_(v) {
+  var m = String(v || '').replace(/["'׳״\s.-]/g, '').match(/([1-9])$/);
+  return m ? m[1] : '';
+}
+
+// ---------- עבודות למורה אחרת (OTHER_TEACHER למעלה) ----------
+function isOtherTeacher_(cls, section, subject) {
+  return cls === OTHER_TEACHER.cls && OTHER_TEACHER.sections.indexOf(section) >= 0 &&
+         OTHER_TEACHER.subjects.indexOf(subject) >= 0;
+}
+// בתוך התיקייה של המורה: תיקייה לכל כיתה ("כיתה י"א 3"), ובה תיקייה לכל תלמיד.
+// בלי OTHER_TEACHER_FOLDER_ID - העבודה נשמרת כרגיל.
+function otherTeacherFolder_(cls, section) {
+  var id = PropertiesService.getScriptProperties().getProperty('OTHER_TEACHER_FOLDER_ID');
+  if (!id) return null;
+  var root;
+  try { root = DriveApp.getFolderById(String(id).trim()); } catch (e) { return null; }
+  var label = 'כיתה ' + (cls === 'יא' ? 'י"א' : 'י"ב') + ' ' + section;
+  var it = root.getFoldersByName(label);
+  return it.hasNext() ? it.next() : root.createFolder(label);
+}
+function otherTeacherEmail_() {
+  var e = String(PropertiesService.getScriptProperties().getProperty('OTHER_TEACHER_EMAIL') || '').trim();
+  return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e) ? e : '';
+}
+
 function historyEmail_() {
   var e = String(PropertiesService.getScriptProperties().getProperty('HISTORY_TEACHER_EMAIL') || '').trim();
   return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e) ? e : '';
@@ -838,7 +872,7 @@ function safe_(s) { return String(s).replace(/[\\\/:*?"<>|]/g, ' ').replace(/\s+
 function normName_(s) { return clean_(s).replace(/["'׳״]/g, ''); }
 function normTask_(s) { return clean_(s).replace(/["'׳״]/g, '').replace(/[-–—,.:]/g, ' ').replace(/\s+/g, ' ').trim(); }
 function normClass_(c) {
-  var v = String(c || '').replace(/["'׳״\s]/g, '');
+  var v = String(c || '').replace(/["'׳״\s.-]/g, '').replace(/[0-9]+$/, '');
   return CLASS_FOLDERS[v] ? v : '';
 }
 function extension_(fileName, mime) {

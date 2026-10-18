@@ -148,10 +148,24 @@
     var api = window.BeitMidrashDirectSubmit;
     return (api && api.classCode && classEl) ? api.classCode(classEl.value) : '';
   }
+  /* בכיתה י"א צריך גם את מספר הכיתה (1-4) - לפיו העבודה מגיעה למורה הנכון */
+  function sectionCode(){
+    var api = window.BeitMidrashDirectSubmit;
+    return (api && api.sectionCode && classEl) ? api.sectionCode(classEl.value) : '';
+  }
+  function classLabel(){
+    return classCode() === 'יא' ? 'י"א ' + sectionCode() : 'י"ב';
+  }
+  function classMissing(){
+    return !classCode() || (classCode() === 'יא' && !sectionCode());
+  }
   function askClass(){
     open('warn', function(h){
-      h.textContent = '✏️ כתבו את הכיתה שלכם';
-      panel.appendChild(el('p', null, 'בשורה "כיתה" שלמעלה כתבו י"א או י"ב, כדי שהתשובות יגיעו לתיקייה הנכונה אצל המורה.'));
+      var needNum = classCode() === 'יא';
+      h.textContent = needNum ? '✏️ כתבו גם את מספר הכיתה' : '✏️ כתבו את הכיתה שלכם';
+      panel.appendChild(el('p', null, needNum
+        ? 'בשורה "כיתה" שלמעלה כתבו את הכיתה עם המספר: י"א 1, י"א 2, י"א 3 או י"א 4. כך העבודה תגיע למורה שלכם.'
+        : 'בשורה "כיתה" שלמעלה כתבו את הכיתה: י"א 1, י"א 2, י"א 3, י"א 4 או י"ב. כך העבודה תגיע למורה שלכם.'));
       var a = actions();
       a.appendChild(button('למילוי הכיתה', 'primary', function(){ panel.hidden = true; btn.setAttribute('aria-expanded', 'false'); classEl.focus(); classEl.scrollIntoView({ block: 'center' }); }));
       a.appendChild(button('חזרה לדף', '', close));
@@ -170,7 +184,7 @@
       panel.appendChild(el('p', null, 'זה מה שיישלח:'));
       var ul = el('ul', 'bm-send-list');
       ul.appendChild(el('li', null, 'שם: ' + clean(nameEl.value)));
-      ul.appendChild(el('li', null, 'כיתה: ' + (classCode() === 'יא' ? 'י"א' : 'י"ב')));
+      ul.appendChild(el('li', null, 'כיתה: ' + classLabel()));
       ul.appendChild(el('li', null, (data.items.length === 1 ? 'תשובה אחת' : data.items.length + ' תשובות') + ' מתוך ' + data.total + ' סעיפי תשובה בדף' + (data.items.length < data.total ? ' (שאלות בלי תשובה לא יישלחו)' : '')));
       panel.appendChild(ul);
       panel.appendChild(el('p', 'bm-send-note', 'רק זה נשלח - שום דבר אחר מהמחשב. אי אפשר לבטל שליחה, אבל אפשר לשלוח שוב אחר כך, והגרסה החדשה תגיע למורה.'));
@@ -189,6 +203,7 @@
     window.BeitMidrashDirectSubmit.send({
       studentName: clean(nameEl.value),
       studentClass: classCode(),
+      section: sectionCode(),
       assignment: assignment,
       items: data.items,
       total: data.total
@@ -216,7 +231,7 @@
   }
   function start(){
     if(nameEl && !clean(nameEl.value)){ askName(); return; }
-    if(classEl && !classCode()){ askClass(); return; }
+    if(classEl && classMissing()){ askClass(); return; }
     var data = collect();
     if(!data.items.length){ nothingYet(); return; }
     confirmSend(data);

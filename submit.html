@@ -35,7 +35,10 @@
         <label for="studentClass">כיתה <span class="required-mark">*</span></label>
         <select id="studentClass" name="studentClass" required>
           <option value="" disabled selected>בחרו כיתה</option>
-          <option value="יא">י"א</option>
+          <option value="יא1">י"א 1</option>
+          <option value="יא2">י"א 2</option>
+          <option value="יא3">י"א 3</option>
+          <option value="יא4">י"א 4</option>
           <option value="יב">י"ב</option>
         </select>
       </div>
@@ -179,7 +182,7 @@
     if(qCls){
       var clsSelect = document.getElementById('studentClass');
       Array.prototype.forEach.call(clsSelect.options, function(opt){
-        if(opt.value === qCls) opt.selected = true;
+        if(opt.value === qCls.replace(/["'׳״\s.-]/g, '')) opt.selected = true;
       });
     }
     if(qAssignment) prefillAssignment(qAssignment);
@@ -234,7 +237,8 @@
     fileToBase64(file).then(function (base64) {
       var payload = {
         studentName: studentName,
-        studentClass: studentClass,
+        studentClass: studentClass.slice(0, 2),
+        section: studentClass.slice(2),
         assignment: assignment,
         notes: notes,
         fileName: file.name,
