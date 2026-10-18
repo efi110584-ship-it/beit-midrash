@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=23">
+<link rel="stylesheet" href="assets/site.css?v=24">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -382,7 +382,7 @@
     "פרקי נביאים":"📯", "ספר יונה":"🐋", "לקט מצוות":"📋", "פתוח תפתח":"🤲",
     "ספר דברים":"🪨",
     "עברית - בניינים וגזרות":"🧩", "עברית - גזרות":"🔤", "עברית - משקלים":"⚖️",
-    "בוגרים":"🎓"
+    "היסטוריה":"🏛️", "בוגרים":"🎓"
   };
 
   function renderUnits(){
@@ -453,6 +453,7 @@
     { id:"tnk", label:'תנ"ך', icon:"📖" },
     { id:"tsb", label:'תושב"ע', icon:"📋" },
     { id:"heb", label:"עברית", icon:"🔤" },
+    { id:"hist", label:"היסטוריה", icon:"🏛️" },
     { id:"exam", label:"מבחנים", icon:"📝" },
     { id:"alumni", label:"בוגרים", icon:"🎓" },
     { id:"other", label:"כללי", icon:"🗂️" }
@@ -462,6 +463,7 @@
     if(cat === "מבחנים") return "exam";
     if(cat === "בוגרים") return "alumni";
     if(/^עברית/.test(cat)) return "heb";
+    if(cat === "היסטוריה") return "hist";
     if(["לקט מצוות", "פתוח תפתח", "ספר דברים"].indexOf(cat) !== -1) return "tsb";
     if(/^ספר |נביאים|עזרא/.test(cat)) return "tnk";
     return "other";
@@ -714,7 +716,7 @@
 
   var board = { rows:[], subj:"all", status:"all", unit:"all", topic:"all", sort:{ key:"date", dir:-1 }, group:true, collapsed:{} };
   try{ board.group = localStorage.getItem("bm-board-group") !== "0"; }catch(e){}
-  var SUBJ_CLASS = { 'תנ"ך':"tnk", 'תושב"ע':"tsb", "עברית":"heb" };
+  var SUBJ_CLASS = { 'תנ"ך':"tnk", 'תושב"ע':"tsb", "עברית":"heb", "היסטוריה":"hist" };
   var STATUS_INFO = {
     pending:{ label:"ממתין לבדיקה", cls:"pending" },
     checked:{ label:"נבדק", cls:"checked" },
@@ -971,7 +973,9 @@
       if(!res || !res.ok){ msg.textContent = (res && res.error) || "טעינת ההגשות לא הצליחה."; return; }
       var classify = (window.BM_TASKS && window.BM_TASKS.classify) || function(t){ return { unit:"אחר", topic:t }; };
       board.rows = (res.submissions || []).map(function(x){
-        return { id:x.id || "", name:x.student || "", task:x.task || "", subject:x.subject || 'תנ"ך',
+        /* הגשות בהיסטוריה - מזהים לפי שם המטלה (הסקריפט מכיר רק תנ"ך/תושב"ע/עברית) */
+        var subj = /היסטוריה|לאומיות|סוציאליזם/.test(x.task || "") ? "היסטוריה" : (x.subject || 'תנ"ך');
+        return { id:x.id || "", name:x.student || "", task:x.task || "", subject:subj,
                  cls:x.cls === "יא" ? 'י"א' : (x.cls === "יב" ? 'י"ב' : (x.cls || "")),
                  date:x.date || "", status:x.status || "pending", url:x.url || "", notes:x.notes || "",
                  grade:x.grade == null ? "" : String(x.grade), comment:x.comment || "", hidden:!!x.hidden, time:x.time || 0,
@@ -1013,7 +1017,7 @@
     var visNarrow = viewHidden ? narrow(visibleRows) : byTask;
     var hidN = viewHidden ? byTask.length : narrow(hiddenRows).length;
 
-    subjEl.innerHTML = [["all","כל המקצועות"],['תנ"ך','תנ"ך'],['תושב"ע','תושב"ע'],["עברית","עברית"]].map(function(s){
+    subjEl.innerHTML = [["all","כל המקצועות"],['תנ"ך','תנ"ך'],['תושב"ע','תושב"ע'],["עברית","עברית"],["היסטוריה","היסטוריה"]].map(function(s){
       var n = s[0] === "all" ? all.length : all.filter(function(r){ return r.subject === s[0]; }).length;
       return '<button type="button" class="tt-tab" data-subj="' + escapeAttr(s[0]) + '" aria-pressed="' + (board.subj === s[0]) + '">' +
         escapeHtml(s[1]) + ' <span class="tt-count">' + n + '</span></button>';
@@ -1210,7 +1214,7 @@
     '</p>';
 
   function unitCardHtml(u, registry){
-    var subjTagClass = u.subject === "תנך" ? "subject-tnk" : (u.subject === "תושבע" ? "subject-tsb" : (u.subject === "מבחן" ? "subject-exam" : (u.subject === "מורה" ? "subject-teacher" : "subject-heb")));
+    var subjTagClass = u.subject === "תנך" ? "subject-tnk" : (u.subject === "תושבע" ? "subject-tsb" : (u.subject === "מבחן" ? "subject-exam" : (u.subject === "מורה" ? "subject-teacher" : (u.subject === "היסטוריה" ? "subject-hist" : "subject-heb"))));
     var titleLabel = escapeHtml(u.title);
     var metaHtml = '<span class="unit-tile-meta">' + u.chapters + ' ' + escapeHtml(u.chaptersLabel) + '</span>';
 

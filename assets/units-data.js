@@ -103,6 +103,15 @@
         { title:"טבלת סימני זיהוי לגזרות", url:"ivrit-gzarot-simanim.html", k:"סימנים", extra:true },
         { title:"מבחן מסכם על הגזרות", url:"ivrit-gzarot-final-test.html", k:"מבחן", extra:true }
       ] },
+    { key:"history", class:"יא", subject:"היסטוריה",
+      icon:"\u{1F3DB}️", title:"היסטוריה",
+      desc:"לאומיות וסוציאליזם - סיכומים ברורים ושאלות בגרות.",
+      chapters:2, chaptersLabel:"נושאים", url:"history-hub.html",
+      topics:[
+        { title:"לאומיות", url:"history-leumiut.html", k:"לאום אומה גרמניה" },
+        { title:"סוציאליזם", url:"history-sotzializm.html", k:"מרקס פועלים" },
+        { title:"שאלות בגרות - היסטוריה", url:"history-bagrut.html", k:"בגרות", extra:true }
+      ] },
     { key:"devarim", class:"יב", subject:"תנך",
       icon:"\u{1F4D6}", title:"ספר דברים",
       desc:"נאומו האחרון של משה רבנו לעם ישראל - יחידת הפתיחה לספר דברים.",
@@ -202,6 +211,10 @@
       icon:"\u{1F5DD}️", title:"מחוון תשובות - בניינים וגזרות",
       desc:"מפתחות התשובות לשני דפי התרגול: 20 מילים קשות מגזרת השלמים לזיהוי שורש ובניין, ו-20 מילים קשות ברבים לזיהוי שורש וגזרה.",
       chapters:2, chaptersLabel:"דפי תרגול", url:"ivrit-binyanim-gzarot-answers.html" },
+    { key:"history-key", class:"teacher", subject:"מורה", category:"היסטוריה",
+      icon:"\u{1F5DD}️", title:"מחוון תשובות - שאלות בגרות בהיסטוריה",
+      desc:"אותו דף כמו אצל התלמידים, עם תשובה לדוגמה לכל סעיף.",
+      chapters:2, chaptersLabel:"שאלות", url:"history-bagrut.html?key=1" },
     { key:"ivrit-shlemim-key", class:"teacher", subject:"מורה", category:"עברית - גזרות",
       icon:"\u{1F5DD}️", title:"מחוון תשובות - גזרת השלמים",
       desc:"אותו דף בדיוק כמו אצל התלמידים - הסבר, תרגול עצמי ושאלות בגרות - עם כל התשובות כבר בפנים.",

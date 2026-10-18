@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" data-css="theme">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סוציאליזם</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=9">
+
+<style id="hx-style">
+.hx-wrap{max-width:860px;margin:0 auto;padding:0 16px 2rem;display:flex;flex-direction:column;gap:1.2rem}
+.hx-card{background:var(--paper-card);border:1px solid var(--paper-line);border-radius:16px;padding:1.2rem 1.3rem;box-shadow:var(--shadow)}
+.hx-card h2{margin:0 0 .7rem;font-size:1.3rem;color:var(--ink);text-wrap:balance;display:flex;align-items:center;gap:.5rem}
+.hx-card h3{margin:1rem 0 .4rem;font-size:1.08rem;color:var(--ink)}
+.hx-card p,.hx-card li{font-size:1.05rem;line-height:1.75;color:var(--m-text,var(--ink))}
+.hx-card p{margin:0 0 .6rem}
+.hx-card ul{margin:0 0 .4rem;padding-inline-start:1.3rem}
+.hx-lead{font-size:1.15rem !important;font-weight:500}
+.hx-key{background:var(--teal-soft);border-inline-start:5px solid var(--teal);border-radius:12px;padding:.8rem 1rem;margin:.4rem 0}
+.hx-key p{margin:0}
+.hx-terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.7rem;margin:0;padding:0;list-style:none}
+.hx-terms li{background:#fff;border:1px solid var(--paper-line);border-radius:12px;padding:.7rem .9rem;line-height:1.6}
+.hx-terms b{display:block;color:var(--teal);font-size:1.05rem}
+.hx-flow{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.5rem;counter-reset:hx}
+.hx-flow li{position:relative;background:#fff;border:1px solid var(--paper-line);border-radius:12px;padding:.65rem .9rem .65rem .9rem;padding-inline-start:3rem;counter-increment:hx}
+.hx-flow li::before{content:counter(hx);position:absolute;inset-inline-start:.8rem;top:.65rem;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--ink);color:#fff;font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center}
+.hx-table-wrap{overflow-x:auto;margin:.4rem 0}
+.hx-table{width:100%;border-collapse:collapse;min-width:520px;background:#fff;border-radius:12px;overflow:hidden}
+.hx-table th,.hx-table td{border:1px solid var(--paper-line);padding:.6rem .7rem;text-align:start;vertical-align:top;font-size:1rem;line-height:1.6}
+.hx-table thead th{background:var(--ink);color:#fff}
+.hx-table tbody th{background:var(--teal-soft);color:var(--ink);width:24%}
+.hx-streams{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.8rem}
+.hx-stream{background:#fff;border:1px solid var(--paper-line);border-top:5px solid var(--acc,var(--teal));border-radius:12px;padding:.8rem 1rem}
+.hx-stream h3{margin:0 0 .2rem}
+.hx-who{margin:0 0 .5rem !important;font-size:.95rem !important;color:var(--ink-soft) !important}
+.hx-time{list-style:none;margin:0;padding:0;border-inline-start:3px solid var(--gold-soft);display:flex;flex-direction:column;gap:.55rem}
+.hx-time li{position:relative;padding-inline-start:1.1rem}
+.hx-time li::before{content:"";position:absolute;inset-inline-start:-.5rem;top:.6rem;width:.75rem;height:.75rem;border-radius:50%;background:var(--gold)}
+.hx-time b{font-variant-numeric:tabular-nums;color:var(--gold-text)}
+.hx-tip{background:#FFF7E6;border:1px dashed var(--gold-soft);border-radius:12px;padding:.8rem 1rem}
+.hx-tip p{margin:0}
+.hx-src{font-size:.9rem !important;color:var(--ink-soft) !important;margin:0 !important}
+.hx-cta{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
+.hx-q{background:#fff;border:1px solid var(--paper-line);border-radius:12px;padding:.8rem 1rem;margin:.7rem 0;display:flex;flex-direction:column;gap:.45rem}
+.hx-q-label{font-weight:700;color:var(--teal)}
+.hx-q p{margin:0}
+.hx-q textarea.answer{width:100%;min-height:7rem;box-sizing:border-box;padding:.7rem;border:1px solid var(--paper-line);border-radius:10px;font:inherit;font-size:1rem;line-height:1.6;background:#FBFCFD;resize:vertical}
+.hx-q textarea.answer:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+@media print{.hx-cta,.toolbar,.bm-send-panel{display:none !important}}
+</style>
+
+<script src="assets/a11y.js"></script>
+</head>
+<body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">הכיתה הדיגיטלית</a><span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י&quot;א</a><span class="sep">›</span>
+  <a href="history-hub.html">היסטוריה</a><span class="sep">›</span><span class="current">סוציאליזם</span>
+</nav>
+<header>
+  <div class="eyebrow">היסטוריה · כיתה י"א</div>
+  <h1>סוציאליזם</h1>
+  <p class="sub">למה צמח הסוציאליזם במאה ה-19, ואילו דרכים הציעו הזרמים השונים כדי לעזור לפועלים.</p>
+</header>
+
+<main id="main-content" class="hx-wrap">
+
+  <section class="hx-card" aria-labelledby="s-what">
+    <h2 id="s-what"><span aria-hidden="true">🧭</span>מה זה סוציאליזם?</h2>
+    <div class="hx-key">
+      <p class="hx-lead"><b>סוציאליזם</b> (מילולית: "שיטה חברתית") הוא שם כללי לכמה השקפות עולם. כולן ניסו לתת פתרון ל<b>מצוקה של מעמד הפועלים במאה ה-19</b>.</p>
+    </div>
+  </section>
+
+  <section class="hx-card" aria-labelledby="s-bg">
+    <h2 id="s-bg"><span aria-hidden="true">🏭</span>הרקע: למה הסוציאליזם צמח?</h2>
+    <p>זה <b>החלק הכי חשוב לבגרות.</b> כדאי ללמוד אותו כשרשרת של סיבה ותוצאה:</p>
+    <ol class="hx-flow">
+      <li><b>המהפכה התעשייתית</b> מתחילה באנגליה בסוף המאה ה-18.</li>
+      <li>יש <b>מיכון, תיעוש ועיור</b>. במקום חקלאות ומלאכת כפיים, עובדים עם מכונות במפעלים, ואנשים עוברים לערים.</li>
+      <li>החברה מתחלקת ל<b>שני מעמדות</b>: <b>הבורגנות</b> - בעלי ההון והמפעלים (נקראו גם "קפיטליסטים", מהמילה קפיטל = הון). <b>הפרולטריון</b> - מעמד הפועלים, רוב האוכלוסייה, אבל במצב כלכלי נחות.</li>
+      <li>הפועלים מרגישים <b>שהבורגנות מנצלת אותם</b>, ורוצים חברה צודקת יותר.</li>
+      <li>הפתרון של <b>הליברליזם</b> (חוקים ששומרים על זכויות האדם וחירותו, ושלטון שמתערב מעט) <b>לא פתר את המצוקה</b>. הוגי הסוציאליזם התאכזבו ממנו, והציעו דרך כלכלית, חברתית ופוליטית אחרת.</li>
+    </ol>
+  </section>
+
+  <section class="hx-card" aria-labelledby="s-streams">
+    <h2 id="s-streams"><span aria-hidden="true">🛤️</span>שלושת הזרמים בסוציאליזם</h2>
+    <p>כל הזרמים רצו לעזור לפועלים. ההבדל ביניהם הוא <b>הדרך</b>.</p>
+    <div class="hx-streams">
+      <article class="hx-stream" style="--acc:#A9752E">
+        <h3>1. סוציאליזם אוטופי</h3>
+        <p class="hx-who">המחצית הראשונה של המאה ה-19</p>
+        <ul>
+          <li><b>שארל פורייה:</b> המהפכה התעשייתית רעה. צריך לחזור לחברה חקלאית ולחיים בטבע.</li>
+          <li><b>רוברט אוון:</b> לשפר את חיי הפועלים: תנאי העסקה הוגנים, פחות שעות עבודה, השכלה לכולם ודיור טוב יותר.</li>
+        </ul>
+        <p>הרעיונות נחשבו לבלתי אפשריים, ולכן נקראו אחר כך "אוטופיים".</p>
+      </article>
+      <article class="hx-stream" style="--acc:#8B4A34">
+        <h3>2. סוציאליזם מהפכני</h3>
+        <p class="hx-who">מרקסיזם · קומוניזם · קרל מרקס ופרידריך אנגלס</p>
+        <ul>
+          <li>כל ההיסטוריה היא <b>מלחמת מעמדות</b>: מי ששולטים באמצעי הייצור מדכאים את כל השאר. במאה ה-19 המדוכאים הם הפועלים.</li>
+          <li>הדרך: <b>מהפכה של הפועלים</b> נגד הבורגנות - "<b>הדיקטטורה של הפרולטריון</b>". הופכים את הפירמידה החברתית.</li>
+          <li>אחרי המהפכה הפועלים ישלטו באמצעי הייצור ויחלקו את המשאבים בשוויון: "<b>כל אדם יעבוד כפי יכולתו ויקבל תמורה על פי צרכיו</b>".</li>
+          <li>הרעיון פורסם ב<b>מניפסט הקומוניסטי (1848)</b>. ב-1864 קם <b>האינטרנציונל</b>, איגוד פועלים בינלאומי, שקבע את <b>1 במאי</b> כחג הפועלים.</li>
+          <li>ב<b>מהפכה הבולשביקית ברוסיה (1917)</b> הרעיון יושם, והוקם שלטון קומוניסטי טוטליטרי.</li>
+        </ul>
+      </article>
+      <article class="hx-stream" style="--acc:#3F6E66">
+        <h3>3. סוציאליזם דמוקרטי-חוקתי</h3>
+        <p class="hx-who">סוציאל-דמוקרטיה · אדוארד ברנשטיין</p>
+        <ul>
+          <li><b>אין צורך במהפכה אלימה.</b> בחברה דמוקרטית אפשר לשנות את המצב בעזרת <b>חקיקה</b>.</li>
+          <li>לא משנים את כל הסדר החברתי. <b>המדינה מתערבת</b> כדי להקטין את הבעיות: פיקוח על הכלכלה ועל המחירים, והלאמה של שירותים חיוניים.</li>
+          <li><b>מסים:</b> המדינה גובה מסים ובעזרתם עוזרת למי שאין לו.</li>
+          <li><b>זכויות חברתיות</b> בנוסף לזכויות הפוליטיות: חינוך, בריאות, דיור ורווחה לכולם.</li>
+          <li><b>איגודים מקצועיים</b> נלחמים על זכויות הפועלים (הראשון באנגליה, 1829). <b>מפלגות פועלים</b> מייצגות אותם (הראשונה בגרמניה, 1863).</li>
+          <li>התוצאה: <b>חקיקה סוציאלית</b> - ביטוח אבטלה, תאונות, מחלה ופנסיה, הגבלת שעות העבודה ואיסור על עבודת ילדים.</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="hx-card" aria-labelledby="s-cmp">
+    <h2 id="s-cmp"><span aria-hidden="true">⚖️</span>מהפכה או חקיקה? השוואה מהירה</h2>
+    <div class="hx-table-wrap">
+      <table class="hx-table">
+        <caption class="visually-hidden">השוואה בין הסוציאליזם המהפכני לסוציאליזם הדמוקרטי</caption>
+        <thead><tr><th scope="col"></th><th scope="col">סוציאליזם מהפכני (מרקסיזם)</th><th scope="col">סוציאליזם דמוקרטי-חוקתי</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">הדרך</th><td>מהפכה אלימה של הפועלים</td><td>חקיקה בדרכים דמוקרטיות</td></tr>
+          <tr><th scope="row">הסדר הקיים</th><td>הופכים אותו לגמרי</td><td>משאירים אותו, ומתקנים אותו</td></tr>
+          <tr><th scope="row">מי שולט באמצעי הייצור</th><td>הפועלים</td><td>נשארים בעלי ההון, והמדינה מפקחת ומתערבת</td></tr>
+          <tr><th scope="row">כלים</th><td>"הדיקטטורה של הפרולטריון", האינטרנציונל</td><td>מסים, איגודים מקצועיים, מפלגות פועלים, חקיקה סוציאלית</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="hx-key" style="margin-top:.8rem">
+      <p><b>ליברליזם מול סוציאל-דמוקרטיה:</b> בליברליזם הערך הכי חשוב הוא <b>החירות</b>. בסוציאל-דמוקרטיה הערך המרכזי הוא <b>השוויון</b>, גם אם זה פוגע קצת בחירות.</p>
+    </div>
+  </section>
+
+  <section class="hx-card" aria-labelledby="s-time">
+    <h2 id="s-time"><span aria-hidden="true">🗓️</span>ציר זמן</h2>
+    <ol class="hx-time">
+      <li><b>סוף המאה ה-18</b> - המהפכה התעשייתית מתחילה באנגליה</li>
+      <li><b>1829</b> - האיגוד המקצועי הראשון באנגליה</li>
+      <li><b>1848</b> - המניפסט הקומוניסטי של מרקס ואנגלס</li>
+      <li><b>1863</b> - מפלגת הפועלים הראשונה בגרמניה</li>
+      <li><b>1864</b> - הקמת האינטרנציונל</li>
+      <li><b>1917</b> - המהפכה הבולשביקית ברוסיה</li>
+    </ol>
+  </section>
+
+  <section class="hx-card" aria-labelledby="s-bagrut">
+    <h2 id="s-bagrut"><span aria-hidden="true">🎯</span>מה חשוב לזכור לבגרות</h2>
+    <div class="hx-tip">
+      <ul>
+        <li><b>הרקע:</b> מהפכה תעשייתית ← מיכון, תיעוש ועיור ← בורגנות מול פרולטריון ← הפועלים מנוצלים ← הליברליזם לא עזר.</li>
+        <li><b>שני זרמים</b> שקל להסביר: <b>הסוציאליזם המהפכני</b> (מרקסיזם) ו<b>הסוציאליזם הדמוקרטי-חוקתי</b>.</li>
+        <li><b>הדרך של כל זרם:</b> מהפכה אלימה של הפועלים, מול שינוי בחקיקה והתערבות של המדינה.</li>
+      </ul>
+    </div>
+    <div class="hx-cta" style="margin-top:1rem">
+      <a class="btn primary" href="history-bagrut.html#q-sotzializm">📝 לשאלת הבגרות על סוציאליזם</a>
+    </div>
+  </section>
+<p class="hx-src">הסיכום ערוך לפי דף הסיכום של הפיקוח על הוראת ההיסטוריה בחמ"ד (על פי ספרי הלימוד המאושרים).</p>
+</main>
+<nav class="chapter-nav" aria-label="ניווט">
+  <span></span>
+  <a href="history-hub.html">↺ חזרה ליחידת ההיסטוריה</a>
+  <span></span>
+</nav>
+<footer class="credit">היסטוריה · כיתה י"א · סוציאליזם</footer>
+<script src="assets/bm-api.js"></script>
+<script src="assets/lesson-mode.js"></script>
+<script src="assets/class-dock.js"></script>
+</body>
+</html>

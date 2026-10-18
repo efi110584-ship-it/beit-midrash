@@ -285,6 +285,7 @@ function addMissing_(cls, students, out) {
 
 function subjectOf_(task) {
   var t = normTask_(task);
+  if (/היסטוריה|לאומיות|סוציאליזם/.test(t)) return 'היסטוריה';
   if (/עברית|דקדוק|גזר|בניין|בנינים|משקל|שורש|נחי|חפנ|חפיצ|כפולים|שלמים/.test(t)) return 'עברית';
   if (/תושבע|מצוו|לקט|פתוח תפתח|צדקה|ריבית|משכון|שמיטת|הלכ|אהבת|גרים/.test(t)) return 'תושב"ע';
   return 'תנ"ך';
