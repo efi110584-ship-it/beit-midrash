@@ -38,6 +38,7 @@ var LESSON_HOURS = 12;             // כמה שעות קוד לשיעור נשא
 var MONITOR_CLASSES = ['יא'];
 // עבודות שמגיעות למורה אחרת (התיקייה והמייל שלה - במאפייני הסקריפט:
 // OTHER_TEACHER_FOLDER_ID ו-OTHER_TEACHER_EMAIL). רק אצלה - לא בלוח ההגשות.
+// במקום מייל על כל הגשה היא מקבלת סיכום אחד בערב (sendDailyDigest / setupDailyDigest).
 var OTHER_TEACHER = { cls: 'יא', sections: ['1', '3'], subjects: ['תנ"ך', 'תושב"ע'] };      // כיתות שבהן אפשר להפעיל בקרת שיעור (כרגע רק י"א)
 var AWAY_GRACE_SEC = 15;           // יציאה קצרה מזה (למשל מעבר בין דפים באתר) לא נספרת
 var GONE_AFTER_SEC = 150;          // תלמיד שלא דיווח זמן כזה - "לא מחובר"
@@ -152,7 +153,13 @@ function saveSubmission_(d) {
   var auto = autoScore_(d.autoScore);
   if (auto) PropertiesService.getScriptProperties().setProperty('auto_' + file.getId(), JSON.stringify(auto));
 
-  if (NOTIFY_BY_EMAIL) {
+  // למורה האחרת - לא מייל על כל הגשה, אלא מייל אחד בערב עם כל ההגשות של היום (sendDailyDigest)
+  if (otherFolder) {
+    PropertiesService.getScriptProperties().setProperty('dg_' + Date.now() + '_' + Math.floor(Math.random() * 1e6), JSON.stringify({
+      n: name, c: (cls === 'יא' ? 'י"א' : 'י"ב') + (section ? ' ' + section : ''), t: task, u: file.getUrl(),
+      a: auto ? auto.c + '/' + auto.t : ''
+    }));
+  } else if (NOTIFY_BY_EMAIL) {
     try {
       MailApp.sendEmail({
         to: (histFolder && historyEmail_()) || (otherFolder && otherTeacherEmail_()) || Session.getEffectiveUser().getEmail(),
@@ -212,6 +219,47 @@ function otherTeacherFolder_(cls, section) {
 function otherTeacherEmail_() {
   var e = String(PropertiesService.getScriptProperties().getProperty('OTHER_TEACHER_EMAIL') || '').trim();
   return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e) ? e : '';
+}
+
+// ---------- סיכום יומי למורה האחרת ----------
+// רץ פעם ביום (טריגר שנוצר ב-setupDailyDigest). ביום בלי הגשות - לא נשלח כלום.
+function sendDailyDigest() {
+  var props = PropertiesService.getScriptProperties();
+  var all = props.getProperties();
+  var keys = Object.keys(all).filter(function (k) { return k.indexOf('dg_') === 0; }).sort();
+  if (!keys.length) return;
+  var to = otherTeacherEmail_();
+  if (to) {
+    var byClass = {};
+    keys.forEach(function (k) {
+      var x; try { x = JSON.parse(all[k]); } catch (e) { return; }
+      (byClass[x.c] = byClass[x.c] || []).push(x);
+    });
+    var lines = [];
+    Object.keys(byClass).sort().forEach(function (c) {
+      lines.push('כיתה ' + c + ':');
+      byClass[c].forEach(function (x) {
+        lines.push('• ' + x.n + ' - ' + x.t + (x.a ? ' (בדיקה אוטומטית: ' + x.a + ')' : '') + '\n  ' + x.u);
+      });
+      lines.push('');
+    });
+    var date = Utilities.formatDate(new Date(), TZ, DATE_FORMAT);
+    MailApp.sendEmail({
+      to: to,
+      subject: 'הגשות של היום (' + date + ') - ' + keys.length + (keys.length === 1 ? ' עבודה' : ' עבודות'),
+      body: 'אלה העבודות שהגיעו היום מהאתר:\n\n' + lines.join('\n') +
+            '\nכל העבודות נמצאות גם בתיקייה המשותפת ב-Google Drive.'
+    });
+  }
+  keys.forEach(function (k) { props.deleteProperty(k); });
+}
+
+// מריצים פעם אחת מהעורך: יוצר טריגר שמריץ את sendDailyDigest כל יום בין 20:00 ל-21:00
+function setupDailyDigest() {
+  ScriptApp.getProjectTriggers().forEach(function (t) {
+    if (t.getHandlerFunction() === 'sendDailyDigest') ScriptApp.deleteTrigger(t);
+  });
+  ScriptApp.newTrigger('sendDailyDigest').timeBased().everyDays(1).atHour(20).inTimezone(TZ).create();
 }
 
 function historyEmail_() {
