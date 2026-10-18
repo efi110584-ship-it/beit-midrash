@@ -1,4 +1,180 @@
 /* ============================================================
+   נעילת הדף של השיעור
+   ============================================================
+   כל עוד יש קוד פעיל, הדף שהמורה בחר לקוד נפתח רק למי שהקליד את הקוד
+   (בדף הבית, או כאן במסך הנעילה). שאר הדפים - כולל כרטיסיות החזרה -
+   פתוחים תמיד. כשהקוד נגמר או מבוטל, הדף פתוח שוב לכולם.
+   מורה שנכנס לאזור האישי (באותה לשונית) לא ננעל.
+   אם אין חיבור לשרת - הדף נשאר פתוח.
+   ============================================================ */
+(function(){
+  "use strict";
+  var API = window.BM_API_URL;
+  var page = location.pathname.split("/").pop() || "index.html";
+  if(!API || page === "index.html" || page === "screen.html" || /-(questions|answers)\.html$/.test(page)) return;
+  try{
+    if(sessionStorage.getItem("bm-teacher-token") || sessionStorage.getItem("teacherAreaUnlocked") === "1") return;
+  }catch(e){}
+
+  var KEY_STORE = "bm-lesson-key";   /* {code, page, until} - הקוד שהתלמיד הקליד */
+  var HINT_STORE = "bm-lesson-lock"; /* {page, until} - איזה דף נעול עכשיו (כדי להסתיר מיד בכניסה) */
+  function read(k){ try{ return JSON.parse(localStorage.getItem(k) || "null"); }catch(e){ return null; } }
+  function write(k, v){ try{ if(v) localStorage.setItem(k, JSON.stringify(v)); else localStorage.removeItem(k); }catch(e){} }
+  function esc(t){ return String(t == null ? "" : t).replace(/[&<>"']/g, function(c){ return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]; }); }
+
+  var key = read(KEY_STORE);
+  if(key && !(key.until > Date.now())){ write(KEY_STORE, null); key = null; }
+  var hint = read(HINT_STORE);
+  var myCode = key && key.page === page ? key.code : "";
+
+  var cover = null, prevOverflow = "";
+  function css(){
+    if(document.getElementById("bm-lock-style")) return;
+    var st = document.createElement("style");
+    st.id = "bm-lock-style";
+    st.textContent =
+      ".bm-lock{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:16px;" +
+        "background:#F3F6FB;direction:rtl;font-family:Heebo,Rubik,Arial,sans-serif;overflow:auto}" +
+      ".bm-lock-box{width:100%;max-width:420px;padding:26px 22px;border-radius:18px;background:#fff;border:1px solid #DCE4F1;" +
+        "box-shadow:0 12px 30px rgba(11,42,91,.12);text-align:center;color:#1B2A44}" +
+      ".bm-lock-ico{font-size:40px;line-height:1}" +
+      ".bm-lock h2{margin:10px 0 6px;font-size:1.35rem;color:#0B2A5B;text-wrap:balance}" +
+      ".bm-lock p{margin:0 0 14px;font-size:1rem;line-height:1.55;color:#4E5B72}" +
+      ".bm-lock form{display:flex;flex-direction:column;gap:10px;align-items:stretch}" +
+      ".bm-lock label{font-weight:700;color:#123A78}" +
+      ".bm-lock input{min-height:48px;padding:8px 12px;border:2px solid #C9D5EA;border-radius:12px;font:inherit;font-size:1.3rem;text-align:center}" +
+      ".bm-lock input.bm-lock-code{letter-spacing:.3em;direction:ltr}" +
+      ".bm-lock input.bm-lock-code:placeholder-shown{letter-spacing:normal;direction:rtl}" +
+      ".bm-lock input:focus-visible{outline:3px solid #FFB86B;outline-offset:2px;border-color:#123A78}" +
+      ".bm-lock button{min-height:48px;border:0;border-radius:12px;background:#123A78;color:#fff;font:inherit;font-weight:700;font-size:1.05rem;cursor:pointer}" +
+      ".bm-lock button:hover{background:#0B2A5B}" +
+      ".bm-lock button:focus-visible,.bm-lock a:focus-visible{outline:3px solid #FFB86B;outline-offset:2px}" +
+      ".bm-lock-msg{min-height:1.4em;margin:0;font-weight:700;color:#B42318}" +
+      ".bm-lock-links{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;margin-top:16px}" +
+      ".bm-lock-links a{color:#123A78;font-weight:700}" +
+      ".bm-lock-wait{font-size:1.05rem;color:#4E5B72}";
+    (document.head || document.documentElement).appendChild(st);
+  }
+  function show(html){
+    css();
+    if(!cover){
+      cover = document.createElement("div");
+      cover.className = "bm-lock";
+      cover.setAttribute("role", "dialog");
+      cover.setAttribute("aria-modal", "true");
+      cover.setAttribute("aria-label", "הדף נעול");
+      (document.body || document.documentElement).appendChild(cover);
+      if(document.body){ prevOverflow = document.body.style.overflow; document.body.style.overflow = "hidden"; }
+    }
+    cover.innerHTML = '<div class="bm-lock-box">' + html + '</div>';
+  }
+  function open(){
+    if(!cover) return;
+    cover.remove();
+    cover = null;
+    if(document.body) document.body.style.overflow = prevOverflow;
+  }
+  function whenBody(fn){ if(document.body) fn(); else document.addEventListener("DOMContentLoaded", fn); }
+
+  function lockedView(){
+    var qPage = page.replace(/\.html$/, "-questions.html");
+    show(
+      '<div class="bm-lock-ico" aria-hidden="true">🔒</div>' +
+      '<h2>הדף הזה פתוח עכשיו רק עם קוד</h2>' +
+      '<p>המורה פתח את הדף לשיעור. כדי להיכנס, הקלידו את הקוד שעל הלוח.</p>' +
+      '<form id="bmLockForm" novalidate>' +
+        '<label for="bmLockCode">הקוד מהמורה</label>' +
+        '<input id="bmLockCode" class="bm-lock-code" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" placeholder="4 ספרות">' +
+        '<div id="bmLockName" hidden>' +
+          '<p>בשיעור הזה <b>המורה רואה אם יוצאים מהדף</b> (לא לאן יוצאים).</p>' +
+          '<label for="bmLockNameInput">השם המלא שלכם</label>' +
+          '<input id="bmLockNameInput" type="text" autocomplete="name" maxlength="60">' +
+        '</div>' +
+        '<button type="submit" id="bmLockBtn">כניסה לשיעור</button>' +
+        '<p class="bm-lock-msg" id="bmLockMsg" role="status" aria-live="polite"></p>' +
+      '</form>' +
+      '<div class="bm-lock-links"><a href="index.html">לדף הבית</a><a href="' + esc(qPage) + '" id="bmLockCards" hidden>לכרטיסיות החזרה של הפרק</a></div>'
+    );
+    fetch(qPage, { method:"HEAD" }).then(function(r){ var a = document.getElementById("bmLockCards"); if(r.ok && a) a.hidden = false; }).catch(function(){});
+    var form = document.getElementById("bmLockForm");
+    var codeIn = document.getElementById("bmLockCode");
+    var nameBox = document.getElementById("bmLockName");
+    var nameIn = document.getElementById("bmLockNameInput");
+    var msg = document.getElementById("bmLockMsg");
+    var btn = document.getElementById("bmLockBtn");
+    var pending = null;
+    codeIn.focus();
+    codeIn.addEventListener("input", function(){
+      var clean = codeIn.value.replace(/\D/g, "").slice(0, 4);
+      if(clean !== codeIn.value) codeIn.value = clean;
+      msg.textContent = ""; pending = null; nameBox.hidden = true;
+    });
+    function enter(code, res, name){
+      var until = res.until || (Date.now() + 12 * 3600 * 1000);
+      write(KEY_STORE, { code:code, page:res.url.split("#")[0], until:until });
+      if(res.monitor){
+        var a = new Uint8Array(9);
+        (window.crypto || window.msCrypto).getRandomValues(a);
+        var sid = Array.prototype.map.call(a, function(b){ return ("0" + b.toString(16)).slice(-2); }).join("");
+        try{
+          localStorage.setItem("bm-lesson-name", name);
+          localStorage.setItem("bm-lesson-mode", JSON.stringify({ code:code, name:name, sid:sid, until:until, label:res.label || "", leaves:0 }));
+        }catch(e){}
+      }
+      if(res.url.split("#")[0] === page) location.reload();
+      else location.href = res.url;
+    }
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      if(pending){
+        var name = nameIn.value.replace(/\s+/g, " ").trim();
+        if(name.length < 2){ msg.textContent = "כתבו את השם המלא שלכם."; nameIn.focus(); return; }
+        enter(pending.code, pending.res, name);
+        return;
+      }
+      var code = codeIn.value;
+      if(!/^\d{4}$/.test(code)){ msg.textContent = "הקוד הוא 4 ספרות."; codeIn.focus(); return; }
+      btn.disabled = true;
+      msg.textContent = "בודקים…";
+      fetch(API + "?action=lesson&code=" + encodeURIComponent(code)).then(function(r){ return r.json(); }).then(function(res){
+        if(!(res && res.ok && /^[\w.-]+\.html(#[\w-]+)?$/.test(res.url || ""))){ msg.textContent = "הקוד לא נכון. בדקו מול הלוח."; codeIn.select(); return; }
+        if(res.monitor){
+          pending = { code:code, res:res };
+          msg.textContent = "";
+          try{ nameIn.value = nameIn.value || localStorage.getItem("bm-lesson-name") || ""; }catch(err){}
+          nameBox.hidden = false;
+          nameIn.focus();
+          return;
+        }
+        enter(code, res, "");
+      }).catch(function(){ msg.textContent = "אין חיבור לשרת כרגע. נסו שוב בעוד רגע."; })
+        .then(function(){ btn.disabled = false; });
+    });
+  }
+
+  /* אם ידוע שהדף הזה נעול עכשיו - מסתירים מיד, עד שהשרת עונה */
+  var waitTimer = null;
+  if(hint && hint.page === page && hint.until > Date.now() && !myCode){
+    whenBody(function(){
+      if(cover) return;
+      show('<div class="bm-lock-ico" aria-hidden="true">⏳</div><p class="bm-lock-wait">רגע, בודקים אם הדף פתוח…</p>');
+    });
+    waitTimer = setTimeout(open, 8000);
+  }
+
+  fetch(API + "?action=lessonLock&page=" + encodeURIComponent(page) + "&code=" + encodeURIComponent(myCode))
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      clearTimeout(waitTimer);
+      if(!res || !res.ok || typeof res.locked !== "boolean"){ open(); return; }
+      write(HINT_STORE, res.lessonPage ? { page:res.lessonPage, until:res.until } : null);
+      if(res.locked) whenBody(lockedView);
+      else open();
+    })
+    .catch(function(){ clearTimeout(waitTimer); open(); });
+})();
+
+/* ============================================================
    מצב שיעור (בקרת שיעור) - כיתה י"א
    ============================================================
    פועל רק אחרי שתלמיד נכנס עם קוד לשיעור שהמורה הפעיל בו בקרה

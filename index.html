@@ -552,7 +552,7 @@
           '</div>' +
           '<div class="tt-card">' +
             '<h3 class="tt-h">קוד לשיעור</h3>' +
-            '<p class="tt-sub">התלמידים מקלידים את הקוד בדף הבית ומגיעים ישר לדף שבחרתם.</p>' +
+            '<p class="tt-sub">התלמידים מקלידים את הקוד בדף הבית ומגיעים ישר לדף שבחרתם. כל עוד הקוד פעיל, הדף הזה נפתח רק למי שהקליד את הקוד (כרטיסיות החזרה פתוחות תמיד).</p>' +
             '<label for="ttLessonTarget" class="tt-label">לאן להגיע?</label>' +
             '<select id="ttLessonTarget" class="tt-select">' + lessonTargetsHtml() + '</select>' +
             '<label class="tt-check"><input type="checkbox" id="ttLessonMonitor"> ' +
@@ -1939,6 +1939,8 @@
       msg.textContent = "בודקים…";
       apiGet({ action:"lesson", code:code }).then(function(res){
         if(res && res.ok && /^[\w.-]+\.html(#[\w-]+)?$/.test(res.url || "")){
+          /* הדף של הקוד נעול למי שלא הקליד אותו (assets/lesson-mode.js) */
+          try{ localStorage.setItem("bm-lesson-key", JSON.stringify({ code:code, page:res.url.split("#")[0], until:res.until || (Date.now() + 12 * 3600 * 1000) })); }catch(err){}
           if(res.monitor){ askName(code, res); return; }
           msg.textContent = "✓ עוברים אל: " + (res.label || res.url);
           location.href = res.url;

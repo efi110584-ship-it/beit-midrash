@@ -60,6 +60,7 @@ function doGet(e) {
   try {
     if (p.action === 'announcement') return json_({ ok: true, announcement: getJson_('ANNOUNCEMENT') });
     if (p.action === 'lesson') return json_(findLesson_(p.code));
+    if (p.action === 'lessonLock') return json_(lessonLock_(p.page, p.code));
     if (p.action === 'qbList') return json_(qbList_(p.board));
     if (p.action === 'actCurrent') return json_(actCurrent_());
     if (p.action === 'dockState') return json_(dockState_());
@@ -394,6 +395,17 @@ function findLesson_(code) {
              until: l.created + LESSON_HOURS * 3600 * 1000 };
   }
   return { ok: false, error: 'הקוד לא נמצא' };
+}
+
+// הדף של הקוד הפעיל נפתח רק למי שנכנס עם הקוד. שאר הדפים פתוחים.
+// הקוד עצמו לא נשלח לדף - רק אם הדף נעול או לא.
+function lessonLock_(page, code) {
+  var l = getJson_('LESSON');
+  if (!l || Date.now() - l.created >= LESSON_HOURS * 3600 * 1000) return { ok: true, locked: false, lessonPage: '' };
+  var lessonPage = String(l.url || '').split('#')[0];
+  var until = l.created + LESSON_HOURS * 3600 * 1000;
+  var locked = String(page || '') === lessonPage && String(code || '') !== l.code;
+  return { ok: true, locked: locked, lessonPage: lessonPage, until: until };
 }
 
 // ---------- בקרת שיעור ----------
