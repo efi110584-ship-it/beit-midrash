@@ -10,10 +10,20 @@
       .replace(/[ךםןףץ]/g, function(c){ return FINALS[c]; });
   }
   function fields(root){ return Array.prototype.slice.call((root || document).querySelectorAll('.gzb-card [data-answer]')); }
+  /* חלופה באות אחת (י/ו.ש.ב, ע.ש.י/ה) - כל אחת מהאפשרויות נבדקת */
+  function slashVariants(str){
+    str = String(str || '').replace(/[֑-ׇ]/g, '');
+    var m = str.match(/(^|[^א-ת])([א-ת])\s*\/\s*([א-ת])(?![א-ת])/);
+    if(!m || !/^(יו|וי|הי|יה)$/.test(m[2] + m[3])) return [str];
+    var i = m.index + m[1].length, rest = str.slice(m.index + m[0].length);
+    return slashVariants(str.slice(0, i) + m[2] + rest).concat(slashVariants(str.slice(0, i) + m[3] + rest));
+  }
   function isRight(f){
     var v = f.value;
     if(f.tagName === 'SELECT') return f.getAttribute('data-answer').split('|').indexOf(v) !== -1;
-    var got = letters(v);
+    return slashVariants(v).some(function(x){ return matches(f, letters(x)); });
+  }
+  function matches(f, got){
     return f.getAttribute('data-answer').split('|').some(function(a){
       var want = letters(a);
       if(got === want) return true;

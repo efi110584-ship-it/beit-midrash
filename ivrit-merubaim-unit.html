@@ -413,6 +413,21 @@ function skeletonHafanAnswer(str){
   return normalizeHafanAnswer(str).replace(/[\u05D5\u05D9]/g, '');
 }
 
+/* שורש שנכתב עם חלופה באות אחת (י/ו-ש-ב, ע-ש-י/ה) - בודקים כל אחת מהאפשרויות */
+function slashVariants(str){
+  str = String(str || '').replace(/[֑-ׇ]/g, '');
+  const m = str.match(/(^|[^א-ת])([א-ת])\s*\/\s*([א-ת])(?![א-ת])/);
+  if(!m || !/^(\u05D9\u05D5|\u05D5\u05D9|\u05D4\u05D9|\u05D9\u05D4)$/.test(m[2] + m[3])) return [str];
+  const i = m.index + m[1].length, rest = str.slice(m.index + m[0].length);
+  return slashVariants(str.slice(0, i) + m[2] + rest).concat(slashVariants(str.slice(0, i) + m[3] + rest));
+}
+function rootSlashOk(input, alternatives){
+  if(!/shoresh/.test(input.dataset.id || '') || input.value.indexOf('/') === -1) return false;
+  const only = s => s.replace(/[^א-ת]/g, '');
+  const want = alternatives.map(a => only(normalizeHafanAnswer(a)));
+  return slashVariants(input.value).some(v => want.indexOf(only(normalizeHafanAnswer(v))) !== -1);
+}
+
 function checkAnswer(input){
   const correctRaw = CORRECT_ANSWERS[input.dataset.id];
   let cell = input.nextElementSibling;
@@ -436,7 +451,7 @@ function checkAnswer(input){
   const studentSkel = skeletonHafanAnswer(input.value);
   const isRoot = input.dataset.id.endsWith("-shoresh");
   const isBinyan = input.dataset.id.endsWith("-binyan");
-  const isCorrect = normAlts.includes(studentNorm) || (isBinyan && studentNorm === "פעל" && normAlts.includes("קל")) || (!isRoot && !isBinyan && skelAlts.includes(studentSkel));
+  const isCorrect = normAlts.includes(studentNorm) || (isBinyan && studentNorm === "פעל" && normAlts.includes("קל")) || (!isRoot && !isBinyan && skelAlts.includes(studentSkel)) || rootSlashOk(input, alternatives);
   input.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
   cell.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
   // משוב נגיש ליד השדה: הסימן ✓/✗ מקבל גם מילים, ומקושר לשדה עצמו
@@ -632,7 +647,7 @@ updateCheckReadiness();
 })();
 </script>
 <script src="assets/guide.js"></script>
-<script src="assets/gzara-bagrut.js?v=1"></script>
+<script src="assets/gzara-bagrut.js?v=2"></script>
 <script src="assets/unit-pages.js?v=2"></script>
 <script src="assets/lesson-mode.js"></script>
 <script src="assets/class-dock.js"></script>
