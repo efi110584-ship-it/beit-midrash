@@ -4532,6 +4532,8 @@ body.fc-open:where([data-css~="index"], [data-css~="index"] *){ overflow:hidden;
 .tt-lesson-out:empty:where([data-css~="index"], [data-css~="index"] *){ display:none; }
 .tt-code:where([data-css~="index"], [data-css~="index"] *){ font-family:"Rubik", sans-serif; font-size:48px; font-weight:700; letter-spacing:.2em; color:#0B2A5B; direction:ltr; line-height:1.1; }
 .tt-code-label:where([data-css~="index"], [data-css~="index"] *){ font-size:.92rem; color:#4E5B72; text-align:center; }
+.tt-lesson-go:where([data-css~="index"], [data-css~="index"] *){ margin-top:8px; font-size:1.05rem; }
+.tt-lesson-go:focus-visible:where([data-css~="index"], [data-css~="index"] *){ outline:3px solid #FFB86B; outline-offset:2px; }
 .tt-board-head:where([data-css~="index"], [data-css~="index"] *){ display:flex; justify-content:space-between; align-items:center; gap:10px; }
 .tt-subj:where([data-css~="index"], [data-css~="index"] *){ display:flex; flex-wrap:wrap; gap:6px; }
 .tt-tab:where([data-css~="index"], [data-css~="index"] *){ min-height:40px; padding:7px 14px; border-radius:999px; border:1px solid #DCE4F1; background:#fff; color:#123A78; font-size:.92rem; cursor:pointer; font-family:inherit; }

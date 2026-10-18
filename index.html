@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=22">
+<link rel="stylesheet" href="assets/site.css?v=23">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -780,7 +780,9 @@
           out.innerHTML =
             '<span class="tt-code" aria-label="הקוד: ' + escapeAttr(res.code.split("").join(" ")) + '">' + escapeHtml(res.code) + '</span>' +
             '<span class="tt-code-label">' + escapeHtml(res.label || opt.getAttribute("data-label")) + ' · בתוקף 12 שעות. קוד חדש מבטל את הקודם.' +
-              (res.monitor ? '<br><b>בקרת שיעור פעילה (כיתה י"א)</b> - הטבלה "שיעור חי" מופיעה למטה.' : '') + '</span>';
+              (res.monitor ? '<br><b>בקרת שיעור פעילה (כיתה י"א)</b> - הטבלה "שיעור חי" מופיעה למטה.' : '') + '</span>' +
+            '<a class="tt-btn tt-btn--primary tt-btn--link tt-lesson-go" href="' + escapeAttr(res.url || opt.value) + '">מעבר לשיעור ›</a>' +
+            '<span class="tt-code-label">הדף של השיעור ייפתח כאן. כלי המורה (לוח, הצבעה' + (res.monitor ? ', 👥 שיעור חי' : '') + ') נמצאים בסרגל הכחול בצד המסך.</span>';
           loadLive();
         } else out.innerHTML = '<p class="tt-msg">' + escapeHtml((res && res.error) || "יצירת הקוד לא הצליחה.") + '</p>';
       }).catch(function(){ out.innerHTML = '<p class="tt-msg">אין חיבור לשרת כרגע. נסו שוב.</p>'; });
@@ -929,7 +931,8 @@
       if(!res || !res.ok || !res.lesson){ card.hidden = true; if(navLive) navLive.hidden = true; return; }
       card.hidden = false;
       if(navLive) navLive.hidden = false;
-      document.getElementById("ttLiveLesson").textContent = "קוד " + res.lesson.code + " · " + (res.lesson.label || res.lesson.url) + ' · כיתה י"א';
+      document.getElementById("ttLiveLesson").innerHTML = escapeHtml("קוד " + res.lesson.code + " · " + (res.lesson.label || res.lesson.url) + ' · כיתה י"א') +
+        (res.lesson.url ? ' · <a href="' + escapeAttr(res.lesson.url) + '">מעבר לשיעור ›</a>' : '');
       var order = { out:0, gone:1, "in":2, bye:3 };
       var list = (res.students || []).slice().sort(function(a, b){
         return (order[a.status] - order[b.status]) || (b.leaves - a.leaves) || String(a.name).localeCompare(String(b.name), "he");
