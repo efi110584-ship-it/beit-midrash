@@ -76,6 +76,16 @@
 
 <main id="main-content" class="hx-wrap">
 
+  <section class="hx-card" id="hxChooser" aria-labelledby="ch-h">
+    <h2 id="ch-h"><span aria-hidden="true">📝</span>שאלת הבגרות נמצאת בסוף הדף של כל נושא</h2>
+    <p>בחרו נושא. בסוף הסיכום תמצאו את שאלת הבגרות, ומשם שולחים למורה.</p>
+    <div class="hx-cta" style="justify-content:flex-start">
+      <a class="btn primary" href="history-leumiut.html#q-leumiut">🧭 לאומיות</a>
+      <a class="btn primary" href="history-sotzializm.html#q-sotzializm">🏭 סוציאליזם</a>
+      <a class="btn primary" href="history-milchama.html#q-milchama">🌍 מלחמת העולם הראשונה</a>
+    </div>
+  </section>
+
   <section class="hx-card" id="q-sotzializm" aria-labelledby="qs-h">
     <h2 id="qs-h"><span aria-hidden="true">🏭</span>שאלת בגרות - סוציאליזם</h2>
     <p>האידאולוגיה של הסוציאליזם התגבשה באירופה בסוף המאה ה-19.</p>
@@ -163,6 +173,15 @@
 </nav>
 <footer class="credit">היסטוריה · כיתה י"א · שאלות בגרות</footer>
 
+<script>
+/* בלי ?key=1 (מחוון למורה) - רק בחירת נושא; השאלות עצמן בדפי הנושאים */
+(function(){
+  var keyMode = /[?&]key(=|&|$)/.test(location.search);
+  var ch = document.getElementById('hxChooser');
+  if(keyMode){ ch.hidden = true; return; }
+  Array.prototype.forEach.call(document.querySelectorAll('section[id^="q-"], .student-bar, .privacy-note, .toolbar, .bm-send-panel, .bm-send-last'), function(el){ el.hidden = true; el.style.display = 'none'; });
+})();
+</script>
 <script>
 /* שמירת התשובות במכשיר */
 (function(){

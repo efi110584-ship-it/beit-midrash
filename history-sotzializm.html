@@ -169,19 +169,73 @@
       </ul>
     </div>
     <div class="hx-cta" style="margin-top:1rem">
-      <a class="btn primary" href="history-bagrut.html#q-sotzializm">📝 לשאלת הבגרות על סוציאליזם</a>
+      <a class="btn primary" href="#q-sotzializm">📝 לשאלת הבגרות - למטה בדף</a>
     </div>
+  </section>
+  <section class="hx-card" id="q-sotzializm" aria-labelledby="qs-h">
+    <h2 id="qs-h"><span aria-hidden="true">🏭</span>שאלת בגרות - סוציאליזם</h2>
+<div class="student-bar" id="printHeader" style="margin:.2rem 0 .6rem;width:100%;box-shadow:none;border:1px solid var(--paper-line);padding:.7rem .9rem">
+      <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..." data-bm-persist="history"></label>
+      <label>כיתה: <input type="text" id="studentClass" placeholder="למשל: י&quot;א 3" style="width:8rem;" data-bm-persist="history"></label>
+    </div>
+    <p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים.</p>
+    <p>האידאולוגיה של הסוציאליזם התגבשה באירופה בסוף המאה ה-19.</p>
+      <div class="hx-q">
+        <span class="hx-q-label">סעיף 1</span>
+        <p>הסבר מה היה הרקע החברתי-כלכלי שהביא לצמיחתה של אידאולוגיה זו.</p>
+        <textarea class="answer" data-id="hs1" aria-label="סעיף 1 - התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..." data-model="המהפכה התעשייתית (מסוף המאה ה-18, באנגליה) הביאה למיכון, תיעוש ועיור - מעבר מכלכלה של חקלאות ומלאכת כפיים לעבודת מכונות במפעלים. החברה התחלקה לשני מעמדות: הבורגנות (בעלי ההון והמפעלים) והפרולטריון (הפועלים), שהיו רוב האוכלוסייה אך במצב כלכלי נחות וחשו שהם מנוצלים. הפתרונות של הליברליזם לא פתרו את מצוקת הפועלים, ולכן צמח הסוציאליזם, שביקש ליצור חברה צודקת."></textarea>
+      </div>
+      <div class="hx-q">
+        <span class="hx-q-label">סעיף 2</span>
+        <p>ציין שני זרמים סוציאליסטיים מרכזיים.</p>
+        <textarea class="answer" data-id="hs2" aria-label="סעיף 2 - התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..." data-model="סוציאליזם מהפכני (מרקסיזם / קומוניזם) וסוציאליזם דמוקרטי-חוקתי (סוציאל-דמוקרטיה). אפשר גם: סוציאליזם אוטופי."></textarea>
+      </div>
+      <div class="hx-q">
+        <span class="hx-q-label">סעיף 3</span>
+        <p>הצג את הדרך שהציע כל אחד מן הזרמים האלה כדי להתמודד עם המציאות החברתית-כלכלית בתקופה זו (סך הכול - שתי דרכים).</p>
+        <textarea class="answer" data-id="hs3" aria-label="סעיף 3 - התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..." data-model="סוציאליזם מהפכני: מהפכה של הפועלים נגד הבורגנות (&quot;הדיקטטורה של הפרולטריון&quot;), שבה הפועלים ישלטו באמצעי הייצור ויחלקו את המשאבים בשוויון - &quot;כל אדם יעבוד כפי יכולתו ויקבל לפי צרכיו&quot;. סוציאליזם דמוקרטי-חוקתי: שינוי בלי מהפכה, בדרכים דמוקרטיות ובחקיקה - התערבות המדינה (פיקוח על המשק והמחירים, הלאמת שירותים חיוניים, מסים לסיוע לחסרי ההון), איגודים מקצועיים ומפלגות פועלים, וחקיקה סוציאלית (ביטוח אבטלה, הגבלת שעות עבודה, איסור עבודת ילדים)."></textarea>
+      </div>
   </section>
 <p class="hx-src">הסיכום ערוך לפי דף הסיכום של הפיקוח על הוראת ההיסטוריה בחמ"ד (על פי ספרי הלימוד המאושרים).</p>
 </main>
+<div class="toolbar">
+  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="היסטוריה · סוציאליזם" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+  <button class="btn" id="printBtn" type="button">🖨️ הדפסה</button>
+  <button class="btn danger" id="clearBtn" type="button">נקו את כל התשובות</button>
+</div>
+<div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+<p class="bm-send-last" id="bmSendLast" hidden></p>
 <nav class="chapter-nav" aria-label="ניווט">
   <span></span>
   <a href="history-hub.html">↺ חזרה ליחידת ההיסטוריה</a>
   <span></span>
 </nav>
 <footer class="credit">היסטוריה · כיתה י"א · סוציאליזם</footer>
+<script>
+/* שמירת התשובות במכשיר */
+(function(){
+  var KEY = 'bm-history-bagrut:';
+  var fields = Array.prototype.slice.call(document.querySelectorAll('textarea.answer'));
+  var keyMode = /[?&]key(=|&|$)/.test(location.search);
+  fields.forEach(function(f){
+    if(!keyMode){ try{ var v = localStorage.getItem(KEY + f.getAttribute('data-id')); if(v) f.value = v; }catch(e){} }
+    f.addEventListener('input', function(){ if(keyMode) return; try{ localStorage.setItem(KEY + f.getAttribute('data-id'), f.value); }catch(e){} });
+  });
+  document.getElementById('clearBtn').addEventListener('click', function(){
+    if(!confirm('למחוק את כל התשובות בדף?')) return;
+    fields.forEach(function(f){ f.value = ''; try{ localStorage.removeItem(KEY + f.getAttribute('data-id')); }catch(e){} });
+  });
+  document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+})();
+</script>
+<script src="assets/units-data.js"></script>
 <script src="assets/bm-api.js"></script>
+<script src="assets/direct-submit.js"></script>
+<script src="assets/send-to-teacher.js?v=2"></script>
 <script src="assets/lesson-mode.js"></script>
 <script src="assets/class-dock.js"></script>
+<script src="assets/lesson-mode.js"></script>
+<script src="assets/class-dock.js"></script>
+<script src="assets/answer-key.js"></script>
 </body>
 </html>

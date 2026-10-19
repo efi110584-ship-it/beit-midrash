@@ -110,8 +110,7 @@
       topics:[
         { title:"לאומיות", url:"history-leumiut.html", k:"לאום אומה גרמניה" },
         { title:"סוציאליזם", url:"history-sotzializm.html", k:"מרקס פועלים" },
-        { title:"מלחמת העולם הראשונה", url:"history-milchama.html", k:"מלחמת העולם ורסאי" },
-        { title:"שאלות בגרות - היסטוריה", url:"history-bagrut.html", k:"בגרות", extra:true }
+        { title:"מלחמת העולם הראשונה", url:"history-milchama.html", k:"מלחמת העולם ורסאי" }
       ] },
     { key:"devarim", class:"יב", subject:"תנך",
       icon:"\u{1F4D6}", title:"ספר דברים",
@@ -215,7 +214,7 @@
     { key:"history-key", class:"teacher", subject:"מורה", category:"היסטוריה",
       icon:"\u{1F5DD}️", title:"מחוון תשובות - שאלות בגרות בהיסטוריה",
       desc:"אותו דף כמו אצל התלמידים, עם תשובה לדוגמה לכל סעיף.",
-      chapters:2, chaptersLabel:"שאלות", url:"history-bagrut.html?key=1" },
+      chapters:3, chaptersLabel:"שאלות", url:"history-bagrut.html?key=1" },
     { key:"ivrit-shlemim-key", class:"teacher", subject:"מורה", category:"עברית - גזרות",
       icon:"\u{1F5DD}️", title:"מחוון תשובות - גזרת השלמים",
       desc:"אותו דף בדיוק כמו אצל התלמידים - הסבר, תרגול עצמי ושאלות בגרות - עם כל התשובות כבר בפנים.",
