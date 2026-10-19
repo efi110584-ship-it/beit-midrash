@@ -7,6 +7,8 @@
    תלמיד: הסרגל מופיע רק כשהמורה פתח משהו (לוח או פעילות), עם הודעה
      קטנה. לחיצה על האייקון פותחת את הכלי בחלון בצד.
    מה פתוח עכשיו - נבדק בסקריפט (dockState) כל כמה שניות.
+   כל לוח ופעילות שייכים לקוד של שיעור (assets/bm-api.js - BM_ROOM / BM_TEACHER_ROOM):
+     תלמיד רואה את מה שנפתח לקוד שהקליד, ומורה מנהל את מה שנפתח לכיתה שבחר.
    הרכיבים עצמם נטענים רק כשצריך:
      assets/question-board.js · assets/live-widget.js · assets/live-teacher.js · assets/live-render.js
    ============================================================ */
@@ -194,8 +196,14 @@
     toastTimer = setTimeout(function(){ toast.hidden = true; }, 9000);
     if(tool === "board") markSeen("board", state.board.id); else markSeen("act", state.activity.id);
   }
+  function room(){
+    if(isTeacher) return window.BM_TEACHER_ROOM ? window.BM_TEACHER_ROOM.get() : "";
+    return window.BM_ROOM ? window.BM_ROOM() : "";
+  }
   function poll(){
-    return get({ action:"dockState" }).then(function(res){
+    var q = { action:"dockState", room:room() };
+    if(isTeacher) q.exact = "1";   /* למורה - רק מה שפתוח לכיתה שבחר */
+    return get(q).then(function(res){
       if(!res || !res.ok) return;
       state = { board:res.board || null, activity:res.activity || null };
       applyState();
@@ -285,9 +293,16 @@
     });
   }
 
+  /* "לאיזו כיתה" בראש החלון של הלוח (assets/live-teacher.js) */
+  function addPicker(){
+    var box = document.createElement("div");
+    body.insertBefore(box, body.firstChild);
+    window.BM_LIVETEACHER.roomPicker(box, function(){ poll().then(function(){ cleanup(); teacherBoard(); }); });
+  }
   function teacherBoard(){
-    return need(["question-board"]).then(function(){ return poll(); }).then(function(){
+    return need(["question-board", "live-render", "live-teacher"]).then(function(){ return poll(); }).then(function(){
       body.innerHTML = "";
+      addPicker();
       var ctl = document.createElement("div");
       ctl.className = "bmd-ctl";
       body.appendChild(ctl);
@@ -307,7 +322,7 @@
           var a = e.target.closest("[data-a]"); if(!a) return;
           if(a.getAttribute("data-a") === "new"){ cleanup(); newBoardForm(); return; }
           a.disabled = true;
-          post({ action:"boardSet", open:false }).then(function(res){
+          post({ action:"boardSet", open:false, room:room() }).then(function(res){
             if(authMsg(res)) return;
             poll().then(function(){ cleanup(); teacherBoard(); });
           }).catch(function(){ a.disabled = false; ctl.querySelector(".bmd-msg").textContent = "אין חיבור לשרת כרגע."; });
@@ -324,23 +339,24 @@
         '<label class="bmd-label" for="bmdBoardTitle">כותרת הלוח (התלמידים יראו אותה)</label>' +
         '<input id="bmdBoardTitle" class="bmd-in" type="text" maxlength="120" value="' + esc("שאלות על " + pageTitle()) + '">' +
         '<div class="bmd-btns"><button type="button" class="bmd-btn bmd-btn--primary" id="bmdBoardOpen">פתיחת הלוח לתלמידים</button></div>' +
-        '<p class="bmd-note">הלוח יופיע אצל כל התלמידים, בכל דף שהם נמצאים בו. לוח חדש סוגר את הקודם (השאלות שבו נשמרות).</p>' +
+        '<p class="bmd-note">הלוח יופיע אצל התלמידים של הכיתה שבחרתם למעלה, בכל דף שהם נמצאים בו. לוח חדש סוגר את הקודם של אותה כיתה (השאלות שבו נשמרות).</p>' +
         '<p class="bmd-msg" role="status"></p>' +
       '</div>' +
       '<div class="bmd-ctl"><span class="bmd-label">לוחות קודמים</span><ul class="bmd-old" id="bmdOld"><li><span>טוען…</span></li></ul></div>';
+    addPicker();
     var msg = body.querySelector(".bmd-msg");
     body.querySelector("#bmdBoardOpen").addEventListener("click", function(){
       var title = body.querySelector("#bmdBoardTitle").value.trim();
       if(title.length < 2){ msg.textContent = "כתבו כותרת ללוח."; return; }
       var b = this; b.disabled = true; msg.textContent = "פותחים…";
-      post({ action:"boardOpen", title:title, page:page }).then(function(res){
+      post({ action:"boardOpen", title:title, page:page, room:room() }).then(function(res){
         b.disabled = false;
         if(authMsg(res)) return;
         if(!res || !res.ok){ msg.textContent = (res && res.error) || "לא הצלחנו לפתוח."; return; }
         poll().then(function(){ cleanup(); teacherBoard(); });
       }).catch(function(){ b.disabled = false; msg.textContent = "אין חיבור לשרת כרגע."; });
     });
-    post({ action:"boardList" }).then(function(res){
+    post({ action:"boardList", room:room() }).then(function(res){
       if(authMsg(res)) return;
       var list = (res && res.boards) || [];
       var ul = body.querySelector("#bmdOld"); if(!ul) return;
@@ -354,7 +370,7 @@
         var r = e.target.closest("[data-reopen]"), v = e.target.closest("[data-view]");
         if(r){
           r.disabled = true;
-          post({ action:"boardSet", id:r.getAttribute("data-reopen"), open:true }).then(function(res2){
+          post({ action:"boardSet", id:r.getAttribute("data-reopen"), open:true, room:room() }).then(function(res2){
             if(authMsg(res2)) return;
             poll().then(function(){ cleanup(); teacherBoard(); });
           });

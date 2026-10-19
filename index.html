@@ -788,6 +788,9 @@
             '<span class="tt-code-label">קודים שנוצרו קודם ממשיכים לפעול - כולם מופיעים ברשימה למטה.</span>';
           /* הטבלה "שיעור חי" נשארת על השיעור שכבר מוצג; אפשר לעבור בין השיעורים בכפתורים שמעליה */
           if(res.monitor && !getLiveCode()) setLiveCode(res.code);
+          /* פעילויות ולוח שאלות שתפעילו מעכשיו - לתלמידים של הקוד החדש (אפשר לשנות ב"לאיזו כיתה") */
+          if(window.BM_TEACHER_ROOM) window.BM_TEACHER_ROOM.set(res.code, res.until);
+          if(actWidget && actWidget.refreshRooms) actWidget.refreshRooms();
           loadLessons();
           loadLive();
         } else out.innerHTML = '<p class="tt-msg">' + escapeHtml((res && res.error) || "יצירת הקוד לא הצליחה.") + '</p>';
@@ -806,6 +809,8 @@
         if(res && res.ok){
           out.innerHTML = '<p class="tt-msg">✓ קוד ' + escapeHtml(code) + ' בוטל. שאר הקודים נשארים פעילים.</p>';
           if(getLiveCode() === code) setLiveCode("");
+          if(window.BM_TEACHER_ROOM && window.BM_TEACHER_ROOM.get() === code) window.BM_TEACHER_ROOM.set("");
+          if(actWidget && actWidget.refreshRooms) actWidget.refreshRooms();
         } else { b.disabled = false; b.textContent = "ביטול"; alert((res && res.error) || "הביטול לא הצליח."); }
         loadLessons();
         loadLive();
@@ -1926,7 +1931,7 @@
     var a = document.getElementById("liveNow");
     if(!a || !window.BM_API_URL) return;
     function check(){
-      apiGet({ action:"actCurrent" }).then(function(res){
+      apiGet({ action:"actCurrent", room:window.BM_ROOM ? window.BM_ROOM() : "" }).then(function(res){
         var act = res && res.ok && res.activity;
         a.hidden = !(act && act.open);
         if(act) document.getElementById("liveNowPrompt").textContent = act.prompt;

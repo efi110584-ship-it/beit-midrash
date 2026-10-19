@@ -230,7 +230,8 @@
     }
 
     function load(){
-      fetch(API + "?action=actCurrent").then(function(r){ return r.json(); }).then(function(res){
+      var room = window.BM_ROOM ? window.BM_ROOM() : "";   /* הקוד שהתלמיד הקליד - הפעילות של הכיתה שלו */
+      fetch(API + "?action=actCurrent" + (room ? "&room=" + encodeURIComponent(room) : "")).then(function(r){ return r.json(); }).then(function(res){
         if(!res || !res.ok){ return; }
         if(!res.activity){ current = null; show("none"); if(opts.onNone) opts.onNone(); return; }
         if(!current || current.id !== res.activity.id) setup(res.activity);

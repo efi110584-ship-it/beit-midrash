@@ -58,18 +58,21 @@
 <script>
 /* מסך הקרנה לכיתה.
    screen.html            - הפעילות החיה (ענן מילים / הצבעה)
+   screen.html?room=1234  - הפעילות של הכיתה עם קוד 1234 (הקישור מהאזור האישי ומהסרגל כולל אותו)
    screen.html?board=X    - לוח השאלות של הדף X */
 (function(){
   "use strict";
   var API = window.BM_API_URL, L = window.BM_LIVE;
   var $ = function(id){ return document.getElementById(id); };
   var board = (new URLSearchParams(location.search).get("board") || "").replace(/[^\w-]/g, "");
+  var room = (new URLSearchParams(location.search).get("room") || "").replace(/\D/g, "").slice(0, 6);
   var COLORS = ["#FFF3B8", "#FFD9E1", "#D6ECFF", "#D9F5E3", "#EBDFFF", "#FFE2C6"];
   var last = "";
 
   var base = location.href.replace(/[^\/]*$/, "");
   $("scJoin").innerHTML = board
     ? 'רוצים להוסיף שאלה? נכנסים לדף הפרק באתר וכותבים בלוח השאלות.'
+    : room ? 'משתתפים מהטלפון: <b>' + L.esc(base.replace(/^https?:\/\//, "")) + '</b> ← "יש לכם קוד מהמורה?" ← <b>' + room + '</b>. הפעילות תופיע בצד המסך.'
     : 'משתתפים מהטלפון: <b>' + L.esc(base.replace(/^https?:\/\//, "")) + '</b> ← הכפתור האדום <b>"פעילות בכיתה עכשיו"</b>';
 
   $("scFull").addEventListener("click", function(){
@@ -80,7 +83,7 @@
   function colorOf(id){ var h = 0; for(var i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0; return COLORS[h % COLORS.length]; }
 
   function loadActivity(){
-    fetch(API + "?action=actCurrent").then(function(r){ return r.json(); }).then(function(res){
+    fetch(API + "?action=actCurrent" + (room ? "&exact=1&room=" + room : "")).then(function(r){ return r.json(); }).then(function(res){
       var json = JSON.stringify(res);
       if(json === last) return;
       last = json;

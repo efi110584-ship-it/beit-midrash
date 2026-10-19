@@ -66,8 +66,8 @@ function doGet(e) {
     if (p.action === 'lesson') return json_(findLesson_(p.code));
     if (p.action === 'lessonLock') return json_(lessonLock_(p.page, p.code));
     if (p.action === 'qbList') return json_(qbList_(p.board));
-    if (p.action === 'actCurrent') return json_(actCurrent_());
-    if (p.action === 'dockState') return json_(dockState_());
+    if (p.action === 'actCurrent') return json_(actCurrent_(p.room, p.exact === '1'));
+    if (p.action === 'dockState') return json_(dockState_(p.room, p.exact === '1'));
     return json_({ ok: true, service: 'beit-midrash' });
   } catch (err) {
     return json_({ ok: false, error: msg_(err) });
@@ -109,13 +109,13 @@ function doPost(e) {
       case 'setHidden':       return json_(setHidden_(data.fileId, data.hidden === true));
       case 'qbDelete':        return json_(qbDelete_(data.board, data.id));
       case 'qbMark':          return json_(qbMark_(data.board, data.id, data.done === true));
-      case 'actStart':        return json_(actStart_(data.type, data.prompt, data.options, data.questions, data.anonymous === true));
-      case 'actOpen':         return json_(actOpen_(data.open === true));
-      case 'actClear':        return json_(actClear_());
-      case 'actResults':      return json_(actTeacher_());
-      case 'boardOpen':       return json_(boardOpen_(data.title, data.page));
-      case 'boardSet':        return json_(boardSet_(data.id, data.open === true));
-      case 'boardList':       return json_({ ok: true, boards: qbBoardsList_().concat(QBOARD_TITLES), active: getJson_('QB_ACTIVE') });
+      case 'actStart':        return json_(actStart_(data.type, data.prompt, data.options, data.questions, data.anonymous === true, data.room));
+      case 'actOpen':         return json_(actOpen_(data.open === true, data.room));
+      case 'actClear':        return json_(actClear_(data.room));
+      case 'actResults':      return json_(actTeacher_(data.room));
+      case 'boardOpen':       return json_(boardOpen_(data.title, data.page, data.room));
+      case 'boardSet':        return json_(boardSet_(data.id, data.open === true, data.room));
+      case 'boardList':       return json_({ ok: true, boards: qbBoardsList_().concat(QBOARD_TITLES), active: qbActives_()[liveRoom_(data.room)] || null });
     }
     return json_({ ok: false, error: 'פעולה לא מוכרת' });
   } catch (err) {
@@ -539,9 +539,11 @@ function clearLesson_(code) {
   lock.waitLock(10000);
   try {
     var all = lessons_();
+    var gone = code ? [String(code)] : Object.keys(all);
     if (code) delete all[String(code)];
     else all = {};
     saveLessons_(all);
+    gone.forEach(clearRoom_);   // הפעילות והלוח של השיעור שבוטל נסגרים איתו
     return { ok: true };
   } finally {
     lock.releaseLock();
@@ -613,7 +615,7 @@ function presence_(d) {
     p.last = now;
     all[sid] = p;
     cache.put(key, JSON.stringify(all), 21600);
-    var act = getJson_('ACTIVITY');
+    var act = actFor_(l.code, true);
     return { ok: true, leaves: p.leaves, act: (act && act.open) ? { id: act.id, prompt: act.prompt } : null };
   } finally {
     lock.releaseLock();
@@ -644,8 +646,37 @@ function presenceList_(code) {
            lessons: mon.map(function (x) { return { code: x.code, label: x.label }; }), students: out };
 }
 
+// ---------- "חדרים": פעילות ולוח לכל שיעור ----------
+// חדר = קוד השיעור. מורה מפעיל פעילות / לוח לחדר שבחר; תלמיד רואה את מה שפתוח בחדר של הקוד
+// שהקליד, ואם שם אין כלום - את מה שנפתח בלי קוד (חדר ""). כך כמה מורים עובדים במקביל.
+function roomOf_(room) { return String(room || '').replace(/[^0-9]/g, '').slice(0, 6); }
+// חדר של שיעור שכבר נגמר (או קוד לא נכון) = חדר "" - כדי שמורה ותלמיד תמיד יגיעו לאותו מקום
+function liveRoom_(room) {
+  room = roomOf_(room);
+  return (room && lessons_()[room]) ? room : '';
+}
+function clearRoom_(room) {
+  room = roomOf_(room);
+  if (!room) return;
+  var m = acts_();
+  if (m[room]) { actDeleteResponses_(m[room].id); delete m[room]; saveActs_(m); }
+  var q = qbActives_();
+  if (q[room]) { delete q[room]; saveQbActives_(q); }
+}
+
 // ---------- לוח שאלות ----------
-// כל שאלה נשמרת במאפיין נפרד: qb_<דף>_<מזהה>
+// כל שאלה נשמרת במאפיין נפרד: qb_<דף>_<מזהה>. הלוח הפעיל בכל חדר - במאפיין QB_ACTIVES.
+function qbActives_() {
+  var m = getJson_('QB_ACTIVES') || {};
+  var old = getJson_('QB_ACTIVE');   // מהגרסה הקודמת, שבה היה לוח פעיל אחד לכולם
+  if (old && old.id && !m['']) m[''] = old;
+  return m;
+}
+function saveQbActives_(m) {
+  var props = PropertiesService.getScriptProperties();
+  props.setProperty('QB_ACTIVES', JSON.stringify(m));
+  props.deleteProperty('QB_ACTIVE');
+}
 function qbBoard_(board) {
   board = String(board || '');
   if (QBOARDS.indexOf(board) !== -1) return board;
@@ -654,11 +685,12 @@ function qbBoard_(board) {
 }
 // לוח פתוח לכתיבה רק כשהוא הלוח הפעיל בסרגל.
 function qbIsOpen_(board) {
-  var a = getJson_('QB_ACTIVE');
-  return !!(a && a.id === board);
+  var m = qbActives_();
+  return Object.keys(m).some(function (r) { return m[r] && m[r].id === board; });
 }
 function qbBoardsList_() { return getJson_('QB_LIST') || []; }
-function boardOpen_(title, page) {
+function boardOpen_(title, page, room) {
+  room = liveRoom_(room);
   title = clean_(title).slice(0, 120);
   if (title.length < 2) return { ok: false, error: 'כתבו כותרת ללוח.' };
   page = String(page || '').slice(0, 80);
@@ -667,30 +699,37 @@ function boardOpen_(title, page) {
   lock.waitLock(10000);
   try {
     var props = PropertiesService.getScriptProperties();
-    var b = { id: 'd' + Date.now().toString(36), title: title, page: page, created: Date.now() };
+    var b = { id: 'd' + Date.now().toString(36) + Math.floor(Math.random() * 1296).toString(36), title: title, page: page, created: Date.now() };
     var list = [b].concat(qbBoardsList_());
     list.slice(QB_KEEP).forEach(function (old) {          // לוחות ישנים מאוד - נמחקים עם השאלות שלהם
       Object.keys(props.getProperties()).forEach(function (k) { if (k.indexOf('qb_' + old.id + '_') === 0) props.deleteProperty(k); });
     });
     props.setProperty('QB_LIST', JSON.stringify(list.slice(0, QB_KEEP)));
-    props.setProperty('QB_ACTIVE', JSON.stringify({ id: b.id, title: b.title }));
+    var m = qbActives_();
+    m[room] = { id: b.id, title: b.title };
+    saveQbActives_(m);
     return { ok: true, board: b };
   } finally {
     lock.releaseLock();
   }
 }
-function boardSet_(id, open) {
-  var props = PropertiesService.getScriptProperties();
-  if (!open) { props.deleteProperty('QB_ACTIVE'); return { ok: true, active: null }; }
+function boardSet_(id, open, room) {
+  room = liveRoom_(room);
+  var m = qbActives_();
+  if (!open) { delete m[room]; saveQbActives_(m); return { ok: true, active: null }; }
   id = qbBoard_(id);
   if (!id) return { ok: false, error: 'הלוח לא נמצא' };
   var b = qbBoardsList_().concat(QBOARD_TITLES).filter(function (x) { return x.id === id; })[0] || { id: id, title: 'לוח שאלות' };
-  props.setProperty('QB_ACTIVE', JSON.stringify({ id: b.id, title: b.title }));
+  m[room] = { id: b.id, title: b.title };
+  saveQbActives_(m);
   return { ok: true, active: { id: b.id, title: b.title } };
 }
 // מה פתוח עכשיו לתלמידים - הסרגל בודק את זה כל כמה שניות
-function dockState_() {
-  var b = getJson_('QB_ACTIVE'), a = getJson_('ACTIVITY');
+// exact - למורה: רק מה שפתוח בחדר שלו, בלי מה שנפתח בלי קוד
+function dockState_(room, exact) {
+  room = liveRoom_(room);
+  var q = qbActives_();
+  var b = q[room] || (room && !exact ? q[''] : null), a = actFor_(room, !exact);
   return { ok: true,
            board: b ? { id: b.id, title: b.title } : null,
            activity: (a && a.open) ? { id: a.id, type: a.type, prompt: a.prompt } : null };
@@ -761,8 +800,24 @@ function qbLike_(board, id) { return qbUpdate_(board, id, function (it) { it.l =
 function qbMark_(board, id, done) { return qbUpdate_(board, id, function (it) { it.d = done; }); }
 function qbDelete_(board, id) { return qbUpdate_(board, id, function () { return 'delete'; }); }
 
-// ---------- פעילות חיה (ענן מילים / הצבעה) ----------
-// הפעילות עצמה במאפיין ACTIVITY, וכל תשובה במאפיין נפרד: ar_<פעילות>_<תלמיד>
+// ---------- פעילות חיה (ענן מילים / הצבעה / סקר) ----------
+// הפעילות של כל חדר במאפיין ACTIVITIES ({ חדר: פעילות }), וכל תשובה במאפיין נפרד: ar_<פעילות>_<תלמיד>
+function acts_() {
+  var m = getJson_('ACTIVITIES') || {};
+  var old = getJson_('ACTIVITY');   // מהגרסה הקודמת, שבה הייתה פעילות אחת לכולם
+  if (old && old.id && !m['']) m[''] = old;
+  return m;
+}
+function saveActs_(m) {
+  var props = PropertiesService.getScriptProperties();
+  props.setProperty('ACTIVITIES', JSON.stringify(m));
+  props.deleteProperty('ACTIVITY');
+}
+// הפעילות של חדר. fallback - לתלמיד: אם בחדר שלו אין פעילות, הפעילות שנפתחה בלי קוד
+function actFor_(room, fallback) {
+  var m = acts_();
+  return m[room] || (fallback && room ? m[''] : null) || null;
+}
 function actPublic_(a) {
   return { id: a.id, type: a.type, prompt: a.prompt, options: a.options || [], questions: a.questions || [],
            anonymous: !!a.anonymous, open: !!a.open, created: a.created };
@@ -831,19 +886,20 @@ function actResults_(a, withNames) {
   if (withNames) out.people = list.map(function (r) { return { name: r.n, o: r.v }; });
   return out;
 }
-function actCurrent_() {
-  var a = getJson_('ACTIVITY');
+function actCurrent_(room, exact) {   // exact - למקרן: רק הפעילות של הכיתה הזאת
+  var a = actFor_(liveRoom_(room), !exact);
   if (!a) return { ok: true, activity: null };
   return { ok: true, activity: actPublic_(a), results: actResults_(a, false) };
 }
-function actTeacher_() {
-  var a = getJson_('ACTIVITY');
+function actTeacher_(room) {
+  var a = acts_()[liveRoom_(room)];
   if (!a) return { ok: true, activity: null };
   return { ok: true, activity: actPublic_(a), results: actResults_(a, true) };
 }
 function actRespond_(d) {
-  var a = getJson_('ACTIVITY');
-  if (!a || String(d.id || '') !== a.id) return { ok: false, ended: true, error: 'הפעילות הזאת כבר הסתיימה.' };
+  var m = acts_();
+  var a = Object.keys(m).map(function (r) { return m[r]; }).filter(function (x) { return x && x.id === String(d.id || ''); })[0];
+  if (!a) return { ok: false, ended: true, error: 'הפעילות הזאת כבר הסתיימה.' };
   if (!a.open) return { ok: false, closed: true, error: 'המורה סגר את התשובות.' };
   var sid = String(d.sid || '').replace(/[^\w-]/g, '').slice(0, 40);
   var name = a.anonymous ? '' : clean_(d.name).slice(0, 40);
@@ -890,11 +946,13 @@ function actRespond_(d) {
     lock.releaseLock();
   }
 }
-function actDeleteResponses_() {
+function actDeleteResponses_(id) {
   var props = PropertiesService.getScriptProperties();
-  Object.keys(props.getProperties()).forEach(function (k) { if (k.indexOf('ar_') === 0) props.deleteProperty(k); });
+  var prefix = 'ar_' + id + '_';
+  Object.keys(props.getProperties()).forEach(function (k) { if (k.indexOf(prefix) === 0) props.deleteProperty(k); });
 }
-function actStart_(type, prompt, options, questions, anonymous) {
+function actStart_(type, prompt, options, questions, anonymous, room) {
+  room = liveRoom_(room);
   type = (type === 'poll' || type === 'survey') ? type : 'cloud';
   prompt = clean_(prompt).slice(0, 160);
   if (prompt.length < 3) return { ok: false, error: type === 'survey' ? 'כתבו כותרת לסקר.' : 'כתבו את השאלה לתלמידים.' };
@@ -916,28 +974,35 @@ function actStart_(type, prompt, options, questions, anonymous) {
   var lock = LockService.getScriptLock();
   lock.waitLock(10000);
   try {
-    actDeleteResponses_();
-    var a = { id: Date.now().toString(36), type: type, prompt: prompt, options: opts, questions: qs,
-              anonymous: type === 'survey' && !!anonymous, open: true, created: Date.now() };
-    PropertiesService.getScriptProperties().setProperty('ACTIVITY', JSON.stringify(a));
+    var m = acts_(), alive = lessons_();
+    Object.keys(m).forEach(function (r) {   // פעילות קודמת באותו חדר, ופעילויות של שיעורים שכבר נגמרו - נמחקות עם התשובות
+      if (r === room || (r && !alive[r])) { actDeleteResponses_(m[r].id); delete m[r]; }
+    });
+    var a = { id: Date.now().toString(36) + Math.floor(Math.random() * 1296).toString(36), type: type, prompt: prompt, options: opts, questions: qs,
+              anonymous: type === 'survey' && !!anonymous, open: true, created: Date.now(), room: room };
+    m[room] = a;
+    saveActs_(m);
     return { ok: true, activity: actPublic_(a), results: actResults_(a, true) };
   } finally {
     lock.releaseLock();
   }
 }
-function actOpen_(open) {
-  var a = getJson_('ACTIVITY');
+function actOpen_(open, room) {
+  room = liveRoom_(room);
+  var m = acts_();
+  var a = m[room];
   if (!a) return { ok: false, error: 'אין פעילות פעילה' };
   a.open = open;
-  PropertiesService.getScriptProperties().setProperty('ACTIVITY', JSON.stringify(a));
+  saveActs_(m);
   return { ok: true, activity: actPublic_(a) };
 }
-function actClear_() {
+function actClear_(room) {
+  room = liveRoom_(room);
   var lock = LockService.getScriptLock();
   lock.waitLock(10000);
   try {
-    actDeleteResponses_();
-    PropertiesService.getScriptProperties().deleteProperty('ACTIVITY');
+    var m = acts_();
+    if (m[room]) { actDeleteResponses_(m[room].id); delete m[room]; saveActs_(m); }
     return { ok: true };
   } finally {
     lock.releaseLock();

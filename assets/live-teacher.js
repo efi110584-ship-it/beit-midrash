@@ -14,6 +14,10 @@
      isActive: () => bool - לבדוק תוצאות רק כשהחלון גלוי
      onAuthFail: (res) => void - הסיסמה כבר לא בתוקף
    }
+   בראש הרכיב - "לאיזו כיתה": הקוד של השיעור שהפעילות שייכת לו. התלמידים של
+   הקוד הזה בלבד יראו את הפעילות, כך שכמה מורים יכולים להפעיל במקביל.
+   window.BM_LIVETEACHER.roomPicker(container, onChange) - אותה בחירה, גם ללוח
+   השאלות בסרגל הכלים.
    ============================================================ */
 (function(){
   "use strict";
@@ -81,14 +85,69 @@
     ".lt-people summary{cursor:pointer;font-weight:700;color:#123A78;min-height:36px;display:flex;align-items:center}" +
     ".lt-plist{margin:6px 0 0;padding-inline-start:20px;columns:200px;font-size:.92rem}" +
     ".lt-note{margin:0;font-size:.88rem;color:#4E5B72}" +
-    ".lt-msg{margin:0;font-size:.95rem;color:#4E5B72}.lt-msg:empty{display:none}";
+    ".lt-msg{margin:0;font-size:.95rem;color:#4E5B72}.lt-msg:empty{display:none}" +
+    ".lt-room{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;padding:10px 12px;border:1px solid #F3C9A4;border-radius:12px;background:#FFF6EE;font-family:Heebo,Rubik,Arial,sans-serif;font-size:.95rem;color:#0E1B33}" +
+    ".lt-room label{font-weight:700}" +
+    ".lt-room select{flex:1 1 220px;min-height:40px;padding:6px 10px;border:1px solid #9FB3D6;border-radius:10px;font:inherit;background:#fff;color:#0E1B33}" +
+    ".lt-room select:focus-visible{outline:3px solid #FF7A1A;outline-offset:2px}" +
+    ".lt-room small{flex-basis:100%;font-size:.82rem;color:#5B4A3A}";
+
+  function ensureCss(){
+    if(document.getElementById("ltStyle")) return;
+    var st = document.createElement("style"); st.id = "ltStyle"; st.textContent = css; document.head.appendChild(st);
+  }
+  var TR = {   /* assets/bm-api.js */
+    get:function(){ return window.BM_TEACHER_ROOM ? window.BM_TEACHER_ROOM.get() : ""; },
+    set:function(c, u){ if(window.BM_TEACHER_ROOM) window.BM_TEACHER_ROOM.set(c, u); }
+  };
+  function room(){ return TR.get(); }
+  function screenUrl(extra){
+    var q = [];
+    if(room()) q.push("room=" + encodeURIComponent(room()));
+    if(extra) q.push(extra);
+    return "screen.html" + (q.length ? "?" + q.join("&") : "");
+  }
+
+  /* ---------- "לאיזו כיתה" - בחירת הקוד ---------- */
+  var pickerUid = 0;
+  function roomPicker(box, onChange){
+    ensureCss();
+    var id = "ltRoom" + (++pickerUid);
+    box.classList.add("lt-room");
+    box.innerHTML = '<label for="' + id + '">🎯 לאיזו כיתה?</label><select id="' + id + '"><option value="">טוען את הקודים…</option></select>' +
+      '<small>רק התלמידים שנכנסו עם הקוד הזה יראו את מה שתפעילו. כך מורה אחר שמפעיל משהו לכיתה שלו לא יחליף את שלכם.</small>';
+    var sel = box.querySelector("select");
+    var lessons = [];
+    function fill(){
+      var cur = room();
+      if(cur && !lessons.some(function(l){ return l.code === cur; })){ TR.set(""); cur = ""; }
+      sel.innerHTML = lessons.map(function(l){
+        return '<option value="' + esc(l.code) + '">קוד ' + esc(l.code) + (l.label ? ' · ' + esc(l.label) : '') + '</option>';
+      }).join("") + '<option value="">כל התלמידים באתר (בלי קוד)</option>';
+      sel.value = cur;
+    }
+    function refresh(){
+      return post({ action:"lessonsList" }).then(function(res){
+        if(!res || !res.ok) return;
+        var before = room();
+        lessons = res.lessons || [];
+        fill();
+        if(room() !== before && onChange) onChange(room());
+      }).catch(function(){});
+    }
+    sel.addEventListener("change", function(){
+      var l = lessons.filter(function(x){ return x.code === sel.value; })[0];
+      TR.set(sel.value, l && l.until);
+      if(onChange) onChange(room());
+    });
+    refresh();
+    return { refresh:refresh };
+  }
 
   var uid = 0;
   function mount(root, opts){
     opts = opts || {};
-    if(!document.getElementById("ltStyle")){
-      var st = document.createElement("style"); st.id = "ltStyle"; st.textContent = css; document.head.appendChild(st);
-    }
+    ensureCss();
     uid++;
     var P = "lt" + uid + "-";
     var $ = function(id){ return root.querySelector("#" + P + id); };
@@ -99,7 +158,8 @@
     root.classList.add("lt");
     root.innerHTML =
       (opts.header ? '<div class="lt-head"><h3 class="lt-h">פעילות חיה</h3>' +
-        '<a class="lt-btn" href="screen.html" target="_blank" rel="noopener">📺 הצג על המקרן</a></div>' : '') +
+        '<a class="lt-btn lt-screen" href="screen.html" target="_blank" rel="noopener">📺 הצג על המקרן</a></div>' : '') +
+      '<div id="' + P + 'room"></div>' +
       '<div id="' + P + 'new" class="lt" style="gap:10px">' +
         '<p class="lt-sub">התלמידים רואים את הפעילות בסרגל הכלים בצד המסך, בכל דף שהם נמצאים בו (וגם בכפתור האדום בדף הבית). התוצאות מתעדכנות כאן ועל המקרן.</p>' +
         '<div class="lt-types" role="group" aria-label="סוג הפעילות">' + TYPES.map(function(t){
@@ -126,7 +186,7 @@
         '<div class="lt-btns">' +
           '<button type="button" class="lt-btn" id="' + P + 'toggle"></button>' +
           '<button type="button" class="lt-btn" id="' + P + 'clear">סיום הפעילות</button>' +
-          (opts.header ? '' : '<a class="lt-btn" href="screen.html" target="_blank" rel="noopener">📺 על המקרן</a>') +
+          (opts.header ? '' : '<a class="lt-btn lt-screen" href="screen.html" target="_blank" rel="noopener">📺 על המקרן</a>') +
         '</div>' +
         '<div class="lt-results" id="' + P + 'results" aria-live="polite"></div>' +
         '<details class="lt-people"><summary id="' + P + 'peopleSum">מי ענה</summary><div id="' + P + 'people"></div></details>' +
@@ -216,7 +276,7 @@
         if(bad){ msg.textContent = 'בשאלה "' + bad.q + '" צריך לפחות שתי אפשרויות, מופרדות בפסיק.'; return; }
       }
       var btn = this; btn.disabled = true; msg.textContent = "מפעילים…";
-      post({ action:"actStart", type:type, prompt:text, options:opts4, questions:questions, anonymous:$("anon").checked }).then(function(res){
+      post({ action:"actStart", type:type, prompt:text, options:opts4, questions:questions, anonymous:$("anon").checked, room:room() }).then(function(res){
         btn.disabled = false;
         if(authFail(res)) return;
         if(!res || !res.ok){ msg.textContent = (res && res.error) || "ההפעלה לא הצליחה."; return; }
@@ -229,7 +289,7 @@
     $("toggle").addEventListener("click", function(){
       if(!state || !state.activity) return;
       var btn = this; btn.disabled = true;
-      post({ action:"actOpen", open:!state.activity.open }).then(function(res){
+      post({ action:"actOpen", open:!state.activity.open, room:room() }).then(function(res){
         btn.disabled = false;
         if(authFail(res)) return;
         if(res && res.ok){ state.activity = res.activity; render(state); if(opts.onChange) opts.onChange(); }
@@ -238,7 +298,7 @@
     $("clear").addEventListener("click", function(){
       if(!confirm("לסיים את הפעילות? התשובות של התלמידים יימחקו.")) return;
       var btn = this; btn.disabled = true;
-      post({ action:"actClear" }).then(function(res){
+      post({ action:"actClear", room:room() }).then(function(res){
         btn.disabled = false;
         if(authFail(res)) return;
         msg.textContent = res && res.ok ? "✓ הפעילות הסתיימה. אפשר להפעיל פעילות חדשה." : ((res && res.error) || "לא הצליח.");
@@ -271,12 +331,20 @@
           return '<li><b>' + esc(p.name) + '</b>' + (ans ? ' - ' + esc(ans) : '') + '</li>';
         }).join("") + '</ul>' : '<p class="lt-note">עוד אף תלמיד לא ענה.</p>';
     }
+    function links(){
+      Array.prototype.forEach.call(root.querySelectorAll(".lt-screen"), function(a){ a.href = screenUrl(); });
+    }
+    var asked = "";
     function load(){
-      return post({ action:"actResults" }).then(function(res){
+      var r = asked = room();
+      links();
+      return post({ action:"actResults", room:r }).then(function(res){
+        if(r !== asked) return;   /* בינתיים בחרו כיתה אחרת */
         if(authFail(res)) return;
         if(res && res.ok) render(res);
       }).catch(function(){});
     }
+    var picker = roomPicker($("room"), function(){ msg.textContent = ""; load(); });
     load();
     var timer = setInterval(function(){
       if(!root.isConnected){ clearInterval(timer); return; }
@@ -287,10 +355,11 @@
 
     return {
       reload: load,
+      refreshRooms: function(){ return picker.refresh().then(load); },
       setType: function(t){ if(!state || !state.activity) setType(t); },
       destroy: function(){ clearInterval(timer); root.innerHTML = ""; }
     };
   }
 
-  window.BM_LIVETEACHER = { mount: mount };
+  window.BM_LIVETEACHER = { mount: mount, roomPicker: roomPicker, screenUrl: screenUrl };
 })();
