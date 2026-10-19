@@ -91,7 +91,7 @@ window.MishkalAnswerCheck = (function(){
       if(correctOpt) correctOpt.classList.add('is-correct');
     }
     if(feedback){
-      feedback.textContent = ok ? '✓ נכון!' : '✗ לא נכון';
+      feedback.textContent = (ok ? '✓ נכון!' : '✗ לא נכון') + (group.dataset.explain ? ' ' + group.dataset.explain : '');
       feedback.className = 'mc-feedback ' + (ok ? 'correct' : 'wrong');
     }
   }
