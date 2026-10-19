@@ -373,7 +373,8 @@
 
   function teacherLive(){
     function load(){
-      return post({ action:"presenceList" }).then(function(res){
+      var liveCode = ""; try{ liveCode = sessionStorage.getItem("bm-live-code") || ""; }catch(e){}
+      return post({ action:"presenceList", code:liveCode }).then(function(res){
         if(authMsg(res)) return;
         if(!res || !res.ok){ body.innerHTML = '<p class="bmd-msg">' + esc((res && res.error) || "לא הצלחנו לטעון.") + '</p>'; return; }
         if(!res.lesson){

@@ -167,7 +167,9 @@
     .then(function(res){
       clearTimeout(waitTimer);
       if(!res || !res.ok || typeof res.locked !== "boolean"){ open(); return; }
-      write(HINT_STORE, res.lessonPage ? { page:res.lessonPage, until:res.until } : null);
+      /* כמה קודים במקביל: זוכרים רק את הדף הזה (נעול או לא), בלי למחוק מידע על דפים אחרים */
+      if(res.lessonPage) write(HINT_STORE, { page:res.lessonPage, until:res.until });
+      else if(hint && hint.page === page) write(HINT_STORE, null);
       if(res.locked) whenBody(lockedView);
       else open();
     })

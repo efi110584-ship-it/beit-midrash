@@ -38,7 +38,7 @@ var LESSON_HOURS = 12;             // כמה שעות קוד לשיעור נשא
 var MONITOR_CLASSES = ['יא'];
 // עבודות שמגיעות למורה אחרת (התיקייה והמייל שלה - במאפייני הסקריפט:
 // OTHER_TEACHER_FOLDER_ID ו-OTHER_TEACHER_EMAIL). רק אצלה - לא בלוח ההגשות.
-// במקום מייל על כל הגשה היא מקבלת סיכום אחד בערב (sendDailyDigest / setupDailyDigest).
+// אפשר גם סיכום אחד בערב במקום מייל על כל הגשה (OTHER_TEACHER_DIGEST, ראו sendDailyDigest).
 var OTHER_TEACHER = { cls: 'יא', sections: ['1', '3'], subjects: ['תנ"ך', 'תושב"ע'] };      // כיתות שבהן אפשר להפעיל בקרת שיעור (כרגע רק י"א)
 var AWAY_GRACE_SEC = 15;           // יציאה קצרה מזה (למשל מעבר בין דפים באתר) לא נספרת
 var GONE_AFTER_SEC = 150;          // תלמיד שלא דיווח זמן כזה - "לא מחובר"
@@ -102,8 +102,9 @@ function doPost(e) {
       case 'markChecked':     return json_(markChecked_(data.fileId, data.checked !== false));
       case 'setAnnouncement': return json_(setAnnouncement_(data.text));
       case 'createLesson':    return json_(createLesson_(data.url, data.label, data.monitor === true, data.cls));
-      case 'presenceList':    return json_(presenceList_());
-      case 'clearLesson':     PropertiesService.getScriptProperties().deleteProperty('LESSON'); return json_({ ok: true });
+      case 'presenceList':    return json_(presenceList_(data.code));
+      case 'clearLesson':     return json_(clearLesson_(data.code));
+      case 'lessonsList':     return json_({ ok: true, lessons: lessonsList_() });
       case 'setGrade':        return json_(setGrade_(data.fileId, data.grade, data.comment));
       case 'setHidden':       return json_(setHidden_(data.fileId, data.hidden === true));
       case 'qbDelete':        return json_(qbDelete_(data.board, data.id));
@@ -153,8 +154,9 @@ function saveSubmission_(d) {
   var auto = autoScore_(d.autoScore);
   if (auto) PropertiesService.getScriptProperties().setProperty('auto_' + file.getId(), JSON.stringify(auto));
 
-  // למורה האחרת - לא מייל על כל הגשה, אלא מייל אחד בערב עם כל ההגשות של היום (sendDailyDigest)
-  if (otherFolder) {
+  // למורה האחרת - כשהסיכום היומי מופעל (OTHER_TEACHER_DIGEST = 1): לא מייל על כל הגשה,
+  // אלא מייל אחד בערב עם כל ההגשות של היום (sendDailyDigest). אחרת - מייל רגיל על כל הגשה.
+  if (otherFolder && PropertiesService.getScriptProperties().getProperty('OTHER_TEACHER_DIGEST') === '1') {
     PropertiesService.getScriptProperties().setProperty('dg_' + Date.now() + '_' + Math.floor(Math.random() * 1e6), JSON.stringify({
       n: name, c: (cls === 'יא' ? 'י"א' : 'י"ב') + (section ? ' ' + section : ''), t: task, u: file.getUrl(),
       a: auto ? auto.c + '/' + auto.t : ''
@@ -222,7 +224,8 @@ function otherTeacherEmail_() {
 }
 
 // ---------- סיכום יומי למורה האחרת ----------
-// רץ פעם ביום (טריגר שנוצר ב-setupDailyDigest). ביום בלי הגשות - לא נשלח כלום.
+// מפעילים כך: במאפייני הסקריפט OTHER_TEACHER_DIGEST = 1, ובעורך (שעון ⏰ "טריגרים") טריגר
+// לפונקציה sendDailyDigest - "מבוסס זמן", "טיימר יומי", 20:00-21:00. ביום בלי הגשות - לא נשלח כלום.
 function sendDailyDigest() {
   var props = PropertiesService.getScriptProperties();
   var all = props.getProperties();
@@ -252,14 +255,6 @@ function sendDailyDigest() {
     });
   }
   keys.forEach(function (k) { props.deleteProperty(k); });
-}
-
-// מריצים פעם אחת מהעורך: יוצר טריגר שמריץ את sendDailyDigest כל יום בין 20:00 ל-21:00
-function setupDailyDigest() {
-  ScriptApp.getProjectTriggers().forEach(function (t) {
-    if (t.getHandlerFunction() === 'sendDailyDigest') ScriptApp.deleteTrigger(t);
-  });
-  ScriptApp.newTrigger('sendDailyDigest').timeBased().everyDays(1).atHour(20).inTimezone(TZ).create();
 }
 
 function historyEmail_() {
@@ -491,50 +486,100 @@ function setAnnouncement_(text) {
 }
 
 // ---------- קוד לשיעור ----------
+// כמה קודים יכולים להיות פעילים במקביל - כל מורה והקוד שלו, ולכל קוד דף, נעילה ובקרה משלו.
+// נשמרים במאפיין LESSONS: { "4821": { code, url, label, created, monitor, cls }, ... }.
+// קוד שעברו עליו LESSON_HOURS שעות נמחק לבד.
+function lessonAlive_(l) { return !!(l && l.code && Date.now() - l.created < LESSON_HOURS * 3600 * 1000); }
+function lessonUntil_(l) { return l.created + LESSON_HOURS * 3600 * 1000; }
+function lessons_() {
+  var all = getJson_('LESSONS') || {};
+  var old = getJson_('LESSON');   // קוד מהגרסה הקודמת, שבה היה רק קוד אחד
+  if (old && old.code && !all[old.code]) all[old.code] = old;
+  var out = {};
+  Object.keys(all).forEach(function (c) { if (lessonAlive_(all[c])) out[c] = all[c]; });
+  return out;
+}
+function saveLessons_(all) {
+  var props = PropertiesService.getScriptProperties();
+  props.setProperty('LESSONS', JSON.stringify(all));
+  props.deleteProperty('LESSON');
+}
+function lessonsList_() {
+  var all = lessons_();
+  return Object.keys(all).map(function (c) {
+    var l = all[c];
+    return { code: l.code, url: l.url, label: l.label, monitor: !!l.monitor, cls: l.cls || '', created: l.created, until: lessonUntil_(l) };
+  }).sort(function (a, b) { return b.created - a.created; });
+}
+
 function createLesson_(url, label, monitor, cls) {
   url = String(url || '').trim();
   if (!/^[\w.-]+\.html(#[\w-]+)?$/.test(url)) return { ok: false, error: 'כתובת עמוד לא תקינה' };
   cls = normClass_(cls);
   if (monitor && MONITOR_CLASSES.indexOf(cls) < 0) return { ok: false, error: 'בקרת שיעור פעילה כרגע רק לכיתה י"א' };
-  var code = String(Math.floor(1000 + Math.random() * 9000));
-  var lesson = { code: code, url: url, label: clean_(label).slice(0, 120), created: Date.now(),
-                 monitor: !!monitor, cls: monitor ? cls : '' };
-  PropertiesService.getScriptProperties().setProperty('LESSON', JSON.stringify(lesson));
-  return { ok: true, code: code, url: url, label: lesson.label, monitor: lesson.monitor };
+  var lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    var all = lessons_();
+    var code;
+    do { code = String(Math.floor(1000 + Math.random() * 9000)); } while (all[code]);
+    var lesson = { code: code, url: url, label: clean_(label).slice(0, 120), created: Date.now(),
+                   monitor: !!monitor, cls: monitor ? cls : '' };
+    all[code] = lesson;
+    saveLessons_(all);
+    return { ok: true, code: code, url: url, label: lesson.label, monitor: lesson.monitor, until: lessonUntil_(lesson) };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+// ביטול קוד אחד. בלי קוד (גרסה ישנה של האתר) - מבטלים את כל הקודים.
+function clearLesson_(code) {
+  var lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    var all = lessons_();
+    if (code) delete all[String(code)];
+    else all = {};
+    saveLessons_(all);
+    return { ok: true };
+  } finally {
+    lock.releaseLock();
+  }
 }
 
 function findLesson_(code) {
-  var l = getJson_('LESSON');
-  if (l && String(code || '') === l.code && Date.now() - l.created < LESSON_HOURS * 3600 * 1000) {
-    return { ok: true, url: l.url, label: l.label, monitor: !!l.monitor, cls: l.cls || '',
-             until: l.created + LESSON_HOURS * 3600 * 1000 };
+  var l = lessons_()[String(code || '')];
+  if (l) {
+    return { ok: true, url: l.url, label: l.label, monitor: !!l.monitor, cls: l.cls || '', until: lessonUntil_(l) };
   }
   return { ok: false, error: 'הקוד לא נמצא' };
 }
 
-// הדף של הקוד הפעיל נפתח רק למי שנכנס עם הקוד. שאר הדפים פתוחים.
+// דף שיש לו קוד פעיל נפתח רק למי שנכנס עם אחד הקודים של אותו דף. שאר הדפים פתוחים.
 // הקוד עצמו לא נשלח לדף - רק אם הדף נעול או לא.
 function lessonLock_(page, code) {
-  var l = getJson_('LESSON');
-  if (!l || Date.now() - l.created >= LESSON_HOURS * 3600 * 1000) return { ok: true, locked: false, lessonPage: '' };
-  var lessonPage = String(l.url || '').split('#')[0];
-  var until = l.created + LESSON_HOURS * 3600 * 1000;
-  var locked = String(page || '') === lessonPage && String(code || '') !== l.code;
-  return { ok: true, locked: locked, lessonPage: lessonPage, until: until };
+  var all = lessons_();
+  page = String(page || '');
+  var here = Object.keys(all).map(function (c) { return all[c]; })
+    .filter(function (l) { return String(l.url || '').split('#')[0] === page; });
+  if (!here.length) return { ok: true, locked: false, lessonPage: '' };
+  var until = Math.max.apply(null, here.map(lessonUntil_));
+  var locked = !here.some(function (l) { return l.code === String(code || ''); });
+  return { ok: true, locked: locked, lessonPage: page, until: until };
 }
 
 // ---------- בקרת שיעור ----------
 // כל דף באתר שנפתח בזמן שיעור עם בקרה מדווח: "in" (התלמיד בדף), "out" (יצא מהדף),
 // "bye" (יצא ממצב שיעור). שומרים רק בזיכרון זמני (CacheService) - נמחק לבד אחרי 6 שעות.
-function activeMonitoredLesson_() {
-  var l = getJson_('LESSON');
-  if (!l || !l.monitor || Date.now() - l.created >= LESSON_HOURS * 3600 * 1000) return null;
-  return l;
+function monitoredLesson_(code) {
+  var l = lessons_()[String(code || '')];
+  return (l && l.monitor) ? l : null;
 }
 
 function presence_(d) {
-  var l = activeMonitoredLesson_();
-  if (!l || String(d.code || '') !== l.code) return { ok: false, ended: true };
+  var l = monitoredLesson_(d.code);
+  if (!l) return { ok: false, ended: true };
   var sid = String(d.sid || '').replace(/[^\w-]/g, '').slice(0, 40);
   if (!sid) return { ok: false, error: 'חסר מזהה' };
   var name = clean_(d.name).slice(0, 60);
@@ -575,9 +620,13 @@ function presence_(d) {
   }
 }
 
-function presenceList_() {
-  var l = activeMonitoredLesson_();
-  if (!l) return { ok: true, lesson: null, students: [] };
+// code - איזה שיעור להציג. בלי קוד (או קוד שכבר לא פעיל) - השיעור עם הבקרה שנוצר אחרון.
+// lessons - כל השיעורים הפעילים עם בקרה, כדי שהמורה יוכל לבחור ביניהם.
+function presenceList_(code) {
+  var mon = lessonsList_().filter(function (x) { return x.monitor; });
+  var pick = mon.filter(function (x) { return x.code === String(code || ''); })[0] || mon[0];
+  var l = pick ? lessons_()[pick.code] : null;
+  if (!l) return { ok: true, lesson: null, lessons: [], students: [] };
   var all = {};
   try { all = JSON.parse(CacheService.getScriptCache().get('pres_' + l.code) || '{}'); } catch (e) { all = {}; }
   var now = Date.now();
@@ -591,7 +640,8 @@ function presenceList_() {
              outFor: p.state === 'out' ? Math.round((now - p.outSince) / 1000) : 0,
              lastAgo: Math.round((now - (p.last || now)) / 1000) };
   });
-  return { ok: true, lesson: { code: l.code, label: l.label, url: l.url, cls: l.cls }, students: out };
+  return { ok: true, lesson: { code: l.code, label: l.label, url: l.url, cls: l.cls },
+           lessons: mon.map(function (x) { return { code: x.code, label: x.label }; }), students: out };
 }
 
 // ---------- לוח שאלות ----------
