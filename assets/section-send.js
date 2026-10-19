@@ -8,13 +8,17 @@
    נשלח בשדה ההערות, כך שבלוח ההגשות ההגשה נשארת בשורה של הפרק.
    הכפתור יושב בתוך השאלה האחרונה של הנושא, ולכן בדף שמחולק למשימות
    (assets/steps.js) הוא מופיע יחד עם המשימה האחרונה של הנושא.
+   בפתוח תפתח - כפתור כזה אחרי שאלות הבגרות של כל מצווה.
    ============================================================ */
 (function(){
   "use strict";
   var page = location.pathname.split("/").pop() || "";
   var T = window.BM_TASKS;
   var where = T && T.findByPage(page);
-  if(!where || where.unit.class !== "יב" || where.unit.subject !== "תנך") return;
+  if(!where || where.unit.class !== "יב") return;
+  /* פתוח תפתח (בחינת הבגרות בתנ"ך, שאלון 2371): רק שאלות הבגרות - הלשונית בדף המרכזי והכרטיס בכל מצווה */
+  var ptpOnly = where.unit.key === "ptp";
+  if(where.unit.subject !== "תנך" && !ptpOnly) return;
   var api = window.BeitMidrashDirectSubmit;
   var nameEl = document.getElementById("studentName");
   var classEl = document.getElementById("studentClass");
@@ -22,9 +26,16 @@
   var main = document.querySelector("main");
   if(!main) return;
   var assignment = T.assignmentFor(where.unit, where.topic);
+  var WHAT = ptpOnly ? "בשאלות האלה" : "בנושא הזה";
 
   function arr(x){ return Array.prototype.slice.call(x || []); }
   function clean(t){ return String(t || "").replace(/\s+/g, " ").trim(); }
+  function textOf(el){
+    if(!el) return "";
+    var c = el.cloneNode(true);
+    arr(c.querySelectorAll('[aria-hidden="true"]')).forEach(function(x){ x.remove(); });
+    return clean(c.textContent);
+  }
   function fields(root){
     return arr(root.querySelectorAll("textarea.answer, input.answer")).filter(function(f){
       return f.type !== "radio" && f.type !== "checkbox";
@@ -33,12 +44,22 @@
 
   /* ---------- הנושאים בדף ---------- */
   var sections = [];
-  arr(main.querySelectorAll(".topic-col, .topic-section")).forEach(function(col){
+  if(ptpOnly){
+    arr(main.querySelectorAll(".bq-panel")).forEach(function(panel){
+      var chip = document.getElementById(panel.getAttribute("aria-labelledby") || "");
+      if(fields(panel).length) sections.push({ root: panel, title: "שאלות בגרות · " + textOf(chip),
+                                               assignment: T.fileSafe(where.unit.title) + T.SEP + "שאלות בגרות" });
+    });
+    arr(main.querySelectorAll('section.card[data-stage="bagrut"]')).forEach(function(card){
+      if(fields(card).length) sections.push({ root: card, title: "שאלות בגרות · " + clean((card.querySelector(".card-title") || {}).textContent) });
+    });
+  }
+  if(!ptpOnly) arr(main.querySelectorAll(".topic-col, .topic-section")).forEach(function(col){
     if(col.parentElement.closest(".topic-col, .topic-section") || !fields(col).length) return;
     var t = col.querySelector(".topic-title, .topic-banner h2, .topic-banner h3");
     sections.push({ root: col, title: clean(t && t.textContent) });
   });
-  arr(main.querySelectorAll("section.card")).forEach(function(card){
+  if(!ptpOnly) arr(main.querySelectorAll("section.card")).forEach(function(card){
     if(card.closest(".topic-col, .topic-section") || !fields(card).length) return;
     sections.push({ root: card, title: clean((card.querySelector(".card-title") || {}).textContent) });
   });
@@ -68,13 +89,13 @@
   }
 
   sections.forEach(function(sec, idx){
-    var blocks = arr(sec.root.querySelectorAll(".question-block"));
+    var blocks = arr(sec.root.querySelectorAll(".question-block, .bagrut-part"));
     var host = blocks.length ? blocks[blocks.length - 1] : sec.root.querySelector(".card-body") || sec.root;
     var key = "bm-secsent:" + page + ":" + idx;
     var box = document.createElement("div");
     box.className = "bm-secsend";
     box.innerHTML =
-      '<div class="bm-secsend-row"><button type="button" class="bm-secsend-btn">📤 שלחו למורה את התשובות על הנושא הזה</button></div>' +
+      '<div class="bm-secsend-row"><button type="button" class="bm-secsend-btn">' + (ptpOnly ? "📤 שלחו למורה את התשובות לשאלות הבגרות" : "📤 שלחו למורה את התשובות על הנושא הזה") + '</button></div>' +
       '<p class="bm-secsend-msg" role="status" aria-live="polite"></p>' +
       '<p class="bm-secsend-last"></p>';
     host.appendChild(box);
@@ -108,8 +129,8 @@
       }
       var fs = fields(sec.root);
       var filled = fs.filter(function(f){ return clean(f.value); });
-      if(!filled.length){ say("עוד לא כתבתם תשובות בנושא הזה.", "err"); return; }
-      say("לשלוח למורה " + (filled.length === 1 ? "תשובה אחת" : filled.length + " תשובות") + " מתוך " + fs.length + " בנושא הזה?" +
+      if(!filled.length){ say("עוד לא כתבתם תשובות " + WHAT + ".", "err"); return; }
+      say("לשלוח למורה " + (filled.length === 1 ? "תשובה אחת" : filled.length + " תשובות") + " מתוך " + fs.length + " " + WHAT + "?" +
           (filled.length < fs.length ? " (שאלות בלי תשובה לא יישלחו)" : ""));
       btn.hidden = true;
       var go = document.createElement("button");
@@ -126,7 +147,7 @@
         api.send({
           studentName: clean(nameEl.value),
           studentClass: classEl ? classEl.value : "",
-          assignment: assignment,
+          assignment: sec.assignment || assignment,
           notes: "נושא: " + (sec.title || "נושא " + (idx + 1)),
           fields: fs,
           total: fs.length
@@ -134,7 +155,7 @@
           if(!(res && res.ok)) throw new Error((res && res.error) || "השרת לא אישר את הקבלה");
           try{ localStorage.setItem(key, JSON.stringify({ t: Date.now(), n: filled.length })); }catch(e){}
           reset(); showLast();
-          say("✅ התשובות על הנושא הזה נשלחו למורה. הן נשארות שמורות גם בדף.", "ok");
+          say("✅ התשובות נשלחו למורה. הן נשארות שמורות גם בדף.", "ok");
         }).catch(function(err){
           reset();
           say("❌ השליחה לא הצליחה. בדקו שיש חיבור לאינטרנט ונסו שוב." + (err && err.message ? " (" + err.message + ")" : ""), "err");
