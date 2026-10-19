@@ -385,7 +385,11 @@
         var list = (res.students || []).slice().sort(function(a, b){ return (order[a.status] - order[b.status]) || (b.leaves - a.leaves); });
         var n = { "in":0, out:0 };
         list.forEach(function(s){ if(n[s.status] !== undefined) n[s.status]++; });
-        body.innerHTML = '<p class="bmd-note">קוד ' + esc(res.lesson.code) + ' · 🟢 בדף: <b>' + n["in"] + '</b> · 🟠 מחוץ לדף: <b>' + n.out + '</b></p>' +
+        var many = (res.lessons || []).length > 1;
+        body.innerHTML = (many ? '<div class="bmd-btns">' + res.lessons.map(function(x){
+            return '<button type="button" class="bmd-btn" data-live-code="' + esc(x.code) + '"' + (x.code === res.lesson.code ? ' aria-pressed="true" style="font-weight:700"' : ' aria-pressed="false"') + '>קוד ' + esc(x.code) + '</button>';
+          }).join("") + '</div>' : '') +
+          '<p class="bmd-note">קוד ' + esc(res.lesson.code) + ' · ' + esc(res.lesson.label || "") + ' · 🟢 בדף: <b>' + n["in"] + '</b> · 🟠 מחוץ לדף: <b>' + n.out + '</b></p>' +
           (list.length ? '<ul class="bmd-pres">' + list.map(function(s){
             var stt = s.status === "out" ? "🟠 מחוץ לדף" : s.status === "gone" ? "⚪ לא מחובר" : s.status === "bye" ? "יצא ממצב שיעור" : "🟢 בדף";
             return '<li class="' + (s.status === "out" ? "is-out" : "") + '"><b>' + esc(s.name || "ללא שם") + '</b><span>' + stt + '</span><small>' + (s.leaves || 0) + ' יציאות</small></li>';
@@ -393,6 +397,14 @@
           '<p class="bmd-note">מתעדכן לבד כל 20 שניות.</p>';
       }).catch(function(){ body.innerHTML = '<p class="bmd-msg">אין חיבור לשרת כרגע.</p>'; });
     }
+    if(!body.__bmLiveBound) body.addEventListener("click", function(e){
+      var b = e.target.closest && e.target.closest("[data-live-code]");
+      if(!b) return;
+      try{ sessionStorage.setItem("bm-live-code", b.getAttribute("data-live-code")); }catch(err){}
+      if(typeof body.__bmLiveLoad === "function") body.__bmLiveLoad();
+    });
+    body.__bmLiveBound = true;
+    body.__bmLiveLoad = load;
     extraTimer = setInterval(function(){ if(document.visibilityState === "visible") load(); }, 20000);
     return load();
   }

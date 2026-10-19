@@ -4539,7 +4539,9 @@ body.fc-open:where([data-css~="index"], [data-css~="index"] *){ overflow:hidden;
 .tt-lesson-code:where([data-css~="index"], [data-css~="index"] *){ font-family:"Rubik", sans-serif; font-size:1.3rem; font-weight:700; letter-spacing:.12em; color:#0B2A5B; }
 .tt-lesson-info:where([data-css~="index"], [data-css~="index"] *){ flex:1 1 160px; display:flex; flex-direction:column; line-height:1.35; }
 .tt-lesson-info:where([data-css~="index"], [data-css~="index"] *) small{ color:#4E5B72; }
-.tt-live-pick:where([data-css~="index"], [data-css~="index"] *){ display:inline-flex; align-items:center; gap:6px; margin-inline-end:6px; }
+.tt-live-picks:where([data-css~="index"], [data-css~="index"] *){ display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-bottom:8px; }
+.tt-live-picks-h:where([data-css~="index"], [data-css~="index"] *){ flex-basis:100%; font-weight:700; color:#0B2A5B; }
+.tt-live-now:where([data-css~="index"], [data-css~="index"] *){ display:block; }
 .tt-code:where([data-css~="index"], [data-css~="index"] *){ font-family:"Rubik", sans-serif; font-size:48px; font-weight:700; letter-spacing:.2em; color:#0B2A5B; direction:ltr; line-height:1.1; }
 .tt-code-label:where([data-css~="index"], [data-css~="index"] *){ font-size:.92rem; color:#4E5B72; text-align:center; }
 .tt-lesson-go:where([data-css~="index"], [data-css~="index"] *){ margin-top:8px; font-size:1.05rem; }
