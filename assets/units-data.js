@@ -105,11 +105,12 @@
       ] },
     { key:"history", class:"יא", subject:"היסטוריה",
       icon:"\u{1F3DB}️", title:"היסטוריה",
-      desc:"לאומיות וסוציאליזם - סיכומים ברורים ושאלות בגרות.",
-      chapters:2, chaptersLabel:"נושאים", url:"history-hub.html",
+      desc:"לאומיות, סוציאליזם ומלחמת העולם הראשונה - סיכומים ברורים ושאלות בגרות.",
+      chapters:3, chaptersLabel:"נושאים", url:"history-hub.html",
       topics:[
         { title:"לאומיות", url:"history-leumiut.html", k:"לאום אומה גרמניה" },
         { title:"סוציאליזם", url:"history-sotzializm.html", k:"מרקס פועלים" },
+        { title:"מלחמת העולם הראשונה", url:"history-milchama.html", k:"מלחמת העולם ורסאי" },
         { title:"שאלות בגרות - היסטוריה", url:"history-bagrut.html", k:"בגרות", extra:true }
       ] },
     { key:"devarim", class:"יב", subject:"תנך",
