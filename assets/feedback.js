@@ -64,6 +64,22 @@
       (withQ && x.q ? '<span class="bm-fb-qtext">' + esc(x.q) + '</span>' : '') +
       esc(x.text) + '</div>';
   }
+  function markSeen(id){
+    try{
+      var s = JSON.parse(localStorage.getItem("bm-fb-seen") || "[]");
+      if(s.indexOf(id) === -1){ s.push(id); localStorage.setItem("bm-fb-seen", JSON.stringify(s.slice(-200))); }
+    }catch(e){}
+  }
+  /* קישור משוב שנפתח במכשיר שלא שלח את העבודה: מוסיפים אותה לרשימה, כדי שהמשוב יופיע גם בדף העבודה ובדף הבית */
+  function rememberLink(id, fb){
+    try{
+      var list = JSON.parse(localStorage.getItem("bm-my-subs") || "[]");
+      if(list.some(function(x){ return x && x.id === id; })) return;
+      if(!/^[\w.-]+\.html$/.test(fb.page || "")) return;
+      list.unshift({ id: id, page: fb.page, a: fb.assignment || "", n: "", t: Date.now() });
+      localStorage.setItem("bm-my-subs", JSON.stringify(list.slice(0, 80)));
+    }catch(e){}
+  }
   function load(id){
     return fetch(API + "?action=feedback&id=" + encodeURIComponent(id)).then(function(r){ return r.json(); });
   }
@@ -71,6 +87,7 @@
   /* ---------- בדף העבודה: ציון בראש הדף, הסבר מתחת לכל שאלה ---------- */
   function inPage(sub, fb){
     css();
+    markSeen(sub.id);
     var top = document.createElement("section");
     top.className = "bm-fb bm-fb-top";
     top.setAttribute("aria-label", "המשוב של המורה");
@@ -108,6 +125,8 @@
       var fb = res && res.ok && res.feedback;
       if(!fb){ root.innerHTML = '<p class="bm-fb-sum">המשוב עוד לא מוכן. המורה יפרסם אותו אחרי הבדיקה.</p>'; return; }
       document.title = "משוב - " + (fb.assignment || "עבודה");
+      markSeen(id);
+      rememberLink(id, fb);
       root.innerHTML =
         '<div class="bm-fb bm-fb-top">' +
           '<div class="bm-fb-head">' + gradeHtml(fb) +
