@@ -99,7 +99,7 @@ function doPost(e) {
 
     switch (data.action) {
       case 'login':           return json_({ ok: true });
-      case 'list':            return json_({ ok: true, submissions: listSubmissions_() });
+      case 'list':            return json_({ ok: true, submissions: listSubmissions_(data.fresh === true) });
       case 'markChecked':     return json_(markChecked_(data.fileId, data.checked !== false));
       case 'setAnnouncement': return json_(setAnnouncement_(data.text));
       case 'createLesson':    return json_(createLesson_(data.url, data.label, data.monitor === true, data.cls));
@@ -150,6 +150,8 @@ function saveSubmission_(d) {
     var fileName = safe_(name + ' - ' + task + ' - ' + date) + extension_(d.fileName, d.fileMimeType);
     file = studentFolder.createFile(Utilities.newBlob(bytes, d.fileMimeType || 'application/octet-stream', fileName));
     if (d.notes) file.setDescription('הערות: ' + clean_(d.notes));
+    // ללוח ההגשות (אצל המורה האחרת הקובץ לא מופיע בלוח, ולכן גם לא במטמון)
+    if (!otherFolder) subsCacheAdd_(subsEntry_(file, cls, studentFolder.getName(), null));
   } finally {
     lock.releaseLock();
   }
@@ -312,8 +314,63 @@ function containsAll_(have, want) {
 }
 
 // ---------- לוח הגשות ----------
-function listSubmissions_() {
-  var checked = checkedMap_();
+// מעבר על כל תיקיות התלמידים ב-Drive איטי (כל קובץ - כמה קריאות ל-Drive). לכן התוצאה נשמרת
+// במטמון (CacheService) עד 6 שעות, וכל הגשה חדשה נוספת אליו מיד (subsCacheAdd_). מעבר מלא -
+// רק כשהמטמון ריק או כשהמורה לוחץ "רענון" בלוח (fresh). הציונים, "נבדק", ההסתרה והמשובים
+// נקראים בכל פעם מחדש, ולכן תמיד מעודכנים.
+var SUBS_CACHE = 'subs_v1', SUBS_TTL = 21600, SUBS_CHUNK = 40000;
+function subsCacheGet_() {
+  var c = CacheService.getScriptCache();
+  var n = Number(c.get(SUBS_CACHE + '_n'));
+  if (!n) return null;
+  var keys = [];
+  for (var i = 0; i < n; i++) keys.push(SUBS_CACHE + '_' + i);
+  var got = c.getAll(keys), s = '';
+  for (i = 0; i < n; i++) { if (got[keys[i]] == null) return null; s += got[keys[i]]; }
+  try { return JSON.parse(s); } catch (e) { return null; }
+}
+function subsCachePut_(list) {
+  var s = JSON.stringify(list), map = {}, n = Math.max(1, Math.ceil(s.length / SUBS_CHUNK));
+  for (var i = 0; i < n; i++) map[SUBS_CACHE + '_' + i] = s.slice(i * SUBS_CHUNK, (i + 1) * SUBS_CHUNK);
+  map[SUBS_CACHE + '_n'] = String(n);
+  try { CacheService.getScriptCache().putAll(map, SUBS_TTL); } catch (e) { /* בלי מטמון - פשוט איטי יותר */ }
+}
+// הגשה חדשה: נכנסת לראש הרשימה שבמטמון (אם יש), ושורת "לא הוגש" של אותה מטלה יורדת
+function subsCacheAdd_(entry) {
+  var list = subsCacheGet_();
+  if (!list) return;
+  var ns = normName_(entry.student), nt = normTask_(entry.task);
+  list = list.filter(function (x) {
+    return !(x.status === 'missing' && x.cls === entry.cls && normName_(x.student) === ns && normTask_(x.task) === nt);
+  });
+  list.unshift(entry);
+  subsCachePut_(list);
+}
+function listSubmissions_(fresh) {
+  var out = fresh ? null : subsCacheGet_();
+  if (!out) { out = scanSubmissions_(); subsCachePut_(out); }
+  var props = PropertiesService.getScriptProperties().getProperties();   // קריאה אחת לכל המאפיינים
+  var checked = checkedMap_(props), grades = gradeMap_(props), hidden = hiddenMap_(props), autos = autoMap_(props);
+  var fbs = feedbackIndex_(props);
+  out.forEach(function (x) {
+    if (x.status !== 'missing') x.status = checked[x.id] ? 'checked' : 'pending';
+    x.auto = (x.id && autos[x.id]) || null;
+    x.fb = (x.id && fbs[x.id]) || '';
+    var g = x.id && grades[x.id];
+    x.grade = g ? g.g : '';
+    x.comment = g ? g.c : '';
+    x.hidden = !!(x.id && hidden[x.id]);
+  });
+  out.sort(function (a, b) { return b.time - a.time; });
+  return out;
+}
+// להפעלה מטריגר זמן (כל 10 דקות, מוגדר ידנית בעורך: טריגרים ← הוספת טריגר ← keepWarm).
+// שומר את הסקריפט "ער" כדי שיענה מהר יותר, ומכין מראש את רשימת ההגשות כשהמטמון התרוקן.
+function keepWarm() {
+  if (!subsCacheGet_()) subsCachePut_(scanSubmissions_());
+}
+function scanSubmissions_() {
+  var checked = {};
   var out = [];
   Object.keys(CLASS_FOLDERS).forEach(function (cls) {
     var classFolder = DriveApp.getFolderById(CLASS_FOLDERS[cls]);
@@ -333,42 +390,29 @@ function listSubmissions_() {
       while (hit.hasNext()) { var hs = hit.next(); collectFiles_(hs, cls, hs.getName(), out, checked); }
     }
   });
-  var grades = gradeMap_();
-  var hidden = hiddenMap_();
-  var autos = autoMap_();
-  var fbs = feedbackIndex_();
-  out.forEach(function (x) {
-    x.auto = (x.id && autos[x.id]) || null;
-    x.fb = (x.id && fbs[x.id]) || '';
-    var g = x.id && grades[x.id];
-    x.grade = g ? g.g : '';
-    x.comment = g ? g.c : '';
-    x.hidden = !!(x.id && hidden[x.id]);
-  });
-  out.sort(function (a, b) { return b.time - a.time; });
   return out;
 }
 
 function collectFiles_(folder, cls, studentName, out, checked) {
   var it = folder.getFiles();
-  while (it.hasNext()) {
-    var f = it.next();
-    var p = parseName_(f.getName());
-    var created = f.getDateCreated();
-    var task = p.task || p.raw;
-    out.push({
-      id: f.getId(),
-      student: studentName || p.student || '',
-      task: task,
-      subject: subjectOf_(task),
-      cls: cls,
-      date: p.date || Utilities.formatDate(created, TZ, DATE_FORMAT),
-      time: created.getTime(),
-      status: checked[f.getId()] ? 'checked' : 'pending',
-      url: f.getUrl(),
-      notes: f.getDescription() || ''
-    });
-  }
+  while (it.hasNext()) out.push(subsEntry_(it.next(), cls, studentName, checked));
+}
+function subsEntry_(f, cls, studentName, checked) {
+  var p = parseName_(f.getName());
+  var created = f.getDateCreated();
+  var task = p.task || p.raw;
+  return {
+    id: f.getId(),
+    student: studentName || p.student || '',
+    task: task,
+    subject: subjectOf_(task),
+    cls: cls,
+    date: p.date || Utilities.formatDate(created, TZ, DATE_FORMAT),
+    time: created.getTime(),
+    status: checked && checked[f.getId()] ? 'checked' : 'pending',
+    url: f.getUrl(),
+    notes: f.getDescription() || ''
+  };
 }
 
 // "שם התלמיד - מטלה - תאריך.pdf"  (המטלה עצמה יכולה להכיל " - ")
@@ -404,8 +448,8 @@ function subjectOf_(task) {
   return 'תנ"ך';
 }
 
-function checkedMap_() {
-  var props = PropertiesService.getScriptProperties().getProperties();
+function checkedMap_(props) {
+  props = props || PropertiesService.getScriptProperties().getProperties();
   var map = {};
   Object.keys(props).forEach(function (k) { if (k.indexOf('chk_') === 0) map[k.slice(4)] = true; });
   return map;
@@ -426,8 +470,8 @@ function autoScore_(a) {
   if (!(t > 0 && t <= 1000 && c >= 0 && c <= t)) return null;
   return { c: c, t: t };
 }
-function autoMap_() {
-  var props = PropertiesService.getScriptProperties().getProperties();
+function autoMap_(props) {
+  props = props || PropertiesService.getScriptProperties().getProperties();
   var map = {};
   Object.keys(props).forEach(function (k) {
     if (k.indexOf('auto_') !== 0) return;
@@ -438,8 +482,8 @@ function autoMap_() {
 
 // ---------- הסתרת עבודה מהלוח ----------
 // hid_<מזהה הקובץ> = 1. הקובץ עצמו לא נמחק מהדרייב, ואפשר להחזיר אותו ללוח.
-function hiddenMap_() {
-  var props = PropertiesService.getScriptProperties().getProperties();
+function hiddenMap_(props) {
+  props = props || PropertiesService.getScriptProperties().getProperties();
   var map = {};
   Object.keys(props).forEach(function (k) { if (k.indexOf('hid_') === 0) map[k.slice(4)] = true; });
   return map;
@@ -453,8 +497,8 @@ function setHidden_(fileId, hidden) {
 
 // ---------- ציונים ----------
 // נשמרים במאפייני הסקריפט, ליד הסימון "נבדק": grade_<מזהה הקובץ> = {g: ציון, c: הערה}
-function gradeMap_() {
-  var props = PropertiesService.getScriptProperties().getProperties();
+function gradeMap_(props) {
+  props = props || PropertiesService.getScriptProperties().getProperties();
   var map = {};
   Object.keys(props).forEach(function (k) {
     if (k.indexOf('grade_') !== 0) return;
@@ -501,14 +545,22 @@ function feedbackRead_(id) {
   } catch (e) { return null; }
 }
 // אילו עבודות יש להן משוב: { מזהה: 'draft' | 'pub' }
-function feedbackIndex_() {
-  var out = {};
-  var props = PropertiesService.getScriptProperties();
-  var it = DriveApp.searchFiles("title contains 'fb_' and trashed = false");
-  while (it.hasNext()) {
-    var m = /^fb_([\w-]{10,})\.json$/.exec(it.next().getName());
-    if (m) out[m[1]] = props.getProperty('fbpub_' + m[1]) === '1' ? 'pub' : 'draft';
+function feedbackIndex_(props) {
+  props = props || PropertiesService.getScriptProperties().getProperties();
+  var cache = CacheService.getScriptCache();
+  var ids = null;
+  try { ids = JSON.parse(cache.get('fb_ids') || 'null'); } catch (e) { ids = null; }
+  if (!ids) {   // חיפוש ב-Drive - פעם בשתי דקות לכל היותר
+    ids = [];
+    var it = DriveApp.searchFiles("title contains 'fb_' and trashed = false");
+    while (it.hasNext()) {
+      var m = /^fb_([\w-]{10,})\.json$/.exec(it.next().getName());
+      if (m) ids.push(m[1]);
+    }
+    try { cache.put('fb_ids', JSON.stringify(ids), 120); } catch (e) {}
   }
+  var out = {};
+  ids.forEach(function (id) { out[id] = props['fbpub_' + id] === '1' ? 'pub' : 'draft'; });
   return out;
 }
 function feedbackTeacher_(id) {

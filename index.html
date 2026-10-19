@@ -839,7 +839,7 @@
     });
     startLivePolling();
 
-    document.getElementById("ttBoardRefresh").addEventListener("click", loadBoard);
+    document.getElementById("ttBoardRefresh").addEventListener("click", function(){ loadBoard(true); });
     document.getElementById("ttExport").addEventListener("click", exportGrades);
     document.getElementById("ttSubj").addEventListener("click", function(e){
       var b = e.target.closest("[data-subj]"); if(!b) return;
@@ -1037,13 +1037,29 @@
     }).catch(function(){ /* ננסה שוב בעוד 20 שניות */ });
   }
 
-  function loadBoard(){
+  /* fresh - "רענון": הסקריפט עובר מחדש על כל התיקיות ב-Drive (איטי). בלי - הוא עונה מהמטמון שלו.
+     בינתיים מוצגת הרשימה האחרונה שנטענה בלשונית הזאת (sessionStorage), כדי לא לחכות מול מסך ריק. */
+  var BOARD_CACHE = "bm-board-cache";
+  function loadBoard(fresh){
     var msg = document.getElementById("ttBoardMsg");
     if(!msg) return;
-    msg.textContent = "טוען הגשות…";
-    apiPost({ action:"list", password:teacherToken() }).then(function(res){
+    var shown = false;
+    if(!board.rows.length){
+      try{
+        var c = JSON.parse(sessionStorage.getItem(BOARD_CACHE) || "null");
+        if(c && c.submissions){ applyList(c); shown = true; }
+      }catch(e){}
+    }
+    msg.textContent = fresh ? "בודקים מחדש את כל התיקיות ב-Drive… (זה לוקח קצת זמן)" : (shown || board.rows.length ? "מעדכנים…" : "טוען הגשות…");
+    apiPost({ action:"list", password:teacherToken(), fresh:!!fresh }).then(function(res){
       if(handleAuthFailure(res)) return;
       if(!res || !res.ok){ msg.textContent = (res && res.error) || "טעינת ההגשות לא הצליחה."; return; }
+      try{ sessionStorage.setItem(BOARD_CACHE, JSON.stringify({ submissions:res.submissions || [] })); }catch(e){}
+      applyList(res);
+      msg.textContent = "";
+    }).catch(function(){ netError(msg); });
+  }
+  function applyList(res){
       var classify = (window.BM_TASKS && window.BM_TASKS.classify) || function(t){ return { unit:"אחר", topic:t }; };
       board.rows = (res.submissions || []).map(function(x){
         /* הגשות בהיסטוריה - מזהים לפי שם המטלה (הסקריפט מכיר רק תנ"ך/תושב"ע/עברית) */
@@ -1057,9 +1073,7 @@
                  unit:"", topic:"" };
       });
       board.rows.forEach(function(r){ var c = classify(r.task); r.unit = c.unit; r.topic = c.topic; });
-      msg.textContent = "";
       renderBoard();
-    }).catch(function(){ netError(msg); });
   }
 
   function renderBoard(){
@@ -1373,7 +1387,7 @@
   }
   function isTeacherUnlocked(){ return !!teacherToken(); }
   function lockTeacherArea(){
-    try{ sessionStorage.removeItem(TOKEN_KEY); sessionStorage.removeItem("teacherAreaUnlocked"); }catch(e){}
+    try{ sessionStorage.removeItem(TOKEN_KEY); sessionStorage.removeItem("teacherAreaUnlocked"); sessionStorage.removeItem("bm-board-cache"); }catch(e){}
   }
 
   var loginOverlay = document.getElementById("loginOverlay");
