@@ -237,6 +237,20 @@
     syncControls();
     loadQuickNav();
     loadPageNav();
+    loadFeedback();
+  }
+
+  /* ---------- המשוב של המורה על עבודה שנשלחה מהדף הזה - assets/feedback.js ---------- */
+  function loadFeedback(){
+    if(!SELF_SRC) return;
+    var page = location.pathname.split("/").pop() || "index.html";
+    try{
+      var list = JSON.parse(localStorage.getItem("bm-my-subs") || "[]");
+      if(!list.some(function(x){ return x && x.page === page; })) return;
+    }catch(e){ return; }
+    var script = document.createElement("script");
+    script.src = SELF_SRC.replace(/a11y\.js(\?.*)?$/, "") + "feedback.js";
+    document.body.appendChild(script);
   }
 
   /* ---------- פס ניווט בראש הדף (בין הפרקים ובתוך הפרק) - assets/page-nav.js ---------- */

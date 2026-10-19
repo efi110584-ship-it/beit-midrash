@@ -65,6 +65,7 @@ function doGet(e) {
     if (p.action === 'announcement') return json_({ ok: true, announcement: getJson_('ANNOUNCEMENT') });
     if (p.action === 'lesson') return json_(findLesson_(p.code));
     if (p.action === 'lessonLock') return json_(lessonLock_(p.page, p.code));
+    if (p.action === 'feedback') return json_(feedbackPublic_(p.id));
     if (p.action === 'qbList') return json_(qbList_(p.board));
     if (p.action === 'actCurrent') return json_(actCurrent_(p.room, p.exact === '1'));
     if (p.action === 'dockState') return json_(dockState_(p.room, p.exact === '1'));
@@ -105,7 +106,8 @@ function doPost(e) {
       case 'presenceList':    return json_(presenceList_(data.code));
       case 'clearLesson':     return json_(clearLesson_(data.code));
       case 'lessonsList':     return json_({ ok: true, lessons: lessonsList_() });
-      case 'setGrade':        return json_(setGrade_(data.fileId, data.grade, data.comment));
+      case 'setGrade':        return json_(setGrade_(data.fileId, data.grade, data.comment, data.publishFb));
+      case 'feedbackGet':     return json_(feedbackTeacher_(data.fileId));
       case 'setHidden':       return json_(setHidden_(data.fileId, data.hidden === true));
       case 'qbDelete':        return json_(qbDelete_(data.board, data.id));
       case 'qbMark':          return json_(qbMark_(data.board, data.id, data.done === true));
@@ -334,8 +336,10 @@ function listSubmissions_() {
   var grades = gradeMap_();
   var hidden = hiddenMap_();
   var autos = autoMap_();
+  var fbs = feedbackIndex_();
   out.forEach(function (x) {
     x.auto = (x.id && autos[x.id]) || null;
+    x.fb = (x.id && fbs[x.id]) || '';
     var g = x.id && grades[x.id];
     x.grade = g ? g.g : '';
     x.comment = g ? g.c : '';
@@ -459,7 +463,8 @@ function gradeMap_() {
   return map;
 }
 
-function setGrade_(fileId, grade, comment) {
+// publishFb: true - המשוב המפורט (fb_<מזהה>.json) נחשף לתלמיד; false - מוסתר; בלי - לא משתנה
+function setGrade_(fileId, grade, comment, publishFb) {
   if (!/^[\w-]{10,}$/.test(String(fileId || ''))) return { ok: false, error: 'מזהה קובץ לא תקין' };
   var g = String(grade == null ? '' : grade).trim();
   var c = clean_(comment).slice(0, 300);
@@ -472,7 +477,61 @@ function setGrade_(fileId, grade, comment) {
     props.setProperty('grade_' + fileId, JSON.stringify({ g: g, c: c, t: Date.now() }));
     props.setProperty('chk_' + fileId, '1');       // עבודה עם ציון נחשבת "נבדקה"
   }
-  return { ok: true, grade: g, comment: c };
+  if (publishFb === true) props.setProperty('fbpub_' + fileId, '1');
+  if (publishFb === false) props.deleteProperty('fbpub_' + fileId);
+  return { ok: true, grade: g, comment: c, fbPublished: props.getProperty('fbpub_' + fileId) === '1' };
+}
+
+// ---------- משוב מפורט לתלמיד ----------
+// המשוב (ציון מוצע, סיכום והסבר לכל שאלה) נשמר כקובץ טקסט ב-Drive בשם fb_<מזהה העבודה>.json.
+// התלמיד רואה אותו רק אחרי שהמורה אישר בלוח ההגשות (fbpub_<מזהה> = 1), עם הציון שהמורה שמר.
+// התלמיד ניגש לפי מזהה העבודה - הוא נשמר רק במכשיר שממנו נשלחה העבודה, או בקישור שהמורה שולח.
+function feedbackFile_(id) {
+  if (!/^[\w-]{10,}$/.test(String(id || ''))) return null;
+  var it = DriveApp.getFilesByName('fb_' + id + '.json');
+  while (it.hasNext()) { var f = it.next(); if (!f.isTrashed()) return f; }
+  return null;
+}
+function feedbackRead_(id) {
+  var f = feedbackFile_(id);
+  if (!f) return null;
+  try {
+    var fb = JSON.parse(f.getBlob().getDataAsString('UTF-8'));
+    return (fb && fb.fileId === id) ? fb : null;
+  } catch (e) { return null; }
+}
+// אילו עבודות יש להן משוב: { מזהה: 'draft' | 'pub' }
+function feedbackIndex_() {
+  var out = {};
+  var props = PropertiesService.getScriptProperties();
+  var it = DriveApp.searchFiles("title contains 'fb_' and trashed = false");
+  while (it.hasNext()) {
+    var m = /^fb_([\w-]{10,})\.json$/.exec(it.next().getName());
+    if (m) out[m[1]] = props.getProperty('fbpub_' + m[1]) === '1' ? 'pub' : 'draft';
+  }
+  return out;
+}
+function feedbackTeacher_(id) {
+  var fb = feedbackRead_(String(id || ''));
+  if (!fb) return { ok: false, error: 'אין משוב לעבודה הזאת' };
+  return { ok: true, feedback: fb, published: PropertiesService.getScriptProperties().getProperty('fbpub_' + id) === '1' };
+}
+function feedbackPublic_(id) {
+  id = String(id || '');
+  if (!/^[\w-]{10,}$/.test(id)) return { ok: false, error: 'קישור לא תקין' };
+  if (PropertiesService.getScriptProperties().getProperty('fbpub_' + id) !== '1') return { ok: true, feedback: null };
+  var fb = feedbackRead_(id);
+  if (!fb) return { ok: true, feedback: null };
+  var g = gradeMap_()[id];
+  return { ok: true, feedback: {
+    student: fb.student || '', assignment: fb.assignment || '', page: fb.page || '', sent: fb.sent || '',
+    grade: g && g.g !== '' ? g.g : (fb.grade == null ? '' : String(fb.grade)),
+    comment: g ? g.c : '',
+    summary: fb.summary || '',
+    items: (fb.items || []).slice(0, 60).map(function (x) {
+      return { id: String(x.id || ''), n: x.n, q: String(x.q || ''), s: String(x.s || ''), text: String(x.text || '') };
+    })
+  } };
 }
 
 // ---------- הודעה מהמורה ----------

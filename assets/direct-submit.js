@@ -343,7 +343,21 @@
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(payload)
       });
-    }).then(function(response){ return response.json(); });
+    }).then(function(response){ return response.json(); }).then(function(res){
+      remember(res, opts);
+      return res;
+    });
+  }
+
+  /* העבודות שנשלחו מהמכשיר הזה - כדי להציג בדף את המשוב של המורה כשהוא מוכן (assets/feedback.js) */
+  function remember(res, opts){
+    if(!(res && res.ok && res.fileId)) return;
+    try{
+      var list = JSON.parse(localStorage.getItem('bm-my-subs') || '[]');
+      list.unshift({ id: String(res.fileId), page: location.pathname.split('/').pop() || 'index.html',
+                     a: opts.assignment || '', n: opts.notes || '', t: Date.now() });
+      localStorage.setItem('bm-my-subs', JSON.stringify(list.slice(0, 80)));
+    }catch(e){}
   }
 
   window.BeitMidrashDirectSubmit = {

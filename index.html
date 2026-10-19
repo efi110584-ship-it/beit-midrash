@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=26">
+<link rel="stylesheet" href="assets/site.css?v=27">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -203,6 +203,16 @@
       <iframe class="view-frame" id="viewFrame" title="העבודה של התלמיד" loading="lazy" referrerpolicy="no-referrer"></iframe>
     </div>
     <p class="view-help">לא רואים את העבודה? ודאו שאתם מחוברים בדפדפן הזה לחשבון Google של בית הספר, או <a id="viewOpenDrive" href="#" target="_blank" rel="noopener">פתחו אותה בדרייב</a>.</p>
+    <!-- משוב מפורט שהוכן לעבודה (fb_<מזהה>.json ב-Drive): תצוגה למורה ושליחה לתלמיד יחד עם הציון -->
+    <div class="view-fb" id="viewFb" hidden>
+      <details class="view-fb-details">
+        <summary id="viewFbSummary">🤖 יש משוב מפורט לעבודה הזאת</summary>
+        <div class="view-fb-body" id="viewFbBody"><p class="view-help">טוען…</p></div>
+      </details>
+      <label class="view-fb-send"><input type="checkbox" id="viewFbSend" checked> לשלוח לתלמיד את המשוב המפורט (ציון והסבר לכל שאלה) כשאני שומר את הציון</label>
+      <p class="view-fb-link" id="viewFbLinkRow" hidden>✓ המשוב פורסם לתלמיד. הוא יראה אותו בדף העבודה, או בקישור:
+        <button type="button" class="tt-btn tt-btn--small" id="viewFbCopy">📋 העתקת קישור לתלמיד</button></p>
+    </div>
     <form class="view-grade" id="viewGrade" novalidate>
       <span class="view-grade-field">
         <label for="viewGradeInput" class="tt-label">ציון</label>
@@ -1040,6 +1050,7 @@
                  cls:x.cls === "יא" ? 'י"א' : (x.cls === "יב" ? 'י"ב' : (x.cls || "")),
                  date:x.date || "", status:x.status || "pending", url:x.url || "", notes:x.notes || "",
                  grade:x.grade == null ? "" : String(x.grade), comment:x.comment || "", hidden:!!x.hidden, time:x.time || 0,
+                 fb:x.fb || "",
                  auto:(x.auto && x.auto.t > 0) ? { c:x.auto.c, t:x.auto.t, pct:Math.round(x.auto.c * 100 / x.auto.t) } : null,
                  unit:"", topic:"" };
       });
@@ -1224,6 +1235,7 @@
                 (r.id && !r.hidden ? '<button type="button" class="tt-btn tt-btn--small tt-auto-accept" data-accept="' + escapeAttr(r.id) + '" aria-label="אישור ציון ' + r.auto.pct + ' ל' + escapeAttr(r.name) + '">אישור הציון</button>' : '')
               : '<span aria-hidden="true">-</span>')) +
           (r.comment ? '<span class="tt-grade-comment">' + escapeHtml(r.comment) + '</span>' : '') +
+          (r.fb ? '<span class="tt-fb-tag tt-fb-tag--' + r.fb + '">' + (r.fb === "pub" ? "📨 משוב נשלח" : "🤖 משוב מוכן") + '</span>' : '') +
         '</td>' +
         '<td class="tt-actions">' +
           (r.id ? '<button type="button" class="tt-btn tt-btn--small tt-btn--view" data-view="' + escapeAttr(r.id) + '">צפייה</button>' : '') +
@@ -1772,12 +1784,42 @@
   var viewer = { list:[], i:-1, opener:null };
   var viewEl = {};
   ["viewOverlay","viewDialog","viewTitle","viewMeta","viewNotes","viewFrame","viewOpenDrive","viewPrev","viewNext","viewPos","viewCheck","viewClose",
-   "viewGrade","viewGradeInput","viewCommentInput","viewGradeSave","viewGradeMsg"]
+   "viewGrade","viewGradeInput","viewCommentInput","viewGradeSave","viewGradeMsg",
+   "viewFb","viewFbSummary","viewFbBody","viewFbSend","viewFbLinkRow","viewFbCopy"]
     .forEach(function(id){ viewEl[id] = document.getElementById(id); });
 
   function viewableRows(){
     return (board.shown || []).filter(function(r){ return r.id && /^[\w-]{10,}$/.test(r.id); });
   }
+  /* ---------- משוב מפורט (מוכן מראש ב-Drive) ---------- */
+  var FB_ICON = { full:"✅", partial:"🟡", miss:"❌" };
+  function feedbackLink(id){ return location.href.replace(/[^\/]*([?#].*)?$/, "") + "feedback.html?id=" + encodeURIComponent(id); }
+  function showFeedback(r){
+    var box = viewEl.viewFb;
+    if(!box) return;
+    box.hidden = !r.fb;
+    if(!r.fb) return;
+    viewEl.viewFbSend.checked = true;
+    viewEl.viewFbLinkRow.hidden = r.fb !== "pub";
+    viewEl.viewFbSummary.textContent = r.fb === "pub" ? "📨 משוב מפורט - כבר נשלח לתלמיד (לחצו לצפייה)" : "🤖 יש משוב מפורט לעבודה הזאת - לחצו לצפייה לפני השליחה";
+    viewEl.viewFbBody.innerHTML = '<p class="view-help">טוען…</p>';
+    var id = r.id;
+    apiPost({ action:"feedbackGet", password:teacherToken(), fileId:id }).then(function(res){
+      if(viewer.list[viewer.i] !== r) return;
+      if(!(res && res.ok && res.feedback)){ viewEl.viewFbBody.innerHTML = '<p class="view-help">' + escapeHtml((res && res.error) || "לא הצלחנו לטעון את המשוב.") + '</p>'; return; }
+      var fb = res.feedback;
+      if(r.grade === "" && fb.grade != null && fb.grade !== ""){
+        viewEl.viewGradeInput.value = String(fb.grade);
+        viewEl.viewGradeMsg.textContent = "🤖 הציון המוצע מהמשוב: " + fb.grade + ". אפשר לשנות לפני השמירה.";
+      }
+      viewEl.viewFbBody.innerHTML =
+        (fb.summary ? '<p class="view-fb-sum">' + escapeHtml(fb.summary) + '</p>' : '') +
+        '<ol class="view-fb-items">' + (fb.items || []).map(function(x){
+          return '<li><b>' + (FB_ICON[x.s] || "🟡") + ' שאלה ' + escapeHtml(x.n || "") + '</b> ' + escapeHtml(x.text || "") + '</li>';
+        }).join("") + '</ol>';
+    }).catch(function(){ viewEl.viewFbBody.innerHTML = '<p class="view-help">אין חיבור לשרת כרגע.</p>'; });
+  }
+
   function openViewer(id, opener){
     viewer.list = viewableRows();
     viewer.i = viewer.list.map(function(r){ return r.id; }).indexOf(id);
@@ -1820,6 +1862,7 @@
     viewEl.viewGradeSave.textContent = r.grade !== "" ? "עדכון הציון" : "שמירת ציון";
     viewEl.viewCheck.disabled = false;
     viewEl.viewCheck.textContent = "סימון כנבדק בלי ציון";
+    showFeedback(r);
     /* כפתור שהיה בפוקוס נעלם או ננעל (סוף הרשימה, אחרי סימון) - לא להשאיר את הפוקוס באוויר */
     var f = document.activeElement;
     if(!f || f === document.body || f.disabled || f.hidden) (viewEl.viewNext.disabled ? viewEl.viewClose : viewEl.viewNext).focus();
@@ -1866,7 +1909,9 @@
       if(g === "" && c === "" && r.grade === "" && !r.comment){ viewEl.viewGradeMsg.textContent = "כתבו ציון או הערה."; viewEl.viewGradeInput.focus(); return; }
       viewEl.viewGradeSave.disabled = true;
       viewEl.viewGradeMsg.textContent = "שומרים…";
-      apiPost({ action:"setGrade", password:teacherToken(), fileId:r.id, grade:g, comment:c }).then(function(res){
+      var body = { action:"setGrade", password:teacherToken(), fileId:r.id, grade:g, comment:c };
+      if(r.fb) body.publishFb = viewEl.viewFbSend.checked && g !== "";
+      apiPost(body).then(function(res){
         if(handleAuthFailure(res)){ closeViewer(); return; }
         if(res && res.ok){
           var cleared = res.grade === "" && res.comment === "";
@@ -1874,8 +1919,10 @@
             if(x.id !== r.id) return;
             x.grade = res.grade; x.comment = res.comment;
             if(!cleared) x.status = "checked";
+            if(x.fb) x.fb = res.fbPublished ? "pub" : "draft";
           });
-          viewEl.viewGradeMsg.textContent = cleared ? "✓ הציון נמחק." : ("✓ נשמר: " + r.name + (res.grade !== "" ? " - " + res.grade : ""));
+          viewEl.viewGradeMsg.textContent = cleared ? "✓ הציון נמחק." : ("✓ נשמר: " + r.name + (res.grade !== "" ? " - " + res.grade : "") +
+            (r.fb && res.fbPublished ? " · המשוב המפורט נשלח לתלמיד" : ""));
           viewer.keepMsg = true;
           if(!cleared && viewer.i < viewer.list.length - 1) viewer.i++;  /* ממשיכים לעבודה הבאה */
           showViewed();
@@ -1888,6 +1935,14 @@
         viewEl.viewGradeSave.disabled = false;
         viewEl.viewGradeMsg.textContent = "אין חיבור לשרת כרגע. נסו שוב.";
       });
+    });
+    if(viewEl.viewFbCopy) viewEl.viewFbCopy.addEventListener("click", function(){
+      var r = viewer.list[viewer.i];
+      if(!r) return;
+      var link = feedbackLink(r.id), b = viewEl.viewFbCopy;
+      function done(){ b.textContent = "✓ הקישור הועתק"; setTimeout(function(){ b.textContent = "📋 העתקת קישור לתלמיד"; }, 2500); }
+      if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(done, function(){ prompt("העתיקו את הקישור:", link); });
+      else prompt("העתיקו את הקישור:", link);
     });
     trapFocus(viewEl.viewDialog, closeViewer);
     document.addEventListener("keydown", function(e){
