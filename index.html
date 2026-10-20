@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=30">
+<link rel="stylesheet" href="assets/site.css?v=31">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -162,6 +162,12 @@
     </div>
     <!-- העבודות שנשלחו מהמכשיר הזה, והמשוב של המורה עליהן (assets/my-work.js) -->
     <section class="my-work" id="myWork" aria-live="polite" hidden></section>
+    <!-- לוח מבחנים: המורה מפרסם מהאזור האישי (לשונית "לוח מבחנים") -->
+    <section class="exam-board" id="examBoard" aria-labelledby="examBoardTitle" hidden>
+      <h2 class="exam-board-title" id="examBoardTitle">📅 לוח מבחנים</h2>
+      <ul class="exam-list" id="examList"></ul>
+      <p class="exam-empty" id="examEmpty" hidden></p>
+    </section>
     <form class="lesson-join" id="lessonJoin" novalidate>
       <label for="lessonCodeInput" class="lesson-join-label">יש לכם קוד מהמורה?</label>
       <span class="lesson-join-controls">
@@ -381,6 +387,11 @@
 
   var CLASS_ORDER = ["יא","יב"];
   var state = { activeClass:"יא" };
+  /* לוח מבחנים (ראו "לוח מבחנים" למטה) */
+  var EXAM_SUBJ = [['תנ"ך',"tnk"], ['תושב"ע',"tsb"], ["עברית","heb"], ["היסטוריה","hist"]];
+  var EXAM_CLASS_LABEL = { "יא":'י"א', "יב":'י"ב', all:'י"א + י"ב' };
+  var WEEKDAYS = ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"];
+  var examsCache = null;
   var contentRoot = document.getElementById("content-root");
   var statusLine = document.getElementById("status-line");
 
@@ -398,6 +409,7 @@
   };
 
   function renderUnits(){
+    renderExamBoard();
     /* "כל הכיתות" = י"א + י"ב. המחוונים (class "teacher") מופיעים רק באזור האישי */
     var filtered = UNITS.filter(function(u){ return state.activeClass === "all" ? u.class !== "teacher" : u.class === state.activeClass; });
     statusLine.textContent = filtered.length + (filtered.length === 1 ? " יחידת לימוד" : " יחידות לימוד");
@@ -538,7 +550,8 @@
     var TABS = [
       { id:"keys", label:"מחוונים ומבחנים", icon:"📚", extra:'<span class="tt-nav-n">' + units.length + '</span>' },
       { id:"lesson", label:"בשיעור", icon:"🧑‍🏫", extra:'<span class="tt-nav-live" id="ttNavLive" hidden>חי</span>' },
-      { id:"board", label:"לוח הגשות", icon:"📥", extra:'<span class="tt-nav-n tt-nav-n--alert" id="ttNavPending" hidden></span>' }
+      { id:"board", label:"לוח הגשות", icon:"📥", extra:'<span class="tt-nav-n tt-nav-n--alert" id="ttNavPending" hidden></span>' },
+      { id:"exams", label:"לוח מבחנים", icon:"📅", extra:"" }
     ];
     return (
       '<section class="tt" id="teacherTools" aria-label="כלי מורה">' +
@@ -595,6 +608,37 @@
           '</div>' +
           '<p class="tt-note">מתעדכן לבד כל 20 שניות. יציאה קצרה מ-15 שניות (למשל מעבר בין דפים באתר) לא נספרת. האתר לא יודע לאן התלמיד יצא.</p>' +
         '</div>' +
+        '</div>' +
+        '<div class="tt-panel" role="tabpanel" id="ttPanel-exams" aria-labelledby="ttTab-exams" hidden>' +
+          '<div class="tt-row">' +
+            '<div class="tt-card" id="ttExamForm">' +
+              '<h3 class="tt-h" id="ttExamFormH">מבחן חדש</h3>' +
+              '<p class="tt-sub">המבחן יופיע בדף הבית אצל התלמידים של הכיתה שבחרתם, עד יום המבחן (כולל). אחר כך הוא יורד לבד.</p>' +
+              '<label for="ttExamCls" class="tt-label">כיתה</label>' +
+              '<select id="ttExamCls" class="tt-select"><option value="יא">י"א</option><option value="יב">י"ב</option><option value="all">י"א וגם י"ב</option></select>' +
+              '<label for="ttExamSubj" class="tt-label">מקצוע</label>' +
+              '<select id="ttExamSubj" class="tt-select">' +
+                EXAM_SUBJ.map(function(p){ return '<option value="' + escapeAttr(p[0]) + '">' + escapeHtml(p[0]) + '</option>'; }).join("") +
+                '<option value="">אחר / בלי מקצוע</option></select>' +
+              '<label for="ttExamTitle" class="tt-label">על מה המבחן?</label>' +
+              '<input id="ttExamTitle" class="tt-select" type="text" maxlength="120" placeholder="לדוגמה: ספר יונה, פרקים א\'-ב\'">' +
+              '<label for="ttExamDate" class="tt-label">תאריך</label>' +
+              '<input id="ttExamDate" class="tt-select" type="date">' +
+              '<label for="ttExamNote" class="tt-label">הערה לתלמידים (לא חובה)</label>' +
+              '<input id="ttExamNote" class="tt-select" type="text" maxlength="200" placeholder="לדוגמה: מותר להביא תנ&quot;ך בלי פירושים">' +
+              '<div class="tt-btns">' +
+                '<button type="button" class="tt-btn tt-btn--primary" id="ttExamSave">פרסום בלוח</button>' +
+                '<button type="button" class="tt-btn" id="ttExamCancel" hidden>ביטול עריכה</button>' +
+              '</div>' +
+              '<p class="tt-msg" id="ttExamMsg" role="status" aria-live="polite"></p>' +
+            '</div>' +
+            '<div class="tt-card">' +
+              '<h3 class="tt-h">מבחנים בלוח</h3>' +
+              '<p class="tt-sub">כך התלמידים רואים אותם בדף הבית.</p>' +
+              '<ul class="exam-list" id="ttExamList"></ul>' +
+              '<p class="tt-msg" id="ttExamListMsg" role="status" aria-live="polite"></p>' +
+            '</div>' +
+          '</div>' +
         '</div>' +
         '<div class="tt-panel" role="tabpanel" id="ttPanel-board" aria-labelledby="ttTab-board" hidden>' +
         '<div class="tt-card tt-board">' +
@@ -754,6 +798,7 @@
     initTeacherNav();
     initTeacherKeys();
     initActivity();
+    initTeacherExams();
     var ann = document.getElementById("ttAnnounce");
     var annMsg = document.getElementById("ttAnnounceMsg");
     apiGet({ action:"announcement" }).then(function(res){
@@ -1998,6 +2043,136 @@
     trapFocus(viewEl.viewDialog, closeViewer);
     document.addEventListener("keydown", function(e){
       if(e.key === "Escape" && !viewEl.viewOverlay.hidden && !viewEl.viewDialog.contains(e.target)){ e.preventDefault(); closeViewer(); }
+    });
+  }
+
+  /* ============ לוח מבחנים ============
+     המורה מפרסם באזור האישי. בדף הבית מוצגים המבחנים של הכיתה שנבחרה, עד יום המבחן (כולל). */
+  function pad2(n){ return (n < 10 ? "0" : "") + n; }
+  function todayIso(){ var d = new Date(); return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()); }
+  function examWhen(x){
+    var p = String(x.date).split("-"), d = new Date(+p[0], +p[1] - 1, +p[2]);
+    var now = new Date(), today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var n = Math.round((d - today) / 86400000);
+    return { days:n, weekday:"יום " + WEEKDAYS[d.getDay()], short:d.getDate() + "." + (d.getMonth() + 1),
+             rel:n <= 0 ? "היום" : n === 1 ? "מחר" : "בעוד " + n + " ימים" };
+  }
+  function examItemHtml(x, showCls, actions){
+    var w = examWhen(x);
+    var c = (EXAM_SUBJ.filter(function(p){ return p[0] === x.subject; })[0] || [])[1];
+    return '<li class="exam-item' + (w.days <= 2 ? ' is-soon' : '') + '">' +
+      '<span class="exam-date"><b>' + w.short + '</b><span>' + w.weekday + '</span></span>' +
+      '<span class="exam-main">' +
+        ((x.subject || showCls) ? '<span class="exam-top">' +
+          (x.subject ? '<span class="tt-subj-tag' + (c ? ' tt-subj-tag--' + c : '') + '">' + escapeHtml(x.subject) + '</span>' : '') +
+          (showCls ? '<span class="exam-cls">כיתה ' + escapeHtml(EXAM_CLASS_LABEL[x.cls] || x.cls) + '</span>' : '') +
+        '</span>' : '') +
+        '<span class="exam-title">' + escapeHtml(x.title) + '</span>' +
+        (x.note ? '<span class="exam-note">' + escapeHtml(x.note) + '</span>' : '') +
+      '</span>' +
+      '<span class="exam-rel">' + w.rel + '</span>' +
+      (actions || "") +
+    '</li>';
+  }
+  function renderExamBoard(){
+    var box = document.getElementById("examBoard");
+    if(!box) return;
+    var cls = state.activeClass;
+    if(!examsCache || cls === "teacher"){ box.hidden = true; return; }
+    var list = examsCache.filter(function(x){
+      return examWhen(x).days >= 0 && (cls === "all" || x.cls === "all" || x.cls === cls);
+    });
+    document.getElementById("examList").innerHTML = list.map(function(x){ return examItemHtml(x, cls === "all"); }).join("");
+    var empty = document.getElementById("examEmpty");
+    empty.hidden = list.length > 0;
+    empty.textContent = "אין כרגע מבחנים קרובים" + (EXAM_CLASS_LABEL[cls] && cls !== "all" ? " לכיתה " + EXAM_CLASS_LABEL[cls] : "") + ".";
+    box.hidden = false;
+  }
+  (function loadExams(){
+    if(!window.BM_API_URL) return;
+    apiGet({ action:"exams" }).then(function(res){
+      /* סקריפט ישן בלי לוח מבחנים - לא מציגים כלום */
+      if(res && res.ok && Array.isArray(res.exams)){ examsCache = res.exams; renderExamBoard(); }
+    }).catch(function(){});
+  })();
+
+  function initTeacherExams(){
+    function $(id){ return document.getElementById(id); }
+    var f = { cls:$("ttExamCls"), subject:$("ttExamSubj"), title:$("ttExamTitle"), date:$("ttExamDate"), note:$("ttExamNote") };
+    var msg = $("ttExamMsg"), list = $("ttExamList"), listMsg = $("ttExamListMsg");
+    var saveBtn = $("ttExamSave"), cancelBtn = $("ttExamCancel"), head = $("ttExamFormH");
+    var exams = [], editId = "";
+    f.date.min = todayIso();
+
+    function draw(arr){
+      exams = arr || [];
+      examsCache = exams;
+      list.innerHTML = exams.map(function(x){
+        return examItemHtml(x, true,
+          '<span class="exam-actions">' +
+            '<button type="button" class="tt-btn tt-btn--small" data-exam-edit="' + escapeAttr(x.id) + '">עריכה</button>' +
+            '<button type="button" class="tt-btn tt-btn--small tt-btn--quiet" data-exam-del="' + escapeAttr(x.id) + '">מחיקה</button>' +
+          '</span>');
+      }).join("");
+      listMsg.textContent = exams.length ? "" : "אין עדיין מבחנים בלוח.";
+    }
+    function resetForm(){
+      editId = "";
+      f.title.value = ""; f.note.value = ""; f.date.value = "";
+      head.textContent = "מבחן חדש";
+      saveBtn.textContent = "פרסום בלוח";
+      cancelBtn.hidden = true;
+    }
+    listMsg.textContent = "טוען…";
+    apiGet({ action:"exams" }).then(function(res){
+      if(res && res.ok && Array.isArray(res.exams)) draw(res.exams);
+      else listMsg.textContent = "צריך לעדכן את סקריפט השרת כדי להשתמש בלוח המבחנים.";
+    }).catch(function(){ netError(listMsg); });
+
+    saveBtn.addEventListener("click", function(){
+      if(!f.title.value.trim()){ msg.textContent = "כתבו על איזה חומר המבחן."; f.title.focus(); return; }
+      if(!f.date.value){ msg.textContent = "בחרו תאריך למבחן."; f.date.focus(); return; }
+      if(f.date.value < todayIso()){ msg.textContent = "התאריך כבר עבר."; f.date.focus(); return; }
+      var wasEdit = !!editId;
+      msg.textContent = "שומרים…";
+      saveBtn.disabled = true;
+      apiPost({ action:"examSave", password:teacherToken(), id:editId, cls:f.cls.value, subject:f.subject.value,
+                title:f.title.value.trim(), date:f.date.value, note:f.note.value.trim() }).then(function(res){
+        saveBtn.disabled = false;
+        if(handleAuthFailure(res)) return;
+        if(res && res.ok){
+          msg.textContent = wasEdit ? "✓ המבחן עודכן." : "✓ המבחן פורסם בלוח.";
+          resetForm();
+          draw(res.exams);
+        } else msg.textContent = (res && res.error) || "השמירה לא הצליחה.";
+      }).catch(function(){ saveBtn.disabled = false; netError(msg); });
+    });
+    cancelBtn.addEventListener("click", function(){ resetForm(); msg.textContent = ""; });
+
+    list.addEventListener("click", function(e){
+      var ed = e.target.closest("[data-exam-edit]"), del = e.target.closest("[data-exam-del]");
+      if(ed){
+        var x = exams.filter(function(y){ return y.id === ed.getAttribute("data-exam-edit"); })[0];
+        if(!x) return;
+        editId = x.id;
+        f.cls.value = x.cls; f.subject.value = x.subject || ""; f.title.value = x.title; f.date.value = x.date; f.note.value = x.note || "";
+        head.textContent = "עריכת מבחן";
+        saveBtn.textContent = "שמירת השינויים";
+        cancelBtn.hidden = false;
+        msg.textContent = "";
+        $("ttExamForm").scrollIntoView({ behavior:"smooth", block:"start" });
+        f.title.focus({ preventScroll:true });
+      } else if(del){
+        var id = del.getAttribute("data-exam-del");
+        var y = exams.filter(function(z){ return z.id === id; })[0];
+        if(!y || !confirm('למחוק מהלוח את המבחן "' + y.title + '"?')) return;
+        listMsg.textContent = "מוחקים…";
+        apiPost({ action:"examDelete", password:teacherToken(), id:id }).then(function(res){
+          if(handleAuthFailure(res)) return;
+          if(res && res.ok){ if(editId === id) resetForm(); draw(res.exams); }
+          else listMsg.textContent = (res && res.error) || "המחיקה לא הצליחה.";
+        }).catch(function(){ netError(listMsg); });
+      }
     });
   }
 

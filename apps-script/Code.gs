@@ -19,6 +19,8 @@
  * 8. פעילות חיה בכיתה: ענן מילים, הצבעה על דילמה או סקר (כמה שאלות, אפשר בלי שמות). המורה מפעיל מהאזור האישי,
  *    התלמידים עונים בדף "פעילות בכיתה" (live.html), והתוצאות מוצגות על המקרן (screen.html).
  *    פעילות חדשה מוחקת את התשובות של הקודמת.
+ * 10. לוח מבחנים: המורה מפרסם מבחנים (כיתה, מקצוע, חומר, תאריך) מהאזור האישי,
+ *    והם מופיעים בדף הבית אצל התלמידים של אותה כיתה עד יום המבחן (כולל). מבחן שעבר נמחק לבד.
  *
  * הסיסמה לא כתובה כאן. קובעים אותה ב: הגדרות הפרויקט (גלגל השיניים) > מאפייני סקריפט
  *   שם המאפיין: TEACHER_PASSWORD     ערך: הסיסמה שבחרתם
@@ -63,6 +65,7 @@ function doGet(e) {
   var p = (e && e.parameter) || {};
   try {
     if (p.action === 'announcement') return json_({ ok: true, announcement: getJson_('ANNOUNCEMENT') });
+    if (p.action === 'exams') return json_({ ok: true, exams: examsUpcoming_() });
     if (p.action === 'lesson') return json_(findLesson_(p.code));
     if (p.action === 'lessonLock') return json_(lessonLock_(p.page, p.code));
     if (p.action === 'feedback') return json_(feedbackPublic_(p.id));
@@ -102,6 +105,8 @@ function doPost(e) {
       case 'list':            return json_({ ok: true, submissions: listSubmissions_(data.fresh === true) });
       case 'markChecked':     return json_(markChecked_(data.fileId, data.checked !== false));
       case 'setAnnouncement': return json_(setAnnouncement_(data.text));
+      case 'examSave':        return json_(examSave_(data));
+      case 'examDelete':      return json_(examDelete_(data.id));
       case 'createLesson':    return json_(createLesson_(data.url, data.label, data.monitor === true, data.cls));
       case 'presenceList':    return json_(presenceList_(data.code));
       case 'clearLesson':     return json_(clearLesson_(data.code));
@@ -612,6 +617,60 @@ function setAnnouncement_(text) {
   var a = { text: t, updated: Date.now() };
   props.setProperty('ANNOUNCEMENT', JSON.stringify(a));
   return { ok: true, announcement: a };
+}
+
+// ---------- לוח מבחנים ----------
+// נשמר במאפייני הסקריפט (EXAMS). מבחן מופיע עד סוף יום המבחן, ואחר כך נמחק בשמירה הבאה.
+var EXAMS_MAX = 40;
+var EXAM_CLASSES = ['יא', 'יב', 'all'];
+function examsUpcoming_() {
+  var today = Utilities.formatDate(new Date(), TZ, 'yyyy-MM-dd');
+  var list = getJson_('EXAMS');
+  return (Array.isArray(list) ? list : [])
+    .filter(function (x) { return x && x.date >= today; })
+    .sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+}
+function examsWrite_(list) {
+  PropertiesService.getScriptProperties().setProperty('EXAMS', JSON.stringify(list));
+  return { ok: true, exams: list };
+}
+function examSave_(d) {
+  var date = String(d.date || '');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return { ok: false, error: 'חסר תאריך למבחן.' };
+  if (date < Utilities.formatDate(new Date(), TZ, 'yyyy-MM-dd')) return { ok: false, error: 'התאריך כבר עבר.' };
+  var title = clean_(d.title).slice(0, 120);
+  if (!title) return { ok: false, error: 'כתבו על איזה חומר המבחן.' };
+  var exam = {
+    id: '',
+    cls: EXAM_CLASSES.indexOf(d.cls) !== -1 ? d.cls : 'all',
+    subject: clean_(d.subject).slice(0, 30),
+    title: title,
+    date: date,
+    note: clean_(d.note).slice(0, 200)
+  };
+  var lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    var list = examsUpcoming_();
+    var old = d.id ? list.filter(function (x) { return x.id === d.id; })[0] : null;
+    exam.id = old ? old.id : Utilities.getUuid().slice(0, 8);
+    list = list.filter(function (x) { return x.id !== exam.id; });
+    if (list.length >= EXAMS_MAX) return { ok: false, error: 'יש כבר ' + EXAMS_MAX + ' מבחנים בלוח. מחקו מבחן לפני שמוסיפים חדש.' };
+    list.push(exam);
+    list.sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+    return examsWrite_(list);
+  } finally {
+    lock.releaseLock();
+  }
+}
+function examDelete_(id) {
+  var lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    return examsWrite_(examsUpcoming_().filter(function (x) { return x.id !== id; }));
+  } finally {
+    lock.releaseLock();
+  }
 }
 
 // ---------- קוד לשיעור ----------
