@@ -46,6 +46,8 @@
     var rows = subs.map(function(s, i){
       var fb = list[i];
       var name = esc((fb && fb.assignment) || s.a || "עבודה") + (s.n ? ' <span class="my-work-topic">' + esc(s.n) + '</span>' : "");
+      var del = '<button type="button" class="my-work-del" data-del="' + esc(s.page + "|" + (s.n || "")) + '" aria-label="' +
+        esc("הסרה מהרשימה: " + ((fb && fb.assignment) || s.a || "עבודה") + (s.n ? " " + s.n : "")) + '">✕</button>';
       if(fb){
         var isNew = seen.indexOf(s.id) === -1;
         if(isNew) fresh++;
@@ -53,10 +55,10 @@
           '<a href="feedback.html?id=' + encodeURIComponent(s.id) + '" data-fb="' + esc(s.id) + '">' +
             '<span class="my-work-name">' + (isNew ? '<span class="my-work-new">חדש</span>' : '') + name + '</span>' +
             '<span class="my-work-state">✅ נבדקה' + (fb.grade !== "" ? ' · ציון <b>' + esc(fb.grade) + '</b>' : '') + ' · למשוב ›</span>' +
-          '</a></li>';
+          '</a>' + del + '</li>';
       }
-      return '<li class="my-work-row"><span class="my-work-name">' + name + '</span>' +
-        '<span class="my-work-state">⏳ נשלחה ב-' + fmt(s.t) + ', ממתינה לבדיקה</span></li>';
+      return '<li class="my-work-row"><span class="my-work-body"><span class="my-work-name">' + name + '</span>' +
+        '<span class="my-work-state">⏳ נשלחה ב-' + fmt(s.t) + ', ממתינה לבדיקה</span></span>' + del + '</li>';
     }).join("");
     box.innerHTML =
       '<h2 class="my-work-title">' + (fresh ? '📝 יש לך משוב חדש מהמורה!' : '📝 העבודות שלי') + '</h2>' +
@@ -65,6 +67,18 @@
     box.classList.toggle("has-new", fresh > 0);
     box.hidden = false;
     box.addEventListener("click", function(e){
+      /* ✕ - מסיר רק מהרשימה במכשיר הזה. העבודה עצמה כבר אצל המורה */
+      var d = e.target.closest && e.target.closest("[data-del]");
+      if(d){
+        if(!confirm("להסיר את העבודה מהרשימה?\nהיא תוסר רק מהרשימה במכשיר הזה - העבודה עצמה כבר נשלחה למורה.")) return;
+        var key = d.getAttribute("data-del");
+        var left = read("bm-my-subs", null, []).filter(function(x){ return !x || (x.page + "|" + (x.n || "")) !== key; });
+        try{ localStorage.setItem("bm-my-subs", JSON.stringify(left)); }catch(err){}
+        var li = d.closest("li");
+        if(li) li.parentNode.removeChild(li);
+        if(!box.querySelector(".my-work-row")) box.hidden = true;
+        return;
+      }
       var a = e.target.closest && e.target.closest("[data-fb]");
       if(!a) return;
       var s = read("bm-fb-seen", null, []);
