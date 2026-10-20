@@ -93,6 +93,15 @@
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
         הגשת מטלה
       </a>
+      <button type="button" class="a11y-toggle role-switch" id="roleSwitchBtn" title="נכנסתם בטעות כתלמיד/ה? עוברים לתוכנית הבוגרים">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M7 7h11l-3-3M17 17H6l3 3" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        אני בוגר/ת
+      </button>
+      <a href="bogrim.html" class="a11y-toggle alumni-link" style="text-decoration:none;">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 10v10h13V10" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linejoin="round"/></svg>
+        תוכנית הבוגרים
+      </a>
+      <button class="tab a11y-toggle" aria-selected="false" data-class="teacher" id="tab-teacher">🗝️ אזור אישי</button>
       <button id="a11y-toggle" class="a11y-toggle" aria-expanded="false" aria-controls="a11y-panel" aria-label="נגישות">
         <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="5" r="2.3" fill="currentColor"/><path d="M4 9.5c3.2 1.2 5.6 1.6 8 1.6s4.8-.4 8-1.6M12 11v10M8.5 21l1.7-6M15.5 21l-1.7-6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></svg>
       </button>
@@ -189,17 +198,6 @@
 </main>
 
 <footer class="site-footer">
-  <div class="footer-links">
-    <button type="button" class="a11y-toggle role-switch" id="roleSwitchBtn" title="נכנסתם בטעות כתלמיד/ה? עוברים לתוכנית הבוגרים">
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M7 7h11l-3-3M17 17H6l3 3" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      אני בוגר/ת
-    </button>
-    <a href="bogrim.html" class="a11y-toggle alumni-link" style="text-decoration:none;">
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5M5.5 10v10h13V10" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linejoin="round"/></svg>
-      תוכנית הבוגרים
-    </a>
-    <button class="tab a11y-toggle footer-teacher" aria-selected="false" data-class="teacher" id="tab-teacher">🗝️ אזור אישי</button>
-  </div>
   <p>הבית הדיגיטלי של תיכון יש"י &middot; מתעדכן ע"י הרב אפרים &middot; <button type="button" class="link-reset-role" id="resetRoleBtn">בחירה מחדש: תלמיד/ה או בוגר/ת</button></p>
 </footer>
 
