@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=28">
+<link rel="stylesheet" href="assets/site.css?v=29">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -621,7 +621,7 @@
           '<div class="tt-table-wrap" id="ttTableWrap" hidden>' +
             '<table class="tt-table">' +
               '<caption class="visually-hidden">רשימת ההגשות</caption>' +
-              '<thead><tr>' + [["name","תלמיד/ה"],["topic","יחידה ונושא"],["cls","כיתה"],["date","תאריך"],["status","סטטוס"],["grade","ציון"]].map(function(c){
+              '<thead><tr>' + [["name","תלמיד/ה"],["topic","יחידה ונושא"],["cls","כיתה"],["date","תאריך"],["status","סטטוס"],["fbg","ציון מוצע"],["grade","ציון"]].map(function(c){
                 return '<th scope="col" data-sort-col="' + c[0] + '"><button type="button" class="tt-sort" data-sort="' + c[0] + '">' + c[1] + '<span class="tt-sort-ico" aria-hidden="true"></span></button></th>';
               }).join("") + '<th scope="col"><span class="visually-hidden">פעולה</span></th></tr></thead>' +
               '<tbody id="ttRows"></tbody>' +
@@ -862,7 +862,7 @@
       if(sb){
         var k = sb.getAttribute("data-sort");
         if(board.sort.key === k) board.sort.dir = -board.sort.dir;
-        else board.sort = { key:k, dir:(k === "date" || k === "grade") ? -1 : 1 };
+        else board.sort = { key:k, dir:(k === "date" || k === "grade" || k === "fbg") ? -1 : 1 };
         renderBoard();
         var again = document.querySelector('[data-sort="' + k + '"]'); if(again) again.focus();
         return;
@@ -1068,7 +1068,7 @@
                  cls:x.cls === "יא" ? 'י"א' : (x.cls === "יב" ? 'י"ב' : (x.cls || "")),
                  date:x.date || "", status:x.status || "pending", url:x.url || "", notes:x.notes || "",
                  grade:x.grade == null ? "" : String(x.grade), comment:x.comment || "", hidden:!!x.hidden, time:x.time || 0,
-                 fb:x.fb || "",
+                 fb:x.fb || "", fbg:x.fbg == null ? "" : String(x.fbg),
                  auto:(x.auto && x.auto.t > 0) ? { c:x.auto.c, t:x.auto.t, pct:Math.round(x.auto.c * 100 / x.auto.t) } : null,
                  unit:"", topic:"" };
       });
@@ -1171,6 +1171,7 @@
       var k = board.sort.key, d = board.sort.dir, x, y;
       if(k === "date"){ x = dateKey(a); y = dateKey(b); }
       else if(k === "grade"){ x = gradeKey(a); y = gradeKey(b); }
+      else if(k === "fbg"){ x = a.fbg !== "" ? Number(a.fbg) : -1; y = b.fbg !== "" ? Number(b.fbg) : -1; }
       else if(k === "status"){ x = STATUS_ORDER[a.status] || 0; y = STATUS_ORDER[b.status] || 0; }
       else if(k === "topic"){ x = (a.unit + " " + (a.topic || a.task)); y = (b.unit + " " + (b.topic || b.task)); }
       else { x = String(a[k] || ""); y = String(b[k] || ""); }
@@ -1219,7 +1220,7 @@
         if(g !== lastGroup){
           lastGroup = g;
           var gs = groupStats[g], open = !board.collapsed[g];
-          head = '<tr class="tt-group-row"><th colspan="7" scope="colgroup">' +
+          head = '<tr class="tt-group-row"><th colspan="8" scope="colgroup">' +
             '<button type="button" class="tt-group-btn" data-group-key="' + escapeAttr(g) + '" aria-expanded="' + open + '">' +
               '<span class="tt-group-chev" aria-hidden="true">' + (open ? "▾" : "◂") + '</span>' +
               '<span class="tt-subj-tag tt-subj-tag--' + (SUBJ_CLASS[r.subject] || "tnk") + '">' + escapeHtml(r.subject) + '</span>' +
@@ -1244,6 +1245,7 @@
         '<td>' + escapeHtml(r.cls) + '</td>' +
         '<td class="tt-date">' + escapeHtml(r.date || "-") + '</td>' +
         '<td><span class="tt-pill tt-pill--' + st.cls + '">' + st.label + '</span></td>' +
+        '<td class="tt-fbg">' + (r.fbg ? '<b title="הציון שהוצע במחוון - עוד לא נשמר">' + escapeHtml(r.fbg) + '</b>' : '<span aria-hidden="true">-</span>') + '</td>' +
         '<td class="tt-grade"' + (r.comment ? ' title="' + escapeAttr(r.comment) + '"' : '') + '>' +
           (r.grade !== "" ? '<b>' + escapeHtml(r.grade) + '</b>' + (r.auto ? ' <span class="tt-auto tt-auto--small" title="בדיקה אוטומטית: ' + r.auto.c + ' נכונות מתוך ' + r.auto.t + '">🤖 ' + r.auto.pct + '</span>' : '')
             : (r.auto ? '<span class="tt-auto" title="בדיקה אוטומטית">🤖 <b>' + r.auto.pct + '</b></span>' +

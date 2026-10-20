@@ -355,7 +355,8 @@ function listSubmissions_(fresh) {
   out.forEach(function (x) {
     if (x.status !== 'missing') x.status = checked[x.id] ? 'checked' : 'pending';
     x.auto = (x.id && autos[x.id]) || null;
-    x.fb = (x.id && fbs[x.id]) || '';
+    x.fb = (x.id && fbs.st[x.id]) || '';
+    x.fbg = (x.id && fbs.g[x.id]) || '';
     var g = x.id && grades[x.id];
     x.grade = g ? g.g : '';
     x.comment = g ? g.c : '';
@@ -544,23 +545,40 @@ function feedbackRead_(id) {
     return (fb && fb.fileId === id) ? fb : null;
   } catch (e) { return null; }
 }
-// אילו עבודות יש להן משוב: { מזהה: 'draft' | 'pub' }
+// אילו עבודות יש להן משוב: { st: { מזהה: 'draft' | 'pub' }, g: { מזהה: ציון מוצע } }
+// הציון המוצע נשמר בתיאור הקובץ ("grade=73"), כדי לא לפתוח כל קובץ בכל טעינה של הלוח.
+// קובץ בלי תיאור נקרא פעם אחת, והציון נכתב לתיאור שלו.
+function feedbackGradeOf_(f) {
+  var m = /^grade=(\d{0,3})/.exec(f.getDescription() || '');
+  if (m) return m[1];
+  var g = '';
+  try {
+    var fb = JSON.parse(f.getBlob().getDataAsString('UTF-8'));
+    if (fb && fb.grade != null && /^\d{1,3}$/.test(String(fb.grade))) g = String(fb.grade);
+  } catch (e) {}
+  try { f.setDescription('grade=' + g); } catch (e) {}   // "grade=" ריק = אין ציון מוצע
+  return g;
+}
 function feedbackIndex_(props) {
   props = props || PropertiesService.getScriptProperties().getProperties();
   var cache = CacheService.getScriptCache();
-  var ids = null;
-  try { ids = JSON.parse(cache.get('fb_ids') || 'null'); } catch (e) { ids = null; }
-  if (!ids) {   // חיפוש ב-Drive - פעם בשתי דקות לכל היותר
-    ids = [];
+  var list = null;
+  try { list = JSON.parse(cache.get('fb_idx2') || 'null'); } catch (e) { list = null; }
+  if (!list) {   // חיפוש ב-Drive - פעם בשתי דקות לכל היותר
+    list = [];
     var it = DriveApp.searchFiles("title contains 'fb_' and trashed = false");
     while (it.hasNext()) {
-      var m = /^fb_([\w-]{10,})\.json$/.exec(it.next().getName());
-      if (m) ids.push(m[1]);
+      var f = it.next();
+      var m = /^fb_([\w-]{10,})\.json$/.exec(f.getName());
+      if (m) list.push([m[1], feedbackGradeOf_(f)]);
     }
-    try { cache.put('fb_ids', JSON.stringify(ids), 120); } catch (e) {}
+    try { cache.put('fb_idx2', JSON.stringify(list), 120); } catch (e) {}
   }
-  var out = {};
-  ids.forEach(function (id) { out[id] = props['fbpub_' + id] === '1' ? 'pub' : 'draft'; });
+  var out = { st: {}, g: {} };
+  list.forEach(function (x) {
+    out.st[x[0]] = props['fbpub_' + x[0]] === '1' ? 'pub' : 'draft';
+    if (x[1] !== '') out.g[x[0]] = x[1];
+  });
   return out;
 }
 function feedbackTeacher_(id) {
