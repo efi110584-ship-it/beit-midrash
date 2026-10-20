@@ -149,7 +149,7 @@
         { title:"ירמיהו ל\"ו - המגילה וקריעתה", url:"yirmiyahu-36.html" },
         { title:"יחזקאל ל\"ו-ל\"ז - נבואות הגאולה", url:"yechezkel-36-37.html", k:"עצמות" }
       ] },
-    { key:"ptp", class:"יב", subject:"תושבע",
+    { key:"ptp", class:"יב", subject:"תנך",
       icon:"\u2696\uFE0F", title:"פתוח תפתח",
       desc:"יחידת המצוות שבספר דברים - שמיטת כספים, צדקה, ריבית, משכון ועוד.",
       chapters:8, chaptersLabel:"נושאים", url:"ptp-hub.html",
