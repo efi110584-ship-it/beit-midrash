@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=32">
+<link rel="stylesheet" href="assets/site.css?v=33">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -294,6 +294,7 @@
 
 <script src="assets/bm-api.js"></script>
 <script src="assets/units-data.js"></script>
+<script src="assets/exams-seed.js"></script>
 <script src="assets/flashcards-data.js"></script>
 <script src="assets/live-render.js"></script>
 <script src="assets/live-teacher.js"></script>
@@ -2093,6 +2094,13 @@
       (actions || "") +
     '</li>';
   }
+  /* מבחנים שהוכנסו ישירות לאתר (assets/exams-seed.js) + מה שהמורה פרסם. כפילות (אותו תאריך, כיתה ומקצוע) - נשאר רק של המורה */
+  function withSeedExams(list){
+    var seed = (window.BM_EXAMS_SEED || []).filter(function(x){
+      return !list.some(function(y){ return y.date === x.date && y.cls === x.cls && y.subject === x.subject; });
+    }).map(function(x){ var y = {}; for(var k in x) y[k] = x[k]; y.seed = true; return y; });
+    return list.concat(seed).sort(function(a, b){ return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+  }
   function renderExamBoard(){
     var box = document.getElementById("examBoard");
     if(!box) return;
@@ -2108,10 +2116,10 @@
     box.hidden = false;
   }
   (function loadExams(){
+    if((window.BM_EXAMS_SEED || []).length){ examsCache = withSeedExams([]); renderExamBoard(); }
     if(!window.BM_API_URL) return;
     apiGet({ action:"exams" }).then(function(res){
-      /* סקריפט ישן בלי לוח מבחנים - לא מציגים כלום */
-      if(res && res.ok && Array.isArray(res.exams)){ examsCache = res.exams; renderExamBoard(); }
+      if(res && res.ok && Array.isArray(res.exams)){ examsCache = withSeedExams(res.exams); renderExamBoard(); }
     }).catch(function(){});
   })();
 
@@ -2125,15 +2133,16 @@
 
     function draw(arr){
       exams = arr || [];
-      examsCache = exams;
-      list.innerHTML = exams.map(function(x){
+      examsCache = withSeedExams(exams);
+      list.innerHTML = examsCache.map(function(x){
+        if(x.seed) return examItemHtml(x, true, '<span class="exam-actions exam-seed-note">הוכנס ישירות לאתר · לשינוי או מחיקה - בקשו מ-Claude</span>');
         return examItemHtml(x, true,
           '<span class="exam-actions">' +
             '<button type="button" class="tt-btn tt-btn--small" data-exam-edit="' + escapeAttr(x.id) + '">עריכה</button>' +
             '<button type="button" class="tt-btn tt-btn--small tt-btn--quiet" data-exam-del="' + escapeAttr(x.id) + '">מחיקה</button>' +
           '</span>');
       }).join("");
-      listMsg.textContent = exams.length ? "" : "אין עדיין מבחנים בלוח.";
+      listMsg.textContent = examsCache.length ? "" : "אין עדיין מבחנים בלוח.";
     }
     function resetForm(){
       editId = "";
