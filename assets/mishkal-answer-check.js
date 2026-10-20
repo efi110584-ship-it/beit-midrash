@@ -19,6 +19,12 @@ window.MishkalAnswerCheck = (function(){
     return normalize(studentVal) === normalize(expected);
   }
 
+  /* ברשימה נפתחת הערכים קבועים, ולכן משווים גם את הניקוד (קֶטֶל ≠ קֵטֶל). */
+  function fieldMatch(f, expected){
+    if(f.el.tagName === 'SELECT') return (f.el.value || '').trim() === String(expected).trim();
+    return exactMatch(f.el.value, expected);
+  }
+
   function isFieldFilled(f){
     return (f.el.value || '').trim().length > 0;
   }
@@ -55,7 +61,7 @@ window.MishkalAnswerCheck = (function(){
     clearFieldMark(f);
     if(f.grade === false || !isFieldFilled(f) || f.expected == null) return;
     var expectedList = Array.isArray(f.expected) ? f.expected : [f.expected];
-    var ok = expectedList.some(function(exp){ return exactMatch(f.el.value, exp); });
+    var ok = expectedList.some(function(exp){ return fieldMatch(f, exp); });
     markField(f, ok);
     var wrap=f.el.closest('.answer-wrap');
     if(wrap){
@@ -112,7 +118,7 @@ window.MishkalAnswerCheck = (function(){
       var gradable = fields.filter(function(f){ return f.grade !== false && f.expected != null; });
       return { total: gradable.length, correct: gradable.filter(function(f){
         var list = Array.isArray(f.expected) ? f.expected : [f.expected];
-        return isFieldFilled(f) && list.some(function(exp){ return exactMatch(f.el.value, exp); });
+        return isFieldFilled(f) && list.some(function(exp){ return fieldMatch(f, exp); });
       }).length };
     });
     var checkBtn = config.checkBtn;
