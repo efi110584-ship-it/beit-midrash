@@ -27,7 +27,7 @@
       topics:[
         { title:"אהבת הגרים (מצוה תל\"א)", url:"ahavat-gerim.html", k:"גר" },
         { title:"אהבת ישראל (מצוה רמ\"ג)", url:"ahavat-israel.html" },
-        { title:"הלוואה לעני (מצוה ס\"ז)", url:"halvaa.html" },
+        { title:"הלוואה לעני (מצוה ס\"ו)", url:"halvaa.html" },
         { title:"כיבוד הורים (מצוה ל\"ג)", url:"kibud-avot.html", k:"אב ואם" },
         { title:"כיבוד חכמים (מצוה רנ\"ז)", url:"kibud-chachamim.html" },
         { title:"קידוש החודש (רמב\"ם, עשה קנ\"ג)", url:"kidush-hachodesh.html" },
