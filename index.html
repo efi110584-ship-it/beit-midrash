@@ -139,6 +139,24 @@
     <div id="continue-root"></div>
     <!-- העבודות שנשלחו מהמכשיר הזה, והמשוב של המורה עליהן (assets/my-work.js) -->
     <section class="my-work" id="myWork" aria-live="polite" hidden></section>
+    <!-- קוד לשיעור מהמורה -->
+    <form class="lesson-join" id="lessonJoin" novalidate>
+      <label for="lessonCodeInput" class="lesson-join-label">יש לכם קוד מהמורה?</label>
+      <span class="lesson-join-controls">
+        <input id="lessonCodeInput" class="lesson-join-input" type="text" inputmode="numeric" pattern="[0-9]*"
+               maxlength="4" autocomplete="off" placeholder="4 ספרות" aria-describedby="lessonJoinMsg">
+        <button type="submit" class="lesson-join-btn" id="lessonJoinBtn">כניסה</button>
+      </span>
+      <p class="lesson-join-msg" id="lessonJoinMsg" role="status" aria-live="polite"></p>
+      <div class="lesson-join-name" id="lessonNameStep" hidden>
+        <p class="lesson-join-notice">בשיעור הזה <b>המורה רואה אם יוצאים מהדף</b> (לא לאן יוצאים). כל עוד השיעור פעיל יופיע פס קטן בתחתית המסך.</p>
+        <label for="lessonNameInput" class="lesson-join-label">השם המלא שלכם</label>
+        <span class="lesson-join-controls">
+          <input id="lessonNameInput" class="lesson-join-input lesson-join-input--name" type="text" autocomplete="name" maxlength="60">
+          <button type="button" class="lesson-join-btn" id="lessonNameBtn">כניסה לשיעור</button>
+        </span>
+      </div>
+    </form>
     <!-- השבוע: הודעה מהמורה + לוח מבחנים (המורה מפרסם מהאזור האישי) -->
     <div class="week-box">
       <section class="announce" id="announceBar" aria-labelledby="announceTag" hidden>
@@ -158,30 +176,13 @@
     <div id="content-root" class="content-root" role="tabpanel" aria-labelledby="tab-ya">
       <p class="loading-msg">טוען חומרי לימוד…</p>
     </div>
-    <!-- כלים: כרטיסיות לבגרות וקוד מהמורה -->
+    <!-- כלים: כרטיסיות לבגרות -->
     <div class="home-tools">
       <button type="button" class="practice-card" id="practiceOpenBtn" aria-haspopup="dialog" hidden>
         <span class="practice-icon" aria-hidden="true">🗂️</span>
         <span><span class="practice-title">תרגול לבגרות · כרטיסיות</span>
         <span class="practice-meta" id="practiceMeta"></span></span>
       </button>
-      <form class="lesson-join" id="lessonJoin" novalidate>
-        <label for="lessonCodeInput" class="lesson-join-label">יש לכם קוד מהמורה?</label>
-        <span class="lesson-join-controls">
-          <input id="lessonCodeInput" class="lesson-join-input" type="text" inputmode="numeric" pattern="[0-9]*"
-                 maxlength="4" autocomplete="off" placeholder="4 ספרות" aria-describedby="lessonJoinMsg">
-          <button type="submit" class="lesson-join-btn" id="lessonJoinBtn">כניסה</button>
-        </span>
-        <p class="lesson-join-msg" id="lessonJoinMsg" role="status" aria-live="polite"></p>
-        <div class="lesson-join-name" id="lessonNameStep" hidden>
-          <p class="lesson-join-notice">בשיעור הזה <b>המורה רואה אם יוצאים מהדף</b> (לא לאן יוצאים). כל עוד השיעור פעיל יופיע פס קטן בתחתית המסך.</p>
-          <label for="lessonNameInput" class="lesson-join-label">השם המלא שלכם</label>
-          <span class="lesson-join-controls">
-            <input id="lessonNameInput" class="lesson-join-input lesson-join-input--name" type="text" autocomplete="name" maxlength="60">
-            <button type="button" class="lesson-join-btn" id="lessonNameBtn">כניסה לשיעור</button>
-          </span>
-        </div>
-      </form>
     </div>
   </section>
 
