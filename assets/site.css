@@ -302,6 +302,8 @@ main:where([data-css~="theme"], [data-css~="theme"] *){ max-width: 1200px; margi
 .fill-row:where([data-css~="theme"], [data-css~="theme"] *){ display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; }
 .fill-row:where([data-css~="theme"], [data-css~="theme"] *) .fill-label{ flex: 0 0 9rem; font-weight:700; font-size:.88rem; color: var(--ink); }
 .fill-row:where([data-css~="theme"], [data-css~="theme"] *) input.answer{ flex: 1 1 12rem; }
+.fill-row:where([data-css~="theme"], [data-css~="theme"] *) .fill-text{ flex: 1 1 14rem; min-width:0; padding:.5rem .8rem; border-radius:10px; background:#F4F7FC; border:1px solid #DCE4F1; color: var(--ink); line-height:1.65; font-size:1rem; }
+.fill-row:where([data-css~="theme"], [data-css~="theme"] *) + .fill-row{ margin-top:.55rem; }
 @keyframes popIn{ 0%{ transform: scale(.6); opacity:0; } 70%{ transform: scale(1.15); } 100%{ transform: scale(1); opacity:1; } }
 .answer-check:where([data-css~="theme"], [data-css~="theme"] *){ display:inline-flex; align-items:center; justify-content:center;
   width:1.3rem; height:1.3rem; border-radius:50%; background: var(--teal); color:#fff;
