@@ -4,7 +4,7 @@
    cls: "יא" / "יב" / "all"   date: yyyy-mm-dd */
 window.BM_EXAMS_SEED = [
   { id:"seed-1", cls:"יב", subject:'תנ"ך',   title:"פתח תפתח",      date:"2026-10-22", note:"קבוצה יב2 בלבד" },
-  { id:"seed-2", cls:"יא", subject:"עברית",  title:"הבנת הנקרא, בניינים וגזרות",  date:"2026-11-03", note:"קבוצה יא2 בלבד" },
+  { id:"seed-2", cls:"יא", subject:"עברית",  title:"הבנת הנקרא, בניינים וגזרות",  date:"2026-11-03", note:"קבוצה יא4 בלבד" },
   { id:"seed-3", cls:"יא", subject:'תנ"ך',   title:"פרקי אברהם",    date:"2026-11-11", note:"קבוצה יא4 בלבד" },
   { id:"seed-4", cls:"יא", subject:'תושב"ע', title:"לקט מצוות",     date:"2026-11-18", note:"קבוצה יא4 בלבד" }
 ];
