@@ -1941,7 +1941,9 @@
       viewEl.viewFbBody.innerHTML =
         (fb.summary ? '<p class="view-fb-sum">' + escapeHtml(fb.summary) + '</p>' : '') +
         '<ol class="view-fb-items">' + (fb.items || []).map(function(x){
-          return '<li><b>' + (FB_ICON[x.s] || "🟡") + ' שאלה ' + escapeHtml(x.n || "") + '</b> ' + escapeHtml(x.text || "") + '</li>';
+          /* שאלות בגרות נשמרות בלי מספר (n:0) - מציגים את שם השאלה */
+          var title = x.n ? 'שאלה ' + x.n : (x.q || 'שאלה');
+          return '<li><b>' + (FB_ICON[x.s] || "🟡") + ' ' + escapeHtml(title) + ':</b> ' + escapeHtml(x.text || "") + '</li>';
         }).join("") + '</ol>';
     }).catch(function(){ viewEl.viewFbBody.innerHTML = '<p class="view-help">אין חיבור לשרת כרגע.</p>'; });
   }
