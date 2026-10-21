@@ -1554,6 +1554,8 @@
     contentRoot.setAttribute("aria-labelledby", tab.id);
     state.activeClass = tab.getAttribute("data-class");
     renderUnits();
+    /* הכיתה (או האזור האישי) נשמרת בכתובת - כך רענון של הדף חוזר לאותו מקום */
+    try{ history.replaceState(null, "", "#" + tab.id); }catch(e){}
     /* "אזור אישי" נמצא בתחתית הדף - קופצים לראש הכלים */
     if(state.activeClass === "teacher" && !opts.noScroll) contentRoot.scrollIntoView({ block:"start" });
     if(opts.focus) tab.focus();
