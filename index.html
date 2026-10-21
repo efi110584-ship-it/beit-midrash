@@ -667,7 +667,7 @@
             '<h3 class="tt-h">לוח הגשות</h3>' +
             '<span class="tt-btns">' +
               /* דף הבדיקה עם Claude (artifact פרטי של המורה ב-claude.ai) */
-              '<a class="tt-btn tt-btn--primary tt-btn--link" href="https://claude.ai/artifact/LBkf1QEDC5gAgWmVHCMCmr" target="_blank" rel="noopener">🤖 בדיקת עבודות עם Claude</a>' +
+              '<a class="tt-btn tt-btn--primary tt-btn--link" href="' + GRADER_URL + '" target="_blank" rel="noopener">🤖 בדיקת עבודות עם Claude</a>' +
               '<button type="button" class="tt-btn" id="ttExport">הורדת הציונים</button>' +
               '<button type="button" class="tt-btn" id="ttBoardRefresh">רענון</button>' +
             '</span>' +
@@ -796,6 +796,7 @@
   var board = { rows:[], subj:"all", status:"all", unit:"all", topic:"all", sort:{ key:"date", dir:-1 }, group:true, collapsed:{} };
   try{ board.group = localStorage.getItem("bm-board-group") !== "0"; }catch(e){}
   var SUBJ_CLASS = { 'תנ"ך':"tnk", 'תושב"ע':"tsb", "עברית":"heb", "היסטוריה":"hist" };
+  var GRADER_URL = "https://claude.ai/artifact/LBkf1QEDC5gAgWmVHCMCmr";   /* דף הבדיקה עם Claude (פרטי למורה) */
   var STATUS_INFO = {
     pending:{ label:"ממתין לבדיקה", cls:"pending" },
     checked:{ label:"נבדק", cls:"checked" },
@@ -1351,6 +1352,9 @@
         '</td>' +
         '<td class="tt-actions">' +
           (r.id ? '<button type="button" class="tt-btn tt-btn--small tt-btn--view" data-view="' + escapeAttr(r.id) + '">צפייה</button>' : '') +
+          /* בדיקה עם Claude - כרגע רק לקט מצוות: פותח את דף הבדיקה ישר על העבודה הזו */
+          (r.id && !r.hidden && /לקט מצוות/.test((r.unit || "") + " " + (r.task || "")) && /^[\w-]+$/.test(r.id)
+            ? '<a class="tt-btn tt-btn--small tt-btn--link" href="' + GRADER_URL + '#g-' + escapeAttr(r.id) + '" target="_blank" rel="noopener" aria-label="בדיקת העבודה של ' + escapeAttr(r.name) + ' עם Claude">🤖 בדיקה</a>' : '') +
           (r.status === "pending" && !r.hidden ? '<button type="button" class="tt-btn tt-btn--small" data-check="' + escapeAttr(r.id) + '">סימון כנבדק</button>' : '') +
           (r.id ? (r.hidden
             ? '<button type="button" class="tt-btn tt-btn--small" data-hide="0" data-id="' + escapeAttr(r.id) + '">החזרה ללוח</button>'
