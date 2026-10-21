@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=36">
+<link rel="stylesheet" href="assets/site.css?v=37">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -462,6 +462,13 @@
      וכל פעולה נשלחת עם הסיסמה שנשמרה בכניסה. */
   function lessonTargetsHtml(){
     var html = '<optgroup label="בשיעור"><option value="live.html" data-label="פעילות בכיתה (ענן מילים / הצבעה)">פעילות בכיתה (ענן מילים / הצבעה)</option></optgroup>';
+    /* מבחנים שנפתחים רק עם קוד (lessonExam ב-units-data.js) */
+    var exams = UNITS.filter(function(u){ return u.lessonExam; });
+    if(exams.length){
+      html += '<optgroup label="מבחנים (נפתחים רק עם קוד)">';
+      exams.forEach(function(u){ html += '<option value="' + escapeAttr(u.url) + '" data-label="' + escapeAttr(u.title) + '">' + escapeHtml(u.title) + '</option>'; });
+      html += '</optgroup>';
+    }
     UNITS.forEach(function(u){
       if(u.class === "teacher") return;
       var cls = u.class === "יא" ? 'י"א' : 'י"ב';
@@ -591,8 +598,13 @@
             '<p class="tt-sub">התלמידים מקלידים את הקוד בדף הבית ומגיעים ישר לדף שבחרתם. כל עוד הקוד פעיל, הדף הזה נפתח רק למי שהקליד את הקוד (כרטיסיות החזרה פתוחות תמיד).</p>' +
             '<label for="ttLessonTarget" class="tt-label">לאן להגיע?</label>' +
             '<select id="ttLessonTarget" class="tt-select">' + lessonTargetsHtml() + '</select>' +
-            '<label class="tt-check"><input type="checkbox" id="ttLessonMonitor"> ' +
-              '<span><b>בקרת שיעור לכיתה י"א</b> - לראות מי מהתלמידים בדף ומי יצא ממנו. התלמידים רואים שהבקרה פעילה.</span></label>' +
+            '<label for="ttLessonMonitor" class="tt-label">בקרת שיעור</label>' +
+            '<select id="ttLessonMonitor" class="tt-select">' +
+              '<option value="">בלי בקרה</option>' +
+              '<option value="יא">בקרה לכיתה י"א</option>' +
+              '<option value="יב">בקרה לכיתה י"ב</option>' +
+            '</select>' +
+            '<p class="tt-sub">עם בקרה רואים מי מהתלמידים בדף ומי יצא ממנו. התלמידים רואים שהבקרה פעילה.</p>' +
             '<div class="tt-btns">' +
               '<button type="button" class="tt-btn tt-btn--primary" id="ttLessonMake">יצירת קוד</button>' +
             '</div>' +
@@ -840,15 +852,16 @@
       var opt = target.options[target.selectedIndex];
       if(!opt) return;
       out.innerHTML = '<p class="tt-msg">יוצרים קוד…</p>';
-      var monitor = document.getElementById("ttLessonMonitor").checked;
+      var monitorCls = document.getElementById("ttLessonMonitor").value;
+      var monitor = !!monitorCls;
       apiPost({ action:"createLesson", password:teacherToken(), url:opt.value, label:opt.getAttribute("data-label"),
-                monitor:monitor, cls:monitor ? "יא" : "" }).then(function(res){
+                monitor:monitor, cls:monitorCls }).then(function(res){
         if(handleAuthFailure(res)) return;
         if(res && res.ok){
           out.innerHTML =
             '<span class="tt-code" aria-label="הקוד: ' + escapeAttr(res.code.split("").join(" ")) + '">' + escapeHtml(res.code) + '</span>' +
             '<span class="tt-code-label">' + escapeHtml(res.label || opt.getAttribute("data-label")) + ' · בתוקף 12 שעות. אפשר כמה קודים במקביל - קוד חדש לא מבטל קודים אחרים.' +
-              (res.monitor ? '<br><b>בקרת שיעור פעילה (כיתה י"א)</b> - הטבלה "שיעור חי" מופיעה למטה.' : '') + '</span>' +
+              (res.monitor ? '<br><b>בקרת שיעור פעילה (כיתה ' + (monitorCls === "יב" ? 'י"ב' : 'י"א') + ')</b> - הטבלה "שיעור חי" מופיעה למטה.' : '') + '</span>' +
             '<a class="tt-btn tt-btn--primary tt-btn--link tt-lesson-go" href="' + escapeAttr(res.url || opt.value) + '">מעבר לשיעור ›</a>' +
             '<span class="tt-code-label">הדף של השיעור ייפתח כאן. כלי המורה (לוח, הצבעה' + (res.monitor ? ', 👥 שיעור חי' : '') + ') נמצאים בסרגל הכחול בצד המסך.</span>' +
             '<span class="tt-code-label">קודים שנוצרו קודם ממשיכים לפעול - כולם מופיעים ברשימה למטה.</span>';

@@ -37,7 +37,7 @@ var DATE_FORMAT = 'dd.MM.yyyy';
 var MAX_BYTES = 5 * 1024 * 1024;   // 5MB, כמו באתר
 var NOTIFY_BY_EMAIL = true;        // מייל למורה על כל הגשה חדשה
 var LESSON_HOURS = 12;             // כמה שעות קוד לשיעור נשאר בתוקף
-var MONITOR_CLASSES = ['יא'];
+var MONITOR_CLASSES = ['יא', 'יב'];
 // עבודות שמגיעות למורה אחרת (התיקייה והמייל שלה - במאפייני הסקריפט:
 // OTHER_TEACHER_FOLDER_ID ו-OTHER_TEACHER_EMAIL). רק אצלה - לא בלוח ההגשות.
 // אפשר גם סיכום אחד בערב במקום מייל על כל הגשה (OTHER_TEACHER_DIGEST, ראו sendDailyDigest).
@@ -705,7 +705,7 @@ function createLesson_(url, label, monitor, cls) {
   url = String(url || '').trim();
   if (!/^[\w.-]+\.html(#[\w-]+)?$/.test(url)) return { ok: false, error: 'כתובת עמוד לא תקינה' };
   cls = normClass_(cls);
-  if (monitor && MONITOR_CLASSES.indexOf(cls) < 0) return { ok: false, error: 'בקרת שיעור פעילה כרגע רק לכיתה י"א' };
+  if (monitor && MONITOR_CLASSES.indexOf(cls) < 0) return { ok: false, error: 'בקרת שיעור אפשרית רק לכיתה י"א או י"ב' };
   var lock = LockService.getScriptLock();
   lock.waitLock(10000);
   try {
