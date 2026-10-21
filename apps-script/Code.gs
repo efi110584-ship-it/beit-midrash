@@ -41,7 +41,11 @@ var MONITOR_CLASSES = ['יא', 'יב'];
 // עבודות שמגיעות למורה אחרת (התיקייה והמייל שלה - במאפייני הסקריפט:
 // OTHER_TEACHER_FOLDER_ID ו-OTHER_TEACHER_EMAIL). רק אצלה - לא בלוח ההגשות.
 // אפשר גם סיכום אחד בערב במקום מייל על כל הגשה (OTHER_TEACHER_DIGEST, ראו sendDailyDigest).
-var OTHER_TEACHER = { cls: 'יא', sections: ['1', '3'], subjects: ['תנ"ך', 'תושב"ע'] };      // כיתות שבהן אפשר להפעיל בקרת שיעור (כרגע רק י"א)
+var OTHER_TEACHER = { cls: 'יא', sections: ['1', '3'], subjects: ['תנ"ך', 'תושב"ע'] };
+// עבודות תושב"ע (לקט מצוות) של י"א 2 - לכתובת נפרדת. במאפייני הסקריפט:
+// YA2_TSB_EMAIL (המייל) ו-YA2_TSB_FOLDER_ID (תיקייה בדרייב, לא חובה).
+// בלי תיקייה - העבודה נשמרת כרגיל ומופיעה בלוח ההגשות, ורק המייל עליה נשלח לכתובת הזו.
+var YA2_TSB = { cls: 'יא', sections: ['2'], subjects: ['תושב"ע'] };
 var AWAY_GRACE_SEC = 15;           // יציאה קצרה מזה (למשל מעבר בין דפים באתר) לא נספרת
 var GONE_AFTER_SEC = 150;          // תלמיד שלא דיווח זמן כזה - "לא מחובר"
 
@@ -148,6 +152,9 @@ function saveSubmission_(d) {
     var subject = subjectOf_(task);
     var histFolder = subject === 'היסטוריה' ? historyClassFolder_(cls, true) : null;
     var otherFolder = (!histFolder && isOtherTeacher_(cls, section, subject)) ? otherTeacherFolder_(cls, section) : null;
+    var ya2 = !histFolder && !otherFolder && matchesRoute_(YA2_TSB, cls, section, subject);
+    var ya2Folder = ya2 ? otherTeacherFolder_(cls, section, 'YA2_TSB_FOLDER_ID') : null;
+    if (ya2Folder) otherFolder = ya2Folder;
     var routed = histFolder || otherFolder;
     var classFolder = routed || DriveApp.getFolderById(CLASS_FOLDERS[cls]);
     var studentFolder = routed ? findOrCreateIn_(routed, name) : findOrCreateStudentFolder_(classFolder, name);
@@ -165,7 +172,7 @@ function saveSubmission_(d) {
 
   // למורה האחרת - כשהסיכום היומי מופעל (OTHER_TEACHER_DIGEST = 1): לא מייל על כל הגשה,
   // אלא מייל אחד בערב עם כל ההגשות של היום (sendDailyDigest). אחרת - מייל רגיל על כל הגשה.
-  if (otherFolder && PropertiesService.getScriptProperties().getProperty('OTHER_TEACHER_DIGEST') === '1') {
+  if (otherFolder && !ya2 && PropertiesService.getScriptProperties().getProperty('OTHER_TEACHER_DIGEST') === '1') {
     PropertiesService.getScriptProperties().setProperty('dg_' + Date.now() + '_' + Math.floor(Math.random() * 1e6), JSON.stringify({
       n: name, c: (cls === 'יא' ? 'י"א' : 'י"ב') + (section ? ' ' + section : ''), t: task, u: file.getUrl(),
       a: auto ? auto.c + '/' + auto.t : ''
@@ -173,7 +180,7 @@ function saveSubmission_(d) {
   } else if (NOTIFY_BY_EMAIL) {
     try {
       MailApp.sendEmail({
-        to: (histFolder && historyEmail_()) || (otherFolder && otherTeacherEmail_()) || Session.getEffectiveUser().getEmail(),
+        to: (histFolder && historyEmail_()) || (ya2 && propEmail_('YA2_TSB_EMAIL')) || (otherFolder && otherTeacherEmail_()) || Session.getEffectiveUser().getEmail(),
         subject: 'הגשה חדשה: ' + name + ' - ' + task,
         body: 'שם: ' + name + '\nכיתה: ' + cls + (section ? ' ' + section : '') + '\nמטלה: ' + task +
               (d.notes ? '\nהערות: ' + clean_(d.notes) : '') +
@@ -213,13 +220,15 @@ function normSection_(v) {
 
 // ---------- עבודות למורה אחרת (OTHER_TEACHER למעלה) ----------
 function isOtherTeacher_(cls, section, subject) {
-  return cls === OTHER_TEACHER.cls && OTHER_TEACHER.sections.indexOf(section) >= 0 &&
-         OTHER_TEACHER.subjects.indexOf(subject) >= 0;
+  return matchesRoute_(OTHER_TEACHER, cls, section, subject);
+}
+function matchesRoute_(r, cls, section, subject) {
+  return cls === r.cls && r.sections.indexOf(section) >= 0 && r.subjects.indexOf(subject) >= 0;
 }
 // בתוך התיקייה של המורה: תיקייה לכל כיתה ("כיתה י"א 3"), ובה תיקייה לכל תלמיד.
 // בלי OTHER_TEACHER_FOLDER_ID - העבודה נשמרת כרגיל.
-function otherTeacherFolder_(cls, section) {
-  var id = PropertiesService.getScriptProperties().getProperty('OTHER_TEACHER_FOLDER_ID');
+function otherTeacherFolder_(cls, section, prop) {
+  var id = PropertiesService.getScriptProperties().getProperty(prop || 'OTHER_TEACHER_FOLDER_ID');
   if (!id) return null;
   var root;
   try { root = DriveApp.getFolderById(String(id).trim()); } catch (e) { return null; }
@@ -227,8 +236,9 @@ function otherTeacherFolder_(cls, section) {
   var it = root.getFoldersByName(label);
   return it.hasNext() ? it.next() : root.createFolder(label);
 }
-function otherTeacherEmail_() {
-  var e = String(PropertiesService.getScriptProperties().getProperty('OTHER_TEACHER_EMAIL') || '').trim();
+function otherTeacherEmail_() { return propEmail_('OTHER_TEACHER_EMAIL'); }
+function propEmail_(prop) {
+  var e = String(PropertiesService.getScriptProperties().getProperty(prop) || '').trim();
   return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e) ? e : '';
 }
 
