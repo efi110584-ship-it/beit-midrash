@@ -1942,7 +1942,7 @@
         (fb.summary ? '<p class="view-fb-sum">' + escapeHtml(fb.summary) + '</p>' : '') +
         '<ol class="view-fb-items">' + (fb.items || []).map(function(x){
           /* מספר השאלה כמו בקובץ של התלמיד, ולידו שם השאלה (בשאלות בגרות - איזו בחינה) */
-          var title = (x.n ? 'שאלה ' + x.n : 'שאלה') + (x.q ? ' · ' + x.q : '');
+          var title = x.n ? 'שאלה ' + x.n + (x.q ? ' · ' + x.q : '') : (x.q || 'שאלה');
           return '<li><b>' + (FB_ICON[x.s] || "🟡") + ' ' + escapeHtml(title) + ':</b> ' + escapeHtml(x.text || "") + '</li>';
         }).join("") + '</ol>';
     }).catch(function(){ viewEl.viewFbBody.innerHTML = '<p class="view-help">אין חיבור לשרת כרגע.</p>'; });
