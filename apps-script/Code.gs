@@ -236,6 +236,20 @@ function otherTeacherFolder_(cls, section, prop) {
   var it = root.getFoldersByName(label);
   return it.hasNext() ? it.next() : root.createFolder(label);
 }
+// הגדרה של הכתובת ל"תושב"ע י"א 2" - כשמסך "מאפייני סקריפט" נעול (יותר מ-50 מאפיינים, בגלל הציונים).
+// כותבים את המייל בין המירכאות, שומרים, בוחרים בתפריט שלמעלה את setYa2TsbEmail ולוחצים "הפעלה".
+// אפשר גם תיקייה (לא חובה). אחרי ההפעלה הכתובת שמורה, ואפשר למחוק אותה מכאן.
+function setYa2TsbEmail() {
+  var email = '';      // ← המייל, למשל 'name@gmail.com'
+  var folderId = '';   // ← לא חובה: הקוד של התיקייה בדרייב (מה שבא אחרי /folders/ בכתובת)
+  var props = PropertiesService.getScriptProperties();
+  email = String(email).trim();
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { Logger.log('❌ לא נשמר: כתבו מייל תקין בין המירכאות'); return; }
+  props.setProperty('YA2_TSB_EMAIL', email);
+  if (String(folderId).trim()) props.setProperty('YA2_TSB_FOLDER_ID', String(folderId).trim());
+  Logger.log('✓ נשמר: עבודות תושב"ע של י"א 2 יישלחו ל-' + email + (String(folderId).trim() ? ' (ויישמרו בתיקייה)' : ''));
+}
+
 function otherTeacherEmail_() { return propEmail_('OTHER_TEACHER_EMAIL'); }
 function propEmail_(prop) {
   var e = String(PropertiesService.getScriptProperties().getProperty(prop) || '').trim();
