@@ -6,5 +6,9 @@ window.BM_EXAMS_SEED = [
   { id:"seed-1", cls:"יב", subject:'תנ"ך',   title:"פתח תפתח",      date:"2026-10-22", note:"קבוצה יב2 בלבד" },
   { id:"seed-2", cls:"יא", subject:"עברית",  title:"הבנת הנקרא, בניינים וגזרות",  date:"2026-11-03", note:"קבוצה יא4 בלבד" },
   { id:"seed-3", cls:"יא", subject:'תנ"ך',   title:"פרקי אברהם",    date:"2026-11-11", note:"קבוצה יא4 בלבד" },
-  { id:"seed-4", cls:"יא", subject:'תושב"ע', title:"לקט מצוות",     date:"2026-11-18", note:"קבוצה יא4 בלבד" }
+  { id:"seed-4", cls:"יא", subject:'תושב"ע', title:"לקט מצוות",     date:"2026-11-18", note:"קבוצה יא4 בלבד" },
+  { id:"seed-5", cls:"יא", subject:"אנגלית",   title:"מבחן באנגלית",   date:"2026-11-03", note:"קבוצה יא4 בלבד" },
+  { id:"seed-6", cls:"יא", subject:"היסטוריה", title:"מבחן בהיסטוריה", date:"2026-11-04", note:"קבוצה יא4 בלבד" },
+  { id:"seed-7", cls:"יא", subject:"מתמטיקה",  title:"מבחן במתמטיקה",  date:"2026-11-05", note:"קבוצה יא4 בלבד" },
+  { id:"seed-8", cls:"יא", subject:"אזרחות",   title:"מבחן באזרחות",   date:"2026-11-23", note:"קבוצה יא4 בלבד" }
 ];
