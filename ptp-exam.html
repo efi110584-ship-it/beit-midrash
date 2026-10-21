@@ -54,7 +54,7 @@ var EXAM_B64 = "PGRpdiBjbGFzcz0ic3R1ZGVudC1iYXIiIGlkPSJwcmludEhlYWRlciI+CiAgPGxh
       if(saved[k]) f.value = saved[k];
       f.addEventListener("input", function(){ saved[k] = f.value; try{ localStorage.setItem(STORE, JSON.stringify(saved)); }catch(e){} });
     });
-    load("assets/units-data.js", function(){ load("assets/direct-submit.js", function(){ load("assets/send-to-teacher.js?v=2"); }); });
+    load("assets/units-data.js", function(){ load("assets/direct-submit.js", function(){ load("assets/send-to-teacher.js?v=3"); }); });
   }
   if(teacher()){ reveal(true); return; }
   var key = null; try{ key = JSON.parse(localStorage.getItem("bm-lesson-key") || "null"); }catch(e){}

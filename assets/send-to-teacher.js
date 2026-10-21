@@ -52,7 +52,11 @@
       var src = bb.querySelector('.src'); if(src) out.push(clean(src.textContent));
       var part = field.closest('.bagrut-part');
       var pl = part && part.querySelector('.bagrut-part-label'); if(pl) out.push(clean(pl.textContent));
-      var p = (part || bb).querySelector('p'); if(p) out.push(short(p.textContent));
+      /* כל נוסח השאלה (גם סעיפים ב', 1, 2...), לא רק המשפט הראשון - כדי שהמורה יראה בקובץ על מה ענו */
+      var ps = Array.prototype.filter.call((part || bb).querySelectorAll('p'), function(p){
+        return !p.closest('.hint-box') && !p.classList.contains('bagrut-note') && (part || !p.closest('.bagrut-part'));
+      }).map(function(p){ return clean(p.textContent); }).filter(Boolean);
+      if(ps.length){ var q = ps.join(' '); out.push(q.length > 900 ? q.slice(0, 900) + '…' : q); }
       return out.join(' · ');
     }
     var qb = field.closest('.question-block');
