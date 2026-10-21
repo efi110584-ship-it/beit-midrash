@@ -35,7 +35,14 @@ var EXAM_B64 = "PGRpdiBjbGFzcz0ic3R1ZGVudC1iYXIiIGlkPSJwcmludEhlYWRlciI+CiAgPGxh
   "use strict";
   var PAGE = "ptp-exam.html", STORE = "ptp-exam-answers";
   var gate = document.getElementById("examGate"), root = document.getElementById("examRoot");
-  function teacher(){ try{ return !!sessionStorage.getItem("bm-teacher-token") || sessionStorage.getItem("teacherAreaUnlocked") === "1"; }catch(e){ return false; } }
+  /* מורה = סיסמה שהשרת אישר. ערך ב-sessionStorage לבד לא מספיק (אפשר לזייף אותו מה-Console) */
+  function teacherToken(){ try{ return sessionStorage.getItem("bm-teacher-token") || ""; }catch(e){ return ""; } }
+  function verifyTeacher(){
+    var t = teacherToken();
+    if(!t || !window.BM_API_URL) return Promise.resolve(false);
+    return fetch(window.BM_API_URL, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" }, body:JSON.stringify({ action:"login", password:t }) })
+      .then(function(r){ return r.json(); }).then(function(res){ return !!(res && res.ok); }).catch(function(){ return false; });
+  }
   function closed(title, text){
     document.getElementById("examGateTitle").textContent = title;
     document.getElementById("examGateText").textContent = text;
@@ -54,9 +61,10 @@ var EXAM_B64 = "PGRpdiBjbGFzcz0ic3R1ZGVudC1iYXIiIGlkPSJwcmludEhlYWRlciI+CiAgPGxh
       if(saved[k]) f.value = saved[k];
       f.addEventListener("input", function(){ saved[k] = f.value; try{ localStorage.setItem(STORE, JSON.stringify(saved)); }catch(e){} });
     });
-    load("assets/units-data.js", function(){ load("assets/direct-submit.js", function(){ load("assets/send-to-teacher.js?v=3"); }); });
+    load("assets/units-data.js", function(){ load("assets/direct-submit.js", function(){ load("assets/send-to-teacher.js?v=2"); }); });
   }
-  if(teacher()){ reveal(true); return; }
+  verifyTeacher().then(function(isTeacher){
+  if(isTeacher){ reveal(true); return; }
   var key = null; try{ key = JSON.parse(localStorage.getItem("bm-lesson-key") || "null"); }catch(e){}
   var code = key && key.page === PAGE && key.until > Date.now() ? key.code : "";
   if(!window.BM_API_URL){ closed("המבחן סגור", "אין חיבור לשרת."); return; }
@@ -68,6 +76,7 @@ var EXAM_B64 = "PGRpdiBjbGFzcz0ic3R1ZGVudC1iYXIiIGlkPSJwcmludEhlYWRlciI+CiAgPGxh
       closed("המבחן סגור כרגע", "המורה יפתח את המבחן עם קוד בתחילת השיעור. את הקוד מקלידים בדף הבית, בתיבה \"יש לכם קוד מהמורה?\".");
     })
     .catch(function(){ closed("אין חיבור לשרת", "בדקו את האינטרנט ורעננו את הדף."); });
+  });
 })();
 </script>
 <script src="assets/lesson-mode.js"></script>
