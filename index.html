@@ -604,21 +604,16 @@
             '<p class="tt-msg" id="ttAnnounceMsg" role="status" aria-live="polite"></p>' +
           '</div>' +
           '<div class="tt-card">' +
-            '<h3 class="tt-h">קוד לשיעור</h3>' +
-            '<p class="tt-sub">התלמידים מקלידים את הקוד בדף הבית ומגיעים ישר לדף שבחרתם. כל עוד הקוד פעיל, הדף הזה נפתח רק למי שהקליד את הקוד (כרטיסיות החזרה פתוחות תמיד).</p>' +
-            '<label for="ttLessonTarget" class="tt-label">לאן להגיע?</label>' +
+            '<h3 class="tt-h">התחלת שיעור</h3>' +
+            '<p class="tt-sub">בחרו כיתה וקבלו קוד לתלמידים. אחר כך פתחו כל דף ולחצו בסרגל התחתון על ״העבר את הכיתה לכאן״.</p>' +
+            '<button type="button" class="tt-btn tt-btn--primary" id="ttQuickStart">התחלת שיעור</button>' +
+            '<details style="margin-top:12px"><summary>אפשרויות נוספות לשיעור</summary>' +
+            '<label for="ttLessonTarget" class="tt-label">דף פתיחה</label>' +
             '<select id="ttLessonTarget" class="tt-select">' + lessonTargetsHtml() + '</select>' +
             '<label for="ttLessonMonitor" class="tt-label">בקרת שיעור</label>' +
-            '<select id="ttLessonMonitor" class="tt-select">' +
-              '<option value="">בלי בקרה</option>' +
-              '<option value="יא">בקרה לכיתה י"א</option>' +
-              '<option value="יב">בקרה לכיתה י"ב</option>' +
-            '</select>' +
-            '<p class="tt-sub">עם בקרה רואים מי מהתלמידים בדף ומי יצא ממנו. התלמידים רואים שהבקרה פעילה.</p>' +
-            '<div class="tt-btns">' +
-              '<button type="button" class="tt-btn tt-btn--primary" id="ttLessonMake">יצירת קוד</button>' +
-            '</div>' +
-            '<div class="tt-lesson-out" id="ttLessonOut" role="status" aria-live="polite"></div>' +
+            '<select id="ttLessonMonitor" class="tt-select"><option value="">בלי בקרה</option><option value="יא">כיתה י״א</option><option value="יב">כיתה י״ב</option></select>' +
+            '<button type="button" class="tt-btn" id="ttLessonMake">יצירת קוד עם האפשרויות האלה</button>' +
+            '<div class="tt-lesson-out" id="ttLessonOut" role="status" aria-live="polite"></div></details>' +
             '<div class="tt-lesson-list" id="ttLessonList" hidden></div>' +
           '</div>' +
         '</div>' +
@@ -867,6 +862,11 @@
       saveAnnouncement("");
     });
 
+    document.getElementById("ttQuickStart").addEventListener("click",function(){
+      if(window.BM_QUICK_LESSON)window.BM_QUICK_LESSON.open();
+      else alert("כלי השיעור עדיין נטען. נסו שוב בעוד רגע.");
+    });
+    document.addEventListener("bm-lesson-changed",function(){loadLessons();loadLive();});
     var target = document.getElementById("ttLessonTarget");
     var out = document.getElementById("ttLessonOut");
     document.getElementById("ttLessonMake").addEventListener("click", function(){
@@ -891,6 +891,7 @@
           /* פעילויות ולוח שאלות שתפעילו מעכשיו - לתלמידים של הקוד החדש (אפשר לשנות ב"לאיזו כיתה") */
           if(window.BM_TEACHER_ROOM) window.BM_TEACHER_ROOM.set(res.code, res.until);
           if(actWidget && actWidget.refreshRooms) actWidget.refreshRooms();
+          document.dispatchEvent(new CustomEvent("bm-lesson-changed",{detail:{code:res.code}}));
           loadLessons();
           loadLive();
         } else out.innerHTML = '<p class="tt-msg">' + escapeHtml((res && res.error) || "יצירת הקוד לא הצליחה.") + '</p>';
@@ -2526,7 +2527,7 @@
 
 </script>
 <script src="assets/lesson-mode.js"></script>
-<script src="assets/class-dock.js"></script>
+<script src="assets/class-dock.js?v=20261023-1"></script>
 <script src="assets/my-work.js?v=2"></script>
 </body>
 </html>
