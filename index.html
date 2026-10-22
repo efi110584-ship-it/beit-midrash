@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=38">
+<link rel="stylesheet" href="assets/site.css?v=39">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -211,34 +211,41 @@
       <button type="button" class="fc-close" id="viewClose" aria-label="סגירת העבודה">✕</button>
     </div>
     <p class="view-notes" id="viewNotes" hidden></p>
-    <div class="view-frame-wrap">
-      <iframe class="view-frame" id="viewFrame" title="העבודה של התלמיד" loading="lazy" referrerpolicy="no-referrer"></iframe>
-    </div>
-    <p class="view-help">לא רואים את העבודה? ודאו שאתם מחוברים בדפדפן הזה לחשבון Google של בית הספר, או <a id="viewOpenDrive" href="#" target="_blank" rel="noopener">פתחו אותה בדרייב</a>.</p>
-    <!-- משוב מפורט שהוכן לעבודה (fb_<מזהה>.json ב-Drive): תצוגה למורה ושליחה לתלמיד יחד עם הציון -->
-    <p class="view-help" id="viewClaudeRow" hidden><a class="tt-btn tt-btn--small" id="viewClaudeLink" href="#" target="_blank" rel="noopener">🤖 בדיקה עם Claude</a> נפתח בלשונית של claude.ai: הבדיקה עצמה רצה שם, והמשוב חוזר לכאן אחרי "רענון".</p>
-    <div class="view-fb" id="viewFb" hidden>
-      <p class="view-help" id="viewFbReview" hidden></p>
-      <details class="view-fb-details">
-        <summary id="viewFbSummary">🤖 יש משוב מפורט לעבודה הזאת</summary>
-        <div class="view-fb-body" id="viewFbBody"><p class="view-help">טוען…</p></div>
+    <div class="view-body">
+      <div class="view-frame-wrap">
+        <iframe class="view-frame" id="viewFrame" title="העבודה של התלמיד" loading="lazy" referrerpolicy="no-referrer"></iframe>
+      </div>
+      <div class="view-side">
+      <!-- משוב מפורט שהוכן לעבודה (fb_<מזהה>.json ב-Drive): תצוגה למורה ושליחה לתלמיד יחד עם הציון -->
+      <p class="view-help" id="viewClaudeRow" hidden><a class="tt-btn tt-btn--small" id="viewClaudeLink" href="#" target="_blank" rel="noopener">🤖 בדיקה עם Claude</a> נפתח בלשונית של claude.ai: הבדיקה עצמה רצה שם, והמשוב חוזר לכאן אחרי "רענון".</p>
+      <div class="view-fb" id="viewFb" hidden>
+        <p class="view-help" id="viewFbReview" hidden></p>
+        <details class="view-fb-details">
+          <summary id="viewFbSummary">🤖 יש משוב מפורט לעבודה הזאת</summary>
+          <div class="view-fb-body" id="viewFbBody"><p class="view-help">טוען…</p></div>
+        </details>
+        <label class="view-fb-send"><input type="checkbox" id="viewFbSend" checked> לשלוח לתלמיד את המשוב המפורט (ציון והסבר לכל שאלה) כשאני שומר את הציון</label>
+        <p class="view-fb-link" id="viewFbLinkRow" hidden>✓ המשוב פורסם לתלמיד. הוא יראה אותו בדף העבודה, או בקישור:
+          <button type="button" class="tt-btn tt-btn--small" id="viewFbCopy">📋 העתקת קישור לתלמיד</button></p>
+      </div>
+      <form class="view-grade" id="viewGrade" novalidate>
+        <span class="view-grade-field">
+          <label for="viewGradeInput" class="tt-label">ציון</label>
+          <input id="viewGradeInput" class="view-grade-input" type="text" inputmode="numeric" maxlength="3" placeholder="0-100" autocomplete="off">
+        </span>
+        <span class="view-grade-field view-grade-field--wide">
+          <label for="viewCommentInput" class="tt-label">הערה</label>
+          <input id="viewCommentInput" class="view-comment-input" type="text" maxlength="300" placeholder="לא חובה" autocomplete="off">
+        </span>
+        <button type="submit" class="tt-btn tt-btn--primary" id="viewGradeSave">שמירת ציון</button>
+        <p class="view-grade-msg" id="viewGradeMsg" role="status" aria-live="polite"></p>
+      </form>
+      <details class="view-more">
+        <summary>אפשרויות נוספות</summary>
+        <p class="view-help">לא רואים את העבודה? ודאו שאתם מחוברים בדפדפן הזה לחשבון Google של בית הספר. אם עדיין לא, אפשר <a id="viewOpenDrive" href="#" target="_blank" rel="noopener">לפתוח את הקובץ בדרייב</a> (לא נדרש בתהליך הרגיל).</p>
       </details>
-      <label class="view-fb-send"><input type="checkbox" id="viewFbSend" checked> לשלוח לתלמיד את המשוב המפורט (ציון והסבר לכל שאלה) כשאני שומר את הציון</label>
-      <p class="view-fb-link" id="viewFbLinkRow" hidden>✓ המשוב פורסם לתלמיד. הוא יראה אותו בדף העבודה, או בקישור:
-        <button type="button" class="tt-btn tt-btn--small" id="viewFbCopy">📋 העתקת קישור לתלמיד</button></p>
+      </div>
     </div>
-    <form class="view-grade" id="viewGrade" novalidate>
-      <span class="view-grade-field">
-        <label for="viewGradeInput" class="tt-label">ציון</label>
-        <input id="viewGradeInput" class="view-grade-input" type="text" inputmode="numeric" maxlength="3" placeholder="0-100" autocomplete="off">
-      </span>
-      <span class="view-grade-field view-grade-field--wide">
-        <label for="viewCommentInput" class="tt-label">הערה</label>
-        <input id="viewCommentInput" class="view-comment-input" type="text" maxlength="300" placeholder="לא חובה" autocomplete="off">
-      </span>
-      <button type="submit" class="tt-btn tt-btn--primary" id="viewGradeSave">שמירת ציון</button>
-      <p class="view-grade-msg" id="viewGradeMsg" role="status" aria-live="polite"></p>
-    </form>
     <div class="view-actions">
       <button type="button" class="tt-btn" id="viewPrev">→ הקודמת</button>
       <span class="view-pos" id="viewPos" aria-live="polite"></span>
@@ -1461,8 +1468,9 @@
     function rowHtml(r){
       var st = STATUS_INFO[r.status] || STATUS_INFO.pending;
       var label = r.topic || r.task;
-      var task = (board.group ? '' : '<span class="tt-unit">' + escapeHtml(r.unit) + '</span>') + (/^https:\/\//.test(r.url || "")
-        ? '<a href="' + escapeAttr(r.url) + '" target="_blank" rel="noopener">' + escapeHtml(label) + '</a>'
+      /* כותרת המטלה פותחת את העבודה בחלון הצפייה באתר (לא קישור לדרייב) */
+      var task = (board.group ? '' : '<span class="tt-unit">' + escapeHtml(r.unit) + '</span>') + (r.id
+        ? '<button type="button" class="tt-task-open" data-view="' + escapeAttr(r.id) + '" aria-label="צפייה בעבודה של ' + escapeAttr(r.name) + ': ' + escapeAttr(label) + '">' + escapeHtml(label) + '</button>'
         : escapeHtml(label));
       var notes = r.notes ? '<span class="tt-notes">' + escapeHtml(r.notes) + '</span>' : '';
       return '<tr>' +
@@ -2078,6 +2086,8 @@
     viewEl.viewFbLinkRow.hidden = r.fb !== "pub";
     viewEl.viewFbSummary.textContent = r.fb === "pub" ? "📨 משוב מפורט - כבר נשלח לתלמיד (לחצו לצפייה)" : "🤖 יש משוב מפורט לעבודה הזאת - לחצו לצפייה לפני השליחה";
     viewEl.viewFbBody.innerHTML = '<p class="view-help">טוען…</p>';
+    var fbDetails = box.querySelector(".view-fb-details");
+    if(fbDetails) fbDetails.open = true;   /* המשוב פתוח ליד הציון וה-PDF */
     if(viewEl.viewFbReview){ viewEl.viewFbReview.hidden = true; viewEl.viewFbReview.textContent = ""; }
     var id = r.id;
     apiPost({ action:"feedbackGet", password:teacherToken(), fileId:id }).then(function(res){
