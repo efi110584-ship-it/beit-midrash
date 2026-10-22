@@ -73,6 +73,7 @@ function doGet(e) {
     if (p.action === 'exams') return json_({ ok: true, exams: examsUpcoming_() });
     if (p.action === 'lesson') return json_(findLesson_(p.code));
     if (p.action === 'lessonLock') return json_(lessonLock_(p.page, p.code));
+    if (p.action === 'batchReviewStatus') return json_({ok:true,batchReview:1,maxBatch:30,approval:'teacher_only'});
     if (p.action === 'feedback') return json_(feedbackPublic_(p.id));
     if (p.action === 'qbList') return json_(qbList_(p.board));
     if (p.action === 'actCurrent') return json_(actCurrent_(p.room, p.exact === '1'));
@@ -120,6 +121,8 @@ function doPost(e) {
       case 'setGrade':        return json_(setGrade_(data.fileId, data.grade, data.comment, data.publishFb));
       case 'acceptSuggested': return json_(acceptSuggested_(data.ids));
       case 'feedbackGet':     return json_(feedbackTeacher_(data.fileId));
+      case 'feedbackBatchPreview': return json_(feedbackBatchPreview_(data.ids));
+      case 'approveFeedbackBatch': return json_(approveFeedbackBatch_(data.entries, data.confirmed === true));
       case 'setHidden':       return json_(setHidden_(data.fileId, data.hidden === true));
       case 'qbDelete':        return json_(qbDelete_(data.board, data.id));
       case 'qbMark':          return json_(qbMark_(data.board, data.id, data.done === true));
@@ -522,7 +525,7 @@ function hiddenMap_(props) {
   Object.keys(props).forEach(function (k) { if (k.indexOf('hid_') === 0) map[k.slice(4)] = true; });
   return map;
 }
-function setHidden_(fileId, hidden) {
+function setHiddenUnlocked_(fileId, hidden) {
   if (!/^[\w-]{10,}$/.test(String(fileId || ''))) return { ok: false, error: 'מזהה קובץ לא תקין' };
   var props = PropertiesService.getScriptProperties();
   if (hidden) props.setProperty('hid_' + fileId, '1'); else props.deleteProperty('hid_' + fileId);
@@ -542,7 +545,7 @@ function gradeMap_(props) {
 }
 
 // publishFb: true - המשוב המפורט (fb_<מזהה>.json) נחשף לתלמיד; false - מוסתר; בלי - לא משתנה
-function setGrade_(fileId, grade, comment, publishFb) {
+function setGradeUnlocked_(fileId, grade, comment, publishFb) {
   if (!/^[\w-]{10,}$/.test(String(fileId || ''))) return { ok: false, error: 'מזהה קובץ לא תקין' };
   var g = String(grade == null ? '' : grade).trim();
   var c = clean_(comment).slice(0, 300);
@@ -562,7 +565,7 @@ function setGrade_(fileId, grade, comment, publishFb) {
 
 // רישום הציונים שהבדיקה עם Claude הציעה (fb_<מזהה>.json) כציון בלוח ההגשות - לכמה עבודות בבת אחת.
 // רק לעבודות שעוד אין להן ציון. המשוב לא נשלח לתלמיד (את זה עושים ב"📨 שליחה").
-function acceptSuggested_(ids) {
+function acceptSuggestedUnlocked_(ids) {
   ids = (ids || []).map(String).filter(function (id) { return /^[\w-]{10,}$/.test(id); }).slice(0, 300);
   var props = PropertiesService.getScriptProperties();
   var all = props.getProperties();
@@ -570,6 +573,7 @@ function acceptSuggested_(ids) {
   var done = {};
   ids.forEach(function (id) {
     var g = fbs.g[id];
+    if (!batchReviewCheck_(feedbackRead_(id)).ready) return;
     if (g == null || g === '' || (grades[id] && grades[id].g !== '')) return;
     props.setProperty('grade_' + id, JSON.stringify({ g: String(g), c: (grades[id] && grades[id].c) || '', t: Date.now() }));
     props.setProperty('chk_' + id, '1');
@@ -1336,4 +1340,126 @@ function בדיקה() {
   var list = listSubmissions_();
   Logger.log('נמצאו ' + list.length + ' הגשות');
   Logger.log(JSON.stringify(list.slice(0, 3), null, 2));
+}
+
+function setGrade_(fileId, grade, comment, publishFb) {
+  var lock=LockService.getScriptLock();
+  if(!lock.tryLock(5000)) return {ok:false,error:"מתבצעת שמירה אחרת. נסו שוב"};
+  try {return setGradeUnlocked_(fileId, grade, comment, publishFb);} finally {lock.releaseLock();}
+}
+
+function setHidden_(fileId, hidden) {
+  var lock=LockService.getScriptLock();
+  if(!lock.tryLock(5000)) return {ok:false,error:"מתבצעת שמירה אחרת. נסו שוב"};
+  try {return setHiddenUnlocked_(fileId, hidden);} finally {lock.releaseLock();}
+}
+
+function acceptSuggested_(ids) {
+  var lock=LockService.getScriptLock();
+  if(!lock.tryLock(5000)) return {ok:false,error:"מתבצעת שמירה אחרת. נסו שוב"};
+  try {return acceptSuggestedUnlocked_(ids);} finally {lock.releaseLock();}
+}
+
+// Draft only. These actions run behind the existing teacher password check.
+// review metadata comes from the validated grading process, never from pupil input.
+function batchReviewCheck_(fb) {
+  var reasons = [];
+  if (!fb || fb.v !== 1 || !Array.isArray(fb.items) || !fb.items.length)
+    return { ready:false, reasons:['לא נמצא משוב מלא ותקין'] };
+  var r = fb.review;
+  if (!r || r.version !== 1 || r.ready !== true || !Array.isArray(r.reasons) || r.reasons.length)
+    reasons.push('המשוב דורש עיון מורה או נוצר לפני בדיקות התקינות החדשות');
+  var checks = r && r.checks;
+  if (!checks || checks.rubricMatched !== true || checks.complete !== true || checks.scoresValid !== true || checks.evidenceValid !== true)
+    reasons.push('אין אישור מלא להתאמת המחוון, שלמות הבדיקה והראיות');
+  if (typeof fb.grade !== 'number' || !Number.isInteger(fb.grade) || fb.grade < 0 || fb.grade > 100)
+    reasons.push('הציון אינו תקין');
+  var expected = r && r.expectedItemIds, ids = Object.create(null), valid = true;
+  if (!Array.isArray(expected) || !expected.length || expected.some(function(id){return typeof id !== 'string' || !id;}) || new Set(expected).size !== expected.length)
+    valid = false;
+  fb.items.forEach(function(x){
+    if (!x || typeof x.id !== 'string' || !x.id || ids[x.id] || !['full','partial','miss'].includes(x.s) || typeof x.text !== 'string' || !x.text.trim()) valid = false;
+    else ids[x.id] = true;
+    if (x && (x.copied === true || x.needsReview === true)) reasons.push('שאלה שסומנה לעיון או חשד להעתקה');
+  });
+  if (!valid || expected.length !== fb.items.length || expected.some(function(id){return !ids[id];}))
+    reasons.push('רשימת השאלות אינה מלאה או כוללת כפילות');
+  return {ready:reasons.length === 0,reasons:Array.from(new Set(reasons))};
+}
+
+function batchReviewSnapshot_(fb, saved, published, hidden) {
+  var text = JSON.stringify({feedback:fb, saved:saved || null, published:published || '', hidden:hidden || ''});
+  return Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256,text,Utilities.Charset.UTF_8)
+    .map(function(b){return ('0'+((b+256)%256).toString(16)).slice(-2);}).join('');
+}
+
+function batchReviewOne_(id) {
+  var props = PropertiesService.getScriptProperties(), fb = feedbackRead_(id);
+  var saved = props.getProperty('grade_'+id), published = props.getProperty('fbpub_'+id), hidden = props.getProperty('hid_'+id);
+  var check = batchReviewCheck_(fb), selected = fb && fb.grade;
+  if (published === '1') check = {ready:false,reasons:['המשוב כבר פורסם']};
+  if (hidden === '1') check = {ready:false,reasons:['העבודה מוסתרת']};
+  if (saved) {
+    try {
+      var old = JSON.parse(saved);
+      if (old.g !== '' && old.g != null) {
+        if (!/^\d{1,3}$/.test(String(old.g)) || Number(old.g)>100) throw Error('grade');
+        selected = Number(old.g); // Preserve a grade the teacher has already changed.
+      }
+    } catch(e) {check={ready:false,reasons:['הציון השמור דורש עיון']};}
+  }
+  return {id:id,ready:check.ready,reasons:check.reasons,grade:selected == null ? null : selected,
+    snapshot:batchReviewSnapshot_(fb,saved,published,hidden)};
+}
+
+function feedbackBatchPreview_(ids) {
+  if (!Array.isArray(ids) || ids.length > 30) return {ok:false,error:'בחרו עד 30 עבודות בכל סבב'};
+  var seen = {}, rows = [];
+  ids.forEach(function(raw){
+    var id = String(raw || '');
+    if (!/^[\w-]{10,}$/.test(id) || seen[id]) return;
+    seen[id]=true;
+    try {rows.push(batchReviewOne_(id));}
+    catch(e) {rows.push({id:id,ready:false,reasons:['לא הצלחנו לקרוא את המשוב'],grade:null});}
+  });
+  return {ok:true,rows:rows};
+}
+
+function approveFeedbackBatch_(entries, confirmed) {
+  if (!confirmed || !Array.isArray(entries) || !entries.length || entries.length > 30)
+    return {ok:false,error:'נדרש אישור מפורש לסיכום של עד 30 עבודות'};
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(5000)) return {ok:false,error:'מתבצעת שמירה אחרת. נסו שוב בעוד רגע'};
+  var done=[], failed=[], seen={};
+  try {
+    entries.forEach(function(entry){
+      var id=entry && String(entry.id || '');
+      if (!/^[\w-]{10,}$/.test(id) || seen[id]) {failed.push({id:id,error:'מזהה לא תקין או כפול'});return;}
+      seen[id]=true;
+      try {
+        var fresh=batchReviewOne_(id);
+        if (!fresh.ready || !entry.snapshot || fresh.snapshot !== entry.snapshot) {
+          failed.push({id:id,error:'המשוב או הציון השתנו, או שהעבודה דורשת עיון. רעננו את הסיכום'});return;
+        }
+        var props=PropertiesService.getScriptProperties(), saved=props.getProperty('grade_'+id), comment='';
+        if(saved) comment=JSON.parse(saved).c || '';
+        var result=setGradeUnlocked_(id,String(fresh.grade),comment,true);
+        if (!result.ok || result.fbPublished !== true) throw Error('save');
+        done.push({id:id,grade:result.grade});
+      } catch(e) {failed.push({id:id,error:'לא הצלחנו לשמור. בדקו את מצב העבודה לפני ניסיון נוסף'});}
+    });
+  } finally {lock.releaseLock();}
+  return {ok:true,done:done,failed:failed};
+}
+
+// Pure self-test: does not read or write student submissions, Drive or properties.
+function batchReviewSelfTest() {
+  var fb={v:1,grade:60,items:[{id:'q1',s:'partial',text:'תשובת דמה'}],review:{version:1,ready:true,reasons:[],expectedItemIds:['q1'],checks:{rubricMatched:true,complete:true,scoresValid:true,evidenceValid:true}}};
+  if(!batchReviewCheck_(fb).ready) throw Error('valid');
+  fb.grade=0;if(!batchReviewCheck_(fb).ready)throw Error('low grade');
+  fb.grade=101;if(batchReviewCheck_(fb).ready)throw Error('invalid grade');
+  fb.grade=60;fb.items[0].needsReview=true;if(batchReviewCheck_(fb).ready)throw Error('review flag');
+  fb.items[0].needsReview=false;delete fb.review;if(batchReviewCheck_(fb).ready)throw Error('legacy');
+  console.log('Batch review self-test: 5 pure checks passed; no submissions read or changed.');
+  return {ok:true,checks:5};
 }

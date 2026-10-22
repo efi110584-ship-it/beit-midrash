@@ -692,6 +692,7 @@
             '</span>' +
           '</div>' +
           '<p class="tt-msg" id="ttBoardMsg" role="status" aria-live="polite">טוען הגשות…</p>' +
+          '<section id="ttBatch" aria-label="אישור משוב מרוכז" hidden style="padding:12px;border:1px solid #ccd5e4;border-radius:12px;margin:12px 0"><button type="button" class="tt-btn" id="ttBatchInspect">סיכום ואישור משוב מרוכז</button><p id="ttBatchStatus" role="status" aria-live="polite">הסיכום יתייחס לעבודות המוצגות בסינון הנוכחי.</p><div id="ttBatchResults"></div></section>' +
           '<div class="tt-accept" id="ttAccept" style="display:none;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:.4rem 0 .7rem;padding:10px 12px;border-radius:12px;background:#E6EDF9"></div>' +
           '<div class="tt-table-wrap" id="ttTableWrap" hidden>' +
             '<table class="tt-table">' +
@@ -938,10 +939,69 @@
     startLivePolling();
 
     document.getElementById("ttBoardRefresh").addEventListener("click", function(){ loadBoard(true); });
+    // Staged integration: uses existing teacher authentication and feedback viewer.
+    (function initBatchReview(){
+      var inspect=document.getElementById('ttBatchInspect');
+      var status=document.getElementById('ttBatchStatus');
+      var results=document.getElementById('ttBatchResults');
+      var busy=false, current=[];
+      /* הממשק נשען על פעולות השרת feedbackBatchPreview / approveFeedbackBatch - מוצג רק כשהסקריפט הפרוס מדווח שהן קיימות */
+      var box=document.getElementById('ttBatch');
+      box.hidden=true;
+      apiGet({action:'batchReviewStatus'}).then(function(v){ box.hidden=!(v && v.ok === true && v.batchReview === 1 && v.approval === 'teacher_only'); }).catch(function(){ box.hidden=true; });
+      function node(tag,text){var el=document.createElement(tag);el.textContent=text;return el;}
+      inspect.addEventListener('click',async function(){
+        if(busy)return;
+        var rows=(board.shown || []).filter(function(r){return r.id && !r.hidden && r.fb === 'draft';});
+        if(!rows.length){status.textContent='אין משובים ממתינים בסינון הנוכחי. בדקו תחילה את ההגשות עם Claude ורעננו את הלוח.';return;}
+        if(rows.length>30){status.textContent='בחרו כיתה או מטלה בסינון כך שיוצגו עד 30 משובים בכל סבב.';return;}
+        busy=true;inspect.disabled=true;results.replaceChildren();status.textContent='קורא משובים ומכין סיכום…';
+        try{
+          var res=await apiPost({action:'feedbackBatchPreview',password:teacherToken(),ids:rows.map(function(r){return r.id;})});
+          if(handleAuthFailure(res))return;
+          if(!res || !res.ok || !Array.isArray(res.rows))throw Error(res && res.error || 'לא התקבל סיכום תקין');
+          current=res.rows.filter(function(r){return r.ready;});
+          var review=res.rows.filter(function(r){return !r.ready;});
+          status.textContent=current.length+' עבודות מוכנות לאישור יחד; '+review.length+' דורשות עיון. עדיין לא נשלח דבר.';
+          [ {title:'לעיון מורה',items:review}, {title:'מוכנות לאישור',items:current} ].forEach(function(group){
+            if(!group.items.length)return;
+            var details=document.createElement('details');details.open=group.title==='לעיון מורה';
+            details.appendChild(node('summary',group.title+' ('+group.items.length+')'));
+            group.items.forEach(function(item){
+              var row=rows.filter(function(r){return r.id===item.id;})[0];
+              var p=node('p',(row ? row.name : 'עבודה')+' — '+(item.grade==null?'טרם נקבע ציון':item.grade)+' '+(item.reasons || []).join('; '));
+              var open=node('button','צפייה במשוב');open.type='button';open.className='tt-btn';
+              open.addEventListener('click',function(){openViewer(item.id,open);});p.appendChild(open);details.appendChild(p);
+            });results.appendChild(details);
+          });
+          if(current.length){
+            var send=node('button','אישור ושליחה של '+current.length+' העבודות המוכנות');send.type='button';send.className='tt-btn tt-btn--primary';
+            send.addEventListener('click',async function(){
+              if(busy || !confirm('לאשר ולחשוף לתלמידים ציון ומשוב עבור '+current.length+' העבודות המוכנות שהוצגו בסיכום? העבודות לעיון לא יישלחו.'))return;
+              var entries=current.map(function(r){return {id:r.id,snapshot:r.snapshot};});
+              busy=true;send.disabled=true;inspect.disabled=true;status.textContent='מאשר ושולח את המוכנות…';
+              try{
+                var response=await apiPost({action:'approveFeedbackBatch',password:teacherToken(),entries:entries,confirmed:true});
+                if(handleAuthFailure(response))return;
+                if(!response || !response.ok)throw Error(response && response.error || 'לא התקבלה תשובת שרת תקינה');
+                (response.done || []).forEach(function(done){board.rows.forEach(function(row){if(row.id===done.id){row.fb='pub';row.grade=done.grade;row.status='checked';}});});
+                try{sessionStorage.removeItem(BOARD_CACHE);}catch(e){}
+                renderBoard();current=[];
+                status.textContent='נשלחו '+(response.done || []).length+'; לא נשלחו '+(response.failed || []).length+'. רעננו סיכום לפני פעולה נוספת.';
+                (response.failed || []).forEach(function(f){status.appendChild(node('p',f.error));});
+              }catch(e){status.textContent=e.message+' — רעננו את הלוח לפני ניסיון נוסף.';current=[];}
+              finally{busy=false;inspect.disabled=false;}
+            });results.appendChild(send);
+          }
+        }catch(e){status.textContent=e.message+'; לא שונה ולא נשלח דבר.';current=[];}
+        finally{busy=false;inspect.disabled=false;}
+      });
+    })();
     document.getElementById("ttAccept").addEventListener("click", function(e){
       var b = e.target.closest("#ttAcceptGo");
       if(!b || !(board.acceptIds || []).length) return;
       b.disabled = true; b.textContent = "רושמים…";
+      var asked = board.acceptIds.length;
       apiPost({ action:"acceptSuggested", password:teacherToken(), ids:board.acceptIds }).then(function(res){
         if(handleAuthFailure(res)) return;
         var msg = document.getElementById("ttBoardMsg");
@@ -949,7 +1009,10 @@
           board.rows.forEach(function(r){ if(res.grades && res.grades[r.id] != null){ r.grade = res.grades[r.id]; r.status = "checked"; } });
           try{ sessionStorage.removeItem(BOARD_CACHE); }catch(err){}
           renderBoard();
-          msg.textContent = "✓ נרשמו " + res.n + " ציונים. התלמידים עוד לא רואים אותם - כדי לשלוח, לחצו \"📨 שליחה\" בשורה של כל תלמיד.";
+          var notDone = asked - (res.n || 0);
+          msg.textContent = "✓ נרשמו " + res.n + " ציונים." +
+            (notDone > 0 ? " " + notDone + " לא נרשמו: משובים שסומנו לעיון, או שנוצרו לפני בדיקות התקינות. אפשר לפתוח כל אחד מהם ולשמור ציון ידנית." : "") +
+            " התלמידים עוד לא רואים אותם - כדי לשלוח, לחצו \"📨 שליחה\" בשורה של כל תלמיד.";
         } else { msg.textContent = (res && res.error) || "הרישום לא הצליח. נסו שוב."; renderBoard(); }
       }).catch(function(){ netError(document.getElementById("ttBoardMsg")); renderBoard(); });
     });
