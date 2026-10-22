@@ -1353,7 +1353,7 @@
         '<td class="tt-actions">' +
           (r.id ? '<button type="button" class="tt-btn tt-btn--small tt-btn--view" data-view="' + escapeAttr(r.id) + '">צפייה</button>' : '') +
           /* בדיקה עם Claude - כרגע רק לקט מצוות: פותח את דף הבדיקה ישר על העבודה הזו */
-          (r.id && !r.hidden && /לקט מצוות/.test((r.unit || "") + " " + (r.task || "")) && /^[\w-]+$/.test(r.id)
+          (r.id && !r.hidden && /לקט מצוות|פתוח תפתח · מבחן/.test((r.unit || "") + " " + (r.task || "")) && /^[\w-]+$/.test(r.id)
             ? '<a class="tt-btn tt-btn--small tt-btn--link" href="' + GRADER_URL + '#g-' + escapeAttr(r.id) + '" target="_blank" rel="noopener" aria-label="בדיקת העבודה של ' + escapeAttr(r.name) + ' עם Claude">🤖 בדיקה</a>' : '') +
           (r.status === "pending" && !r.hidden ? '<button type="button" class="tt-btn tt-btn--small" data-check="' + escapeAttr(r.id) + '">סימון כנבדק</button>' : '') +
           (r.id ? (r.hidden
