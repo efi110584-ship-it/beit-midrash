@@ -404,9 +404,12 @@
     list.forEach(function(s){ if(n[s.status] !== undefined) n[s.status]++; });
     var many = (res.lessons || []).length > 1;
     body.innerHTML = (many ? '<div class="bmd-btns">' + res.lessons.map(function(x){
-        return '<button type="button" class="bmd-btn" data-live-code="' + esc(x.code) + '"' + (x.code === res.lesson.code ? ' aria-pressed="true" style="font-weight:700"' : ' aria-pressed="false"') + '>קוד ' + esc(x.code) + '</button>';
+        return '<button type="button" class="bmd-btn" data-live-code="' + esc(x.code) + '"' + (x.code === res.lesson.code ? ' aria-pressed="true" style="font-weight:700"' : ' aria-pressed="false"') + '>' + (x.cls ? 'כיתה ' + (x.cls === "יב" ? 'י"ב' : 'י"א') + ' · ' : '') + 'קוד ' + esc(x.code) + '</button>';
       }).join("") + '</div>' : '') +
-      '<div class="bmd-btns" id="bmdLiveSound"></div>' +
+      '<div class="bmd-btns" id="bmdLiveSound"><button type="button" class="bmd-btn" data-nav-here="' + esc(res.lesson.code) + '" style="font-weight:700">📍 שלחו את הכיתה לדף הזה</button></div>' +
+      (res.lesson.nav ? '<p class="bmd-note">נשלחו ל: <b>' + esc(res.lesson.nav.label || res.lesson.nav.url) + '</b> · כבר שם: ' +
+        list.filter(function(x){ return x.page === String(res.lesson.nav.url).split("#")[0] && x.status !== "bye"; }).length + ' מתוך ' +
+        list.filter(function(x){ return x.status !== "bye"; }).length + '</p>' : '') +
       '<p class="bmd-note">קוד ' + esc(res.lesson.code) + ' · ' + esc(res.lesson.label || "") + ' · 🟢 בדף: <b>' + n["in"] + '</b> · 🟠 מחוץ לדף: <b>' + n.out + '</b></p>' +
       (list.length ? '<ul class="bmd-pres">' + list.map(function(s){
         var sid = s.sid || s.name || "", open = !!liveOpenSids[sid];
@@ -430,6 +433,18 @@
     }).catch(function(){ if(livePanelShown()) body.innerHTML = '<p class="bmd-msg">אין חיבור לשרת כרגע.</p>'; });
   }
   /* כל 5 שניות כשיש שיעור עם בקרה, כל 30 שניות כשאין */
+  /* שם הדף לתלמידים ולמורה: לפי רשימת היחידות, ואם אין - כותרת הדף */
+  function pageLabel(){
+    var T = window.BM_TASKS, w = T ? T.findByPage(page) : null;
+    if(w) return w.topic ? w.unit.title + " · " + w.topic.title : w.unit.title;
+    var u = (window.BM_UNITS || []).filter(function(x){ return x.url === page; })[0];
+    return u ? u.title : (document.querySelector("h1") || document).textContent.trim().slice(0, 80) || page;
+  }
+  function toastMsg(t){
+    var p = document.createElement("p");
+    p.className = "bmd-note"; p.setAttribute("role", "status"); p.textContent = t; p.style.fontWeight = "700";
+    if(livePanelShown()) body.insertBefore(p, body.firstChild);
+  }
   function startLiveBg(){
     if(liveBg) return;
     liveBg = true;
@@ -441,6 +456,17 @@
   function teacherLive(){
     if(!body.__bmLiveBound) body.addEventListener("click", function(e){
       if(!livePanelShown()) return;
+      var nb = e.target.closest && e.target.closest("[data-nav-here]");
+      if(nb){
+        nb.disabled = true; nb.textContent = "שולחים…";
+        post({ action:"lessonNav", code:nb.getAttribute("data-nav-here"), url:page, label:pageLabel() }).then(function(res){
+          if(authMsg(res)) return;
+          if(res && res.ok) toastMsg("✓ נשלח. התלמידים יעברו לדף הזה תוך כ-15 שניות.");
+          else toastMsg((res && res.error) || "השליחה לא הצליחה.");
+          setTimeout(liveTick, 4000);   /* שההודעה תישאר רגע לפני שהחלון מתרענן */
+        }).catch(function(){ toastMsg("אין חיבור לשרת כרגע."); setTimeout(liveTick, 4000); });
+        return;
+      }
       var b = e.target.closest && e.target.closest("[data-live-code]");
       if(b){
         try{ sessionStorage.setItem("bm-live-code", b.getAttribute("data-live-code")); }catch(err){}

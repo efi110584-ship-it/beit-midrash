@@ -25,7 +25,7 @@
   var key = read(KEY_STORE);
   if(key && !(key.until > Date.now())){ write(KEY_STORE, null); key = null; }
   var hint = read(HINT_STORE);
-  var myCode = key && key.page === page ? key.code : "";
+  var myCode = key && (key.page === page || key.nav === page) ? key.code : "";   /* nav - דף שהמורה שלח אליו את הכיתה */
 
   var cover = null, prevOverflow = "";
   function css(){
@@ -182,7 +182,7 @@
    פועל רק אחרי שתלמיד נכנס עם קוד לשיעור שהמורה הפעיל בו בקרה
    (הכניסה בדף הבית שומרת את פרטי השיעור במכשיר עד סוף תוקף הקוד).
    כל עוד הדף פתוח, הוא מדווח לסקריפט של המורה:
-     in    - התלמיד בדף (בכניסה לדף, וכל 30 שניות)
+     in    - התלמיד בדף (בכניסה לדף, וכל 15 שניות)
      out   - התלמיד עבר ללשונית/אפליקציה אחרת (reason:"hidden"),
              או לחלון אחר כשהדף עדיין גלוי (reason:"blur")
      paste - התלמיד הדביק טקסט בתיבת תשובה (len - כמה תווים)
@@ -216,6 +216,7 @@
         .then(function(r){ return r.json(); })
         .then(function(res){
           if(res && res.ended){ end(); return; }
+          if(res && res.ok) navCheck(res.nav);
           if(res && res.ok && !window.BM_DOCK) actNotice(res.act);   /* בדפים עם סרגל הכלים - הסרגל מודיע */
           if(res && res.ok && onDone) onDone(res);
         })
@@ -272,6 +273,23 @@
     t.textContent = text;
     document.body.appendChild(t);
     setTimeout(function(){ t.remove(); }, 6000);
+  }
+  /* המורה שלח את הכיתה לדף: עוברים לבד, פעם אחת לכל שליחה (אם התלמיד חוזר אחורה - לא מחזירים אותו).
+     שומרים את הדף ב-bm-lesson-key.nav, כדי שדף נעול (למשל מבחן) ייפתח עם קוד השיעור. */
+  var navigating = false;
+  function navCheck(nav){
+    if(!nav || !nav.id || navigating || st.navSeen === nav.id) return;
+    st.navSeen = nav.id; save();
+    var target = String(nav.url || "").split("#")[0];
+    if(!/^[\w.-]+\.html$/.test(target)) return;
+    try{
+      var k = JSON.parse(localStorage.getItem("bm-lesson-key") || "null") || { code:st.code, page:"", until:st.until };
+      if(k.code === st.code){ k.nav = target; localStorage.setItem("bm-lesson-key", JSON.stringify(k)); }
+    }catch(e){}
+    if(target === page) return;
+    navigating = true;
+    toast("המורה מעביר את הכיתה" + (nav.label ? ": " + nav.label : "") + "…");
+    setTimeout(function(){ location.href = nav.url; }, 1500);
   }
   /* המורה פתח פעילות חיה (ענן / הצבעה) - הודעה עם קישור, פעם אחת לכל פעילות */
   var actEl = null;
@@ -343,7 +361,7 @@
     timer = setInterval(function(){
       if(!(st.until > Date.now())){ end(); return; }
       if(document.visibilityState === "visible" && !isOut) send("in", function(res){ leaves = res.leaves; save(); });
-    }, 30000);
+    }, 15000);
   }
 
   if(document.body) start();

@@ -620,6 +620,12 @@
             '<span class="tt-live-tools"><span id="ttLiveSound"></span><button type="button" class="tt-btn" id="ttLiveRefresh">רענון</button></span>' +
           '</div>' +
           '<p class="tt-sub" id="ttLiveLesson"></p>' +
+          '<div class="tt-live-nav" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:.4rem 0 .6rem;padding:10px 12px;border-radius:12px;background:#EEF3FB">' +
+            '<label for="ttNavTarget" class="tt-label" style="margin:0">📍 שליחת הכיתה לדף:</label>' +
+            '<select id="ttNavTarget" class="tt-select" style="flex:1 1 220px;min-width:0">' + lessonTargetsHtml() + '</select>' +
+            '<button type="button" class="tt-btn tt-btn--primary" id="ttNavGo">שלחו את הכיתה</button>' +
+            '<span class="tt-note" id="ttNavNow" style="flex-basis:100%;margin:0" aria-live="polite"></span>' +
+          '</div>' +
           '<div class="tt-live-sum" id="ttLiveSum" aria-live="polite"></div>' +
           '<div class="tt-table-wrap" id="ttLiveWrap">' +
             '<table class="tt-table tt-live-table">' +
@@ -902,6 +908,17 @@
     loadLessons();
 
     document.getElementById("ttLiveRefresh").addEventListener("click", loadLive);
+    /* שליחת הכיתה לדף: כל תלמיד שנכנס עם הקוד של השיעור המוצג עובר לבד לדף שנבחר */
+    document.getElementById("ttNavGo").addEventListener("click", function(){
+      var sel = document.getElementById("ttNavTarget"), opt = sel.options[sel.selectedIndex], now = document.getElementById("ttNavNow");
+      if(!opt || !getLiveCode()) return;
+      now.textContent = "שולחים…";
+      apiPost({ action:"lessonNav", password:teacherToken(), code:getLiveCode(), url:opt.value, label:opt.getAttribute("data-label") }).then(function(res){
+        if(handleAuthFailure(res)) return;
+        if(res && res.ok){ now.textContent = "✓ נשלח. התלמידים יעברו לבד תוך כ-15 שניות. בעמודה \"איפה\" רואים מי כבר הגיע."; loadLive(); }
+        else now.textContent = (res && res.error) || "השליחה לא הצליחה. נסו שוב.";
+      }).catch(function(){ now.textContent = "אין חיבור לשרת כרגע. נסו שוב."; });
+    });
     if(window.BM_LIVEMON) document.getElementById("ttLiveSound").appendChild(window.BM_LIVEMON.soundButton()).className = "tt-btn";
     /* לחיצה על שורה - פותחת/סוגרת את ציר הזמן של התלמיד */
     document.getElementById("ttLiveRows").addEventListener("click", function(e){
@@ -1105,13 +1122,21 @@
       var picker = others.length > 1
         ? '<span class="tt-live-picks" role="group" aria-label="בחירת שיעור"><span class="tt-live-picks-h">' + others.length + ' שיעורים עם בקרה פעילים עכשיו. בחרו איזה להציג:</span>' + others.map(function(x){
             var on = x.code === res.lesson.code;
-            return '<button type="button" class="tt-tab" data-live-code="' + escapeAttr(x.code) + '" aria-pressed="' + on + '">קוד ' + escapeHtml(x.code) + ' · ' + escapeHtml(x.label || "") + '</button>';
+            return '<button type="button" class="tt-tab" data-live-code="' + escapeAttr(x.code) + '" aria-pressed="' + on + '">' + (x.cls ? 'כיתה ' + (x.cls === "יב" ? 'י"ב' : 'י"א') + ' · ' : '') + 'קוד ' + escapeHtml(x.code) + ' · ' + escapeHtml(x.label || "") + '</button>';
           }).join("") + '</span>'
         : '';
       document.getElementById("ttLiveLesson").innerHTML = picker + '<span class="tt-live-now">' + escapeHtml("מוצג: קוד " + res.lesson.code + " · " + (res.lesson.label || res.lesson.url) + ' · כיתה ' + (res.lesson.cls === "יב" ? 'י"ב' : 'י"א')) +
         (res.lesson.url ? ' · <a href="' + escapeAttr(res.lesson.url) + '">מעבר לשיעור ›</a>' : '') + '</span>';
       if(window.BM_LIVEMON) window.BM_LIVEMON.watch(res);
       var LM = window.BM_LIVEMON;
+      var nav = res.lesson.nav, navNow = document.getElementById("ttNavNow");
+      if(navNow && nav && !/^(שולחים|✓)/.test(navNow.textContent)){
+        var navPage = String(nav.url).split("#")[0];
+        var there = (res.students || []).filter(function(x){ return x.page === navPage && x.status !== "bye"; }).length;
+        var total = (res.students || []).filter(function(x){ return x.status !== "bye"; }).length;
+        navNow.textContent = "נשלחו ל: " + (nav.label || nav.url) + " (" + fmtClock(nav.at) + ") · כבר שם: " + there + " מתוך " + total;
+      }
+      if(navNow && /^✓/.test(navNow.textContent) && Date.now() - (nav ? nav.at : 0) > 20000) navNow.textContent = "";
       var order = { out:0, gone:1, "in":2, bye:3 };
       var list = (res.students || []).slice().sort(function(a, b){
         return (order[a.status] - order[b.status]) || (b.leaves - a.leaves) || String(a.name).localeCompare(String(b.name), "he");

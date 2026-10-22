@@ -115,6 +115,7 @@ function doPost(e) {
       case 'createLesson':    return json_(createLesson_(data.url, data.label, data.monitor === true, data.cls));
       case 'presenceList':    return json_(presenceList_(data.code));
       case 'clearLesson':     return json_(clearLesson_(data.code));
+      case 'lessonNav':       return json_(lessonNav_(data.code, data.url, data.label));
       case 'lessonsList':     return json_({ ok: true, lessons: lessonsList_() });
       case 'setGrade':        return json_(setGrade_(data.fileId, data.grade, data.comment, data.publishFb));
       case 'feedbackGet':     return json_(feedbackTeacher_(data.fileId));
@@ -701,7 +702,8 @@ function examDelete_(id) {
 
 // ---------- קוד לשיעור ----------
 // כמה קודים יכולים להיות פעילים במקביל - כל מורה והקוד שלו, ולכל קוד דף, נעילה ובקרה משלו.
-// נשמרים במאפיין LESSONS: { "4821": { code, url, label, created, monitor, cls }, ... }.
+// נשמרים במאפיין LESSONS: { "4821": { code, url, label, created, monitor, cls, nav }, ... }.
+// nav - הדף שהמורה שלח אליו את הכיתה (lessonNav_).
 // קוד שעברו עליו LESSON_HOURS שעות נמחק לבד.
 function lessonAlive_(l) { return !!(l && l.code && Date.now() - l.created < LESSON_HOURS * 3600 * 1000); }
 function lessonUntil_(l) { return l.created + LESSON_HOURS * 3600 * 1000; }
@@ -747,6 +749,26 @@ function createLesson_(url, label, monitor, cls) {
   }
 }
 
+// "שליחת הכיתה לדף": המורה בוחר דף, וכל תלמיד שנכנס עם הקוד (שיעור עם בקרה) עובר אליו לבד
+// בדיווח הנוכחות הבא (presence_ מחזיר את nav). בלי url - מבטלים את השליחה.
+function lessonNav_(code, url, label) {
+  url = String(url || '').trim();
+  if (url && !/^[\w.-]+\.html(#[\w-]+)?$/.test(url)) return { ok: false, error: 'כתובת עמוד לא תקינה' };
+  var lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    var all = lessons_();
+    var l = all[String(code || '')];
+    if (!l) return { ok: false, error: 'הקוד כבר לא פעיל' };
+    if (!l.monitor) return { ok: false, error: 'שליחה לדף עובדת רק בשיעור עם בקרה' };
+    l.nav = url ? { id: String(Date.now()), url: url, label: clean_(label).slice(0, 120), at: Date.now() } : null;
+    saveLessons_(all);
+    return { ok: true, nav: l.nav };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
 // ביטול קוד אחד. בלי קוד (גרסה ישנה של האתר) - מבטלים את כל הקודים.
 function clearLesson_(code) {
   var lock = LockService.getScriptLock();
@@ -779,6 +801,9 @@ function lessonLock_(page, code) {
   page = String(page || '');
   var here = Object.keys(all).map(function (c) { return all[c]; })
     .filter(function (l) { return String(l.url || '').split('#')[0] === page; });
+  // דף שהמורה שלח אליו את הכיתה - פתוח למי שנכנס עם הקוד של אותו שיעור
+  var mine = all[String(code || '')];
+  if (mine && mine.nav && String(mine.nav.url).split('#')[0] === page) return { ok: true, locked: false, lessonPage: page, until: lessonUntil_(mine) };
   if (!here.length) return { ok: true, locked: false, lessonPage: '' };
   var until = Math.max.apply(null, here.map(lessonUntil_));
   var locked = !here.some(function (l) { return l.code === String(code || ''); });
@@ -850,7 +875,8 @@ function presence_(d) {
     all[sid] = p;
     cache.put(key, JSON.stringify(all), 21600);
     var act = actFor_(l.code, true);
-    return { ok: true, leaves: p.leaves, act: (act && act.open) ? { id: act.id, prompt: act.prompt } : null };
+    return { ok: true, leaves: p.leaves, act: (act && act.open) ? { id: act.id, prompt: act.prompt } : null,
+             nav: l.nav ? { id: l.nav.id, url: l.nav.url, label: l.nav.label } : null };
   } finally {
     lock.releaseLock();
   }
@@ -879,8 +905,8 @@ function presenceList_(code) {
              outTotal: (p.outTotal || 0) + (status === 'out' ? outFor : 0), pastes: p.pastes || 0,
              ev: p.ev || [], lastAgo: Math.round((now - (p.last || now)) / 1000) };
   });
-  return { ok: true, lesson: { code: l.code, label: l.label, url: l.url, cls: l.cls },
-           lessons: mon.map(function (x) { return { code: x.code, label: x.label }; }), students: out, now: now };
+  return { ok: true, lesson: { code: l.code, label: l.label, url: l.url, cls: l.cls, nav: l.nav || null },
+           lessons: mon.map(function (x) { return { code: x.code, label: x.label, cls: x.cls }; }), students: out, now: now };
 }
 
 // ---------- "חדרים": פעילות ולוח לכל שיעור ----------

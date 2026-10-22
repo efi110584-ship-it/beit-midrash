@@ -66,7 +66,7 @@ var EXAM_B64 = "PGRpdiBjbGFzcz0ic3R1ZGVudC1iYXIiIGlkPSJwcmludEhlYWRlciI+CiAgPGxh
   verifyTeacher().then(function(isTeacher){
   if(isTeacher){ reveal(true); return; }
   var key = null; try{ key = JSON.parse(localStorage.getItem("bm-lesson-key") || "null"); }catch(e){}
-  var code = key && key.page === PAGE && key.until > Date.now() ? key.code : "";
+  var code = key && (key.page === PAGE || key.nav === PAGE) && key.until > Date.now() ? key.code : "";   /* nav - המורה שלח את הכיתה למבחן */
   if(!window.BM_API_URL){ closed("המבחן סגור", "אין חיבור לשרת."); return; }
   fetch(window.BM_API_URL + "?action=lessonLock&page=" + encodeURIComponent(PAGE) + "&code=" + encodeURIComponent(code))
     .then(function(r){ return r.json(); })
