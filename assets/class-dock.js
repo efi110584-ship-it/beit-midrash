@@ -28,6 +28,10 @@
   var SEEN_KEY = "bm-dock-seen";
 
   function token(){ try{ return sessionStorage.getItem("bm-teacher-token") || ""; }catch(e){ return ""; } }
+  // Shared teacher controls load on the home page too, including after teacher login.
+  var quickScript = document.createElement("script");
+  quickScript.src = BASE + "lesson-quick.js?v=20261023-1";
+  document.head.appendChild(quickScript);
   var isTeacher = !!token();
   if(isTeacher && page === "index.html") return;   /* בדף הבית יש למורה את האזור האישי */
 
@@ -406,7 +410,7 @@
     body.innerHTML = (many ? '<div class="bmd-btns">' + res.lessons.map(function(x){
         return '<button type="button" class="bmd-btn" data-live-code="' + esc(x.code) + '"' + (x.code === res.lesson.code ? ' aria-pressed="true" style="font-weight:700"' : ' aria-pressed="false"') + '>' + (x.cls ? 'כיתה ' + (x.cls === "יב" ? 'י"ב' : 'י"א') + ' · ' : '') + 'קוד ' + esc(x.code) + '</button>';
       }).join("") + '</div>' : '') +
-      '<div class="bmd-btns" id="bmdLiveSound"><button type="button" class="bmd-btn" data-nav-here="' + esc(res.lesson.code) + '" style="font-weight:700">📍 שלחו את הכיתה לדף הזה</button></div>' +
+      '<div class="bmd-btns" id="bmdLiveSound"><button type="button" class="bmd-btn" data-nav-here="' + esc(res.lesson.code) + '" style="font-weight:700">📍 העבר את הכיתה לכאן</button></div>' +
       (res.lesson.nav ? '<p class="bmd-note">נשלחו ל: <b>' + esc(res.lesson.nav.label || res.lesson.nav.url) + '</b> · כבר שם: ' +
         list.filter(function(x){ return x.page === String(res.lesson.nav.url).split("#")[0] && x.status !== "bye"; }).length + ' מתוך ' +
         list.filter(function(x){ return x.status !== "bye"; }).length + '</p>' : '') +
