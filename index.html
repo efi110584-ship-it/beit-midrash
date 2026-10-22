@@ -1097,7 +1097,7 @@
             return '<button type="button" class="tt-tab" data-live-code="' + escapeAttr(x.code) + '" aria-pressed="' + on + '">קוד ' + escapeHtml(x.code) + ' · ' + escapeHtml(x.label || "") + '</button>';
           }).join("") + '</span>'
         : '';
-      document.getElementById("ttLiveLesson").innerHTML = picker + '<span class="tt-live-now">' + escapeHtml("מוצג: קוד " + res.lesson.code + " · " + (res.lesson.label || res.lesson.url) + ' · כיתה י"א') +
+      document.getElementById("ttLiveLesson").innerHTML = picker + '<span class="tt-live-now">' + escapeHtml("מוצג: קוד " + res.lesson.code + " · " + (res.lesson.label || res.lesson.url) + ' · כיתה ' + (res.lesson.cls === "יב" ? 'י"ב' : 'י"א')) +
         (res.lesson.url ? ' · <a href="' + escapeAttr(res.lesson.url) + '">מעבר לשיעור ›</a>' : '') + '</span>';
       var order = { out:0, gone:1, "in":2, bye:3 };
       var list = (res.students || []).slice().sort(function(a, b){

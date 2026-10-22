@@ -61,7 +61,7 @@ var EXAM_B64 = "PGRpdiBjbGFzcz0ic3R1ZGVudC1iYXIiIGlkPSJwcmludEhlYWRlciI+CiAgPGxh
       if(saved[k]) f.value = saved[k];
       f.addEventListener("input", function(){ saved[k] = f.value; try{ localStorage.setItem(STORE, JSON.stringify(saved)); }catch(e){} });
     });
-    load("assets/units-data.js", function(){ load("assets/direct-submit.js", function(){ load("assets/send-to-teacher.js?v=2"); }); });
+    load("assets/units-data.js", function(){ load("assets/direct-submit.js", function(){ load("assets/send-to-teacher.js?v=3"); }); });
   }
   verifyTeacher().then(function(isTeacher){
   if(isTeacher){ reveal(true); return; }
@@ -80,5 +80,6 @@ var EXAM_B64 = "PGRpdiBjbGFzcz0ic3R1ZGVudC1iYXIiIGlkPSJwcmludEhlYWRlciI+CiAgPGxh
 })();
 </script>
 <script src="assets/lesson-mode.js"></script>
+<script src="assets/class-dock.js"></script>
 </body>
 </html>
