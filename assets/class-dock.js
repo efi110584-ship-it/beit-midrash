@@ -44,7 +44,7 @@
   var loading = {};
   function need(names){
     return Promise.all(names.map(function(n){
-      var globals = { "live-render":"BM_LIVE", "live-widget":"BM_LIVEWIDGET", "live-teacher":"BM_LIVETEACHER", "question-board":"BM_QBOARD" };
+      var globals = { "live-render":"BM_LIVE", "live-widget":"BM_LIVEWIDGET", "live-teacher":"BM_LIVETEACHER", "question-board":"BM_QBOARD", "live-monitor":"BM_LIVEMON" };
       if(window[globals[n]]) return Promise.resolve();
       if(!loading[n]) loading[n] = new Promise(function(ok, fail){
         var s = document.createElement("script");
@@ -387,42 +387,77 @@
     }).catch(function(){});
   }
 
-  function teacherLive(){
-    function load(){
-      var liveCode = ""; try{ liveCode = sessionStorage.getItem("bm-live-code") || ""; }catch(e){}
-      return post({ action:"presenceList", code:liveCode }).then(function(res){
-        if(authMsg(res)) return;
-        if(!res || !res.ok){ body.innerHTML = '<p class="bmd-msg">' + esc((res && res.error) || "לא הצלחנו לטעון.") + '</p>'; return; }
-        if(!res.lesson){
-          body.innerHTML = '<p class="bmd-note">אין כרגע שיעור עם בקרה. כדי להפעיל: אזור אישי ← "בשיעור" ← קוד לשיעור ← לסמן "בקרת שיעור לכיתה י"א".</p>';
-          return;
-        }
-        var order = { out:0, gone:1, "in":2, bye:3 };
-        var list = (res.students || []).slice().sort(function(a, b){ return (order[a.status] - order[b.status]) || (b.leaves - a.leaves); });
-        var n = { "in":0, out:0 };
-        list.forEach(function(s){ if(n[s.status] !== undefined) n[s.status]++; });
-        var many = (res.lessons || []).length > 1;
-        body.innerHTML = (many ? '<div class="bmd-btns">' + res.lessons.map(function(x){
-            return '<button type="button" class="bmd-btn" data-live-code="' + esc(x.code) + '"' + (x.code === res.lesson.code ? ' aria-pressed="true" style="font-weight:700"' : ' aria-pressed="false"') + '>קוד ' + esc(x.code) + '</button>';
-          }).join("") + '</div>' : '') +
-          '<p class="bmd-note">קוד ' + esc(res.lesson.code) + ' · ' + esc(res.lesson.label || "") + ' · 🟢 בדף: <b>' + n["in"] + '</b> · 🟠 מחוץ לדף: <b>' + n.out + '</b></p>' +
-          (list.length ? '<ul class="bmd-pres">' + list.map(function(s){
-            var stt = s.status === "out" ? "🟠 מחוץ לדף" : s.status === "gone" ? "⚪ לא מחובר" : s.status === "bye" ? "יצא ממצב שיעור" : "🟢 בדף";
-            return '<li class="' + (s.status === "out" ? "is-out" : "") + '"><b>' + esc(s.name || "ללא שם") + '</b><span>' + stt + '</span><small>' + (s.leaves || 0) + ' יציאות</small></li>';
-          }).join("") + '</ul>' : '<p class="bmd-note">עדיין אף תלמיד לא נכנס עם הקוד.</p>') +
-          '<p class="bmd-note">מתעדכן לבד כל 20 שניות.</p>';
-      }).catch(function(){ body.innerHTML = '<p class="bmd-msg">אין חיבור לשרת כרגע.</p>'; });
+  /* שיעור חי: אחרי שפותחים את החלון פעם אחת, הבדיקה ממשיכה כל 5 שניות גם כשהחלון סגור,
+     כדי שהתראות על יציאה מהדף והדבקת טקסט יגיעו (assets/live-monitor.js) */
+  var liveBg = null, liveOpenSids = {};
+  function liveCodeNow(){ try{ return sessionStorage.getItem("bm-live-code") || ""; }catch(e){ return ""; } }
+  function livePanelShown(){ return openTool === "live" && !panel.hidden; }
+  function renderLive(res){
+    var LM = window.BM_LIVEMON;
+    if(!res.lesson){
+      body.innerHTML = '<p class="bmd-note">אין כרגע שיעור עם בקרה. כדי להפעיל: אזור אישי ← "בשיעור" ← קוד לשיעור ← לבחור כיתה ב"בקרת שיעור".</p>';
+      return;
     }
+    var order = { out:0, gone:1, "in":2, bye:3 };
+    var list = (res.students || []).slice().sort(function(a, b){ return (order[a.status] - order[b.status]) || (b.leaves - a.leaves); });
+    var n = { "in":0, out:0 };
+    list.forEach(function(s){ if(n[s.status] !== undefined) n[s.status]++; });
+    var many = (res.lessons || []).length > 1;
+    body.innerHTML = (many ? '<div class="bmd-btns">' + res.lessons.map(function(x){
+        return '<button type="button" class="bmd-btn" data-live-code="' + esc(x.code) + '"' + (x.code === res.lesson.code ? ' aria-pressed="true" style="font-weight:700"' : ' aria-pressed="false"') + '>קוד ' + esc(x.code) + '</button>';
+      }).join("") + '</div>' : '') +
+      '<div class="bmd-btns" id="bmdLiveSound"></div>' +
+      '<p class="bmd-note">קוד ' + esc(res.lesson.code) + ' · ' + esc(res.lesson.label || "") + ' · 🟢 בדף: <b>' + n["in"] + '</b> · 🟠 מחוץ לדף: <b>' + n.out + '</b></p>' +
+      (list.length ? '<ul class="bmd-pres">' + list.map(function(s){
+        var sid = s.sid || s.name || "", open = !!liveOpenSids[sid];
+        var stt = s.status === "out" ? "🟠 " + (LM ? LM.whyText(s.outWhy) + " · " + LM.dur(s.outFor) : "מחוץ לדף")
+          : s.status === "gone" ? "⚪ לא מחובר" : s.status === "bye" ? "יצא ממצב שיעור" : "🟢 בדף";
+        var extra = (s.leaves || 0) + " יציאות" + (s.outTotal && LM ? " · " + LM.dur(s.outTotal) + " בחוץ" : "") + (s.pastes ? " · 📋 " + s.pastes + " הדבקות" : "");
+        return '<li class="' + (s.status === "out" ? "is-out" : "") + '" data-sid="' + esc(sid) + '" style="cursor:pointer;flex-wrap:wrap" title="לחיצה: כל מה שקרה אצל התלמיד">' +
+          '<b>' + (open ? "▾ " : "◂ ") + esc(s.name || "ללא שם") + '</b><span>' + esc(stt) + '</span><small style="flex-basis:100%">' + esc(extra) + '</small>' +
+          (open && LM ? '<div style="flex-basis:100%">' + LM.timelineHtml(s) + '</div>' : '') + '</li>';
+      }).join("") + '</ul>' : '<p class="bmd-note">עדיין אף תלמיד לא נכנס עם הקוד.</p>') +
+      '<p class="bmd-note">מתעדכן כל 5 שניות. כל יציאה מעל 3 שניות נספרת, וגם מעבר לחלון אחר. על יציאה, הדבקת טקסט או ניתוק קופצת התראה עם צליל, גם כשהחלון הזה סגור. לחיצה על תלמיד: כל מה שקרה אצלו.</p>';
+    if(LM){ var sb = LM.soundButton(); sb.className = "bmd-btn"; body.querySelector("#bmdLiveSound").appendChild(sb); }
+  }
+  function liveTick(){
+    return post({ action:"presenceList", code:liveCodeNow() }).then(function(res){
+      if(livePanelShown() && authMsg(res)) return;
+      if(!res || !res.ok){ if(livePanelShown()) body.innerHTML = '<p class="bmd-msg">' + esc((res && res.error) || "לא הצלחנו לטעון.") + '</p>'; return; }
+      if(window.BM_LIVEMON) window.BM_LIVEMON.watch(res);
+      if(livePanelShown()) renderLive(res);
+      return !!res.lesson;
+    }).catch(function(){ if(livePanelShown()) body.innerHTML = '<p class="bmd-msg">אין חיבור לשרת כרגע.</p>'; });
+  }
+  /* כל 5 שניות כשיש שיעור עם בקרה, כל 30 שניות כשאין */
+  function startLiveBg(){
+    if(liveBg) return;
+    liveBg = true;
+    (function next(){
+      liveTick().then(function(active){ setTimeout(next, active ? 5000 : 30000); });
+    })();
+  }
+  if(isTeacher) need(["live-monitor"]).then(startLiveBg).catch(function(){});
+  function teacherLive(){
     if(!body.__bmLiveBound) body.addEventListener("click", function(e){
+      if(!livePanelShown()) return;
       var b = e.target.closest && e.target.closest("[data-live-code]");
-      if(!b) return;
-      try{ sessionStorage.setItem("bm-live-code", b.getAttribute("data-live-code")); }catch(err){}
-      if(typeof body.__bmLiveLoad === "function") body.__bmLiveLoad();
+      if(b){
+        try{ sessionStorage.setItem("bm-live-code", b.getAttribute("data-live-code")); }catch(err){}
+        liveTick(); return;
+      }
+      var li = e.target.closest && e.target.closest("li[data-sid]");
+      if(li && !e.target.closest("button")){
+        var sid = li.getAttribute("data-sid");
+        if(liveOpenSids[sid]) delete liveOpenSids[sid]; else liveOpenSids[sid] = 1;
+        liveTick();
+      }
     });
     body.__bmLiveBound = true;
-    body.__bmLiveLoad = load;
-    extraTimer = setInterval(function(){ if(document.visibilityState === "visible") load(); }, 20000);
-    return load();
+    return need(["live-monitor"]).catch(function(){}).then(function(){
+      startLiveBg();
+      return liveTick();
+    });
   }
 
   /* ---------- התחלה ---------- */

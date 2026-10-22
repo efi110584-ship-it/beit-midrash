@@ -298,6 +298,7 @@
 <script src="assets/flashcards-data.js"></script>
 <script src="assets/live-render.js"></script>
 <script src="assets/live-teacher.js"></script>
+<script src="assets/live-monitor.js?v=1"></script>
 <script>
 (function(){
   "use strict";
@@ -616,18 +617,18 @@
         '<div class="tt-card tt-live" id="ttLive" hidden>' +
           '<div class="tt-board-head">' +
             '<h3 class="tt-h">שיעור חי <span class="tt-live-dot" aria-hidden="true"></span></h3>' +
-            '<button type="button" class="tt-btn" id="ttLiveRefresh">רענון</button>' +
+            '<span class="tt-live-tools"><span id="ttLiveSound"></span><button type="button" class="tt-btn" id="ttLiveRefresh">רענון</button></span>' +
           '</div>' +
           '<p class="tt-sub" id="ttLiveLesson"></p>' +
           '<div class="tt-live-sum" id="ttLiveSum" aria-live="polite"></div>' +
           '<div class="tt-table-wrap" id="ttLiveWrap">' +
             '<table class="tt-table tt-live-table">' +
               '<caption class="visually-hidden">מי מהתלמידים נמצא בדף</caption>' +
-              '<thead><tr><th scope="col">תלמיד/ה</th><th scope="col">מצב</th><th scope="col">איפה</th><th scope="col">יציאות מהדף</th><th scope="col">דיווח אחרון</th></tr></thead>' +
+              '<thead><tr><th scope="col">תלמיד/ה</th><th scope="col">מצב</th><th scope="col">איפה</th><th scope="col">יציאות</th><th scope="col">זמן בחוץ</th><th scope="col">הדבקות</th><th scope="col">דיווח אחרון</th></tr></thead>' +
               '<tbody id="ttLiveRows"></tbody>' +
             '</table>' +
           '</div>' +
-          '<p class="tt-note">מתעדכן לבד כל 20 שניות. יציאה קצרה מ-15 שניות (למשל מעבר בין דפים באתר) לא נספרת. האתר לא יודע לאן התלמיד יצא.</p>' +
+          '<p class="tt-note">מתעדכן לבד כל 5 שניות. כל יציאה מעל 3 שניות נספרת: לשונית או אפליקציה אחרת, וגם חלון אחר במחשב. כשתלמיד יוצא, מדביק טקסט או מתנתק - קופצת התראה עם צליל. לחיצה על שם התלמיד מציגה את כל מה שקרה אצלו, עם שעות. האתר לא יודע לאן התלמיד יצא.</p>' +
         '</div>' +
         '</div>' +
         '<div class="tt-panel" role="tabpanel" id="ttPanel-exams" aria-labelledby="ttTab-exams" hidden>' +
@@ -901,6 +902,15 @@
     loadLessons();
 
     document.getElementById("ttLiveRefresh").addEventListener("click", loadLive);
+    if(window.BM_LIVEMON) document.getElementById("ttLiveSound").appendChild(window.BM_LIVEMON.soundButton()).className = "tt-btn";
+    /* לחיצה על שורה - פותחת/סוגרת את ציר הזמן של התלמיד */
+    document.getElementById("ttLiveRows").addEventListener("click", function(e){
+      var tr = e.target.closest && e.target.closest("tr[data-sid]");
+      if(!tr) return;
+      var sid = tr.getAttribute("data-sid");
+      if(liveOpen[sid]) delete liveOpen[sid]; else liveOpen[sid] = 1;
+      loadLive();
+    });
     document.getElementById("ttLiveLesson").addEventListener("click", function(e){
       var b = e.target.closest("[data-live-code]");
       if(!b) return;
@@ -1038,7 +1048,7 @@
   }
 
   /* ============ שיעור חי (בקרת שיעור) ============ */
-  var livePoll = null;
+  var livePoll = null, livePollN = 0, liveOpen = {};
   function fmtSecs(s){
     if(s < 60) return "פחות מדקה";
     var m = Math.round(s / 60);
@@ -1049,8 +1059,9 @@
     loadLive();
     livePoll = setInterval(function(){
       if(!document.getElementById("ttLive")){ clearInterval(livePoll); livePoll = null; return; }
-      if(document.visibilityState === "visible"){ loadLive(); loadLessons(); }
-    }, 20000);
+      loadLive();   /* גם כשהלשונית ברקע - כדי שההתראות יגיעו */
+      if(document.visibilityState === "visible" && ++livePollN % 6 === 0) loadLessons();
+    }, 5000);
   }
   /* כמה קודים במקביל: איזה שיעור מוצג בטבלת "שיעור חי" (נשמר בלשונית הזו) */
   var LIVE_KEY = "bm-live-code";
@@ -1099,6 +1110,8 @@
         : '';
       document.getElementById("ttLiveLesson").innerHTML = picker + '<span class="tt-live-now">' + escapeHtml("מוצג: קוד " + res.lesson.code + " · " + (res.lesson.label || res.lesson.url) + ' · כיתה ' + (res.lesson.cls === "יב" ? 'י"ב' : 'י"א')) +
         (res.lesson.url ? ' · <a href="' + escapeAttr(res.lesson.url) + '">מעבר לשיעור ›</a>' : '') + '</span>';
+      if(window.BM_LIVEMON) window.BM_LIVEMON.watch(res);
+      var LM = window.BM_LIVEMON;
       var order = { out:0, gone:1, "in":2, bye:3 };
       var list = (res.students || []).slice().sort(function(a, b){
         return (order[a.status] - order[b.status]) || (b.leaves - a.leaves) || String(a.name).localeCompare(String(b.name), "he");
@@ -1112,20 +1125,26 @@
       var T = window.BM_TASKS;
       document.getElementById("ttLiveRows").innerHTML = list.length ? list.map(function(p){
         var where = T && p.page ? T.findByPage(p.page) : null;
-        var whereText = p.page === "index.html" ? "דף הבית" : (where ? (where.topic ? where.topic.title : where.unit.title) : (p.page || "-"));
-        var st = p.status === "out" ? '<span class="tt-pill tt-pill--pending">🟠 מחוץ לדף ' + fmtSecs(p.outFor) + '</span>'
+        var tUnit = !where && p.page ? (window.BM_UNITS || []).filter(function(x){ return x.url === p.page; })[0] : null;   /* דפי מורה, כמו המבחן */
+        var whereText = p.page === "index.html" ? "דף הבית" : (where ? (where.topic ? where.topic.title : where.unit.title) : (tUnit ? tUnit.title : (p.page || "-")));
+        var st = p.status === "out" ? '<span class="tt-pill tt-pill--pending">🟠 ' + (LM ? LM.whyText(p.outWhy) + ' · ' + LM.dur(p.outFor) : 'מחוץ לדף ' + fmtSecs(p.outFor)) + '</span>'
           : p.status === "gone" ? '<span class="tt-pill tt-pill--missing">⚪ לא מחובר</span>'
           : p.status === "bye" ? '<span class="tt-pill tt-pill--missing">יצא ממצב שיעור</span>'
           : '<span class="tt-pill tt-pill--checked">🟢 בדף</span>';
-        return '<tr class="tt-live-' + p.status + '">' +
-          '<td>' + escapeHtml(p.name || "ללא שם") + '</td>' +
+        var sid = p.sid || p.name || "";
+        var open = !!liveOpen[sid];
+        return '<tr class="tt-live-' + p.status + ' tt-live-row" data-sid="' + escapeAttr(sid) + '" style="cursor:pointer" title="לחיצה: כל מה שקרה אצל התלמיד">' +
+          '<td><span aria-hidden="true">' + (open ? '▾' : '◂') + '</span> ' + escapeHtml(p.name || "ללא שם") + '</td>' +
           '<td>' + st + '</td>' +
           '<td>' + escapeHtml(whereText) + '</td>' +
           '<td class="tt-date">' + (p.leaves ? '<b>' + p.leaves + '</b>' : '0') + '</td>' +
-          '<td class="tt-date">לפני ' + fmtSecs(p.lastAgo) + '</td>' +
-        '</tr>';
-      }).join("") : '<tr><td colspan="5">עדיין אף תלמיד לא נכנס עם הקוד.</td></tr>';
-    }).catch(function(){ /* ננסה שוב בעוד 20 שניות */ });
+          '<td class="tt-date">' + (p.outTotal ? '<b>' + (LM ? LM.dur(p.outTotal) : fmtSecs(p.outTotal)) + '</b>' : '-') + '</td>' +
+          '<td class="tt-date">' + (p.pastes ? '<b style="color:#6A2FB4">📋 ' + p.pastes + '</b>' : '0') + '</td>' +
+          '<td class="tt-date">לפני ' + (LM ? LM.dur(p.lastAgo) : fmtSecs(p.lastAgo)) + '</td>' +
+        '</tr>' +
+        (open && LM ? '<tr class="tt-live-detail"><td colspan="7">' + LM.timelineHtml(p) + '</td></tr>' : '');
+      }).join("") : '<tr><td colspan="7">עדיין אף תלמיד לא נכנס עם הקוד.</td></tr>';
+    }).catch(function(){ /* ננסה שוב ברענון הבא */ });
   }
 
   /* fresh - "רענון": הסקריפט עובר מחדש על כל התיקיות ב-Drive (איטי). בלי - הוא עונה מהמטמון שלו.

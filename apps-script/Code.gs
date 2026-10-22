@@ -46,8 +46,9 @@ var OTHER_TEACHER = { cls: 'יא', sections: ['1', '3'], subjects: ['תנ"ך', '
 // YA2_TSB_EMAIL (המייל) ו-YA2_TSB_FOLDER_ID (תיקייה בדרייב, לא חובה).
 // בלי תיקייה - העבודה נשמרת כרגיל ומופיעה בלוח ההגשות, ורק המייל עליה נשלח לכתובת הזו.
 var YA2_TSB = { cls: 'יא', sections: ['2'], subjects: ['תושב"ע'] };
-var AWAY_GRACE_SEC = 15;           // יציאה קצרה מזה (למשל מעבר בין דפים באתר) לא נספרת
-var GONE_AFTER_SEC = 150;          // תלמיד שלא דיווח זמן כזה - "לא מחובר"
+var AWAY_GRACE_SEC = 3;            // יציאה קצרה מזה (מעבר בין דפים באתר) לא נספרת
+var GONE_AFTER_SEC = 75;           // תלמיד שלא דיווח זמן כזה - "לא מחובר" (התלמיד מדווח כל 30 שניות)
+var PRES_LOG_MAX = 20;             // כמה אירועים אחרונים נשמרים לכל תלמיד (יציאות, הדבקות, כניסה)
 
 // לוחות שאלות ישנים שהיו קבועים בדף (נשמרים כדי שאפשר לפתוח אותם שוב מהסרגל).
 var QBOARDS = ['bereshit-12'];
@@ -800,7 +801,8 @@ function presence_(d) {
   var name = clean_(d.name).slice(0, 60);
   var page = String(d.page || '').slice(0, 80);
   if (!/^[\w.-]+\.html$/.test(page)) page = '';
-  var state = d.state === 'out' ? 'out' : (d.state === 'bye' ? 'bye' : 'in');
+  var state = d.state === 'out' ? 'out' : (d.state === 'bye' ? 'bye' : (d.state === 'paste' ? 'paste' : 'in'));
+  var reason = d.reason === 'blur' ? 'blur' : 'hidden';   // blur = חלון/אפליקציה אחרת כשהדף עדיין גלוי
   var t = Number(d.t) || Date.now();
 
   var lock = LockService.getScriptLock();
@@ -811,20 +813,39 @@ function presence_(d) {
     var all = {};
     try { all = JSON.parse(cache.get(key) || '{}'); } catch (e) { all = {}; }
     var now = Date.now();
-    var p = all[sid] || { name: name, leaves: 0, state: 'in', outSince: 0, t: 0 };
+    var isNew = !all[sid];
+    var p = all[sid] || { name: name, leaves: 0, state: 'in', outSince: 0, t: 0, outTotal: 0, pastes: 0, ev: [] };
+    if (!p.ev) p.ev = [];
     if (t < (p.t || 0)) return { ok: true, leaves: p.leaves };   // דיווח ישן שהגיע מאוחר - מתעלמים
     p.t = t;
     if (name) p.name = name;
+    if (page && page !== p.page && !isNew) p.ev.push({ k: 'page', at: now, page: page });
     if (page) p.page = page;
-    if (state === 'out') {
-      if (p.state !== 'out') { p.state = 'out'; p.outSince = now; }
+    if (isNew) p.ev.push({ k: 'join', at: now, page: page });
+    if (state === 'paste') {
+      // הדבקת טקסט בתיבת תשובה - לא משנה את המצב, רק נרשם
+      p.pastes = (p.pastes || 0) + 1;
+      p.ev.push({ k: 'paste', at: now, len: Math.max(0, Math.min(100000, Number(d.len) || 0)), page: page });
+    } else if (state === 'out') {
+      if (p.state !== 'out') { p.state = 'out'; p.outSince = now; p.outReason = reason; }
     } else if (state === 'in') {
-      if (p.state === 'out' && now - p.outSince > AWAY_GRACE_SEC * 1000) p.leaves++;
+      if (p.state === 'out') {
+        var away = now - p.outSince;
+        if (away > AWAY_GRACE_SEC * 1000) {
+          p.leaves++;
+          p.outTotal = (p.outTotal || 0) + Math.round(away / 1000);
+          p.ev.push({ k: 'out', at: p.outSince, back: now, sec: Math.round(away / 1000), why: p.outReason || 'hidden' });
+        }
+      } else if (p.state === 'bye') {
+        p.ev.push({ k: 'join', at: now, page: page });
+      }
       p.state = 'in';
       p.outSince = 0;
     } else {
       p.state = 'bye';
+      p.ev.push({ k: 'bye', at: now });
     }
+    if (p.ev.length > PRES_LOG_MAX) p.ev = p.ev.slice(-PRES_LOG_MAX);
     p.last = now;
     all[sid] = p;
     cache.put(key, JSON.stringify(all), 21600);
@@ -851,12 +872,15 @@ function presenceList_(code) {
     if (p.state === 'bye') status = 'bye';
     else if (p.state === 'out') status = (now - p.outSince > AWAY_GRACE_SEC * 1000) ? 'out' : 'in';
     else status = (now - p.last > GONE_AFTER_SEC * 1000) ? 'gone' : 'in';
-    return { name: p.name || '', page: p.page || '', status: status, leaves: p.leaves || 0,
-             outFor: p.state === 'out' ? Math.round((now - p.outSince) / 1000) : 0,
-             lastAgo: Math.round((now - (p.last || now)) / 1000) };
+    var outFor = p.state === 'out' ? Math.round((now - p.outSince) / 1000) : 0;
+    return { sid: sid, name: p.name || '', page: p.page || '', status: status, leaves: p.leaves || 0,
+             outFor: outFor, outWhy: p.state === 'out' ? (p.outReason || 'hidden') : '',
+             outSince: p.state === 'out' ? p.outSince : 0,
+             outTotal: (p.outTotal || 0) + (status === 'out' ? outFor : 0), pastes: p.pastes || 0,
+             ev: p.ev || [], lastAgo: Math.round((now - (p.last || now)) / 1000) };
   });
   return { ok: true, lesson: { code: l.code, label: l.label, url: l.url, cls: l.cls },
-           lessons: mon.map(function (x) { return { code: x.code, label: x.label }; }), students: out };
+           lessons: mon.map(function (x) { return { code: x.code, label: x.label }; }), students: out, now: now };
 }
 
 // ---------- "חדרים": פעילות ולוח לכל שיעור ----------

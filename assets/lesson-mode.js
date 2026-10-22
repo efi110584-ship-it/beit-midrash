@@ -177,14 +177,16 @@
 })();
 
 /* ============================================================
-   מצב שיעור (בקרת שיעור) - כיתה י"א
+   מצב שיעור (בקרת שיעור) - כיתות י"א וי"ב
    ============================================================
    פועל רק אחרי שתלמיד נכנס עם קוד לשיעור שהמורה הפעיל בו בקרה
    (הכניסה בדף הבית שומרת את פרטי השיעור במכשיר עד סוף תוקף הקוד).
    כל עוד הדף פתוח, הוא מדווח לסקריפט של המורה:
-     in  - התלמיד בדף (בכניסה לדף, וכל דקה)
-     out - התלמיד עבר ללשונית/אפליקציה אחרת
-     bye - התלמיד לחץ "יציאה ממצב שיעור"
+     in    - התלמיד בדף (בכניסה לדף, וכל 30 שניות)
+     out   - התלמיד עבר ללשונית/אפליקציה אחרת (reason:"hidden"),
+             או לחלון אחר כשהדף עדיין גלוי (reason:"blur")
+     paste - התלמיד הדביק טקסט בתיבת תשובה (len - כמה תווים)
+     bye   - התלמיד לחץ "יציאה ממצב שיעור"
    התלמיד רואה כל הזמן פס קטן שאומר שהבקרה פעילה. האתר לא יודע ולא
    מדווח לאן התלמיד יצא - רק שיצא מהדף ומתי חזר.
    ============================================================ */
@@ -205,8 +207,10 @@
 
   function save(){ try{ st.leaves = leaves; localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} }
 
-  function send(state, onDone){
-    var body = JSON.stringify({ action:"presence", code:st.code, sid:st.sid, name:st.name, page:page, state:state, t:Date.now() });
+  function send(state, onDone, extra){
+    var msg = { action:"presence", code:st.code, sid:st.sid, name:st.name, page:page, state:state, t:Date.now() };
+    if(extra) for(var k in extra) msg[k] = extra[k];
+    var body = JSON.stringify(msg);
     try{
       fetch(API, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" }, body:body, keepalive:true })
         .then(function(r){ return r.json(); })
@@ -252,7 +256,7 @@
     bar.setAttribute("role", "status");
     bar.innerHTML =
       '<span class="bm-lm-dot" aria-hidden="true"></span>' +
-      '<span class="bm-lm-text">מצב שיעור: המורה רואה אם יוצאים מהדף</span>' +
+      '<span class="bm-lm-text">מצב שיעור: המורה רואה יציאות מהדף והדבקת טקסט</span>' +
       '<button type="button" class="bm-lm-exit">יציאה</button>';
     bar.querySelector(".bm-lm-exit").addEventListener("click", function(){
       if(!confirm("לצאת ממצב שיעור? המורה יראה שיצאת.")) return;
@@ -290,32 +294,56 @@
     try{ localStorage.removeItem(KEY); }catch(e){}
     if(timer) clearInterval(timer);
     document.removeEventListener("visibilitychange", onVisibility);
+    window.removeEventListener("blur", onBlur);
+    window.removeEventListener("focus", comeBack);
+    document.removeEventListener("paste", onPaste, true);
     if(bar) bar.remove();
     if(actEl) actEl.remove();
   }
 
+  /* יציאה = הדף הוסתר (לשונית/אפליקציה אחרת) או שהחלון איבד פוקוס (חלון אחר במחשב, שורת הכתובת).
+     isOut מונע דיווח כפול כששני האירועים קורים יחד. */
+  var isOut = false;
+  function goOut(why){
+    if(isOut) return;
+    isOut = true;
+    send("out", null, { reason:why });
+  }
+  function comeBack(){
+    if(!isOut || document.visibilityState !== "visible" || !document.hasFocus()) return;
+    isOut = false;
+    send("in", function(res){
+      if(res.leaves > leaves){
+        toast("חזרת לדף. יצאת מהדף " + (res.leaves === 1 ? "פעם אחת" : res.leaves + " פעמים") + " בשיעור הזה.");
+      }
+      leaves = res.leaves;
+      save();
+    });
+  }
+  function onBlur(){ setTimeout(function(){ if(document.visibilityState === "visible" && !document.hasFocus()) goOut("blur"); }, 300); }
+  function onPaste(e){
+    var t = e.target;
+    if(!t || !(t.tagName === "TEXTAREA" || (t.tagName === "INPUT" && /^(text|search|)$/.test(t.type || "")) || t.isContentEditable)) return;
+    var len = 0;
+    try{ len = ((e.clipboardData || window.clipboardData).getData("text") || "").length; }catch(err){}
+    send("paste", null, { len:len });
+  }
   function onVisibility(){
-    if(document.visibilityState === "hidden"){
-      send("out");
-    } else {
-      send("in", function(res){
-        if(res.leaves > leaves){
-          toast("חזרת לדף. יצאת מהדף " + (res.leaves === 1 ? "פעם אחת" : res.leaves + " פעמים") + " בשיעור הזה.");
-        }
-        leaves = res.leaves;
-        save();
-      });
-    }
+    if(document.visibilityState === "hidden"){ isOut = false; goOut("hidden"); }
+    else comeBack();
   }
 
   function start(){
     showBar();
     send("in", function(res){ leaves = res.leaves; save(); });
     document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("blur", onBlur);
+    window.addEventListener("focus", comeBack);
+    document.addEventListener("paste", onPaste, true);
     timer = setInterval(function(){
       if(!(st.until > Date.now())){ end(); return; }
-      if(document.visibilityState === "visible") send("in", function(res){ leaves = res.leaves; save(); });
-    }, 60000);
+      if(document.visibilityState === "visible" && !isOut) send("in", function(res){ leaves = res.leaves; save(); });
+    }, 30000);
   }
 
   if(document.body) start();
