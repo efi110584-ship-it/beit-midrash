@@ -692,6 +692,7 @@
             '</span>' +
           '</div>' +
           '<p class="tt-msg" id="ttBoardMsg" role="status" aria-live="polite">טוען הגשות…</p>' +
+          '<div class="tt-accept" id="ttAccept" style="display:none;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:.4rem 0 .7rem;padding:10px 12px;border-radius:12px;background:#E6EDF9"></div>' +
           '<div class="tt-table-wrap" id="ttTableWrap" hidden>' +
             '<table class="tt-table">' +
               '<caption class="visually-hidden">רשימת ההגשות</caption>' +
@@ -937,6 +938,21 @@
     startLivePolling();
 
     document.getElementById("ttBoardRefresh").addEventListener("click", function(){ loadBoard(true); });
+    document.getElementById("ttAccept").addEventListener("click", function(e){
+      var b = e.target.closest("#ttAcceptGo");
+      if(!b || !(board.acceptIds || []).length) return;
+      b.disabled = true; b.textContent = "רושמים…";
+      apiPost({ action:"acceptSuggested", password:teacherToken(), ids:board.acceptIds }).then(function(res){
+        if(handleAuthFailure(res)) return;
+        var msg = document.getElementById("ttBoardMsg");
+        if(res && res.ok){
+          board.rows.forEach(function(r){ if(res.grades && res.grades[r.id] != null){ r.grade = res.grades[r.id]; r.status = "checked"; } });
+          try{ sessionStorage.removeItem(BOARD_CACHE); }catch(err){}
+          renderBoard();
+          msg.textContent = "✓ נרשמו " + res.n + " ציונים. התלמידים עוד לא רואים אותם - כדי לשלוח, לחצו \"📨 שליחה\" בשורה של כל תלמיד.";
+        } else { msg.textContent = (res && res.error) || "הרישום לא הצליח. נסו שוב."; renderBoard(); }
+      }).catch(function(){ netError(document.getElementById("ttBoardMsg")); renderBoard(); });
+    });
     document.getElementById("ttExport").addEventListener("click", exportGrades);
     document.getElementById("ttSubj").addEventListener("click", function(e){
       var b = e.target.closest("[data-subj]"); if(!b) return;
@@ -1324,6 +1340,16 @@
       shown.sort(cmp);
     }
     board.shown = shown;
+    /* ציונים שהבדיקה עם Claude הציעה ועוד לא נרשמו - רישום של כולם בלחיצה אחת (במה שמוצג עכשיו בסינון) */
+    var acc = document.getElementById("ttAccept");
+    if(acc){
+      var cand = viewHidden ? [] : shown.filter(function(r){ return r.id && !r.hidden && r.fbg !== "" && r.grade === ""; });
+      acc.style.display = cand.length ? "flex" : "none";
+      acc.innerHTML = cand.length ? '<span>🤖 <b>' + cand.length + '</b> ' + (cand.length === 1 ? 'עבודה נבדקה' : 'עבודות נבדקו') + ' עם Claude, והציון עוד לא נרשם בעמודה "ציון".</span>' +
+        '<button type="button" class="tt-btn tt-btn--primary" id="ttAcceptGo">רישום ' + (cand.length === 1 ? 'הציון' : 'כל ' + cand.length + ' הציונים') + '</button>' +
+        '<small style="flex-basis:100%;color:#4E5B72">הציון נרשם אצלך בלבד. התלמיד רואה ציון ומשוב רק אחרי שלוחצים "📨 שליחה" בשורה שלו. אפשר לשנות כל ציון בלחיצה על השורה.</small>' : '';
+      board.acceptIds = cand.map(function(r){ return r.id; });
+    }
     Array.prototype.forEach.call(document.querySelectorAll("[data-sort-col]"), function(th){
       var k = th.getAttribute("data-sort-col");
       th.setAttribute("aria-sort", board.sort.key === k ? (board.sort.dir > 0 ? "ascending" : "descending") : "none");

@@ -118,6 +118,7 @@ function doPost(e) {
       case 'lessonNav':       return json_(lessonNav_(data.code, data.url, data.label));
       case 'lessonsList':     return json_({ ok: true, lessons: lessonsList_() });
       case 'setGrade':        return json_(setGrade_(data.fileId, data.grade, data.comment, data.publishFb));
+      case 'acceptSuggested': return json_(acceptSuggested_(data.ids));
       case 'feedbackGet':     return json_(feedbackTeacher_(data.fileId));
       case 'setHidden':       return json_(setHidden_(data.fileId, data.hidden === true));
       case 'qbDelete':        return json_(qbDelete_(data.board, data.id));
@@ -382,7 +383,7 @@ function listSubmissions_(fresh) {
   if (!out) { out = scanSubmissions_(); subsCachePut_(out); }
   var props = PropertiesService.getScriptProperties().getProperties();   // קריאה אחת לכל המאפיינים
   var checked = checkedMap_(props), grades = gradeMap_(props), hidden = hiddenMap_(props), autos = autoMap_(props);
-  var fbs = feedbackIndex_(props);
+  var fbs = feedbackIndex_(props, fresh);   // "רענון" - גם ציונים חדשים מהבדיקה עם Claude, בלי לחכות
   out.forEach(function (x) {
     if (x.status !== 'missing') x.status = checked[x.id] ? 'checked' : 'pending';
     x.auto = (x.id && autos[x.id]) || null;
@@ -559,6 +560,24 @@ function setGrade_(fileId, grade, comment, publishFb) {
   return { ok: true, grade: g, comment: c, fbPublished: props.getProperty('fbpub_' + fileId) === '1' };
 }
 
+// רישום הציונים שהבדיקה עם Claude הציעה (fb_<מזהה>.json) כציון בלוח ההגשות - לכמה עבודות בבת אחת.
+// רק לעבודות שעוד אין להן ציון. המשוב לא נשלח לתלמיד (את זה עושים ב"📨 שליחה").
+function acceptSuggested_(ids) {
+  ids = (ids || []).map(String).filter(function (id) { return /^[\w-]{10,}$/.test(id); }).slice(0, 300);
+  var props = PropertiesService.getScriptProperties();
+  var all = props.getProperties();
+  var fbs = feedbackIndex_(all, true), grades = gradeMap_(all);
+  var done = {};
+  ids.forEach(function (id) {
+    var g = fbs.g[id];
+    if (g == null || g === '' || (grades[id] && grades[id].g !== '')) return;
+    props.setProperty('grade_' + id, JSON.stringify({ g: String(g), c: (grades[id] && grades[id].c) || '', t: Date.now() }));
+    props.setProperty('chk_' + id, '1');
+    done[id] = String(g);
+  });
+  return { ok: true, grades: done, n: Object.keys(done).length };
+}
+
 // ---------- משוב מפורט לתלמיד ----------
 // המשוב (ציון מוצע, סיכום והסבר לכל שאלה) נשמר כקובץ טקסט ב-Drive בשם fb_<מזהה העבודה>.json.
 // התלמיד רואה אותו רק אחרי שהמורה אישר בלוח ההגשות (fbpub_<מזהה> = 1), עם הציון שהמורה שמר.
@@ -591,11 +610,11 @@ function feedbackGradeOf_(f) {
   try { f.setDescription('grade=' + g); } catch (e) {}   // "grade=" ריק = אין ציון מוצע
   return g;
 }
-function feedbackIndex_(props) {
+function feedbackIndex_(props, fresh) {
   props = props || PropertiesService.getScriptProperties().getProperties();
   var cache = CacheService.getScriptCache();
   var list = null;
-  try { list = JSON.parse(cache.get('fb_idx2') || 'null'); } catch (e) { list = null; }
+  if (!fresh) { try { list = JSON.parse(cache.get('fb_idx2') || 'null'); } catch (e) { list = null; } }
   if (!list) {   // חיפוש ב-Drive - פעם בשתי דקות לכל היותר
     list = [];
     var it = DriveApp.searchFiles("title contains 'fb_' and trashed = false");
