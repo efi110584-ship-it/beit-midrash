@@ -216,7 +216,9 @@
     </div>
     <p class="view-help">לא רואים את העבודה? ודאו שאתם מחוברים בדפדפן הזה לחשבון Google של בית הספר, או <a id="viewOpenDrive" href="#" target="_blank" rel="noopener">פתחו אותה בדרייב</a>.</p>
     <!-- משוב מפורט שהוכן לעבודה (fb_<מזהה>.json ב-Drive): תצוגה למורה ושליחה לתלמיד יחד עם הציון -->
+    <p class="view-help" id="viewClaudeRow" hidden><a class="tt-btn tt-btn--small" id="viewClaudeLink" href="#" target="_blank" rel="noopener">🤖 בדיקה עם Claude</a> נפתח בלשונית של claude.ai: הבדיקה עצמה רצה שם, והמשוב חוזר לכאן אחרי "רענון".</p>
     <div class="view-fb" id="viewFb" hidden>
+      <p class="view-help" id="viewFbReview" hidden></p>
       <details class="view-fb-details">
         <summary id="viewFbSummary">🤖 יש משוב מפורט לעבודה הזאת</summary>
         <div class="view-fb-body" id="viewFbBody"><p class="view-help">טוען…</p></div>
@@ -2053,7 +2055,7 @@
   var viewEl = {};
   ["viewOverlay","viewDialog","viewTitle","viewMeta","viewNotes","viewFrame","viewOpenDrive","viewPrev","viewNext","viewPos","viewCheck","viewClose",
    "viewGrade","viewGradeInput","viewCommentInput","viewGradeSave","viewGradeMsg",
-   "viewFb","viewFbSummary","viewFbBody","viewFbSend","viewFbLinkRow","viewFbCopy"]
+   "viewFb","viewFbSummary","viewFbBody","viewFbSend","viewFbLinkRow","viewFbCopy","viewFbReview","viewClaudeRow","viewClaudeLink"]
     .forEach(function(id){ viewEl[id] = document.getElementById(id); });
 
   function viewableRows(){
@@ -2076,11 +2078,22 @@
     viewEl.viewFbLinkRow.hidden = r.fb !== "pub";
     viewEl.viewFbSummary.textContent = r.fb === "pub" ? "📨 משוב מפורט - כבר נשלח לתלמיד (לחצו לצפייה)" : "🤖 יש משוב מפורט לעבודה הזאת - לחצו לצפייה לפני השליחה";
     viewEl.viewFbBody.innerHTML = '<p class="view-help">טוען…</p>';
+    if(viewEl.viewFbReview){ viewEl.viewFbReview.hidden = true; viewEl.viewFbReview.textContent = ""; }
     var id = r.id;
     apiPost({ action:"feedbackGet", password:teacherToken(), fileId:id }).then(function(res){
       if(viewer.list[viewer.i] !== r) return;
       if(!(res && res.ok && res.feedback)){ viewEl.viewFbBody.innerHTML = '<p class="view-help">' + escapeHtml((res && res.error) || "לא הצלחנו לטעון את המשוב.") + '</p>'; return; }
       var fb = res.feedback;
+      /* מצב הבדיקה של המשוב (review מהבודק). תצוגה בלבד - הסיווג הקובע נעשה בשרת בסיכום המרוכז */
+      if(viewEl.viewFbReview && r.fb !== "pub"){
+        var rv = fb.review, flagged = (fb.items || []).some(function(x){ return x && (x.copied === true || x.needsReview === true); });
+        viewEl.viewFbReview.textContent = !rv
+          ? "ℹ️ משוב שנוצר לפני בדיקות התקינות. כדאי לעבור עליו לפני שליחה."
+          : (rv.ready === true && !flagged && !(rv.reasons || []).length
+            ? "✅ המשוב עבר את בדיקות התקינות של הבודק."
+            : "🔎 לעיון מורה: " + ((rv.reasons || []).join("; ") || "שאלה שסומנה לעיון"));
+        viewEl.viewFbReview.hidden = false;
+      }
       if(r.grade === "" && fb.grade != null && fb.grade !== ""){
         viewEl.viewGradeInput.value = String(fb.grade);
         viewEl.viewGradeMsg.textContent = "🤖 הציון המוצע מהמשוב: " + fb.grade + ". אפשר לשנות לפני השמירה.";
@@ -2090,7 +2103,8 @@
         '<ol class="view-fb-items">' + (fb.items || []).map(function(x){
           /* מספר השאלה כמו בקובץ של התלמיד, ולידו שם השאלה (בשאלות בגרות - איזו בחינה) */
           var title = x.n ? 'שאלה ' + x.n + (x.q ? ' · ' + x.q : '') : (x.q || 'שאלה');
-          return '<li><b>' + (FB_ICON[x.s] || "🟡") + ' ' + escapeHtml(title) + ':</b> ' + escapeHtml(x.text || "") + '</li>';
+          var warn = (x.copied === true ? ' ⚠ חשד להעתקה' : '') + (x.needsReview === true ? ' 🔎 לעיון' : '');
+          return '<li><b>' + (FB_ICON[x.s] || "🟡") + ' ' + escapeHtml(title) + ':</b>' + (warn ? '<b>' + warn + '</b>' : '') + ' ' + escapeHtml(x.text || "") + '</li>';
         }).join("") + '</ol>';
     }).catch(function(){ viewEl.viewFbBody.innerHTML = '<p class="view-help">אין חיבור לשרת כרגע.</p>'; });
   }
@@ -2138,6 +2152,12 @@
     viewEl.viewCheck.textContent = "סימון כנבדק בלי ציון";
     showFeedback(r);
     saveLabel(r);
+    /* הבודק של Claude מכיר רק לקט מצוות ומבחן פתוח תפתח. הוא רץ ב-claude.ai, ואי אפשר להטמיע אותו באתר */
+    if(viewEl.viewClaudeRow){
+      var canGrade = r.id && !r.hidden && r.fb !== "pub" && /לקט מצוות|פתוח תפתח · מבחן/.test((r.unit || "") + " " + (r.task || "")) && /^[\w-]+$/.test(r.id);
+      viewEl.viewClaudeRow.hidden = !canGrade;
+      if(canGrade) viewEl.viewClaudeLink.href = GRADER_URL + "#g-" + r.id;
+    }
     /* כפתור שהיה בפוקוס נעלם או ננעל (סוף הרשימה, אחרי סימון) - לא להשאיר את הפוקוס באוויר */
     var f = document.activeElement;
     if(!f || f === document.body || f.disabled || f.hidden) (viewEl.viewNext.disabled ? viewEl.viewClose : viewEl.viewNext).focus();
