@@ -184,7 +184,7 @@
    כל עוד הדף פתוח, הוא מדווח לסקריפט של המורה:
      in    - התלמיד בדף (בכניסה לדף, וכל 15 שניות)
      out   - התלמיד עבר ללשונית/אפליקציה אחרת (reason:"hidden"),
-             או לחלון אחר כשהדף עדיין גלוי (reason:"blur")
+             לחלון אחר כשהדף עדיין גלוי (reason:"blur"), או פיצל את המסך (reason:"split")
      paste - התלמיד הדביק טקסט בתיבת תשובה (len - כמה תווים)
      bye   - התלמיד לחץ "יציאה ממצב שיעור"
    התלמיד רואה כל הזמן פס קטן שאומר שהבקרה פעילה. האתר לא יודע ולא
@@ -314,6 +314,8 @@
     document.removeEventListener("visibilitychange", onVisibility);
     window.removeEventListener("blur", onBlur);
     window.removeEventListener("focus", comeBack);
+    window.removeEventListener("resize", onResize);
+    if(splitCover) splitCover.remove();
     document.removeEventListener("paste", onPaste, true);
     if(bar) bar.remove();
     if(actEl) actEl.remove();
@@ -328,7 +330,7 @@
     send("out", null, { reason:why });
   }
   function comeBack(){
-    if(!isOut || document.visibilityState !== "visible" || !document.hasFocus()) return;
+    if(!isOut || splitNow || document.visibilityState !== "visible" || !document.hasFocus()) return;
     isOut = false;
     send("in", function(res){
       if(res.leaves > leaves){
@@ -338,6 +340,48 @@
       save();
     });
   }
+  /* מסך מפוצל (אייפד/אנדרואיד, או חלון קטן ב-Stage Manager): הדף נהיה צר הרבה יותר מהמסך
+     (או נמוך הרבה יותר, כשלא מקלידים - כדי שהמקלדת לא תיחשב). רק במכשירי מגע, כדי שחלון
+     מחשב שאינו מוגדל לא ייחשב. בזמן פיצול הדף מוסתר, והמורה רואה "מסך מפוצל". */
+  var splitNow = false, splitCover = null, splitTimer = null;
+  function touchDevice(){
+    return (navigator.maxTouchPoints || 0) > 0 && !!window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+  }
+  function isSplit(){
+    if(!touchDevice()) return false;
+    var sw = screen.width, sh = screen.height;
+    if(!sw || !sh) return false;
+    var land;
+    if(screen.orientation && screen.orientation.type) land = screen.orientation.type.indexOf("landscape") === 0;
+    else if(typeof window.orientation === "number") land = Math.abs(window.orientation) === 90;
+    else land = window.innerWidth > window.innerHeight;
+    var fullW = land ? Math.max(sw, sh) : Math.min(sw, sh), fullH = land ? Math.min(sw, sh) : Math.max(sw, sh);
+    var de = document.documentElement, w = de.clientWidth || window.innerWidth, h = de.clientHeight || window.innerHeight;   /* לא מושפע מהגדלה באצבעות */
+    if(w < fullW * 0.85) return true;
+    var a = document.activeElement, typing = a && (a.tagName === "TEXTAREA" || a.tagName === "INPUT" || a.isContentEditable);
+    return !typing && h < fullH * 0.6;
+  }
+  function checkSplit(){
+    var now = isSplit();
+    if(now === splitNow) return;
+    splitNow = now;
+    if(now){
+      if(!splitCover){
+        splitCover = document.createElement("div");
+        splitCover.setAttribute("role", "alertdialog");
+        splitCover.style.cssText = "position:fixed;inset:0;z-index:10001;display:flex;align-items:center;justify-content:center;padding:20px;" +
+          "background:#0B2A5B;color:#fff;text-align:center;direction:rtl;font:700 18px/1.5 Heebo,Rubik,Arial,sans-serif";
+        splitCover.innerHTML = '<div><div style="font-size:44px" aria-hidden="true">📱</div><p style="margin:10px 0 6px">המסך מפוצל</p>' +
+          '<p style="margin:0;font-weight:400;font-size:16px">כדי להמשיך, חזרו למסך מלא. המורה רואה שהמסך מפוצל.</p></div>';
+      }
+      document.body.appendChild(splitCover);
+      isOut = false; goOut("split");
+    } else {
+      if(splitCover) splitCover.remove();
+      comeBack();
+    }
+  }
+  function onResize(){ clearTimeout(splitTimer); splitTimer = setTimeout(checkSplit, 400); }
   function onBlur(){ setTimeout(function(){ if(document.visibilityState === "visible" && !document.hasFocus()) goOut("blur"); }, 300); }
   function onPaste(e){
     var t = e.target;
@@ -358,6 +402,9 @@
     window.addEventListener("blur", onBlur);
     window.addEventListener("focus", comeBack);
     document.addEventListener("paste", onPaste, true);
+    window.addEventListener("resize", onResize);
+    window.addEventListener("orientationchange", onResize);
+    checkSplit();
     timer = setInterval(function(){
       if(!(st.until > Date.now())){ end(); return; }
       if(document.visibilityState === "visible" && !isOut) send("in", function(res){ leaves = res.leaves; save(); });

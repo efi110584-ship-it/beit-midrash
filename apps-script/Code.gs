@@ -846,7 +846,8 @@ function presence_(d) {
   var page = String(d.page || '').slice(0, 80);
   if (!/^[\w.-]+\.html$/.test(page)) page = '';
   var state = d.state === 'out' ? 'out' : (d.state === 'bye' ? 'bye' : (d.state === 'paste' ? 'paste' : 'in'));
-  var reason = d.reason === 'blur' ? 'blur' : 'hidden';   // blur = חלון/אפליקציה אחרת כשהדף עדיין גלוי
+  // blur = חלון/אפליקציה אחרת כשהדף עדיין גלוי; split = מסך מפוצל (הדף נהיה צר/נמוך הרבה יותר מהמסך)
+  var reason = (d.reason === 'blur' || d.reason === 'split') ? d.reason : 'hidden';
   var t = Number(d.t) || Date.now();
 
   var lock = LockService.getScriptLock();
