@@ -806,6 +806,19 @@ h1:where([data-css~="summary"], [data-css~="summary"] *){ font-family:"Frank Ruh
 .mp-tag:where([data-css~="summary"], [data-css~="summary"] *){ font-weight:800; }
 .mp-tag.ask:where([data-css~="summary"], [data-css~="summary"] *){ color:var(--gold); }
 .mp-tag.answer:where([data-css~="summary"], [data-css~="summary"] *){ color:var(--green); }
+.mp-quote:where([data-css~="summary"], [data-css~="summary"] *){ font-family:"Frank Ruhl Libre",serif; font-size:.92rem; line-height:1.65; color:var(--ink-soft);
+    background:var(--navy-soft); border-radius:8px; padding:.45rem .7rem; margin:.1rem 0 .6rem; }
+.mp-quote:where([data-css~="summary"], [data-css~="summary"] *)::before{ content:"בלשונו: "; font-family:"Heebo",sans-serif; font-size:.74rem; font-weight:800; color:var(--acc, var(--navy)); }
+.key-points:where([data-css~="summary"], [data-css~="summary"] *){ font-size:.92rem; line-height:1.7; margin:0 0 1rem; padding-inline-start:1.3rem; }
+.key-points:where([data-css~="summary"], [data-css~="summary"] *) li{ margin-bottom:.3rem; }
+.bagrut-box:where([data-css~="summary"], [data-css~="summary"] *){ margin-top:1rem; border:1.5px dashed var(--acc, var(--navy)); border-radius:12px; padding:.75rem 1rem; font-size:.9rem; line-height:1.7; }
+.bagrut-box:where([data-css~="summary"], [data-css~="summary"] *) .bb-label{ display:block; font-weight:800; font-size:.8rem; color:var(--acc, var(--navy)); margin-bottom:.25rem; }
+.sum-table-wrap:where([data-css~="summary"], [data-css~="summary"] *){ overflow-x:auto; }
+.sum-table:where([data-css~="summary"], [data-css~="summary"] *){ width:100%; border-collapse:collapse; font-size:.88rem; background:var(--card); }
+.sum-table:where([data-css~="summary"], [data-css~="summary"] *) th,
+.sum-table:where([data-css~="summary"], [data-css~="summary"] *) td{ border:1px solid var(--border); padding:.45rem .6rem; text-align:right; vertical-align:top; }
+.sum-table:where([data-css~="summary"], [data-css~="summary"] *) thead th{ background:var(--navy-soft); color:var(--navy); font-weight:800; }
+.sum-table:where([data-css~="summary"], [data-css~="summary"] *) tbody th{ font-weight:800; color:var(--acc, var(--navy)); white-space:nowrap; }
 .site-footer:where([data-css~="summary"], [data-css~="summary"] *){ text-align:center; color:var(--ink-soft); font-size:.85rem; margin-top:2rem; }
 .to-top-btn:where([data-css~="summary"], [data-css~="summary"] *){ position:fixed; bottom:1.2rem; left:1.2rem; width:2.8rem; height:2.8rem; border-radius:50%;
     background:var(--navy); color:#fff; border:none; font-size:1.2rem; cursor:pointer; opacity:0;
