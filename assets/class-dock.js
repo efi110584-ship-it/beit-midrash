@@ -30,7 +30,7 @@
   function token(){ try{ return sessionStorage.getItem("bm-teacher-token") || ""; }catch(e){ return ""; } }
   // Shared teacher controls load on the home page too, including after teacher login.
   var quickScript = document.createElement("script");
-  quickScript.src = BASE + "lesson-quick.js?v=20261023-1";
+  quickScript.src = BASE + "lesson-quick.js?v=20261024-1";
   document.head.appendChild(quickScript);
   var isTeacher = !!token();
   if(isTeacher && page === "index.html") return;   /* בדף הבית יש למורה את האזור האישי */

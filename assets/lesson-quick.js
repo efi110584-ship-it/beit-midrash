@@ -34,8 +34,8 @@
   }
   function render(){
     if(!bar)return;
-    var teacher=!!token();bar.hidden=!teacher;
-    document.body.classList.toggle('bm-quick-teacher',teacher);
+    var teacher=!!token();bar.hidden=true;   /* הפס הכחול בתחתית הוסתר לבקשת המורה; החלון של "התחלת שיעור" עדיין נפתח מהאזור האישי */
+    document.body.classList.remove('bm-quick-teacher');
     if(!teacher){if(dialog.open)dialog.close();selected=null;return;}
     if(selected && selected.until<=Date.now())selected=null;
     info.textContent=selected?'כיתה '+className(selected.cls)+' · קוד '+selected.code:(loaded?'אין שיעור נבחר':'טוען שיעורים…');
