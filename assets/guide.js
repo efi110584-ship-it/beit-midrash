@@ -147,7 +147,7 @@
       var head = make("div", "bm-answer-head");
       head.setAttribute("data-kind", kind);
       head.appendChild(make("span", "bm-answer-badge", kind === "official" ? "✅ תשובת המחוון הרשמית" : "💡 תשובה אפשרית"));
-      head.appendChild(make("span", "bm-answer-sub", kind === "official" ? "כך כתוב במחוון של הבחינה" : "תשובה לדוגמה - לא מהמחוון הרשמי"));
+      if(kind === "official") head.appendChild(make("span", "bm-answer-sub", "כך כתוב במחוון של הבחינה"));
       box.insertBefore(head, box.firstChild);
       if(label) label.classList.add("bm-label-replaced");
     }
