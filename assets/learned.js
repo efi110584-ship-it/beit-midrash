@@ -2,7 +2,7 @@
    כדי לסמן נושא: מוסיפים את המזהה שלו לרשימה של הדף (המזהה הוא מה שבא אחרי "tab-btn-" בכפתור).
    כל התלמידים רואים את הסימון. */
 window.BM_LEARNED = {
-  "leket-mitzvot-hub.html": []
+  "leket-mitzvot-hub.html": ["lo-tasur", "ahavat-gerim", "ahavat-israel", "kibud-avot", "halvaa"]
 };
 
 (function(){
