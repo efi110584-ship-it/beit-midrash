@@ -42,8 +42,11 @@
 .bh-key b{display:block;margin-bottom:.2rem}
 .bh-key ul{margin:0;padding-inline-start:1.1rem}
 .bh-tools{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
+.bh-send{display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:1rem;border:1px dashed var(--paper-line);border-radius:16px;background:var(--paper-card)}
+.bh-send p{margin:0;text-align:center}
+.bh-send .bm-send-panel{margin:0;width:100%}
 .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
-@media print{.bh-tabs,.bh-tools,.bh-how{display:none !important}.bh-panel[hidden]{display:flex !important}.bh-q{box-shadow:none;break-inside:avoid}}
+@media print{.bh-tabs,.bh-tools,.bh-how,.bh-send{display:none !important}.bh-panel[hidden]{display:flex !important}.bh-q{box-shadow:none;break-inside:avoid}}
 </style>
 <script src="assets/a11y.js"></script>
 </head>
@@ -67,7 +70,7 @@
 <p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים.</p>
 
 <main id="main-content" class="bh-wrap">
-  <div class="bh-how"><p>בחרו נושא. בכל שאלה רשום מאיזה מועד בגרות היא, וכמה נקודות שווה כל סעיף. כתבו תשובה בתיבה של כל סעיף, ובסוף אפשר לשלוח למורה.</p></div>
+  <div class="bh-how"><p>בחרו נושא. בכל שאלה רשום מאיזה מועד בגרות היא, וכמה נקודות שווה כל סעיף. כתבו תשובה בתיבה של כל סעיף. בסוף כל נושא יש כפתור "שלחו למורה" - הוא שולח רק את התשובות של הנושא הזה.</p></div>
   <div class="bh-tabs" role="tablist" aria-label="נושאים">
     <button type="button" class="bh-tab" role="tab" id="tab-tovim" aria-controls="t-tovim" aria-selected="true" tabindex="0"><span aria-hidden="true">👫</span> "טובים השניים מן האחד" <span class="bh-count">9</span></button>
 <button type="button" class="bh-tab" role="tab" id="tab-yetzer" aria-controls="t-yetzer" aria-selected="false" tabindex="-1"><span aria-hidden="true">🛡️</span> יצר ויצירה <span class="bh-count">12</span></button>
@@ -1352,6 +1355,12 @@
 </section>
 </article>
 </section>
+  <div class="bh-send" id="bhSend">
+    <p class="bh-send-note" id="bhSendNote">סיימתם לענות בנושא הזה? שלחו את התשובות למורה.</p>
+    <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="בית, חינוך ומשפחה" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+    <p class="bm-send-last" id="bmSendLast" hidden></p>
+    <div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
+  </div>
   <div class="bh-tools toolbar">
     <button type="button" class="btn" id="printBtn">🖨 הדפסה</button>
     <button type="button" class="btn" id="clearBtn">🗑 מחיקת התשובות שלי</button>
@@ -1365,7 +1374,23 @@
   var KEY = 'bm-bhm:';
   var keyMode = /[?&]key(=|&|$)/.test(location.search);
   var tabs = Array.prototype.slice.call(document.querySelectorAll('.bh-tab'));
+  var sendBox = document.getElementById('bhSend');
+  /* כפתור "שלחו למורה" עובר לסוף הנושא הפתוח, ושולח רק את התשובות שבו (assets/send-to-teacher.js) */
+  function placeSend(id){
+    var panel = document.getElementById(id);
+    if(!sendBox || !panel) return;
+    Array.prototype.forEach.call(document.querySelectorAll('.bh-panel[data-submit-scope]'), function(p){ p.removeAttribute('data-submit-scope'); });
+    panel.setAttribute('data-submit-scope', '');
+    panel.appendChild(sendBox);
+    var tab = document.querySelector('.bh-tab[aria-controls="' + id + '"]');
+    var name = '';
+    if(tab){ var c = tab.cloneNode(true); Array.prototype.forEach.call(c.querySelectorAll('span'), function(x){ x.remove(); }); name = c.textContent.trim(); }
+    document.getElementById('sendToTeacherBtn').setAttribute('data-topic-url', 'bayit-chinuch-mishpacha.html#' + id);
+    document.getElementById('bhSendNote').textContent = 'סיימתם לענות על השאלות בנושא "' + name.replace(/^"|"$/g, '') + '"? שלחו את התשובות למורה.';
+    document.dispatchEvent(new CustomEvent('bm-send-scope-change'));
+  }
   function show(id, focus){
+    placeSend(id);
     tabs.forEach(function(t){
       var on = t.getAttribute('aria-controls') === id;
       t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1;
@@ -1383,7 +1408,7 @@
   });
   var start = (location.hash || '').slice(1);
   if(!document.getElementById(start) || !/^t-/.test(start)){ try{ start = sessionStorage.getItem('bm-bhm-tab') || ''; }catch(e){ start = ''; } }
-  if(start && document.getElementById(start)) show(start);
+  show(start && document.getElementById(start) ? start : tabs[0].getAttribute('aria-controls'));
   window.addEventListener('hashchange', function(){ var h = location.hash.slice(1); if(/^t-/.test(h) && document.getElementById(h)) show(h); });
   var fields = Array.prototype.slice.call(document.querySelectorAll('textarea.answer'));
   fields.forEach(function(f){
@@ -1418,7 +1443,7 @@
 <script src="assets/units-data.js"></script>
 <script src="assets/bm-api.js"></script>
 <script src="assets/direct-submit.js"></script>
-<script src="assets/send-to-teacher.js?v=3"></script>
+<script src="assets/send-to-teacher.js?v=5"></script>
 <script src="assets/lesson-mode.js"></script>
 <script src="assets/class-dock.js"></script>
 <script src="assets/answer-key.js"></script>

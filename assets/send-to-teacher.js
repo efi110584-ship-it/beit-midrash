@@ -16,13 +16,31 @@
   var lastEl = document.getElementById('bmSendLast');
   /* שם המטלה למורה: "יחידה · נושא" (למשל "לקט מצוות · אהבת ישראל"), לפי הדף הזה
      ברשימת היחידות (assets/units-data.js). כך כל נושא מקבל אצל המורה שורה וציון משלו. */
-  var assignment = btn.getAttribute('data-assignment') || document.title;
-  (function(){
-    var T = window.BM_TASKS;
-    var where = T && T.findByPage(location.pathname.split('/').pop() || '');
-    if(where) assignment = T.assignmentFor(where.unit, where.topic);
-  })();
-  var KEY = 'bm-sent:' + (location.pathname.split('/').pop() || 'index.html');
+  var PAGE = location.pathname.split('/').pop() || 'index.html';
+  /* דף עם כמה נושאים (בית, חינוך ומשפחה): הדף שם על הכפתור data-topic-url של הנושא
+     הפתוח (למשל "bayit-chinuch-mishpacha.html#t-tovim"), ונשלח רק הנושא הזה, עם שורה משלו אצל המורה. */
+  function topicUrl(){ return btn.getAttribute('data-topic-url') || ''; }
+  function whereNow(){
+    var T = window.BM_TASKS, u = topicUrl();
+    if(!T) return null;
+    if(u){   /* findByPage מתעלם מה-# - כאן מחפשים את הנושא המדויק */
+      var us = T.units();
+      for(var i = 0; i < us.length; i++){
+        var ts = us[i].topics || [];
+        for(var j = 0; j < ts.length; j++) if(ts[j].url === u) return { unit:us[i], topic:ts[j] };
+      }
+    }
+    return T.findByPage(PAGE);
+  }
+  function assignmentNow(){
+    var where = whereNow();
+    return where ? window.BM_TASKS.assignmentFor(where.unit, where.topic) : (btn.getAttribute('data-assignment') || document.title);
+  }
+  function topicTitle(){
+    var where = topicUrl() && whereNow();
+    return where && where.topic ? where.topic.title : '';
+  }
+  function sentKey(){ return 'bm-sent:' + (topicUrl() || PAGE); }
 
   /* דף שאין לו שמירה משלו לשם ולכיתה (data-bm-persist) - שומרים כאן */
   [nameEl, classEl].forEach(function(inp){
@@ -58,6 +76,20 @@
       }).map(function(p){ return clean(p.textContent); }).filter(Boolean);
       if(ps.length){ var q = ps.join(' '); out.push(q.length > 900 ? q.slice(0, 900) + '…' : q); }
       return out.join(' · ');
+    }
+    /* שאלות בגרות בכרטיסים (בית, חינוך ומשפחה): מועד · שאלה · סעיף · נוסח הסעיף */
+    var bq = field.closest('.bh-q');
+    if(bq){
+      var parts = [];
+      var ex = bq.querySelector('.bh-exam'), qn = bq.querySelector('.bh-qn');
+      if(ex || qn) parts.push(clean((ex ? ex.textContent : '') + ' ' + (qn ? qn.textContent : '')).replace(/^📅\s*/, ''));
+      var bp = field.closest('.bh-part'), letter = bp && bp.querySelector('.bh-letter');
+      var sub = field.closest('.bh-sub'), subq = sub && sub.querySelector('.bh-subq');
+      parts.push('סעיף ' + (letter ? clean(letter.textContent) : '') + (subq ? ' ' + clean((subq.querySelector('b') || {}).textContent || '') : ''));
+      var txt = bp ? Array.prototype.filter.call(bp.children, function(c){ return c.tagName === 'P'; }).map(function(c){ return clean(c.textContent); }).join(' ') : '';
+      if(subq) txt = (txt ? txt + ' ' : '') + clean(subq.textContent).replace(/^\(\d+\)\s*/, '');
+      if(txt) parts.push(txt.length > 900 ? txt.slice(0, 900) + '…' : txt);
+      return parts.join(' · ');
     }
     var qb = field.closest('.question-block');
     var q = qb && qb.querySelector('.q-text');
@@ -114,7 +146,7 @@
   }
 
   /* ---------- "נשלח לאחרונה" ---------- */
-  function readLast(){ try{ return JSON.parse(localStorage.getItem(KEY) || 'null'); }catch(e){ return null; } }
+  function readLast(){ try{ return JSON.parse(localStorage.getItem(sentKey()) || 'null'); }catch(e){ return null; } }
   function fmt(t){
     var d = new Date(t), now = new Date();
     var hm = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
@@ -181,7 +213,7 @@
   }
   function nothingYet(){
     open('warn', function(h){
-      h.textContent = bagrutOnly ? 'עוד לא עניתם על שאלות הבגרות' : 'עוד לא כתבתם תשובות בדף הזה';
+      h.textContent = bagrutOnly ? 'עוד לא עניתם על שאלות הבגרות' : topicTitle() ? 'עוד לא כתבתם תשובות בנושא הזה' : 'עוד לא כתבתם תשובות בדף הזה';
       panel.appendChild(el('p', null, bagrutOnly ? 'למורה נשלחות רק התשובות לשאלות הבגרות שבסוף הדף. ענו לפחות על סעיף אחד שם, ואז לחצו שוב על "שלחו למורה".' : 'כתבו לפחות תשובה אחת, ואז לחצו שוב על "שלחו למורה".'));
       actions().appendChild(button('חזרה לדף', '', close));
     });
@@ -193,7 +225,8 @@
       var ul = el('ul', 'bm-send-list');
       ul.appendChild(el('li', null, 'שם: ' + clean(nameEl.value)));
       ul.appendChild(el('li', null, 'כיתה: ' + classLabel()));
-      ul.appendChild(el('li', null, (data.items.length === 1 ? 'תשובה אחת' : data.items.length + ' תשובות') + ' מתוך ' + data.total + (bagrutOnly ? ' סעיפים בשאלות הבגרות' : ' סעיפי תשובה בדף') + (data.items.length < data.total ? ' (שאלות בלי תשובה לא יישלחו)' : '')));
+      if(topicTitle()) ul.appendChild(el('li', null, 'נושא: ' + topicTitle() + ' (רק השאלות בנושא הזה)'));
+      ul.appendChild(el('li', null, (data.items.length === 1 ? 'תשובה אחת' : data.items.length + ' תשובות') + ' מתוך ' + data.total + (bagrutOnly ? ' סעיפים בשאלות הבגרות' : topicTitle() ? ' סעיפים בנושא' : ' סעיפי תשובה בדף') + (data.items.length < data.total ? ' (שאלות בלי תשובה לא יישלחו)' : '')));
       if(bagrutOnly) ul.appendChild(el('li', null, 'נשלחות רק התשובות לשאלות הבגרות. דף העבודה עצמו נשאר אצלכם לתרגול.'));
       panel.appendChild(ul);
       panel.appendChild(el('p', 'bm-send-note', 'רק זה נשלח - שום דבר אחר מהמחשב. אי אפשר לבטל שליחה, אבל אפשר לשלוח שוב אחר כך, והגרסה החדשה תגיע למורה.'));
@@ -213,12 +246,12 @@
       studentName: clean(nameEl.value),
       studentClass: classCode(),
       section: sectionCode(),
-      assignment: assignment,
+      assignment: assignmentNow(),
       items: data.items,
       total: data.total
     }).then(function(res){
       if(!(res && res.ok)) throw new Error((res && res.error) || 'השרת לא אישר את הקבלה');
-      try{ localStorage.setItem(KEY, JSON.stringify({ t: Date.now(), n: data.items.length })); }catch(e){}
+      try{ localStorage.setItem(sentKey(), JSON.stringify({ t: Date.now(), n: data.items.length })); }catch(e){}
       showLast();
       open('ok', function(h){
         h.textContent = '✅ התשובות נשלחו למורה';
@@ -265,6 +298,11 @@
   document.addEventListener('bm-steps-change', applyStepsGate);
 
   btn.addEventListener('click', start);
+  /* הדף החליף נושא - סוגרים חלונית פתוחה ומעדכנים "נשלח לאחרונה" לנושא החדש */
+  document.addEventListener('bm-send-scope-change', function(){
+    if(!panel.hidden){ panel.hidden = true; panel.innerHTML = ''; btn.setAttribute('aria-expanded', 'false'); }
+    showLast();
+  });
   panel.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !btn.disabled) close(); });
   showLast();
   applyStepsGate();
