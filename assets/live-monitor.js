@@ -133,6 +133,7 @@
       }
       if(b && (s.dups || 0) > (b.dups || 0))
         toast("paste", "⚠ ניסו להיכנס בשם " + name, "ממכשיר אחר - הכניסה נחסמה");
+      if(s.status === "kicked") return;
       if(s.status === "gone" && b && b.status === "in")
         toast("gone", "⚪ " + name + " התנתק/ה", "המכשיר לא מדווח יותר מדקה");
     });
@@ -151,6 +152,8 @@
       else if(e.k === "join") txt = "🟢 נכנס/ה לשיעור" + (e.page ? " · " + pageName(e.page) : "");
       else if(e.k === "page") txt = "↪ עבר/ה לדף: " + pageName(e.page);
       else if(e.k === "bye") txt = "יצא/ה ממצב שיעור (לחץ/ה \"יציאה\")";
+      else if(e.k === "kick"){ cls = "out"; txt = "🚫 המורה הוציא/ה מהשיעור"; }
+      else if(e.k === "unkick") txt = "↩ המורה החזיר/ה לשיעור";
       else if(e.k === "dup"){ cls = "paste"; txt = "⚠ מישהו ניסה להיכנס בשם הזה ממכשיר אחר - הכניסה נחסמה"; }
       else txt = e.k;
       return '<li><time>' + clock(e.at) + '</time><span class="' + cls + '">' + esc(txt) + '</span></li>';

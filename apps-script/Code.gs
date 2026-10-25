@@ -116,6 +116,7 @@ function doPost(e) {
       case 'examDelete':      return json_(examDelete_(data.id));
       case 'createLesson':    return json_(createLesson_(data.url, data.label, data.monitor === true, data.cls));
       case 'presenceList':    return json_(presenceList_(data.code));
+      case 'kickStudent':     return json_(kickStudent_(data.code, data.sid, data.undo === true));
       case 'clearLesson':     return json_(clearLesson_(data.code));
       case 'lessonNav':       return json_(lessonNav_(data.code, data.url, data.label));
       case 'lessonsList':     return json_({ ok: true, lessons: lessonsList_() });
@@ -871,10 +872,11 @@ function presence_(d) {
       var nk = nameKey_(name);
       var twin = Object.keys(all).filter(function (k) {
         var o = all[k];
-        return nameKey_(o.name) === nk && o.state !== 'bye' && now - (o.last || 0) < GONE_AFTER_SEC * 1000;
+        return nameKey_(o.name) === nk && (o.kicked || (o.state !== 'bye' && now - (o.last || 0) < GONE_AFTER_SEC * 1000));
       })[0];
       if (twin) {
         var o = all[twin];
+        if (o.kicked) return { ok: false, kicked: true };   // שם שהמורה הוציא מהשיעור - גם ממכשיר אחר לא נכנסים בו
         o.dups = (o.dups || 0) + 1;
         if (!o.ev) o.ev = [];
         o.ev.push({ k: 'dup', at: now });
@@ -884,6 +886,7 @@ function presence_(d) {
       }
     }
     var p = all[sid] || { name: name, leaves: 0, state: 'in', outSince: 0, t: 0, outTotal: 0, pastes: 0, ev: [] };
+    if (p.kicked) return { ok: false, kicked: true };   // המורה הוציא את התלמיד מהשיעור
     if (!p.ev) p.ev = [];
     if (t < (p.t || 0)) return { ok: true, leaves: p.leaves };   // דיווח ישן שהגיע מאוחר - מתעלמים
     p.t = t;
@@ -928,6 +931,30 @@ function presence_(d) {
            nav: l.nav ? { id: l.nav.id, url: l.nav.url, label: l.nav.label } : null };
 }
 
+// הוצאת תלמיד מהשיעור (או החזרה, undo). התלמיד רואה בדיווח הבא שהוצא, ומצב השיעור אצלו נסגר.
+// גם כניסה מחדש באותו שם (מאותו מכשיר או ממכשיר אחר) נחסמת, עד שהמורה מחזיר אותו.
+function kickStudent_(code, sid, undo) {
+  var l = monitoredLesson_(code);
+  if (!l) return { ok: false, error: 'השיעור כבר לא פעיל' };
+  sid = String(sid || '').replace(/[^\w-]/g, '').slice(0, 40);
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(8000)) return { ok: false, error: 'השרת עסוק. נסו שוב בעוד רגע.' };
+  try {
+    var cache = CacheService.getScriptCache(), key = 'pres_' + l.code, all = {};
+    try { all = JSON.parse(cache.get(key) || '{}'); } catch (e) { all = {}; }
+    var p = all[sid];
+    if (!p) return { ok: false, error: 'התלמיד לא נמצא בשיעור' };
+    p.kicked = !undo;
+    if (!p.ev) p.ev = [];
+    p.ev.push({ k: undo ? 'unkick' : 'kick', at: Date.now() });
+    if (p.ev.length > PRES_LOG_MAX) p.ev = p.ev.slice(-PRES_LOG_MAX);
+    cache.put(key, JSON.stringify(all), 21600);
+    return { ok: true, kicked: p.kicked, name: p.name || '' };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
 // code - איזה שיעור להציג. בלי קוד (או קוד שכבר לא פעיל) - השיעור עם הבקרה שנוצר אחרון.
 // lessons - כל השיעורים הפעילים עם בקרה, כדי שהמורה יוכל לבחור ביניהם.
 function presenceList_(code) {
@@ -941,14 +968,15 @@ function presenceList_(code) {
   var out = Object.keys(all).map(function (sid) {
     var p = all[sid];
     var status;
-    if (p.state === 'bye') status = 'bye';
+    if (p.kicked) status = 'kicked';
+    else if (p.state === 'bye') status = 'bye';
     else if (p.state === 'out') status = (now - p.outSince > graceMs_(p.outReason)) ? 'out' : 'in';
     else status = (now - p.last > GONE_AFTER_SEC * 1000) ? 'gone' : 'in';
     var outFor = p.state === 'out' ? Math.round((now - p.outSince) / 1000) : 0;
     return { sid: sid, name: p.name || '', page: p.page || '', status: status, leaves: p.leaves || 0,
              outFor: outFor, outWhy: p.state === 'out' ? (p.outReason || 'hidden') : '',
              outSince: p.state === 'out' ? p.outSince : 0,
-             outTotal: (p.outTotal || 0) + (status === 'out' ? outFor : 0), pastes: p.pastes || 0, dups: p.dups || 0,
+             outTotal: (p.outTotal || 0) + (status === 'out' ? outFor : 0), pastes: p.pastes || 0, dups: p.dups || 0, kicked: !!p.kicked,
              ev: p.ev || [], lastAgo: Math.round((now - (p.last || now)) / 1000) };
   });
   return { ok: true, lesson: { code: l.code, label: l.label, url: l.url, cls: l.cls, nav: l.nav || null },

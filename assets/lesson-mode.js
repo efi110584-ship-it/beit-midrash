@@ -232,6 +232,7 @@
         .then(function(res){
           if(res && res.ended){ end(); return; }
           if(res && res.nameTaken){ nameTaken(); return; }
+          if(res && res.kicked){ kickedOut(); return; }
           if(res && res.busy){ if(again) again(); return; }
           if(res && res.ok) navCheck(res.nav);
           if(res && res.ok && !window.BM_DOCK) actNotice(res.act);   /* בדפים עם סרגל הכלים - הסרגל מודיע */
@@ -250,6 +251,24 @@
       "background:#0B2A5B;color:#fff;text-align:center;direction:rtl;font:700 18px/1.5 Heebo,Rubik,Arial,sans-serif";
     c.innerHTML = '<div><div style="font-size:44px" aria-hidden="true">⛔</div><p style="margin:10px 0 6px">השם "' + esc(who) + '" כבר נמצא בשיעור ממכשיר אחר</p>' +
       '<p style="margin:0 0 14px;font-weight:400;font-size:16px">אי אפשר להיכנס לשיעור בשם של תלמיד אחר. אם זה השם שלך - קרא/י למורה. המורה רואה את הניסיון.</p>' +
+      '<a href="index.html" style="color:#FFD9B8">לדף הבית</a></div>';
+    document.body.appendChild(c);
+  }
+  /* המורה הוציא את התלמיד מהשיעור: מצב השיעור נסגר, וגם הגישה לדף הנעול של השיעור */
+  function kickedOut(){
+    if(stopped) return;
+    var code = st ? st.code : "";
+    end();
+    try{
+      var k = JSON.parse(localStorage.getItem("bm-lesson-key") || "null");
+      if(k && String(k.code) === String(code)) localStorage.removeItem("bm-lesson-key");
+    }catch(e){}
+    var c = document.createElement("div");
+    c.setAttribute("role", "alertdialog");
+    c.style.cssText = "position:fixed;inset:0;z-index:10002;display:flex;align-items:center;justify-content:center;padding:20px;" +
+      "background:#0B2A5B;color:#fff;text-align:center;direction:rtl;font:700 18px/1.5 Heebo,Rubik,Arial,sans-serif";
+    c.innerHTML = '<div><div style="font-size:44px" aria-hidden="true">🚫</div><p style="margin:10px 0 6px">המורה הוציא אותך מהשיעור</p>' +
+      '<p style="margin:0 0 14px;font-weight:400;font-size:16px">אם לדעתך זו טעות - פנה/י למורה.</p>' +
       '<a href="index.html" style="color:#FFD9B8">לדף הבית</a></div>';
     document.body.appendChild(c);
   }

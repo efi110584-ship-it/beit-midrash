@@ -394,7 +394,7 @@
 
   /* שיעור חי: אחרי שפותחים את החלון פעם אחת, הבדיקה ממשיכה כל 5 שניות גם כשהחלון סגור,
      כדי שהתראות על יציאה מהדף והדבקת טקסט יגיעו (assets/live-monitor.js) */
-  var liveBg = null, liveOpenSids = {};
+  var liveBg = null, liveOpenSids = {}, liveShownCode = "";
   function liveCodeNow(){ try{ return sessionStorage.getItem("bm-live-code") || ""; }catch(e){ return ""; } }
   function livePanelShown(){ return openTool === "live" && !panel.hidden; }
   function renderLive(res){
@@ -403,7 +403,8 @@
       body.innerHTML = '<p class="bmd-note">אין כרגע שיעור עם בקרה. כדי להפעיל: אזור אישי ← "בשיעור" ← קוד לשיעור ← לבחור כיתה ב"בקרת שיעור".</p>';
       return;
     }
-    var order = { out:0, gone:1, "in":2, bye:3 };
+    liveShownCode = res.lesson.code;
+    var order = { out:0, gone:1, "in":2, bye:3, kicked:4 };
     var list = (res.students || []).slice().sort(function(a, b){ return (order[a.status] - order[b.status]) || (b.leaves - a.leaves); });
     var n = { "in":0, out:0 };
     list.forEach(function(s){ if(n[s.status] !== undefined) n[s.status]++; });
@@ -418,11 +419,12 @@
       '<p class="bmd-note">קוד ' + esc(res.lesson.code) + ' · ' + esc(res.lesson.label || "") + ' · 🟢 בדף: <b>' + n["in"] + '</b> · 🟠 מחוץ לדף: <b>' + n.out + '</b></p>' +
       (list.length ? '<ul class="bmd-pres">' + list.map(function(s){
         var sid = s.sid || s.name || "", open = !!liveOpenSids[sid];
-        var stt = s.status === "out" ? "🟠 " + (LM ? LM.whyText(s.outWhy) + " · " + LM.dur(s.outFor) : "מחוץ לדף")
+        var stt = s.status === "kicked" ? "🚫 הוצא מהשיעור" : s.status === "out" ? "🟠 " + (LM ? LM.whyText(s.outWhy) + " · " + LM.dur(s.outFor) : "מחוץ לדף")
           : s.status === "gone" ? "⚪ לא מחובר" : s.status === "bye" ? "יצא ממצב שיעור" : "🟢 בדף";
         var extra = (s.leaves || 0) + " יציאות" + (s.outTotal && LM ? " · " + LM.dur(s.outTotal) + " בחוץ" : "") + (s.pastes ? " · 📋 " + s.pastes + " הדבקות" : "") + (s.dups ? " · ⚠ ניסו להיכנס בשם הזה ממכשיר אחר" : "");
         return '<li class="' + (s.status === "out" ? "is-out" : "") + '" data-sid="' + esc(sid) + '" style="cursor:pointer;flex-wrap:wrap" title="לחיצה: כל מה שקרה אצל התלמיד">' +
           '<b>' + (open ? "▾ " : "◂ ") + esc(s.name || "ללא שם") + '</b><span>' + esc(stt) + '</span><small style="flex-basis:100%">' + esc(extra) + '</small>' +
+          '<span style="flex-basis:100%"><button type="button" class="bmd-btn" style="min-height:34px;padding:3px 10px;font-size:13px" data-kick="' + esc(s.sid) + '"' + (s.kicked ? ' data-undo="1"' : '') + ' data-name="' + esc(s.name || "") + '">' + (s.kicked ? "↩ החזרה לשיעור" : "🚫 הוצאה מהשיעור") + '</button></span>' +
           (open && LM ? '<div style="flex-basis:100%">' + LM.timelineHtml(s) + '</div>' : '') + '</li>';
       }).join("") + '</ul>' : '<p class="bmd-note">עדיין אף תלמיד לא נכנס עם הקוד.</p>') +
       '<p class="bmd-note">מתעדכן כל 5 שניות. נספרת יציאה מהדף מעל 5 שניות, ומעבר לחלון אחר מעל 10 שניות. המספר הכתום על כפתור 👥 = כמה תלמידים מחוץ לדף עכשיו. התראות קופצות וצליל כבויים, אלא אם מפעילים אותם כאן (עדיף לא כשהמסך מוקרן). לחיצה על תלמיד: כל מה שקרה אצלו.</p>';
@@ -467,6 +469,19 @@
   function teacherLive(){
     if(!body.__bmLiveBound) body.addEventListener("click", function(e){
       if(!livePanelShown()) return;
+      var kb = e.target.closest && e.target.closest("[data-kick]");
+      if(kb){
+        e.stopPropagation();
+        var undo = kb.hasAttribute("data-undo"), nm = kb.getAttribute("data-name") || "התלמיד";
+        if(!undo && !confirm("להוציא את " + nm + " מהשיעור?\nהמסך אצלו/ה ייסגר תוך כמה שניות, ולא יהיה אפשר להיכנס שוב לשיעור הזה עד שתחזירו.")) return;
+        kb.disabled = true;
+        post({ action:"kickStudent", code:liveShownCode || liveCodeNow(), sid:kb.getAttribute("data-kick"), undo:undo }).then(function(res){
+          if(authMsg(res)) return;
+          if(!res || !res.ok){ kb.disabled = false; toastMsg((res && res.error) || "הפעולה לא הצליחה."); return; }
+          liveTick();
+        }).catch(function(){ kb.disabled = false; toastMsg("אין חיבור לשרת כרגע."); });
+        return;
+      }
       var nb = e.target.closest && e.target.closest("[data-nav-here]");
       if(nb){
         nb.disabled = true; nb.textContent = "שולחים…";
