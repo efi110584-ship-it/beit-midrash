@@ -49,6 +49,8 @@ var YA2_TSB = { cls: 'יא', sections: ['2'], subjects: ['תושב"ע'] };
 var AWAY_GRACE_SEC = 5;            // יציאה קצרה מזה (מעבר בין דפים באתר, טעינה איטית) לא נספרת
 var BLUR_GRACE_SEC = 10;           // "חלון אחר" (הדף עדיין גלוי) נספר רק אם נמשך יותר מזה
 var GONE_AFTER_SEC = 75;           // תלמיד שלא דיווח זמן כזה - "לא מחובר" (התלמיד מדווח כל 30 שניות)
+var LREP_MAX = 40;                 // כמה דוחות שיעור מופיעים באתר (כולם נשארים בתיקייה בדרייב)
+var LREP_EVERY_SEC = 120;          // בזמן שיעור הדוח נשמר לבד לכל היותר פעם בזמן כזה
 var PRES_LOG_MAX = 20;             // כמה אירועים אחרונים נשמרים לכל תלמיד (יציאות, הדבקות, כניסה)
 
 // לוחות שאלות ישנים שהיו קבועים בדף (נשמרים כדי שאפשר לפתוח אותם שוב מהסרגל).
@@ -119,6 +121,9 @@ function doPost(e) {
       case 'clearLesson':     return json_(clearLesson_(data.code));
       case 'lessonNav':       return json_(lessonNav_(data.code, data.url, data.label));
       case 'lessonsList':     return json_({ ok: true, lessons: lessonsList_() });
+      case 'lessonReports':   return json_(lessonReportsList_());
+      case 'lessonReport':    return json_(lessonReportGet_(data.id));
+      case 'saveLessonReport': return json_(saveLessonReport_(data.code));
       case 'setGrade':        return json_(setGrade_(data.fileId, data.grade, data.comment, data.publishFb));
       case 'acceptSuggested': return json_(acceptSuggested_(data.ids));
       case 'feedbackGet':     return json_(feedbackTeacher_(data.fileId));
@@ -797,17 +802,21 @@ function lessonNav_(code, url, label) {
 function clearLesson_(code) {
   var lock = LockService.getScriptLock();
   lock.waitLock(10000);
+  var ending = [];
   try {
     var all = lessons_();
     var gone = code ? [String(code)] : Object.keys(all);
+    gone.forEach(function (c) { if (all[c] && all[c].monitor) ending.push(all[c]); });
     if (code) delete all[String(code)];
     else all = {};
     saveLessons_(all);
     gone.forEach(clearRoom_);   // הפעילות והלוח של השיעור שבוטל נסגרים איתו
-    return { ok: true };
   } finally {
     lock.releaseLock();
   }
+  // סוף שיעור עם בקרה - שומרים את הדוח (אחרי שחרור הנעילה)
+  ending.forEach(function (l) { try { saveReportFor_(l, true); } catch (e) {} });
+  return { ok: true };
 }
 
 function findLesson_(code) {
@@ -951,8 +960,92 @@ function presenceList_(code) {
              outTotal: (p.outTotal || 0) + (status === 'out' ? outFor : 0), pastes: p.pastes || 0, dups: p.dups || 0,
              ev: p.ev || [], lastAgo: Math.round((now - (p.last || now)) / 1000) };
   });
+  if (out.length) {
+    // דוח השיעור נשמר לבד בזמן השיעור (לכל היותר פעם ב-LREP_EVERY_SEC), כדי שיישאר גם אחרי שהקוד יפוג
+    try {
+      var rc = CacheService.getScriptCache(), tk = 'lrep_t_' + l.code;
+      if (!rc.get(tk)) { rc.put(tk, '1', LREP_EVERY_SEC); saveReportFor_(l, false); }
+    } catch (e) {}
+  }
   return { ok: true, lesson: { code: l.code, label: l.label, url: l.url, cls: l.cls, nav: l.nav || null },
            lessons: mon.map(function (x) { return { code: x.code, label: x.label, cls: x.cls }; }), students: out, now: now };
+}
+
+// ---------- דוחות שיעור ----------
+// בכל שיעור עם בקרה נשמר דוח: מי היה, כמה פעמים יצא מהדף, כמה זמן היה בחוץ, הדבקות וניסיונות כניסה בשמו.
+// הדוח נשמר כקובץ JSON בתיקייה "דוחות שיעור" (בתוך תיקיית ההגשות), והאתר מציג את LREP_MAX האחרונים
+// לפי אינדקס קטן במאפיין LREP_INDEX. כל השמירות דורסות את אותו קובץ - קובץ אחד לכל שיעור.
+function lessonReportFolder_() {
+  var props = PropertiesService.getScriptProperties();
+  var id = props.getProperty('LREP_FOLDER_ID');
+  if (id) { try { return DriveApp.getFolderById(id); } catch (e) {} }
+  var f = DriveApp.getFolderById(ROOT_FOLDER_ID).createFolder('דוחות שיעור (בקרת שיעור)');
+  props.setProperty('LREP_FOLDER_ID', f.getId());
+  return f;
+}
+function lessonReportData_(l) {
+  var all = {};
+  try { all = JSON.parse(CacheService.getScriptCache().get('pres_' + l.code) || '{}'); } catch (e) { all = {}; }
+  var now = Date.now();
+  var students = Object.keys(all).map(function (sid) {
+    var p = all[sid], ev = p.ev || [];
+    var status = p.state === 'bye' ? 'bye' : p.state === 'out' ? ((now - p.outSince > graceMs_(p.outReason)) ? 'out' : 'in')
+      : ((now - (p.last || 0) > GONE_AFTER_SEC * 1000) ? 'gone' : 'in');
+    var outNow = status === 'out' ? Math.round((now - p.outSince) / 1000) : 0;
+    var join = ev.filter(function (e) { return e.k === 'join'; })[0];
+    return { name: p.name || '', status: status, joined: join ? join.at : 0,
+             leaves: (p.leaves || 0) + (status === 'out' ? 1 : 0), outTotal: (p.outTotal || 0) + outNow,
+             pastes: p.pastes || 0, dups: p.dups || 0,
+             exits: ev.filter(function (e) { return e.k === 'out'; }).map(function (e) { return { at: e.at, sec: e.sec, why: e.why }; })
+               .concat(status === 'out' ? [{ at: p.outSince, sec: outNow, why: p.outReason || 'hidden', now: true }] : []),
+             pasteEv: ev.filter(function (e) { return e.k === 'paste'; }).map(function (e) { return { at: e.at, len: e.len }; }) };
+  }).sort(function (a, b) { return (b.leaves - a.leaves) || (b.outTotal - a.outTotal) || String(a.name).localeCompare(String(b.name)); });
+  return { v: 1, code: l.code, label: l.label || '', url: l.url || '', cls: l.cls || '', created: l.created, savedAt: now, students: students };
+}
+function saveReportFor_(l, force) {
+  var rep = lessonReportData_(l);
+  if (!rep.students.length) return { ok: true, empty: true };
+  var cache = CacheService.getScriptCache(), key = l.code + '_' + l.created, hk = 'lrep_h_' + key;
+  var sig = JSON.stringify(rep.students.map(function (s) { return [s.name, s.status, s.leaves, s.pastes, s.dups, s.exits.length]; }));
+  if (!force && cache.get(hk) === sig) return { ok: true, same: true };
+  var idx = getJson_('LREP_INDEX') || [];
+  var old = idx.filter(function (x) { return x.key === key; })[0], file = null;
+  if (old) { try { file = DriveApp.getFileById(old.f); } catch (e) { file = null; } }
+  var content = JSON.stringify(rep);
+  if (file) file.setContent(content);
+  else file = lessonReportFolder_().createFile('דוח שיעור ' + Utilities.formatDate(new Date(l.created), TZ, 'yyyy-MM-dd HH-mm') +
+    (l.cls ? ' כיתה ' + l.cls : '') + ' קוד ' + l.code + '.json', content, 'application/json');
+  var entry = { key: key, f: file.getId(), c: l.code, l: String(l.label || '').slice(0, 40), k: l.cls || '', t: l.created, s: rep.savedAt,
+                n: rep.students.length, o: rep.students.filter(function (x) { return x.leaves > 0; }).length };
+  var lock = LockService.getScriptLock();
+  if (lock.tryLock(5000)) {
+    try {
+      idx = (getJson_('LREP_INDEX') || []).filter(function (x) { return x.key !== key; });
+      idx.push(entry);
+      idx.sort(function (a, b) { return b.t - a.t; });
+      PropertiesService.getScriptProperties().setProperty('LREP_INDEX', JSON.stringify(idx.slice(0, LREP_MAX)));
+    } finally { lock.releaseLock(); }
+  }
+  cache.put(hk, sig, 21600);
+  return { ok: true, saved: true, id: entry.f };
+}
+function saveLessonReport_(code) {
+  var l = lessons_()[String(code || '')];
+  if (!l || !l.monitor) return { ok: false, error: 'אין שיעור עם בקרה בקוד הזה' };
+  return saveReportFor_(l, true);
+}
+function lessonReportsList_() {
+  var id = PropertiesService.getScriptProperties().getProperty('LREP_FOLDER_ID');
+  return { ok: true, reports: (getJson_('LREP_INDEX') || []).map(function (x) {
+    return { id: x.f, code: x.c, label: x.l, cls: x.k, created: x.t, savedAt: x.s, students: x.n, left: x.o };
+  }), folder: id ? 'https://drive.google.com/drive/folders/' + id : '' };
+}
+function lessonReportGet_(id) {
+  id = String(id || '');
+  var known = (getJson_('LREP_INDEX') || []).some(function (x) { return x.f === id; });
+  if (!known) return { ok: false, error: 'הדוח לא נמצא' };
+  try { return { ok: true, report: JSON.parse(DriveApp.getFileById(id).getBlob().getDataAsString()) }; }
+  catch (e) { return { ok: false, error: 'לא הצלחנו לפתוח את הדוח' }; }
 }
 
 // ---------- "חדרים": פעילות ולוח לכל שיעור ----------
