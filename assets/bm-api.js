@@ -22,6 +22,24 @@ window.BM_API_URL = 'https://script.google.com/macros/s/AKfycbwkhxAu28oe10-Mli0t
     var v = !m ? k : !k ? m : ((k.until || 0) > (m.until || 0) ? k : m);
     return v ? String(v.code) : "";
   };
+  /* שם התלמיד בשיעור עם בקרה ננעל במכשיר עד סוף השיעור: גם אחרי "יציאה" וכניסה מחדש
+     עם אותו קוד - אותו שם ואותו מזהה. כך אי אפשר להיכנס שוב בשם של תלמיד אחר. */
+  window.BM_LESSON_LOCK = {
+    get: function(code){
+      try{
+        var m = JSON.parse(localStorage.getItem("bm-lesson-names") || "{}"), v = m[String(code)];
+        return (v && v.name && v.sid && v.until > Date.now()) ? v : null;
+      }catch(e){ return null; }
+    },
+    set: function(code, name, sid, until){
+      try{
+        var m = JSON.parse(localStorage.getItem("bm-lesson-names") || "{}"), now = Date.now();
+        Object.keys(m).forEach(function(k){ if(!(m[k] && m[k].until > now)) delete m[k]; });
+        m[String(code)] = { name:name, sid:sid, until:until };
+        localStorage.setItem("bm-lesson-names", JSON.stringify(m));
+      }catch(e){}
+    }
+  };
   window.BM_TEACHER_ROOM = {
     get: function(){ return read(localStorage, "bm-teacher-room"); },
     set: function(code, until){

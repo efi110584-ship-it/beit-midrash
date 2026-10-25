@@ -307,7 +307,7 @@
 <script src="assets/flashcards-data.js"></script>
 <script src="assets/live-render.js"></script>
 <script src="assets/live-teacher.js"></script>
-<script src="assets/live-monitor.js?v=2"></script>
+<script src="assets/live-monitor.js?v=3"></script>
 <script>
 (function(){
   "use strict";
@@ -638,7 +638,7 @@
               '<tbody id="ttLiveRows"></tbody>' +
             '</table>' +
           '</div>' +
-          '<p class="tt-note">מתעדכן לבד כל 5 שניות. כל יציאה מעל 3 שניות נספרת: לשונית או אפליקציה אחרת, וגם חלון אחר במחשב. כשתלמיד יוצא, מדביק טקסט או מתנתק - קופצת התראה עם צליל. לחיצה על שם התלמיד מציגה את כל מה שקרה אצלו, עם שעות. האתר לא יודע לאן התלמיד יצא.</p>' +
+          '<p class="tt-note">מתעדכן לבד כל 5 שניות. נספרת יציאה מעל 5 שניות (לשונית או אפליקציה אחרת), ומעבר לחלון אחר במחשב מעל 10 שניות. מעבר בין דפים באתר ולחיצה על סרטון או מצגת בתוך הדף לא נספרים. התראות קופצות וצליל כבויים, כדי שלא יופיעו על המסך המוקרן; אפשר להפעיל אותם בכפתור כאן. מי שמנסה להיכנס בשם של תלמיד שכבר מחובר - נחסם, ומופיע ⚠ ליד השם. לחיצה על שם התלמיד מציגה את כל מה שקרה אצלו, עם שעות. האתר לא יודע לאן התלמיד יצא.</p>' +
         '</div>' +
         '</div>' +
         '<div class="tt-panel" role="tabpanel" id="ttPanel-exams" aria-labelledby="ttTab-exams" hidden>' +
@@ -1248,7 +1248,7 @@
         var sid = p.sid || p.name || "";
         var open = !!liveOpen[sid];
         return '<tr class="tt-live-' + p.status + ' tt-live-row" data-sid="' + escapeAttr(sid) + '" style="cursor:pointer" title="לחיצה: כל מה שקרה אצל התלמיד">' +
-          '<td><span aria-hidden="true">' + (open ? '▾' : '◂') + '</span> ' + escapeHtml(p.name || "ללא שם") + '</td>' +
+          '<td><span aria-hidden="true">' + (open ? '▾' : '◂') + '</span> ' + escapeHtml(p.name || "ללא שם") + (p.dups ? ' <span title="ניסו להיכנס בשם הזה ממכשיר אחר - הכניסה נחסמה">⚠</span>' : '') + '</td>' +
           '<td>' + st + '</td>' +
           '<td>' + escapeHtml(whereText) + '</td>' +
           '<td class="tt-date">' + (p.leaves ? '<b>' + p.leaves + '</b>' : '0') + '</td>' +
@@ -2465,7 +2465,14 @@
     function askName(code, res){
       pending = { code:code, res:res };
       msg.textContent = "✓ " + (res.label || res.url) + " · כתבו את השם שלכם ולחצו \"כניסה לשיעור\".";
-      try{ nameInput.value = nameInput.value || localStorage.getItem("bm-lesson-name") || ""; }catch(e){}
+      var lk = window.BM_LESSON_LOCK && window.BM_LESSON_LOCK.get(code);
+      nameInput.readOnly = !!lk;
+      if(lk){
+        nameInput.value = lk.name;
+        msg.textContent = "✓ " + (res.label || res.url) + " · נכנסת כבר לשיעור הזה בשם \"" + lk.name + "\". באמצע שיעור אי אפשר להחליף שם - לחצו \"כניסה לשיעור\".";
+      } else {
+        try{ nameInput.value = nameInput.value || localStorage.getItem("bm-lesson-name") || ""; }catch(e){}
+      }
       nameStep.hidden = false;
       nameInput.focus();
     }
@@ -2473,11 +2480,15 @@
       if(!pending) return;
       var name = nameInput.value.replace(/\s+/g, " ").trim();
       if(name.length < 2){ msg.textContent = "כתבו את השם המלא שלכם."; nameInput.focus(); return; }
-      var r = pending.res;
+      var r = pending.res, until = r.until || (Date.now() + 12 * 3600 * 1000);
+      var lk = window.BM_LESSON_LOCK && window.BM_LESSON_LOCK.get(pending.code);
+      if(lk) name = lk.name;
+      var sid = lk ? lk.sid : newSid();
+      if(!lk && window.BM_LESSON_LOCK) window.BM_LESSON_LOCK.set(pending.code, name, sid, until);
       try{
         localStorage.setItem("bm-lesson-name", name);
         localStorage.setItem("bm-lesson-mode", JSON.stringify({
-          code:pending.code, name:name, sid:newSid(), until:r.until || (Date.now() + 12 * 3600 * 1000),
+          code:pending.code, name:name, sid:sid, until:until,
           label:r.label || "", leaves:0
         }));
       }catch(e){}
@@ -2491,6 +2502,7 @@
       msg.textContent = "";
       form.classList.remove("is-error");
       nameStep.hidden = true;
+      nameInput.readOnly = false;
       pending = null;
     });
     form.addEventListener("submit", function(e){
@@ -2527,7 +2539,7 @@
 
 </script>
 <script src="assets/lesson-mode.js"></script>
-<script src="assets/class-dock.js?v=20261023-1"></script>
+<script src="assets/class-dock.js?v=20261025-1"></script>
 <script src="assets/my-work.js?v=2"></script>
 </body>
 </html>

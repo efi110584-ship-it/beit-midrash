@@ -46,7 +46,8 @@ var OTHER_TEACHER = { cls: 'יא', sections: ['1', '3'], subjects: ['תנ"ך', '
 // YA2_TSB_EMAIL (המייל) ו-YA2_TSB_FOLDER_ID (תיקייה בדרייב, לא חובה).
 // בלי תיקייה - העבודה נשמרת כרגיל ומופיעה בלוח ההגשות, ורק המייל עליה נשלח לכתובת הזו.
 var YA2_TSB = { cls: 'יא', sections: ['2'], subjects: ['תושב"ע'] };
-var AWAY_GRACE_SEC = 3;            // יציאה קצרה מזה (מעבר בין דפים באתר) לא נספרת
+var AWAY_GRACE_SEC = 5;            // יציאה קצרה מזה (מעבר בין דפים באתר, טעינה איטית) לא נספרת
+var BLUR_GRACE_SEC = 10;           // "חלון אחר" (הדף עדיין גלוי) נספר רק אם נמשך יותר מזה
 var GONE_AFTER_SEC = 75;           // תלמיד שלא דיווח זמן כזה - "לא מחובר" (התלמיד מדווח כל 30 שניות)
 var PRES_LOG_MAX = 20;             // כמה אירועים אחרונים נשמרים לכל תלמיד (יציאות, הדבקות, כניסה)
 
@@ -841,6 +842,8 @@ function monitoredLesson_(code) {
   return (l && l.monitor) ? l : null;
 }
 
+function graceMs_(reason) { return (reason === 'blur' ? BLUR_GRACE_SEC : AWAY_GRACE_SEC) * 1000; }
+
 function presence_(d) {
   var l = monitoredLesson_(d.code);
   if (!l) return { ok: false, ended: true };
@@ -863,11 +866,28 @@ function presence_(d) {
     try { all = JSON.parse(cache.get(key) || '{}'); } catch (e) { all = {}; }
     var now = Date.now();
     var isNew = !all[sid];
+    if (isNew && name) {
+      // שם שכבר מחובר לשיעור ממכשיר אחר - לא נכנסים בו. מי שמחובר בשם הזה רואה אצל המורה "ניסו להיכנס בשם הזה".
+      var nk = nameKey_(name);
+      var twin = Object.keys(all).filter(function (k) {
+        var o = all[k];
+        return nameKey_(o.name) === nk && o.state !== 'bye' && now - (o.last || 0) < GONE_AFTER_SEC * 1000;
+      })[0];
+      if (twin) {
+        var o = all[twin];
+        o.dups = (o.dups || 0) + 1;
+        if (!o.ev) o.ev = [];
+        o.ev.push({ k: 'dup', at: now });
+        if (o.ev.length > PRES_LOG_MAX) o.ev = o.ev.slice(-PRES_LOG_MAX);
+        cache.put(key, JSON.stringify(all), 21600);
+        return { ok: false, nameTaken: true };
+      }
+    }
     var p = all[sid] || { name: name, leaves: 0, state: 'in', outSince: 0, t: 0, outTotal: 0, pastes: 0, ev: [] };
     if (!p.ev) p.ev = [];
     if (t < (p.t || 0)) return { ok: true, leaves: p.leaves };   // דיווח ישן שהגיע מאוחר - מתעלמים
     p.t = t;
-    if (name) p.name = name;
+    if (name && !p.name) p.name = name;   // השם נקבע בכניסה הראשונה - אי אפשר להחליף אותו באמצע השיעור
     if (page && page !== p.page && !isNew) p.ev.push({ k: 'page', at: now, page: page });
     if (page) p.page = page;
     if (isNew) p.ev.push({ k: 'join', at: now, page: page });
@@ -880,7 +900,7 @@ function presence_(d) {
     } else if (state === 'in') {
       if (p.state === 'out') {
         var away = now - p.outSince;
-        if (away > AWAY_GRACE_SEC * 1000) {
+        if (away > graceMs_(p.outReason)) {
           p.leaves++;
           p.outTotal = (p.outTotal || 0) + Math.round(away / 1000);
           p.ev.push({ k: 'out', at: p.outSince, back: now, sec: Math.round(away / 1000), why: p.outReason || 'hidden' });
@@ -898,12 +918,14 @@ function presence_(d) {
     p.last = now;
     all[sid] = p;
     cache.put(key, JSON.stringify(all), 21600);
-    var act = actFor_(l.code, true);
-    return { ok: true, leaves: p.leaves, act: (act && act.open) ? { id: act.id, prompt: act.prompt } : null,
-             nav: l.nav ? { id: l.nav.id, url: l.nav.url, label: l.nav.label } : null };
+    var leaves = p.leaves;
   } finally {
     lock.releaseLock();
   }
+  // מחוץ לנעילה - כדי שדיווחים של תלמידים אחרים לא יחכו
+  var act = actFor_(l.code, true);
+  return { ok: true, leaves: leaves, act: (act && act.open) ? { id: act.id, prompt: act.prompt } : null,
+           nav: l.nav ? { id: l.nav.id, url: l.nav.url, label: l.nav.label } : null };
 }
 
 // code - איזה שיעור להציג. בלי קוד (או קוד שכבר לא פעיל) - השיעור עם הבקרה שנוצר אחרון.
@@ -920,13 +942,13 @@ function presenceList_(code) {
     var p = all[sid];
     var status;
     if (p.state === 'bye') status = 'bye';
-    else if (p.state === 'out') status = (now - p.outSince > AWAY_GRACE_SEC * 1000) ? 'out' : 'in';
+    else if (p.state === 'out') status = (now - p.outSince > graceMs_(p.outReason)) ? 'out' : 'in';
     else status = (now - p.last > GONE_AFTER_SEC * 1000) ? 'gone' : 'in';
     var outFor = p.state === 'out' ? Math.round((now - p.outSince) / 1000) : 0;
     return { sid: sid, name: p.name || '', page: p.page || '', status: status, leaves: p.leaves || 0,
              outFor: outFor, outWhy: p.state === 'out' ? (p.outReason || 'hidden') : '',
              outSince: p.state === 'out' ? p.outSince : 0,
-             outTotal: (p.outTotal || 0) + (status === 'out' ? outFor : 0), pastes: p.pastes || 0,
+             outTotal: (p.outTotal || 0) + (status === 'out' ? outFor : 0), pastes: p.pastes || 0, dups: p.dups || 0,
              ev: p.ev || [], lastAgo: Math.round((now - (p.last || now)) / 1000) };
   });
   return { ok: true, lesson: { code: l.code, label: l.label, url: l.url, cls: l.cls, nav: l.nav || null },

@@ -107,15 +107,20 @@
     codeIn.addEventListener("input", function(){
       var clean = codeIn.value.replace(/\D/g, "").slice(0, 4);
       if(clean !== codeIn.value) codeIn.value = clean;
-      msg.textContent = ""; pending = null; nameBox.hidden = true;
+      msg.textContent = ""; pending = null; nameBox.hidden = true; nameIn.readOnly = false;
     });
     function enter(code, res, name){
       var until = res.until || (Date.now() + 12 * 3600 * 1000);
       write(KEY_STORE, { code:code, page:res.url.split("#")[0], until:until });
       if(res.monitor){
-        var a = new Uint8Array(9);
-        (window.crypto || window.msCrypto).getRandomValues(a);
-        var sid = Array.prototype.map.call(a, function(b){ return ("0" + b.toString(16)).slice(-2); }).join("");
+        var lk = window.BM_LESSON_LOCK && window.BM_LESSON_LOCK.get(code), sid;
+        if(lk){ name = lk.name; sid = lk.sid; }
+        else {
+          var a = new Uint8Array(9);
+          (window.crypto || window.msCrypto).getRandomValues(a);
+          sid = Array.prototype.map.call(a, function(b){ return ("0" + b.toString(16)).slice(-2); }).join("");
+          if(window.BM_LESSON_LOCK) window.BM_LESSON_LOCK.set(code, name, sid, until);
+        }
         try{
           localStorage.setItem("bm-lesson-name", name);
           localStorage.setItem("bm-lesson-mode", JSON.stringify({ code:code, name:name, sid:sid, until:until, label:res.label || "", leaves:0 }));
@@ -141,7 +146,10 @@
         if(res.monitor){
           pending = { code:code, res:res };
           msg.textContent = "";
-          try{ nameIn.value = nameIn.value || localStorage.getItem("bm-lesson-name") || ""; }catch(err){}
+          var lk = window.BM_LESSON_LOCK && window.BM_LESSON_LOCK.get(code);
+          nameIn.readOnly = !!lk;
+          if(lk){ nameIn.value = lk.name; msg.textContent = "נכנסת כבר לשיעור הזה בשם \"" + lk.name + "\". באמצע שיעור אי אפשר להחליף שם."; }
+          else try{ nameIn.value = nameIn.value || localStorage.getItem("bm-lesson-name") || ""; }catch(err){}
           nameBox.hidden = false;
           nameIn.focus();
           return;
@@ -204,25 +212,48 @@
   var leaves = st.leaves || 0;
   var timer = null;
   var bar = null;
+  var stopped = false;
 
   function save(){ try{ st.leaves = leaves; localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} }
 
-  function send(state, onDone, extra){
+  function send(state, onDone, extra, retry){
     var msg = { action:"presence", code:st.code, sid:st.sid, name:st.name, page:page, state:state, t:Date.now() };
     if(extra) for(var k in extra) msg[k] = extra[k];
     var body = JSON.stringify(msg);
+    /* השרת עסוק (הרבה תלמידים מדווחים יחד) או שהחיבור נפל - מנסים שוב פעם אחת, עם אותו זמן.
+       בלי זה "חזרתי לדף" יכול ללכת לאיבוד, והמורה רואה יציאה שלא הייתה. */
+    function again(){ if(!retry && !stopped) setTimeout(function(){ sendRaw(body, onDone, true); }, 1200 + Math.random() * 1500); }
+    sendRaw(body, onDone, retry, again);
+  }
+  function sendRaw(body, onDone, retried, again){
     try{
       fetch(API, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" }, body:body, keepalive:true })
         .then(function(r){ return r.json(); })
         .then(function(res){
           if(res && res.ended){ end(); return; }
+          if(res && res.nameTaken){ nameTaken(); return; }
+          if(res && res.busy){ if(again) again(); return; }
           if(res && res.ok) navCheck(res.nav);
           if(res && res.ok && !window.BM_DOCK) actNotice(res.act);   /* בדפים עם סרגל הכלים - הסרגל מודיע */
           if(res && res.ok && onDone) onDone(res);
         })
-        .catch(function(){ /* בלי חיבור - ננסה שוב בדיווח הבא */ });
+        .catch(function(){ if(again) again(); });
     }catch(e){}
   }
+  /* השם כבר מחובר לשיעור ממכשיר אחר - לא נכנסים בו */
+  function nameTaken(){
+    var who = st ? st.name : "";
+    end();
+    var c = document.createElement("div");
+    c.setAttribute("role", "alertdialog");
+    c.style.cssText = "position:fixed;inset:0;z-index:10002;display:flex;align-items:center;justify-content:center;padding:20px;" +
+      "background:#0B2A5B;color:#fff;text-align:center;direction:rtl;font:700 18px/1.5 Heebo,Rubik,Arial,sans-serif";
+    c.innerHTML = '<div><div style="font-size:44px" aria-hidden="true">⛔</div><p style="margin:10px 0 6px">השם "' + esc(who) + '" כבר נמצא בשיעור ממכשיר אחר</p>' +
+      '<p style="margin:0 0 14px;font-weight:400;font-size:16px">אי אפשר להיכנס לשיעור בשם של תלמיד אחר. אם זה השם שלך - קרא/י למורה. המורה רואה את הניסיון.</p>' +
+      '<a href="index.html" style="color:#FFD9B8">לדף הבית</a></div>';
+    document.body.appendChild(c);
+  }
+  function esc(t){ return String(t == null ? "" : t).replace(/[&<>"']/g, function(ch){ return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch]; }); }
 
   /* ---------- הפס שמראה לתלמיד שהבקרה פעילה ---------- */
   function injectStyle(){
@@ -288,6 +319,7 @@
     }catch(e){}
     if(target === page) return;
     navigating = true;
+    markNav();
     toast("המורה מעביר את הכיתה" + (nav.label ? ": " + nav.label : "") + "…");
     setTimeout(function(){ location.href = nav.url; }, 1500);
   }
@@ -309,6 +341,7 @@
   }
 
   function end(){
+    stopped = true;
     try{ localStorage.removeItem(KEY); }catch(e){}
     if(timer) clearInterval(timer);
     document.removeEventListener("visibilitychange", onVisibility);
@@ -382,7 +415,33 @@
     }
   }
   function onResize(){ clearTimeout(splitTimer); splitTimer = setTimeout(checkSplit, 400); }
-  function onBlur(){ setTimeout(function(){ if(document.visibilityState === "visible" && !document.hasFocus()) goOut("blur"); }, 300); }
+  /* מה לא נחשב יציאה:
+     - לחיצה בתוך מסגרת שבדף (סרטון, מצגת, טופס) - הפוקוס עובר למסגרת, אבל התלמיד עדיין בדף.
+     - חלונית של האתר עצמו (אישור, הודעה, הדפסה).
+     - מעבר לדף אחר באתר (קישור, או המורה שהעביר את הכיתה) - הדף הבא מדווח שהתלמיד בו. */
+  var dialogUntil = 0, navAt = 0;
+  function markNav(){ navAt = Date.now(); }
+  ["alert", "confirm", "prompt", "print"].forEach(function(fn){
+    var orig = window[fn];
+    if(typeof orig !== "function") return;
+    window[fn] = function(){
+      dialogUntil = Date.now() + 600000;
+      try{ return orig.apply(window, arguments); }
+      finally{ dialogUntil = Date.now() + 1500; }
+    };
+  });
+  document.addEventListener("click", function(e){
+    var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
+    if(!a || e.defaultPrevented || e.button > 0 || e.ctrlKey || e.metaKey || e.shiftKey) return;
+    if(a.target && a.target !== "_self") return;
+    try{ var u = new URL(a.href, location.href); if(u.origin === location.origin && u.pathname !== location.pathname) markNav(); }catch(err){}
+  }, true);
+  document.addEventListener("submit", markNav, true);
+  function innocentBlur(){
+    var a = document.activeElement;
+    return (a && a.tagName === "IFRAME") || Date.now() < dialogUntil;
+  }
+  function onBlur(){ setTimeout(function(){ if(document.visibilityState === "visible" && !document.hasFocus() && !innocentBlur()) goOut("blur"); }, 300); }
   function onPaste(e){
     var t = e.target;
     if(!t || !(t.tagName === "TEXTAREA" || (t.tagName === "INPUT" && /^(text|search|)$/.test(t.type || "")) || t.isContentEditable)) return;
@@ -391,7 +450,10 @@
     send("paste", null, { len:len });
   }
   function onVisibility(){
-    if(document.visibilityState === "hidden"){ isOut = false; goOut("hidden"); }
+    if(document.visibilityState === "hidden"){
+      if(Date.now() - navAt < 4000) return;   /* עובר לדף אחר באתר */
+      isOut = false; goOut("hidden");
+    }
     else comeBack();
   }
 

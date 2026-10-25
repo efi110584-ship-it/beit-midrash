@@ -3,15 +3,17 @@
    והחלון "👥 שיעור חי" בסרגל הכחול - assets/class-dock.js)
    ============================================================
    - watch(res): משווה לרענון הקודם ומקפיץ התראה (עם צליל) כשתלמיד
-     יוצא מהדף, מדביק טקסט, או מתנתק.
+     יוצא מהדף, מדביק טקסט, או מתנתק - רק אם המורה הפעיל התראות קופצות.
+     ברירת המחדל: כבוי, כי מסך המורה מוקרן לכיתה וההתראות מסיחות.
+     המצב נראה בכל מקרה בטבלה ובמספר הכתום על כפתור "שיעור חי".
    - timelineHtml(s): כל האירועים של תלמיד, מהחדש לישן.
-   - soundButton(): כפתור להפעלה/השתקה של הצליל (נשמר במכשיר).
+   - soundButton(): כפתור להפעלה/כיבוי של ההתראות הקופצות והצליל (נשמר במכשיר).
    הנתונים מגיעים מ-presenceList בסקריפט (apps-script/Code.gs).
    ============================================================ */
 (function(){
   "use strict";
   if(window.BM_LIVEMON) return;
-  var SOUND_KEY = "bm-live-sound";
+  var SOUND_KEY = "bm-live-alerts";   /* "1" = התראות קופצות וצליל פועלים */
   var prev = {};          /* קוד שיעור -> { sid -> {status, pastes} } */
   var flashTimer = null, baseTitle = document.title, unseen = 0;
   var audio = null;
@@ -35,7 +37,7 @@
     return u ? u.title : p;
   }
 
-  function soundOn(){ try{ return localStorage.getItem(SOUND_KEY) !== "0"; }catch(e){ return true; } }
+  function soundOn(){ try{ return localStorage.getItem(SOUND_KEY) === "1"; }catch(e){ return false; } }
   function beep(kind){
     if(!soundOn()) return;
     try{
@@ -84,6 +86,7 @@
     return s;
   }
   function toast(kind, title, sub){
+    if(!soundOn()) return;   /* התראות כבויות - רק הטבלה והמספר על הכפתור */
     var t = document.createElement("div");
     t.className = "bm-lmon-toast " + kind;
     t.innerHTML = '<div>' + esc(title) + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</div><button type="button" aria-label="סגירה">✕</button>';
@@ -118,7 +121,7 @@
     var code = res.lesson.code, before = prev[code], now = {};
     (res.students || []).forEach(function(s){
       var id = s.sid || s.name;
-      now[id] = { status:s.status, pastes:s.pastes || 0 };
+      now[id] = { status:s.status, pastes:s.pastes || 0, dups:s.dups || 0 };
       if(!before) return;
       var b = before[id];
       var name = s.name || "ללא שם";
@@ -128,6 +131,8 @@
         var last = (s.ev || []).filter(function(e){ return e.k === "paste"; }).pop();
         toast("paste", "📋 " + name + " הדביק/ה טקסט", (last && last.len ? last.len + " תווים · " : "") + (pageName(last && last.page || s.page) || ""));
       }
+      if(b && (s.dups || 0) > (b.dups || 0))
+        toast("paste", "⚠ ניסו להיכנס בשם " + name, "ממכשיר אחר - הכניסה נחסמה");
       if(s.status === "gone" && b && b.status === "in")
         toast("gone", "⚪ " + name + " התנתק/ה", "המכשיר לא מדווח יותר מדקה");
     });
@@ -146,6 +151,7 @@
       else if(e.k === "join") txt = "🟢 נכנס/ה לשיעור" + (e.page ? " · " + pageName(e.page) : "");
       else if(e.k === "page") txt = "↪ עבר/ה לדף: " + pageName(e.page);
       else if(e.k === "bye") txt = "יצא/ה ממצב שיעור (לחץ/ה \"יציאה\")";
+      else if(e.k === "dup"){ cls = "paste"; txt = "⚠ מישהו ניסה להיכנס בשם הזה ממכשיר אחר - הכניסה נחסמה"; }
       else txt = e.k;
       return '<li><time>' + clock(e.at) + '</time><span class="' + cls + '">' + esc(txt) + '</span></li>';
     }).join("") + '</ul>';
@@ -154,9 +160,14 @@
   function soundButton(){
     var b = document.createElement("button");
     b.type = "button";
-    function paint(){ b.textContent = soundOn() ? "🔔 צליל: פועל" : "🔕 צליל: כבוי"; b.setAttribute("aria-pressed", String(soundOn())); }
+    function paint(){
+      b.textContent = soundOn() ? "🔔 התראות קופצות וצליל: פועל" : "🔕 התראות קופצות וצליל: כבוי";
+      b.title = "כשהמסך מוקרן לכיתה - עדיף כבוי. המצב של כל תלמיד מופיע בכל מקרה ברשימה.";
+      b.setAttribute("aria-pressed", String(soundOn()));
+    }
     b.addEventListener("click", function(){
       try{ localStorage.setItem(SOUND_KEY, soundOn() ? "0" : "1"); }catch(e){}
+      if(!soundOn()){ var st = document.getElementById("bmLmonStack"); if(st) st.innerHTML = ""; stopFlash(); }
       paint();
       if(soundOn()) beep("out");
     });

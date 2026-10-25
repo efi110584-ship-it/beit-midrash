@@ -71,6 +71,7 @@
     ".bmd-b[aria-expanded=true]{background:#FF7A1A}" +
     ".bmd-b:focus-visible{outline:3px solid #FFD9B8;outline-offset:2px}" +
     ".bmd-b[hidden]{display:none}" +
+    ".bmd-cnt{position:absolute;top:-4px;left:-4px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:#FF7A1A;color:#fff;font:700 12px/20px Heebo,Rubik,Arial,sans-serif;text-align:center}.bmd-cnt[hidden]{display:none}" +
     ".bmd-dot{position:absolute;top:5px;left:5px;width:10px;height:10px;border-radius:50%;background:#2BD38C;box-shadow:0 0 0 3px rgba(43,211,140,.35)}" +
     ".bmd-dot[hidden]{display:none}" +
     ".bmd-lbl{font-size:10px;color:#fff;opacity:.85;margin-bottom:6px;white-space:nowrap}" +
@@ -131,7 +132,7 @@
   dock.hidden = !isTeacher;
   dock.innerHTML = (isTeacher ? '<span class="bmd-role">מורה</span>' : '') + TOOLS.map(function(t){
     return '<button type="button" class="bmd-b" data-tool="' + t.id + '" aria-expanded="false" aria-controls="bmdPanel" title="' + t.title + '"' + (isTeacher ? '' : ' hidden') + '>' +
-      '<span aria-hidden="true">' + t.ico + '</span><span class="bmd-dot" hidden></span><span class="vh" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">' + t.title + '</span></button>' +
+      '<span aria-hidden="true">' + t.ico + '</span><span class="bmd-dot" hidden></span>' + (t.id === "live" ? '<span class="bmd-cnt" hidden></span>' : '') + '<span class="vh" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">' + t.title + '</span></button>' +
       '<span class="bmd-lbl" data-lbl="' + t.id + '"' + (isTeacher ? '' : ' hidden') + ' aria-hidden="true">' + t.label + '</span>';
   }).join("");
   var panel = document.createElement("section");
@@ -419,12 +420,12 @@
         var sid = s.sid || s.name || "", open = !!liveOpenSids[sid];
         var stt = s.status === "out" ? "🟠 " + (LM ? LM.whyText(s.outWhy) + " · " + LM.dur(s.outFor) : "מחוץ לדף")
           : s.status === "gone" ? "⚪ לא מחובר" : s.status === "bye" ? "יצא ממצב שיעור" : "🟢 בדף";
-        var extra = (s.leaves || 0) + " יציאות" + (s.outTotal && LM ? " · " + LM.dur(s.outTotal) + " בחוץ" : "") + (s.pastes ? " · 📋 " + s.pastes + " הדבקות" : "");
+        var extra = (s.leaves || 0) + " יציאות" + (s.outTotal && LM ? " · " + LM.dur(s.outTotal) + " בחוץ" : "") + (s.pastes ? " · 📋 " + s.pastes + " הדבקות" : "") + (s.dups ? " · ⚠ ניסו להיכנס בשם הזה ממכשיר אחר" : "");
         return '<li class="' + (s.status === "out" ? "is-out" : "") + '" data-sid="' + esc(sid) + '" style="cursor:pointer;flex-wrap:wrap" title="לחיצה: כל מה שקרה אצל התלמיד">' +
           '<b>' + (open ? "▾ " : "◂ ") + esc(s.name || "ללא שם") + '</b><span>' + esc(stt) + '</span><small style="flex-basis:100%">' + esc(extra) + '</small>' +
           (open && LM ? '<div style="flex-basis:100%">' + LM.timelineHtml(s) + '</div>' : '') + '</li>';
       }).join("") + '</ul>' : '<p class="bmd-note">עדיין אף תלמיד לא נכנס עם הקוד.</p>') +
-      '<p class="bmd-note">מתעדכן כל 5 שניות. כל יציאה מעל 3 שניות נספרת, וגם מעבר לחלון אחר. על יציאה, הדבקת טקסט או ניתוק קופצת התראה עם צליל, גם כשהחלון הזה סגור. לחיצה על תלמיד: כל מה שקרה אצלו.</p>';
+      '<p class="bmd-note">מתעדכן כל 5 שניות. נספרת יציאה מהדף מעל 5 שניות, ומעבר לחלון אחר מעל 10 שניות. המספר הכתום על כפתור 👥 = כמה תלמידים מחוץ לדף עכשיו. התראות קופצות וצליל כבויים, אלא אם מפעילים אותם כאן (עדיף לא כשהמסך מוקרן). לחיצה על תלמיד: כל מה שקרה אצלו.</p>';
     if(LM){ var sb = LM.soundButton(); sb.className = "bmd-btn"; body.querySelector("#bmdLiveSound").appendChild(sb); }
   }
   function liveTick(){
@@ -432,6 +433,12 @@
       if(livePanelShown() && authMsg(res)) return;
       if(!res || !res.ok){ if(livePanelShown()) body.innerHTML = '<p class="bmd-msg">' + esc((res && res.error) || "לא הצלחנו לטעון.") + '</p>'; return; }
       if(window.BM_LIVEMON) window.BM_LIVEMON.watch(res);
+      var cnt = btn("live") && btn("live").querySelector(".bmd-cnt");
+      if(cnt){
+        var outN = res.lesson ? (res.students || []).filter(function(s){ return s.status === "out"; }).length : 0;
+        cnt.textContent = outN; cnt.hidden = !outN;
+        cnt.title = outN + " מחוץ לדף";
+      }
       if(livePanelShown()) renderLive(res);
       return !!res.lesson;
     }).catch(function(){ if(livePanelShown()) body.innerHTML = '<p class="bmd-msg">אין חיבור לשרת כרגע.</p>'; });
