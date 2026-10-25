@@ -13,6 +13,16 @@
 .bh-how{background:var(--paper-card);border:1px solid var(--paper-line);border-radius:16px;padding:1rem 1.2rem;box-shadow:var(--shadow)}
 .bh-how p{margin:0;font-size:1.05rem;line-height:1.7}
 .bh-tabs{display:flex;flex-wrap:wrap;gap:.5rem}
+.bh-parts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}
+.bh-part-btn{display:flex;flex-direction:column;align-items:flex-start;gap:.1rem;padding:.7rem 1rem;border:2px solid var(--paper-line);border-radius:14px;background:#fff;color:var(--ink);font:inherit;cursor:pointer;text-align:start}
+.bh-part-btn b{font-size:1.15rem}
+.bh-part-btn span{font-size:.9rem;color:var(--ink-soft)}
+.bh-part-btn[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:#fff}
+.bh-part-btn[aria-pressed="true"] span{color:rgba(255,255,255,.85)}
+.bh-part-btn:focus-visible{outline:3px solid var(--focus-ring,#FF7A1A);outline-offset:2px}
+.bh-partbox{display:flex;flex-direction:column;gap:.6rem}
+.bh-partbox[hidden]{display:none}
+.bh-part-note{margin:0;padding:.6rem .9rem;border-radius:12px;background:#FFF6E3;border:1px solid #E7C98B;color:#4A3208;font-size:.98rem;line-height:1.6}
 .bh-tab{display:inline-flex;align-items:center;gap:.4rem;min-height:44px;padding:.45rem .9rem;border:1.5px solid var(--paper-line);border-radius:999px;background:#fff;color:var(--ink);font:inherit;font-size:1rem;font-weight:600;cursor:pointer}
 .bh-tab:hover{border-color:var(--teal)}
 .bh-tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
@@ -49,7 +59,7 @@
 .bh-send p{margin:0;text-align:center}
 .bh-send .bm-send-panel{margin:0;width:100%}
 .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
-@media print{.bh-tabs,.bh-tools,.bh-how,.bh-send,.bh-lesson{display:none !important}.bh-panel[hidden]{display:flex !important}.bh-q{box-shadow:none;break-inside:avoid}}
+@media print{.bh-tabs,.bh-parts,.bh-part-note,.bh-tools,.bh-how,.bh-send,.bh-lesson{display:none !important}.bh-panel[hidden]{display:flex !important}.bh-q{box-shadow:none;break-inside:avoid}}
 </style>
 <script src="assets/a11y.js"></script>
 </head>
@@ -63,7 +73,7 @@
 <header>
   <div class="eyebrow">תורה שבעל פה · שאלון 5371</div>
   <h1>בית, חינוך ומשפחה - שאלות בגרות</h1>
-  <p class="sub">60 שאלות מן הפרק הראשון של הבגרות, ממועדי חורף וקיץ תשפ"א-תשפ"ו, מסודרות לפי נושאים.</p>
+  <p class="sub">110 שאלות בגרות ממועדי חורף וקיץ תשפ"א-תשפ"ו: 60 מן הפרק הראשון (לכולם) ו-50 מן הפרק השלישי (לבנים), מסודרות לפי נושאים.</p>
 </header>
 
 <div class="student-bar" id="printHeader">
@@ -73,8 +83,13 @@
 <p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים.</p>
 
 <main id="main-content" class="bh-wrap">
-  <div class="bh-how"><p>בחרו נושא. בכל שאלה רשום מאיזה מועד בגרות היא, וכמה נקודות שווה כל סעיף. כתבו תשובה בתיבה של כל סעיף. בסוף כל נושא יש כפתור "שלחו למורה" - הוא שולח רק את התשובות של הנושא הזה.</p></div>
-  <div class="bh-tabs" role="tablist" aria-label="נושאים">
+  <div class="bh-how"><p>בחרו פרק (ראשון או שלישי) ואז נושא. בכל שאלה רשום מאיזה מועד בגרות היא, וכמה נקודות שווה כל סעיף. כתבו תשובה בתיבה של כל סעיף. בסוף כל נושא יש כפתור "שלחו למורה" - הוא שולח רק את התשובות של הנושא הזה.</p></div>
+  <div class="bh-parts" role="group" aria-label="פרקי הבחינה">
+    <button type="button" class="bh-part-btn" data-part-btn="1" aria-pressed="true"><b>פרק ראשון</b><span>לכולם · 60 שאלות</span></button>
+    <button type="button" class="bh-part-btn" data-part-btn="3" aria-pressed="false"><b>פרק שלישי</b><span>לבנים · 50 שאלות</span></button>
+  </div>
+  <div class="bh-partbox" data-part="1">
+  <div class="bh-tabs" role="tablist" aria-label="נושאים - פרק ראשון">
     <button type="button" class="bh-tab" role="tab" id="tab-tovim" aria-controls="t-tovim" aria-selected="true" tabindex="0"><span aria-hidden="true">👫</span> "טובים השניים מן האחד" <span class="bh-count">9</span></button>
 <button type="button" class="bh-tab" role="tab" id="tab-yetzer" aria-controls="t-yetzer" aria-selected="false" tabindex="-1"><span aria-hidden="true">🛡️</span> יצר ויצירה <span class="bh-count">12</span></button>
 <button type="button" class="bh-tab" role="tab" id="tab-matai" aria-controls="t-matai" aria-selected="false" tabindex="-1"><span aria-hidden="true">⏳</span> מתי להינשא? <span class="bh-count">4</span></button>
@@ -84,6 +99,22 @@
 <button type="button" class="bh-tab" role="tab" id="tab-ona" aria-controls="t-ona" aria-selected="false" tabindex="-1"><span aria-hidden="true">❤️</span> מצוות עונה / קרבה בין האיש לאישה <span class="bh-count">1</span></button>
 <button type="button" class="bh-tab" role="tab" id="tab-gerushin" aria-controls="t-gerushin" aria-selected="false" tabindex="-1"><span aria-hidden="true">⚖️</span> גירושין ועגינות <span class="bh-count">3</span></button>
 <button type="button" class="bh-tab" role="tab" id="tab-horim" aria-controls="t-horim" aria-selected="false" tabindex="-1"><span aria-hidden="true">👨‍👩‍👧</span> חובות ביחסי הורים וילדים <span class="bh-count">3</span></button>
+  </div>
+  </div>
+  <div class="bh-partbox" data-part="3" hidden>
+  <p class="bh-part-note"><b>פרק שלישי (לבנים):</b> בבחינה עונים על שלוש מתוך חמש השאלות 11–15, ולכל שאלה 12 נקודות. ב"שאלות קצרות" עונים על שניים מתוך שלושת הסעיפים. (בחורף תשפ"א: ארבע מתוך חמש השאלות, 10 נקודות לשאלה.)</p>
+  <div class="bh-tabs" role="tablist" aria-label="נושאים - פרק שלישי">
+<button type="button" class="bh-tab" role="tab" id="tab3-tovim" aria-controls="t3-tovim" aria-selected="false" tabindex="0"><span aria-hidden="true">👫</span> "טובים השניים מן האחד" <span class="bh-count">1</span></button>
+<button type="button" class="bh-tab" role="tab" id="tab3-yetzer" aria-controls="t3-yetzer" aria-selected="false" tabindex="-1"><span aria-hidden="true">🛡️</span> יצר ויצירה <span class="bh-count">2</span></button>
+<button type="button" class="bh-tab" role="tab" id="tab3-ktuba" aria-controls="t3-ktuba" aria-selected="false" tabindex="-1"><span aria-hidden="true">📜</span> כתובה <span class="bh-count">1</span></button>
+<button type="button" class="bh-tab" role="tab" id="tab3-mechuyavuyot" aria-controls="t3-mechuyavuyot" aria-selected="false" tabindex="-1"><span aria-hidden="true">🤝</span> מחויבויות שבין איש לאשתו <span class="bh-count">5</span></button>
+<button type="button" class="bh-tab" role="tab" id="tab3-binyan" aria-controls="t3-binyan" aria-selected="false" tabindex="-1"><span aria-hidden="true">🏠</span> בניית הבית <span class="bh-count">2</span></button>
+<button type="button" class="bh-tab" role="tab" id="tab3-mishpacha" aria-controls="t3-mishpacha" aria-selected="false" tabindex="-1"><span aria-hidden="true">👨‍👩‍👧</span> התנהלותה של משפחה <span class="bh-count">8</span></button>
+<button type="button" class="bh-tab" role="tab" id="tab3-kirva" aria-controls="t3-kirva" aria-selected="false" tabindex="-1"><span aria-hidden="true">❤️</span> קרבה בין האיש לאישה <span class="bh-count">8</span></button>
+<button type="button" class="bh-tab" role="tab" id="tab3-sugah" aria-controls="t3-sugah" aria-selected="false" tabindex="-1"><span aria-hidden="true">🌹</span> סוגה בשושנים – קרבה וריחוק בחיי הזוגיות <span class="bh-count">10</span></button>
+<button type="button" class="bh-tab" role="tab" id="tab3-gerushin" aria-controls="t3-gerushin" aria-selected="false" tabindex="-1"><span aria-hidden="true">⚖️</span> גירושין ועגינות <span class="bh-count">3</span></button>
+<button type="button" class="bh-tab" role="tab" id="tab3-ktzarot" aria-controls="t3-ktzarot" aria-selected="false" tabindex="-1"><span aria-hidden="true">⚡</span> שאלות קצרות <span class="bh-count">10</span></button>
+  </div>
   </div>
 <section class="bh-panel" role="tabpanel" id="t-tovim" aria-labelledby="tab-tovim">
 <h2 class="bh-panel-title"><span aria-hidden="true">👫</span> "טובים השניים מן האחד" <small>9 שאלות</small></h2>
@@ -1359,6 +1390,972 @@
 </section>
 </article>
 </section>
+<section class="bh-panel" role="tabpanel" id="t3-tovim" aria-labelledby="tab3-tovim" hidden>
+<h2 class="bh-panel-title"><span aria-hidden="true">👫</span> "טובים השניים מן האחד" <small>פרק שלישי · שאלה אחת</small></h2>
+<article class="bh-q" id="t83s-11">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ג</span><span class="bh-qn">שאלה 11 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">4 נקודות</span></div>
+<p>בני זוג שרוצים לבדוק את התאמתם זה לזה לקראת נישואין – מה עליהם לברר זה עם זה? כתבו שני פרטים.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t83s-11-a">סעיף א</span>
+<textarea class="answer" data-id="t83s-11-a" aria-labelledby="lbl-t83s-11-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">3 נקודות</span></div>
+<p>בגמרא מובאת דרשת חכמים העוסקת באתגר בניית הזוגיות:</p>
+<blockquote class="bh-quote">"בארץ ישראל, כאשר אדם נושא אישה, אומרים לו כך: 'מצא' או 'מוצא'?" (ברכות ח, ע"א. תורגם מן הארמית).</blockquote>
+<p>הסבירו את המשמעות של שאלה זו.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t83s-11-b">סעיף ב</span>
+<textarea class="answer" data-id="t83s-11-b" aria-labelledby="lbl-t83s-11-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">5 נקודות</span></div>
+<p>הרב צבי יהודה קוק הצביע על השוויון הבסיסי שבין איש לאישה וגם על השונות שביניהם. על פי הרב צבי יהודה קוק, הסבירו במה האיש והאישה שווים, וכתבו כיצד הם משלימים זה את זה.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t83s-11-c">סעיף ג</span>
+<textarea class="answer" data-id="t83s-11-c" aria-labelledby="lbl-t83s-11-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+</section>
+<section class="bh-panel" role="tabpanel" id="t3-yetzer" aria-labelledby="tab3-yetzer" hidden>
+<h2 class="bh-panel-title"><span aria-hidden="true">🛡️</span> יצר ויצירה <small>פרק שלישי · 2 שאלות</small></h2>
+<article class="bh-q" id="t81s-11">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"א</span><span class="bh-qn">שאלה 11 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">4 נקודות</span></div>
+<p>על פי רבי נחמן מברסלב, לאחר שאדם חוטא ורוצה לשוב בתשובה, היצר הרע שלו טוען טענה שקרית כדי לגרום לאדם לחשוב שהוא אינו יכול לשוב בתשובה. מהי הטענה השקרית של היצר הרע?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t81s-11-a">סעיף א</span>
+<textarea class="answer" data-id="t81s-11-a" aria-labelledby="lbl-t81s-11-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">8 נקודות</span></div>
+<blockquote class="bh-quote">"רעה חולה היא אצלנו, שכאשר מתעסקים אנו בצדדי השלמות של גדולינו, הננו מטפלים בסיכום האחרון של מעלתם" (הרב יצחק הוטנר, פחד יצחק, אגרות וכתבים).</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t81s-11-b1"><b>(1)</b> הרב יצחק הוטנר מצביע בדבריו על "רעה חולה". הסבר מהי "רעה חולה" זו, וכתוב מה עלולה להיות ההשפעה השלילית של אותה "רעה חולה" על מי שרוצה להיות "שתול בבית השם".</p>
+<textarea class="answer" data-id="t81s-11-b1" aria-labelledby="lbl-t81s-11-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t81s-11-b2"><b>(2)</b> על פי הרב יצחק הוטנר, מהי הדרך הראויה ללמוד ממעשיהם של גדולי ישראל?</p>
+<textarea class="answer" data-id="t81s-11-b2" aria-labelledby="lbl-t81s-11-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t81w-11">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"א</span><span class="bh-qn">שאלה 11 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">5 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t81w-11-a1"><b>(1)</b> הסבר מדוע דווקא יצר התאווה בין המינים הוא היצר החזק ביותר של האדם.</p>
+<textarea class="answer" data-id="t81w-11-a1" aria-labelledby="lbl-t81w-11-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t81w-11-a2"><b>(2)</b> "'ואהבת את ה' א-להיך בכל לבבך...' (דברים, ו', ה'). 'בכל לבבך' – בשני יצריך, ביצר טוב וביצר רע" (ברכות, פרק ט', משנה ה'). על פי הרב ישראל ליפשיץ ("תפארת ישראל"), הסבר כיצד על האדם לעבוד את ה' ביצר הרע שלו.</p>
+<textarea class="answer" data-id="t81w-11-a2" aria-labelledby="lbl-t81w-11-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">5 נקודות</span></div>
+<p>על פי הרב אלישע אבינר, אדם הנלחם ביצר הרע הוא כאדם המטפס על הר גבוה. הסבר את הדימוי הזה.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t81w-11-b">סעיף ב</span>
+<textarea class="answer" data-id="t81w-11-b" aria-labelledby="lbl-t81w-11-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+</section>
+<section class="bh-panel" role="tabpanel" id="t3-ktuba" aria-labelledby="tab3-ktuba" hidden>
+<h2 class="bh-panel-title"><span aria-hidden="true">📜</span> כתובה <small>פרק שלישי · שאלה אחת</small></h2>
+<article class="bh-q" id="t83s-12">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ג</span><span class="bh-qn">שאלה 12 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">5 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83s-12-a1"><b>(1)</b> הסבירו מהי "כתובה".</p>
+<textarea class="answer" data-id="t83s-12-a1" aria-labelledby="lbl-t83s-12-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83s-12-a2"><b>(2)</b> "אסור לו לאדם שישהא את אשתו אפילו שעה אחת בלא כתובה" (בבא קמא פט, ע"א). מהו הטעם להלכה זו?</p>
+<textarea class="answer" data-id="t83s-12-a2" aria-labelledby="lbl-t83s-12-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">4 נקודות</span></div>
+<p>באיזה שלב במעמד החופה קוראים את הכתובה, ומדוע קוראים אותה דווקא בשלב זה?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t83s-12-b">סעיף ב</span>
+<textarea class="answer" data-id="t83s-12-b" aria-labelledby="lbl-t83s-12-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">3 נקודות</span></div>
+<p>הכתובה נכתבת בשני עותקים. עותק אחד נמסר לכלה. למי נמסר העותק השני, ומדוע?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t83s-12-c">סעיף ג</span>
+<textarea class="answer" data-id="t83s-12-c" aria-labelledby="lbl-t83s-12-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+</section>
+<section class="bh-panel" role="tabpanel" id="t3-mechuyavuyot" aria-labelledby="tab3-mechuyavuyot" hidden>
+<h2 class="bh-panel-title"><span aria-hidden="true">🤝</span> מחויבויות שבין איש לאשתו <small>פרק שלישי · 5 שאלות</small></h2>
+<article class="bh-q" id="t83w-11">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ג</span><span class="bh-qn">שאלה 11 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">4 נקודות</span></div>
+<p>בכתובה החתן מתחייב על סכום של מאתיים זוז ועל סכום כסף נוסף (עשרות אלפי שקלים או מאות אלפי שקלים).</p>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83w-11-a1"><b>(1)</b> מהי ההגדרה ההלכתית של הסכום "מאתיים זוז", ומהי ההגדרה ההלכתית של סכום הכסף הנוסף?</p>
+<textarea class="answer" data-id="t83w-11-a1" aria-labelledby="lbl-t83w-11-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83w-11-a2"><b>(2)</b> מדוע תיקנו חכמים שהחתן יתחייב בכתובה על סכום כסף נוסף?</p>
+<textarea class="answer" data-id="t83w-11-a2" aria-labelledby="lbl-t83w-11-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">5 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83w-11-b1"><b>(1)</b> בכתובה מוזכרת ההתחייבות של החתן לשעבד את נכסיו: "וכך אמר החתן ______, אחריות שטר כתובה זו ונדוניה זו ותוספת זו קיבלתי עליי ועל יורשיי אחריי להיפרע מכל המעולה והיקר שבנכסים והקניינים שיש לי תחת השמיים" (תורגם מן הארמית). הסבירו מהי המטרה של שעבוד זה.</p>
+<textarea class="answer" data-id="t83w-11-b1" aria-labelledby="lbl-t83w-11-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83w-11-b2"><b>(2)</b> מהי הפעולה שמעניקה תוקף הלכתי לכתובה?</p>
+<textarea class="answer" data-id="t83w-11-b2" aria-labelledby="lbl-t83w-11-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">3 נקודות</span></div>
+<p>יש הטוענים שבמעמד הנישואין לא ראוי לעסוק בענייני ממון הכתובים בכתובה. על פי מה שלמדתם, מה אפשר להשיב על טענה זו?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t83w-11-c">סעיף ג</span>
+<textarea class="answer" data-id="t83w-11-c" aria-labelledby="lbl-t83w-11-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t82s-11">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ב</span><span class="bh-qn">שאלה 11 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">3 נקודות</span></div>
+<blockquote class="bh-quote">"אסור לו לאדם שישהא את אשתו אפילו שעה אחת בלא כתובה" (בבא קמא פט, ע"א).</blockquote>
+<p>הסבירו מדוע.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t82s-11-a">סעיף א</span>
+<textarea class="answer" data-id="t82s-11-a" aria-labelledby="lbl-t82s-11-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">6 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82s-11-b1"><b>(1)</b> ציינו מהו הסכום של "עיקר כתובה", וכתבו מדוע נקבע סכום זה.</p>
+<textarea class="answer" data-id="t82s-11-b1" aria-labelledby="lbl-t82s-11-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82s-11-b2"><b>(2)</b> הסבירו מדוע תיקנו חכמים "תוספת כתובה".</p>
+<textarea class="answer" data-id="t82s-11-b2" aria-labelledby="lbl-t82s-11-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">3 נקודות</span></div>
+<p>מי הם החותמים על הכתובה?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t82s-11-c">סעיף ג</span>
+<textarea class="answer" data-id="t82s-11-c" aria-labelledby="lbl-t82s-11-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t82w-11">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ב</span><span class="bh-qn">שאלה 11 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">5 נקודות</span></div>
+<blockquote class="bh-quote">"אסור לו לאדם שישהא את אשתו אפילו שעה אחת בלא כתובה. וטעמא מאי? [מהו הטעם?] <u>כדי שלא תהא קלה בעיניו להוציאה</u>" (בבא קמא, פט, ע"א).</blockquote>
+<p>הסבר בלשונך את מטרת האיסור של חכמים במילים המודגשות בקו, וכתוב כיצד מטרה זו מושגת באמצעות הכתובה.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t82w-11-a">סעיף א</span>
+<textarea class="answer" data-id="t82w-11-a" aria-labelledby="lbl-t82w-11-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">7 נקודות</span></div>
+<p>בכתובה מוזכרות ההתחייבויות של הבעל כלפי אשתו:</p>
+<blockquote class="bh-quote">"ואני בעזרת ה' אעבוד ואכבד ואזון ואפרנס ואכלכל ואלביש אותך כמנהג אנשים יהודים שעובדים ומכבדים וזנים ומכלכלים ונושאים ומלבישים את נשותיהם באמונה. ואתן לך מוהר בתולייך כסף מאתיים זוז הראוי לך..." (תורגם מן הארמית).</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82w-11-b1"><b>(1)</b> מה הן שתי התקופות בקשר שבין איש לאישה שאליהן נוגעות התחייבויות אלה?</p>
+<textarea class="answer" data-id="t82w-11-b1" aria-labelledby="lbl-t82w-11-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82w-11-b2"><b>(2)</b> כתוב התחייבות אחת בנוגע לכל אחת מן התקופות (סך הכול – שתי התחייבויות).</p>
+<textarea class="answer" data-id="t82w-11-b2" aria-labelledby="lbl-t82w-11-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t81s-12">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"א</span><span class="bh-qn">שאלה 12 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">3 נקודות</span></div>
+<p>כתוב בלשונך את שלוש החובות מן התורה שחייב הבעל כלפי אשתו.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t81s-12-a">סעיף א</span>
+<textarea class="answer" data-id="t81s-12-a" aria-labelledby="lbl-t81s-12-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">6 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t81s-12-b1"><b>(1)</b> כתוב בלשונך שתי חובות של האישה כלפי בעלה.</p>
+<textarea class="answer" data-id="t81s-12-b1" aria-labelledby="lbl-t81s-12-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t81s-12-b2"><b>(2)</b> מדוע חייבו חכמים את האישה בחובות מסוימות כלפי בעלה?</p>
+<textarea class="answer" data-id="t81s-12-b2" aria-labelledby="lbl-t81s-12-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">3 נקודות</span></div>
+<p>הסבר מהי "נדוניה".</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t81s-12-c">סעיף ג</span>
+<textarea class="answer" data-id="t81s-12-c" aria-labelledby="lbl-t81s-12-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t81w-12">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"א</span><span class="bh-qn">שאלה 12 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">6 נקודות</span></div>
+<p>על פי התורה, הבעל חייב לאשתו שלושה דברים: "שארה כסותה ועונתה" (שמות, כ"א, י').</p>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t81w-12-a1"><b>(1)</b> מה הפירוש של "שארה"?</p>
+<textarea class="answer" data-id="t81w-12-a1" aria-labelledby="lbl-t81w-12-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t81w-12-a2"><b>(2)</b> מה הם שני כללי היסוד המסדירים את זכות האישה בקבלת "שארה"?</p>
+<textarea class="answer" data-id="t81w-12-a2" aria-labelledby="lbl-t81w-12-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">4 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t81w-12-b1"><b>(1)</b> מהו הסכום הבסיסי שהבעל מתחייב בכתובה לתת לאשתו במקרה של פירוק המשפחה?</p>
+<textarea class="answer" data-id="t81w-12-b1" aria-labelledby="lbl-t81w-12-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t81w-12-b2"><b>(2)</b> מדוע נקבע סכום זה?</p>
+<textarea class="answer" data-id="t81w-12-b2" aria-labelledby="lbl-t81w-12-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+</section>
+<section class="bh-panel" role="tabpanel" id="t3-binyan" aria-labelledby="tab3-binyan" hidden>
+<h2 class="bh-panel-title"><span aria-hidden="true">🏠</span> בניית הבית <small>פרק שלישי · 2 שאלות</small></h2>
+<article class="bh-q" id="t85w-11">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ה</span><span class="bh-qn">שאלה 11 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">6 נקודות</span></div>
+<blockquote class="bh-quote">"שלושה דברים צריך אדם לומר בתוך ביתו ערב שבת עם חשכה..." (שבת, פרק ב', משנה ז').</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85w-11-a1"><b>(1)</b> על פי הגמרא, כתבו כיצד יש לומר דברים אלה, והסבירו את החשיבות של אמירת הדברים באופן זה.</p>
+<textarea class="answer" data-id="t85w-11-a1" aria-labelledby="lbl-t85w-11-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85w-11-a2"><b>(2)</b> מדוע כתוב במשנה "לומר בתוך ביתו" ולא כתוב "לומר לבני ביתו"?</p>
+<textarea class="answer" data-id="t85w-11-a2" aria-labelledby="lbl-t85w-11-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">2 נקודות</span></div>
+<p>במהלך הדורות נשאלו הפוסקים מהו עונשו של בעל שמכה את אשתו. כתבו עונש אחד שהציע אחד מן הפוסקים.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t85w-11-b">סעיף ב</span>
+<textarea class="answer" data-id="t85w-11-b" aria-labelledby="lbl-t85w-11-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">4 נקודות</span></div>
+<p>על פי הרמב"ם, גם בזמן שהבעל והאישה מותרים זה לזה, יש מצבים שבהם אסור להם לקיים חיי אישות זה עם זה. כתבו שני מצבים כאלה.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t85w-11-c">סעיף ג</span>
+<textarea class="answer" data-id="t85w-11-c" aria-labelledby="lbl-t85w-11-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t82s-12">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ב</span><span class="bh-qn">שאלה 12 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">4 נקודות</span></div>
+<blockquote class="bh-quote">חז"ל אמרו: "אם חפץ אתה להידבק באהבת חברך הווי נושא ונותן בטובתו, דכתיב: 'ואהבת לרעך כמוך' (ויקרא י"ט, י"ח). מתוך ש'אהבת לרעך' הרי הוא 'כמוך'" (מסכת כלה רבתי, פרק ד', משנה י').</blockquote>
+<p>על פי חז"ל, הסבירו בלשונכם כיצד אדם דבק באהבת חברו.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t82s-12-a">סעיף א</span>
+<textarea class="answer" data-id="t82s-12-a" aria-labelledby="lbl-t82s-12-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">8 נקודות</span></div>
+<p>רות ובועז מתכננים להתחתן. במשפחתה של רות נוהגים להמתין שלוש שעות בין אכילת מאכלי בשר לאכילת מאכלי חלב, ובמשפחתו של בועז נוהגים להמתין שש שעות בין אכילת מאכלי בשר לאכילת מאכלי חלב. כיצד על רות ובועז לנהוג לאחר חתונתם? כתבו שתי דעות ואת הנימוק לכל אחת מהן.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t82s-12-b">סעיף ב</span>
+<textarea class="answer" data-id="t82s-12-b" aria-labelledby="lbl-t82s-12-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+</section>
+<section class="bh-panel" role="tabpanel" id="t3-mishpacha" aria-labelledby="tab3-mishpacha" hidden>
+<h2 class="bh-panel-title"><span aria-hidden="true">👨‍👩‍👧</span> התנהלותה של משפחה <small>פרק שלישי · 8 שאלות</small></h2>
+<article class="bh-q" id="t86s-12">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ו</span><span class="bh-qn">שאלה 12 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">5 נקודות</span></div>
+<p>מפנייתו של יעקב אבינו לרחל ולאה לפני החזרה לארץ־ישראל, ומדברי רבי אלעזר בן עזריה לחכמים שהציעו לו להיות נשיא – עולה עיקרון דומה.</p>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86s-12-a1"><b>(1)</b> כתבו מהו העיקרון.</p>
+<textarea class="answer" data-id="t86s-12-a1" aria-labelledby="lbl-t86s-12-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86s-12-a2"><b>(2)</b> בחרו באחד משני האישים האלה – יעקב אבינו או רבי אלעזר בן עזריה – והדגימו כיצד העיקרון שכתבתם בא לידי ביטוי במעשיו.</p>
+<textarea class="answer" data-id="t86s-12-a2" aria-labelledby="lbl-t86s-12-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">3 נקודות</span></div>
+<blockquote class="bh-quote">"עשה שבתך חול ואל תצטרך לבריות" (רמב"ם ושולחן ערוך).</blockquote>
+<p>הסבירו בלשונכם דברים אלה.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t86s-12-b">סעיף ב</span>
+<textarea class="answer" data-id="t86s-12-b" aria-labelledby="lbl-t86s-12-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">4 נקודות</span></div>
+<blockquote class="bh-quote">"וזכרת את ה' א-להיך כי הוא הנתן לך כח לעשות חיל" (דברים ח', י"ח).</blockquote>
+<p>על פי רבנו ניסים ("דרשות הר"ן"), לפסוק זה יש הסבר שגוי והסבר נכון. מהו ההסבר השגוי, ומהו ההסבר הנכון?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t86s-12-c">סעיף ג</span>
+<textarea class="answer" data-id="t86s-12-c" aria-labelledby="lbl-t86s-12-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t86w-12">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ו</span><span class="bh-qn">שאלה 12 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">6 נקודות</span></div>
+<p>בנוגע לבן סורר ומורה כתב הרב שמשון רפאל הירש (הרש"ר הירש):</p>
+<blockquote class="bh-quote">"איננו שמע בקול אביו ובקול אמו – רק אם יש לילד גם אב וגם אם; ורק אם גם אביו וגם אימו הפעילו עליו את השפעתם המחנכת; ורק אם האב והאם מדברים בקול אחד... ורק אם שניהם עומדים מול הילד באותה מידה של כובד ראש וכבוד; ומעל הכול, רק אם יש ביניהם אחדות דעים ורצון משותף – רק אז יכולים הם לומר לעצמם שלא הם אשמים בקלקלת בנם" (הרב שמשון רפאל הירש, דברים כ"א, י"ח).</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86w-12-a1"><b>(1)</b> על פי הרש"ר הירש, יש כמה תנאים שרק בהתקיימם יוכלו ההורים "לומר לעצמם שלא הם אשמים בקלקלת בנם". ציינו שלושה מן התנאים שמובאים בדברי הרש"ר הירש.</p>
+<textarea class="answer" data-id="t86w-12-a1" aria-labelledby="lbl-t86w-12-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86w-12-a2"><b>(2)</b> על פי הרש"ר הירש, מהו התנאי החשוב ביותר מבין כל התנאים?</p>
+<textarea class="answer" data-id="t86w-12-a2" aria-labelledby="lbl-t86w-12-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86w-12-a3"><b>(3)</b> לדעתכם, מדוע תנאי זה חשוב כל כך בעיצוב דרכו של הילד?</p>
+<textarea class="answer" data-id="t86w-12-a3" aria-labelledby="lbl-t86w-12-a3" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">6 נקודות</span></div>
+<blockquote class="bh-quote">"וזהו תוכחת מרובה על זמננו, שבעוונותינו הרבים הרבה אנשים עוברין על זה, ולא ישימו לב איך להתנהג בהוצאות ביתם להרחיק דברים המותרים..." (הרב ישראל הכהן מראדין, החפץ חיים, ביאור הלכה, סימן תקכט).</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86w-12-b1"><b>(1)</b> מהי ההתנהגות השלילית שבנוגע אליה כתב החפץ חיים דברי תוכחה אלה?</p>
+<textarea class="answer" data-id="t86w-12-b1" aria-labelledby="lbl-t86w-12-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86w-12-b2"><b>(2)</b> על פי המשך דברי החפץ חיים, מה עלול לקרות לאדם שמתנהג כך?</p>
+<textarea class="answer" data-id="t86w-12-b2" aria-labelledby="lbl-t86w-12-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86w-12-b3"><b>(3)</b> על פי המשך דברי החפץ חיים, כיצד אדם יכול להימנע ממצב זה?</p>
+<textarea class="answer" data-id="t86w-12-b3" aria-labelledby="lbl-t86w-12-b3" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t85s-12">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ה</span><span class="bh-qn">שאלה 12 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">2 נקודות</span></div>
+<p>הסבירו מהי החובה "לקבוע עיתים לתורה".</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t85s-12-a">סעיף א</span>
+<textarea class="answer" data-id="t85s-12-a" aria-labelledby="lbl-t85s-12-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">7 נקודות</span></div>
+<blockquote class="bh-quote">"הנשים פטורות מתלמוד תורה... ואף על פי כן חייבות ללמוד דינים השייכים להן..." (הרב יצחק יוסף, ילקוט יוסף).</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85s-12-b1"><b>(1)</b> כתבו מה הם ה"דינים השייכים להן", וציינו שני נושאים של דינים כאלה.</p>
+<textarea class="answer" data-id="t85s-12-b1" aria-labelledby="lbl-t85s-12-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85s-12-b2"><b>(2)</b> הסבירו מדוע נשים חייבות ללמוד דינים אלה.</p>
+<textarea class="answer" data-id="t85s-12-b2" aria-labelledby="lbl-t85s-12-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85s-12-b3"><b>(3)</b> האם נשים צריכות לברך בכל יום ברכות התורה? נמקו את תשובתכם.</p>
+<textarea class="answer" data-id="t85s-12-b3" aria-labelledby="lbl-t85s-12-b3" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">3 נקודות</span></div>
+<p>על פי ה"חפץ חיים" (שדבריו מובאים בדברי הרב יעקב אריאל), בשל המציאות החדשה שלא הייתה בדורות הקודמים יש סיבה נוספת לחייב נשים בלימוד תורה. מהי סיבה זו?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t85s-12-c">סעיף ג</span>
+<textarea class="answer" data-id="t85s-12-c" aria-labelledby="lbl-t85s-12-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t85w-12">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ה</span><span class="bh-qn">שאלה 12 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">7 נקודות</span></div>
+<blockquote class="bh-quote">"כל תורה שאין עימה מלאכה סופה בטלה וגוררת עוון" (אבות, פרק ב', משנה ב').</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85w-12-a1"><b>(1)</b> על פי משנה זו, כתבו בלשונכם מה הן שתי התוצאות השליליות של "תורה שאין עימה מלאכה".</p>
+<textarea class="answer" data-id="t85w-12-a1" aria-labelledby="lbl-t85w-12-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85w-12-a2"><b>(2)</b> על פי ה"שולחן ערוך", מהי הדרך הנכונה לשלב בין מלאכה ללימוד תורה?</p>
+<textarea class="answer" data-id="t85w-12-a2" aria-labelledby="lbl-t85w-12-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">5 נקודות</span></div>
+<p>בנוגע להצלחה כלכלית כתב רבנו ניסים (הר"ן):</p>
+<blockquote class="bh-quote">"ולפי זה יהיה אמת בצד מה, שיוכל העשיר לומר כוחי ועוצם ידי עשה לי את החיל הזה" (רבנו ניסים, דרשות הר"ן).</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85w-12-b1"><b>(1)</b> מדוע יש "אמת בצד מה" בטענת העשיר?</p>
+<textarea class="answer" data-id="t85w-12-b1" aria-labelledby="lbl-t85w-12-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85w-12-b2"><b>(2)</b> הסבירו את הנאמר בתורה בנוגע לטענת העשיר.</p>
+<textarea class="answer" data-id="t85w-12-b2" aria-labelledby="lbl-t85w-12-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t83s-13">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ג</span><span class="bh-qn">שאלה 13 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">8 נקודות</span></div>
+<blockquote class="bh-quote">"ויאמר להן ראה אנכי את פני אביכן כי איננו אלי כתמל שלשם... ויאמר אלי מלאך הא-להים... עתה קום צא מן הארץ הזאת ושוב אל ארץ מולדתך" (בראשית ל"א, ה'–י"ג).</blockquote>
+<p>הרב לוי בן גרשום (הרלב"ג) כתב:</p>
+<blockquote class="bh-quote">"ולזה תמצא שאמר יעקב לנשיו דברים נכוחים, יביאום להישמע אליו ולהיפרד מאביהן, והודיע להן בסוף דבריו כי ה' יתעלה ציווהו ללכת לשוב אל בית אביו, כדי שיתרצו בזה מזה הצד גם כן, שלא ימרו את פי ה' יתעלה".</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83s-13-a1"><b>(1)</b> על פי הפסוקים, מה הם שני הדברים שאמר יעקב לנשותיו?</p>
+<textarea class="answer" data-id="t83s-13-a1" aria-labelledby="lbl-t83s-13-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83s-13-a2"><b>(2)</b> על פי הרלב"ג, לשם מה אמר יעקב את שני הדברים האלה? כתבו שתי מטרות.</p>
+<textarea class="answer" data-id="t83s-13-a2" aria-labelledby="lbl-t83s-13-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83s-13-a3"><b>(3)</b> על פי הרלב"ג, מה אפשר ללמוד מיעקב בנוגע להנהגה הראויה של האדם בתוך ביתו?</p>
+<textarea class="answer" data-id="t83s-13-a3" aria-labelledby="lbl-t83s-13-a3" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">4 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83s-13-b1"><b>(1)</b> הסבירו מהי החובה "לקבוע עיתים לתורה".</p>
+<textarea class="answer" data-id="t83s-13-b1" aria-labelledby="lbl-t83s-13-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83s-13-b2"><b>(2)</b> על פי הרב ישראל מאיר הכהן מראדין ("משנה ברורה" ו"ביאור הלכה"), מה יעשה מי שנאנס ולא למד תורה ביום?</p>
+<textarea class="answer" data-id="t83s-13-b2" aria-labelledby="lbl-t83s-13-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t83w-12">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ג</span><span class="bh-qn">שאלה 12 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">7 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83w-12-a1"><b>(1)</b> מה ענה רבי אלעזר בן עזריה לחכמים שהציעו לו להיות נשיא?</p>
+<textarea class="answer" data-id="t83w-12-a1" aria-labelledby="lbl-t83w-12-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83w-12-a2"><b>(2)</b> על פי הראי"ה קוק, מדברי רבי אלעזר בן עזריה לומדים על ההתנהלות הראויה למנהיג. מהי ההתנהלות הראויה למנהיג, ומהו הקשר בין התנהלות זו ובין התשובה של רבי אלעזר בן עזריה לחכמים?</p>
+<textarea class="answer" data-id="t83w-12-a2" aria-labelledby="lbl-t83w-12-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">5 נקודות</span></div>
+<blockquote class="bh-quote">"בן סורר ומורה לא היה ולא עתיד להיות. ולמה נכתב? דרוש וקבל שכר" (סנהדרין עא, ע"א).</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83w-12-b1"><b>(1)</b> הסבירו מדוע "בן סורר ומורה לא היה ולא עתיד להיות".</p>
+<textarea class="answer" data-id="t83w-12-b1" aria-labelledby="lbl-t83w-12-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83w-12-b2"><b>(2)</b> על פי הרש"ר הירש, הסבירו את הביטוי "דרוש וקבל שכר".</p>
+<textarea class="answer" data-id="t83w-12-b2" aria-labelledby="lbl-t83w-12-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t82s-13">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ב</span><span class="bh-qn">שאלה 13 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">7 נקודות</span></div>
+<blockquote class="bh-quote">"ויאמר להן ראה אנכי את פני אביכן כי איננו אלי כתמל שלשם... ויאמר אלי מלאך הא-להים... עתה קום צא מן הארץ הזאת ושוב אל ארץ מולדתך" (בראשית ל"א, ה'–י"ג).</blockquote>
+<p>הרב לוי בן גרשום (הרלב"ג) כתב:</p>
+<blockquote class="bh-quote">"ולזה תמצא שאמר יעקב לנשיו דברים נכוחים, יביאום להישמע אליו ולהיפרד מאביהן, והודיע להן בסוף דבריו כי ה' יתעלה ציווהו ללכת לשוב אל בית אביו, כדי שיתרצו בזה מזה הצד גם כן, שלא ימרו את פי ה' יתעלה".</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82s-13-a1"><b>(1)</b> מה הם שני הדברים שאמר יעקב לנשותיו?</p>
+<textarea class="answer" data-id="t82s-13-a1" aria-labelledby="lbl-t82s-13-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82s-13-a2"><b>(2)</b> לשם מה אמר יעקב את שני הדברים האלה? כתבו שתי סיבות.</p>
+<textarea class="answer" data-id="t82s-13-a2" aria-labelledby="lbl-t82s-13-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82s-13-a3"><b>(3)</b> על פי הרלב"ג, מה אפשר ללמוד מיעקב בנוגע להנהגה הראויה של האדם בתוך ביתו?</p>
+<textarea class="answer" data-id="t82s-13-a3" aria-labelledby="lbl-t82s-13-a3" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">5 נקודות</span></div>
+<p>כשהציעו חכמים לרבי אלעזר בן עזריה להיות נשיא, הוא השיב: "איזיל ואימליך באינשי ביתי [אלך ואתייעץ באנשי ביתי]" (ברכות כז, ע"ב). הראי"ה קוק כתב על כך:</p>
+<blockquote class="bh-quote">"הורה להם שההנהגה המעולה בענייני עבודת הציבור, אי אפשר שתבוא כי אם שיהיה המנהיג מסור לזה בכל נפשו, שאף מצבו הפרטי יהיה בטל ושקוע בענייני הציבור. על כן גם הליכות ביתו [הנהגת ביתו הפרטי] צריך שתסכים [שתתאים] עם ההנהגה הכוללת ומתוך כך צריך לזה הסכם גברת הבית [אשתו]" (עין אי"ה).</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82s-13-b1"><b>(1)</b> על פי הראי"ה קוק, מה נדרש מאיש ציבור?</p>
+<textarea class="answer" data-id="t82s-13-b1" aria-labelledby="lbl-t82s-13-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82s-13-b2"><b>(2)</b> על פי הראי"ה קוק, מדוע ההחלטה של אדם אם לקבל על עצמו להנהיג את הציבור צריכה להיעשות בהסכמת אשתו?</p>
+<textarea class="answer" data-id="t82s-13-b2" aria-labelledby="lbl-t82s-13-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t82w-12">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ב</span><span class="bh-qn">שאלה 12 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">6 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82w-12-a1"><b>(1)</b> "בן סורר ומורה לא היה ולא עתיד להיות" (סנהדרין, עא, ע"א) – הסבר מדוע.</p>
+<textarea class="answer" data-id="t82w-12-a1" aria-labelledby="lbl-t82w-12-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82w-12-a2"><b>(2)</b> הרש"ר הירש למד מן המילים "איננו שמע בקול אביו ובקול אמו" (דברים, כ"א, י"ח) שנדרשים כמה תנאים כדי שאדם ייחשב בן סורר ומורה. כתוב שניים מן התנאים.</p>
+<textarea class="answer" data-id="t82w-12-a2" aria-labelledby="lbl-t82w-12-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">6 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82w-12-b1"><b>(1)</b> הסבר מהי החובה "לקבוע עיתים לתורה".</p>
+<textarea class="answer" data-id="t82w-12-b1" aria-labelledby="lbl-t82w-12-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82w-12-b2"><b>(2)</b> על פי הרב ישראל מאיר הכהן מראדין ("משנה ברורה" ו"ביאור הלכה"), מה יעשה מי שנאנס ולא למד תורה ביום?</p>
+<textarea class="answer" data-id="t82w-12-b2" aria-labelledby="lbl-t82w-12-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82w-12-b3"><b>(3)</b> על פי הרב ישראל מאיר הכהן מראדין, באיזה אופן ראוי לכתחילה ללמוד תורה?</p>
+<textarea class="answer" data-id="t82w-12-b3" aria-labelledby="lbl-t82w-12-b3" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+</section>
+<section class="bh-panel" role="tabpanel" id="t3-kirva" aria-labelledby="tab3-kirva" hidden>
+<h2 class="bh-panel-title"><span aria-hidden="true">❤️</span> קרבה בין האיש לאישה <small>פרק שלישי · 8 שאלות</small></h2>
+<article class="bh-q" id="t86s-13">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ו</span><span class="bh-qn">שאלה 13 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">5 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86s-13-a1"><b>(1)</b> מהי מצוות עונה, ומדוע היא נקראת כך?</p>
+<textarea class="answer" data-id="t86s-13-a1" aria-labelledby="lbl-t86s-13-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86s-13-a2"><b>(2)</b> מהי החשיבות של מצוות עונה בנוגע לקשר שבין איש לאשתו?</p>
+<textarea class="answer" data-id="t86s-13-a2" aria-labelledby="lbl-t86s-13-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">4 נקודות</span></div>
+<blockquote class="bh-quote">"ואותה ההלכה, הקשה כברזל, שאסרה הזדווגות לאישה בימי נידתה ועשתה כמה <u>סייגים</u> לאיסור זה..." (הרב יוסף דב סולובייצ'יק, "ובקשתם משם", איש ההלכה).</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86s-13-b1"><b>(1)</b> מהו סייג?</p>
+<textarea class="answer" data-id="t86s-13-b1" aria-labelledby="lbl-t86s-13-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86s-13-b2"><b>(2)</b> כתבו מהי מטרתם של הסייגים בהלכות נידה, וציינו דוגמה לסייג כזה.</p>
+<textarea class="answer" data-id="t86s-13-b2" aria-labelledby="lbl-t86s-13-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">3 נקודות</span></div>
+<blockquote class="bh-quote">"אף על פי שאשתו של אדם מותרת לו... ראוי לו... שינהיג עצמו בקדושה" (רמב"ם, הלכות דעות).</blockquote>
+<p>על פי הרמב"ם, כתבו שני דברים שצריך להקפיד עליהם בזמן קיום יחסי אישות.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t86s-13-c">סעיף ג</span>
+<textarea class="answer" data-id="t86s-13-c" aria-labelledby="lbl-t86s-13-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t86w-13">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ו</span><span class="bh-qn">שאלה 13 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">3 נקודות</span></div>
+<p>כיצד חיבור פיזי בין איש לאשתו שנעשה בקדושה ובטהרה, מממש את היותם נבראים בצלם א-לוהים? כתבו הסבר אחד.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t86w-13-a">סעיף א</span>
+<textarea class="answer" data-id="t86w-13-a" aria-labelledby="lbl-t86w-13-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">6 נקודות</span></div>
+<blockquote class="bh-quote">"על כן יעזב איש את אביו ואת אמו <u>ודבק באשתו</u> והיו לבשר אחד" (בראשית ב', כ"ד).</blockquote>
+<p>על פי הרמב"ן, מהו ההבדל בין קשר זוגי בין בעלי חיים ובין קשר זוגי בין בני אדם? בתשובתכם התייחסו למילים המודגשות בקו בפסוק המצוטט.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t86w-13-b">סעיף ב</span>
+<textarea class="answer" data-id="t86w-13-b" aria-labelledby="lbl-t86w-13-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">3 נקודות</span></div>
+<p>על פי חז"ל, אין להחצין את הקשר האינטימי שבין בני הזוג. הסבירו מדוע.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t86w-13-c">סעיף ג</span>
+<textarea class="answer" data-id="t86w-13-c" aria-labelledby="lbl-t86w-13-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t85s-13">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ה</span><span class="bh-qn">שאלה 13 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">6 נקודות</span></div>
+<blockquote class="bh-quote">"אם אחרת יקח לו... לא יגרע" (שמות כ"א, י').</blockquote>
+<p>חכמים למדו מפסוק זה שלאישה נשואה מגיעות שלוש זכויות היסוד שמוזכרות בפסוק (והושמטו בציטוט).</p>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85s-13-a1"><b>(1)</b> שלוש זכויות היסוד האלה הן: מזון, לבוש וחיי אישות. כתבו בנוגע לכל אחת מן הזכויות האלה כיצד היא מכונה בלשון התורה.</p>
+<textarea class="answer" data-id="t85s-13-a1" aria-labelledby="lbl-t85s-13-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85s-13-a2"><b>(2)</b> פסוק זה מוזכר בתורה בפרשיית אמה עברייה. הסבירו כיצד למדו חכמים מפסוק זה שלאישה נשואה מגיעות שלוש זכויות היסוד שמוזכרות בפסוק.</p>
+<textarea class="answer" data-id="t85s-13-a2" aria-labelledby="lbl-t85s-13-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">3 נקודות</span></div>
+<blockquote class="bh-quote">"על כן יעזב איש את אביו ואת אמו ודבק באשתו והיו לבשר אחד" (בראשית ב', כ"ד).</blockquote>
+<p>על פי פירוש הרמב"ן לפסוק זה, מה מייחד את הקשר שבין איש לאישתו לעומת הקשר בין הזכר לנקבה אצל בעלי החיים?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t85s-13-b">סעיף ב</span>
+<textarea class="answer" data-id="t85s-13-b" aria-labelledby="lbl-t85s-13-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">3 נקודות</span></div>
+<blockquote class="bh-quote">"ומגיד לאדם מה שחו" (עמוס ד', י"ג).</blockquote>
+<p>מה למד הרמב"ם מפסוק זה בנוגע לחיי אישות?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t85s-13-c">סעיף ג</span>
+<textarea class="answer" data-id="t85s-13-c" aria-labelledby="lbl-t85s-13-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t85w-13">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ה</span><span class="bh-qn">שאלה 13 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">8 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85w-13-a1"><b>(1)</b> מהי מצוות עונה, ועל מי היא מוטלת?</p>
+<textarea class="answer" data-id="t85w-13-a1" aria-labelledby="lbl-t85w-13-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85w-13-a2"><b>(2)</b> מאיזה שלב בטהרת האישה בני הזוג מותרים בקרבה פיזית, ומתי הם נאסרים בקרבה זו?</p>
+<textarea class="answer" data-id="t85w-13-a2" aria-labelledby="lbl-t85w-13-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85w-13-a3"><b>(3)</b> מהי החשיבות של מצוות עונה בנוגע לקשר שבין איש לאשתו?</p>
+<textarea class="answer" data-id="t85w-13-a3" aria-labelledby="lbl-t85w-13-a3" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">4 נקודות</span></div>
+<p>הרב יוסף דב סולובייצ'יק כתב בנוגע לקיום חיי אישות בין איש לאישתו:</p>
+<blockquote class="bh-quote">"רק בהלכה יש לפעולה זו יסוד מוצק בחיים הדתיים" ("ובקשתם משם", איש ההלכה, עמ' 209).</blockquote>
+<p>בהמשך דבריו כתב הרב יוסף דב סולובייצ'יק כמה הוכחות לדבריו אלה. כתבו שתיים מן ההוכחות.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t85w-13-b">סעיף ב</span>
+<textarea class="answer" data-id="t85w-13-b" aria-labelledby="lbl-t85w-13-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t83w-13">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ג</span><span class="bh-qn">שאלה 13 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">4 נקודות</span></div>
+<p>על פי הרב יוסף דב סולובייצ'יק, ההלכות שנוגעות לחיי האישות שבין איש לאשתו "מיוסדות על עיקרון פסיכולוגי... והן מפליאות בפיקחותן וב'חדישותן'" ("ובקשתם משם", איש ההלכה). כתבו דוגמה אחת להלכה בתחום זה, והסבירו את העיקרון הפסיכולוגי שבהלכה זו.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t83w-13-a">סעיף א</span>
+<textarea class="answer" data-id="t83w-13-a" aria-labelledby="lbl-t83w-13-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">8 נקודות</span></div>
+<p>על הפסוק "על כן יעזב איש את אביו ואת אמו ודבק באשתו והיו לבשר אחד" (בראשית ב', כ"ד) כתב הרמב"ן:</p>
+<blockquote class="bh-quote">"לבשר אחד – הוולד נוצר על ידי שניהם, ושם נעשה בשרם אחד, לשון רש"י. ואין בזה טעם, כי גם הבהמה והחיה יהיו לבשר אחד בוולדותיהם. והנכון בעיניי, כי הבהמה והחיה אין להם דבקות בנקבותיהן, אבל יבוא הזכר על איזה נקבה שימצא וילכו להם..."</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83w-13-b1"><b>(1)</b> הסבירו את הביטוי "והיו לבשר אחד" על פי פירוש רש"י, והסבירו את הנימוק של הרמב"ן לדחיית פירוש זה.</p>
+<textarea class="answer" data-id="t83w-13-b1" aria-labelledby="lbl-t83w-13-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83w-13-b2"><b>(2)</b> על פי המשך דברי הרמב"ן, מה מייחד את הקשר שבין איש לאישה?</p>
+<textarea class="answer" data-id="t83w-13-b2" aria-labelledby="lbl-t83w-13-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t82w-13">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ב</span><span class="bh-qn">שאלה 13 בשאלון · פרק שלישי</span></div>
+<div class="bh-intro"><p>לפניך ציטוטים מפסקה העוסקת במהות של הלכות אישות מתוך ספרו של הרב יוסף דב סולובייצ'יק "איש ההלכה". על פי מה שלמדת בכל הפרקים שבחוברת, ענה על השאלות שלפניך.</p></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">4 נקודות</span></div>
+<blockquote class="bh-quote">"הקב"ה בעצמו מזווג זיווגים".</blockquote>
+<p>דברים אלה מבוססים על מדרש שבו מוסבר מדוע הקב"ה בעצמו מזווג זיווגים. תאר בלשונך את המסופר במדרש.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t82w-13-a">סעיף א</span>
+<textarea class="answer" data-id="t82w-13-a" aria-labelledby="lbl-t82w-13-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">4 נקודות</span></div>
+<blockquote class="bh-quote">"שמחת חתן וכלה חשובה מאוד, וכל המשתתף בה – שכרו רב".</blockquote>
+<p>ציין הלכה (או דוגמה) אחת שמבססת היגד זה.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t82w-13-b">סעיף ב</span>
+<textarea class="answer" data-id="t82w-13-b" aria-labelledby="lbl-t82w-13-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">4 נקודות</span></div>
+<blockquote class="bh-quote">"ואותה ההלכה, הקשה כברזל, שאסרה הזדווגות לאישה בימי נידתה ועשתה כמה סייגים לאיסור זה".</blockquote>
+<p>ציין סייג אחד לאיסור נידה.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t82w-13-c">סעיף ג</span>
+<textarea class="answer" data-id="t82w-13-c" aria-labelledby="lbl-t82w-13-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t81s-13">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"א</span><span class="bh-qn">שאלה 13 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">4 נקודות</span></div>
+<p>מה הן שתי המטרות של מצוות עונה?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t81s-13-a">סעיף א</span>
+<textarea class="answer" data-id="t81s-13-a" aria-labelledby="lbl-t81s-13-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">3 נקודות</span></div>
+<p>הסבר כיצד באמצעות החיבור הפיזי בין האדם לאשתו, האדם מביא לידי ביטוי את "צלם הא-להים" שבו.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t81s-13-b">סעיף ב</span>
+<textarea class="answer" data-id="t81s-13-b" aria-labelledby="lbl-t81s-13-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">5 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t81s-13-c1"><b>(1)</b> כתוב מצב שבו האיש מצווה לקיים חיי אישות עם אשתו (כשהם מותרים זה לזה) אפילו שלא בשעת עונתה.</p>
+<textarea class="answer" data-id="t81s-13-c1" aria-labelledby="lbl-t81s-13-c1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t81s-13-c2"><b>(2)</b> כתוב מצב אחד שבו לא ראוי שבני הזוג יקיימו חיי אישות אף שהם מותרים זה לזה, והסבר מדוע.</p>
+<textarea class="answer" data-id="t81s-13-c2" aria-labelledby="lbl-t81s-13-c2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t81w-13">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"א</span><span class="bh-qn">שאלה 13 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">5 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t81w-13-a1"><b>(1)</b> כיצד מכונה הקשר הפיזי בין איש לאישה בלשון נקייה, לעומת הכינוי המקובל בעולם הרחב?</p>
+<textarea class="answer" data-id="t81w-13-a1" aria-labelledby="lbl-t81w-13-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t81w-13-a2"><b>(2)</b> הסבר את ההבדל המהותי בין שני הכינויים.</p>
+<textarea class="answer" data-id="t81w-13-a2" aria-labelledby="lbl-t81w-13-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">5 נקודות</span></div>
+<p>על פי הרב יוסף דב סולובייצ'יק, ההלכות שנוגעות לחיי האישות שבין איש לאשתו "מיוסדות על עיקרון פסיכולוגי... והן מפליאות בפיקחותן וב'חדישותן'" ("ובקשתם משם", איש ההלכה). כתוב דוגמה אחת להלכה בתחום זה, והסבר את העיקרון הפסיכולוגי שבהלכה זו.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t81w-13-b">סעיף ב</span>
+<textarea class="answer" data-id="t81w-13-b" aria-labelledby="lbl-t81w-13-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+</section>
+<section class="bh-panel" role="tabpanel" id="t3-sugah" aria-labelledby="tab3-sugah" hidden>
+<h2 class="bh-panel-title"><span aria-hidden="true">🌹</span> סוגה בשושנים – קרבה וריחוק בחיי הזוגיות <small>פרק שלישי · 10 שאלות</small></h2>
+<article class="bh-q" id="t86s-14">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ו</span><span class="bh-qn">שאלה 14 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">7 נקודות</span></div>
+<p>בספר "דרכי טהרה" העוסק בהלכות נידה, כתב הרב מרדכי אליהו:</p>
+<blockquote class="bh-quote">"בנות ישראל החמירו על עצמן... וסיבות רבות לחומרא זאת... <u>דין זה, אף על פי שהוא חומרא, נקבע כהלכה שאין עליה עוררין</u>".</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86s-14-a1"><b>(1)</b> הסבירו מהי חומרה זו של בנות ישראל.</p>
+<textarea class="answer" data-id="t86s-14-a1" aria-labelledby="lbl-t86s-14-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86s-14-a2"><b>(2)</b> "וסיבות רבות לחומרא זאת" – כתבו סיבה אחת.</p>
+<textarea class="answer" data-id="t86s-14-a2" aria-labelledby="lbl-t86s-14-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86s-14-a3"><b>(3)</b> כתבו בלשונכם את דברי הרב מרדכי אליהו המודגשים בקו.</p>
+<textarea class="answer" data-id="t86s-14-a3" aria-labelledby="lbl-t86s-14-a3" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">5 נקודות</span></div>
+<blockquote class="bh-quote">"ואשה כי יזוב זוב דמה ימים רבים..." (ויקרא ט"ו, כ"ה).</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86s-14-b1"><b>(1)</b> במדרש (מדרש תנחומא, פרשת מצורע, סימן ו) מובאת שאלה בנוגע לפסוק זה. כתבו בלשונכם את השאלה הזאת.</p>
+<textarea class="answer" data-id="t86s-14-b1" aria-labelledby="lbl-t86s-14-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86s-14-b2"><b>(2)</b> כתבו בלשונכם את תשובת המדרש על השאלה הזאת.</p>
+<textarea class="answer" data-id="t86s-14-b2" aria-labelledby="lbl-t86s-14-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t86w-14">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ו</span><span class="bh-qn">שאלה 14 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">5 נקודות</span></div>
+<blockquote class="bh-quote">"אף על פי שאין ביניהם (בזמן שהאישה נידה) קירוב כלשהו במעשים או בדברים, יש ביניהם קירוב לבבות ודיבורים שבצנעה" (הרב מרדכי אליהו, דרכי טהרה).</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86w-14-a1"><b>(1)</b> על פי הרב מרדכי אליהו, מה על הבעל לעשות כדי שיהיה קירוב לבבות בינו ובין אשתו גם בזמן נידתה?</p>
+<textarea class="answer" data-id="t86w-14-a1" aria-labelledby="lbl-t86w-14-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86w-14-a2"><b>(2)</b> איזה סוג דיבורים על הבעל להימנע מלדבר עם אשתו בזמן נידתה?</p>
+<textarea class="answer" data-id="t86w-14-a2" aria-labelledby="lbl-t86w-14-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">4 נקודות</span></div>
+<blockquote class="bh-quote">"בטנך ערמת חטים סוגה בשושנים" (שיר השירים ז', ג').</blockquote>
+<p>על פי המדרש על פסוק זה, דיני ההרחקות נמשלו לגדר העשויה משושנים. הסבירו את הנמשל. בתשובתכם התייחסו לגדר ולשושנים.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t86w-14-b">סעיף ב</span>
+<textarea class="answer" data-id="t86w-14-b" aria-labelledby="lbl-t86w-14-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">3 נקודות</span></div>
+<blockquote class="bh-quote">"ובטעם המים שיטהרו כל טמא... כדי שיראה האדם את עצמו אחר הטבילה כאילו נברא באותה שעה... וייתן אל ליבו בדמיון כי כמו שנתחדש בגופו, יחדש גם כן פעולותיו לטוב" (ספר החינוך, מצווה קעג).</blockquote>
+<p>על פי בעל ספר החינוך, הסבירו כיצד הטבילה במים עשויה להשפיע על מעשיו של האדם.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t86w-14-c">סעיף ג</span>
+<textarea class="answer" data-id="t86w-14-c" aria-labelledby="lbl-t86w-14-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t85s-14">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ה</span><span class="bh-qn">שאלה 14 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">6 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85s-14-a1"><b>(1)</b> בתורה מוזכרות שתי טומאות של אישה: טומאת נידה וטומאת זבה. I. הסבירו מהי נידה, וכתבו מהו הדין בנוגע אליה על פי התורה. II. הסבירו מהי זבה, וכתבו מהו הדין בנוגע אליה על פי התורה.</p>
+<textarea class="answer" data-id="t85s-14-a1" aria-labelledby="lbl-t85s-14-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85s-14-a2"><b>(2)</b> "אמר רבי זירא: בנות ישראל החמירו על עצמן..." (נידה סו, ע"א). "חומרא זו שנהגו בנות ישראל הוכשרה בעיני החכמים... לפיכך אסור לאדם להקל בה ראשו לעולם" (רמב"ן, הלכות נידה). מה הייתה החומרה של בנות ישראל?</p>
+<textarea class="answer" data-id="t85s-14-a2" aria-labelledby="lbl-t85s-14-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">6 נקודות</span></div>
+<blockquote class="bh-quote">"בטנך ערמת חטים סוגה בשושנים" (שיר השירים ז', ג').</blockquote>
+<p>על פי המדרש לפסוק זה, הביטוי "סוגה בשושנים" הוא דימוי להלכות טהרת המשפחה. הסבירו דימוי זה. בתשובתכם כתבו את הפירוש המילולי של הביטוי "סוגה בשושנים".</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t85s-14-b">סעיף ב</span>
+<textarea class="answer" data-id="t85s-14-b" aria-labelledby="lbl-t85s-14-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t85w-14">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ה</span><span class="bh-qn">שאלה 14 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">5 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85w-14-a1"><b>(1)</b> "אמר רבי לוי: בנוהג שבעולם, אדם נושא אישה... בא ליזקק לה, והיא אומרת לו: כשושנה אדומה ראיתי, ופורש ממנה מייד. מי גרם לו שלא יקרב לה? איזה כותל ברזל יש ביניהם, ואיזה עמוד ברזל ביניהם? איזה נחש נשכו, איזה עקרב עקצו שלא יקרב לה?..." (שיר השירים רבה, פרשה ז, ב). על פי המשך המדרש, מה מונע מן האיש להתקרב לאשתו?</p>
+<textarea class="answer" data-id="t85w-14-a1" aria-labelledby="lbl-t85w-14-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85w-14-a2"><b>(2)</b> "מה מכריח את הנער הצעיר לפרוש מכלתו, אליה הוא נמשך כל כך – כוח חיצוני, סכנה פיזית? לא..." (הרב יוסף דב סולובייצ'יק, "אברהם העברי", חמש דרשות, עמ' 65). על פי המשך דבריו של הרב יוסף דב סולובייצ'יק, הסבירו את תשובתו על שאלה זו.</p>
+<textarea class="answer" data-id="t85w-14-a2" aria-labelledby="lbl-t85w-14-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">7 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85w-14-b1"><b>(1)</b> ציינו על פי הסדר את שלושת השלבים בתהליך היטהרות האישה מטומאת נידתה.</p>
+<textarea class="answer" data-id="t85w-14-b1" aria-labelledby="lbl-t85w-14-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85w-14-b2"><b>(2)</b> הראי"ה קוק הסביר את החשיבות של תהליך ההיטהרות: "טהרה כזאת שתישא עליה רק את תו ההיגיינה, לא תעצור כוח לפעול את הפעולה הנפשית הזאת שהיא חותכת חיים רוחניים וקדושים לאומתנו" (הראי"ה קוק, פנקסי הראי"ה א). I. איזו מטרה של תהליך ההיטהרות שולל הראי"ה קוק? II. מהי המטרה של תהליך ההיטהרות לפי הראי"ה קוק?</p>
+<textarea class="answer" data-id="t85w-14-b2" aria-labelledby="lbl-t85w-14-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t83s-14">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ג</span><span class="bh-qn">שאלה 14 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">8 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83s-14-a1"><b>(1)</b> "ואל אשה בנדת טמאתה לא תקרב לגלות ערותה" (ויקרא י"ח, י"ט). כתבו שני איסורים שנכללים בציווי "לא תקרב".</p>
+<textarea class="answer" data-id="t83s-14-a1" aria-labelledby="lbl-t83s-14-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83s-14-a2"><b>(2)</b> האיסור לחיות חיי אישות עם אישה נידה נכתב בתורה בסמיכות לאיסור לשאת אחות. מה לומדים מסמיכות זו?</p>
+<textarea class="answer" data-id="t83s-14-a2" aria-labelledby="lbl-t83s-14-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">4 נקודות</span></div>
+<p>מה הם שני התנאים הנדרשים כדי שטבילה במקווה כשר תהיה כשרה?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t83s-14-b">סעיף ב</span>
+<textarea class="answer" data-id="t83s-14-b" aria-labelledby="lbl-t83s-14-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t83w-14">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ג</span><span class="bh-qn">שאלה 14 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">4 נקודות</span></div>
+<blockquote class="bh-quote">"ואל אשה בנדת טמאתה לא תקרב לגלות ערותה" (ויקרא י"ח, י"ט). "יכול יחבקנה וינשקנה?..." (אבות דרבי נתן).</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83w-14-a1"><b>(1)</b> מאילו מילים בפסוק בספר ויקרא למדו את התשובה על השאלה שבמדרש?</p>
+<textarea class="answer" data-id="t83w-14-a1" aria-labelledby="lbl-t83w-14-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83w-14-a2"><b>(2)</b> מאיזה סוג דיבורים על האדם להימנע מלדבר עם אשתו בזמן נידתה?</p>
+<textarea class="answer" data-id="t83w-14-a2" aria-labelledby="lbl-t83w-14-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">2 נקודות</span></div>
+<p>הסבירו כיצד אפשר לראות בתקופה של ה"הרחקות" הזדמנות ליצירת חוויה חיובית.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t83w-14-b">סעיף ב</span>
+<textarea class="answer" data-id="t83w-14-b" aria-labelledby="lbl-t83w-14-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">6 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83w-14-c1"><b>(1)</b> "שאלו תלמידיו את רבי שמעון בן יוחי... מפני מה אמרה תורה מילה לשמונה?" (נידה לא, ע"ב). כתבו בלשונכם את תשובתו של רבי שמעון בן יוחי על שאלת תלמידיו.</p>
+<textarea class="answer" data-id="t83w-14-c1" aria-labelledby="lbl-t83w-14-c1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83w-14-c2"><b>(2)</b> "תניא היה רבי מאיר אומר: מפני מה אמרה תורה נידה לשבעה?" (שם). כתבו בלשונכם את תשובתו של רבי מאיר על שאלה זו.</p>
+<textarea class="answer" data-id="t83w-14-c2" aria-labelledby="lbl-t83w-14-c2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t82s-14">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ב</span><span class="bh-qn">שאלה 14 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">6 נקודות</span></div>
+<p>היחסים שבין איש לאשתו בזמן נידתה של האישה מתבטאים בריחוק אך גם בקרבה.</p>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82s-14-a1"><b>(1)</b> ציינו שני ביטויים של ריחוק.</p>
+<textarea class="answer" data-id="t82s-14-a1" aria-labelledby="lbl-t82s-14-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82s-14-a2"><b>(2)</b> כיצד באה לידי ביטוי הקרבה בין איש לאשתו בזמן נידתה של האישה? כתבו פרט אחד.</p>
+<textarea class="answer" data-id="t82s-14-a2" aria-labelledby="lbl-t82s-14-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">6 נקודות</span></div>
+<p>ציינו על פי הסדר את שלושת השלבים בתהליך היטהרות האישה מטומאת נידתה, והסבירו מה על האישה לעשות בכל אחד מן השלבים.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t82s-14-b">סעיף ב</span>
+<textarea class="answer" data-id="t82s-14-b" aria-labelledby="lbl-t82s-14-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t82w-14">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ב</span><span class="bh-qn">שאלה 14 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">3 נקודות</span></div>
+<p>הרש"ר הירש (מובא בדברי הרב קלמן כהנא, טהרת בת ישראל) מדמה את מערכת היחסים של איש ואשתו בימים שבהם הם אסורים זה על זה למערכת יחסים של אח ואחות. הסבר את הדמיון בין שתי מערכות היחסים האלה.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t82w-14-a">סעיף א</span>
+<textarea class="answer" data-id="t82w-14-a" aria-labelledby="lbl-t82w-14-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">4 נקודות</span></div>
+<blockquote class="bh-quote">"זקנים הראשונים היו אומרים שלא תכחול ולא תפקוס ולא תתקשט בבגדים צבעוניים בזמן נידתה, עד שבא רבי עקיבא ולימד..." (שבת, סד, ע"ב. מובא בדברי הרב מרדכי אליהו, דרכי טהרה).</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82w-14-b1"><b>(1)</b> מהו הטעם לדברי הזקנים הראשונים?</p>
+<textarea class="answer" data-id="t82w-14-b1" aria-labelledby="lbl-t82w-14-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82w-14-b2"><b>(2)</b> מהי דעת רבי עקיבא, ומהו הטעם לדעתו?</p>
+<textarea class="answer" data-id="t82w-14-b2" aria-labelledby="lbl-t82w-14-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">5 נקודות</span></div>
+<p>מה הם "שבעה נקיים", ומה האישה צריכה לעשות ב"שבעה נקיים"?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t82w-14-c">סעיף ג</span>
+<textarea class="answer" data-id="t82w-14-c" aria-labelledby="lbl-t82w-14-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t81s-14">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"א</span><span class="bh-qn">שאלה 14 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">3 נקודות</span></div>
+<p>בנות ישראל החמירו על עצמן והשוו את דין הנידה לדין הזבה. כתוב טעם אחד לחומרה זו.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t81s-14-a">סעיף א</span>
+<textarea class="answer" data-id="t81s-14-a" aria-labelledby="lbl-t81s-14-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">9 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t81s-14-b1"><b>(1)</b> "ואל אשה בנדת טמאתה לא תקרב לגלות ערותה" (ויקרא, י"ח, י"ט). כתוב שני איסורים שנכללים בציווי "לא תקרב".</p>
+<textarea class="answer" data-id="t81s-14-b1" aria-labelledby="lbl-t81s-14-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t81s-14-b2"><b>(2)</b> האיסור לחיות חיי אישות עם אישה נידה נכתב בתורה בסמיכות לאיסור לשאת אחות. מה לומדים מסמיכות זו?</p>
+<textarea class="answer" data-id="t81s-14-b2" aria-labelledby="lbl-t81s-14-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t81w-14">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"א</span><span class="bh-qn">שאלה 14 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">7 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t81w-14-a1"><b>(1)</b> "שאלו תלמידיו את רבי שמעון בן יוחי... מפני מה אמרה תורה מילה לשמונה?" (תלמוד בבלי, נידה, דף לא, ע"ב). כתוב בלשונך את תשובתו של רבי שמעון בן יוחי לשאלת תלמידיו.</p>
+<textarea class="answer" data-id="t81w-14-a1" aria-labelledby="lbl-t81w-14-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t81w-14-a2"><b>(2)</b> "תניא היה רבי מאיר אומר: מפני מה אמרה תורה נידה לשבעה?" (שם). כתוב בלשונך את תשובתו של רבי מאיר לשאלה זו.</p>
+<textarea class="answer" data-id="t81w-14-a2" aria-labelledby="lbl-t81w-14-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">3 נקודות</span></div>
+<p>מדוע מותר לאישה להתאפר בימי נידתה?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t81w-14-b">סעיף ב</span>
+<textarea class="answer" data-id="t81w-14-b" aria-labelledby="lbl-t81w-14-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+</section>
+<section class="bh-panel" role="tabpanel" id="t3-gerushin" aria-labelledby="tab3-gerushin" hidden>
+<h2 class="bh-panel-title"><span aria-hidden="true">⚖️</span> גירושין ועגינות <small>פרק שלישי · 3 שאלות</small></h2>
+<article class="bh-q" id="t86s-11">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ו</span><span class="bh-qn">שאלה 11 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">5 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86s-11-a1"><b>(1)</b> מהו "גט מעושה"?</p>
+<textarea class="answer" data-id="t86s-11-a1" aria-labelledby="lbl-t86s-11-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86s-11-a2"><b>(2)</b> יש מצבים שבהם גם "בגיטי נשים, כופין אותו עד שיאמר רוצה אני" (ערכין, פרק ה', משנה ו'). כתבו שני מצבים כאלה.</p>
+<textarea class="answer" data-id="t86s-11-a2" aria-labelledby="lbl-t86s-11-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">7 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86s-11-b1"><b>(1)</b> הסבירו מיהי "עגונה" ומדוע היא נקראת כך.</p>
+<textarea class="answer" data-id="t86s-11-b1" aria-labelledby="lbl-t86s-11-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86s-11-b2"><b>(2)</b> בהלכה נקבע שיש להקל בדינים שונים כדי להתיר נשים מעגינותן. ציינו שתי הקלות כאלה.</p>
+<textarea class="answer" data-id="t86s-11-b2" aria-labelledby="lbl-t86s-11-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t86w-11">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ו</span><span class="bh-qn">שאלה 11 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">5 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86w-11-a1"><b>(1)</b> "אמר רבי אלעזר: כל המגרש אשתו ראשונה, אפילו מזבח מוריד עליו דמעות" (גיטין צ, ע"ב). מה אפשר ללמוד מדבריו של רבי אלעזר בנוגע לגירושין?</p>
+<textarea class="answer" data-id="t86w-11-a1" aria-labelledby="lbl-t86w-11-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86w-11-a2"><b>(2)</b> הלכות רבות עוסקות בכתיבת הגט ובנתינתו כדי שלהליך הגירושין יהיה תוקף. כתבו שתי הלכות כאלה.</p>
+<textarea class="answer" data-id="t86w-11-a2" aria-labelledby="lbl-t86w-11-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">7 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86w-11-b1"><b>(1)</b> על פי חז"ל, לאחר הגירושין, על מי מן ההורים מוטלת האחריות לגדל את הבנים, ועל מי מהם מוטלת האחריות לגדל את הבנות? בתשובתכם התייחסו לגיל הילדים.</p>
+<textarea class="answer" data-id="t86w-11-b1" aria-labelledby="lbl-t86w-11-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86w-11-b2"><b>(2)</b> על פי הרב אליעזר וולדינברג ("ציץ אליעזר"), ציינו מהו העיקרון שעל פיו קובעים מי מן ההורים יגדל את הילדים לאחר הגירושין, והסבירו כיצד עיקרון זה מתיישב עם הקביעה של חז"ל שעליה כתבתם בתת־סעיף הקודם, ב(1).</p>
+<textarea class="answer" data-id="t86w-11-b2" aria-labelledby="lbl-t86w-11-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t85s-11">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ה</span><span class="bh-qn">שאלה 11 בשאלון · פרק שלישי</span></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">2 נקודות</span></div>
+<blockquote class="bh-quote">"ויבכו את אהרן שלשים יום כל בית ישראל" (במדבר כ', כ"ט).</blockquote>
+<p>מה היה מיוחד באהרן שלאחר מותו בכו עליו כל ישראל?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t85s-11-a">סעיף א</span>
+<textarea class="answer" data-id="t85s-11-a" aria-labelledby="lbl-t85s-11-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">4 נקודות</span></div>
+<blockquote class="bh-quote">"רבנו גרשום עשה גדר לדבר... ותיקן להשוות כוח האישה לכוח האיש: כמו שהאיש אינו מוציא אלא לרצונו..." (רבנו אשר, שו"ת הרא"ש, כלל מב, סימן א).</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85s-11-b1"><b>(1)</b> הסבירו בלשונכם מהי התקנה של רבנו גרשום.</p>
+<textarea class="answer" data-id="t85s-11-b1" aria-labelledby="lbl-t85s-11-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85s-11-b2"><b>(2)</b> מדוע תיקן רבנו גרשום תקנה זו?</p>
+<textarea class="answer" data-id="t85s-11-b2" aria-labelledby="lbl-t85s-11-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">6 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85s-11-c1"><b>(1)</b> הסבירו מהו "הסכם ממון" או מהו "הסכם לכבוד הדדי".</p>
+<textarea class="answer" data-id="t85s-11-c1" aria-labelledby="lbl-t85s-11-c1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85s-11-c2"><b>(2)</b> מה מומלץ לעשות לפני החתימה על הסכמים אלה, ומדוע?</p>
+<textarea class="answer" data-id="t85s-11-c2" aria-labelledby="lbl-t85s-11-c2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+</section>
+<section class="bh-panel" role="tabpanel" id="t3-ktzarot" aria-labelledby="tab3-ktzarot" hidden>
+<h2 class="bh-panel-title"><span aria-hidden="true">⚡</span> שאלות קצרות <small>פרק שלישי · 10 שאלות</small></h2>
+<article class="bh-q" id="t86s-15">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ו</span><span class="bh-qn">שאלה 15 בשאלון · פרק שלישי</span></div>
+<div class="bh-intro"><p>ענו בקצרה על שניים מן הסעיפים א–ג (לכל סעיף – 6 נקודות).</p></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">6 נקודות</span></div>
+<blockquote class="bh-quote">"אמר רבן שמעון בן גמליאל: לא היו ימים טובים לישראל כחמישה עשר באב וכיום הכיפורים, שבהן בנות ירושלים יוצאות..." (תענית, פרק ד', משנה ח').</blockquote>
+<p>ציינו שני מאפיינים של הבגדים שלבשו בנות ירושלים בימים אלה, וכתבו את הנימוק שהוזכר במשנה לאחד מן המאפיינים האלה.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t86s-15-a">סעיף א</span>
+<textarea class="answer" data-id="t86s-15-a" aria-labelledby="lbl-t86s-15-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">6 נקודות</span></div>
+<p>גבר ואישה שאינם נשואים זה לזה ונוסעים לבדם במכונית, לא בשעת הדחק ולא במקום סכנה, אינם עוברים על איסור ייחוד אם מתקיימים שני תנאים. כתבו את שני התנאים.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t86s-15-b">סעיף ב</span>
+<textarea class="answer" data-id="t86s-15-b" aria-labelledby="lbl-t86s-15-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">6 נקודות</span></div>
+<p>מה הם שני התנאים ההכרחיים לטבילה כשרה במקווה טהרה כשר?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t86s-15-c">סעיף ג</span>
+<textarea class="answer" data-id="t86s-15-c" aria-labelledby="lbl-t86s-15-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t86w-15">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ו</span><span class="bh-qn">שאלה 15 בשאלון · פרק שלישי</span></div>
+<div class="bh-intro"><p>ענו בקצרה על שניים מן הסעיפים א–ג (לכל סעיף – 6 נקודות).</p></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">6 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86w-15-a1"><b>(1)</b> כמה ילדים אדם צריך להוליד כדי לצאת ידי חובת מצוות "פרו ורבו"? כתבו את דעת בית שמאי ואת דעת בית הלל.</p>
+<textarea class="answer" data-id="t86w-15-a1" aria-labelledby="lbl-t86w-15-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t86w-15-a2"><b>(2)</b> כתבו את הטעם לאחת מן הדעות.</p>
+<textarea class="answer" data-id="t86w-15-a2" aria-labelledby="lbl-t86w-15-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">6 נקודות</span></div>
+<p>מדוע אסור לגברים ולנשים לרקוד יחד אף שאין מגע פיזי ביניהם בזמן הריקוד? כתבו שני נימוקים שהובאו בפוסקים.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t86w-15-b">סעיף ב</span>
+<textarea class="answer" data-id="t86w-15-b" aria-labelledby="lbl-t86w-15-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">6 נקודות</span></div>
+<p>מהי "חופה"? כתבו שתי דעות.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t86w-15-c">סעיף ג</span>
+<textarea class="answer" data-id="t86w-15-c" aria-labelledby="lbl-t86w-15-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t85s-15">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ה</span><span class="bh-qn">שאלה 15 בשאלון · פרק שלישי</span></div>
+<div class="bh-intro"><p>ענו בקצרה על שניים מן הסעיפים א–ג (לכל סעיף – 6 נקודות).</p></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">6 נקודות</span></div>
+<blockquote class="bh-quote">"האישה נקנית בשלוש דרכים..." (קידושין, פרק א', משנה א').</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85s-15-a1"><b>(1)</b> כתבו מה הן שלוש הדרכים שהאישה נקנית בהן.</p>
+<textarea class="answer" data-id="t85s-15-a1" aria-labelledby="lbl-t85s-15-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85s-15-a2"><b>(2)</b> כתבו כיצד נוהגים בימינו לקדש אישה, והסבירו איזו משלוש הדרכים שכתבתם באה לידי ביטוי במנהג זה.</p>
+<textarea class="answer" data-id="t85s-15-a2" aria-labelledby="lbl-t85s-15-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">6 נקודות</span></div>
+<blockquote class="bh-quote">"וכתב לה ספר כריתת ונתן בידה" (דברים כ"ד, א').</blockquote>
+<p>מהו "ספר כריתות", באיזה מקרה נותנים אותו, ומדוע חובה שייכתב ויינתן רק בבית דין?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t85s-15-b">סעיף ב</span>
+<textarea class="answer" data-id="t85s-15-b" aria-labelledby="lbl-t85s-15-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">6 נקודות</span></div>
+<p>בניית בית בישראל היא מעשה גדול מאוד, ולכן יש חשיבות רבה בהדרכת חתנים. כתבו שני נושאים שלדעתכם חשוב לעסוק בהם בהדרכת חתנים.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t85s-15-c">סעיף ג</span>
+<textarea class="answer" data-id="t85s-15-c" aria-labelledby="lbl-t85s-15-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t85w-15">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ה</span><span class="bh-qn">שאלה 15 בשאלון · פרק שלישי</span></div>
+<div class="bh-intro"><p>ענו בקצרה על שניים מן הסעיפים א–ג (לכל סעיף – 6 נקודות).</p></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">6 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85w-15-a1"><b>(1)</b> הסבירו מדוע הטרדות מיניות אסורות לחלוטין על פי ההלכה. בתשובתכם התייחסו הן לצד הנפגע הן לצד הפוגע.</p>
+<textarea class="answer" data-id="t85w-15-a1" aria-labelledby="lbl-t85w-15-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85w-15-a2"><b>(2)</b> "כי חטא ניבול פה הוא שחוטא בדבר אשר הוא צורת האדם" (הרב יהודה ליווא, מהר"ל). על פי המהר"ל, הסבירו את החומרה שבחטא ניבול הפה.</p>
+<textarea class="answer" data-id="t85w-15-a2" aria-labelledby="lbl-t85w-15-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">6 נקודות</span></div>
+<p>יש שני סוגי נכסים שהאישה מביאה איתה בעת נישואיה: "נכסי צאן ברזל" ו"נכסי מלוג". "נכסי צאן ברזל" הם נכסים שנרשמים בכתובה, ו"נכסי מלוג" הם נכסים שאינם נרשמים בכתובה. הסבירו כיצד הבדל זה בא לידי ביטוי במקרה של גירושין או מיתת הבעל.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t85w-15-b">סעיף ב</span>
+<textarea class="answer" data-id="t85w-15-b" aria-labelledby="lbl-t85w-15-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">6 נקודות</span></div>
+<blockquote class="bh-quote">"אמר רב: לעולם יהא אדם זהיר באונאת אשתו..." (בבא מציעא נט, ע"א).</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85w-15-c1"><b>(1)</b> הסבירו מהי "אונאת אשתו".</p>
+<textarea class="answer" data-id="t85w-15-c1" aria-labelledby="lbl-t85w-15-c1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t85w-15-c2"><b>(2)</b> על פי המשך דברי רב, מדוע אדם צריך להיזהר באונאת אשתו?</p>
+<textarea class="answer" data-id="t85w-15-c2" aria-labelledby="lbl-t85w-15-c2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t83s-15">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ג</span><span class="bh-qn">שאלה 15 בשאלון · פרק שלישי</span></div>
+<div class="bh-intro"><p>ענו בקצרה על שניים מן הסעיפים א–ג (לכל סעיף – 6 נקודות).</p></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">6 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83s-15-a1"><b>(1)</b> על פי ההלכה, אסור להטריד ולבייש אדם אחר אף שלא בהקשר המיני. לאיזו עבירה חמורה השווה רבי יהודה החסיד את גרימת הבושה לאחר?</p>
+<textarea class="answer" data-id="t83s-15-a1" aria-labelledby="lbl-t83s-15-a1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83s-15-a2"><b>(2)</b> בעל ספר החינוך כתב שבפסוק "איש אל אשת רעהו יצהלו" (ירמיה ה', ח') הוכיח הנביא ירמיהו את בני דורו על שעשו מעשים שיש בהם ביטויים מיניים. על פי בעל ספר החינוך, ציינו מעשה שנהגו לעשות בני דורו של הנביא ירמיהו.</p>
+<textarea class="answer" data-id="t83s-15-a2" aria-labelledby="lbl-t83s-15-a2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">6 נקודות</span></div>
+<p>ציינו שתי פעולות שהעדים צריכים לעשות במעמד הקידושין.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t83s-15-b">סעיף ב</span>
+<textarea class="answer" data-id="t83s-15-b" aria-labelledby="lbl-t83s-15-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">6 נקודות</span></div>
+<blockquote class="bh-quote">"אם אחרת יקח לו <u>שארה</u> <u>כסותה</u> <u>ועונתה</u> לא יגרע" (שמות כ"א, י').</blockquote>
+<p>הסבירו בלשונכם כל אחת מן המילים המודגשות בקו.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t83s-15-c">סעיף ג</span>
+<textarea class="answer" data-id="t83s-15-c" aria-labelledby="lbl-t83s-15-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t83w-15">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ג</span><span class="bh-qn">שאלה 15 בשאלון · פרק שלישי</span></div>
+<div class="bh-intro"><p>ענו בקצרה על שניים מן הסעיפים א–ג (לכל סעיף – 6 נקודות).</p></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">6 נקודות</span></div>
+<p>גבר ואישה שנוסעים לבדם במכונית, לא בשעת הדחק ולא במקום סכנה, אינם עוברים על איסור ייחוד אם מתקיימים שני תנאים. כתבו את שני התנאים.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t83w-15-a">סעיף א</span>
+<textarea class="answer" data-id="t83w-15-a" aria-labelledby="lbl-t83w-15-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">6 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83w-15-b1"><b>(1)</b> כתבו שני תנאים הנדרשים כדי לברך שבע ברכות בשבעת הימים שלאחר הנישואין.</p>
+<textarea class="answer" data-id="t83w-15-b1" aria-labelledby="lbl-t83w-15-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83w-15-b2"><b>(2)</b> כיצד על החתן והכלה לשמוח בשבעת הימים האלה? כתבו דרך אחת.</p>
+<textarea class="answer" data-id="t83w-15-b2" aria-labelledby="lbl-t83w-15-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">6 נקודות</span></div>
+<p>בנוגע לחובת ההורים ללמד את ילדיהם תורה, מובא בחוברת הלימוד הפסוק הזה:</p>
+<blockquote class="bh-quote">"כה תאמר לבית יעקב ותגיד לבני ישראל" (שמות י"ט, ג').</blockquote>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83w-15-c1"><b>(1)</b> על פי המדרש, למי הכוונה בכינוי "בית יעקב", ולמי הכוונה בכינוי "בני ישראל"?</p>
+<textarea class="answer" data-id="t83w-15-c1" aria-labelledby="lbl-t83w-15-c1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t83w-15-c2"><b>(2)</b> על פי רבנו בחיי, מדוע בפסוק הוקדם "בית יעקב" ל"בני ישראל"?</p>
+<textarea class="answer" data-id="t83w-15-c2" aria-labelledby="lbl-t83w-15-c2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t82s-15">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"ב</span><span class="bh-qn">שאלה 15 בשאלון · פרק שלישי</span></div>
+<div class="bh-intro"><p>ענו בקצרה על שניים מן הסעיפים א–ג (לכל סעיף – 6 נקודות).</p></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">6 נקודות</span></div>
+<blockquote class="bh-quote">"אמר רבן שמעון בן גמליאל: לא היו ימים טובים לישראל כחמישה עשר באב וכיום הכיפורים, שבהן בנות ירושלים יוצאות..." (תענית, פרק ד', משנה ח').</blockquote>
+<p>ציינו שני מאפיינים של הבגדים שלבשו בנות ירושלים בימים אלה, וכתבו את הנימוק שהוזכר במשנה לאחד מן המאפיינים האלה.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t82s-15-a">סעיף א</span>
+<textarea class="answer" data-id="t82s-15-a" aria-labelledby="lbl-t82s-15-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">6 נקודות</span></div>
+<p>מהו השלב במעמד החופה שבו נהוג לקרוא את הכתובה, ומדוע נהוג לקרוא את הכתובה בשלב זה?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t82s-15-b">סעיף ב</span>
+<textarea class="answer" data-id="t82s-15-b" aria-labelledby="lbl-t82s-15-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">6 נקודות</span></div>
+<blockquote class="bh-quote">"אלו דברים שאדם אוכל פירותיהן בעולם הזה והקרן קיימת לו לעולם הבא... והבאת שלום" (פאה, פרק א', משנה א').</blockquote>
+<p>הביטוי במשנה הוא "הבאת שלום" ולא "עשיית שלום". על פי הפירוש של הרב ישראל ליפשיץ ("תפארת ישראל"), כתבו מהו הערך שאפשר ללמוד מן השימוש בביטוי "הבאת שלום".</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t82s-15-c">סעיף ג</span>
+<textarea class="answer" data-id="t82s-15-c" aria-labelledby="lbl-t82s-15-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t82w-15">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"ב</span><span class="bh-qn">שאלה 15 בשאלון · פרק שלישי</span></div>
+<div class="bh-intro"><p>ענה בקצרה על שניים מן הסעיפים א–ג (לכל סעיף – 6 נקודות).</p></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">6 נקודות</span></div>
+<p>כתוב מה בדק אליעזר עבד אברהם בנוגע לרבקה, והסבר מה לומדים מכך בנוגע לתהליך בחירת בן זוג.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t82w-15-a">סעיף א</span>
+<textarea class="answer" data-id="t82w-15-a" aria-labelledby="lbl-t82w-15-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">6 נקודות</span></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82w-15-b1"><b>(1)</b> על פי ההלכה, אסור להטריד ולבייש אדם אחר אף שלא בהקשר המיני. לאיזו עבירה חמורה השווה רבי יהודה החסיד את גרימת הבושה לאחר?</p>
+<textarea class="answer" data-id="t82w-15-b1" aria-labelledby="lbl-t82w-15-b1" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+<div class="bh-sub"><p class="bh-subq" id="lbl-t82w-15-b2"><b>(2)</b> בעל ספר החינוך כתב שבפסוק "איש אל אשת רעהו יצהלו" (ירמיהו, ה', ח') הוכיח הנביא ירמיהו את בני דורו על שעשו מעשים שיש בהם ביטויים מיניים. על פי בעל ספר החינוך, ציין מעשה שנהגו לעשות בני דורו של הנביא ירמיהו.</p>
+<textarea class="answer" data-id="t82w-15-b2" aria-labelledby="lbl-t82w-15-b2" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">6 נקודות</span></div>
+<p>מהו שמה של הבדיקה הראשונה שאישה עושה בתהליך טהרתה, ומהי המטרה של בדיקה זו?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t82w-15-c">סעיף ג</span>
+<textarea class="answer" data-id="t82w-15-c" aria-labelledby="lbl-t82w-15-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t81s-15">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות קיץ תשפ"א</span><span class="bh-qn">שאלה 15 בשאלון · פרק שלישי</span></div>
+<div class="bh-intro"><p>ענה בקצרה על שניים מן הסעיפים א–ג (לכל סעיף – 6 נקודות).</p></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">6 נקודות</span></div>
+<p>איש ואישה שאינם נשואים זה לזה רשאים להיות יחד באותו חדר אם נמצא איתם ילד בן חמש ומעלה. הסבר מדוע.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t81s-15-a">סעיף א</span>
+<textarea class="answer" data-id="t81s-15-a" aria-labelledby="lbl-t81s-15-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">6 נקודות</span></div>
+<p>על פי הראי"ה קוק, מהי הגבורה שבאה לידי ביטוי בברכה "אוזר ישראל בגבורה" שבברכות השחר?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t81s-15-b">סעיף ב</span>
+<textarea class="answer" data-id="t81s-15-b" aria-labelledby="lbl-t81s-15-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">6 נקודות</span></div>
+<p>הסבר את המושגים האלה: "הפסק טהרה", "שבעה נקיים".</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t81s-15-c">סעיף ג</span>
+<textarea class="answer" data-id="t81s-15-c" aria-labelledby="lbl-t81s-15-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+<article class="bh-q" id="t81w-15">
+<div class="bh-q-head"><span class="bh-exam">📅 בגרות חורף תשפ"א</span><span class="bh-qn">שאלה 15 בשאלון · פרק שלישי</span></div>
+<div class="bh-intro"><p>ענה בקצרה על שניים מן הסעיפים א–ג (לכל סעיף – 5 נקודות).</p></div>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">א</span><span class="bh-pts">5 נקודות</span></div>
+<p>איש ואישה שאינם נשואים זה לזה רשאים להתייחד, אם בעלה של האישה נמצא בעיר. הסבר מדוע.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t81w-15-a">סעיף א</span>
+<textarea class="answer" data-id="t81w-15-a" aria-labelledby="lbl-t81w-15-a" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ב</span><span class="bh-pts">5 נקודות</span></div>
+<p>כתוב את שני התנאים הנדרשים כדי לברך שבע ברכות בשבעת ימי המשתה.</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t81w-15-b">סעיף ב</span>
+<textarea class="answer" data-id="t81w-15-b" aria-labelledby="lbl-t81w-15-b" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+<section class="bh-part"><div class="bh-part-head"><span class="bh-letter">ג</span><span class="bh-pts">5 נקודות</span></div>
+<p>מה הם שני התנאים ההכרחיים לטבילה כשרה במקווה טהרה כשר?</p>
+<div class="bh-sub"><span class="visually-hidden" id="lbl-t81w-15-c">סעיף ג</span>
+<textarea class="answer" data-id="t81w-15-c" aria-labelledby="lbl-t81w-15-c" rows="3" placeholder="כתבו כאן את התשובה שלכם..."></textarea></div>
+</section>
+</article>
+</section>
   <div class="bh-send" id="bhSend">
     <p class="bh-send-note" id="bhSendNote">סיימתם לענות בנושא הזה? שלחו את התשובות למורה.</p>
     <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="בית, חינוך ומשפחה" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
@@ -1390,11 +2387,19 @@
     var name = '';
     if(tab){ var c = tab.cloneNode(true); Array.prototype.forEach.call(c.querySelectorAll('span'), function(x){ x.remove(); }); name = c.textContent.trim(); }
     document.getElementById('sendToTeacherBtn').setAttribute('data-topic-url', 'bayit-chinuch-mishpacha.html#' + id);
-    document.getElementById('bhSendNote').textContent = 'סיימתם לענות על השאלות בנושא "' + name.replace(/^"|"$/g, '') + '"? שלחו את התשובות למורה.';
+    document.getElementById('bhSendNote').textContent = 'סיימתם לענות על השאלות בנושא "' + name.replace(/^"|"$/g, '') + '"' + (partOf(id) === '3' ? ' (פרק שלישי)' : '') + '? שלחו את התשובות למורה.';
     document.dispatchEvent(new CustomEvent('bm-send-scope-change'));
   }
+  /* שני פרקים (ראשון - לכולם, שלישי - לבנים), לכל אחד לשוניות נושאים משלו */
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('.bh-partbox[data-part]'));
+  var partBtns = Array.prototype.slice.call(document.querySelectorAll('[data-part-btn]'));
+  var lastOf = {};
+  function partOf(id){ return /^t3-/.test(id) ? '3' : '1'; }
   function show(id, focus){
     placeSend(id);
+    var part = partOf(id); lastOf[part] = id;
+    boxes.forEach(function(b){ b.hidden = b.getAttribute('data-part') !== part; });
+    partBtns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-part-btn') === part)); });
     tabs.forEach(function(t){
       var on = t.getAttribute('aria-controls') === id;
       t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1;
@@ -1403,17 +2408,25 @@
     });
     try{ sessionStorage.setItem('bm-bhm-tab', id); }catch(e){}
   }
-  tabs.forEach(function(t, i){
+  tabs.forEach(function(t){
     t.addEventListener('click', function(){ show(t.getAttribute('aria-controls')); });
     t.addEventListener('keydown', function(e){
-      var k = e.key, j = k === 'ArrowLeft' ? i + 1 : k === 'ArrowRight' ? i - 1 : k === 'Home' ? 0 : k === 'End' ? tabs.length - 1 : -1;
-      if(j < 0) return; e.preventDefault(); j = (j + tabs.length) % tabs.length; show(tabs[j].getAttribute('aria-controls'), true);
+      var own = Array.prototype.slice.call(t.parentNode.querySelectorAll('.bh-tab')), i = own.indexOf(t);
+      var k = e.key, j = k === 'ArrowLeft' ? i + 1 : k === 'ArrowRight' ? i - 1 : k === 'Home' ? 0 : k === 'End' ? own.length - 1 : -1;
+      if(j < 0) return; e.preventDefault(); j = (j + own.length) % own.length; show(own[j].getAttribute('aria-controls'), true);
+    });
+  });
+  partBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var part = b.getAttribute('data-part-btn');
+      var first = document.querySelector('.bh-partbox[data-part="' + part + '"] .bh-tab');
+      show(lastOf[part] || (first && first.getAttribute('aria-controls')));
     });
   });
   var start = (location.hash || '').slice(1);
-  if(!document.getElementById(start) || !/^t-/.test(start)){ try{ start = sessionStorage.getItem('bm-bhm-tab') || ''; }catch(e){ start = ''; } }
+  if(!document.getElementById(start) || !/^t3?-/.test(start)){ try{ start = sessionStorage.getItem('bm-bhm-tab') || ''; }catch(e){ start = ''; } }
   show(start && document.getElementById(start) ? start : tabs[0].getAttribute('aria-controls'));
-  window.addEventListener('hashchange', function(){ var h = location.hash.slice(1); if(/^t-/.test(h) && document.getElementById(h)) show(h); });
+  window.addEventListener('hashchange', function(){ var h = location.hash.slice(1); if(/^t3?-/.test(h) && document.getElementById(h)) show(h); });
   var fields = Array.prototype.slice.call(document.querySelectorAll('textarea.answer'));
   fields.forEach(function(f){
     if(!keyMode){ try{ var v = localStorage.getItem(KEY + f.getAttribute('data-id')); if(v) f.value = v; }catch(e){} }
@@ -1426,7 +2439,7 @@
   document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
   /* מחוון למורה (?key=1): התשובות מן התשובון נטענות רק כאן, ומוצגות אחרי שהמחוון נפתח (assets/answer-key.js) */
   if(!keyMode) return;
-  var s = document.createElement('script'); s.src = 'assets/bayit-chinuch-mishpacha-key.js?v=1'; document.head.appendChild(s);
+  var s = document.createElement('script'); s.src = 'assets/bayit-chinuch-mishpacha-key.js?v=2'; document.head.appendChild(s);
   function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   function render(){
     if(!window.BHM_KEY || !document.documentElement.classList.contains('ak-on') || document.querySelector('.bh-key')) return;
