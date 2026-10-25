@@ -8,6 +8,8 @@
      נשמר ב-assets/direct-submit.js). נטען מ-assets/a11y.js רק אם יש כאלה.
    - בדף feedback.html?id=<מזהה העבודה>: המשוב המלא, לקישור שהמורה שולח.
    המשוב מגיע מהסקריפט (action=feedback), ורק אחרי אישור המורה.
+   התלמיד רואה בעיקר את הטעויות: שאלה שנענתה נכון מקבלת רק סימן ✅ קצר,
+   ושאלה חלקית או חסרה - תיבה עם מה בדיוק צריך לתקן. בראש הדף - רשימת "מה לתקן".
    ============================================================ */
 (function(){
   "use strict";
@@ -47,6 +49,14 @@
       ".bm-fb-q--miss{background:#FDECEA;border-color:#E59A92;color:#7A1C14}" +
       ".bm-fb-list{display:flex;flex-direction:column;gap:.2rem;margin:0;padding:0;list-style:none}" +
       ".bm-fb-qtext{display:block;font-weight:400;color:#33415C;font-size:.95rem;margin-bottom:.25rem}" +
+      ".bm-fb-ok{display:inline-block;margin:.35rem 0 .1rem;padding:.15rem .6rem;border-radius:999px;background:#E9F6EF;color:#0B4F37;font-weight:700;font-size:.9rem}" +
+      ".bm-fb-fix{margin:0;display:flex;flex-wrap:wrap;gap:.4rem;align-items:center}" +
+      ".bm-fb-fix b{margin-inline-end:.2rem}" +
+      ".bm-fb-fix a{display:inline-block;padding:.2rem .7rem;border-radius:999px;background:#FDECEA;color:#7A1C14;font-weight:700;text-decoration:none;border:1px solid #E59A92}" +
+      ".bm-fb-fix a.is-partial{background:#FFF6E0;color:#5E4300;border-color:#E6B85C}" +
+      ".bm-fb-fix a:focus-visible{outline:3px solid #E8650C;outline-offset:2px}" +
+      ".bm-fb-good{margin:0;padding:.55rem .85rem;border-radius:12px;background:#E9F6EF;color:#0B4F37;line-height:1.6}" +
+      ".bm-fb-h{margin:.4rem 0 0;font-size:1.05rem}" +
       "@media print{.bm-fb-top{box-shadow:none}}";
     document.head.appendChild(st);
   }
@@ -57,12 +67,24 @@
   function gradeHtml(fb){
     return fb.grade !== "" ? '<div class="bm-fb-grade" aria-label="הציון: ' + esc(fb.grade) + '"><span>' + esc(fb.grade) + '<small>ציון</small></span></div>' : "";
   }
-  function itemHtml(x, withQ){
+  function isOk(x){ return x.s === "full"; }
+  function label(x, i){ return x.n ? "שאלה " + x.n : (x.q ? String(x.q).replace(/\s+/g, " ").slice(0, 40) + (String(x.q).length > 40 ? "…" : "") : "שאלה " + (i + 1)); }
+  function itemHtml(x, withQ, anchor){
     var st = STATUS[x.s] || STATUS.partial;
-    return '<div class="bm-fb bm-fb-q bm-fb-q--' + (STATUS[x.s] ? x.s : "partial") + '" role="note">' +
-      '<b><span aria-hidden="true">' + st.ico + '</span> משוב מהמורה' + (x.n ? ' על שאלה ' + esc(x.n) : '') + ': ' + st.label + '</b>' +
+    return '<div class="bm-fb bm-fb-q bm-fb-q--' + (STATUS[x.s] ? x.s : "partial") + '" role="note"' + (anchor ? ' id="' + anchor + '" tabindex="-1"' : '') + '>' +
+      '<b><span aria-hidden="true">' + st.ico + '</span> ' + (x.n ? 'שאלה ' + esc(x.n) + ': ' : '') + st.label + (isOk(x) ? '' : ' - מה לתקן:') + '</b>' +
       (withQ && x.q ? '<span class="bm-fb-qtext">' + esc(x.q) + '</span>' : '') +
       esc(x.text) + '</div>';
+  }
+  /* "מה לתקן": קישורים לשאלות שלא נענו נכון. ואם הכול נכון - מילה טובה */
+  function fixListHtml(items, prefix){
+    var bad = [], good = 0;
+    items.forEach(function(x, i){ if(isOk(x)) good++; else bad.push({ x:x, i:i }); });
+    if(!items.length) return "";
+    if(!bad.length) return '<p class="bm-fb-good">🎉 כל התשובות נכונות! כל הכבוד.</p>';
+    return '<p class="bm-fb-fix"><b>מה לתקן (' + bad.length + '):</b>' + bad.map(function(b){
+      return '<a href="#' + prefix + b.i + '" class="' + (b.x.s === "partial" ? "is-partial" : "") + '">' + (b.x.s === "partial" ? "🟡 " : "❌ ") + esc(label(b.x, b.i)) + '</a>';
+    }).join("") + '</p>' + (good ? '<p class="bm-fb-legend">✅ ענית נכון על ' + (good === 1 ? 'שאלה אחת' : good + ' שאלות') + '.</p>' : '');
   }
   function markSeen(id){
     try{
@@ -97,7 +119,8 @@
           '<span>' + esc(fb.assignment || sub.a) + (sub.n ? ' · ' + esc(sub.n) : '') + (sub.t ? ' · נשלחה ב-' + fmtDate(sub.t) : '') + '</span></h2></div>' +
       (fb.summary ? '<p class="bm-fb-sum">' + esc(fb.summary) + '</p>' : '') +
       (fb.comment && fb.comment !== fb.summary ? '<p class="bm-fb-sum">' + esc(fb.comment) + '</p>' : '') +
-      '<p class="bm-fb-legend">מתחת לכל שאלה בדף מופיע הסבר: ✅ מלאה · 🟡 חלקית · ❌ חסר. ' +
+      fixListHtml(fb.items || [], "bmFbIt") +
+      '<p class="bm-fb-legend">ליד כל שאלה שצריך לתקן מופיע הסבר. ' +
         '<a href="feedback.html?id=' + encodeURIComponent(sub.id) + '">לכל המשוב בעמוד אחד ›</a></p>';
     var anchor = document.querySelector(".student-bar") || document.querySelector("header");
     var main = document.querySelector("main");
@@ -105,13 +128,17 @@
     else if(main) main.insertBefore(top, main.firstChild);
     else document.body.insertBefore(top, document.body.firstChild);
 
-    (fb.items || []).forEach(function(x){
+    (fb.items || []).forEach(function(x, i){
       if(!x.id) return;
       var field = document.querySelector('.answer[data-id="' + x.id.replace(/["\\]/g, "") + '"]');
       if(!field) return;
       var box = document.createElement("div");
-      box.innerHTML = itemHtml(x, false);
+      box.innerHTML = isOk(x) ? '<span class="bm-fb bm-fb-ok" id="bmFbIt' + i + '">✅ נכון</span>' : itemHtml(x, false, "bmFbIt" + i);
       field.parentNode.insertBefore(box.firstChild, field.nextSibling);
+    });
+    /* קישור "מה לתקן" לשאלה שלא נמצאה בדף (למשל בדף אחר של היחידה) - לעמוד המשוב המלא */
+    Array.prototype.forEach.call(top.querySelectorAll('.bm-fb-fix a'), function(a){
+      if(!document.getElementById(a.getAttribute("href").slice(1))) a.href = "feedback.html?id=" + encodeURIComponent(sub.id) + a.getAttribute("href").replace("bmFbIt", "bmFbFull");
     });
   }
 
@@ -135,8 +162,14 @@
           (fb.summary ? '<p class="bm-fb-sum">' + esc(fb.summary) + '</p>' : '') +
           (fb.comment && fb.comment !== fb.summary ? '<p class="bm-fb-sum">' + esc(fb.comment) + '</p>' : '') +
           (/^[\w.-]+\.html$/.test(fb.page || "") ? '<p class="bm-fb-legend"><a href="' + esc(fb.page) + '">לדף העבודה ›</a> (התשובות שלך שמורות שם, במכשיר שממנו שלחת)</p>' : '') +
-          '<ul class="bm-fb-list">' + (fb.items || []).map(function(x){ return '<li>' + itemHtml(x, true) + '</li>'; }).join("") + '</ul>' +
+          fixListHtml(fb.items || [], "bmFbFull") +
+          ((fb.items || []).some(function(x){ return !isOk(x); }) ? '<h2 class="bm-fb-h">איפה טעית ומה לתקן</h2>' : '') +
+          '<ul class="bm-fb-list">' + (fb.items || []).map(function(x, i){ return isOk(x) ? '' : '<li>' + itemHtml(x, true, "bmFbFull" + i) + '</li>'; }).join("") + '</ul>' +
+          ((fb.items || []).some(isOk) ? '<details class="bm-fb-legend"><summary>✅ השאלות שענית עליהן נכון</summary><ul class="bm-fb-list">' +
+            (fb.items || []).map(function(x, i){ return isOk(x) ? '<li>' + itemHtml(x, true, "bmFbFull" + i) + '</li>' : ''; }).join("") + '</ul></details>' : '') +
         '</div>';
+      var h = (location.hash || "").slice(1), t = h && document.getElementById(h);
+      if(t){ if(t.closest("details")) t.closest("details").open = true; t.scrollIntoView({ block:"center" }); t.focus(); }
     }).catch(function(){ root.innerHTML = '<p class="bm-fb-sum">אין חיבור לאינטרנט כרגע. נסו שוב בעוד רגע.</p>'; });
   }
 
