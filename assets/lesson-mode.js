@@ -87,7 +87,7 @@
         '<input id="bmLockCode" class="bm-lock-code" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" placeholder="4 ספרות">' +
         '<div id="bmLockName" hidden>' +
           '<p>בשיעור הזה <b>המורה רואה אם יוצאים מהדף</b> (לא לאן יוצאים).</p>' +
-          '<label for="bmLockNameInput">השם המלא שלכם</label>' +
+          '<label for="bmLockNameInput" id="bmLockNameLabel">השם המלא שלכם</label>' +
           '<input id="bmLockNameInput" type="text" autocomplete="name" maxlength="60">' +
         '</div>' +
         '<button type="submit" id="bmLockBtn">כניסה לשיעור</button>' +
@@ -109,21 +109,21 @@
       if(clean !== codeIn.value) codeIn.value = clean;
       msg.textContent = ""; pending = null; nameBox.hidden = true; nameIn.readOnly = false;
     });
-    function enter(code, res, name){
+    function enter(code, res, name, tok, fromId){
       var until = res.until || (Date.now() + 12 * 3600 * 1000);
       write(KEY_STORE, { code:code, page:res.url.split("#")[0], until:until });
       if(res.monitor){
         var lk = window.BM_LESSON_LOCK && window.BM_LESSON_LOCK.get(code), sid;
-        if(lk){ name = lk.name; sid = lk.sid; }
+        if(lk){ sid = lk.sid; if(!fromId){ name = lk.name; tok = lk.tok || ""; } }
         else {
           var a = new Uint8Array(9);
           (window.crypto || window.msCrypto).getRandomValues(a);
           sid = Array.prototype.map.call(a, function(b){ return ("0" + b.toString(16)).slice(-2); }).join("");
-          if(window.BM_LESSON_LOCK) window.BM_LESSON_LOCK.set(code, name, sid, until);
         }
+        if((!lk || fromId) && window.BM_LESSON_LOCK) window.BM_LESSON_LOCK.set(code, name, sid, until, tok);
         try{
           localStorage.setItem("bm-lesson-name", name);
-          localStorage.setItem("bm-lesson-mode", JSON.stringify({ code:code, name:name, sid:sid, until:until, label:res.label || "", leaves:0 }));
+          localStorage.setItem("bm-lesson-mode", JSON.stringify({ code:code, name:name, sid:sid, until:until, tok:tok || "", label:res.label || "", leaves:0 }));
         }catch(e){}
       }
       if(res.url.split("#")[0] === page) location.reload();
@@ -132,9 +132,23 @@
     form.addEventListener("submit", function(e){
       e.preventDefault();
       if(pending){
+        if(pending.idMode){
+          var id = nameIn.value.replace(/\D/g, "");
+          if(id.length < 5){ msg.textContent = "הקלידו את מספר תעודת הזהות שלכם (9 ספרות)."; nameIn.focus(); return; }
+          var p0 = pending;
+          btn.disabled = true; msg.textContent = "בודקים…";
+          window.BM_LESSON_ID(p0.code, id).then(function(r){
+            if(pending !== p0) return;
+            if(!r || !r.ok){ msg.textContent = (r && r.error) || "לא הצלחנו לזהות. נסו שוב."; nameIn.select(); return; }
+            nameIn.value = "";
+            enter(p0.code, p0.res, r.name, r.tok, true);
+          }).catch(function(){ msg.textContent = "אין חיבור לשרת כרגע. נסו שוב בעוד רגע."; })
+            .then(function(){ btn.disabled = false; });
+          return;
+        }
         var name = nameIn.value.replace(/\s+/g, " ").trim();
         if(name.length < 2){ msg.textContent = "כתבו את השם המלא שלכם."; nameIn.focus(); return; }
-        enter(pending.code, pending.res, name);
+        enter(pending.code, pending.res, name, "", false);
         return;
       }
       var code = codeIn.value;
@@ -144,17 +158,24 @@
       fetch(API + "?action=lesson&code=" + encodeURIComponent(code)).then(function(r){ return r.json(); }).then(function(res){
         if(!(res && res.ok && /^[\w.-]+\.html(#[\w-]+)?$/.test(res.url || ""))){ msg.textContent = "הקוד לא נכון. בדקו מול הלוח."; codeIn.select(); return; }
         if(res.monitor){
-          pending = { code:code, res:res };
-          msg.textContent = "";
           var lk = window.BM_LESSON_LOCK && window.BM_LESSON_LOCK.get(code);
-          nameIn.readOnly = !!lk;
-          if(lk){ nameIn.value = lk.name; msg.textContent = "נכנסת כבר לשיעור הזה בשם \"" + lk.name + "\". באמצע שיעור אי אפשר להחליף שם."; }
+          var idMode = !!res.idLogin && !(lk && lk.tok);
+          pending = { code:code, res:res, idMode:idMode };
+          msg.textContent = "";
+          var lab = document.getElementById("bmLockNameLabel");
+          lab.textContent = idMode ? "מספר תעודת הזהות שלכם (9 ספרות)" : "השם המלא שלכם";
+          nameIn.setAttribute("inputmode", idMode ? "numeric" : "text");
+          nameIn.setAttribute("autocomplete", idMode ? "off" : "name");
+          nameIn.maxLength = idMode ? 9 : 60;
+          nameIn.readOnly = !!lk && !idMode;
+          if(idMode){ nameIn.value = ""; msg.textContent = "בשיעור הזה נכנסים עם תעודת זהות."; }
+          else if(lk){ nameIn.value = lk.name; msg.textContent = "נכנסת כבר לשיעור הזה בשם \"" + lk.name + "\". באמצע שיעור אי אפשר להחליף שם."; }
           else try{ nameIn.value = nameIn.value || localStorage.getItem("bm-lesson-name") || ""; }catch(err){}
           nameBox.hidden = false;
           nameIn.focus();
           return;
         }
-        enter(code, res, "");
+        enter(code, res, "", "", false);
       }).catch(function(){ msg.textContent = "אין חיבור לשרת כרגע. נסו שוב בעוד רגע."; })
         .then(function(){ btn.disabled = false; });
     });
@@ -217,7 +238,7 @@
   function save(){ try{ st.leaves = leaves; localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} }
 
   function send(state, onDone, extra, retry){
-    var msg = { action:"presence", code:st.code, sid:st.sid, name:st.name, page:page, state:state, t:Date.now() };
+    var msg = { action:"presence", code:st.code, sid:st.sid, name:st.name, tok:st.tok || "", page:page, state:state, t:Date.now() };
     if(extra) for(var k in extra) msg[k] = extra[k];
     var body = JSON.stringify(msg);
     /* השרת עסוק (הרבה תלמידים מדווחים יחד) או שהחיבור נפל - מנסים שוב פעם אחת, עם אותו זמן.
@@ -233,6 +254,7 @@
           if(res && res.ended){ end(); return; }
           if(res && res.nameTaken){ nameTaken(); return; }
           if(res && res.kicked){ kickedOut(); return; }
+          if(res && res.needId){ needId(); return; }
           if(res && res.busy){ if(again) again(); return; }
           if(res && res.ok) navCheck(res.nav);
           if(res && res.ok && !window.BM_DOCK) actNotice(res.act);   /* בדפים עם סרגל הכלים - הסרגל מודיע */
@@ -251,6 +273,21 @@
       "background:#0B2A5B;color:#fff;text-align:center;direction:rtl;font:700 18px/1.5 Heebo,Rubik,Arial,sans-serif";
     c.innerHTML = '<div><div style="font-size:44px" aria-hidden="true">⛔</div><p style="margin:10px 0 6px">השם "' + esc(who) + '" כבר נמצא בשיעור ממכשיר אחר</p>' +
       '<p style="margin:0 0 14px;font-weight:400;font-size:16px">אי אפשר להיכנס לשיעור בשם של תלמיד אחר. אם זה השם שלך - קרא/י למורה. המורה רואה את הניסיון.</p>' +
+      '<a href="index.html" style="color:#FFD9B8">לדף הבית</a></div>';
+    document.body.appendChild(c);
+  }
+  /* בשיעור הזה נכנסים עם תעודת זהות (המורה שמר רשימת כיתה) - צריך להיכנס מחדש עם הקוד */
+  function needId(){
+    if(stopped) return;
+    var code = st ? st.code : "";
+    end();
+    if(window.BM_LESSON_LOCK && window.BM_LESSON_LOCK.clear) window.BM_LESSON_LOCK.clear(code);
+    var c = document.createElement("div");
+    c.setAttribute("role", "alertdialog");
+    c.style.cssText = "position:fixed;inset:0;z-index:10002;display:flex;align-items:center;justify-content:center;padding:20px;" +
+      "background:#0B2A5B;color:#fff;text-align:center;direction:rtl;font:700 18px/1.5 Heebo,Rubik,Arial,sans-serif";
+    c.innerHTML = '<div><div style="font-size:44px" aria-hidden="true">🪪</div><p style="margin:10px 0 6px">בשיעור הזה נכנסים עם תעודת זהות</p>' +
+      '<p style="margin:0 0 14px;font-weight:400;font-size:16px">חזרו לדף הבית, הקלידו שוב את הקוד מהלוח, ואחר כך את מספר תעודת הזהות שלכם.</p>' +
       '<a href="index.html" style="color:#FFD9B8">לדף הבית</a></div>';
     document.body.appendChild(c);
   }

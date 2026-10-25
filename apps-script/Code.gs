@@ -96,6 +96,8 @@ function doPost(e) {
 
     // דיווח נוכחות מדף של תלמיד בזמן שיעור עם בקרה (בלי סיסמה - רק עם קוד השיעור)
     if (data.action === 'presence') return json_(presence_(data));
+    // כניסה לשיעור עם תעודת זהות (כשיש רשימת כיתה) - בלי סיסמה, רק עם קוד השיעור
+    if (data.action === 'lessonIdentify') return json_(lessonIdentify_(data.code, data.id));
 
     // לוח שאלות: הוספת שאלה ו"גם אני שואל" (בלי סיסמה)
     if (data.action === 'qbAdd') return json_(qbAdd_(data));
@@ -117,6 +119,9 @@ function doPost(e) {
       case 'createLesson':    return json_(createLesson_(data.url, data.label, data.monitor === true, data.cls));
       case 'presenceList':    return json_(presenceList_(data.code));
       case 'kickStudent':     return json_(kickStudent_(data.code, data.sid, data.undo === true));
+      case 'rosterSave':      return json_(rosterSave_(data.cls, data.text));
+      case 'rosterInfo':      return json_(rosterInfo_());
+      case 'rosterClear':     return json_(rosterClear_(data.cls));
       case 'clearLesson':     return json_(clearLesson_(data.code));
       case 'lessonNav':       return json_(lessonNav_(data.code, data.url, data.label));
       case 'lessonsList':     return json_({ ok: true, lessons: lessonsList_() });
@@ -814,7 +819,8 @@ function clearLesson_(code) {
 function findLesson_(code) {
   var l = lessons_()[String(code || '')];
   if (l) {
-    return { ok: true, url: l.url, label: l.label, monitor: !!l.monitor, cls: l.cls || '', until: lessonUntil_(l) };
+    return { ok: true, url: l.url, label: l.label, monitor: !!l.monitor, cls: l.cls || '', until: lessonUntil_(l),
+             idLogin: !!(l.monitor && rosterCount_(l.cls)) };
   }
   return { ok: false, error: 'הקוד לא נמצא' };
 }
@@ -851,6 +857,9 @@ function presence_(d) {
   var sid = String(d.sid || '').replace(/[^\w-]/g, '').slice(0, 40);
   if (!sid) return { ok: false, error: 'חסר מזהה' };
   var name = clean_(d.name).slice(0, 60);
+  // כשיש רשימת כיתה - נכנסים רק דרך תעודת זהות, והשם מגיע מן הרשימה (אי אפשר להקליד שם אחר)
+  var idOk = !!rosterCount_(l.cls) && d.tok === rosterToken_(l.code, name);
+  if (rosterCount_(l.cls) && !idOk) return { ok: false, needId: true };
   var page = String(d.page || '').slice(0, 80);
   if (!/^[\w.-]+\.html$/.test(page)) page = '';
   var state = d.state === 'out' ? 'out' : (d.state === 'bye' ? 'bye' : (d.state === 'paste' ? 'paste' : 'in'));
@@ -890,7 +899,7 @@ function presence_(d) {
     if (!p.ev) p.ev = [];
     if (t < (p.t || 0)) return { ok: true, leaves: p.leaves };   // דיווח ישן שהגיע מאוחר - מתעלמים
     p.t = t;
-    if (name && !p.name) p.name = name;   // השם נקבע בכניסה הראשונה - אי אפשר להחליף אותו באמצע השיעור
+    if (name && (!p.name || idOk)) p.name = name;   // השם נקבע בכניסה הראשונה (או מרשימת הכיתה) - אי אפשר להחליף אותו באמצע השיעור
     if (page && page !== p.page && !isNew) p.ev.push({ k: 'page', at: now, page: page });
     if (page) p.page = page;
     if (isNew) p.ev.push({ k: 'join', at: now, page: page });
@@ -981,6 +990,72 @@ function presenceList_(code) {
   });
   return { ok: true, lesson: { code: l.code, label: l.label, url: l.url, cls: l.cls, nav: l.nav || null },
            lessons: mon.map(function (x) { return { code: x.code, label: x.label, cls: x.cls }; }), students: out, now: now };
+}
+
+// ---------- רשימות כיתה: כניסה לשיעור עם תעודת זהות ----------
+// המורה מדביק באזור האישי שם + ת"ז לכל תלמיד. נשמרת רק "טביעת אצבע" (SHA-256 עם מלח סודי) של כל ת"ז,
+// במאפיין ROSTER_<כיתה>: { טביעה: שם }. תעודות הזהות עצמן לא נשמרות בשום מקום ולא מוצגות באתר.
+function sha256hex_(text) {
+  return Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, text, Utilities.Charset.UTF_8)
+    .map(function (b) { return ('0' + ((b + 256) % 256).toString(16)).slice(-2); }).join('');
+}
+function rosterSalt_() {
+  var props = PropertiesService.getScriptProperties(), salt = props.getProperty('ROSTER_SALT');
+  if (!salt) { salt = Utilities.getUuid() + Utilities.getUuid(); props.setProperty('ROSTER_SALT', salt); }
+  return salt;
+}
+function normId_(id) {
+  var d = String(id || '').replace(/\D/g, '');
+  return (d.length >= 5 && d.length <= 9) ? ('000000000' + d).slice(-9) : '';
+}
+// ספרת ביקורת של תעודת זהות ישראלית
+function validId_(id) {
+  if (!/^\d{9}$/.test(id)) return false;
+  var sum = 0;
+  for (var i = 0; i < 9; i++) { var n = Number(id[i]) * (i % 2 + 1); sum += n > 9 ? n - 9 : n; }
+  return sum % 10 === 0;
+}
+function idHash_(id) { return sha256hex_(rosterSalt_() + '|' + id).slice(0, 32); }
+function roster_(cls) { return getJson_('ROSTER_' + normClass_(cls)) || {}; }
+function rosterCount_(cls) { return cls ? Object.keys(roster_(cls)).length : 0; }
+// אסימון שמוכיח שהשם הגיע מזיהוי בת"ז (לשיעור הזה בלבד)
+function rosterToken_(code, name) { return sha256hex_(rosterSalt_() + '|tok|' + code + '|' + nameKey_(name)).slice(0, 24); }
+
+function rosterSave_(cls, text) {
+  cls = normClass_(cls);
+  if (MONITOR_CLASSES.indexOf(cls) < 0) return { ok: false, error: 'אפשר לשמור רשימה רק לכיתה י"א או י"ב' };
+  var map = {}, bad = [], n = 0;
+  String(text || '').split(/\r?\n/).forEach(function (line, i) {
+    if (!line.trim()) return;
+    var m = line.match(/\d[\d\- ]{3,11}\d/);
+    var id = m ? normId_(m[0]) : '';
+    var name = clean_(m ? line.replace(m[0], ' ') : line).replace(/^[\s,;|\t.\-–]+|[\s,;|\t.\-–]+$/g, '').replace(/\s*[,;|\t]\s*/g, ' ').trim();
+    if (!id || !validId_(id) || name.length < 2) { bad.push((i + 1) + (name ? ' (' + name.slice(0, 30) + ')' : '')); return; }
+    map[idHash_(id)] = name.slice(0, 60);
+    n++;
+  });
+  if (!n) return { ok: false, error: 'לא נמצאו שורות תקינות. בכל שורה צריך שם ותעודת זהות.', bad: bad.slice(0, 20) };
+  PropertiesService.getScriptProperties().setProperty('ROSTER_' + cls, JSON.stringify(map));
+  return { ok: true, cls: cls, count: n, bad: bad.slice(0, 20) };
+}
+function rosterInfo_() {
+  var out = {};
+  MONITOR_CLASSES.forEach(function (c) { out[c] = rosterCount_(c); });
+  return { ok: true, counts: out };
+}
+function rosterClear_(cls) {
+  cls = normClass_(cls);
+  PropertiesService.getScriptProperties().deleteProperty('ROSTER_' + cls);
+  return { ok: true };
+}
+function lessonIdentify_(code, id) {
+  var l = monitoredLesson_(code);
+  if (!l) return { ok: false, error: 'הקוד לא נמצא' };
+  id = normId_(id);
+  if (!id || !validId_(id)) return { ok: false, error: 'מספר תעודת הזהות לא תקין. בדקו שהקלדתם את כל 9 הספרות.' };
+  var name = roster_(l.cls)[idHash_(id)];
+  if (!name) return { ok: false, error: 'תעודת הזהות לא נמצאה ברשימת הכיתה. פנו למורה.' };
+  return { ok: true, name: name, tok: rosterToken_(l.code, name) };
 }
 
 // ---------- "חדרים": פעילות ולוח לכל שיעור ----------

@@ -31,14 +31,27 @@ window.BM_API_URL = 'https://script.google.com/macros/s/AKfycbwkhxAu28oe10-Mli0t
         return (v && v.name && v.sid && v.until > Date.now()) ? v : null;
       }catch(e){ return null; }
     },
-    set: function(code, name, sid, until){
+    set: function(code, name, sid, until, tok){
       try{
         var m = JSON.parse(localStorage.getItem("bm-lesson-names") || "{}"), now = Date.now();
         Object.keys(m).forEach(function(k){ if(!(m[k] && m[k].until > now)) delete m[k]; });
-        m[String(code)] = { name:name, sid:sid, until:until };
+        m[String(code)] = { name:name, sid:sid, until:until, tok:tok || "" };
         localStorage.setItem("bm-lesson-names", JSON.stringify(m));
       }catch(e){}
     }
+  };
+  /* כניסה לשיעור עם תעודת זהות (כשהמורה שמר רשימת כיתה): השרת מחזיר את השם מן הרשימה ואסימון.
+     תעודת הזהות לא נשמרת במכשיר. */
+  window.BM_LESSON_ID = function(code, id){
+    return fetch(window.BM_API_URL, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" },
+      body:JSON.stringify({ action:"lessonIdentify", code:code, id:id }) }).then(function(r){ return r.json(); });
+  };
+  window.BM_LESSON_LOCK.clear = function(code){
+    try{
+      var m = JSON.parse(localStorage.getItem("bm-lesson-names") || "{}");
+      delete m[String(code)];
+      localStorage.setItem("bm-lesson-names", JSON.stringify(m));
+    }catch(e){}
   };
   window.BM_TEACHER_ROOM = {
     get: function(){ return read(localStorage, "bm-teacher-room"); },

@@ -640,6 +640,18 @@
           '</div>' +
           '<p class="tt-note">מתעדכן לבד כל 5 שניות. נספרת יציאה מעל 5 שניות (לשונית או אפליקציה אחרת), ומעבר לחלון אחר במחשב מעל 10 שניות. מעבר בין דפים באתר ולחיצה על סרטון או מצגת בתוך הדף לא נספרים. התראות קופצות וצליל כבויים, כדי שלא יופיעו על המסך המוקרן; אפשר להפעיל אותם בכפתור כאן. מי שמנסה להיכנס בשם של תלמיד שכבר מחובר - נחסם, ומופיע ⚠ ליד השם. כפתור "🚫 הוצאה" מוציא תלמיד מהשיעור (ו"↩ החזרה" מבטל). לחיצה על שם התלמיד מציגה את כל מה שקרה אצלו, עם שעות. האתר לא יודע לאן התלמיד יצא.</p>' +
         '</div>' +
+        '<div class="tt-card" id="ttRoster">' +
+          '<h3 class="tt-h">🪪 כניסה לשיעור עם תעודת זהות</h3>' +
+          '<p class="tt-sub">כשיש רשימת כיתה, התלמידים נכנסים לשיעור עם בקרה רק עם תעודת זהות, והשם שלהם נלקח מן הרשימה. כך אי אפשר להיכנס בשם של מישהו אחר או בשם מומצא. בלי רשימה - נכנסים עם שם, כמו היום.</p>' +
+          '<p class="tt-msg" id="ttRosterNow" aria-live="polite"></p>' +
+          '<label for="ttRosterCls" class="tt-label">כיתה</label>' +
+          '<select id="ttRosterCls" class="tt-select"><option value="יא">כיתה י״א</option><option value="יב">כיתה י״ב</option></select>' +
+          '<label for="ttRosterText" class="tt-label">שם ותעודת זהות - תלמיד בכל שורה (אפשר להעתיק שתי עמודות מאקסל או משוב/סקולי)</label>' +
+          '<textarea id="ttRosterText" class="tt-textarea" rows="6" autocomplete="off" spellcheck="false" placeholder="בכל שורה: שם התלמיד ותעודת הזהות שלו (9 ספרות)"></textarea>' +
+          '<div class="tt-btns"><button type="button" class="tt-btn tt-btn--primary" id="ttRosterSave">שמירת הרשימה</button><button type="button" class="tt-btn" id="ttRosterClear">מחיקת הרשימה של הכיתה</button></div>' +
+          '<p class="tt-msg" id="ttRosterMsg" role="status" aria-live="polite"></p>' +
+          '<p class="tt-note">תעודות הזהות לא נשמרות כמו שהן: השרת שומר רק "טביעת אצבע" מוצפנת של כל מספר, כדי לזהות את התלמיד. האתר לא מציג תעודות זהות בשום מקום, וגם התיבה כאן מתרוקנת אחרי השמירה. שמירה חדשה מחליפה את הרשימה הקודמת של אותה כיתה.</p>' +
+        '</div>' +
         '</div>' +
         '<div class="tt-panel" role="tabpanel" id="ttPanel-exams" aria-labelledby="ttTab-exams" hidden>' +
           '<div class="tt-row">' +
@@ -918,6 +930,39 @@
       }).catch(function(){ b.disabled = false; b.textContent = "ביטול"; alert("אין חיבור לשרת כרגע. נסו שוב."); });
     });
     loadLessons();
+
+    /* רשימות כיתה לכניסה עם ת"ז */
+    function loadRoster(){
+      apiPost({ action:"rosterInfo", password:teacherToken() }).then(function(res){
+        if(handleAuthFailure(res)) return;
+        var now = document.getElementById("ttRosterNow");
+        if(!res || !res.ok || !res.counts){ now.textContent = "הכניסה עם תעודת זהות תעבוד אחרי שתעדכנו את הסקריפט של Google לגרסה החדשה."; return; }
+        now.textContent = ["יא", "יב"].map(function(c){ var n = res.counts[c] || 0; return 'כיתה ' + (c === "יב" ? 'י"ב' : 'י"א') + ': ' + (n ? (n === 1 ? 'תלמיד אחד' : n + ' תלמידים') + ' ברשימה - נכנסים עם ת"ז' : 'אין רשימה - נכנסים עם שם'); }).join(" · ");
+      }).catch(function(){});
+    }
+    loadRoster();
+    document.getElementById("ttRosterSave").addEventListener("click", function(){
+      var ta = document.getElementById("ttRosterText"), m = document.getElementById("ttRosterMsg"), b = this;
+      var cls = document.getElementById("ttRosterCls").value;
+      if(!ta.value.trim()){ m.textContent = "הדביקו קודם את הרשימה: שם ותעודת זהות בכל שורה."; ta.focus(); return; }
+      b.disabled = true; m.textContent = "שומרים…";
+      apiPost({ action:"rosterSave", password:teacherToken(), cls:cls, text:ta.value }).then(function(res){
+        if(handleAuthFailure(res)) return;
+        if(!res || !res.ok){ m.textContent = ((res && res.error) || "השמירה לא הצליחה.") + (res && res.bad && res.bad.length ? " שורות עם בעיה: " + res.bad.join(", ") : ""); return; }
+        ta.value = "";
+        m.textContent = "✓ נשמרו " + res.count + " תלמידים לכיתה " + (cls === "יב" ? 'י"ב' : 'י"א') + "." + (res.bad && res.bad.length ? " לא נשמרו שורות (חסר שם או ת\"ז לא תקינה): " + res.bad.join(", ") + "." : "");
+        loadRoster();
+      }).catch(function(){ m.textContent = "אין חיבור לשרת כרגע. נסו שוב."; }).then(function(){ b.disabled = false; });
+    });
+    document.getElementById("ttRosterClear").addEventListener("click", function(){
+      var cls = document.getElementById("ttRosterCls").value, m = document.getElementById("ttRosterMsg");
+      if(!confirm("למחוק את רשימת הכיתה? אחרי המחיקה התלמידים ייכנסו לשיעור עם שם, כמו קודם.")) return;
+      apiPost({ action:"rosterClear", password:teacherToken(), cls:cls }).then(function(res){
+        if(handleAuthFailure(res)) return;
+        m.textContent = res && res.ok ? "✓ הרשימה נמחקה." : "המחיקה לא הצליחה.";
+        loadRoster();
+      }).catch(function(){ m.textContent = "אין חיבור לשרת כרגע. נסו שוב."; });
+    });
 
     document.getElementById("ttLiveRefresh").addEventListener("click", loadLive);
     /* שליחת הכיתה לדף: כל תלמיד שנכנס עם הקוד של השיעור המוצג עובר לבד לדף שנבחר */
@@ -2477,12 +2522,25 @@
       (window.crypto || window.msCrypto).getRandomValues(a);
       return Array.prototype.map.call(a, function(b){ return ("0" + b.toString(16)).slice(-2); }).join("");
     }
+    var nameLabel = document.querySelector('label[for="lessonNameInput"]');
+    function setIdMode(on){
+      nameLabel.textContent = on ? "מספר תעודת הזהות שלכם (9 ספרות)" : "השם המלא שלכם";
+      nameInput.setAttribute("inputmode", on ? "numeric" : "text");
+      nameInput.setAttribute("autocomplete", on ? "off" : "name");
+      nameInput.maxLength = on ? 9 : 60;
+    }
     function askName(code, res){
-      pending = { code:code, res:res };
-      msg.textContent = "✓ " + (res.label || res.url) + " · כתבו את השם שלכם ולחצו \"כניסה לשיעור\".";
       var lk = window.BM_LESSON_LOCK && window.BM_LESSON_LOCK.get(code);
-      nameInput.readOnly = !!lk;
-      if(lk){
+      /* יש רשימת כיתה: נכנסים עם ת"ז (אלא אם המכשיר כבר זוהה בשיעור הזה) */
+      var idMode = !!res.idLogin && !(lk && lk.tok);
+      pending = { code:code, res:res, idMode:idMode };
+      setIdMode(idMode);
+      msg.textContent = "✓ " + (res.label || res.url) + " · כתבו את השם שלכם ולחצו \"כניסה לשיעור\".";
+      nameInput.readOnly = !!lk && !idMode;
+      if(idMode){
+        nameInput.value = "";
+        msg.textContent = "✓ " + (res.label || res.url) + " · בשיעור הזה נכנסים עם תעודת זהות. הקלידו אותה ולחצו \"כניסה לשיעור\".";
+      } else if(lk){
         nameInput.value = lk.name;
         msg.textContent = "✓ " + (res.label || res.url) + " · נכנסת כבר לשיעור הזה בשם \"" + lk.name + "\". באמצע שיעור אי אפשר להחליף שם - לחצו \"כניסה לשיעור\".";
       } else {
@@ -2493,17 +2551,34 @@
     }
     function enterLesson(){
       if(!pending) return;
+      if(pending.idMode){
+        var id = nameInput.value.replace(/\D/g, "");
+        if(id.length < 5){ msg.textContent = "הקלידו את מספר תעודת הזהות שלכם (9 ספרות)."; nameInput.focus(); return; }
+        var p0 = pending;
+        nameBtn.disabled = true; msg.textContent = "בודקים…";
+        window.BM_LESSON_ID(p0.code, id).then(function(res){
+          if(pending !== p0) return;
+          if(!res || !res.ok){ msg.textContent = (res && res.error) || "לא הצלחנו לזהות. נסו שוב."; nameInput.select(); return; }
+          nameInput.value = "";
+          finishEnter(res.name, res.tok, true);
+        }).catch(function(){ msg.textContent = "אין חיבור לשרת כרגע. נסו שוב בעוד רגע."; })
+          .then(function(){ nameBtn.disabled = false; });
+        return;
+      }
       var name = nameInput.value.replace(/\s+/g, " ").trim();
       if(name.length < 2){ msg.textContent = "כתבו את השם המלא שלכם."; nameInput.focus(); return; }
+      finishEnter(name, "", false);
+    }
+    function finishEnter(name, tok, fromId){
       var r = pending.res, until = r.until || (Date.now() + 12 * 3600 * 1000);
       var lk = window.BM_LESSON_LOCK && window.BM_LESSON_LOCK.get(pending.code);
-      if(lk) name = lk.name;
+      if(lk && !fromId){ name = lk.name; tok = lk.tok || ""; }
       var sid = lk ? lk.sid : newSid();
-      if(!lk && window.BM_LESSON_LOCK) window.BM_LESSON_LOCK.set(pending.code, name, sid, until);
+      if((!lk || fromId) && window.BM_LESSON_LOCK) window.BM_LESSON_LOCK.set(pending.code, name, sid, until, tok);
       try{
         localStorage.setItem("bm-lesson-name", name);
         localStorage.setItem("bm-lesson-mode", JSON.stringify({
-          code:pending.code, name:name, sid:sid, until:until,
+          code:pending.code, name:name, sid:sid, until:until, tok:tok || "",
           label:r.label || "", leaves:0
         }));
       }catch(e){}
