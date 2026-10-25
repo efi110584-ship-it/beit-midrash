@@ -42,6 +42,47 @@
 .ts-tools{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
 .ts-note{font-size:.92rem !important;color:var(--ink-soft)}
 .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+/* ---- משחקים ---- */
+.ts-route{position:sticky;top:0;z-index:5;background:var(--paper-card);border:1px solid var(--paper-line);border-radius:14px;padding:.55rem .7rem;box-shadow:var(--shadow);display:flex;flex-wrap:wrap;align-items:center;gap:.4rem}
+.ts-route b{font-size:.95rem;margin-inline-end:.2rem}
+.ts-route a{display:inline-flex;align-items:center;gap:.3rem;min-height:36px;padding:.2rem .65rem;border-radius:999px;border:1.5px solid var(--paper-line);background:#fff;color:var(--ink);font-size:.9rem;font-weight:600;text-decoration:none}
+.ts-route a.done{background:#E3F4EC;border-color:#2E7D4F;color:#14422A}
+.ts-route a.done::before{content:"✓"}
+.ts-route .ts-stars{margin-inline-start:auto;font-weight:700;font-size:.95rem;white-space:nowrap}
+.ts-game{border-radius:14px;padding:.9rem 1rem;background:#F3F0FF;border:1.5px solid #B9AEF0;display:flex;flex-direction:column;gap:.65rem}
+.ts-game-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem}
+.ts-game-head b{font-size:1.08rem;color:#3B2A8C}
+.ts-score{font-weight:700;font-size:.92rem;padding:.15rem .6rem;border-radius:999px;background:#fff;color:#3B2A8C;border:1px solid #B9AEF0}
+.ts-game p{font-size:1rem !important}
+.ts-cards{list-style:none;margin:0;padding:0 !important;display:flex;flex-direction:column;gap:.5rem}
+.ts-q{background:#fff;border:1.5px solid #DAD3FA;border-radius:12px;padding:.6rem .75rem;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .8rem;transition:border-color .2s,background .2s}
+.ts-qtext{flex:1 1 15rem;font-size:1.03rem;line-height:1.6}
+.ts-opts{display:flex;flex-wrap:wrap;gap:.4rem}
+.ts-opts button,.ts-check-btn,.ts-chip{min-height:40px;padding:.3rem .85rem;border-radius:10px;border:1.5px solid #7B6AD6;background:#fff;color:#3B2A8C;font:inherit;font-weight:700;font-size:.95rem;cursor:pointer}
+.ts-opts button:hover,.ts-check-btn:hover,.ts-chip:hover{background:#ECE8FF}
+.ts-opts button:focus-visible,.ts-check-btn:focus-visible,.ts-chip:focus-visible,.ts-blank:focus-visible{outline:3px solid var(--focus-ring,#FF7A1A);outline-offset:2px}
+.ts-q.ok{border-color:#2E7D4F;background:#EFF9F3}
+.ts-q.ok .ts-opts button{opacity:.45;cursor:default}
+.ts-q.ok .ts-opts button.picked{opacity:1;background:#2E7D4F;border-color:#2E7D4F;color:#fff}
+.ts-q.bad{animation:ts-shake .35s}
+.ts-fb{flex-basis:100%;font-size:.95rem;line-height:1.55}
+.ts-fb:empty{display:none}
+.ts-fb.no{color:#9A2B12;font-weight:600}
+.ts-fb.yes{color:#14422A}
+.ts-win{padding:.6rem .85rem;border-radius:10px;background:#2E7D4F;color:#fff;font-weight:700;text-align:center}
+.ts-win[hidden]{display:none}
+.ts-fill{background:#fff;border:1.5px solid #DAD3FA;border-radius:12px;padding:.8rem .9rem;font-family:"Frank Ruhl Libre",serif;font-size:1.12rem;line-height:2.3}
+.ts-blank{font:inherit;font-family:Heebo,system-ui,sans-serif;font-size:.98rem;font-weight:600;min-height:36px;padding:0 .3rem;border:1.5px dashed #7B6AD6;border-radius:8px;background:#F8F6FF;color:#3B2A8C;max-width:100%}
+.ts-blank.ok{border:1.5px solid #2E7D4F;background:#E3F4EC;color:#14422A}
+.ts-blank.no{border:1.5px solid #B42318;background:#FDECEA;color:#7A1A10}
+.ts-game .ts-table select{width:100%}
+.ts-chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.ts-chip[aria-pressed="true"]{background:#3B2A8C;color:#fff;border-color:#3B2A8C}
+.ts-row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+@keyframes ts-shake{0%,100%{transform:none}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@media (max-width:640px){.ts-route{position:static}}
+@media (prefers-reduced-motion:reduce){.ts-q.bad{animation:none}.ts-q{transition:none}}
+@media print{.ts-route,.ts-game{display:none !important}}
 @media print{.ts-tools,.hint-btn,.ts-next a{display:none !important}.ts-card{box-shadow:none;break-inside:avoid}.hint-box[hidden]{display:block !important}}
 </style>
 <script src="assets/a11y.js"></script>
@@ -77,8 +118,22 @@
       <li>מה המטרה של הנישואין - לפי שני סיפורי הבריאה ולפי הרב סולובייצ'יק.</li>
       <li>מצוות "פרו ורבו": הטעם שלה, כמה ילדים חייבים, ולמה אישה פטורה ממנה.</li>
     </ul>
+    <p class="ts-note">בכל חלק יש משחק קצר 🎮. על כל תשובה נכונה בניסיון הראשון מקבלים ⭐ - נסו לאסוף כמה שיותר כוכבים עד חידון הסיום!</p>
     <p class="ts-note">בסוף כל חלק יש שאלה קצרה לבדיקה. כתבו תשובה, ורק אחר כך לחצו "הצג תשובה". בסוף השיעור עוברים לשאלות הבגרות של הנושא.</p>
   </section>
+
+  <nav class="ts-route" aria-label="מסלול השיעור">
+    <b>🗺️ המסלול:</b>
+    <a href="#ts-open" data-route="g0">פתיחה</a>
+    <a href="#ts-1a" data-route="g1">הבריאה</a>
+    <a href="#ts-1b" data-route="g2">סולובייצ'יק</a>
+    <a href="#ts-2a" data-route="g3">ספר החינוך</a>
+    <a href="#ts-2b" data-route="g4">רא"ש ורמב"ם</a>
+    <a href="#ts-2c" data-route="g5">כמה ילדים</a>
+    <a href="#ts-2d" data-route="g6">אישה פטורה</a>
+    <a href="#ts-exit" data-route="g7">חידון סיום</a>
+    <span class="ts-stars" id="tsStars" aria-live="polite">⭐ 0</span>
+  </nav>
 
   <section class="ts-card" aria-labelledby="ts-open">
     <h3 id="ts-open">🤔 שאלה לפתיחה</h3>
@@ -88,8 +143,22 @@
       <li>מדוע בני אדם מוכנים להשקיע מאמץ רב כדי להינשא ולהקים ביחד בית?</li>
       <li>באיזה מובן "טובים השניים מן האחד"?</li>
     </ul>
+    <div class="ts-game" data-game="g0" data-poll>
+      <div class="ts-game-head"><b>🗳️ סקר פתיחה: למה מתחתנים?</b></div>
+      <p>בחרו את כל הסיבות שנראות לכם נכונות, ולחצו "סיימתי".</p>
+      <div class="ts-chips">
+        <button type="button" class="ts-chip" aria-pressed="false">❤️ אהבה</button>
+        <button type="button" class="ts-chip" aria-pressed="false">🤝 לא להיות לבד</button>
+        <button type="button" class="ts-chip" aria-pressed="false">👶 להביא ילדים</button>
+        <button type="button" class="ts-chip" aria-pressed="false">🏠 לבנות בית ומשפחה</button>
+        <button type="button" class="ts-chip" aria-pressed="false">📜 זו מצווה</button>
+        <button type="button" class="ts-chip" aria-pressed="false">🌍 להמשיך את העולם</button>
+      </div>
+      <div class="ts-row"><button type="button" class="ts-check-btn" data-poll-done>סיימתי</button></div>
+      <p class="ts-win" hidden>יפה! כל הסיבות האלה מופיעות במקורות שנלמד היום: "לא טוב היות האדם לבדו", "פרו ורבו", ו"לא תהו בראה - לשבת יצרה".</p>
+    </div>
     <div class="ts-check">
-      <label class="ts-label" for="ts-a0">מה דעתכם? כתבו סיבה אחת</label>
+      <label class="ts-label" for="ts-a0">ובמילים שלכם: כתבו סיבה אחת</label>
       <textarea class="answer" id="ts-a0" data-id="ts-a0" rows="2" placeholder="כתבו כאן..."></textarea>
     </div>
   </section>
@@ -122,6 +191,19 @@
       <p>זָכָר וּנְקֵבָה, בְּרָאָם; וַיְבָרֶךְ אֹתָם, וַיִּקְרָא אֶת-שְׁמָם אָדָם, בְּיוֹם, הִבָּרְאָם.</p>
       <cite>בראשית ה', ב'</cite>
     </blockquote>
+    <div class="ts-game" data-game="g1" data-opts="a:פרק א&#x27;|b:פרק ב&#x27;">
+      <div class="ts-game-head"><b>🎯 משחק: פרק א' או פרק ב'?</b><span class="ts-score"></span></div>
+      <p>לכל משפט - לחצו מאיזה סיפור בריאה הוא.</p>
+      <ul class="ts-cards">
+        <li class="ts-q" data-ans="a" data-why="בפרק א&#x27; האדם נברא זכר ונקבה, יחד."><span class="ts-qtext">"זָכָר וּנְקֵבָה בָּרָא אֹתָם"</span></li>
+        <li class="ts-q" data-ans="a" data-why="הברכה והציווי נאמרו בפרק א&#x27;, פסוק כ&quot;ח."><span class="ts-qtext">"פְּרוּ וּרְבוּ וּמִלְאוּ אֶת-הָאָרֶץ"</span></li>
+        <li class="ts-q" data-ans="b" data-why="פרק ב&#x27;, פסוק י&quot;ח."><span class="ts-qtext">"לֹא-טוֹב הֱיוֹת הָאָדָם לְבַדּוֹ"</span></li>
+        <li class="ts-q" data-ans="b" data-why="בפרק ב&#x27; יש חיפוש, עד שנמצא הזיווג האמיתי."><span class="ts-qtext">"וּלְאָדָם, לֹא-מָצָא עֵזֶר כְּנֶגְדּוֹ"</span></li>
+        <li class="ts-q" data-ans="b" data-why="פרק ב&#x27;, פסוק כ&quot;ד."><span class="ts-qtext">"וְהָיוּ לְבָשָׂר אֶחָד"</span></li>
+        <li class="ts-q" data-ans="a" data-why="פרק א&#x27;, פסוק כ&quot;ז."><span class="ts-qtext">האדם נברא בצלם אלוקים</span></li>
+      </ul>
+      <p class="ts-win" hidden>כל הכבוד! פרק א' = "זכר ונקבה" ו"פרו ורבו". פרק ב' = "לא טוב היות האדם לבדו", חיפוש ה"עזר כנגדו".</p>
+    </div>
   </section>
 
   <section class="ts-card" aria-labelledby="ts-1b">
@@ -133,16 +215,18 @@
       <p>2. המפגש בין אדם הראשון וחוה, בין האיש והאישה, נגרם על ידי תחושה של בדידות ועל ידי הצורך הבסיסי בידידות: "וַיאמֶר ה' אלוקים לא טֹוב היֹות הָאָדָם לְבַדֹו אֶעֱשֶה לֹו עֵזֶר כְנֶגְדֹו" (בראשית ב, יח) ...בהקשר זה צריכים היו הנישואין לקנות להם משמעות חדשה... אין אנו עוסקים עוד במניעים מכאניים אלא בתכליתיות רוחנית. "איש ואשה" (בפרק ב) באים במקום "זכר ונקבה" (בפרק א), ומפגשם תובע חווית יחד נעלה יותר, שמטרתה אינה רק הישרדותו של הגזע, אלא גם יצירת קהילה קטנה וצנועה והתפשטותה...</p>
       <cite>הרב יוסף דב סולובייצ'יק, אדם וביתו, עמ' 48-51</cite>
     </blockquote>
-    <div class="ts-table-wrap">
-      <table class="ts-table">
-        <caption class="visually-hidden">שתי המטרות לפי הרב סולובייצ'יק</caption>
-        <thead><tr><th scope="col"></th><th scope="col">בראשית פרק א'</th><th scope="col">בראשית פרק ב'</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">איך הם נקראים?</th><td>"זכר ונקבה"</td><td>"איש ואשה"</td></tr>
-          <tr><th scope="row">מה מביא אותם יחד?</th><td>"פרו ורבו"</td><td>"לא טוב היות האדם לבדו" - בדידות, הצורך בידידות</td></tr>
-          <tr><th scope="row">המטרה</th><td>פרייה ורבייה - המשכיות הגזע</td><td>תכלית רוחנית: חוויית יחד, יצירת "קהילה קטנה וצנועה"</td></tr>
-        </tbody>
-      </table>
+    <div class="ts-game" data-game="g2" data-fill>
+      <div class="ts-game-head"><b>🧩 השלימו את הטבלה</b><span class="ts-score"></span></div>
+      <p>לפי הרב סולובייצ'יק: בחרו בכל משבצת את מה שמתאים, ולחצו "בדיקה".</p>
+      <div class="ts-table-wrap">
+        <table class="ts-table">
+          <caption class="visually-hidden">שתי המטרות לפי הרב סולובייצ'יק - להשלמה</caption>
+          <thead><tr><th scope="col"></th><th scope="col">בראשית פרק א'</th><th scope="col">בראשית פרק ב'</th></tr></thead>
+          <tbody><tr><th scope="row">איך הם נקראים?</th><td><select class="ts-blank" data-ans="&quot;זכר ונקבה&quot;" aria-label="בחרו"><option value="">בחרו...</option><option>"זכר ונקבה"</option><option>"איש ואשה"</option></select></td><td><select class="ts-blank" data-ans="&quot;איש ואשה&quot;" aria-label="בחרו"><option value="">בחרו...</option><option>"זכר ונקבה"</option><option>"איש ואשה"</option></select></td></tr><tr><th scope="row">מה מביא אותם יחד?</th><td><select class="ts-blank" data-ans="&quot;פרו ורבו&quot;" aria-label="בחרו"><option value="">בחרו...</option><option>"פרו ורבו"</option><option>"לא טוב היות האדם לבדו" - בדידות</option></select></td><td><select class="ts-blank" data-ans="&quot;לא טוב היות האדם לבדו&quot; - בדידות" aria-label="בחרו"><option value="">בחרו...</option><option>"פרו ורבו"</option><option>"לא טוב היות האדם לבדו" - בדידות</option></select></td></tr><tr><th scope="row">המטרה</th><td><select class="ts-blank" data-ans="המשכיות הגזע" aria-label="בחרו"><option value="">בחרו...</option><option>המשכיות הגזע</option><option>"קהילה קטנה וצנועה" - חוויית יחד</option></select></td><td><select class="ts-blank" data-ans="&quot;קהילה קטנה וצנועה&quot; - חוויית יחד" aria-label="בחרו"><option value="">בחרו...</option><option>המשכיות הגזע</option><option>"קהילה קטנה וצנועה" - חוויית יחד</option></select></td></tr></tbody>
+        </table>
+      </div>
+      <div class="ts-row"><button type="button" class="ts-check-btn" data-fill-check>בדיקה</button><span class="ts-fb" aria-live="polite"></span></div>
+      <p class="ts-win" hidden>מצוין! פרק א' - פרייה ורבייה, המשכיות הגזע. פרק ב' - תכלית רוחנית: ידידות, יחד, "קהילה קטנה וצנועה".</p>
     </div>
     <div class="ts-check">
       <label class="ts-label" for="ts-a1">✏️ בדיקה: מהן שתי המטרות של הנישואין לפי הרב סולובייצ'יק? מאיזה פרק לומדים כל אחת?</label>
@@ -169,6 +253,21 @@
       <p>כדי שיהיה העולם מיושב, שהשם ברוך הוא חפץ בישובו, כדכתיב: "לֹא תֹהוּ בְרָאָהּ לָשֶׁבֶת יְצָרָהּ" (ישעיהו מה, יח). והיא מצוה גדולה שבסיבתה מתקיימות כל המצות בעולם, כי לבני אדם ניתנו ולא למלאכי השרת. ונוהגת בכל מקום ובכל זמן. וחייב אדם להשתדל בה משהוא ראוי לה, והוא הזמן שנתנו חכמים זכרונם לברכה לישא אשה. ומצוה זו אינה מוטלת על הנשים. והמבטלה ביטל עשה, וענשו גדול מאוד שמראה בעצמו שאינו רוצה להשלים חפץ השם ליישב עולמו.</p>
       <cite>ספר החינוך, מצוה א' - מצוות פרייה ורבייה</cite>
     </blockquote>
+    <div class="ts-game" data-game="g3" data-fill>
+      <div class="ts-game-head"><b>📝 השלימו את ספר החינוך</b><span class="ts-score"></span></div>
+      <p>מחסן המילים: <b>מיושב · המצות · מקום · הנשים · עשה · חפץ השם</b>. בחרו את המילה החסרה בכל מקום, ולחצו "בדיקה".</p>
+      <div class="ts-fill">כדי שיהיה העולם <select class="ts-blank" data-ans="מיושב" aria-label="מילה חסרה"><option value="">______</option><option>עשה</option><option>מיושב</option><option>חפץ השם</option><option>הנשים</option><option>המצות</option><option>מקום</option></select>, שהשם ברוך הוא חפץ בישובו... והיא מצוה גדולה שבסיבתה מתקיימות כל <select class="ts-blank" data-ans="המצות" aria-label="מילה חסרה"><option value="">______</option><option>מקום</option><option>הנשים</option><option>המצות</option><option>חפץ השם</option><option>עשה</option><option>מיושב</option></select> בעולם... ונוהגת בכל <select class="ts-blank" data-ans="מקום" aria-label="מילה חסרה"><option value="">______</option><option>מקום</option><option>חפץ השם</option><option>הנשים</option><option>מיושב</option><option>המצות</option><option>עשה</option></select> ובכל זמן... ומצוה זו אינה מוטלת על <select class="ts-blank" data-ans="הנשים" aria-label="מילה חסרה"><option value="">______</option><option>מקום</option><option>חפץ השם</option><option>עשה</option><option>המצות</option><option>מיושב</option><option>הנשים</option></select>. והמבטלה ביטל <select class="ts-blank" data-ans="עשה" aria-label="מילה חסרה"><option value="">______</option><option>המצות</option><option>מקום</option><option>הנשים</option><option>חפץ השם</option><option>עשה</option><option>מיושב</option></select>, וענשו גדול מאוד שמראה בעצמו שאינו רוצה להשלים <select class="ts-blank" data-ans="חפץ השם" aria-label="מילה חסרה"><option value="">______</option><option>המצות</option><option>מקום</option><option>מיושב</option><option>הנשים</option><option>חפץ השם</option><option>עשה</option></select> ליישב עולמו.</div>
+      <div class="ts-row"><button type="button" class="ts-check-btn" data-fill-check>בדיקה</button><span class="ts-fb" aria-live="polite"></span></div>
+      <p class="ts-win" hidden>כל הכבוד! את המשפטים האלה כדאי לזכור - הם עונים בדיוק על שאלות הבגרות: מה הטעם למצווה, ולמה עונשו של המבטל גדול.</p>
+    </div>
+    <div class="ts-game" data-game="g3b" data-opts="a:שופך דמים|b:גונב|c:מבטל תורה">
+      <div class="ts-game-head"><b>❓ שאלה מהירה</b><span class="ts-score"></span></div>
+      <p>לפי רבי אליעזר (יבמות ס"ג ע"ב), מי שאינו עוסק בפרייה ורבייה - כאילו...</p>
+      <ul class="ts-cards">
+        <li class="ts-q" data-ans="a" data-why="כי יכול היה להוסיף חיים - ולא עשה זאת."><span class="ts-qtext">"כל מי שאין עוסק בפריה ורביה כאילו ______"</span></li>
+      </ul>
+      <p class="ts-win" hidden>נכון! הוא לומד זאת מהסמיכות: "שופך דם האדם..." ומיד אחריו "ואתם פרו ורבו".</p>
+    </div>
     <p class="ts-big">האדם מצּווה לפרות ולרבות, ובכך הוא הופך לשותפו של הקב"ה ביישוב העולם.</p>
     <p>היצירה האנושית הגבוהה ביותר שאדם מסוגל להגיע אליה היא הולדת אדם נוסף בעל נשמה - שיש בו קדושה, מוסריות, חיים של תוכן ומשמעות, חסד ונתינה, אהבת אמת ומידות טובות. הולדת ילד יהודי היא החיבור העמוק ביותר לנצחיותו של עם ישראל.</p>
     <div class="ts-check">
@@ -202,6 +301,19 @@
           <tr><th scope="row">מה עיקר הנישואין?</th><td>קיום מצוות פרו ורבו</td><td>קשר מחייב ופומבי (אירוסין ונישואין), כדי שתקום משפחה שבה ההורים מגדלים יחד את ילדיהם</td></tr>
         </tbody>
       </table>
+    </div>
+    <div class="ts-game" data-game="g4" data-opts="r:הרא&quot;ש|m:הרמב&quot;ם">
+      <div class="ts-game-head"><b>🕵️ מי אמר? הרא"ש או הרמב"ם</b><span class="ts-score"></span></div>
+      <p>לכל משפט - לחצו מי אמר אותו.</p>
+      <ul class="ts-cards">
+        <li class="ts-q" data-ans="r" data-why="לפי הרא&quot;ש הנישואין הם הדרך לקיים פרו ורבו."><span class="ts-qtext">אין מצווה עצמאית לשאת אישה</span></li>
+        <li class="ts-q" data-ans="r" data-why="&quot;כי פריה ורביה היינו קיום המצוה&quot;."><span class="ts-qtext">ברכת האירוסין אינה ברכה על עשיית מצווה</span></li>
+        <li class="ts-q" data-ans="m" data-why="ספר המצוות, מצוות עשה רי&quot;ב-רי&quot;ג."><span class="ts-qtext">לשאת אישה ופרו ורבו - שתי מצוות נפרדות</span></li>
+        <li class="ts-q" data-ans="m" data-why="&quot;לכן עליו לערוך ברית ומעשה מסוים... והוא האֵרוסין, ושייתן פומבי לדבר, והוא הנישואין&quot;."><span class="ts-qtext">צריך אירוסין ונישואין בפומבי, כדי שהקשר יהיה מחייב</span></li>
+        <li class="ts-q" data-ans="r" data-why="לכן לדעתו אין ברכת המצוות על האירוסין."><span class="ts-qtext">עיקר הנישואין הוא קיום מצוות פרו ורבו</span></li>
+        <li class="ts-q" data-ans="m" data-why="החשש של הרמב&quot;ם: קשר לא מחייב, וילדים שלא יכירו את אביהם."><span class="ts-qtext">ילד צריך לדעת מי אביו, ולגדול עם אבא ואימא שאחראים עליו יחד</span></li>
+      </ul>
+      <p class="ts-win" hidden>מעולה! הרא"ש: הנישואין = הדרך לפרו ורבו. הרמב"ם: לשאת אישה = מצווה בפני עצמה, כדי שתקום משפחה.</p>
     </div>
     <div class="ts-check">
       <label class="ts-label" for="ts-a3">✏️ בדיקה: מה ההבדל בין הרא"ש לרמב"ם בשאלה אם יש מצווה לשאת אישה?</label>
@@ -241,6 +353,19 @@
       <p>אף על פי שקיים אדם מצות פריה ורביה, הרי הוא מצווה מדברי סופרים שלא יבטל מלפרות ולרבות כל זמן שיש בו כח, שכל המוסיף נפש אחת בישראל כאילו בנה עולם.</p>
       <cite>רמב"ם, הלכות אישות פרק ט"ו הלכה ט"ז</cite>
     </blockquote>
+    <div class="ts-game" data-game="g5" data-opts="t:נכון|f:לא נכון">
+      <div class="ts-game-head"><b>✅❌ נכון או לא נכון?</b><span class="ts-score"></span></div>
+      <p>לכל משפט - לחצו "נכון" או "לא נכון".</p>
+      <ul class="ts-cards">
+        <li class="ts-q" data-ans="f" data-why="לפי בית שמאי - שני זכרים. בית הלל: זכר ונקבה."><span class="ts-qtext">לפי בית שמאי - צריך בן ובת</span></li>
+        <li class="ts-q" data-ans="t" data-why="גרשום ואליעזר."><span class="ts-qtext">בית שמאי לומדים ממשה רבנו, שהיו לו שני בנים</span></li>
+        <li class="ts-q" data-ans="t" data-why="בראשית ה&#x27;, ב&#x27;."><span class="ts-qtext">בית הלל לומדים מאדם וחוה - "זכר ונקבה בראם"</span></li>
+        <li class="ts-q" data-ans="f" data-why="הלכה כבית הלל, וכך פסק הרמב&quot;ם: זכר ונקבה."><span class="ts-qtext">הלכה כבית שמאי</span></li>
+        <li class="ts-q" data-ans="f" data-why="לפי הרמב&quot;ם הוא מצווה מדברי סופרים להמשיך כל זמן שיש בו כוח."><span class="ts-qtext">אחרי שנולדו לו בן ובת - אין שום עניין להמשיך להוליד</span></li>
+        <li class="ts-q" data-ans="t" data-why="רמב&quot;ם, הלכות אישות ט&quot;ו, ט&quot;ז."><span class="ts-qtext">"כל המוסיף נפש אחת בישראל - כאילו בנה עולם"</span></li>
+      </ul>
+      <p class="ts-win" hidden>יופי! הלכה כבית הלל - בן ובת. ובכל זאת, "כל המוסיף נפש אחת בישראל כאילו בנה עולם".</p>
+    </div>
     <div class="ts-check">
       <label class="ts-label" for="ts-a4">✏️ בדיקה: לפי ההלכה, מתי אדם קיים את מצוות פרו ורבו מן התורה? ומה מוסיף הרמב"ם אחרי זה?</label>
       <textarea class="answer" id="ts-a4" data-id="ts-a4" rows="3" placeholder="כתבו כאן..."></textarea>
@@ -274,6 +399,19 @@
         </tbody>
       </table>
     </div>
+    <div class="ts-game" data-game="g6" data-opts="1:סיבה 1: צער וסכנה|2:סיבה 2: נגד הטבע">
+      <div class="ts-game-head"><b>⚖️ איזו סיבה זו?</b><span class="ts-score"></span></div>
+      <p>לפי "משך חכמה" יש שתי סיבות לכך שאישה פטורה. לכל משפט - לחצו לאיזו סיבה הוא שייך.</p>
+      <ul class="ts-cards">
+        <li class="ts-q" data-ans="1"><span class="ts-qtext">בהריון ובלידה יש צער וקושי, ולפעמים סכנה</span></li>
+        <li class="ts-q" data-ans="1"><span class="ts-qtext">התורה אינה מצווה לקיים מצווה שיש בה צער וסכנה</span></li>
+        <li class="ts-q" data-ans="1" data-why="אדם וחוה התברכו &quot;פרו ורבו&quot; לפני החטא."><span class="ts-qtext">לפני החטא לא היה צער לידה - ואז שניהם היו מצווים</span></li>
+        <li class="ts-q" data-ans="2"><span class="ts-qtext">אם הבעל היה עקר - היא הייתה צריכה להתגרש מבעלה האהוב</span></li>
+        <li class="ts-q" data-ans="2" data-why="&quot;ומדרך התורה לבלי לגדור הטבע&quot;."><span class="ts-qtext">התורה לא מצווה "לאהוב השנוא ולשנוא האהוב"</span></li>
+        <li class="ts-q" data-ans="2" data-why="לכן רק עליו הוטלה המצווה."><span class="ts-qtext">האיש יכול לשאת אישה נוספת (לפני חרם רבנו גרשום)</span></li>
+      </ul>
+      <p class="ts-win" hidden>נהדר! סיבה 1: צער וסכנה בהריון ובלידה. סיבה 2: הציווי היה מחייב אותה להיפרד מבעלה האהוב - וזה נגד הטבע.</p>
+    </div>
     <div class="ts-check">
       <label class="ts-label" for="ts-a5">✏️ בדיקה: כתבו סיבה אחת שבגללה פטרה התורה את הנשים ממצוות פרו ורבו, לפי "משך חכמה".</label>
       <textarea class="answer" id="ts-a5" data-id="ts-a5" rows="3" placeholder="כתבו כאן..."></textarea>
@@ -288,6 +426,23 @@
     <p>שאלת מניעת היריון היא שאלה הלכתית שיש לה השלכות רבות. ראוי ונכון להתייעץ ברב הבקי בתחום ומכיר את בני הזוג.</p>
   </section>
 
+  <section class="ts-card" aria-labelledby="ts-exit">
+    <h3 id="ts-exit">🏁 חידון סיום</h3>
+    <div class="ts-game" data-game="g7">
+      <div class="ts-game-head"><b>6 שאלות - כמה תצליחו בניסיון הראשון?</b><span class="ts-score"></span></div>
+      <p>לכל שאלה - לחצו על התשובה הנכונה.</p>
+      <ul class="ts-cards">
+        <li class="ts-q" data-ans="0" data-opts="0:כדי שיהיה העולם מיושב|1:כדי שאדם לא יהיה לבד|2:כדי לכבוש את הארץ" data-why="&quot;כדי שיהיה העולם מיושב, שהשם ברוך הוא חפץ בישובו&quot;."><span class="ts-qtext">לפי ספר החינוך, למה מצווים לפרות ולרבות?</span></li>
+        <li class="ts-q" data-ans="1" data-opts="0:המשכיות הגזע|1:ידידות ויחד - &quot;לא טוב היות האדם לבדו&quot;|2:לכבוש את הארץ" data-why="פרק ב&#x27; - בדידות והצורך בידידות; פרק א&#x27; - פרייה ורבייה."><span class="ts-qtext">לפי הרב סולובייצ'יק, איזו מטרה לומדים מבראשית פרק ב'?</span></li>
+        <li class="ts-q" data-ans="1" data-opts="0:כשיש לו שני בנים|1:כשיש לו בן ובת|2:כשיש לו ילד אחד" data-why="&quot;זכר ונקבה בראם&quot;."><span class="ts-qtext">לפי ההלכה (בית הלל), מתי אדם קיים את מצוות פרו ורבו?</span></li>
+        <li class="ts-q" data-ans="1" data-opts="0:הרא&quot;ש|1:הרמב&quot;ם|2:בית שמאי" data-why="הרמב&quot;ם, ספר המצוות, מצוות עשה רי&quot;ב-רי&quot;ג."><span class="ts-qtext">מי סבר שלשאת אישה היא מצווה נפרדת מפרו ורבו?</span></li>
+        <li class="ts-q" data-ans="0" data-opts="0:כי הוא מראה שאינו רוצה להשלים את רצון ה&#x27; ליישב עולמו|1:כי הוא לא מכבד את הוריו|2:כי הוא מבטל תלמוד תורה" data-why="ספר החינוך, מצוה א&#x27;."><span class="ts-qtext">מדוע עונשו של המבטל מצוות פרו ורבו גדול מאוד?</span></li>
+        <li class="ts-q" data-ans="1" data-opts="0:כי היא עסוקה בבית|1:בהריון ובלידה יש צער וסכנה|2:כי אין לה רצון בילדים" data-why="וסיבה נוספת: ציווי שיחייב אותה להתגרש מבעלה האהוב הוא נגד הטבע."><span class="ts-qtext">לפי "משך חכמה", מה אחת הסיבות שאישה פטורה?</span></li>
+      </ul>
+      <p class="ts-win" hidden>🏆 סיימתם את השיעור! עכשיו אתם מוכנים לשאלות הבגרות.</p>
+    </div>
+  </section>
+
   <section class="ts-next" aria-labelledby="ts-next">
     <h2 id="ts-next" style="margin:0;font-size:1.3rem;color:#fff">סיימנו את השיעור - עכשיו לשאלות הבגרות</h2>
     <p>בשאלות הבגרות של הנושא תפגשו בדיוק את מה שלמדנו: הטעם למצוות פרו ורבו, העונש של המבטל, ולמה הנשים פטורות.</p>
@@ -296,7 +451,7 @@
 
   <div class="ts-tools">
     <button type="button" class="btn" id="printBtn">🖨 הדפסה</button>
-    <button type="button" class="btn" id="clearBtn">🗑 מחיקת התשובות שלי</button>
+    <button type="button" class="btn" id="clearBtn">🗑 להתחיל מחדש</button>
   </div>
   <p class="ts-note" style="text-align:center">המקור: מצגת "טובים השניים מן האחד" (פרק א', סעיפים א', ג'), ד"ר רינה בן סבו.</p>
 </main>
@@ -320,8 +475,10 @@
     btn.textContent = box.hidden ? '🔎 הצג תשובה' : '🙈 הסתר תשובה';
   });
   document.getElementById('clearBtn').addEventListener('click', function(){
-    if(!confirm('למחוק את כל התשובות שכתבתם בדף?')) return;
+    if(!confirm('למחוק את כל התשובות שכתבתם בדף, ולהתחיל את המשחקים מההתחלה?')) return;
     fields.forEach(function(f){ f.value = ''; try{ localStorage.removeItem(KEY + f.getAttribute('data-id')); }catch(e){} });
+    try{ localStorage.removeItem('bm-ts-tovim-games'); }catch(e){}
+    location.reload();
   });
   document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
   /* שם וכיתה - משותפים עם עמוד שאלות הבגרות */
@@ -330,6 +487,102 @@
     try{ var v = localStorage.getItem(k); if(v) inp.value = v; }catch(e){}
     inp.addEventListener('input', function(){ try{ localStorage.setItem(k, inp.value); }catch(e){} });
   });
+})();
+</script>
+<script>
+/* משחקי השיעור: בחירה בכרטיסים, השלמת מילים, סקר פתיחה. ההתקדמות נשמרת במכשיר. */
+(function(){
+  var KEY = 'bm-ts-tovim-games';
+  var state = {};
+  try{ state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; }catch(e){ state = {}; }
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+  function parseOpts(str){ return String(str || '').split('|').map(function(x){ var i = x.indexOf(':'); return { v:x.slice(0, i), t:x.slice(i + 1) }; }); }
+  var games = Array.prototype.slice.call(document.querySelectorAll('.ts-game[data-game]'));
+  function stars(){
+    var n = 0;
+    Object.keys(state).forEach(function(g){ var st = state[g]; if(st && st.first) n += st.first; });
+    var el = document.getElementById('tsStars'); if(el) el.textContent = '⭐ ' + n;
+    document.querySelectorAll('.ts-route a[data-route]').forEach(function(a){
+      var id = a.getAttribute('data-route'), st = state[id], st2 = id === 'g3' ? state.g3b : null;
+      a.classList.toggle('done', !!(st && st.done && (id !== 'g3' || (st2 && st2.done))));
+    });
+  }
+  function finish(game, id){
+    var win = game.querySelector('.ts-win'); if(win) win.hidden = false;
+    state[id] = state[id] || {}; state[id].done = true; save(); stars();
+  }
+  games.forEach(function(game){
+    var id = game.getAttribute('data-game');
+    var st = state[id] = state[id] || {};
+    var score = game.querySelector('.ts-score');
+
+    if(game.hasAttribute('data-poll')){
+      game.querySelectorAll('.ts-chip').forEach(function(c){
+        c.addEventListener('click', function(){ c.setAttribute('aria-pressed', String(c.getAttribute('aria-pressed') !== 'true')); });
+      });
+      game.querySelector('[data-poll-done]').addEventListener('click', function(){ finish(game, id); });
+      if(st.done) game.querySelector('.ts-win').hidden = false;
+      return;
+    }
+
+    if(game.hasAttribute('data-fill')){
+      var blanks = Array.prototype.slice.call(game.querySelectorAll('.ts-blank'));
+      var fb = game.querySelector('.ts-row .ts-fb');
+      function upd(){ var ok = blanks.filter(function(b){ return b.value === b.getAttribute('data-ans'); }).length; if(score) score.textContent = ok + '/' + blanks.length; return ok; }
+      if(st.vals) blanks.forEach(function(b, i){ if(st.vals[i]) b.value = st.vals[i]; });
+      blanks.forEach(function(b){ b.addEventListener('change', function(){ b.classList.remove('ok', 'no'); st.vals = blanks.map(function(x){ return x.value; }); save(); }); });
+      game.querySelector('[data-fill-check]').addEventListener('click', function(){
+        var ok = 0;
+        blanks.forEach(function(b){ var good = b.value === b.getAttribute('data-ans'); b.classList.toggle('ok', good); b.classList.toggle('no', !good && !!b.value); if(good) ok++; });
+        upd();
+        if(st.first == null){ st.first = ok; save(); }
+        fb.className = 'ts-fb ' + (ok === blanks.length ? 'yes' : 'no');
+        fb.textContent = ok === blanks.length ? '' : (ok + ' מתוך ' + blanks.length + ' נכונות. תקנו את המשבצות האדומות או הריקות, ובדקו שוב.');
+        if(ok === blanks.length) finish(game, id);
+      });
+      upd();
+      if(st.done){ blanks.forEach(function(b){ b.classList.add('ok'); }); game.querySelector('.ts-win').hidden = false; }
+      return;
+    }
+
+    var shared = game.getAttribute('data-opts');
+    var items = Array.prototype.slice.call(game.querySelectorAll('.ts-q'));
+    st.ok = st.ok || {};
+    if(st.first == null) st.first = 0;
+    st.tried = st.tried || {};
+    function upd2(){ if(score) score.textContent = Object.keys(st.ok).length + '/' + items.length; }
+    items.forEach(function(li, idx){
+      var opts = parseOpts(li.getAttribute('data-opts') || shared);
+      var box = document.createElement('span'); box.className = 'ts-opts';
+      var fb = document.createElement('span'); fb.className = 'ts-fb'; fb.setAttribute('aria-live', 'polite');
+      opts.forEach(function(o){
+        var b = document.createElement('button'); b.type = 'button'; b.textContent = o.t; b.setAttribute('data-v', o.v);
+        b.addEventListener('click', function(){
+          if(li.classList.contains('ok')) return;
+          if(o.v === li.getAttribute('data-ans')){
+            li.classList.add('ok'); b.classList.add('picked');
+            fb.className = 'ts-fb yes'; fb.textContent = '✓ נכון! ' + (li.getAttribute('data-why') || '');
+            if(!st.tried[idx]) st.first++;
+            st.ok[idx] = 1; save(); upd2();
+            if(Object.keys(st.ok).length === items.length) finish(game, id); else stars();
+          } else {
+            st.tried[idx] = 1; save();
+            li.classList.remove('bad'); void li.offsetWidth; li.classList.add('bad');
+            fb.className = 'ts-fb no'; fb.textContent = '✗ לא בדיוק - נסו שוב.';
+          }
+        });
+        box.appendChild(b);
+      });
+      li.appendChild(box); li.appendChild(fb);
+      if(st.ok[idx]){
+        li.classList.add('ok');
+        var pb = box.querySelector('[data-v="' + li.getAttribute('data-ans') + '"]'); if(pb) pb.classList.add('picked');
+      }
+    });
+    upd2();
+    if(st.done) game.querySelector('.ts-win').hidden = false;
+  });
+  stars();
 })();
 </script>
 <script src="assets/units-data.js"></script>
