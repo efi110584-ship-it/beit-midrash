@@ -130,7 +130,7 @@ function doPost(e) {
       case 'lessonReports':   return json_(lessonReportsList_());
       case 'lessonReport':    return json_(lessonReportGet_(data.id));
       case 'saveLessonReport': return json_(saveLessonReport_(data.code));
-      case 'setGrade':        return json_(setGrade_(data.fileId, data.grade, data.comment, data.publishFb));
+      case 'setGrade':        return json_(setGrade_(data.fileId, data.grade, data.comment, data.publishFb, data.redo));
       case 'acceptSuggested': return json_(acceptSuggested_(data.ids));
       case 'feedbackGet':     return json_(feedbackTeacher_(data.fileId));
       case 'feedbackBatchPreview': return json_(feedbackBatchPreview_(data.ids));
@@ -187,6 +187,7 @@ function saveSubmission_(d) {
   }
   var auto = autoScore_(d.autoScore);
   if (auto) PropertiesService.getScriptProperties().setProperty('auto_' + file.getId(), JSON.stringify(auto));
+  var redo = redoLink_(d.redoOf, file.getId());
 
   // למורה האחרת - כשהסיכום היומי מופעל (OTHER_TEACHER_DIGEST = 1): לא מייל על כל הגשה,
   // אלא מייל אחד בערב עם כל ההגשות של היום (sendDailyDigest). אחרת - מייל רגיל על כל הגשה.
@@ -199,7 +200,7 @@ function saveSubmission_(d) {
     try {
       MailApp.sendEmail({
         to: (histFolder && historyEmail_()) || (ya2 && propEmail_('YA2_TSB_EMAIL')) || (otherFolder && otherTeacherEmail_()) || Session.getEffectiveUser().getEmail(),
-        subject: 'הגשה חדשה: ' + name + ' - ' + task,
+        subject: (redo ? 'הגשה מתוקנת: ' : 'הגשה חדשה: ') + name + ' - ' + task,
         body: 'שם: ' + name + '\nכיתה: ' + cls + (section ? ' ' + section : '') + '\nמטלה: ' + task +
               (d.notes ? '\nהערות: ' + clean_(d.notes) : '') +
               (auto ? '\nבדיקה אוטומטית: ' + auto.c + ' נכונות מתוך ' + auto.t + ' (' + Math.round(auto.c * 100 / auto.t) + ')' : '') +
@@ -207,7 +208,22 @@ function saveSubmission_(d) {
       });
     } catch (err) { /* ההגשה נשמרה גם אם המייל נכשל */ }
   }
-  return { ok: true, fileId: file.getId() };
+  return { ok: true, fileId: file.getId(), redo: !!redo };
+}
+
+// הגשה מתוקנת: רק אם המורה באמת ביקש תיקון לעבודה הקודמת (redo_<מזהה> = 1).
+// rof_<חדש> = { of: הקודמת, g: הציון הקודם }, redone_<קודמת> = החדשה.
+function redoLink_(oldId, newId) {
+  oldId = String(oldId || '');
+  if (!/^[\w-]{10,}$/.test(oldId)) return null;
+  var props = PropertiesService.getScriptProperties();
+  if (props.getProperty('redo_' + oldId) !== '1') return null;
+  var g = '';
+  try { var old = JSON.parse(props.getProperty('grade_' + oldId) || 'null'); if (old && old.g !== '') g = String(old.g); } catch (e) {}
+  var link = { of: oldId, g: g };
+  props.setProperty('rof_' + newId, JSON.stringify(link));
+  props.setProperty('redone_' + oldId, newId);
+  return link;
 }
 
 // ---------- הגשות בהיסטוריה - למורה ההיסטוריה ----------
@@ -408,6 +424,10 @@ function listSubmissions_(fresh) {
     x.grade = g ? g.g : '';
     x.comment = g ? g.c : '';
     x.hidden = !!(x.id && hidden[x.id]);
+    x.redo = !!(x.id && props['redo_' + x.id] === '1');           // המורה ביקש תיקון
+    x.redone = (x.id && props['redone_' + x.id]) || '';            // התלמיד כבר שלח תיקון (מזהה ההגשה המתוקנת)
+    var rof = x.id && props['rof_' + x.id];                        // ההגשה הזו היא תיקון של עבודה קודמת
+    if (rof) { try { x.redoOf = JSON.parse(rof); } catch (e) {} }
   });
   out.sort(function (a, b) { return b.time - a.time; });
   return out;
@@ -557,7 +577,8 @@ function gradeMap_(props) {
 }
 
 // publishFb: true - המשוב המפורט (fb_<מזהה>.json) נחשף לתלמיד; false - מוסתר; בלי - לא משתנה
-function setGradeUnlocked_(fileId, grade, comment, publishFb) {
+// redo: true - המורה מבקש מהתלמיד לתקן ולשלוח שוב (redo_<מזהה> = 1); false - בלי בקשה; בלי - לא משתנה
+function setGradeUnlocked_(fileId, grade, comment, publishFb, redo) {
   if (!/^[\w-]{10,}$/.test(String(fileId || ''))) return { ok: false, error: 'מזהה קובץ לא תקין' };
   var g = String(grade == null ? '' : grade).trim();
   var c = clean_(comment).slice(0, 300);
@@ -572,7 +593,10 @@ function setGradeUnlocked_(fileId, grade, comment, publishFb) {
   }
   if (publishFb === true) props.setProperty('fbpub_' + fileId, '1');
   if (publishFb === false) props.deleteProperty('fbpub_' + fileId);
-  return { ok: true, grade: g, comment: c, fbPublished: props.getProperty('fbpub_' + fileId) === '1' };
+  if (redo === true) props.setProperty('redo_' + fileId, '1');
+  if (redo === false) props.deleteProperty('redo_' + fileId);
+  return { ok: true, grade: g, comment: c, fbPublished: props.getProperty('fbpub_' + fileId) === '1',
+           redo: props.getProperty('redo_' + fileId) === '1' };
 }
 
 // רישום הציונים שהבדיקה עם Claude הציעה (fb_<מזהה>.json) כציון בלוח ההגשות - לכמה עבודות בבת אחת.
@@ -660,8 +684,10 @@ function feedbackPublic_(id) {
   var fb = feedbackRead_(id);
   if (!fb) return { ok: true, feedback: null };
   var g = gradeMap_()[id];
+  var props = PropertiesService.getScriptProperties();
   return { ok: true, feedback: {
     student: fb.student || '', assignment: fb.assignment || '', page: fb.page || '', sent: fb.sent || '',
+    redo: props.getProperty('redo_' + id) === '1', redoSent: !!props.getProperty('redone_' + id),
     grade: g && g.g !== '' ? g.g : (fb.grade == null ? '' : String(fb.grade)),
     comment: g ? g.c : '',
     summary: fb.summary || '',
@@ -1560,10 +1586,10 @@ function בדיקה() {
   Logger.log(JSON.stringify(list.slice(0, 3), null, 2));
 }
 
-function setGrade_(fileId, grade, comment, publishFb) {
+function setGrade_(fileId, grade, comment, publishFb, redo) {
   var lock=LockService.getScriptLock();
   if(!lock.tryLock(5000)) return {ok:false,error:"מתבצעת שמירה אחרת. נסו שוב"};
-  try {return setGradeUnlocked_(fileId, grade, comment, publishFb);} finally {lock.releaseLock();}
+  try {return setGradeUnlocked_(fileId, grade, comment, publishFb, redo);} finally {lock.releaseLock();}
 }
 
 function setHidden_(fileId, hidden) {

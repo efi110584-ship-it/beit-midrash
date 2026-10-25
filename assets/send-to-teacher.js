@@ -41,6 +41,13 @@
     return where && where.topic ? where.topic.title : '';
   }
   function sentKey(){ return 'bm-sent:' + (topicUrl() || PAGE); }
+  /* המורה ביקש לתקן את העבודה הקודמת במטלה הזו (assets/feedback.js שומר את זה) - ההגשה תסומן אצלו כתיקון */
+  function pendingRedo(){
+    try{ var m = JSON.parse(localStorage.getItem('bm-redo') || '{}') || {}; var r = m[assignmentNow()]; return r && r.of ? r : null; }catch(e){ return null; }
+  }
+  function clearRedo(){
+    try{ var m = JSON.parse(localStorage.getItem('bm-redo') || '{}') || {}; delete m[assignmentNow()]; localStorage.setItem('bm-redo', JSON.stringify(m)); }catch(e){}
+  }
 
   /* דף שאין לו שמירה משלו לשם ולכיתה (data-bm-persist) - שומרים כאן */
   [nameEl, classEl].forEach(function(inp){
@@ -226,6 +233,7 @@
       ul.appendChild(el('li', null, 'שם: ' + clean(nameEl.value)));
       ul.appendChild(el('li', null, 'כיתה: ' + classLabel()));
       if(topicTitle()) ul.appendChild(el('li', null, 'נושא: ' + topicTitle() + ' (רק השאלות בנושא הזה)'));
+      if(pendingRedo()) ul.appendChild(el('li', null, '🔁 זו הגשה מתוקנת - המורה יראה אותה ליד הציון הקודם.'));
       ul.appendChild(el('li', null, (data.items.length === 1 ? 'תשובה אחת' : data.items.length + ' תשובות') + ' מתוך ' + data.total + (bagrutOnly ? ' סעיפים בשאלות הבגרות' : topicTitle() ? ' סעיפים בנושא' : ' סעיפי תשובה בדף') + (data.items.length < data.total ? ' (שאלות בלי תשובה לא יישלחו)' : '')));
       if(bagrutOnly) ul.appendChild(el('li', null, 'נשלחות רק התשובות לשאלות הבגרות. דף העבודה עצמו נשאר אצלכם לתרגול.'));
       panel.appendChild(ul);
@@ -247,14 +255,17 @@
       studentClass: classCode(),
       section: sectionCode(),
       assignment: assignmentNow(),
+      redoOf: (pendingRedo() || {}).of || '',
       items: data.items,
       total: data.total
     }).then(function(res){
       if(!(res && res.ok)) throw new Error((res && res.error) || 'השרת לא אישר את הקבלה');
       try{ localStorage.setItem(sentKey(), JSON.stringify({ t: Date.now(), n: data.items.length })); }catch(e){}
+      var wasRedo = !!pendingRedo();
+      clearRedo();
       showLast();
       open('ok', function(h){
-        h.textContent = '✅ התשובות נשלחו למורה';
+        h.textContent = wasRedo ? '✅ התיקון נשלח למורה' : '✅ התשובות נשלחו למורה';
         panel.appendChild(el('p', null, (data.items.length === 1 ? 'נשלחה תשובה אחת' : 'נשלחו ' + data.items.length + ' תשובות') + ', ' + fmt(Date.now()) + '. התשובות נשארות שמורות גם בדף.'));
         actions().appendChild(button('סגירה', '', close));
       });

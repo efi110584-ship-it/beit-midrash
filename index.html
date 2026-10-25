@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=40">
+<link rel="stylesheet" href="assets/site.css?v=41">
 
 <script src="assets/a11y.js"></script>
 </head>
@@ -225,6 +225,7 @@
           <div class="view-fb-body" id="viewFbBody"><p class="view-help">טוען…</p></div>
         </details>
         <label class="view-fb-send"><input type="checkbox" id="viewFbSend" checked> לשלוח לתלמיד את המשוב המפורט (ציון והסבר לכל שאלה) כשאני שומר את הציון</label>
+        <label class="view-fb-send"><input type="checkbox" id="viewFbRedo"> 🔁 לבקש מהתלמיד לתקן ולשלוח שוב</label>
         <p class="view-fb-link" id="viewFbLinkRow" hidden>✓ המשוב פורסם לתלמיד. הוא יראה אותו בדף העבודה, או בקישור:
           <button type="button" class="tt-btn tt-btn--small" id="viewFbCopy">📋 העתקת קישור לתלמיד</button></p>
       </div>
@@ -1192,6 +1193,27 @@
         }).catch(function(){ snd.disabled = false; snd.textContent = "📨 שליחה"; alert("אין חיבור לשרת כרגע. נסו שוב."); });
         return;
       }
+      var rd = e.target.closest("[data-redo]");
+      if(rd){
+        var rid = rd.getAttribute("data-redo");
+        var rr = board.rows.filter(function(x){ return x.id === rid; })[0];
+        if(!rr) return;
+        var rg = rr.grade !== "" ? rr.grade : rr.fbg;
+        if(!confirm("להחזיר ל" + rr.name + " לתיקון?\nהתלמיד יראה את הציון " + rg + " ואת המשוב, עם בקשה לתקן ולשלוח שוב.")) return;
+        rd.disabled = true; rd.textContent = "שולח…";
+        apiPost({ action:"setGrade", password:teacherToken(), fileId:rid, grade:String(rg), comment:rr.comment || "", publishFb:true, redo:true }).then(function(res){
+          if(handleAuthFailure(res)) return;
+          if(res && res.ok){
+            rr.grade = res.grade; rr.comment = res.comment || ""; if(res.grade !== "") rr.status = "checked";
+            rr.fb = res.fbPublished ? "pub" : "draft"; rr.redo = res.redo === true;
+            renderBoard();
+            document.getElementById("ttBoardMsg").textContent = res.redo === true
+              ? "🔁 הוחזר ל" + rr.name + " לתיקון: הוא רואה את הציון " + res.grade + ", את המשוב ובקשה לתקן ולשלוח שוב."
+              : "הציון והמשוב נשלחו, אבל הבקשה לתיקון לא נשמרה: צריך לעדכן את הסקריפט של Google לגרסה החדשה.";
+          } else { rd.disabled = false; rd.textContent = "🔁 לתיקון"; alert((res && res.error) || "השליחה לא הצליחה."); }
+        }).catch(function(){ rd.disabled = false; rd.textContent = "🔁 לתיקון"; alert("אין חיבור לשרת כרגע. נסו שוב."); });
+        return;
+      }
       var acc = e.target.closest("[data-accept]");
       if(acc){
         var aid = acc.getAttribute("data-accept");
@@ -1457,6 +1479,7 @@
                  date:x.date || "", status:x.status || "pending", url:x.url || "", notes:x.notes || "",
                  grade:x.grade == null ? "" : String(x.grade), comment:x.comment || "", hidden:!!x.hidden, time:x.time || 0,
                  fb:x.fb || "", fbg:x.fbg == null ? "" : String(x.fbg),
+                 redo:!!x.redo, redone:x.redone || "", redoOf:(x.redoOf && x.redoOf.of) ? { of:String(x.redoOf.of), g:String(x.redoOf.g || "") } : null,
                  auto:(x.auto && x.auto.t > 0) ? { c:x.auto.c, t:x.auto.t, pct:Math.round(x.auto.c * 100 / x.auto.t) } : null,
                  unit:"", topic:"" };
       });
@@ -1638,6 +1661,10 @@
         ? '<button type="button" class="tt-task-open" data-view="' + escapeAttr(r.id) + '" aria-label="צפייה בעבודה של ' + escapeAttr(r.name) + ': ' + escapeAttr(label) + '">' + escapeHtml(label) + '</button>'
         : escapeHtml(label));
       var notes = r.notes ? '<span class="tt-notes">' + escapeHtml(r.notes) + '</span>' : '';
+      if(r.redoOf) notes = '<span class="tt-redo-tag">🔁 הגשה מתוקנת' + (r.redoOf.g !== "" ? ' · ציון קודם: ' + escapeHtml(r.redoOf.g) : '') + '</span>' + notes;
+      var canSend = r.fb === "draft" && r.id && !r.hidden && (r.grade !== "" || r.fbg !== "");
+      var redoBtn = '<button type="button" class="tt-btn tt-btn--small tt-redo" data-redo="' + escapeAttr(r.id) + '" aria-label="החזרה לתיקון ל' + escapeAttr(r.name) + '">🔁 לתיקון</button>';
+      var redoState = r.redo ? '<span class="tt-redo-state">' + (r.redone ? '✓ התלמיד שלח תיקון' : '🔁 הוחזר לתיקון') + '</span>' : '';
       return '<tr>' +
         '<td>' + escapeHtml(r.name) + '</td>' +
         '<td>' + (board.group ? '' : '<span class="tt-subj-tag tt-subj-tag--' + (SUBJ_CLASS[r.subject] || "tnk") + '">' + escapeHtml(r.subject) + '</span> ') + task + notes + '</td>' +
@@ -1645,9 +1672,9 @@
         '<td class="tt-date">' + escapeHtml(r.date || "-") + '</td>' +
         '<td><span class="tt-pill tt-pill--' + st.cls + '">' + st.label + '</span></td>' +
         '<td class="tt-fbg">' + (r.fbg ? '<b title="הציון שהוצע במחוון">' + escapeHtml(r.fbg) + '</b>' : '<span aria-hidden="true">-</span>') +
-          (r.fb === "draft" && r.id && !r.hidden && (r.grade !== "" || r.fbg !== "")
-            ? '<button type="button" class="tt-btn tt-btn--small tt-send" data-send="' + escapeAttr(r.id) + '" aria-label="שליחת הציון והמשוב ל' + escapeAttr(r.name) + '">📨 שליחה</button>'
-            : (r.fb === "pub" ? '<span class="tt-sent">✓ נשלח</span>' : '')) +
+          (canSend
+            ? '<button type="button" class="tt-btn tt-btn--small tt-send" data-send="' + escapeAttr(r.id) + '" aria-label="שליחת הציון והמשוב ל' + escapeAttr(r.name) + '">📨 שליחה</button>' + redoBtn
+            : (r.fb === "pub" ? '<span class="tt-sent">✓ נשלח</span>' + (r.redo ? redoState : (r.id && !r.hidden ? redoBtn : '')) : '')) +
         '</td>' +
         '<td class="tt-grade"' + (r.comment ? ' title="' + escapeAttr(r.comment) + '"' : '') + '>' +
           (r.grade !== "" ? '<b>' + escapeHtml(r.grade) + '</b>' + (r.auto ? ' <span class="tt-auto tt-auto--small" title="בדיקה אוטומטית: ' + r.auto.c + ' נכונות מתוך ' + r.auto.t + '">🤖 ' + r.auto.pct + '</span>' : '')
@@ -1661,7 +1688,7 @@
         '<td class="tt-actions">' +
           (r.id ? '<button type="button" class="tt-btn tt-btn--small tt-btn--view" data-view="' + escapeAttr(r.id) + '">צפייה</button>' : '') +
           /* בדיקה עם Claude - כרגע רק לקט מצוות: פותח את דף הבדיקה ישר על העבודה הזו */
-          (r.id && !r.hidden && /לקט מצוות|פתוח תפתח · מבחן/.test((r.unit || "") + " " + (r.task || "")) && /^[\w-]+$/.test(r.id)
+          (r.id && !r.hidden && /לקט מצוות|פתוח תפתח · מבחן|בית, חינוך ומשפחה/.test((r.unit || "") + " " + (r.task || "")) && /^[\w-]+$/.test(r.id)
             ? '<a class="tt-btn tt-btn--small tt-btn--link" href="' + GRADER_URL + '#g-' + escapeAttr(r.id) + '" target="_blank" rel="noopener" aria-label="בדיקת העבודה של ' + escapeAttr(r.name) + ' עם Claude">🤖 בדיקה</a>' : '') +
           (r.status === "pending" && !r.hidden ? '<button type="button" class="tt-btn tt-btn--small" data-check="' + escapeAttr(r.id) + '">סימון כנבדק</button>' : '') +
           (r.id ? (r.hidden
@@ -2228,7 +2255,7 @@
   var viewEl = {};
   ["viewOverlay","viewDialog","viewTitle","viewMeta","viewNotes","viewFrame","viewOpenDrive","viewPrev","viewNext","viewPos","viewCheck","viewClose",
    "viewGrade","viewGradeInput","viewCommentInput","viewGradeSave","viewGradeMsg",
-   "viewFb","viewFbSummary","viewFbBody","viewFbSend","viewFbLinkRow","viewFbCopy","viewFbReview","viewClaudeRow","viewClaudeLink"]
+   "viewFb","viewFbSummary","viewFbBody","viewFbSend","viewFbRedo","viewFbLinkRow","viewFbCopy","viewFbReview","viewClaudeRow","viewClaudeLink"]
     .forEach(function(id){ viewEl[id] = document.getElementById(id); });
 
   function viewableRows(){
@@ -2248,6 +2275,7 @@
     box.hidden = !r.fb;
     if(!r.fb) return;
     viewEl.viewFbSend.checked = true;
+    if(viewEl.viewFbRedo) viewEl.viewFbRedo.checked = !!r.redo;
     viewEl.viewFbLinkRow.hidden = r.fb !== "pub";
     viewEl.viewFbSummary.textContent = r.fb === "pub" ? "📨 משוב מפורט - כבר נשלח לתלמיד (לחצו לצפייה)" : "🤖 יש משוב מפורט לעבודה הזאת - לחצו לצפייה לפני השליחה";
     viewEl.viewFbBody.innerHTML = '<p class="view-help">טוען…</p>';
@@ -2329,7 +2357,7 @@
     saveLabel(r);
     /* הבודק של Claude מכיר רק לקט מצוות ומבחן פתוח תפתח. הוא רץ ב-claude.ai, ואי אפשר להטמיע אותו באתר */
     if(viewEl.viewClaudeRow){
-      var canGrade = r.id && !r.hidden && r.fb !== "pub" && /לקט מצוות|פתוח תפתח · מבחן/.test((r.unit || "") + " " + (r.task || "")) && /^[\w-]+$/.test(r.id);
+      var canGrade = r.id && !r.hidden && r.fb !== "pub" && /לקט מצוות|פתוח תפתח · מבחן|בית, חינוך ומשפחה/.test((r.unit || "") + " " + (r.task || "")) && /^[\w-]+$/.test(r.id);
       viewEl.viewClaudeRow.hidden = !canGrade;
       if(canGrade) viewEl.viewClaudeLink.href = GRADER_URL + "#g-" + r.id;
     }
@@ -2381,6 +2409,7 @@
       viewEl.viewGradeMsg.textContent = "שומרים…";
       var body = { action:"setGrade", password:teacherToken(), fileId:r.id, grade:g, comment:c };
       if(r.fb) body.publishFb = viewEl.viewFbSend.checked && g !== "";
+      if(r.fb && viewEl.viewFbRedo && (body.publishFb || r.fb === "pub")) body.redo = viewEl.viewFbRedo.checked;
       apiPost(body).then(function(res){
         if(handleAuthFailure(res)){ closeViewer(); return; }
         if(res && res.ok){
@@ -2390,9 +2419,11 @@
             x.grade = res.grade; x.comment = res.comment;
             if(!cleared) x.status = "checked";
             if(x.fb) x.fb = res.fbPublished ? "pub" : "draft";
+            if(typeof res.redo === "boolean") x.redo = res.redo;
           });
           viewEl.viewGradeMsg.textContent = cleared ? "✓ הציון נמחק." : ("✓ נשמר: " + r.name + (res.grade !== "" ? " - " + res.grade : "") +
-            (r.fb && res.fbPublished ? " · המשוב המפורט נשלח לתלמיד" : ""));
+            (r.fb && res.fbPublished ? " · המשוב המפורט נשלח לתלמיד" : "") +
+            (body.redo === true ? (res.redo === true ? " · 🔁 הוחזר לתיקון" : " · הבקשה לתיקון לא נשמרה - צריך לעדכן את הסקריפט של Google") : ""));
           viewer.keepMsg = true;
           if(!cleared && viewer.i < viewer.list.length - 1) viewer.i++;  /* ממשיכים לעבודה הבאה */
           showViewed();

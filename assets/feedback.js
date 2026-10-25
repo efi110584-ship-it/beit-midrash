@@ -57,7 +57,14 @@
       ".bm-fb-fix a:focus-visible{outline:3px solid #E8650C;outline-offset:2px}" +
       ".bm-fb-good{margin:0;padding:.55rem .85rem;border-radius:12px;background:#E9F6EF;color:#0B4F37;line-height:1.6}" +
       ".bm-fb-h{margin:.4rem 0 0;font-size:1.05rem}" +
-      "@media print{.bm-fb-top{box-shadow:none}}";
+      ".bm-fb-redo{margin:0;padding:.8rem 1rem;border-radius:12px;background:#FFF1DF;border:2px solid #E8650C;color:#5A2E04;display:flex;flex-direction:column;gap:.5rem;line-height:1.6}" +
+      ".bm-fb-redo b{font-size:1.08rem}" +
+      ".bm-fb-redo-actions{display:flex;flex-wrap:wrap;gap:.5rem}" +
+      ".bm-fb-redo-actions button{min-height:42px;padding:.35rem .9rem;border-radius:10px;border:1.5px solid #E8650C;background:#fff;color:#5A2E04;font:inherit;font-weight:700;cursor:pointer}" +
+      ".bm-fb-redo-actions button.is-main{background:#E8650C;color:#fff}" +
+      ".bm-fb-redo-actions button:focus-visible{outline:3px solid #123A78;outline-offset:2px}" +
+      ".bm-fb-redo-done{margin:0;padding:.6rem .9rem;border-radius:12px;background:#E9F6EF;color:#0B4F37;font-weight:700}" +
+      "@media print{.bm-fb-top{box-shadow:none}.bm-fb-redo-actions{display:none}}";
     document.head.appendChild(st);
   }
   function fmtDate(t){
@@ -68,6 +75,42 @@
     return fb.grade !== "" ? '<div class="bm-fb-grade" aria-label="הציון: ' + esc(fb.grade) + '"><span>' + esc(fb.grade) + '<small>ציון</small></span></div>' : "";
   }
   function isOk(x){ return x.s === "full"; }
+
+  /* ---------- "המורה ביקש לתקן ולשלוח שוב" ----------
+     bm-redo במכשיר: { "<שם המטלה>": { of: "<מזהה העבודה הקודמת>" } } - כך "שלחו למורה"
+     (assets/send-to-teacher.js) יודע שזו הגשה מתוקנת, והיא מגיעה למורה עם הציון הקודם. */
+  function redoStore(a, of){
+    if(!a) return;
+    try{
+      var m = JSON.parse(localStorage.getItem("bm-redo") || "{}") || {};
+      if(of) m[a] = { of: of, t: Date.now() };
+      else delete m[a];
+      localStorage.setItem("bm-redo", JSON.stringify(m));
+    }catch(e){}
+  }
+  function redoHtml(fb, inPage){
+    if(fb.redoSent) return '<p class="bm-fb-redo-done">✓ שלחת תיקון. המורה יבדוק אותו ויחזיר משוב.</p>';
+    if(!fb.redo) return "";
+    return '<div class="bm-fb-redo" role="note"><b>🔁 המורה ביקש לתקן ולשלוח שוב</b>' +
+      '<span>' + (inPage ? 'התשובות שלך שמורות בדף. תקנו את השאלות שמסומנות ❌ או 🟡 (ההסבר מופיע מתחת לכל אחת), ואז לחצו "שלחו למורה".'
+                         : 'התשובות שלך שמורות בדף העבודה, במכשיר שממנו שלחת. פתחו אותו, תקנו את מה שמסומן, ולחצו "שלחו למורה".') + '</span>' +
+      (inPage ? '<span class="bm-fb-redo-actions"><button type="button" class="is-main" data-redo-go="fix">✏️ לשאלה הראשונה לתיקון</button>' +
+                '<button type="button" data-redo-go="send">📤 לשליחה מחדש</button></span>' : '') + '</div>';
+  }
+  /* מעבר לשדה בדף - גם אם הוא בלשונית סגורה (למשל נושא אחר בבית, חינוך ומשפחה) */
+  function goTo(el){
+    if(!el) return;
+    var panel = el.closest('[role="tabpanel"][hidden]');
+    var tab = panel && document.querySelector('[role="tab"][aria-controls="' + panel.id + '"]');
+    if(tab) tab.click();
+    /* דף עם חלוקה למשימות (assets/steps.js): השאלה במשימה אחרת - עוברים לתצוגת "כל השאלות" */
+    if(!el.getClientRects().length){
+      var all = document.querySelector(".bm-view-btn");
+      if(all && /כל השאלות/.test(all.textContent)) all.click();
+    }
+    el.scrollIntoView({ block:"center", behavior:"smooth" });
+    if(el.focus) el.focus({ preventScroll:true });
+  }
   function label(x, i){ return x.n ? "שאלה " + x.n : (x.q ? String(x.q).replace(/\s+/g, " ").slice(0, 40) + (String(x.q).length > 40 ? "…" : "") : "שאלה " + (i + 1)); }
   function itemHtml(x, withQ, anchor){
     var st = STATUS[x.s] || STATUS.partial;
@@ -119,6 +162,7 @@
           '<span>' + esc(fb.assignment || sub.a) + (sub.n ? ' · ' + esc(sub.n) : '') + (sub.t ? ' · נשלחה ב-' + fmtDate(sub.t) : '') + '</span></h2></div>' +
       (fb.summary ? '<p class="bm-fb-sum">' + esc(fb.summary) + '</p>' : '') +
       (fb.comment && fb.comment !== fb.summary ? '<p class="bm-fb-sum">' + esc(fb.comment) + '</p>' : '') +
+      redoHtml(fb, true) +
       fixListHtml(fb.items || [], "bmFbIt") +
       '<p class="bm-fb-legend">ליד כל שאלה שצריך לתקן מופיע הסבר. ' +
         '<a href="feedback.html?id=' + encodeURIComponent(sub.id) + '">לכל המשוב בעמוד אחד ›</a></p>';
@@ -135,6 +179,17 @@
       var box = document.createElement("div");
       box.innerHTML = isOk(x) ? '<span class="bm-fb bm-fb-ok" id="bmFbIt' + i + '">✅ נכון</span>' : itemHtml(x, false, "bmFbIt" + i);
       field.parentNode.insertBefore(box.firstChild, field.nextSibling);
+    });
+    if(fb.redo && !fb.redoSent) redoStore(sub.a, sub.id);
+    else if(fb.redoSent) redoStore(sub.a, "");
+    Array.prototype.forEach.call(top.querySelectorAll("[data-redo-go]"), function(b){
+      b.addEventListener("click", function(){
+        if(b.getAttribute("data-redo-go") === "send"){ goTo(document.getElementById("sendToTeacherBtn")); return; }
+        var first = null;
+        (fb.items || []).some(function(x, i){ if(isOk(x)) return false; first = document.getElementById("bmFbIt" + i); return !!first; });
+        var field = first && first.previousElementSibling;
+        goTo(field && field.matches && field.matches(".answer") ? field : first);
+      });
     });
     /* קישור "מה לתקן" לשאלה שלא נמצאה בדף (למשל בדף אחר של היחידה) - לעמוד המשוב המלא */
     Array.prototype.forEach.call(top.querySelectorAll('.bm-fb-fix a'), function(a){
@@ -161,6 +216,7 @@
               '<span>' + esc(fb.student) + (fb.assignment ? ' · ' + esc(fb.assignment) : '') + (fb.sent ? ' · ' + esc(fb.sent) : '') + '</span></h1></div>' +
           (fb.summary ? '<p class="bm-fb-sum">' + esc(fb.summary) + '</p>' : '') +
           (fb.comment && fb.comment !== fb.summary ? '<p class="bm-fb-sum">' + esc(fb.comment) + '</p>' : '') +
+          redoHtml(fb, false) +
           (/^[\w.-]+\.html$/.test(fb.page || "") ? '<p class="bm-fb-legend"><a href="' + esc(fb.page) + '">לדף העבודה ›</a> (התשובות שלך שמורות שם, במכשיר שממנו שלחת)</p>' : '') +
           fixListHtml(fb.items || [], "bmFbFull") +
           ((fb.items || []).some(function(x){ return !isOk(x); }) ? '<h2 class="bm-fb-h">איפה טעית ומה לתקן</h2>' : '') +
@@ -185,7 +241,7 @@
   var seen = {};
   subs.reduce(function(p, sub){
     return p.then(function(){
-      var key = sub.n || "*";
+      var key = sub.n || sub.a || "*";   /* לכל מטלה (נושא) - המשוב העדכני שלה */
       if(seen[key]) return;
       return load(sub.id).then(function(res){
         if(res && res.ok && res.feedback){ seen[key] = true; inPage(sub, res.feedback); }

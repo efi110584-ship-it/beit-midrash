@@ -333,6 +333,7 @@
         section: opts.section || sectionCode(opts.studentClass),
         assignment: opts.assignment,
         notes: opts.notes || '',
+        redoOf: opts.redoOf || '',
         autoScore: autoScore(),
         fileName: file.fileName,
         fileMimeType: file.fileMimeType,
