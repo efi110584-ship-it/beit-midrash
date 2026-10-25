@@ -722,6 +722,7 @@
           '<p class="tt-msg" id="ttBoardMsg" role="status" aria-live="polite">טוען הגשות…</p>' +
           '<section id="ttBatch" aria-label="אישור משוב מרוכז" hidden style="padding:12px;border:1px solid #ccd5e4;border-radius:12px;margin:12px 0"><button type="button" class="tt-btn" id="ttBatchInspect">סיכום ואישור משוב מרוכז</button><p id="ttBatchStatus" role="status" aria-live="polite">הסיכום יתייחס לעבודות המוצגות בסינון הנוכחי.</p><div id="ttBatchResults"></div></section>' +
           '<div class="tt-accept" id="ttAccept" style="display:none;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:.4rem 0 .7rem;padding:10px 12px;border-radius:12px;background:#E6EDF9"></div>' +
+          '<div class="tt-accept" id="ttRedoAll" style="display:none;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:.4rem 0 .7rem;padding:10px 12px;border-radius:12px;background:#FFF1DF"></div>' +
           '<div class="tt-table-wrap" id="ttTableWrap" hidden>' +
             '<table class="tt-table">' +
               '<caption class="visually-hidden">רשימת ההגשות</caption>' +
@@ -1108,6 +1109,38 @@
         finally{busy=false;inspect.disabled=false;}
       });
     })();
+    document.getElementById("ttRedoAll").addEventListener("click", function(e){
+      var go = e.target.closest("#ttRedoAllGo");
+      if(!go || board.redoBusy) return;
+      var list = (board.redoIds || []).map(function(id){ return board.rows.filter(function(x){ return x.id === id; })[0]; }).filter(Boolean);
+      if(!list.length) return;
+      var names = list.slice(0, 25).map(function(r){ return "• " + r.name + " - " + (r.grade !== "" ? r.grade : r.fbg); }).join("\n") + (list.length > 25 ? "\n…ועוד " + (list.length - 25) : "");
+      if(!confirm("להחזיר לתיקון " + list.length + (list.length === 1 ? " עבודה" : " עבודות") + "?\nכל תלמיד יראה את הציון, את המשוב ובקשה לתקן ולשלוח שוב.\n\n" + names)) return;
+      board.redoBusy = true; go.disabled = true;
+      var msgEl = document.getElementById("ttBoardMsg"), done = 0, failed = [], oldScript = false;
+      (function next(i){
+        if(i >= list.length || oldScript){
+          board.redoBusy = false;
+          renderBoard();
+          msgEl.textContent = oldScript
+            ? "הבקשה לתיקון לא נשמרה: צריך לעדכן את הסקריפט של Google לגרסה החדשה (עם ההחזרה לתיקון)."
+            : "🔁 הוחזרו לתיקון " + done + (done === 1 ? " עבודה" : " עבודות") + "." + (failed.length ? " לא הצליח: " + failed.join(", ") + " - אפשר לנסות שוב." : "");
+          return;
+        }
+        var r = list[i], g = r.grade !== "" ? r.grade : r.fbg;
+        go.textContent = "מחזיר לתיקון… " + (i + 1) + " מתוך " + list.length;
+        msgEl.textContent = "מחזיר לתיקון: " + r.name + " (" + (i + 1) + " מתוך " + list.length + ")";
+        apiPost({ action:"setGrade", password:teacherToken(), fileId:r.id, grade:String(g), comment:r.comment || "", publishFb:true, redo:true }).then(function(res){
+          if(handleAuthFailure(res)){ board.redoBusy = false; return; }
+          if(res && res.ok){
+            r.grade = res.grade; r.comment = res.comment || ""; if(res.grade !== "") r.status = "checked";
+            r.fb = res.fbPublished ? "pub" : "draft";
+            if(res.redo === true){ r.redo = true; done++; } else oldScript = true;
+          } else failed.push(r.name);
+          next(i + 1);
+        }).catch(function(){ failed.push(r.name); next(i + 1); });
+      })(0);
+    });
     document.getElementById("ttAccept").addEventListener("click", function(e){
       var b = e.target.closest("#ttAcceptGo");
       if(!b || !(board.acceptIds || []).length) return;
@@ -1609,6 +1642,19 @@
         '<button type="button" class="tt-btn tt-btn--primary" id="ttAcceptGo">רישום ' + (cand.length === 1 ? 'הציון' : 'כל ' + cand.length + ' הציונים') + '</button>' +
         '<small style="flex-basis:100%;color:#4E5B72">הציון נרשם אצלך בלבד. התלמיד רואה ציון ומשוב רק אחרי שלוחצים "📨 שליחה" בשורה שלו. אפשר לשנות כל ציון בלחיצה על השורה.</small>' : '';
       board.acceptIds = cand.map(function(r){ return r.id; });
+    }
+    /* החזרה לתיקון לכולם (במה שמוצג עכשיו בסינון): עבודות עם משוב מפורט, שעוד לא הוחזרו, וציון מתחת ל-100 */
+    var redoBox = document.getElementById("ttRedoAll");
+    if(redoBox && !board.redoBusy){
+      var redoCand = viewHidden ? [] : shown.filter(function(r){
+        var g = r.grade !== "" ? r.grade : r.fbg;
+        return r.id && !r.hidden && r.fb && !r.redo && g !== "" && +g < 100;
+      });
+      redoBox.style.display = redoCand.length ? "flex" : "none";
+      redoBox.innerHTML = redoCand.length ? '<span>🔁 <b>' + redoCand.length + '</b> ' + (redoCand.length === 1 ? 'עבודה יכולה' : 'עבודות יכולות') + ' לחזור לתיקון (ציון מתחת ל-100, בסינון הנוכחי).</span>' +
+        '<button type="button" class="tt-btn tt-btn--primary" id="ttRedoAllGo">🔁 החזרה לתיקון לכולם (' + redoCand.length + ')</button>' +
+        '<small style="flex-basis:100%;color:#4E5B72">כל תלמיד יקבל את הציון, את המשוב ובקשה לתקן ולשלוח שוב. עבודות עם 100, או שכבר הוחזרו, לא נכללות. כדי להחזיר רק כיתה או מטלה אחת - בחרו אותן בסינון למעלה.</small>' : '';
+      board.redoIds = redoCand.map(function(r){ return r.id; });
     }
     Array.prototype.forEach.call(document.querySelectorAll("[data-sort-col]"), function(th){
       var k = th.getAttribute("data-sort-col");
