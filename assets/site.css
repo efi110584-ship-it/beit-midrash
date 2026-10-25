@@ -5014,3 +5014,12 @@ th[aria-sort="ascending"]:where([data-css~="index"], [data-css~="index"] *), th[
 /* שאלות בגרות: כל סעיף בשורה משלו, בעמודה אחת (במקום שני סעיפים זה לצד זה) */
 .bg-row{ flex-direction:column; }
 .bg-row .question-block{ flex:0 0 auto; }
+
+/* דוחות שיעור (אזור אישי ← בשיעור) */
+.tt-rep-list{ list-style:none; margin:.4rem 0 0; padding:0; display:flex; flex-direction:column; gap:8px; }
+.tt-rep{ border:1px solid #D5DEEC; border-radius:12px; background:#fff; }
+.tt-rep-head{ width:100%; display:flex; flex-wrap:wrap; gap:4px 14px; align-items:baseline; padding:10px 14px; border:0; background:transparent; font:inherit; color:inherit; text-align:right; cursor:pointer; border-radius:12px; }
+.tt-rep-head:hover{ background:#F3F6FB; }
+.tt-rep-head:focus-visible{ outline:3px solid #FF7A1A; outline-offset:2px; }
+.tt-rep-count{ margin-inline-start:auto; font-size:.92em; }
+.tt-rep-body{ padding:0 14px 12px; }
