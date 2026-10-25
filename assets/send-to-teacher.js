@@ -73,8 +73,17 @@
   }
 
   /* ---------- מה יש לשלוח ---------- */
-  /* דף שמסמן חלק לשליחה (data-submit-scope) - שולחים רק אותו */
+  /* דף שמסמן חלק לשליחה (data-submit-scope) - שולחים רק אותו.
+     בלקט מצוות: שולחים רק את התשובות לשאלות הבגרות (הבדיקה והציון הם רק עליהן).
+     דף העבודה עצמו נשאר לתרגול, ולא נשלח. */
+  var BAGRUT_ONLY_UNITS = ['leket'];
+  var bagrutOnly = (function(){
+    var T = window.BM_TASKS;
+    var where = T && T.findByPage(location.pathname.split('/').pop() || '');
+    return !!(where && BAGRUT_ONLY_UNITS.indexOf(where.unit.key) !== -1 && document.querySelector('.bagrut-block'));
+  })();
   function inScope(el){
+    if(bagrutOnly) return !!el.closest('.bagrut-block');
     var sc = document.querySelectorAll('[data-submit-scope]');
     if(!sc.length) return true;
     return Array.prototype.some.call(sc, function(s){ return s.contains(el); });
@@ -172,8 +181,8 @@
   }
   function nothingYet(){
     open('warn', function(h){
-      h.textContent = 'עוד לא כתבתם תשובות בדף הזה';
-      panel.appendChild(el('p', null, 'כתבו לפחות תשובה אחת, ואז לחצו שוב על "שלחו למורה".'));
+      h.textContent = bagrutOnly ? 'עוד לא עניתם על שאלות הבגרות' : 'עוד לא כתבתם תשובות בדף הזה';
+      panel.appendChild(el('p', null, bagrutOnly ? 'למורה נשלחות רק התשובות לשאלות הבגרות שבסוף הדף. ענו לפחות על סעיף אחד שם, ואז לחצו שוב על "שלחו למורה".' : 'כתבו לפחות תשובה אחת, ואז לחצו שוב על "שלחו למורה".'));
       actions().appendChild(button('חזרה לדף', '', close));
     });
   }
@@ -184,7 +193,8 @@
       var ul = el('ul', 'bm-send-list');
       ul.appendChild(el('li', null, 'שם: ' + clean(nameEl.value)));
       ul.appendChild(el('li', null, 'כיתה: ' + classLabel()));
-      ul.appendChild(el('li', null, (data.items.length === 1 ? 'תשובה אחת' : data.items.length + ' תשובות') + ' מתוך ' + data.total + ' סעיפי תשובה בדף' + (data.items.length < data.total ? ' (שאלות בלי תשובה לא יישלחו)' : '')));
+      ul.appendChild(el('li', null, (data.items.length === 1 ? 'תשובה אחת' : data.items.length + ' תשובות') + ' מתוך ' + data.total + (bagrutOnly ? ' סעיפים בשאלות הבגרות' : ' סעיפי תשובה בדף') + (data.items.length < data.total ? ' (שאלות בלי תשובה לא יישלחו)' : '')));
+      if(bagrutOnly) ul.appendChild(el('li', null, 'נשלחות רק התשובות לשאלות הבגרות. דף העבודה עצמו נשאר אצלכם לתרגול.'));
       panel.appendChild(ul);
       panel.appendChild(el('p', 'bm-send-note', 'רק זה נשלח - שום דבר אחר מהמחשב. אי אפשר לבטל שליחה, אבל אפשר לשלוח שוב אחר כך, והגרסה החדשה תגיע למורה.'));
       var a = actions();
