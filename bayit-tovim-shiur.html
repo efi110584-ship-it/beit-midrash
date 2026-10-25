@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" data-css="theme">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>"טובים השניים מן האחד" - שיעור</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=9">
+<style id="ts-style">
+.ts-wrap{max-width:900px;margin:0 auto;padding:0 16px 2.5rem;display:flex;flex-direction:column;gap:1.1rem}
+.ts-card{background:var(--paper-card);border:1px solid var(--paper-line);border-radius:16px;padding:1.1rem 1.2rem;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:.75rem}
+.ts-card p{margin:0;font-size:1.05rem;line-height:1.75}
+.ts-card ul,.ts-card ol{margin:0;padding-inline-start:1.3rem;font-size:1.05rem;line-height:1.75}
+.ts-goal{border:2px solid var(--teal,#3F6E66)}
+.ts-goal h2{margin:0;font-size:1.25rem}
+.ts-part{margin:.6rem 0 0;font-size:1.4rem;color:var(--ink);text-wrap:balance;display:flex;align-items:center;gap:.6rem}
+.ts-part .ts-num{display:inline-flex;align-items:center;justify-content:center;min-width:2.2rem;height:2.2rem;padding:0 .5rem;border-radius:999px;background:var(--ink);color:#fff;font-size:1rem}
+.ts-card h3{margin:0;font-size:1.15rem;color:var(--ink);text-wrap:balance}
+.ts-src{margin:0;padding:.7rem .95rem;border-inline-start:4px solid var(--teal,#3F6E66);background:var(--teal-soft,#EEF4F2);border-radius:10px;font-family:"Frank Ruhl Libre",serif;font-size:1.12rem;line-height:1.8}
+.ts-src cite{display:block;margin-top:.35rem;font-family:Heebo,system-ui,sans-serif;font-style:normal;font-size:.9rem;font-weight:600;color:var(--ink-soft)}
+.ts-src p+p{margin-top:.4rem}
+.ts-say{padding:.7rem .95rem;border-radius:10px;background:#FFF6E3;border:1px solid #E7C98B;color:#4A3208}
+.ts-say b{color:#7A4A12}
+.ts-big{font-size:1.15rem !important;font-weight:700;text-align:center;color:var(--ink)}
+.ts-table-wrap{overflow-x:auto}
+.ts-table{width:100%;border-collapse:collapse;font-size:1rem;line-height:1.6}
+.ts-table tbody th{white-space:normal}
+.ts-table th,.ts-table td{border:1px solid var(--paper-line);padding:.55rem .7rem;text-align:start;vertical-align:top}
+.ts-table thead th{background:var(--ink);color:#fff}
+.ts-table tbody th{background:var(--teal-soft,#EEF4F2)}
+.ts-check{border-top:1px dashed var(--paper-line);padding-top:.8rem;display:flex;flex-direction:column;gap:.5rem}
+.ts-check .ts-label{font-weight:700;color:var(--teal,#3F6E66);font-size:.95rem}
+.ts-check textarea.answer{width:100%;min-height:4.5rem;box-sizing:border-box;padding:.7rem;border:1px solid var(--paper-line);border-radius:10px;font:inherit;font-size:1rem;line-height:1.6;background:#FBFCFD;resize:vertical}
+.ts-check textarea.answer:focus-visible{outline:3px solid var(--focus-ring,#FF7A1A);outline-offset:2px}
+.ts-check .hint-btn{align-self:flex-start}
+.ts-check .hint-box{margin-top:0;font-size:1rem}
+.ts-next{display:flex;flex-direction:column;align-items:center;gap:.7rem;text-align:center;background:var(--ink);color:#fff;border-radius:16px;padding:1.3rem 1.2rem}
+.ts-next p{margin:0;font-size:1.08rem;line-height:1.7}
+.ts-next a.btn{background:#fff;color:var(--ink);font-weight:700}
+.ts-tools{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
+.ts-note{font-size:.92rem !important;color:var(--ink-soft)}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+@media print{.ts-tools,.hint-btn,.ts-next a{display:none !important}.ts-card{box-shadow:none;break-inside:avoid}.hint-box[hidden]{display:block !important}}
+</style>
+<script src="assets/a11y.js"></script>
+</head>
+<body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">הכיתה הדיגיטלית</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="bayit-chinuch-mishpacha.html">בית, חינוך ומשפחה</a>
+  <span class="sep">›</span>
+  <span class="current">"טובים השניים מן האחד" - שיעור</span>
+</nav>
+<header>
+  <div class="eyebrow">תורה שבעל פה · בית, חינוך ומשפחה · פרק א'</div>
+  <h1>"טֹובִים הַשְּׁנַיִם מִן הָאֶחָד"</h1>
+  <p class="sub">שיעור לפני שאלות הבגרות: למה מתחתנים, ומה המצווה של "פרו ורבו".</p>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..." data-bm-persist="bayit"></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="למשל: י&quot;א 3" style="width:8rem;" data-bm-persist="bayit"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים.</p>
+
+<main id="main-content" class="ts-wrap">
+
+  <section class="ts-card ts-goal" aria-labelledby="ts-goal">
+    <h2 id="ts-goal">מה נלמד היום?</h2>
+    <ul>
+      <li>מה המטרה של הנישואין - לפי שני סיפורי הבריאה ולפי הרב סולובייצ'יק.</li>
+      <li>מצוות "פרו ורבו": הטעם שלה, כמה ילדים חייבים, ולמה אישה פטורה ממנה.</li>
+    </ul>
+    <p class="ts-note">בסוף כל חלק יש שאלה קצרה לבדיקה. כתבו תשובה, ורק אחר כך לחצו "הצג תשובה". בסוף השיעור עוברים לשאלות הבגרות של הנושא.</p>
+  </section>
+
+  <section class="ts-card" aria-labelledby="ts-open">
+    <h3 id="ts-open">🤔 שאלה לפתיחה</h3>
+    <p>הרצון והשאיפה להתחתן, להיות אוהב ואהוב, להקים בית ומשפחה, הם טבעיים ובריאים. מעבר להבנה שכך נטע הקב"ה בטבע האדם:</p>
+    <ul>
+      <li>מה הסיבה ומה המטרה של הנישואין?</li>
+      <li>מדוע בני אדם מוכנים להשקיע מאמץ רב כדי להינשא ולהקים ביחד בית?</li>
+      <li>באיזה מובן "טובים השניים מן האחד"?</li>
+    </ul>
+    <div class="ts-check">
+      <label class="ts-label" for="ts-a0">מה דעתכם? כתבו סיבה אחת</label>
+      <textarea class="answer" id="ts-a0" data-id="ts-a0" rows="2" placeholder="כתבו כאן..."></textarea>
+    </div>
+  </section>
+
+  <!-- ===== חלק 1 ===== -->
+  <h2 class="ts-part"><span class="ts-num">1</span> "טובים השניים" - מהות הקשר שבין איש לאישה</h2>
+
+  <section class="ts-card" aria-labelledby="ts-1a">
+    <h3 id="ts-1a">שני סיפורים על בריאת האדם</h3>
+    <p>על משמעות החיבור בין איש לאישה אפשר ללמוד מפסוקי הבריאה, ששיאם הוא בריאת האדם - נזר הבריאה.</p>
+    <p><b>בראשית פרק א':</b> האדם נברא בצלם אלוקים, והוא זכר ונקבה שנבראו יחד.</p>
+    <blockquote class="ts-src">
+      <p>כז וַיִּבְרָא אֱלֹהִים אֶת-הָאָדָם בְּצַלְמוֹ, בְּצֶלֶם אֱלֹהִים בָּרָא אֹתוֹ: זָכָר וּנְקֵבָה, בָּרָא אֹתָם.</p>
+      <p>כח וַיְבָרֶךְ אֹתָם, אֱלֹהִים, וַיֹּאמֶר לָהֶם אֱלֹהִים פְּרוּ וּרְבוּ וּמִלְאוּ אֶת-הָאָרֶץ, וְכִבְשֻׁהָ; וּרְדוּ בִּדְגַת הַיָּם, וּבְעוֹף הַשָּׁמַיִם, וּבְכָל-חַיָּה, הָרֹמֶשֶׂת עַל-הָאָרֶץ.</p>
+      <cite>בראשית א', כ"ז-כ"ח</cite>
+    </blockquote>
+    <p><b>בראשית פרק ב':</b> בריאת האישה מתוארת כתהליך של חיפוש, עד שנמצא הזיווג האמיתי.</p>
+    <blockquote class="ts-src">
+      <p>יח וַיֹּאמֶר יְהוָה אֱלֹהִים, לֹא-טוֹב הֱיוֹת הָאָדָם לְבַדּוֹ; אֶעֱשֶׂה-לּוֹ עֵזֶר, כְּנֶגְדּוֹ.</p>
+      <p>יט וַיִּצֶר יְהוָה אֱלֹהִים מִן-הָאֲדָמָה, כָּל-חַיַּת הַשָּׂדֶה וְאֵת כָּל-עוֹף הַשָּׁמַיִם, וַיָּבֵא אֶל-הָאָדָם, לִרְאוֹת מַה-יִּקְרָא-לוֹ; וְכֹל אֲשֶׁר יִקְרָא-לוֹ הָאָדָם נֶפֶשׁ חַיָּה, הוּא שְׁמוֹ.</p>
+      <p>כ וַיִּקְרָא הָאָדָם שֵׁמוֹת, לְכָל-הַבְּהֵמָה וּלְעוֹף הַשָּׁמַיִם, וּלְכֹל, חַיַּת הַשָּׂדֶה; וּלְאָדָם, לֹא-מָצָא עֵזֶר כְּנֶגְדּוֹ.</p>
+      <p>כא וַיַּפֵּל יְהוָה אֱלֹהִים תַּרְדֵּמָה עַל-הָאָדָם, וַיִּישָׁן; וַיִּקַּח, אַחַת מִצַּלְעֹתָיו, וַיִּסְגֹּר בָּשָׂר, תַּחְתֶּנָּה.</p>
+      <p>כב וַיִּבֶן יְהוָה אֱלֹהִים אֶת-הַצֵּלָע אֲשֶׁר-לָקַח מִן-הָאָדָם, לְאִשָּׁה; וַיְבִאֶהָ, אֶל-הָאָדָם.</p>
+      <p>כג וַיֹּאמֶר, הָאָדָם, זֹאת הַפַּעַם עֶצֶם מֵעֲצָמַי, וּבָשָׂר מִבְּשָׂרִי; לְזֹאת יִקָּרֵא אִשָּׁה, כִּי מֵאִישׁ לֻקְחָה-זֹּאת.</p>
+      <p>כד עַל-כֵּן, יַעֲזָב-אִישׁ, אֶת-אָבִיו, וְאֶת-אִמּוֹ; וְדָבַק בְּאִשְׁתּוֹ, וְהָיוּ לְבָשָׂר אֶחָד.</p>
+      <cite>בראשית ב', י"ח-כ"ד</cite>
+    </blockquote>
+    <p>מאז בריאת העולם נעים בני האדם בתנועה הזו: שניים שבשורשם הם אחד; שניים נפרדים, זכר ונקבה, השואפים לחיבור כאחד:</p>
+    <blockquote class="ts-src">
+      <p>זָכָר וּנְקֵבָה, בְּרָאָם; וַיְבָרֶךְ אֹתָם, וַיִּקְרָא אֶת-שְׁמָם אָדָם, בְּיוֹם, הִבָּרְאָם.</p>
+      <cite>בראשית ה', ב'</cite>
+    </blockquote>
+  </section>
+
+  <section class="ts-card" aria-labelledby="ts-1b">
+    <h3 id="ts-1b">הרב סולובייצ'יק: שתי מטרות משלימות לנישואין</h3>
+    <p>הרב יוסף דב סולובייצ'יק הבחין, על פי הפסוקים האלה, בין שתי מטרות משלימות ליצירת זוגיות ולנישואין.</p>
+    <blockquote class="ts-src">
+      <p>1. האיחוד הגופני של הזכר והנקבה בסיפור הראשון על בריאת האדם, משרת מטרה אחת בלבד: פרייה ורבייה. האיש והאשה מצטווים לאמור: "פְרּו ורְבּו" (בראשית א, כח). המשכיות הגזע היא גרעינו המכריע, אם לא הבלעדי, של האיחוד הגופני.</p>
+      <p>אבל בסיפור הבריאה השני בפרק ב' אנו עומדים בפני סיבה שונה לחלוטין.</p>
+      <p>2. המפגש בין אדם הראשון וחוה, בין האיש והאישה, נגרם על ידי תחושה של בדידות ועל ידי הצורך הבסיסי בידידות: "וַיאמֶר ה' אלוקים לא טֹוב היֹות הָאָדָם לְבַדֹו אֶעֱשֶה לֹו עֵזֶר כְנֶגְדֹו" (בראשית ב, יח) ...בהקשר זה צריכים היו הנישואין לקנות להם משמעות חדשה... אין אנו עוסקים עוד במניעים מכאניים אלא בתכליתיות רוחנית. "איש ואשה" (בפרק ב) באים במקום "זכר ונקבה" (בפרק א), ומפגשם תובע חווית יחד נעלה יותר, שמטרתה אינה רק הישרדותו של הגזע, אלא גם יצירת קהילה קטנה וצנועה והתפשטותה...</p>
+      <cite>הרב יוסף דב סולובייצ'יק, אדם וביתו, עמ' 48-51</cite>
+    </blockquote>
+    <div class="ts-table-wrap">
+      <table class="ts-table">
+        <caption class="visually-hidden">שתי המטרות לפי הרב סולובייצ'יק</caption>
+        <thead><tr><th scope="col"></th><th scope="col">בראשית פרק א'</th><th scope="col">בראשית פרק ב'</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">איך הם נקראים?</th><td>"זכר ונקבה"</td><td>"איש ואשה"</td></tr>
+          <tr><th scope="row">מה מביא אותם יחד?</th><td>"פרו ורבו"</td><td>"לא טוב היות האדם לבדו" - בדידות, הצורך בידידות</td></tr>
+          <tr><th scope="row">המטרה</th><td>פרייה ורבייה - המשכיות הגזע</td><td>תכלית רוחנית: חוויית יחד, יצירת "קהילה קטנה וצנועה"</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ts-check">
+      <label class="ts-label" for="ts-a1">✏️ בדיקה: מהן שתי המטרות של הנישואין לפי הרב סולובייצ'יק? מאיזה פרק לומדים כל אחת?</label>
+      <textarea class="answer" id="ts-a1" data-id="ts-a1" rows="3" placeholder="כתבו כאן..."></textarea>
+      <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+      <div class="hint-box" hidden>מפרק א': פרייה ורבייה - המשכיות הגזע ("פרו ורבו"). מפרק ב': מטרה רוחנית - ידידות ויחד, כי "לא טוב היות האדם לבדו"; איש ואשה יוצרים יחד "קהילה קטנה וצנועה".</div>
+    </div>
+  </section>
+
+  <!-- ===== חלק 2 ===== -->
+  <h2 class="ts-part"><span class="ts-num">2</span> "פרו ורבו" - הולדת ילדים</h2>
+
+  <section class="ts-card" aria-labelledby="ts-2a">
+    <h3 id="ts-2a">תכלית הציווי</h3>
+    <p>אחת המטרות המרכזיות של הנישואין היא הקמת משפחה והולדת ילדים. הנישואין הם מסגרת שנועדה לאפשר את קיום הצו והברכה שנאמרו לאדם הראשון.</p>
+    <p>הצורך ללדת ילדים הוא דחף אנושי בסיסי. אבל מלבד הדחף האישי והרצון להמשכיות פרטית ולמימוש עצמי, יש צורך וערך להיות שותף ביישובו של העולם, בהתפתחותו ובהמשכיותו.</p>
+    <div class="ts-say"><b>למה צריך מצווה על דבר טבעי?</b> בעולם המודרני יש משבר דמוגרפי במדינות רבות - נולדים פחות אנשים ממה שצריך. ייתכן שגם ההקרבה שבהורות וההתנגשות עם רצונות אחרים הובילו לכך. על מצווה זו אדם נשאל בסוף ימיו: האם עסק בפרייה ורבייה (שבת ל"א ע"א).</div>
+    <blockquote class="ts-src">
+      <p>רבי אליעזר אומר: כל מי שאין עוסק בפריה ורביה כאילו שופך דמים, שנאמר: "שֹׁפֵךְ דַּם הָאָדָם בָּאָדָם דָּמוֹ יִשָּׁפֵךְ" (בראשית ט), וכתוב אחריו: "וְאַתֶּם פְּרוּ וּרְבוּ".</p>
+      <cite>תלמוד בבלי, יבמות ס"ג ע"ב</cite>
+    </blockquote>
+    <p>במילים פשוטות: מי שלא מביא ילדים נחשב כאילו שופך דמים - כי יכול היה להוסיף חיים, ולא עשה זאת.</p>
+    <blockquote class="ts-src">
+      <p>כדי שיהיה העולם מיושב, שהשם ברוך הוא חפץ בישובו, כדכתיב: "לֹא תֹהוּ בְרָאָהּ לָשֶׁבֶת יְצָרָהּ" (ישעיהו מה, יח). והיא מצוה גדולה שבסיבתה מתקיימות כל המצות בעולם, כי לבני אדם ניתנו ולא למלאכי השרת. ונוהגת בכל מקום ובכל זמן. וחייב אדם להשתדל בה משהוא ראוי לה, והוא הזמן שנתנו חכמים זכרונם לברכה לישא אשה. ומצוה זו אינה מוטלת על הנשים. והמבטלה ביטל עשה, וענשו גדול מאוד שמראה בעצמו שאינו רוצה להשלים חפץ השם ליישב עולמו.</p>
+      <cite>ספר החינוך, מצוה א' - מצוות פרייה ורבייה</cite>
+    </blockquote>
+    <p class="ts-big">האדם מצּווה לפרות ולרבות, ובכך הוא הופך לשותפו של הקב"ה ביישוב העולם.</p>
+    <p>היצירה האנושית הגבוהה ביותר שאדם מסוגל להגיע אליה היא הולדת אדם נוסף בעל נשמה - שיש בו קדושה, מוסריות, חיים של תוכן ומשמעות, חסד ונתינה, אהבת אמת ומידות טובות. הולדת ילד יהודי היא החיבור העמוק ביותר לנצחיותו של עם ישראל.</p>
+    <div class="ts-check">
+      <label class="ts-label" for="ts-a2">✏️ בדיקה: לפי ספר החינוך, מה הטעם למצוות פרייה ורבייה? ומדוע עונשו של המבטל אותה גדול מאוד?</label>
+      <textarea class="answer" id="ts-a2" data-id="ts-a2" rows="3" placeholder="כתבו כאן..."></textarea>
+      <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+      <div class="hint-box" hidden>הטעם: כדי שיהיה העולם מיושב, כי ה' רוצה שהעולם יהיה מיושב ("לא תהו בראה לשבת יצרה"). העונש גדול כי המבטל מראה בעצמו שאינו רוצה להשלים את רצון ה' ליישב את עולמו.</div>
+    </div>
+  </section>
+
+  <section class="ts-card" aria-labelledby="ts-2b">
+    <h3 id="ts-2b">האם יש מצווה לשאת אישה? הרא"ש מול הרמב"ם</h3>
+    <div class="ts-say"><b>השאלה:</b> מדוע חכמים לא תיקנו לברך על האירוסין ברכת המצוות: "אשר קדשנו במצוותיו וציוונו לקדש את האשה"?</div>
+    <blockquote class="ts-src">
+      <p>ונראה לי כי ברכה זו (ברכת האירוסין) אינה ברכה לעשיית המצוה, כי פריה ורביה היינו קיום המצוה.</p>
+      <cite>רבנו אשר (הרא"ש), מסכת כתובות פרק א' סימן י"ב</cite>
+    </blockquote>
+    <p>לדברי הרא"ש, עיקר הנישואין הוא לשם קיום מצוות פרו ורבו. <b>אין מצווה עצמאית לשאת אישה.</b></p>
+    <p>בשונה מהרא"ש, <b>הרמב"ם סבר שהמצווה לשאת אישה ומצוות פרו ורבו הן שתי מצוות נפרדות</b> מתוך תרי"ג המצוות (ספר המצוות, מצוות עשה רי"ב-רי"ג):</p>
+    <blockquote class="ts-src">
+      <p>נאסרה הקדֵשה (=הזונה), שיש בזאת שיבוש הייחוס, והנולד ממנה זר לאנשים. לא ידועה לו משפחה, ואיש מבני משפחתו אינו מכיר אותו. וזה המצב הגרוע ביותר לו ולאביו... ולהביא תועלת כללית והיא ידיעת הייחוסים נאסרו הקדֵשה והקָדש... מפני שאילו היו מסתפקים בייחוד בלבד, היו רוב האנשים מביאים קדֵשה אל ביתם לזמן מה מתוך הסכמה ביניהם והוא היה אומר שזאת אשתו. לכן עליו לערוך ברית ומעשה מסוים אשר בו הוא מייחד אותה לעצמו והוא האֵרוסין, ושייתן פומבי לדבר, והוא הנישואין.</p>
+      <cite>רמב"ם</cite>
+    </blockquote>
+    <p><b>ההסבר לפי הרמב"ם:</b> החשש הוא שייווצר קשר לא מחייב בין איש ואישה, ובעקבותיו ייוולדו ילדים שאולי לא יֵדעו כלל מי אביהם - וגם אם ידעו, לא בטוח שיהיה להם קשר משמעותי איתו, כאב מחנך שותף בגידולם. הסיבה: הקשר בין ההורים היה מזדמן ולא מחייב, ולא נועד להקים משפחה. התורה מכוונת לכך שתוקם משפחה שבה האבא והאימא אחראים יחד לגידול ילדיהם ולחינוכם.</p>
+    <div class="ts-table-wrap">
+      <table class="ts-table">
+        <caption class="visually-hidden">הרא"ש מול הרמב"ם</caption>
+        <thead><tr><th scope="col"></th><th scope="col">הרא"ש</th><th scope="col">הרמב"ם</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">מצווה לשאת אישה?</th><td>אין מצווה עצמאית</td><td>יש - מצווה נפרדת מפרו ורבו</td></tr>
+          <tr><th scope="row">מה עיקר הנישואין?</th><td>קיום מצוות פרו ורבו</td><td>קשר מחייב ופומבי (אירוסין ונישואין), כדי שתקום משפחה שבה ההורים מגדלים יחד את ילדיהם</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ts-check">
+      <label class="ts-label" for="ts-a3">✏️ בדיקה: מה ההבדל בין הרא"ש לרמב"ם בשאלה אם יש מצווה לשאת אישה?</label>
+      <textarea class="answer" id="ts-a3" data-id="ts-a3" rows="3" placeholder="כתבו כאן..."></textarea>
+      <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+      <div class="hint-box" hidden>לפי הרא"ש אין מצווה עצמאית לשאת אישה - הנישואין הם הדרך לקיים פרו ורבו (ולכן אין ברכת המצוות על האירוסין). לפי הרמב"ם יש שתי מצוות נפרדות: לשאת אישה, ופרו ורבו - כדי שהקשר יהיה מחייב, והילדים יגדלו במשפחה עם אבא ואימא.</div>
+    </div>
+  </section>
+
+  <section class="ts-card" aria-labelledby="ts-2c">
+    <h3 id="ts-2c">כמה ילדים חייבים? היקף החובה</h3>
+    <blockquote class="ts-src">
+      <p>לא יבטל אדם מפריה ורביה, אלא אם כן יש לו בנים. בית שמאי אומרים: שני זכרים. ובית הלל אומרים: זכר ונקבה, שנאמר: "זָכָר וּנְקֵבָה בְּרָאָם" (בראשית ה, ב).</p>
+      <cite>משנה, מסכת יבמות</cite>
+    </blockquote>
+    <div class="ts-table-wrap">
+      <table class="ts-table">
+        <caption class="visually-hidden">בית שמאי ובית הלל</caption>
+        <thead><tr><th scope="col"></th><th scope="col">בית שמאי</th><th scope="col">בית הלל</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">החובה</th><td>שני זכרים</td><td>זכר ונקבה</td></tr>
+          <tr><th scope="row">מאיפה לומדים? (גמרא)</th><td>ממשה רבנו - היו לו שני בנים, גרשום ואליעזר</td><td>מהקב"ה - ברא את אדם וחוה</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><b>הלכה כבית הלל.</b> וכך פסק הרמב"ם: זכר ונקבה.</p>
+    <p>הקב"ה ברא את העולם כדי שבני אדם יקיימו את המין האנושי, יישבו את העולם ויפַתחו אותו בצורה ראויה, מוסרית ואידאלית - ובכך יתגדל שמו של הקב"ה, והעולם יהיה מקום שבו הוא יכול להשרות שכינתו.</p>
+    <blockquote class="ts-src">
+      <p>לא נברא העולם אלא לפרייה ורבייה, שנאמר: "לֹא תֹהוּ בְרָאָהּ לָשֶׁבֶת יְצָרָהּ" (ישעיהו מה, יח).</p>
+      <cite>משנה, גיטין פרק ד' משנה ה'</cite>
+    </blockquote>
+    <blockquote class="ts-src">
+      <p>לא תהו בראה - יוצר הארץ לא על תוהו להיות ריקנית ברא אותה, כי אם לשבת, להיות בה יישוב יצרה.</p>
+      <cite>רש"י, גיטין מ"א ע"ב</cite>
+    </blockquote>
+    <blockquote class="ts-src">
+      <p>אף על פי שקיים אדם מצות פריה ורביה, הרי הוא מצווה מדברי סופרים שלא יבטל מלפרות ולרבות כל זמן שיש בו כח, שכל המוסיף נפש אחת בישראל כאילו בנה עולם.</p>
+      <cite>רמב"ם, הלכות אישות פרק ט"ו הלכה ט"ז</cite>
+    </blockquote>
+    <div class="ts-check">
+      <label class="ts-label" for="ts-a4">✏️ בדיקה: לפי ההלכה, מתי אדם קיים את מצוות פרו ורבו מן התורה? ומה מוסיף הרמב"ם אחרי זה?</label>
+      <textarea class="answer" id="ts-a4" data-id="ts-a4" rows="3" placeholder="כתבו כאן..."></textarea>
+      <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+      <div class="hint-box" hidden>כשיש לו בן ובת (זכר ונקבה) - כבית הלל, שלמדו מאדם וחוה. הרמב"ם מוסיף: גם אחרי זה הוא מצווה מדברי סופרים להמשיך להוליד כל זמן שיש בו כוח, כי "כל המוסיף נפש אחת בישראל כאילו בנה עולם".</div>
+    </div>
+  </section>
+
+  <section class="ts-card" aria-labelledby="ts-2d">
+    <h3 id="ts-2d">למה אישה פטורה ממצוות פרו ורבו?</h3>
+    <p>הרצון הבריא והטבעי להיות אם ולהיות אב קיים אצל שני המינים. התנאים נחלקו בשאלה אם האישה חייבת במצוות "פרו ורבו":</p>
+    <blockquote class="ts-src">
+      <p>האיש מצווה על פריה ורביה, אבל לא האשה. רבי יוחנן בן ברוקא אומר: על שניהם הוא אומר: "וַיְבָרֶךְ אֹתָם אֱלֹקִים וַיֹּאמֶר לָהֶם אֱלֹקִים פְּרוּ וּרְבוּ" (בראשית א, כח).</p>
+      <cite>משנה, יבמות פרק ו' משנה ו'</cite>
+    </blockquote>
+    <p><b>להלכה נפסק שאישה אינה חייבת במצוות "פרו ורבו"</b> (רמב"ם, הלכות אישות ט"ו, ב; שולחן ערוך, אבן העזר א', י"ג) - אף על פי שהיא זו שנושאת בעול ההיריון והלידה ועיקר גידול הילדים.</p>
+    <p>לפי חלק מהפרשנים, החובה ליישב את העולם ("לא תהו בראה לשבת יצרה") מוטלת גם על האישה - אבל לא מצוות פרו ורבו (תוספות, גיטין מ"א ע"ב, ד"ה לא).</p>
+    <p>את הפער הזה - האישה מעורבת מאוד בהולדה ובגידול, ובכל זאת אינה מצווה - הסביר הרב מאיר שמחה הכהן מדווינסק בפירושו לתורה, "משך חכמה" (בראשית ט', ז'):</p>
+    <blockquote class="ts-src">
+      <p>(א) ...ואם כן, נשים שמסתכנות בעיבור ולידה... לא גזרה התורה לצוות לפרות ולרבות על האשה... דבאדם וחוה שברך אותם קודם החטא שלא היה לה צער לידה, היה מצות שניהם בפריה וברביה... אבל לאחר החטא שהיה לה צער לידה והיא רוב פעמים מסתכנת מזה... אינן בכלל מצוות פרו ורבו.</p>
+      <p>(ב) עוד יתכן לומר בטעם שפטרה התורה נשים מפריה ורביה, משום דבאמת הלא הטביעה בטבע התשוקה ובנקבה עוד יותר... ודי במה שהיא מוכרחת בטבע... ומדרך התורה לבלי לגדור הטבע... ולכן לגזור על האשה כי תינשא לאיש ולא יוליד, תצא מאהוב נפשה ותקח איש אחר, זה נגד הטבע לאהוב השנוא ולשנוא האהוב. ורק האיש, שיכול לישא עוד אחרת, עליו הטילה התורה מצווה.</p>
+      <cite>משך חכמה, בראשית ט', ז'</cite>
+    </blockquote>
+    <div class="ts-table-wrap">
+      <table class="ts-table">
+        <caption class="visually-hidden">שתי הסיבות לפי משך חכמה</caption>
+        <thead><tr><th scope="col">סיבה</th><th scope="col">ההסבר במילים פשוטות</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">1. צער וסכנה</th><td>בהריון ובלידה יש צער וקושי, ולפעמים גם סכנה. התורה אינה מצווה לקיים מצווה שיש בה צער וסכנה.</td></tr>
+          <tr><th scope="row">2. נגד הטבע</th><td>הקב"ה הטביע באישה במיוחד את הרצון לזוגיות. אילו הייתה מצווה, ובעלה היה מתברר כעקר - היה עליה להתגרש מבעלה האהוב ולהינשא לאחר. זה ציווי נגד הטבע, ולכן התורה לא ציוותה. איש שאשתו התבררה כעקרה יכול היה לשאת אישה נוספת (לפני חרם רבנו גרשום) כדי לקיים את המצווה.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ts-check">
+      <label class="ts-label" for="ts-a5">✏️ בדיקה: כתבו סיבה אחת שבגללה פטרה התורה את הנשים ממצוות פרו ורבו, לפי "משך חכמה".</label>
+      <textarea class="answer" id="ts-a5" data-id="ts-a5" rows="3" placeholder="כתבו כאן..."></textarea>
+      <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+      <div class="hint-box" hidden>אחת משתיים: (1) בהריון ובלידה יש צער וסכנה, והתורה לא מצווה לקיים מצווה שיש בה צער וסכנה. (2) אילו הייתה מצווה והבעל היה עקר, הייתה צריכה להתגרש מבעלה האהוב - וזה נגד הטבע, והתורה לא מצווה נגד הטבע.</div>
+    </div>
+  </section>
+
+  <section class="ts-card" aria-labelledby="ts-2e">
+    <h3 id="ts-2e">מניעת היריון</h3>
+    <p>לצד החובה והזכות הגדולה שבהולדת ילדים וגידולם, ילדים דורשים מבני הזוג משאבים רבים מסוגים שונים. ילד צריך לבוא לעולם מתוך שמחה ורצון של הוריו.</p>
+    <p>שאלת מניעת היריון היא שאלה הלכתית שיש לה השלכות רבות. ראוי ונכון להתייעץ ברב הבקי בתחום ומכיר את בני הזוג.</p>
+  </section>
+
+  <section class="ts-next" aria-labelledby="ts-next">
+    <h2 id="ts-next" style="margin:0;font-size:1.3rem;color:#fff">סיימנו את השיעור - עכשיו לשאלות הבגרות</h2>
+    <p>בשאלות הבגרות של הנושא תפגשו בדיוק את מה שלמדנו: הטעם למצוות פרו ורבו, העונש של המבטל, ולמה הנשים פטורות.</p>
+    <a class="btn" href="bayit-chinuch-mishpacha.html#t-tovim">📝 לשאלות הבגרות: "טובים השניים מן האחד"</a>
+  </section>
+
+  <div class="ts-tools">
+    <button type="button" class="btn" id="printBtn">🖨 הדפסה</button>
+    <button type="button" class="btn" id="clearBtn">🗑 מחיקת התשובות שלי</button>
+  </div>
+  <p class="ts-note" style="text-align:center">המקור: מצגת "טובים השניים מן האחד" (פרק א', סעיפים א', ג'), ד"ר רינה בן סבו.</p>
+</main>
+<footer class="credit">תורה שבעל פה · בית, חינוך ומשפחה · "טובים השניים מן האחד" - שיעור</footer>
+
+<script>
+/* שמירת התשובות במכשיר + "הצג תשובה" */
+(function(){
+  var KEY = 'bm-ts-tovim:';
+  var fields = Array.prototype.slice.call(document.querySelectorAll('textarea.answer'));
+  fields.forEach(function(f){
+    try{ var v = localStorage.getItem(KEY + f.getAttribute('data-id')); if(v) f.value = v; }catch(e){}
+    f.addEventListener('input', function(){ try{ localStorage.setItem(KEY + f.getAttribute('data-id'), f.value); }catch(e){} });
+  });
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.hint-btn');
+    if(!btn) return;
+    var box = btn.nextElementSibling;
+    if(!box || !box.classList.contains('hint-box')) return;
+    box.hidden = !box.hidden;
+    btn.textContent = box.hidden ? '🔎 הצג תשובה' : '🙈 הסתר תשובה';
+  });
+  document.getElementById('clearBtn').addEventListener('click', function(){
+    if(!confirm('למחוק את כל התשובות שכתבתם בדף?')) return;
+    fields.forEach(function(f){ f.value = ''; try{ localStorage.removeItem(KEY + f.getAttribute('data-id')); }catch(e){} });
+  });
+  document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+  /* שם וכיתה - משותפים עם עמוד שאלות הבגרות */
+  ['studentName', 'studentClass'].forEach(function(id){
+    var inp = document.getElementById(id), k = 'bm-student:bayit:' + id;
+    try{ var v = localStorage.getItem(k); if(v) inp.value = v; }catch(e){}
+    inp.addEventListener('input', function(){ try{ localStorage.setItem(k, inp.value); }catch(e){} });
+  });
+})();
+</script>
+<script src="assets/units-data.js"></script>
+<script src="assets/bm-api.js"></script>
+<script src="assets/lesson-mode.js"></script>
+<script src="assets/class-dock.js"></script>
+</body>
+</html>
