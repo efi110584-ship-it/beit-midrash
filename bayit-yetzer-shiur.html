@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" data-css="theme">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>"יצר ויצירה" - שיעור</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=9">
+<style id="ts-style">
+.ts-wrap{max-width:900px;margin:0 auto;padding:0 16px 2.5rem;display:flex;flex-direction:column;gap:1.1rem}
+.ts-card{background:var(--paper-card);border:1px solid var(--paper-line);border-radius:16px;padding:1.1rem 1.2rem;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:.75rem}
+.ts-card p{margin:0;font-size:1.05rem;line-height:1.75}
+.ts-card ul,.ts-card ol{margin:0;padding-inline-start:1.3rem;font-size:1.05rem;line-height:1.75}
+.ts-goal{border:2px solid var(--teal,#3F6E66)}
+.ts-goal h2{margin:0;font-size:1.25rem}
+.ts-part{margin:.6rem 0 0;font-size:1.4rem;color:var(--ink);text-wrap:balance;display:flex;align-items:center;gap:.6rem}
+.ts-part .ts-num{display:inline-flex;align-items:center;justify-content:center;min-width:2.2rem;height:2.2rem;padding:0 .5rem;border-radius:999px;background:var(--ink);color:#fff;font-size:1rem}
+.ts-card h3{margin:0;font-size:1.15rem;color:var(--ink);text-wrap:balance}
+.ts-src{margin:0;padding:.7rem .95rem;border-inline-start:4px solid var(--teal,#3F6E66);background:var(--teal-soft,#EEF4F2);border-radius:10px;font-family:"Frank Ruhl Libre",serif;font-size:1.12rem;line-height:1.8}
+.ts-src cite{display:block;margin-top:.35rem;font-family:Heebo,system-ui,sans-serif;font-style:normal;font-size:.9rem;font-weight:600;color:var(--ink-soft)}
+.ts-src p+p{margin-top:.4rem}
+.ts-say{padding:.7rem .95rem;border-radius:10px;background:#FFF6E3;border:1px solid #E7C98B;color:#4A3208}
+.ts-say b{color:#7A4A12}
+.ts-big{font-size:1.15rem !important;font-weight:700;text-align:center;color:var(--ink)}
+.ts-table-wrap{overflow-x:auto}
+.ts-table{width:100%;border-collapse:collapse;font-size:1rem;line-height:1.6}
+.ts-table tbody th{white-space:normal}
+.ts-table th,.ts-table td{border:1px solid var(--paper-line);padding:.55rem .7rem;text-align:start;vertical-align:top}
+.ts-table thead th{background:var(--ink);color:#fff}
+.ts-table tbody th{background:var(--teal-soft,#EEF4F2)}
+.ts-check{border-top:1px dashed var(--paper-line);padding-top:.8rem;display:flex;flex-direction:column;gap:.5rem}
+.ts-check .ts-label{font-weight:700;color:var(--teal,#3F6E66);font-size:.95rem}
+.ts-check textarea.answer{width:100%;min-height:4.5rem;box-sizing:border-box;padding:.7rem;border:1px solid var(--paper-line);border-radius:10px;font:inherit;font-size:1rem;line-height:1.6;background:#FBFCFD;resize:vertical}
+.ts-check textarea.answer:focus-visible{outline:3px solid var(--focus-ring,#FF7A1A);outline-offset:2px}
+.ts-check .hint-btn{align-self:flex-start}
+.ts-check .hint-box{margin-top:0;font-size:1rem}
+.ts-next{display:flex;flex-direction:column;align-items:center;gap:.7rem;text-align:center;background:var(--ink);color:#fff;border-radius:16px;padding:1.3rem 1.2rem}
+.ts-next p{margin:0;font-size:1.08rem;line-height:1.7}
+.ts-next a.btn{background:#fff;color:var(--ink);font-weight:700}
+.ts-tools{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
+.ts-note{font-size:.92rem !important;color:var(--ink-soft)}
+.ts-more{border:1px dashed var(--paper-line);border-radius:12px;padding:.6rem .9rem;background:#FBFCFD}
+.ts-more summary{cursor:pointer;font-weight:700;color:var(--ink)}
+.ts-more p{margin:.5rem 0 0 !important}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+/* ---- משחקים ---- */
+.ts-route{position:sticky;top:0;z-index:5;background:var(--paper-card);border:1px solid var(--paper-line);border-radius:14px;padding:.55rem .7rem;box-shadow:var(--shadow);display:flex;flex-wrap:wrap;align-items:center;gap:.4rem}
+.ts-route b{font-size:.95rem;margin-inline-end:.2rem}
+.ts-route a{display:inline-flex;align-items:center;gap:.3rem;min-height:36px;padding:.2rem .65rem;border-radius:999px;border:1.5px solid var(--paper-line);background:#fff;color:var(--ink);font-size:.9rem;font-weight:600;text-decoration:none}
+.ts-route a.done{background:#E3F4EC;border-color:#2E7D4F;color:#14422A}
+.ts-route a.done::before{content:"✓"}
+.ts-route .ts-stars{margin-inline-start:auto;font-weight:700;font-size:.95rem;white-space:nowrap}
+.ts-game{border-radius:14px;padding:.9rem 1rem;background:#F3F0FF;border:1.5px solid #B9AEF0;display:flex;flex-direction:column;gap:.65rem}
+.ts-game-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.5rem}
+.ts-game-head b{font-size:1.08rem;color:#3B2A8C}
+.ts-score{font-weight:700;font-size:.92rem;padding:.15rem .6rem;border-radius:999px;background:#fff;color:#3B2A8C;border:1px solid #B9AEF0}
+.ts-game p{font-size:1rem !important}
+.ts-cards{list-style:none;margin:0;padding:0 !important;display:flex;flex-direction:column;gap:.5rem}
+.ts-q{background:#fff;border:1.5px solid #DAD3FA;border-radius:12px;padding:.6rem .75rem;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .8rem;transition:border-color .2s,background .2s}
+.ts-qtext{flex:1 1 15rem;font-size:1.03rem;line-height:1.6}
+.ts-opts{display:flex;flex-wrap:wrap;gap:.4rem}
+.ts-opts button,.ts-check-btn,.ts-chip{min-height:40px;padding:.3rem .85rem;border-radius:10px;border:1.5px solid #7B6AD6;background:#fff;color:#3B2A8C;font:inherit;font-weight:700;font-size:.95rem;cursor:pointer}
+.ts-opts button:hover,.ts-check-btn:hover,.ts-chip:hover{background:#ECE8FF}
+.ts-opts button:focus-visible,.ts-check-btn:focus-visible,.ts-chip:focus-visible,.ts-blank:focus-visible{outline:3px solid var(--focus-ring,#FF7A1A);outline-offset:2px}
+.ts-q.ok{border-color:#2E7D4F;background:#EFF9F3}
+.ts-q.ok .ts-opts button{opacity:.45;cursor:default}
+.ts-q.ok .ts-opts button.picked{opacity:1;background:#2E7D4F;border-color:#2E7D4F;color:#fff}
+.ts-q.bad{animation:ts-shake .35s}
+.ts-fb{flex-basis:100%;font-size:.95rem;line-height:1.55}
+.ts-fb:empty{display:none}
+.ts-fb.no{color:#9A2B12;font-weight:600}
+.ts-fb.yes{color:#14422A}
+.ts-win{padding:.6rem .85rem;border-radius:10px;background:#2E7D4F;color:#fff;font-weight:700;text-align:center}
+.ts-win[hidden]{display:none}
+.ts-fill{background:#fff;border:1.5px solid #DAD3FA;border-radius:12px;padding:.8rem .9rem;font-family:"Frank Ruhl Libre",serif;font-size:1.12rem;line-height:2.3}
+.ts-blank{font:inherit;font-family:Heebo,system-ui,sans-serif;font-size:.98rem;font-weight:600;min-height:36px;padding:0 .3rem;border:1.5px dashed #7B6AD6;border-radius:8px;background:#F8F6FF;color:#3B2A8C;max-width:100%}
+.ts-blank.ok{border:1.5px solid #2E7D4F;background:#E3F4EC;color:#14422A}
+.ts-blank.no{border:1.5px solid #B42318;background:#FDECEA;color:#7A1A10}
+.ts-game .ts-table select{width:100%}
+.ts-chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.ts-chip[aria-pressed="true"]{background:#3B2A8C;color:#fff;border-color:#3B2A8C}
+.ts-row{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+@keyframes ts-shake{0%,100%{transform:none}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@media (max-width:640px){.ts-route{position:static}}
+@media (prefers-reduced-motion:reduce){.ts-q.bad{animation:none}.ts-q{transition:none}}
+@media print{.ts-route,.ts-game{display:none !important}}
+@media print{.ts-tools,.hint-btn,.ts-next a{display:none !important}.ts-card{box-shadow:none;break-inside:avoid}.hint-box[hidden]{display:block !important}}
+</style>
+<script src="assets/a11y.js"></script>
+</head>
+<body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">הכיתה הדיגיטלית</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="bayit-chinuch-mishpacha.html">בית, חינוך ומשפחה</a>
+  <span class="sep">›</span>
+  <span class="current">"יצר ויצירה" - שיעור</span>
+</nav>
+<header>
+  <div class="eyebrow">תורה שבעל פה · בית, חינוך ומשפחה · פרק ב'</div>
+  <h1>יצר ויצירה</h1>
+  <p class="sub">שיעור לפני שאלות הבגרות: מה זה יצר, איך ההלכה שומרת עלינו, ומה עושים כשנופלים.</p>
+</header>
+
+<div class="student-bar" id="printHeader">
+  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..." data-bm-persist="bayit"></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder="למשל: י&quot;א 3" style="width:8rem;" data-bm-persist="bayit"></label>
+</div>
+<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים.</p>
+
+<main id="main-content" class="ts-wrap">
+
+  <section class="ts-card ts-goal" aria-labelledby="ts-goal">
+    <h2 id="ts-goal">מה נלמד היום?</h2>
+    <ul>
+      <li>מה זה יצר, ולמה הקב"ה ברא אותו - "יצר" ו"יצירה".</li>
+      <li>איך ההלכה עוזרת לעמוד בהתמודדות: מבט נקי, איסור קרבה, איסור ייחוד, שחייה וריקודים מעורבים.</li>
+      <li>דיבור נקי ומכבד ומניעת הטרדה.</li>
+      <li>מה עושים כשנופלים - תשובה, חיזוק ועידוד.</li>
+    </ul>
+    <p class="ts-note">בכל חלק יש משחק קצר 🎮 ושאלת כתיבה בסגנון בגרות. על כל תשובה נכונה בניסיון הראשון מקבלים ⭐.</p>
+  </section>
+  <nav class="ts-route" aria-label="מסלול השיעור">
+    <b>🗺️ המסלול:</b>
+    <a href="#ts-open" data-route="g0">פתיחה</a>
+    <a href="#ts-1a" data-route="g1">מה זה יצר</a>
+    <a href="#ts-1b" data-route="g2">וייצר</a>
+    <a href="#ts-2a" data-route="g3">יצר הרע - טוב מאד</a>
+    <a href="#ts-3a" data-route="g4">מבט נקי</a>
+    <a href="#ts-3b" data-route="g5">איסור קרבה</a>
+    <a href="#ts-3c" data-route="g6">ייחוד</a>
+    <a href="#ts-4a" data-route="g7">דיבור והטרדה</a>
+    <a href="#ts-5a" data-route="g8">נפילה ותשובה</a>
+    <a href="#ts-exit" data-route="g9">חידון סיום</a>
+    <span class="ts-stars" id="tsStars" aria-live="polite">⭐ 0</span>
+  </nav>
+  <section class="ts-card" aria-labelledby="ts-open">
+    <h3 id="ts-open">🤔 פתיחה: יש קשר בין "יצר" ל"יצירה"?</h3>
+    <p>ההתמודדות עם היצרים מלווה את האדם כמעט כל ימי חייו - לפני הקמת בית ומשפחה, וגם אחרי הנישואין (באופן שונה). זו התמודדות מאתגרת, עם נפילות ועליות, והיא מעוררת שאלות:</p>
+    <ul><li>מה מטרת היצרים האלו? מדוע המאבק המתמיד?</li><li>ממה יש להישמר, וכיצד לנהוג כדי להצליח לעמוד בהתמודדות?</li><li>לשם מה יש כל כך הרבה איסורים, הגבלות וציווים הקשורים במימוש היצרים?</li></ul>
+    <div class="ts-game" data-game="g0" data-poll>
+      <div class="ts-game-head"><b>🗳️ סקר פתיחה: מה עולה לכם כששומעים "יצר"?</b></div>
+      <p>בחרו כל מה שמתאים לכם, ולחצו "סיימתי".</p>
+      <div class="ts-chips">
+        <button type="button" class="ts-chip" aria-pressed="false">😈 משהו רע</button>
+        <button type="button" class="ts-chip" aria-pressed="false">🔥 כוח חזק</button>
+        <button type="button" class="ts-chip" aria-pressed="false">🍔 אוכל ושינה</button>
+        <button type="button" class="ts-chip" aria-pressed="false">💰 כסף והצלחה</button>
+        <button type="button" class="ts-chip" aria-pressed="false">🎨 יצירה ובנייה</button>
+        <button type="button" class="ts-chip" aria-pressed="false">⚔️ מאבק</button>
+      </div>
+      <div class="ts-row"><button type="button" class="ts-check-btn" data-poll-done>סיימתי</button></div>
+      <p class="ts-win" hidden>יפה! היום נגלה שכל התשובות נכונות: היצר הוא כוח חזק, יש בו צד שלילי, אבל בלעדיו אין בנייה ויצירה - ולכן "יצר" ו"יצירה" באים מאותו שורש.</p>
+    </div>
+    <div class="ts-check">
+      <label class="ts-label" for="ys-a0">ובמילים שלכם: מה הקשר בין "יצר" ל"יצירה"?</label>
+      <textarea class="answer" id="ys-a0" data-id="ys-a0" rows="2" placeholder="כתבו כאן..."></textarea>
+    </div>
+  </section>
+  <h2 class="ts-part"><span class="ts-num">1</span> מה זה יצר?</h2>
+  <section class="ts-card" aria-labelledby="ts-1a">
+    <h3 id="ts-1a">יצר - כוחות מולדים, לטוב ולרע</h3>
+    <p><b>יצר</b> הוא כינוי לכוחות מולדים אצל האדם, הגורמים לו לפעול באופן שמספק את צרכיו המיידיים. אדם יכול להשתמש בכל אחד מן הכוחות המולדים באופן חיובי או שלילי.</p>
+    <div class="ts-table-wrap"><table class="ts-table"><caption class="visually-hidden">הפן החיובי והשלילי של היצרים</caption><thead><tr><th scope="col">היצר</th><th scope="col">הפן החיובי</th><th scope="col">הפן השלילי</th></tr></thead><tbody><tr><th scope="row">אכילה</th><td>נותנת קיום לגוף, מרפאה, מחזקת, מחסנת</td><td>אכילה גסה מביאה לזללנות, גרגרנות, בהמיות, מחליאה את הגוף</td></tr><tr><th scope="row">שינה</th><td>נותנת כוחות חדשים, מרעננת, גורמת לחילוף חומרים</td><td>עודף שינה גורם לבזבוז זמן, עצלנות, כבדות</td></tr><tr><th scope="row">ממון</th><td>נותן לאדם קיום וביסוס כלכלי, קיום מצוות (צדקה, גמילות חסדים)</td><td>קמצנות, רדיפת בצע, שוחד; "אוהב כסף לא ישבע כסף"</td></tr><tr><th scope="row">המשיכה בין המינים</th><td>קיום העולם, המשכיות, קרבה בין איש לאשתו</td><td>פריצות ופגיעה באחרים</td></tr></tbody></table></div>
+    <div class="ts-game" data-game="g1" data-opts="p:פן חיובי|n:פן שלילי">
+      <div class="ts-game-head"><b>🎯 משחק: פן חיובי או פן שלילי?</b><span class="ts-score"></span></div>
+      <p>לכל משפט - לחצו אם הוא מתאר את הפן החיובי של היצר או את הפן השלילי.</p>
+      <ul class="ts-cards">
+        <li class="ts-q" data-ans="p" data-why="האכילה נותנת קיום לגוף."><span class="ts-qtext">אכילה שנותנת לגוף כוח ומחזקת אותו</span></li>
+        <li class="ts-q" data-ans="n" data-why="אכילה גסה מחליאה את הגוף."><span class="ts-qtext">אכילה גסה וזללנות</span></li>
+        <li class="ts-q" data-ans="p"><span class="ts-qtext">שינה שמרעננת ונותנת כוחות חדשים</span></li>
+        <li class="ts-q" data-ans="n" data-why="עודף שינה גורם לבזבוז זמן."><span class="ts-qtext">עודף שינה ועצלנות</span></li>
+        <li class="ts-q" data-ans="p" data-why="הממון מאפשר קיום מצוות."><span class="ts-qtext">כסף שמאפשר לתת צדקה ולגמול חסדים</span></li>
+        <li class="ts-q" data-ans="n" data-why="&quot;אוהב כסף לא ישבע כסף&quot;."><span class="ts-qtext">רדיפת בצע וקמצנות</span></li>
+        <li class="ts-q" data-ans="p" data-why="קיום העולם וקרבה בין איש לאשתו."><span class="ts-qtext">המשיכה שבזכותה מוקמת משפחה והעולם ממשיך</span></li>
+      </ul>
+      <p class="ts-win" hidden>מצוין! כל יצר הוא כוח - והשאלה היא איך משתמשים בו.</p>
+    </div>
+  </section>
+  <section class="ts-card" aria-labelledby="ts-1b">
+    <h3 id="ts-1b">"וייצר" - שתי יצירות: מן העליונים ומן התחתונים</h3>
+    <blockquote class="ts-src"><p>וייצר ה' א-להים את האדם עפר מן האדמה, ויפח באפיו נשמת חיים, ויהי האדם לנפש חיה.</p><cite>בראשית ב', ז'</cite></blockquote>
+    <p><b>בראשית רבה:</b> מן הכפילות באות י' שבמילה "וייצר" אנו למדים על שני פנים שמופיעים באדם: <b>הפן הבהמי</b>, הארצי והנמוך (יצירה מן התחתונים), ו<b>הפן האלוקי</b>, הרוחני והגבוה (יצירה מן העליונים).</p>
+    <p>ארבעה דברים באדם הם כמו המלאכים (מלמעלה), וארבעה כמו הבהמה (מלמטה):</p>
+    <div class="ts-table-wrap"><table class="ts-table"><caption class="visually-hidden">מן העליונים ומן התחתונים</caption><thead><tr><th scope="col"></th><th scope="col">כמו מלאך (מן העליונים)</th><th scope="col">כמו בהמה (מן התחתונים)</th></tr></thead><tbody><tr><th scope="row">מה באדם?</th><td>עומד, מדבר, מבין, רואה (מסתכל ישר ורואה גם מה שבצדדים)</td><td>אוכל ושותה, פרה ורבה, מטיל גללים, מת</td></tr></tbody></table></div>
+    <blockquote class="ts-src"><p>העליונים נבראו בצלם ודמות ואינן פרים ורבין, התחתונים פרין ורבין ולא נבראו בצלם ודמות. אמר הקב"ה: הרי אני בורא אותו (את האדם) בצלם ודמות מן העליונים, פרה ורבה מן התחתונים.</p><cite>רבי תפדאי בשם רבי אחא, בראשית רבה</cite></blockquote>
+    <div class="ts-say"><b>כלומר:</b> האדם הוא בריאה ממוצעת שמחברת בין העליונים לתחתונים. הוא בנוי משני חלקים - גוף ונשמה - וכל חלק תובע את שלו. לכן יש באדם שני כוחות מנוגדים, יצר טוב ויצר רע, והם במלחמה תמידית.</div>
+    <blockquote class="ts-src"><p>גזרה החכמה העליונה שיהא האדם מורכב משני הפכים - מנשמה שכלית וזכה וגוף ארצי ועכור, שכל אחד מהם יטה בטבע לצידו - הגוף לחומריות והנשמה לשכליות, ותימצא ביניהם מלחמה. ולאדם הזה היכולת להשפיל חומרו לפני שכלו ונשמתו ולקנות שלמותו. אם תיגבר הנשמה - תתעלה היא ויתעלה הגוף עמה... ואם יניח באדם שינצח בו החומר - הנה ישפל הגוף ותשפל נשמתו עמו.</p><cite>מתוך המצגת</cite></blockquote>
+    <p>האדם אינו יצירה חומרית בלבד - גנוזים בו כוחות רוחניים ויש בו נשמה אלוקית. משמעות הדבר שהאדם טוב מטבעו, ושפנימיותו נותרת זכה וטהורה: "א-להי, נשמה שנתת בי טהורה היא".</p>
+    <div class="ts-game" data-game="g2" data-opts="u:מן העליונים|d:מן התחתונים">
+      <div class="ts-game-head"><b>🧩 משחק: מן העליונים או מן התחתונים?</b><span class="ts-score"></span></div>
+      <p>לפי המדרש - לחצו אם התכונה היא "כמו מלאך" או "כמו בהמה".</p>
+      <ul class="ts-cards">
+        <li class="ts-q" data-ans="u"><span class="ts-qtext">מדבר</span></li>
+        <li class="ts-q" data-ans="d"><span class="ts-qtext">אוכל ושותה</span></li>
+        <li class="ts-q" data-ans="u"><span class="ts-qtext">מבין</span></li>
+        <li class="ts-q" data-ans="d" data-why="רבי תפדאי: &quot;פרה ורבה מן התחתונים&quot;."><span class="ts-qtext">פרה ורבה</span></li>
+        <li class="ts-q" data-ans="u"><span class="ts-qtext">עומד (זקוף)</span></li>
+        <li class="ts-q" data-ans="d"><span class="ts-qtext">מת</span></li>
+        <li class="ts-q" data-ans="u" data-why="&quot;בצלם ודמות מן העליונים&quot;."><span class="ts-qtext">נברא בצלם ודמות</span></li>
+        <li class="ts-q" data-ans="u" data-why="הבהמה צריכה להטות את ראשה."><span class="ts-qtext">רואה ישר וגם לצדדים</span></li>
+      </ul>
+      <p class="ts-win" hidden>כל הכבוד! האדם מחבר בין העליונים לתחתונים - ולכן יש בו מאבק בין הגוף לנשמה.</p>
+    </div>
+    <div class="ts-check">
+      <label class="ts-label" for="ys-a1">✏️ מה לומדים מן הכפילות באות י' שבמילה "וייצר"?</label>
+      <textarea class="answer" id="ys-a1" data-id="ys-a1" rows="3" placeholder="כתבו כאן..."></textarea>
+      <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+      <div class="hint-box" hidden>שיש באדם שני פנים: הפן הבהמי, הארצי (יצירה מן התחתונים), והפן האלוקי, הרוחני (יצירה מן העליונים). הגוף נמשך לחומריות והנשמה לרוחניות, ולכן יש ביניהם מאבק.</div>
+    </div>
+  </section>
+  <section class="ts-card" aria-labelledby="ts-1c">
+    <h3 id="ts-1c">הרב אבינר: גבורת כיבוש היצר, ושערי תשובה</h3>
+    <blockquote class="ts-src"><p>"כי אדם אין צדיק בארץ אשר יעשה טוב ולא יחטא" (קהלת ז', כ'). חלק מסיפור חיינו הוא המאבק המתמיד בין טוב ורע, בין גוף לנשמה. צדיק גמור ללא חטא בכלל הוא מלאך בלבד... "האדם בטבעו לוחם". האדם ניחן בכוח בחירה, הוא יכול לכבוש את יצרו ולהשליט את שכלו.</p><cite>הרב אלישע אבינר</cite></blockquote>
+    <ul><li>שערי תשובה לא ננעלו - תמיד אפשר לקום ולהמשיך הלאה. בעל התשובה הוא מעל צדיק גמור, הכובש הוא מעל הישר בטבעו ("איזהו גיבור? הכובש את יצרו").</li><li>הכובש צריך להאמין בעצמו: גם אם "יצר לב האדם רע מנעוריו", בתוכיותו הפנימית הוא טוב וישר כאשר עשה אותו א-לוהים. "אל תהי רשע בפני עצמך".</li></ul>
+  </section>
+  <h2 class="ts-part"><span class="ts-num">2</span> יצרים ויצירתיות: "טוב מאד" - זה יצר הרע</h2>
+  <section class="ts-card" aria-labelledby="ts-2a">
+    <h3 id="ts-2a">למה צריך את היצר?</h3>
+    <p>יכולנו לחשוב שכוחות היצר שליליים בלבד, כי הם מסיטים את האדם מרוחניות לגשמיות. אבל עיון בדברי חז"ל מלמד גישה שונה: "וירא א-להים את כל אשר עשה והנה טוב מאד" - טוב זה יצר טוב, מאד זה יצר הרע.</p>
+    <div class="ts-say"><b>הגמרא מספרת:</b> בזמן חורבן בית שני ביקשו חכמים לבטל את "יצרא דעבירה" - יצר התאווה בין המינים. הקב"ה מסר אותו בידם ואמר: ראו שאם תבטלו יצר זה, יחרב העולם. חבשו אותו שלושה ימים - וחיפשו ביצה בכל ארץ ישראל ולא מצאו.</div>
+    <p>יצר התאווה בין המינים הוא <b>החזק ביצרים</b>, כי בזכותו נוצרים חיים חדשים; בלעדיו העולם עומד מלכת. מימוש נכון של כל יצר מביא לבניין, ושימוש מוטעה עלול להמיט חורבן.</p>
+    <blockquote class="ts-src"><p>"ואהבת את ה' א-להיך בכל לבבך ובכל נפשך ובכל מאדך" - בכל לבבך: בשני יצריך, ביצר הטוב וביצר הרע.</p><cite>משנה ברכות, פרק ט'</cite></blockquote>
+    <p>איך אפשר לעבוד את ה' ביצר הרע - הרי הוא מפתה אותנו לחטוא?</p>
+    <blockquote class="ts-src"><p>שישתמש באש דיצר הרע, כמו החמדה והתאווה והכעס והגאווה... להתלהב עצמו לפעולת המצווה ולעשיית מעשים טובים.</p><cite>תפארת ישראל</cite></blockquote>
+    <p>"הוי עז כנמר... לעשות רצון אביך שבשמים" - למה דווקא כמו חיה טורפת? כדי ללמד איך להפוך את התאוות לכוח שמוציא מעשים טובים אל הפועל. גם לכוחות האלו שבך יש מקום בעבודת ה'.</p>
+    <div class="ts-game" data-game="g3" data-fill>
+      <div class="ts-game-head"><b>📝 השלימו: עבודת ה' ביצר הרע</b><span class="ts-score"></span></div>
+      <p>בחרו את המילה החסרה בכל מקום, ולחצו "בדיקה". מחסן המילים: <b>מאד · יחרב · החזק · האש · להתלהב · יצריך</b>.</p>
+      <div class="ts-fill">"והנה טוב <select class="ts-blank" data-ans="מאד" aria-label="מילה חסרה"><option value="">______</option><option>יצריך</option><option>האש</option><option>החזק</option><option>יחרב</option><option>להתלהב</option><option>מאד</option></select>" - זה יצר הרע. אמר הקב"ה: אם תבטלו יצר זה, <select class="ts-blank" data-ans="יחרב" aria-label="מילה חסרה"><option value="">______</option><option>יחרב</option><option>החזק</option><option>להתלהב</option><option>האש</option><option>יצריך</option><option>מאד</option></select> העולם. יצר התאווה בין המינים הוא <select class="ts-blank" data-ans="החזק" aria-label="מילה חסרה"><option value="">______</option><option>יצריך</option><option>החזק</option><option>האש</option><option>מאד</option><option>להתלהב</option><option>יחרב</option></select> ביצרים, כי בזכותו נוצרים חיים. "בכל לבבך" - בשני <select class="ts-blank" data-ans="יצריך" aria-label="מילה חסרה"><option value="">______</option><option>האש</option><option>להתלהב</option><option>החזק</option><option>יחרב</option><option>מאד</option><option>יצריך</option></select>. לפי התפארת ישראל, ישתמש האדם ב<select class="ts-blank" data-ans="האש" aria-label="מילה חסרה"><option value="">______</option><option>יחרב</option><option>להתלהב</option><option>יצריך</option><option>החזק</option><option>מאד</option><option>האש</option></select> של היצר הרע כדי <select class="ts-blank" data-ans="להתלהב" aria-label="מילה חסרה"><option value="">______</option><option>החזק</option><option>יחרב</option><option>יצריך</option><option>להתלהב</option><option>האש</option><option>מאד</option></select> לעשיית מצוות.</div>
+      <div class="ts-row"><button type="button" class="ts-check-btn" data-fill-check>בדיקה</button><span class="ts-fb" aria-live="polite"></span></div>
+      <p class="ts-win" hidden>מעולה! זו בדיוק התשובה לשאלת בגרות: איך עובדים את ה' ביצר הרע - משתמשים באש שלו כדי להתלהב למצוות.</p>
+    </div>
+    <div class="ts-check">
+      <label class="ts-label" for="ys-a2">✏️ על פי התפארת ישראל, כיצד על האדם לעבוד את ה' ביצר הרע שלו?</label>
+      <textarea class="answer" id="ys-a2" data-id="ys-a2" rows="3" placeholder="כתבו כאן..."></textarea>
+      <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+      <div class="hint-box" hidden>באש של היצר הרע (חמדה, תאווה, כעס, גאווה) ילהיב את עצמו לעשיית המצוות ולמעשים טובים - את אותה התלהבות שהיצר מכניס לחייו ירתום לעבודת ה'.</div>
+    </div>
+  </section>
+  <h2 class="ts-part"><span class="ts-num">3</span> ההלכה כשומרת: "ובחרת בחיים"</h2>
+  <section class="ts-card" aria-labelledby="ts-3">
+    <h3 id="ts-3">למה כל כך הרבה הלכות?</h3>
+    <p>יש מי שמתרשם מהלכות הצניעות שמטרת התורה היא לצמצם את כוחות החיים של האדם. אבל במובן העמוק מגמת התורה הפוכה: לבחור בחיים זה לבחור לא להיות כל היום בניסיונות ובפיתויים. ההלכה עוזרת לאדם ליצור מציאות שתשמור עליו ותקל עליו בהתמודדות עם מאבקי היצר.</p>
+    <p>ארבעה תחומים: <b>מבט נקי · איסור קרבה · איסור ייחוד · שחייה וריקודים מעורבים</b>.</p>
+  </section>
+  <section class="ts-card" aria-labelledby="ts-3a">
+    <h3 id="ts-3a">👁️ מבט נקי</h3>
+    <blockquote class="ts-src"><p>ולא תתורו אחרי לבבכם ואחרי עיניכם אשר אתם זנים אחריהם.</p><cite>במדבר ט"ו, ל"ט</cite></blockquote>
+    <p>הקב"ה ברא לנו עיניים, והעיניים נמשכות אחרי היפה - ויש אף ברכות על מראות טבע יפים. ליופי יש תפקיד בעולם, אבל צריך לדעת איך להתמודד ולא ליפול בעקבות מראה עיניים, במיוחד בגיל ההתבגרות.</p>
+    <blockquote class="ts-src"><p>הלב והעיניים הם מרגלים לגוף ומסרסרים לו את העבירות. העין רואה והלב חומד והגוף עושה את העבירות.</p><cite>רש"י</cite></blockquote>
+    <blockquote class="ts-src"><p>המסתכל בעריות מעלה על דעתו שאין בכך כלום... והוא אינו יודע שראיית העיניים עוון גדול, שהיא גורמת לגופן של עריות.</p><cite>רמב"ם</cite></blockquote>
+    <blockquote class="ts-src"><p>רגשי היופי מפתחים כוחות השכל ומגדילים גם כן את כוחות הנפש הטובים... ולמרות כל השבח שיש ביסוד היופי, על פי רוב יאלץ ההכרח לדחותו, בפרט בימי הבחרות, מפני ההפסד המוסרי שעלול לבוא לרגליו.</p><cite>הראי"ה קוק</cite></blockquote>
+    <blockquote class="ts-src"><p>ואף על פי שהוא מוצא את עצמו חשוך התאווה קצת, לא יאמר: כיוון שאני מוצא עצמי כן, מה איכפת לי אם אסתכל... שהרבה אמרו כך ונכשלו... היצר בתחילה חלש מאד והולך ומתחזק על האדם בהרבה.</p><cite>ספר החינוך</cite></blockquote>
+    <p>בימינו הזמינות של מראות אסורים (מכשירים ניידים, רשתות חברתיות, פרסומות) מקשה מאוד. <b>איך שומרים?</b> מגבירים מודעות לסכנות; שולטים טוב יותר ביצרים; לא נכנסים למקום שבו יהיה קשה לעמוד בניסיון; משתמשים בחסימות במכשירים.</p>
+    <div class="ts-say"><b>הנזקים בצפייה במראות לא צנועים (לפי המצגת):</b> (1) מרגילה להתייחס לאדם כאל חפץ ולא כאל אישיות; (2) בזבוז זמן והנאה מדומה; (3) עולם דמיוני על זוגיות שאינו קשור למציאות; (4) תחושת חרטה ובדידות שמסבכת את בניין האישיות. הרב חיים הכהן (החלבן): שורש התאווה הוא אגואיזם - הנאה לעצמו בלבד.</div>
+    <div class="ts-game" data-game="g4" data-opts="r:רש&quot;י|m:רמב&quot;ם|k:הראי&quot;ה קוק|h:ספר החינוך">
+      <div class="ts-game-head"><b>🕵️ משחק: מי אמר?</b><span class="ts-score"></span></div>
+      <p>לכל משפט - לחצו מי אמר אותו.</p>
+      <ul class="ts-cards">
+        <li class="ts-q" data-ans="r" data-why="הלב והעיניים הם &quot;מרגלים&quot; לגוף."><span class="ts-qtext">"העין רואה והלב חומד והגוף עושה"</span></li>
+        <li class="ts-q" data-ans="m"><span class="ts-qtext">המסתכל חושב "אין בכך כלום" - אבל ראיית העיניים עוון גדול</span></li>
+        <li class="ts-q" data-ans="k"><span class="ts-qtext">רגשי היופי מפתחים את השכל - אבל בימי הבחרות צריך לדחות אותם</span></li>
+        <li class="ts-q" data-ans="h"><span class="ts-qtext">"היצר בתחילה חלש מאד והולך ומתחזק" - לכן אל יאמר "לי זה לא יזיק"</span></li>
+      </ul>
+      <p class="ts-win" hidden>יופי! ארבעה מקורות - מסר אחד: השמירה מתחילה בעיניים.</p>
+    </div>
+    <div class="ts-check">
+      <label class="ts-label" for="ys-a3">✏️ על פי ספר החינוך, מדוע אדם לא יאמר "אני חשוך תאווה, לכן מותר לי להסתכל"?</label>
+      <textarea class="answer" id="ys-a3" data-id="ys-a3" rows="3" placeholder="כתבו כאן..."></textarea>
+      <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+      <div class="hint-box" hidden>כי הרבה אמרו כך ונכשלו: היצר בתחילה חלש מאוד והולך ומתחזק על האדם. לכן אין לפרוץ אפילו גדר קטנה, וצריך לשמור את כל ההרחקות שהורו חז"ל.</div>
+    </div>
+  </section>
+  <section class="ts-card" aria-labelledby="ts-3b">
+    <h3 id="ts-3b">🤝 איסור קרבה (נגיעה)</h3>
+    <p>על פי ההלכה, איסור הקרבה בין המינים אינו רק על חיי אישות בין מי שאסורים זה לזה, אלא גם על קרבה פיזית ביניהם. הראשונים נחלקו אם זה איסור מן התורה או מדרבנן:</p>
+    <div class="ts-table-wrap"><table class="ts-table"><caption class="visually-hidden">רמב"ם ורמב"ן באיסור נגיעה</caption><thead><tr><th scope="col"></th><th scope="col">רמב"ם</th><th scope="col">רמב"ן</th></tr></thead><tbody><tr><th scope="row">מקור האיסור</th><td>מן התורה: "לא תקרבו לגלות ערווה" - לא תקרבו לדברים המביאים לידי גילוי ערווה</td><td>מדרבנן</td></tr><tr><th scope="row">מהות האיסור</th><td>איסור העומד בפני עצמו</td><td>סייג - שלא יגיע למעשים אחרים</td></tr><tr><th scope="row">להלכה</th><td>שולחן ערוך פוסק כרמב"ם</td><td>הראי"ה קוק: כשהקרבה בקביעות - גם הרמב"ן מודה שהאיסור מן התורה</td></tr></tbody></table></div>
+    <p>בין אם האיסור מדאורייתא ובין אם מדרבנן - יש להקפיד עליו כמו על כל איסור. כוחו של יצר העריות עצום, וצריך להעמיד גדרות וסייגים.</p>
+    <blockquote class="ts-src"><p>שניכם אינכם רואים בנתינת היד רק עניין של נימוסין אלא עניין של חיבה, והרי כאן נעוץ יסוד האיסור של קריבה... קרבת נפש פירושה אהבה, קרבת גוף פירושה תאווה, קרבת גוף ונפש פירושה מזיגה - והיא מותרת וקדושה רק בנישואין... אין איש רשאי לומר: אני איעצר לפני החיץ הסופי... "אין אפוטרופוס לעריות". כדי להדליק אש גדולה אין צורך ביותר מגפרור אחד; כדי לכבות אש גדולה יש צורך בהרבה מים.</p><cite>הרב אלימלך בר שאול</cite></blockquote>
+    <p><b>הרב יוסף צבי רימון:</b> המגע בין איש לאישה הוא דבר בעל משמעות עליונה, שצריך להישמר רק לחיבור שבין איש לאשתו - "כשם שעל יהלומים שומרים בצורה סגורה ומיוחדת".</p>
+    <p><b>מגע שלא מתוך חיבה:</b> הרב משה פיינשטיין פוסק שבמקום צפוף שאין ברירה (כמו אוטובוס צפוף) אין עבירה, "שהנגיעה בלא מתכוון... אין זו דרך תאווה וחיבה". מי שמרגיש שזה מביא אותו להרהורים - ישתדל להימנע, ואם אין ברירה - יסיח דעתו בדברי תורה.</p>
+    <div class="ts-game" data-game="g5" data-opts="m:רמב&quot;ם|n:רמב&quot;ן|s:שו&quot;ע / הראי&quot;ה קוק">
+      <div class="ts-game-head"><b>⚖️ משחק: רמב"ם או רמב"ן?</b><span class="ts-score"></span></div>
+      <p>לכל משפט - לחצו את מי הוא מתאר. (שימו לב: יש גם משפטים על השולחן ערוך והראי"ה קוק.)</p>
+      <ul class="ts-cards">
+        <li class="ts-q" data-ans="m" data-why="&quot;לא תקרבו לגלות ערווה&quot;."><span class="ts-qtext">כל נגיעה של חיבה אסורה מן התורה</span></li>
+        <li class="ts-q" data-ans="n"><span class="ts-qtext">הנגיעה אסורה מדרבנן, כסייג</span></li>
+        <li class="ts-q" data-ans="m"><span class="ts-qtext">האיסור עומד בפני עצמו, ולא רק גדר</span></li>
+        <li class="ts-q" data-ans="s" data-why="כך פסק השולחן ערוך."><span class="ts-qtext">ההלכה נפסקה כרמב"ם</span></li>
+        <li class="ts-q" data-ans="s" data-why="כך כתב הראי&quot;ה קוק."><span class="ts-qtext">כשהקרבה בקביעות - גם הרמב"ן מודה שהאיסור מן התורה</span></li>
+      </ul>
+      <p class="ts-win" hidden>מצוין! ועכשיו אתם יודעים גם את דעת הרב אלימלך בר שאול: גפרור אחד מספיק כדי להדליק אש גדולה.</p>
+    </div>
+    <div class="ts-check">
+      <label class="ts-label" for="ys-a4">✏️ לפי הרב אלימלך בר שאול, מה ההבדל בין נתינת יד של נימוס לנתינת יד של חיבה, ומה הוא מלמד מן הגפרור?</label>
+      <textarea class="answer" id="ys-a4" data-id="ys-a4" rows="3" placeholder="כתבו כאן..."></textarea>
+      <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+      <div class="hint-box" hidden>נגיעה של חיבה מבטאת קרבה, והיא יסוד האיסור; נגיעה של נימוס לבד אינה כזו. מן הגפרור: כדי להדליק אש גדולה מספיק גפרור אחד, אבל כדי לכבות צריך הרבה מים - אי אפשר לסמוך על עצמך ש"תיעצר לפני הסוף" ("אין אפוטרופוס לעריות").</div>
+    </div>
+    <details class="ts-more"><summary>📌 להרחבה (לא לבגרות - "חומר לחיים"): למה לשמור נגיעה?</summary>
+      <p>במצגת מובאת תשובה לנערה ששאלה על שמירת נגיעה בקשר רציני. עיקרי התשובה: זהו דין תורה ולא "חומרה"; התורה מלמדת לבנות קשר לפי הסדר - קודם חיבור נפשי ורק אחר כך פיזי; קשר פיזי מסנוור ויוצר אשליה של קרבה; אין אהבה בלי אחריות ומחויבות; קשר פיזי בגיל צעיר מרגיל לקשר חיצוני; הראשוניות היא בעלת עוצמה אדירה; זלזול מקהה את הרגישות הטבעית; "אין אפוטרופוס לעריות"; ושמירה היא החלטה עקרונית - "ככל שתהיו עכשיו גיבורים יותר, כך מה שתוכלו לבנות אחר כך יהיה חזק יותר".</p>
+    </details>
+  </section>
+  <section class="ts-card" aria-labelledby="ts-3c">
+    <h3 id="ts-3c">🚪 איסור ייחוד</h3>
+    <p><b>ייחוד</b> הוא איסור על איש ואישה שאינם נשואים זה לזה להיות במקום שאנשים אחרים אינם באים אליו ואינם יכולים לראותם (למשל בית נעול, או בלילה במקום חשוך). האיסור חל על כולם - רווקים, גרושים, אלמנים או נשואים לאחרים.</p>
+    <blockquote class="ts-src"><p>גזל ועריות נפשו של אדם מתאווה להן ומחמדתן... ויזהר מן הייחוד, שהוא הגורם הגדול.</p><cite>רמב"ם</cite></blockquote>
+    <p>כשנמצאים בחברת אנשים יש יותר בושה ויותר חשש שמישהו יראה - ולכן קשה יותר להגיע לידי עבירה.</p>
+    <div class="ts-table-wrap"><table class="ts-table"><caption class="visually-hidden">מקור איסור ייחוד</caption><thead><tr><th scope="col"></th><th scope="col">ספר החינוך</th><th scope="col">רמב"ם</th></tr></thead><tbody><tr><th scope="row">מקור</th><td>מן התורה - עצם הייחוד אסור, גם בלי קשר למה שיקרה</td><td>מדברי קבלה / מדרבנן (ויש אומרים: הלכה למשה מסיני)</td></tr></tbody></table></div>
+    <p><b>מותרים בייחוד:</b> הורים וילדיהם; איש ואשתו גם כשהיא נידה; אח ואחות (אך לא ייחוד קבוע כמו מגורים משותפים לאורך זמן).</p>
+    <p><b>הרב יוסף צבי רימון:</b> ייחוד של איש ואישה מעל גיל 12 - אסור מן התורה; איש וילדה עד גיל 12 - מדרבנן; איש ושתי נשים - מדרבנן.</p>
+    <div class="ts-table-wrap"><table class="ts-table"><caption class="visually-hidden">היתרים בייחוד</caption><thead><tr><th scope="col">היתר</th><th scope="col">מתי מותר, ולמה</th></tr></thead><tbody><tr><th scope="row">פתח פתוח</th><td>דלת פתוחה לרשות הרבים (או חלון שרואים דרכו). ראוי להשאיר מעט מן הדלת פתוחה.</td></tr><tr><th scope="row">בעלה בעיר</th><td>רוב הפוסקים מתירים: הבעל עשוי להגיע בכל רגע, והאישה תחשוש לעבור עבירה.</td></tr><tr><th scope="row">שומר</th><td>ילד או ילדה מעל גיל חמש: ילד אינו שומר סוד, והאיש והאישה יתביישו ממנו.</td></tr><tr><th scope="row">מכונית</th><td>מותר כשאפשר לראות מבחוץ מה שקורה (אור יום או פנסי רחוב) וכשכל כמה דקות עוברת מכונית.</td></tr><tr><th scope="row">טיול</th><td>בחוץ - במקום מואר שעוברים בו אנשים מדי פעם; לא מקום מבודד.</td></tr></tbody></table></div>
+    <div class="ts-say">אין שום הקלה באיסור ייחוד או באיסור נגיעה גם לבני זוג שנפגשים להכיר, ואפילו אחרי האירוסין - עד החתונה ממש. "אין אפוטרופוס לעריות": אדם לא יכול לבטוח בעצמו במצבים אלו.</div>
+    <div class="ts-game" data-game="g6" data-opts="ok:✅ מותר|no:⛔ אסור">
+      <div class="ts-game-head"><b>🚦 משחק: יש ייחוד או אין?</b><span class="ts-score"></span></div>
+      <p>לכל מצב - לחצו אם יש בו איסור ייחוד, או שהוא מותר.</p>
+      <ul class="ts-cards">
+        <li class="ts-q" data-ans="ok" data-why="היתר &quot;פתח פתוח&quot;."><span class="ts-qtext">איש ואישה בחדר, והדלת פתוחה לרחוב שעוברים בו</span></li>
+        <li class="ts-q" data-ans="no" data-why="אין שום סיכוי שייכנס אדם."><span class="ts-qtext">איש ואישה בדירה נעולה בקומה האחרונה</span></li>
+        <li class="ts-q" data-ans="ok" data-why="היתר &quot;שומר&quot;: ילד אינו שומר סוד."><span class="ts-qtext">איש ואישה בחדר, ואיתם ילד בן שש</span></li>
+        <li class="ts-q" data-ans="ok"><span class="ts-qtext">נסיעה במכונית באור יום, בכביש שעוברות בו מכוניות כל כמה דקות</span></li>
+        <li class="ts-q" data-ans="no"><span class="ts-qtext">נסיעה בלילה בדרך חשוכה ומבודדת, בלי מכוניות אחרות (לא בשעת דחק)</span></li>
+        <li class="ts-q" data-ans="no" data-why="אין הקלה עד החתונה ממש."><span class="ts-qtext">זוג מאורס לבד בבית סגור, "כי עוד מעט החתונה"</span></li>
+        <li class="ts-q" data-ans="ok" data-why="הורים וילדיהם מותרים בייחוד."><span class="ts-qtext">אב ובתו לבד בבית</span></li>
+      </ul>
+      <p class="ts-win" hidden>כל הכבוד! עכשיו תוכלו לענות על השאלות הקצרות בבגרות על ייחוד (מכונית, ילד, "בעלה בעיר").</p>
+    </div>
+    <div class="ts-check">
+      <label class="ts-label" for="ys-a5">✏️ מדוע מותר לאיש ולאישה להיות יחד בחדר כשנמצא איתם ילד בן חמש ומעלה? ומהם שני התנאים שמתירים נסיעה במכונית?</label>
+      <textarea class="answer" id="ys-a5" data-id="ys-a5" rows="3" placeholder="כתבו כאן..."></textarea>
+      <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+      <div class="hint-box" hidden>ילד אינו שומר סוד, והאיש והאישה יתביישו ממנו ולא יעברו עבירה. במכונית: אם אפשר לראות מבחוץ את המתרחש, ומכוניות עוברות אחת לכמה דקות.</div>
+    </div>
+  </section>
+  <section class="ts-card" aria-labelledby="ts-3d">
+    <h3 id="ts-3d">🏊 שחייה וריקודים מעורבים</h3>
+    <p><b>שחייה מעורבת</b> של בנים ובנות - בים, בבריכה או בכל מאגר מים - אסורה, כי הלבוש שם אינו צנוע. <b>הרצי"ה קוק:</b> "כך התרגלנו" אינו תירוץ מול דבר אסור - "אין על רחצה מעורבת שום תירוץ חוץ מן היצר".</p>
+    <p><b>ריקוד</b> כביטוי של שמחה הוא דבר מבורך, אך ריקודים מעורבים אסורים גם בלי מגע: המבטים גוררים הרהורים, והם פוגעים במעמדן של הבנות - הופכים אותן למוצג, לחפץ שמתפעלים מן החיצוניות שלו ולא מן התוכן הפנימי.</p>
+    <ul><li><b>הבן איש חי:</b> גם כשנשים רוקדות לבד לעיני הגברים יש איסור, משום גירוי היצר (ולכן יש לשים מחיצה).</li><li><b>הראי"ה קוק:</b> מהות האיסור היא נתינת כבוד וערך לנשים ואי הפיכתן לאובייקט מיני וחיצוני.</li></ul>
+    <div class="ts-check">
+      <label class="ts-label" for="ys-a6">✏️ מדוע אסור לגברים ולנשים לרקוד יחד אף שאין מגע ביניהם? כתבו שני נימוקים.</label>
+      <textarea class="answer" id="ys-a6" data-id="ys-a6" rows="3" placeholder="כתבו כאן..."></textarea>
+      <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+      <div class="hint-box" hidden>(1) המבטים גוררים הרהורי עבירה. (2) שמירה על כבוד האישה - היא נעשית למוצג, לחפץ שמתפעלים מן החיצוניות שלו ולא מן התוכן הפנימי. (וגם: פריצת גדרי הצניעות.)</div>
+    </div>
+  </section>
+  <h2 class="ts-part"><span class="ts-num">4</span> דיבור נקי ומניעת הטרדה</h2>
+  <section class="ts-card" aria-labelledby="ts-4a">
+    <h3 id="ts-4a">הטרדה, בושה ודיבור נקי</h3>
+    <p><b>החוק למניעת הטרדה מינית (1998)</b> קובע שהטרדה פוגעת בכבוד האדם, בחירותו, בפרטיותו ובשוויון בין המינים, ויכולה להיעשות בידי גברים ונשים כלפי בני שני המינים. מי שהוטרד יכול לפנות לממונה במקום העבודה, להתלונן במשטרה ולתבוע פיצויים.</p>
+    <p>כל הנאמר בחוק נכון גם על פי ההלכה - אבל ההלכה מוסיפה: אסור להטריד, לבייש ולהביך אדם אחר <b>גם שלא בהקשר המיני</b>.</p>
+    <blockquote class="ts-src"><p>שהבושת צער גדול לבריות, אין גדול ממנו, ועל כן מנענו האל מלצער בריותיו כל כך.</p><cite>ספר החינוך</cite></blockquote>
+    <blockquote class="ts-src"><p>איזו היא רציחה שאינה ניכרת לעיניים, והעונש גדול מאד?... הוא הבושה - המבייש פני חברו ברבים.</p><cite>רבי יהודה החסיד</cite></blockquote>
+    <p>על פי ההלכה יש להימנע מהטרדות לא רק בגלל הפגיעה <b>בנפגע</b>, אלא גם כי נדרש מכל איש ואישה (<b>הפוגע</b>) להתנהג בכבוד ובצניעות - גם אם האחר אינו מרגיש מוטרד ואף מסכים.</p>
+    <blockquote class="ts-src"><p>ובעניין זה היה מוכיח ירמיהו הנביא את אנשי דורו באומרו להם: "איש אל אשת רעהו יצהלו" - כלומר... ירמזו לנשי רעיהם רמיזות של ניאוף, ומגביהין קולם בעניין שישמעו אותן הנשים ויתעורר יצרן.</p><cite>ספר החינוך</cite></blockquote>
+    <div class="ts-say"><b>הריב"ש</b> דן באישה שהתלוננה ששכן הטריד אותה, בלי הוכחות ועדים, והשכן הכחיש. הוא פסק שאי אפשר להעניש את השכן רק על סמך טענותיה, אבל כדי למנוע הטרדות: שהשכן לא ידבר עימה כלל, שלא ידורו באותה שכונה, ואם הוא מוחזק כחשוד - לגעור בו ולאיים עליו בחרם (נידוי).</div>
+    <blockquote class="ts-src"><p>"והיה מחניך קדוש ולא יראה בך ערות דבר" (דברים כ"ג, ט"ו) - ערות דבר: ערוות דיבור. רב שמואל בר נחמן אומר: זה ניבול פה.</p><cite>מדרש</cite></blockquote>
+    <blockquote class="ts-src"><p>כי חטא ניבול פה הוא שחוטא בדבר אשר הוא צורת האדם, במה שהאדם חי מדבר.</p><cite>מהר"ל</cite></blockquote>
+    <p><b>התנהלות ראויה במסגרת מעורבת:</b> דיבור מכובד וענייני; הימנעות מקלות ראש; הימנעות מתנועות גוף בעלות רמיזה מינית; הימנעות מכל מגע (חיבוק, נישוק, ליטוף, נתינת יד); הימנעות מהסתכלות לשם הנאה; כבוד לאחר - לא לפגוע, להשפיל או להטריד. <b>הרב יעקב אריאל:</b> במקומות עבודה היחסים צריכים להיות ענייניים; בילוי משותף בלי בני הזוג - בעייתי ביותר.</p>
+    <div class="ts-game" data-game="g7" data-opts="y:רבי יהודה החסיד|r:הריב&quot;ש|l:מהר&quot;ל|h:ספר החינוך">
+      <div class="ts-game-head"><b>🔗 משחק: התאימו מקור לרעיון</b><span class="ts-score"></span></div>
+      <p>לכל רעיון - לחצו מאיזה מקור הוא.</p>
+      <ul class="ts-cards">
+        <li class="ts-q" data-ans="y"><span class="ts-qtext">גרימת בושה לאחר היא כמו רציחה</span></li>
+        <li class="ts-q" data-ans="r"><span class="ts-qtext">השכן לא ידבר עם האישה ולא יגור בשכונתה</span></li>
+        <li class="ts-q" data-ans="l"><span class="ts-qtext">ניבול פה פוגע ב"צורת האדם" - בכוח הדיבור</span></li>
+        <li class="ts-q" data-ans="h" data-why="&quot;איש אל אשת רעהו יצהלו&quot;."><span class="ts-qtext">בני דורו של ירמיהו רמזו לנשי רעיהם רמיזות</span></li>
+        <li class="ts-q" data-ans="h"><span class="ts-qtext">"הבושת צער גדול לבריות, אין גדול ממנו"</span></li>
+      </ul>
+      <p class="ts-win" hidden>מצוין! כל אחד מן המקורות האלה הופיע כבר בבחינות הבגרות.</p>
+    </div>
+    <div class="ts-check">
+      <label class="ts-label" for="ys-a7">✏️ הסבירו מדוע הטרדות מיניות אסורות לחלוטין על פי ההלכה - התייחסו לצד הנפגע ולצד הפוגע.</label>
+      <textarea class="answer" id="ys-a7" data-id="ys-a7" rows="3" placeholder="כתבו כאן..."></textarea>
+      <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+      <div class="hint-box" hidden>מצד הנפגע - ההטרדה פוגעת בו מבחינה נפשית. מצד הפוגע - נדרש מכל איש ואישה להתנהג בכבוד ובצניעות, ולכן אסור גם אם האחר אינו מרגיש מוטרד.</div>
+    </div>
+    <div class="ts-check">
+      <label class="ts-label" for="ys-a8">✏️ כתבו שלוש הנחיות לגברים ולנשים שנמצאים יחד שעות רבות במסגרת מעורבת.</label>
+      <textarea class="answer" id="ys-a8" data-id="ys-a8" rows="3" placeholder="כתבו כאן..."></textarea>
+      <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+      <div class="hint-box" hidden>דיבור מכובד; הימנעות מקלות ראש; הימנעות מתנועות בעלות רמיזה מינית; הימנעות ממגע; הימנעות מהסתכלות לשם הנאה; לכבד את האחר ולא להשפיל או להטריד.</div>
+    </div>
+  </section>
+  <h2 class="ts-part"><span class="ts-num">5</span> כשנופלים: תשובה, חיזוק ועידוד</h2>
+  <section class="ts-card" aria-labelledby="ts-5a">
+    <h3 id="ts-5a">איך מתמודדים - ומה עושים אחרי נפילה?</h3>
+    <blockquote class="ts-src"><p>אין לך דבר בכל התורה כולה שהוא קשה לרוב העם לפרוש אלא מן העריות והביאות האסורות... לפיכך ראוי לאדם לכוף את יצרו ולהרגיל את עצמו בקדושה יתרה ובמחשבה טהורה... ויזהר מן הייחוד שהוא הגורם הגדול... וכן ינהג להתרחק מן השחוק והשכרות ומדברי עגבים... ולא ישב בלא אישה... יפנה עצמו ומחשבתו לדברי תורה, שאין מחשבת עריות מתגברת אלא בלב פנוי מן החכמה.</p><cite>רמב"ם</cite></blockquote>
+    <blockquote class="ts-src"><p>"אוזר ישראל בגבורה" - גבורה המצטיינת לא בכיבושים שמכבשים את האחרים... אלא גבורה שבעיקרה קשורה בכיבוש שהאדם כובש את עצמו, גבורת הנשמה האלוקית שמכבשת את הגוף הבהמי ואת תאוותיו.</p><cite>הראי"ה קוק</cite></blockquote>
+    <blockquote class="ts-src"><p>בתחילה היצר הרע מחטיא את האדם... ואחר כך כשהאדם רוצה לשוב, הוא מחליש את דעתו ומכניס בליבו שהקב"ה כבר נסתלק ממנו והוא כל כך רחוק עכשיו שכבר אי אפשר לשוב. ובאמת זה להיפך - כי הקב"ה איתם תמיד, גם בטומאתם... ואפילו אם נפל כמו שנפל, אף על פי כן ה' איתו ועימו.</p><cite>רבי נחמן מברסלב</cite></blockquote>
+    <blockquote class="ts-src"><p>רעה חולה היא אצלנו, שכאשר מתעסקים אנו בצדדי השלמות של גדולינו, הננו מטפלים בסיכום האחרון של מעלתם... בשעה שאנו מדלגים על המאבק הפנימי שהתחולל בנפשם... התוצאה מזה היא כשנער בעל רוח... מוצא בעצמו מכשולים, נפילות, ירידות - הרי הוא דומה בעיניו כבלתי "שתול בבית השם"... צייר בנפשך גדלותם של גדולי עולם באותיות של מלחמה נוראה על כל הנטיות השפלות והנמוכות.</p><cite>הרב יצחק הוטנר, פחד יצחק</cite></blockquote>
+    <p>"כי שבע יפול צדיק וקם" - החכמים יודעים שמהות הקימה של הצדיק היא דרך שבע הנפילות שלו. ולעתיד לבוא, לצדיקים היצר ייראה כהר גבוה, ולרשעים כחוט השערה (סוכה נב ע"א). קשה להימצא באמצע התהליך, בעת הטיפוס על ההר: מטפסים, ולפתע מחליקים ונופלים - אל ייאוש. "כל הגדול מחברו, יצרו גדול הימנו".</p>
+    <div class="ts-say">"קוה אל ה' חזק ויאמץ לבך וקוה אל ה'" (תהילים כ"ז, י"ד) - קברניט אינו נוטש את ספינתו כשהגלים סוערים; הוא חותר בהתמדה אל החוף.</div>
+    <div class="ts-game" data-game="g8" data-opts="y:😈 קול היצר|t:💡 האמת">
+      <div class="ts-game-head"><b>💪 משחק: יצר הרע אומר / האמת היא</b><span class="ts-score"></span></div>
+      <p>לכל משפט - לחצו אם זה "קול היצר" (טענה שקרית) או "האמת" לפי המקורות.</p>
+      <ul class="ts-cards">
+        <li class="ts-q" data-ans="y" data-why="כך תיאר רבי נחמן את הטענה השקרית של היצר."><span class="ts-qtext">"ה' כבר הסתלק ממך, אתה רחוק מדי לשוב"</span></li>
+        <li class="ts-q" data-ans="t" data-why="רבי נחמן: &quot;אף על פי כן ה&#x27; איתו ועימו&quot;."><span class="ts-qtext">"ה' איתך תמיד, גם אחרי שנפלת"</span></li>
+        <li class="ts-q" data-ans="y" data-why="הרב הוטנר: זו &quot;רעה חולה&quot; - מדלגים על המאבק שלהם."><span class="ts-qtext">"גדולי ישראל נולדו מושלמים, בלי מאבקים"</span></li>
+        <li class="ts-q" data-ans="t"><span class="ts-qtext">"שבע יפול צדיק וקם"</span></li>
+        <li class="ts-q" data-ans="y" data-why="&quot;אין אפוטרופוס לעריות&quot;."><span class="ts-qtext">"לי זה לא יקרה, אני חזק"</span></li>
+        <li class="ts-q" data-ans="t" data-why="הראי&quot;ה קוק על &quot;אוזר ישראל בגבורה&quot;."><span class="ts-qtext">"הגיבור הוא מי שכובש את עצמו"</span></li>
+      </ul>
+      <p class="ts-win" hidden>נהדר! זו בדיוק ההתמודדות: לזהות את קול היצר - ולענות לו.</p>
+    </div>
+    <div class="ts-check">
+      <label class="ts-label" for="ys-a9">✏️ על פי רבי נחמן מברסלב, מהי הטענה השקרית של היצר הרע אחרי שאדם חטא ורוצה לשוב?</label>
+      <textarea class="answer" id="ys-a9" data-id="ys-a9" rows="3" placeholder="כתבו כאן..."></textarea>
+      <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+      <div class="hint-box" hidden>שה' הסתלק ממנו, והוא רחוק כל כך עד שאינו יכול לשוב. האמת הפוכה: ה' עם כל אחד תמיד.</div>
+    </div>
+    <div class="ts-check">
+      <label class="ts-label" for="ys-a10">✏️ על פי הרב יצחק הוטנר, מהי ה"רעה החולה", ומהי הדרך הראויה ללמוד ממעשי גדולי ישראל?</label>
+      <textarea class="answer" id="ys-a10" data-id="ys-a10" rows="3" placeholder="כתבו כאן..."></textarea>
+      <button class="hint-btn" type="button">🔎 הצג תשובה</button>
+      <div class="hint-box" hidden>מתארים רק את מעלתם הסופית של הגדולים ומדלגים על המאבק הפנימי שלהם, ולכן נער שנכשל מרגיש שאינו "שתול בבית השם". הדרך הראויה: לחשוב על מלחמת היצר שלהם, על כל הנטיות השפלות והנמוכות שהתגברו עליהן.</div>
+    </div>
+  </section>
+  <section class="ts-card" aria-labelledby="ts-exit">
+    <h3 id="ts-exit">🏁 חידון סיום</h3>
+    <div class="ts-game" data-game="g9">
+      <div class="ts-game-head"><b>8 שאלות - כמה תצליחו בניסיון הראשון?</b><span class="ts-score"></span></div>
+      <p>לכל שאלה - לחצו על התשובה הנכונה.</p>
+      <ul class="ts-cards">
+        <li class="ts-q" data-ans="1" data-opts="0:אין שום קשר|1:היצר הוא כוח שבלעדיו אין בנייה וחיים|2:היצר תמיד רע" data-why="&quot;אם תבטלו יצר זה, יחרב העולם&quot;."><span class="ts-qtext">מה הקשר בין "יצר" ל"יצירה"?</span></li>
+        <li class="ts-q" data-ans="1" data-opts="0:שהאדם נברא פעמיים|1:שיש באדם פן בהמי ופן אלוקי|2:שהאדם עשוי מעפר" data-why="יצירה מן התחתונים ויצירה מן העליונים."><span class="ts-qtext">מה לומדים מן הכפילות באות י' במילה "וייצר"?</span></li>
+        <li class="ts-q" data-ans="1" data-opts="0:מבטלים אותו לגמרי|1:משתמשים באש שלו כדי להתלהב למצוות|2:מתעלמים ממנו" data-why=""><span class="ts-qtext">לפי התפארת ישראל, איך עובדים את ה' ביצר הרע?</span></li>
+        <li class="ts-q" data-ans="0" data-opts="0:מן התורה - &quot;לא תקרבו לגלות ערווה&quot;|1:מנהג בלבד|2:מדרבנן כסייג" data-why="וכך פסק השולחן ערוך."><span class="ts-qtext">לפי הרמב"ם, מה מקור איסור נגיעה של חיבה?</span></li>
+        <li class="ts-q" data-ans="1" data-opts="0:כי הילד ישמור עליהם|1:כי ילד אינו שומר סוד והם יתביישו ממנו|2:כי זה בשעת הדחק" data-why=""><span class="ts-qtext">מדוע מותר לאיש ואישה להיות בחדר עם ילד בן חמש ומעלה?</span></li>
+        <li class="ts-q" data-ans="1" data-opts="0:גנבה|1:רציחה|2:לשון הרע" data-why="&quot;רציחה שאינה ניכרת לעיניים&quot;."><span class="ts-qtext">לאיזו עבירה השווה רבי יהודה החסיד את גרימת הבושה?</span></li>
+        <li class="ts-q" data-ans="1" data-opts="0:בגדים לא צנועים|1:ניבול פה - ערוות דיבור|2:מחנה לא נקי" data-why="והמהר&quot;ל: הדיבור הוא &quot;צורת האדם&quot;."><span class="ts-qtext">מה הם "ערות דבר" לפי המדרש על "והיה מחניך קדוש"?</span></li>
+        <li class="ts-q" data-ans="1" data-opts="0:שהוא צודק|1:שה&#x27; איתנו תמיד, גם אחרי נפילה|2:שצריך לחכות" data-why=""><span class="ts-qtext">לפי רבי נחמן, מה עונים ליצר שאומר "אתה רחוק מדי לשוב"?</span></li>
+      </ul>
+      <p class="ts-win" hidden>🏆 סיימתם את השיעור! עכשיו אתם מוכנים לשאלות הבגרות על "יצר ויצירה".</p>
+    </div>
+  </section>
+  <section class="ts-next" aria-labelledby="ts-next">
+    <h2 id="ts-next" style="margin:0;font-size:1.3rem;color:#fff">סיימנו את השיעור - עכשיו לשאלות הבגרות</h2>
+    <p>בשאלות הבגרות על "יצר ויצירה" תפגשו את מה שלמדנו: התפארת ישראל, הריב"ש, המהר"ל, רבי נחמן, הרב הוטנר והרב אבינר.</p>
+    <div class="ts-row" style="justify-content:center">
+      <a class="btn" href="bayit-chinuch-mishpacha.html#t-yetzer">📝 פרק ראשון: "יצר ויצירה"</a>
+      <a class="btn" href="bayit-chinuch-mishpacha.html#t3-yetzer">📝 פרק שלישי (לבנים): "יצר ויצירה"</a>
+    </div>
+  </section>
+
+  <div class="ts-tools">
+    <button type="button" class="btn" id="printBtn">🖨 הדפסה</button>
+    <button type="button" class="btn" id="clearBtn">🗑 להתחיל מחדש</button>
+  </div>
+  <p class="ts-note" style="text-align:center">המקור: מצגת "יצר ויצירה" (פרק ב'), ערכה: קורין בריח.</p>
+</main>
+<footer class="credit">תורה שבעל פה · בית, חינוך ומשפחה · "יצר ויצירה" - שיעור</footer>
+
+<script>
+/* שמירת התשובות במכשיר + "הצג תשובה" */
+(function(){
+  var KEY = 'bm-ts-yetzer:';
+  var fields = Array.prototype.slice.call(document.querySelectorAll('textarea.answer'));
+  fields.forEach(function(f){
+    try{ var v = localStorage.getItem(KEY + f.getAttribute('data-id')); if(v) f.value = v; }catch(e){}
+    f.addEventListener('input', function(){ try{ localStorage.setItem(KEY + f.getAttribute('data-id'), f.value); }catch(e){} });
+  });
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest && e.target.closest('.hint-btn');
+    if(!btn) return;
+    var box = btn.nextElementSibling;
+    if(!box || !box.classList.contains('hint-box')) return;
+    box.hidden = !box.hidden;
+    btn.textContent = box.hidden ? '🔎 הצג תשובה' : '🙈 הסתר תשובה';
+  });
+  document.getElementById('clearBtn').addEventListener('click', function(){
+    if(!confirm('למחוק את כל התשובות שכתבתם בדף, ולהתחיל את המשחקים מההתחלה?')) return;
+    fields.forEach(function(f){ f.value = ''; try{ localStorage.removeItem(KEY + f.getAttribute('data-id')); }catch(e){} });
+    try{ localStorage.removeItem('bm-ts-yetzer-games'); }catch(e){}
+    location.reload();
+  });
+  document.getElementById('printBtn').addEventListener('click', function(){ window.print(); });
+  /* שם וכיתה - משותפים עם עמוד שאלות הבגרות */
+  ['studentName', 'studentClass'].forEach(function(id){
+    var inp = document.getElementById(id), k = 'bm-student:bayit:' + id;
+    try{ var v = localStorage.getItem(k); if(v) inp.value = v; }catch(e){}
+    inp.addEventListener('input', function(){ try{ localStorage.setItem(k, inp.value); }catch(e){} });
+  });
+})();
+</script>
+<script>
+/* משחקי השיעור: בחירה בכרטיסים, השלמת מילים, סקר פתיחה. ההתקדמות נשמרת במכשיר. */
+(function(){
+  var KEY = 'bm-ts-yetzer-games';
+  var state = {};
+  try{ state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; }catch(e){ state = {}; }
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+  function parseOpts(str){ return String(str || '').split('|').map(function(x){ var i = x.indexOf(':'); return { v:x.slice(0, i), t:x.slice(i + 1) }; }); }
+  var games = Array.prototype.slice.call(document.querySelectorAll('.ts-game[data-game]'));
+  function stars(){
+    var n = 0;
+    Object.keys(state).forEach(function(g){ var st = state[g]; if(st && st.first) n += st.first; });
+    var el = document.getElementById('tsStars'); if(el) el.textContent = '⭐ ' + n;
+    document.querySelectorAll('.ts-route a[data-route]').forEach(function(a){
+      var id = a.getAttribute('data-route'), st = state[id];
+      a.classList.toggle('done', !!(st && st.done));
+    });
+  }
+  function finish(game, id){
+    var win = game.querySelector('.ts-win'); if(win) win.hidden = false;
+    state[id] = state[id] || {}; state[id].done = true; save(); stars();
+  }
+  games.forEach(function(game){
+    var id = game.getAttribute('data-game');
+    var st = state[id] = state[id] || {};
+    var score = game.querySelector('.ts-score');
+
+    if(game.hasAttribute('data-poll')){
+      game.querySelectorAll('.ts-chip').forEach(function(c){
+        c.addEventListener('click', function(){ c.setAttribute('aria-pressed', String(c.getAttribute('aria-pressed') !== 'true')); });
+      });
+      game.querySelector('[data-poll-done]').addEventListener('click', function(){ finish(game, id); });
+      if(st.done) game.querySelector('.ts-win').hidden = false;
+      return;
+    }
+
+    if(game.hasAttribute('data-fill')){
+      var blanks = Array.prototype.slice.call(game.querySelectorAll('.ts-blank'));
+      var fb = game.querySelector('.ts-row .ts-fb');
+      function upd(){ var ok = blanks.filter(function(b){ return b.value === b.getAttribute('data-ans'); }).length; if(score) score.textContent = ok + '/' + blanks.length; return ok; }
+      if(st.vals) blanks.forEach(function(b, i){ if(st.vals[i]) b.value = st.vals[i]; });
+      blanks.forEach(function(b){ b.addEventListener('change', function(){ b.classList.remove('ok', 'no'); st.vals = blanks.map(function(x){ return x.value; }); save(); }); });
+      game.querySelector('[data-fill-check]').addEventListener('click', function(){
+        var ok = 0;
+        blanks.forEach(function(b){ var good = b.value === b.getAttribute('data-ans'); b.classList.toggle('ok', good); b.classList.toggle('no', !good && !!b.value); if(good) ok++; });
+        upd();
+        if(st.first == null){ st.first = ok; save(); }
+        fb.className = 'ts-fb ' + (ok === blanks.length ? 'yes' : 'no');
+        fb.textContent = ok === blanks.length ? '' : (ok + ' מתוך ' + blanks.length + ' נכונות. תקנו את המשבצות האדומות או הריקות, ובדקו שוב.');
+        if(ok === blanks.length) finish(game, id);
+      });
+      upd();
+      if(st.done){ blanks.forEach(function(b){ b.classList.add('ok'); }); game.querySelector('.ts-win').hidden = false; }
+      return;
+    }
+
+    var shared = game.getAttribute('data-opts');
+    var items = Array.prototype.slice.call(game.querySelectorAll('.ts-q'));
+    st.ok = st.ok || {};
+    if(st.first == null) st.first = 0;
+    st.tried = st.tried || {};
+    function upd2(){ if(score) score.textContent = Object.keys(st.ok).length + '/' + items.length; }
+    items.forEach(function(li, idx){
+      var opts = parseOpts(li.getAttribute('data-opts') || shared);
+      var box = document.createElement('span'); box.className = 'ts-opts';
+      var fb = document.createElement('span'); fb.className = 'ts-fb'; fb.setAttribute('aria-live', 'polite');
+      opts.forEach(function(o){
+        var b = document.createElement('button'); b.type = 'button'; b.textContent = o.t; b.setAttribute('data-v', o.v);
+        b.addEventListener('click', function(){
+          if(li.classList.contains('ok')) return;
+          if(o.v === li.getAttribute('data-ans')){
+            li.classList.add('ok'); b.classList.add('picked');
+            fb.className = 'ts-fb yes'; fb.textContent = '✓ נכון! ' + (li.getAttribute('data-why') || '');
+            if(!st.tried[idx]) st.first++;
+            st.ok[idx] = 1; save(); upd2();
+            if(Object.keys(st.ok).length === items.length) finish(game, id); else stars();
+          } else {
+            st.tried[idx] = 1; save();
+            li.classList.remove('bad'); void li.offsetWidth; li.classList.add('bad');
+            fb.className = 'ts-fb no'; fb.textContent = '✗ לא בדיוק - נסו שוב.';
+          }
+        });
+        box.appendChild(b);
+      });
+      li.appendChild(box); li.appendChild(fb);
+      if(st.ok[idx]){
+        li.classList.add('ok');
+        var pb = box.querySelector('[data-v="' + li.getAttribute('data-ans') + '"]'); if(pb) pb.classList.add('picked');
+      }
+    });
+    upd2();
+    if(st.done) game.querySelector('.ts-win').hidden = false;
+  });
+  stars();
+})();
+</script>
+<script src="assets/units-data.js"></script>
+<script src="assets/bm-api.js"></script>
+<script src="assets/lesson-mode.js"></script>
+<script src="assets/class-dock.js"></script>
+</body>
+</html>
