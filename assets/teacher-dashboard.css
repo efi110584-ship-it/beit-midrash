@@ -15,3 +15,33 @@
 #teacherTools .tt-status{margin:16px 0}#teacherTools .tt-nav-tab:focus-visible,#teacherTools .td-shortcut:focus-visible{outline:3px solid #147984;outline-offset:3px}
 @media(max-width:760px){#teacherTools{display:block!important;min-height:0}#teacherTools .tt-nav{position:static;display:flex!important;flex-direction:row!important;overflow:auto;border-left:0!important;border-bottom:1px solid #e3d6bc!important;padding:10px;border-radius:16px 16px 0 0}#teacherTools .tt-nav:before{display:none}#teacherTools .tt-nav-tab{flex:0 0 auto;width:auto;white-space:nowrap;font-size:.88rem;padding:10px!important}#teacherTools>.tt-panel{padding:18px}#teacherTools .td-shortcut{min-height:135px;padding:16px 10px}#teacherTools .td-title{font-size:1.55rem}}
 @media(max-width:420px){#teacherTools .td-quick{gap:10px}#teacherTools .td-shortcut strong{font-size:1.02rem}#teacherTools .td-shortcut-note{font-size:.76rem}}
+
+/* Colorful and gentle visual direction; presentation only. */
+#teacherTools{background:#fff;border-color:#dce7ec;box-shadow:0 12px 36px #285c7010}
+#teacherTools>.tt-panel{background:#fff;border-radius:16px}
+#teacherTools .tt-nav{background:#f5fafb;border-left-color:#dce7ec!important}
+#teacherTools .tt-nav:before{color:#15374a}
+#teacherTools .tt-nav-tab[aria-selected=true]{background:#d7f0ed!important;color:#125b62!important}
+#teacherTools .td-home{background:radial-gradient(circle at 98% 0%,#e5f6f350,transparent 30%),#fff}
+#teacherTools .td-title{color:#173349}
+#teacherTools .td-eyebrow{color:#426779}
+#teacherTools .td-shortcut{border:1px solid transparent;min-height:168px;transition:transform .16s ease,box-shadow .16s ease}
+#teacherTools .td-shortcut:nth-child(1){background:#e1f4ee;border-color:#c7e8de;color:#195a52}
+#teacherTools .td-shortcut:nth-child(2){background:#e7f1ff;border-color:#cddff6;color:#244f7d}
+#teacherTools .td-shortcut:nth-child(3){background:#fff2d9;border-color:#efdfba;color:#755119}
+#teacherTools .td-shortcut:nth-child(4){background:#eaf2e2;border-color:#d4e4c5;color:#375d36}
+#teacherTools .td-shortcut:hover{transform:translateY(-2px);box-shadow:0 8px 20px #285c7015}
+#teacherTools .td-shortcut-icon{display:flex;align-items:center;justify-content:center;width:62px;height:62px;border-radius:50%;background:#fff9;color:inherit;font-size:1.7rem}
+#teacherTools .td-shortcut:nth-child(1) .td-shortcut-icon{background:#c9eae0}
+#teacherTools .td-shortcut:nth-child(2) .td-shortcut-icon{background:#d0e5ff}
+#teacherTools .td-shortcut:nth-child(3) .td-shortcut-icon{background:#ffe6ad}
+#teacherTools .td-shortcut:nth-child(4) .td-shortcut-icon{background:#d8e8ca}
+#teacherTools .td-shortcut-icon svg{width:31px;height:31px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+#teacherTools .td-shortcut-note{color:#465d67}
+#teacherTools .td-overview{background:#f1f8fa;border-color:#dcebef}
+#teacherTools .td-recent{background:#fff8eb;border-color:#f0e2c7}
+#teacherTools .tt-card{background:#fff;border-color:#dfe8ec}
+#teacherTools .tt-btn--primary{background:#197c83!important;border-color:#197c83!important}
+#teacherTools .tt-filter{background:#f0f7f9}
+#teacherTools .td-panel-header{border-bottom:1px solid #e3edf0;margin-bottom:22px}
+@media(prefers-reduced-motion:reduce){#teacherTools .td-shortcut{transition:none}#teacherTools .td-shortcut:hover{transform:none}}
