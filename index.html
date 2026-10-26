@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="assets/site.css?v=41">
 
 <script src="assets/a11y.js"></script>
-</head>
+<link rel="stylesheet" href="assets/teacher-dashboard.css"><script src="assets/teacher-dashboard-layout.js"></script></head>
 <body>
 
 <div id="entryGate" class="entry-gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
@@ -497,7 +497,7 @@
      מחוונים ומבחנים (רשימה מקובצת לפי מקצוע + חיפוש), בשיעור (הודעה,
      קוד לשיעור, שיעור חי) ולוח הגשות. רק לשונית אחת פתוחה בכל רגע,
      והלשונית האחרונה נזכרת במכשיר. */
-  var TT_PANEL_KEY = "bm-teacher-panel";
+  var TT_PANEL_KEY = "bm-teacher-dashboard-panel-v1";
   var TK_RECENT_KEY = "bm-teacher-recent";
   var TK_GROUPS = [
     { id:"tnk", label:'תנ"ך', icon:"📖" },
@@ -740,6 +740,7 @@
   }
 
   function initTeacherNav(){
+    if(window.BM_TEACHER_LAYOUT) window.BM_TEACHER_LAYOUT.mount();
     var tabsEl = Array.prototype.slice.call(document.querySelectorAll("#teacherTools .tt-nav-tab"));
     function show(id, focus){
       tabsEl.forEach(function(t){
@@ -751,15 +752,17 @@
       });
       try{ localStorage.setItem(TT_PANEL_KEY, id); }catch(e){}
     }
-    var start = "keys";
-    try{ start = localStorage.getItem(TT_PANEL_KEY) || "keys"; }catch(e){}
-    if(!document.getElementById("ttPanel-" + start)) start = "keys";
+    var start = "home";
+    try{ start = localStorage.getItem(TT_PANEL_KEY) || "home"; }catch(e){}
+    if(!document.getElementById("ttPanel-" + start)) start = "home";
     show(start);
     tabsEl.forEach(function(t, i){
       t.addEventListener("click", function(){ show(t.getAttribute("data-panel")); });
       t.addEventListener("keydown", function(e){
         var n = null;
-        if(e.key === "ArrowRight") n = (i - 1 + tabsEl.length) % tabsEl.length; /* RTL */
+        if(e.key === "ArrowUp") n = (i - 1 + tabsEl.length) % tabsEl.length;
+        else if(e.key === "ArrowDown") n = (i + 1) % tabsEl.length;
+        else if(e.key === "ArrowRight") n = (i - 1 + tabsEl.length) % tabsEl.length; /* RTL */
         else if(e.key === "ArrowLeft") n = (i + 1) % tabsEl.length;
         else if(e.key === "Home") n = 0;
         else if(e.key === "End") n = tabsEl.length - 1;
