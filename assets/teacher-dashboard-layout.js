@@ -1,0 +1,18 @@
+(function(){'use strict';
+window.BM_TEACHER_LAYOUT={mount:function(){
+var root=document.getElementById('teacherTools');if(!root||root.dataset.dashboardMounted)return;root.dataset.dashboardMounted='1';
+var nav=root.querySelector('.tt-nav');nav.setAttribute('aria-orientation','vertical');
+function el(tag,text,cls){var e=document.createElement(tag);if(text)e.textContent=text;if(cls)e.className=cls;return e;}
+var homeTab=el('button',null,'tt-nav-tab');homeTab.type='button';homeTab.id='ttTab-home';homeTab.dataset.panel='home';homeTab.setAttribute('role','tab');homeTab.setAttribute('aria-controls','ttPanel-home');homeTab.setAttribute('aria-selected','false');homeTab.tabIndex=-1;homeTab.append(el('span','⌂','tt-nav-icon'),el('span','המסך הראשי','tt-nav-label'));nav.prepend(homeTab);
+[['lesson','ניהול שיעור'],['board','עבודות וציונים'],['keys','חומרי הוראה'],['exams','הודעות ומועדים']].forEach(function(x){var t=document.getElementById('ttTab-'+x[0]);t.querySelector('.tt-nav-label').textContent=x[1];nav.append(t);});
+var home=el('div',null,'tt-panel td-home');home.id='ttPanel-home';home.setAttribute('role','tabpanel');home.setAttribute('aria-labelledby','ttTab-home');home.hidden=true;
+home.append(el('p','בית מדרש · סביבת המורה','td-eyebrow'),el('h2','האזור האישי שלי','td-title'),el('p','מה תרצה לעשות עכשיו?','td-subtitle'));
+var quick=el('div',null,'td-quick');function go(id){document.getElementById('ttTab-'+id).click();}
+[['▶','התחלת שיעור','בחירת כיתה וקוד לתלמידים','lesson','ttQuickStart'],['▤','עבודות לבדיקה','הגשות, ציונים ומשוב','board',null],['▥','מחוונים','תשובות וחומרי הוראה','keys','tkSearch'],['✉','הודעה לתלמידים','פרסום הודעה בעמוד הבית','exams','ttAnnounce']].forEach(function(x){var b=el('button',null,'td-shortcut');b.type='button';b.append(el('span',x[0],'td-shortcut-icon'),el('strong',x[1]),el('span',x[2],'td-shortcut-note'));b.addEventListener('click',function(){go(x[3]);if(x[4]){var target=document.getElementById(x[4]);target.focus();if(x[4]==='ttQuickStart')target.click();}});quick.append(b);});home.append(quick);
+var overview=el('section',null,'td-overview');overview.append(el('h3','מה דורש טיפול?'));var pending=el('p','מצב ההגשות יופיע לאחר טעינת הנתונים.');overview.append(pending);home.append(overview);
+var recent=el('section',null,'td-recent');recent.append(el('h3','גישה מהירה לחומרי הוראה'),el('p','החיפוש, החלוקה למקצועות והחומרים שנפתחו לאחרונה נמצאים בחומרי הוראה.'));var openKeys=el('button','פתיחת חומרי הוראה','tt-btn');openKeys.type='button';openKeys.addEventListener('click',function(){go('keys');document.getElementById('tkSearch').focus();});recent.append(openKeys);home.append(recent);root.append(home);
+var announcement=document.getElementById('ttAnnounce');if(announcement)document.getElementById('ttPanel-exams').prepend(announcement.closest('.tt-card'));
+[['lesson','ניהול שיעור','התחלת שיעור, קוד לתלמידים וכלי הכיתה במקום אחד.'],['board','עבודות וציונים','בדיקה ← עיון ואישור ← שליחה לתלמיד.'],['keys','חומרי הוראה','חיפוש מחוונים ומבחנים לפי מקצוע ונושא.'],['exams','הודעות ומועדים','הודעות לתלמידים ולוח המבחנים.']].forEach(function(p){var header=el('header',null,'td-panel-header');header.append(el('h2',p[1],'td-title'),el('p',p[2],'td-subtitle'));document.getElementById('ttPanel-'+p[0]).prepend(header);});
+var badge=document.getElementById('ttNavPending');function update(){pending.textContent=badge&&!badge.hidden?badge.textContent+' הגשות ממתינות לבדיקה. פתח את עבודות וציונים להמשך טיפול.':'לצפייה במצב העבודות העדכני, פתח את עבודות וציונים.';}if(badge)new MutationObserver(update).observe(badge,{attributes:true,childList:true,subtree:true});update();
+}};
+})();
