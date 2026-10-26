@@ -1,3 +1,57 @@
+
+window.BM_SUBJECT_LESSON={mount:function(){'use strict';
+if(document.getElementById('subject-lesson-form'))return;
+var busy=false,uncertain=false;
+var panel=document.getElementById('ttPanel-lesson'),oldStart=document.getElementById('ttQuickStart'),starter=oldStart.closest('.tt-card');
+function el(tag,text){var e=document.createElement(tag);if(text)e.textContent=text;return e;}
+var subjects=[['תנך','תנ״ך','📖'],['תושבע','תושב״ע','📚'],['עברית','עברית','א'],['היסטוריה','היסטוריה','🏛']];
+var units=(window.BM_UNITS||[]).filter(function(u){return u.class!=='teacher';});var chosenSubject='תנך';
+var wrap=el('section');wrap.className='subject-launcher';var title=el('h3','איזה מקצוע מלמדים?');wrap.append(title);
+var tabs=el('div');tabs.className='subject-tabs';tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','בחירת מקצוע לשיעור');
+var form=el('form');form.id='subject-lesson-form';form.setAttribute('role','tabpanel');form.className='subject-form';
+var tabButtons=[];subjects.forEach(function(s,i){var b=el('button',s[2]+' '+s[1]);b.type='button';b.id='subject-tab-'+i;b.setAttribute('role','tab');b.setAttribute('aria-controls',form.id);b.addEventListener('click',function(){chooseSubject(s[0]);});b.addEventListener('keydown',function(e){var next=null;if(e.key==='ArrowLeft')next=(i+1)%subjects.length;if(e.key==='ArrowRight')next=(i+subjects.length-1)%subjects.length;if(e.key==='Home')next=0;if(e.key==='End')next=subjects.length-1;if(next!==null){e.preventDefault();tabButtons[next].click();tabButtons[next].focus();}});tabButtons.push(b);tabs.append(b);});wrap.append(tabs);
+var picks=el('div');picks.className='subject-picks';
+function field(id,label){var box=el('div'),l=el('label',label),s=el('select');s.id=id;s.required=true;l.htmlFor=id;box.append(l,s);picks.append(box);return s;}
+var cls=field('subject-class','1. כיתה'),unit=field('subject-unit','2. יחידה'),page=field('subject-page','3. דף לימוד');
+function option(select,value,text){var o=el('option',text);o.value=value;select.append(o);}
+option(cls,'','בחרו כיתה');option(cls,'יא','כיתה י״א');option(cls,'יב','כיתה י״ב');form.append(picks);
+var status=el('p');status.setAttribute('role','status');status.className='subject-status';form.append(status);
+var summary=el('p');summary.className='subject-summary';form.append(summary);
+var start=el('button','התחלת שיעור');start.type='submit';start.className='tt-btn tt-btn--primary subject-start';start.disabled=true;form.append(start);
+form.append(el('p','לאחר פתיחת שיעור באתר: התלמידים מזינים קוד שיעור ות״ז, בהתאם לרשימת הכיתה השמורה.'));wrap.append(form);
+var heading=starter.querySelector('.tt-h');if(heading)heading.textContent='פתיחת שיעור לפי מקצוע';
+var intro=starter.querySelector('.tt-sub');if(intro)intro.textContent='מקצוע ← כיתה ← יחידה ודף ← התחלת שיעור. הבחירה מסננת רק את החומרים המתאימים.';
+oldStart.hidden=true;var advanced=starter.querySelector('details');if(advanced)advanced.hidden=true;
+starter.insertBefore(wrap,starter.querySelector('.td-id-readiness')||oldStart);
+var lastHelp=oldStart.nextElementSibling;if(lastHelp&&lastHelp.classList.contains('td-entry-note'))lastHelp.hidden=true;
+function matchingUnits(){return units.filter(function(u){return u.subject===chosenSubject&&u.class===cls.value;});}
+function chooseSubject(value){chosenSubject=value;subjects.forEach(function(s,i){var active=s[0]===value;tabButtons[i].setAttribute('aria-selected',String(active));tabButtons[i].tabIndex=active?0:-1;if(active)form.setAttribute('aria-labelledby',tabButtons[i].id);});loadUnits();}
+function loadUnits(){unit.replaceChildren();option(unit,'','בחרו יחידה');page.replaceChildren();option(page,'','בחרו תחילה יחידה');page.disabled=true;start.disabled=true;start.textContent='התחלת שיעור';summary.textContent='';if(typeof result!=='undefined'&&result)result.hidden=true;var found=matchingUnits();found.forEach(function(u){option(unit,u.key,u.title);});unit.disabled=!cls.value||!found.length;status.textContent=!cls.value?'בחרו כיתה כדי לראות את יחידות המקצוע.':!found.length?'לא נמצאו באתר יחידות במקצוע הזה לכיתה שבחרתם. אפשר לבחור כיתה או מקצוע אחר.':'מוצגות רק יחידות המקצוע והכיתה שבחרתם.';}
+function loadPages(){if(typeof result!=='undefined'&&result)result.hidden=true;page.replaceChildren();option(page,'','בחרו דף לימוד');var u=matchingUnits().filter(function(x){return x.key===unit.value;})[0];page.disabled=!u;if(u){option(page,u.url,u.title+' — עמוד היחידה');(u.topics||[]).forEach(function(t){if(t.url&&t.title)option(page,t.url,t.title);});}update();}
+function selection(){var u=matchingUnits().filter(function(x){return x.key===unit.value;})[0];if(!u)return null;var pages=[{title:u.title+' — עמוד היחידה',url:u.url}].concat(u.topics||[]);var p=pages.filter(function(x){return x.url===page.value;})[0];if(!p)return null;return {subject:subjects.filter(function(s){return s[0]===chosenSubject;})[0][1],cls:cls.options[cls.selectedIndex].textContent,unit:u.title,page:p.title,url:p.url};}
+function update(){var s=selection();start.disabled=!s||busy||uncertain;if(!busy)start.textContent='התחלת שיעור';summary.textContent=s?s.subject+' · '+s.cls+' · '+s.page:'';}
+cls.addEventListener('change',loadUnits);unit.addEventListener('change',loadPages);page.addEventListener('change',update);
+
+var result=el('section');result.className='subject-live-result';result.hidden=true;result.setAttribute('aria-label','קוד השיעור');form.append(result);
+var recovery=el('button','רענון הקודים הקיימים לפני ניסיון נוסף');recovery.type='button';recovery.hidden=true;recovery.className='tt-btn';form.append(recovery);
+var retry=el('button','בדקתי את הקודים — אפשר לפתוח שיעור חדש');retry.type='button';retry.hidden=true;retry.className='tt-btn';form.append(retry);
+function token(){try{return sessionStorage.getItem('bm-teacher-token')||'';}catch(e){return '';}}
+async function post(data){var auth=token();if(!auth)throw Error('יש להיכנס לאזור האישי לפני פתיחת שיעור.');var response=await fetch(window.BM_API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(Object.assign({},data,{password:auth}))});if(!response.ok)throw Error('אין חיבור תקין לשרת.');var r=await response.json();if(token()!==auth)throw Error('הכניסה למורה השתנתה. היכנסו שוב.');if(!r||!r.ok)throw Error((r&&r.error)||'הפעולה לא הושלמה.');return r;}
+function pick(code,until){try{sessionStorage.setItem('bm-live-code',code);}catch(e){}if(window.BM_TEACHER_ROOM)window.BM_TEACHER_ROOM.set(code,until);document.dispatchEvent(new CustomEvent('bm-lesson-changed',{detail:{code:code}}));if(window.BM_QUICK_LESSON)window.BM_QUICK_LESSON.refresh().catch(function(){});}
+function showCreated(r,s){result.replaceChildren();result.hidden=false;result.append(el('h4','השיעור מוכן'),el('p',s.subject+' · '+s.cls+' · '+s.page));var code=el('strong',r.code);code.className='subject-real-code';code.setAttribute('aria-label','קוד השיעור: '+r.code.split('').join(' '));result.append(code,el('p','התלמידים מזינים קוד זה בדף הבית, ואז ת״ז אם קיימת לכיתה רשימה שמורה. בקרת השיעור פעילה וגלויה לתלמידים.'));var link=el('a','פתיחת דף השיעור ←');link.href=s.url;link.className='tt-btn tt-btn--primary';result.append(link);}
+form.addEventListener('submit',async function(e){e.preventDefault();var s=selection();if(!s||busy||uncertain)return;if(!token()){status.textContent='יש להיכנס לאזור האישי לפני פתיחת שיעור.';return;}if(!/^[\w.-]+\.html(#[\w-]+)?$/.test(s.url)){status.textContent='כתובת דף לא תקינה.';return;}
+ busy=true;start.disabled=true;cls.disabled=unit.disabled=page.disabled=true;tabButtons.forEach(function(b){b.disabled=true;});status.textContent='יוצר קוד לשיעור…';result.hidden=true;
+ try{var response=await post({action:'createLesson',url:s.url,label:(s.unit+' · '+s.page).slice(0,120),monitor:true,cls:cls.value});if(!/^[0-9]{4}$/.test(String(response.code))||!Number.isFinite(Number(response.until))||Number(response.until)<=Date.now())throw Error('לא התקבל קוד תקין.');response.code=String(response.code);pick(response.code,Number(response.until));showCreated(response,s);status.textContent='✓ השיעור נפתח. הקוד מוביל ישירות לדף שבחרתם.';start.textContent='השיעור נפתח';}
+ catch(error){uncertain=true;recovery.hidden=false;status.textContent=error.message+' ייתכן שהקוד נוצר אך התשובה לא הגיעה. בדקו את הקודים הקיימים לפני פתיחה נוספת.';}
+ finally{busy=false;cls.disabled=false;unit.disabled=false;page.disabled=false;tabButtons.forEach(function(b){b.disabled=false;});start.disabled=true;}
+});
+recovery.addEventListener('click',async function(){if(busy)return;busy=true;recovery.disabled=true;try{var r=await post({action:'lessonsList'});var list=(r.lessons||[]).filter(function(l){return l.monitor===true&&/^[0-9]{4}$/.test(String(l.code))&&Number(l.until)>Date.now();});result.replaceChildren();result.hidden=false;result.append(el('h4','הקודים הפעילים'));list.forEach(function(l){var row=el('p','כיתה '+(l.cls==='יב'?'י״ב':'י״א')+' · קוד '+l.code+' · '+(l.label||'שיעור'));var use=el('button','בחירת קוד '+l.code);use.type='button';use.className='tt-btn';use.addEventListener('click',function(){pick(String(l.code),Number(l.until));status.textContent='נבחר קוד קיים '+l.code+'. אפשר להמשיך מהשיעור הפעיל בלי ליצור קוד נוסף.';});row.append(use);result.append(row);});if(!list.length)result.append(el('p','אין קודים פעילים עם בקרה.'));retry.hidden=false;status.textContent='בדקו אם השיעור כבר מופיע ברשימה לפני ניסיון נוסף.';}catch(error){status.textContent=error.message;}finally{busy=false;recovery.disabled=false;}});
+retry.addEventListener('click',function(){uncertain=false;retry.hidden=true;recovery.hidden=true;result.hidden=true;update();status.textContent='אפשר לפתוח שיעור חדש כעת.';});
+// Main dashboard shortcut opens this picker, not the previous generic start dialog.
+oldStart.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();document.getElementById('ttTab-lesson').click();tabButtons.find(function(b){return b.getAttribute('aria-selected')==='true';}).focus();},true);
+chooseSubject(chosenSubject);
+}};
+
 (function(){'use strict';
 window.BM_TEACHER_LAYOUT={mount:function(){
 var root=document.getElementById('teacherTools');if(!root||root.dataset.dashboardMounted)return;root.dataset.dashboardMounted='1';
@@ -27,6 +81,29 @@ var notes=el('section',null,'td-notes');notes.append(el('h3','מקום לרעי�
 
 var announcement=document.getElementById('ttAnnounce');if(announcement)document.getElementById('ttPanel-exams').prepend(announcement.closest('.tt-card'));
 [['lesson','ניהול שיעור','התחלת שיעור, קוד לתלמידים וכלי הכיתה במקום אחד.'],['board','עבודות וציונים','בדיקה ← עיון ואישור ← שליחה לתלמיד.'],['keys','חומרי הוראה','חיפוש מחוונים ומבחנים לפי מקצוע ונושא.'],['exams','הודעות ומועדים','הודעות לתלמידים ולוח המבחנים.']].forEach(function(p){var header=el('header',null,'td-panel-header');header.append(el('h2',p[1],'td-title'),el('p',p[2],'td-subtitle'));document.getElementById('ttPanel-'+p[0]).prepend(header);});
+
+// A single lesson-entry route; retain the original controls and all IDs.
+var lessonPanel=document.getElementById('ttPanel-lesson'),startControl=document.getElementById('ttQuickStart'),roster=document.getElementById('ttRoster');
+if(lessonPanel&&startControl&&roster){
+ var starter=startControl.closest('.tt-card');starter.classList.add('td-lesson-start');
+ var intro=starter.querySelector('.tt-sub');if(intro)intro.textContent='בוחרים כיתה ומקבלים קוד. התלמידים מזינים את הקוד בדף הבית, ואז את תעודת הזהות שלהם.';
+ var heading=starter.querySelector('.tt-h');if(heading)heading.textContent='פתיחת שיעור — כניסה עם ת״ז';
+ startControl.textContent='בחירת כיתה ופתיחת שיעור';
+ var status=document.getElementById('ttRosterNow');var readiness=el('section',null,'td-id-readiness');readiness.setAttribute('aria-label','מצב רשימות הכיתה לכניסה עם תעודת זהות');readiness.append(el('strong','כניסה עם תעודת זהות'));
+ if(status)readiness.append(status);
+ readiness.append(el('p','הכניסה עם ת״ז מופעלת בכיתה שיש לה רשימה שמורה. בלי רשימה המערכת עדיין מאפשרת כניסה בשם — כמו בגרסה הקיימת.','td-entry-note'));starter.insertBefore(readiness,startControl);
+ var help=el('p','לאחר הכניסה: פותחים את דף הלימוד ולוחצים בסרגל על ״העבר את הכיתה לכאן״. אין צורך ליצור קוד נוסף.','td-entry-note');startControl.insertAdjacentElement('afterend',help);
+ var activity=document.getElementById('ttAct');if(activity){activity.hidden=true;activity.setAttribute('aria-hidden','true');}
+ var advanced=starter.querySelector('details');if(advanced){advanced.classList.add('td-lesson-advanced');var sum=advanced.querySelector('summary');if(sum)sum.textContent='אפשרויות מתקדמות לפתיחת שיעור';}
+ var toolsNote=el('p','סקר, ענן מילים ושאר פעילויות הכיתה זמינים בסרגל הצד בכל דף שיעור.','td-entry-note td-tools-note');lessonPanel.append(toolsNote);
+ function foldCard(card,label){if(!card)return;var fold=el('details',null,'td-lesson-fold'),summary=el('summary',label);card.insertAdjacentElement('beforebegin',fold);fold.append(summary,card);return fold;}
+ foldCard(roster,'ניהול רשימות הכיתה לכניסה עם ת״ז');
+ foldCard(document.getElementById('ttReports'),'דוחות של שיעורים קודמים');
+ // Put the main entry first, then current lesson monitoring, then occasional setup/report tools.
+ var header=lessonPanel.querySelector('.td-panel-header');if(header){var subtitle=header.querySelector('.td-subtitle');if(subtitle)subtitle.textContent='פתיחת שיעור פשוטה, עם מצב הכניסה בתעודת זהות במקום ברור.';}
+}
+
+if(window.BM_SUBJECT_LESSON)window.BM_SUBJECT_LESSON.mount();
 var badge=document.getElementById('ttNavPending');function update(){pending.textContent=badge&&!badge.hidden?badge.textContent+' הגשות ממתינות לבדיקה. פתח את עבודות וציונים להמשך טיפול.':'לצפייה במצב העבודות העדכני, פתח את עבודות וציונים.';}if(badge)new MutationObserver(update).observe(badge,{attributes:true,childList:true,subtree:true});update();
 }};
 })();

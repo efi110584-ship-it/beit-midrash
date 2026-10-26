@@ -64,3 +64,25 @@
 @media(max-width:760px){#teacherTools .tt-nav{min-height:0}#teacherTools .td-title{font-size:1.9rem}#teacherTools .td-study-hero{min-height:250px;border-radius:16px 48px 48px 16px}#teacherTools .td-study-copy{width:82%;padding:25px}#teacherTools .td-study-copy h3{font-size:1.7rem}#teacherTools .td-quick .td-shortcut strong{font-size:.9rem}#teacherTools .td-quick .td-shortcut{padding:12px 5px}#teacherTools .td-material-visual{height:105px}}
 @media(max-width:420px){#teacherTools .td-study-copy{width:100%;padding:22px}#teacherTools .td-study-hero:before{background:#124f56d4}#teacherTools .td-study-hero .td-shortcut strong{font-size:.95rem}#teacherTools .td-quick .td-shortcut strong{font-size:.8rem}#teacherTools .td-materials{gap:10px}#teacherTools .td-material strong{font-size:.88rem}}
 @media(prefers-reduced-motion:reduce){#teacherTools .td-material,#teacherTools .td-shortcut{transition:none}#teacherTools .td-material:hover{transform:none}}
+
+/* A concise entry screen. Existing class tools live in the side toolbar. */
+#teacherTools #ttAct[hidden]{display:none!important}
+#teacherTools #ttPanel-lesson>.tt-row{display:block}
+#teacherTools .td-lesson-start{max-width:100%;background:linear-gradient(130deg,#fffdf7,#f5f9f6);padding:24px}
+#teacherTools .td-lesson-start>.tt-h{font-size:1.4rem;color:#194e56}
+#teacherTools .td-id-readiness{border-right:3px solid #b79856;background:#f3efdf;padding:12px 16px;border-radius:8px;margin:18px 0}
+#teacherTools .td-id-readiness>strong{color:#1d5259}
+#teacherTools .td-id-readiness p{line-height:1.7}
+#teacherTools .td-entry-note{color:#5c625d;font-size:.88rem;line-height:1.8}
+#teacherTools .td-lesson-start #ttQuickStart{padding:12px 25px;font-size:1.05rem;min-height:48px}
+#teacherTools .td-lesson-advanced{border-top:1px solid #dfd6c3;padding-top:12px;margin-top:22px!important}
+#teacherTools .td-lesson-fold{border:1px solid #dfd6c3;border-radius:10px;background:#fffcf5;margin:14px 0;overflow:hidden}
+#teacherTools .td-lesson-fold>summary,#teacherTools .td-lesson-advanced>summary{cursor:pointer;min-height:44px;box-sizing:border-box;padding:12px 16px;font-weight:600;color:#274f57}
+#teacherTools .td-lesson-fold>summary:focus-visible,#teacherTools .td-lesson-advanced>summary:focus-visible{outline:3px solid #197c83;outline-offset:-3px}
+#teacherTools .td-lesson-fold>.tt-card{border:0;border-top:1px solid #e5dcc9;border-radius:0;margin:0}
+#teacherTools .td-tools-note{border-top:1px solid #dfd6c3;padding-top:12px}
+
+
+.subject-launcher{padding:6px 0 16px}.subject-launcher>h3{font-size:1.15rem;color:#194e56;margin:8px 0 14px}.subject-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:22px}.subject-tabs button{font:inherit;min-height:50px;padding:10px 8px;border:1px solid #d5c6aa;border-radius:10px;background:#fcf8ee;color:#304a54;cursor:pointer}.subject-tabs button[aria-selected=true]{background:#1d6a70;color:#fff;border-color:#1d6a70;box-shadow:0 4px 12px #194e5618}.subject-picks{display:grid;grid-template-columns:1fr 1.4fr 1.8fr;gap:14px}.subject-picks label{display:block;font-weight:600;margin-bottom:6px;color:#294b54}.subject-picks select{box-sizing:border-box;min-width:0;width:100%;font:inherit;min-height:48px;padding:9px;border:1px solid #c6b79c;border-radius:8px;background:white;color:#243746}.subject-picks select:disabled{background:#f1eee8;color:#777}.subject-status{font-size:.88rem;color:#58665e;min-height:25px;line-height:1.7}.subject-summary{font-weight:600;color:#205a62;line-height:1.7}.subject-start{min-width:200px;font-size:1.05rem!important;padding:12px 26px!important}.subject-launcher button:disabled{opacity:.5;cursor:default}.subject-launcher :focus-visible{outline:3px solid #ba8e35;outline-offset:3px}.subject-form>p:last-child{font-size:.85rem;color:#5c625d;line-height:1.8}.subject-demo-dialog{background:#fffdf5;color:#233f49;border:1px solid #cfb981;border-radius:16px;max-width:520px;padding:24px;line-height:1.8}.subject-demo-dialog::backdrop{background:#173c4988}.subject-demo-dialog button{font:inherit;min-height:44px;background:#f6efdf;border:1px solid #cfb981;border-radius:8px;padding:8px 16px}@media(max-width:850px){.subject-picks{grid-template-columns:1fr}.subject-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(prefers-reduced-motion:reduce){.subject-tabs button{transition:none}}
+
+.subject-live-result{background:#edf5ef;border:1px solid #c5d8c7;border-radius:12px;padding:20px;margin-top:22px}.subject-real-code{display:block;font-size:3rem;letter-spacing:.14em;direction:ltr;text-align:center;color:#174b55;margin:12px 0}.subject-live-result[hidden]{display:none!important}.subject-launcher button[hidden]{display:none!important}
