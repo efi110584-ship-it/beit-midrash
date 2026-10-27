@@ -1112,6 +1112,18 @@
     "chapters": 5,
     "chaptersLabel": "צירים",
     "url": "bogrim-plan.html"
+  },
+  {
+    "key": "ivrit-focus-2027-teacher-answers",
+    "class": "teacher",
+    "subject": "מורה",
+    "category": "עברית - מיקוד תשפ״ז",
+    "icon": "🗝️",
+    "title": "מחוון — ארבע עבודות מיקוד תשפ״ז",
+    "desc": "תשובות לפעלים א׳ וב׳, שמות ותצורה, ומחוון מוצע להבנת הנקרא ולכתיבה הממזגת. שאלון 11281.",
+    "chapters": 4,
+    "chaptersLabel": "עבודות",
+    "url": "ivrit-focus-2027-teacher-answers.html"
   }
 ];
 
