@@ -4649,6 +4649,8 @@ body.fc-open:where([data-css~="index"], [data-css~="index"] *){ overflow:hidden;
 .lesson-join-name[hidden]:where([data-css~="index"], [data-css~="index"] *){ display:none; }
 .lesson-join-notice:where([data-css~="index"], [data-css~="index"] *){ flex-basis:100%; margin:0; padding:8px 12px; border-radius:10px; background:#FFEBDC; color:#8A3D07; font-size:.95rem; }
 .lesson-join-input--name:where([data-css~="index"], [data-css~="index"] *){ width:14rem; max-width:100%; letter-spacing:normal; text-align:right; direction:rtl; font-family:inherit; font-size:1rem; }
+.lesson-join-teacher:where([data-css~="index"], [data-css~="index"] *){ flex-basis:100%; justify-self:start; width:fit-content; min-height:36px; padding:4px 2px; border:0; background:none; color:#123A78; font:inherit; font-size:.92rem; font-weight:600; text-decoration:underline; text-underline-offset:3px; cursor:pointer; }
+.lesson-join-teacher:focus-visible:where([data-css~="index"], [data-css~="index"] *){ outline:3px solid #FFB86B; outline-offset:2px; border-radius:6px; }
 .tt-check:where([data-css~="index"], [data-css~="index"] *){ display:flex; align-items:flex-start; gap:8px; padding:8px 10px; border:1px solid #DCE4F1; border-radius:10px; background:#F4F7FC; font-size:.92rem; cursor:pointer; }
 .tt-check:where([data-css~="index"], [data-css~="index"] *) input{ width:18px; height:18px; margin-top:2px; flex:none; accent-color:#123A78; }
 .tt-live[hidden]:where([data-css~="index"], [data-css~="index"] *){ display:none; }

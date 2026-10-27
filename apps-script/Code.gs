@@ -124,6 +124,7 @@ function doPost(e) {
       case 'rosterSave':      return json_(rosterSave_(data.cls, data.text));
       case 'rosterInfo':      return json_(rosterInfo_());
       case 'rosterClear':     return json_(rosterClear_(data.cls));
+      case 'lessonTeacher':   return json_(lessonTeacher_(data.code));
       case 'clearLesson':     return json_(clearLesson_(data.code));
       case 'lessonNav':       return json_(lessonNav_(data.code, data.url, data.label));
       case 'lessonsList':     return json_({ ok: true, lessons: lessonsList_() });
@@ -892,9 +893,11 @@ function presence_(d) {
   var sid = String(d.sid || '').replace(/[^\w-]/g, '').slice(0, 40);
   if (!sid) return { ok: false, error: 'חסר מזהה' };
   var name = clean_(d.name).slice(0, 60);
+  var isT = !!d.tok && d.tok === teacherTok_(l.code);   // כניסת מורה לבדיקה
+  if (isT) name = TEACHER_TEST_NAME;
   // כשיש רשימת כיתה - נכנסים רק דרך תעודת זהות, והשם מגיע מן הרשימה (אי אפשר להקליד שם אחר)
   var idOk = !!rosterCount_(l.cls) && d.tok === rosterToken_(l.code, name);
-  if (rosterCount_(l.cls) && !idOk) return { ok: false, needId: true };
+  if (rosterCount_(l.cls) && !idOk && !isT) return { ok: false, needId: true };
   var page = String(d.page || '').slice(0, 80);
   if (!/^[\w.-]+\.html$/.test(page)) page = '';
   var state = d.state === 'out' ? 'out' : (d.state === 'bye' ? 'bye' : (d.state === 'paste' ? 'paste' : 'in'));
@@ -911,7 +914,7 @@ function presence_(d) {
     try { all = JSON.parse(cache.get(key) || '{}'); } catch (e) { all = {}; }
     var now = Date.now();
     var isNew = !all[sid];
-    if (isNew && name) {
+    if (isNew && name && !isT) {
       // שם שכבר מחובר לשיעור ממכשיר אחר - לא נכנסים בו. מי שמחובר בשם הזה רואה אצל המורה "ניסו להיכנס בשם הזה".
       var nk = nameKey_(name);
       var twin = Object.keys(all).filter(function (k) {
@@ -934,7 +937,8 @@ function presence_(d) {
     if (!p.ev) p.ev = [];
     if (t < (p.t || 0)) return { ok: true, leaves: p.leaves };   // דיווח ישן שהגיע מאוחר - מתעלמים
     p.t = t;
-    if (name && (!p.name || idOk)) p.name = name;   // השם נקבע בכניסה הראשונה (או מרשימת הכיתה) - אי אפשר להחליף אותו באמצע השיעור
+    if (name && (!p.name || idOk || isT)) p.name = name;   // השם נקבע בכניסה הראשונה (או מרשימת הכיתה) - אי אפשר להחליף אותו באמצע השיעור
+    if (isT) p.teacher = true;
     if (page && page !== p.page && !isNew) p.ev.push({ k: 'page', at: now, page: page });
     if (page) p.page = page;
     if (isNew) p.ev.push({ k: 'join', at: now, page: page });
@@ -1021,8 +1025,11 @@ function presenceList_(code) {
              outFor: outFor, outWhy: p.state === 'out' ? (p.outReason || 'hidden') : '',
              outSince: p.state === 'out' ? p.outSince : 0,
              outTotal: (p.outTotal || 0) + (status === 'out' ? outFor : 0), pastes: p.pastes || 0, dups: p.dups || 0, kicked: !!p.kicked,
-             ev: p.ev || [], lastAgo: Math.round((now - (p.last || now)) / 1000) };
+             ev: p.ev || [], lastAgo: Math.round((now - (p.last || now)) / 1000), teacher: !!p.teacher };
   });
+  // המורה (כניסה לבדיקה) מוחזר בנפרד, כדי שלא ייספר עם התלמידים ולא יקפיץ התראות
+  var teachers = out.filter(function (x) { return x.teacher; });
+  out = out.filter(function (x) { return !x.teacher; });
   if (out.length) {
     // דוח השיעור נשמר לבד בזמן השיעור (לכל היותר פעם ב-LREP_EVERY_SEC), כדי שיישאר גם אחרי שהקוד יפוג
     try {
@@ -1031,7 +1038,7 @@ function presenceList_(code) {
     } catch (e) {}
   }
   return { ok: true, lesson: { code: l.code, label: l.label, url: l.url, cls: l.cls, nav: l.nav || null },
-           lessons: mon.map(function (x) { return { code: x.code, label: x.label, cls: x.cls }; }), students: out, now: now };
+           lessons: mon.map(function (x) { return { code: x.code, label: x.label, cls: x.cls }; }), students: out, teachers: teachers, now: now };
 }
 
 // ---------- רשימות כיתה: כניסה לשיעור עם תעודת זהות ----------
@@ -1062,6 +1069,15 @@ function roster_(cls) { return getJson_('ROSTER_' + normClass_(cls)) || {}; }
 function rosterCount_(cls) { return cls ? Object.keys(roster_(cls)).length : 0; }
 // אסימון שמוכיח שהשם הגיע מזיהוי בת"ז (לשיעור הזה בלבד)
 function rosterToken_(code, name) { return sha256hex_(rosterSalt_() + '|tok|' + code + '|' + nameKey_(name)).slice(0, 24); }
+// כניסת מורה לבדיקה: המורה נכנס לשיעור כמו תלמיד (עם סיסמת האזור האישי, בלי ת"ז).
+// בבקרה הוא מופיע בנפרד כ"מורה", לא נספר עם התלמידים, ולא נכנס לדוח השיעור.
+var TEACHER_TEST_NAME = 'המורה (בדיקה)';
+function teacherTok_(code) { return sha256hex_(rosterSalt_() + '|teach|' + code).slice(0, 24); }
+function lessonTeacher_(code) {
+  var l = monitoredLesson_(code);
+  if (!l) return { ok: false, error: 'אין שיעור עם בקרה בקוד הזה' };
+  return { ok: true, name: TEACHER_TEST_NAME, tok: teacherTok_(l.code) };
+}
 
 function rosterSave_(cls, text) {
   cls = normClass_(cls);
@@ -1116,7 +1132,7 @@ function lessonReportData_(l) {
   var all = {};
   try { all = JSON.parse(CacheService.getScriptCache().get('pres_' + l.code) || '{}'); } catch (e) { all = {}; }
   var now = Date.now();
-  var students = Object.keys(all).map(function (sid) {
+  var students = Object.keys(all).filter(function (sid) { return !all[sid].teacher; }).map(function (sid) {
     var p = all[sid], ev = p.ev || [];
     var status = p.kicked ? 'kicked' : p.state === 'bye' ? 'bye' : p.state === 'out' ? ((now - p.outSince > graceMs_(p.outReason)) ? 'out' : 'in')
       : ((now - (p.last || 0) > GONE_AFTER_SEC * 1000) ? 'gone' : 'in');

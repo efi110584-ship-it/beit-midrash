@@ -46,6 +46,11 @@ window.BM_API_URL = 'https://script.google.com/macros/s/AKfycbwkhxAu28oe10-Mli0t
     return fetch(window.BM_API_URL, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" },
       body:JSON.stringify({ action:"lessonIdentify", code:code, id:id }) }).then(function(r){ return r.json(); });
   };
+  /* כניסת מורה לבדיקה לשיעור עם בקרה - עם סיסמת האזור האישי במקום ת"ז. הסיסמה לא נשמרת במכשיר. */
+  window.BM_LESSON_TEACHER = function(code, password){
+    return fetch(window.BM_API_URL, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" },
+      body:JSON.stringify({ action:"lessonTeacher", code:code, password:password }) }).then(function(r){ return r.json(); });
+  };
   window.BM_LESSON_LOCK.clear = function(code){
     try{
       var m = JSON.parse(localStorage.getItem("bm-lesson-names") || "{}");

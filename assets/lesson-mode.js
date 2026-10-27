@@ -52,7 +52,9 @@
       ".bm-lock-msg{min-height:1.4em;margin:0;font-weight:700;color:#B42318}" +
       ".bm-lock-links{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:center;margin-top:16px}" +
       ".bm-lock-links a{color:#123A78;font-weight:700}" +
-      ".bm-lock-wait{font-size:1.05rem;color:#4E5B72}";
+      ".bm-lock-wait{font-size:1.05rem;color:#4E5B72}" +
+      ".bm-lock button.bm-lock-teacher{min-height:36px;margin-top:4px;background:none;color:#123A78;font-size:.92rem;font-weight:600;text-decoration:underline;text-underline-offset:3px}" +
+      ".bm-lock button.bm-lock-teacher:hover{background:none;color:#0B2A5B}";
     (document.head || document.documentElement).appendChild(st);
   }
   function show(html){
@@ -92,6 +94,7 @@
         '</div>' +
         '<button type="submit" id="bmLockBtn">כניסה לשיעור</button>' +
         '<p class="bm-lock-msg" id="bmLockMsg" role="status" aria-live="polite"></p>' +
+        '<button type="button" class="bm-lock-teacher" id="bmLockTeacher" hidden>👨‍🏫 כניסת מורה לבדיקה</button>' +
       '</form>' +
       '<div class="bm-lock-links"><a href="index.html">לדף הבית</a><a href="' + esc(qPage) + '" id="bmLockCards" hidden>לכרטיסיות החזרה של הפרק</a></div>'
     );
@@ -102,12 +105,48 @@
     var nameIn = document.getElementById("bmLockNameInput");
     var msg = document.getElementById("bmLockMsg");
     var btn = document.getElementById("bmLockBtn");
+    var tBtn = document.getElementById("bmLockTeacher");
+    var lab = document.getElementById("bmLockNameLabel");
     var pending = null;
     codeIn.focus();
     codeIn.addEventListener("input", function(){
       var clean = codeIn.value.replace(/\D/g, "").slice(0, 4);
       if(clean !== codeIn.value) codeIn.value = clean;
-      msg.textContent = ""; pending = null; nameBox.hidden = true; nameIn.readOnly = false;
+      msg.textContent = ""; pending = null; nameBox.hidden = true; nameIn.readOnly = false; nameIn.type = "text"; tBtn.hidden = true;
+    });
+    /* כניסת מורה לבדיקה: סיסמת האזור האישי במקום ת"ז. בבקרה המורה מופיע בנפרד, לא נספר ולא בדוח. */
+    function askName(code, res){
+      var lk = window.BM_LESSON_LOCK && window.BM_LESSON_LOCK.get(code);
+      var idMode = !!res.idLogin && !(lk && lk.tok);
+      pending = { code:code, res:res, idMode:idMode };
+      msg.textContent = "";
+      lab.textContent = idMode ? "מספר תעודת הזהות שלכם (9 ספרות)" : "השם המלא שלכם";
+      nameIn.type = "text";
+      nameIn.setAttribute("inputmode", idMode ? "numeric" : "text");
+      nameIn.setAttribute("autocomplete", idMode ? "off" : "name");
+      nameIn.maxLength = idMode ? 9 : 60;
+      nameIn.readOnly = !!lk && !idMode;
+      if(idMode){ nameIn.value = ""; msg.textContent = "בשיעור הזה נכנסים עם תעודת זהות."; }
+      else if(lk){ nameIn.value = lk.name; msg.textContent = "נכנסת כבר לשיעור הזה בשם \"" + lk.name + "\". באמצע שיעור אי אפשר להחליף שם."; }
+      else try{ nameIn.value = nameIn.value || localStorage.getItem("bm-lesson-name") || ""; }catch(err){}
+      tBtn.textContent = "👨‍🏫 כניסת מורה לבדיקה";
+      tBtn.hidden = false;
+      nameBox.hidden = false;
+      nameIn.focus();
+    }
+    tBtn.addEventListener("click", function(){
+      if(!pending) return;
+      if(pending.teacher){ askName(pending.code, pending.res); return; }
+      pending.teacher = true;
+      lab.textContent = "הסיסמה של האזור האישי";
+      nameIn.type = "password";
+      nameIn.setAttribute("autocomplete", "current-password");
+      nameIn.maxLength = 100;
+      nameIn.readOnly = false;
+      nameIn.value = "";
+      tBtn.textContent = "↩ חזרה לכניסת תלמיד";
+      msg.textContent = "";
+      nameIn.focus();
     });
     function enter(code, res, name, tok, fromId){
       var until = res.until || (Date.now() + 12 * 3600 * 1000);
@@ -132,6 +171,21 @@
     form.addEventListener("submit", function(e){
       e.preventDefault();
       if(pending){
+        if(pending.teacher){
+          var pw = nameIn.value;
+          if(!pw){ msg.textContent = "הקלידו את הסיסמה של האזור האישי."; nameIn.focus(); return; }
+          var pt = pending;
+          btn.disabled = true; msg.textContent = "בודקים…";
+          window.BM_LESSON_TEACHER(pt.code, pw).then(function(r){
+            if(pending !== pt) return;
+            if(r && r.auth === false){ msg.textContent = "הסיסמה לא נכונה."; nameIn.select(); return; }
+            if(!r || !r.ok){ msg.textContent = (r && r.error) || "לא הצלחנו להיכנס. נסו שוב."; return; }
+            nameIn.value = ""; nameIn.type = "text";
+            enter(pt.code, pt.res, r.name, r.tok, true);
+          }).catch(function(){ msg.textContent = "אין חיבור לשרת כרגע. נסו שוב בעוד רגע."; })
+            .then(function(){ btn.disabled = false; });
+          return;
+        }
         if(pending.idMode){
           var id = nameIn.value.replace(/\D/g, "");
           if(id.length < 5){ msg.textContent = "הקלידו את מספר תעודת הזהות שלכם (9 ספרות)."; nameIn.focus(); return; }
@@ -157,24 +211,7 @@
       msg.textContent = "בודקים…";
       fetch(API + "?action=lesson&code=" + encodeURIComponent(code)).then(function(r){ return r.json(); }).then(function(res){
         if(!(res && res.ok && /^[\w.-]+\.html(#[\w-]+)?$/.test(res.url || ""))){ msg.textContent = "הקוד לא נכון. בדקו מול הלוח."; codeIn.select(); return; }
-        if(res.monitor){
-          var lk = window.BM_LESSON_LOCK && window.BM_LESSON_LOCK.get(code);
-          var idMode = !!res.idLogin && !(lk && lk.tok);
-          pending = { code:code, res:res, idMode:idMode };
-          msg.textContent = "";
-          var lab = document.getElementById("bmLockNameLabel");
-          lab.textContent = idMode ? "מספר תעודת הזהות שלכם (9 ספרות)" : "השם המלא שלכם";
-          nameIn.setAttribute("inputmode", idMode ? "numeric" : "text");
-          nameIn.setAttribute("autocomplete", idMode ? "off" : "name");
-          nameIn.maxLength = idMode ? 9 : 60;
-          nameIn.readOnly = !!lk && !idMode;
-          if(idMode){ nameIn.value = ""; msg.textContent = "בשיעור הזה נכנסים עם תעודת זהות."; }
-          else if(lk){ nameIn.value = lk.name; msg.textContent = "נכנסת כבר לשיעור הזה בשם \"" + lk.name + "\". באמצע שיעור אי אפשר להחליף שם."; }
-          else try{ nameIn.value = nameIn.value || localStorage.getItem("bm-lesson-name") || ""; }catch(err){}
-          nameBox.hidden = false;
-          nameIn.focus();
-          return;
-        }
+        if(res.monitor){ askName(code, res); return; }
         enter(code, res, "", "", false);
       }).catch(function(){ msg.textContent = "אין חיבור לשרת כרגע. נסו שוב בעוד רגע."; })
         .then(function(){ btn.disabled = false; });
