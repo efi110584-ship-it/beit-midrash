@@ -12,13 +12,19 @@
 .bh-wrap{max-width:900px;margin:0 auto;padding:0 16px 2.5rem;display:flex;flex-direction:column;gap:1.1rem}
 .bh-how{background:var(--paper-card);border:1px solid var(--paper-line);border-radius:16px;padding:1rem 1.2rem;box-shadow:var(--shadow)}
 .bh-how p{margin:0;font-size:1.05rem;line-height:1.7}
-.bh-tabs{display:flex;flex-wrap:wrap;gap:.5rem}
-.bh-tab{display:inline-flex;align-items:center;gap:.4rem;min-height:44px;padding:.45rem .9rem;border:1.5px solid var(--paper-line);border-radius:999px;background:#fff;color:var(--ink);font:inherit;font-size:1rem;font-weight:600;cursor:pointer}
-.bh-tab:hover{border-color:var(--teal)}
-.bh-tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+/* הנושאים: רשימה ממוספרת לפי סדר הזמן - שני טורים במחשב (1-4 מימין, 5-8 משמאל), טור אחד בטלפון */
+.bh-tabs{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,auto);grid-auto-flow:column;gap:0 1.1rem}
+.bh-tab{display:flex;align-items:center;gap:.55rem;width:100%;min-height:46px;padding:.4rem .6rem;border:0;border-bottom:1px solid var(--paper-line);border-radius:0;background:none;color:var(--ink);font:inherit;font-size:1rem;font-weight:600;text-align:right;cursor:pointer}
+.bh-tab:hover{background:var(--teal-soft,#E4EEEA)}
+.bh-tab[aria-selected="true"]{background:var(--ink);border-bottom-color:transparent;border-radius:10px;color:#fff}
 .bh-tab:focus-visible{outline:3px solid var(--focus-ring,#FF7A1A);outline-offset:2px}
-.bh-count{font-size:.8rem;font-weight:700;padding:.05rem .45rem;border-radius:999px;background:var(--teal-soft,#E4EEEA);color:var(--ink)}
-.bh-tab[aria-selected="true"] .bh-count{background:rgba(255,255,255,.2);color:#fff}
+.bh-no{flex:none;display:inline-grid;place-items:center;width:1.6rem;height:1.6rem;border:1.5px solid var(--teal);border-radius:50%;color:var(--teal);font-size:.85rem;font-weight:700}
+.bh-ic{flex:none;font-size:.85rem;line-height:1}
+.bh-nm{flex:1;text-wrap:balance}
+.bh-count{flex:none;font-size:.85rem;font-weight:500;color:var(--ink-soft);white-space:nowrap}
+.bh-tab[aria-selected="true"] .bh-no{border-color:#fff;color:#fff}
+.bh-tab[aria-selected="true"] .bh-count{color:#DCE6EC}
+@media (max-width:640px){.bh-tabs{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row}}
 .bh-panel{display:flex;flex-direction:column;gap:1rem}
 .bh-panel[hidden]{display:none}
 .bh-panel-title{margin:.3rem 0 0;font-size:1.35rem;color:var(--ink);text-wrap:balance}
@@ -98,14 +104,14 @@
   <div class="bh-how"><p>בחרו נושא. בכל שאלה רשום מאיזה מועד בגרות היא. כתבו תשובה בתיבה של כל סעיף. כשהשאלה מבוססת על קטע, לחצו על "📄 הקטע שעליו מבוססת השאלה" כדי לקרוא אותו. כרזות, קריקטורות ותמונות מן השאלון מופיעות בתוך השאלה. בסוף הנושא אפשר לשלוח את התשובות למורה.</p></div>
   <p class="bh-keynote" id="bhKeyNote" hidden><b>מחוון למורה:</b> בסוף כל שאלה מופיעות התשובות מתוך המחוון הרשמי של אותו מועד. הנוסח הועתק אוטומטית מקובצי המחוון, ולכן בתשובות שהיו בנויות כטבלה הסדר עלול להשתבש.</p>
   <div class="bh-tabs" role="tablist" aria-label="נושאים">
-<button type="button" class="bh-tab" role="tab" id="tab-raayonot" aria-controls="h-raayonot" aria-selected="true" tabindex="0"><span aria-hidden="true">💡</span> נאורות, לאומיות וסוציאליזם <span class="bh-count">12</span></button>
-<button type="button" class="bh-tab" role="tab" id="tab-zramim" aria-controls="h-zramim" aria-selected="false" tabindex="-1"><span aria-hidden="true">📚</span> השכלה, אמנציפציה וזרמים דתיים <span class="bh-count">15</span></button>
-<button type="button" class="bh-tab" role="tab" id="tab-tziyonut" aria-controls="h-tziyonut" aria-selected="false" tabindex="-1"><span aria-hidden="true">✡️</span> הציונות והציונות הדתית <span class="bh-count">23</span></button>
-<button type="button" class="bh-tab" role="tab" id="tab-yishuv" aria-controls="h-yishuv" aria-selected="false" tabindex="-1"><span aria-hidden="true">🏡</span> היישוב והמנדט הבריטי <span class="bh-count">35</span></button>
-<button type="button" class="bh-tab" role="tab" id="tab-totali" aria-controls="h-totali" aria-selected="false" tabindex="-1"><span aria-hidden="true">⚔️</span> משטרים טוטליטריים ומלחמת העולם השנייה <span class="bh-count">25</span></button>
-<button type="button" class="bh-tab" role="tab" id="tab-shoah" aria-controls="h-shoah" aria-selected="false" tabindex="-1"><span aria-hidden="true">🕯️</span> השואה <span class="bh-count">25</span></button>
-<button type="button" class="bh-tab" role="tab" id="tab-medina" aria-controls="h-medina" aria-selected="false" tabindex="-1"><span aria-hidden="true">🏛️</span> הקמת המדינה ומלחמות ישראל <span class="bh-count">37</span></button>
-<button type="button" class="bh-tab" role="tab" id="tab-aliya" aria-controls="h-aliya" aria-selected="false" tabindex="-1"><span aria-hidden="true">✈️</span> עלייה, קליטה וחברה בישראל <span class="bh-count">23</span></button>
+<button type="button" class="bh-tab" role="tab" id="tab-raayonot" aria-controls="h-raayonot" aria-selected="true" tabindex="0"><span class="bh-no" aria-hidden="true">1</span><span class="bh-ic" aria-hidden="true">💡</span><span class="bh-nm">נאורות, לאומיות וסוציאליזם</span><span class="bh-count">12 שאלות</span></button>
+<button type="button" class="bh-tab" role="tab" id="tab-zramim" aria-controls="h-zramim" aria-selected="false" tabindex="-1"><span class="bh-no" aria-hidden="true">2</span><span class="bh-ic" aria-hidden="true">📚</span><span class="bh-nm">השכלה, אמנציפציה וזרמים דתיים</span><span class="bh-count">15 שאלות</span></button>
+<button type="button" class="bh-tab" role="tab" id="tab-tziyonut" aria-controls="h-tziyonut" aria-selected="false" tabindex="-1"><span class="bh-no" aria-hidden="true">3</span><span class="bh-ic" aria-hidden="true">✡️</span><span class="bh-nm">הציונות והציונות הדתית</span><span class="bh-count">23 שאלות</span></button>
+<button type="button" class="bh-tab" role="tab" id="tab-yishuv" aria-controls="h-yishuv" aria-selected="false" tabindex="-1"><span class="bh-no" aria-hidden="true">4</span><span class="bh-ic" aria-hidden="true">🏡</span><span class="bh-nm">היישוב והמנדט הבריטי</span><span class="bh-count">35 שאלות</span></button>
+<button type="button" class="bh-tab" role="tab" id="tab-totali" aria-controls="h-totali" aria-selected="false" tabindex="-1"><span class="bh-no" aria-hidden="true">5</span><span class="bh-ic" aria-hidden="true">⚔️</span><span class="bh-nm">משטרים טוטליטריים ומלחמת העולם השנייה</span><span class="bh-count">25 שאלות</span></button>
+<button type="button" class="bh-tab" role="tab" id="tab-shoah" aria-controls="h-shoah" aria-selected="false" tabindex="-1"><span class="bh-no" aria-hidden="true">6</span><span class="bh-ic" aria-hidden="true">🕯️</span><span class="bh-nm">השואה</span><span class="bh-count">25 שאלות</span></button>
+<button type="button" class="bh-tab" role="tab" id="tab-medina" aria-controls="h-medina" aria-selected="false" tabindex="-1"><span class="bh-no" aria-hidden="true">7</span><span class="bh-ic" aria-hidden="true">🏛️</span><span class="bh-nm">הקמת המדינה ומלחמות ישראל</span><span class="bh-count">37 שאלות</span></button>
+<button type="button" class="bh-tab" role="tab" id="tab-aliya" aria-controls="h-aliya" aria-selected="false" tabindex="-1"><span class="bh-no" aria-hidden="true">8</span><span class="bh-ic" aria-hidden="true">✈️</span><span class="bh-nm">עלייה, קליטה וחברה בישראל</span><span class="bh-count">23 שאלות</span></button>
   </div>
 <section class="bh-panel" role="tabpanel" id="h-raayonot" aria-labelledby="tab-raayonot">
 <h2 class="bh-panel-title"><span aria-hidden="true">💡</span> נאורות, לאומיות וסוציאליזם <small>12 שאלות</small></h2>
@@ -2976,7 +2982,7 @@
     panel.appendChild(sendBox);
     var tab = document.querySelector('.bh-tab[aria-controls="' + id + '"]');
     var name = '';
-    if(tab){ var c = tab.cloneNode(true); Array.prototype.forEach.call(c.querySelectorAll('span'), function(x){ x.remove(); }); name = c.textContent.trim(); }
+    if(tab){ var nm = tab.querySelector('.bh-nm'); name = nm ? nm.textContent.trim() : ''; }
     document.getElementById('sendToTeacherBtn').setAttribute('data-topic-url', 'history-29281.html#' + id);
     document.getElementById('bhSendNote').textContent = 'סיימתם לענות על השאלות בנושא "' + name + '"? שלחו את התשובות למורה.';
     document.dispatchEvent(new CustomEvent('bm-send-scope-change'));
