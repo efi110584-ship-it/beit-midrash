@@ -6,7 +6,7 @@
 <title>עברית — משקלים · מבחן מסכם</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&amp;family=Frank+Ruhl+Libre:wght@500;700;900&amp;family=Heebo:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css?v=8">
 
 
@@ -33,17 +33,15 @@
   <p class="sub">25 שאלות על כל מה שנלמד ביחידה. בסיום תקבלו ציון כללי ופירוט לפי נושא - כדי לדעת בדיוק מה כדאי לתרגל שוב.</p>
   <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
 
-  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
-    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
-      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
-    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
-      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  <svg class="wave" viewbox="0 0 1200 34" preserveaspectratio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20" fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"></path>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27" fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"></path>
   </svg>
 </header>
 
 <div class="student-bar" id="printHeader">
   <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
-  <label>כיתה: <input type="text" id="studentClass" placeholder="למשל: י&quot;א 3" style="width:8rem;"></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder='למשל: י"א 3' style="width:8rem;"></label>
 </div>
 <p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
@@ -54,7 +52,7 @@
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main id="main-content">
-  <div class="grid" id="grid">
+  <p class="mikud-note" style="padding:12px 16px;background:#edf4ef;border:1px solid #c8d9cc;border-radius:10px;line-height:1.8">מותאם למיקוד תשפ״ז, שאלון 11281. מתרגלים שורש, בניין, זמן וגוף; שמות הגזרות משמשים ללמידה בלבד ואינם נדרשים כתשובה בבחינה.</p><div class="grid" id="grid">
 
     <section class="card" style="grid-column: 1 / -1;">
       <div class="card-head">
@@ -599,7 +597,7 @@ loadStudentInfo();
 loadAnswers();
 </script>
 
-<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">↑</button>
 <script>
 (function(){
   var btn = document.getElementById('toTopBtn');

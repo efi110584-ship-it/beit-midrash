@@ -6,7 +6,7 @@
 <title>עברית — משקלים · שיעור 6: שורש+משקל לעומת בסיס+צורן</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&amp;family=Frank+Ruhl+Libre:wght@500;700;900&amp;family=Heebo:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css?v=8">
 
 
@@ -34,17 +34,15 @@
   <p class="sub">לפני שמחפשים משקל, בודקים איך המילה נוצרה בכלל.</p>
   <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
 
-  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
-    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
-      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
-    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
-      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
+  <svg class="wave" viewbox="0 0 1200 34" preserveaspectratio="none">
+    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20" fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"></path>
+    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27" fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"></path>
   </svg>
 </header>
 
 <div class="student-bar" id="printHeader">
   <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
-  <label>כיתה: <input type="text" id="studentClass" placeholder="למשל: י&quot;א 3" style="width:8rem;"></label>
+  <label>כיתה: <input type="text" id="studentClass" placeholder='למשל: י"א 3' style="width:8rem;"></label>
 </div>
 <p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
 
@@ -55,7 +53,7 @@
 <div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
 
 <main id="main-content">
-  <section class="bm-lesson-start" data-lesson-kind="grammar" aria-labelledby="lesson-goal">
+  <p class="mikud-note" style="padding:12px 16px;background:#edf4ef;border:1px solid #c8d9cc;border-radius:10px;line-height:1.8">מותאם למיקוד תשפ״ז, שאלון 11281. מתרגלים שורש, בניין, זמן וגוף; שמות הגזרות משמשים ללמידה בלבד ואינם נדרשים כתשובה בבחינה.</p><section class="bm-lesson-start" data-lesson-kind="grammar" aria-labelledby="lesson-goal">
     <h2 id="lesson-goal">מה נלמד היום?</h2>
     <p><strong>המטרה:</strong> נבחין בין שורש ומשקל לבין בסיס וצורן, ונסביר כיצד המילה נוצרה.</p>
     <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
@@ -80,13 +78,7 @@
             </tbody>
           </table>
         </div>
-        <div class="remember-block">
-          <span class="src">🧭 בדיקת אימות - איך מחליטים?</span>
-          שאלו: <b>אם מסירים את החלק החשוד (הצורן), האם נשארת מילה קיימת ומוכרת בעברית?</b><br>
-          • כן נשארת מילה קיימת (כמו "מוזיקה" ב"מוזיקאי") ← <b>בסיס + צורן</b>.<br>
-          • לא - מה שנשאר הוא רק 3 אותיות בלי משמעות עצמאית (כמו נ־ג־ר) ← <b>שורש + משקל</b>.
-        </div>
-        <p style="font-size:.85rem; color:var(--ink-soft);">💡 שימו לב: גם "פִּזְמוֹנַאי" נוצר כך - בסיס <b>פִּזְמוֹן</b> (מילה קיימת) + צורן <b>אִי</b>. העובדה שגם ל"פזמון" עצמו יש שורש ומשקל משלו לא משנה - השאלה כאן היא רק איך <b>נוצרה מילת ה-אי</b> החדשה.</p>
+        <div class="remember-block">בודקים איך נוצרה המילה המסוימת: בסיס וצורן כאשר נוספה תוספת למילה קיימת, או שורש ומשקל כאשר אותיות השורש משולבות בתבנית. עצם האפשרות להסיר סיומת אינה הוכחה מספקת; בודקים גם משמעות ומשפחת מילים.</div><p style="font-size:.85rem; color:var(--ink-soft);">💡 שימו לב: גם "פִּזְמוֹנַאי" נוצר כך - בסיס <b>פִּזְמוֹן</b> (מילה קיימת) + צורן <b>אִי</b>. העובדה שגם ל"פזמון" עצמו יש שורש ומשקל משלו לא משנה - השאלה כאן היא רק איך <b>נוצרה מילת ה-אי</b> החדשה.</p>
       </div>
     </section>
 
@@ -136,7 +128,7 @@
         </div>
         <div class="question-block">
           <div class="question-row"><span class="q-num">2</span><span class="q-text">רוצים מילה שפירושה "מי שעובד עם חשמל", מהבסיס <strong>חַשְׁמַל</strong>. איזו מילה מתאימה?</span></div>
-          <div class="mc-group" data-qid="mc2" data-explain="הצורן אי מציין בעל מקצוע או עיסוק (מוּזִיקַאי, טֶנִיסַאי), ולכן חַשְׁמַלַּאי. הצורן ִי יוצר שם תואר: חַשְׁמַלִּי = של חשמל (&quot;מכשיר חשמלי&quot;). חַשְׁמַלִּית היא כלי תחבורה, ומְחֻשְׁמָל הוא שם תואר - לא אדם שעובד.">
+          <div class="mc-group" data-qid="mc2" data-explain='הצורן אי מציין בעל מקצוע או עיסוק (מוּזִיקַאי, טֶנִיסַאי), ולכן חַשְׁמַלַּאי. הצורן ִי יוצר שם תואר: חַשְׁמַלִּי = של חשמל ("מכשיר חשמלי"). חַשְׁמַלִּית היא כלי תחבורה, ומְחֻשְׁמָל הוא שם תואר - לא אדם שעובד.'>
             <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="mc2"> חַשְׁמַלִּי</label>
             <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="mc2"> חַשְׁמַלִּית</label>
             <label class="mc-option" data-value="c" data-correct="true"><input type="radio" name="mc2"> חַשְׁמַלַּאי</label>
@@ -156,7 +148,7 @@
         </div>
         <div class="question-block">
           <div class="question-row"><span class="q-num">4</span><span class="q-text">מלכודת: כל המילים מתחילות ב-מ'. איזו מהן נוצרה מבסיס+צורן, ולא משורש+משקל?</span></div>
-          <div class="mc-group" data-qid="mc4" data-explain="מסירים מהמילה מַחְשְׁבוֹן את הצורן וֹן - ונשארת מילה קיימת, מַחְשֵׁב. לכן בסיס+צורן. במִגְדָּל, מִשְׂחָק ומִגְרָשׁ יש שורש (ג־ד־ל, שׂ־ח־ק, ג־ר־ש) בתוך התבנית מִקְטָל, וה-מ&#x27; היא חלק מהמשקל.">
+          <div class="mc-group" data-qid="mc4" data-explain="מסירים מהמילה מַחְשְׁבוֹן את הצורן וֹן - ונשארת מילה קיימת, מַחְשֵׁב. לכן בסיס+צורן. במִגְדָּל, מִשְׂחָק ומִגְרָשׁ יש שורש (ג־ד־ל, שׂ־ח־ק, ג־ר־ש) בתוך התבנית מִקְטָל, וה-מ' היא חלק מהמשקל.">
             <label class="mc-option" data-value="a" data-correct="false"><input type="radio" name="mc4"> מִגְדָּל</label>
             <label class="mc-option" data-value="b" data-correct="false"><input type="radio" name="mc4"> מִשְׂחָק</label>
             <label class="mc-option" data-value="c" data-correct="true"><input type="radio" name="mc4"> מַחְשְׁבוֹן</label>
@@ -385,7 +377,7 @@ loadStudentInfo();
 loadAnswers();
 </script>
 
-<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">↑</button>
 <script>
 (function(){
   var btn = document.getElementById('toTopBtn');
