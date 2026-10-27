@@ -19,6 +19,8 @@
   var API = window.BM_API_URL;
   var page = location.pathname.split("/").pop() || "index.html";
   if(!API || page === "screen.html") return;
+  /* "איך התלמידים רואים" - תצוגת תלמיד נקייה, בלי סרגל המורה */
+  if(page === "live.html" && /[?&]preview=1(&|$)/.test(location.search)) return;
 
   var BASE = (function(){
     var s = document.currentScript && document.currentScript.src;

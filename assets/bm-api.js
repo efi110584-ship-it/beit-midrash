@@ -17,6 +17,11 @@ window.BM_API_URL = 'https://script.google.com/macros/s/AKfycbwkhxAu28oe10-Mli0t
   }
   function read(store, key){ var v = item(key); return v ? String(v.code) : ""; }
   window.BM_ROOM = function(){
+    /* "איך התלמידים רואים" (live.html?preview=1&room=1234): המורה רואה את הפעילות של הקוד שבחר, בלי להקליד קוד */
+    if(/(^|\/)live\.html$/.test(location.pathname)){
+      var qs = new URLSearchParams(location.search);
+      if(qs.get("preview") === "1" && /^\d{4}$/.test(qs.get("room") || "")) return qs.get("room");
+    }
     /* הקוד האחרון שהתלמיד הקליד (עם בקרה או בלי) - זה שתוקפו נגמר הכי מאוחר */
     var m = item("bm-lesson-mode"), k = item("bm-lesson-key");
     var v = !m ? k : !k ? m : ((k.until || 0) > (m.until || 0) ? k : m);

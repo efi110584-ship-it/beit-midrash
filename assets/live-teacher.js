@@ -107,6 +107,9 @@
     if(extra) q.push(extra);
     return "screen.html" + (q.length ? "?" + q.join("&") : "");
   }
+  /* "איך התלמידים רואים" - דף הפעילות של התלמיד, לקוד שנבחר, בלשונית חדשה (live.html?preview=1) */
+  function previewUrl(){ return "live.html?preview=1" + (room() ? "&room=" + encodeURIComponent(room()) : ""); }
+  var PREVIEW_BTN = '<a class="lt-btn lt-preview" href="live.html?preview=1" target="_blank" rel="noopener">👁 איך התלמידים רואים</a>';
 
   /* ---------- "לאיזו כיתה" - בחירת הקוד ---------- */
   var pickerUid = 0;
@@ -158,7 +161,7 @@
     root.classList.add("lt");
     root.innerHTML =
       (opts.header ? '<div class="lt-head"><h3 class="lt-h">פעילות חיה</h3>' +
-        '<a class="lt-btn lt-screen" href="screen.html" target="_blank" rel="noopener">📺 הצג על המקרן</a></div>' : '') +
+        '<span class="lt-btns"><a class="lt-btn lt-screen" href="screen.html" target="_blank" rel="noopener">📺 הצג על המקרן</a>' + PREVIEW_BTN + '</span></div>' : '') +
       '<div id="' + P + 'room"></div>' +
       '<div id="' + P + 'new" class="lt" style="gap:10px">' +
         '<p class="lt-sub">התלמידים רואים את הפעילות בסרגל הכלים בצד המסך, בכל דף שהם נמצאים בו (וגם בכפתור האדום בדף הבית). התוצאות מתעדכנות כאן ועל המקרן.</p>' +
@@ -186,7 +189,7 @@
         '<div class="lt-btns">' +
           '<button type="button" class="lt-btn" id="' + P + 'toggle"></button>' +
           '<button type="button" class="lt-btn" id="' + P + 'clear">סיום הפעילות</button>' +
-          (opts.header ? '' : '<a class="lt-btn lt-screen" href="screen.html" target="_blank" rel="noopener">📺 על המקרן</a>') +
+          (opts.header ? '' : '<a class="lt-btn lt-screen" href="screen.html" target="_blank" rel="noopener">📺 על המקרן</a>' + PREVIEW_BTN) +
         '</div>' +
         '<div class="lt-results" id="' + P + 'results" aria-live="polite"></div>' +
         '<details class="lt-people"><summary id="' + P + 'peopleSum">מי ענה</summary><div id="' + P + 'people"></div></details>' +
@@ -333,6 +336,7 @@
     }
     function links(){
       Array.prototype.forEach.call(root.querySelectorAll(".lt-screen"), function(a){ a.href = screenUrl(); });
+      Array.prototype.forEach.call(root.querySelectorAll(".lt-preview"), function(a){ a.href = previewUrl(); });
     }
     var asked = "";
     function load(){

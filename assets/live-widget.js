@@ -135,7 +135,7 @@
     function saveMine(id, v){ try{ localStorage.setItem(mineKey(id), JSON.stringify(v)); }catch(e){} }
     function msg(t, kind){ var m = $("lvMsg"); m.textContent = t || ""; m.className = "msg" + (kind ? " is-" + kind : ""); }
 
-    $("lvName").value = savedName();
+    $("lvName").value = savedName() || (opts.preview ? "המורה (בדיקה)" : "");
 
     function show(which){
       $("lvLoading").hidden = which !== "loading";
