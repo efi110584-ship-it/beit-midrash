@@ -61,8 +61,18 @@
 .bh-ctx{color:var(--ink-soft)}
 .bh-opt{margin:0;padding:.35rem .7rem;border-radius:10px;background:var(--teal-soft,#EEF4F2);font-weight:700;color:var(--ink)}
 .bh-src{margin:0;padding:.5rem .8rem;border-radius:10px;background:#FFF6E3;border:1px solid #E7C98B;color:#4A3208;font-size:.95rem !important;line-height:1.55 !important}
-.bh-key .bh-kh{display:block;margin:.35rem 0 .1rem;font-weight:700}
-.bh-keynote{margin:0;padding:.6rem .9rem;border-radius:12px;background:#EAF6EF;border:1px solid #2E7D4F;color:#14422A;font-size:.98rem;line-height:1.6}
+.bh-key .bh-kh{display:block;margin:.45rem 0 .1rem;font-weight:700}
+.bh-key .bh-kt{font-size:.9rem;color:#2E7D4F}
+.bh-key .bh-kq{display:block;margin:.1rem 0 .35rem;padding-bottom:.3rem;border-bottom:1px dashed #9CC8AE;font-weight:600;font-size:.92rem;color:#2E5E4E}
+.bh-key{overflow-wrap:anywhere}
+.bh-key p{margin:.2rem 0}
+.bh-key li{margin:.15rem 0}
+.bh-sub .bh-key{margin-top:.35rem}
+.bh-keys-off .bh-key{display:none}
+.bh-keynote{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem;margin:0;padding:.6rem .9rem;border-radius:12px;background:#EAF6EF;border:1px solid #2E7D4F;color:#14422A;font-size:.98rem;line-height:1.6}
+.bh-keynote span{flex:1 1 320px}
+.bh-keytoggle{flex:none;min-height:40px;padding:.3rem .9rem;border:1.5px solid #2E7D4F;border-radius:10px;background:#fff;color:#14422A;font:inherit;font-weight:700;cursor:pointer}
+.bh-keytoggle:focus-visible{outline:3px solid var(--focus-ring,#FF7A1A);outline-offset:2px}
 .bh-keynote[hidden]{display:none}
 .bh-subq .bh-letter,.bh-ctx .bh-letter{width:1.7rem;height:1.7rem;font-size:.95rem;vertical-align:middle;margin-inline-end:.3rem}
 .bh-cite{margin:0;font-size:.88rem !important;color:var(--ink-soft);line-height:1.5 !important}
@@ -102,7 +112,7 @@
 
 <main id="main-content" class="bh-wrap">
   <div class="bh-how"><p>בחרו נושא. בכל שאלה רשום מאיזה מועד בגרות היא. כתבו תשובה בתיבה של כל סעיף. כשהשאלה מבוססת על קטע, לחצו על "📄 הקטע שעליו מבוססת השאלה" כדי לקרוא אותו. כרזות, קריקטורות ותמונות מן השאלון מופיעות בתוך השאלה. בסוף הנושא אפשר לשלוח את התשובות למורה.</p></div>
-  <p class="bh-keynote" id="bhKeyNote" hidden><b>מחוון למורה:</b> בסוף כל שאלה מופיעות התשובות מתוך המחוון הרשמי של אותו מועד. הנוסח הועתק אוטומטית מקובצי המחוון, ולכן בתשובות שהיו בנויות כטבלה הסדר עלול להשתבש.</p>
+  <p class="bh-keynote" id="bhKeyNote" hidden><span><b>מחוון למורה:</b> מתחת לכל סעיף מופיעה התשובה מתוך המחוון הרשמי של אותו מועד. כשאי אפשר לחלק את התשובה לפי הסעיפים, היא מופיעה בתיבה אחת בסוף השאלה. הנוסח הועתק אוטומטית מקובצי המחוון, ולכן בתשובות שהיו בנויות כטבלה הסדר עלול להשתבש.</span><button type="button" class="bh-keytoggle" id="bhKeyToggle" aria-pressed="false">🙈 הסתרת התשובות</button></p>
   <div class="bh-tabs" role="tablist" aria-label="נושאים">
 <button type="button" class="bh-tab" role="tab" id="tab-raayonot" aria-controls="h-raayonot" aria-selected="true" tabindex="0"><span class="bh-no" aria-hidden="true">1</span><span class="bh-ic" aria-hidden="true">💡</span><span class="bh-nm">נאורות, לאומיות וסוציאליזם</span><span class="bh-count">12 שאלות</span></button>
 <button type="button" class="bh-tab" role="tab" id="tab-zramim" aria-controls="h-zramim" aria-selected="false" tabindex="-1"><span class="bh-no" aria-hidden="true">2</span><span class="bh-ic" aria-hidden="true">📚</span><span class="bh-nm">השכלה, אמנציפציה וזרמים דתיים</span><span class="bh-count">15 שאלות</span></button>
@@ -3033,36 +3043,87 @@
   if(!keyMode) return;
   var s = document.createElement('script'); s.src = 'assets/history-29281-key.js?v=2'; document.head.appendChild(s);
   function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
-  function box(lines, title){
-    var d = document.createElement('div');
-    d.className = 'bh-key';
-    var items = lines.map(function(l){ return /^## /.test(l) ? '<span class="bh-kh">' + esc(l.slice(3)) + '</span>' : (lines.length > 1 ? '<li>' + esc(l) + '</li>' : esc(l)); });
+  /* התאמת שורה מן המחוון לסעיף בשאלה - לפי המילים המשותפות (בלי מילות ההוראה) */
+  var STOP = /^(על|פי|מה|את|של|כי|אחד|אחת|שתי|שני|שלמדתם|הסבירו|הסבר|ציינו|ציין|הציגו|הצג|תארו|תאר|נמקו|נמק|כתבו|כתוב|השוו|הבחינו|זהו|בססו|הביאו|הדגימו|והסבירו|והסבר|והציגו|וציינו|או|גם|זה|זו|אשר|ב|ל|ה|ו|מ|ש|פסקה|הקטע|בקטע|מתוך|לדעתכם|לדעתך)$/;
+  function words(t){
+    return String(t).replace(/[֑-ׇ]/g, '').replace(/["'״׳()\[\].,:;?!–—\-/]/g, ' ').split(/\s+/).filter(function(w){ return w.length > 1 && !STOP.test(w); });
+  }
+  function score(line, sub){
+    var a = words(line), b = words(sub);
+    if(!a.length || !b.length) return 0;
+    var set = {}; b.forEach(function(w){ set[w] = 1; });
+    var hit = a.filter(function(w){ return set[w]; }).length;
+    return hit / Math.max(Math.min(a.length, b.length), 1);
+  }
+  /* שורות המחוון -> HTML: שורה שמתחילה במקף או בנקודה = פריט ברשימה; שורה קצרה שנגמרת בנקודתיים = כותרת משנה */
+  function linesHtml(lines){
     var html = '', open = false;
-    items.forEach(function(x){
-      var li = x.indexOf('<li>') === 0;
-      if(li && !open){ html += '<ul>'; open = true; }
-      if(!li && open){ html += '</ul>'; open = false; }
-      html += x;
+    lines.forEach(function(l){
+      var t = String(l).trim(), m = t.match(/^[–•\-]\s*(.*)$/);
+      if(!/[\u05D0-\u05EAA-Za-z0-9]/.test(t)) return;   /* שורות ריקות לכתיבה (_____) מקובץ המחוון */
+      if(/^## /.test(t)){
+        if(open){ html += '</ul>'; open = false; }
+        html += '<span class="bh-kh">' + esc(t.slice(3)) + '</span>'; return;
+      }
+      if(m){ if(!open){ html += '<ul>'; open = true; } html += '<li>' + esc(m[1]) + '</li>'; return; }
+      if(open){ html += '</ul>'; open = false; }
+      html += (t.length <= 70 && /:$/.test(t)) ? '<span class="bh-kh">' + esc(t) + '</span>' : '<p>' + esc(t) + '</p>';
     });
     if(open) html += '</ul>';
-    d.innerHTML = '<b>' + title + '</b>' + html;
+    return html;
+  }
+  function box(lines, title, head){
+    var d = document.createElement('div');
+    d.className = 'bh-key';
+    d.innerHTML = '<b class="bh-kt">' + title + '</b>' + (head ? '<span class="bh-kq">' + esc(head) + '</span>' : '') + linesHtml(lines);
     return d;
+  }
+  /* מחלקים את התשובה של השאלה לפי הסעיפים: כל כותרת במחוון (או שורה שזהה כמעט לנוסח הסעיף) פותחת קטע,
+     והקטע מוצג מתחת לסעיף שהכי דומה לו. אם אי אפשר לחלק בביטחון - תיבה אחת בסוף השאלה, כמו קודם. */
+  function split(lines, subs){
+    var blocks = [], cur = null, last = -1;
+    for(var i = 0; i < lines.length; i++){
+      var l = String(lines[i]), isH = /^## /.test(l), text = isH ? l.slice(3) : l;
+      var best = -1, bs = 0;
+      if(!/^[–•\-]/.test(l) && text.length < 260){
+        subs.forEach(function(sq, j){ if(j <= last) return; var sc = score(text, sq.textContent); if(sc > bs){ bs = sc; best = j; } });
+      }
+      if(best >= 0 && bs >= (isH ? 0.5 : 0.75)){
+        cur = { sub:best, head:text, exact:bs >= 0.9 && (isH || text.length <= subs[best].textContent.length + 10), lines:[] };   /* שורה ארוכה מנוסח הסעיף - מציגים אותה, כי יש בה גם תוכן */
+        blocks.push(cur); last = best;
+      } else if(cur){
+        cur.lines.push(isH ? '## ' + text : l);   /* כותרת שלא מתאימה לסעיף - נשארת כותרת משנה בתוך הקטע */
+      } else {
+        return null;   /* תשובה לפני הסעיף הראשון */
+      }
+    }
+    return blocks.length ? blocks : null;
   }
   function render(){
     if(!window.H29_KEY || !document.documentElement.classList.contains('ak-on') || document.querySelector('.bh-key')) return;
     document.getElementById('bhKeyNote').hidden = false;
-    fields.forEach(function(f){
-      var lines = window.H29_KEY[f.getAttribute('data-id')];
-      if(!lines || !lines.length) return;
-      f.parentNode.insertBefore(box(lines, '✓ מתוך המחוון'), f.nextSibling);
-      f.hidden = true;
-    });
     Array.prototype.forEach.call(document.querySelectorAll('[data-qkey]'), function(el){
       var lines = window.H29_KEY['q:' + el.getAttribute('data-qkey')];
       if(!lines || !lines.length) return;
-      el.appendChild(box(lines, '✓ התשובות מתוך המחוון'));
-      el.hidden = false;
-      Array.prototype.forEach.call(el.parentNode.querySelectorAll('textarea.answer'), function(f){ f.hidden = true; });
+      var art = el.closest('.bh-q');
+      var subs = Array.prototype.slice.call(art.querySelectorAll('.bh-subq'));
+      Array.prototype.forEach.call(art.querySelectorAll('textarea.answer'), function(f){ f.hidden = true; });
+      var blocks = subs.length ? split(lines, subs) : null;
+      if(blocks){
+        blocks.forEach(function(b){
+          var wrap = subs[b.sub].parentNode;
+          wrap.appendChild(box(b.lines.length ? b.lines : ['(אין תשובה במחוון לסעיף הזה)'], '✓ מתוך המחוון', b.exact ? '' : b.head));
+        });
+      } else {
+        el.appendChild(box(lines, '✓ התשובות מתוך המחוון (לכל השאלה)'));
+        el.hidden = false;
+      }
+    });
+    var t = document.getElementById('bhKeyToggle');
+    if(t) t.addEventListener('click', function(){
+      var off = document.documentElement.classList.toggle('bh-keys-off');
+      t.textContent = off ? '👁 הצגת התשובות' : '🙈 הסתרת התשובות';
+      t.setAttribute('aria-pressed', String(off));
     });
   }
   s.onload = render;
