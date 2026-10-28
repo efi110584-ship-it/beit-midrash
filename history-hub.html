@@ -1,139 +1,139 @@
-<!doctype html>
-<html lang="he" dir="rtl" data-css="theme hub-2">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>היסטוריה - כיתה י"א</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&amp;family=Frank+Ruhl+Libre:wght@500;700;900&amp;family=Heebo:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=9">
-
-<style id="hx-style">
-.hx-wrap{max-width:860px;margin:0 auto;padding:0 16px 2rem;display:flex;flex-direction:column;gap:1.2rem}
-.hx-card{background:var(--paper-card);border:1px solid var(--paper-line);border-radius:16px;padding:1.2rem 1.3rem;box-shadow:var(--shadow)}
-.hx-card h2{margin:0 0 .7rem;font-size:1.3rem;color:var(--ink);text-wrap:balance;display:flex;align-items:center;gap:.5rem}
-.hx-card h3{margin:1rem 0 .4rem;font-size:1.08rem;color:var(--ink)}
-.hx-card p,.hx-card li{font-size:1.05rem;line-height:1.75;color:var(--m-text,var(--ink))}
-.hx-card p{margin:0 0 .6rem}
-.hx-card ul{margin:0 0 .4rem;padding-inline-start:1.3rem}
-.hx-lead{font-size:1.15rem !important;font-weight:500}
-.hx-key{background:var(--teal-soft);border-inline-start:5px solid var(--teal);border-radius:12px;padding:.8rem 1rem;margin:.4rem 0}
-.hx-key p{margin:0}
-.hx-terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.7rem;margin:0;padding:0;list-style:none}
-.hx-terms li{background:#fff;border:1px solid var(--paper-line);border-radius:12px;padding:.7rem .9rem;line-height:1.6}
-.hx-terms b{display:block;color:var(--teal);font-size:1.05rem}
-.hx-flow{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.5rem;counter-reset:hx}
-.hx-flow li{position:relative;background:#fff;border:1px solid var(--paper-line);border-radius:12px;padding:.65rem .9rem .65rem .9rem;padding-inline-start:3rem;counter-increment:hx}
-.hx-flow li::before{content:counter(hx);position:absolute;inset-inline-start:.8rem;top:.65rem;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--ink);color:#fff;font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center}
-.hx-table-wrap{overflow-x:auto;margin:.4rem 0}
-.hx-table{width:100%;border-collapse:collapse;min-width:520px;background:#fff;border-radius:12px;overflow:hidden}
-.hx-table th,.hx-table td{border:1px solid var(--paper-line);padding:.6rem .7rem;text-align:start;vertical-align:top;font-size:1rem;line-height:1.6}
-.hx-table thead th{background:var(--ink);color:#fff}
-.hx-table tbody th{background:var(--teal-soft);color:var(--ink);width:24%}
-.hx-streams{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.8rem}
-.hx-stream{background:#fff;border:1px solid var(--paper-line);border-top:5px solid var(--acc,var(--teal));border-radius:12px;padding:.8rem 1rem}
-.hx-stream h3{margin:0 0 .2rem}
-.hx-who{margin:0 0 .5rem !important;font-size:.95rem !important;color:var(--ink-soft) !important}
-.hx-time{list-style:none;margin:0;padding:0;border-inline-start:3px solid var(--gold-soft);display:flex;flex-direction:column;gap:.55rem}
-.hx-time li{position:relative;padding-inline-start:1.1rem}
-.hx-time li::before{content:"";position:absolute;inset-inline-start:-.5rem;top:.6rem;width:.75rem;height:.75rem;border-radius:50%;background:var(--gold)}
-.hx-time b{font-variant-numeric:tabular-nums;color:var(--gold-text)}
-.hx-tip{background:#FFF7E6;border:1px dashed var(--gold-soft);border-radius:12px;padding:.8rem 1rem}
-.hx-tip p{margin:0}
-.hx-src{font-size:.9rem !important;color:var(--ink-soft) !important;margin:0 !important}
-.hx-extra{background:#F3F0FA;border:1px dashed #9C8CC4;border-radius:12px;padding:.8rem 1rem;margin:.4rem 0}
-.hx-extra-tag{display:inline-block;margin-bottom:.4rem;padding:.15rem .6rem;border-radius:999px;background:#E4DDF4;color:#4B3A7A;font-size:.85rem;font-weight:700}
-.hx-cta{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
-.hx-q{background:#fff;border:1px solid var(--paper-line);border-radius:12px;padding:.8rem 1rem;margin:.7rem 0;display:flex;flex-direction:column;gap:.45rem}
-.hx-q-label{font-weight:700;color:var(--teal)}
-.hx-q p{margin:0}
-.hx-q textarea.answer{width:100%;min-height:7rem;box-sizing:border-box;padding:.7rem;border:1px solid var(--paper-line);border-radius:10px;font:inherit;font-size:1rem;line-height:1.6;background:#FBFCFD;resize:vertical}
-.hx-q textarea.answer:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
-@media print{.hx-cta,.toolbar,.bm-send-panel{display:none !important}}
-</style>
-
-<style>
-.history-categories{max-width:1000px;margin:0 auto;padding:24px 20px 64px;min-height:350px}.preview-notice{font-size:.9rem;color:#53667e;margin:0 0 24px}.category-buttons{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;padding:12px 0 28px}.category-button{font:inherit;cursor:pointer;display:flex;align-items:center;flex-direction:column;justify-content:center;gap:10px;background:#fff;border:1px solid #d5dfec;border-radius:18px;padding:18px 20px;width:210px;min-height:160px;color:#102d58;box-shadow:0 4px 15px #102d5809;transition:transform .15s,border-color .15s}.category-button:hover{transform:translateY(-3px);border-color:#3f6e66}.category-button:focus-visible{outline:3px solid #e37c23;outline-offset:4px}.category-button[aria-expanded=true]{border:2px solid #3f6e66;background:#f3faf7}.category-icon{font-size:25px;display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:#e9f2ee}.category-button:nth-child(2) .category-icon{background:#f5eddf}.category-button:nth-child(3) .category-icon{background:#eeebf8}.category-label{font-size:1.08rem;font-weight:700}.category-button small{font-size:.85rem;color:#66778d}.category-panel{border-top:1px solid #d5dfec;padding-top:24px}.category-panel[hidden]{display:none}.category-panel>h2{font-size:1.35rem;margin:0 0 20px;color:#102d58}.history-resource{display:block!important;background:#fff;border:1px solid #dce4ed;border-radius:14px;padding:20px 24px;margin:14px 0;box-shadow:none!important}.history-resource .card-head{padding:0!important;display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:none!important;border:none!important}.history-resource .card-tag{font-size:.8rem}.history-resource .card-title{font-size:1.15rem!important;margin:0!important}.history-resource .cat-letter{font-size:.9rem;width:30px;height:30px}.history-resource .card-body{padding:10px 0 0!important}.history-resource p{font-size:1rem;line-height:1.7;margin:8px 0}.history-resource .btn,.history-resource .chip-link{min-height:44px;font-size:.95rem}.category-prompt{text-align:center;color:#66778d;padding:30px 10px}header{padding-bottom:35px!important}body{min-height:100vh}@media(max-width:600px){.history-categories{padding:18px 14px 40px}.category-buttons{gap:10px;flex-wrap:nowrap}.category-button{width:calc((100% - 20px)/3);min-width:0;min-height:145px;padding:12px 5px;border-radius:12px}.category-label{font-size:.88rem}.category-button small{font-size:.72rem}.category-icon{width:42px;height:42px;font-size:23px}.history-resource{padding:16px}.history-resource .card-title{font-size:1.05rem!important}}@media(prefers-reduced-motion:reduce){.category-button{transition:none}}@media print{.category-buttons,.preview-notice,.category-prompt{display:none}.category-panel[hidden]{display:block}}
-</style><script src="assets/a11y.js"></script>
-<style>body{background:radial-gradient(ellipse at 95% 15%,#cce5df88 0,transparent 36%),radial-gradient(ellipse at 5% 70%,#dfd7f080 0,transparent 40%),#f1f4f8!important}header{position:relative;overflow:hidden;background:linear-gradient(115deg,#1d5360,#102d58 65%,#263f70)!important;min-height:180px!important;padding:45px 24px 38px!important;border-bottom:5px solid #d6b16a;box-shadow:0 10px 30px #102d5814}header:after{content:'היסטוריה';position:absolute;left:5%;top:15px;font-weight:900;font-size:clamp(48px,8vw,110px);color:#ffffff08;pointer-events:none}header h1{color:#fff!important;font-size:2.7rem!important;margin:12px 0!important}header .eyebrow{color:#edcd91!important;letter-spacing:.06em}header .sub{color:#e2eaf4!important;font-size:1.1rem!important}.history-categories{padding-top:30px}.category-button{border-top:4px solid #4d9282;box-shadow:0 7px 22px #1836580f;background:linear-gradient(#fff,#f7fbf9)}.category-button:nth-child(2){border-top-color:#c6994e;background:linear-gradient(#fff,#fffbf3)}.category-button:nth-child(3){border-top-color:#9582bd;background:linear-gradient(#fff,#f9f6ff)}.category-icon{background:#d9eee7;box-shadow:0 3px 8px #246a5310}.category-button:nth-child(2) .category-icon{background:#f3e3c5}.category-button:nth-child(3) .category-icon{background:#e6ddf5}.category-button[aria-expanded=true]{border-color:#4d9282;box-shadow:0 6px 24px #3977601c}.category-panel{border-top-color:#b8cbd6}.category-panel>h2{padding-inline-start:14px;border-inline-start:4px solid #c6994e}.category-prompt{color:#405670}.history-resource{box-shadow:0 5px 18px #18365808!important}nav.breadcrumbs{background:#fff9!important}@media(max-width:600px){header{min-height:145px!important;padding:28px 18px!important}header h1{font-size:2.1rem!important}header:after{display:none}}
-</style><style>
-body{background:radial-gradient(ellipse at 95% 45%,#85cfc860,transparent 45%),radial-gradient(ellipse at 5% 80%,#bcb0e96b,transparent 44%),#ecf1f6!important}header{background:linear-gradient(115deg,#125a71 0%,#133867 48%,#322764 100%)!important;border:0!important;min-height:250px!important;padding:40px 24px 58px!important;isolation:isolate}header:before{content:'';position:absolute;width:280px;height:280px;border:46px solid #e4bb6a33;border-radius:50%;left:5%;top:-95px;z-index:-1;box-shadow:0 0 0 36px #ffffff05,0 0 0 70px #ffffff04}header:after{content:'עבר · הווה · עתיד';font-size:clamp(28px,4vw,60px)!important;left:5%!important;top:auto!important;bottom:32px;color:#ffffff16!important}header h1{font-size:3.8rem!important;letter-spacing:-.04em;line-height:1.15!important}header .eyebrow{font-size:.9rem!important;display:inline-block;background:#ffffff12;border:1px solid #ffffff30;padding:7px 18px;border-radius:24px}header .sub{max-width:480px;margin:14px auto!important;font-size:1.12rem!important}.history-categories{max-width:1040px!important;padding-top:26px!important}.category-buttons{gap:22px!important;padding-bottom:32px!important}.category-button{width:250px!important;min-height:185px!important;border:0!important;border-radius:22px!important;color:#fff!important;background:linear-gradient(140deg,#15786d,#084f50)!important;box-shadow:0 12px 24px #135a5430!important;position:relative;overflow:hidden;gap:12px!important;padding:20px!important}.category-button:after{content:'';position:absolute;width:125px;height:125px;border:22px solid #ffffff0b;border-radius:50%;inset-inline-end:-48px;bottom:-48px;pointer-events:none}.category-button:nth-child(2){background:linear-gradient(140deg,#b47a29,#875020)!important;box-shadow:0 12px 24px #9c622328!important}.category-button:nth-child(3){background:linear-gradient(140deg,#8053b1,#523783)!important;box-shadow:0 12px 24px #62418e28!important}.category-button:hover{transform:translateY(-5px)!important;filter:brightness(1.08)}.category-button[aria-expanded=true]{outline:3px solid #fff;outline-offset:3px;box-shadow:0 0 0 7px #17365835,0 15px 30px #18365824!important}.category-icon{background:#ffffff1c!important;border:1px solid #ffffff30;border-radius:18px!important;width:58px!important;height:58px!important;font-size:29px!important;box-shadow:none!important}.category-label{font-size:1.18rem!important}.category-button small{color:#ffffffe0!important;font-size:.88rem!important}.category-prompt{background:#ffffff80;border:1px solid #ffffff;border-radius:15px;font-size:1.05rem;padding:22px!important}.category-panel{background:#ffffff9c;border:1px solid #fff!important;border-radius:22px;padding:26px!important;box-shadow:0 12px 40px #1633530a}.category-panel>h2{border:0!important;padding:0!important;font-size:1.5rem!important}.history-resource{border:0!important;border-inline-start:5px solid #268d7d!important;box-shadow:0 4px 16px #1836580c!important}.history-resource .btn.primary{background:#154b6d!important;border-radius:10px!important}.history-resource .card-tag{background:#e7eee9;color:#285e4f}.preview-notice{color:#3b5369!important}#panel-bagrut .history-resource{border-inline-start-color:#b98230!important}#panel-exam .history-resource{border-inline-start-color:#8c64b5!important}@media(max-width:600px){header{padding:30px 16px 36px!important;min-height:220px!important}header h1{font-size:3rem!important}header:before{left:-110px;top:-130px}header .sub{font-size:1rem!important}.category-buttons{gap:10px!important;flex-wrap:nowrap!important}.category-button{width:calc((100% - 20px)/3)!important;padding:14px 5px!important;min-height:160px!important;border-radius:15px!important;gap:10px!important}.category-label{font-size:.9rem!important}.category-button small{font-size:.72rem!important}.category-icon{width:44px!important;height:44px!important;font-size:24px!important;border-radius:13px!important}.category-panel{padding:16px!important}}@media print{header{background:white!important;min-height:0!important}header h1,header .sub,header .eyebrow{color:#102d58!important}header:before,header:after{display:none!important}.category-panel{box-shadow:none;background:white}}
-</style></head>
-<body>
-<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
-<nav class="breadcrumbs" aria-label="נתיב ניווט">
-  <a href="index.html">הכיתה הדיגיטלית</a><span class="sep">›</span>
-  <a href="index.html#tab-ya">כיתה י"א</a><span class="sep">›</span>
-  <span class="current">היסטוריה</span>
-</nav>
-<header>
-  <div class="eyebrow">היסטוריה · כיתה י"א</div>
-  <h1>היסטוריה</h1>
-  <p class="sub">סיכומים ברורים ושאלות בגרות. בחרו נושא כדי להתחיל.</p>
-</header>
-
-
-<main id="main-content" class="history-categories"><div class="category-buttons" aria-label="קטגוריות בהיסטוריה"><button type="button" class="category-button" id="category-learn" aria-expanded="false" aria-controls="panel-learn"><span class="category-icon" aria-hidden="true">📚</span><span class="category-label">סיכומים לפי נושא</span><small>3 נושאי לימוד</small></button><button type="button" class="category-button" id="category-bagrut" aria-expanded="false" aria-controls="panel-bagrut"><span class="category-icon" aria-hidden="true">📝</span><span class="category-label">שאלות בגרות</span><small>מאגר שאלות</small></button><button type="button" class="category-button" id="category-exam" aria-expanded="false" aria-controls="panel-exam"><span class="category-icon" aria-hidden="true">📅</span><span class="category-label">הכנה למבחן</span><small>המבחן הקרוב: 4.11</small></button></div><section id="panel-learn" class="category-panel" aria-labelledby="category-learn" hidden=""><h2>סיכומים לפי נושא</h2><section class="history-resource" id="t-leumiut">
-      <div class="card-head">
-        <span class="card-tag">נושא 1</span>
-        <h3 class="card-title"><span class="cat-letter" style="--acc:#3F6E66;">1</span>לאומיות</h3>
-      </div>
-      <div class="card-body">
-        <p>מה זו לאומיות, שני הדגמים - אתנית-היסטורית וליברלית-אזרחית - ומה גרם ללאומיות להתפשט באירופה במאה ה-19.</p>
-        <p style="display:flex; gap:.5rem; flex-wrap:wrap;">
-          <a class="btn primary" href="history-leumiut.html">📖 לסיכום</a>
-          <a class="chip-link" href="history-leumiut.html#q-leumiut"><span class="chip-icon" aria-hidden="true">📝</span>שאלת בגרות</a>
-        </p>
-      </div>
-    </section>
-    <section class="history-resource" id="t-sotzializm">
-      <div class="card-head">
-        <span class="card-tag">נושא 2</span>
-        <h3 class="card-title"><span class="cat-letter" style="--acc:#8B4A34;">2</span>סוציאליזם</h3>
-      </div>
-      <div class="card-body">
-        <p>הרקע לצמיחת הסוציאליזם - המהפכה התעשייתית ומצוקת הפועלים - ושלושת הזרמים: אוטופי, מהפכני ודמוקרטי-חוקתי.</p>
-        <p style="display:flex; gap:.5rem; flex-wrap:wrap;">
-          <a class="btn primary" href="history-sotzializm.html">📖 לסיכום</a>
-          <a class="chip-link" href="history-sotzializm.html#q-sotzializm"><span class="chip-icon" aria-hidden="true">📝</span>שאלת בגרות</a>
-        </p>
-      </div>
-    </section>
-    <section class="history-resource" id="t-milchama">
-      <div class="card-head">
-        <span class="card-tag">נושא 3</span>
-        <h3 class="card-title"><span class="cat-letter" style="--acc:#4B3A7A;">3</span>מלחמת העולם הראשונה</h3>
-      </div>
-      <div class="card-body">
-        <p>הגורמים למלחמה (עקיפים וישיר), מאפייני המלחמה, למה היא נחשבת למשבר של המודרנה, וחוזה ורסאי.</p>
-        <p style="display:flex; gap:.5rem; flex-wrap:wrap;">
-          <a class="btn primary" href="history-milchama.html">📖 לסיכום</a>
-          <a class="chip-link" href="history-milchama.html#q-milchama"><span class="chip-icon" aria-hidden="true">📝</span>שאלת בגרות</a>
-        </p>
-      </div>
-    </section>
-    </section><section id="panel-bagrut" class="category-panel" aria-labelledby="category-bagrut" hidden=""><h2>שאלות בגרות</h2><section class="history-resource" id="t-bagrut29281">
-      <div class="card-head">
-        <span class="card-tag">מאגר בגרות</span>
-        <h3 class="card-title"><span class="cat-letter" style="--acc:#7A4A12;">✎</span>כל שאלות הבגרות (שאלון 29281)</h3>
-      </div>
-      <div class="card-body">
-        <p>195 שאלות בגרות מכל המועדים שיש להם מחוון, מקיץ תשע"ז עד חורף תשפ"ו, מסודרות לפי 8 נושאים. בסוף כל נושא שולחים את התשובות למורה.</p>
-        <p style="display:flex; gap:.5rem; flex-wrap:wrap;">
-          <a class="btn primary" href="history-29281.html">📝 למאגר השאלות</a>
-        </p>
-      </div>
-    </section>
-  </section><section id="panel-exam" class="category-panel" aria-labelledby="category-exam" hidden=""><h2>הכנה למבחן</h2><section class="history-resource" id="t-exam-4-11"><div class="card-head"><span class="card-tag">מבחן · 4.11</span><h3 class="card-title"><span class="cat-letter" style="--acc:#3F6E66;" aria-hidden="true">📝</span>שאלות בגרות למבחן בהיסטוריה</h3></div><div class="card-body"><p>16 שאלות חזרה לקראת המבחן ב־4.11, עם מקום לתשובות, שמירה במכשיר ושליחה למורה.</p><p><a class="btn primary" href="history-exam-4-11.html">📝 לשאלות החזרה למבחן</a></p></div></section>
-    </section><p id="categoryPrompt" class="category-prompt">בחרו קטגוריה למעלה כדי לראות את החומרים.</p></main><nav class="chapter-nav" aria-label="ניווט">
-  <span></span>
-  <a href="index.html#tab-ya">↺ חזרה לכיתה י"א</a>
-  <span></span>
-</nav>
-<footer class="credit">היסטוריה · כיתה י"א</footer>
-<script>(function(){var buttons=document.querySelectorAll('.category-button'),prompt=document.getElementById('categoryPrompt');buttons.forEach(function(b){b.addEventListener('click',function(){var wasOpen=b.getAttribute('aria-expanded')==='true';buttons.forEach(function(other){other.setAttribute('aria-expanded','false');document.getElementById(other.getAttribute('aria-controls')).hidden=true;});if(!wasOpen){b.setAttribute('aria-expanded','true');document.getElementById(b.getAttribute('aria-controls')).hidden=false;}prompt.hidden=!wasOpen;});});var target=location.hash&&document.getElementById(location.hash.slice(1));var panel=target&&target.closest('.category-panel');if(panel){var b=document.getElementById(panel.getAttribute('aria-labelledby'));if(b)b.click();}})();</script><script src="assets/bm-api.js"></script>
-<script src="assets/lesson-mode.js"></script>
-<script src="assets/class-dock.js"></script>
-</body>
+<!DOCTYPE html>
+<html lang="he" dir="rtl" data-css="theme hub-2">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>היסטוריה - כיתה י"א</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=9">
+
+<style id="hx-style">
+.hx-wrap{max-width:860px;margin:0 auto;padding:0 16px 2rem;display:flex;flex-direction:column;gap:1.2rem}
+.hx-card{background:var(--paper-card);border:1px solid var(--paper-line);border-radius:16px;padding:1.2rem 1.3rem;box-shadow:var(--shadow)}
+.hx-card h2{margin:0 0 .7rem;font-size:1.3rem;color:var(--ink);text-wrap:balance;display:flex;align-items:center;gap:.5rem}
+.hx-card h3{margin:1rem 0 .4rem;font-size:1.08rem;color:var(--ink)}
+.hx-card p,.hx-card li{font-size:1.05rem;line-height:1.75;color:var(--m-text,var(--ink))}
+.hx-card p{margin:0 0 .6rem}
+.hx-card ul{margin:0 0 .4rem;padding-inline-start:1.3rem}
+.hx-lead{font-size:1.15rem !important;font-weight:500}
+.hx-key{background:var(--teal-soft);border-inline-start:5px solid var(--teal);border-radius:12px;padding:.8rem 1rem;margin:.4rem 0}
+.hx-key p{margin:0}
+.hx-terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.7rem;margin:0;padding:0;list-style:none}
+.hx-terms li{background:#fff;border:1px solid var(--paper-line);border-radius:12px;padding:.7rem .9rem;line-height:1.6}
+.hx-terms b{display:block;color:var(--teal);font-size:1.05rem}
+.hx-flow{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.5rem;counter-reset:hx}
+.hx-flow li{position:relative;background:#fff;border:1px solid var(--paper-line);border-radius:12px;padding:.65rem .9rem .65rem .9rem;padding-inline-start:3rem;counter-increment:hx}
+.hx-flow li::before{content:counter(hx);position:absolute;inset-inline-start:.8rem;top:.65rem;width:1.6rem;height:1.6rem;border-radius:50%;background:var(--ink);color:#fff;font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center}
+.hx-table-wrap{overflow-x:auto;margin:.4rem 0}
+.hx-table{width:100%;border-collapse:collapse;min-width:520px;background:#fff;border-radius:12px;overflow:hidden}
+.hx-table th,.hx-table td{border:1px solid var(--paper-line);padding:.6rem .7rem;text-align:start;vertical-align:top;font-size:1rem;line-height:1.6}
+.hx-table thead th{background:var(--ink);color:#fff}
+.hx-table tbody th{background:var(--teal-soft);color:var(--ink);width:24%}
+.hx-streams{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.8rem}
+.hx-stream{background:#fff;border:1px solid var(--paper-line);border-top:5px solid var(--acc,var(--teal));border-radius:12px;padding:.8rem 1rem}
+.hx-stream h3{margin:0 0 .2rem}
+.hx-who{margin:0 0 .5rem !important;font-size:.95rem !important;color:var(--ink-soft) !important}
+.hx-time{list-style:none;margin:0;padding:0;border-inline-start:3px solid var(--gold-soft);display:flex;flex-direction:column;gap:.55rem}
+.hx-time li{position:relative;padding-inline-start:1.1rem}
+.hx-time li::before{content:"";position:absolute;inset-inline-start:-.5rem;top:.6rem;width:.75rem;height:.75rem;border-radius:50%;background:var(--gold)}
+.hx-time b{font-variant-numeric:tabular-nums;color:var(--gold-text)}
+.hx-tip{background:#FFF7E6;border:1px dashed var(--gold-soft);border-radius:12px;padding:.8rem 1rem}
+.hx-tip p{margin:0}
+.hx-src{font-size:.9rem !important;color:var(--ink-soft) !important;margin:0 !important}
+.hx-extra{background:#F3F0FA;border:1px dashed #9C8CC4;border-radius:12px;padding:.8rem 1rem;margin:.4rem 0}
+.hx-extra-tag{display:inline-block;margin-bottom:.4rem;padding:.15rem .6rem;border-radius:999px;background:#E4DDF4;color:#4B3A7A;font-size:.85rem;font-weight:700}
+.hx-cta{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center}
+.hx-q{background:#fff;border:1px solid var(--paper-line);border-radius:12px;padding:.8rem 1rem;margin:.7rem 0;display:flex;flex-direction:column;gap:.45rem}
+.hx-q-label{font-weight:700;color:var(--teal)}
+.hx-q p{margin:0}
+.hx-q textarea.answer{width:100%;min-height:7rem;box-sizing:border-box;padding:.7rem;border:1px solid var(--paper-line);border-radius:10px;font:inherit;font-size:1rem;line-height:1.6;background:#FBFCFD;resize:vertical}
+.hx-q textarea.answer:focus-visible{outline:3px solid var(--focus-ring);outline-offset:2px}
+@media print{.hx-cta,.toolbar,.bm-send-panel{display:none !important}}
+</style>
+
+<script src="assets/a11y.js"></script>
+</head>
+<body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">הכיתה הדיגיטלית</a><span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י&quot;א</a><span class="sep">›</span>
+  <span class="current">היסטוריה</span>
+</nav>
+<header>
+  <div class="eyebrow">היסטוריה · כיתה י"א</div>
+  <h1>היסטוריה</h1>
+  <p class="sub">סיכומים ברורים ושאלות בגרות. בחרו נושא כדי להתחיל.</p>
+</header>
+
+
+<main id="main-content">
+  <div class="grid">
+    <section class="card" id="t-leumiut">
+      <div class="card-head">
+        <span class="card-tag">נושא 1</span>
+        <h2 class="card-title"><span class="cat-letter" style="--acc:#3F6E66;">1</span>לאומיות</h2>
+      </div>
+      <div class="card-body">
+        <p>מה זו לאומיות, שני הדגמים - אתנית-היסטורית וליברלית-אזרחית - ומה גרם ללאומיות להתפשט באירופה במאה ה-19.</p>
+        <p style="display:flex; gap:.5rem; flex-wrap:wrap;">
+          <a class="btn primary" href="history-leumiut.html">📖 לסיכום</a>
+          <a class="chip-link" href="history-leumiut.html#q-leumiut"><span class="chip-icon" aria-hidden="true">📝</span>שאלת בגרות</a>
+        </p>
+      </div>
+    </section>
+    <section class="card" id="t-sotzializm">
+      <div class="card-head">
+        <span class="card-tag">נושא 2</span>
+        <h2 class="card-title"><span class="cat-letter" style="--acc:#8B4A34;">2</span>סוציאליזם</h2>
+      </div>
+      <div class="card-body">
+        <p>הרקע לצמיחת הסוציאליזם - המהפכה התעשייתית ומצוקת הפועלים - ושלושת הזרמים: אוטופי, מהפכני ודמוקרטי-חוקתי.</p>
+        <p style="display:flex; gap:.5rem; flex-wrap:wrap;">
+          <a class="btn primary" href="history-sotzializm.html">📖 לסיכום</a>
+          <a class="chip-link" href="history-sotzializm.html#q-sotzializm"><span class="chip-icon" aria-hidden="true">📝</span>שאלת בגרות</a>
+        </p>
+      </div>
+    </section>
+    <section class="card" id="t-milchama">
+      <div class="card-head">
+        <span class="card-tag">נושא 3</span>
+        <h2 class="card-title"><span class="cat-letter" style="--acc:#4B3A7A;">3</span>מלחמת העולם הראשונה</h2>
+      </div>
+      <div class="card-body">
+        <p>הגורמים למלחמה (עקיפים וישיר), מאפייני המלחמה, למה היא נחשבת למשבר של המודרנה, וחוזה ורסאי.</p>
+        <p style="display:flex; gap:.5rem; flex-wrap:wrap;">
+          <a class="btn primary" href="history-milchama.html">📖 לסיכום</a>
+          <a class="chip-link" href="history-milchama.html#q-milchama"><span class="chip-icon" aria-hidden="true">📝</span>שאלת בגרות</a>
+        </p>
+      </div>
+    </section>
+    <section class="card" id="t-exam-4-11"><div class="card-head"><span class="card-tag">מבחן · 4.11</span><h2 class="card-title"><span class="cat-letter" style="--acc:#3F6E66;" aria-hidden="true">📝</span>שאלות בגרות למבחן בהיסטוריה</h2></div><div class="card-body"><p>16 שאלות חזרה לקראת המבחן ב־4.11, עם מקום לתשובות, שמירה במכשיר ושליחה למורה.</p><p><a class="btn primary" href="history-exam-4-11.html">📝 לשאלות החזרה למבחן</a></p></div></section>
+    <section class="card" id="t-bagrut29281">
+      <div class="card-head">
+        <span class="card-tag">מאגר בגרות</span>
+        <h2 class="card-title"><span class="cat-letter" style="--acc:#7A4A12;">✎</span>כל שאלות הבגרות (שאלון 29281)</h2>
+      </div>
+      <div class="card-body">
+        <p>195 שאלות בגרות מכל המועדים שיש להם מחוון, מקיץ תשע"ז עד חורף תשפ"ו, מסודרות לפי 8 נושאים. בסוף כל נושא שולחים את התשובות למורה.</p>
+        <p style="display:flex; gap:.5rem; flex-wrap:wrap;">
+          <a class="btn primary" href="history-29281.html">📝 למאגר השאלות</a>
+        </p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<nav class="chapter-nav" aria-label="ניווט">
+  <span></span>
+  <a href="index.html#tab-ya">↺ חזרה לכיתה י"א</a>
+  <span></span>
+</nav>
+<footer class="credit">היסטוריה · כיתה י"א</footer>
+<script src="assets/bm-api.js"></script>
+<script src="assets/lesson-mode.js"></script>
+<script src="assets/class-dock.js"></script>
+</body>
 </html>
