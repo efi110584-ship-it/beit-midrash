@@ -414,7 +414,11 @@
     body.innerHTML = (many ? '<div class="bmd-btns">' + res.lessons.map(function(x){
         return '<button type="button" class="bmd-btn" data-live-code="' + esc(x.code) + '"' + (x.code === res.lesson.code ? ' aria-pressed="true" style="font-weight:700"' : ' aria-pressed="false"') + '>' + (x.cls ? 'כיתה ' + (x.cls === "יב" ? 'י"ב' : 'י"א') + ' · ' : '') + 'קוד ' + esc(x.code) + '</button>';
       }).join("") + '</div>' : '') +
-      '<div class="bmd-btns" id="bmdLiveSound"><button type="button" class="bmd-btn" data-nav-here="' + esc(res.lesson.code) + '" style="font-weight:700">📍 העבר את הכיתה לכאן</button></div>' +
+      '<div class="bmd-btns" id="bmdLiveSound"><button type="button" class="bmd-btn" data-nav-here="' + esc(res.lesson.code) + '" style="font-weight:700">📍 העבר את הכיתה לכאן</button>' +
+        '<button type="button" class="bmd-btn" data-nav-here="' + esc(res.lesson.code) + '" data-nav-lock="1" style="font-weight:700" title="התלמידים יעברו לכאן ולא יוכלו לעבור לדף או למשימה אחרת עד שתשחררו">🔒 העבר ונעל כאן</button>' +
+        (res.lesson.nav && /#bmlock-/.test(String(res.lesson.nav.url)) ? '<button type="button" class="bmd-btn" data-nav-here="' + esc(res.lesson.code) + '" data-nav-free="' + esc(String(res.lesson.nav.url).split("#")[0]) + '">🔓 שחרור הנעילה</button>' : '') +
+        '</div>' +
+      (res.lesson.nav && /#bmlock-/.test(String(res.lesson.nav.url)) ? '<p class="bmd-note" style="font-weight:700">🔒 הכיתה נעולה על הדף הזה. התלמידים לא יכולים לעבור לדף או למשימה אחרת.</p>' : '') +
       (res.lesson.nav ? '<p class="bmd-note">נשלחו ל: <b>' + esc(res.lesson.nav.label || res.lesson.nav.url) + '</b> · כבר שם: ' +
         list.filter(function(x){ return x.page === String(res.lesson.nav.url).split("#")[0] && x.status !== "bye"; }).length + ' מתוך ' +
         list.filter(function(x){ return x.status !== "bye"; }).length + '</p>' : '') +
@@ -489,10 +493,13 @@
         nb.disabled = true; nb.textContent = "שולחים…";
         /* גם המשימה שהמורה עומד בה ("משימה 3 מתוך 8") - התלמידים יגיעו בדיוק אליה */
         var pos = window.BeitMidrashSteps && window.BeitMidrashSteps.position ? window.BeitMidrashSteps.position() : null;
-        var hash = pos ? "#bmstep-" + pos.step + (pos.key && /^[\w-]+$/.test(pos.key) ? "-" + pos.key : "") : "";
-        post({ action:"lessonNav", code:nb.getAttribute("data-nav-here"), url:page + hash, label:pageLabel() + (pos ? " · משימה " + pos.step : "") }).then(function(res){
+        var lockIt = nb.hasAttribute("data-nav-lock"), freePage = nb.getAttribute("data-nav-free");
+        var hash = pos ? "#bm" + (lockIt ? "lock" : "step") + "-" + pos.step + (pos.key && /^[\w-]+$/.test(pos.key) ? "-" + pos.key : "") : (lockIt ? "#bmlock-0" : "");
+        var navUrl = freePage ? freePage + "#bmfree-0" : page + hash;
+        var navLabel = freePage ? "שחרור הנעילה" : pageLabel() + (pos ? " · משימה " + pos.step : "") + (lockIt ? " · 🔒 נעול" : "");
+        post({ action:"lessonNav", code:nb.getAttribute("data-nav-here"), url:navUrl, label:navLabel }).then(function(res){
           if(authMsg(res)) return;
-          if(res && res.ok) toastMsg("✓ נשלח. התלמידים יעברו לדף הזה תוך כ-15 שניות.");
+          if(res && res.ok) toastMsg(freePage ? "✓ הנעילה שוחררה. התלמידים יכולים לעבור בין המשימות." : lockIt ? "✓ נשלח ונעול. התלמידים יעברו לכאן תוך כ-15 שניות וישארו כאן עד שתשחררו." : "✓ נשלח. התלמידים יעברו לדף הזה תוך כ-15 שניות.");
           else toastMsg((res && res.error) || "השליחה לא הצליחה.");
           setTimeout(liveTick, 4000);   /* שההודעה תישאר רגע לפני שהחלון מתרענן */
         }).catch(function(){ toastMsg("אין חיבור לשרת כרגע."); setTimeout(liveTick, 4000); });

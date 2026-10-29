@@ -119,6 +119,18 @@
     if(info.single || info.all) return null;
     return { step: info.current + 1, key: inst.key };
   }
+  /* נעילה (assets/lesson-mode.js): המורה נעל את הכיתה על המשימה - בלי "הקודם/הבא", מעבר בין משימות או "הצג את כל השאלות" */
+  var locked = false;
+  function lock(on){
+    locked = !!on;
+    if(locked && !document.getElementById("bmStepsLockCss")){
+      var st = document.createElement("style"); st.id = "bmStepsLockCss";
+      st.textContent = "html.bm-steps-locked .bm-prev,html.bm-steps-locked .bm-next,html.bm-steps-locked .bm-pills,html.bm-steps-locked .bm-path," +
+        "html.bm-steps-locked .bm-view-btn,html.bm-steps-locked .bm-pnav-task button,html.bm-steps-locked .bm-pnav-ch,html.bm-steps-locked .bm-review-go{display:none !important}";
+      document.head.appendChild(st);
+    }
+    document.documentElement.classList.toggle("bm-steps-locked", locked);
+  }
   function goTo(step, key){
     var inst = key ? instances.filter(function(i){ return i.key === key; })[0] : shownInst();
     if(!inst) return;
@@ -128,11 +140,12 @@
     }
     view = "steps";
     applyAll();
-    inst.nav.go(Math.max(0, (parseInt(step, 10) || 1) - 1));
+    var idx = Math.max(0, (parseInt(step, 10) || 1) - 1);
+    if(locked) inst.goSilent(idx); else inst.nav.go(idx);
   }
   window.BeitMidrashSteps = { requiredPercent: requiredPercent, isAtEnd: isAtEnd,
                               navs: instances.map(function(i){ return i.nav; }),
-                              position: position, goTo: goTo };
+                              position: position, goTo: goTo, lock: lock };
   document.dispatchEvent(new CustomEvent("bm-steps-ready"));
 
   function applyAll(){ instances.forEach(function(i){ i.apply(); }); }
@@ -180,9 +193,9 @@
 
   applyAll();
   /* הגעה מ"העבר את הכיתה לכאן" עם משימה: page.html#bmstep-3 (או #bmstep-3-<נושא>) */
-  var stepHash = location.hash.match(/^#bmstep-(\d+)(?:-([\w-]+))?$/);
+  var stepHash = location.hash.match(/^#bm(?:step|lock)-(\d+)(?:-([\w-]+))?$/);
   if(stepHash){
-    goTo(+stepHash[1], stepHash[2] || "");
+    if(+stepHash[1] > 0) goTo(+stepHash[1], stepHash[2] || "");
     try{ history.replaceState(null, "", location.pathname + location.search + (stepHash[2] ? "#" + stepHash[2] : "")); }catch(e){}
   }
   // "המקום האחרון" - לפי הנושא הפתוח (בדף עם לשוניות) או הדף עצמו
@@ -620,6 +633,7 @@
     var lastDoneState = null;
 
     viewBtn.addEventListener("click", function(){
+      if(locked) return;
       view = view === "all" ? "steps" : "all";
       save(KEY_VIEW, view);
       applyAll();
@@ -648,6 +662,7 @@
     }
 
     function go(idx, fromUser){
+      if(locked && fromUser) return;   /* המורה נעל את הכיתה על משימה - התלמיד לא עובר לבד */
       current = Math.max(0, Math.min(tasks.length, idx));
       lastDoneState = null;
       save(KEY_POS, current);
@@ -851,6 +866,7 @@
     return {
       root: root,
       key: c.key,
+      goSilent: function(i){ go(i, false); },
       apply: apply,
       refresh: refresh,
       saveLast: saveLast,

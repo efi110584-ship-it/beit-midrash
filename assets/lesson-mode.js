@@ -390,6 +390,17 @@
     });
     document.body.appendChild(bar);
   }
+  /* נעילה על דף: בדף הנעול - בלי מעבר בין משימות; בדף אחר באתר - חוזרים לדף הנעול */
+  function lockHash(){ return "#bmlock-" + st.lock.step + (st.lock.key ? "-" + st.lock.key : ""); }
+  function applyLock(){
+    var on = !!(st && st.lock && st.lock.page === page);
+    var S = window.BeitMidrashSteps;
+    if(S && S.lock) S.lock(on && st.lock.step > 0);   /* step 0 = נעילה על הדף בלבד (המורה היה בתצוגה המלאה) */
+    if(bar){
+      var tx = bar.querySelector(".bm-lm-text");
+      if(tx) tx.textContent = on ? "🔒 המורה נעל את הדף: נשארים בדף ובמשימה הזאת" : "מצב שיעור: המורה רואה יציאות מהדף והדבקת טקסט";
+    }
+  }
   function toast(text){
     var t = document.createElement("div");
     t.className = "bm-lm-toast";
@@ -410,12 +421,18 @@
       var k = JSON.parse(localStorage.getItem("bm-lesson-key") || "null") || { code:st.code, page:"", until:st.until };
       if(k.code === st.code){ k.nav = target; localStorage.setItem("bm-lesson-key", JSON.stringify(k)); }
     }catch(e){}
-    /* כבר בדף הזה: רק עוברים למשימה שהמורה עומד בה (#bmstep-3) */
-    var stepM = String(nav.url || "").match(/#bmstep-(\d+)(?:-([\w-]+))?$/);
+    /* #bmstep-3 = משימה; #bmlock-3 = משימה + נעילה (התלמיד לא יוצא מהדף ומהמשימה); #bmfree-0 = שחרור הנעילה */
+    var stepM = String(nav.url || "").match(/#bm(step|lock|free)-(\d+)(?:-([\w-]+))?$/);
+    st.lock = (stepM && stepM[1] === "lock") ? { page:target, step:+stepM[2], key:stepM[3] || "" } : null;
+    save();
+    applyLock();
     if(target === page){
-      if(stepM && window.BeitMidrashSteps && window.BeitMidrashSteps.goTo){
+      var S = window.BeitMidrashSteps;
+      if(stepM && stepM[1] !== "free" && +stepM[2] > 0 && S && S.goTo){
         toast("המורה מעביר את הכיתה" + (nav.label ? ": " + nav.label : "") + "…");
-        window.BeitMidrashSteps.goTo(+stepM[1], stepM[2] || "");
+        S.goTo(+stepM[2], stepM[3] || "");
+      } else if(stepM && stepM[1] === "free"){
+        toast("🔓 המורה שחרר את הנעילה. אפשר לעבור בין המשימות.");
       }
       return;
     }
@@ -533,6 +550,16 @@
   });
   document.addEventListener("click", function(e){
     var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
+    if(a && st.lock && st.lock.page === page){
+      try{
+        var lu = new URL(a.href, location.href);
+        if(lu.origin === location.origin && lu.pathname !== location.pathname){
+          e.preventDefault(); e.stopPropagation();
+          toast("🔒 המורה ביקש להישאר בדף הזה.");
+          return;
+        }
+      }catch(err){}
+    }
     if(!a || e.defaultPrevented || e.button > 0 || e.ctrlKey || e.metaKey || e.shiftKey) return;
     if(a.target && a.target !== "_self") return;
     try{ var u = new URL(a.href, location.href); if(u.origin === location.origin && u.pathname !== location.pathname) markNav(); }catch(err){}
@@ -559,7 +586,11 @@
   }
 
   function start(){
+    /* הכיתה נעולה על דף אחר - חוזרים אליו מיד */
+    if(st.lock && st.lock.page && st.lock.page !== page){ location.replace(st.lock.page + lockHash()); return; }
     showBar();
+    applyLock();
+    document.addEventListener("bm-steps-ready", applyLock);
     send("in", function(res){ leaves = res.leaves; save(); });
     document.addEventListener("visibilitychange", onVisibility);
     window.addEventListener("blur", onBlur);
