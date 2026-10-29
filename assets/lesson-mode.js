@@ -410,7 +410,15 @@
       var k = JSON.parse(localStorage.getItem("bm-lesson-key") || "null") || { code:st.code, page:"", until:st.until };
       if(k.code === st.code){ k.nav = target; localStorage.setItem("bm-lesson-key", JSON.stringify(k)); }
     }catch(e){}
-    if(target === page) return;
+    /* כבר בדף הזה: רק עוברים למשימה שהמורה עומד בה (#bmstep-3) */
+    var stepM = String(nav.url || "").match(/#bmstep-(\d+)(?:-([\w-]+))?$/);
+    if(target === page){
+      if(stepM && window.BeitMidrashSteps && window.BeitMidrashSteps.goTo){
+        toast("המורה מעביר את הכיתה" + (nav.label ? ": " + nav.label : "") + "…");
+        window.BeitMidrashSteps.goTo(+stepM[1], stepM[2] || "");
+      }
+      return;
+    }
     navigating = true;
     markNav();
     toast("המורה מעביר את הכיתה" + (nav.label ? ": " + nav.label : "") + "…");

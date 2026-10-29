@@ -487,7 +487,10 @@
       var nb = e.target.closest && e.target.closest("[data-nav-here]");
       if(nb){
         nb.disabled = true; nb.textContent = "שולחים…";
-        post({ action:"lessonNav", code:nb.getAttribute("data-nav-here"), url:page, label:pageLabel() }).then(function(res){
+        /* גם המשימה שהמורה עומד בה ("משימה 3 מתוך 8") - התלמידים יגיעו בדיוק אליה */
+        var pos = window.BeitMidrashSteps && window.BeitMidrashSteps.position ? window.BeitMidrashSteps.position() : null;
+        var hash = pos ? "#bmstep-" + pos.step + (pos.key && /^[\w-]+$/.test(pos.key) ? "-" + pos.key : "") : "";
+        post({ action:"lessonNav", code:nb.getAttribute("data-nav-here"), url:page + hash, label:pageLabel() + (pos ? " · משימה " + pos.step : "") }).then(function(res){
           if(authMsg(res)) return;
           if(res && res.ok) toastMsg("✓ נשלח. התלמידים יעברו לדף הזה תוך כ-15 שניות.");
           else toastMsg((res && res.error) || "השליחה לא הצליחה.");

@@ -110,8 +110,29 @@
     return need ? Math.round(done / need * 100) : 0;
   }
   function isAtEnd(){ return instances.every(function(i){ return i.atEnd(); }); }
+  /* "העבר את הכיתה לכאן" (assets/class-dock.js): המורה שולח גם את המשימה שהוא עומד בה.
+     position() - איפה המורה עומד (null בתצוגה המלאה / בדף בלי משימות);
+     goTo(step, key) - מעבר למשימה (1 = הראשונה), בתצוגה לפי משימות. key = הנושא בדף עם לשוניות. */
+  function shownInst(){ return instances.filter(function(i){ return !i.root.hidden && i.nav.shown(); })[0] || instances[0]; }
+  function position(){
+    var inst = shownInst(), info = inst.nav.info();
+    if(info.single || info.all) return null;
+    return { step: info.current + 1, key: inst.key };
+  }
+  function goTo(step, key){
+    var inst = key ? instances.filter(function(i){ return i.key === key; })[0] : shownInst();
+    if(!inst) return;
+    if(key && inst.root.hidden){
+      var tab = document.querySelector('[aria-controls="' + key + '"], [data-topic="' + key + '"]');
+      if(tab) tab.click();
+    }
+    view = "steps";
+    applyAll();
+    inst.nav.go(Math.max(0, (parseInt(step, 10) || 1) - 1));
+  }
   window.BeitMidrashSteps = { requiredPercent: requiredPercent, isAtEnd: isAtEnd,
-                              navs: instances.map(function(i){ return i.nav; }) };
+                              navs: instances.map(function(i){ return i.nav; }),
+                              position: position, goTo: goTo };
   document.dispatchEvent(new CustomEvent("bm-steps-ready"));
 
   function applyAll(){ instances.forEach(function(i){ i.apply(); }); }
@@ -158,6 +179,12 @@
   });
 
   applyAll();
+  /* הגעה מ"העבר את הכיתה לכאן" עם משימה: page.html#bmstep-3 (או #bmstep-3-<נושא>) */
+  var stepHash = location.hash.match(/^#bmstep-(\d+)(?:-([\w-]+))?$/);
+  if(stepHash){
+    goTo(+stepHash[1], stepHash[2] || "");
+    try{ history.replaceState(null, "", location.pathname + location.search + (stepHash[2] ? "#" + stepHash[2] : "")); }catch(e){}
+  }
   // "המקום האחרון" - לפי הנושא הפתוח (בדף עם לשוניות) או הדף עצמו
   var visibleInst = instances.filter(function(i){ return !i.root.hidden; })[0] || instances[0];
   visibleInst.saveLast();
@@ -823,6 +850,7 @@
 
     return {
       root: root,
+      key: c.key,
       apply: apply,
       refresh: refresh,
       saveLast: saveLast,

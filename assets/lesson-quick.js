@@ -101,7 +101,9 @@
     if(busy || !selected || !canSendPage())return;
     if(selected.until<=Date.now()){selected=null;render();message.textContent='תוקף הקוד הסתיים. התחילו שיעור חדש.';return;}
     var lesson=selected;busy=true;render();message.textContent='מעביר את כיתה '+className(lesson.cls)+' לדף הזה…';
-    post({action:'lessonNav',code:lesson.code,url:page,label:labelOfPage()})
+    var pos=window.BeitMidrashSteps&&window.BeitMidrashSteps.position?window.BeitMidrashSteps.position():null;
+    var hash=pos?'#bmstep-'+pos.step+(pos.key&&/^[\w-]+$/.test(pos.key)?'-'+pos.key:''):'';
+    post({action:'lessonNav',code:lesson.code,url:page+hash,label:labelOfPage()+(pos?' · משימה '+pos.step:'')})
       .then(function(){message.textContent='✓ נשלח לכיתה '+className(lesson.cls)+' · קוד '+lesson.code+'. התלמידים המחוברים יעברו לכאן בתוך כ־15 שניות.';})
       .catch(function(e){message.textContent=e.message;})
       .finally(function(){busy=false;render();});
