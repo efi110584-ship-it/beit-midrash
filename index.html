@@ -439,6 +439,12 @@
     var registry = getProgressRegistry();
     var byClass = {};
     filtered.forEach(function(u){ (byClass[u.class] = byClass[u.class] || []).push(u); });
+    /* בכל כיתה: כל ספרי התנ"ך ברצף, אחריהם תושב"ע, עברית והיסטוריה (בתוך כל מקצוע - לפי הסדר ב-units-data.js) */
+    var SUBJ_ORDER = ["תנך", "תושבע", "עברית", "היסטוריה"];
+    Object.keys(byClass).forEach(function(c){
+      var orig = byClass[c].slice(), pos = function(u){ var i = SUBJ_ORDER.indexOf(u.subject); return i === -1 ? 99 : i; };
+      byClass[c].sort(function(x, y){ return (pos(x) - pos(y)) || (orig.indexOf(x) - orig.indexOf(y)); });
+    });
 
     var classKeys = Object.keys(byClass).sort(function(a,b){
       var ia = CLASS_ORDER.indexOf(a), ib = CLASS_ORDER.indexOf(b);
