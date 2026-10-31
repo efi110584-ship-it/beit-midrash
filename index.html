@@ -454,7 +454,7 @@
       if(cls === "teacher"){
         html += teacherToolsHtml(byClass[cls]);
       } else {
-        html += subjectPanelsHtml(byClass[cls], registry);
+        html += subjectPanelsHtml(byClass[cls], registry, CLASS_ORDER.indexOf(cls));
       }
       html += '</section>';
     });
@@ -1819,19 +1819,25 @@
       '<span class="sb-go" aria-hidden="true">‹</span>' +
     '</a></li>';
   }
-  function subjectPanelsHtml(units, registry){
+  function subjectPanelsHtml(units, registry, clsIdx){
     var bySubj = {};
     units.forEach(function(u){ (bySubj[u.subject] = bySubj[u.subject] || []).push(u); });
     var panels = SUBJECT_PANELS.filter(function(p){ return bySubj[p.key]; });
     Object.keys(bySubj).forEach(function(k){
       if(!panels.some(function(p){ return p.key === k; })) panels.push({ key:k, cls:"subject-heb", label:SUBJECT_LABEL[k] || k, icon:"🗂️", unit:["יחידה","יחידות"] });
     });
-    var html = '<div class="subj-grid">';
+    var idOf = function(p){ return "subj-" + (clsIdx >= 0 ? clsIdx : "x") + "-" + p.cls.replace("subject-", ""); };
+    /* שורת קפיצה מהירה לכל מקצוע */
+    var html = '<nav class="subj-jump" aria-label="קפיצה למקצוע">' + panels.map(function(p){
+      return '<a class="subj-chip ' + p.cls + '" href="#' + idOf(p) + '"><span aria-hidden="true">' + p.icon + '</span>' +
+        escapeHtml(p.label) + '<span class="subj-chip-n">' + bySubj[p.key].length + '</span></a>';
+    }).join("") + '</nav>';
+    html += '<div class="subj-grid">';
     panels.forEach(function(p){
       var list = bySubj[p.key];
       var wide = list.length >= 3;
       var count = list.length === 1 ? p.unit[0] + " " + (p.unit[0] === "ספר" ? "אחד" : "אחת") : list.length + " " + p.unit[1];
-      html += '<section class="subj-panel ' + p.cls + (wide ? " is-wide" : "") + '" style="--n:' + list.length + '" aria-label="' + escapeAttr(p.label) + '">' +
+      html += '<section id="' + idOf(p) + '" class="subj-panel ' + p.cls + (wide ? " is-wide" : "") + '" style="--n:' + list.length + '" aria-label="' + escapeAttr(p.label) + '">' +
         '<h3 class="subj-head"><span class="subj-icon" aria-hidden="true">' + p.icon + '</span>' +
           '<span class="subj-name">' + escapeHtml(p.label) + '</span>' +
           '<span class="subj-count">' + escapeHtml(count) + '</span></h3>' +
