@@ -454,12 +454,7 @@
       if(cls === "teacher"){
         html += teacherToolsHtml(byClass[cls]);
       } else {
-        /* 4 כרטיסים - 2x2; 7 ומעלה עם שארית 1 - 4 בשורה; אחרת 3 בשורה */
-        var n = byClass[cls].length;
-        var cols = n <= 3 ? n : (n % 3 === 1 ? (n === 4 ? 2 : 4) : 3);
-        html += '<div class="unit-grid" style="--cols:' + cols + '">';
-        byClass[cls].forEach(function(u){ html += unitCardHtml(u, registry); });
-        html += '</div>';
+        html += subjectPanelsHtml(byClass[cls], registry);
       }
       html += '</section>';
     });
@@ -1796,6 +1791,54 @@
     if(!u.added) return false;
     var p = String(u.added).split("-"), d = new Date(+p[0], +p[1] - 1, +p[2]);
     return (Date.now() - d) / 86400000 < NEW_DAYS;
+  }
+
+  /* ============ דף הבית: יחידה אחת לכל מקצוע ============
+     כל ספרי התנ"ך יחד בבלוק אחד, כל תושב"ע יחד וכו' - במקום כרטיס נפרד לכל ספר. */
+  var SUBJECT_PANELS = [
+    { key:"תנך", cls:"subject-tnk", label:'תנ"ך', icon:"📖", unit:["ספר","ספרים"] },
+    { key:"תושבע", cls:"subject-tsb", label:'תושב"ע', icon:"📜", unit:["יחידה","יחידות"] },
+    { key:"עברית", cls:"subject-heb", label:"עברית", icon:"🔤", unit:["יחידה","יחידות"] },
+    { key:"היסטוריה", cls:"subject-hist", label:"היסטוריה", icon:"🏛️", unit:["יחידה","יחידות"] }
+  ];
+  function subjectBookHtml(u, registry){
+    var ONE = { "יחידות":"יחידה אחת", "פרקים":"פרק אחד", "נושאים":"נושא אחד", "מצוות":"מצווה אחת", "קטגוריות":"קטגוריה אחת" };
+    var meta = u.chapters === 1 && ONE[u.chaptersLabel] ? ONE[u.chaptersLabel] : u.chapters + " " + u.chaptersLabel;
+    var prog = unitProgress(u, registry), pct = prog.pct;
+    var badge = pct >= 100 ? '<span class="sb-badge is-done">✓ הושלם</span>'
+      : (pct > 0 ? '<span class="sb-badge is-doing">' + pct + '%</span>'
+      : (isNewUnit(u) ? '<span class="sb-badge">חדש</span>' : ''));
+    var bar = pct > 0 && pct < 100 ? '<span class="sb-bar" aria-hidden="true"><span style="width:' + pct + '%"></span></span>' : '';
+    var title = String(u.title).replace(/^עברית\s*-\s*/, "");
+    var aria = u.title + " - " + meta + (pct >= 100 ? " - הושלם" : (pct > 0 ? " - " + pct + "% הושלם" : ""));
+    return '<li><a class="sb-book" href="' + escapeAttr(u.url) + '" aria-label="' + escapeAttr(aria) + '">' +
+      '<span class="sb-emoji" aria-hidden="true">' + u.icon + '</span>' +
+      '<span class="sb-txt"><span class="sb-title">' + escapeHtml(title) + '</span>' +
+      '<span class="sb-meta">' + escapeHtml(meta) + '</span>' + bar + '</span>' +
+      badge +
+      '<span class="sb-go" aria-hidden="true">‹</span>' +
+    '</a></li>';
+  }
+  function subjectPanelsHtml(units, registry){
+    var bySubj = {};
+    units.forEach(function(u){ (bySubj[u.subject] = bySubj[u.subject] || []).push(u); });
+    var panels = SUBJECT_PANELS.filter(function(p){ return bySubj[p.key]; });
+    Object.keys(bySubj).forEach(function(k){
+      if(!panels.some(function(p){ return p.key === k; })) panels.push({ key:k, cls:"subject-heb", label:SUBJECT_LABEL[k] || k, icon:"🗂️", unit:["יחידה","יחידות"] });
+    });
+    var html = '<div class="subj-grid">';
+    panels.forEach(function(p){
+      var list = bySubj[p.key];
+      var wide = list.length >= 3;
+      var count = list.length === 1 ? p.unit[0] + " " + (p.unit[0] === "ספר" ? "אחד" : "אחת") : list.length + " " + p.unit[1];
+      html += '<section class="subj-panel ' + p.cls + (wide ? " is-wide" : "") + '" style="--n:' + list.length + '" aria-label="' + escapeAttr(p.label) + '">' +
+        '<h3 class="subj-head"><span class="subj-icon" aria-hidden="true">' + p.icon + '</span>' +
+          '<span class="subj-name">' + escapeHtml(p.label) + '</span>' +
+          '<span class="subj-count">' + escapeHtml(count) + '</span></h3>' +
+        '<ul class="subj-books">' + list.map(function(u){ return subjectBookHtml(u, registry); }).join("") + '</ul>' +
+      '</section>';
+    });
+    return html + '</div>';
   }
 
   function unitCardHtml(u, registry){
