@@ -113,16 +113,43 @@
 
   /* ---------- מה יש לשלוח ---------- */
   /* דף שמסמן חלק לשליחה (data-submit-scope) - שולחים רק אותו.
-     בלקט מצוות: שולחים רק את התשובות לשאלות הבגרות (הבדיקה והציון הם רק עליהן).
-     דף העבודה עצמו נשאר לתרגול, ולא נשלח. */
-  var BAGRUT_ONLY_UNITS = ['leket'];
+     בבראשית, ישעיהו, יונה, לקט מצוות ופתוח תפתח: בדף שיש בו חלק של שאלות בגרות
+     (section.card[data-stage="bagrut"], ובפתוח תפתח גם .bq-panel) שולחים רק את התשובות
+     לשאלות הבגרות. דף העבודה עצמו נשאר לתרגול, ולא נשלח. שם המטלה לא משתנה. */
+  var BAGRUT_ONLY_UNITS = ['leket', 'bereshit', 'yeshayahu', 'yonah', 'ptp'];
+  var BAGRUT_ROOT = 'section.card[data-stage="bagrut"], .bq-panel';
+  var BAGRUT_SCOPE = BAGRUT_ROOT + ', [data-bm-stage="bagrut"], .bagrut-block';
+  var bagrutRoots = Array.prototype.slice.call(document.querySelectorAll(BAGRUT_ROOT));
   var bagrutOnly = (function(){
     var T = window.BM_TASKS;
-    var where = T && T.findByPage(location.pathname.split('/').pop() || '');
-    return !!(where && BAGRUT_ONLY_UNITS.indexOf(where.unit.key) !== -1 && document.querySelector('.bagrut-block'));
+    var where = T && T.findByPage(PAGE);
+    return !!(where && BAGRUT_ONLY_UNITS.indexOf(where.unit.key) !== -1 && bagrutRoots.length);
   })();
+  /* בדפים האלה הכפתור עובר לסוף חלק שאלות הבגרות, יחד עם החלונית, "מה נשלח?" ו"נשלח לאחרונה" */
+  if(bagrutOnly){
+    var lastRoot = bagrutRoots[bagrutRoots.length - 1];
+    var host = lastRoot.matches('.bq-panel') ? lastRoot.parentElement : (lastRoot.querySelector('.card-body') || lastRoot);
+    var box = document.createElement('div');
+    box.className = 'bm-bagrut-send';
+    box.style.cssText = 'margin-top:1rem;padding-top:.9rem;border-top:1px dashed var(--paper-line, #DCE4F1);display:flex;flex-direction:column;gap:.6rem;align-items:flex-start';
+    btn.textContent = '📤 שלחו למורה את שאלות הבגרות';
+    box.appendChild(btn);
+    var info = null;
+    Array.prototype.some.call(document.querySelectorAll('.bm-save-info p, #printHelp p'), function(p){
+      if(/מה נשלח/.test(p.textContent)){ info = p; return true; }
+      return false;
+    });
+    if(!info) info = document.createElement('p');
+    info.innerHTML = '<span aria-hidden="true">📤</span> <b>מה נשלח?</b> נשלחים למורה השם, הכיתה והתשובות על שאלות הבגרות בלבד.';
+    info.style.margin = '0';
+    box.appendChild(info);
+    panel.style.alignSelf = 'stretch';
+    box.appendChild(panel);
+    if(lastEl) box.appendChild(lastEl);
+    host.appendChild(box);
+  }
   function inScope(el){
-    if(bagrutOnly) return !!el.closest('.bagrut-block');
+    if(bagrutOnly) return !!el.closest(BAGRUT_SCOPE);
     var sc = document.querySelectorAll('[data-submit-scope]');
     if(!sc.length) return true;
     return Array.prototype.some.call(sc, function(s){ return s.contains(el); });
@@ -295,6 +322,7 @@
   function applyStepsGate(){
     var steps = window.BeitMidrashSteps;
     if(!steps || typeof steps.isAtEnd !== 'function') return; /* אין חלוקה למשימות בדף הזה */
+    if(bagrutOnly) return; /* הכפתור יושב בסוף שאלות הבגרות ושולח רק אותן - אין צורך לחכות למשימה האחרונה */
     var atEnd = steps.isAtEnd();
     btn.disabled = !atEnd;
     btn.title = atEnd ? '' : 'השליחה נפתחת במשימה האחרונה בדף';
