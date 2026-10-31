@@ -35,6 +35,8 @@
   quickScript.src = BASE + "lesson-quick.js?v=20261024-1";
   document.head.appendChild(quickScript);
   var isTeacher = !!token();
+  /* פרטים שמיועדים רק למורה (למשל תוויות מיקוד הבגרות) - מוצגים רק כשהמורה מחובר */
+  try{ if(isTeacher || sessionStorage.getItem("teacherAreaUnlocked") === "1") document.documentElement.classList.add("bm-teacher-view"); }catch(e){}
   if(isTeacher && page === "index.html") return;   /* בדף הבית יש למורה את האזור האישי */
 
   function esc(s){
