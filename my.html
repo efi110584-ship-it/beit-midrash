@@ -4,197 +4,341 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>האזור האישי שלי | הכיתה הדיגיטלית</title>
-<meta name="description" content="האזור האישי של התלמיד: כניסה עם תעודת זהות וסיסמה, מבחנים ומשימות קרובים, ההתקדמות שלי, והעבודות שלי עם ציונים ומשוב">
+<meta name="description" content="האזור האישי של התלמיד: משימות, מבחנים, ההתקדמות שלי, והעבודות שלי עם ציונים ומשוב">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{ --navy:#0B2A5B; --blue:#123A78; --orange:#FF7A1A; --orange-deep:#C2410C; --ink:#0E1B33; --muted:#56637A; --line:#DCE4F1; --bg:#EEF3FB; --card:#fff; --ok:#0D8A63; --err:#B42318; --soft:#F5F8FD; }
+  :root{
+    --bg:#F4EFE4; --paper:#FFFDF7; --cream:#FCF9F2; --card:#fff; --soft:#F3EEE2;
+    --teal:#124F56; --teal2:#1D6A70; --teal3:#147984; --ink:#14223B; --muted:#5C6572; --line:#E3D6BC; --line2:#F0EADC;
+    --gold:#B88A2E; --orange:#E8650C; --orange-deep:#C2410C; --ok:#1F8A5B; --ok-bg:#E7F5EF; --warn-bg:#FFF1D6; --err:#B42318;
+    --top:#123A78;
+  }
   *{ box-sizing:border-box; }
-  body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Heebo","Rubik",Arial,sans-serif; font-size:17px; line-height:1.55; }
-  .visually-hidden{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
-  .skip-link{ position:absolute; top:-60px; inset-inline-start:12px; background:#fff; padding:8px 12px; border-radius:8px; z-index:10; }
-  .skip-link:focus{ top:12px; }
+  html{ -webkit-text-size-adjust:100%; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Heebo",Arial,sans-serif; font-size:17px; line-height:1.55; }
   [hidden]{ display:none !important; }
-  header{ background:var(--navy); color:#fff; padding:14px 16px 22px; }
-  .top{ max-width:720px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:10px; }
-  .top a{ color:#fff; text-decoration:none; font-size:.95rem; opacity:.9; }
-  .top a:hover{ text-decoration:underline; }
-  .tag{ display:inline-flex; align-items:center; gap:7px; padding:3px 12px; border-radius:999px; background:rgba(255,255,255,.14); font-weight:700; font-size:.92rem; }
-  .hello{ max-width:720px; margin:14px auto 0; }
-  .hello h1{ margin:0; font-family:"Rubik",sans-serif; font-weight:700; font-size:clamp(1.6rem,4.5vw,2.2rem); line-height:1.2; text-wrap:balance; }
-  .hello p{ margin:4px 0 0; color:#C3CFDD; }
-  main{ max-width:720px; margin:0 auto; padding:18px 16px 60px; display:flex; flex-direction:column; gap:14px; }
-  .card{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px; box-shadow:0 2px 10px rgba(11,42,91,.05); }
-  .card h2{ margin:0 0 4px; font-family:"Rubik",sans-serif; font-size:1.2rem; color:var(--navy); }
-  .card .sub{ margin:0 0 12px; color:var(--muted); font-size:.95rem; }
-  label{ display:block; font-weight:600; margin:10px 0 4px; }
-  input{ width:100%; font:inherit; font-size:1.05rem; padding:10px 12px; border:1.5px solid #C6D2E6; border-radius:10px; background:#fff; color:var(--ink); }
-  input:focus-visible, button:focus-visible, a:focus-visible{ outline:3px solid var(--orange); outline-offset:2px; }
-  .id-input{ letter-spacing:.12em; font-variant-numeric:tabular-nums; direction:ltr; text-align:right; }
-  .btns{ display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
-  .btn{ font:inherit; font-weight:700; border:0; border-radius:999px; padding:10px 20px; min-height:44px; cursor:pointer; background:var(--navy); color:#fff; }
-  .btn:hover{ background:var(--blue); }
+  a{ color:inherit; }
+  .visually-hidden{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  .skip-link{ position:absolute; top:-60px; inset-inline-start:12px; background:#fff; padding:8px 12px; border-radius:8px; z-index:50; }
+  .skip-link:focus{ top:12px; }
+  :focus-visible{ outline:3px solid var(--orange); outline-offset:2px; }
+  .serif{ font-family:"Frank Ruhl Libre",Georgia,serif; }
+
+  /* ---------- פס עליון ---------- */
+  .topbar{ background:var(--top); color:#fff; }
+  .topbar-in{ max-width:1320px; margin:0 auto; padding:10px 16px; display:flex; align-items:center; gap:12px; }
+  .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; color:#fff; min-width:0; }
+  .brand-mark{ flex:none; width:34px; height:34px; border-radius:10px; background:rgba(255,255,255,.14); display:flex; align-items:center; justify-content:center; font-size:1.1rem; }
+  .brand b{ font-weight:800; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .topbar .back{ margin-inline-start:auto; color:#fff; text-decoration:none; font-size:.95rem; opacity:.92; white-space:nowrap; }
+  .topbar .back:hover{ text-decoration:underline; }
+
+  /* ---------- כניסה ---------- */
+  .login-wrap{ max-width:980px; margin:28px auto 60px; padding:0 16px; }
+  .login-card{ display:grid; grid-template-columns:1fr 1fr; background:var(--paper); border:1px solid var(--line); border-radius:24px; overflow:hidden; box-shadow:0 14px 40px rgba(20,34,59,.10); }
+  .login-art{ position:relative; min-height:420px; background:#15575e url("assets/teacher-dashboard-study-hero.png") center/cover no-repeat; display:flex; align-items:flex-end; }
+  .login-art::before{ content:""; position:absolute; inset:0; background:linear-gradient(0deg, rgba(18,79,86,.92) 0%, rgba(18,79,86,.55) 45%, rgba(18,79,86,.05) 100%); }
+  .login-art div{ position:relative; padding:26px 28px; color:#FFF8E9; }
+  .login-art h2{ margin:0 0 6px; font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size:1.9rem; line-height:1.2; }
+  .login-art p{ margin:0; color:#DCEAE6; }
+  .login-form{ padding:30px 32px; display:flex; flex-direction:column; }
+  .login-form h1{ margin:0 0 4px; font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size:1.8rem; color:var(--teal); }
+  .sub{ margin:0 0 12px; color:var(--muted); font-size:.95rem; }
+  label{ display:block; font-weight:700; margin:12px 0 5px; }
+  input{ width:100%; font:inherit; font-size:1.05rem; padding:11px 14px; border:1.5px solid #D6C8A8; border-radius:12px; background:#fff; color:var(--ink); }
+  input:focus-visible{ border-color:var(--teal3); }
+  .id-input{ letter-spacing:.14em; font-variant-numeric:tabular-nums; direction:ltr; text-align:right; }
+  .btns{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  .btn{ font:inherit; font-weight:800; border:0; border-radius:999px; padding:11px 24px; min-height:46px; cursor:pointer; background:var(--teal); color:#fff; }
+  .btn:hover{ background:var(--teal2); }
   .btn[disabled]{ opacity:.6; cursor:default; }
-  .btn.ghost{ background:transparent; color:var(--navy); border:1.5px solid #C6D2E6; }
-  .btn.ghost:hover{ background:var(--soft); }
-  .msg{ margin:10px 0 0; font-weight:600; min-height:1.2em; }
-  .msg.err{ color:var(--err); }
-  .note{ margin:12px 0 0; color:var(--muted); font-size:.9rem; }
-  .who{ display:flex; align-items:center; gap:8px; margin:0 0 6px; color:var(--muted); font-size:.95rem; }
-  .who b{ color:var(--ink); }
-  .exams{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
-  .exam{ display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:center; padding:10px 12px; border:1px solid var(--line); border-radius:12px; background:var(--soft); }
-  .exam.soon{ border-color:#F6B98A; background:#FFF4EA; }
-  .exam-date{ display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:62px; padding:6px 8px; border-radius:10px; background:#fff; border:1px solid var(--line); font-variant-numeric:tabular-nums; line-height:1.15; }
-  .exam-date b{ font-size:1.15rem; color:var(--navy); }
+  .btn.ghost{ background:transparent; color:var(--teal); border:1.5px solid var(--line); }
+  .btn.ghost:hover{ background:var(--cream); }
+  .msg{ margin:10px 0 0; font-weight:700; min-height:1.2em; color:var(--err); }
+  .note{ margin:14px 0 0; color:var(--muted); font-size:.88rem; }
+
+  /* ---------- מבנה האזור: תפריט בצד + תוכן ---------- */
+  .shell{ max-width:1320px; margin:20px auto 40px; padding:0 16px; display:grid; grid-template-columns:250px minmax(0,1fr); gap:20px; align-items:start; }
+  .side{ position:sticky; top:16px; background:linear-gradient(180deg,#FCF8EE,#F5EFE2); border:1px solid var(--line); border-radius:22px; padding:18px 14px; display:flex; flex-direction:column; gap:6px; }
+  .me{ display:flex; align-items:center; gap:12px; padding:4px 6px 16px; margin-bottom:6px; border-bottom:1px solid var(--line); }
+  .avatar{ flex:none; width:48px; height:48px; border-radius:50%; background:var(--teal); color:#FFF6DF; display:flex; align-items:center; justify-content:center; font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size:1.25rem; }
+  .me b{ display:block; font-size:1.05rem; line-height:1.25; overflow-wrap:anywhere; }
+  .me span{ font-size:.86rem; color:var(--muted); }
+  .me .avatar{ color:#FFF6DF; font-size:1.25rem; }
+  .nav{ display:flex; align-items:center; gap:12px; width:100%; padding:11px 12px; border:0; border-radius:14px; background:transparent; color:var(--teal); font:inherit; font-weight:700; font-size:1rem; text-align:right; cursor:pointer; }
+  .nav:hover{ background:rgba(18,79,86,.07); }
+  .nav[aria-current="page"]{ background:var(--teal); color:#fff; box-shadow:0 4px 12px rgba(18,79,86,.25); }
+  .nav-ic{ flex:none; width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:#fff; border:1px solid var(--line); font-size:1.1rem; }
+  .nav[aria-current="page"] .nav-ic{ background:rgba(255,255,255,.16); border-color:transparent; }
+  .nav-n{ margin-inline-start:auto; min-width:24px; height:24px; padding:0 7px; border-radius:999px; background:var(--orange); color:#fff; font-size:.8rem; font-weight:800; display:inline-flex; align-items:center; justify-content:center; }
+  .nav-n[data-soft]{ background:#fff; color:var(--teal); border:1px solid var(--line); }
+  .nav[aria-current="page"] .nav-n{ background:#FFF6DF; color:var(--teal); border-color:transparent; }
+  .side-foot{ margin-top:10px; padding-top:12px; border-top:1px solid var(--line); }
+  .side-foot .btn{ width:100%; min-height:40px; padding:8px 14px; font-size:.92rem; }
+
+  .content{ min-width:0; background:var(--paper); border:1px solid var(--line); border-radius:22px; padding:24px 26px 30px; box-shadow:0 10px 30px rgba(20,34,59,.06); }
+  .panel-h{ margin:0 0 4px; font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size:1.9rem; color:var(--ink); display:flex; align-items:center; gap:10px; }
+  .panel-h .ic{ font-size:1.5rem; }
+  .panel > .sub{ margin-bottom:18px; }
+  .empty{ margin:6px 0; color:var(--muted); }
+
+  /* ---------- הבית שלי ---------- */
+  .hero{ position:relative; border-radius:20px; overflow:hidden; background:#15575e url("assets/teacher-dashboard-study-hero.png") center/cover no-repeat; color:#FFF8E9; isolation:isolate; margin-bottom:18px; }
+  .hero::before{ content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(270deg, rgba(18,79,86,.96) 0%, rgba(18,79,86,.86) 45%, rgba(18,79,86,.35) 75%, rgba(18,79,86,.15) 100%); }
+  .hero-in{ padding:28px 30px; max-width:640px; }
+  .hero small{ color:#CFE3E1; font-size:.95rem; }
+  .hero h2{ margin:4px 0 8px; font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size:clamp(1.8rem,3.6vw,2.5rem); line-height:1.15; text-wrap:balance; }
+  .hero p{ margin:0 0 16px; color:#E4ECE6; }
+  .resume{ display:inline-flex; align-items:center; gap:12px; max-width:100%; padding:11px 18px; border-radius:999px; background:#FFF1D2; color:var(--teal); text-decoration:none; font-weight:800; box-shadow:0 4px 12px rgba(0,0,0,.15); }
+  .resume:hover{ background:#FFE7B8; }
+  .resume span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; }
+  .resume em{ flex:none; font-style:normal; padding:1px 9px; border-radius:999px; background:var(--teal); color:#fff; font-size:.85rem; }
+
+  .tiles{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-bottom:20px; }
+  .tile{ position:relative; display:flex; flex-direction:column; gap:5px; min-width:0; padding:16px 18px; border:1px solid var(--line); border-radius:18px; background:#fff; color:var(--ink); font:inherit; text-align:right; cursor:pointer; }
+  .tile:hover{ border-color:#CDB98A; box-shadow:0 8px 20px rgba(20,34,59,.08); transform:translateY(-1px); }
+  .tile-lbl{ display:flex; align-items:center; gap:8px; color:var(--muted); font-weight:700; font-size:.95rem; padding-inline-end:18px; }
+  .tile-ic{ width:30px; height:30px; border-radius:9px; display:inline-flex; align-items:center; justify-content:center; background:var(--soft); font-size:1rem; }
+  .tile-num{ font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size:2.4rem; line-height:1; color:var(--teal); font-variant-numeric:tabular-nums; }
+  .tile-meta{ font-size:.86rem; color:var(--muted); min-height:1.3em; }
+  .tile-go{ position:absolute; inset-inline-end:16px; top:16px; color:var(--gold); font-weight:800; }
+  .tile.hot{ border-color:#F2BE93; background:#FFF8F0; } .tile.hot .tile-num{ color:var(--orange-deep); }
+  .tile.good .tile-num{ color:var(--ok); }
+  @media (prefers-reduced-motion: reduce){ .tile:hover{ transform:none; } }
+
+  .box{ background:#fff; border:1px solid var(--line); border-radius:18px; padding:16px 18px; }
+  .box h3{ margin:0 0 6px; font-family:"Frank Ruhl Libre",serif; font-size:1.3rem; }
+  .next{ list-style:none; margin:0; padding:0; }
+  .next li{ display:flex; align-items:center; gap:12px; padding:11px 0; border-bottom:1px solid var(--line2); }
+  .next li:last-child{ border-bottom:0; }
+  .next-ic{ flex:none; width:38px; height:38px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:var(--soft); font-size:1.1rem; }
+  .next-t{ min-width:0; }
+  .next-t b{ display:block; overflow-wrap:anywhere; }
+  .next-t small{ color:var(--muted); }
+  .next a.go, .next button.go{ margin-inline-start:auto; flex:none; color:var(--teal3); font-weight:800; text-decoration:none; background:none; border:0; font:inherit; cursor:pointer; padding:6px 2px; }
+
+  /* ---------- משימות ---------- */
+  .tasks, .work, .exams{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+  .tk{ display:flex; align-items:center; gap:14px; padding:14px 16px; border:1px solid var(--line); border-radius:16px; background:#fff; text-decoration:none; color:inherit; }
+  a.tk:hover{ border-color:#CDB98A; box-shadow:0 6px 16px rgba(20,34,59,.07); }
+  .tk-ic{ flex:none; width:44px; height:44px; border-radius:14px; display:flex; align-items:center; justify-content:center; background:var(--soft); font-size:1.3rem; }
+  .tk.late{ border-color:#F0B4AE; background:#FFF6F5; } .tk.late .tk-ic{ background:#FDE2DF; }
+  .tk.ok{ border-color:#A9DCC6; background:#F3FBF7; } .tk.ok .tk-ic{ background:var(--ok-bg); }
+  .tk-main{ flex:1; min-width:0; display:flex; flex-direction:column; gap:4px; }
+  .tk-title{ font-weight:800; overflow-wrap:anywhere; }
+  .tk-meta{ display:flex; flex-wrap:wrap; gap:5px 8px; align-items:center; font-size:.86rem; color:var(--muted); }
+  .tk-due{ font-weight:800; color:var(--orange-deep); } .tk.late .tk-due{ color:var(--err); } .tk.ok .tk-due{ color:var(--ok); }
+  .pill{ display:inline-block; padding:1px 9px; border-radius:999px; font-size:.8rem; font-weight:800; }
+  .pill.y{ background:var(--ok-bg); color:#0B5E43; } .pill.m{ background:var(--warn-bg); color:#8A4B00; } .pill.n{ background:var(--soft); color:var(--muted); }
+  .chev{ flex:none; color:var(--gold); font-size:1.4rem; font-weight:800; }
+
+  /* ---------- מבחנים ---------- */
+  .exam{ display:flex; align-items:center; gap:14px; padding:12px 16px; border:1px solid var(--line); border-radius:16px; background:#fff; }
+  .exam.soon{ border-color:#F2BE93; background:#FFF8F0; }
+  .exam-date{ flex:none; display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:64px; padding:6px 8px; border-radius:12px; background:var(--cream); border:1px solid var(--line); line-height:1.15; font-variant-numeric:tabular-nums; }
+  .exam-date b{ font-size:1.2rem; color:var(--teal); }
   .exam-date span{ font-size:.78rem; color:var(--muted); }
-  .exam-title{ font-weight:700; }
-  .exam-meta{ display:flex; flex-wrap:wrap; gap:4px 10px; font-size:.88rem; color:var(--muted); }
-  .exam-rel{ font-weight:700; color:var(--orange-deep); }
-  .empty{ margin:0; color:var(--muted); }
-  .work-sum{ display:flex; flex-wrap:wrap; gap:6px; margin:0 0 12px; }
-  .chip{ display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:999px; background:var(--soft); border:1px solid var(--line); font-size:.88rem; color:var(--muted); }
-  .chip b{ color:var(--ink); }
-  .work{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
-  .wk{ display:flex; align-items:center; gap:12px; padding:10px 12px; border:1px solid var(--line); border-radius:12px; background:#fff; color:inherit; text-decoration:none; }
-  a.wk:hover{ background:var(--soft); border-color:#B8C7E0; }
-  .wk.is-new{ border-color:#F6B98A; background:#FFF8F1; }
-  .wk-main{ display:flex; flex-direction:column; gap:2px; min-width:0; flex:1; }
-  .wk-title{ font-weight:700; overflow-wrap:anywhere; }
-  .wk-meta{ display:flex; flex-wrap:wrap; gap:4px 10px; font-size:.88rem; color:var(--muted); }
-  .wk-state{ font-weight:600; }
-  .wk-state.done{ color:var(--ok); } .wk-state.redo{ color:var(--orange-deep); }
-  .wk-grade{ flex:none; min-width:52px; text-align:center; padding:6px 8px; border-radius:10px; background:#E7F5EF; color:#0B5E43; font-weight:800; font-size:1.15rem; font-variant-numeric:tabular-nums; }
-  .resume{ display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:12px; background:var(--navy); color:#fff; text-decoration:none; margin:0 0 12px; }
-  .resume:hover{ background:var(--blue); }
-  .resume small{ display:block; color:#C3CFDD; font-size:.85rem; }
-  .resume b{ display:block; }
-  .resume-go{ margin-inline-start:auto; font-weight:700; white-space:nowrap; }
-  .units{ display:flex; flex-direction:column; gap:8px; }
-  .unit{ border:1px solid var(--line); border-radius:12px; background:#fff; }
-  .unit summary{ display:flex; align-items:center; gap:10px; padding:10px 12px; cursor:pointer; list-style:none; }
+  .exam-title{ font-weight:800; display:block; }
+  .exam-meta{ display:flex; flex-wrap:wrap; gap:4px 10px; font-size:.86rem; color:var(--muted); }
+  .exam-rel{ font-weight:800; color:var(--orange-deep); }
+
+  /* ---------- התקדמות ---------- */
+  .units{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; align-items:start; }
+  .unit{ border:1px solid var(--line); border-radius:16px; background:#fff; }
+  .unit summary{ display:flex; align-items:center; gap:12px; padding:14px 16px; cursor:pointer; list-style:none; }
   .unit summary::-webkit-details-marker{ display:none; }
-  .unit summary:focus-visible{ outline:3px solid var(--orange); outline-offset:2px; border-radius:12px; }
-  .u-ico{ flex:none; font-size:1.3rem; }
-  .u-main{ flex:1; min-width:0; display:flex; flex-direction:column; gap:4px; }
-  .u-title{ font-weight:700; }
-  .u-bar{ height:8px; border-radius:999px; background:#E3E8F0; overflow:hidden; }
+  .u-ico{ flex:none; width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:var(--soft); font-size:1.3rem; }
+  .u-main{ flex:1; min-width:0; display:flex; flex-direction:column; gap:6px; }
+  .u-title{ font-weight:800; }
+  .u-bar{ display:block; height:9px; border-radius:999px; background:#EDE6D6; overflow:hidden; }
   .u-bar i{ display:block; height:100%; background:var(--ok); border-radius:999px; }
-  .u-count{ flex:none; font-size:.88rem; color:var(--muted); font-variant-numeric:tabular-nums; }
-  .u-chev{ flex:none; color:var(--muted); transition:transform .15s; }
+  .u-count{ font-size:.84rem; color:var(--muted); font-variant-numeric:tabular-nums; }
+  .u-chev{ flex:none; color:var(--gold); font-weight:800; transition:transform .15s; }
   .unit[open] .u-chev{ transform:rotate(-90deg); }
-  .topics{ list-style:none; margin:0; padding:0 12px 10px; display:flex; flex-direction:column; gap:4px; }
-  .topics a{ display:flex; align-items:center; gap:8px; padding:6px 8px; border-radius:8px; color:inherit; text-decoration:none; font-size:.95rem; }
-  .topics a:hover{ background:var(--soft); }
-  .t-st{ flex:none; min-width:76px; font-size:.82rem; font-weight:700; text-align:center; padding:1px 8px; border-radius:999px; }
-  .t-st.done{ background:#E7F5EF; color:#0B5E43; } .t-st.mid{ background:#FFF1D6; color:#8A4B00; } .t-st.none{ background:var(--soft); color:var(--muted); }
+  .unit[open]{ grid-column:1/-1; }
+  .topics{ list-style:none; margin:0; padding:0 14px 12px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px 12px; }
+  .topics a{ display:flex; align-items:center; gap:8px; padding:7px 8px; border-radius:10px; text-decoration:none; font-size:.94rem; }
+  .topics a:hover{ background:var(--cream); }
+  .t-st{ flex:none; min-width:74px; font-size:.78rem; font-weight:800; text-align:center; padding:1px 8px; border-radius:999px; }
+  .t-st.done{ background:var(--ok-bg); color:#0B5E43; } .t-st.mid{ background:var(--warn-bg); color:#8A4B00; } .t-st.none{ background:var(--soft); color:var(--muted); }
   @media (prefers-reduced-motion: reduce){ .u-chev{ transition:none; } }
-  .tasks{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
-  .tk{ display:flex; align-items:center; gap:12px; padding:10px 12px; border:1px solid var(--line); border-radius:12px; background:#fff; color:inherit; text-decoration:none; }
-  a.tk:hover{ background:var(--soft); border-color:#B8C7E0; }
-  .tk.late{ border-color:#F0B4AE; background:#FFF3F2; }
-  .tk.ok{ border-color:#A9DCC6; background:#F1FAF6; }
-  .tk-main{ flex:1; min-width:0; display:flex; flex-direction:column; gap:3px; }
-  .tk-title{ font-weight:700; overflow-wrap:anywhere; }
-  .tk-meta{ display:flex; flex-wrap:wrap; gap:4px 8px; font-size:.86rem; color:var(--muted); align-items:center; }
-  .tk-due{ font-weight:700; color:var(--orange-deep); } .tk.late .tk-due{ color:var(--err); } .tk.ok .tk-due{ color:var(--ok); }
-  .pill{ display:inline-block; padding:1px 8px; border-radius:999px; font-size:.8rem; font-weight:700; }
-  .pill.y{ background:#E7F5EF; color:#0B5E43; } .pill.m{ background:#FFF1D6; color:#8A4B00; } .pill.n{ background:var(--soft); color:var(--muted); border:1px solid var(--line); }
-  .tk-go{ flex:none; color:var(--muted); font-size:1.3rem; }
-  .wk-new{ display:inline-block; margin-inline-end:6px; padding:0 8px; border-radius:999px; background:var(--orange-deep); color:#fff; font-size:.75rem; font-weight:700; vertical-align:middle; }
-  @media (max-width:420px){ .card{ padding:14px; } }
+
+  /* ---------- עבודות ---------- */
+  .work-sum{ display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; }
+  .chip{ display:inline-flex; align-items:center; gap:5px; padding:5px 12px; border-radius:999px; background:#fff; border:1px solid var(--line); font-size:.9rem; color:var(--muted); }
+  .chip b{ color:var(--ink); }
+  .chip.new{ background:#FFF4EA; border-color:#F2BE93; color:#8A3D07; }
+  .wk{ display:flex; align-items:center; gap:14px; padding:13px 16px; border:1px solid var(--line); border-radius:16px; background:#fff; text-decoration:none; color:inherit; }
+  a.wk:hover{ border-color:#CDB98A; box-shadow:0 6px 16px rgba(20,34,59,.07); }
+  .wk.is-new{ border-color:#F2BE93; background:#FFF8F0; }
+  .wk-main{ flex:1; min-width:0; display:flex; flex-direction:column; gap:3px; }
+  .wk-title{ font-weight:800; overflow-wrap:anywhere; }
+  .wk-meta{ display:flex; flex-wrap:wrap; gap:4px 10px; font-size:.86rem; color:var(--muted); }
+  .wk-state{ font-weight:800; } .wk-state.done{ color:var(--ok); } .wk-state.redo{ color:var(--orange-deep); }
+  .wk-grade{ flex:none; min-width:56px; text-align:center; padding:7px 8px; border-radius:12px; background:var(--ok-bg); color:#0B5E43; font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size:1.35rem; font-variant-numeric:tabular-nums; }
+  .wk-new{ display:inline-block; margin-inline-end:6px; padding:0 8px; border-radius:999px; background:var(--orange); color:#fff; font-size:.75rem; font-weight:800; vertical-align:middle; }
+
+  /* ---------- טלפון: תפריט למטה ---------- */
+  @media (max-width:900px){
+    .tiles{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .units, .topics{ grid-template-columns:1fr; }
+  }
+  @media (max-width:820px){
+    .shell{ grid-template-columns:1fr; margin-top:12px; padding-bottom:84px; }
+    .side{ position:fixed; z-index:20; inset-inline:0; bottom:0; top:auto; flex-direction:row; justify-content:space-around; gap:0; padding:6px 4px calc(6px + env(safe-area-inset-bottom)); border-radius:18px 18px 0 0; box-shadow:0 -6px 20px rgba(20,34,59,.12); }
+    .me, .side-foot{ display:none; }
+    .nav{ position:relative; flex-direction:column; gap:2px; width:auto; flex:1; padding:6px 2px; font-size:.72rem; text-align:center; border-radius:12px; }
+    .nav-ic{ width:30px; height:30px; font-size:1rem; }
+    .nav-n{ position:absolute; top:0; inset-inline-start:calc(50% + 4px); min-width:18px; height:18px; padding:0 5px; font-size:.7rem; margin:0; }
+    .nav[aria-current="page"]{ box-shadow:none; }
+    .content{ padding:18px 16px 24px; border-radius:18px; }
+    .mobile-me{ display:flex !important; }
+  }
+  @media (max-width:520px){
+    .login-card{ grid-template-columns:1fr; }
+    .login-art{ min-height:170px; }
+    .login-form{ padding:22px 20px; }
+    .hero-in{ padding:22px 20px; }
+    .panel-h{ font-size:1.6rem; }
+    .tile{ padding:14px; } .tile-num{ font-size:2rem; }
+  }
+  .mobile-me{ display:none; align-items:center; gap:10px; margin:0 0 14px; }
+  .mobile-me .avatar{ width:40px; height:40px; font-size:1.05rem; }
+  .mobile-me button{ margin-inline-start:auto; }
 </style>
 <script src="assets/a11y.js"></script>
 </head>
 <body>
 <a class="skip-link" href="#main">דלג לתוכן</a>
-<header>
-  <div class="top">
-    <span class="tag">👤 האזור האישי שלי</span>
-    <a href="index.html">חזרה לדף הבית ›</a>
-  </div>
-  <div class="hello">
-    <h1 id="hello">האזור האישי שלי</h1>
-    <p id="helloSub">כניסה עם תעודת זהות וסיסמה - מכל מכשיר</p>
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">📖</span><b>הבית הדיגיטלי · האזור האישי שלי</b></a>
+    <a class="back" href="index.html">לדף הבית ›</a>
   </div>
 </header>
 
-<main id="main">
-  <!-- כניסה: שלב 1 ת"ז, שלב 2 סיסמה (או בחירת סיסמה בכניסה הראשונה) -->
-  <section class="card" id="login" aria-labelledby="loginH">
-    <h2 id="loginH">כניסה</h2>
-    <form id="stepId" novalidate>
-      <p class="sub">הקלידו את מספר תעודת הזהות שלכם (9 ספרות).</p>
-      <label for="idInput">תעודת זהות</label>
-      <input id="idInput" class="id-input" type="text" inputmode="numeric" autocomplete="off" maxlength="11" placeholder="000000000" aria-describedby="idMsg">
-      <div class="btns"><button type="submit" class="btn" id="idGo">המשך</button></div>
-      <p class="msg err" id="idMsg" role="status" aria-live="polite"></p>
-    </form>
-    <form id="stepPw" hidden novalidate>
-      <p class="sub" id="pwSub">הקלידו את הסיסמה שלכם.</p>
-      <label for="pwInput">סיסמה</label>
-      <input id="pwInput" type="password" autocomplete="current-password" maxlength="64" aria-describedby="pwMsg">
-      <div class="btns"><button type="submit" class="btn" id="pwGo">כניסה</button><button type="button" class="btn ghost" data-back>חזרה</button></div>
-      <p class="msg err" id="pwMsg" role="status" aria-live="polite"></p>
-      <p class="note">שכחתם את הסיסמה? בקשו מהמורה לאפס אותה, ואז תבחרו סיסמה חדשה.</p>
-    </form>
-    <form id="stepNew" hidden novalidate>
-      <p class="sub">זו הכניסה הראשונה שלכם. בחרו סיסמה (לפחות 6 תווים), ואל תספרו אותה לאף אחד.</p>
-      <label for="newPw">סיסמה חדשה</label>
-      <input id="newPw" type="password" autocomplete="new-password" maxlength="64" aria-describedby="newMsg">
-      <label for="newPw2">הסיסמה שוב</label>
-      <input id="newPw2" type="password" autocomplete="new-password" maxlength="64">
-      <div class="btns"><button type="submit" class="btn" id="newGo">יצירת חשבון וכניסה</button><button type="button" class="btn ghost" data-back>חזרה</button></div>
-      <p class="msg err" id="newMsg" role="status" aria-live="polite"></p>
-    </form>
-    <p class="note">תעודת הזהות לא נשמרת באתר, והסיסמה נשמרת מוצפנת - גם המורה לא רואה אותה.</p>
-  </section>
+<!-- ===================== כניסה ===================== -->
+<div class="login-wrap" id="login">
+  <div class="login-card">
+    <div class="login-form">
+      <h1>האזור האישי שלי</h1>
+      <p class="sub">המשימות, המבחנים, ההתקדמות והציונים שלך - במקום אחד, מכל מכשיר.</p>
+      <form id="stepId" novalidate>
+        <label for="idInput">תעודת זהות</label>
+        <input id="idInput" class="id-input" type="text" inputmode="numeric" autocomplete="off" maxlength="11" placeholder="9 ספרות" aria-describedby="idMsg">
+        <div class="btns"><button type="submit" class="btn" id="idGo">המשך</button></div>
+        <p class="msg" id="idMsg" role="status" aria-live="polite"></p>
+      </form>
+      <form id="stepPw" hidden novalidate>
+        <p class="sub" style="margin-top:6px">הקלידו את הסיסמה שלכם.</p>
+        <label for="pwInput">סיסמה</label>
+        <input id="pwInput" type="password" autocomplete="current-password" maxlength="64" aria-describedby="pwMsg">
+        <div class="btns"><button type="submit" class="btn" id="pwGo">כניסה</button><button type="button" class="btn ghost" data-back>חזרה</button></div>
+        <p class="msg" id="pwMsg" role="status" aria-live="polite"></p>
+        <p class="note">שכחתם את הסיסמה? בקשו מהמורה לאפס אותה, ואז תבחרו סיסמה חדשה.</p>
+      </form>
+      <form id="stepNew" hidden novalidate>
+        <p class="sub" style="margin-top:6px">זו הכניסה הראשונה שלכם. בחרו סיסמה (לפחות 6 תווים), ואל תספרו אותה לאף אחד.</p>
+        <label for="newPw">סיסמה חדשה</label>
+        <input id="newPw" type="password" autocomplete="new-password" maxlength="64" aria-describedby="newMsg">
+        <label for="newPw2">הסיסמה שוב</label>
+        <input id="newPw2" type="password" autocomplete="new-password" maxlength="64">
+        <div class="btns"><button type="submit" class="btn" id="newGo">יצירת חשבון וכניסה</button><button type="button" class="btn ghost" data-back>חזרה</button></div>
+        <p class="msg" id="newMsg" role="status" aria-live="polite"></p>
+      </form>
+      <p class="note">תעודת הזהות לא נשמרת באתר, והסיסמה נשמרת מוצפנת - גם המורה לא רואה אותה.</p>
+    </div>
+    <div class="login-art" aria-hidden="true"><div><h2>שמחים שבאת!</h2><p>נכנסים פעם אחת, וממשיכים מאיפה שעצרתם - בטלפון, במחשב או בבית.</p></div></div>
+  </div>
+</div>
 
-  <!-- אחרי הכניסה -->
-  <section class="card" id="tasksCard" hidden aria-labelledby="tasksH">
-    <h2 id="tasksH">📌 המשימות שלי</h2>
-    <p class="sub">משימות שהמורה נתן לך. לחיצה פותחת את הדף.</p>
-    <ul class="tasks" id="tasksList"></ul>
-  </section>
-  <section class="card" id="examsCard" hidden aria-labelledby="examsH">
-    <h2 id="examsH">📅 מבחנים ומשימות קרובים</h2>
-    <p class="sub" id="examsSub"></p>
-    <ul class="exams" id="examsList"></ul>
-  </section>
-  <section class="card" id="progCard" hidden aria-labelledby="progH">
-    <h2 id="progH">📈 ההתקדמות שלי</h2>
-    <p class="sub">כמה דפי עבודה סיימת בכל יחידה. נשמר מכל מכשיר שבו נכנסת לאזור האישי.</p>
-    <div id="progResume"></div>
-    <div class="units" id="progUnits"></div>
-    <p class="note">דף "הושלם" = כל משימות החובה בדף נעשו. ההתקדמות נרשמת מהרגע שנכנסת לאזור האישי, ורק בדפים שבהם יש תיבות תשובה.</p>
-  </section>
-  <section class="card" id="workCard" hidden aria-labelledby="workH">
-    <h2 id="workH">📝 העבודות שלי</h2>
-    <p class="sub">כל העבודות ששלחת, מכל מכשיר. הציון והמשוב מופיעים אחרי שהמורה מפרסם אותם.</p>
-    <div class="work-sum" id="workSum"></div>
-    <ul class="work" id="workList"></ul>
-    <p class="note">חסרה עבודה? אולי היא נשלחה עם שם שכתוב אחרת מהשם ברשימת הכיתה - ספרו למורה.</p>
-  </section>
-  <section class="card" id="meCard" hidden aria-labelledby="meH">
-    <h2 id="meH">החשבון שלי</h2>
-    <p class="who">מחובר/ת בתור <b id="meName"></b> · <span id="meCls"></span></p>
-    <p class="note" style="margin-top:0">במכשיר משותף (למשל מחשב בבית הספר) - צאו מהחשבון בסוף.</p>
-    <div class="btns"><button type="button" class="btn ghost" id="logout">יציאה מהחשבון</button></div>
-  </section>
-  <p class="msg err" id="homeMsg" role="status" aria-live="polite"></p>
-</main>
+<!-- ===================== האזור האישי ===================== -->
+<div class="shell" id="app" hidden>
+  <nav class="side" aria-label="האזור האישי">
+    <div class="me"><span class="avatar" id="avatar" aria-hidden="true"></span><span><b id="meName"></b><span id="meCls"></span></span></div>
+    <button type="button" class="nav" data-panel="home"><span class="nav-ic" aria-hidden="true">🏠</span><span>הבית שלי</span></button>
+    <button type="button" class="nav" data-panel="tasks"><span class="nav-ic" aria-hidden="true">📌</span><span>משימות</span><span class="nav-n" id="nTasks" hidden></span></button>
+    <button type="button" class="nav" data-panel="exams"><span class="nav-ic" aria-hidden="true">📅</span><span>מבחנים</span><span class="nav-n" id="nExams" data-soft hidden></span></button>
+    <button type="button" class="nav" data-panel="prog"><span class="nav-ic" aria-hidden="true">📈</span><span>התקדמות</span></button>
+    <button type="button" class="nav" data-panel="work"><span class="nav-ic" aria-hidden="true">📝</span><span>עבודות וציונים</span><span class="nav-n" id="nWork" hidden></span></button>
+    <div class="side-foot"><button type="button" class="btn ghost" id="logout">יציאה מהחשבון</button></div>
+  </nav>
+
+  <main class="content" id="main" tabindex="-1">
+    <div class="mobile-me"><span class="avatar" id="avatar2" aria-hidden="true"></span><span><b id="meName2"></b><br><small id="meCls2" style="color:var(--muted)"></small></span><button type="button" class="btn ghost" id="logout2" style="min-height:38px;padding:6px 14px;font-size:.88rem">יציאה</button></div>
+
+    <!-- הבית שלי -->
+    <section class="panel" id="p-home" aria-labelledby="homeH">
+      <div class="hero">
+        <div class="hero-in">
+          <small id="today"></small>
+          <h2 id="homeH">שלום!</h2>
+          <p id="heroSub">טוב לראות אותך. הנה מה שמחכה לך.</p>
+          <a class="resume" id="resume" href="#" hidden><span id="resumeT"></span><em id="resumeP"></em><b aria-hidden="true">←</b></a>
+        </div>
+      </div>
+      <div class="tiles" role="group" aria-label="סיכום">
+        <button type="button" class="tile" data-go="tasks" id="tTasks"><span class="tile-go" aria-hidden="true">›</span><span class="tile-lbl"><span class="tile-ic" aria-hidden="true">📌</span>משימות פתוחות</span><span class="tile-num">…</span><span class="tile-meta"></span></button>
+        <button type="button" class="tile" data-go="work" id="tWork"><span class="tile-go" aria-hidden="true">›</span><span class="tile-lbl"><span class="tile-ic" aria-hidden="true">✨</span>משוב חדש</span><span class="tile-num">…</span><span class="tile-meta"></span></button>
+        <button type="button" class="tile" data-go="exams" id="tExams"><span class="tile-go" aria-hidden="true">›</span><span class="tile-lbl"><span class="tile-ic" aria-hidden="true">📅</span>המבחן הקרוב</span><span class="tile-num">…</span><span class="tile-meta"></span></button>
+        <button type="button" class="tile good" data-go="prog" id="tProg"><span class="tile-go" aria-hidden="true">›</span><span class="tile-lbl"><span class="tile-ic" aria-hidden="true">🏅</span>דפים שהשלמת</span><span class="tile-num">…</span><span class="tile-meta"></span></button>
+      </div>
+      <div class="box">
+        <h3>הצעד הבא שלך</h3>
+        <ul class="next" id="nextList"><li class="empty">טוענים…</li></ul>
+      </div>
+    </section>
+
+    <!-- משימות -->
+    <section class="panel" id="p-tasks" aria-labelledby="tasksH" hidden>
+      <h2 class="panel-h" id="tasksH"><span class="ic" aria-hidden="true">📌</span>המשימות שלי</h2>
+      <p class="sub">משימות שהמורה נתן לך. לחיצה פותחת את הדף.</p>
+      <ul class="tasks" id="tasksList"><li class="empty">טוענים…</li></ul>
+    </section>
+
+    <!-- מבחנים -->
+    <section class="panel" id="p-exams" aria-labelledby="examsH" hidden>
+      <h2 class="panel-h" id="examsH"><span class="ic" aria-hidden="true">📅</span>מבחנים קרובים</h2>
+      <p class="sub" id="examsSub">המבחנים שהמורה פרסם לכיתה שלך.</p>
+      <ul class="exams" id="examsList"><li class="empty">טוענים…</li></ul>
+    </section>
+
+    <!-- התקדמות -->
+    <section class="panel" id="p-prog" aria-labelledby="progH" hidden>
+      <h2 class="panel-h" id="progH"><span class="ic" aria-hidden="true">📈</span>ההתקדמות שלי</h2>
+      <p class="sub">כמה דפי עבודה השלמת בכל יחידה. לחיצה על יחידה פותחת את הדפים שלה.</p>
+      <div class="units" id="progUnits"><p class="empty">טוענים…</p></div>
+      <p class="note">דף "הושלם" = כל משימות החובה בדף נעשו. ההתקדמות נרשמת מהרגע שנכנסת לאזור האישי, ורק בדפים שבהם יש תיבות תשובה.</p>
+    </section>
+
+    <!-- עבודות -->
+    <section class="panel" id="p-work" aria-labelledby="workH" hidden>
+      <h2 class="panel-h" id="workH"><span class="ic" aria-hidden="true">📝</span>העבודות שלי</h2>
+      <p class="sub">כל העבודות ששלחת, מכל מכשיר. הציון והמשוב מופיעים אחרי שהמורה מפרסם אותם.</p>
+      <div class="work-sum" id="workSum"></div>
+      <ul class="work" id="workList"><li class="empty">טוענים…</li></ul>
+      <p class="note">חסרה עבודה? אולי היא נשלחה עם שם שכתוב אחרת מהשם ברשימת הכיתה - ספרו למורה.</p>
+    </section>
+
+    <p class="msg" id="homeMsg" role="status" aria-live="polite"></p>
+  </main>
+</div>
 
 <script src="assets/bm-api.js"></script>
 <script src="assets/units-data.js"></script>
 <script>
-/* האזור האישי של התלמיד. השרת: studentCheck / studentLogin / studentHome (apps-script/Code.gs).
-   האסימון נשמר במכשיר (localStorage "bm-student") עד יציאה מהחשבון או איפוס של המורה. */
+/* האזור האישי של התלמיד. השרת: studentCheck / studentLogin / studentHome / studentWork (apps-script/Code.gs).
+   האסימון נשמר במכשיר (localStorage "bm-student") עד יציאה מהחשבון או איפוס של המורה.
+   מבנה: תפריט בצד (בטלפון - למטה) עם הבית שלי · משימות · מבחנים · התקדמות · עבודות וציונים. */
 (function(){
   "use strict";
   var API = window.BM_API_URL, KEY = "bm-student";
   var $ = function(id){ return document.getElementById(id); };
   var idVal = "";
+  var WD = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
+  var PANELS = ["home", "tasks", "exams", "prog", "work"];
   function post(body){
     return fetch(API, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" }, body:JSON.stringify(body) }).then(function(r){ return r.json(); });
   }
@@ -202,6 +346,14 @@
   function store(v){ try{ if(v) localStorage.setItem(KEY, JSON.stringify(v)); else localStorage.removeItem(KEY); }catch(e){} }
   function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]; }); }
   function clsName(c){ return c === "יב" ? 'כיתה י"ב' : 'כיתה י"א'; }
+  function today0(){ var n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); }
+  function parse(iso){ var p = String(iso).split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function daysTo(iso){ return Math.round((parse(iso) - today0()) / 86400000); }
+  function dm(d){ return d.getDate() + "." + (d.getMonth() + 1); }
+  function rel(n){ return n <= 0 ? "היום" : n === 1 ? "מחר" : "בעוד " + n + " ימים"; }
+  function initials(name){ var w = String(name || "").trim().split(/\s+/); return (w[0] ? w[0][0] : "") + (w[1] ? w[1][0] : ""); }
+
+  /* ---------- כניסה ---------- */
   function show(step){
     ["stepId", "stepPw", "stepNew"].forEach(function(s){ $(s).hidden = s !== step; });
     var f = { stepId:"idInput", stepPw:"pwInput", stepNew:"newPw" }[step];
@@ -209,8 +361,6 @@
   }
   function busy(btn, on, text){ btn.disabled = on; if(text) btn.textContent = text; }
   function netErr(el){ el.textContent = "אין חיבור לשרת כרגע. נסו שוב בעוד רגע."; }
-
-  /* ---------- כניסה ---------- */
   $("stepId").addEventListener("submit", function(e){
     e.preventDefault();
     var m = $("idMsg"), b = $("idGo");
@@ -223,13 +373,11 @@
       show(res.exists ? "stepPw" : "stepNew");
     }).catch(function(){ netErr(m); }).then(function(){ busy(b, false, "המשך"); });
   });
-  Array.prototype.forEach.call(document.querySelectorAll("[data-back]"), function(b){
-    b.addEventListener("click", function(){ show("stepId"); });
-  });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-back]"), function(b){ b.addEventListener("click", function(){ show("stepId"); }); });
   function loggedIn(res){
     store({ tok:res.tok, name:res.name, cls:res.cls });
     $("idInput").value = ""; $("pwInput").value = ""; $("newPw").value = ""; $("newPw2").value = ""; idVal = "";
-    home();
+    go("home"); home();
   }
   $("stepPw").addEventListener("submit", function(e){
     e.preventDefault();
@@ -255,86 +403,105 @@
     }).catch(function(){ netErr(m); }).then(function(){ busy(b, false, "יצירת חשבון וכניסה"); });
   });
 
-  /* ---------- אחרי הכניסה ---------- */
-  var WD = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
-  function examItem(x){
-    var p = String(x.date).split("-"), d = new Date(+p[0], +p[1] - 1, +p[2]);
-    var now = new Date(), today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    var n = Math.round((d - today) / 86400000);
-    var rel = n <= 0 ? "היום" : n === 1 ? "מחר" : "בעוד " + n + " ימים";
-    return '<li class="exam' + (n <= 7 ? ' soon' : '') + '">' +
-      '<span class="exam-date"><b>' + d.getDate() + "." + (d.getMonth() + 1) + '</b><span>יום ' + WD[d.getDay()] + '</span></span>' +
-      '<span><span class="exam-title">' + esc(x.title) + '</span>' +
-      '<span class="exam-meta"><span class="exam-rel">' + rel + '</span>' + (x.subject ? '<span>' + esc(x.subject) + '</span>' : '') + (x.note ? '<span>' + esc(x.note) + '</span>' : '') + '</span></span></li>';
+  /* ---------- ניווט בין האזורים ---------- */
+  function go(panel, focus){
+    if(PANELS.indexOf(panel) < 0) panel = "home";
+    PANELS.forEach(function(p){ $("p-" + p).hidden = p !== panel; });
+    Array.prototype.forEach.call(document.querySelectorAll(".nav"), function(b){
+      if(b.getAttribute("data-panel") === panel) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
+    });
+    if(location.hash.slice(1) !== panel){ try{ history.replaceState(null, "", "#" + panel); }catch(e){} }
+    if(focus){ var h = $("p-" + panel).querySelector("h2"); if(h){ h.setAttribute("tabindex", "-1"); h.focus(); } window.scrollTo(0, 0); }
   }
-  function showHome(me, exams){
-    $("login").hidden = true;
-    $("hello").textContent = "שלום, " + (me.name || "");
-    $("helloSub").textContent = clsName(me.cls);
-    $("meName").textContent = me.name || ""; $("meCls").textContent = clsName(me.cls);
-    $("meCard").hidden = false; $("examsCard").hidden = false;
-    $("examsSub").textContent = exams.length ? "המבחנים והמשימות שהמורה פרסם ל" + clsName(me.cls) + "." : "";
-    $("examsList").innerHTML = exams.length ? exams.map(examItem).join("") : '<li><p class="empty">אין כרגע מבחנים או משימות קרובים. 🎉</p></li>';
+  Array.prototype.forEach.call(document.querySelectorAll(".nav"), function(b){ b.addEventListener("click", function(){ go(b.getAttribute("data-panel"), true); }); });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-go]"), function(b){ b.addEventListener("click", function(){ go(b.getAttribute("data-go"), true); }); });
+  $("nextList").addEventListener("click", function(e){ var b = e.target.closest && e.target.closest("button[data-to]"); if(b) go(b.getAttribute("data-to"), true); });
+  window.addEventListener("hashchange", function(){ if(!$("app").hidden) go(location.hash.slice(1)); });
+
+  /* ---------- מצב ונתונים ---------- */
+  var S = { me:null, exams:null, tasks:null, progress:{}, work:null };
+  function normTask(s){ return String(s || "").replace(/["'׳״]/g, "").replace(/[-–—,.:]/g, " ").replace(/\s+/g, " ").trim(); }
+  function readSeen(){ try{ return JSON.parse(localStorage.getItem("bm-fb-seen") || "[]") || []; }catch(e){ return []; } }
+  function badge(id, n){ var el = $(id); el.textContent = n; el.hidden = !n; }
+  function setTile(id, num, meta, hot){
+    var b = $(id);
+    b.querySelector(".tile-num").textContent = num;
+    b.querySelector(".tile-meta").textContent = meta || "";
+    if(hot !== undefined) b.classList.toggle("hot", !!hot);
+    b.setAttribute("aria-label", b.querySelector(".tile-lbl").textContent.trim() + ": " + num + (meta ? ". " + meta : ""));
+  }
+
+  function showApp(me){
+    $("login").hidden = true; $("app").hidden = false;
+    var ini = initials(me.name);
+    $("avatar").textContent = ini; $("avatar2").textContent = ini;
+    $("meName").textContent = me.name || ""; $("meName2").textContent = me.name || "";
+    $("meCls").textContent = clsName(me.cls); $("meCls2").textContent = clsName(me.cls);
+    var h = new Date().getHours();
+    var greet = h >= 5 && h < 12 ? "בוקר טוב" : h < 17 && h >= 12 ? "צהריים טובים" : h >= 17 && h < 21 ? "ערב טוב" : "לילה טוב";
+    var first = String(me.name || "").trim().split(/\s+/)[0] || "";
+    $("homeH").textContent = greet + (first ? ", " + first : "") + "!";
+    var d = new Date();
+    $("today").textContent = "יום " + WD[d.getDay()] + ", " + dm(d) + " · " + clsName(me.cls);
   }
   function showLogin(note){
-    $("login").hidden = false; $("meCard").hidden = true; $("examsCard").hidden = true; $("workCard").hidden = true; $("progCard").hidden = true; $("tasksCard").hidden = true;
-    $("hello").textContent = "האזור האישי שלי"; $("helloSub").textContent = "כניסה עם תעודת זהות וסיסמה - מכל מכשיר";
+    $("app").hidden = true; $("login").hidden = false;
     if(note) $("idMsg").textContent = note;
     show("stepId");
   }
-  function home(){
-    var me = load();
-    if(!me || !me.tok){ showLogin(); return; }
-    TS.tasks = null; TS.work = null; TS.progress = {};
-    showHome(me, []);
-    $("examsList").innerHTML = '<li><p class="empty">טוענים…</p></li>';
-    post({ action:"studentHome", tok:me.tok }).then(function(res){
-      if(res && res.login){ store(null); showLogin("צריך להיכנס שוב (אולי המורה איפס את הסיסמה)."); return; }
-      if(!res || !res.ok){ $("homeMsg").textContent = (res && res.error) || "לא הצלחנו לטעון."; return; }
-      me.name = res.name; me.cls = res.cls; store(me);
-      showHome(me, res.exams || []);
-      showProgress(me, res.progress || {});
-      TS.tasks = res.tasks || []; TS.progress = res.progress || {}; renderTasks();
-    }).catch(function(){ netErr($("homeMsg")); });
-    loadWork(me);
+
+  /* ---------- 📌 משימות ---------- */
+  function taskState(t){
+    var p = S.progress[t.page], pct = p ? p[0] : -1;
+    var sent = S.work ? S.work.some(function(w){ return t.task && normTask(w.task) === normTask(t.task); }) : null;
+    var n = daysTo(t.due), done = pct >= 100;
+    return { pct:pct, sent:sent, n:n, done:done, late:n < 0 && !done, ok:done && sent };
   }
-  /* ---------- 📌 המשימות שלי: הושלם (מההתקדמות) + נשלח למורה (מהעבודות) ---------- */
-  var TS = { tasks:null, progress:{}, work:null };
-  function normTask(s){ return String(s || "").replace(/["'׳״]/g, "").replace(/[-–—,.:]/g, " ").replace(/\s+/g, " ").trim(); }
   function renderTasks(){
-    if(!TS.tasks || !TS.tasks.length){ $("tasksCard").hidden = true; return; }
-    $("tasksCard").hidden = false;
-    var now = new Date(), today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    $("tasksList").innerHTML = TS.tasks.map(function(t){
-      var p = TS.progress[t.page], pct = p ? p[0] : -1;
-      var sent = TS.work ? TS.work.some(function(w){ return t.task && normTask(w.task) === normTask(t.task); }) : null;
-      var dp = String(t.due).split("-"), due = new Date(+dp[0], +dp[1] - 1, +dp[2]), n = Math.round((due - today) / 86400000);
-      var done = pct >= 100, late = n < 0 && !done, allOk = done && sent;
-      var dueTxt = n < 0 ? "היה להגיש ב-" + due.getDate() + "." + (due.getMonth() + 1) : n === 0 ? "להגיש היום" : n === 1 ? "להגיש מחר" : "להגיש עד " + due.getDate() + "." + (due.getMonth() + 1) + " (עוד " + n + " ימים)";
-      var prog = done ? '<span class="pill y">✓ הדף הושלם</span>' : pct > 0 ? '<span class="pill m">' + pct + '% מהדף</span>' : '<span class="pill n">עוד לא התחלת</span>';
-      var snt = sent === null ? '' : sent ? '<span class="pill y">📤 נשלח למורה</span>' : '<span class="pill n">לא נשלח למורה</span>';
-      return '<li><a class="tk' + (allOk ? ' ok' : late ? ' late' : '') + '" href="' + esc(t.page) + '"><span class="tk-main"><span class="tk-title">' + esc(t.title) + '</span>' +
-        '<span class="tk-meta"><span class="tk-due">' + (allOk ? '✓ בוצע · ' : '') + dueTxt + '</span>' + prog + snt + '</span>' +
-        (t.note ? '<span class="tk-meta">' + esc(t.note) + '</span>' : '') + '</span><span class="tk-go" aria-hidden="true">›</span></a></li>';
-    }).join("");
+    if(!S.tasks) return;
+    var open = S.tasks.filter(function(t){ return !taskState(t).ok; });
+    badge("nTasks", open.length);
+    var nextT = open.slice().sort(function(a, b){ return a.due < b.due ? -1 : 1; })[0];
+    var lateN = open.filter(function(t){ return taskState(t).late; }).length;
+    setTile("tTasks", String(open.length), lateN ? lateN + " באיחור" : nextT ? "הקרובה: " + rel(daysTo(nextT.due)) : (S.tasks.length ? "הכול בוצע ✓" : "אין משימות כרגע"), !!lateN || (nextT && daysTo(nextT.due) <= 1));
+    $("tasksList").innerHTML = S.tasks.length ? S.tasks.map(function(t){
+      var s = taskState(t), due = parse(t.due);
+      var dueTxt = s.n < 0 ? "היה להגיש ב-" + dm(due) : s.n === 0 ? "להגיש היום" : s.n === 1 ? "להגיש מחר" : "להגיש עד " + dm(due) + " (עוד " + s.n + " ימים)";
+      var prog = s.done ? '<span class="pill y">✓ הדף הושלם</span>' : s.pct > 0 ? '<span class="pill m">' + s.pct + '% מהדף</span>' : '<span class="pill n">עוד לא התחלת</span>';
+      var snt = s.sent === null ? '' : s.sent ? '<span class="pill y">📤 נשלח למורה</span>' : '<span class="pill n">לא נשלח למורה</span>';
+      return '<li><a class="tk' + (s.ok ? ' ok' : s.late ? ' late' : '') + '" href="' + esc(t.page) + '"><span class="tk-ic" aria-hidden="true">' + (s.ok ? '✅' : s.late ? '⏰' : '📌') + '</span>' +
+        '<span class="tk-main"><span class="tk-title">' + esc(t.title) + '</span>' +
+        '<span class="tk-meta"><span class="tk-due">' + (s.ok ? '✓ בוצע · ' : '') + dueTxt + '</span>' + prog + snt + '</span>' +
+        (t.note ? '<span class="tk-meta">💬 ' + esc(t.note) + '</span>' : '') + '</span><span class="chev" aria-hidden="true">‹</span></a></li>';
+    }).join("") : '<li class="empty">אין כרגע משימות מהמורה. 🎉</li>';
+    renderNext();
   }
 
-  /* ---------- ההתקדמות שלי ---------- */
-  /* progress: { "דף.html": [אחוז, תשובות, תיבות, זמן] }. היחידות והדפים - מ-assets/units-data.js (BM_UNITS) */
-  function showProgress(me, progress){
-    var units = (window.BM_UNITS || []).filter(function(u){ return u.class === me.cls && (u.topics || []).some(function(t){ return t.url; }); });
-    if(!units.length){ $("progCard").hidden = true; return; }
-    $("progCard").hidden = false;
-    function st(url){ var p = progress[String(url || "").split("#")[0]]; return p ? { pct:p[0], ans:p[1], fields:p[2], t:p[3] } : null; }
-    /* "המשך מאיפה שעצרת" - הדף האחרון שנפתח ועוד לא הושלם */
-    var lastPage = null, lastT = 0;
-    Object.keys(progress).forEach(function(pg){ var p = progress[pg]; if(p[0] < 100 && p[3] > lastT){ lastT = p[3]; lastPage = pg; } });
-    var lastTitle = "";
-    if(lastPage) units.forEach(function(u){ (u.topics || []).forEach(function(t){ if(String(t.url).split("#")[0] === lastPage) lastTitle = u.title + " · " + t.title; }); });
-    $("progResume").innerHTML = lastPage && lastTitle ? '<a class="resume" href="' + esc(lastPage) + '"><span><small>להמשיך מאיפה שעצרת</small><b>' + esc(lastTitle) + '</b></span><span class="resume-go">' + progress[lastPage][0] + '% ›</span></a>' : "";
-    $("progUnits").innerHTML = units.map(function(u){
-      var topics = (u.topics || []).filter(function(t){ return t.url; });
-      var done = 0, started = 0;
+  /* ---------- 📅 מבחנים ---------- */
+  function renderExams(){
+    if(!S.exams) return;
+    var list = S.exams.filter(function(x){ return daysTo(x.date) >= 0; });
+    var week = list.filter(function(x){ return daysTo(x.date) <= 7; }).length;
+    badge("nExams", week);
+    var nx = list[0];
+    setTile("tExams", nx ? dm(parse(nx.date)) : "-", nx ? nx.title + " · " + rel(daysTo(nx.date)) : "אין מבחנים קרובים", nx && daysTo(nx.date) <= 3);
+    $("examsList").innerHTML = list.length ? list.map(function(x){
+      var d = parse(x.date), n = daysTo(x.date);
+      return '<li class="exam' + (n <= 7 ? ' soon' : '') + '"><span class="exam-date"><b>' + dm(d) + '</b><span>יום ' + WD[d.getDay()] + '</span></span>' +
+        '<span><span class="exam-title">' + esc(x.title) + '</span><span class="exam-meta"><span class="exam-rel">' + rel(n) + '</span>' +
+        (x.subject ? '<span>' + esc(x.subject) + '</span>' : '') + (x.note ? '<span>' + esc(x.note) + '</span>' : '') + '</span></span></li>';
+    }).join("") : '<li class="empty">אין כרגע מבחנים קרובים. 🎉</li>';
+    renderNext();
+  }
+
+  /* ---------- 📈 התקדמות ---------- */
+  function units(){ return S.me ? (window.BM_UNITS || []).filter(function(u){ return u.class === S.me.cls && (u.topics || []).some(function(t){ return t.url; }); }) : []; }
+  function renderProgress(){
+    var progress = S.progress || {}, us = units();
+    function st(url){ var p = progress[String(url || "").split("#")[0]]; return p ? { pct:p[0], ans:p[1] } : null; }
+    var doneAll = 0, totalAll = 0;
+    $("progUnits").innerHTML = us.length ? us.map(function(u){
+      var topics = (u.topics || []).filter(function(t){ return t.url; }), done = 0, started = 0;
       var rows = topics.map(function(t){
         var p = st(t.url), cls, label;
         if(p && p.pct >= 100){ done++; cls = "done"; label = "✓ הושלם"; }
@@ -343,42 +510,44 @@
         else { cls = "none"; label = "עוד לא"; }
         return '<li><a href="' + esc(t.url) + '"><span class="t-st ' + cls + '">' + label + '</span><span>' + esc(t.title) + '</span></a></li>';
       }).join("");
+      doneAll += done; totalAll += topics.length;
       var pct = topics.length ? Math.round(done / topics.length * 100) : 0;
       return '<details class="unit"><summary><span class="u-ico" aria-hidden="true">' + esc(u.icon || "📘") + '</span>' +
-        '<span class="u-main"><span class="u-title">' + esc(u.title) + '</span><span class="u-bar" aria-hidden="true"><i style="width:' + pct + '%"></i></span></span>' +
-        '<span class="u-count">' + done + '/' + topics.length + (started ? ' · ' + started + ' בתהליך' : '') + '</span><span class="u-chev" aria-hidden="true">‹</span></summary>' +
+        '<span class="u-main"><span class="u-title">' + esc(u.title) + '</span><span class="u-bar" aria-hidden="true"><i style="width:' + pct + '%"></i></span>' +
+        '<span class="u-count">' + done + ' מתוך ' + topics.length + ' הושלמו' + (started ? ' · ' + started + ' בתהליך' : '') + '</span></span><span class="u-chev" aria-hidden="true">‹</span></summary>' +
         '<ul class="topics">' + rows + '</ul></details>';
-    }).join("");
+    }).join("") : '<p class="empty">אין יחידות להצגה.</p>';
+    setTile("tProg", String(doneAll), totalAll ? "מתוך " + totalAll + " דפים ביחידות שלך" : "");
+    /* להמשיך מאיפה שעצרת - הדף האחרון שנפתח ועוד לא הושלם */
+    var lastPage = null, lastT = 0;
+    Object.keys(progress).forEach(function(pg){ var p = progress[pg]; if(p[0] < 100 && p[3] > lastT){ lastT = p[3]; lastPage = pg; } });
+    var title = "";
+    if(lastPage) us.forEach(function(u){ (u.topics || []).forEach(function(t){ if(String(t.url).split("#")[0] === lastPage) title = u.title + " · " + t.title; }); });
+    var r = $("resume");
+    if(lastPage && title){ r.href = lastPage; $("resumeT").textContent = "להמשיך: " + title; $("resumeP").textContent = progress[lastPage][0] + "%"; r.hidden = false; }
+    else r.hidden = true;
   }
 
-  /* ---------- העבודות שלי ---------- */
-  function readSeen(){ try{ return JSON.parse(localStorage.getItem("bm-fb-seen") || "[]") || []; }catch(e){ return []; } }
-  function workItem(w, seen){
-    var isNew = w.pub && seen.indexOf(w.id) === -1;
-    var state = w.redo ? '<span class="wk-state redo">✏️ המורה ביקש/ה תיקון</span>'
-      : w.pub ? '<span class="wk-state done">✅ נבדקה · למשוב ›</span>'
-      : w.checked ? '<span class="wk-state done">✔ נבדקה</span>'
-      : '<span class="wk-state">⏳ ממתינה לבדיקה</span>';
-    var inner = '<span class="wk-main"><span class="wk-title">' + (isNew ? '<span class="wk-new">חדש</span>' : '') + esc(w.task) + (w.fixed ? ' (תיקון)' : '') + '</span>' +
-      '<span class="wk-meta">' + state + (w.subject ? '<span>' + esc(w.subject) + '</span>' : '') + (w.date ? '<span>נשלחה ב-' + esc(w.date) + '</span>' : '') + '</span></span>' +
-      (w.pub && w.grade !== "" ? '<span class="wk-grade" aria-label="ציון ' + esc(w.grade) + '">' + esc(w.grade) + '</span>' : '');
-    return '<li>' + (w.pub ? '<a class="wk' + (isNew ? ' is-new' : '') + '" href="feedback.html?id=' + encodeURIComponent(w.id) + '" data-fb="' + esc(w.id) + '">' + inner + '</a>'
-      : '<div class="wk">' + inner + '</div>') + '</li>';
-  }
-  function loadWork(me){
-    $("workCard").hidden = false;
-    $("workSum").innerHTML = "";
-    $("workList").innerHTML = '<li><p class="empty">טוענים את העבודות… (בפעם הראשונה זה יכול לקחת כמה שניות)</p></li>';
-    post({ action:"studentWork", tok:me.tok }).then(function(res){
-      if(res && res.login){ store(null); showLogin("צריך להיכנס שוב (אולי המורה איפס את הסיסמה)."); return; }
-      if(!res || !res.ok){ $("workList").innerHTML = '<li><p class="empty">' + esc((res && res.error) || "לא הצלחנו לטעון את העבודות.") + '</p></li>'; return; }
-      var list = res.work || [], seen = readSeen();
-      TS.work = list; renderTasks();
-      var done = list.filter(function(w){ return w.pub; }).length, newN = list.filter(function(w){ return w.pub && seen.indexOf(w.id) === -1; }).length;
-      $("workSum").innerHTML = list.length ? '<span class="chip">נשלחו: <b>' + list.length + '</b></span><span class="chip">עם משוב: <b>' + done + '</b></span>' +
-        (newN ? '<span class="chip" style="background:#FFF4EA;border-color:#F6B98A;color:#8A3D07">משוב חדש: <b>' + newN + '</b></span>' : '') : '';
-      $("workList").innerHTML = list.length ? list.map(function(w){ return workItem(w, seen); }).join("") : '<li><p class="empty">עדיין לא נמצאו עבודות ששלחת.</p></li>';
-    }).catch(function(){ $("workList").innerHTML = '<li><p class="empty">אין חיבור לשרת כרגע.</p></li>'; });
+  /* ---------- 📝 עבודות ---------- */
+  function renderWork(){
+    if(!S.work) return;
+    var list = S.work, seen = readSeen();
+    var done = list.filter(function(w){ return w.pub; }).length, fresh = list.filter(function(w){ return w.pub && seen.indexOf(w.id) === -1; });
+    badge("nWork", fresh.length);
+    var last = list.filter(function(w){ return w.pub && w.grade !== ""; })[0];
+    setTile("tWork", String(fresh.length), fresh.length ? "לחצו כדי לקרוא" : (last ? "ציון אחרון: " + last.grade : "אין משוב חדש"), fresh.length > 0);
+    $("workSum").innerHTML = list.length ? '<span class="chip">📤 נשלחו: <b>' + list.length + '</b></span><span class="chip">✅ עם משוב: <b>' + done + '</b></span>' +
+      (fresh.length ? '<span class="chip new">✨ משוב חדש: <b>' + fresh.length + '</b></span>' : '') : '';
+    $("workList").innerHTML = list.length ? list.map(function(w){
+      var isNew = w.pub && seen.indexOf(w.id) === -1;
+      var state = w.redo ? '<span class="wk-state redo">✏️ המורה ביקש/ה תיקון</span>' : w.pub ? '<span class="wk-state done">✅ נבדקה · למשוב ›</span>'
+        : w.checked ? '<span class="wk-state done">✔ נבדקה</span>' : '<span class="wk-state">⏳ ממתינה לבדיקה</span>';
+      var inner = '<span class="wk-main"><span class="wk-title">' + (isNew ? '<span class="wk-new">חדש</span>' : '') + esc(w.task) + (w.fixed ? ' (תיקון)' : '') + '</span>' +
+        '<span class="wk-meta">' + state + (w.subject ? '<span>' + esc(w.subject) + '</span>' : '') + (w.date ? '<span>נשלחה ב-' + esc(w.date) + '</span>' : '') + '</span></span>' +
+        (w.pub && w.grade !== "" ? '<span class="wk-grade" aria-label="ציון ' + esc(w.grade) + '">' + esc(w.grade) + '</span>' : '');
+      return '<li>' + (w.pub ? '<a class="wk' + (isNew ? ' is-new' : '') + '" href="feedback.html?id=' + encodeURIComponent(w.id) + '" data-fb="' + esc(w.id) + '">' + inner + '</a>' : '<div class="wk">' + inner + '</div>') + '</li>';
+    }).join("") : '<li class="empty">עדיין לא נמצאו עבודות ששלחת.</li>';
+    renderTasks();
   }
   $("workList").addEventListener("click", function(e){
     var a = e.target.closest && e.target.closest("[data-fb]");
@@ -386,7 +555,48 @@
     var s = readSeen(), id = a.getAttribute("data-fb");
     if(s.indexOf(id) === -1){ s.push(id); try{ localStorage.setItem("bm-fb-seen", JSON.stringify(s.slice(-200))); }catch(err){} }
   });
-  $("logout").addEventListener("click", function(){ store(null); $("homeMsg").textContent = ""; showLogin(); });
+
+  /* ---------- הצעד הבא ---------- */
+  function renderNext(){
+    var items = [];
+    (S.tasks || []).map(function(t){ return { t:t, s:taskState(t) }; }).filter(function(x){ return !x.s.ok; })
+      .sort(function(a, b){ return a.t.due < b.t.due ? -1 : 1; }).slice(0, 3).forEach(function(x){
+        var what = !x.s.done ? (x.s.pct > 0 ? "להשלים את הדף (" + x.s.pct + "%)" : "להתחיל את הדף") : "לשלוח למורה";
+        items.push('<li><span class="next-ic" aria-hidden="true">' + (x.s.late ? '⏰' : '📌') + '</span><span class="next-t"><b>' + esc(x.t.title) + '</b><small>' + what + ' · ' + (x.s.n < 0 ? 'באיחור' : rel(x.s.n)) + '</small></span><a class="go" href="' + esc(x.t.page) + '">לדף ›</a></li>');
+      });
+    var fresh = (S.work || []).filter(function(w){ return w.pub && readSeen().indexOf(w.id) === -1; });
+    if(fresh.length) items.push('<li><span class="next-ic" aria-hidden="true">✨</span><span class="next-t"><b>' + (fresh.length === 1 ? 'יש לך משוב חדש מהמורה' : 'יש לך ' + fresh.length + ' משובים חדשים') + '</b><small>' + esc(fresh[0].task) + '</small></span><button type="button" class="go" data-to="work">לקריאה ›</button></li>');
+    var ex = (S.exams || []).filter(function(x){ var n = daysTo(x.date); return n >= 0 && n <= 7; })[0];
+    if(ex) items.push('<li><span class="next-ic" aria-hidden="true">📅</span><span class="next-t"><b>' + esc(ex.title) + '</b><small>מבחן ' + rel(daysTo(ex.date)) + ' · יום ' + WD[parse(ex.date).getDay()] + ' ' + dm(parse(ex.date)) + '</small></span><button type="button" class="go" data-to="exams">פרטים ›</button></li>');
+    var loading = S.tasks === null || S.work === null;
+    $("nextList").innerHTML = items.length ? items.join("") : '<li class="empty">' + (loading ? 'טוענים…' : 'אין כרגע משהו שמחכה לך. כל הכבוד! 🌟') + '</li>';
+  }
+
+  /* ---------- טעינה ---------- */
+  function home(){
+    var me = load();
+    if(!me || !me.tok){ showLogin(); return; }
+    S = { me:me, exams:null, tasks:null, progress:{}, work:null };
+    showApp(me);
+    go(location.hash.slice(1) || "home");
+    post({ action:"studentHome", tok:me.tok }).then(function(res){
+      if(res && res.login){ store(null); showLogin("צריך להיכנס שוב (אולי המורה איפס את הסיסמה)."); return; }
+      if(!res || !res.ok){ $("homeMsg").textContent = (res && res.error) || "לא הצלחנו לטעון."; return; }
+      me.name = res.name; me.cls = res.cls; store(me); S.me = me; showApp(me);
+      S.exams = res.exams || []; S.progress = res.progress || {}; S.tasks = res.tasks || [];
+      renderExams(); renderProgress(); renderTasks();
+    }).catch(function(){ netErr($("homeMsg")); });
+    post({ action:"studentWork", tok:me.tok }).then(function(res){
+      if(res && res.login){ store(null); showLogin("צריך להיכנס שוב (אולי המורה איפס את הסיסמה)."); return; }
+      S.work = res && res.ok ? (res.work || []) : [];
+      if(!res || !res.ok) $("workList").innerHTML = '<li class="empty">' + esc((res && res.error) || "לא הצלחנו לטעון את העבודות.") + '</li>';
+      else renderWork();
+      renderTasks();
+    }).catch(function(){ S.work = []; $("workList").innerHTML = '<li class="empty">אין חיבור לשרת כרגע.</li>'; renderNext(); });
+  }
+  function logout(){ store(null); $("homeMsg").textContent = ""; try{ history.replaceState(null, "", location.pathname); }catch(e){} showLogin(); }
+  $("logout").addEventListener("click", logout);
+  $("logout2").addEventListener("click", logout);
   home();
 })();
 </script>
