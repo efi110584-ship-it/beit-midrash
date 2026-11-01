@@ -338,6 +338,7 @@
 
 <script src="assets/bm-api.js"></script>
 <script src="assets/units-data.js"></script>
+<script src="assets/exams-seed.js?v=6"></script>
 <script>
 /* האזור האישי של התלמיד. השרת: studentCheck / studentLogin / studentHome / studentWork (apps-script/Code.gs).
    האסימון נשמר במכשיר (localStorage "bm-student") עד יציאה מהחשבון או איפוס של המורה.
@@ -607,6 +608,15 @@
     $("nextList").innerHTML = items.length ? items.join("") : '<li class="empty">' + (loading ? 'טוענים…' : 'אין כרגע משהו שמחכה לך. כל הכבוד! 🌟') + '</li>';
   }
 
+  /* מבחנים שהוכנסו ישירות לאתר (assets/exams-seed.js) - כמו בלוח המבחנים בדף הבית.
+     אם המורה פרסם מבחן באותו תאריך, כיתה ומקצוע - מוצג רק שלו. */
+  function withSeed(list, cls){
+    var seed = (window.BM_EXAMS_SEED || []).filter(function(x){
+      return (x.cls === cls || x.cls === "all") && !list.some(function(y){ return y.date === x.date && y.cls === x.cls && y.subject === x.subject; });
+    });
+    return list.concat(seed).sort(function(a, b){ return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+  }
+
   /* ---------- טעינה ---------- */
   function home(){
     var me = load();
@@ -618,7 +628,7 @@
       if(res && res.login){ store(null); showLogin("צריך להיכנס שוב (אולי המורה איפס את הסיסמה)."); return; }
       if(!res || !res.ok){ $("homeMsg").textContent = (res && res.error) || "לא הצלחנו לטעון."; return; }
       me.name = res.name; me.cls = res.cls; store(me); S.me = me; showApp(me);
-      S.exams = res.exams || []; S.progress = res.progress || {}; S.tasks = res.tasks || [];
+      S.exams = withSeed(res.exams || [], me.cls); S.progress = res.progress || {}; S.tasks = res.tasks || [];
       renderExams(); renderProgress(); renderTasks();
     }).catch(function(){ netErr($("homeMsg")); });
     post({ action:"studentWork", tok:me.tok }).then(function(res){

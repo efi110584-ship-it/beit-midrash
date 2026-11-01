@@ -1124,7 +1124,16 @@ function validId_(id) {
   return sum % 10 === 0;
 }
 function idHash_(id) { return sha256hex_(rosterSalt_() + '|' + id).slice(0, 32); }
-function roster_(cls) { return getJson_('ROSTER_' + normClass_(cls)) || {}; }
+// שם מרשימת הכיתה בלי מספר שורה שהודבק איתו (למשל "10 ישראל ישראלי" או "ישראל ישראלי 10")
+function cleanName_(n) {
+  var c = clean_(String(n || '').replace(/^\s*\d+\s*[.)\-–]?\s*/, '').replace(/\s*[(\[]?\d+[)\]]?\s*$/, ''));
+  return c || clean_(n);
+}
+function roster_(cls) {
+  var r = getJson_('ROSTER_' + normClass_(cls)) || {};
+  Object.keys(r).forEach(function (h) { r[h] = cleanName_(r[h]); });
+  return r;
+}
 function rosterCount_(cls) { return cls ? Object.keys(roster_(cls)).length : 0; }
 // אסימון שמוכיח שהשם הגיע מזיהוי בת"ז (לשיעור הזה בלבד)
 function rosterToken_(code, name) { return sha256hex_(rosterSalt_() + '|tok|' + code + '|' + nameKey_(name)).slice(0, 24); }
@@ -1148,7 +1157,7 @@ function rosterSave_(cls, text) {
     var id = m ? normId_(m[0]) : '';
     var name = clean_(m ? line.replace(m[0], ' ') : line).replace(/^[\s,;|\t.\-–]+|[\s,;|\t.\-–]+$/g, '').replace(/\s*[,;|\t]\s*/g, ' ').trim();
     if (!id || !validId_(id) || name.length < 2) { bad.push((i + 1) + (name ? ' (' + name.slice(0, 30) + ')' : '')); return; }
-    map[idHash_(id)] = name.slice(0, 60);
+    map[idHash_(id)] = cleanName_(name).slice(0, 60);
     n++;
   });
   if (!n) return { ok: false, error: 'לא נמצאו שורות תקינות. בכל שורה צריך שם ותעודת זהות.', bad: bad.slice(0, 20) };
@@ -1336,7 +1345,7 @@ function assignSave_(d) {
   var title = clean_(d.title).slice(0, 140);
   if (!title) return { ok: false, error: 'חסר שם למשימה.' };
   var roster = roster_(cls), rosterNames = Object.keys(roster).map(function (h) { return roster[h]; });
-  var names = (Array.isArray(d.names) ? d.names : []).map(function (n) { return clean_(n).slice(0, 60); })
+  var names = (Array.isArray(d.names) ? d.names : []).map(function (n) { return cleanName_(n).slice(0, 60); })
     .filter(function (n) { return rosterNames.indexOf(n) !== -1; });
   var a = { id: Utilities.getUuid().slice(0, 8), cls: cls, page: page, title: title, task: page ? clean_(d.task).slice(0, 200) : '',
             link: link, linkLabel: link ? (clean_(d.linkLabel).slice(0, 30) || 'לקישור') : '',
@@ -1368,7 +1377,7 @@ function assignDelete_(id) {
 function assignFor_(cls, name) {
   var nk = nameKey_(name);
   return assignAll_().filter(function (a) {
-    return a.cls === cls && (!a.names || !a.names.length || a.names.some(function (n) { return nameKey_(n) === nk; }));
+    return a.cls === cls && (!a.names || !a.names.length || a.names.some(function (n) { return nameKey_(cleanName_(n)) === nk; }));
   }).map(function (a) { return { id: a.id, page: a.page, title: a.title, task: a.task, due: a.due, note: a.note, link: a.link || '', linkLabel: a.linkLabel || '' }; });
 }
 // התלמיד מסמן "✓ סיימתי" במשימה עם קישור (פאדלט, טופס וכו' - האתר לא רואה מה קורה שם).
@@ -1401,7 +1410,7 @@ function assignRows_(a, props, allSubs) {
     return x.id && x.status !== 'missing' && x.cls === a.cls && normTask_(x.task) === normTask_(a.task);
   }) : [];
   var rows = Object.keys(roster).filter(function (h) {
-    return !a.names || !a.names.length || a.names.indexOf(roster[h]) !== -1;
+    return !a.names || !a.names.length || a.names.some(function (n) { return cleanName_(n) === roster[h]; });
   }).map(function (h) {
     var name = roster[h], prog = null, selfDone = 0;
     try { prog = (a.page && props['STUP_' + h]) ? (JSON.parse(props['STUP_' + h])[a.page] || null) : null; } catch (e) {}

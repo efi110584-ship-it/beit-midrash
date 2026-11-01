@@ -21,7 +21,12 @@
     return fetch(window.BM_API_URL, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" }, body:JSON.stringify(body) }).then(function(r){ return r.json(); });
   }
   function getExams(){
-    return fetch(window.BM_API_URL + "?action=exams").then(function(r){ return r.json(); }).then(function(res){ return res && res.ok ? res.exams || [] : []; }).catch(function(){ return []; });
+    /* גם המבחנים שהוכנסו ישירות לאתר (assets/exams-seed.js), כמו בלוח המבחנים בדף הבית */
+    function seed(list){
+      var add = (window.BM_EXAMS_SEED || []).filter(function(x){ return !list.some(function(y){ return y.date === x.date && y.cls === x.cls && y.subject === x.subject; }); });
+      return list.concat(add).sort(function(a, b){ return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+    }
+    return fetch(window.BM_API_URL + "?action=exams").then(function(r){ return r.json(); }).then(function(res){ return seed(res && res.ok ? res.exams || [] : []); }).catch(function(){ return seed([]); });
   }
   function day0(d){ return new Date(d.getFullYear(), d.getMonth(), d.getDate()); }
   function parse(iso){ var p = String(iso).split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
