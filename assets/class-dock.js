@@ -21,6 +21,25 @@
   if(!API || page === "screen.html") return;
   /* "איך התלמידים רואים" - תצוגת תלמיד נקייה, בלי סרגל המורה */
   if(page === "live.html" && /[?&]preview=1(&|$)/.test(location.search)) return;
+  /* תלמיד שמחובר ל"האזור האישי שלי" (my.html): השם בדפי העבודה נלקח מרשימת הכיתה,
+     כדי שכל עבודה תגיע לתיקייה שלו ותופיע אצלו באזור האישי. */
+  (function(){
+    var me = null;
+    try{ me = JSON.parse(localStorage.getItem("bm-student") || "null"); }catch(e){}
+    var el = document.getElementById("studentName");
+    if(!me || !me.name || !el) return;
+    function fill(){
+      if(el.value !== me.name){
+        el.value = me.name;
+        el.dispatchEvent(new Event("input", { bubbles:true }));
+        el.dispatchEvent(new Event("change", { bubbles:true }));
+      }
+      el.readOnly = true;
+      el.title = "השם נלקח מהאזור האישי שלך";
+    }
+    fill();
+    window.addEventListener("load", fill);
+  })();
 
   var BASE = (function(){
     var s = document.currentScript && document.currentScript.src;

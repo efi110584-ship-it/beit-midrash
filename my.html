@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>האזור האישי שלי | הכיתה הדיגיטלית</title>
-<meta name="description" content="האזור האישי של התלמיד: כניסה עם תעודת זהות וסיסמה, מבחנים ומשימות קרובים">
+<meta name="description" content="האזור האישי של התלמיד: כניסה עם תעודת זהות וסיסמה, מבחנים ומשימות קרובים, העבודות שלי עם ציונים ומשוב">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
@@ -53,6 +53,20 @@
   .exam-meta{ display:flex; flex-wrap:wrap; gap:4px 10px; font-size:.88rem; color:var(--muted); }
   .exam-rel{ font-weight:700; color:var(--orange-deep); }
   .empty{ margin:0; color:var(--muted); }
+  .work-sum{ display:flex; flex-wrap:wrap; gap:6px; margin:0 0 12px; }
+  .chip{ display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:999px; background:var(--soft); border:1px solid var(--line); font-size:.88rem; color:var(--muted); }
+  .chip b{ color:var(--ink); }
+  .work{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+  .wk{ display:flex; align-items:center; gap:12px; padding:10px 12px; border:1px solid var(--line); border-radius:12px; background:#fff; color:inherit; text-decoration:none; }
+  a.wk:hover{ background:var(--soft); border-color:#B8C7E0; }
+  .wk.is-new{ border-color:#F6B98A; background:#FFF8F1; }
+  .wk-main{ display:flex; flex-direction:column; gap:2px; min-width:0; flex:1; }
+  .wk-title{ font-weight:700; overflow-wrap:anywhere; }
+  .wk-meta{ display:flex; flex-wrap:wrap; gap:4px 10px; font-size:.88rem; color:var(--muted); }
+  .wk-state{ font-weight:600; }
+  .wk-state.done{ color:var(--ok); } .wk-state.redo{ color:var(--orange-deep); }
+  .wk-grade{ flex:none; min-width:52px; text-align:center; padding:6px 8px; border-radius:10px; background:#E7F5EF; color:#0B5E43; font-weight:800; font-size:1.15rem; font-variant-numeric:tabular-nums; }
+  .wk-new{ display:inline-block; margin-inline-end:6px; padding:0 8px; border-radius:999px; background:var(--orange-deep); color:#fff; font-size:.75rem; font-weight:700; vertical-align:middle; }
   @media (max-width:420px){ .card{ padding:14px; } }
 </style>
 <script src="assets/a11y.js"></script>
@@ -106,6 +120,13 @@
     <h2 id="examsH">📅 מבחנים ומשימות קרובים</h2>
     <p class="sub" id="examsSub"></p>
     <ul class="exams" id="examsList"></ul>
+  </section>
+  <section class="card" id="workCard" hidden aria-labelledby="workH">
+    <h2 id="workH">📝 העבודות שלי</h2>
+    <p class="sub">כל העבודות ששלחת, מכל מכשיר. הציון והמשוב מופיעים אחרי שהמורה מפרסם אותם.</p>
+    <div class="work-sum" id="workSum"></div>
+    <ul class="work" id="workList"></ul>
+    <p class="note">חסרה עבודה? אולי היא נשלחה עם שם שכתוב אחרת מהשם ברשימת הכיתה - ספרו למורה.</p>
   </section>
   <section class="card" id="meCard" hidden aria-labelledby="meH">
     <h2 id="meH">החשבון שלי</h2>
@@ -207,7 +228,7 @@
     $("examsList").innerHTML = exams.length ? exams.map(examItem).join("") : '<li><p class="empty">אין כרגע מבחנים או משימות קרובים. 🎉</p></li>';
   }
   function showLogin(note){
-    $("login").hidden = false; $("meCard").hidden = true; $("examsCard").hidden = true;
+    $("login").hidden = false; $("meCard").hidden = true; $("examsCard").hidden = true; $("workCard").hidden = true;
     $("hello").textContent = "האזור האישי שלי"; $("helloSub").textContent = "כניסה עם תעודת זהות וסיסמה - מכל מכשיר";
     if(note) $("idMsg").textContent = note;
     show("stepId");
@@ -223,7 +244,42 @@
       me.name = res.name; me.cls = res.cls; store(me);
       showHome(me, res.exams || []);
     }).catch(function(){ netErr($("homeMsg")); });
+    loadWork(me);
   }
+  /* ---------- העבודות שלי ---------- */
+  function readSeen(){ try{ return JSON.parse(localStorage.getItem("bm-fb-seen") || "[]") || []; }catch(e){ return []; } }
+  function workItem(w, seen){
+    var isNew = w.pub && seen.indexOf(w.id) === -1;
+    var state = w.redo ? '<span class="wk-state redo">✏️ המורה ביקש/ה תיקון</span>'
+      : w.pub ? '<span class="wk-state done">✅ נבדקה · למשוב ›</span>'
+      : w.checked ? '<span class="wk-state done">✔ נבדקה</span>'
+      : '<span class="wk-state">⏳ ממתינה לבדיקה</span>';
+    var inner = '<span class="wk-main"><span class="wk-title">' + (isNew ? '<span class="wk-new">חדש</span>' : '') + esc(w.task) + (w.fixed ? ' (תיקון)' : '') + '</span>' +
+      '<span class="wk-meta">' + state + (w.subject ? '<span>' + esc(w.subject) + '</span>' : '') + (w.date ? '<span>נשלחה ב-' + esc(w.date) + '</span>' : '') + '</span></span>' +
+      (w.pub && w.grade !== "" ? '<span class="wk-grade" aria-label="ציון ' + esc(w.grade) + '">' + esc(w.grade) + '</span>' : '');
+    return '<li>' + (w.pub ? '<a class="wk' + (isNew ? ' is-new' : '') + '" href="feedback.html?id=' + encodeURIComponent(w.id) + '" data-fb="' + esc(w.id) + '">' + inner + '</a>'
+      : '<div class="wk">' + inner + '</div>') + '</li>';
+  }
+  function loadWork(me){
+    $("workCard").hidden = false;
+    $("workSum").innerHTML = "";
+    $("workList").innerHTML = '<li><p class="empty">טוענים את העבודות… (בפעם הראשונה זה יכול לקחת כמה שניות)</p></li>';
+    post({ action:"studentWork", tok:me.tok }).then(function(res){
+      if(res && res.login){ store(null); showLogin("צריך להיכנס שוב (אולי המורה איפס את הסיסמה)."); return; }
+      if(!res || !res.ok){ $("workList").innerHTML = '<li><p class="empty">' + esc((res && res.error) || "לא הצלחנו לטעון את העבודות.") + '</p></li>'; return; }
+      var list = res.work || [], seen = readSeen();
+      var done = list.filter(function(w){ return w.pub; }).length, newN = list.filter(function(w){ return w.pub && seen.indexOf(w.id) === -1; }).length;
+      $("workSum").innerHTML = list.length ? '<span class="chip">נשלחו: <b>' + list.length + '</b></span><span class="chip">עם משוב: <b>' + done + '</b></span>' +
+        (newN ? '<span class="chip" style="background:#FFF4EA;border-color:#F6B98A;color:#8A3D07">משוב חדש: <b>' + newN + '</b></span>' : '') : '';
+      $("workList").innerHTML = list.length ? list.map(function(w){ return workItem(w, seen); }).join("") : '<li><p class="empty">עדיין לא נמצאו עבודות ששלחת.</p></li>';
+    }).catch(function(){ $("workList").innerHTML = '<li><p class="empty">אין חיבור לשרת כרגע.</p></li>'; });
+  }
+  $("workList").addEventListener("click", function(e){
+    var a = e.target.closest && e.target.closest("[data-fb]");
+    if(!a) return;
+    var s = readSeen(), id = a.getAttribute("data-fb");
+    if(s.indexOf(id) === -1){ s.push(id); try{ localStorage.setItem("bm-fb-seen", JSON.stringify(s.slice(-200))); }catch(err){} }
+  });
   $("logout").addEventListener("click", function(){ store(null); $("homeMsg").textContent = ""; showLogin(); });
   home();
 })();

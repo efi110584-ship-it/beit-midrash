@@ -63,7 +63,7 @@
     box.innerHTML =
       '<h2 class="my-work-title">' + (fresh ? '📝 יש לך משוב חדש מהמורה!' : '📝 העבודות שלי') + '</h2>' +
       '<ul class="my-work-list">' + rows + '</ul>' +
-      '<p class="my-work-note">רק עבודות שנשלחו מהמכשיר הזה.</p>';
+      '<p class="my-work-note">רק עבודות שנשלחו מהמכשיר הזה. <a href="my.html">כל העבודות שלך, מכל מכשיר - באזור האישי ›</a></p>';
     box.classList.toggle("has-new", fresh > 0);
     box.hidden = false;
     box.addEventListener("click", function(e){

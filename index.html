@@ -149,13 +149,13 @@
     <!-- האזור האישי של התלמיד: כניסה עם ת"ז וסיסמה (my.html) -->
     <a class="my-area-link" id="myAreaLink" href="my.html">
       <span class="my-area-ico" aria-hidden="true">👤</span>
-      <span class="my-area-text"><b>האזור האישי שלי</b><span id="myAreaSub">כניסה עם תעודת זהות וסיסמה · מבחנים ומשימות קרובים</span></span>
+      <span class="my-area-text"><b>האזור האישי שלי</b><span id="myAreaSub">כניסה עם תעודת זהות וסיסמה · מבחנים, עבודות וציונים</span></span>
       <span class="my-area-go" aria-hidden="true">›</span>
     </a>
     <!-- העבודות שנשלחו מהמכשיר הזה, והמשוב של המורה עליהן (assets/my-work.js) -->
     <section class="my-work" id="myWork" aria-live="polite" hidden></section>
     <script>
-      (function(){ try{ var me = JSON.parse(localStorage.getItem("bm-student") || "null"); if(me && me.name){ document.getElementById("myAreaSub").textContent = "מחובר/ת: " + me.name + " · למבחנים ולמשימות הקרובים"; } }catch(e){} })();
+      (function(){ try{ var me = JSON.parse(localStorage.getItem("bm-student") || "null"); if(me && me.name){ document.getElementById("myAreaSub").textContent = "מחובר/ת: " + me.name + " · מבחנים, עבודות וציונים"; } }catch(e){} })();
     </script>
     <!-- קוד לשיעור מהמורה -->
     <form class="lesson-join" id="lessonJoin" novalidate>

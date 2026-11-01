@@ -112,6 +112,7 @@ function doPost(e) {
     if (data.action === 'studentCheck') return json_(studentCheck_(data.id));
     if (data.action === 'studentLogin') return json_(studentLogin_(data));
     if (data.action === 'studentHome') return json_(studentHome_(data.tok));
+    if (data.action === 'studentWork') return json_(studentWork_(data.tok));
 
     // כל השאר - רק עם סיסמה
     if (!checkPassword_(data.password)) return json_({ ok: false, auth: false, error: 'סיסמה שגויה' });
@@ -1251,6 +1252,30 @@ function studentHome_(tok) {
   var exams = examsUpcoming_().filter(function (x) { return x.cls === 'all' || x.cls === me.cls; });
   return { ok: true, name: me.name, cls: me.cls, exams: exams };
 }
+// העבודות של התלמיד, מכל מכשיר: מלוח ההגשות של המורה, לפי השם ברשימת הכיתה (תיקיית התלמיד ב-Drive).
+// ציון ומשוב מוצגים רק אחרי שהמורה פרסם את המשוב (fbpub_<id> = 1) - בדיוק כמו בקישור המשוב.
+// לא נשלחים קישורי Drive או הערות פנימיות של המורה.
+function stuNameMatch_(folderName, name) {
+  if (nameKey_(folderName) === nameKey_(name)) return true;
+  var a = looseWords_(folderName), b = looseWords_(name);
+  return a.length >= 2 && a.length === b.length && containsAll_(a, b);
+}
+function studentWork_(tok) {
+  var me = stuAuth_(tok);
+  if (!me) return { ok: false, login: true };
+  var props = PropertiesService.getScriptProperties().getProperties();
+  var mine = listSubmissions_(false).filter(function (x) {
+    return x.id && x.status !== 'missing' && !x.hidden && x.cls === me.cls && stuNameMatch_(x.student, me.name);
+  });
+  return { ok: true, work: mine.slice(0, 100).map(function (x) {
+    var pub = props['fbpub_' + x.id] === '1';
+    return { id: x.id, task: x.task, subject: x.subject || '', date: x.date, time: x.time,
+             pub: pub, checked: x.status === 'checked',
+             grade: pub ? (x.grade !== '' && x.grade != null ? String(x.grade) : String(x.fbg || '')) : '',
+             redo: pub && x.redo && !x.redone, fixed: !!x.redoOf };
+  }) };
+}
+
 // למורה: מי ברשימות הכיתה כבר פתח חשבון באזור האישי
 function studentAccounts_() {
   var all = PropertiesService.getScriptProperties().getProperties();
