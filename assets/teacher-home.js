@@ -48,37 +48,37 @@
     st.id = "bmTeacherHomeCss";
     st.textContent =
       "#teacherTools .th-tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:4px 0 16px}" +
-      "#teacherTools .th-tile{position:relative;display:flex;flex-direction:column;gap:6px;text-align:right;background:#fff;border:1px solid #e3d6bc;border-radius:16px;padding:16px 18px;font:inherit;color:#14223b;cursor:pointer;min-width:0}" +
-      "#teacherTools .th-tile:hover{border-color:#c9b27f;box-shadow:0 6px 18px rgba(20,34,59,.08)}" +
+      "#teacherTools .th-tile{position:relative;display:flex;flex-direction:column;gap:6px;text-align:right;background:#fff;border:1px solid #DCE4F1;border-radius:16px;padding:16px 18px;font:inherit;color:#0E1B33;cursor:pointer;min-width:0}" +
+      "#teacherTools .th-tile:hover{border-color:#B8C7E0;box-shadow:0 6px 18px rgba(20,34,59,.08)}" +
       "#teacherTools .th-tile:focus-visible{outline:3px solid #FF7A1A;outline-offset:2px}" +
-      "#teacherTools .th-lbl{display:flex;gap:8px;align-items:center;color:#5c6572;font-weight:600;font-size:.95rem}" +
-      "#teacherTools .th-num{font-family:Georgia,'Frank Ruhl Libre',serif;font-weight:900;font-size:2.5rem;line-height:1;color:#124f56;font-variant-numeric:tabular-nums}" +
-      "#teacherTools .th-meta{font-size:.88rem;color:#5c6572;min-height:1.3em}" +
-      "#teacherTools .th-go{position:absolute;inset-inline-end:16px;top:14px;color:#b88a2e;font-weight:700}" +
-      "#teacherTools .th-extra{display:block}#teacherTools .th-bar{display:block;height:7px;border-radius:999px;background:#ede6d6;overflow:hidden}#teacherTools .th-bar i{display:block;height:100%;background:#1f8a5b;border-radius:999px}" +
+      "#teacherTools .th-lbl{display:flex;gap:8px;align-items:center;color:#56637A;font-weight:600;font-size:.95rem}" +
+      "#teacherTools .th-num{font-family:'Rubik','Heebo',sans-serif;font-weight:900;font-size:2.5rem;line-height:1;color:#0B2A5B;font-variant-numeric:tabular-nums}" +
+      "#teacherTools .th-meta{font-size:.88rem;color:#56637A;min-height:1.3em}" +
+      "#teacherTools .th-go{position:absolute;inset-inline-end:16px;top:14px;color:#FF7A1A;font-weight:700}" +
+      "#teacherTools .th-extra{display:block}#teacherTools .th-bar{display:block;height:7px;border-radius:999px;background:#E3E8F0;overflow:hidden}#teacherTools .th-bar i{display:block;height:100%;background:#1f8a5b;border-radius:999px}" +
       "#teacherTools .th-tile.is-hot{border-color:#f0b98a;background:#fff8f0}#teacherTools .th-tile.is-hot .th-num{color:#c2410c}" +
-      "#teacherTools .th-tile.is-live{background:#124f56;border-color:#124f56;color:#fff}#teacherTools .th-tile.is-live .th-num{color:#fff}" +
-      "#teacherTools .th-tile.is-live .th-lbl,#teacherTools .th-tile.is-live .th-meta{color:#cfe3e1}#teacherTools .th-tile.is-live .th-go{color:#fff6df}" +
+      "#teacherTools .th-tile.is-live{background:#0B2A5B;border-color:#0B2A5B;color:#fff}#teacherTools .th-tile.is-live .th-num{color:#fff}" +
+      "#teacherTools .th-tile.is-live .th-lbl,#teacherTools .th-tile.is-live .th-meta{color:#C3CFDD}#teacherTools .th-tile.is-live .th-go{color:#fff6df}" +
       "#teacherTools .th-dot{width:9px;height:9px;border-radius:50%;background:#ff6b5e;display:inline-block}" +
-      "#teacherTools .td-study-hero.th-compact{min-height:0;background:linear-gradient(110deg,#124f56,#1d6a70);border-radius:16px;border-color:#124f56;margin:0 0 16px}" +
+      "#teacherTools .td-study-hero.th-compact{min-height:0;background:linear-gradient(110deg,#0B2A5B,#123A78);border-radius:16px;border-color:#0B2A5B;margin:0 0 16px}" +
       "#teacherTools .td-study-hero.th-compact:before{display:none}" +
       "#teacherTools .td-study-hero.th-compact .td-study-copy{width:100%;padding:14px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}" +
       "#teacherTools .td-study-hero.th-compact .td-study-copy h3{font-size:1.35rem;margin:0}" +
       "#teacherTools .td-study-hero.th-compact .td-study-copy p{margin:0;flex:1;min-width:12rem}" +
       "#teacherTools .td-study-hero.th-compact .td-shortcut{width:auto;margin-inline-start:auto}" +
       "#teacherTools .th-two{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;margin:0 0 20px}" +
-      "#teacherTools .th-box{background:#fff;border:1px solid #e3d6bc;border-radius:16px;padding:16px 18px;min-width:0}" +
-      "#teacherTools .th-box h3{margin:0 0 8px;font-family:Georgia,'Frank Ruhl Libre',serif;font-size:1.2rem;color:#14223b}" +
+      "#teacherTools .th-box{background:#fff;border:1px solid #DCE4F1;border-radius:16px;padding:16px 18px;min-width:0}" +
+      "#teacherTools .th-box h3{margin:0 0 8px;font-family:'Rubik','Heebo',sans-serif;font-size:1.2rem;color:#0E1B33}" +
       "#teacherTools .th-list{list-style:none;margin:0;padding:0}" +
-      "#teacherTools .th-item{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #f0eadc}#teacherTools .th-item:last-child{border-bottom:0}" +
-      "#teacherTools .th-ic{flex:none;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#f3eee2}" +
-      "#teacherTools .th-item small{display:block;color:#5c6572;font-size:.85rem}" +
-      "#teacherTools .th-act{margin-inline-start:auto;flex:none;border:0;background:transparent;color:#147984;font:inherit;font-weight:700;cursor:pointer;padding:6px 4px;white-space:nowrap}" +
+      "#teacherTools .th-item{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid #E8EEF7}#teacherTools .th-item:last-child{border-bottom:0}" +
+      "#teacherTools .th-ic{flex:none;width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:#EEF3FB}" +
+      "#teacherTools .th-item small{display:block;color:#56637A;font-size:.85rem}" +
+      "#teacherTools .th-act{margin-inline-start:auto;flex:none;border:0;background:transparent;color:#1F5FBF;font:inherit;font-weight:700;cursor:pointer;padding:6px 4px;white-space:nowrap}" +
       "#teacherTools .th-act:focus-visible{outline:3px solid #FF7A1A;outline-offset:2px;border-radius:6px}" +
-      "#teacherTools .th-date{flex:none;width:54px;text-align:center;border:1px solid #e3d6bc;border-radius:10px;padding:4px 0;line-height:1.15}" +
-      "#teacherTools .th-date b{display:block;font-size:1.05rem;color:#124f56}#teacherTools .th-date span{font-size:.75rem;color:#5c6572}" +
-      "#teacherTools .th-side{margin-inline-start:auto;flex:none;font-size:.85rem;color:#5c6572}" +
-      "#teacherTools .th-empty{color:#5c6572;margin:6px 0}" +
+      "#teacherTools .th-date{flex:none;width:54px;text-align:center;border:1px solid #DCE4F1;border-radius:10px;padding:4px 0;line-height:1.15}" +
+      "#teacherTools .th-date b{display:block;font-size:1.05rem;color:#0B2A5B}#teacherTools .th-date span{font-size:.75rem;color:#56637A}" +
+      "#teacherTools .th-side{margin-inline-start:auto;flex:none;font-size:.85rem;color:#56637A}" +
+      "#teacherTools .th-empty{color:#56637A;margin:6px 0}" +
       "@media(max-width:1100px){#teacherTools .th-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}#teacherTools .th-two{grid-template-columns:1fr}}" +
       "@media(max-width:480px){#teacherTools .th-tiles{grid-template-columns:1fr}}";
     document.head.appendChild(st);
