@@ -5055,3 +5055,7 @@ th[aria-sort="ascending"]:where([data-css~="index"], [data-css~="index"] *), th[
 .my-area-text b{ font-size:1.05rem; }
 .my-area-text span{ font-size:.92rem; color:#56637A; }
 .my-area-go{ margin-inline-start:auto; font-size:1.5rem; color:#56637A; }
+
+/* ===== אזור המורה בדף הבית - פרוס על כל רוחב המסך ===== */
+body.is-teacher-view .results-wrap{ max-width:none; padding-inline:clamp(16px, 2.5vw, 40px); }
+body.is-teacher-view .my-area-link{ display:none; }   /* הקישור לאזור האישי של התלמיד - לא נחוץ במסך המורה */
