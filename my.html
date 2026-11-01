@@ -7,13 +7,14 @@
 <meta name="description" content="האזור האישי של התלמיד: משימות, מבחנים, ההתקדמות שלי, והעבודות שלי עם ציונים ומשוב">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;700;800&family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#F4EFE4; --paper:#FFFDF7; --cream:#FCF9F2; --card:#fff; --soft:#F3EEE2;
-    --teal:#124F56; --teal2:#1D6A70; --teal3:#147984; --ink:#14223B; --muted:#5C6572; --line:#E3D6BC; --line2:#F0EADC;
-    --gold:#B88A2E; --orange:#E8650C; --orange-deep:#C2410C; --ok:#1F8A5B; --ok-bg:#E7F5EF; --warn-bg:#FFF1D6; --err:#B42318;
-    --top:#123A78;
+    /* אותם צבעים כמו בדפי העבודה (assets/site.css): כחול כהה, רקע תכלת, כרטיסים לבנים וכתום */
+    --bg:#EEF3FB; --paper:#fff; --cream:#F5F8FD; --card:#fff; --soft:#EEF3FB;
+    --teal:#0B2A5B; --teal2:#123A78; --teal3:#1F5FBF; --ink:#0E1B33; --muted:#56637A; --line:#DCE4F1; --line2:#E8EEF7;
+    --gold:#FF7A1A; --orange:#FF7A1A; --orange-deep:#C2410C; --ok:#0D8A63; --ok-bg:#E3F4EC; --warn-bg:#FFF1D6; --err:#B42318;
+    --top:#0B2A5B; --hover:#B8C7E0; --track:#E3E8F0;
   }
   *{ box-sizing:border-box; }
   html{ -webkit-text-size-adjust:100%; }
@@ -24,7 +25,7 @@
   .skip-link{ position:absolute; top:-60px; inset-inline-start:12px; background:#fff; padding:8px 12px; border-radius:8px; z-index:50; }
   .skip-link:focus{ top:12px; }
   :focus-visible{ outline:3px solid var(--orange); outline-offset:2px; }
-  .serif{ font-family:"Frank Ruhl Libre",Georgia,serif; }
+  .serif{ font-family:"Rubik","Heebo",sans-serif; }
 
   /* ---------- פס עליון ---------- */
   .topbar{ background:var(--top); color:#fff; }
@@ -38,16 +39,16 @@
   /* ---------- כניסה ---------- */
   .login-wrap{ max-width:980px; margin:28px auto 60px; padding:0 16px; }
   .login-card{ display:grid; grid-template-columns:1fr 1fr; background:var(--paper); border:1px solid var(--line); border-radius:24px; overflow:hidden; box-shadow:0 14px 40px rgba(20,34,59,.10); }
-  .login-art{ position:relative; min-height:420px; background:#15575e url("assets/teacher-dashboard-study-hero.png") center/cover no-repeat; display:flex; align-items:flex-end; }
-  .login-art::before{ content:""; position:absolute; inset:0; background:linear-gradient(0deg, rgba(18,79,86,.92) 0%, rgba(18,79,86,.55) 45%, rgba(18,79,86,.05) 100%); }
-  .login-art div{ position:relative; padding:26px 28px; color:#FFF8E9; }
-  .login-art h2{ margin:0 0 6px; font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size:1.9rem; line-height:1.2; }
-  .login-art p{ margin:0; color:#DCEAE6; }
+  .login-art{ position:relative; min-height:420px; background:#0B2A5B url("assets/teacher-dashboard-study-hero.png") center/cover no-repeat; display:flex; align-items:flex-end; }
+  .login-art::before{ content:""; position:absolute; inset:0; background:linear-gradient(0deg, rgba(11,42,91,.94) 0%, rgba(11,42,91,.55) 45%, rgba(11,42,91,.05) 100%); }
+  .login-art div{ position:relative; padding:26px 28px; color:#fff; }
+  .login-art h2{ margin:0 0 6px; font-family:"Rubik","Heebo",sans-serif; font-weight:900; font-size:1.9rem; line-height:1.2; }
+  .login-art p{ margin:0; color:#DCE5F2; }
   .login-form{ padding:30px 32px; display:flex; flex-direction:column; }
-  .login-form h1{ margin:0 0 4px; font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size:1.8rem; color:var(--teal); }
+  .login-form h1{ margin:0 0 4px; font-family:"Rubik","Heebo",sans-serif; font-weight:900; font-size:1.8rem; color:var(--teal); }
   .sub{ margin:0 0 12px; color:var(--muted); font-size:.95rem; }
   label{ display:block; font-weight:700; margin:12px 0 5px; }
-  input{ width:100%; font:inherit; font-size:1.05rem; padding:11px 14px; border:1.5px solid #D6C8A8; border-radius:12px; background:#fff; color:var(--ink); }
+  input{ width:100%; font:inherit; font-size:1.05rem; padding:11px 14px; border:1.5px solid #C6D2E6; border-radius:12px; background:#fff; color:var(--ink); }
   input:focus-visible{ border-color:var(--teal3); }
   .id-input{ letter-spacing:.14em; font-variant-numeric:tabular-nums; direction:ltr; text-align:right; }
   .btns{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
@@ -61,15 +62,15 @@
 
   /* ---------- מבנה האזור: תפריט בצד + תוכן ---------- */
   .shell{ max-width:1320px; margin:20px auto 40px; padding:0 16px; display:grid; grid-template-columns:250px minmax(0,1fr); gap:20px; align-items:start; }
-  .side{ position:sticky; top:16px; background:linear-gradient(180deg,#FCF8EE,#F5EFE2); border:1px solid var(--line); border-radius:22px; padding:18px 14px; display:flex; flex-direction:column; gap:6px; }
+  .side{ position:sticky; top:16px; background:#fff; box-shadow:0 4px 14px rgba(11,42,91,.06); border:1px solid var(--line); border-radius:22px; padding:18px 14px; display:flex; flex-direction:column; gap:6px; }
   .me{ display:flex; align-items:center; gap:12px; padding:4px 6px 16px; margin-bottom:6px; border-bottom:1px solid var(--line); }
-  .avatar{ flex:none; width:48px; height:48px; border-radius:50%; background:var(--teal); color:#FFF6DF; display:flex; align-items:center; justify-content:center; font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size:1.25rem; }
+  .avatar{ flex:none; width:48px; height:48px; border-radius:50%; background:var(--teal); color:#FFF6DF; display:flex; align-items:center; justify-content:center; font-family:"Rubik","Heebo",sans-serif; font-weight:900; font-size:1.25rem; }
   .me b{ display:block; font-size:1.05rem; line-height:1.25; overflow-wrap:anywhere; }
   .me span{ font-size:.86rem; color:var(--muted); }
   .me .avatar{ color:#FFF6DF; font-size:1.25rem; }
   .nav{ display:flex; align-items:center; gap:12px; width:100%; padding:11px 12px; border:0; border-radius:14px; background:transparent; color:var(--teal); font:inherit; font-weight:700; font-size:1rem; text-align:right; cursor:pointer; }
-  .nav:hover{ background:rgba(18,79,86,.07); }
-  .nav[aria-current="page"]{ background:var(--teal); color:#fff; box-shadow:0 4px 12px rgba(18,79,86,.25); }
+  .nav:hover{ background:var(--soft); }
+  .nav[aria-current="page"]{ background:var(--teal); color:#fff; box-shadow:0 4px 12px rgba(11,42,91,.25); }
   .nav-ic{ flex:none; width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; background:#fff; border:1px solid var(--line); font-size:1.1rem; }
   .nav[aria-current="page"] .nav-ic{ background:rgba(255,255,255,.16); border-color:transparent; }
   .nav-n{ margin-inline-start:auto; min-width:24px; height:24px; padding:0 7px; border-radius:999px; background:var(--orange); color:#fff; font-size:.8rem; font-weight:800; display:inline-flex; align-items:center; justify-content:center; }
@@ -78,30 +79,30 @@
   .side-foot{ margin-top:10px; padding-top:12px; border-top:1px solid var(--line); }
   .side-foot .btn{ width:100%; min-height:40px; padding:8px 14px; font-size:.92rem; }
 
-  .content{ min-width:0; background:var(--paper); border:1px solid var(--line); border-radius:22px; padding:24px 26px 30px; box-shadow:0 10px 30px rgba(20,34,59,.06); }
-  .panel-h{ margin:0 0 4px; font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size:1.9rem; color:var(--ink); display:flex; align-items:center; gap:10px; }
+  .content{ min-width:0; background:var(--paper); border:1px solid var(--line); border-radius:22px; padding:24px 26px 30px; box-shadow:0 10px 30px rgba(11,42,91,.06); }
+  .panel-h{ margin:0 0 4px; font-family:"Rubik","Heebo",sans-serif; font-weight:900; font-size:1.9rem; color:var(--ink); display:flex; align-items:center; gap:10px; }
   .panel-h .ic{ font-size:1.5rem; }
   .panel > .sub{ margin-bottom:18px; }
   .empty{ margin:6px 0; color:var(--muted); }
 
   /* ---------- הבית שלי ---------- */
-  .hero{ position:relative; border-radius:20px; overflow:hidden; background:#15575e url("assets/teacher-dashboard-study-hero.png") center/cover no-repeat; color:#FFF8E9; isolation:isolate; margin-bottom:18px; }
-  .hero::before{ content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(270deg, rgba(18,79,86,.96) 0%, rgba(18,79,86,.86) 45%, rgba(18,79,86,.35) 75%, rgba(18,79,86,.15) 100%); }
+  .hero{ position:relative; border-radius:20px; overflow:hidden; background:#0B2A5B url("assets/teacher-dashboard-study-hero.png") center/cover no-repeat; color:#fff; isolation:isolate; margin-bottom:18px; }
+  .hero::before{ content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(270deg, rgba(11,42,91,.97) 0%, rgba(11,42,91,.88) 45%, rgba(11,42,91,.38) 75%, rgba(11,42,91,.15) 100%); }
   .hero-in{ padding:28px 30px; max-width:640px; }
-  .hero small{ color:#CFE3E1; font-size:.95rem; }
-  .hero h2{ margin:4px 0 8px; font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size:clamp(1.8rem,3.6vw,2.5rem); line-height:1.15; text-wrap:balance; }
-  .hero p{ margin:0 0 16px; color:#E4ECE6; }
-  .resume{ display:inline-flex; align-items:center; gap:12px; max-width:100%; padding:11px 18px; border-radius:999px; background:#FFF1D2; color:var(--teal); text-decoration:none; font-weight:800; box-shadow:0 4px 12px rgba(0,0,0,.15); }
-  .resume:hover{ background:#FFE7B8; }
+  .hero small{ color:#C3CFDD; font-size:.95rem; }
+  .hero h2{ margin:4px 0 8px; font-family:"Rubik","Heebo",sans-serif; font-weight:900; font-size:clamp(1.8rem,3.6vw,2.5rem); line-height:1.15; text-wrap:balance; }
+  .hero p{ margin:0 0 16px; color:#DCE5F2; }
+  .resume{ display:inline-flex; align-items:center; gap:12px; max-width:100%; padding:11px 18px; border-radius:999px; background:var(--orange); color:#fff; text-decoration:none; font-weight:800; box-shadow:0 4px 12px rgba(0,0,0,.18); }
+  .resume:hover{ background:#F06A0A; }
   .resume span{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; }
-  .resume em{ flex:none; font-style:normal; padding:1px 9px; border-radius:999px; background:var(--teal); color:#fff; font-size:.85rem; }
+  .resume em{ flex:none; font-style:normal; padding:1px 9px; border-radius:999px; background:#fff; color:var(--orange-deep); font-size:.85rem; }
 
   .tiles{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-bottom:20px; }
   .tile{ position:relative; display:flex; flex-direction:column; gap:5px; min-width:0; padding:16px 18px; border:1px solid var(--line); border-radius:18px; background:#fff; color:var(--ink); font:inherit; text-align:right; cursor:pointer; }
-  .tile:hover{ border-color:#CDB98A; box-shadow:0 8px 20px rgba(20,34,59,.08); transform:translateY(-1px); }
+  .tile:hover{ border-color:var(--hover); box-shadow:0 8px 20px rgba(20,34,59,.08); transform:translateY(-1px); }
   .tile-lbl{ display:flex; align-items:center; gap:8px; color:var(--muted); font-weight:700; font-size:.95rem; padding-inline-end:18px; }
   .tile-ic{ width:30px; height:30px; border-radius:9px; display:inline-flex; align-items:center; justify-content:center; background:var(--soft); font-size:1rem; }
-  .tile-num{ font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size:2.4rem; line-height:1; color:var(--teal); font-variant-numeric:tabular-nums; }
+  .tile-num{ font-family:"Rubik","Heebo",sans-serif; font-weight:900; font-size:2.4rem; line-height:1; color:var(--teal); font-variant-numeric:tabular-nums; }
   .tile-meta{ font-size:.86rem; color:var(--muted); min-height:1.3em; }
   .tile-go{ position:absolute; inset-inline-end:16px; top:16px; color:var(--gold); font-weight:800; }
   .tile.hot{ border-color:#F2BE93; background:#FFF8F0; } .tile.hot .tile-num{ color:var(--orange-deep); }
@@ -109,7 +110,7 @@
   @media (prefers-reduced-motion: reduce){ .tile:hover{ transform:none; } }
 
   .box{ background:#fff; border:1px solid var(--line); border-radius:18px; padding:16px 18px; }
-  .box h3{ margin:0 0 6px; font-family:"Frank Ruhl Libre",serif; font-size:1.3rem; }
+  .box h3{ margin:0 0 6px; font-family:"Rubik","Heebo",sans-serif; font-size:1.3rem; }
   .next{ list-style:none; margin:0; padding:0; }
   .next li{ display:flex; align-items:center; gap:12px; padding:11px 0; border-bottom:1px solid var(--line2); }
   .next li:last-child{ border-bottom:0; }
@@ -122,7 +123,7 @@
   /* ---------- משימות ---------- */
   .tasks, .work, .exams{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
   .tk{ display:flex; align-items:center; gap:14px; padding:14px 16px; border:1px solid var(--line); border-radius:16px; background:#fff; text-decoration:none; color:inherit; }
-  a.tk:hover{ border-color:#CDB98A; box-shadow:0 6px 16px rgba(20,34,59,.07); }
+  a.tk:hover{ border-color:var(--hover); box-shadow:0 6px 16px rgba(20,34,59,.07); }
   .tk-ic{ flex:none; width:44px; height:44px; border-radius:14px; display:flex; align-items:center; justify-content:center; background:var(--soft); font-size:1.3rem; }
   .tk.late{ border-color:#F0B4AE; background:#FFF6F5; } .tk.late .tk-ic{ background:#FDE2DF; }
   .tk.ok{ border-color:#A9DCC6; background:#F3FBF7; } .tk.ok .tk-ic{ background:var(--ok-bg); }
@@ -161,7 +162,7 @@
   .u-ico{ flex:none; width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center; background:var(--soft); font-size:1.3rem; }
   .u-main{ flex:1; min-width:0; display:flex; flex-direction:column; gap:6px; }
   .u-title{ font-weight:800; }
-  .u-bar{ display:block; height:9px; border-radius:999px; background:#EDE6D6; overflow:hidden; }
+  .u-bar{ display:block; height:9px; border-radius:999px; background:var(--track); overflow:hidden; }
   .u-bar i{ display:block; height:100%; background:var(--ok); border-radius:999px; }
   .u-count{ font-size:.84rem; color:var(--muted); font-variant-numeric:tabular-nums; }
   .u-chev{ flex:none; color:var(--gold); font-weight:800; transition:transform .15s; }
@@ -180,13 +181,13 @@
   .chip b{ color:var(--ink); }
   .chip.new{ background:#FFF4EA; border-color:#F2BE93; color:#8A3D07; }
   .wk{ display:flex; align-items:center; gap:14px; padding:13px 16px; border:1px solid var(--line); border-radius:16px; background:#fff; text-decoration:none; color:inherit; }
-  a.wk:hover{ border-color:#CDB98A; box-shadow:0 6px 16px rgba(20,34,59,.07); }
+  a.wk:hover{ border-color:var(--hover); box-shadow:0 6px 16px rgba(20,34,59,.07); }
   .wk.is-new{ border-color:#F2BE93; background:#FFF8F0; }
   .wk-main{ flex:1; min-width:0; display:flex; flex-direction:column; gap:3px; }
   .wk-title{ font-weight:800; overflow-wrap:anywhere; }
   .wk-meta{ display:flex; flex-wrap:wrap; gap:4px 10px; font-size:.86rem; color:var(--muted); }
   .wk-state{ font-weight:800; } .wk-state.done{ color:var(--ok); } .wk-state.redo{ color:var(--orange-deep); }
-  .wk-grade{ flex:none; min-width:56px; text-align:center; padding:7px 8px; border-radius:12px; background:var(--ok-bg); color:#0B5E43; font-family:"Frank Ruhl Libre",serif; font-weight:900; font-size:1.35rem; font-variant-numeric:tabular-nums; }
+  .wk-grade{ flex:none; min-width:56px; text-align:center; padding:7px 8px; border-radius:12px; background:var(--ok-bg); color:#0B5E43; font-family:"Rubik","Heebo",sans-serif; font-weight:900; font-size:1.35rem; font-variant-numeric:tabular-nums; }
   .wk-new{ display:inline-block; margin-inline-end:6px; padding:0 8px; border-radius:999px; background:var(--orange); color:#fff; font-size:.75rem; font-weight:800; vertical-align:middle; }
 
   /* ---------- טלפון: תפריט למטה ---------- */
