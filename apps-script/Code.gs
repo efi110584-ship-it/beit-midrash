@@ -138,6 +138,7 @@ function doPost(e) {
       case 'assignDelete':    return json_(assignDelete_(data.id));
       case 'assignList':      return json_({ ok: true, list: assignAll_() });
       case 'assignStatus':    return json_(assignStatus_(data.id));
+      case 'teacherSummary':  return json_(teacherSummary_());
       case 'lessonTeacher':   return json_(lessonTeacher_(data.code));
       case 'clearLesson':     return json_(clearLesson_(data.code));
       case 'lessonNav':       return json_(lessonNav_(data.code, data.url, data.label));
@@ -1366,9 +1367,13 @@ function assignFor_(cls, name) {
 function assignStatus_(id) {
   var a = assignAll_().filter(function (x) { return x.id === String(id || ''); })[0];
   if (!a) return { ok: false, error: 'המשימה לא נמצאה.' };
-  var props = PropertiesService.getScriptProperties().getProperties();
   var roster = roster_(a.cls);
-  var subs = a.task ? listSubmissions_(false).filter(function (x) {
+  var rows = assignRows_(a, PropertiesService.getScriptProperties().getProperties(), listSubmissions_(false));
+  return { ok: true, assign: a, rows: rows, noRoster: !Object.keys(roster).length };
+}
+function assignRows_(a, props, allSubs) {
+  var roster = roster_(a.cls);
+  var subs = a.task ? allSubs.filter(function (x) {
     return x.id && x.status !== 'missing' && x.cls === a.cls && normTask_(x.task) === normTask_(a.task);
   }) : [];
   var rows = Object.keys(roster).filter(function (h) {
@@ -1381,7 +1386,36 @@ function assignStatus_(id) {
     return { name: name, account: !!props['STU_' + h], pct: prog ? prog[0] : -1, ans: prog ? prog[1] : 0, fields: prog ? prog[2] : 0,
              at: prog ? prog[3] : 0, sent: sent ? sent.date || '✓' : '' };
   }).sort(function (x, y) { return String(x.name).localeCompare(String(y.name), 'he'); });
-  return { ok: true, assign: a, rows: rows, noRoster: !Object.keys(roster).length };
+  return rows;
+}
+
+// המסך הראשי של המורה (assets/teacher-home.js): מה מחכה היום - בקריאה אחת
+function teacherSummary_() {
+  var props = PropertiesService.getScriptProperties().getProperties();
+  var subs = listSubmissions_(false).filter(function (x) { return x.id && x.status !== 'missing' && !x.hidden; });
+  var now = Date.now(), week = 7 * 864e5;
+  var pending = subs.filter(function (x) { return x.status === 'pending'; });
+  var old = pending.filter(function (x) { return x.time && now - x.time > week; });
+  var byTask = {};
+  old.forEach(function (x) { var k = x.task + ' (' + (x.cls === 'יב' ? 'י"ב' : 'י"א') + ')'; byTask[k] = (byTask[k] || 0) + 1; });
+  var redo = pending.filter(function (x) { return x.redoOf; }).length;
+  var today = Utilities.formatDate(new Date(), TZ, 'yyyy-MM-dd');
+  var tasks = assignAll_().filter(function (a) { return a.due >= today; }).map(function (a) {
+    var rows = assignRows_(a, props, subs);
+    return { id: a.id, title: a.title, cls: a.cls, due: a.due, total: rows.length,
+             done: rows.filter(function (r) { return r.pct >= 100; }).length,
+             sent: rows.filter(function (r) { return r.sent; }).length,
+             notStarted: rows.filter(function (r) { return r.account && r.pct < 0; }).length,
+             noAccount: rows.filter(function (r) { return !r.account; }).length };
+  });
+  var noAcc = {};
+  MONITOR_CLASSES.forEach(function (c) {
+    var r = roster_(c), hs = Object.keys(r);
+    noAcc[c] = { roster: hs.length, missing: hs.filter(function (h) { return !props['STU_' + h]; }).length };
+  });
+  return { ok: true, pending: pending.length, pendingOld: old.length,
+           oldTop: Object.keys(byTask).sort(function (a, b) { return byTask[b] - byTask[a]; }).slice(0, 3).map(function (k) { return k + (byTask[k] > 1 ? ' ×' + byTask[k] : ''); }),
+           redo: redo, tasks: tasks, accounts: noAcc };
 }
 
 // למורה: מי ברשימות הכיתה כבר פתח חשבון באזור האישי
