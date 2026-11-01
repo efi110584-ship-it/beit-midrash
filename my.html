@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>האזור האישי שלי | הכיתה הדיגיטלית</title>
-<meta name="description" content="האזור האישי של התלמיד: כניסה עם תעודת זהות וסיסמה, מבחנים ומשימות קרובים, העבודות שלי עם ציונים ומשוב">
+<meta name="description" content="האזור האישי של התלמיד: כניסה עם תעודת זהות וסיסמה, מבחנים ומשימות קרובים, ההתקדמות שלי, והעבודות שלי עם ציונים ומשוב">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
@@ -66,6 +66,30 @@
   .wk-state{ font-weight:600; }
   .wk-state.done{ color:var(--ok); } .wk-state.redo{ color:var(--orange-deep); }
   .wk-grade{ flex:none; min-width:52px; text-align:center; padding:6px 8px; border-radius:10px; background:#E7F5EF; color:#0B5E43; font-weight:800; font-size:1.15rem; font-variant-numeric:tabular-nums; }
+  .resume{ display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:12px; background:var(--navy); color:#fff; text-decoration:none; margin:0 0 12px; }
+  .resume:hover{ background:var(--blue); }
+  .resume small{ display:block; color:#C3CFDD; font-size:.85rem; }
+  .resume b{ display:block; }
+  .resume-go{ margin-inline-start:auto; font-weight:700; white-space:nowrap; }
+  .units{ display:flex; flex-direction:column; gap:8px; }
+  .unit{ border:1px solid var(--line); border-radius:12px; background:#fff; }
+  .unit summary{ display:flex; align-items:center; gap:10px; padding:10px 12px; cursor:pointer; list-style:none; }
+  .unit summary::-webkit-details-marker{ display:none; }
+  .unit summary:focus-visible{ outline:3px solid var(--orange); outline-offset:2px; border-radius:12px; }
+  .u-ico{ flex:none; font-size:1.3rem; }
+  .u-main{ flex:1; min-width:0; display:flex; flex-direction:column; gap:4px; }
+  .u-title{ font-weight:700; }
+  .u-bar{ height:8px; border-radius:999px; background:#E3E8F0; overflow:hidden; }
+  .u-bar i{ display:block; height:100%; background:var(--ok); border-radius:999px; }
+  .u-count{ flex:none; font-size:.88rem; color:var(--muted); font-variant-numeric:tabular-nums; }
+  .u-chev{ flex:none; color:var(--muted); transition:transform .15s; }
+  .unit[open] .u-chev{ transform:rotate(-90deg); }
+  .topics{ list-style:none; margin:0; padding:0 12px 10px; display:flex; flex-direction:column; gap:4px; }
+  .topics a{ display:flex; align-items:center; gap:8px; padding:6px 8px; border-radius:8px; color:inherit; text-decoration:none; font-size:.95rem; }
+  .topics a:hover{ background:var(--soft); }
+  .t-st{ flex:none; min-width:76px; font-size:.82rem; font-weight:700; text-align:center; padding:1px 8px; border-radius:999px; }
+  .t-st.done{ background:#E7F5EF; color:#0B5E43; } .t-st.mid{ background:#FFF1D6; color:#8A4B00; } .t-st.none{ background:var(--soft); color:var(--muted); }
+  @media (prefers-reduced-motion: reduce){ .u-chev{ transition:none; } }
   .wk-new{ display:inline-block; margin-inline-end:6px; padding:0 8px; border-radius:999px; background:var(--orange-deep); color:#fff; font-size:.75rem; font-weight:700; vertical-align:middle; }
   @media (max-width:420px){ .card{ padding:14px; } }
 </style>
@@ -121,6 +145,13 @@
     <p class="sub" id="examsSub"></p>
     <ul class="exams" id="examsList"></ul>
   </section>
+  <section class="card" id="progCard" hidden aria-labelledby="progH">
+    <h2 id="progH">📈 ההתקדמות שלי</h2>
+    <p class="sub">כמה דפי עבודה סיימת בכל יחידה. נשמר מכל מכשיר שבו נכנסת לאזור האישי.</p>
+    <div id="progResume"></div>
+    <div class="units" id="progUnits"></div>
+    <p class="note">דף "הושלם" = כל משימות החובה בדף נעשו. ההתקדמות נרשמת מהרגע שנכנסת לאזור האישי, ורק בדפים שבהם יש תיבות תשובה.</p>
+  </section>
   <section class="card" id="workCard" hidden aria-labelledby="workH">
     <h2 id="workH">📝 העבודות שלי</h2>
     <p class="sub">כל העבודות ששלחת, מכל מכשיר. הציון והמשוב מופיעים אחרי שהמורה מפרסם אותם.</p>
@@ -138,6 +169,7 @@
 </main>
 
 <script src="assets/bm-api.js"></script>
+<script src="assets/units-data.js"></script>
 <script>
 /* האזור האישי של התלמיד. השרת: studentCheck / studentLogin / studentHome (apps-script/Code.gs).
    האסימון נשמר במכשיר (localStorage "bm-student") עד יציאה מהחשבון או איפוס של המורה. */
@@ -228,7 +260,7 @@
     $("examsList").innerHTML = exams.length ? exams.map(examItem).join("") : '<li><p class="empty">אין כרגע מבחנים או משימות קרובים. 🎉</p></li>';
   }
   function showLogin(note){
-    $("login").hidden = false; $("meCard").hidden = true; $("examsCard").hidden = true; $("workCard").hidden = true;
+    $("login").hidden = false; $("meCard").hidden = true; $("examsCard").hidden = true; $("workCard").hidden = true; $("progCard").hidden = true;
     $("hello").textContent = "האזור האישי שלי"; $("helloSub").textContent = "כניסה עם תעודת זהות וסיסמה - מכל מכשיר";
     if(note) $("idMsg").textContent = note;
     show("stepId");
@@ -243,9 +275,42 @@
       if(!res || !res.ok){ $("homeMsg").textContent = (res && res.error) || "לא הצלחנו לטעון."; return; }
       me.name = res.name; me.cls = res.cls; store(me);
       showHome(me, res.exams || []);
+      showProgress(me, res.progress || {});
     }).catch(function(){ netErr($("homeMsg")); });
     loadWork(me);
   }
+  /* ---------- ההתקדמות שלי ---------- */
+  /* progress: { "דף.html": [אחוז, תשובות, תיבות, זמן] }. היחידות והדפים - מ-assets/units-data.js (BM_UNITS) */
+  function showProgress(me, progress){
+    var units = (window.BM_UNITS || []).filter(function(u){ return u.class === me.cls && (u.topics || []).some(function(t){ return t.url; }); });
+    if(!units.length){ $("progCard").hidden = true; return; }
+    $("progCard").hidden = false;
+    function st(url){ var p = progress[String(url || "").split("#")[0]]; return p ? { pct:p[0], ans:p[1], fields:p[2], t:p[3] } : null; }
+    /* "המשך מאיפה שעצרת" - הדף האחרון שנפתח ועוד לא הושלם */
+    var lastPage = null, lastT = 0;
+    Object.keys(progress).forEach(function(pg){ var p = progress[pg]; if(p[0] < 100 && p[3] > lastT){ lastT = p[3]; lastPage = pg; } });
+    var lastTitle = "";
+    if(lastPage) units.forEach(function(u){ (u.topics || []).forEach(function(t){ if(String(t.url).split("#")[0] === lastPage) lastTitle = u.title + " · " + t.title; }); });
+    $("progResume").innerHTML = lastPage && lastTitle ? '<a class="resume" href="' + esc(lastPage) + '"><span><small>להמשיך מאיפה שעצרת</small><b>' + esc(lastTitle) + '</b></span><span class="resume-go">' + progress[lastPage][0] + '% ›</span></a>' : "";
+    $("progUnits").innerHTML = units.map(function(u){
+      var topics = (u.topics || []).filter(function(t){ return t.url; });
+      var done = 0, started = 0;
+      var rows = topics.map(function(t){
+        var p = st(t.url), cls, label;
+        if(p && p.pct >= 100){ done++; cls = "done"; label = "✓ הושלם"; }
+        else if(p && (p.pct > 0 || p.ans > 0)){ started++; cls = "mid"; label = p.pct + "%"; }
+        else if(p){ started++; cls = "mid"; label = "נפתח"; }
+        else { cls = "none"; label = "עוד לא"; }
+        return '<li><a href="' + esc(t.url) + '"><span class="t-st ' + cls + '">' + label + '</span><span>' + esc(t.title) + '</span></a></li>';
+      }).join("");
+      var pct = topics.length ? Math.round(done / topics.length * 100) : 0;
+      return '<details class="unit"><summary><span class="u-ico" aria-hidden="true">' + esc(u.icon || "📘") + '</span>' +
+        '<span class="u-main"><span class="u-title">' + esc(u.title) + '</span><span class="u-bar" aria-hidden="true"><i style="width:' + pct + '%"></i></span></span>' +
+        '<span class="u-count">' + done + '/' + topics.length + (started ? ' · ' + started + ' בתהליך' : '') + '</span><span class="u-chev" aria-hidden="true">‹</span></summary>' +
+        '<ul class="topics">' + rows + '</ul></details>';
+    }).join("");
+  }
+
   /* ---------- העבודות שלי ---------- */
   function readSeen(){ try{ return JSON.parse(localStorage.getItem("bm-fb-seen") || "[]") || []; }catch(e){ return []; } }
   function workItem(w, seen){

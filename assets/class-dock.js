@@ -40,6 +40,44 @@
     fill();
     window.addEventListener("load", fill);
   })();
+  /* תלמיד מחובר: ההתקדמות בדף (אחוז המשימות שהושלמו ותשובות שנכתבו) נשמרת בשרת,
+     ומופיעה אצלו באזור האישי מכל מכשיר. נשלח רק כשמשהו השתנה, ולא יותר מפעם ב-30 שניות. */
+  (function(){
+    var me = null;
+    try{ me = JSON.parse(localStorage.getItem("bm-student") || "null"); }catch(e){}
+    if(!me || !me.tok) return;
+    var last = "", lastAt = 0, timer = null;
+    function measure(){
+      var f = document.querySelectorAll("textarea.answer"), ans = 0;
+      for(var i = 0; i < f.length; i++){ if(String(f[i].value || "").trim().length >= 2) ans++; }
+      if(!f.length) return null;
+      var S = window.BeitMidrashSteps, pct = Math.round(ans / f.length * 100);
+      try{ if(S && S.requiredPercent) pct = S.requiredPercent(); }catch(e){}
+      return { pct:pct, ans:ans, fields:f.length };
+    }
+    function send(now){
+      var m = measure();
+      if(!m) return;
+      var sig = m.pct + "|" + m.ans + "|" + m.fields;
+      if(sig === last) return;
+      var wait = 30000 - (Date.now() - lastAt);
+      if(!now && wait > 0){ clearTimeout(timer); timer = setTimeout(function(){ send(true); }, wait); return; }
+      last = sig; lastAt = Date.now();
+      try{
+        fetch(API, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" }, keepalive:true,
+          body:JSON.stringify({ action:"studentProgress", tok:me.tok, page:page, pct:m.pct, ans:m.ans, fields:m.fields }) })
+          .then(function(r){ return r.json(); })
+          .then(function(res){ if(res && res.login){ try{ localStorage.removeItem("bm-student"); }catch(e){} } })
+          .catch(function(){ last = ""; });
+      }catch(e){}
+    }
+    var typing = null;
+    document.addEventListener("input", function(){ clearTimeout(typing); typing = setTimeout(function(){ send(false); }, 4000); }, true);
+    document.addEventListener("bm-steps-change", function(){ send(false); });
+    document.addEventListener("visibilitychange", function(){ if(document.visibilityState === "hidden") send(true); });
+    window.addEventListener("pagehide", function(){ send(true); });
+    setTimeout(function(){ send(true); }, 2500);   /* כניסה לדף - גם דף שעוד לא התחילו (0%) נרשם כ"נפתח" */
+  })();
 
   var BASE = (function(){
     var s = document.currentScript && document.currentScript.src;

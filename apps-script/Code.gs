@@ -113,6 +113,7 @@ function doPost(e) {
     if (data.action === 'studentLogin') return json_(studentLogin_(data));
     if (data.action === 'studentHome') return json_(studentHome_(data.tok));
     if (data.action === 'studentWork') return json_(studentWork_(data.tok));
+    if (data.action === 'studentProgress') return json_(studentProgress_(data));
 
     // כל השאר - רק עם סיסמה
     if (!checkPassword_(data.password)) return json_({ ok: false, auth: false, error: 'סיסמה שגויה' });
@@ -1250,7 +1251,7 @@ function studentHome_(tok) {
   var me = stuAuth_(tok);
   if (!me) return { ok: false, login: true };
   var exams = examsUpcoming_().filter(function (x) { return x.cls === 'all' || x.cls === me.cls; });
-  return { ok: true, name: me.name, cls: me.cls, exams: exams };
+  return { ok: true, name: me.name, cls: me.cls, exams: exams, progress: getJson_('STUP_' + me.h) || {} };
 }
 // העבודות של התלמיד, מכל מכשיר: מלוח ההגשות של המורה, לפי השם ברשימת הכיתה (תיקיית התלמיד ב-Drive).
 // ציון ומשוב מוצגים רק אחרי שהמורה פרסם את המשוב (fbpub_<id> = 1) - בדיוק כמו בקישור המשוב.
@@ -1274,6 +1275,29 @@ function studentWork_(tok) {
              grade: pub ? (x.grade !== '' && x.grade != null ? String(x.grade) : String(x.fbg || '')) : '',
              redo: pub && x.redo && !x.redone, fixed: !!x.redoOf };
   }) };
+}
+
+// ההתקדמות של התלמיד בדפי העבודה (מדווח מהדף כשהתלמיד מחובר - assets/class-dock.js).
+// STUP_<טביעת ת"ז> = { "דף.html": [אחוז, תשובות שנכתבו, תיבות תשובה, זמן] } - עד STUP_MAX דפים (הישנים יורדים).
+var STUP_MAX = 150;
+function studentProgress_(d) {
+  var me = stuAuth_(d.tok);
+  if (!me) return { ok: false, login: true };
+  var page = String(d.page || '');
+  if (!/^[\w.-]+\.html$/.test(page) || page.length > 80) return { ok: false, error: 'דף לא תקין' };
+  var num = function (v, max) { v = Math.round(Number(v) || 0); return Math.max(0, Math.min(max, v)); };
+  var rec = [num(d.pct, 100), num(d.ans, 999), num(d.fields, 999), Date.now()];
+  var key = 'STUP_' + me.h, map = getJson_(key) || {};
+  var old = map[page];
+  if (old && old[0] === rec[0] && old[1] === rec[1] && old[2] === rec[2]) return { ok: true, same: true };
+  map[page] = rec;
+  var pages = Object.keys(map);
+  if (pages.length > STUP_MAX) {
+    pages.sort(function (a, b) { return (map[a][3] || 0) - (map[b][3] || 0); });
+    pages.slice(0, pages.length - STUP_MAX).forEach(function (k) { delete map[k]; });
+  }
+  PropertiesService.getScriptProperties().setProperty(key, JSON.stringify(map));
+  return { ok: true };
 }
 
 // למורה: מי ברשימות הכיתה כבר פתח חשבון באזור האישי
