@@ -39,6 +39,29 @@
     }
     fill();
     window.addEventListener("load", fill);
+    /* גם הכיתה: כל התלמידים ברשימת י"א הם מ-י"א 4, וברשימת י"ב מ-י"ב 2.
+       אם קבוצה משתנה - מעדכנים כאן (חשוב: לפי המספר העבודה מגיעה למורה הנכון). */
+    var GROUP = { "יא": ["י\"א 4", "יא4"], "יב": ["י\"ב 2", "יב2"] };
+    var ce = document.getElementById("studentClass"), g = GROUP[me.cls];
+    if(!ce || !g) return;
+    function fillCls(){
+      var v = g[0];
+      if(ce.tagName === "SELECT"){
+        var opt = [].filter.call(ce.options, function(o){ return o.value === g[1]; })[0] ||
+                  [].filter.call(ce.options, function(o){ return o.value === me.cls; })[0];
+        if(!opt) return;
+        v = opt.value;
+      }
+      if(ce.value !== v){
+        ce.value = v;
+        ce.dispatchEvent(new Event("input", { bubbles:true }));
+        ce.dispatchEvent(new Event("change", { bubbles:true }));
+      }
+      if(ce.tagName === "SELECT") ce.style.pointerEvents = "none"; else ce.readOnly = true;
+      ce.title = "הכיתה נלקחה מהאזור האישי שלך";
+    }
+    fillCls();
+    window.addEventListener("load", fillCls);
   })();
   /* תלמיד מחובר: ההתקדמות בדף (אחוז המשימות שהושלמו ותשובות שנכתבו) נשמרת בשרת,
      ומופיעה אצלו באזור האישי מכל מכשיר. נשלח רק כשמשהו השתנה, ולא יותר מפעם ב-30 שניות. */
