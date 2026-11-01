@@ -121,6 +121,7 @@ function doPost(e) {
       case 'createLesson':    return json_(createLesson_(data.url, data.label, data.monitor === true, data.cls));
       case 'presenceList':    return json_(presenceList_(data.code));
       case 'kickStudent':     return json_(kickStudent_(data.code, data.sid, data.undo === true));
+      case 'helpDone':        return json_(helpDone_(data.code, data.sid));
       case 'rosterSave':      return json_(rosterSave_(data.cls, data.text));
       case 'rosterInfo':      return json_(rosterInfo_());
       case 'rosterClear':     return json_(rosterClear_(data.cls));
@@ -939,6 +940,21 @@ function presence_(d) {
     p.t = t;
     if (name && (!p.name || idOk || isT)) p.name = name;   // השם נקבע בכניסה הראשונה (או מרשימת הכיתה) - אי אפשר להחליף אותו באמצע השיעור
     if (isT) p.teacher = true;
+    // מה התלמיד עושה בדף: משימה, כמה תשובות כתב, ומתי כתב לאחרונה (assets/lesson-mode.js)
+    var w = d.work;
+    if (w && typeof w === 'object') {
+      var num = function (v, max) { v = Math.round(Number(v) || 0); return Math.max(0, Math.min(max, v)); };
+      p.task = num(w.task, 999); p.tasks = num(w.tasks, 999); p.taskName = clean_(w.name).slice(0, 60);
+      p.ans = num(w.ans, 999); p.fields = num(w.fields, 999);
+      p.actAt = now - num(w.idle, 86400) * 1000;
+    }
+    // ✋ בקשת עזרה: המזהה מגיע מהתלמיד. אחרי "טיפלתי" של המורה (helpAck) - אותה בקשה לא עולה שוב
+    var hid = String(d.helpId || '').replace(/[^\w]/g, '').slice(0, 20);
+    if (hid && hid !== p.helpAck) {
+      if (hid !== p.helpId) { p.help = now; p.helpId = hid; p.ev.push({ k: 'help', at: now }); }
+    } else if (!hid && p.help) {
+      p.help = 0; p.helpId = ''; p.ev.push({ k: 'helpOff', at: now });
+    }
     if (page && page !== p.page && !isNew) p.ev.push({ k: 'page', at: now, page: page });
     if (page) p.page = page;
     if (isNew) p.ev.push({ k: 'join', at: now, page: page });
@@ -969,13 +985,13 @@ function presence_(d) {
     p.last = now;
     all[sid] = p;
     cache.put(key, JSON.stringify(all), 21600);
-    var leaves = p.leaves;
+    var leaves = p.leaves, helpAck = p.helpAck || '';
   } finally {
     lock.releaseLock();
   }
   // מחוץ לנעילה - כדי שדיווחים של תלמידים אחרים לא יחכו
   var act = actFor_(l.code, true);
-  return { ok: true, leaves: leaves, act: (act && act.open) ? { id: act.id, prompt: act.prompt } : null,
+  return { ok: true, leaves: leaves, helpAck: helpAck, act: (act && act.open) ? { id: act.id, prompt: act.prompt } : null,
            nav: l.nav ? { id: l.nav.id, url: l.nav.url, label: l.nav.label } : null };
 }
 
@@ -1003,6 +1019,31 @@ function kickStudent_(code, sid, undo) {
   }
 }
 
+// המורה לחץ "טיפלתי" על בקשת עזרה (✋). התלמיד רואה בדיווח הבא שהמורה ראה, והבקשה יורדת.
+function helpDone_(code, sid) {
+  var l = monitoredLesson_(code);
+  if (!l) return { ok: false, error: 'השיעור כבר לא פעיל' };
+  sid = String(sid || '').replace(/[^\w-]/g, '').slice(0, 40);
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(8000)) return { ok: false, error: 'השרת עסוק. נסו שוב בעוד רגע.' };
+  try {
+    var cache = CacheService.getScriptCache(), key = 'pres_' + l.code, all = {};
+    try { all = JSON.parse(cache.get(key) || '{}'); } catch (e) { all = {}; }
+    var p = all[sid];
+    if (!p) return { ok: false, error: 'התלמיד לא נמצא בשיעור' };
+    if (p.help) {
+      p.helpAck = p.helpId || ''; p.help = 0;
+      if (!p.ev) p.ev = [];
+      p.ev.push({ k: 'helpAck', at: Date.now() });
+      if (p.ev.length > PRES_LOG_MAX) p.ev = p.ev.slice(-PRES_LOG_MAX);
+      cache.put(key, JSON.stringify(all), 21600);
+    }
+    return { ok: true };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
 // code - איזה שיעור להציג. בלי קוד (או קוד שכבר לא פעיל) - השיעור עם הבקרה שנוצר אחרון.
 // lessons - כל השיעורים הפעילים עם בקרה, כדי שהמורה יוכל לבחור ביניהם.
 function presenceList_(code) {
@@ -1025,7 +1066,10 @@ function presenceList_(code) {
              outFor: outFor, outWhy: p.state === 'out' ? (p.outReason || 'hidden') : '',
              outSince: p.state === 'out' ? p.outSince : 0,
              outTotal: (p.outTotal || 0) + (status === 'out' ? outFor : 0), pastes: p.pastes || 0, dups: p.dups || 0, kicked: !!p.kicked,
-             ev: p.ev || [], lastAgo: Math.round((now - (p.last || now)) / 1000), teacher: !!p.teacher };
+             ev: p.ev || [], lastAgo: Math.round((now - (p.last || now)) / 1000), teacher: !!p.teacher,
+             task: p.task || 0, tasks: p.tasks || 0, taskName: p.taskName || '', ans: p.ans || 0, fields: p.fields || 0,
+             idle: p.actAt ? Math.max(0, Math.round((now - p.actAt) / 1000)) : -1,
+             help: (p.help && !p.kicked && p.state !== 'bye') ? Math.round((now - p.help) / 1000) : -1 };
   });
   // המורה (כניסה לבדיקה) מוחזר בנפרד, כדי שלא ייספר עם התלמידים ולא יקפיץ התראות
   var teachers = out.filter(function (x) { return x.teacher; });

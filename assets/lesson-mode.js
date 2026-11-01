@@ -275,7 +275,8 @@
   function save(){ try{ st.leaves = leaves; localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} }
 
   function send(state, onDone, extra, retry){
-    var msg = { action:"presence", code:st.code, sid:st.sid, name:st.name, tok:st.tok || "", page:page, state:state, t:Date.now() };
+    var msg = { action:"presence", code:st.code, sid:st.sid, name:st.name, tok:st.tok || "", page:page, state:state, t:Date.now(),
+                work:work(), helpId:st.helpId || "" };
     if(extra) for(var k in extra) msg[k] = extra[k];
     var body = JSON.stringify(msg);
     /* השרת עסוק (הרבה תלמידים מדווחים יחד) או שהחיבור נפל - מנסים שוב פעם אחת, עם אותו זמן.
@@ -294,6 +295,7 @@
           if(res && res.needId){ needId(); return; }
           if(res && res.busy){ if(again) again(); return; }
           if(res && res.ok) navCheck(res.nav);
+          if(res && res.ok) helpCheck(res);
           if(res && res.ok && !window.BM_DOCK) actNotice(res.act);   /* בדפים עם סרגל הכלים - הסרגל מודיע */
           if(res && res.ok && onDone) onDone(res);
         })
@@ -348,6 +350,50 @@
   }
   function esc(t){ return String(t == null ? "" : t).replace(/[&<>"']/g, function(ch){ return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[ch]; }); }
 
+  /* ---------- מה התלמיד עושה בדף (בשביל טבלת "שיעור חי" אצל המורה) ----------
+     task/tasks - באיזו משימה (0 = "כל השאלות" או דף בלי משימות), name - שם המשימה,
+     ans/fields - כמה תיבות תשובה כתובות מתוך כמה יש בדף, idle - כמה שניות עברו מאז שכתב או עבר משימה. */
+  var lastAct = Date.now();
+  function touch(){ lastAct = Date.now(); }
+  function work(){
+    var w = { task:0, tasks:0, name:"", ans:0, fields:0, idle:Math.round((Date.now() - lastAct) / 1000) };
+    try{
+      var S = window.BeitMidrashSteps;
+      if(S && S.navs && S.navs.length){
+        var nv = S.navs.filter(function(n){ return n.shown && n.shown(); })[0] || S.navs[0], i = nv.info();
+        w.tasks = i.total || 0;
+        w.task = i.all ? 0 : (i.current || 0) + 1;
+        w.name = String((i.all ? "כל השאלות" : (i.tasks && i.tasks[i.current])) || "").slice(0, 60);
+      }
+    }catch(e){}
+    var f = document.querySelectorAll("textarea.answer");
+    w.fields = f.length;
+    for(var k = 0; k < f.length; k++){ if(String(f[k].value || "").trim().length >= 2) w.ans++; }
+    return w;
+  }
+  /* ✋ צריך עזרה: מזהה לבקשה נשמר במכשיר (גם במעבר בין דפים). כשהמורה לוחץ "טיפלתי" -
+     השרת מחזיר את המזהה ב-helpAck, והבקשה יורדת אצל התלמיד. */
+  function helpPaint(){
+    var b = bar && bar.querySelector(".bm-lm-help");
+    if(!b) return;
+    var on = !!st.helpId;
+    b.textContent = on ? "✋ ביקשת עזרה · ביטול" : "✋ צריך עזרה";
+    b.setAttribute("aria-pressed", String(on));
+    b.classList.toggle("is-on", on);
+  }
+  function helpToggle(){
+    if(st.helpId){ st.helpId = ""; save(); helpPaint(); send("in"); return; }
+    st.helpId = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+    save(); helpPaint();
+    send("in", function(){ toast("✋ המורה רואה שביקשת עזרה."); });
+  }
+  function helpCheck(res){
+    if(st.helpId && res.helpAck && res.helpAck === st.helpId){
+      st.helpId = ""; save(); helpPaint();
+      toast("👍 המורה ראה/תה את הבקשה שלך ויגיע/תגיע אליך.");
+    }
+  }
+
   /* ---------- הפס שמראה לתלמיד שהבקרה פעילה ---------- */
   function injectStyle(){
     var css =
@@ -359,6 +405,10 @@
       ".bm-lm-exit{flex:none;border:0;border-radius:999px;background:rgba(255,255,255,.16);color:#fff;" +
       "font:inherit;font-size:13px;padding:5px 10px;cursor:pointer;min-height:32px}" +
       ".bm-lm-exit:hover{background:rgba(255,255,255,.26)}" +
+      ".bm-lm-help{flex:none;border:0;border-radius:999px;background:#FFD9B8;color:#5A2A00;font:inherit;font-size:13px;font-weight:700;" +
+      "padding:5px 10px;cursor:pointer;min-height:32px}" +
+      ".bm-lm-help.is-on{background:#FF7A1A;color:#fff}" +
+      ".bm-lm-help:focus-visible{outline:3px solid #FF7A1A;outline-offset:2px}" +
       ".bm-lm-exit:focus-visible{outline:3px solid #FF7A1A;outline-offset:2px}" +
       ".bm-lm-act{position:fixed;left:50%;bottom:64px;transform:translateX(-50%);z-index:9999;display:flex;align-items:center;gap:10px;" +
       "max-width:calc(100vw - 24px);padding:10px 10px 10px 16px;border-radius:14px;background:#B42318;color:#fff;" +
@@ -381,14 +431,17 @@
     bar.setAttribute("role", "status");
     bar.innerHTML =
       '<span class="bm-lm-dot" aria-hidden="true"></span>' +
-      '<span class="bm-lm-text">מצב שיעור: המורה רואה יציאות מהדף והדבקת טקסט</span>' +
+      '<span class="bm-lm-text">מצב שיעור: המורה רואה באיזו משימה אתם, יציאות מהדף והדבקת טקסט</span>' +
+      '<button type="button" class="bm-lm-help" aria-pressed="false">✋ צריך עזרה</button>' +
       '<button type="button" class="bm-lm-exit">יציאה</button>';
+    bar.querySelector(".bm-lm-help").addEventListener("click", helpToggle);
     bar.querySelector(".bm-lm-exit").addEventListener("click", function(){
       if(!confirm("לצאת ממצב שיעור? המורה יראה שיצאת.")) return;
       send("bye");
       end();
     });
     document.body.appendChild(bar);
+    helpPaint();
   }
   /* נעילה על דף: בדף הנעול - בלי מעבר בין משימות; בדף אחר באתר - חוזרים לדף הנעול */
   function lockHash(){ return "#bmlock-" + st.lock.step + (st.lock.key ? "-" + st.lock.key : ""); }
@@ -596,6 +649,8 @@
     window.addEventListener("blur", onBlur);
     window.addEventListener("focus", comeBack);
     document.addEventListener("paste", onPaste, true);
+    document.addEventListener("input", touch, true);
+    document.addEventListener("bm-steps-change", touch);
     window.addEventListener("resize", onResize);
     window.addEventListener("orientationchange", onResize);
     checkSplit();

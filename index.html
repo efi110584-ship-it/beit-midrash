@@ -309,7 +309,7 @@
 <script src="assets/flashcards-data.js"></script>
 <script src="assets/live-render.js"></script>
 <script src="assets/live-teacher.js"></script>
-<script src="assets/live-monitor.js?v=4"></script>
+<script src="assets/live-monitor.js?v=5"></script>
 <script>
 (function(){
   "use strict";
@@ -643,7 +643,7 @@
           '<div class="tt-table-wrap" id="ttLiveWrap">' +
             '<table class="tt-table tt-live-table">' +
               '<caption class="visually-hidden">מי מהתלמידים נמצא בדף</caption>' +
-              '<thead><tr><th scope="col">תלמיד/ה</th><th scope="col">מצב</th><th scope="col">איפה</th><th scope="col">יציאות</th><th scope="col">זמן בחוץ</th><th scope="col">הדבקות</th><th scope="col">דיווח אחרון</th><th scope="col"><span class="visually-hidden">פעולה</span></th></tr></thead>' +
+              '<thead><tr><th scope="col">תלמיד/ה</th><th scope="col">מצב</th><th scope="col">איפה</th><th scope="col">משימה ועבודה</th><th scope="col">יציאות</th><th scope="col">זמן בחוץ</th><th scope="col">הדבקות</th><th scope="col">דיווח אחרון</th><th scope="col"><span class="visually-hidden">פעולה</span></th></tr></thead>' +
               '<tbody id="ttLiveRows"></tbody>' +
             '</table>' +
           '</div>' +
@@ -1034,6 +1034,16 @@
     if(window.BM_LIVEMON) document.getElementById("ttLiveSound").appendChild(window.BM_LIVEMON.soundButton()).className = "tt-btn";
     /* לחיצה על שורה - פותחת/סוגרת את ציר הזמן של התלמיד */
     document.getElementById("ttLiveRows").addEventListener("click", function(e){
+      var hb = e.target.closest && e.target.closest("[data-help-done]");
+      if(hb){
+        hb.disabled = true;
+        apiPost({ action:"helpDone", password:teacherToken(), code:getLiveCode(), sid:hb.getAttribute("data-help-done") }).then(function(res){
+          if(handleAuthFailure(res)) return;
+          if(!res || !res.ok){ hb.disabled = false; alert((res && res.error) || "הפעולה לא הצליחה. נסו שוב."); return; }
+          loadLive();
+        }).catch(function(){ hb.disabled = false; alert("אין חיבור לשרת כרגע. נסו שוב."); });
+        return;
+      }
       var kb = e.target.closest && e.target.closest("[data-kick]");
       if(kb){
         var undo = kb.hasAttribute("data-undo"), nm = kb.getAttribute("data-name") || "התלמיד";
@@ -1453,14 +1463,20 @@
       }
       if(navNow && /^✓/.test(navNow.textContent) && Date.now() - (nav ? nav.at : 0) > 20000) navNow.textContent = "";
       var order = { out:0, gone:1, "in":2, bye:3, kicked:4 };
+      if(LM && LM.injectStyle) LM.injectStyle();
+      /* ✋ מבקשים עזרה - ראשונים (מי שמחכה הכי הרבה זמן למעלה) */
       var list = (res.students || []).slice().sort(function(a, b){
-        return (order[a.status] - order[b.status]) || (b.leaves - a.leaves) || String(a.name).localeCompare(String(b.name), "he");
+        return ((b.help >= 0) - (a.help >= 0)) || ((b.help || 0) - (a.help || 0)) ||
+          (order[a.status] - order[b.status]) || (b.leaves - a.leaves) || String(a.name).localeCompare(String(b.name), "he");
       });
       var n = { "in":0, out:0, gone:0, bye:0 };
       list.forEach(function(p){ n[p.status] = (n[p.status] || 0) + 1; });
+      var helpN = list.filter(function(p){ return p.help >= 0; }).length, idleN = LM ? list.filter(LM.isIdle).length : 0;
       document.getElementById("ttLiveSum").innerHTML =
+        (helpN ? '<span class="tt-live-chip tt-live-chip--out" style="background:#C2410C;color:#fff;border-color:#C2410C">✋ מבקשים עזרה: <b>' + helpN + '</b></span>' : '') +
         '<span class="tt-live-chip tt-live-chip--in">🟢 בדף: <b>' + n["in"] + '</b></span>' +
         '<span class="tt-live-chip tt-live-chip--out">🟠 מחוץ לדף: <b>' + n.out + '</b></span>' +
+        (idleN ? '<span class="tt-live-chip tt-live-chip--gone">💤 בלי כתיבה 3 דק׳: <b>' + idleN + '</b></span>' : '') +
         '<span class="tt-live-chip tt-live-chip--gone">⚪ לא מחוברים: <b>' + (n.gone + n.bye) + '</b></span>';
       var T = window.BM_TASKS;
       document.getElementById("ttLiveRows").innerHTML = list.length ? list.map(function(p){
@@ -1474,9 +1490,12 @@
         var sid = p.sid || p.name || "";
         var open = !!liveOpen[sid];
         return '<tr class="tt-live-' + p.status + ' tt-live-row" data-sid="' + escapeAttr(sid) + '" style="cursor:pointer" title="לחיצה: כל מה שקרה אצל התלמיד">' +
-          '<td><span aria-hidden="true">' + (open ? '▾' : '◂') + '</span> ' + escapeHtml(p.name || "ללא שם") + (p.dups ? ' <span title="ניסו להיכנס בשם הזה ממכשיר אחר - הכניסה נחסמה">⚠</span>' : '') + '</td>' +
+          '<td><span aria-hidden="true">' + (open ? '▾' : '◂') + '</span> ' + escapeHtml(p.name || "ללא שם") + (p.dups ? ' <span title="ניסו להיכנס בשם הזה ממכשיר אחר - הכניסה נחסמה">⚠</span>' : '') +
+            (p.help >= 0 && LM ? '<div style="margin-top:4px;display:flex;gap:6px;flex-wrap:wrap;align-items:center">' + LM.helpBadge(p) +
+              '<button type="button" class="tt-btn tt-btn--small" data-help-done="' + escapeAttr(p.sid) + '">✓ טיפלתי</button></div>' : '') + '</td>' +
           '<td>' + st + '</td>' +
           '<td>' + escapeHtml(whereText) + '</td>' +
+          '<td>' + (LM ? LM.workHtml(p) || '-' : '-') + '</td>' +
           '<td class="tt-date">' + (p.leaves ? '<b>' + p.leaves + '</b>' : '0') + '</td>' +
           '<td class="tt-date">' + (p.outTotal ? '<b>' + (LM ? LM.dur(p.outTotal) : fmtSecs(p.outTotal)) + '</b>' : '-') + '</td>' +
           '<td class="tt-date">' + (p.pastes ? '<b style="color:#6A2FB4">📋 ' + p.pastes + '</b>' : '0') + '</td>' +
@@ -1485,8 +1504,8 @@
             ? '<button type="button" class="tt-btn tt-btn--small" data-kick="' + escapeAttr(p.sid) + '" data-undo="1" data-name="' + escapeAttr(p.name || "") + '">↩ החזרה</button>'
             : '<button type="button" class="tt-btn tt-btn--small" data-kick="' + escapeAttr(p.sid) + '" data-name="' + escapeAttr(p.name || "") + '" title="הוצאת התלמיד מהשיעור">🚫 הוצאה</button>') + '</td>' +
         '</tr>' +
-        (open && LM ? '<tr class="tt-live-detail"><td colspan="8">' + LM.timelineHtml(p) + '</td></tr>' : '');
-      }).join("") : '<tr><td colspan="8">עדיין אף תלמיד לא נכנס עם הקוד.</td></tr>';
+        (open && LM ? '<tr class="tt-live-detail"><td colspan="9">' + LM.timelineHtml(p) + '</td></tr>' : '');
+      }).join("") : '<tr><td colspan="9">עדיין אף תלמיד לא נכנס עם הקוד.</td></tr>';
       /* המורה בכניסת בדיקה - שורה נפרדת בסוף, לא נספר ולא מקפיץ התראות */
       document.getElementById("ttLiveRows").insertAdjacentHTML("beforeend", (res.teachers || []).map(function(p){
         var on = p.status === "in" || p.status === "out";
@@ -1494,7 +1513,7 @@
           '<td>👨‍🏫 ' + escapeHtml(p.name || "המורה") + '</td>' +
           '<td><span class="tt-pill tt-pill--' + (on ? 'checked' : 'missing') + '">' + (on ? 'מורה · מחובר' : 'מורה · לא מחובר') + '</span></td>' +
           '<td>' + escapeHtml(p.page === "index.html" ? "דף הבית" : (p.page || "-")) + '</td>' +
-          '<td colspan="5" class="tt-date">כניסת בדיקה - לא נספר ולא נכנס לדוח</td>' +
+          '<td colspan="6" class="tt-date">כניסת בדיקה - לא נספר ולא נכנס לדוח</td>' +
         '</tr>';
       }).join(""));
     }).catch(function(){ /* ננסה שוב ברענון הבא */ });
@@ -2867,7 +2886,7 @@
 
 </script>
 <script src="assets/lesson-mode.js"></script>
-<script src="assets/class-dock.js?v=20261027-1"></script>
+<script src="assets/class-dock.js?v=20261101-1"></script>
 <script src="assets/my-work.js?v=2"></script>
 </body>
 </html>
