@@ -2566,9 +2566,10 @@
     viewEl.viewCheck.textContent = "סימון כנבדק בלי ציון";
     showFeedback(r);
     saveLabel(r);
-    /* הבודק של Claude מכיר רק לקט מצוות ומבחן פתוח תפתח. הוא רץ ב-claude.ai, ואי אפשר להטמיע אותו באתר */
+    /* הבודק של Claude מכיר תנ"ך (שאלות הבגרות בכל פרק), לקט מצוות, בית חינוך ומשפחה ומבחן פתוח תפתח. הוא רץ ב-claude.ai, ואי אפשר להטמיע אותו באתר */
     if(viewEl.viewClaudeRow){
-      var canGrade = r.id && !r.hidden && r.fb !== "pub" && /לקט מצוות|פתוח תפתח · מבחן|בית, חינוך ומשפחה/.test((r.unit || "") + " " + (r.task || "")) && /^[\w-]+$/.test(r.id);
+      /* וגם כל עבודה בתנ"ך: הבודק מזהה את הפרק ובודק רק את שאלות הבגרות שבו */
+      var canGrade = r.id && !r.hidden && r.fb !== "pub" && (r.subject === 'תנ"ך' || /לקט מצוות|פתוח תפתח · מבחן|בית, חינוך ומשפחה/.test((r.unit || "") + " " + (r.task || ""))) && /^[\w-]+$/.test(r.id);
       viewEl.viewClaudeRow.hidden = !canGrade;
       if(canGrade) viewEl.viewClaudeLink.href = GRADER_URL + "#g-" + r.id;
     }
