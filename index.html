@@ -595,7 +595,8 @@
       { id:"keys", label:"מחוונים ומבחנים", icon:"📚", extra:'<span class="tt-nav-n">' + units.length + '</span>' },
       { id:"lesson", label:"בשיעור", icon:"🧑‍🏫", extra:'<span class="tt-nav-live" id="ttNavLive" hidden>חי</span>' },
       { id:"board", label:"לוח הגשות", icon:"📥", extra:'<span class="tt-nav-n tt-nav-n--alert" id="ttNavPending" hidden></span>' },
-      { id:"exams", label:"לוח מבחנים", icon:"📅", extra:"" }
+      { id:"exams", label:"לוח מבחנים", icon:"📅", extra:"" },
+      { id:"tasks", label:"משימות לתלמידים", icon:"📌", extra:"" }
     ];
     return (
       '<section class="tt" id="teacherTools" aria-label="כלי מורה">' +
@@ -714,6 +715,38 @@
               '<p class="tt-sub">כך התלמידים רואים אותם בדף הבית.</p>' +
               '<ul class="exam-list" id="ttExamList"></ul>' +
               '<p class="tt-msg" id="ttExamListMsg" role="status" aria-live="polite"></p>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="tt-panel" role="tabpanel" id="ttPanel-tasks" aria-labelledby="ttTab-tasks" hidden>' +
+          '<div class="tt-row">' +
+            '<div class="tt-card" id="ttTaskForm">' +
+              '<h3 class="tt-h">📌 משימה חדשה</h3>' +
+              '<p class="tt-sub">התלמידים יראו את המשימה ב"האזור האישי שלי", עם קישור לדף ותאריך ההגשה. אתם תראו מי השלים את הדף ומי שלח לכם.</p>' +
+              '<label for="ttTaskCls" class="tt-label">כיתה</label>' +
+              '<select id="ttTaskCls" class="tt-select"><option value="יא">י"א</option><option value="יב">י"ב</option></select>' +
+              '<label for="ttTaskUnit" class="tt-label">יחידה</label>' +
+              '<select id="ttTaskUnit" class="tt-select"></select>' +
+              '<label for="ttTaskPage" class="tt-label">דף</label>' +
+              '<select id="ttTaskPage" class="tt-select"></select>' +
+              '<label for="ttTaskDue" class="tt-label">להגיש עד</label>' +
+              '<input id="ttTaskDue" class="tt-select" type="date">' +
+              '<label for="ttTaskNote" class="tt-label">הערה לתלמידים (לא חובה)</label>' +
+              '<input id="ttTaskNote" class="tt-select" type="text" maxlength="200" placeholder="לדוגמה: רק משימות 1-5, ולשלוח למורה בסוף">' +
+              '<fieldset class="tt-task-who" style="border:0;padding:0;margin:12px 0 0">' +
+                '<legend class="tt-label">למי</legend>' +
+                '<label style="display:inline-flex;gap:6px;align-items:center;margin-inline-end:14px"><input type="radio" name="ttTaskWho" value="all" checked> כל הכיתה</label>' +
+                '<label style="display:inline-flex;gap:6px;align-items:center"><input type="radio" name="ttTaskWho" value="some"> תלמידים מסוימים</label>' +
+                '<div id="ttTaskNames" style="display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px" hidden></div>' +
+              '</fieldset>' +
+              '<div class="tt-btns"><button type="button" class="tt-btn tt-btn--primary" id="ttTaskSave">שיוך המשימה</button></div>' +
+              '<p class="tt-msg" id="ttTaskMsg" role="status" aria-live="polite"></p>' +
+            '</div>' +
+            '<div class="tt-card">' +
+              '<div class="tt-board-head"><h3 class="tt-h">משימות פעילות</h3><span class="tt-live-tools"><button type="button" class="tt-btn" id="ttTaskRefresh">רענון</button></span></div>' +
+              '<p class="tt-sub">"מצב" מראה לכל תלמיד: האם נכנס לאזור האישי, כמה מהדף השלים, והאם שלח לכם. משימה יורדת לבד 3 שבועות אחרי תאריך ההגשה.</p>' +
+              '<ul class="tt-rep-list" id="ttTaskList"></ul>' +
+              '<p class="tt-msg" id="ttTaskListMsg" role="status" aria-live="polite"></p>' +
             '</div>' +
           '</div>' +
         '</div>' +
@@ -885,6 +918,7 @@
     initTeacherKeys();
     initActivity();
     initTeacherExams();
+    initTeacherTasks();
     var ann = document.getElementById("ttAnnounce");
     var annMsg = document.getElementById("ttAnnounceMsg");
     apiGet({ action:"announcement" }).then(function(res){
@@ -2645,6 +2679,131 @@
       if(res && res.ok && Array.isArray(res.exams)){ examsCache = withSeedExams(res.exams); renderExamBoard(); }
     }).catch(function(){});
   })();
+
+  /* ---------- 📌 משימות לתלמידים (assignSave / assignList / assignStatus / assignDelete) ---------- */
+  function initTeacherTasks(){
+    function $(id){ return document.getElementById(id); }
+    if(!$("ttTaskForm")) return;
+    var T = window.BM_TASKS, open = {};
+    function fmtD(iso){ var p = String(iso).split("-"); return +p[2] + "." + +p[1]; }
+    function units(){ return (window.BM_UNITS || []).filter(function(u){ return u.class === $("ttTaskCls").value && (u.topics || []).some(function(t){ return t.url; }); }); }
+    function fillUnits(){
+      $("ttTaskUnit").innerHTML = units().map(function(u, i){ return '<option value="' + i + '">' + escapeHtml(u.title) + '</option>'; }).join("");
+      fillPages();
+    }
+    function fillPages(){
+      var u = units()[+$("ttTaskUnit").value || 0];
+      $("ttTaskPage").innerHTML = u ? u.topics.filter(function(t){ return t.url; }).map(function(t){ return '<option value="' + escapeAttr(t.url) + '">' + escapeHtml(t.title) + '</option>'; }).join("") : "";
+    }
+    function loadNames(){
+      var box = $("ttTaskNames");
+      if(box.hidden) return;
+      box.textContent = "טוענים את רשימת הכיתה…";
+      apiPost({ action:"studentAccounts", password:teacherToken() }).then(function(res){
+        if(handleAuthFailure(res)) return;
+        var list = res && res.ok && res.classes ? (res.classes[$("ttTaskCls").value] || []) : [];
+        box.innerHTML = list.length ? list.map(function(x, i){
+          return '<label style="display:inline-flex;gap:6px;align-items:center"><input type="checkbox" value="' + escapeAttr(x.name) + '"> ' + escapeHtml(x.name) + '</label>';
+        }).join("") : 'אין רשימת כיתה עם ת"ז לכיתה הזו (אזור "בשיעור" ← כניסה לשיעור עם תעודת זהות).';
+      }).catch(function(){ box.textContent = "אין חיבור לשרת כרגע."; });
+    }
+    $("ttTaskCls").addEventListener("change", function(){ fillUnits(); loadNames(); });
+    $("ttTaskUnit").addEventListener("change", fillPages);
+    Array.prototype.forEach.call(document.querySelectorAll('input[name="ttTaskWho"]'), function(r){
+      r.addEventListener("change", function(){ $("ttTaskNames").hidden = !document.querySelector('input[name="ttTaskWho"][value="some"]').checked; loadNames(); });
+    });
+    fillUnits();
+
+    function statusHtml(res){
+      if(!res || !res.ok) return '<p class="tt-msg">' + escapeHtml((res && res.error) || "לא הצלחנו לטעון.") + '</p>';
+      if(res.noRoster) return '<p class="tt-msg">אין רשימת כיתה עם ת"ז לכיתה הזו, ולכן אין מעקב לפי תלמיד.</p>';
+      var rows = res.rows || [];
+      var done = rows.filter(function(r){ return r.pct >= 100; }).length, sent = rows.filter(function(r){ return r.sent; }).length, noAcc = rows.filter(function(r){ return !r.account; }).length;
+      return '<p class="tt-note" style="margin:8px 0 6px">✓ השלימו: <b>' + done + '</b> · 📤 שלחו: <b>' + sent + '</b> מתוך ' + rows.length + (noAcc ? ' · ' + noAcc + ' עוד לא נכנסו לאזור האישי' : '') + '</p>' +
+        '<ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px" aria-label="מצב המשימה לפי תלמיד">' +
+        rows.map(function(r){
+          var prog = !r.account ? '<span class="tt-pill tt-pill--missing">לא נכנס/ה לאזור האישי</span>'
+            : r.pct >= 100 ? '<span class="tt-pill tt-pill--checked">✓ הדף הושלם</span>'
+            : r.pct >= 0 ? '<span class="tt-pill tt-pill--pending">' + r.pct + '%' + (r.fields ? ' · ' + r.ans + '/' + r.fields + ' תשובות' : '') + '</span>'
+            : '<span class="tt-pill tt-pill--missing">עוד לא פתח/ה</span>';
+          var snt = r.sent ? '<span class="tt-pill tt-pill--checked">📤 נשלח ' + escapeHtml(r.sent) + '</span>' : '<span class="tt-pill tt-pill--missing">לא נשלח</span>';
+          return '<li style="display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;padding:6px 0;border-bottom:1px solid #E6ECF5"><span style="min-width:8rem;font-weight:600">' + escapeHtml(r.name) + '</span>' + prog + snt + '</li>';
+        }).join("") + '</ul>';
+    }
+    function render(list){
+      var ul = $("ttTaskList");
+      $("ttTaskListMsg").textContent = list.length ? "" : "אין כרגע משימות פעילות.";
+      ul.innerHTML = list.map(function(a){
+        return '<li class="tt-rep" data-task="' + escapeAttr(a.id) + '"><div style="display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;padding:10px 14px">' +
+          '<b style="flex:1;min-width:12rem">' + escapeHtml(a.title) + '</b>' +
+          '<span class="tt-date">כיתה ' + (a.cls === "יב" ? 'י"ב' : 'י"א') + ' · עד ' + fmtD(a.due) + ' · ' + (a.names && a.names.length ? a.names.length + ' תלמידים' : 'כל הכיתה') + '</span>' +
+          '<button type="button" class="tt-btn tt-btn--small" data-task-status="' + escapeAttr(a.id) + '" aria-expanded="' + (open[a.id] ? 'true' : 'false') + '">📊 מצב</button>' +
+          '<button type="button" class="tt-btn tt-btn--small" data-task-del="' + escapeAttr(a.id) + '">מחיקה</button></div>' +
+          (a.note ? '<p class="tt-note" style="margin:0 14px 8px">הערה: ' + escapeHtml(a.note) + '</p>' : '') +
+          '<div class="tt-task-st" style="padding:0 14px 10px" ' + (open[a.id] ? '' : 'hidden') + '></div></li>';
+      }).join("");
+      Object.keys(open).forEach(function(id){ var li = ul.querySelector('[data-task="' + id + '"]'); if(li) loadStatus(id, li); });
+    }
+    function loadList(){
+      $("ttTaskListMsg").textContent = "טוענים…";
+      apiPost({ action:"assignList", password:teacherToken() }).then(function(res){
+        if(handleAuthFailure(res)) return;
+        if(!res || !res.ok){ $("ttTaskListMsg").textContent = (res && res.error) || "המשימות יופיעו אחרי שתעדכנו את הסקריפט של Google לגרסה החדשה."; return; }
+        render(res.list || []);
+      }).catch(function(){ $("ttTaskListMsg").textContent = "אין חיבור לשרת כרגע."; });
+    }
+    function loadStatus(id, li){
+      var box = li.querySelector(".tt-task-st");
+      box.hidden = false; box.innerHTML = '<p class="tt-note">טוענים את המצב…</p>';
+      apiPost({ action:"assignStatus", password:teacherToken(), id:id }).then(function(res){
+        if(handleAuthFailure(res)) return;
+        box.innerHTML = statusHtml(res);
+      }).catch(function(){ box.innerHTML = '<p class="tt-msg">אין חיבור לשרת כרגע.</p>'; });
+    }
+    $("ttTaskList").addEventListener("click", function(e){
+      var sb = e.target.closest && e.target.closest("[data-task-status]");
+      if(sb){
+        var id = sb.getAttribute("data-task-status"), li = sb.closest("li");
+        if(open[id]){ delete open[id]; li.querySelector(".tt-task-st").hidden = true; sb.setAttribute("aria-expanded", "false"); return; }
+        open[id] = 1; sb.setAttribute("aria-expanded", "true"); loadStatus(id, li); return;
+      }
+      var db = e.target.closest && e.target.closest("[data-task-del]");
+      if(db){
+        if(!confirm("למחוק את המשימה? היא תרד גם מהאזור האישי של התלמידים.")) return;
+        db.disabled = true;
+        apiPost({ action:"assignDelete", password:teacherToken(), id:db.getAttribute("data-task-del") }).then(function(res){
+          if(handleAuthFailure(res)) return;
+          if(!res || !res.ok){ db.disabled = false; alert((res && res.error) || "המחיקה לא הצליחה."); return; }
+          render(res.list || []);
+        }).catch(function(){ db.disabled = false; alert("אין חיבור לשרת כרגע."); });
+      }
+    });
+    $("ttTaskRefresh").addEventListener("click", loadList);
+    $("ttTaskSave").addEventListener("click", function(){
+      var m = $("ttTaskMsg"), b = this;
+      var u = units()[+$("ttTaskUnit").value || 0], url = $("ttTaskPage").value;
+      var topic = u ? u.topics.filter(function(t){ return t.url === url; })[0] : null;
+      if(!u || !topic){ m.textContent = "בחרו יחידה ודף."; return; }
+      if(!$("ttTaskDue").value){ m.textContent = "בחרו תאריך הגשה."; $("ttTaskDue").focus(); return; }
+      var some = document.querySelector('input[name="ttTaskWho"][value="some"]').checked;
+      var names = some ? Array.prototype.map.call(document.querySelectorAll("#ttTaskNames input:checked"), function(x){ return x.value; }) : [];
+      if(some && !names.length){ m.textContent = "סמנו לפחות תלמיד אחד, או בחרו \"כל הכיתה\"."; return; }
+      b.disabled = true; m.textContent = "שומרים…";
+      apiPost({ action:"assignSave", password:teacherToken(), cls:$("ttTaskCls").value, page:url,
+                title:u.title + " · " + topic.title, task:T ? T.assignmentFor(u, topic) : "",
+                due:$("ttTaskDue").value, note:$("ttTaskNote").value, names:names }).then(function(res){
+        if(handleAuthFailure(res)) return;
+        if(!res || !res.ok){ m.textContent = (res && res.error) || "השמירה לא הצליחה."; return; }
+        m.textContent = "✓ המשימה שויכה. התלמידים יראו אותה באזור האישי.";
+        $("ttTaskNote").value = "";
+        render(res.list || []);
+      }).catch(function(){ m.textContent = "אין חיבור לשרת כרגע. נסו שוב."; }).then(function(){ b.disabled = false; });
+    });
+    var loaded = false;
+    function ensure(){ if(!loaded && !$("ttPanel-tasks").hidden){ loaded = true; loadList(); } }
+    $("ttTab-tasks").addEventListener("click", function(){ setTimeout(ensure, 0); });
+    ensure();
+  }
 
   function initTeacherExams(){
     function $(id){ return document.getElementById(id); }

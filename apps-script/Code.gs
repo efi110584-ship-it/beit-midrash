@@ -134,6 +134,10 @@ function doPost(e) {
       case 'rosterClear':     return json_(rosterClear_(data.cls));
       case 'studentAccounts': return json_(studentAccounts_());
       case 'studentReset':    return json_(studentReset_(data.cls, data.name));
+      case 'assignSave':      return json_(assignSave_(data));
+      case 'assignDelete':    return json_(assignDelete_(data.id));
+      case 'assignList':      return json_({ ok: true, list: assignAll_() });
+      case 'assignStatus':    return json_(assignStatus_(data.id));
       case 'lessonTeacher':   return json_(lessonTeacher_(data.code));
       case 'clearLesson':     return json_(clearLesson_(data.code));
       case 'lessonNav':       return json_(lessonNav_(data.code, data.url, data.label));
@@ -1251,7 +1255,8 @@ function studentHome_(tok) {
   var me = stuAuth_(tok);
   if (!me) return { ok: false, login: true };
   var exams = examsUpcoming_().filter(function (x) { return x.cls === 'all' || x.cls === me.cls; });
-  return { ok: true, name: me.name, cls: me.cls, exams: exams, progress: getJson_('STUP_' + me.h) || {} };
+  return { ok: true, name: me.name, cls: me.cls, exams: exams, progress: getJson_('STUP_' + me.h) || {},
+           tasks: assignFor_(me.cls, me.name) };
 }
 // העבודות של התלמיד, מכל מכשיר: מלוח ההגשות של המורה, לפי השם ברשימת הכיתה (תיקיית התלמיד ב-Drive).
 // ציון ומשוב מוצגים רק אחרי שהמורה פרסם את המשוב (fbpub_<id> = 1) - בדיוק כמו בקישור המשוב.
@@ -1298,6 +1303,85 @@ function studentProgress_(d) {
   }
   PropertiesService.getScriptProperties().setProperty(key, JSON.stringify(map));
   return { ok: true };
+}
+
+// ---------- שיוך משימות (המורה משייך דף מהאתר לכיתה או לתלמידים, עם תאריך הגשה) ----------
+// ASSIGN = [{ id, cls, page, title, task, due, note, names: [] (ריק = כל הכיתה), at }]
+// task = שם המטלה כפי שהדף שולח אותו למורה ("יחידה · נושא") - כדי לזהות "נשלח" בלוח ההגשות.
+// משימה נשמרת עד ASSIGN_KEEP_DAYS אחרי תאריך ההגשה, ואחר כך יורדת לבד.
+var ASSIGN_KEEP_DAYS = 21, ASSIGN_MAX = 80;
+function assignAll_() {
+  var list = getJson_('ASSIGN');
+  if (!Array.isArray(list)) return [];
+  var cut = Utilities.formatDate(new Date(Date.now() - ASSIGN_KEEP_DAYS * 864e5), TZ, 'yyyy-MM-dd');
+  return list.filter(function (a) { return a && a.due >= cut; })
+    .sort(function (a, b) { return a.due < b.due ? -1 : a.due > b.due ? 1 : (b.at || 0) - (a.at || 0); });
+}
+function assignSave_(d) {
+  var cls = normClass_(d.cls);
+  if (MONITOR_CLASSES.indexOf(cls) < 0) return { ok: false, error: 'בחרו כיתה.' };
+  var page = String(d.page || '').split('#')[0];
+  if (!/^[\w.-]+\.html$/.test(page) || page.length > 80) return { ok: false, error: 'בחרו דף מהאתר.' };
+  var due = String(d.due || '');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(due)) return { ok: false, error: 'בחרו תאריך הגשה.' };
+  if (due < Utilities.formatDate(new Date(), TZ, 'yyyy-MM-dd')) return { ok: false, error: 'תאריך ההגשה כבר עבר.' };
+  var title = clean_(d.title).slice(0, 140);
+  if (!title) return { ok: false, error: 'חסר שם למשימה.' };
+  var roster = roster_(cls), rosterNames = Object.keys(roster).map(function (h) { return roster[h]; });
+  var names = (Array.isArray(d.names) ? d.names : []).map(function (n) { return clean_(n).slice(0, 60); })
+    .filter(function (n) { return rosterNames.indexOf(n) !== -1; });
+  var a = { id: Utilities.getUuid().slice(0, 8), cls: cls, page: page, title: title, task: clean_(d.task).slice(0, 200),
+            due: due, note: clean_(d.note).slice(0, 200), names: names, at: Date.now() };
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(8000)) return { ok: false, error: 'השרת עסוק. נסו שוב בעוד רגע.' };
+  try {
+    var list = assignAll_();
+    list.push(a);
+    if (list.length > ASSIGN_MAX) list = list.slice(list.length - ASSIGN_MAX);
+    PropertiesService.getScriptProperties().setProperty('ASSIGN', JSON.stringify(list));
+  } finally {
+    lock.releaseLock();
+  }
+  return { ok: true, assign: a, list: assignAll_() };
+}
+function assignDelete_(id) {
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(8000)) return { ok: false, error: 'השרת עסוק. נסו שוב בעוד רגע.' };
+  try {
+    var list = assignAll_().filter(function (a) { return a.id !== String(id || ''); });
+    PropertiesService.getScriptProperties().setProperty('ASSIGN', JSON.stringify(list));
+    return { ok: true, list: list };
+  } finally {
+    lock.releaseLock();
+  }
+}
+// המשימות של תלמיד (לאזור האישי): של הכיתה שלו, לכולם או לו בשמו
+function assignFor_(cls, name) {
+  var nk = nameKey_(name);
+  return assignAll_().filter(function (a) {
+    return a.cls === cls && (!a.names || !a.names.length || a.names.some(function (n) { return nameKey_(n) === nk; }));
+  }).map(function (a) { return { id: a.id, page: a.page, title: a.title, task: a.task, due: a.due, note: a.note }; });
+}
+// למורה: מצב המשימה אצל כל תלמיד - נכנס לאזור האישי? התקדמות בדף (מהאזור האישי), ונשלח למורה? (מלוח ההגשות)
+function assignStatus_(id) {
+  var a = assignAll_().filter(function (x) { return x.id === String(id || ''); })[0];
+  if (!a) return { ok: false, error: 'המשימה לא נמצאה.' };
+  var props = PropertiesService.getScriptProperties().getProperties();
+  var roster = roster_(a.cls);
+  var subs = a.task ? listSubmissions_(false).filter(function (x) {
+    return x.id && x.status !== 'missing' && x.cls === a.cls && normTask_(x.task) === normTask_(a.task);
+  }) : [];
+  var rows = Object.keys(roster).filter(function (h) {
+    return !a.names || !a.names.length || a.names.indexOf(roster[h]) !== -1;
+  }).map(function (h) {
+    var name = roster[h], prog = null;
+    try { prog = props['STUP_' + h] ? (JSON.parse(props['STUP_' + h])[a.page] || null) : null; } catch (e) {}
+    var sent = subs.filter(function (x) { return stuNameMatch_(x.student, name); })
+      .sort(function (x, y) { return y.time - x.time; })[0];
+    return { name: name, account: !!props['STU_' + h], pct: prog ? prog[0] : -1, ans: prog ? prog[1] : 0, fields: prog ? prog[2] : 0,
+             at: prog ? prog[3] : 0, sent: sent ? sent.date || '✓' : '' };
+  }).sort(function (x, y) { return String(x.name).localeCompare(String(y.name), 'he'); });
+  return { ok: true, assign: a, rows: rows, noRoster: !Object.keys(roster).length };
 }
 
 // למורה: מי ברשימות הכיתה כבר פתח חשבון באזור האישי

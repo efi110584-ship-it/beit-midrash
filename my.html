@@ -90,6 +90,18 @@
   .t-st{ flex:none; min-width:76px; font-size:.82rem; font-weight:700; text-align:center; padding:1px 8px; border-radius:999px; }
   .t-st.done{ background:#E7F5EF; color:#0B5E43; } .t-st.mid{ background:#FFF1D6; color:#8A4B00; } .t-st.none{ background:var(--soft); color:var(--muted); }
   @media (prefers-reduced-motion: reduce){ .u-chev{ transition:none; } }
+  .tasks{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+  .tk{ display:flex; align-items:center; gap:12px; padding:10px 12px; border:1px solid var(--line); border-radius:12px; background:#fff; color:inherit; text-decoration:none; }
+  a.tk:hover{ background:var(--soft); border-color:#B8C7E0; }
+  .tk.late{ border-color:#F0B4AE; background:#FFF3F2; }
+  .tk.ok{ border-color:#A9DCC6; background:#F1FAF6; }
+  .tk-main{ flex:1; min-width:0; display:flex; flex-direction:column; gap:3px; }
+  .tk-title{ font-weight:700; overflow-wrap:anywhere; }
+  .tk-meta{ display:flex; flex-wrap:wrap; gap:4px 8px; font-size:.86rem; color:var(--muted); align-items:center; }
+  .tk-due{ font-weight:700; color:var(--orange-deep); } .tk.late .tk-due{ color:var(--err); } .tk.ok .tk-due{ color:var(--ok); }
+  .pill{ display:inline-block; padding:1px 8px; border-radius:999px; font-size:.8rem; font-weight:700; }
+  .pill.y{ background:#E7F5EF; color:#0B5E43; } .pill.m{ background:#FFF1D6; color:#8A4B00; } .pill.n{ background:var(--soft); color:var(--muted); border:1px solid var(--line); }
+  .tk-go{ flex:none; color:var(--muted); font-size:1.3rem; }
   .wk-new{ display:inline-block; margin-inline-end:6px; padding:0 8px; border-radius:999px; background:var(--orange-deep); color:#fff; font-size:.75rem; font-weight:700; vertical-align:middle; }
   @media (max-width:420px){ .card{ padding:14px; } }
 </style>
@@ -140,6 +152,11 @@
   </section>
 
   <!-- אחרי הכניסה -->
+  <section class="card" id="tasksCard" hidden aria-labelledby="tasksH">
+    <h2 id="tasksH">📌 המשימות שלי</h2>
+    <p class="sub">משימות שהמורה נתן לך. לחיצה פותחת את הדף.</p>
+    <ul class="tasks" id="tasksList"></ul>
+  </section>
   <section class="card" id="examsCard" hidden aria-labelledby="examsH">
     <h2 id="examsH">📅 מבחנים ומשימות קרובים</h2>
     <p class="sub" id="examsSub"></p>
@@ -260,7 +277,7 @@
     $("examsList").innerHTML = exams.length ? exams.map(examItem).join("") : '<li><p class="empty">אין כרגע מבחנים או משימות קרובים. 🎉</p></li>';
   }
   function showLogin(note){
-    $("login").hidden = false; $("meCard").hidden = true; $("examsCard").hidden = true; $("workCard").hidden = true; $("progCard").hidden = true;
+    $("login").hidden = false; $("meCard").hidden = true; $("examsCard").hidden = true; $("workCard").hidden = true; $("progCard").hidden = true; $("tasksCard").hidden = true;
     $("hello").textContent = "האזור האישי שלי"; $("helloSub").textContent = "כניסה עם תעודת זהות וסיסמה - מכל מכשיר";
     if(note) $("idMsg").textContent = note;
     show("stepId");
@@ -268,6 +285,7 @@
   function home(){
     var me = load();
     if(!me || !me.tok){ showLogin(); return; }
+    TS.tasks = null; TS.work = null; TS.progress = {};
     showHome(me, []);
     $("examsList").innerHTML = '<li><p class="empty">טוענים…</p></li>';
     post({ action:"studentHome", tok:me.tok }).then(function(res){
@@ -276,9 +294,31 @@
       me.name = res.name; me.cls = res.cls; store(me);
       showHome(me, res.exams || []);
       showProgress(me, res.progress || {});
+      TS.tasks = res.tasks || []; TS.progress = res.progress || {}; renderTasks();
     }).catch(function(){ netErr($("homeMsg")); });
     loadWork(me);
   }
+  /* ---------- 📌 המשימות שלי: הושלם (מההתקדמות) + נשלח למורה (מהעבודות) ---------- */
+  var TS = { tasks:null, progress:{}, work:null };
+  function normTask(s){ return String(s || "").replace(/["'׳״]/g, "").replace(/[-–—,.:]/g, " ").replace(/\s+/g, " ").trim(); }
+  function renderTasks(){
+    if(!TS.tasks || !TS.tasks.length){ $("tasksCard").hidden = true; return; }
+    $("tasksCard").hidden = false;
+    var now = new Date(), today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    $("tasksList").innerHTML = TS.tasks.map(function(t){
+      var p = TS.progress[t.page], pct = p ? p[0] : -1;
+      var sent = TS.work ? TS.work.some(function(w){ return t.task && normTask(w.task) === normTask(t.task); }) : null;
+      var dp = String(t.due).split("-"), due = new Date(+dp[0], +dp[1] - 1, +dp[2]), n = Math.round((due - today) / 86400000);
+      var done = pct >= 100, late = n < 0 && !done, allOk = done && sent;
+      var dueTxt = n < 0 ? "היה להגיש ב-" + due.getDate() + "." + (due.getMonth() + 1) : n === 0 ? "להגיש היום" : n === 1 ? "להגיש מחר" : "להגיש עד " + due.getDate() + "." + (due.getMonth() + 1) + " (עוד " + n + " ימים)";
+      var prog = done ? '<span class="pill y">✓ הדף הושלם</span>' : pct > 0 ? '<span class="pill m">' + pct + '% מהדף</span>' : '<span class="pill n">עוד לא התחלת</span>';
+      var snt = sent === null ? '' : sent ? '<span class="pill y">📤 נשלח למורה</span>' : '<span class="pill n">לא נשלח למורה</span>';
+      return '<li><a class="tk' + (allOk ? ' ok' : late ? ' late' : '') + '" href="' + esc(t.page) + '"><span class="tk-main"><span class="tk-title">' + esc(t.title) + '</span>' +
+        '<span class="tk-meta"><span class="tk-due">' + (allOk ? '✓ בוצע · ' : '') + dueTxt + '</span>' + prog + snt + '</span>' +
+        (t.note ? '<span class="tk-meta">' + esc(t.note) + '</span>' : '') + '</span><span class="tk-go" aria-hidden="true">›</span></a></li>';
+    }).join("");
+  }
+
   /* ---------- ההתקדמות שלי ---------- */
   /* progress: { "דף.html": [אחוז, תשובות, תיבות, זמן] }. היחידות והדפים - מ-assets/units-data.js (BM_UNITS) */
   function showProgress(me, progress){
@@ -333,6 +373,7 @@
       if(res && res.login){ store(null); showLogin("צריך להיכנס שוב (אולי המורה איפס את הסיסמה)."); return; }
       if(!res || !res.ok){ $("workList").innerHTML = '<li><p class="empty">' + esc((res && res.error) || "לא הצלחנו לטעון את העבודות.") + '</p></li>'; return; }
       var list = res.work || [], seen = readSeen();
+      TS.work = list; renderTasks();
       var done = list.filter(function(w){ return w.pub; }).length, newN = list.filter(function(w){ return w.pub && seen.indexOf(w.id) === -1; }).length;
       $("workSum").innerHTML = list.length ? '<span class="chip">נשלחו: <b>' + list.length + '</b></span><span class="chip">עם משוב: <b>' + done + '</b></span>' +
         (newN ? '<span class="chip" style="background:#FFF4EA;border-color:#F6B98A;color:#8A3D07">משוב חדש: <b>' + newN + '</b></span>' : '') : '';
