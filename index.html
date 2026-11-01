@@ -732,8 +732,13 @@
               '<select id="ttTaskCls" class="tt-select"><option value="יא">י"א</option><option value="יב">י"ב</option></select>' +
               '<label for="ttTaskUnit" class="tt-label">יחידה</label>' +
               '<select id="ttTaskUnit" class="tt-select"></select>' +
-              '<label for="ttTaskPage" class="tt-label">דף</label>' +
+              '<label for="ttTaskPage" class="tt-label" id="ttTaskPageLbl">דף</label>' +
               '<select id="ttTaskPage" class="tt-select"></select>' +
+              '<label for="ttTaskTitle" class="tt-label" id="ttTaskTitleLbl">שם המשימה (לא חובה - אחרת שם הדף)</label>' +
+              '<input id="ttTaskTitle" class="tt-select" type="text" maxlength="140" placeholder="לדוגמה: שאלה לדיון בפאדלט על פרק י&quot;ז">' +
+              '<label for="ttTaskLink" class="tt-label">🔗 קישור נוסף (לא חובה): פאדלט, טופס גוגל, סרטון, קנבה…</label>' +
+              '<input id="ttTaskLink" class="tt-select" type="url" inputmode="url" maxlength="500" dir="ltr" placeholder="https://padlet.com/…">' +
+              '<p class="tt-note" id="ttTaskLinkNote" style="margin:4px 0 0">התלמידים יקבלו כפתור לקישור, וכפתור "✓ סיימתי". את מה שקורה בתוך הקישור האתר לא רואה - תראו מי סימן שסיים.</p>' +
               '<label for="ttTaskDue" class="tt-label">להגיש עד</label>' +
               '<input id="ttTaskDue" class="tt-select" type="date">' +
               '<label for="ttTaskNote" class="tt-label">הערה לתלמידים (לא חובה)</label>' +
@@ -2725,10 +2730,31 @@
     function fmtD(iso){ var p = String(iso).split("-"); return +p[2] + "." + +p[1]; }
     function units(){ return (window.BM_UNITS || []).filter(function(u){ return u.class === $("ttTaskCls").value && (u.topics || []).some(function(t){ return t.url; }); }); }
     function fillUnits(){
-      $("ttTaskUnit").innerHTML = units().map(function(u, i){ return '<option value="' + i + '">' + escapeHtml(u.title) + '</option>'; }).join("");
+      $("ttTaskUnit").innerHTML = units().map(function(u, i){ return '<option value="' + i + '">' + escapeHtml(u.title) + '</option>'; }).join("") +
+        '<option value="-1">🔗 בלי דף מהאתר - רק קישור</option>';
       fillPages();
     }
+    function linkOnly(){ return $("ttTaskUnit").value === "-1"; }
+    /* שם לכפתור אצל התלמיד, לפי האתר של הקישור */
+    function linkLabel(u){
+      var h = ""; try{ h = new URL(u).hostname.replace(/^www\./, ""); }catch(e){ return "לקישור"; }
+      if(/padlet/.test(h)) return "לפאדלט";
+      if(/forms\.gle|forms\.office/.test(h) || /docs\.google\.com\/forms/.test(u)) return "לטופס";
+      if(/youtu/.test(h)) return "לסרטון";
+      if(/canva/.test(h)) return "לקנבה";
+      if(/docs\.google\.com\/presentation/.test(u)) return "למצגת";
+      if(/docs\.google\.com\/document/.test(u)) return "למסמך";
+      if(/wordwall/.test(h)) return "למשחק";
+      if(/kahoot/.test(h)) return "לקהוט";
+      if(/mentimeter|menti\.com/.test(h)) return "למנטימטר";
+      return "לקישור";
+    }
     function fillPages(){
+      var only = linkOnly();
+      $("ttTaskPage").hidden = only; $("ttTaskPageLbl").hidden = only;
+      $("ttTaskTitleLbl").textContent = only ? "שם המשימה (חובה)" : "שם המשימה (לא חובה - אחרת שם הדף)";
+      $("ttTaskLink").previousElementSibling.textContent = only ? "🔗 הקישור (חובה): פאדלט, טופס גוגל, סרטון, קנבה…" : "🔗 קישור נוסף (לא חובה): פאדלט, טופס גוגל, סרטון, קנבה…";
+      if(only){ $("ttTaskPage").innerHTML = ""; return; }
       var u = units()[+$("ttTaskUnit").value || 0];
       $("ttTaskPage").innerHTML = u ? u.topics.filter(function(t){ return t.url; }).map(function(t){ return '<option value="' + escapeAttr(t.url) + '">' + escapeHtml(t.title) + '</option>'; }).join("") : "";
     }
@@ -2754,9 +2780,11 @@
     function statusHtml(res){
       if(!res || !res.ok) return '<p class="tt-msg">' + escapeHtml((res && res.error) || "לא הצלחנו לטעון.") + '</p>';
       if(res.noRoster) return '<p class="tt-msg">אין רשימת כיתה עם ת"ז לכיתה הזו, ולכן אין מעקב לפי תלמיד.</p>';
-      var rows = res.rows || [];
+      var rows = res.rows || [], a = res.assign || {};
       var done = rows.filter(function(r){ return r.pct >= 100; }).length, sent = rows.filter(function(r){ return r.sent; }).length, noAcc = rows.filter(function(r){ return !r.account; }).length;
-      return '<p class="tt-note" style="margin:8px 0 6px">✓ השלימו: <b>' + done + '</b> · 📤 שלחו: <b>' + sent + '</b> מתוך ' + rows.length + (noAcc ? ' · ' + noAcc + ' עוד לא נכנסו לאזור האישי' : '') + '</p>' +
+      var ld = rows.filter(function(r){ return r.linkDone; }).length;
+      return '<p class="tt-note" style="margin:8px 0 6px">' + (a.page ? '✓ השלימו את הדף: <b>' + done + '</b> · 📤 שלחו: <b>' + sent + '</b> · ' : '') +
+        (a.link ? '🔗 סימנו "סיימתי": <b>' + ld + '</b> · ' : '') + 'מתוך ' + rows.length + (noAcc ? ' · ' + noAcc + ' עוד לא נכנסו לאזור האישי' : '') + '</p>' +
         '<ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px" aria-label="מצב המשימה לפי תלמיד">' +
         rows.map(function(r){
           var prog = !r.account ? '<span class="tt-pill tt-pill--missing">לא נכנס/ה לאזור האישי</span>'
@@ -2764,7 +2792,9 @@
             : r.pct >= 0 ? '<span class="tt-pill tt-pill--pending">' + r.pct + '%' + (r.fields ? ' · ' + r.ans + '/' + r.fields + ' תשובות' : '') + '</span>'
             : '<span class="tt-pill tt-pill--missing">עוד לא פתח/ה</span>';
           var snt = r.sent ? '<span class="tt-pill tt-pill--checked">📤 נשלח ' + escapeHtml(r.sent) + '</span>' : '<span class="tt-pill tt-pill--missing">לא נשלח</span>';
-          return '<li style="display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;padding:6px 0;border-bottom:1px solid #E6ECF5"><span style="min-width:8rem;font-weight:600">' + escapeHtml(r.name) + '</span>' + prog + snt + '</li>';
+          var lnk = !a.link ? '' : r.linkDone ? '<span class="tt-pill tt-pill--checked">🔗 סימן/ה שסיים/ה</span>' : '<span class="tt-pill tt-pill--missing">🔗 לא סימן/ה</span>';
+          if(!a.page){ prog = r.account ? '' : '<span class="tt-pill tt-pill--missing">לא נכנס/ה לאזור האישי</span>'; snt = ''; }
+          return '<li style="display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;padding:6px 0;border-bottom:1px solid #E6ECF5"><span style="min-width:8rem;font-weight:600">' + escapeHtml(r.name) + '</span>' + prog + snt + lnk + '</li>';
         }).join("") + '</ul>';
     }
     function render(list){
@@ -2773,7 +2803,7 @@
       ul.innerHTML = list.map(function(a){
         return '<li class="tt-rep" data-task="' + escapeAttr(a.id) + '"><div style="display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;padding:10px 14px">' +
           '<b style="flex:1;min-width:12rem">' + escapeHtml(a.title) + '</b>' +
-          '<span class="tt-date">כיתה ' + (a.cls === "יב" ? 'י"ב' : 'י"א') + ' · עד ' + fmtD(a.due) + ' · ' + (a.names && a.names.length ? a.names.length + ' תלמידים' : 'כל הכיתה') + '</span>' +
+          '<span class="tt-date">כיתה ' + (a.cls === "יב" ? 'י"ב' : 'י"א') + ' · עד ' + fmtD(a.due) + ' · ' + (a.names && a.names.length ? a.names.length + ' תלמידים' : 'כל הכיתה') + (a.link ? ' · 🔗 ' + escapeHtml(a.linkLabel || "קישור") : '') + '</span>' +
           '<button type="button" class="tt-btn tt-btn--small" data-task-status="' + escapeAttr(a.id) + '" aria-expanded="' + (open[a.id] ? 'true' : 'false') + '">📊 מצב</button>' +
           '<button type="button" class="tt-btn tt-btn--small" data-task-del="' + escapeAttr(a.id) + '">מחיקה</button></div>' +
           (a.note ? '<p class="tt-note" style="margin:0 14px 8px">הערה: ' + escapeHtml(a.note) + '</p>' : '') +
@@ -2818,21 +2848,26 @@
     $("ttTaskRefresh").addEventListener("click", loadList);
     $("ttTaskSave").addEventListener("click", function(){
       var m = $("ttTaskMsg"), b = this;
-      var u = units()[+$("ttTaskUnit").value || 0], url = $("ttTaskPage").value;
+      var only = linkOnly(), u = only ? null : units()[+$("ttTaskUnit").value || 0], url = only ? "" : $("ttTaskPage").value;
       var topic = u ? u.topics.filter(function(t){ return t.url === url; })[0] : null;
-      if(!u || !topic){ m.textContent = "בחרו יחידה ודף."; return; }
+      var link = $("ttTaskLink").value.trim(), customTitle = $("ttTaskTitle").value.trim();
+      if(!only && (!u || !topic)){ m.textContent = "בחרו יחידה ודף."; return; }
+      if(only && !link){ m.textContent = "הדביקו את הקישור (למשל לפאדלט)."; $("ttTaskLink").focus(); return; }
+      if(only && !customTitle){ m.textContent = "כתבו שם למשימה."; $("ttTaskTitle").focus(); return; }
+      if(link && !/^https:\/\//i.test(link)){ m.textContent = "הקישור צריך להתחיל ב-https:// - העתיקו אותו משורת הכתובת."; $("ttTaskLink").focus(); return; }
       if(!$("ttTaskDue").value){ m.textContent = "בחרו תאריך הגשה."; $("ttTaskDue").focus(); return; }
       var some = document.querySelector('input[name="ttTaskWho"][value="some"]').checked;
       var names = some ? Array.prototype.map.call(document.querySelectorAll("#ttTaskNames input:checked"), function(x){ return x.value; }) : [];
       if(some && !names.length){ m.textContent = "סמנו לפחות תלמיד אחד, או בחרו \"כל הכיתה\"."; return; }
       b.disabled = true; m.textContent = "שומרים…";
       apiPost({ action:"assignSave", password:teacherToken(), cls:$("ttTaskCls").value, page:url,
-                title:u.title + " · " + topic.title, task:T ? T.assignmentFor(u, topic) : "",
+                title:customTitle || (u.title + " · " + topic.title), task:(T && u) ? T.assignmentFor(u, topic) : "",
+                link:link, linkLabel:linkLabel(link),
                 due:$("ttTaskDue").value, note:$("ttTaskNote").value, names:names }).then(function(res){
         if(handleAuthFailure(res)) return;
         if(!res || !res.ok){ m.textContent = (res && res.error) || "השמירה לא הצליחה."; return; }
         m.textContent = "✓ המשימה שויכה. התלמידים יראו אותה באזור האישי.";
-        $("ttTaskNote").value = "";
+        $("ttTaskNote").value = ""; $("ttTaskLink").value = ""; $("ttTaskTitle").value = "";
         render(res.list || []);
       }).catch(function(){ m.textContent = "אין חיבור לשרת כרגע. נסו שוב."; }).then(function(){ b.disabled = false; });
     });

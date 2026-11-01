@@ -132,7 +132,16 @@
   .tk-due{ font-weight:800; color:var(--orange-deep); } .tk.late .tk-due{ color:var(--err); } .tk.ok .tk-due{ color:var(--ok); }
   .pill{ display:inline-block; padding:1px 9px; border-radius:999px; font-size:.8rem; font-weight:800; }
   .pill.y{ background:var(--ok-bg); color:#0B5E43; } .pill.m{ background:var(--warn-bg); color:#8A4B00; } .pill.n{ background:var(--soft); color:var(--muted); }
-  .chev{ flex:none; color:var(--gold); font-size:1.4rem; font-weight:800; }
+  .chev{ flex:none; color:var(--gold); font-size:1.4rem; font-weight:800; text-decoration:none; }
+  .tk-title{ text-decoration:none; color:inherit; }
+  a.tk-title:hover{ text-decoration:underline; }
+  .tk-acts{ display:flex; flex-wrap:wrap; gap:8px; margin-top:4px; }
+  .tk-btn{ display:inline-flex; align-items:center; gap:6px; min-height:38px; padding:6px 14px; border-radius:999px; border:1.5px solid var(--line); background:#fff; color:var(--teal); font:inherit; font-size:.9rem; font-weight:800; text-decoration:none; cursor:pointer; }
+  .tk-btn:hover{ background:var(--cream); }
+  .tk-btn.link{ background:var(--teal); border-color:var(--teal); color:#fff; }
+  .tk-btn.link:hover{ background:var(--teal2); }
+  .tk-btn.on{ background:var(--ok-bg); border-color:#A9DCC6; color:#0B5E43; }
+  .tk-btn[disabled]{ opacity:.6; cursor:default; }
 
   /* ---------- מבחנים ---------- */
   .exam{ display:flex; align-items:center; gap:14px; padding:12px 16px; border:1px solid var(--line); border-radius:16px; background:#fff; }
@@ -452,10 +461,12 @@
 
   /* ---------- 📌 משימות ---------- */
   function taskState(t){
+    var n = daysTo(t.due), linkDone = !!t.selfDone;
+    if(!t.page) return { pct:-1, sent:null, n:n, done:linkDone, linkDone:linkDone, late:n < 0 && !linkDone, ok:linkDone };
     var p = S.progress[t.page], pct = p ? p[0] : -1;
     var sent = S.work ? S.work.some(function(w){ return t.task && normTask(w.task) === normTask(t.task); }) : null;
-    var n = daysTo(t.due), done = pct >= 100;
-    return { pct:pct, sent:sent, n:n, done:done, late:n < 0 && !done, ok:done && sent };
+    var done = pct >= 100;
+    return { pct:pct, sent:sent, n:n, done:done, linkDone:linkDone, late:n < 0 && !done, ok:done && sent && (!t.link || linkDone) };
   }
   function renderTasks(){
     if(!S.tasks) return;
@@ -467,15 +478,34 @@
     $("tasksList").innerHTML = S.tasks.length ? S.tasks.map(function(t){
       var s = taskState(t), due = parse(t.due);
       var dueTxt = s.n < 0 ? "היה להגיש ב-" + dm(due) : s.n === 0 ? "להגיש היום" : s.n === 1 ? "להגיש מחר" : "להגיש עד " + dm(due) + " (עוד " + s.n + " ימים)";
-      var prog = s.done ? '<span class="pill y">✓ הדף הושלם</span>' : s.pct > 0 ? '<span class="pill m">' + s.pct + '% מהדף</span>' : '<span class="pill n">עוד לא התחלת</span>';
-      var snt = s.sent === null ? '' : s.sent ? '<span class="pill y">📤 נשלח למורה</span>' : '<span class="pill n">לא נשלח למורה</span>';
-      return '<li><a class="tk' + (s.ok ? ' ok' : s.late ? ' late' : '') + '" href="' + esc(t.page) + '"><span class="tk-ic" aria-hidden="true">' + (s.ok ? '✅' : s.late ? '⏰' : '📌') + '</span>' +
-        '<span class="tk-main"><span class="tk-title">' + esc(t.title) + '</span>' +
+      var prog = !t.page ? '' : s.done ? '<span class="pill y">✓ הדף הושלם</span>' : s.pct > 0 ? '<span class="pill m">' + s.pct + '% מהדף</span>' : '<span class="pill n">עוד לא התחלת</span>';
+      var snt = !t.page || s.sent === null ? '' : s.sent ? '<span class="pill y">📤 נשלח למורה</span>' : '<span class="pill n">לא נשלח למורה</span>';
+      var main = t.page ? '<a class="tk-title" href="' + esc(t.page) + '">' + esc(t.title) + '</a>' : '<a class="tk-title" href="' + esc(t.link) + '" target="_blank" rel="noopener">' + esc(t.title) + '</a>';
+      var acts = t.link ? '<span class="tk-acts">' +
+        '<a class="tk-btn link" href="' + esc(t.link) + '" target="_blank" rel="noopener">🔗 ' + esc(t.linkLabel || "לקישור") + '<span class="visually-hidden"> (נפתח בלשונית חדשה)</span></a>' +
+        '<button type="button" class="tk-btn' + (s.linkDone ? ' on' : '') + '" data-done="' + esc(t.id) + '" aria-pressed="' + s.linkDone + '">' + (s.linkDone ? '✓ סימנת שסיימת' : '✓ סיימתי') + '</button></span>' : '';
+      return '<li><div class="tk' + (s.ok ? ' ok' : s.late ? ' late' : '') + '"><span class="tk-ic" aria-hidden="true">' + (s.ok ? '✅' : s.late ? '⏰' : t.page ? '📌' : '🔗') + '</span>' +
+        '<span class="tk-main">' + main +
         '<span class="tk-meta"><span class="tk-due">' + (s.ok ? '✓ בוצע · ' : '') + dueTxt + '</span>' + prog + snt + '</span>' +
-        (t.note ? '<span class="tk-meta">💬 ' + esc(t.note) + '</span>' : '') + '</span><span class="chev" aria-hidden="true">‹</span></a></li>';
+        (t.note ? '<span class="tk-meta">💬 ' + esc(t.note) + '</span>' : '') + acts + '</span>' +
+        (t.page ? '<a class="chev" href="' + esc(t.page) + '" aria-hidden="true" tabindex="-1">‹</a>' : '') + '</div></li>';
     }).join("") : '<li class="empty">אין כרגע משימות מהמורה. 🎉</li>';
     renderNext();
   }
+
+  $("tasksList").addEventListener("click", function(e){
+    var b = e.target.closest && e.target.closest("[data-done]");
+    if(!b || !S.me) return;
+    var id = b.getAttribute("data-done"), t = (S.tasks || []).filter(function(x){ return x.id === id; })[0];
+    if(!t) return;
+    var want = !t.selfDone;
+    b.disabled = true;
+    post({ action:"studentTaskDone", tok:S.me.tok, id:id, done:want }).then(function(res){
+      if(res && res.login){ store(null); showLogin("צריך להיכנס שוב."); return; }
+      if(!res || !res.ok){ b.disabled = false; alert((res && res.error) || "לא הצלחנו לשמור. נסו שוב."); return; }
+      t.selfDone = !!res.done; renderTasks();
+    }).catch(function(){ b.disabled = false; alert("אין חיבור לשרת כרגע."); });
+  });
 
   /* ---------- 📅 מבחנים ---------- */
   function renderExams(){
@@ -561,8 +591,12 @@
     var items = [];
     (S.tasks || []).map(function(t){ return { t:t, s:taskState(t) }; }).filter(function(x){ return !x.s.ok; })
       .sort(function(a, b){ return a.t.due < b.t.due ? -1 : 1; }).slice(0, 3).forEach(function(x){
-        var what = !x.s.done ? (x.s.pct > 0 ? "להשלים את הדף (" + x.s.pct + "%)" : "להתחיל את הדף") : "לשלוח למורה";
-        items.push('<li><span class="next-ic" aria-hidden="true">' + (x.s.late ? '⏰' : '📌') + '</span><span class="next-t"><b>' + esc(x.t.title) + '</b><small>' + what + ' · ' + (x.s.n < 0 ? 'באיחור' : rel(x.s.n)) + '</small></span><a class="go" href="' + esc(x.t.page) + '">לדף ›</a></li>');
+        var what = !x.t.page ? "לפתוח את הקישור ולסמן ✓ סיימתי"
+          : !x.s.done ? (x.s.pct > 0 ? "להשלים את הדף (" + x.s.pct + "%)" : "להתחיל את הדף")
+          : !x.s.sent ? "לשלוח למורה" : "לסמן ✓ סיימתי בקישור";
+        var href = x.t.page && (!x.s.done || !x.s.sent || !x.t.link) ? x.t.page : x.t.link;
+        var ext = href === x.t.link ? ' target="_blank" rel="noopener"' : '';
+        items.push('<li><span class="next-ic" aria-hidden="true">' + (x.s.late ? '⏰' : x.t.page ? '📌' : '🔗') + '</span><span class="next-t"><b>' + esc(x.t.title) + '</b><small>' + what + ' · ' + (x.s.n < 0 ? 'באיחור' : rel(x.s.n)) + '</small></span><a class="go" href="' + esc(href) + '"' + ext + '>' + (ext ? 'לקישור ›' : 'לדף ›') + '</a></li>');
       });
     var fresh = (S.work || []).filter(function(w){ return w.pub && readSeen().indexOf(w.id) === -1; });
     if(fresh.length) items.push('<li><span class="next-ic" aria-hidden="true">✨</span><span class="next-t"><b>' + (fresh.length === 1 ? 'יש לך משוב חדש מהמורה' : 'יש לך ' + fresh.length + ' משובים חדשים') + '</b><small>' + esc(fresh[0].task) + '</small></span><button type="button" class="go" data-to="work">לקריאה ›</button></li>');

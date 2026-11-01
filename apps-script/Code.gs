@@ -114,6 +114,7 @@ function doPost(e) {
     if (data.action === 'studentHome') return json_(studentHome_(data.tok));
     if (data.action === 'studentWork') return json_(studentWork_(data.tok));
     if (data.action === 'studentProgress') return json_(studentProgress_(data));
+    if (data.action === 'studentTaskDone') return json_(studentTaskDone_(data));
 
     // כל השאר - רק עם סיסמה
     if (!checkPassword_(data.password)) return json_({ ok: false, auth: false, error: 'סיסמה שגויה' });
@@ -1257,7 +1258,10 @@ function studentHome_(tok) {
   if (!me) return { ok: false, login: true };
   var exams = examsUpcoming_().filter(function (x) { return x.cls === 'all' || x.cls === me.cls; });
   return { ok: true, name: me.name, cls: me.cls, exams: exams, progress: getJson_('STUP_' + me.h) || {},
-           tasks: assignFor_(me.cls, me.name) };
+           tasks: (function () {
+             var mine = getJson_('STUT_' + me.h) || {};
+             return assignFor_(me.cls, me.name).map(function (t) { t.selfDone = !!mine[t.id]; return t; });
+           })() };
 }
 // העבודות של התלמיד, מכל מכשיר: מלוח ההגשות של המורה, לפי השם ברשימת הכיתה (תיקיית התלמיד ב-Drive).
 // ציון ומשוב מוצגים רק אחרי שהמורה פרסם את המשוב (fbpub_<id> = 1) - בדיוק כמו בקישור המשוב.
@@ -1322,7 +1326,10 @@ function assignSave_(d) {
   var cls = normClass_(d.cls);
   if (MONITOR_CLASSES.indexOf(cls) < 0) return { ok: false, error: 'בחרו כיתה.' };
   var page = String(d.page || '').split('#')[0];
-  if (!/^[\w.-]+\.html$/.test(page) || page.length > 80) return { ok: false, error: 'בחרו דף מהאתר.' };
+  var link = String(d.link || '').trim().slice(0, 500);
+  if (link && !/^https:\/\/[^\s"'<>]+$/.test(link)) return { ok: false, error: 'הקישור צריך להתחיל ב-https:// (העתיקו אותו משורת הכתובת).' };
+  if (page && (!/^[\w.-]+\.html$/.test(page) || page.length > 80)) return { ok: false, error: 'בחרו דף מהאתר.' };
+  if (!page && !link) return { ok: false, error: 'בחרו דף מהאתר, או הדביקו קישור.' };
   var due = String(d.due || '');
   if (!/^\d{4}-\d{2}-\d{2}$/.test(due)) return { ok: false, error: 'בחרו תאריך הגשה.' };
   if (due < Utilities.formatDate(new Date(), TZ, 'yyyy-MM-dd')) return { ok: false, error: 'תאריך ההגשה כבר עבר.' };
@@ -1331,7 +1338,8 @@ function assignSave_(d) {
   var roster = roster_(cls), rosterNames = Object.keys(roster).map(function (h) { return roster[h]; });
   var names = (Array.isArray(d.names) ? d.names : []).map(function (n) { return clean_(n).slice(0, 60); })
     .filter(function (n) { return rosterNames.indexOf(n) !== -1; });
-  var a = { id: Utilities.getUuid().slice(0, 8), cls: cls, page: page, title: title, task: clean_(d.task).slice(0, 200),
+  var a = { id: Utilities.getUuid().slice(0, 8), cls: cls, page: page, title: title, task: page ? clean_(d.task).slice(0, 200) : '',
+            link: link, linkLabel: link ? (clean_(d.linkLabel).slice(0, 30) || 'לקישור') : '',
             due: due, note: clean_(d.note).slice(0, 200), names: names, at: Date.now() };
   var lock = LockService.getScriptLock();
   if (!lock.tryLock(8000)) return { ok: false, error: 'השרת עסוק. נסו שוב בעוד רגע.' };
@@ -1361,7 +1369,23 @@ function assignFor_(cls, name) {
   var nk = nameKey_(name);
   return assignAll_().filter(function (a) {
     return a.cls === cls && (!a.names || !a.names.length || a.names.some(function (n) { return nameKey_(n) === nk; }));
-  }).map(function (a) { return { id: a.id, page: a.page, title: a.title, task: a.task, due: a.due, note: a.note }; });
+  }).map(function (a) { return { id: a.id, page: a.page, title: a.title, task: a.task, due: a.due, note: a.note, link: a.link || '', linkLabel: a.linkLabel || '' }; });
+}
+// התלמיד מסמן "✓ סיימתי" במשימה עם קישור (פאדלט, טופס וכו' - האתר לא רואה מה קורה שם).
+// STUT_<טביעת ת"ז> = { מזהה משימה: זמן הסימון }
+function studentTaskDone_(d) {
+  var me = stuAuth_(d.tok);
+  if (!me) return { ok: false, login: true };
+  var id = String(d.id || '').replace(/[^\w-]/g, '').slice(0, 20);
+  var a = assignFor_(me.cls, me.name).filter(function (x) { return x.id === id; })[0];
+  if (!a) return { ok: false, error: 'המשימה לא נמצאה.' };
+  var key = 'STUT_' + me.h, map = getJson_(key) || {};
+  if (d.done === false) delete map[id]; else map[id] = Date.now();
+  var live = {};
+  assignAll_().forEach(function (x) { live[x.id] = 1; });
+  Object.keys(map).forEach(function (k) { if (!live[k]) delete map[k]; });   // משימות שכבר ירדו
+  PropertiesService.getScriptProperties().setProperty(key, JSON.stringify(map));
+  return { ok: true, done: !!map[id] };
 }
 // למורה: מצב המשימה אצל כל תלמיד - נכנס לאזור האישי? התקדמות בדף (מהאזור האישי), ונשלח למורה? (מלוח ההגשות)
 function assignStatus_(id) {
@@ -1379,12 +1403,13 @@ function assignRows_(a, props, allSubs) {
   var rows = Object.keys(roster).filter(function (h) {
     return !a.names || !a.names.length || a.names.indexOf(roster[h]) !== -1;
   }).map(function (h) {
-    var name = roster[h], prog = null;
-    try { prog = props['STUP_' + h] ? (JSON.parse(props['STUP_' + h])[a.page] || null) : null; } catch (e) {}
+    var name = roster[h], prog = null, selfDone = 0;
+    try { prog = (a.page && props['STUP_' + h]) ? (JSON.parse(props['STUP_' + h])[a.page] || null) : null; } catch (e) {}
+    try { selfDone = props['STUT_' + h] ? (JSON.parse(props['STUT_' + h])[a.id] || 0) : 0; } catch (e) {}
     var sent = subs.filter(function (x) { return stuNameMatch_(x.student, name); })
       .sort(function (x, y) { return y.time - x.time; })[0];
     return { name: name, account: !!props['STU_' + h], pct: prog ? prog[0] : -1, ans: prog ? prog[1] : 0, fields: prog ? prog[2] : 0,
-             at: prog ? prog[3] : 0, sent: sent ? sent.date || '✓' : '' };
+             at: prog ? prog[3] : 0, sent: sent ? sent.date || '✓' : '', linkDone: !!selfDone };
   }).sort(function (x, y) { return String(x.name).localeCompare(String(y.name), 'he'); });
   return rows;
 }
@@ -1403,9 +1428,9 @@ function teacherSummary_() {
   var tasks = assignAll_().filter(function (a) { return a.due >= today; }).map(function (a) {
     var rows = assignRows_(a, props, subs);
     return { id: a.id, title: a.title, cls: a.cls, due: a.due, total: rows.length,
-             done: rows.filter(function (r) { return r.pct >= 100; }).length,
+             done: rows.filter(function (r) { return a.page ? r.pct >= 100 : r.linkDone; }).length,
              sent: rows.filter(function (r) { return r.sent; }).length,
-             notStarted: rows.filter(function (r) { return r.account && r.pct < 0; }).length,
+             notStarted: rows.filter(function (r) { return r.account && (a.page ? r.pct < 0 : !r.linkDone); }).length,
              noAccount: rows.filter(function (r) { return !r.account; }).length };
   });
   var noAcc = {};
