@@ -108,6 +108,11 @@ function doPost(e) {
     // פעילות חיה: תשובה של תלמיד (בלי סיסמה)
     if (data.action === 'actRespond') return json_(actRespond_(data));
 
+    // אזור אישי לתלמיד (my.html): ת"ז + סיסמה שהתלמיד בוחר (בלי סיסמת המורה)
+    if (data.action === 'studentCheck') return json_(studentCheck_(data.id));
+    if (data.action === 'studentLogin') return json_(studentLogin_(data));
+    if (data.action === 'studentHome') return json_(studentHome_(data.tok));
+
     // כל השאר - רק עם סיסמה
     if (!checkPassword_(data.password)) return json_({ ok: false, auth: false, error: 'סיסמה שגויה' });
 
@@ -125,6 +130,8 @@ function doPost(e) {
       case 'rosterSave':      return json_(rosterSave_(data.cls, data.text));
       case 'rosterInfo':      return json_(rosterInfo_());
       case 'rosterClear':     return json_(rosterClear_(data.cls));
+      case 'studentAccounts': return json_(studentAccounts_());
+      case 'studentReset':    return json_(studentReset_(data.cls, data.name));
       case 'lessonTeacher':   return json_(lessonTeacher_(data.code));
       case 'clearLesson':     return json_(clearLesson_(data.code));
       case 'lessonNav':       return json_(lessonNav_(data.code, data.url, data.label));
@@ -1158,6 +1165,114 @@ function lessonIdentify_(code, id) {
   var name = roster_(l.cls)[idHash_(id)];
   if (!name) return { ok: false, error: 'תעודת הזהות לא נמצאה ברשימת הכיתה. פנו למורה.' };
   return { ok: true, name: name, tok: rosterToken_(l.code, name) };
+}
+
+// ---------- אזור אישי לתלמיד (my.html) ----------
+// התלמיד נכנס עם ת"ז (שחייבת להופיע ברשימת הכיתה) וסיסמה שהוא בוחר בכניסה הראשונה.
+// נשמר רק STU_<טביעת ת"ז> = { s: מלח, p: גיבוב הסיסמה, c: נוצר, last: כניסה אחרונה, v: גרסה }.
+// הסיסמה עצמה ותעודת הזהות לא נשמרות בשום מקום. המורה יכול רק לאפס (מחיקת החשבון - התלמיד בוחר סיסמה חדשה).
+// אחרי STU_MAX_FAILS ניסיונות שגויים - נעילה ל-STU_LOCK_SEC שניות.
+var STU_TOKEN_DAYS = 180, STU_MAX_FAILS = 5, STU_LOCK_SEC = 600;
+function stuFind_(id) {
+  id = normId_(id);
+  if (!id || !validId_(id)) return { error: 'מספר תעודת הזהות לא תקין. בדקו שהקלדתם את כל 9 הספרות.' };
+  var h = idHash_(id);
+  for (var i = 0; i < MONITOR_CLASSES.length; i++) {
+    var name = roster_(MONITOR_CLASSES[i])[h];
+    if (name) return { h: h, name: name, cls: MONITOR_CLASSES[i] };
+  }
+  return { error: 'תעודת הזהות לא נמצאה ברשימת הכיתה. פנו למורה.' };
+}
+function stuAcc_(h) { return getJson_('STU_' + h); }
+function stuPwHash_(salt, pw) {
+  var x = salt + '|' + pw, pepper = rosterSalt_();
+  for (var i = 0; i < 200; i++) x = sha256hex_(pepper + x);
+  return x;
+}
+function stuSig_(h, exp, v) { return sha256hex_(rosterSalt_() + '|stu|' + h + '|' + exp + '|' + (v || 0)).slice(0, 32); }
+function stuTok_(h, acc) {
+  var exp = Date.now() + STU_TOKEN_DAYS * 864e5;
+  return h + '.' + exp + '.' + stuSig_(h, exp, acc.v);
+}
+// אסימון הכניסה של התלמיד -> { h, name, cls } (או null אם פג, אופס או מזויף)
+function stuAuth_(tok) {
+  var m = String(tok || '').match(/^([0-9a-f]{32})\.(\d{10,15})\.([0-9a-f]{32})$/);
+  if (!m || Number(m[2]) < Date.now()) return null;
+  var acc = stuAcc_(m[1]);
+  if (!acc || stuSig_(m[1], m[2], acc.v) !== m[3]) return null;
+  for (var i = 0; i < MONITOR_CLASSES.length; i++) {
+    var name = roster_(MONITOR_CLASSES[i])[m[1]];
+    if (name) return { h: m[1], name: name, cls: MONITOR_CLASSES[i] };
+  }
+  return null;   // התלמיד כבר לא ברשימת הכיתה
+}
+function studentCheck_(id) {
+  var f = stuFind_(id);
+  if (f.error) return { ok: false, error: f.error };
+  return { ok: true, exists: !!stuAcc_(f.h) };
+}
+function studentLogin_(d) {
+  var f = stuFind_(d.id);
+  if (f.error) return { ok: false, error: f.error };
+  var cache = CacheService.getScriptCache(), fk = 'stuf_' + f.h;
+  var fails = Number(cache.get(fk) || 0);
+  if (fails >= STU_MAX_FAILS) return { ok: false, error: 'היו יותר מדי ניסיונות שגויים. נסו שוב בעוד 10 דקות, או בקשו מהמורה לאפס את הסיסמה.' };
+  var pw = String(d.pw || '');
+  var props = PropertiesService.getScriptProperties();
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(8000)) return { ok: false, error: 'השרת עסוק. נסו שוב בעוד רגע.' };
+  try {
+    var acc = stuAcc_(f.h);
+    if (!acc) {
+      if (d.create !== true) return { ok: false, needCreate: true };
+      if (pw.length < 6 || pw.length > 64) return { ok: false, error: 'הסיסמה צריכה להיות לפחות 6 תווים.' };
+      var salt = Utilities.getUuid();
+      acc = { s: salt, p: stuPwHash_(salt, pw), c: Date.now(), v: 1 };
+    } else if (d.create === true) {
+      return { ok: false, error: 'כבר יש חשבון לתעודת הזהות הזו. היכנסו עם הסיסמה, ואם שכחתם - בקשו מהמורה לאפס.' };
+    } else if (stuPwHash_(acc.s, pw) !== acc.p) {
+      fails++;
+      cache.put(fk, String(fails), STU_LOCK_SEC);
+      var left = STU_MAX_FAILS - fails;
+      return { ok: false, error: 'הסיסמה לא נכונה.' + (left > 0 ? (left === 1 ? ' נשאר ניסיון אחד' : ' נשארו ' + left + ' ניסיונות') + ' לפני נעילה ל-10 דקות.' : ' החשבון ננעל ל-10 דקות.') };
+    }
+    cache.remove(fk);
+    acc.last = Date.now();
+    props.setProperty('STU_' + f.h, JSON.stringify(acc));
+  } finally {
+    lock.releaseLock();
+  }
+  return { ok: true, tok: stuTok_(f.h, acc), name: f.name, cls: f.cls };
+}
+// הדף הראשי של האזור האישי: שם, כיתה, ומבחנים ומשימות קרובים של הכיתה
+function studentHome_(tok) {
+  var me = stuAuth_(tok);
+  if (!me) return { ok: false, login: true };
+  var exams = examsUpcoming_().filter(function (x) { return x.cls === 'all' || x.cls === me.cls; });
+  return { ok: true, name: me.name, cls: me.cls, exams: exams };
+}
+// למורה: מי ברשימות הכיתה כבר פתח חשבון באזור האישי
+function studentAccounts_() {
+  var all = PropertiesService.getScriptProperties().getProperties();
+  var out = {};
+  MONITOR_CLASSES.forEach(function (c) {
+    var r = roster_(c);
+    out[c] = Object.keys(r).map(function (h) {
+      var acc = null;
+      try { acc = all['STU_' + h] ? JSON.parse(all['STU_' + h]) : null; } catch (e) {}
+      return { name: r[h], has: !!acc, last: acc ? (acc.last || acc.c || 0) : 0 };
+    }).sort(function (a, b) { return String(a.name).localeCompare(String(b.name), 'he'); });
+  });
+  return { ok: true, classes: out };
+}
+// למורה: איפוס - מוחקים את החשבון. בכניסה הבאה התלמיד בוחר סיסמה חדשה (וכל הכניסות הקודמות מתנתקות).
+function studentReset_(cls, name) {
+  var r = roster_(cls), nk = nameKey_(name);
+  var h = Object.keys(r).filter(function (k) { return nameKey_(r[k]) === nk; })[0];
+  if (!h) return { ok: false, error: 'התלמיד לא נמצא ברשימת הכיתה.' };
+  PropertiesService.getScriptProperties().deleteProperty('STU_' + h);
+  CacheService.getScriptCache().remove('stuf_' + h);
+  return { ok: true };
 }
 
 // ---------- דוחות שיעור ----------

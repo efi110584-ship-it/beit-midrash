@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css?v=42">
+<link rel="stylesheet" href="assets/site.css?v=43">
 
 <script src="assets/a11y.js"></script>
 <link rel="stylesheet" href="assets/teacher-dashboard.css"><script src="assets/teacher-dashboard-layout.js"></script></head>
@@ -146,8 +146,17 @@
       <span class="live-now-go">להשתתפות ›</span>
     </a>
     <div id="continue-root"></div>
+    <!-- האזור האישי של התלמיד: כניסה עם ת"ז וסיסמה (my.html) -->
+    <a class="my-area-link" id="myAreaLink" href="my.html">
+      <span class="my-area-ico" aria-hidden="true">👤</span>
+      <span class="my-area-text"><b>האזור האישי שלי</b><span id="myAreaSub">כניסה עם תעודת זהות וסיסמה · מבחנים ומשימות קרובים</span></span>
+      <span class="my-area-go" aria-hidden="true">›</span>
+    </a>
     <!-- העבודות שנשלחו מהמכשיר הזה, והמשוב של המורה עליהן (assets/my-work.js) -->
     <section class="my-work" id="myWork" aria-live="polite" hidden></section>
+    <script>
+      (function(){ try{ var me = JSON.parse(localStorage.getItem("bm-student") || "null"); if(me && me.name){ document.getElementById("myAreaSub").textContent = "מחובר/ת: " + me.name + " · למבחנים ולמשימות הקרובים"; } }catch(e){} })();
+    </script>
     <!-- קוד לשיעור מהמורה -->
     <form class="lesson-join" id="lessonJoin" novalidate>
       <label for="lessonCodeInput" class="lesson-join-label">יש לכם קוד מהמורה?</label>
@@ -660,6 +669,11 @@
           '<div class="tt-btns"><button type="button" class="tt-btn tt-btn--primary" id="ttRosterSave">שמירת הרשימה</button><button type="button" class="tt-btn" id="ttRosterClear">מחיקת הרשימה של הכיתה</button></div>' +
           '<p class="tt-msg" id="ttRosterMsg" role="status" aria-live="polite"></p>' +
           '<p class="tt-note">תעודות הזהות לא נשמרות כמו שהן: השרת שומר רק "טביעת אצבע" מוצפנת של כל מספר, כדי לזהות את התלמיד. האתר לא מציג תעודות זהות בשום מקום, וגם התיבה כאן מתרוקנת אחרי השמירה. שמירה חדשה מחליפה את הרשימה הקודמת של אותה כיתה.</p>' +
+          '<h4 class="tt-h" style="font-size:1.05rem;margin-top:18px">👤 חשבונות באזור האישי של התלמידים</h4>' +
+          '<p class="tt-sub">התלמידים שברשימה נכנסים ל"האזור האישי שלי" עם ת"ז וסיסמה שהם בוחרים בכניסה הראשונה. תלמיד ששכח סיסמה - "איפוס", ובכניסה הבאה הוא יבחר סיסמה חדשה.</p>' +
+          '<div class="tt-btns"><button type="button" class="tt-btn" id="ttAccShow">הצגת החשבונות</button></div>' +
+          '<p class="tt-msg" id="ttAccMsg" role="status" aria-live="polite"></p>' +
+          '<div id="ttAccList"></div>' +
         '</div>' +
         '<div class="tt-card" id="ttReports">' +
           '<div class="tt-board-head">' +
@@ -1017,6 +1031,42 @@
         m.textContent = res && res.ok ? "✓ הרשימה נמחקה." : "המחיקה לא הצליחה.";
         loadRoster();
       }).catch(function(){ m.textContent = "אין חיבור לשרת כרגע. נסו שוב."; });
+    });
+
+    /* חשבונות האזור האישי של התלמידים (my.html): מי פתח חשבון, ואיפוס סיסמה */
+    function loadAccounts(){
+      var m = document.getElementById("ttAccMsg"), box = document.getElementById("ttAccList");
+      m.textContent = "טוענים…";
+      apiPost({ action:"studentAccounts", password:teacherToken() }).then(function(res){
+        if(handleAuthFailure(res)) return;
+        if(!res || !res.ok || !res.classes){ m.textContent = (res && res.error) || "החשבונות יופיעו אחרי שתעדכנו את הסקריפט של Google לגרסה החדשה."; return; }
+        m.textContent = "";
+        box.innerHTML = ["יא", "יב"].map(function(c){
+          var list = res.classes[c] || [], has = list.filter(function(x){ return x.has; }).length;
+          return '<div style="margin-top:10px"><b>כיתה ' + (c === "יב" ? 'י"ב' : 'י"א') + '</b> · ' + (list.length ? has + ' מתוך ' + list.length + ' פתחו חשבון' : 'אין רשימת כיתה') + '</div>' +
+            (list.length ? '<ul class="tt-acc-list" style="list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:4px">' + list.map(function(x){
+              return '<li style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:4px 0;border-bottom:1px solid #E6ECF5">' +
+                '<span style="min-width:9rem">' + escapeHtml(x.name) + '</span>' +
+                (x.has ? '<span class="tt-pill tt-pill--checked">✓ פתח/ה חשבון' + (x.last ? ' · כניסה אחרונה ' + new Date(x.last).toLocaleDateString("he-IL") : '') + '</span>' +
+                  '<button type="button" class="tt-btn tt-btn--small" data-acc-reset="' + escapeAttr(x.name) + '" data-acc-cls="' + c + '">איפוס סיסמה</button>'
+                  : '<span class="tt-pill tt-pill--missing">עוד לא נכנס/ה</span>') + '</li>';
+            }).join("") + '</ul>' : '');
+        }).join("");
+      }).catch(function(){ m.textContent = "אין חיבור לשרת כרגע. נסו שוב."; });
+    }
+    document.getElementById("ttAccShow").addEventListener("click", loadAccounts);
+    document.getElementById("ttAccList").addEventListener("click", function(e){
+      var b = e.target.closest && e.target.closest("[data-acc-reset]");
+      if(!b) return;
+      var nm = b.getAttribute("data-acc-reset");
+      if(!confirm("לאפס את הסיסמה של " + nm + "?\nבכניסה הבאה לאזור האישי " + nm + " יבחר/תבחר סיסמה חדשה, וכל המכשירים שמחוברים עכשיו לחשבון יתנתקו.")) return;
+      b.disabled = true;
+      apiPost({ action:"studentReset", password:teacherToken(), cls:b.getAttribute("data-acc-cls"), name:nm }).then(function(res){
+        if(handleAuthFailure(res)) return;
+        if(!res || !res.ok){ b.disabled = false; alert((res && res.error) || "האיפוס לא הצליח."); return; }
+        document.getElementById("ttAccMsg").textContent = "✓ הסיסמה של " + nm + " אופסה.";
+        loadAccounts();
+      }).catch(function(){ b.disabled = false; alert("אין חיבור לשרת כרגע. נסו שוב."); });
     });
 
     document.getElementById("ttLiveRefresh").addEventListener("click", loadLive);

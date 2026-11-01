@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>האזור האישי שלי | הכיתה הדיגיטלית</title>
+<meta name="description" content="האזור האישי של התלמיד: כניסה עם תעודת זהות וסיסמה, מבחנים ומשימות קרובים">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Heebo:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --navy:#0B2A5B; --blue:#123A78; --orange:#FF7A1A; --orange-deep:#C2410C; --ink:#0E1B33; --muted:#56637A; --line:#DCE4F1; --bg:#EEF3FB; --card:#fff; --ok:#0D8A63; --err:#B42318; --soft:#F5F8FD; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Heebo","Rubik",Arial,sans-serif; font-size:17px; line-height:1.55; }
+  .visually-hidden{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  .skip-link{ position:absolute; top:-60px; inset-inline-start:12px; background:#fff; padding:8px 12px; border-radius:8px; z-index:10; }
+  .skip-link:focus{ top:12px; }
+  [hidden]{ display:none !important; }
+  header{ background:var(--navy); color:#fff; padding:14px 16px 22px; }
+  .top{ max-width:720px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .top a{ color:#fff; text-decoration:none; font-size:.95rem; opacity:.9; }
+  .top a:hover{ text-decoration:underline; }
+  .tag{ display:inline-flex; align-items:center; gap:7px; padding:3px 12px; border-radius:999px; background:rgba(255,255,255,.14); font-weight:700; font-size:.92rem; }
+  .hello{ max-width:720px; margin:14px auto 0; }
+  .hello h1{ margin:0; font-family:"Rubik",sans-serif; font-weight:700; font-size:clamp(1.6rem,4.5vw,2.2rem); line-height:1.2; text-wrap:balance; }
+  .hello p{ margin:4px 0 0; color:#C3CFDD; }
+  main{ max-width:720px; margin:0 auto; padding:18px 16px 60px; display:flex; flex-direction:column; gap:14px; }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px; box-shadow:0 2px 10px rgba(11,42,91,.05); }
+  .card h2{ margin:0 0 4px; font-family:"Rubik",sans-serif; font-size:1.2rem; color:var(--navy); }
+  .card .sub{ margin:0 0 12px; color:var(--muted); font-size:.95rem; }
+  label{ display:block; font-weight:600; margin:10px 0 4px; }
+  input{ width:100%; font:inherit; font-size:1.05rem; padding:10px 12px; border:1.5px solid #C6D2E6; border-radius:10px; background:#fff; color:var(--ink); }
+  input:focus-visible, button:focus-visible, a:focus-visible{ outline:3px solid var(--orange); outline-offset:2px; }
+  .id-input{ letter-spacing:.12em; font-variant-numeric:tabular-nums; direction:ltr; text-align:right; }
+  .btns{ display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
+  .btn{ font:inherit; font-weight:700; border:0; border-radius:999px; padding:10px 20px; min-height:44px; cursor:pointer; background:var(--navy); color:#fff; }
+  .btn:hover{ background:var(--blue); }
+  .btn[disabled]{ opacity:.6; cursor:default; }
+  .btn.ghost{ background:transparent; color:var(--navy); border:1.5px solid #C6D2E6; }
+  .btn.ghost:hover{ background:var(--soft); }
+  .msg{ margin:10px 0 0; font-weight:600; min-height:1.2em; }
+  .msg.err{ color:var(--err); }
+  .note{ margin:12px 0 0; color:var(--muted); font-size:.9rem; }
+  .who{ display:flex; align-items:center; gap:8px; margin:0 0 6px; color:var(--muted); font-size:.95rem; }
+  .who b{ color:var(--ink); }
+  .exams{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+  .exam{ display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:center; padding:10px 12px; border:1px solid var(--line); border-radius:12px; background:var(--soft); }
+  .exam.soon{ border-color:#F6B98A; background:#FFF4EA; }
+  .exam-date{ display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:62px; padding:6px 8px; border-radius:10px; background:#fff; border:1px solid var(--line); font-variant-numeric:tabular-nums; line-height:1.15; }
+  .exam-date b{ font-size:1.15rem; color:var(--navy); }
+  .exam-date span{ font-size:.78rem; color:var(--muted); }
+  .exam-title{ font-weight:700; }
+  .exam-meta{ display:flex; flex-wrap:wrap; gap:4px 10px; font-size:.88rem; color:var(--muted); }
+  .exam-rel{ font-weight:700; color:var(--orange-deep); }
+  .empty{ margin:0; color:var(--muted); }
+  @media (max-width:420px){ .card{ padding:14px; } }
+</style>
+<script src="assets/a11y.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">דלג לתוכן</a>
+<header>
+  <div class="top">
+    <span class="tag">👤 האזור האישי שלי</span>
+    <a href="index.html">חזרה לדף הבית ›</a>
+  </div>
+  <div class="hello">
+    <h1 id="hello">האזור האישי שלי</h1>
+    <p id="helloSub">כניסה עם תעודת זהות וסיסמה - מכל מכשיר</p>
+  </div>
+</header>
+
+<main id="main">
+  <!-- כניסה: שלב 1 ת"ז, שלב 2 סיסמה (או בחירת סיסמה בכניסה הראשונה) -->
+  <section class="card" id="login" aria-labelledby="loginH">
+    <h2 id="loginH">כניסה</h2>
+    <form id="stepId" novalidate>
+      <p class="sub">הקלידו את מספר תעודת הזהות שלכם (9 ספרות).</p>
+      <label for="idInput">תעודת זהות</label>
+      <input id="idInput" class="id-input" type="text" inputmode="numeric" autocomplete="off" maxlength="11" placeholder="000000000" aria-describedby="idMsg">
+      <div class="btns"><button type="submit" class="btn" id="idGo">המשך</button></div>
+      <p class="msg err" id="idMsg" role="status" aria-live="polite"></p>
+    </form>
+    <form id="stepPw" hidden novalidate>
+      <p class="sub" id="pwSub">הקלידו את הסיסמה שלכם.</p>
+      <label for="pwInput">סיסמה</label>
+      <input id="pwInput" type="password" autocomplete="current-password" maxlength="64" aria-describedby="pwMsg">
+      <div class="btns"><button type="submit" class="btn" id="pwGo">כניסה</button><button type="button" class="btn ghost" data-back>חזרה</button></div>
+      <p class="msg err" id="pwMsg" role="status" aria-live="polite"></p>
+      <p class="note">שכחתם את הסיסמה? בקשו מהמורה לאפס אותה, ואז תבחרו סיסמה חדשה.</p>
+    </form>
+    <form id="stepNew" hidden novalidate>
+      <p class="sub">זו הכניסה הראשונה שלכם. בחרו סיסמה (לפחות 6 תווים), ואל תספרו אותה לאף אחד.</p>
+      <label for="newPw">סיסמה חדשה</label>
+      <input id="newPw" type="password" autocomplete="new-password" maxlength="64" aria-describedby="newMsg">
+      <label for="newPw2">הסיסמה שוב</label>
+      <input id="newPw2" type="password" autocomplete="new-password" maxlength="64">
+      <div class="btns"><button type="submit" class="btn" id="newGo">יצירת חשבון וכניסה</button><button type="button" class="btn ghost" data-back>חזרה</button></div>
+      <p class="msg err" id="newMsg" role="status" aria-live="polite"></p>
+    </form>
+    <p class="note">תעודת הזהות לא נשמרת באתר, והסיסמה נשמרת מוצפנת - גם המורה לא רואה אותה.</p>
+  </section>
+
+  <!-- אחרי הכניסה -->
+  <section class="card" id="examsCard" hidden aria-labelledby="examsH">
+    <h2 id="examsH">📅 מבחנים ומשימות קרובים</h2>
+    <p class="sub" id="examsSub"></p>
+    <ul class="exams" id="examsList"></ul>
+  </section>
+  <section class="card" id="meCard" hidden aria-labelledby="meH">
+    <h2 id="meH">החשבון שלי</h2>
+    <p class="who">מחובר/ת בתור <b id="meName"></b> · <span id="meCls"></span></p>
+    <p class="note" style="margin-top:0">במכשיר משותף (למשל מחשב בבית הספר) - צאו מהחשבון בסוף.</p>
+    <div class="btns"><button type="button" class="btn ghost" id="logout">יציאה מהחשבון</button></div>
+  </section>
+  <p class="msg err" id="homeMsg" role="status" aria-live="polite"></p>
+</main>
+
+<script src="assets/bm-api.js"></script>
+<script>
+/* האזור האישי של התלמיד. השרת: studentCheck / studentLogin / studentHome (apps-script/Code.gs).
+   האסימון נשמר במכשיר (localStorage "bm-student") עד יציאה מהחשבון או איפוס של המורה. */
+(function(){
+  "use strict";
+  var API = window.BM_API_URL, KEY = "bm-student";
+  var $ = function(id){ return document.getElementById(id); };
+  var idVal = "";
+  function post(body){
+    return fetch(API, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" }, body:JSON.stringify(body) }).then(function(r){ return r.json(); });
+  }
+  function load(){ try{ return JSON.parse(localStorage.getItem(KEY) || "null"); }catch(e){ return null; } }
+  function store(v){ try{ if(v) localStorage.setItem(KEY, JSON.stringify(v)); else localStorage.removeItem(KEY); }catch(e){} }
+  function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]; }); }
+  function clsName(c){ return c === "יב" ? 'כיתה י"ב' : 'כיתה י"א'; }
+  function show(step){
+    ["stepId", "stepPw", "stepNew"].forEach(function(s){ $(s).hidden = s !== step; });
+    var f = { stepId:"idInput", stepPw:"pwInput", stepNew:"newPw" }[step];
+    setTimeout(function(){ $(f).focus(); }, 30);
+  }
+  function busy(btn, on, text){ btn.disabled = on; if(text) btn.textContent = text; }
+  function netErr(el){ el.textContent = "אין חיבור לשרת כרגע. נסו שוב בעוד רגע."; }
+
+  /* ---------- כניסה ---------- */
+  $("stepId").addEventListener("submit", function(e){
+    e.preventDefault();
+    var m = $("idMsg"), b = $("idGo");
+    idVal = $("idInput").value.replace(/\D/g, "");
+    if(idVal.length < 5){ m.textContent = "הקלידו את כל הספרות של תעודת הזהות."; return; }
+    m.textContent = ""; busy(b, true, "בודקים…");
+    post({ action:"studentCheck", id:idVal }).then(function(res){
+      if(!res || !res.ok){ m.textContent = (res && res.error) || "משהו השתבש. נסו שוב."; return; }
+      $("pwInput").value = ""; $("newPw").value = ""; $("newPw2").value = ""; $("pwMsg").textContent = ""; $("newMsg").textContent = "";
+      show(res.exists ? "stepPw" : "stepNew");
+    }).catch(function(){ netErr(m); }).then(function(){ busy(b, false, "המשך"); });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-back]"), function(b){
+    b.addEventListener("click", function(){ show("stepId"); });
+  });
+  function loggedIn(res){
+    store({ tok:res.tok, name:res.name, cls:res.cls });
+    $("idInput").value = ""; $("pwInput").value = ""; $("newPw").value = ""; $("newPw2").value = ""; idVal = "";
+    home();
+  }
+  $("stepPw").addEventListener("submit", function(e){
+    e.preventDefault();
+    var m = $("pwMsg"), b = $("pwGo"), pw = $("pwInput").value;
+    if(!pw){ m.textContent = "הקלידו סיסמה."; return; }
+    m.textContent = ""; busy(b, true, "נכנסים…");
+    post({ action:"studentLogin", id:idVal, pw:pw }).then(function(res){
+      if(res && res.ok) return loggedIn(res);
+      if(res && res.needCreate){ show("stepNew"); return; }
+      m.textContent = (res && res.error) || "הכניסה לא הצליחה.";
+      $("pwInput").select();
+    }).catch(function(){ netErr(m); }).then(function(){ busy(b, false, "כניסה"); });
+  });
+  $("stepNew").addEventListener("submit", function(e){
+    e.preventDefault();
+    var m = $("newMsg"), b = $("newGo"), p1 = $("newPw").value, p2 = $("newPw2").value;
+    if(p1.length < 6){ m.textContent = "הסיסמה צריכה להיות לפחות 6 תווים."; return; }
+    if(p1 !== p2){ m.textContent = "הסיסמאות לא זהות. הקלידו שוב."; $("newPw2").value = ""; $("newPw2").focus(); return; }
+    m.textContent = ""; busy(b, true, "יוצרים חשבון…");
+    post({ action:"studentLogin", id:idVal, pw:p1, create:true }).then(function(res){
+      if(res && res.ok) return loggedIn(res);
+      m.textContent = (res && res.error) || "יצירת החשבון לא הצליחה.";
+    }).catch(function(){ netErr(m); }).then(function(){ busy(b, false, "יצירת חשבון וכניסה"); });
+  });
+
+  /* ---------- אחרי הכניסה ---------- */
+  var WD = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
+  function examItem(x){
+    var p = String(x.date).split("-"), d = new Date(+p[0], +p[1] - 1, +p[2]);
+    var now = new Date(), today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var n = Math.round((d - today) / 86400000);
+    var rel = n <= 0 ? "היום" : n === 1 ? "מחר" : "בעוד " + n + " ימים";
+    return '<li class="exam' + (n <= 7 ? ' soon' : '') + '">' +
+      '<span class="exam-date"><b>' + d.getDate() + "." + (d.getMonth() + 1) + '</b><span>יום ' + WD[d.getDay()] + '</span></span>' +
+      '<span><span class="exam-title">' + esc(x.title) + '</span>' +
+      '<span class="exam-meta"><span class="exam-rel">' + rel + '</span>' + (x.subject ? '<span>' + esc(x.subject) + '</span>' : '') + (x.note ? '<span>' + esc(x.note) + '</span>' : '') + '</span></span></li>';
+  }
+  function showHome(me, exams){
+    $("login").hidden = true;
+    $("hello").textContent = "שלום, " + (me.name || "");
+    $("helloSub").textContent = clsName(me.cls);
+    $("meName").textContent = me.name || ""; $("meCls").textContent = clsName(me.cls);
+    $("meCard").hidden = false; $("examsCard").hidden = false;
+    $("examsSub").textContent = exams.length ? "המבחנים והמשימות שהמורה פרסם ל" + clsName(me.cls) + "." : "";
+    $("examsList").innerHTML = exams.length ? exams.map(examItem).join("") : '<li><p class="empty">אין כרגע מבחנים או משימות קרובים. 🎉</p></li>';
+  }
+  function showLogin(note){
+    $("login").hidden = false; $("meCard").hidden = true; $("examsCard").hidden = true;
+    $("hello").textContent = "האזור האישי שלי"; $("helloSub").textContent = "כניסה עם תעודת זהות וסיסמה - מכל מכשיר";
+    if(note) $("idMsg").textContent = note;
+    show("stepId");
+  }
+  function home(){
+    var me = load();
+    if(!me || !me.tok){ showLogin(); return; }
+    showHome(me, []);
+    $("examsList").innerHTML = '<li><p class="empty">טוענים…</p></li>';
+    post({ action:"studentHome", tok:me.tok }).then(function(res){
+      if(res && res.login){ store(null); showLogin("צריך להיכנס שוב (אולי המורה איפס את הסיסמה)."); return; }
+      if(!res || !res.ok){ $("homeMsg").textContent = (res && res.error) || "לא הצלחנו לטעון."; return; }
+      me.name = res.name; me.cls = res.cls; store(me);
+      showHome(me, res.exams || []);
+    }).catch(function(){ netErr($("homeMsg")); });
+  }
+  $("logout").addEventListener("click", function(){ store(null); $("homeMsg").textContent = ""; showLogin(); });
+  home();
+})();
+</script>
+</body>
+</html>
