@@ -318,7 +318,7 @@
 <script src="assets/flashcards-data.js"></script>
 <script src="assets/live-render.js"></script>
 <script src="assets/live-teacher.js"></script>
-<script src="assets/live-monitor.js?v=5"></script>
+<script src="assets/live-monitor.js?v=6"></script>
 <script>
 (function(){
   "use strict";
@@ -650,6 +650,11 @@
             '<span class="tt-note" id="ttNavNow" style="flex-basis:100%;margin:0" aria-live="polite"></span>' +
           '</div>' +
           '<div class="tt-live-sum" id="ttLiveSum" aria-live="polite"></div>' +
+          '<div class="tt-btns" role="group" aria-label="תצוגת התלמידים" style="margin:.2rem 0 0">' +
+            '<button type="button" class="tt-btn tt-btn--small" id="ttLiveViewCards" aria-pressed="true">▦ כרטיסים</button>' +
+            '<button type="button" class="tt-btn tt-btn--small" id="ttLiveViewTable" aria-pressed="false">☰ טבלה</button>' +
+          '</div>' +
+          '<div id="ttLiveCards"></div>' +
           '<div class="tt-table-wrap" id="ttLiveWrap">' +
             '<table class="tt-table tt-live-table">' +
               '<caption class="visually-hidden">מי מהתלמידים נמצא בדף</caption>' +
@@ -1117,8 +1122,27 @@
       }).catch(function(){ now.textContent = "אין חיבור לשרת כרגע. נסו שוב."; });
     });
     if(window.BM_LIVEMON) document.getElementById("ttLiveSound").appendChild(window.BM_LIVEMON.soundButton()).className = "tt-btn";
-    /* לחיצה על שורה - פותחת/סוגרת את ציר הזמן של התלמיד */
-    document.getElementById("ttLiveRows").addEventListener("click", function(e){
+    /* כרטיסים / טבלה */
+    function liveView(){ try{ return localStorage.getItem("bm-live-view") || "cards"; }catch(e){ return "cards"; } }
+    function applyLiveView(){
+      var cards = liveView() === "cards" && window.BM_LIVEMON && window.BM_LIVEMON.cardsHtml;
+      var c = document.getElementById("ttLiveCards"), w = document.getElementById("ttLiveWrap");
+      if(c) c.hidden = !cards;
+      if(w) w.hidden = !!cards;
+      var bc = document.getElementById("ttLiveViewCards"), bt = document.getElementById("ttLiveViewTable");
+      if(bc) bc.setAttribute("aria-pressed", String(!!cards));
+      if(bt) bt.setAttribute("aria-pressed", String(!cards));
+    }
+    window.applyLiveView = applyLiveView;
+    ["ttLiveViewCards", "ttLiveViewTable"].forEach(function(id){
+      document.getElementById(id).addEventListener("click", function(){
+        try{ localStorage.setItem("bm-live-view", id === "ttLiveViewCards" ? "cards" : "table"); }catch(e){}
+        applyLiveView();
+      });
+    });
+    applyLiveView();
+    /* לחיצה על שורה או כרטיס - פותחת/סוגרת את ציר הזמן של התלמיד */
+    function liveRowsClick(e){
       var hb = e.target.closest && e.target.closest("[data-help-done]");
       if(hb){
         hb.disabled = true;
@@ -1141,11 +1165,16 @@
         }).catch(function(){ kb.disabled = false; alert("אין חיבור לשרת כרגע. נסו שוב."); });
         return;
       }
-      var tr = e.target.closest && e.target.closest("tr[data-sid]");
+      var tr = e.target.closest && e.target.closest("[data-sid]");
       if(!tr) return;
       var sid = tr.getAttribute("data-sid");
       if(liveOpen[sid]) delete liveOpen[sid]; else liveOpen[sid] = 1;
       loadLive();
+    }
+    document.getElementById("ttLiveRows").addEventListener("click", liveRowsClick);
+    document.getElementById("ttLiveCards").addEventListener("click", liveRowsClick);
+    document.getElementById("ttLiveCards").addEventListener("keydown", function(e){
+      if((e.key === "Enter" || e.key === " ") && e.target.getAttribute && e.target.getAttribute("role") === "button" && e.target.hasAttribute("data-sid")){ e.preventDefault(); liveRowsClick(e); }
     });
     document.getElementById("ttLiveLesson").addEventListener("click", function(e){
       var b = e.target.closest("[data-live-code]");
@@ -1591,6 +1620,13 @@
         '</tr>' +
         (open && LM ? '<tr class="tt-live-detail"><td colspan="9">' + LM.timelineHtml(p) + '</td></tr>' : '');
       }).join("") : '<tr><td colspan="9">עדיין אף תלמיד לא נכנס עם הקוד.</td></tr>';
+      /* כרטיסי תלמידים (ברירת המחדל) או טבלה - הבחירה נשמרת במחשב */
+      var cardsEl = document.getElementById("ttLiveCards");
+      if(cardsEl && LM && LM.cardsHtml){
+        var navPage = res.lesson.nav ? String(res.lesson.nav.url).split("#")[0] : (res.lesson.url || "");
+        cardsEl.innerHTML = list.length ? LM.cardsHtml(list, liveOpen, navPage, "tt-btn tt-btn--small") : '<p class="tt-note">עדיין אף תלמיד לא נכנס עם הקוד.</p>';
+      }
+      if(window.applyLiveView) window.applyLiveView();
       /* המורה בכניסת בדיקה - שורה נפרדת בסוף, לא נספר ולא מקפיץ התראות */
       document.getElementById("ttLiveRows").insertAdjacentHTML("beforeend", (res.teachers || []).map(function(p){
         var on = p.status === "in" || p.status === "out";

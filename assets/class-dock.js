@@ -113,7 +113,7 @@
       if(window[globals[n]]) return Promise.resolve();
       if(!loading[n]) loading[n] = new Promise(function(ok, fail){
         var s = document.createElement("script");
-        s.src = BASE + n + ".js?v=20261101";
+        s.src = BASE + n + ".js?v=20261101-2";
         s.onload = ok; s.onerror = fail;
         document.head.appendChild(s);
       });
