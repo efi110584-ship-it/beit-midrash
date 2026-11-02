@@ -247,8 +247,8 @@
     var api = window.BeitMidrashDirectSubmit;
     return (api && api.classCode && classEl) ? api.classCode(classEl.value) : '';
   }
-  /* בכיתה י"א אפשר לכתוב גם את מספר הכיתה (1-4) - לפיו העבודה מגיעה למורה הנכון.
-     בלי מספר העבודה נשלחת כרגיל. */
+  /* בכיתה י"א צריך לכתוב גם את מספר הכיתה (1-4) - לפיו העבודה מגיעה למורה הנכון.
+     בלי מספר השרת לא קולט את ההגשה (apps-script/Code.gs - SIDE_CLASSES). */
   function sectionCode(){
     var api = window.BeitMidrashDirectSubmit;
     return (api && api.sectionCode && classEl) ? api.sectionCode(classEl.value) : '';
@@ -256,10 +256,11 @@
   function classLabel(){
     return classCode() === 'יא' ? ('י"א ' + sectionCode()).trim() : 'י"ב';
   }
-  function askClass(){
+  function askClass(needNum){
     open('warn', function(h){
-      h.textContent = '✏️ כתבו את הכיתה שלכם';
-      panel.appendChild(el('p', null, 'בשורה "כיתה" שלמעלה כתבו את הכיתה, למשל י"א 3 או י"ב. כך העבודה תגיע למורה שלכם.'));
+      h.textContent = needNum ? '✏️ כתבו גם את מספר הכיתה' : '✏️ כתבו את הכיתה שלכם';
+      panel.appendChild(el('p', null, needNum ? 'בשורה "כיתה" שלמעלה כתבו את הכיתה עם המספר, למשל י"א 4. כך העבודה תגיע למורה שלכם.'
+                                              : 'בשורה "כיתה" שלמעלה כתבו את הכיתה, למשל י"א 4 או י"ב. כך העבודה תגיע למורה שלכם.'));
       var a = actions();
       a.appendChild(button('למילוי הכיתה', 'primary', function(){ panel.hidden = true; btn.setAttribute('aria-expanded', 'false'); classEl.focus(); classEl.scrollIntoView({ block: 'center' }); }));
       a.appendChild(button('חזרה לדף', '', close));
@@ -332,7 +333,8 @@
   }
   function start(){
     if(nameEl && !clean(nameEl.value)){ askName(); return; }
-    if(classEl && !classCode()){ askClass(); return; }
+    if(classEl && !classCode()){ askClass(false); return; }
+    if(classEl && classCode() === 'יא' && !sectionCode()){ askClass(true); return; }
     var data = collect();
     if(!data.items.length){ nothingYet(); return; }
     confirmSend(data);

@@ -46,6 +46,11 @@ var OTHER_TEACHER = { cls: 'יא', sections: ['1', '3'], subjects: ['תנ"ך', '
 // YA2_TSB_EMAIL (המייל) ו-YA2_TSB_FOLDER_ID (תיקייה בדרייב, לא חובה).
 // בלי תיקייה - העבודה נשמרת כרגיל ומופיעה בלוח ההגשות, ורק המייל עליה נשלח לכתובת הזו.
 var YA2_TSB = { cls: 'יא', sections: ['2'], subjects: ['תושב"ע'] };
+// כיתות שאינן של המורה: העבודות שלהן נשמרות בתיקייה נפרדת בדרייב (SIDE_FOLDER_NAME, ליד תיקיות הכיתות)
+// ולא מופיעות בלוח ההגשות, ולא נשלח עליהן מייל למורה. מייל למורה האחרת (OTHER_TEACHER / YA2_TSB) ממשיך כרגיל.
+// בי"א צריך לכתוב גם את מספר הכיתה (למשל י"א 4) - בלי מספר ההגשה לא נקלטת.
+var SIDE_CLASSES = { cls: 'יא', sections: ['1', '2', '3'] };
+var SIDE_FOLDER_NAME = 'עבודות של כיתות אחרות (לא בלוח ההגשות)';
 var AWAY_GRACE_SEC = 5;            // יציאה קצרה מזה (מעבר בין דפים באתר, טעינה איטית) לא נספרת
 var BLUR_GRACE_SEC = 10;           // "חלון אחר" (הדף עדיין גלוי) נספר רק אם נמשך יותר מזה
 var GONE_AFTER_SEC = 75;           // תלמיד שלא דיווח זמן כזה - "לא מחובר" (התלמיד מדווח כל 30 שניות)
@@ -176,6 +181,7 @@ function saveSubmission_(d) {
   var cls = normClass_(d.studentClass);
   var section = normSection_(d.section || d.studentClass);
   if (!name || !task || !cls || !d.fileBase64) return { ok: false, error: 'חסרים פרטים בהגשה' };
+  if (cls === SIDE_CLASSES.cls && !section) return { ok: false, error: 'כתבו בשורה "כיתה" גם את מספר הכיתה, למשל י"א 4, ושלחו שוב.' };
 
   var bytes = Utilities.base64Decode(d.fileBase64);
   if (bytes.length > MAX_BYTES) return { ok: false, error: 'הקובץ גדול מ-5MB' };
@@ -191,6 +197,9 @@ function saveSubmission_(d) {
     var ya2Folder = ya2 ? otherTeacherFolder_(cls, section, 'YA2_TSB_FOLDER_ID') : null;
     if (ya2Folder) otherFolder = ya2Folder;
     var routed = histFolder || otherFolder;
+    // כיתה שאינה של המורה (SIDE_CLASSES) - לתיקייה נפרדת, לא ללוח ההגשות
+    var sideFolder = (!routed && cls === SIDE_CLASSES.cls && SIDE_CLASSES.sections.indexOf(section) >= 0) ? sideFolder_(cls, section) : null;
+    if (sideFolder) routed = sideFolder;
     var classFolder = routed || DriveApp.getFolderById(CLASS_FOLDERS[cls]);
     var studentFolder = routed ? findOrCreateIn_(routed, name) : findOrCreateStudentFolder_(classFolder, name);
     var date = Utilities.formatDate(new Date(), TZ, DATE_FORMAT);
@@ -198,7 +207,7 @@ function saveSubmission_(d) {
     file = studentFolder.createFile(Utilities.newBlob(bytes, d.fileMimeType || 'application/octet-stream', fileName));
     if (d.notes) file.setDescription('הערות: ' + clean_(d.notes));
     // ללוח ההגשות (אצל המורה האחרת הקובץ לא מופיע בלוח, ולכן גם לא במטמון)
-    if (!otherFolder) subsCacheAdd_(subsEntry_(file, cls, studentFolder.getName(), null));
+    if (!otherFolder && !sideFolder) subsCacheAdd_(subsEntry_(file, cls, studentFolder.getName(), null));
   } finally {
     lock.releaseLock();
   }
@@ -208,15 +217,18 @@ function saveSubmission_(d) {
 
   // למורה האחרת - כשהסיכום היומי מופעל (OTHER_TEACHER_DIGEST = 1): לא מייל על כל הגשה,
   // אלא מייל אחד בערב עם כל ההגשות של היום (sendDailyDigest). אחרת - מייל רגיל על כל הגשה.
-  if (otherFolder && !ya2 && PropertiesService.getScriptProperties().getProperty('OTHER_TEACHER_DIGEST') === '1') {
+  var toOther = otherFolder || (sideFolder && isOtherTeacher_(cls, section, subject));
+  var mailTo = (histFolder && historyEmail_()) || (ya2 && propEmail_('YA2_TSB_EMAIL')) || (toOther && otherTeacherEmail_()) ||
+               (sideFolder ? '' : Session.getEffectiveUser().getEmail());   // כיתה אחרת בלי מורה מוגדרת - בלי מייל
+  if (toOther && !ya2 && PropertiesService.getScriptProperties().getProperty('OTHER_TEACHER_DIGEST') === '1') {
     PropertiesService.getScriptProperties().setProperty('dg_' + Date.now() + '_' + Math.floor(Math.random() * 1e6), JSON.stringify({
       n: name, c: (cls === 'יא' ? 'י"א' : 'י"ב') + (section ? ' ' + section : ''), t: task, u: file.getUrl(),
       a: auto ? auto.c + '/' + auto.t : ''
     }));
-  } else if (NOTIFY_BY_EMAIL) {
+  } else if (NOTIFY_BY_EMAIL && mailTo) {
     try {
       MailApp.sendEmail({
-        to: (histFolder && historyEmail_()) || (ya2 && propEmail_('YA2_TSB_EMAIL')) || (otherFolder && otherTeacherEmail_()) || Session.getEffectiveUser().getEmail(),
+        to: mailTo,
         subject: (redo ? 'הגשה מתוקנת: ' : 'הגשה חדשה: ') + name + ' - ' + task,
         body: 'שם: ' + name + '\nכיתה: ' + cls + (section ? ' ' + section : '') + '\nמטלה: ' + task +
               (d.notes ? '\nהערות: ' + clean_(d.notes) : '') +
@@ -267,6 +279,33 @@ function findOrCreateIn_(folder, name) {
 function normSection_(v) {
   var m = String(v || '').replace(/["'׳״\s.-]/g, '').match(/([1-9])$/);
   return m ? m[1] : '';
+}
+
+// ---------- כיתות שאינן של המורה (SIDE_CLASSES למעלה) ----------
+// תיקייה אחת ליד תיקיות הכיתות, ובה "כיתה י"א 2" וכו', ובכל אחת תיקייה לכל תלמיד.
+function sideFolder_(cls, section) {
+  var root;
+  try { root = DriveApp.getFolderById(ROOT_FOLDER_ID); } catch (e) { root = DriveApp.getRootFolder(); }
+  var it = root.getFoldersByName(SIDE_FOLDER_NAME);
+  var side = it.hasNext() ? it.next() : root.createFolder(SIDE_FOLDER_NAME);
+  var label = 'כיתה ' + (cls === 'יא' ? 'י"א' : 'י"ב') + ' ' + section;
+  var ci = side.getFoldersByName(label);
+  return ci.hasNext() ? ci.next() : side.createFolder(label);
+}
+// לוח ההגשות מציג בי"א רק תלמידים מרשימת הכיתה שהועלתה לאתר (ROSTER_יא - י"א 4).
+// עבודות ישנות של תלמידים מכיתות אחרות נשארות בדרייב, רק לא מוצגות. בלי רשימה - מוצג הכול, כמו קודם.
+function inMyClasses_(list) {
+  var names = {};
+  MONITOR_CLASSES.forEach(function (c) {
+    if (c !== SIDE_CLASSES.cls) return;
+    var r = roster_(c), arr = Object.keys(r).map(function (h) { return r[h]; });
+    if (arr.length) names[c] = arr;
+  });
+  return list.filter(function (x) {
+    var arr = names[x.cls];
+    if (!arr || !x.student) return true;
+    return arr.some(function (n) { return stuNameMatch_(x.student, n); });
+  });
 }
 
 // ---------- עבודות למורה אחרת (OTHER_TEACHER למעלה) ----------
@@ -447,7 +486,7 @@ function listSubmissions_(fresh) {
     if (rof) { try { x.redoOf = JSON.parse(rof); } catch (e) {} }
   });
   out.sort(function (a, b) { return b.time - a.time; });
-  return out;
+  return inMyClasses_(out);
 }
 // להפעלה מטריגר זמן (כל 10 דקות, מוגדר ידנית בעורך: טריגרים ← הוספת טריגר ← keepWarm).
 // שומר את הסקריפט "ער" כדי שיענה מהר יותר, ומכין מראש את רשימת ההגשות כשהמטמון התרוקן.
