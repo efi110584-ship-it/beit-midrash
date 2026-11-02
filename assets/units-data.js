@@ -980,6 +980,18 @@
     "url": "ivrit-binyanim-gzarot-answers.html"
   },
   {
+    "key": "machshava-key",
+    "class": "teacher",
+    "subject": "מורה",
+    "category": "מחשבת ישראל",
+    "icon": "🗝️",
+    "title": "מחוון תשובות - מחשבת ישראל",
+    "desc": "אותו דף כמו אצל התלמידים, ומתחת לכל סעיף התשובה מהקובץ שלך (73 שאלות לפי הוגים).",
+    "chapters": 73,
+    "chaptersLabel": "שאלות",
+    "url": "machshava.html?key=1&view=all"
+  },
+  {
     "key": "bayit-answers",
     "class": "teacher",
     "subject": "מורה",
