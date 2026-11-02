@@ -4,7 +4,7 @@ if(document.getElementById('subject-lesson-form'))return;
 var busy=false,uncertain=false;
 var panel=document.getElementById('ttPanel-lesson'),oldStart=document.getElementById('ttQuickStart'),starter=oldStart.closest('.tt-card');
 function el(tag,text){var e=document.createElement(tag);if(text)e.textContent=text;return e;}
-var subjects=[['תנך','תנ״ך','📖'],['תושבע','תושב״ע','📚'],['עברית','עברית','א'],['היסטוריה','היסטוריה','🏛']];
+var subjects=[['תנך','תנ״ך','📖'],['תושבע','תושב״ע','📚'],['עברית','עברית','א'],['היסטוריה','היסטוריה','🏛'],['מחשבת','מחשבת ישראל','💭']];
 var units=(window.BM_UNITS||[]).filter(function(u){return u.class!=='teacher';});var chosenSubject='תנך';
 var wrap=el('section');wrap.className='subject-launcher';var title=el('h3','איזה מקצוע מלמדים?');wrap.append(title);
 var tabs=el('div');tabs.className='subject-tabs';tabs.setAttribute('role','tablist');tabs.setAttribute('aria-label','בחירת מקצוע לשיעור');
