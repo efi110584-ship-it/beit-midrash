@@ -63,6 +63,8 @@
       ".bm-fb-redo-actions button{min-height:42px;padding:.35rem .9rem;border-radius:10px;border:1.5px solid #E8650C;background:#fff;color:#5A2E04;font:inherit;font-weight:700;cursor:pointer}" +
       ".bm-fb-redo-actions button.is-main{background:#E8650C;color:#fff}" +
       ".bm-fb-redo-actions button:focus-visible{outline:3px solid #123A78;outline-offset:2px}" +
+      ".bm-fb-bad{display:inline-block;margin:.35rem .3rem .1rem;padding:.15rem .6rem;border-radius:999px;background:#FDECEA;color:#7A1C14;border:1px solid #E59A92;font-weight:700;font-size:.9rem}" +
+      ".bm-fb-bad.is-fixed{background:#F4F7FC;color:#33415C;border-color:#B9C4D8}" +
       ".bm-fb-redo-done{margin:0;padding:.6rem .9rem;border-radius:12px;background:#E9F6EF;color:#0B4F37;font-weight:700}" +
       "@media print{.bm-fb-top{box-shadow:none}.bm-fb-redo-actions{display:none}}";
     document.head.appendChild(st);
@@ -88,11 +90,12 @@
       localStorage.setItem("bm-redo", JSON.stringify(m));
     }catch(e){}
   }
-  function redoHtml(fb, inPage){
+  function redoHtml(fb, inPage, local){
     if(fb.redoSent) return '<p class="bm-fb-redo-done">✓ שלחת תיקון. המורה יבדוק אותו ויחזיר משוב.</p>';
     if(!fb.redo) return "";
     return '<div class="bm-fb-redo" role="note"><b>🔁 המורה ביקש לתקן ולשלוח שוב</b>' +
-      '<span>' + (inPage ? 'התשובות שלך שמורות בדף. תקנו את השאלות שמסומנות ❌ או 🟡 (ההסבר מופיע מתחת לכל אחת), ואז לחצו "שלחו למורה".'
+      '<span>' + (inPage ? (local ? 'התשובות שלך שמורות בדף. הסעיפים שצריך לתקן מסומנים ❌ (התשובה לא נכונה, או שלא ענית). תקנו אותם, ואז לחצו "שלחו למורה".'
+                                  : 'התשובות שלך שמורות בדף. תקנו את השאלות שמסומנות ❌ או 🟡 (ההסבר מופיע מתחת לכל אחת), ואז לחצו "שלחו למורה".')
                          : 'התשובות שלך שמורות בדף העבודה, במכשיר שממנו שלחת. פתחו אותו, תקנו את מה שמסומן, ולחצו "שלחו למורה".') + '</span>' +
       (inPage ? '<span class="bm-fb-redo-actions"><button type="button" class="is-main" data-redo-go="fix">✏️ לשאלה הראשונה לתיקון</button>' +
                 '<button type="button" data-redo-go="send">📤 לשליחה מחדש</button></span>' : '') + '</div>';
@@ -103,6 +106,8 @@
     var panel = el.closest('[role="tabpanel"][hidden]');
     var tab = panel && document.querySelector('[role="tab"][aria-controls="' + panel.id + '"]');
     if(tab) tab.click();
+    /* יחידות הגזרות (assets/unit-pages.js): השדה בעמוד אחר של היחידה */
+    if(!el.getClientRects().length && window.BM_UNIT_GOTO) window.BM_UNIT_GOTO(el);
     /* דף עם חלוקה למשימות (assets/steps.js): השאלה במשימה אחרת - עוברים לתצוגת "כל השאלות" */
     if(!el.getClientRects().length){
       var all = document.querySelector(".bm-view-btn");
@@ -149,10 +154,41 @@
     return fetch(API + "?action=feedback&id=" + encodeURIComponent(id)).then(function(r){ return r.json(); });
   }
 
+  /* ---------- עבודה שנבדקה אוטומטית (בלי משוב מפורט מהמורה) ----------
+     הדף עצמו יודע אם כל תשובה נכונה (assets/autoscore.js - BM_FIELD_OK), לפי התשובות השמורות בדף.
+     מסמנים ❌ רק ליד הסעיפים השגויים או החסרים - בלי לחשוף את התשובה הנכונה. */
+  function fieldLabel(f){
+    var al = String(f.getAttribute("aria-label") || "").replace(/\s+/g, " ").trim();
+    var gc = f.closest(".gzb-card"), gt = gc && gc.querySelector(".card-title");
+    if(al && gt && al.indexOf("·") === -1) al = gt.textContent.replace(/\s+/g, " ").trim() + " · " + al;
+    return al || "סעיף";
+  }
+  function localItems(){
+    if(typeof window.BM_FIELD_OK !== "function") return [];
+    var scopes = document.querySelectorAll("[data-submit-scope]");
+    var fields = Array.prototype.filter.call(document.querySelectorAll(".answer[data-id]"), function(f){
+      if(!/^(INPUT|SELECT|TEXTAREA)$/.test(f.tagName)) return false;
+      return !scopes.length || Array.prototype.some.call(scopes, function(s){ return s.contains(f); });
+    });
+    var out = [], filled = 0;
+    fields.forEach(function(f){
+      var ok = window.BM_FIELD_OK(f);
+      if(ok === null) return;
+      var empty = !String(f.value || "").trim();
+      if(!empty) filled++;
+      out.push({ id: f.getAttribute("data-id"), q: fieldLabel(f), s: ok ? "full" : "miss", empty: empty, local: true });
+    });
+    /* במכשיר אחר אין תשובות שמורות - לא מסמנים הכול כשגוי */
+    return filled ? out : [];
+  }
+
   /* ---------- בדף העבודה: ציון בראש הדף, הסבר מתחת לכל שאלה ---------- */
   function inPage(sub, fb){
     css();
     markSeen(sub.id);
+    var items = fb.items || [];
+    var local = false;
+    if(!items.length && fb.auto){ items = localItems(); local = items.length > 0; }
     var top = document.createElement("section");
     top.className = "bm-fb bm-fb-top";
     top.setAttribute("aria-label", "המשוב של המורה");
@@ -162,20 +198,36 @@
           '<span>' + esc(fb.assignment || sub.a) + (sub.n ? ' · ' + esc(sub.n) : '') + (sub.t ? ' · נשלחה ב-' + fmtDate(sub.t) : '') + '</span></h2></div>' +
       (fb.summary ? '<p class="bm-fb-sum">' + esc(fb.summary) + '</p>' : '') +
       (fb.comment && fb.comment !== fb.summary ? '<p class="bm-fb-sum">' + esc(fb.comment) + '</p>' : '') +
-      redoHtml(fb, true) +
-      fixListHtml(fb.items || [], "bmFbIt") +
-      '<p class="bm-fb-legend">ליד כל שאלה שצריך לתקן מופיע הסבר. ' +
-        '<a href="feedback.html?id=' + encodeURIComponent(sub.id) + '">לכל המשוב בעמוד אחד ›</a></p>';
+      redoHtml(fb, true, local) +
+      fixListHtml(items, "bmFbIt") +
+      (local ? '<p class="bm-fb-legend">ליד כל סעיף שצריך לתקן מופיע ❌. התשובות הנכונות לא מוצגות - נסו לבד.</p>'
+             : fb.auto ? '<p class="bm-fb-legend">התשובות שלך שמורות בדף העבודה במכשיר שממנו שלחת. פתחו אותו שם כדי לראות מה לתקן.</p>'
+             : '<p class="bm-fb-legend">ליד כל שאלה שצריך לתקן מופיע הסבר. ' +
+        '<a href="feedback.html?id=' + encodeURIComponent(sub.id) + '">לכל המשוב בעמוד אחד ›</a></p>');
     var anchor = document.querySelector(".student-bar") || document.querySelector("header");
     var main = document.querySelector("main");
     if(anchor && anchor.parentNode) anchor.parentNode.insertBefore(top, anchor.nextSibling);
     else if(main) main.insertBefore(top, main.firstChild);
     else document.body.insertBefore(top, document.body.firstChild);
 
-    (fb.items || []).forEach(function(x, i){
+    items.forEach(function(x, i){
       if(!x.id) return;
       var field = document.querySelector('.answer[data-id="' + x.id.replace(/["\\]/g, "") + '"]');
       if(!field) return;
+      if(x.local){
+        if(isOk(x)) return;   /* תשובה נכונה - בלי סימון, כדי לא להעמיס על הטבלה */
+        var tag = document.createElement("span");
+        tag.className = "bm-fb bm-fb-bad";
+        tag.id = "bmFbIt" + i;
+        tag.tabIndex = -1;
+        tag.textContent = x.empty ? "❌ לא ענית - השלימו" : "❌ לא נכון - תקנו";
+        field.parentNode.insertBefore(tag, field.nextSibling);
+        /* אחרי שינוי: "✏️ שונה" - בלי לגלות אם התיקון נכון (כך אי אפשר לנחש עד שהסימן נעלם) */
+        var changed = function(){ tag.classList.add("is-fixed"); tag.textContent = "✏️ שונה"; };
+        field.addEventListener("input", changed);
+        field.addEventListener("change", changed);
+        return;
+      }
       var box = document.createElement("div");
       box.innerHTML = isOk(x) ? '<span class="bm-fb bm-fb-ok" id="bmFbIt' + i + '">✅ נכון</span>' : itemHtml(x, false, "bmFbIt" + i);
       field.parentNode.insertBefore(box.firstChild, field.nextSibling);
@@ -186,14 +238,21 @@
       b.addEventListener("click", function(){
         if(b.getAttribute("data-redo-go") === "send"){ goTo(document.getElementById("sendToTeacherBtn")); return; }
         var first = null;
-        (fb.items || []).some(function(x, i){ if(isOk(x)) return false; first = document.getElementById("bmFbIt" + i); return !!first; });
+        items.some(function(x, i){ if(isOk(x)) return false; first = document.getElementById("bmFbIt" + i); return !!first; });
         var field = first && first.previousElementSibling;
         goTo(field && field.matches && field.matches(".answer") ? field : first);
       });
     });
     /* קישור "מה לתקן" לשאלה שלא נמצאה בדף (למשל בדף אחר של היחידה) - לעמוד המשוב המלא */
     Array.prototype.forEach.call(top.querySelectorAll('.bm-fb-fix a'), function(a){
-      if(!document.getElementById(a.getAttribute("href").slice(1))) a.href = "feedback.html?id=" + encodeURIComponent(sub.id) + a.getAttribute("href").replace("bmFbIt", "bmFbFull");
+      var target = document.getElementById(a.getAttribute("href").slice(1));
+      if(!target){ if(!local) a.href = "feedback.html?id=" + encodeURIComponent(sub.id) + a.getAttribute("href").replace("bmFbIt", "bmFbFull"); return; }
+      /* מעבר לשדה עצמו - גם אם הוא בעמוד אחר של היחידה */
+      a.addEventListener("click", function(e){
+        e.preventDefault();
+        var field = target.previousElementSibling;
+        goTo(field && field.matches && field.matches(".answer") ? field : target);
+      });
     });
   }
 
@@ -239,12 +298,17 @@
   subs = subs.filter(function(x){ return x && x.page === page && x.id; }).slice(0, 6);
   /* מהחדשה לישנה; מציגים את המשוב העדכני ביותר שהמורה כבר פרסם (ובנושאים נפרדים - לכל נושא) */
   var seen = {};
+  /* הדף צריך להיות טעון עד הסוף: התשובות השמורות חזרו לשדות, והבדיקה (assets/autoscore.js) קיימת */
+  var pageReady = new Promise(function(res){
+    function go(){ setTimeout(res, 50); }
+    if(document.readyState === "complete") go(); else window.addEventListener("load", go);
+  });
   subs.reduce(function(p, sub){
     return p.then(function(){
       var key = sub.n || sub.a || "*";   /* לכל מטלה (נושא) - המשוב העדכני שלה */
       if(seen[key]) return;
       return load(sub.id).then(function(res){
-        if(res && res.ok && res.feedback){ seen[key] = true; inPage(sub, res.feedback); }
+        if(res && res.ok && res.feedback){ seen[key] = true; return pageReady.then(function(){ inPage(sub, res.feedback); }); }
       }).catch(function(){});
     });
   }, Promise.resolve());

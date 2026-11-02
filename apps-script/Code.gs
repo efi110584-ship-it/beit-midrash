@@ -699,20 +699,34 @@ function feedbackPublic_(id) {
   id = String(id || '');
   if (!/^[\w-]{10,}$/.test(id)) return { ok: false, error: 'קישור לא תקין' };
   if (PropertiesService.getScriptProperties().getProperty('fbpub_' + id) !== '1') return { ok: true, feedback: null };
-  var fb = feedbackRead_(id);
+  var props = PropertiesService.getScriptProperties();
+  var fb = feedbackRead_(id) || autoFeedback_(id, props);
   if (!fb) return { ok: true, feedback: null };
   var g = gradeMap_()[id];
-  var props = PropertiesService.getScriptProperties();
   return { ok: true, feedback: {
     student: fb.student || '', assignment: fb.assignment || '', page: fb.page || '', sent: fb.sent || '',
     redo: props.getProperty('redo_' + id) === '1', redoSent: !!props.getProperty('redone_' + id),
     grade: g && g.g !== '' ? g.g : (fb.grade == null ? '' : String(fb.grade)),
     comment: g ? g.c : '',
     summary: fb.summary || '',
+    auto: !!fb.auto,
     items: (fb.items || []).slice(0, 60).map(function (x) {
       return { id: String(x.id || ''), n: x.n, q: String(x.q || ''), s: String(x.s || ''), text: String(x.text || '') };
     })
   } };
+}
+
+// עבודה שנבדקה אוטומטית (auto_<מזהה>, למשל יחידות הגזרות בעברית) ואין לה משוב מפורט:
+// התלמיד מקבל את הציון, ההערה ובקשת התיקון, ובדף העבודה עצמו מסומנים לו ❌ הסעיפים השגויים
+// (assets/feedback.js בודק לפי התשובות השמורות בדף - בלי לחשוף את התשובות הנכונות).
+function autoFeedback_(id, props) {
+  if (!props.getProperty('auto_' + id)) return null;
+  var task = '';
+  try {
+    var parts = DriveApp.getFileById(id).getName().replace(/\.[^.]+$/, '').split(' - ');
+    if (parts.length >= 3) task = parts.slice(1, -1).join(' - ');
+  } catch (e) { /* בלי שם המטלה - הדף יודע אותו לבד */ }
+  return { student: '', assignment: task, page: '', sent: '', summary: '', items: [], auto: true };
 }
 
 // ---------- הודעה מהמורה ----------

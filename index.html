@@ -1370,17 +1370,20 @@
         var rid = rd.getAttribute("data-redo");
         var rr = board.rows.filter(function(x){ return x.id === rid; })[0];
         if(!rr) return;
-        var rg = rr.grade !== "" ? rr.grade : rr.fbg;
-        if(!confirm("להחזיר ל" + rr.name + " לתיקון?\nהתלמיד יראה את הציון " + rg + " ואת המשוב, עם בקשה לתקן ולשלוח שוב.")) return;
+        var rg = rr.grade !== "" ? rr.grade : rr.fbg !== "" ? rr.fbg : (rr.auto ? String(rr.auto.pct) : "");
+        /* עבודה שנבדקה אוטומטית (בלי משוב מפורט): התלמיד רואה בדף את הסעיפים השגויים מסומנים ❌ (assets/feedback.js) */
+        var autoOnly = !rr.fb && !!rr.auto;
+        if(!confirm("להחזיר ל" + rr.name + " לתיקון?\nהתלמיד יראה את הציון " + rg + (autoOnly ? ", ובדף העבודה יסומנו לו ❌ הסעיפים שצריך לתקן (בלי התשובות הנכונות)" : " ואת המשוב") + ", עם בקשה לתקן ולשלוח שוב.")) return;
         rd.disabled = true; rd.textContent = "שולח…";
         apiPost({ action:"setGrade", password:teacherToken(), fileId:rid, grade:String(rg), comment:rr.comment || "", publishFb:true, redo:true }).then(function(res){
           if(handleAuthFailure(res)) return;
           if(res && res.ok){
             rr.grade = res.grade; rr.comment = res.comment || ""; if(res.grade !== "") rr.status = "checked";
-            rr.fb = res.fbPublished ? "pub" : "draft"; rr.redo = res.redo === true;
+            if(!autoOnly) rr.fb = res.fbPublished ? "pub" : "draft";
+            rr.redo = res.redo === true;
             renderBoard();
             document.getElementById("ttBoardMsg").textContent = res.redo === true
-              ? "🔁 הוחזר ל" + rr.name + " לתיקון: הוא רואה את הציון " + res.grade + ", את המשוב ובקשה לתקן ולשלוח שוב."
+              ? "🔁 הוחזר ל" + rr.name + " לתיקון: הוא רואה את הציון " + res.grade + (autoOnly ? ", את הסעיפים שצריך לתקן" : ", את המשוב") + " ובקשה לתקן ולשלוח שוב."
               : "הציון והמשוב נשלחו, אבל הבקשה לתיקון לא נשמרה: צריך לעדכן את הסקריפט של Google לגרסה החדשה.";
           } else { rd.disabled = false; rd.textContent = "🔁 לתיקון"; alert((res && res.error) || "השליחה לא הצליחה."); }
         }).catch(function(){ rd.disabled = false; rd.textContent = "🔁 לתיקון"; alert("אין חיבור לשרת כרגע. נסו שוב."); });
@@ -1885,7 +1888,9 @@
         '<td class="tt-fbg">' + (r.fbg ? '<b title="הציון שהוצע במחוון">' + escapeHtml(r.fbg) + '</b>' : '<span aria-hidden="true">-</span>') +
           (canSend
             ? '<button type="button" class="tt-btn tt-btn--small tt-send" data-send="' + escapeAttr(r.id) + '" aria-label="שליחת הציון והמשוב ל' + escapeAttr(r.name) + '">📨 שליחה</button>' + redoBtn
-            : (r.fb === "pub" ? '<span class="tt-sent">✓ נשלח</span>' + (r.redo ? redoState : (r.id && !r.hidden ? redoBtn : '')) : '')) +
+            : (r.fb === "pub" ? '<span class="tt-sent">✓ נשלח</span>' + (r.redo ? redoState : (r.id && !r.hidden ? redoBtn : ''))
+              /* בדיקה אוטומטית בלי משוב מפורט (עברית): אפשר להחזיר לתיקון - התלמיד רואה בדף אילו סעיפים שגויים */
+              : (!r.fb && r.auto && r.id && !r.hidden ? (r.redo ? redoState : redoBtn) : ''))) +
         '</td>' +
         '<td class="tt-grade"' + (r.comment ? ' title="' + escapeAttr(r.comment) + '"' : '') + '>' +
           (r.grade !== "" ? '<b>' + escapeHtml(r.grade) + '</b>' + (r.auto ? ' <span class="tt-auto tt-auto--small" title="בדיקה אוטומטית: ' + r.auto.c + ' נכונות מתוך ' + r.auto.t + '">🤖 ' + r.auto.pct + '</span>' : '')

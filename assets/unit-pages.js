@@ -175,6 +175,13 @@
     }catch(e){}
   }
 
+  /* מעבר לעמוד שבו נמצא שדה (למשל מהמשוב "מה לתקן" - assets/feedback.js) */
+  window.BM_UNIT_GOTO = function(el){
+    for(var j = 0; j < PAGES.length; j++){
+      if(PAGES[j].cards.some(function(c){ return c.contains(el); })){ if(j !== current) show(j, true); return; }
+    }
+  };
+
   /* ---------- התחלה: לפי הכתובת (#practice), או העמוד האחרון במכשיר ---------- */
   var ids = PAGES.map(function(p){ return p.id; });
   var start = ids.indexOf((location.hash || "").slice(1));
