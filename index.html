@@ -313,7 +313,7 @@
 </div><!-- /site-content -->
 
 <script src="assets/bm-api.js"></script>
-<script src="assets/units-data.js?v=20261022-search1"></script>
+<script src="assets/units-data.js?v=20261102-machshava"></script>
 <script src="assets/exams-seed.js?v=6"></script>
 <script src="assets/flashcards-data.js"></script>
 <script src="assets/live-render.js"></script>
@@ -449,7 +449,7 @@
     var byClass = {};
     filtered.forEach(function(u){ (byClass[u.class] = byClass[u.class] || []).push(u); });
     /* בכל כיתה: כל ספרי התנ"ך ברצף, אחריהם תושב"ע, עברית והיסטוריה (בתוך כל מקצוע - לפי הסדר ב-units-data.js) */
-    var SUBJ_ORDER = ["תנך", "תושבע", "עברית", "היסטוריה"];
+    var SUBJ_ORDER = ["תנך", "תושבע", "מחשבת", "עברית", "היסטוריה"];
     Object.keys(byClass).forEach(function(c){
       var orig = byClass[c].slice(), pos = function(u){ var i = SUBJ_ORDER.indexOf(u.subject); return i === -1 ? 99 : i; };
       byClass[c].sort(function(x, y){ return (pos(x) - pos(y)) || (orig.indexOf(x) - orig.indexOf(y)); });
@@ -1941,7 +1941,7 @@
     return { pct:pct, states:states };
   }
 
-  var SUBJECT_LABEL = { "תנך":'תנ"ך', "תושבע":'תושב"ע', "היסטוריה":"היסטוריה", "מבחן":"מבחנים", "מורה":"מורה" };
+  var SUBJECT_LABEL = { "תנך":'תנ"ך', "תושבע":'תושב"ע', "היסטוריה":"היסטוריה", "מבחן":"מבחנים", "מורה":"מורה", "מחשבת":"מחשבת ישראל" };
   var NEW_DAYS = 14;   /* יחידה עם added (תאריך yyyy-mm-dd) ב-units-data.js מסומנת "חדש" שבועיים */
   function isNewUnit(u){
     if(!u.added) return false;
@@ -1950,7 +1950,7 @@
   }
 
   function unitCardHtml(u, registry){
-    var subjTagClass = u.subject === "תנך" ? "subject-tnk" : (u.subject === "תושבע" ? "subject-tsb" : (u.subject === "מבחן" ? "subject-exam" : (u.subject === "מורה" ? "subject-teacher" : (u.subject === "היסטוריה" ? "subject-hist" : "subject-heb"))));
+    var subjTagClass = u.subject === "תנך" ? "subject-tnk" : (u.subject === "תושבע" || u.subject === "מחשבת" ? "subject-tsb" : (u.subject === "מבחן" ? "subject-exam" : (u.subject === "מורה" ? "subject-teacher" : (u.subject === "היסטוריה" ? "subject-hist" : "subject-heb"))));
     var titleLabel = escapeHtml(u.title);
     var iconHtml = '<span class="unit-tile-icon" aria-hidden="true"><span class="unit-tile-emoji">' + u.icon + '</span>' +
       '<span class="unit-tile-subj">' + escapeHtml(SUBJECT_LABEL[u.subject] || "עברית") + '</span></span>';
