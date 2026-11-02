@@ -121,6 +121,12 @@ window.MishkalAnswerCheck = (function(){
         return isFieldFilled(f) && list.some(function(exp){ return fieldMatch(f, exp); });
       }).length };
     });
+    (window.BM_FIELD_CHECKERS = window.BM_FIELD_CHECKERS || []).push(function(el){
+      var f = fields.filter(function(x){ return x.el === el && x.grade !== false && x.expected != null; })[0];
+      if(!f) return null;
+      var list = Array.isArray(f.expected) ? f.expected : [f.expected];
+      return isFieldFilled(f) && list.some(function(exp){ return fieldMatch(f, exp); });
+    });
     var checkBtn = config.checkBtn;
     var gateNote = config.gateNote;
     var onChecked = config.onChecked;

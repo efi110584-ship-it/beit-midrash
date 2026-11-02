@@ -108,7 +108,11 @@
     var by = field.getAttribute('aria-labelledby');
     var byEl = by && document.getElementById(by);
     if(byEl && clean(byEl.textContent)) return short(byEl.textContent);
-    return clean(field.getAttribute('aria-label')) || field.getAttribute('data-id') || 'שאלה';
+    var al = clean(field.getAttribute('aria-label'));
+    /* שאלות בסגנון בגרות ביחידות העברית: "שורש, פועל 1" לבד לא אומר באיזו שאלה - מוסיפים את כותרת הכרטיס */
+    var gc = field.closest('.gzb-card'), gt = gc && gc.querySelector('.card-title');
+    if(al && gt && al.indexOf('·') === -1) return clean(gt.textContent) + ' · ' + al;
+    return al || field.getAttribute('data-id') || 'שאלה';
   }
 
   /* ---------- מה יש לשלוח ---------- */
@@ -154,8 +158,12 @@
     if(!sc.length) return true;
     return Array.prototype.some.call(sc, function(s){ return s.contains(el); });
   }
+  /* ✓ / ✗ לכל תשובה בקובץ שנשלח למורה: true / false, או null לשאלה פתוחה (assets/autoscore.js) */
+  function fieldOk(f){
+    try{ return window.BM_FIELD_OK ? window.BM_FIELD_OK(f) : null; }catch(e){ return null; }
+  }
   function collect(){
-    var items = [], total = 0;
+    var items = [], total = 0, wrong = [], missing = [], nChecked = 0;
     document.querySelectorAll('.answer').forEach(function(f){
       if(!inScope(f)) return;
       if(!/^(TEXTAREA|INPUT|SELECT)$/.test(f.tagName)) return;
@@ -164,8 +172,19 @@
       var v = clean(f.value) ? String(f.value).trim() : '';
       if(f.tagName === 'SELECT' && v){
         v = Array.prototype.filter.call(f.options, function(o){ return o.selected && !o.disabled; }).map(function(o){ return clean(o.textContent); }).join(', ');
+        /* "✗ לא" / "✓ כן, מקיפים" - בלי הסימן, כדי שלא יתבלבל עם הסימון נכון/שגוי בקובץ */
+        v = v.replace(/^[✓✗]\s*/, '');
       }
-      if(v) items.push({ label: labelOf(f), value: v });
+      var ok = fieldOk(f);
+      if(ok !== null) nChecked++;
+      if(v){
+        var it = { label: labelOf(f), value: v };
+        if(ok !== null) it.ok = ok;
+        if(ok === false) wrong.push(it.label);
+        items.push(it);
+      } else if(ok !== null){
+        missing.push(labelOf(f));
+      }
     });
     document.querySelectorAll('.mc-group').forEach(function(g){
       if(!inScope(g)) return;
@@ -176,7 +195,8 @@
       var mark = opt && opt.getAttribute('data-correct') === 'true' ? ' (תשובה נכונה)' : (opt ? ' (תשובה לא נכונה)' : '');
       items.push({ label: labelOf(g), value: clean((opt || checked.parentElement).textContent) + mark });
     });
-    return { items: items, total: total };
+    /* סיכום לראש הקובץ: אילו סעיפים שגויים ואילו לא נענו (רק סעיפים עם תשובה אחת נכונה) */
+    return { items: items, total: total, check: nChecked ? { wrong: wrong, missing: missing } : null };
   }
 
   /* ---------- "נשלח לאחרונה" ---------- */
@@ -284,7 +304,8 @@
       assignment: assignmentNow(),
       redoOf: (pendingRedo() || {}).of || '',
       items: data.items,
-      total: data.total
+      total: data.total,
+      check: data.check
     }).then(function(res){
       if(!(res && res.ok)) throw new Error((res && res.error) || 'השרת לא אישר את הקבלה');
       try{ localStorage.setItem(sentKey(), JSON.stringify({ t: Date.now(), n: data.items.length })); }catch(e){}

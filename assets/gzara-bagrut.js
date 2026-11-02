@@ -37,6 +37,11 @@
     var fs = fields().filter(function(f){ return !sc.length || Array.prototype.some.call(sc, function(s){ return s.contains(f); }); });
     return { correct: fs.filter(function(f){ return f.value && isRight(f); }).length, total: fs.length };
   });
+  /* בדיקת שדה אחד - לסימון ✓ / ✗ בקובץ שנשלח למורה (assets/autoscore.js) */
+  (window.BM_FIELD_CHECKERS = window.BM_FIELD_CHECKERS || []).push(function(f){
+    if(!f.matches || !f.matches('.gzb-card [data-answer]')) return null;
+    return !!(f.value && isRight(f));
+  });
   function markOf(f){
     var m = f.nextElementSibling;
     if(!m || !m.classList.contains('check-mark')){

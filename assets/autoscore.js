@@ -39,25 +39,43 @@
     return { correct:correct, total:groups.length };
   }
 
+  function hasInlineKey(f){
+    return typeof CORRECT_ANSWERS !== "undefined" && typeof checkAnswer === "function" &&
+      Object.prototype.hasOwnProperty.call(CORRECT_ANSWERS, f.getAttribute("data-id"));
+  }
+  /* בדיקת שדה אחד לפי CORRECT_ANSWERS: true / false, או null אם אין לו תשובה בדף */
+  function inlineOk(f){
+    if(!hasInlineKey(f)) return null;
+    /* עותק מנותק של השדה, עם מקום לסימן אחריו - הבדיקה של הדף רצה עליו ולא על השדה האמיתי */
+    var wrap = document.createElement("div");
+    var copy = f.cloneNode(true);
+    copy.removeAttribute("id");
+    copy.value = f.value;
+    wrap.appendChild(copy);
+    wrap.appendChild(document.createElement("span"));
+    try{ return checkAnswer(copy) === true; }catch(e){ return false; }
+  }
+
   function inlineScore(){
     if(typeof CORRECT_ANSWERS === "undefined" || typeof checkAnswer !== "function") return null;
-    var keys = CORRECT_ANSWERS;
     var fields = Array.prototype.filter.call(document.querySelectorAll("input[data-id], textarea[data-id], select[data-id]"), function(f){
-      return Object.prototype.hasOwnProperty.call(keys, f.getAttribute("data-id")) && inScope(f);
+      return hasInlineKey(f) && inScope(f);
     });
-    var correct = 0;
-    fields.forEach(function(f){
-      /* עותק מנותק של השדה, עם מקום לסימן אחריו - הבדיקה של הדף רצה עליו ולא על השדה האמיתי */
-      var wrap = document.createElement("div");
-      var copy = f.cloneNode(true);
-      copy.removeAttribute("id");
-      copy.value = f.value;
-      wrap.appendChild(copy);
-      wrap.appendChild(document.createElement("span"));
-      try{ if(checkAnswer(copy) === true) correct++; }catch(e){}
-    });
+    var correct = fields.filter(function(f){ return inlineOk(f) === true; }).length;
     return { correct:correct, total:fields.length };
   }
+
+  /* האם תשובה בשדה אחד נכונה - כדי לסמן ✓ / ✗ ליד כל תשובה בקובץ שנשלח למורה
+     (assets/send-to-teacher.js). true / false, או null לשדה בלי תשובה אחת נכונה.
+     בודקים נוספים נרשמים ל-window.BM_FIELD_CHECKERS (assets/gzara-bagrut.js, assets/mishkal-answer-check.js) */
+  window.BM_FIELD_CHECKERS = window.BM_FIELD_CHECKERS || [];
+  window.BM_FIELD_OK = function(f){
+    var list = [inlineOk].concat(window.BM_FIELD_CHECKERS);
+    for(var i = 0; i < list.length; i++){
+      try{ var r = list[i](f); if(r === true || r === false) return r; }catch(e){}
+    }
+    return null;
+  };
 
   window.BM_AUTOSCORE = function(){
     var correct = 0, total = 0;

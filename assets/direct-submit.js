@@ -48,13 +48,44 @@
     return 'נענו ' + opts.items.length + ' מתוך ' + opts.total + ' שאלות';
   }
 
+  /* סיכום הבדיקה האוטומטית לראש הקובץ: כמה נכונות, אילו סעיפים שגויים ואילו לא נענו */
+  function cut(s, n){ s = String(s || ''); return s.length > n ? s.slice(0, n) + '…' : s; }
+  function checkSummary(opts){
+    var c = opts.check;
+    if(!c) return null;
+    var out = [];
+    var a = opts.auto;
+    out.push({ kind: 'head', text: 'בדיקה אוטומטית' + (a && a.total ? ': ' + a.correct + ' נכונות מתוך ' + a.total + ' (' + Math.round(a.correct * 100 / a.total) + ')' : '') });
+    if(c.wrong.length){
+      out.push({ kind: 'bad', text: '✗ תשובות שגויות (' + c.wrong.length + '):' });
+      c.wrong.forEach(function(l){ out.push({ kind: 'line', text: '• ' + cut(l, 140) }); });
+    }
+    if(c.missing.length){
+      out.push({ kind: 'bad', text: '○ לא נענו (' + c.missing.length + '):' });
+      c.missing.forEach(function(l){ out.push({ kind: 'line', text: '• ' + cut(l, 140) }); });
+    }
+    if(!c.wrong.length && !c.missing.length) out.push({ kind: 'ok', text: '✓ כל התשובות נכונות' });
+    return out;
+  }
+  function markPrefix(item){ return item.ok === true ? '✓ ' : item.ok === false ? '✗ ' : ''; }
+
   function buildAnswersHtml(opts){
     var rows = opts.items.map(function(item){
+      var ink = item.ok === true ? OK_INK : item.ok === false ? BAD_INK : '#1F3A4D';
+      var bg = item.ok === true ? OK_BG : item.ok === false ? BAD_BG : '#F7F1E1';
+      var line = item.ok === true ? OK_LINE : item.ok === false ? BAD_LINE : '#D8C9A3';
       return '<div style="margin-bottom:1.4rem;">' +
-        '<div style="font-weight:700;margin-bottom:.35rem;color:#1F3A4D;">' + escapeHtml(item.label) + '</div>' +
-        '<div style="white-space:pre-wrap;background:#F7F1E1;border:1px solid #D8C9A3;border-radius:6px;padding:.6rem .85rem;line-height:1.6;">' + escapeHtml(item.value) + '</div>' +
+        '<div style="font-weight:700;margin-bottom:.35rem;color:' + ink + ';">' + escapeHtml(markPrefix(item) + item.label) + '</div>' +
+        '<div style="white-space:pre-wrap;background:' + bg + ';border:1px solid ' + line + ';border-radius:6px;padding:.6rem .85rem;line-height:1.6;">' + escapeHtml(item.value) + '</div>' +
       '</div>';
     }).join('');
+    var sum = checkSummary(opts);
+    if(sum){
+      rows = '<div style="border:2px solid #C99A4C;border-radius:8px;padding:.8rem 1rem;margin-bottom:1.6rem;">' + sum.map(function(s){
+        var st = s.kind === 'head' ? 'font-weight:700;font-size:1.1rem;' : s.kind === 'bad' ? 'font-weight:700;color:' + BAD_INK + ';margin-top:.5rem;' : s.kind === 'ok' ? 'font-weight:700;color:' + OK_INK + ';' : '';
+        return '<div style="' + st + '">' + escapeHtml(s.text) + '</div>';
+      }).join('') + '</div>' + rows;
+    }
     return '<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="UTF-8">' +
       '<title>' + escapeHtml(opts.assignment) + ' - ' + escapeHtml(opts.studentName) + '</title></head>' +
       '<body style="font-family:Arial, Heebo, sans-serif; max-width:700px; margin:2rem auto; padding:0 1rem; color:#1F3A4D;">' +
@@ -76,6 +107,8 @@
   var TITLE = '"Frank Ruhl Libre", "David Libre", "Times New Roman", serif';
   var INK = '#1F3A4D', MUTED = '#6B6557', BOX_BG = '#F7F1E1', BOX_LINE = '#D8C9A3', RULE = '#C99A4C';
   var PAD = 22;
+  /* ✓ / ✗ ליד תשובות שנבדקו אוטומטית */
+  var OK_INK = '#1E6B3A', BAD_INK = '#B3261E', BAD_BG = '#FBEAE8', BAD_LINE = '#E3A49D', OK_BG = '#EAF4EC', OK_LINE = '#A9CDB3';
   var FONTS = {
     title:  { font: '900 50px ' + TITLE, lh: 66 },
     meta:   { font: '30px ' + BODY, lh: 46 },
@@ -134,14 +167,41 @@
     ops.push({ t: 'rect', x: MARGIN, y: y, w: width, h: 3, fill: RULE });
     y += 40;
 
+    /* סיכום הבדיקה האוטומטית: מסגרת בראש הקובץ */
+    var sum = checkSummary(opts);
+    if(sum){
+      var sl = [];
+      sum.forEach(function(s){
+        var kind = s.kind === 'head' || s.kind === 'bad' || s.kind === 'ok' ? 'label' : 'answer';
+        var color = s.kind === 'bad' ? BAD_INK : s.kind === 'ok' ? OK_INK : INK;
+        lines(kind, s.text, width - 2 * PAD).forEach(function(l){ sl.push({ kind: kind, text: l, color: color }); });
+      });
+      var si = 0;
+      while(si < sl.length){
+        var top = y, startY = y + PAD, yy = startY, n = 0;
+        while(si + n < sl.length && yy + FONTS[sl[si + n].kind].lh <= bottom - PAD){ yy += FONTS[sl[si + n].kind].lh; n++; }
+        if(!n){ newPage(); continue; }
+        ops.push({ t: 'rect', x: MARGIN, y: top, w: width, h: yy - top + PAD, fill: '#FFFFFF', stroke: RULE });
+        y = startY;
+        sl.slice(si, si + n).forEach(function(s){ text(s.kind, s.text, right - PAD, 'right', s.color); });
+        y += PAD;
+        si += n;
+        if(si < sl.length) newPage();
+      }
+      y += 38;
+    }
+
     opts.items.forEach(function(item){
-      var label = lines('label', item.label, width);
+      var ink = item.ok === true ? OK_INK : item.ok === false ? BAD_INK : INK;
+      var bg = item.ok === true ? OK_BG : item.ok === false ? BAD_BG : BOX_BG;
+      var line = item.ok === true ? OK_LINE : item.ok === false ? BAD_LINE : BOX_LINE;
+      var label = lines('label', markPrefix(item) + item.label, width);
       var answer = lines('answer', item.value, width - 2 * PAD);
       var lh = FONTS.answer.lh;
       /* השאלה לא נשארת לבד בתחתית עמוד: צריך מקום גם לשורה או שתיים מהתשובה */
       var need = label.length * FONTS.label.lh + 10 + 2 * PAD + Math.min(answer.length, 2) * lh;
       if(y + need > bottom && y > MARGIN) newPage();
-      label.forEach(function(l){ text('label', l); });
+      label.forEach(function(l){ text('label', l, null, 'right', ink); });
       y += 10;
       var i = 0;
       while(i < answer.length){
@@ -149,7 +209,7 @@
         if(fit < 1){ newPage(); continue; }
         var chunk = answer.slice(i, i + fit);
         var h = chunk.length * lh + 2 * PAD;
-        ops.push({ t: 'rect', x: MARGIN, y: y, w: width, h: h, fill: BOX_BG, stroke: BOX_LINE });
+        ops.push({ t: 'rect', x: MARGIN, y: y, w: width, h: h, fill: bg, stroke: line });
         y += PAD;
         chunk.forEach(function(l){ text('answer', l, right - PAD); });
         y += PAD;
@@ -323,7 +383,9 @@
       studentClass: opts.studentClass,
       assignment: opts.assignment,
       total: opts.total || 0,
-      items: items
+      items: items,
+      check: opts.check || null,
+      auto: opts.check ? autoScore() : null
     };
 
     return buildFile(doc).then(function(file){
