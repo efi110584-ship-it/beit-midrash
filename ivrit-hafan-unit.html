@@ -567,13 +567,13 @@ function skeletonHafanAnswer(str){
 /* שורש שנכתב עם חלופה באות אחת (י/ו-ש-ב, ע-ש-י/ה) - בודקים כל אחת מהאפשרויות */
 function slashVariants(str){
   str = String(str || '').replace(/[֑-ׇ]/g, '');
-  const m = str.match(/(^|[^א-ת])([א-ת])\s*\/\s*([א-ת])(?![א-ת])/);
+  const m = str.match(/()([א-ת])\s*[\/\\]\s*([א-ת])(?![א-ת])/);
   if(!m || !/^(\u05D9\u05D5|\u05D5\u05D9|\u05D4\u05D9|\u05D9\u05D4)$/.test(m[2] + m[3])) return [str];
   const i = m.index + m[1].length, rest = str.slice(m.index + m[0].length);
   return slashVariants(str.slice(0, i) + m[2] + rest).concat(slashVariants(str.slice(0, i) + m[3] + rest));
 }
 function rootSlashOk(input, alternatives){
-  if(!/shoresh/.test(input.dataset.id || '') || input.value.indexOf('/') === -1) return false;
+  if(!/shoresh/.test(input.dataset.id || '') || !/[\/\\]/.test(input.value)) return false;
   const only = s => s.replace(/[^א-ת]/g, '');
   const want = alternatives.map(a => only(normalizeHafanAnswer(a)));
   return slashVariants(input.value).some(v => want.indexOf(only(normalizeHafanAnswer(v))) !== -1);

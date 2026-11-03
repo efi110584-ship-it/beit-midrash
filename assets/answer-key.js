@@ -65,6 +65,9 @@
   function altNote(f, alts){
     var extra = alts.slice(1).filter(Boolean);
     if(!extra.length || f.tagName === "SELECT") return;
+    /* שורש נחי ל"י/ה: "ע.נ.ה" ו"ע.נ.י" - מתקבל גם "ע.נ.י/ה" (הבדיקה מקבלת כתיבה עם לוכסן) */
+    var m = /^(.+)([הי])$/.exec(String(alts[0]).trim());
+    if(m && alts.indexOf(m[1] + (m[2] === "ה" ? "י" : "ה")) !== -1) extra.push(m[1] + "י/ה");
     var shown = extra.slice(0, 4).join(" · ") + (extra.length > 4 ? " ועוד" : "");
     var s = document.createElement("span");
     s.className = "ak-alt";
