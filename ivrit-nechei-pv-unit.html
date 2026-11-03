@@ -473,6 +473,8 @@ function rootSlashOk(input, alternatives){
   if(!/shoresh/.test(input.dataset.id || '')) return false;
   const only = s => s.replace(/[^א-ת]/g, '').replace(/[ךםןףץ]/g, c => ({'ך':'כ','ם':'מ','ן':'נ','ף':'פ','ץ':'צ'})[c]);
   const want = alternatives.map(a => only(normalizeHafanAnswer(a)));
+  /* נחי ל"י/ה: ב-נ-ה וגם ב-נ-י נכונים */
+  want.slice().forEach(w => { if(/ה$/.test(w)) want.push(w.slice(0, -1) + 'י'); else if(/י$/.test(w)) want.push(w.slice(0, -1) + 'ה'); });
   return slashVariants(input.value).some(v => pairVariants(only(normalizeHafanAnswer(v))).some(x => want.indexOf(x) !== -1));
 }
 
