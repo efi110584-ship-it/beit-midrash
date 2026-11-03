@@ -769,6 +769,7 @@
               '<a class="tt-btn tt-btn--primary tt-btn--link" href="' + GRADER_URL + '" target="_blank" rel="noopener">🤖 בדיקת עבודות עם Claude</a>' +
               '<button type="button" class="tt-btn" id="ttExport">הורדת הציונים</button>' +
               '<button type="button" class="tt-btn" id="ttRegrade" title="בודק שוב את העבודות המוצגות, לפי הבדיקה העדכנית של הדף">🔄 בדיקה מחדש</button>' +
+              '<button type="button" class="tt-btn" id="ttClassReport" title="לכל סעיף: כמה תלמידים טעו, ומה התשובה השגויה הנפוצה">📊 איפה הכיתה טעתה</button>' +
               '<button type="button" class="tt-btn" id="ttBoardRefresh">רענון</button>' +
             '</span>' +
           '</div>' +
@@ -785,6 +786,7 @@
             '</span>' +
           '</div>' +
           '<p class="tt-msg" id="ttBoardMsg" role="status" aria-live="polite">טוען הגשות…</p>' +
+          '<section id="ttClassRep" class="tt-classrep" aria-label="איפה הכיתה טעתה" hidden></section>' +
           '<section id="ttBatch" aria-label="אישור משוב מרוכז" hidden style="padding:12px;border:1px solid #ccd5e4;border-radius:12px;margin:12px 0"><button type="button" class="tt-btn" id="ttBatchInspect">סיכום ואישור משוב מרוכז</button><p id="ttBatchStatus" role="status" aria-live="polite">הסיכום יתייחס לעבודות המוצגות בסינון הנוכחי.</p><div id="ttBatchResults"></div></section>' +
           '<div class="tt-accept" id="ttAccept" style="display:none;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:.4rem 0 .7rem;padding:10px 12px;border-radius:12px;background:#E6EDF9"></div>' +
           '<div class="tt-accept" id="ttRedoAll" style="display:none;flex-wrap:wrap;gap:8px 12px;align-items:center;margin:.4rem 0 .7rem;padding:10px 12px;border-radius:12px;background:#FFF1DF"></div>' +
@@ -1216,6 +1218,12 @@
         return frames[page];
       }
       function scoreIn(f, values){
+        fillIn(f, values);
+        var w = f.contentWindow;
+        var s = w.BM_AUTOSCORE ? w.BM_AUTOSCORE() : null;
+        return s && s.total ? { c: s.correct, t: s.total } : null;
+      }
+      function fillIn(f, values){
         var w = f.contentWindow, d = w.document;
         Array.prototype.forEach.call(d.querySelectorAll(".answer"), function(x){
           if(x.matches("input[type=radio], input[type=checkbox]")) x.checked = false; else if("value" in x) x.value = "";
@@ -1228,9 +1236,119 @@
           var el = d.querySelector('.answer[data-id="' + k.replace(/["\\]/g, "") + '"]');
           if(el) el.value = values[k];
         });
-        var s = w.BM_AUTOSCORE ? w.BM_AUTOSCORE() : null;
-        return s && s.total ? { c: s.correct, t: s.total } : null;
       }
+
+      /* ---------- איפה הכיתה טעתה ----------
+         לכל סעיף עם תשובה אחת נכונה (BM_FIELD_OK, ומבחן אמריקאי): כמה ענו נכון, כמה טעו, כמה לא ענו,
+         מה התשובה השגויה הנפוצה, ומי טעה. רק עבודות שהתשובות שלהן שמורות בשרת. */
+      function clean(t){ return String(t || "").replace(/\s+/g, " ").trim(); }
+      function fieldsOf(d){
+        var sc = d.querySelectorAll("[data-submit-scope]");
+        function inScope(el){ return !sc.length || Array.prototype.some.call(sc, function(s){ return s.contains(el); }); }
+        var out = [];
+        Array.prototype.forEach.call(d.querySelectorAll(".answer[data-id]"), function(f){
+          if(!/^(INPUT|SELECT|TEXTAREA)$/.test(f.tagName) || f.matches("input[type=radio], input[type=checkbox]") || !inScope(f)) return;
+          var al = clean(f.getAttribute("aria-label")), gc = f.closest(".gzb-card"), gt = gc && gc.querySelector(".card-title");
+          if(al && gt && al.indexOf("·") === -1) al = clean(gt.textContent) + " · " + al;
+          out.push({ kind:"f", el:f, key:f.getAttribute("data-id"), label: al || f.getAttribute("data-id") });
+        });
+        Array.prototype.forEach.call(d.querySelectorAll(".mc-group"), function(g, gi){
+          if(!g.querySelector('.mc-option[data-correct="true"]') || !inScope(g)) return;
+          var q = g.closest(".question-block"), qt = q && q.querySelector(".q-text");
+          out.push({ kind:"mc", el:g, key:"mc:" + gi, label: clean(qt ? qt.textContent : g.textContent).slice(0, 90) });
+        });
+        return out;
+      }
+      function statusOf(w, it){
+        if(it.kind === "mc"){
+          var c = it.el.querySelector('input[type="radio"]:checked');
+          if(!c) return { s:"empty" };
+          var o = c.closest(".mc-option");
+          return { s: o && o.getAttribute("data-correct") === "true" ? "ok" : "bad", v: clean(o ? o.textContent : "").slice(0, 60) };
+        }
+        var v = String(it.el.value || "").trim();
+        if(!v) return { s:"empty" };
+        var ok = w.BM_FIELD_OK ? w.BM_FIELD_OK(it.el) : null;
+        if(ok === null) return { s:"open" };
+        if(it.el.tagName === "SELECT"){ var op = it.el.options[it.el.selectedIndex]; v = clean(op ? op.textContent : v).replace(/^[✓✗]\s*/, ""); }
+        return { s: ok ? "ok" : "bad", v: v };
+      }
+      var repBtn = document.getElementById("ttClassReport"), repBox = document.getElementById("ttClassRep");
+      function repHtml(pages){
+        var h = '<div class="tt-btns" style="justify-content:space-between;align-items:center"><h4 style="margin:0">📊 איפה הכיתה טעתה</h4>' +
+          '<span><button type="button" class="tt-btn tt-btn--small" data-rep-print-class="1">🖨 הדפסה</button> <button type="button" class="tt-btn tt-btn--small" data-rep-close="1">סגירה</button></span></div>';
+        Object.keys(pages).forEach(function(pg){
+          var P = pages[pg];
+          var rows = P.items.filter(function(x){ return x.ok + x.bad + x.empty > 0; })
+            .sort(function(a, b){ return (b.bad - a.bad) || (b.empty - a.empty) || a.i - b.i; });
+          h += '<h5 style="margin:1rem 0 .3rem">' + escapeHtml(P.task) + ' · ' + P.n + (P.n === 1 ? ' עבודה' : ' עבודות') + '</h5>' +
+            '<div class="tt-table-wrap"><table class="tt-table"><thead><tr><th>סעיף</th><th>טעו</th><th>לא ענו</th><th>נכון</th><th>התשובה השגויה הנפוצה</th><th>מי טעה</th></tr></thead><tbody>' +
+            rows.map(function(x){
+              var tot = x.ok + x.bad + x.empty, pct = tot ? Math.round((x.bad + x.empty) * 100 / tot) : 0;
+              var common = Object.keys(x.wrong).sort(function(a, b){ return x.wrong[b] - x.wrong[a]; })[0];
+              var bg = pct >= 50 ? "#FDECEA" : pct >= 25 ? "#FFF6E0" : "";
+              return '<tr' + (bg ? ' style="background:' + bg + '"' : '') + '><td>' + escapeHtml(x.label) + '</td>' +
+                '<td><b>' + x.bad + '</b></td><td>' + x.empty + '</td><td>' + x.ok + '</td>' +
+                '<td>' + (common ? escapeHtml(common) + (x.wrong[common] > 1 ? ' (' + x.wrong[common] + ')' : '') : '-') + '</td>' +
+                '<td style="font-size:.85rem">' + escapeHtml(x.who.join(", ")) + '</td></tr>';
+            }).join("") + '</tbody></table></div>';
+        });
+        return h;
+      }
+      if(repBtn) repBtn.addEventListener("click", function(){
+        var msg = document.getElementById("ttBoardMsg");
+        var list = (board.shown || []).filter(function(r){ return r.id && !r.hidden && r.auto; });
+        if(!list.length){ msg.textContent = "אין בתצוגה עבודות עם בדיקה אוטומטית (🤖). כדאי לסנן לפי יחידה או נושא."; return; }
+        repBtn.disabled = true;
+        var pages = {}, old = 0, failed = 0, i = 0;
+        function next(){
+          if(i >= list.length) return Promise.resolve();
+          var r = list[i++];
+          msg.textContent = "📊 מכין את הדוח… " + i + " מתוך " + list.length;
+          return apiPost({ action:"answers", password:teacherToken(), fileId:r.id }).then(function(res){
+            if(handleAuthFailure(res)) throw new Error("auth");
+            if(res && res.ok === false && /לא מוכרת/.test(res.error || "")) throw new Error("oldScript");
+            var a = res && res.answers;
+            if(!a || !a.page){ old++; return; }
+            return frameFor(a.page).then(function(f){
+              fillIn(f, a.values);
+              var w = f.contentWindow, its = fieldsOf(w.document);
+              var P = pages[a.page] || (pages[a.page] = { task: r.task || a.task || a.page, n: 0, items: its.map(function(x, k){ return { key:x.key, label:x.label, i:k, ok:0, bad:0, empty:0, wrong:{}, who:[] }; }) });
+              P.n++;
+              its.forEach(function(x){
+                var it = P.items.filter(function(y){ return y.key === x.key; })[0]; if(!it) return;
+                var st = statusOf(w, x);
+                if(st.s === "ok") it.ok++;
+                else if(st.s === "bad"){ it.bad++; it.who.push(r.name); it.wrong[st.v] = (it.wrong[st.v] || 0) + 1; }
+                else if(st.s === "empty"){ it.empty++; it.who.push(r.name + " (לא ענה)"); }
+              });
+            });
+          }).catch(function(e){ if(e && (e.message === "auth" || e.message === "oldScript")) throw e; failed++; }).then(next);
+        }
+        next().then(function(){
+          var n = Object.keys(pages).reduce(function(s, k){ return s + pages[k].n; }, 0);
+          if(!n){ repBox.hidden = true; msg.textContent = "אין עדיין עבודות שהתשובות שלהן שמורות בשרת (רק עבודות שנשלחו מעכשיו נכנסות לדוח)."; return; }
+          repBox.innerHTML = repHtml(pages);
+          repBox.hidden = false;
+          msg.textContent = "📊 הדוח מוכן: " + n + (n === 1 ? " עבודה" : " עבודות") + "." + (old ? " " + old + " עבודות ישנות לא נכללו (התשובות שלהן לא שמורות)." : "") + (failed ? " " + failed + " לא נבדקו (תקלה)." : "");
+          repBox.scrollIntoView({ block:"start", behavior:"smooth" });
+        }).catch(function(e){
+          msg.textContent = e && e.message === "oldScript" ? "צריך לעדכן את הסקריפט של Google לגרסה החדשה." : "הכנת הדוח נעצרה. נסו שוב.";
+        }).then(function(){
+          repBtn.disabled = false;
+          Object.keys(frames).forEach(function(p){ frames[p].then(function(f){ f.remove(); }, function(){}); });
+          frames = {};
+        });
+      });
+      if(repBox) repBox.addEventListener("click", function(e){
+        if(e.target.closest("[data-rep-close]")){ repBox.hidden = true; repBox.innerHTML = ""; return; }
+        if(e.target.closest("[data-rep-print-class]")){
+          var wnd = window.open("", "_blank");
+          if(!wnd) return;
+          wnd.document.write('<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>איפה הכיתה טעתה</title><style>body{font-family:Heebo,Arial,sans-serif;padding:1rem;color:#0E1B33}table{border-collapse:collapse;width:100%;margin-bottom:1rem}th,td{border:1px solid #ccd5e4;padding:4px 6px;text-align:right;vertical-align:top}th{background:#EEF3FB}button{display:none}</style></head><body>' + repBox.innerHTML + '</body></html>');
+          wnd.document.close(); wnd.focus(); wnd.print();
+        }
+      });
       btn.addEventListener("click", function(){
         var msg = document.getElementById("ttBoardMsg");
         var list = (board.shown || []).filter(function(r){ return r.id && !r.hidden && r.auto; });
