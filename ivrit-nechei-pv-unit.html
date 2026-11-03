@@ -460,11 +460,20 @@ function slashVariants(str){
   const i = m.index + m[1].length, rest = str.slice(m.index + m[0].length);
   return slashVariants(str.slice(0, i) + m[2] + rest).concat(slashVariants(str.slice(0, i) + m[3] + rest));
 }
+/* שורש: מה שחשוב הוא שהתלמיד הבין. "ע.נ.ה", "ענה", "עני/ה", "עני\\ה" וגם "עניה" - הכול נכון.
+   אותיות צמודות י+ה / ה+י / י+ו / ו+י נחשבות כ"אחת מהשתיים" (כמו לוכסן). */
+function pairVariants(s){
+  const out = [s];
+  for(let i = 0; i < s.length - 1; i++){
+    if(/^(יה|הי|יו|וי)$/.test(s[i] + s[i + 1])) out.push(s.slice(0, i) + s[i] + s.slice(i + 2), s.slice(0, i) + s[i + 1] + s.slice(i + 2));
+  }
+  return out;
+}
 function rootSlashOk(input, alternatives){
-  if(!/shoresh/.test(input.dataset.id || '') || !/[\/\\]/.test(input.value)) return false;
-  const only = s => s.replace(/[^א-ת]/g, '');
+  if(!/shoresh/.test(input.dataset.id || '')) return false;
+  const only = s => s.replace(/[^א-ת]/g, '').replace(/[ךםןףץ]/g, c => ({'ך':'כ','ם':'מ','ן':'נ','ף':'פ','ץ':'צ'})[c]);
   const want = alternatives.map(a => only(normalizeHafanAnswer(a)));
-  return slashVariants(input.value).some(v => want.indexOf(only(normalizeHafanAnswer(v))) !== -1);
+  return slashVariants(input.value).some(v => pairVariants(only(normalizeHafanAnswer(v))).some(x => want.indexOf(x) !== -1));
 }
 
 function checkAnswer(input){

@@ -18,10 +18,24 @@
     var i = m.index + m[1].length, rest = str.slice(m.index + m[0].length);
     return slashVariants(str.slice(0, i) + m[2] + rest).concat(slashVariants(str.slice(0, i) + m[3] + rest));
   }
+  /* שורש: מה שחשוב הוא שהתלמיד הבין. "ע.נ.ה", "ענה", "עני/ה", "עני\\ה" וגם "עניה" - הכול נכון.
+     אותיות צמודות י+ה / ה+י / י+ו / ו+י נחשבות כ"אחת מהשתיים" (כמו לוכסן). */
+  function pairVariants(s){
+    var out = [s];
+    for(var i = 0; i < s.length - 1; i++){
+      if(/^(יה|הי|יו|וי)$/.test(s[i] + s[i + 1])) out.push(s.slice(0, i) + s[i] + s.slice(i + 2), s.slice(0, i) + s[i + 1] + s.slice(i + 2));
+    }
+    return out;
+  }
+  /* שדה שורש: התשובה במחוון כתובה עם נקודות (ע.נ.ה) */
+  function isRoot(f){ return /\./.test(f.getAttribute('data-answer') || ''); }
   function isRight(f){
     var v = f.value;
     if(f.tagName === 'SELECT') return f.getAttribute('data-answer').split('|').indexOf(v) !== -1;
-    return slashVariants(v).some(function(x){ return matches(f, letters(x)); });
+    return slashVariants(v).some(function(x){
+      var L = letters(x);
+      return matches(f, L) || (isRoot(f) && pairVariants(L).some(function(y){ return matches(f, y); }));
+    });
   }
   function matches(f, got){
     return f.getAttribute('data-answer').split('|').some(function(a){
