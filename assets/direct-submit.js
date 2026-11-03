@@ -396,6 +396,7 @@
         assignment: opts.assignment,
         notes: opts.notes || '',
         redoOf: opts.redoOf || '',
+        answers: opts.answers || null,
         autoScore: autoScore(),
         fileName: file.fileName,
         fileMimeType: file.fileMimeType,

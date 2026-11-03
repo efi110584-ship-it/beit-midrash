@@ -153,6 +153,7 @@ function doPost(e) {
       case 'lessonReport':    return json_(lessonReportGet_(data.id));
       case 'saveLessonReport': return json_(saveLessonReport_(data.code));
       case 'setGrade':        return json_(setGrade_(data.fileId, data.grade, data.comment, data.publishFb, data.redo));
+      case 'answers':         return json_(answersGet_(data.fileId));
       case 'acceptSuggested': return json_(acceptSuggested_(data.ids));
       case 'feedbackGet':     return json_(feedbackTeacher_(data.fileId));
       case 'feedbackBatchPreview': return json_(feedbackBatchPreview_(data.ids));
@@ -214,6 +215,8 @@ function saveSubmission_(d) {
   var auto = autoScore_(d.autoScore);
   if (auto) PropertiesService.getScriptProperties().setProperty('auto_' + file.getId(), JSON.stringify(auto));
   var redo = redoLink_(d.redoOf, file.getId());
+  // התשובות עצמן (לא רק ה-PDF) - כדי שאפשר יהיה לבדוק שוב אחרי תיקון בבדיקה. לא נשמר לכיתות אחרות.
+  if (d.answers && !sideFolder) saveAnswers_(file.getId(), d.answers, { task: task, student: name, cls: cls, section: section });
 
   // למורה האחרת - כשהסיכום היומי מופעל (OTHER_TEACHER_DIGEST = 1): לא מייל על כל הגשה,
   // אלא מייל אחד בערב עם כל ההגשות של היום (sendDailyDigest). אחרת - מייל רגיל על כל הגשה.
@@ -279,6 +282,51 @@ function findOrCreateIn_(folder, name) {
 function normSection_(v) {
   var m = String(v || '').replace(/["'׳״\s.-]/g, '').match(/([1-9])$/);
   return m ? m[1] : '';
+}
+
+// ---------- התשובות שנשלחו (לבדיקה חוזרת) ----------
+// לכל הגשה מהאתר נשמר גם קובץ ans_<מזהה העבודה>.json: מה התלמיד כתב בכל שדה (לפי data-id בדף).
+// הקבצים בתיקייה אחת ליד תיקיות הכיתות. רק המורה (עם סיסמה) יכול לקרוא אותם (action=answers).
+var ANSWERS_FOLDER_NAME = 'תשובות שנשלחו (נתונים לבדיקה חוזרת)';
+var ANSWERS_MAX_FIELDS = 400, ANSWERS_MAX_VALUE = 5000, ANSWERS_MAX_BYTES = 300000;
+function answersFolder_() {
+  var root;
+  try { root = DriveApp.getFolderById(ROOT_FOLDER_ID); } catch (e) { root = DriveApp.getRootFolder(); }
+  var it = root.getFoldersByName(ANSWERS_FOLDER_NAME);
+  return it.hasNext() ? it.next() : root.createFolder(ANSWERS_FOLDER_NAME);
+}
+function saveAnswers_(fileId, a, meta) {
+  try {
+    if (!a || typeof a !== 'object' || !a.values || typeof a.values !== 'object') return;
+    var page = String(a.page || '');
+    if (!/^[\w.-]+\.html$/.test(page) || page.length > 80) return;
+    var values = {}, n = 0;
+    Object.keys(a.values).forEach(function (k) {
+      if (n >= ANSWERS_MAX_FIELDS || !/^[\w:.-]{1,80}$/.test(k)) return;
+      var v = a.values[k];
+      if (v == null || v === '') return;
+      values[k] = String(v).slice(0, ANSWERS_MAX_VALUE);
+      n++;
+    });
+    if (!n) return;
+    var body = JSON.stringify({ v: 1, fileId: fileId, page: page, task: meta.task, student: meta.student,
+                                cls: meta.cls, section: meta.section || '', t: Date.now(), values: values });
+    if (body.length > ANSWERS_MAX_BYTES) return;
+    answersFolder_().createFile('ans_' + fileId + '.json', body, 'application/json');
+  } catch (e) { /* ההגשה עצמה כבר נשמרה - בלי התשובות זה לא נורא */ }
+}
+function answersGet_(fileId) {
+  if (!/^[\w-]{10,}$/.test(String(fileId || ''))) return { ok: false, error: 'מזהה קובץ לא תקין' };
+  var it = answersFolder_().getFilesByName('ans_' + fileId + '.json');
+  while (it.hasNext()) {
+    var f = it.next();
+    if (f.isTrashed()) continue;
+    try {
+      var a = JSON.parse(f.getBlob().getDataAsString('UTF-8'));
+      if (a && a.fileId === fileId) return { ok: true, answers: a };
+    } catch (e) {}
+  }
+  return { ok: true, answers: null };   // הגשה ישנה, מלפני שמירת התשובות
 }
 
 // ---------- כיתות שאינן של המורה (SIDE_CLASSES למעלה) ----------

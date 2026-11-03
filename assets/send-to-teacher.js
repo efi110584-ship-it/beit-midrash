@@ -158,6 +158,23 @@
     if(!sc.length) return true;
     return Array.prototype.some.call(sc, function(s){ return s.contains(el); });
   }
+  /* התשובות כפי שנכתבו, לפי data-id - נשמרות בשרת לבדיקה חוזרת (apps-script/Code.gs - saveAnswers_).
+     מבחן אמריקאי: "mc:<מספר הקבוצה בדף>" = מספר האפשרות שנבחרה */
+  function rawAnswers(){
+    var values = {};
+    document.querySelectorAll('.answer[data-id]').forEach(function(f){
+      if(!inScope(f) || !/^(TEXTAREA|INPUT|SELECT)$/.test(f.tagName)) return;
+      if(f.matches('input[type=radio], input[type=checkbox]')) return;
+      var v = String(f.value || '').trim();
+      if(v) values[f.getAttribute('data-id')] = v;
+    });
+    document.querySelectorAll('.mc-group').forEach(function(g, gi){
+      if(!inScope(g)) return;
+      var opts = g.querySelectorAll('input[type="radio"]');
+      for(var i = 0; i < opts.length; i++){ if(opts[i].checked){ values['mc:' + gi] = String(i); break; } }
+    });
+    return { page: PAGE, values: values };
+  }
   /* ✓ / ✗ לכל תשובה בקובץ שנשלח למורה: true / false, או null לשאלה פתוחה (assets/autoscore.js) */
   function fieldOk(f){
     try{ return window.BM_FIELD_OK ? window.BM_FIELD_OK(f) : null; }catch(e){ return null; }
@@ -196,7 +213,7 @@
       items.push({ label: labelOf(g), value: clean((opt || checked.parentElement).textContent) + mark });
     });
     /* סיכום לראש הקובץ: אילו סעיפים שגויים ואילו לא נענו (רק סעיפים עם תשובה אחת נכונה) */
-    return { items: items, total: total, check: nChecked ? { wrong: wrong, missing: missing } : null };
+    return { items: items, total: total, check: nChecked ? { wrong: wrong, missing: missing } : null, answers: rawAnswers() };
   }
 
   /* ---------- "נשלח לאחרונה" ---------- */
@@ -306,7 +323,8 @@
       redoOf: (pendingRedo() || {}).of || '',
       items: data.items,
       total: data.total,
-      check: data.check
+      check: data.check,
+      answers: data.answers
     }).then(function(res){
       if(!(res && res.ok)) throw new Error((res && res.error) || 'השרת לא אישר את הקבלה');
       try{ localStorage.setItem(sentKey(), JSON.stringify({ t: Date.now(), n: data.items.length })); }catch(e){}
