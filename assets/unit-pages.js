@@ -122,7 +122,7 @@
     if(current > 0) prev.textContent = "→ הקודם: " + PAGES[current - 1].title;
     if(current < PAGES.length - 1) next.textContent = "הבא: " + PAGES[current + 1].title + " ←";
     var onBagrut = PAGES[current].id === "bagrut";
-    ["sendToTeacherBtn", "bmSendLast"].forEach(function(id){
+    ["sendToTeacherBtn", "bmSendLast", "bmPractice"].forEach(function(id){
       var el = document.getElementById(id); if(el) el.classList.toggle("up-send-hide", !onBagrut);
     });
     var panel = document.getElementById("bmSendPanel");

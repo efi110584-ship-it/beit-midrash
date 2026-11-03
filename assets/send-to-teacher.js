@@ -330,6 +330,8 @@
       try{ localStorage.setItem(sentKey(), JSON.stringify({ t: Date.now(), n: data.items.length })); }catch(e){}
       var wasRedo = !!pendingRedo();
       clearRedo();
+      /* לתרגול האישי (assets/personal-practice.js) */
+      try{ document.dispatchEvent(new CustomEvent('bm-sent')); }catch(e){}
       showLast();
       open('ok', function(h){
         h.textContent = wasRedo ? '✅ התיקון נשלח למורה' : '✅ התשובות נשלחו למורה';
