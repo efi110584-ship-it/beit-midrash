@@ -34,7 +34,7 @@
 #teacherTools .td-study-hero .td-shortcut-icon,#teacherTools .td-study-hero .td-shortcut-note{display:none}
 #teacherTools .td-study-hero .td-shortcut:after{content:'←';font-size:1.3rem}
 #teacherTools .td-quick{display:flex;gap:0;border-bottom:1px solid #C6D2E6;margin-bottom:20px}
-#teacherTools .td-quick .td-shortcut{flex:1;flex-direction:row;border:0;border-left:1px solid #DCE4F1;background:transparent;border-radius:0;box-shadow:none;min-height:94px;padding:16px 10px;gap:10px;transition:background .15s}
+#teacherTools .td-quick .td-shortcut{flex:1;flex-direction:row;border:0;border-left:1px solid #DCE4F1;background:transparent;border-radius:0;box-shadow:none;min-height:94px;padding:16px 10px;gap:10px;transition:background .15s var(--ease-out),transform .16s var(--ease-out)}
 #teacherTools .td-quick .td-shortcut:last-child{border-left:0}
 #teacherTools .td-quick .td-shortcut:hover{background:#DCE4F1}
 #teacherTools .td-quick .td-shortcut strong{font-size:1.03rem}
@@ -47,8 +47,9 @@
 #teacherTools .td-recent{background:transparent;border:0;padding:0;margin:0}
 #teacherTools .td-recent h3{font-family:'Rubik','Heebo',sans-serif;font-size:1.35rem;color:#0E1B33;margin-bottom:16px}
 #teacherTools .td-materials{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-#teacherTools .td-material{display:flex;flex-direction:column;text-decoration:none;color:#0E1B33;background:#F5F8FD;overflow:hidden;border:1px solid #DCE4F1;border-radius:10px;box-shadow:0 5px 12px #56637A09;transition:transform .15s}
-#teacherTools .td-material:hover{transform:translateY(-2px)}#teacherTools .td-material strong{padding:11px 12px 3px;line-height:1.4;font-size:.98rem}#teacherTools .td-material-category{padding:0 12px 12px;font-size:.8rem;color:#56637A}
+#teacherTools .td-material{display:flex;flex-direction:column;text-decoration:none;color:#0E1B33;background:#F5F8FD;overflow:hidden;border:1px solid #DCE4F1;border-radius:10px;box-shadow:0 5px 12px #56637A09;transition:transform .16s var(--ease-out)}
+#teacherTools .td-material:hover{transform:translateY(-2px)}
+@media(prefers-reduced-motion:no-preference){#teacherTools .td-material:hover:active{transform:translateY(-2px) scale(.97)}}#teacherTools .td-material strong{padding:11px 12px 3px;line-height:1.4;font-size:.98rem}#teacherTools .td-material-category{padding:0 12px 12px;font-size:.8rem;color:#56637A}
 #teacherTools .td-material-visual{height:120px;display:flex;align-items:center;justify-content:center;overflow:hidden}
 #teacherTools .td-material-bible{background:#0B2A5B url('teacher-dashboard-study-hero.png') 0 50%/220% auto no-repeat}
 #teacherTools .td-material-hebrew{background:linear-gradient(140deg,#EEF3FB,#C6D2E6 45%,#123A78);color:#0B2A5B}
