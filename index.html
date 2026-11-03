@@ -770,6 +770,7 @@
               '<button type="button" class="tt-btn" id="ttExport">הורדת הציונים</button>' +
               '<button type="button" class="tt-btn" id="ttRegrade" title="בודק שוב את העבודות המוצגות, לפי הבדיקה העדכנית של הדף">🔄 בדיקה מחדש</button>' +
               '<button type="button" class="tt-btn" id="ttClassReport" title="לכל סעיף: כמה תלמידים טעו, ומה התשובה השגויה הנפוצה">📊 איפה הכיתה טעתה</button>' +
+              '<button type="button" class="tt-btn" id="ttHeatmap" title="טבלה של כל התלמידים מול כל היחידות: ירוק, צהוב, אדום">🌡️ מפת הכיתה</button>' +
               '<button type="button" class="tt-btn" id="ttBoardRefresh">רענון</button>' +
             '</span>' +
           '</div>' +
@@ -1340,12 +1341,101 @@
           frames = {};
         });
       });
+      /* ---------- מפת הכיתה ----------
+         שורה לכל תלמיד, עמודה לכל יחידה (העבודה האחרונה שלו בה, לפי הבדיקה האוטומטית 🤖),
+         ועוד שלוש עמודות: שורש, בניין, שם הפועל - מכל העבודות שהתשובות שלהן שמורות בשרת.
+         ירוק 80 ומעלה, צהוב 55-79, אדום מתחת ל-55. משבצת ריקה - עוד לא הגיש. */
+      var BINY = ["kal", "nifal", "piel", "pual", "hifil", "hufal", "hitpael"];
+      var SKILL_COLS = [["shoresh", "שורש"], ["binyan", "בניין"], ["hapoal", "שם הפועל"]];
+      function skillOfField(el){
+        var a = el.getAttribute("data-answer") || "";
+        if(el.tagName === "SELECT") return a.split("|").some(function(x){ return BINY.indexOf(x) !== -1; }) ? "binyan" : "";
+        if(/\./.test(a)) return "shoresh";
+        if(/^ל/.test(a) || /שם הפועל/.test(el.getAttribute("aria-label") || "")) return "hapoal";
+        return "";
+      }
+      function heatCell(pct, title){
+        if(pct == null) return '<td title="עוד לא הגיש" style="background:#F5F8FD;color:#9AA6BA;text-align:center">·</td>';
+        var bg = pct >= 80 ? "#DFF3E8" : pct >= 55 ? "#FFF3D1" : "#FDE2DF";
+        var fg = pct >= 80 ? "#0B5E3C" : pct >= 55 ? "#6B4E00" : "#8A1C12";
+        return '<td title="' + escapeAttr(title || "") + '" style="background:' + bg + ';color:' + fg + ';text-align:center;font-weight:700">' + pct + '</td>';
+      }
+      var heatBtn = document.getElementById("ttHeatmap");
+      if(heatBtn) heatBtn.addEventListener("click", function(){
+        var msg = document.getElementById("ttBoardMsg");
+        var rows = board.rows.filter(function(r){ return r.id && !r.hidden && r.auto && r.name; })
+          .sort(function(a, b){ return (b.time || 0) - (a.time || 0); });
+        if(!rows.length){ msg.textContent = "אין עדיין עבודות עם בדיקה אוטומטית (🤖)."; return; }
+        /* העבודה האחרונה של כל תלמיד בכל יחידה */
+        var classes = {}, latest = [];
+        rows.forEach(function(r){
+          var col = r.topic || r.task, C = classes[r.cls] || (classes[r.cls] = { cols:[], students:{} });
+          if(C.cols.indexOf(col) === -1) C.cols.push(col);
+          var S = C.students[r.name] || (C.students[r.name] = { units:{}, skills:{} });
+          if(S.units[col]) return;
+          S.units[col] = r;
+          latest.push({ r:r, S:S });
+        });
+        heatBtn.disabled = true;
+        var i = 0, withAns = 0;
+        function next(){
+          if(i >= latest.length) return Promise.resolve();
+          var it = latest[i++];
+          msg.textContent = "🌡️ מכין את מפת הכיתה… " + i + " מתוך " + latest.length;
+          return apiPost({ action:"answers", password:teacherToken(), fileId:it.r.id }).then(function(res){
+            if(handleAuthFailure(res)) throw new Error("auth");
+            var a = res && res.answers;
+            if(!a || !a.page) return;
+            withAns++;
+            return frameFor(a.page).then(function(f){
+              fillIn(f, a.values);
+              var w = f.contentWindow;
+              fieldsOf(w.document).forEach(function(x){
+                if(x.kind !== "f") return;
+                var sk = skillOfField(x.el); if(!sk) return;
+                var st = statusOf(w, x); if(st.s === "open") return;
+                var K = it.S.skills[sk] || (it.S.skills[sk] = { ok:0, n:0 });
+                K.n++; if(st.s === "ok") K.ok++;
+              });
+            });
+          }).catch(function(e){ if(e && e.message === "auth") throw e; }).then(next);
+        }
+        next().then(function(){
+          var h = '<div class="tt-btns" style="justify-content:space-between;align-items:center"><h4 style="margin:0">🌡️ מפת הכיתה</h4>' +
+            '<span><button type="button" class="tt-btn tt-btn--small" data-rep-print-class="1">🖨 הדפסה</button> <button type="button" class="tt-btn tt-btn--small" data-rep-close="1">סגירה</button></span></div>' +
+            '<p style="margin:.3rem 0 .6rem;font-size:.9rem">🟩 80 ומעלה · 🟨 55-79 · 🟥 מתחת ל-55 · משבצת אפורה: עוד לא הגיש. המספר: אחוז נכונות בבדיקה האוטומטית (העבודה האחרונה ביחידה).' +
+            (withAns < latest.length ? ' עמודות השורש, הבניין ושם הפועל - רק מעבודות שנשלחו אחרי שהתשובות התחילו להישמר בשרת.' : '') + '</p>';
+          Object.keys(classes).sort().forEach(function(cls){
+            var C = classes[cls], names = Object.keys(C.students).sort(function(a, b){ return a.localeCompare(b, "he"); });
+            h += (Object.keys(classes).length > 1 ? '<h5 style="margin:.8rem 0 .3rem">כיתה ' + escapeHtml(cls) + '</h5>' : '') +
+              '<div class="tt-table-wrap"><table class="tt-table"><thead><tr><th>תלמיד</th>' +
+              C.cols.map(function(c){ return '<th>' + escapeHtml(c) + '</th>'; }).join("") +
+              SKILL_COLS.map(function(s){ return '<th style="background:#EEF3FB">' + s[1] + '</th>'; }).join("") + '</tr></thead><tbody>' +
+              names.map(function(n){
+                var S = C.students[n];
+                return '<tr><td style="white-space:nowrap">' + escapeHtml(n) + '</td>' +
+                  C.cols.map(function(c){ var r = S.units[c]; return heatCell(r ? r.auto.pct : null, r ? (r.auto.c + " נכונות מתוך " + r.auto.t + " · " + r.date) : ""); }).join("") +
+                  SKILL_COLS.map(function(s){ var K = S.skills[s[0]]; return heatCell(K && K.n ? Math.round(K.ok * 100 / K.n) : null, K && K.n ? K.ok + " נכונים מתוך " + K.n : ""); }).join("") + '</tr>';
+              }).join("") + '</tbody></table></div>';
+          });
+          repBox.innerHTML = h;
+          repBox.hidden = false;
+          msg.textContent = "🌡️ מפת הכיתה מוכנה.";
+          repBox.scrollIntoView({ block:"start", behavior:"smooth" });
+        }).catch(function(){ msg.textContent = "הכנת המפה נעצרה. נסו שוב."; })
+          .then(function(){
+            heatBtn.disabled = false;
+            Object.keys(frames).forEach(function(p){ frames[p].then(function(f){ f.remove(); }, function(){}); });
+            frames = {};
+          });
+      });
+
       if(repBox) repBox.addEventListener("click", function(e){
         if(e.target.closest("[data-rep-close]")){ repBox.hidden = true; repBox.innerHTML = ""; return; }
         if(e.target.closest("[data-rep-print-class]")){
           var wnd = window.open("", "_blank");
           if(!wnd) return;
-          wnd.document.write('<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>איפה הכיתה טעתה</title><style>body{font-family:Heebo,Arial,sans-serif;padding:1rem;color:#0E1B33}table{border-collapse:collapse;width:100%;margin-bottom:1rem}th,td{border:1px solid #ccd5e4;padding:4px 6px;text-align:right;vertical-align:top}th{background:#EEF3FB}button{display:none}</style></head><body>' + repBox.innerHTML + '</body></html>');
+          wnd.document.write('<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8"><title>' + escapeHtml((repBox.querySelector("h4") || {}).textContent || "דוח") + '</title><style>body{font-family:Heebo,Arial,sans-serif;padding:1rem;color:#0E1B33}table{border-collapse:collapse;width:100%;margin-bottom:1rem}th,td{border:1px solid #ccd5e4;padding:4px 6px;text-align:right;vertical-align:top}th{background:#EEF3FB}button{display:none}</style></head><body>' + repBox.innerHTML + '</body></html>');
           wnd.document.close(); wnd.focus(); wnd.print();
         }
       });
