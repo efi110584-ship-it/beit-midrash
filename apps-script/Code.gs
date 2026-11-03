@@ -154,6 +154,7 @@ function doPost(e) {
       case 'saveLessonReport': return json_(saveLessonReport_(data.code));
       case 'setGrade':        return json_(setGrade_(data.fileId, data.grade, data.comment, data.publishFb, data.redo));
       case 'answers':         return json_(answersGet_(data.fileId));
+      case 'setAuto':         return json_(setAuto_(data.fileId, data.correct, data.total));
       case 'acceptSuggested': return json_(acceptSuggested_(data.ids));
       case 'feedbackGet':     return json_(feedbackTeacher_(data.fileId));
       case 'feedbackBatchPreview': return json_(feedbackBatchPreview_(data.ids));
@@ -643,6 +644,15 @@ function autoScore_(a) {
   var c = Math.floor(Number(a.correct)), t = Math.floor(Number(a.total));
   if (!(t > 0 && t <= 1000 && c >= 0 && c <= t)) return null;
   return { c: c, t: t };
+}
+// בדיקה מחדש מלוח ההגשות (index.html): הדף בודק שוב את התשובות השמורות ומעדכן את הבדיקה האוטומטית.
+// הציון שהמורה כבר אישר (grade_) לא משתנה.
+function setAuto_(fileId, correct, total) {
+  if (!/^[\w-]{10,}$/.test(String(fileId || ''))) return { ok: false, error: 'מזהה קובץ לא תקין' };
+  var a = autoScore_({ correct: correct, total: total });
+  if (!a) return { ok: false, error: 'תוצאת בדיקה לא תקינה' };
+  PropertiesService.getScriptProperties().setProperty('auto_' + fileId, JSON.stringify(a));
+  return { ok: true, auto: a };
 }
 function autoMap_(props) {
   props = props || PropertiesService.getScriptProperties().getProperties();

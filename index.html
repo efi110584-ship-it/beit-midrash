@@ -768,6 +768,7 @@
               /* דף הבדיקה עם Claude (artifact פרטי של המורה ב-claude.ai) */
               '<a class="tt-btn tt-btn--primary tt-btn--link" href="' + GRADER_URL + '" target="_blank" rel="noopener">🤖 בדיקת עבודות עם Claude</a>' +
               '<button type="button" class="tt-btn" id="ttExport">הורדת הציונים</button>' +
+              '<button type="button" class="tt-btn" id="ttRegrade" title="בודק שוב את העבודות המוצגות, לפי הבדיקה העדכנית של הדף">🔄 בדיקה מחדש</button>' +
               '<button type="button" class="tt-btn" id="ttBoardRefresh">רענון</button>' +
             '</span>' +
           '</div>' +
@@ -1190,6 +1191,92 @@
     startLivePolling();
 
     document.getElementById("ttBoardRefresh").addEventListener("click", function(){ loadBoard(true); });
+
+    /* ---------- בדיקה מחדש ----------
+       לכל עבודה עם בדיקה אוטומטית (🤖) שמוצגת בלוח: מביאים מהשרת את התשובות ששמורות לה (action=answers),
+       ממלאים אותן בדף העבודה עצמו - בתוך מסגרת נסתרת - ובודקים עם הבדיקה העדכנית של הדף (BM_AUTOSCORE).
+       אם התוצאה השתנתה - מעדכנים את 🤖 (action=setAuto). ציון שהמורה כבר אישר לא משתנה.
+       עבודה מלפני שהתשובות נשמרו בשרת - מדלגים עליה. */
+    (function(){
+      var btn = document.getElementById("ttRegrade");
+      if(!btn) return;
+      var frames = {};
+      function frameFor(page){
+        if(frames[page]) return frames[page];
+        frames[page] = new Promise(function(resolve, reject){
+          var f = document.createElement("iframe");
+          f.setAttribute("aria-hidden", "true");
+          f.tabIndex = -1;
+          f.style.cssText = "position:fixed;left:-10000px;top:0;width:1000px;height:800px;border:0;visibility:hidden;";
+          var timer = setTimeout(function(){ reject(new Error("הדף לא נטען")); }, 20000);
+          f.onload = function(){ setTimeout(function(){ clearTimeout(timer); resolve(f); }, 800); };
+          f.src = page + "?regrade=1";
+          document.body.appendChild(f);
+        });
+        return frames[page];
+      }
+      function scoreIn(f, values){
+        var w = f.contentWindow, d = w.document;
+        Array.prototype.forEach.call(d.querySelectorAll(".answer"), function(x){
+          if(x.matches("input[type=radio], input[type=checkbox]")) x.checked = false; else if("value" in x) x.value = "";
+        });
+        Array.prototype.forEach.call(d.querySelectorAll(".mc-group input[type=radio]"), function(x){ x.checked = false; });
+        var groups = d.querySelectorAll(".mc-group");
+        Object.keys(values || {}).forEach(function(k){
+          var m = /^mc:(\d+)$/.exec(k);
+          if(m){ var g = groups[+m[1]], o = g && g.querySelectorAll("input[type=radio]")[+values[k]]; if(o) o.checked = true; return; }
+          var el = d.querySelector('.answer[data-id="' + k.replace(/["\\]/g, "") + '"]');
+          if(el) el.value = values[k];
+        });
+        var s = w.BM_AUTOSCORE ? w.BM_AUTOSCORE() : null;
+        return s && s.total ? { c: s.correct, t: s.total } : null;
+      }
+      btn.addEventListener("click", function(){
+        var msg = document.getElementById("ttBoardMsg");
+        var list = (board.shown || []).filter(function(r){ return r.id && !r.hidden && r.auto; });
+        if(!list.length){ msg.textContent = "אין בתצוגה עבודות עם בדיקה אוטומטית (🤖). אפשר לשנות את הסינון."; return; }
+        if(!confirm("לבדוק מחדש " + list.length + (list.length === 1 ? " עבודה" : " עבודות") + " לפי הבדיקה העדכנית של הדף?\nהבדיקה האוטומטית (🤖) תתעדכן. ציון שכבר אישרת לא ישתנה.")) return;
+        btn.disabled = true;
+        var changed = [], same = 0, old = 0, failed = 0, i = 0;
+        function next(){
+          if(i >= list.length) return Promise.resolve();
+          var r = list[i++];
+          msg.textContent = "🔄 בודק מחדש " + i + " מתוך " + list.length + ": " + r.name + "…";
+          return apiPost({ action:"answers", password:teacherToken(), fileId:r.id }).then(function(res){
+            if(handleAuthFailure(res)) throw new Error("auth");
+            if(res && res.ok === false && /לא מוכרת/.test(res.error || "")) throw new Error("oldScript");
+            var a = res && res.answers;
+            if(!a || !a.page){ old++; return; }
+            return frameFor(a.page).then(function(f){
+              var s = scoreIn(f, a.values);
+              if(!s){ failed++; return; }
+              if(s.c === r.auto.c && s.t === r.auto.t){ same++; return; }
+              return apiPost({ action:"setAuto", password:teacherToken(), fileId:r.id, correct:s.c, total:s.t }).then(function(u){
+                if(!(u && u.ok)){ failed++; return; }
+                changed.push({ name:r.name, from:r.auto.pct, to:Math.round(s.c * 100 / s.t), graded:r.grade !== "" });
+                r.auto = { c:s.c, t:s.t, pct:Math.round(s.c * 100 / s.t) };
+              });
+            });
+          }).catch(function(e){ if(e && (e.message === "auth" || e.message === "oldScript")) throw e; failed++; }).then(next);
+        }
+        next().then(function(){
+          var nChecked = list.length - old;
+          var parts = ["🔄 " + (nChecked === 1 ? "נבדקה מחדש עבודה אחת." : "נבדקו מחדש " + nChecked + " עבודות.")];
+          if(changed.length) parts.push("הבדיקה השתנתה ב-" + changed.length + ": " + changed.map(function(c){ return c.name + " מ־" + c.from + " ל־" + c.to + (c.graded ? " (יש ציון מאושר - כדאי לעדכן)" : ""); }).join(" · ") + ".");
+          else parts.push("אף ציון לא השתנה.");
+          if(old) parts.push(old + (old === 1 ? " עבודה ישנה" : " עבודות ישנות") + " - נשלחו לפני שהתשובות נשמרו בשרת, ואי אפשר לבדוק אותן מחדש.");
+          if(failed) parts.push(failed + " לא נבדקו (תקלה). אפשר לנסות שוב.");
+          renderBoard();
+          msg.textContent = parts.join(" ");
+        }).catch(function(e){
+          msg.textContent = e && e.message === "oldScript" ? "צריך לעדכן את הסקריפט של Google לגרסה החדשה (עם הבדיקה מחדש)." : "הבדיקה מחדש נעצרה. נסו שוב.";
+        }).then(function(){
+          btn.disabled = false;
+          Object.keys(frames).forEach(function(p){ frames[p].then(function(f){ f.remove(); }, function(){}); });
+          frames = {};
+        });
+      });
+    })();
     // Staged integration: uses existing teacher authentication and feedback viewer.
     (function initBatchReview(){
       var inspect=document.getElementById('ttBatchInspect');
