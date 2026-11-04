@@ -381,6 +381,7 @@
     b.textContent = on ? "✋ ביקשת עזרה · ביטול" : "✋ צריך עזרה";
     b.setAttribute("aria-pressed", String(on));
     b.classList.toggle("is-on", on);
+    if(chatBubble) chatBubble.classList.toggle("is-help", on);
   }
   function helpToggle(){
     if(st.helpId){ st.helpId = ""; save(); helpPaint(); send("in"); return; }
@@ -408,8 +409,8 @@
     chatBubble.setAttribute("aria-haspopup", "dialog");
     chatBubble.setAttribute("aria-expanded", "false");
     chatBubble.setAttribute("aria-label", "שאלה למורה");
-    chatBubble.title = "שאלה למורה (רק המורה רואה)";
-    chatBubble.innerHTML = '<span aria-hidden="true">💬</span><span class="bm-cb-n" hidden></span>';
+    chatBubble.title = "מצב שיעור: שאלה למורה, צריך עזרה, יציאה";
+    chatBubble.innerHTML = '<span aria-hidden="true">💬</span><span class="bm-cb-n" hidden></span><span class="bm-cb-live" aria-hidden="true"></span>';
     chatBubble.addEventListener("click", chatOpen);
     document.body.appendChild(chatBubble);
   }
@@ -438,6 +439,7 @@
     chatPost({ action:"chatGet", code:st.code, sid:st.sid }).then(function(res){ if(res && res.ok) chatRender(res.m); }).catch(function(){});
   }
   function chatClose(){
+    if(bar && bar.parentNode) bar.parentNode.removeChild(bar);   /* הפס של מצב השיעור חי בתוך הבלון */
     if(chatBox){ chatBox.remove(); chatBox = null; }
     if(chatTimer){ clearInterval(chatTimer); chatTimer = null; }
     if(chatBubble){ chatBubble.setAttribute("aria-expanded", "false"); chatBubble.focus(); }
@@ -451,12 +453,14 @@
     chatBox.setAttribute("aria-label", "שאלה למורה");
     chatBox.innerHTML =
       '<div class="bm-chat-head"><b>💬 שאלה למורה</b><button type="button" class="bm-chat-x" aria-label="סגירה">✕</button></div>' +
+      '<div class="bm-chat-barslot"></div>' +
       '<p class="bm-chat-note">🔒 רק המורה רואה את השיחה הזאת.</p>' +
       '<div class="bm-chat-list" aria-live="polite"></div>' +
       '<form class="bm-chat-form"><label class="bm-chat-sr" for="bmChatText">ההודעה למורה</label>' +
       '<textarea id="bmChatText" rows="2" maxlength="500" placeholder="כתבו את השאלה..."></textarea>' +
       '<button type="submit">שליחה</button></form>' +
       '<p class="bm-chat-msg-status" role="status"></p>';
+    if(bar) chatBox.querySelector(".bm-chat-barslot").appendChild(bar);
     document.body.appendChild(chatBox);
     if(chatBubble) chatBubble.setAttribute("aria-expanded", "true");
     chatBox.querySelector(".bm-chat-x").addEventListener("click", chatClose);
@@ -518,13 +522,17 @@
       "padding:5px 10px;cursor:pointer;min-height:32px}" +
       ".bm-lm-chat.is-on{background:#2BD38C;color:#053B26}" +
       ".bm-lm-chat:focus-visible{outline:3px solid #FF7A1A;outline-offset:2px}" +
-      ".bm-cb{position:fixed;inset-inline-start:16px;bottom:120px;z-index:9998;width:56px;height:56px;border:0;border-radius:50%;background:#123A78;color:#fff;" +
+      ".bm-cb{position:fixed;inset-inline-start:16px;bottom:80px;z-index:9998;width:56px;height:56px;border:0;border-radius:50%;background:#123A78;color:#fff;" +
       "font-size:26px;line-height:1;cursor:pointer;display:grid;place-items:center;box-shadow:0 8px 20px rgba(11,42,91,.35)}" +
       ".bm-cb:hover{background:#0B2A5B}.bm-cb:focus-visible{outline:3px solid #FF7A1A;outline-offset:3px}" +
       ".bm-cb.is-on{background:#0D8A63}" +
       ".bm-cb-n{position:absolute;top:-4px;inset-inline-end:-4px;min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:#FF7A1A;color:#fff;font:700 13px/22px Heebo,Rubik,Arial,sans-serif}" +
       ".bm-cb-n[hidden]{display:none}" +
-      ".bm-chat{position:fixed;inset-inline-start:16px;bottom:186px;z-index:9999;width:min(360px,calc(100vw - 24px));display:flex;flex-direction:column;gap:6px;" +
+      ".bm-cb-live{position:absolute;bottom:2px;inset-inline-start:2px;width:12px;height:12px;border-radius:50%;background:#2BD38C;border:2px solid #fff}" +
+      ".bm-cb.is-help{box-shadow:0 0 0 4px #FF7A1A,0 8px 20px rgba(11,42,91,.35)}" +
+      ".bm-chat .bm-lm-bar{position:static;inset:auto;max-width:none;flex-wrap:wrap;gap:6px;padding:8px 10px;border-radius:12px;box-shadow:none;font-size:13px}" +
+      ".bm-chat .bm-lm-text{white-space:normal;flex:1 1 100%}" +
+      ".bm-chat{position:fixed;inset-inline-start:16px;bottom:146px;z-index:9999;width:min(360px,calc(100vw - 24px));display:flex;flex-direction:column;gap:6px;" +
       "padding:12px;border-radius:16px;background:#fff;border:1px solid #C6D2E6;box-shadow:0 12px 30px rgba(11,42,91,.25);" +
       "font:400 15px/1.5 Heebo,Rubik,Arial,sans-serif;color:#0E1B33;direction:rtl}" +
       ".bm-chat-head{display:flex;justify-content:space-between;align-items:center;color:#0B2A5B}" +
@@ -562,10 +570,12 @@
       send("bye");
       end();
     });
-    document.body.appendChild(bar);
+    /* הפס לא מוצג בתחתית המסך - הוא נמצא בתוך הבלון 💬 (נפתח בלחיצה) */
     helpPaint();
     chatBubbleMake();
     chatPaintBtn();
+    /* בכניסה הראשונה לשיעור - הבלון נפתח פעם אחת, כדי שהתלמיד יראה שהבקרה פעילה */
+    if(!st.barSeen){ st.barSeen = 1; save(); chatOpen(true); }
   }
   /* נעילה על דף: בדף הנעול - בלי מעבר בין משימות; בדף אחר באתר - חוזרים לדף הנעול */
   function lockHash(){ return "#bmlock-" + st.lock.step + (st.lock.key ? "-" + st.lock.key : ""); }
