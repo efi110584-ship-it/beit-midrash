@@ -479,6 +479,23 @@
   /* שיעור חי: אחרי שפותחים את החלון פעם אחת, הבדיקה ממשיכה כל 5 שניות גם כשהחלון סגור,
      כדי שהתראות על יציאה מהדף והדבקת טקסט יגיעו (assets/live-monitor.js) */
   var liveBg = null, liveOpenSids = {}, liveShownCode = "";
+  /* 💬 שאלות פרטיות מתלמידים (assets/lesson-mode.js): התשובה שהמורה כותב נשמרת כאן בין רענון לרענון */
+  var chatDraft = {}, chatFocus = "";
+  function chatHtml(s){
+    if(!s.chat || !s.chat.m || !s.chat.m.length) return "";
+    var u = s.chat.u || 0;
+    return '<div class="bmd-chat" data-chat-for="' + esc(s.sid) + '" style="flex-basis:100%;margin-top:4px;padding:8px;border-radius:10px;border:1.5px solid ' + (u ? '#0D8A63' : '#C6D2E6') + ';background:#fff;display:flex;flex-direction:column;gap:4px">' +
+      '<b style="font-size:13px">💬 שאלה פרטית' + (u ? ' · <span style="color:#0D8A63">' + u + ' חדשות</span>' : '') + ' <span style="font-weight:400">(רק אתם רואים)</span></b>' +
+      s.chat.m.slice(-6).map(function(x){
+        return '<span style="padding:3px 8px;border-radius:8px;font-size:14px;' + (x.f === "t" ? 'background:#E5F6EE;align-self:flex-end' : 'background:#EEF3FB;align-self:flex-start') + '">' +
+          '<b>' + (x.f === "t" ? "אני" : esc(s.name || "התלמיד")) + ':</b> ' + esc(x.x) + '</span>';
+      }).join("") +
+      '<form class="bmd-chat-form" data-chat-sid="' + esc(s.sid) + '" style="display:flex;gap:6px">' +
+        '<input type="text" maxlength="500" aria-label="תשובה ל' + esc(s.name || "") + '" placeholder="תשובה..." data-chat-in="' + esc(s.sid) + '" style="flex:1;min-width:0;min-height:34px;padding:3px 8px;border:1.5px solid #C6D2E6;border-radius:8px;font:inherit">' +
+        '<button type="submit" class="bmd-btn" style="min-height:34px;padding:3px 10px;font-size:13px;font-weight:700">שליחה</button>' +
+        (u ? '<button type="button" class="bmd-btn" style="min-height:34px;padding:3px 10px;font-size:13px" data-chat-seen="' + esc(s.sid) + '">✓ ראיתי</button>' : '') +
+      '</form></div>';
+  }
   function liveCodeNow(){ try{ return sessionStorage.getItem("bm-live-code") || ""; }catch(e){ return ""; } }
   function livePanelShown(){ return openTool === "live" && !panel.hidden; }
   function renderLive(res){
@@ -491,9 +508,11 @@
     if(LM && LM.injectStyle) LM.injectStyle();
     var order = { out:0, gone:1, "in":2, bye:3, kicked:4 };
     /* ✋ מבקשים עזרה - ראשונים (מי שמחכה הכי הרבה זמן למעלה) */
+    var chatU = function(s){ return (s.chat && s.chat.u) || 0; };
     var list = (res.students || []).slice().sort(function(a, b){
-      return ((b.help >= 0) - (a.help >= 0)) || ((b.help || 0) - (a.help || 0)) || (order[a.status] - order[b.status]) || (b.leaves - a.leaves);
+      return (chatU(b) - chatU(a)) || ((b.help >= 0) - (a.help >= 0)) || ((b.help || 0) - (a.help || 0)) || (order[a.status] - order[b.status]) || (b.leaves - a.leaves);
     });
+    var chatN = list.reduce(function(t, s){ return t + chatU(s); }, 0);
     var n = { "in":0, out:0 };
     list.forEach(function(s){ if(n[s.status] !== undefined) n[s.status]++; });
     var helpN = list.filter(function(s){ return s.help >= 0; }).length, idleN = LM ? list.filter(LM.isIdle).length : 0;
@@ -510,6 +529,7 @@
         list.filter(function(x){ return x.page === String(res.lesson.nav.url).split("#")[0] && x.status !== "bye"; }).length + ' מתוך ' +
         list.filter(function(x){ return x.status !== "bye"; }).length + '</p>' : '') +
       '<p class="bmd-note">קוד ' + esc(res.lesson.code) + ' · ' + esc(res.lesson.label || "") + ' · 🟢 בדף: <b>' + n["in"] + '</b> · 🟠 מחוץ לדף: <b>' + n.out + '</b>' +
+        (chatN ? ' · 💬 הודעות חדשות: <b>' + chatN + '</b>' : '') +
         (helpN ? ' · ✋ מבקשים עזרה: <b>' + helpN + '</b>' : '') + (idleN ? ' · 💤 בלי כתיבה: <b>' + idleN + '</b>' : '') + '</p>' +
       (list.length ? '<ul class="bmd-pres">' + list.map(function(s){
         var sid = s.sid || s.name || "", open = !!liveOpenSids[sid];
@@ -523,11 +543,35 @@
           '<span style="flex-basis:100%;display:flex;gap:6px;flex-wrap:wrap">' +
             (s.help >= 0 ? '<button type="button" class="bmd-btn" style="min-height:34px;padding:3px 10px;font-size:13px;font-weight:700" data-help-done="' + esc(s.sid) + '">✓ טיפלתי בבקשה</button>' : '') +
             '<button type="button" class="bmd-btn" style="min-height:34px;padding:3px 10px;font-size:13px" data-kick="' + esc(s.sid) + '"' + (s.kicked ? ' data-undo="1"' : '') + ' data-name="' + esc(s.name || "") + '">' + (s.kicked ? "↩ החזרה לשיעור" : "🚫 הוצאה מהשיעור") + '</button></span>' +
+          chatHtml(s) +
           (open && LM ? '<div style="flex-basis:100%">' + LM.timelineHtml(s) + '</div>' : '') + '</li>';
       }).join("") + '</ul>' : '<p class="bmd-note">עדיין אף תלמיד לא נכנס עם הקוד.</p>') +
       '<p class="bmd-note">✋ = התלמיד לחץ "צריך עזרה". 💤 = לא כתב ולא עבר משימה 3 דקות. "משימה" ו-✍️ מתעדכנים כל 15 שניות.</p>' +
       '<p class="bmd-note">מתעדכן כל 5 שניות. נספרת יציאה מהדף מעל 5 שניות, ומעבר לחלון אחר מעל 10 שניות. המספר הכתום על כפתור 👥 = כמה תלמידים מחוץ לדף עכשיו. התראות קופצות וצליל כבויים, אלא אם מפעילים אותם כאן (עדיף לא כשהמסך מוקרן). לחיצה על תלמיד: כל מה שקרה אצלו.</p>';
     if(LM){ var sb = LM.soundButton(); sb.className = "bmd-btn"; body.querySelector("#bmdLiveSound").appendChild(sb); }
+    /* החזרת מה שהמורה התחיל לכתוב (הרשימה נבנית מחדש כל 5 שניות) */
+    Array.prototype.forEach.call(body.querySelectorAll("[data-chat-in]"), function(inp){
+      var k = inp.getAttribute("data-chat-in");
+      if(chatDraft[k]) inp.value = chatDraft[k];
+      inp.addEventListener("input", function(){ chatDraft[k] = inp.value; });
+      inp.addEventListener("focus", function(){ chatFocus = k; });
+      inp.addEventListener("blur", function(){ if(chatFocus === k) chatFocus = ""; });
+      if(chatFocus === k){ inp.focus(); try{ inp.setSelectionRange(inp.value.length, inp.value.length); }catch(e){} }
+    });
+    Array.prototype.forEach.call(body.querySelectorAll(".bmd-chat-form"), function(f){
+      f.addEventListener("submit", function(e){
+        e.preventDefault();
+        var k = f.getAttribute("data-chat-sid"), inp = f.querySelector("input"), text = inp.value.trim();
+        if(!text) return;
+        f.querySelector("button[type=submit]").disabled = true;
+        post({ action:"chatReply", code:liveShownCode || liveCodeNow(), sid:k, text:text }).then(function(r){
+          if(authMsg(r)) return;
+          if(!r || !r.ok){ toastMsg((r && r.error) || "השליחה לא הצליחה."); return; }
+          delete chatDraft[k]; chatFocus = "";
+          liveTick();
+        }).catch(function(){ toastMsg("אין חיבור לשרת כרגע."); });
+      });
+    });
   }
   function liveTick(){
     return post({ action:"presenceList", code:liveCodeNow() }).then(function(res){
@@ -538,8 +582,9 @@
       if(cnt){
         var outN = res.lesson ? (res.students || []).filter(function(s){ return s.status === "out"; }).length : 0;
         var hlpN = res.lesson ? (res.students || []).filter(function(s){ return s.help >= 0; }).length : 0;
-        cnt.textContent = outN + hlpN; cnt.hidden = !(outN + hlpN);
-        cnt.title = outN + " מחוץ לדף" + (hlpN ? " · " + hlpN + " מבקשים עזרה" : "");
+        var chN = res.lesson ? (res.students || []).filter(function(s){ return s.chat && s.chat.u; }).length : 0;
+        cnt.textContent = outN + hlpN + chN; cnt.hidden = !(outN + hlpN + chN);
+        cnt.title = outN + " מחוץ לדף" + (hlpN ? " · " + hlpN + " מבקשים עזרה" : "") + (chN ? " · " + chN + " שאלות חדשות בצ'אט" : "");
       }
       if(livePanelShown()) renderLive(res);
       return !!res.lesson;
@@ -615,8 +660,15 @@
         try{ sessionStorage.setItem("bm-live-code", b.getAttribute("data-live-code")); }catch(err){}
         liveTick(); return;
       }
+      var cs = e.target.closest && e.target.closest("[data-chat-seen]");
+      if(cs){
+        e.stopPropagation();
+        cs.disabled = true;
+        post({ action:"chatSeen", code:liveShownCode || liveCodeNow(), sid:cs.getAttribute("data-chat-seen") }).then(function(){ liveTick(); }).catch(function(){ cs.disabled = false; });
+        return;
+      }
       var li = e.target.closest && e.target.closest("li[data-sid]");
-      if(li && !e.target.closest("button")){
+      if(li && !e.target.closest("button") && !e.target.closest(".bmd-chat")){
         var sid = li.getAttribute("data-sid");
         if(liveOpenSids[sid]) delete liveOpenSids[sid]; else liveOpenSids[sid] = 1;
         liveTick();
