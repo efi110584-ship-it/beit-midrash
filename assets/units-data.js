@@ -523,6 +523,11 @@
         "title": "מיקוד תשפ״ז — הבנה וכתיבה ממזגת",
         "url": "ivrit-focus-2027-reading.html",
         "k": "11281 מיקוד תשפז מיקוד תשפ״ז — הבנה וכתיבה ממזגת"
+      },
+      {
+        "title": "מבחן בגרות לדוגמה — בניינים, גזרות והבנת הנקרא",
+        "url": "ivrit-bagrut-exam.html",
+        "k": "מבחן בגרות לדוגמה 11281 בניינים גזרות הבנת הנקרא סקירה פעיל סביל שם הפועל שם פעולה"
       }
     ]
   },
@@ -978,6 +983,18 @@
     "chapters": 2,
     "chaptersLabel": "דפי תרגול",
     "url": "ivrit-binyanim-gzarot-answers.html"
+  },
+  {
+    "key": "ivrit-bagrut-exam-key",
+    "class": "teacher",
+    "subject": "מורה",
+    "category": "עברית",
+    "icon": "🗝️",
+    "title": "מחוון - מבחן בגרות לדוגמה בעברית",
+    "desc": "אותו מבחן כמו אצל התלמידים, עם כל התשובות: בניינים וגזרות, ותשובה לדוגמה לכל שאלת הבנה.",
+    "chapters": 12,
+    "chaptersLabel": "שאלות",
+    "url": "ivrit-bagrut-exam.html?key=1"
   },
   {
     "key": "machshava-key",
