@@ -650,6 +650,7 @@
             '<span class="tt-note" id="ttNavNow" style="flex-basis:100%;margin:0" aria-live="polite"></span>' +
           '</div>' +
           '<div class="tt-live-sum" id="ttLiveSum" aria-live="polite"></div>' +
+          '<section id="ttChat" class="tt-chat" aria-label="שאלות פרטיות מתלמידים" hidden></section>' +
           '<div class="tt-btns" role="group" aria-label="תצוגת התלמידים" style="margin:.2rem 0 0">' +
             '<button type="button" class="tt-btn tt-btn--small" id="ttLiveViewCards" aria-pressed="true">▦ כרטיסים</button>' +
             '<button type="button" class="tt-btn tt-btn--small" id="ttLiveViewTable" aria-pressed="false">☰ טבלה</button>' +
@@ -1860,6 +1861,64 @@
     w.print();
   }
 
+  /* ---------- 💬 שאלות פרטיות מתלמידים (assets/lesson-mode.js - "שאלה למורה") ----------
+     כל שיחה מוצגת רק כאן, אצל המורה. התשובה נשלחת רק לתלמיד ששאל (action=chatReply).
+     הרשימה מתעדכנת עם כל רענון של הבקרה - בלי למחוק את מה שהמורה באמצע לכתוב. */
+  function renderChats(list){
+    var box = document.getElementById("ttChat");
+    if(!box) return;
+    var threads = list.filter(function(p){ return p.chat && p.chat.m && p.chat.m.length; })
+      .sort(function(a, b){ return (b.chat.u || 0) - (a.chat.u || 0) || (b.chat.m[b.chat.m.length - 1].at - a.chat.m[a.chat.m.length - 1].at); });
+    box.hidden = !threads.length;
+    if(!threads.length){ box.innerHTML = ""; return; }
+    if(!box.querySelector(".tt-chat-title")) box.innerHTML = '<h4 class="tt-chat-title" style="margin:.6rem 0 .4rem">💬 שאלות פרטיות מתלמידים <span style="font-weight:400;font-size:.85rem">(רק אתם רואים אותן; התשובה מגיעה רק לתלמיד ששאל)</span></h4><div class="tt-chat-list" style="display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))"></div>';
+    var wrap = box.querySelector(".tt-chat-list");
+    threads.forEach(function(p, i){
+      var el = wrap.querySelector('[data-chat-sid="' + String(p.sid).replace(/["\\]/g, "") + '"]');
+      if(!el){
+        el = document.createElement("div");
+        el.setAttribute("data-chat-sid", p.sid);
+        el.style.cssText = "border:1px solid #C6D2E6;border-radius:12px;padding:10px;background:#fff;display:flex;flex-direction:column;gap:6px";
+        el.innerHTML = '<div class="tt-chat-head" style="display:flex;justify-content:space-between;align-items:center;gap:6px"></div>' +
+          '<div class="tt-chat-msgs" style="max-height:200px;overflow-y:auto;display:flex;flex-direction:column;gap:4px"></div>' +
+          '<form class="tt-chat-form" style="display:flex;gap:6px"><label class="bm-sr-only" for="ttChatIn-' + escapeAttr(p.sid) + '">תשובה ל' + escapeHtml(p.name || "") + '</label>' +
+          '<input id="ttChatIn-' + escapeAttr(p.sid) + '" class="tt-select" type="text" maxlength="500" placeholder="תשובה..." style="flex:1;min-width:0">' +
+          '<button type="submit" class="tt-btn tt-btn--small tt-btn--primary">שליחה</button></form>';
+        el.querySelector("form").addEventListener("submit", function(e){
+          e.preventDefault();
+          var inp = el.querySelector("input"), btn = el.querySelector("button[type=submit]"), text = inp.value.trim();
+          if(!text) return;
+          btn.disabled = true;
+          apiPost({ action:"chatReply", password:teacherToken(), code:getLiveCode(), sid:el.getAttribute("data-chat-sid"), text:text }).then(function(res){
+            if(handleAuthFailure(res)) return;
+            if(!res || !res.ok){ alert((res && res.error) || "השליחה לא הצליחה. נסו שוב."); return; }
+            inp.value = "";
+            loadLive();
+          }).catch(function(){ alert("אין חיבור לשרת כרגע. נסו שוב."); }).then(function(){ btn.disabled = false; });
+        });
+        el.addEventListener("click", function(e){
+          var sb = e.target.closest("[data-chat-seen]");
+          if(!sb) return;
+          sb.disabled = true;
+          apiPost({ action:"chatSeen", password:teacherToken(), code:getLiveCode(), sid:el.getAttribute("data-chat-sid") }).then(function(){ loadLive(); }).catch(function(){ sb.disabled = false; });
+        });
+      }
+      var u = p.chat.u || 0;
+      el.style.borderColor = u ? "#0D8A63" : "#C6D2E6";
+      el.querySelector(".tt-chat-head").innerHTML = '<b>' + escapeHtml(p.name || "ללא שם") + '</b>' +
+        (u ? '<span style="display:flex;gap:6px;align-items:center"><span class="tt-pill tt-pill--checked">' + u + ' חדשות</span><button type="button" class="tt-btn tt-btn--small" data-chat-seen="1">✓ ראיתי</button></span>' : '');
+      var msgs = el.querySelector(".tt-chat-msgs"), atEnd = msgs.scrollTop + msgs.clientHeight >= msgs.scrollHeight - 8;
+      msgs.innerHTML = p.chat.m.map(function(x){
+        return '<div style="padding:4px 8px;border-radius:10px;' + (x.f === "t" ? 'background:#E5F6EE;align-self:flex-end' : 'background:#EEF3FB;align-self:flex-start') + '">' +
+          '<b>' + (x.f === "t" ? "אני" : escapeHtml(p.name || "התלמיד")) + ':</b> ' + escapeHtml(x.x) + ' <span style="font-size:.75rem;color:#56637A">' + fmtClock(x.at) + '</span></div>';
+      }).join("");
+      if(atEnd) msgs.scrollTop = msgs.scrollHeight;
+      if(wrap.children[i] !== el) wrap.insertBefore(el, wrap.children[i] || null);
+    });
+    Array.prototype.forEach.call(wrap.querySelectorAll("[data-chat-sid]"), function(el){
+      if(!threads.some(function(p){ return p.sid === el.getAttribute("data-chat-sid"); })) el.remove();
+    });
+  }
   function loadLive(){
     var card = document.getElementById("ttLive");
     if(!card) return;
@@ -1902,7 +1961,10 @@
       var n = { "in":0, out:0, gone:0, bye:0 };
       list.forEach(function(p){ n[p.status] = (n[p.status] || 0) + 1; });
       var helpN = list.filter(function(p){ return p.help >= 0; }).length, idleN = LM ? list.filter(LM.isIdle).length : 0;
+      renderChats(list);
+      var chatN = list.reduce(function(s, p){ return s + ((p.chat && p.chat.u) || 0); }, 0);
       document.getElementById("ttLiveSum").innerHTML =
+        (chatN ? '<span class="tt-live-chip tt-live-chip--out" style="background:#0D8A63;color:#fff;border-color:#0D8A63">💬 הודעות חדשות: <b>' + chatN + '</b></span>' : '') +
         (helpN ? '<span class="tt-live-chip tt-live-chip--out" style="background:#C2410C;color:#fff;border-color:#C2410C">✋ מבקשים עזרה: <b>' + helpN + '</b></span>' : '') +
         '<span class="tt-live-chip tt-live-chip--in">🟢 בדף: <b>' + n["in"] + '</b></span>' +
         '<span class="tt-live-chip tt-live-chip--out">🟠 מחוץ לדף: <b>' + n.out + '</b></span>' +

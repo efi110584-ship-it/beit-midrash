@@ -296,6 +296,7 @@
           if(res && res.busy){ if(again) again(); return; }
           if(res && res.ok) navCheck(res.nav);
           if(res && res.ok) helpCheck(res);
+          if(res && res.ok) chatCheck(res);
           if(res && res.ok && !window.BM_DOCK) actNotice(res.act);   /* בדפים עם סרגל הכלים - הסרגל מודיע */
           if(res && res.ok && onDone) onDone(res);
         })
@@ -394,6 +395,84 @@
     }
   }
 
+  /* ---------- 💬 שאלה למורה - צ'אט פרטי ----------
+     ההודעות נשלחות למורה בלבד (apps-script/Code.gs - chatSend_), לפי המזהה הסודי של התלמיד (st.sid).
+     תלמידים אחרים לא רואים אותן. תשובה של המורה מגיעה עם הדיווח הקבוע (chatT) - ואז מתעדכן החלון. */
+  var chatBox = null, chatTimer = null;
+  function chatPost(body){
+    return fetch(API, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" }, body:JSON.stringify(body) }).then(function(r){ return r.json(); });
+  }
+  function chatPaintBtn(){
+    var b = bar && bar.querySelector(".bm-lm-chat");
+    if(!b) return;
+    var unread = Math.max(0, (st.chatT || 0) - (st.chatSeenT || 0));
+    b.textContent = unread ? "💬 המורה ענה (" + unread + ")" : "💬 שאלה למורה";
+    b.classList.toggle("is-on", !!unread);
+  }
+  function chatRender(m){
+    if(!chatBox) return;
+    var list = chatBox.querySelector(".bm-chat-list");
+    list.innerHTML = (m && m.length) ? m.map(function(x){
+      return '<div class="bm-chat-msg ' + (x.f === "t" ? "is-t" : "is-s") + '"><b>' + (x.f === "t" ? "המורה" : "אני") + ':</b> ' + esc(x.x) + '</div>';
+    }).join("") : '<p class="bm-chat-empty">כאן אפשר לשאול את המורה שאלה. רק המורה רואה את מה שכותבים כאן.</p>';
+    list.scrollTop = list.scrollHeight;
+    var t = (m || []).filter(function(x){ return x.f === "t"; }).length;
+    st.chatT = Math.max(st.chatT || 0, t); st.chatSeenT = st.chatT; save(); chatPaintBtn();
+  }
+  function chatLoad(){
+    chatPost({ action:"chatGet", code:st.code, sid:st.sid }).then(function(res){ if(res && res.ok) chatRender(res.m); }).catch(function(){});
+  }
+  function chatClose(){
+    if(chatBox){ chatBox.remove(); chatBox = null; }
+    if(chatTimer){ clearInterval(chatTimer); chatTimer = null; }
+    var b = bar && bar.querySelector(".bm-lm-chat"); if(b){ b.setAttribute("aria-expanded", "false"); b.focus(); }
+  }
+  function chatOpen(){
+    if(chatBox){ chatClose(); return; }
+    chatBox = document.createElement("div");
+    chatBox.className = "bm-chat";
+    chatBox.setAttribute("role", "dialog");
+    chatBox.setAttribute("aria-label", "שאלה למורה");
+    chatBox.innerHTML =
+      '<div class="bm-chat-head"><b>💬 שאלה למורה</b><button type="button" class="bm-chat-x" aria-label="סגירה">✕</button></div>' +
+      '<p class="bm-chat-note">🔒 רק המורה רואה את השיחה הזאת.</p>' +
+      '<div class="bm-chat-list" aria-live="polite"></div>' +
+      '<form class="bm-chat-form"><label class="bm-chat-sr" for="bmChatText">ההודעה למורה</label>' +
+      '<textarea id="bmChatText" rows="2" maxlength="500" placeholder="כתבו את השאלה..."></textarea>' +
+      '<button type="submit">שליחה</button></form>' +
+      '<p class="bm-chat-msg-status" role="status"></p>';
+    document.body.appendChild(chatBox);
+    var b = bar && bar.querySelector(".bm-lm-chat"); if(b) b.setAttribute("aria-expanded", "true");
+    chatBox.querySelector(".bm-chat-x").addEventListener("click", chatClose);
+    chatBox.addEventListener("keydown", function(e){ if(e.key === "Escape") chatClose(); });
+    var form = chatBox.querySelector("form"), ta = chatBox.querySelector("textarea"), stEl = chatBox.querySelector(".bm-chat-msg-status");
+    ta.addEventListener("keydown", function(e){ if(e.key === "Enter" && !e.shiftKey){ e.preventDefault(); form.requestSubmit ? form.requestSubmit() : form.dispatchEvent(new Event("submit")); } });
+    form.addEventListener("submit", function(e){
+      e.preventDefault();
+      var text = ta.value.trim();
+      if(!text) return;
+      var btn = form.querySelector("button"); btn.disabled = true; stEl.textContent = "שולח...";
+      chatPost({ action:"chatSend", code:st.code, sid:st.sid, text:text }).then(function(res){
+        if(res && res.ok){ ta.value = ""; stEl.textContent = "✓ נשלח למורה"; chatRender(res.m); }
+        else stEl.textContent = (res && res.error) || "השליחה לא הצליחה. נסו שוב.";
+      }).catch(function(){ stEl.textContent = "אין חיבור לשרת כרגע. נסו שוב."; })
+        .then(function(){ btn.disabled = false; ta.focus(); });
+    });
+    chatRender(null);
+    chatLoad();
+    chatTimer = setInterval(chatLoad, 10000);   /* כל עוד החלון פתוח - בודקים אם המורה ענה */
+    ta.focus();
+  }
+  function chatCheck(res){
+    var t = Number(res.chatT) || 0;
+    if(t > (st.chatT || 0)){
+      st.chatT = t; save();
+      if(chatBox) chatLoad();
+      else toast("💬 המורה ענה לשאלה שלך. לחצו על \"המורה ענה\" בפס למטה.");
+    }
+    chatPaintBtn();
+  }
+
   /* ---------- הפס שמראה לתלמיד שהבקרה פעילה ---------- */
   function injectStyle(){
     var css =
@@ -419,7 +498,28 @@
       ".bm-lm-toast{position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:9999;max-width:calc(100vw - 32px);" +
       "padding:12px 18px;border-radius:12px;background:#FFEBDC;color:#8A3D07;border:1px solid #F6CFAF;" +
       "font:700 15px/1.4 Heebo,Rubik,Arial,sans-serif;box-shadow:0 10px 26px rgba(11,42,91,.2);direction:rtl;text-align:center}" +
-      "@media print{.bm-lm-bar,.bm-lm-toast{display:none}}";
+      ".bm-lm-chat{flex:none;border:0;border-radius:999px;background:#DCE8FF;color:#0B2A5B;font:inherit;font-size:13px;font-weight:700;" +
+      "padding:5px 10px;cursor:pointer;min-height:32px}" +
+      ".bm-lm-chat.is-on{background:#2BD38C;color:#053B26}" +
+      ".bm-lm-chat:focus-visible{outline:3px solid #FF7A1A;outline-offset:2px}" +
+      ".bm-chat{position:fixed;inset-inline-start:12px;bottom:64px;z-index:9999;width:min(360px,calc(100vw - 24px));display:flex;flex-direction:column;gap:6px;" +
+      "padding:12px;border-radius:16px;background:#fff;border:1px solid #C6D2E6;box-shadow:0 12px 30px rgba(11,42,91,.25);" +
+      "font:400 15px/1.5 Heebo,Rubik,Arial,sans-serif;color:#0E1B33;direction:rtl}" +
+      ".bm-chat-head{display:flex;justify-content:space-between;align-items:center;color:#0B2A5B}" +
+      ".bm-chat-x{border:0;background:none;font-size:18px;cursor:pointer;min-width:32px;min-height:32px;color:#0B2A5B}" +
+      ".bm-chat-note{margin:0;font-size:13px;color:#4E5B72}" +
+      ".bm-chat-list{max-height:240px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;padding:4px 0}" +
+      ".bm-chat-msg{padding:6px 10px;border-radius:12px;line-height:1.45;word-break:break-word}" +
+      ".bm-chat-msg.is-s{background:#EEF3FB;align-self:flex-start}" +
+      ".bm-chat-msg.is-t{background:#E5F6EE;align-self:flex-end}" +
+      ".bm-chat-empty{margin:0;font-size:14px;color:#4E5B72}" +
+      ".bm-chat-form{display:flex;gap:6px;align-items:flex-end}" +
+      ".bm-chat-form textarea{flex:1;min-height:44px;resize:vertical;padding:6px 8px;border:1.5px solid #C6D2E6;border-radius:10px;font:inherit}" +
+      ".bm-chat-form button{min-height:44px;padding:0 14px;border:0;border-radius:10px;background:#123A78;color:#fff;font:inherit;font-weight:700;cursor:pointer}" +
+      ".bm-chat-form button:disabled{opacity:.6}" +
+      ".bm-chat-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}" +
+      ".bm-chat-msg-status{margin:0;min-height:1.2em;font-size:13px;color:#4E5B72}" +
+      "@media print{.bm-lm-bar,.bm-lm-toast,.bm-chat{display:none}}";
     var el = document.createElement("style");
     el.textContent = css;
     document.head.appendChild(el);
@@ -433,8 +533,10 @@
       '<span class="bm-lm-dot" aria-hidden="true"></span>' +
       '<span class="bm-lm-text">מצב שיעור: המורה רואה באיזו משימה אתם, יציאות מהדף והדבקת טקסט</span>' +
       '<button type="button" class="bm-lm-help" aria-pressed="false">✋ צריך עזרה</button>' +
+      '<button type="button" class="bm-lm-chat" aria-expanded="false" aria-haspopup="dialog">💬 שאלה למורה</button>' +
       '<button type="button" class="bm-lm-exit">יציאה</button>';
     bar.querySelector(".bm-lm-help").addEventListener("click", helpToggle);
+    bar.querySelector(".bm-lm-chat").addEventListener("click", chatOpen);
     bar.querySelector(".bm-lm-exit").addEventListener("click", function(){
       if(!confirm("לצאת ממצב שיעור? המורה יראה שיצאת.")) return;
       send("bye");
@@ -442,6 +544,7 @@
     });
     document.body.appendChild(bar);
     helpPaint();
+    chatPaintBtn();
   }
   /* נעילה על דף: בדף הנעול - בלי מעבר בין משימות; בדף אחר באתר - חוזרים לדף הנעול */
   function lockHash(){ return "#bmlock-" + st.lock.step + (st.lock.key ? "-" + st.lock.key : ""); }
@@ -515,6 +618,8 @@
     stopped = true;
     try{ localStorage.removeItem(KEY); }catch(e){}
     if(timer) clearInterval(timer);
+    if(chatTimer){ clearInterval(chatTimer); chatTimer = null; }
+    if(chatBox){ chatBox.remove(); chatBox = null; }
     document.removeEventListener("visibilitychange", onVisibility);
     window.removeEventListener("blur", onBlur);
     window.removeEventListener("focus", comeBack);
