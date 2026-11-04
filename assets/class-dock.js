@@ -697,6 +697,18 @@
   }
   /* כל 5 שניות כשיש שיעור עם בקרה, כל 30 שניות כשאין */
   /* שם הדף לתלמידים ולמורה: לפי רשימת היחידות, ואם אין - כותרת הדף */
+  /* הלשונית הפתוחה בדף (role="tab" שהאזור שלה גלוי) - { key, title } או null */
+  function openTab(){
+    var tabs = document.querySelectorAll('main [role="tab"][aria-selected="true"][aria-controls]');
+    for(var i = 0; i < tabs.length; i++){
+      var panelEl = document.getElementById(tabs[i].getAttribute("aria-controls"));
+      if(!panelEl || panelEl.hidden || !tabs[i].offsetParent) continue;
+      var c = tabs[i].cloneNode(true);
+      Array.prototype.forEach.call(c.querySelectorAll("span"), function(x){ x.remove(); });
+      return { key: panelEl.id, title: c.textContent.replace(/\s+/g, " ").trim().replace(/^"|"$/g, "") };
+    }
+    return null;
+  }
   function pageLabel(){
     var T = window.BM_TASKS, w = T ? T.findByPage(page) : null;
     if(w) return w.topic ? w.unit.title + " · " + w.topic.title : w.unit.title;
@@ -751,6 +763,7 @@
         var lockIt = nb.hasAttribute("data-nav-lock"), freePage = nb.getAttribute("data-nav-free");
         /* בדף עם לשוניות (למשל לקט מצוות) - תמיד גם הלשונית שהמורה פתח, גם בתצוגה המלאה (משימה 0 = רק הלשונית) */
         var tp = window.BeitMidrashSteps && window.BeitMidrashSteps.topic ? window.BeitMidrashSteps.topic() : null;
+        if(!pos && !tp) tp = openTab();   /* דף עם לשוניות בלי מערכת המשימות (למשל בית, חינוך ומשפחה) */
         var tKey = pos ? pos.key : (tp && tp.key);
         tKey = tKey && /^[\w-]+$/.test(tKey) ? tKey : "";
         var hash = (pos || tKey || lockIt) ? "#bm" + (lockIt ? "lock" : "step") + "-" + (pos ? pos.step : 0) + (tKey ? "-" + tKey : "") : "";

@@ -599,6 +599,13 @@
   /* המורה שלח את הכיתה לדף: עוברים לבד, פעם אחת לכל שליחה (אם התלמיד חוזר אחורה - לא מחזירים אותו).
      שומרים את הדף ב-bm-lesson-key.nav, כדי שדף נעול (למשל מבחן) ייפתח עם קוד השיעור. */
   var navigating = false;
+  /* פתיחת לשונית לפי האזור שלה (id) - בדף עם משימות דרך steps.js, ובכל דף לשוניות אחר בלחיצה על הלשונית */
+  function openTab(key){
+    var S = window.BeitMidrashSteps;
+    if(S && S.showTopic) S.showTopic(key);
+    var t = document.querySelector('[role="tab"][aria-controls="' + String(key).replace(/["\\]/g, "") + '"]');
+    if(t && t.getAttribute("aria-selected") !== "true") t.click();
+  }
   function navCheck(nav){
     if(!nav || !nav.id || navigating || st.navSeen === nav.id) return;
     st.navSeen = nav.id; save();
@@ -618,9 +625,9 @@
       if(stepM && stepM[1] !== "free" && +stepM[2] > 0 && S && S.goTo){
         toast("המורה מעביר את הכיתה" + (nav.label ? ": " + nav.label : "") + "…");
         S.goTo(+stepM[2], stepM[3] || "");
-      } else if(stepM && stepM[1] !== "free" && stepM[3] && S && S.showTopic){
+      } else if(stepM && stepM[1] !== "free" && stepM[3]){
         toast("המורה מעביר את הכיתה" + (nav.label ? ": " + nav.label : "") + "…");
-        S.showTopic(stepM[3]);   /* המורה היה בתצוגה המלאה - רק הלשונית */
+        openTab(stepM[3]);   /* המורה היה בתצוגה המלאה, או בדף לשוניות בלי משימות - רק הלשונית */
       } else if(stepM && stepM[1] === "free"){
         toast("🔓 המורה שחרר את הנעילה. אפשר לעבור בין המשימות.");
       }
@@ -781,6 +788,12 @@
   function start(){
     /* הכיתה נעולה על דף אחר - חוזרים אליו מיד */
     if(st.lock && st.lock.page && st.lock.page !== page){ location.replace(st.lock.page + lockHash()); return; }
+    /* הגעה מ"העבר לכאן" לדף לשוניות בלי משימות: page.html#bmstep-0-<לשונית> (בדף עם משימות - steps.js מטפל) */
+    var tabHash = location.hash.match(/^#bm(?:step|lock)-0-([\w-]+)$/);
+    if(tabHash && !window.BeitMidrashSteps){
+      openTab(tabHash[1]);
+      try{ history.replaceState(null, "", location.pathname + location.search + "#" + tabHash[1]); }catch(e){}
+    }
     showBar();
     applyLock();
     document.addEventListener("bm-steps-ready", applyLock);
