@@ -72,7 +72,7 @@
 
   function neighbors(w){
     if(!w || !w.topic || w.sub) return {};
-    var list = (w.unit.topics || []).filter(function(t){ return !t.extra; });
+    var list = (w.unit.topics || []).filter(function(t){ return !t.extra && !t.teacherOnly; });
     var i = list.indexOf(w.topic);
     if(i < 0) return {};
     var out = {};
@@ -212,7 +212,7 @@
     }
     function unitsHtml(){
       var u = w.unit, here = w.topic;
-      var list = u.topics || [];
+      var list = (u.topics || []).filter(function(t){ return !t.teacherOnly; });   /* דפים שרק המורה משייך (teacherOnly) - לא ברשימה */
       var html = '<h2>' + esc(u.title) + '</h2><ul>';
       var extraStarted = false;
       list.forEach(function(t, i){

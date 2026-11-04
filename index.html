@@ -313,7 +313,7 @@
 </div><!-- /site-content -->
 
 <script src="assets/bm-api.js"></script>
-<script src="assets/units-data.js?v=20261104-prep"></script>
+<script src="assets/units-data.js?v=20261104-t2"></script>
 <script src="assets/exams-seed.js?v=6"></script>
 <script src="assets/flashcards-data.js"></script>
 <script src="assets/live-render.js"></script>
@@ -2486,6 +2486,7 @@
         idx.push({ title:u.title, sub:"יחידת לימוד · " + u.chapters + " " + u.chaptersLabel, cls:cls, url:u.url,
                    head:norm(u.title), hay:norm(u.title + " " + (u.k || "")) });
         (u.topics || []).forEach(function(t){
+          if(t.teacherOnly && !teacherOpen) return;   /* דף שהמורה משייך - לא בחיפוש של התלמידים */
           idx.push({ title:t.title, sub:u.title, cls:cls, url:t.url,
                      head:norm(t.title), hay:norm(u.title + " " + t.title + " " + (t.k || "")) });
         });

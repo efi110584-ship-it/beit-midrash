@@ -89,7 +89,7 @@
   </main>
 </div>
 
-<script src="assets/units-data.js"></script>
+<script src="assets/units-data.js?v=20261104-t2"></script>
 <script src="assets/bm-api.js"></script>
 <script>
 (function () {
@@ -138,7 +138,7 @@
     topicSelect.appendChild(opt('', 'בחרו נושא'));
     topicSelect.options[0].disabled = true;
     topicSelect.options[0].selected = true;
-    (u.topics || []).forEach(function(t, j){ topicSelect.appendChild(opt(String(j), t.title)); });
+    (u.topics || []).forEach(function(t, j){ if(!t.teacherOnly) topicSelect.appendChild(opt(String(j), t.title)); });
     topicSelect.appendChild(opt('all', 'כל היחידה / עבודה כללית'));
     topicField.hidden = false;
     otherField.hidden = true;

@@ -337,7 +337,7 @@
 </div>
 
 <script src="assets/bm-api.js"></script>
-<script src="assets/units-data.js"></script>
+<script src="assets/units-data.js?v=20261104-t2"></script>
 <script src="assets/exams-seed.js?v=6"></script>
 <script>
 /* האזור האישי של התלמיד. השרת: studentCheck / studentLogin / studentHome / studentWork (apps-script/Code.gs).
@@ -527,13 +527,13 @@
   }
 
   /* ---------- 📈 התקדמות ---------- */
-  function units(){ return S.me ? (window.BM_UNITS || []).filter(function(u){ return u.class === S.me.cls && (u.topics || []).some(function(t){ return t.url; }); }) : []; }
+  function units(){ return S.me ? (window.BM_UNITS || []).filter(function(u){ return u.class === S.me.cls && (u.topics || []).some(function(t){ return t.url && !t.teacherOnly; }); }) : []; }
   function renderProgress(){
     var progress = S.progress || {}, us = units();
     function st(url){ var p = progress[String(url || "").split("#")[0]]; return p ? { pct:p[0], ans:p[1] } : null; }
     var doneAll = 0, totalAll = 0;
     $("progUnits").innerHTML = us.length ? us.map(function(u){
-      var topics = (u.topics || []).filter(function(t){ return t.url; }), done = 0, started = 0;
+      var topics = (u.topics || []).filter(function(t){ return t.url && !t.teacherOnly; }), done = 0, started = 0;
       var rows = topics.map(function(t){
         var p = st(t.url), cls, label;
         if(p && p.pct >= 100){ done++; cls = "done"; label = "✓ הושלם"; }
