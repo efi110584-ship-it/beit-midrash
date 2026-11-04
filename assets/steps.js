@@ -131,6 +131,20 @@
     }
     document.documentElement.classList.toggle("bm-steps-locked", locked);
   }
+  /* הנושא (הלשונית) הפתוח עכשיו - גם בתצוגה המלאה. null בדף בלי לשוניות */
+  function topic(){
+    var inst = instances.filter(function(i){ return !i.root.hidden; })[0];
+    if(!inst || !inst.key) return null;
+    var tab = document.querySelector('[aria-controls="' + inst.key + '"] .pill-title, [data-topic="' + inst.key + '"] .pill-title');
+    return { key: inst.key, title: inst.title || (tab ? tab.textContent.trim() : "") };
+  }
+  /* פתיחת לשונית (בלי לשנות את התצוגה ואת המשימה) */
+  function showTopic(key){
+    var inst = instances.filter(function(i){ return i.key === key; })[0];
+    if(!inst || !inst.root.hidden) return;
+    var tab = document.querySelector('[aria-controls="' + key + '"], [data-topic="' + key + '"]');
+    if(tab) tab.click();
+  }
   function goTo(step, key){
     var inst = key ? instances.filter(function(i){ return i.key === key; })[0] : shownInst();
     if(!inst) return;
@@ -145,7 +159,7 @@
   }
   window.BeitMidrashSteps = { requiredPercent: requiredPercent, isAtEnd: isAtEnd,
                               navs: instances.map(function(i){ return i.nav; }),
-                              position: position, goTo: goTo, lock: lock };
+                              position: position, topic: topic, showTopic: showTopic, goTo: goTo, lock: lock };
   document.dispatchEvent(new CustomEvent("bm-steps-ready"));
 
   function applyAll(){ instances.forEach(function(i){ i.apply(); }); }
@@ -196,6 +210,7 @@
   var stepHash = location.hash.match(/^#bm(?:step|lock)-(\d+)(?:-([\w-]+))?$/);
   if(stepHash){
     if(+stepHash[1] > 0) goTo(+stepHash[1], stepHash[2] || "");
+    else if(stepHash[2]) showTopic(stepHash[2]);   /* #bmstep-0-<נושא> - המורה היה בתצוגה המלאה: רק הלשונית */
     try{ history.replaceState(null, "", location.pathname + location.search + (stepHash[2] ? "#" + stepHash[2] : "")); }catch(e){}
   }
   // "המקום האחרון" - לפי הנושא הפתוח (בדף עם לשוניות) או הדף עצמו

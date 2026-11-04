@@ -749,9 +749,14 @@
         /* גם המשימה שהמורה עומד בה ("משימה 3 מתוך 8") - התלמידים יגיעו בדיוק אליה */
         var pos = window.BeitMidrashSteps && window.BeitMidrashSteps.position ? window.BeitMidrashSteps.position() : null;
         var lockIt = nb.hasAttribute("data-nav-lock"), freePage = nb.getAttribute("data-nav-free");
-        var hash = pos ? "#bm" + (lockIt ? "lock" : "step") + "-" + pos.step + (pos.key && /^[\w-]+$/.test(pos.key) ? "-" + pos.key : "") : (lockIt ? "#bmlock-0" : "");
+        /* בדף עם לשוניות (למשל לקט מצוות) - תמיד גם הלשונית שהמורה פתח, גם בתצוגה המלאה (משימה 0 = רק הלשונית) */
+        var tp = window.BeitMidrashSteps && window.BeitMidrashSteps.topic ? window.BeitMidrashSteps.topic() : null;
+        var tKey = pos ? pos.key : (tp && tp.key);
+        tKey = tKey && /^[\w-]+$/.test(tKey) ? tKey : "";
+        var hash = (pos || tKey || lockIt) ? "#bm" + (lockIt ? "lock" : "step") + "-" + (pos ? pos.step : 0) + (tKey ? "-" + tKey : "") : "";
         var navUrl = freePage ? freePage + "#bmfree-0" : page + hash;
-        var navLabel = freePage ? "שחרור הנעילה" : pageLabel() + (pos ? " · משימה " + pos.step : "") + (lockIt ? " · 🔒 נעול" : "");
+        var tTitle = tp && tp.title && pageLabel().indexOf(tp.title) === -1 ? " · " + tp.title : "";
+        var navLabel = freePage ? "שחרור הנעילה" : pageLabel() + tTitle + (pos ? " · משימה " + pos.step : "") + (lockIt ? " · 🔒 נעול" : "");
         post({ action:"lessonNav", code:nb.getAttribute("data-nav-here"), url:navUrl, label:navLabel }).then(function(res){
           if(authMsg(res)) return;
           if(res && res.ok) toastMsg(freePage ? "✓ הנעילה שוחררה. התלמידים יכולים לעבור בין המשימות." : lockIt ? "✓ נשלח ונעול. התלמידים יעברו לכאן תוך כ-15 שניות וישארו כאן עד שתשחררו." : "✓ נשלח. התלמידים יעברו לדף הזה תוך כ-15 שניות.");

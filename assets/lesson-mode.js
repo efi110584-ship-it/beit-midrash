@@ -618,6 +618,9 @@
       if(stepM && stepM[1] !== "free" && +stepM[2] > 0 && S && S.goTo){
         toast("המורה מעביר את הכיתה" + (nav.label ? ": " + nav.label : "") + "…");
         S.goTo(+stepM[2], stepM[3] || "");
+      } else if(stepM && stepM[1] !== "free" && stepM[3] && S && S.showTopic){
+        toast("המורה מעביר את הכיתה" + (nav.label ? ": " + nav.label : "") + "…");
+        S.showTopic(stepM[3]);   /* המורה היה בתצוגה המלאה - רק הלשונית */
       } else if(stepM && stepM[1] === "free"){
         toast("🔓 המורה שחרר את הנעילה. אפשר לעבור בין המשימות.");
       }
