@@ -193,6 +193,16 @@
     ".bmd-old span{flex:1;font-size:.92rem;min-width:0;overflow-wrap:anywhere}" +
     ".bmd-old small{display:block;color:#56637A;font-size:.78rem}" +
     ".bmd-pres{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}" +
+    ".bmd-chips{display:flex;flex-wrap:wrap;gap:6px}" +
+    ".bmd-chip{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:999px;font:inherit;font-size:.86rem;line-height:1.3}" +
+    ".bmd-chip:focus-visible{outline:3px solid #FF7A1A;outline-offset:2px}" +
+    ".bmd-sm{min-height:36px;padding:4px 10px;font-size:.85rem}" +
+    ".bmd-st{flex-direction:column;align-items:stretch !important;gap:3px !important;cursor:pointer}" +
+    ".bmd-st-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}" +
+    ".bmd-st-row b{flex:1;min-width:0}" +
+    ".bmd-st-s{font-size:.86rem;white-space:nowrap}" +
+    ".bmd-st-sub{font-size:.8rem;color:#56637A;display:flex;align-items:center;gap:4px;flex-wrap:wrap}" +
+    ".bmd-more summary{cursor:pointer;font-weight:700;color:#123A78;font-size:.9rem}" +
     ".bmd-pres li{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:10px;background:#F7F9FD}" +
     ".bmd-pres li.is-out{background:#FFF1E6}" +
     ".bmd-pres b{flex:1}.bmd-pres small{color:#56637A}" +
@@ -547,39 +557,51 @@
     list.forEach(function(s){ if(n[s.status] !== undefined) n[s.status]++; });
     var helpN = list.filter(function(s){ return s.help >= 0; }).length, idleN = LM ? list.filter(LM.isIdle).length : 0;
     var many = (res.lessons || []).length > 1;
+    var locked = res.lesson.nav && /#bmlock-/.test(String(res.lesson.nav.url));
+    var chip = function(txt, bg, fg){ return '<span class="bmd-chip" style="background:' + bg + ';color:' + fg + '">' + txt + '</span>'; };
     body.innerHTML = (many ? '<div class="bmd-btns">' + res.lessons.map(function(x){
-        return '<button type="button" class="bmd-btn" data-live-code="' + esc(x.code) + '"' + (x.code === res.lesson.code ? ' aria-pressed="true" style="font-weight:700"' : ' aria-pressed="false"') + '>' + (x.cls ? 'כיתה ' + (x.cls === "יב" ? 'י"ב' : 'י"א') + ' · ' : '') + 'קוד ' + esc(x.code) + '</button>';
+        return '<button type="button" class="bmd-btn bmd-sm" data-live-code="' + esc(x.code) + '"' + (x.code === res.lesson.code ? ' aria-pressed="true" style="font-weight:700"' : ' aria-pressed="false"') + '>' + (x.cls ? 'כיתה ' + (x.cls === "יב" ? 'י"ב' : 'י"א') + ' · ' : '') + 'קוד ' + esc(x.code) + '</button>';
       }).join("") + '</div>' : '') +
-      '<div class="bmd-btns" id="bmdLiveSound"><button type="button" class="bmd-btn" data-nav-here="' + esc(res.lesson.code) + '" style="font-weight:700">📍 העבר את הכיתה לכאן</button>' +
-        '<button type="button" class="bmd-btn" data-nav-here="' + esc(res.lesson.code) + '" data-nav-lock="1" style="font-weight:700" title="התלמידים יעברו לכאן ולא יוכלו לעבור לדף או למשימה אחרת עד שתשחררו">🔒 העבר ונעל כאן</button>' +
-        (res.lesson.nav && /#bmlock-/.test(String(res.lesson.nav.url)) ? '<button type="button" class="bmd-btn" data-nav-here="' + esc(res.lesson.code) + '" data-nav-free="' + esc(String(res.lesson.nav.url).split("#")[0]) + '">🔓 שחרור הנעילה</button>' : '') +
-        '</div>' +
-      (res.lesson.nav && /#bmlock-/.test(String(res.lesson.nav.url)) ? '<p class="bmd-note" style="font-weight:700">🔒 הכיתה נעולה על הדף הזה. התלמידים לא יכולים לעבור לדף או למשימה אחרת.</p>' : '') +
-      (res.lesson.nav ? '<p class="bmd-note">נשלחו ל: <b>' + esc(res.lesson.nav.label || res.lesson.nav.url) + '</b> · כבר שם: ' +
+      /* שורת סיכום קצרה */
+      '<div class="bmd-chips">' +
+        chip('🟢 בדף <b>' + n["in"] + '</b>', '#DDF3EA', '#0A6B4C') +
+        chip('🟠 בחוץ <b>' + n.out + '</b>', n.out ? '#FFE3CC' : '#F1F4F9', n.out ? '#8A3D07' : '#56637A') +
+        (helpN ? chip('✋ עזרה <b>' + helpN + '</b>', '#C2410C', '#fff') : '') +
+        (chatN ? '<button type="button" class="bmd-chip" data-open-chat="1" style="background:#0D8A63;color:#fff;border:0;cursor:pointer">💬 שאלות <b>' + chatN + '</b></button>' : '') +
+        (idleN ? chip('💤 בלי כתיבה <b>' + idleN + '</b>', '#F1F4F9', '#56637A') : '') +
+      '</div>' +
+      '<p class="bmd-note" style="font-size:.8rem">קוד ' + esc(res.lesson.code) + ' · ' + esc(res.lesson.label || "") + '</p>' +
+      /* שליחת הכיתה לדף הזה */
+      '<div class="bmd-btns">' +
+        '<button type="button" class="bmd-btn bmd-sm" data-nav-here="' + esc(res.lesson.code) + '">📍 העבר לכאן</button>' +
+        '<button type="button" class="bmd-btn bmd-sm" data-nav-here="' + esc(res.lesson.code) + '" data-nav-lock="1" title="התלמידים יעברו לכאן ולא יוכלו לעבור לדף או למשימה אחרת עד שתשחררו">🔒 העבר ונעל</button>' +
+        (locked ? '<button type="button" class="bmd-btn bmd-sm" data-nav-here="' + esc(res.lesson.code) + '" data-nav-free="' + esc(String(res.lesson.nav.url).split("#")[0]) + '">🔓 שחרור</button>' : '') +
+      '</div>' +
+      (res.lesson.nav ? '<p class="bmd-note" style="font-size:.82rem">' + (locked ? '🔒 נעולים על: ' : 'נשלחו ל: ') + '<b>' + esc(res.lesson.nav.label || res.lesson.nav.url) + '</b> · כבר שם: ' +
         list.filter(function(x){ return x.page === String(res.lesson.nav.url).split("#")[0] && x.status !== "bye"; }).length + ' מתוך ' +
         list.filter(function(x){ return x.status !== "bye"; }).length + '</p>' : '') +
-      '<p class="bmd-note">קוד ' + esc(res.lesson.code) + ' · ' + esc(res.lesson.label || "") + ' · 🟢 בדף: <b>' + n["in"] + '</b> · 🟠 מחוץ לדף: <b>' + n.out + '</b>' +
-        (chatN ? ' · 💬 הודעות חדשות: <b>' + chatN + '</b>' : '') +
-        (helpN ? ' · ✋ מבקשים עזרה: <b>' + helpN + '</b>' : '') + (idleN ? ' · 💤 בלי כתיבה: <b>' + idleN + '</b>' : '') + '</p>' +
+      /* התלמידים: שורה אחת לכל תלמיד. לחיצה - פרטים מלאים והוצאה מהשיעור */
       (list.length ? '<ul class="bmd-pres">' + list.map(function(s){
         var sid = s.sid || s.name || "", open = !!liveOpenSids[sid];
-        var stt = s.status === "kicked" ? "🚫 הוצא מהשיעור" : s.status === "out" ? "🟠 " + (LM ? LM.whyText(s.outWhy) + " · " + LM.dur(s.outFor) : "מחוץ לדף")
-          : s.status === "gone" ? "⚪ לא מחובר" : s.status === "bye" ? "יצא ממצב שיעור" : "🟢 בדף";
-        var extra = (s.leaves || 0) + " יציאות" + (s.outTotal && LM ? " · " + LM.dur(s.outTotal) + " בחוץ" : "") + (s.pastes ? " · 📋 " + s.pastes + " הדבקות" : "") + (s.dups ? " · ⚠ ניסו להיכנס בשם הזה ממכשיר אחר" : "");
-        return '<li class="' + (s.status === "out" ? "is-out" : "") + '" data-sid="' + esc(sid) + '" style="cursor:pointer;flex-wrap:wrap" title="לחיצה: כל מה שקרה אצל התלמיד">' +
-          '<b>' + (open ? "▾ " : "◂ ") + esc(s.name || "ללא שם") + '</b><span>' + esc(stt) + '</span>' + (LM ? LM.helpBadge(s) : '') +
-          (LM && LM.workHtml(s) ? '<span style="flex-basis:100%">' + LM.workHtml(s) + '</span>' : '') +
-          '<small style="flex-basis:100%">' + esc(extra) + '</small>' +
-          '<span style="flex-basis:100%;display:flex;gap:6px;flex-wrap:wrap">' +
-            (s.help >= 0 ? '<button type="button" class="bmd-btn" style="min-height:34px;padding:3px 10px;font-size:13px;font-weight:700" data-help-done="' + esc(s.sid) + '">✓ טיפלתי בבקשה</button>' : '') +
-            '<button type="button" class="bmd-btn" style="min-height:34px;padding:3px 10px;font-size:13px" data-kick="' + esc(s.sid) + '"' + (s.kicked ? ' data-undo="1"' : '') + ' data-name="' + esc(s.name || "") + '">' + (s.kicked ? "↩ החזרה לשיעור" : "🚫 הוצאה מהשיעור") + '</button></span>' +
-          chatHtml(s) +
-          (open && LM ? '<div style="flex-basis:100%">' + LM.timelineHtml(s) + '</div>' : '') + '</li>';
+        var stt = s.status === "kicked" ? "🚫 הוצא" : s.status === "out" ? "🟠 בחוץ" + (LM ? " " + LM.dur(s.outFor) : "")
+          : s.status === "gone" ? "⚪ לא מחובר" : s.status === "bye" ? "⚪ יצא" : "🟢 בדף";
+        var extra = (s.leaves || 0) + " יציאות" + (s.outTotal && LM ? " · " + LM.dur(s.outTotal) + " בחוץ" : "") + (s.pastes ? " · 📋 " + s.pastes : "") + (s.dups ? " · ⚠ ניסיון כניסה בשם הזה" : "");
+        var cu = chatU(s);
+        return '<li class="bmd-st' + (s.status === "out" ? " is-out" : "") + '" data-sid="' + esc(sid) + '" title="לחיצה: פרטים">' +
+          '<div class="bmd-st-row"><b>' + (open ? "▾ " : "◂ ") + esc(s.name || "ללא שם") + '</b><span class="bmd-st-s">' + esc(stt) + '</span>' +
+            (s.help >= 0 && LM ? LM.helpBadge(s) : '') +
+            (cu ? '<button type="button" class="bmd-chip" data-open-chat="1" style="background:#0D8A63;color:#fff;border:0;cursor:pointer">💬 ' + cu + '</button>' : '') + '</div>' +
+          '<div class="bmd-st-sub">' + (LM && LM.workHtml(s) ? LM.workHtml(s) + ' · ' : '') + esc(extra) + '</div>' +
+          (s.help >= 0 ? '<button type="button" class="bmd-btn bmd-sm" style="align-self:flex-start;font-weight:700" data-help-done="' + esc(s.sid) + '">✓ טיפלתי בבקשה</button>' : '') +
+          (open ? '<div>' + (LM ? LM.timelineHtml(s) : '') +
+            '<button type="button" class="bmd-btn bmd-sm" style="margin-top:6px" data-kick="' + esc(s.sid) + '"' + (s.kicked ? ' data-undo="1"' : '') + ' data-name="' + esc(s.name || "") + '">' + (s.kicked ? "↩ החזרה לשיעור" : "🚫 הוצאה מהשיעור") + '</button></div>' : '') +
+          '</li>';
       }).join("") + '</ul>' : '<p class="bmd-note">עדיין אף תלמיד לא נכנס עם הקוד.</p>') +
-      '<p class="bmd-note">✋ = התלמיד לחץ "צריך עזרה". 💤 = לא כתב ולא עבר משימה 3 דקות. "משימה" ו-✍️ מתעדכנים כל 15 שניות.</p>' +
-      '<p class="bmd-note">מתעדכן כל 5 שניות. נספרת יציאה מהדף מעל 5 שניות, ומעבר לחלון אחר מעל 10 שניות. המספר הכתום על כפתור 👥 = כמה תלמידים מחוץ לדף עכשיו. התראות קופצות וצליל כבויים, אלא אם מפעילים אותם כאן (עדיף לא כשהמסך מוקרן). לחיצה על תלמיד: כל מה שקרה אצלו.</p>';
-    if(LM){ var sb = LM.soundButton(); sb.className = "bmd-btn"; body.querySelector("#bmdLiveSound").appendChild(sb); }
-    bindChat(body);
+      /* הגדרות והסבר - מקופל */
+      '<details class="bmd-more"><summary>⚙️ התראות והסבר</summary><div class="bmd-btns" id="bmdLiveSound" style="margin:8px 0"></div>' +
+        '<p class="bmd-note">✋ = התלמיד לחץ "צריך עזרה". 💬 = שאלה פרטית בצ\'אט (נפתחת בבלון מימין). 💤 = לא כתב ולא עבר משימה 3 דקות.</p>' +
+        '<p class="bmd-note">מתעדכן כל 5 שניות. יציאה מהדף נספרת מעל 5 שניות, ומעבר לחלון אחר מעל 10 שניות. לחיצה על תלמיד: כל מה שקרה אצלו, והוצאה מהשיעור.</p></details>';
+    if(LM){ var sb = LM.soundButton(); sb.className = "bmd-btn bmd-sm"; body.querySelector("#bmdLiveSound").appendChild(sb); }
   }
   /* שדה התשובה בצ'אט: מה שהמורה התחיל לכתוב חוזר אחרי כל רענון, והשליחה עוברת לשרת (action=chatReply) */
   function bindChat(root){
@@ -743,6 +765,8 @@
         try{ sessionStorage.setItem("bm-live-code", b.getAttribute("data-live-code")); }catch(err){}
         liveTick(); return;
       }
+      var oc = e.target.closest && e.target.closest("[data-open-chat]");
+      if(oc){ e.stopPropagation(); cbOpen = true; cbShow(); liveTick(); return; }
       var cs = e.target.closest && e.target.closest("[data-chat-seen]");
       if(cs){
         e.stopPropagation();
