@@ -146,10 +146,15 @@
 
   /* ---------- עיצוב ---------- */
   var css =
-    ".bmd{position:fixed;inset-inline-end:0;top:50%;transform:translateY(-50%);z-index:9990;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 6px;" +
-      "background:#0B2A5B;border-radius:16px 0 0 16px;box-shadow:0 8px 24px rgba(11,42,91,.3);font-family:Heebo,Rubik,Arial,sans-serif;direction:rtl}" +
+    /* הסרגל: למטה באמצע, לרוחב. אצל תלמיד (כשיש פעילות) - מעל פס מצב השיעור */
+    ".bmd{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:9990;display:flex;flex-direction:row;align-items:center;gap:6px;padding:6px 10px;" +
+      "background:#0B2A5B;border-radius:16px;box-shadow:0 8px 24px rgba(11,42,91,.3);font-family:Heebo,Rubik,Arial,sans-serif;direction:rtl;max-width:calc(100vw - 16px)}" +
+    ".bmd:not(.is-t){bottom:70px}" +
+    ".bmd-i{display:flex;flex-direction:column;align-items:center;gap:2px}" +
+    ".bmd-i:has(> .bmd-b[hidden]){display:none}" +
+    "body.bmd-has{padding-bottom:86px}" +
     ".bmd[hidden]{display:none}" +
-    ".bmd-role{font-size:10px;color:#FFD9B8;font-weight:700;margin-bottom:2px}" +
+    ".bmd-role{font-size:11px;color:#FFD9B8;font-weight:700;margin-inline-end:4px}" +
     ".bmd-b{position:relative;width:50px;height:50px;border:0;border-radius:12px;background:rgba(255,255,255,.1);color:#fff;font-size:23px;line-height:1;cursor:pointer;display:grid;place-items:center}" +
     ".bmd-b:hover{background:rgba(255,255,255,.2)}" +
     ".bmd-b[aria-expanded=true]{background:#FF7A1A}" +
@@ -158,9 +163,9 @@
     ".bmd-cnt{position:absolute;top:-4px;left:-4px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:#FF7A1A;color:#fff;font:700 12px/20px Heebo,Rubik,Arial,sans-serif;text-align:center}.bmd-cnt[hidden]{display:none}" +
     ".bmd-dot{position:absolute;top:5px;left:5px;width:10px;height:10px;border-radius:50%;background:#2BD38C;box-shadow:0 0 0 3px rgba(43,211,140,.35)}" +
     ".bmd-dot[hidden]{display:none}" +
-    ".bmd-lbl{font-size:10px;color:#fff;opacity:.85;margin-bottom:6px;white-space:nowrap}" +
+    ".bmd-lbl{font-size:10px;color:#fff;opacity:.85;white-space:nowrap}" +
     ".bmd-lbl[hidden]{display:none}" +
-    ".bmd-p{position:fixed;inset-inline-end:74px;top:12px;bottom:12px;width:min(440px, calc(100vw - 92px));z-index:9991;background:#fff;border-radius:18px;" +
+    ".bmd-p{position:fixed;left:50%;transform:translateX(-50%);top:12px;bottom:92px;width:min(460px, calc(100vw - 24px));z-index:9991;background:#fff;border-radius:18px;" +
       "box-shadow:0 18px 50px rgba(11,42,91,.32);display:flex;flex-direction:column;overflow:hidden;font-family:Heebo,Rubik,Arial,sans-serif;direction:rtl;color:#0E1B33;text-align:right}" +
     ".bmd-p[hidden]{display:none}" +
     ".bmd-ph{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#F4F7FC;border-bottom:1px solid #DCE4F1}" +
@@ -189,15 +194,26 @@
     ".bmd-pres li{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:10px;background:#F7F9FD}" +
     ".bmd-pres li.is-out{background:#FFF1E6}" +
     ".bmd-pres b{flex:1}.bmd-pres small{color:#56637A}" +
-    ".bmd-t{position:fixed;inset-inline-end:74px;top:50%;transform:translateY(-50%);z-index:9992;max-width:min(320px, calc(100vw - 92px));display:flex;align-items:center;gap:8px;" +
+    ".bmd-t{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);z-index:9992;max-width:min(360px, calc(100vw - 24px));display:flex;align-items:center;gap:8px;" +
       "padding:10px 14px;border:0;border-radius:12px;background:#B42318;color:#fff;font:700 15px/1.35 Heebo,Rubik,Arial,sans-serif;direction:rtl;text-align:right;cursor:pointer;box-shadow:0 10px 26px rgba(180,35,24,.35)}" +
     ".bmd-t[hidden]{display:none}" +
+    ".bmd-cb{position:fixed;inset-inline-start:16px;bottom:76px;z-index:9990;width:58px;height:58px;border:0;border-radius:50%;background:#123A78;color:#fff;font-size:27px;line-height:1;" +
+      "cursor:pointer;display:grid;place-items:center;box-shadow:0 8px 20px rgba(11,42,91,.35)}" +
+    ".bmd-cb[hidden]{display:none}.bmd-cb:hover{background:#0B2A5B}.bmd-cb.is-on{background:#0D8A63}" +
+    ".bmd-cb:focus-visible{outline:3px solid #FF7A1A;outline-offset:3px}" +
+    ".bmd-cb-n{position:absolute;top:-4px;inset-inline-end:-4px;min-width:22px;height:22px;padding:0 6px;border-radius:11px;background:#FF7A1A;color:#fff;font:700 13px/22px Heebo,Rubik,Arial,sans-serif}" +
+    ".bmd-cb-n[hidden]{display:none}" +
+    ".bmd-cp{position:fixed;inset-inline-start:16px;bottom:146px;z-index:9991;width:min(380px, calc(100vw - 32px));max-height:min(70vh, 560px);background:#fff;border-radius:18px;" +
+      "box-shadow:0 18px 50px rgba(11,42,91,.32);display:flex;flex-direction:column;overflow:hidden;font-family:Heebo,Rubik,Arial,sans-serif;direction:rtl;color:#0E1B33;text-align:right}" +
+    ".bmd-cp[hidden]{display:none}" +
+    ".bmd-cp .bmd-ph h2{flex:1;margin:0;font-size:1.05rem;color:#123A78}" +
+    "@media (max-width:760px){.bmd-cb{bottom:140px}.bmd-cp{bottom:208px}}" +
     "@media (max-width:600px){" +
-      ".bmd{padding:6px 4px}.bmd-b{width:42px;height:42px;font-size:20px}.bmd-lbl{display:none}" +
-      ".bmd-p{inset:auto 8px 8px 8px;top:10%;width:auto}" +
-      ".bmd-t{inset-inline-end:58px}" +
+      ".bmd{padding:5px 6px;gap:4px}.bmd-b{width:42px;height:42px;font-size:20px}.bmd-lbl{display:none}" +
+      ".bmd-p{left:8px;right:8px;transform:none;top:8%;bottom:72px;width:auto}" +
+      ".bmd-t{bottom:76px}" +
     "}" +
-    "@media print{.bmd,.bmd-p,.bmd-t{display:none !important}}";
+    "@media print{.bmd,.bmd-p,.bmd-t,.bmd-cb,.bmd-cp{display:none !important}}";
   var st = document.createElement("style");
   st.textContent = css;
   document.head.appendChild(st);
@@ -211,13 +227,13 @@
     { id:"live",   ico:"👥", label:"שיעור חי",  title:"שיעור חי - מי בדף" }
   ];
   var dock = document.createElement("nav");
-  dock.className = "bmd";
+  dock.className = "bmd" + (isTeacher ? " is-t" : "");
   dock.setAttribute("aria-label", "כלים לשיעור");
   dock.hidden = !isTeacher;
   dock.innerHTML = (isTeacher ? '<span class="bmd-role">מורה</span>' : '') + TOOLS.map(function(t){
-    return '<button type="button" class="bmd-b" data-tool="' + t.id + '" aria-expanded="false" aria-controls="bmdPanel" title="' + t.title + '"' + (isTeacher ? '' : ' hidden') + '>' +
+    return '<span class="bmd-i"><button type="button" class="bmd-b" data-tool="' + t.id + '" aria-expanded="false" aria-controls="bmdPanel" title="' + t.title + '"' + (isTeacher ? '' : ' hidden') + '>' +
       '<span aria-hidden="true">' + t.ico + '</span><span class="bmd-dot" hidden></span>' + (t.id === "live" ? '<span class="bmd-cnt" hidden></span>' : '') + '<span class="vh" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">' + t.title + '</span></button>' +
-      '<span class="bmd-lbl" data-lbl="' + t.id + '"' + (isTeacher ? '' : ' hidden') + ' aria-hidden="true">' + t.label + '</span>';
+      '<span class="bmd-lbl" data-lbl="' + t.id + '"' + (isTeacher ? '' : ' hidden') + ' aria-hidden="true">' + t.label + '</span></span>';
   }).join("");
   var panel = document.createElement("section");
   panel.className = "bmd-p";
@@ -233,6 +249,7 @@
   toast.hidden = true;
   function mountUi(){
     document.body.appendChild(dock);
+    document.body.classList.toggle("bmd-has", !dock.hidden);
     document.body.appendChild(panel);
     document.body.appendChild(toast);
   }
@@ -264,6 +281,7 @@
     });
     if(!isTeacher) dock.hidden = !!token() /* המורה נכנס עכשיו לאזור האישי בדף הבית */ ||
       !Array.prototype.some.call(dock.querySelectorAll(".bmd-b"), function(b){ return !b.hidden; });
+    if(document.body) document.body.classList.toggle("bmd-has", !dock.hidden);   /* מקום בתחתית הדף, כדי שהסרגל לא יסתיר את סוף הדף */
     /* תלמיד: הכלי שהיה פתוח נסגר אצל המורה */
     if(!isTeacher && openTool){
       if(openTool === "board" && (!state.board || state.board.id !== widgetKey)) closePanel();
@@ -549,8 +567,11 @@
       '<p class="bmd-note">✋ = התלמיד לחץ "צריך עזרה". 💤 = לא כתב ולא עבר משימה 3 דקות. "משימה" ו-✍️ מתעדכנים כל 15 שניות.</p>' +
       '<p class="bmd-note">מתעדכן כל 5 שניות. נספרת יציאה מהדף מעל 5 שניות, ומעבר לחלון אחר מעל 10 שניות. המספר הכתום על כפתור 👥 = כמה תלמידים מחוץ לדף עכשיו. התראות קופצות וצליל כבויים, אלא אם מפעילים אותם כאן (עדיף לא כשהמסך מוקרן). לחיצה על תלמיד: כל מה שקרה אצלו.</p>';
     if(LM){ var sb = LM.soundButton(); sb.className = "bmd-btn"; body.querySelector("#bmdLiveSound").appendChild(sb); }
-    /* החזרת מה שהמורה התחיל לכתוב (הרשימה נבנית מחדש כל 5 שניות) */
-    Array.prototype.forEach.call(body.querySelectorAll("[data-chat-in]"), function(inp){
+    bindChat(body);
+  }
+  /* שדה התשובה בצ'אט: מה שהמורה התחיל לכתוב חוזר אחרי כל רענון, והשליחה עוברת לשרת (action=chatReply) */
+  function bindChat(root){
+    Array.prototype.forEach.call(root.querySelectorAll("[data-chat-in]"), function(inp){
       var k = inp.getAttribute("data-chat-in");
       if(chatDraft[k]) inp.value = chatDraft[k];
       inp.addEventListener("input", function(){ chatDraft[k] = inp.value; });
@@ -558,7 +579,7 @@
       inp.addEventListener("blur", function(){ if(chatFocus === k) chatFocus = ""; });
       if(chatFocus === k){ inp.focus(); try{ inp.setSelectionRange(inp.value.length, inp.value.length); }catch(e){} }
     });
-    Array.prototype.forEach.call(body.querySelectorAll(".bmd-chat-form"), function(f){
+    Array.prototype.forEach.call(root.querySelectorAll(".bmd-chat-form"), function(f){
       f.addEventListener("submit", function(e){
         e.preventDefault();
         var k = f.getAttribute("data-chat-sid"), inp = f.querySelector("input"), text = inp.value.trim();
@@ -573,11 +594,59 @@
       });
     });
   }
+
+  /* ---------- 💬 בלון הצ'אט של המורה (צד ימין, למטה) ----------
+     מופיע כשיש בשיעור שאלות פרטיות. המספר = הודעות שעוד לא ראיתם. נפתח לבד כשמגיעה שאלה חדשה. */
+  var cb = null, cbPanel = null, cbOpen = false, cbLastU = 0;
+  function cbMake(){
+    if(cb) return;
+    cb = document.createElement("button");
+    cb.type = "button"; cb.className = "bmd-cb"; cb.hidden = true;
+    cb.setAttribute("aria-haspopup", "dialog"); cb.setAttribute("aria-expanded", "false"); cb.setAttribute("aria-controls", "bmdChatPanel");
+    cb.innerHTML = '<span aria-hidden="true">💬</span><span class="bmd-cb-n" hidden></span>';
+    cbPanel = document.createElement("section");
+    cbPanel.className = "bmd-cp"; cbPanel.id = "bmdChatPanel"; cbPanel.hidden = true;
+    cbPanel.setAttribute("role", "dialog"); cbPanel.setAttribute("aria-label", "שאלות פרטיות מתלמידים");
+    cbPanel.innerHTML = '<div class="bmd-ph"><span aria-hidden="true">💬</span><h2>שאלות מתלמידים</h2><button type="button" class="bmd-x" aria-label="סגירה">✕</button></div>' +
+      '<p class="bmd-note" style="padding:6px 12px 0">רק אתם רואים את השאלות. התשובה מגיעה רק לתלמיד ששאל.</p><div class="bmd-pb bmd-cp-b"></div>';
+    document.body.appendChild(cb); document.body.appendChild(cbPanel);
+    cb.addEventListener("click", function(){ cbOpen = !cbOpen; cbShow(); if(cbOpen) liveTick(); });
+    cbPanel.querySelector(".bmd-x").addEventListener("click", function(){ cbOpen = false; cbShow(); cb.focus(); });
+    cbPanel.addEventListener("keydown", function(e){ if(e.key === "Escape"){ cbOpen = false; cbShow(); cb.focus(); } });
+    cbPanel.addEventListener("click", function(e){
+      var sb = e.target.closest("[data-chat-seen]");
+      if(!sb) return;
+      sb.disabled = true;
+      post({ action:"chatSeen", code:liveShownCode || liveCodeNow(), sid:sb.getAttribute("data-chat-seen") }).then(function(){ liveTick(); }).catch(function(){ sb.disabled = false; });
+    });
+  }
+  function cbShow(){ if(!cb) return; cbPanel.hidden = !cbOpen; cb.setAttribute("aria-expanded", String(cbOpen)); }
+  function cbRender(res){
+    var list = res && res.lesson ? (res.students || []).filter(function(s){ return s.chat && s.chat.m && s.chat.m.length; }) : [];
+    if(!list.length){ if(cb){ cb.hidden = true; cbOpen = false; cbShow(); } cbLastU = 0; return; }
+    cbMake();
+    cb.hidden = false;
+    var u = list.reduce(function(t, s){ return t + (s.chat.u || 0); }, 0);
+    var n = cb.querySelector(".bmd-cb-n");
+    n.textContent = u; n.hidden = !u;
+    cb.classList.toggle("is-on", !!u);
+    cb.setAttribute("aria-label", u ? u + " שאלות חדשות מתלמידים" : "שאלות מתלמידים");
+    if(u > cbLastU) cbOpen = true;   /* שאלה חדשה - הבלון נפתח לבד */
+    cbLastU = u;
+    cbShow();
+    if(!cbOpen) return;
+    list.sort(function(a, b){ return (b.chat.u || 0) - (a.chat.u || 0) || b.chat.m[b.chat.m.length - 1].at - a.chat.m[a.chat.m.length - 1].at; });
+    var box = cbPanel.querySelector(".bmd-cp-b");
+    box.innerHTML = list.map(function(s){ return '<div><b>' + esc(s.name || "ללא שם") + '</b>' + chatHtml(s) + '</div>'; }).join("");
+    bindChat(box);
+  }
+
   function liveTick(){
     return post({ action:"presenceList", code:liveCodeNow() }).then(function(res){
       if(livePanelShown() && authMsg(res)) return;
       if(!res || !res.ok){ if(livePanelShown()) body.innerHTML = '<p class="bmd-msg">' + esc((res && res.error) || "לא הצלחנו לטעון.") + '</p>'; return; }
       if(window.BM_LIVEMON) window.BM_LIVEMON.watch(res);
+      cbRender(res);
       var cnt = btn("live") && btn("live").querySelector(".bmd-cnt");
       if(cnt){
         var outN = res.lesson ? (res.students || []).filter(function(s){ return s.status === "out"; }).length : 0;
