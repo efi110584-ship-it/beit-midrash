@@ -1363,18 +1363,26 @@
       var heatBtn = document.getElementById("ttHeatmap");
       if(heatBtn) heatBtn.addEventListener("click", function(){
         var msg = document.getElementById("ttBoardMsg");
-        var rows = board.rows.filter(function(r){ return r.id && !r.hidden && r.auto && r.name; })
+        /* הציון של עבודה: ציון שהמורה אישר, ואם אין - הבדיקה האוטומטית (🤖), ואם אין - הציון שהציע Claude */
+        function scoreOf(r){
+          if(r.grade !== "" && !isNaN(+r.grade)) return { pct:+r.grade, src:"ציון שאושר" };
+          if(r.auto) return { pct:r.auto.pct, src:"בדיקה אוטומטית: " + r.auto.c + " נכונות מתוך " + r.auto.t };
+          if(r.fbg !== "" && !isNaN(+r.fbg)) return { pct:+r.fbg, src:"ציון שהציע Claude (עוד לא אושר)" };
+          return null;
+        }
+        var rows = board.rows.filter(function(r){ return r.id && !r.hidden && r.name && scoreOf(r); })
           .sort(function(a, b){ return (b.time || 0) - (a.time || 0); });
-        if(!rows.length){ msg.textContent = "אין עדיין עבודות עם בדיקה אוטומטית (🤖)."; return; }
-        /* העבודה האחרונה של כל תלמיד בכל יחידה */
+        if(!rows.length){ msg.textContent = "אין עדיין עבודות עם ציון (מאושר, אוטומטי או מ-Claude)."; return; }
+        /* טבלה לכל כיתה ומקצוע; העבודה האחרונה של כל תלמיד בכל יחידה */
         var classes = {}, latest = [];
         rows.forEach(function(r){
-          var col = r.topic || r.task, C = classes[r.cls] || (classes[r.cls] = { cols:[], students:{} });
+          var col = r.topic || r.task, key = r.cls + "|" + (r.subject || "");
+          var C = classes[key] || (classes[key] = { cls:r.cls, subject:r.subject || "", cols:[], students:{} });
           if(C.cols.indexOf(col) === -1) C.cols.push(col);
           var S = C.students[r.name] || (C.students[r.name] = { units:{}, skills:{} });
           if(S.units[col]) return;
           S.units[col] = r;
-          latest.push({ r:r, S:S });
+          if(r.auto) latest.push({ r:r, S:S });   /* שורש/בניין/שם הפועל - רק מעבודות עם בדיקה אוטומטית */
         });
         heatBtn.disabled = true;
         var i = 0, withAns = 0;
@@ -1403,19 +1411,24 @@
         next().then(function(){
           var h = '<div class="tt-btns" style="justify-content:space-between;align-items:center"><h4 style="margin:0">🌡️ מפת הכיתה</h4>' +
             '<span><button type="button" class="tt-btn tt-btn--small" data-rep-print-class="1">🖨 הדפסה</button> <button type="button" class="tt-btn tt-btn--small" data-rep-close="1">סגירה</button></span></div>' +
-            '<p style="margin:.3rem 0 .6rem;font-size:.9rem">🟩 80 ומעלה · 🟨 55-79 · 🟥 מתחת ל-55 · משבצת אפורה: עוד לא הגיש. המספר: אחוז נכונות בבדיקה האוטומטית (העבודה האחרונה ביחידה).' +
+            '<p style="margin:.3rem 0 .6rem;font-size:.9rem">🟩 80 ומעלה · 🟨 55-79 · 🟥 מתחת ל-55 · משבצת אפורה: עוד לא הגיש. המספר: הציון בעבודה האחרונה ביחידה - ציון שאישרת, ואם אין: הבדיקה האוטומטית (🤖), ואם אין: הציון שהציע Claude (מסומן *).' +
             (withAns < latest.length ? ' עמודות השורש, הבניין ושם הפועל - רק מעבודות שנשלחו אחרי שהתשובות התחילו להישמר בשרת.' : '') + '</p>';
-          Object.keys(classes).sort().forEach(function(cls){
-            var C = classes[cls], names = Object.keys(C.students).sort(function(a, b){ return a.localeCompare(b, "he"); });
-            h += (Object.keys(classes).length > 1 ? '<h5 style="margin:.8rem 0 .3rem">כיתה ' + escapeHtml(cls) + '</h5>' : '') +
+          Object.keys(classes).sort().forEach(function(key){
+            var C = classes[key], names = Object.keys(C.students).sort(function(a, b){ return a.localeCompare(b, "he"); });
+            var skills = Object.keys(C.students).some(function(n){ return Object.keys(C.students[n].skills).length; }) ? SKILL_COLS : [];
+            h += '<h5 style="margin:.8rem 0 .3rem">' + escapeHtml((C.subject || "") + " · כיתה " + C.cls) + '</h5>' +
               '<div class="tt-table-wrap"><table class="tt-table"><thead><tr><th>תלמיד</th>' +
               C.cols.map(function(c){ return '<th>' + escapeHtml(c) + '</th>'; }).join("") +
-              SKILL_COLS.map(function(s){ return '<th style="background:#EEF3FB">' + s[1] + '</th>'; }).join("") + '</tr></thead><tbody>' +
+              skills.map(function(s){ return '<th style="background:#EEF3FB">' + s[1] + '</th>'; }).join("") + '</tr></thead><tbody>' +
               names.map(function(n){
                 var S = C.students[n];
                 return '<tr><td style="white-space:nowrap">' + escapeHtml(n) + '</td>' +
-                  C.cols.map(function(c){ var r = S.units[c]; return heatCell(r ? r.auto.pct : null, r ? (r.auto.c + " נכונות מתוך " + r.auto.t + " · " + r.date) : ""); }).join("") +
-                  SKILL_COLS.map(function(s){ var K = S.skills[s[0]]; return heatCell(K && K.n ? Math.round(K.ok * 100 / K.n) : null, K && K.n ? K.ok + " נכונים מתוך " + K.n : ""); }).join("") + '</tr>';
+                  C.cols.map(function(c){
+                    var r = S.units[c], sc = r && scoreOf(r);
+                    var cell = heatCell(sc ? Math.round(sc.pct) : null, sc ? sc.src + " · " + r.date : "");
+                    return sc && /Claude/.test(sc.src) ? cell.replace(/>(\d+)<\/td>$/, ">$1*</td>") : cell;
+                  }).join("") +
+                  skills.map(function(s){ var K = S.skills[s[0]]; return heatCell(K && K.n ? Math.round(K.ok * 100 / K.n) : null, K && K.n ? K.ok + " נכונים מתוך " + K.n : ""); }).join("") + '</tr>';
               }).join("") + '</tbody></table></div>';
           });
           repBox.innerHTML = h;
