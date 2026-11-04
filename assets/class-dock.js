@@ -146,15 +146,17 @@
 
   /* ---------- עיצוב ---------- */
   var css =
-    /* הסרגל: למטה באמצע, לרוחב. אצל תלמיד (כשיש פעילות) - מעל פס מצב השיעור */
-    ".bmd{position:fixed;left:50%;bottom:10px;transform:translateX(-50%);z-index:9990;display:flex;flex-direction:row;align-items:center;gap:6px;padding:6px 10px;" +
-      "background:#0B2A5B;border-radius:16px;box-shadow:0 8px 24px rgba(11,42,91,.3);font-family:Heebo,Rubik,Arial,sans-serif;direction:rtl;max-width:calc(100vw - 16px)}" +
-    ".bmd:not(.is-t){bottom:70px}" +
+    /* הסרגל: כפתור אחד 🧰 בפינה השמאלית התחתונה (מעל כפתור "חזרה למעלה"). לחיצה פותחת מעליו את הכלים.
+       אצל תלמיד (כשיש פעילות) - הכלים מוצגים ישר, בלי הכפתור. */
+    ".bmd{position:fixed;inset-inline-end:16px;bottom:80px;z-index:9990;display:flex;flex-direction:column-reverse;align-items:center;gap:6px;padding:6px;" +
+      "background:#0B2A5B;border-radius:18px;box-shadow:0 8px 24px rgba(11,42,91,.3);font-family:Heebo,Rubik,Arial,sans-serif;direction:rtl}" +
     ".bmd-i{display:flex;flex-direction:column;align-items:center;gap:2px}" +
     ".bmd-i:has(> .bmd-b[hidden]){display:none}" +
-    "body.bmd-has{padding-bottom:86px}" +
+    ".bmd.is-t:not(.is-open) .bmd-i,.bmd.is-t:not(.is-open) .bmd-role{display:none}" +
+    ".bmd-tog{font-size:25px}" +
+    ".bmd.is-open .bmd-tog{background:rgba(255,255,255,.22)}" +
     ".bmd[hidden]{display:none}" +
-    ".bmd-role{font-size:11px;color:#FFD9B8;font-weight:700;margin-inline-end:4px}" +
+    ".bmd-role{font-size:10px;color:#FFD9B8;font-weight:700}" +
     ".bmd-b{position:relative;width:50px;height:50px;border:0;border-radius:12px;background:rgba(255,255,255,.1);color:#fff;font-size:23px;line-height:1;cursor:pointer;display:grid;place-items:center}" +
     ".bmd-b:hover{background:rgba(255,255,255,.2)}" +
     ".bmd-b[aria-expanded=true]{background:#FF7A1A}" +
@@ -165,7 +167,7 @@
     ".bmd-dot[hidden]{display:none}" +
     ".bmd-lbl{font-size:10px;color:#fff;opacity:.85;white-space:nowrap}" +
     ".bmd-lbl[hidden]{display:none}" +
-    ".bmd-p{position:fixed;left:50%;transform:translateX(-50%);top:12px;bottom:92px;width:min(460px, calc(100vw - 24px));z-index:9991;background:#fff;border-radius:18px;" +
+    ".bmd-p{position:fixed;inset-inline-end:92px;top:12px;bottom:12px;width:min(440px, calc(100vw - 110px));z-index:9991;background:#fff;border-radius:18px;" +
       "box-shadow:0 18px 50px rgba(11,42,91,.32);display:flex;flex-direction:column;overflow:hidden;font-family:Heebo,Rubik,Arial,sans-serif;direction:rtl;color:#0E1B33;text-align:right}" +
     ".bmd-p[hidden]{display:none}" +
     ".bmd-ph{display:flex;align-items:center;gap:10px;padding:12px 14px;background:#F4F7FC;border-bottom:1px solid #DCE4F1}" +
@@ -194,7 +196,7 @@
     ".bmd-pres li{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:10px;background:#F7F9FD}" +
     ".bmd-pres li.is-out{background:#FFF1E6}" +
     ".bmd-pres b{flex:1}.bmd-pres small{color:#56637A}" +
-    ".bmd-t{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);z-index:9992;max-width:min(360px, calc(100vw - 24px));display:flex;align-items:center;gap:8px;" +
+    ".bmd-t{position:fixed;inset-inline-end:92px;bottom:80px;z-index:9992;max-width:min(320px, calc(100vw - 110px));display:flex;align-items:center;gap:8px;" +
       "padding:10px 14px;border:0;border-radius:12px;background:#B42318;color:#fff;font:700 15px/1.35 Heebo,Rubik,Arial,sans-serif;direction:rtl;text-align:right;cursor:pointer;box-shadow:0 10px 26px rgba(180,35,24,.35)}" +
     ".bmd-t[hidden]{display:none}" +
     ".bmd-cb{position:fixed;inset-inline-start:16px;bottom:76px;z-index:9990;width:58px;height:58px;border:0;border-radius:50%;background:#123A78;color:#fff;font-size:27px;line-height:1;" +
@@ -209,9 +211,9 @@
     ".bmd-cp .bmd-ph h2{flex:1;margin:0;font-size:1.05rem;color:#123A78}" +
     "@media (max-width:760px){.bmd-cb{bottom:140px}.bmd-cp{bottom:208px}}" +
     "@media (max-width:600px){" +
-      ".bmd{padding:5px 6px;gap:4px}.bmd-b{width:42px;height:42px;font-size:20px}.bmd-lbl{display:none}" +
-      ".bmd-p{left:8px;right:8px;transform:none;top:8%;bottom:72px;width:auto}" +
-      ".bmd-t{bottom:76px}" +
+      ".bmd{padding:5px;gap:4px;inset-inline-end:8px}.bmd-b{width:42px;height:42px;font-size:20px}.bmd-lbl{display:none}" +
+      ".bmd-p{inset:auto 8px 8px 8px;top:10%;width:auto}" +
+      ".bmd-t{inset-inline-end:60px}" +
     "}" +
     "@media print{.bmd,.bmd-p,.bmd-t,.bmd-cb,.bmd-cp{display:none !important}}";
   var st = document.createElement("style");
@@ -230,11 +232,23 @@
   dock.className = "bmd" + (isTeacher ? " is-t" : "");
   dock.setAttribute("aria-label", "כלים לשיעור");
   dock.hidden = !isTeacher;
-  dock.innerHTML = (isTeacher ? '<span class="bmd-role">מורה</span>' : '') + TOOLS.map(function(t){
+  dock.innerHTML = (isTeacher ? '<button type="button" class="bmd-b bmd-tog" aria-expanded="false" title="כלים לשיעור" aria-label="כלים לשיעור"><span aria-hidden="true">🧰</span><span class="bmd-cnt bmd-tog-cnt" hidden></span></button>' : '') + TOOLS.map(function(t){
     return '<span class="bmd-i"><button type="button" class="bmd-b" data-tool="' + t.id + '" aria-expanded="false" aria-controls="bmdPanel" title="' + t.title + '"' + (isTeacher ? '' : ' hidden') + '>' +
       '<span aria-hidden="true">' + t.ico + '</span><span class="bmd-dot" hidden></span>' + (t.id === "live" ? '<span class="bmd-cnt" hidden></span>' : '') + '<span class="vh" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">' + t.title + '</span></button>' +
       '<span class="bmd-lbl" data-lbl="' + t.id + '"' + (isTeacher ? '' : ' hidden') + ' aria-hidden="true">' + t.label + '</span></span>';
-  }).join("");
+  }).join(""); + (isTeacher ? '<span class="bmd-role">מורה</span>' : '');
+  /* 🧰 פתיחה וסגירה של הכלים (אצל המורה). נזכר במכשיר */
+  var togBtn = dock.querySelector(".bmd-tog");
+  function dockOpen(on){
+    dock.classList.toggle("is-open", on);
+    if(togBtn) togBtn.setAttribute("aria-expanded", String(on));
+    try{ localStorage.setItem("bmd-open", on ? "1" : ""); }catch(e){}
+  }
+  if(togBtn){
+    var wasOpen = false; try{ wasOpen = localStorage.getItem("bmd-open") === "1"; }catch(e){}
+    dockOpen(wasOpen);
+    togBtn.addEventListener("click", function(e){ e.stopPropagation(); dockOpen(!dock.classList.contains("is-open")); });
+  }
   var panel = document.createElement("section");
   panel.className = "bmd-p";
   panel.id = "bmdPanel";
@@ -249,7 +263,6 @@
   toast.hidden = true;
   function mountUi(){
     document.body.appendChild(dock);
-    document.body.classList.toggle("bmd-has", !dock.hidden);
     document.body.appendChild(panel);
     document.body.appendChild(toast);
   }
@@ -281,7 +294,6 @@
     });
     if(!isTeacher) dock.hidden = !!token() /* המורה נכנס עכשיו לאזור האישי בדף הבית */ ||
       !Array.prototype.some.call(dock.querySelectorAll(".bmd-b"), function(b){ return !b.hidden; });
-    if(document.body) document.body.classList.toggle("bmd-has", !dock.hidden);   /* מקום בתחתית הדף, כדי שהסרגל לא יסתיר את סוף הדף */
     /* תלמיד: הכלי שהיה פתוח נסגר אצל המורה */
     if(!isTeacher && openTool){
       if(openTool === "board" && (!state.board || state.board.id !== widgetKey)) closePanel();
@@ -653,6 +665,8 @@
         var hlpN = res.lesson ? (res.students || []).filter(function(s){ return s.help >= 0; }).length : 0;
         var chN = res.lesson ? (res.students || []).filter(function(s){ return s.chat && s.chat.u; }).length : 0;
         cnt.textContent = outN + hlpN + chN; cnt.hidden = !(outN + hlpN + chN);
+        var tc = dock.querySelector(".bmd-tog-cnt");
+        if(tc){ tc.textContent = cnt.textContent; tc.hidden = cnt.hidden; tc.title = ""; }
         cnt.title = outN + " מחוץ לדף" + (hlpN ? " · " + hlpN + " מבקשים עזרה" : "") + (chN ? " · " + chN + " שאלות חדשות בצ'אט" : "");
       }
       if(livePanelShown()) renderLive(res);
