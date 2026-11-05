@@ -1127,7 +1127,7 @@
       now.textContent = "שולחים…";
       apiPost({ action:"lessonNav", password:teacherToken(), code:getLiveCode(), url:opt.value, label:opt.getAttribute("data-label") }).then(function(res){
         if(handleAuthFailure(res)) return;
-        if(res && res.ok){ now.textContent = "✓ נשלח. התלמידים יעברו לבד תוך כ-15 שניות. בעמודה \"איפה\" רואים מי כבר הגיע."; loadLive(); }
+        if(res && res.ok){ now.textContent = "✓ נשלח. התלמידים יעברו לבד תוך כמה שניות. בעמודה \"איפה\" רואים מי כבר הגיע."; loadLive(); }
         else now.textContent = (res && res.error) || "השליחה לא הצליחה. נסו שוב.";
       }).catch(function(){ now.textContent = "אין חיבור לשרת כרגע. נסו שוב."; });
     });
@@ -3543,8 +3543,8 @@
 })();
 
 </script>
-<script src="assets/lesson-mode.js?v=6"></script>
-<script src="assets/class-dock.js?v=7"></script>
+<script src="assets/lesson-mode.js?v=7"></script>
+<script src="assets/class-dock.js?v=8"></script>
 <script src="assets/my-work.js?v=2"></script>
 </body>
 </html>

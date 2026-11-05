@@ -81,6 +81,7 @@ function doGet(e) {
     if (p.action === 'exams') return json_({ ok: true, exams: examsUpcoming_() });
     if (p.action === 'lesson') return json_(findLesson_(p.code));
     if (p.action === 'lessonLock') return json_(lessonLock_(p.page, p.code));
+    if (p.action === 'navPeek') return json_(navPeek_(p.code));
     if (p.action === 'batchReviewStatus') return json_({ok:true,batchReview:1,maxBatch:30,approval:'teacher_only'});
     if (p.action === 'feedback') return json_(feedbackPublic_(p.id));
     if (p.action === 'qbList') return json_(qbList_(p.board));
@@ -946,6 +947,22 @@ function createLesson_(url, label, monitor, cls) {
 
 // "שליחת הכיתה לדף": המורה בוחר דף, וכל תלמיד שנכנס עם הקוד (שיעור עם בקרה) עובר אליו לבד
 // בדיווח הנוכחות הבא (presence_ מחזיר את nav). בלי url - מבטלים את השליחה.
+// "העבר לכאן" מהר: עותק של השליחה במטמון, שהתלמידים בודקים כל 4 שניות (navPeek_) - בלי נעילה ובלי תור,
+// בנוסף לדיווח הנוכחות הרגיל (כל 15 שניות), שממשיך להחזיר את אותה שליחה.
+function navCache_(code, nav) {
+  try {
+    var c = CacheService.getScriptCache();
+    if (nav) c.put('nav_' + code, JSON.stringify(nav), 21600);
+    else c.remove('nav_' + code);
+  } catch (e) {}
+}
+function navPeek_(code) {
+  code = String(code || '');
+  if (!/^\w{1,12}$/.test(code)) return { ok: false };
+  var v = CacheService.getScriptCache().get('nav_' + code);
+  return { ok: true, nav: v ? JSON.parse(v) : null };
+}
+
 function lessonNav_(code, url, label) {
   url = String(url || '').trim();
   if (url && !/^[\w.-]+\.html(#[\w-]+)?$/.test(url)) return { ok: false, error: 'כתובת עמוד לא תקינה' };
@@ -958,6 +975,7 @@ function lessonNav_(code, url, label) {
     if (!l.monitor) return { ok: false, error: 'שליחה לדף עובדת רק בשיעור עם בקרה' };
     l.nav = url ? { id: String(Date.now()), url: url, label: clean_(label).slice(0, 120), at: Date.now() } : null;
     saveLessons_(all);
+    navCache_(code, l.nav);
     return { ok: true, nav: l.nav };
   } finally {
     lock.releaseLock();
@@ -977,6 +995,7 @@ function clearLesson_(code) {
     else all = {};
     saveLessons_(all);
     gone.forEach(clearRoom_);   // הפעילות והלוח של השיעור שבוטל נסגרים איתו
+    gone.forEach(function (c) { navCache_(c, null); });
   } finally {
     lock.releaseLock();
   }

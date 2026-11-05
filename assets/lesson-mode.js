@@ -659,6 +659,7 @@
     stopped = true;
     try{ localStorage.removeItem(KEY); }catch(e){}
     if(timer) clearInterval(timer);
+    if(peekTimer){ clearInterval(peekTimer); peekTimer = null; }
     if(chatTimer){ clearInterval(chatTimer); chatTimer = null; }
     if(chatBox){ chatBox.remove(); chatBox = null; }
     if(chatBubble){ chatBubble.remove(); chatBubble = null; }
@@ -785,6 +786,17 @@
     else comeBack();
   }
 
+  /* "העבר לכאן" מהר: בדיקה קלה כל 4 שניות - רק "המורה שלח אותנו לאנשהו?" (בלי דיווח ובלי תור בשרת).
+     הדיווח הרגיל (כל 15 שניות) ממשיך כרגיל, וגם הוא מביא את השליחה אם הבדיקה הקלה לא הגיעה. */
+  var peekTimer = null, peeking = false;
+  function peek(){
+    if(stopped || navigating || peeking || isOut || document.visibilityState !== "visible") return;
+    peeking = true;
+    fetch(API + "?action=navPeek&code=" + encodeURIComponent(st.code))
+      .then(function(r){ return r.json(); })
+      .then(function(res){ peeking = false; if(!stopped && res && res.ok && res.nav && res.nav.id !== st.navSeen) navCheck(res.nav); })
+      .catch(function(){ peeking = false; });
+  }
   function start(){
     /* הכיתה נעולה על דף אחר - חוזרים אליו מיד */
     if(st.lock && st.lock.page && st.lock.page !== page){ location.replace(st.lock.page + lockHash()); return; }
@@ -811,6 +823,7 @@
       if(!(st.until > Date.now())){ end(); return; }
       if(document.visibilityState === "visible" && !isOut) send("in", function(res){ leaves = res.leaves; save(); });
     }, 15000);
+    peekTimer = setInterval(peek, 4000);
   }
 
   if(document.body) start();
