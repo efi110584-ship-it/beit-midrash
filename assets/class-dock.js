@@ -631,7 +631,7 @@
 
   /* ---------- 💬 בלון הצ'אט של המורה (צד ימין, למטה) ----------
      מופיע כשיש בשיעור שאלות פרטיות. המספר = הודעות שעוד לא ראיתם. נפתח לבד כשמגיעה שאלה חדשה. */
-  var cb = null, cbPanel = null, cbOpen = false, cbLastU = 0;
+  var cb = null, cbPanel = null, cbOpen = false;
   function cbMake(){
     if(cb) return;
     cb = document.createElement("button");
@@ -657,7 +657,7 @@
   function cbShow(){ if(!cb) return; cbPanel.hidden = !cbOpen; cb.setAttribute("aria-expanded", String(cbOpen)); }
   function cbRender(res){
     var list = res && res.lesson ? (res.students || []).filter(function(s){ return s.chat && s.chat.m && s.chat.m.length; }) : [];
-    if(!list.length){ if(cb){ cb.hidden = true; cbOpen = false; cbShow(); } cbLastU = 0; return; }
+    if(!list.length){ if(cb){ cb.hidden = true; cbOpen = false; cbShow(); } return; }
     cbMake();
     cb.hidden = false;
     var u = list.reduce(function(t, s){ return t + (s.chat.u || 0); }, 0);
@@ -665,8 +665,7 @@
     n.textContent = u; n.hidden = !u;
     cb.classList.toggle("is-on", !!u);
     cb.setAttribute("aria-label", u ? u + " שאלות חדשות מתלמידים" : "שאלות מתלמידים");
-    if(u > cbLastU) cbOpen = true;   /* שאלה חדשה - הבלון נפתח לבד */
-    cbLastU = u;
+    /* שאלה חדשה - רק המספר הכתום על הבלון; החלון נפתח רק כשהמורה לוחץ */
     cbShow();
     if(!cbOpen) return;
     list.sort(function(a, b){ return (b.chat.u || 0) - (a.chat.u || 0) || b.chat.m[b.chat.m.length - 1].at - a.chat.m[a.chat.m.length - 1].at; });
