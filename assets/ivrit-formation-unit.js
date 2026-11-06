@@ -2,7 +2,7 @@
 (() => {
   'use strict';
   const $=s=>document.querySelector(s),all=s=>[...document.querySelectorAll(s)];
-  const safeRead=key=>{try{return JSON.parse(localStorage.getItem(key)||'null');}catch{return null;}};
+  const revisions={'suffix-meanings':2,'weak-patterns':2,'meaning':2,'integrated':2}; const safeRead=key=>{try{const value=JSON.parse(localStorage.getItem(key)||'null');return value&&(value.contentRevision||1)===(revisions[key.split(':').pop()]||1)?value:null;}catch{return null;}};
   const download=(name,content)=>{const url=URL.createObjectURL(new Blob(['\uFEFF'+content],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
   const normalize=s=>String(s||'').normalize('NFC').replace(/[\u0591-\u05C7\s.\-־,׳״'"/]/g,'').replace(/ך/g,'כ').replace(/ם/g,'מ').replace(/ן/g,'נ').replace(/ף/g,'פ').replace(/ץ/g,'צ');
   const status=s=>s?.mastery?.score>=80?'עבר מבדק שליטה':s?.checked?.includes('guided')&&s?.checked?.includes('independent')?'השלים תרגול':s?.started?'נמצא בלמידה':'טרם התחיל';
@@ -20,10 +20,10 @@
   }
   const lesson=JSON.parse($('#lesson-data').textContent),saved=safeRead(key(lesson.id));
   let state={answers:{},checked:[],started:false,stage:0,mastery:null};
-  if(saved&&saved.version===1){state={...state,...saved,answers:saved.answers&&typeof saved.answers==='object'?saved.answers:{},checked:Array.isArray(saved.checked)?saved.checked:[]};}
+  if(saved&&saved.version===1&&(saved.contentRevision||1)===(lesson.contentRevision||1)){state={...state,...saved,answers:saved.answers&&typeof saved.answers==='object'?saved.answers:{},checked:Array.isArray(saved.checked)?saved.checked:[]};}
   const questionById=new Map();['guided','independent','mastery'].forEach(group=>lesson[group].forEach((q,i)=>questionById.set(group+'-'+i,q)));
   const correct=el=>{const q=questionById.get(el.dataset.id);return q.options?q.answer.includes(el.value):q.answer.some(a=>normalize(a)===normalize(el.value));};
-  function persist(){state.version=1;state.updatedAt=new Date().toISOString();let ok=true;try{localStorage.setItem(key(lesson.id),JSON.stringify(state));}catch{ok=false;}$('#lesson-status').textContent=status(state);$('#save-status').textContent=ok?'נשמר במכשיר':'השמירה אינה זמינה. הורידו סיכום לפני סגירת הדף.';}
+  function persist(){state.version=1;state.contentRevision=lesson.contentRevision||1;state.updatedAt=new Date().toISOString();let ok=true;try{localStorage.setItem(key(lesson.id),JSON.stringify(state));}catch{ok=false;}$('#lesson-status').textContent=status(state);$('#save-status').textContent=ok?'נשמר במכשיר':'השמירה אינה זמינה. הורידו סיכום לפני סגירת הדף.';}
   function clearMarks(group){all('[data-group="'+group+'"] [data-id]').forEach(el=>{el.removeAttribute('aria-invalid');const feedback=$('#feedback-'+el.dataset.id);feedback.textContent='';});const note=$('#result-'+group);if(note)note.textContent='';}
   function markOne(el){const q=questionById.get(el.dataset.id),feedback=$('#feedback-'+el.dataset.id);if(!el.value.trim()){el.removeAttribute('aria-invalid');feedback.removeAttribute('data-correct');feedback.textContent='כתבו או בחרו תשובה, ואז בדקו.';return false;}const ok=correct(el);el.setAttribute('aria-invalid',String(!ok));feedback.dataset.correct=String(ok);feedback.textContent=ok?'✓ נכון! '+q.why:'✗ עדיין לא נכון. נסו שוב. רמז: '+q.hint;return ok;}
   function grade(group){const fields=all('[data-group="'+group+'"] [data-id]');return {correct:fields.filter(markOne).length,total:fields.length};}
