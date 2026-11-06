@@ -1,0 +1,41 @@
+/* Shared compact lessons. Local-only progress; original exercises run in an isolated frame on request. */
+(() => {
+  'use strict';
+  const $=s=>document.querySelector(s),all=s=>[...document.querySelectorAll(s)];
+  const safeRead=key=>{try{return JSON.parse(localStorage.getItem(key)||'null');}catch{return null;}};
+  const download=(name,content)=>{const url=URL.createObjectURL(new Blob(['\uFEFF'+content],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+  const normalize=s=>String(s||'').normalize('NFC').replace(/[\u0591-\u05C7\s.\-־,׳״'"/]/g,'').replace(/ך/g,'כ').replace(/ם/g,'מ').replace(/ן/g,'נ').replace(/ף/g,'פ').replace(/ץ/g,'צ');
+  const status=s=>s?.mastery?.score>=80?'עבר מבדק שליטה':s?.checked?.includes('guided')&&s?.checked?.includes('independent')?'השלים תרגול':s?.started?'נמצא בלמידה':'טרם התחיל';
+  if(new URLSearchParams(location.search).get('view')==='legacy'&&$('#legacy-source')){
+    const original=JSON.parse($('#legacy-source').textContent);document.open();document.write(original);document.close();return;
+  }
+  const catalog=JSON.parse($('#unit-catalog').textContent);
+  const key=id=>'bm-formation-unit-v1:'+id;
+  if(!$('#lesson-data')){
+    const states=catalog.map(l=>({lesson:l,state:safeRead(key(l.id))}));
+    states.forEach(({lesson,state})=>{const card=$('[data-lesson="'+lesson.id+'"]');card.querySelector('[data-status]').textContent=status(state);if(state?.mastery)card.querySelector('[data-score]').textContent='מבדק: '+state.mastery.score+'/100';});
+    $('#unit-completed').textContent=states.filter(x=>x.state?.mastery?.score>=80).length+' מתוך '+catalog.length+' מבדקים עברו';
+    if($('#unit-report'))$('#unit-report').onclick=()=>download('סיכום-תצורת-השם.txt',['סיכום התקדמות — המכשיר והדפדפן הנוכחיים בלבד','אין כאן דוח של כל הכיתה או סנכרון לחשבונות.','',...catalog.map(l=>{const s=safeRead(key(l.id));return l.number+'. '+l.title+' — '+status(s)+(s?.mastery?' | מבדק '+s.mastery.score+'/100':'');})].join('\r\n'));
+    return;
+  }
+  const lesson=JSON.parse($('#lesson-data').textContent),saved=safeRead(key(lesson.id));
+  let state={answers:{},checked:[],started:false,stage:0,mastery:null};
+  if(saved&&saved.version===1){state={...state,...saved,answers:saved.answers&&typeof saved.answers==='object'?saved.answers:{},checked:Array.isArray(saved.checked)?saved.checked:[]};}
+  const questionById=new Map();['guided','independent','mastery'].forEach(group=>lesson[group].forEach((q,i)=>questionById.set(group+'-'+i,q)));
+  const correct=el=>{const q=questionById.get(el.dataset.id);return q.options?q.answer.includes(el.value):q.answer.some(a=>normalize(a)===normalize(el.value));};
+  function persist(){state.version=1;state.updatedAt=new Date().toISOString();let ok=true;try{localStorage.setItem(key(lesson.id),JSON.stringify(state));}catch{ok=false;}$('#lesson-status').textContent=status(state);$('#save-status').textContent=ok?'נשמר במכשיר':'השמירה אינה זמינה. הורידו סיכום לפני סגירת הדף.';}
+  function clearMarks(group){all('[data-group="'+group+'"] [data-id]').forEach(el=>{el.removeAttribute('aria-invalid');const feedback=$('#feedback-'+el.dataset.id);feedback.textContent='';});const note=$('#result-'+group);if(note)note.textContent='';}
+  function markOne(el){const q=questionById.get(el.dataset.id),feedback=$('#feedback-'+el.dataset.id);if(!el.value.trim()){el.removeAttribute('aria-invalid');feedback.removeAttribute('data-correct');feedback.textContent='כתבו או בחרו תשובה, ואז בדקו.';return false;}const ok=correct(el);el.setAttribute('aria-invalid',String(!ok));feedback.dataset.correct=String(ok);feedback.textContent=ok?'✓ נכון! '+q.why:'✗ עדיין לא נכון. נסו שוב. רמז: '+q.hint;return ok;}
+  function grade(group){const fields=all('[data-group="'+group+'"] [data-id]');return {correct:fields.filter(markOne).length,total:fields.length};}
+  all('[data-check-one]').forEach(btn=>btn.onclick=()=>{state.started=true;markOne($('[data-id="'+btn.dataset.checkOne+'"]'));persist();});
+  all('[data-id]').forEach(el=>{el.value=typeof state.answers[el.dataset.id]==='string'?state.answers[el.dataset.id]:'';el.addEventListener('input',()=>{state.started=true;state.answers[el.dataset.id]=el.value;const group=el.closest('[data-group]')?.dataset.group;if(group){el.removeAttribute('aria-invalid');const feedback=$('#feedback-'+el.dataset.id);feedback.textContent='';feedback.removeAttribute('data-correct');state.checked=state.checked.filter(x=>x!==group);if(group==='mastery'){state.mastery=null;$('#mastery-review').replaceChildren();$('#retry-mastery').hidden=true;}}persist();});});
+  all('[data-check]').forEach(btn=>btn.onclick=()=>{const group=btn.dataset.check;state.started=true;const fields=all('[data-group="'+group+'"] [data-id]');if(!fields.some(el=>el.value.trim())){$('#result-'+group).textContent='כתבו לפחות תשובה אחת כדי לבדוק.';fields[0].focus();return;}const r=grade(group);$('#result-'+group).textContent=r.correct+' מתוך '+r.total+' תשובות נכונות. אפשר לתקן ולבדוק שוב.';if(fields.every(el=>el.value.trim())&&!state.checked.includes(group))state.checked.push(group);persist();});
+  function masteryResult(){const r=grade('mastery');const score=Math.round(r.correct/r.total*100);state.mastery={score,at:state.mastery?.at||new Date().toISOString()};$('#result-mastery').textContent='הציון: '+score+' מתוך 100. '+(score>=80?'עברתם את המבדק.':'חזרו לטבלת הדוגמאות ונסו שוב.');const review=$('#mastery-review');review.replaceChildren();const errors=all('[data-group="mastery"] [data-id]').filter(el=>!correct(el));if(errors.length){const p=document.createElement('p');p.textContent='כדאי לחזור על: '+errors.map(el=>questionById.get(el.dataset.id).task).filter((x,i,a)=>a.indexOf(x)===i).join('، ')+'.';review.append(p);const b=document.createElement('button');b.type='button';b.textContent='חזרה להסבר ולטבלה';b.onclick=()=>stage(0);review.append(b);}else{const p=document.createElement('p');p.textContent='✓ כל התשובות נכונות! כעת השוו את הנימוק הפתוח לפתרון המוסבר.';review.append(p);}$('#retry-mastery').hidden=false;}
+  $('#submit-mastery').onclick=()=>{state.started=true;const empty=all('[data-group="mastery"] [data-id]').find(el=>!el.value.trim());if(empty){$('#result-mastery').textContent='השלימו את כל הפריטים לפני ההגשה.';empty.focus();return;}masteryResult();persist();};
+  $('#retry-mastery').onclick=()=>{all('[data-group="mastery"] [data-id]').forEach(el=>{el.value='';delete state.answers[el.dataset.id];});state.mastery=null;clearMarks('mastery');$('#mastery-review').replaceChildren();$('#retry-mastery').hidden=true;persist();$('[data-group="mastery"] [data-id]').focus();};
+  function stage(index,focus=true){state.stage=Math.max(0,Math.min(2,Number(index)||0));all('[data-panel]').forEach((p,i)=>p.hidden=i!==state.stage);all('[data-stage]').forEach((b,i)=>{if(i===state.stage)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');});$('#stage-counter').textContent='שלב '+(state.stage+1)+' מתוך 3';$('#previous-stage').disabled=state.stage===0;$('#next-stage').hidden=state.stage===2;$('#next-stage').textContent=state.stage===0?'לתרגול ←':'למבדק הקצר ←';if(focus){state.started=true;const h=$('[data-panel="'+state.stage+'"] h2');h.focus();h.scrollIntoView({block:'start'});}persist();}
+  all('[data-stage]').forEach(b=>b.onclick=()=>stage(b.dataset.stage));$('#previous-stage').onclick=()=>stage(state.stage-1);$('#next-stage').onclick=()=>stage(state.stage+1);
+  $('#large-text').onclick=()=>{const on=document.documentElement.classList.toggle('bridge-large');$('#large-text').setAttribute('aria-pressed',String(on));};$('#print-unit-lesson').onclick=()=>window.print();
+  if($('#lesson-report'))$('#lesson-report').onclick=()=>{const lines=[lesson.title,'מצב: '+status(state),'מבדק: '+(state.mastery?state.mastery.score+'/100':'טרם הוגש'),'שמירה מקומית בלבד; הנימוק הפתוח דורש בדיקת מורה.',''];questionById.forEach((q,id)=>lines.push(q.word+' — '+q.task+': '+(state.answers[id]||'לא נענה')));lines.push('','נימוק פתוח: '+(state.answers.challenge||'לא נענה'));download('סיכום-'+lesson.id+'.txt',lines.join('\r\n'));};
+  stage(state.stage,false);if(state.mastery)masteryResult();
+})();

@@ -5095,3 +5095,67 @@ body.is-teacher-view .my-area-link{ display:none; }   /* הקישור לאזור
 @media (prefers-reduced-motion: no-preference){
   :where(:is(button, .btn, [role="button"], input[type="button"], input[type="submit"], input[type="reset"], .section-pill, .chapter-quicklinks a, .topic-pill, .chip-link, .mc-option, .chapter-nav a, .to-top-btn, .gj-dot, .gj-choice-btn, .gj-next, .gj-prev, .gj-gc-btn, .mp-tile-btn, .chapter-btn, .speak-btn, .to-tirgul a, .topic-tile, .match-card, .flip-card, .door-card, .class-chip, .teacher-quickjump-btn, .unit-tile, .entry-gate-card, .submit-btn, .option-btn, .mm-card, .practice-card, .td-shortcut, .td-material):not(:disabled):not([aria-disabled="true"]):not(#wheelCanvas):active){ transform: scale(.97); }
 }
+/* Sample bridge lesson; scoped so existing pages retain their styles. */
+html[data-css~="bridge"]{font-size:18px}
+html.bridge-large[data-css~="bridge"]{font-size:22px}
+[data-css~="bridge"] [hidden]{display:none!important}
+[data-css~="bridge"] .bridge-preview{padding:9px 18px;text-align:center;background:var(--ink);color:#fff;font-size:.8rem}
+[data-css~="bridge"] .breadcrumbs{margin-top:22px;max-width:1000px}
+[data-css~="bridge"] header{padding:1.8rem 1rem 1.6rem}
+[data-css~="bridge"] header h1{font-size:clamp(2rem,5vw,3.1rem)}
+[data-css~="bridge"] main{max-width:1000px;padding:0 24px 44px}
+[data-css~="bridge"] p,[data-css~="bridge"] li{line-height:1.9}
+[data-css~="bridge"] .bridge-small{font-size:.8rem;color:var(--ink-soft)}
+[data-css~="bridge"] .bridge-meta{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;border-block:1px solid var(--paper-line);padding:8px 0}
+[data-css~="bridge"] .bridge-meta p{margin:0;font-size:.85rem}
+[data-css~="bridge"] .bridge-tools{display:flex;flex-wrap:wrap;gap:8px}
+[data-css~="bridge"] button,[data-css~="bridge"] summary{font:inherit;cursor:pointer}
+[data-css~="bridge"] button{min-height:44px;border:1px solid var(--paper-line);border-radius:9px;background:#fff;color:var(--ink);padding:8px 13px}
+[data-css~="bridge"] .bridge-tools button{font-size:.75rem}
+[data-css~="bridge"] button:hover{border-color:var(--teal);background:var(--teal-soft)}
+[data-css~="bridge"] .bridge-stages{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin:22px 0 10px}
+[data-css~="bridge"] .bridge-stages button{text-align:right;display:flex;flex-direction:column;font-size:.76rem;gap:4px;background:rgba(255,255,255,.5)}
+[data-css~="bridge"] .bridge-stages button span{font-size:.72rem;color:var(--gold-text)}
+[data-css~="bridge"] .bridge-stages button[aria-current]{background:var(--ink);color:white;border-color:var(--ink)}
+[data-css~="bridge"] .bridge-stages button[aria-current] span{color:#ead1a4}
+[data-css~="bridge"] .bridge-panel{background:#fffdf7;border:1px solid var(--paper-line);border-radius:18px;padding:32px;box-shadow:var(--shadow)}
+[data-css~="bridge"] .bridge-kicker{color:var(--teal);font-weight:700;font-size:.82rem;margin:0}
+[data-css~="bridge"] h2{font-family:'Frank Ruhl Libre',serif;font-size:1.9rem;line-height:1.3;margin:8px 0 14px;scroll-margin-top:20px}
+[data-css~="bridge"] h3{font-size:1.15rem;margin-top:0;line-height:1.6}
+[data-css~="bridge"] .bridge-lead{color:var(--ink-soft);font-size:1.05rem}
+[data-css~="bridge"] .concept-nav{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}
+[data-css~="bridge"] .concept-nav button{font-size:.85rem}
+[data-css~="bridge"] .concept-nav [aria-pressed="true"]{background:var(--teal-soft);border-color:var(--teal);font-weight:700}
+[data-css~="bridge"] .bridge-equation{display:flex;align-items:center;justify-content:center;gap:24px;padding:22px 10px;background:var(--teal-soft);border-radius:12px;text-align:center;font-size:1.4rem;flex-wrap:wrap}
+[data-css~="bridge"] .bridge-equation small{font-size:.8rem;color:var(--ink-soft)}
+[data-css~="bridge"] .table-wrap{overflow-x:auto;margin-block:22px}
+[data-css~="bridge"] table{border-collapse:collapse;width:100%;font-size:.95rem;background:#fff}
+[data-css~="bridge"] caption{text-align:right;font-weight:700;margin-bottom:10px}
+[data-css~="bridge"] th,[data-css~="bridge"] td{text-align:right;padding:12px;border-bottom:1px solid var(--paper-line);white-space:nowrap}
+[data-css~="bridge"] th{background:var(--teal-soft)}
+[data-css~="bridge"] .method{padding-inline-start:26px}
+[data-css~="bridge"] .method li{padding:5px 4px}
+[data-css~="bridge"] .bridge-callout{padding:15px 18px;background:var(--teal-soft);border-inline-start:4px solid var(--teal);border-radius:8px}
+[data-css~="bridge"] details{border:1px solid var(--paper-line);border-radius:10px;padding:14px 18px;margin:12px 0;background:#fff}
+[data-css~="bridge"] summary{font-weight:600;line-height:1.7}
+[data-css~="bridge"] details[open] summary{margin-bottom:12px}
+[data-css~="bridge"] .bridge-box{padding:20px;background:#fff;border:1px solid var(--paper-line);border-radius:12px;margin:16px 0}
+[data-css~="bridge"] .bridge-field{display:flex;flex-direction:column;gap:7px;margin:16px 0;font-weight:600;font-size:.95rem}
+[data-css~="bridge"] input,[data-css~="bridge"] select,[data-css~="bridge"] textarea{font:inherit;width:100%;max-width:100%;padding:12px;border:1.5px solid #9ba9ac;border-radius:8px;background:#fff;color:var(--ink);min-height:48px}
+[data-css~="bridge"] textarea{resize:vertical}
+[data-css~="bridge"] .field-note{font-size:.82rem;font-weight:400;line-height:1.8}
+[data-css~="bridge"] .bridge-correct{border-color:#27734d;background:#f0f8f1}
+[data-css~="bridge"] .bridge-wrong{border-color:#a34932;background:#fff6ef}
+[data-css~="bridge"] .bridge-source{font-size:.85rem;padding:12px;background:var(--teal-soft);border-radius:8px}
+[data-css~="bridge"] .bridge-bottom{display:flex;justify-content:space-between;gap:10px;margin:22px 0}
+[data-css~="bridge"] .btn.primary{background:var(--ink);color:white;border-color:var(--ink);font-weight:600}
+[data-css~="bridge"] .btn:disabled{opacity:.45;cursor:default}
+[data-css~="bridge"] .bridge-footer{font-size:.85rem;border-top:1px solid var(--paper-line);padding-top:18px}
+[data-css~="bridge"] #masteryResult{font-size:1.2rem;font-weight:700}
+[data-css~="bridge"] a{color:#285f5b;text-underline-offset:3px}
+@media(max-width:650px){[data-css~="bridge"] main{padding-inline:14px}[data-css~="bridge"] .bridge-panel{padding:22px 17px}[data-css~="bridge"] .bridge-stages{grid-template-columns:repeat(3,1fr)}[data-css~="bridge"] .bridge-equation{gap:12px;font-size:1.1rem}[data-css~="bridge"] .bridge-bottom button{font-size:.8rem}[data-css~="bridge"] .bridge-tools{width:100%}}
+@media print{[data-css~="bridge"] .bridge-stages,[data-css~="bridge"] .bridge-tools,[data-css~="bridge"] .bridge-bottom,[data-css~="bridge"] button,[data-css~="bridge"] .concept-nav{display:none!important}[data-css~="bridge"] .bridge-panel[hidden],[data-css~="bridge"] .concept[hidden]{display:block!important}[data-css~="bridge"] .bridge-panel{break-before:page;box-shadow:none;padding:16px}[data-css~="bridge"] details:not([open]){display:none}[data-css~="bridge"] body{background:#fff}}
+[data-css~="bridge"] .bridge-three{grid-template-columns:repeat(3,minmax(0,1fr))}
+[data-css~="bridge"] .unit-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:24px}[data-css~="bridge"] .unit-cards .bridge-box{margin:0}[data-css~="bridge"] .unit-cards h2{font-size:1.45rem}[data-css~="bridge"] [aria-invalid="true"]{border-color:#a34932;background:#fff6ef}[data-css~="bridge"] [aria-invalid="false"]{border-color:#27734d;background:#f0f8f1}[data-css~="bridge"] #result-mastery{font-size:1.2rem;font-weight:700}@media(max-width:650px){[data-css~="bridge"] .unit-cards{grid-template-columns:1fr}}
+
+[data-css~="bridge"] .field-note[data-correct="true"]{color:#176332;font-weight:700}[data-css~="bridge"] .field-note[data-correct="false"]{color:#b42318;font-weight:700}
