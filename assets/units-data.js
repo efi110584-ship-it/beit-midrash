@@ -565,6 +565,13 @@
         "k": "מבחן פועל גזרות שורש בניין זמן גוף שם הפועל פעיל סביל מיקוד",
         "extra": true,
         "teacherOnly": true
+      },
+      {
+        "title": "תצורת השם — משקלים, צורנים ודרכי תצורה",
+        "url": "ivrit-names-study.html",
+        "k": "תצורת השם משקלים משקל צורן צורנים דרכי תצורה שם פעולה בעלי מקצוע מקום מחלות בסיס וצורן הלחם בסיסים",
+        "extra": true,
+        "teacherOnly": true
       }
     ]
   },
@@ -1116,6 +1123,30 @@
     "chapters": 5,
     "chaptersLabel": "שאלות",
     "url": "ivrit-verbs-exam.html"
+  },
+  {
+    "key": "ivrit-names-study-key",
+    "class": "teacher",
+    "subject": "מורה",
+    "category": "עברית",
+    "icon": "🗝️",
+    "title": "מחוון - תצורת השם (דף לימוד ותרגול)",
+    "desc": "7 הסברים ו־12 תרגילים: משקלים לפי משמעות, שמות פעולה, צורנים, דרכי תצורה, בינוני. מוסתר מהתלמידים.",
+    "chapters": 12,
+    "chaptersLabel": "תרגילים",
+    "url": "ivrit-names-study.html?key=1"
+  },
+  {
+    "key": "ivrit-names-study-student",
+    "class": "teacher",
+    "subject": "מבחן",
+    "category": "מבחנים",
+    "icon": "📝",
+    "title": "תצורת השם - דף לימוד (גרסת תלמיד)",
+    "desc": "הדף כמו שהתלמידים רואים אותו, בלי התשובות.",
+    "chapters": 12,
+    "chaptersLabel": "תרגילים",
+    "url": "ivrit-names-study.html"
   },
   {
     "key": "machshava-key",
