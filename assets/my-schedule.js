@@ -127,6 +127,15 @@
       ".sch-note{color:var(--mute);font-size:.88rem;margin:10px 0 0}" +
       ".sch-stats{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}.sch-stats span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.88rem}" +
       ".sch-stats b{font-variant-numeric:tabular-nums}" +
+      ".sch-sum{background:#fff;border:1px solid var(--line);border-radius:16px;margin:0 0 18px}" +
+      ".sch-sum>summary{cursor:pointer;padding:14px 18px;font-family:'Rubik','Heebo',sans-serif;font-weight:700;font-size:1.1rem;list-style:none;display:flex;align-items:center;gap:10px;flex-wrap:wrap}" +
+      ".sch-sum>summary::-webkit-details-marker{display:none}.sch-sum>summary:after{content:'▾';margin-inline-start:auto;color:var(--mute)}.sch-sum[open]>summary:after{content:'▴'}" +
+      ".sch-sum-b{padding:0 18px 16px}" +
+      ".sch-sum table{width:100%;border-collapse:collapse;font-size:.94rem}.sch-sum th,.sch-sum td{text-align:right;padding:8px 6px;border-bottom:1px solid #EEF2F8;vertical-align:top}" +
+      ".sch-sum th{color:var(--mute);font-weight:600;font-size:.85rem}.sch-sum td.num{font-variant-numeric:tabular-nums;color:var(--mute);width:44px}" +
+      ".sch-sum .t-a{color:var(--abs);font-weight:600}.sch-sum .t-l{color:var(--late);font-weight:600}.sch-sum .t-ok{color:var(--ok)}.sch-sum .t-miss{color:var(--abs);font-weight:700}" +
+      ".sch-sum-w{overflow-x:auto}" +
+      ".sch-steps{margin:12px 0 0;padding-inline-start:20px;color:var(--ink);font-size:.92rem;line-height:1.6}" +
       "@media(max-width:520px){.sch-names{grid-template-columns:1fr}.sch-seg span{padding:6px 8px}}";
     document.head.appendChild(el);
   }
@@ -186,6 +195,72 @@
     return '<div class="sch-stats"><span>שיעורים בי״א 4: <b>' + n["יא"] + '</b></span><span>שיעורים בי״ב 2: <b>' + n["יב"] + '</b></span><span>תפילה ופתיחת יום: <b>' + n.both + '</b></span></div>';
   }
 
+  /* ---------- סיכום היום לסקולי ---------- */
+  function dayRows(){
+    var d = wd(st.date), rows = [];
+    if(d > 4) return rows;
+    WEEK[d].forEach(function(s, h){
+      if(s.kind !== "lesson") return;
+      clsList(s).forEach(function(k){
+        var e = st.day[h + "|" + k], a = [], l = [];
+        if(e) Object.keys(e.m || {}).sort(function(x, y){ return x.localeCompare(y, "he"); }).forEach(function(n){ (e.m[n] === "a" ? a : l).push(n); });
+        rows.push({ h:h, subject:s.subject, cls:k, done:!!e, a:a, l:l });
+      });
+    });
+    return rows;
+  }
+  function summaryText(rows){
+    return "נוכחות - " + nice(st.date) + " (" + st.date.split("-").reverse().join("/") + ")\n" + rows.map(function(r){
+      return "שעה " + r.h + " · " + r.subject + " · " + CLS_NAME[r.cls] + ": " +
+        (!r.done ? "לא נלקחה נוכחות - לא לעדכן" : (!r.a.length && !r.l.length ? "כולם נוכחים" :
+          (r.a.length ? "חסרים: " + r.a.join(", ") : "") + (r.a.length && r.l.length ? " | " : "") + (r.l.length ? "איחור: " + r.l.join(", ") : "")));
+    }).join("\n");
+  }
+  function chromePrompt(rows){
+    var date = st.date.split("-").reverse().join("/");
+    return "אני רוצה שתזין נוכחות במערכת סקולי (app.schooly.co.il) בשבילי. אני כבר מחובר.\n\n" +
+      "התאריך: " + nice(st.date) + ", " + date + ".\n" +
+      "המורה: לוי אפרים. לעדכן רק את השיעורים שלי שמופיעים ברשימה למטה.\n\n" +
+      "איך לעבוד:\n" +
+      "1. פתח את \"מערכת ושיעורים\" ועבור לשבוע של התאריך הזה.\n" +
+      "2. בכל שיעור ברשימה: פתח את דיווח הנוכחות של השיעור, סמן \"נוכח\" לכל התלמידים, ואז סמן \"חסר\" או \"איחור\" רק לשמות שכתובים כאן.\n" +
+      "3. בשיעור הראשון - לפני שאתה שומר, עצור והראה לי מה סימנת. אחרי שאאשר, המשך בשאר השיעורים בלי לעצור.\n" +
+      "4. אם שם מהרשימה לא נמצא בכיתה, או ששיעור לא נמצא - אל תנחש. דלג וכתוב לי בסוף.\n" +
+      "5. שיעור שכתוב לידו \"לא נלקחה נוכחות\" - לא לגעת בו.\n" +
+      "6. אל תשנה שום דבר אחר בסקולי (לא נושא, לא ציונים, לא הודעות).\n" +
+      "7. בסוף תן לי סיכום קצר: אילו שיעורים עודכנו, ומה דילגת ולמה.\n\n" +
+      summaryText(rows);
+  }
+  function summaryHtml(){
+    if(wd(st.date) > 4) return "";
+    var rows = dayRows(), miss = rows.filter(function(r){ return !r.done; }).length;
+    var abs = 0, late = 0; rows.forEach(function(r){ abs += r.a.length; late += r.l.length; });
+    var loading = st.dayLoaded !== st.date;
+    return '<details class="sch-sum" id="schSum"' + (st.sumOpen ? ' open' : '') + '><summary>📤 סיכום היום לסקולי' +
+      '<span class="sch-badge ' + (miss ? 'is-miss' : 'is-done') + '">' + (loading ? '…' : miss ? 'חסרה נוכחות ב-' + miss + ' שיעורים' : '✓ כל השיעורים מוכנים') + '</span></summary>' +
+      '<div class="sch-sum-b">' +
+        '<div class="sch-sum-w"><table><thead><tr><th>שעה</th><th>שיעור</th><th>חסרים</th><th>איחור</th></tr></thead><tbody>' +
+        rows.map(function(r){
+          return '<tr><td class="num">' + r.h + '</td><td>' + esc(r.subject) + ' · ' + CLS_NAME[r.cls] + '</td>' +
+            (!r.done ? '<td colspan="2" class="t-miss">לא נלקחה נוכחות</td>' :
+              (!r.a.length && !r.l.length ? '<td colspan="2" class="t-ok">כולם נוכחים</td>' :
+                '<td class="t-a">' + (r.a.map(esc).join(", ") || "—") + '</td><td class="t-l">' + (r.l.map(esc).join(", ") || "—") + '</td>')) + '</tr>';
+        }).join("") + '</tbody></table></div>' +
+        '<p class="sch-msg" style="margin-top:8px">סה״כ: ' + abs + ' חיסורים · ' + late + ' איחורים</p>' +
+        '<div class="sch-foot"><button type="button" class="sch-btn sch-btn--primary" data-act="copyPrompt">🤖 העתקת הוראה ל-Claude בכרום</button>' +
+        '<button type="button" class="sch-btn" data-act="copySum">העתקת הסיכום בלבד</button><p class="sch-msg" id="schSumMsg" role="status"></p></div>' +
+        '<ol class="sch-steps"><li>לוחצים "העתקת הוראה ל-Claude בכרום".</li><li>פותחים את סקולי בכרום (מחוברים כרגיל) ופותחים את חלונית Claude בצד.</li><li>מדביקים (Ctrl+V) ושולחים. Claude יעצור אחרי השיעור הראשון כדי שתאשר.</li></ol>' +
+      '</div></details>';
+  }
+  function copy(text){
+    if(navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text);
+    return new Promise(function(ok, bad){
+      var t = document.createElement("textarea"); t.value = text; t.setAttribute("readonly", ""); t.style.position = "fixed"; t.style.opacity = "0";
+      document.body.appendChild(t); t.select();
+      try{ document.execCommand("copy") ? ok() : bad(); }catch(e){ bad(e); } finally { t.remove(); }
+    });
+  }
+
   /* ---------- דף הנוכחות של שיעור ---------- */
   function counts(){
     var c = { p:0, l:0, a:0 };
@@ -224,7 +299,7 @@
     root.innerHTML =
       '<div class="sch">' +
         '<section class="sch-today" aria-labelledby="schTodayH">' + dayHtml() + '</section>' +
-        sheetHtml() +
+        sheetHtml() + summaryHtml() +
         '<h3>השבוע כולו</h3>' + stats() + gridHtml() +
         '<ul class="sch-legend" aria-label="מקרא">' +
           '<li><i class="c-ya"></i>שיעור בי״א 4</li><li><i class="c-yb"></i>שיעור בי״ב 2</li><li><i class="c-both"></i>שתי הכיתות יחד</li>' +
@@ -299,6 +374,7 @@
   }
 
   function bind(){
+    root.addEventListener("toggle", function(e){ if(e.target.id === "schSum") st.sumOpen = e.target.open; }, true);
     root.addEventListener("click", function(e){
       var b = e.target.closest("button"); if(!b || !root.contains(b)) return;
       if(b.hasAttribute("data-nav")){
@@ -314,6 +390,12 @@
         else if(a === "all"){ st.open.cls.forEach(function(k){ st.marks[k] = {}; }); st.dirty = true; render(); }
         else if(a === "site") fromSite();
         else if(a === "save") save();
+        else if(a === "copyPrompt" || a === "copySum"){
+          var rows = dayRows(), sm = document.getElementById("schSumMsg");
+          copy(a === "copyPrompt" ? chromePrompt(rows) : summaryText(rows)).then(function(){
+            if(sm){ sm.className = "sch-msg is-ok"; sm.textContent = a === "copyPrompt" ? "✓ הועתק. עכשיו מדביקים בחלונית של Claude בכרום, כשסקולי פתוח." : "✓ הסיכום הועתק."; }
+          }).catch(function(){ if(sm){ sm.className = "sch-msg is-err"; sm.textContent = "ההעתקה לא הצליחה. נסו שוב."; } });
+        }
       }
     });
     root.addEventListener("change", function(e){
