@@ -862,6 +862,7 @@
   {
     "key": "ptp-exam",
     "class": "teacher",
+    "grade": "יב",
     "subject": "מבחן",
     "category": "מבחנים",
     "lessonExam": true,
@@ -875,6 +876,7 @@
   {
     "key": "ptp-exam-answers",
     "class": "teacher",
+    "grade": "יב",
     "subject": "מורה",
     "category": "פתוח תפתח",
     "icon": "🗝️",
@@ -887,6 +889,7 @@
   {
     "key": "yonah-exam",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מבחן",
     "category": "מבחנים",
     "icon": "📝",
@@ -899,6 +902,7 @@
   {
     "key": "bereshit-answers",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "ספר בראשית",
     "icon": "🗝️",
@@ -911,6 +915,7 @@
   {
     "key": "bereshit-yaakov-esav-answers",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "ספר בראשית",
     "icon": "🗝️",
@@ -923,6 +928,7 @@
   {
     "key": "bereshit-yosef-answers",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "ספר בראשית",
     "icon": "🗝️",
@@ -935,6 +941,7 @@
   {
     "key": "yeshayahu-answers",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "ספר ישעיהו",
     "icon": "🗝️",
@@ -947,6 +954,7 @@
   {
     "key": "ezra-nechemia-answers",
     "class": "teacher",
+    "grade": "יב",
     "subject": "מורה",
     "category": "עזרא ונחמיה",
     "icon": "🗝️",
@@ -959,6 +967,7 @@
   {
     "key": "neviim-answers",
     "class": "teacher",
+    "grade": "יב",
     "subject": "מורה",
     "category": "פרקי נביאים",
     "icon": "🗝️",
@@ -971,6 +980,7 @@
   {
     "key": "yonah-answers",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "ספר יונה",
     "icon": "🗝️",
@@ -983,6 +993,7 @@
   {
     "key": "leket-answers",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "לקט מצוות",
     "icon": "🗝️",
@@ -995,6 +1006,7 @@
   {
     "key": "ptp-answers",
     "class": "teacher",
+    "grade": "יב",
     "subject": "מורה",
     "category": "פתוח תפתח",
     "icon": "🗝️",
@@ -1007,6 +1019,7 @@
   {
     "key": "petichah-answers",
     "class": "teacher",
+    "grade": "יב",
     "subject": "מורה",
     "category": "ספר דברים",
     "icon": "🗝️",
@@ -1019,6 +1032,7 @@
   {
     "key": "ivrit-binyanim-gzarot-answers",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "עברית - בניינים וגזרות",
     "icon": "🗝️",
@@ -1032,6 +1046,7 @@
     "key": "ivrit-bagrut-prep-key",
     "byClaude": true,
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "עברית",
     "icon": "🗝️",
@@ -1045,6 +1060,7 @@
     "key": "ivrit-bagrut-exam-key",
     "byClaude": true,
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "עברית",
     "icon": "🗝️",
@@ -1059,6 +1075,7 @@
     "pair": "ivrit-bagrut-exam-key",
     "byClaude": true,
     "class": "teacher",
+    "grade": "יא",
     "subject": "מבחן",
     "category": "מבחנים",
     "icon": "📝",
@@ -1073,6 +1090,7 @@
     "pair": "ivrit-bagrut-prep-key",
     "byClaude": true,
     "class": "teacher",
+    "grade": "יא",
     "subject": "מבחן",
     "category": "מבחנים",
     "icon": "📝",
@@ -1086,6 +1104,7 @@
     "key": "ivrit-bagrut-11281-a-key",
     "byClaude": true,
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "עברית",
     "icon": "🗝️",
@@ -1099,6 +1118,7 @@
     "key": "ivrit-bagrut-11281-b-key",
     "byClaude": true,
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "עברית",
     "icon": "🗝️",
@@ -1113,6 +1133,7 @@
     "pair": "ivrit-bagrut-11281-a-key",
     "byClaude": true,
     "class": "teacher",
+    "grade": "יא",
     "subject": "מבחן",
     "category": "מבחנים",
     "icon": "📝",
@@ -1127,6 +1148,7 @@
     "pair": "ivrit-bagrut-11281-b-key",
     "byClaude": true,
     "class": "teacher",
+    "grade": "יא",
     "subject": "מבחן",
     "category": "מבחנים",
     "icon": "📝",
@@ -1140,6 +1162,7 @@
     "key": "ivrit-verbs-review-key",
     "byClaude": true,
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "עברית",
     "icon": "🗝️",
@@ -1153,6 +1176,7 @@
     "key": "ivrit-verbs-exam-key",
     "byClaude": true,
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "עברית",
     "icon": "🗝️",
@@ -1167,6 +1191,7 @@
     "pair": "ivrit-verbs-review-key",
     "byClaude": true,
     "class": "teacher",
+    "grade": "יא",
     "subject": "מבחן",
     "category": "מבחנים",
     "icon": "📝",
@@ -1181,6 +1206,7 @@
     "pair": "ivrit-verbs-exam-key",
     "byClaude": true,
     "class": "teacher",
+    "grade": "יא",
     "subject": "מבחן",
     "category": "מבחנים",
     "icon": "📝",
@@ -1194,6 +1220,7 @@
     "key": "ivrit-names-study-key",
     "byClaude": true,
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "עברית",
     "icon": "🗝️",
@@ -1208,6 +1235,7 @@
     "pair": "ivrit-names-study-key",
     "byClaude": true,
     "class": "teacher",
+    "grade": "יא",
     "subject": "מבחן",
     "category": "מבחנים",
     "icon": "📝",
@@ -1220,6 +1248,7 @@
   {
     "key": "machshava-key",
     "class": "teacher",
+    "grade": "יב",
     "subject": "מורה",
     "category": "מחשבת ישראל",
     "icon": "🗝️",
@@ -1232,6 +1261,7 @@
   {
     "key": "bayit-answers",
     "class": "teacher",
+    "grade": "יב",
     "subject": "מורה",
     "category": "בית, חינוך ומשפחה",
     "icon": "🗝️",
@@ -1244,6 +1274,7 @@
   {
     "key": "history-key",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "היסטוריה",
     "icon": "🗝️",
@@ -1256,6 +1287,7 @@
   {
     "key": "history-29281-key",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "היסטוריה",
     "icon": "🗝️",
@@ -1268,6 +1300,7 @@
   {
     "key": "ivrit-shlemim-key",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "עברית - גזרות",
     "icon": "🗝️",
@@ -1280,6 +1313,7 @@
   {
     "key": "ivrit-merubaim-key",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "עברית - גזרות",
     "icon": "🗝️",
@@ -1292,6 +1326,7 @@
   {
     "key": "ivrit-hafan-key",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "עברית - גזרות",
     "icon": "🗝️",
@@ -1304,6 +1339,7 @@
   {
     "key": "ivrit-nechei-pv-key",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "עברית - גזרות",
     "icon": "🗝️",
@@ -1316,6 +1352,7 @@
   {
     "key": "ivrit-nechei-av-key",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "עברית - גזרות",
     "icon": "🗝️",
@@ -1328,6 +1365,7 @@
   {
     "key": "ivrit-nechei-la-key",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "עברית - גזרות",
     "icon": "🗝️",
@@ -1340,6 +1378,7 @@
   {
     "key": "ivrit-nechei-lh-key",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "עברית - גזרות",
     "icon": "🗝️",
@@ -1352,6 +1391,7 @@
   {
     "key": "ivrit-final-test-answers",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "עברית - גזרות",
     "icon": "🗝️",
@@ -1364,6 +1404,7 @@
   {
     "key": "ivrit-mishkalim-answers",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "עברית - משקלים",
     "icon": "🗝️",
@@ -1400,6 +1441,7 @@
   {
     "key": "ivrit-focus-2027-teacher-answers",
     "class": "teacher",
+    "grade": "יא",
     "subject": "מורה",
     "category": "עברית - מיקוד תשפ״ז",
     "icon": "🗝️",

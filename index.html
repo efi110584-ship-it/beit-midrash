@@ -313,7 +313,7 @@
 </div><!-- /site-content -->
 
 <script src="assets/bm-api.js"></script>
-<script src="assets/units-data.js?v=20261107-pairs"></script>
+<script src="assets/units-data.js?v=20261107-grade"></script>
 <script src="assets/exams-seed.js?v=6"></script>
 <script src="assets/flashcards-data.js"></script>
 <script src="assets/live-render.js"></script>
@@ -556,7 +556,7 @@
   var TK_PAIRS = {};
   function tkItemHtml(u){
     var stu = TK_PAIRS[u.key];
-    return '<li' + (stu ? ' style="display:flex;align-items:center;gap:4px"' : '') + '><a class="tk-item"' + (stu ? ' style="flex:1 1 0;min-width:0"' : '') + ' href="' + escapeAttr(u.url) + '" data-s="' + escapeAttr(tkNorm(u.title + " " + u.category + " " + tkMeta(u) + (u.byClaude ? " claude קלוד" : "") + (stu ? " " + stu.title + " תלמיד" : ""))) + '">' +
+    return '<li' + (u.grade ? ' data-grade="' + escapeAttr(u.grade) + '"' : '') + (stu ? ' style="display:flex;align-items:center;gap:4px"' : '') + '><a class="tk-item"' + (stu ? ' style="flex:1 1 0;min-width:0"' : '') + ' href="' + escapeAttr(u.url) + '" data-s="' + escapeAttr(tkNorm(u.title + " " + u.category + " " + tkMeta(u) + (u.byClaude ? " claude קלוד" : "") + (stu ? " " + stu.title + " תלמיד" : ""))) + '">' +
       '<span class="tk-ico" aria-hidden="true">' + (TEACHER_CATEGORY_ICONS[u.category] || u.icon || "🗂️") + '</span>' +
       '<span class="tk-txt"><span class="tk-title">' + escapeHtml(tkTitle(u)) + '</span>' +
       '<span class="tk-meta">' + escapeHtml(tkMeta(u)) + '</span></span>' +
@@ -624,6 +624,10 @@
             '<label for="tkSearch" class="visually-hidden">חיפוש מחוון</label>' +
             '<input id="tkSearch" class="tk-search-input" type="search" autocomplete="off" spellcheck="false" enterkeyhint="go" placeholder="חיפוש מחוון - למשל: ישעיהו, נחי ל&quot;ה, פסח">' +
             '<svg class="tk-search-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
+          '</div>' +
+          '<div class="tk-filter tk-grades" role="group" aria-label="כיתה" style="margin-bottom:4px">' +
+            '<button type="button" class="tt-tab" data-tk-grade="יא" aria-pressed="false" style="font-weight:800">כיתה י"א</button>' +
+            '<button type="button" class="tt-tab" data-tk-grade="יב" aria-pressed="false" style="font-weight:800">כיתה י"ב</button>' +
           '</div>' +
           '<div class="tk-filter" role="group" aria-label="סינון לפי מקצוע">' + chips + '</div>' +
         '</div>' +
@@ -897,8 +901,40 @@
     var grid = document.getElementById("tkGrid");
     var empty = document.getElementById("tkEmpty");
     var chips = Array.prototype.slice.call(document.querySelectorAll("[data-tk-filter]"));
-    var group = "";
-    try{ group = localStorage.getItem("tk-subj") || ""; }catch(e){}
+    var group = "", grade = "יא";
+    try{ group = localStorage.getItem("tk-subj") || ""; grade = localStorage.getItem("tk-grade") || "יא"; }catch(e){}
+    var gradeBtns = Array.prototype.slice.call(document.querySelectorAll("[data-tk-grade]"));
+    /* כמה פריטים יש בכל מקצוע בכיתה שנבחרה - מקצוע בלי פריטים בכיתה הזאת לא מוצג */
+    function gradeCounts(){
+      var c = {};
+      Array.prototype.forEach.call(grid.querySelectorAll(".tk-group"), function(sec){
+        c[sec.getAttribute("data-group")] = Array.prototype.filter.call(sec.querySelectorAll(".tk-item"), function(a){
+          var g = a.parentNode.getAttribute("data-grade"); return !g || g === grade;
+        }).length;
+      });
+      return c;
+    }
+    function syncGrade(){
+      gradeBtns.forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-tk-grade") === grade ? "true" : "false"); });
+      var c = gradeCounts();
+      chips.forEach(function(ch){
+        var k = ch.getAttribute("data-tk-filter"), n = c[k] || 0;
+        ch.hidden = !n;
+        var cnt = ch.querySelector(".tt-count"); if(cnt) cnt.textContent = n;
+      });
+      if(!c[group]){
+        var first = chips.filter(function(ch){ return !ch.hidden; })[0];
+        if(first) group = first.getAttribute("data-tk-filter");
+      }
+      chips.forEach(function(x){ x.setAttribute("aria-pressed", x.getAttribute("data-tk-filter") === group ? "true" : "false"); });
+    }
+    gradeBtns.forEach(function(b){
+      b.addEventListener("click", function(){
+        grade = b.getAttribute("data-tk-grade");
+        try{ localStorage.setItem("tk-grade", grade); }catch(e){}
+        syncGrade(); apply();
+      });
+    });
     if(!chips.some(function(c){ return c.getAttribute("data-tk-filter") === group; })) group = chips.length ? chips[0].getAttribute("data-tk-filter") : "all";
     chips.forEach(function(x){ x.setAttribute("aria-pressed", x.getAttribute("data-tk-filter") === group ? "true" : "false"); });
     function apply(){
@@ -909,8 +945,8 @@
         var inGroup = words.length ? true : (group === "all" || sec.getAttribute("data-group") === group);
         var n = 0;
         Array.prototype.forEach.call(sec.querySelectorAll(".tk-item"), function(a){
-          var s = a.getAttribute("data-s");
-          var ok = inGroup && words.every(function(w){ return s.indexOf(w) !== -1; });
+          var s = a.getAttribute("data-s"), g = a.parentNode.getAttribute("data-grade");
+          var ok = inGroup && (!g || g === grade) && words.every(function(w){ return s.indexOf(w) !== -1; });
           a.parentNode.hidden = !ok;
           if(ok) n++;
         });
@@ -932,6 +968,7 @@
       });
     });
     input.addEventListener("input", apply);
+    syncGrade();
     apply();
     input.addEventListener("keydown", function(e){
       if(e.key !== "Enter") return;
