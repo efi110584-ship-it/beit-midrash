@@ -313,7 +313,7 @@
 </div><!-- /site-content -->
 
 <script src="assets/bm-api.js"></script>
-<script src="assets/units-data.js?v=20261107-names"></script>
+<script src="assets/units-data.js?v=20261107-claude"></script>
 <script src="assets/exams-seed.js?v=6"></script>
 <script src="assets/flashcards-data.js"></script>
 <script src="assets/live-render.js"></script>
@@ -551,10 +551,11 @@
     return String(str || "").replace(/[\u0591-\u05C7]/g, "").replace(/["'״׳]/g, "").replace(/[\-–—·]/g, " ").replace(/\s+/g, " ").trim().toLowerCase();
   }
   function tkItemHtml(u){
-    return '<li><a class="tk-item" href="' + escapeAttr(u.url) + '" data-s="' + escapeAttr(tkNorm(u.title + " " + u.category + " " + tkMeta(u))) + '">' +
+    return '<li><a class="tk-item" href="' + escapeAttr(u.url) + '" data-s="' + escapeAttr(tkNorm(u.title + " " + u.category + " " + tkMeta(u) + (u.byClaude ? " claude קלוד" : ""))) + '">' +
       '<span class="tk-ico" aria-hidden="true">' + (TEACHER_CATEGORY_ICONS[u.category] || u.icon || "🗂️") + '</span>' +
       '<span class="tk-txt"><span class="tk-title">' + escapeHtml(tkTitle(u)) + '</span>' +
       '<span class="tk-meta">' + escapeHtml(tkMeta(u)) + '</span></span>' +
+      (u.byClaude ? '<span class="tk-claude" title="הוכן והועלה על ידי Claude" style="flex:none;align-self:center;margin-inline-start:.4rem;padding:.1rem .5rem;border-radius:999px;background:#F3E8FF;color:#5B2A86;font-size:.75rem;font-weight:700;white-space:nowrap">🤖 Claude</span>' : '') +
       '<span class="tk-go" aria-hidden="true">‹</span>' +
     '</a></li>';
   }

@@ -1030,6 +1030,7 @@
   },
   {
     "key": "ivrit-bagrut-prep-key",
+    "byClaude": true,
     "class": "teacher",
     "subject": "מורה",
     "category": "עברית",
@@ -1042,6 +1043,7 @@
   },
   {
     "key": "ivrit-bagrut-exam-key",
+    "byClaude": true,
     "class": "teacher",
     "subject": "מורה",
     "category": "עברית",
@@ -1054,6 +1056,7 @@
   },
   {
     "key": "ivrit-bagrut-11281-a-key",
+    "byClaude": true,
     "class": "teacher",
     "subject": "מורה",
     "category": "עברית",
@@ -1066,6 +1069,7 @@
   },
   {
     "key": "ivrit-bagrut-11281-b-key",
+    "byClaude": true,
     "class": "teacher",
     "subject": "מורה",
     "category": "עברית",
@@ -1077,7 +1081,34 @@
     "url": "ivrit-bagrut-11281-b.html?key=1"
   },
   {
+    "key": "ivrit-bagrut-11281-a-student",
+    "byClaude": true,
+    "class": "teacher",
+    "subject": "מבחן",
+    "category": "מבחנים",
+    "icon": "📝",
+    "title": "מבחן בגרות 1 בעברית - חשיבה ביקורתית (גרסת תלמיד)",
+    "desc": "המבחן כמו שהתלמידים רואים אותו, בלי התשובות.",
+    "chapters": 9,
+    "chaptersLabel": "שאלות",
+    "url": "ivrit-bagrut-11281-a.html"
+  },
+  {
+    "key": "ivrit-bagrut-11281-b-student",
+    "byClaude": true,
+    "class": "teacher",
+    "subject": "מבחן",
+    "category": "מבחנים",
+    "icon": "📝",
+    "title": "מבחן בגרות 2 בעברית - הקשבה (גרסת תלמיד)",
+    "desc": "המבחן כמו שהתלמידים רואים אותו, בלי התשובות.",
+    "chapters": 9,
+    "chaptersLabel": "שאלות",
+    "url": "ivrit-bagrut-11281-b.html"
+  },
+  {
     "key": "ivrit-verbs-review-key",
+    "byClaude": true,
     "class": "teacher",
     "subject": "מורה",
     "category": "עברית",
@@ -1090,6 +1121,7 @@
   },
   {
     "key": "ivrit-verbs-exam-key",
+    "byClaude": true,
     "class": "teacher",
     "subject": "מורה",
     "category": "עברית",
@@ -1102,6 +1134,7 @@
   },
   {
     "key": "ivrit-verbs-review-student",
+    "byClaude": true,
     "class": "teacher",
     "subject": "מבחן",
     "category": "מבחנים",
@@ -1114,6 +1147,7 @@
   },
   {
     "key": "ivrit-verbs-exam-student",
+    "byClaude": true,
     "class": "teacher",
     "subject": "מבחן",
     "category": "מבחנים",
@@ -1126,6 +1160,7 @@
   },
   {
     "key": "ivrit-names-study-key",
+    "byClaude": true,
     "class": "teacher",
     "subject": "מורה",
     "category": "עברית",
@@ -1138,6 +1173,7 @@
   },
   {
     "key": "ivrit-names-study-student",
+    "byClaude": true,
     "class": "teacher",
     "subject": "מבחן",
     "category": "מבחנים",
