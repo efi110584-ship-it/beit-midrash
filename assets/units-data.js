@@ -1055,6 +1055,34 @@
     "url": "ivrit-bagrut-exam.html?key=1"
   },
   {
+    "key": "ivrit-bagrut-exam-student",
+    "pair": "ivrit-bagrut-exam-key",
+    "byClaude": true,
+    "class": "teacher",
+    "subject": "מבחן",
+    "category": "מבחנים",
+    "icon": "📝",
+    "title": "מבחן בגרות לדוגמה בעברית (גרסת תלמיד)",
+    "desc": "המבחן כמו שהתלמידים רואים אותו, בלי התשובות.",
+    "chapters": 11,
+    "chaptersLabel": "שאלות",
+    "url": "ivrit-bagrut-exam.html"
+  },
+  {
+    "key": "ivrit-bagrut-prep-student",
+    "pair": "ivrit-bagrut-prep-key",
+    "byClaude": true,
+    "class": "teacher",
+    "subject": "מבחן",
+    "category": "מבחנים",
+    "icon": "📝",
+    "title": "מבחן הכנה בעברית (גרסת תלמיד)",
+    "desc": "המבחן כמו שהתלמידים רואים אותו, בלי התשובות.",
+    "chapters": 11,
+    "chaptersLabel": "שאלות",
+    "url": "ivrit-bagrut-prep.html"
+  },
+  {
     "key": "ivrit-bagrut-11281-a-key",
     "byClaude": true,
     "class": "teacher",
@@ -1082,6 +1110,7 @@
   },
   {
     "key": "ivrit-bagrut-11281-a-student",
+    "pair": "ivrit-bagrut-11281-a-key",
     "byClaude": true,
     "class": "teacher",
     "subject": "מבחן",
@@ -1095,6 +1124,7 @@
   },
   {
     "key": "ivrit-bagrut-11281-b-student",
+    "pair": "ivrit-bagrut-11281-b-key",
     "byClaude": true,
     "class": "teacher",
     "subject": "מבחן",
@@ -1134,6 +1164,7 @@
   },
   {
     "key": "ivrit-verbs-review-student",
+    "pair": "ivrit-verbs-review-key",
     "byClaude": true,
     "class": "teacher",
     "subject": "מבחן",
@@ -1147,6 +1178,7 @@
   },
   {
     "key": "ivrit-verbs-exam-student",
+    "pair": "ivrit-verbs-exam-key",
     "byClaude": true,
     "class": "teacher",
     "subject": "מבחן",
@@ -1173,6 +1205,7 @@
   },
   {
     "key": "ivrit-names-study-student",
+    "pair": "ivrit-names-study-key",
     "byClaude": true,
     "class": "teacher",
     "subject": "מבחן",

@@ -313,7 +313,7 @@
 </div><!-- /site-content -->
 
 <script src="assets/bm-api.js"></script>
-<script src="assets/units-data.js?v=20261107-claude"></script>
+<script src="assets/units-data.js?v=20261107-pairs"></script>
 <script src="assets/exams-seed.js?v=6"></script>
 <script src="assets/flashcards-data.js"></script>
 <script src="assets/live-render.js"></script>
@@ -550,17 +550,24 @@
   function tkNorm(str){
     return String(str || "").replace(/[\u0591-\u05C7]/g, "").replace(/["'״׳]/g, "").replace(/[\-–—·]/g, " ").replace(/\s+/g, " ").trim().toLowerCase();
   }
+  /* גרסת תלמיד (pair) מוצגת באותה שורה של המחוון שלה - כפתור "📝 גרסת תלמיד" */
+  var TK_PAIRS = {};
   function tkItemHtml(u){
-    return '<li><a class="tk-item" href="' + escapeAttr(u.url) + '" data-s="' + escapeAttr(tkNorm(u.title + " " + u.category + " " + tkMeta(u) + (u.byClaude ? " claude קלוד" : ""))) + '">' +
+    var stu = TK_PAIRS[u.key];
+    return '<li' + (stu ? ' style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"' : '') + '><a class="tk-item"' + (stu ? ' style="flex:1 1 220px"' : '') + ' href="' + escapeAttr(u.url) + '" data-s="' + escapeAttr(tkNorm(u.title + " " + u.category + " " + tkMeta(u) + (u.byClaude ? " claude קלוד" : "") + (stu ? " " + stu.title + " תלמיד" : ""))) + '">' +
       '<span class="tk-ico" aria-hidden="true">' + (TEACHER_CATEGORY_ICONS[u.category] || u.icon || "🗂️") + '</span>' +
       '<span class="tk-txt"><span class="tk-title">' + escapeHtml(tkTitle(u)) + '</span>' +
       '<span class="tk-meta">' + escapeHtml(tkMeta(u)) + '</span></span>' +
       (u.byClaude ? '<span class="tk-claude" title="הוכן והועלה על ידי Claude" style="flex:none;align-self:center;margin-inline-start:.4rem;padding:.1rem .5rem;border-radius:999px;background:#F3E8FF;color:#5B2A86;font-size:.75rem;font-weight:700;white-space:nowrap">🤖 Claude</span>' : '') +
       '<span class="tk-go" aria-hidden="true">‹</span>' +
-    '</a></li>';
+    '</a>' + (stu ? '<a class="tk-stu" href="' + escapeAttr(stu.url) + '" title="' + escapeAttr(stu.title) + '" style="flex:none;display:inline-flex;align-items:center;gap:4px;min-height:40px;padding:6px 12px;border-radius:10px;border:1px solid #C9D5EA;background:#fff;color:#123A78;font-weight:700;font-size:.88rem;text-decoration:none;white-space:nowrap">📝 גרסת תלמיד</a>' : '') + '</li>';
   }
   function teacherKeysHtml(units){
     var byGroup = {};
+    TK_PAIRS = {};
+    var keys = {};
+    units.forEach(function(u){ if(u.key) keys[u.key] = true; });
+    units = units.filter(function(u){ if(u.pair && keys[u.pair]){ TK_PAIRS[u.pair] = u; return false; } return true; });
     units.forEach(function(u){ var g = tkGroupOf(u); (byGroup[g] = byGroup[g] || []).push(u); });
     var groups = TK_GROUPS.filter(function(g){ return byGroup[g.id]; });
     var chips = '<button type="button" class="tt-tab" data-tk-filter="all" aria-pressed="true">הכול<span class="tt-count">' + units.length + '</span></button>' +
