@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="assets/site.css?v=45">
 
 <script src="assets/a11y.js"></script>
-<link rel="stylesheet" href="assets/teacher-dashboard.css?v=4"><script src="assets/teacher-dashboard-layout.js?v=2"></script><script src="assets/teacher-home.js?v=3"></script></head>
+<link rel="stylesheet" href="assets/teacher-dashboard.css?v=4"><script src="assets/teacher-dashboard-layout.js?v=2"></script><script src="assets/teacher-home.js?v=3"></script><script src="assets/my-schedule.js?v=1"></script></head>
 <body>
 
 <div id="entryGate" class="entry-gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
@@ -647,6 +647,7 @@
   }
   function teacherToolsHtml(units){
     var TABS = [
+      { id:"sched", label:"המערכת שלי", icon:"🗓️", extra:"" },
       { id:"keys", label:"מחוונים ומבחנים", icon:"📚", extra:'<span class="tt-nav-n">' + units.length + '</span>' },
       { id:"lesson", label:"בשיעור", icon:"🧑‍🏫", extra:'<span class="tt-nav-live" id="ttNavLive" hidden>חי</span>' },
       { id:"board", label:"לוח הגשות", icon:"📥", extra:'<span class="tt-nav-n tt-nav-n--alert" id="ttNavPending" hidden></span>' },
@@ -660,6 +661,10 @@
             return '<button type="button" class="tt-nav-tab" role="tab" id="ttTab-' + t.id + '" data-panel="' + t.id + '" aria-controls="ttPanel-' + t.id + '" aria-selected="false" tabindex="-1">' +
               '<span class="tt-nav-icon" aria-hidden="true">' + t.icon + '</span><span class="tt-nav-label">' + t.label + '</span>' + t.extra + '</button>';
           }).join("") +
+        '</div>' +
+        '<div class="tt-panel" role="tabpanel" id="ttPanel-sched" aria-labelledby="ttTab-sched" hidden>' +
+          '<header class="td-panel-header"><h2 class="td-title">המערכת שלי</h2><p class="td-subtitle">השיעורים שלך בשבוע, לפי סקולי.</p></header>' +
+          '<div id="schMount"></div>' +
         '</div>' +
         '<div class="tt-panel" role="tabpanel" id="ttPanel-keys" aria-labelledby="ttTab-keys" hidden>' +
           teacherKeysHtml(units) +
@@ -872,6 +877,7 @@
         t.setAttribute("aria-selected", on ? "true" : "false");
         t.tabIndex = on ? 0 : -1;
         document.getElementById("ttPanel-" + t.getAttribute("data-panel")).hidden = !on;
+        if(on && id === "sched" && window.BM_MY_SCHEDULE) window.BM_MY_SCHEDULE.mount(document.getElementById("schMount"));
         if(on && focus) t.focus();
       });
       try{ localStorage.setItem(TT_PANEL_KEY, id); }catch(e){}
