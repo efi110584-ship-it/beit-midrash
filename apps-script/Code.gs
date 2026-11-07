@@ -174,6 +174,9 @@ function doPost(e) {
       case 'actResults':      return json_(actTeacher_(data.room));
       case 'boardOpen':       return json_(boardOpen_(data.title, data.page, data.room));
       case 'boardSet':        return json_(boardSet_(data.id, data.open === true, data.room));
+      case 'attRoster':       return json_(attRoster_(data.cls));
+      case 'attDay':          return json_(attDay_(data.date));
+      case 'attSave':         return json_(attSave_(data));
       case 'boardList':       return json_({ ok: true, boards: qbBoardsList_().concat(QBOARD_TITLES), active: qbActives_()[liveRoom_(data.room)] || null });
     }
     return json_({ ok: false, error: 'פעולה לא מוכרת' });
@@ -1381,6 +1384,49 @@ function lessonIdentify_(code, id) {
   var name = roster_(l.cls)[idHash_(id)];
   if (!name) return { ok: false, error: 'תעודת הזהות לא נמצאה ברשימת הכיתה. פנו למורה.' };
   return { ok: true, name: name, tok: rosterToken_(l.code, name) };
+}
+
+// ---------- נוכחות - "המערכת שלי" באזור האישי ----------
+// המורה מסמן בכל שיעור מי חסר ומי איחר (כל השאר נוכחים). בסוף היום יש סיכום להעתקה לסקולי.
+// ATT_<yyyy-mm-dd> = { "<שעה>|<כיתה>": { s: מקצוע, t: נשמר ב-, m: { שם: 'a' (חסר) / 'l' (איחור) } } }
+// השמות הם רק שמות מרשימת הכיתה השמורה (ROSTER_). נשמר ATT_KEEP_DAYS ימים ואז נמחק לבד.
+var ATT_KEEP_DAYS = 45;
+function attRoster_(cls) {
+  cls = normClass_(cls);
+  if (MONITOR_CLASSES.indexOf(cls) < 0) return { ok: false, error: 'כיתה לא מוכרת' };
+  var r = roster_(cls), seen = {}, names = [];
+  Object.keys(r).forEach(function (h) { var n = r[h]; if (n && !seen[n]) { seen[n] = 1; names.push(n); } });
+  names.sort(function (a, b) { return a.localeCompare(b, 'he'); });
+  return { ok: true, cls: cls, names: names };
+}
+function attDate_(d) { d = String(d || ''); return /^\d{4}-\d{2}-\d{2}$/.test(d) ? d : ''; }
+function attDay_(date) {
+  date = attDate_(date);
+  if (!date) return { ok: false, error: 'תאריך לא תקין' };
+  return { ok: true, date: date, day: getJson_('ATT_' + date) || {} };
+}
+function attSave_(d) {
+  var date = attDate_(d.date), hour = Number(d.hour), cls = normClass_(d.cls);
+  if (!date || !(hour >= 0 && hour <= 10) || MONITOR_CLASSES.indexOf(cls) < 0) return { ok: false, error: 'פרטי השיעור לא תקינים' };
+  var r = roster_(cls), ok = {}, marks = {}, n = 0;
+  Object.keys(r).forEach(function (h) { ok[r[h]] = 1; });
+  var m = d.marks || {};
+  Object.keys(m).forEach(function (name) {
+    var v = m[name];
+    if (ok[name] && (v === 'a' || v === 'l')) { marks[name] = v; n++; }
+  });
+  var props = PropertiesService.getScriptProperties();
+  var lock = LockService.getScriptLock();
+  lock.waitLock(15000);
+  try {
+    var day = getJson_('ATT_' + date) || {};
+    day[hour + '|' + cls] = { s: clean_(d.subject).slice(0, 40), t: Date.now(), m: marks };
+    props.setProperty('ATT_' + date, JSON.stringify(day));
+    // ניקוי ימים ישנים
+    var old = Utilities.formatDate(new Date(Date.now() - ATT_KEEP_DAYS * 864e5), 'Asia/Jerusalem', 'yyyy-MM-dd');
+    props.getKeys().forEach(function (k) { if (k.indexOf('ATT_') === 0 && k.slice(4) < old) props.deleteProperty(k); });
+  } finally { lock.releaseLock(); }
+  return { ok: true, saved: n };
 }
 
 // ---------- אזור אישי לתלמיד (my.html) ----------
