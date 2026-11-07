@@ -519,6 +519,7 @@
     { id:"tnk", label:'תנ"ך', icon:"📖" },
     { id:"tsb", label:'תושב"ע', icon:"📋" },
     { id:"heb", label:"עברית", icon:"🔤" },
+    { id:"mach", label:"מחשבת ישראל", icon:"💡" },
     { id:"hist", label:"היסטוריה", icon:"🏛️" },
     { id:"exam", label:"מבחנים", icon:"📝" },
     { id:"alumni", label:"בוגרים", icon:"🎓" },
@@ -530,6 +531,7 @@
     if(cat === "בוגרים") return "alumni";
     if(/^עברית/.test(cat)) return "heb";
     if(cat === "היסטוריה") return "hist";
+    if(cat === "מחשבת ישראל") return "mach";
     if(cat === "לקט מצוות") return "tsb";
     if(cat === "בית, חינוך ומשפחה") return "tsb";
     if(cat === "פתוח תפתח") return "tnk";
@@ -537,7 +539,7 @@
     return "other";
   }
   function tkTitle(u){
-    return String(u.title).replace(/^מחוון (תשובות|מרוכז)\s*[-–—]\s*/, "").replace(/^בוגרים\s*[-–—]\s*/, "");
+    return String(u.title).replace(/^מחוון( תשובות| מרוכז)?\s*[-–—]\s*/, "").replace(/^בוגרים\s*[-–—]\s*/, "");
   }
   function tkMeta(u){
     var cat = String(u.category || "").replace(/^עברית\s*-\s*/, "");
@@ -554,13 +556,13 @@
   var TK_PAIRS = {};
   function tkItemHtml(u){
     var stu = TK_PAIRS[u.key];
-    return '<li' + (stu ? ' style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"' : '') + '><a class="tk-item"' + (stu ? ' style="flex:1 1 220px"' : '') + ' href="' + escapeAttr(u.url) + '" data-s="' + escapeAttr(tkNorm(u.title + " " + u.category + " " + tkMeta(u) + (u.byClaude ? " claude קלוד" : "") + (stu ? " " + stu.title + " תלמיד" : ""))) + '">' +
+    return '<li' + (stu ? ' style="display:flex;align-items:center;gap:4px"' : '') + '><a class="tk-item"' + (stu ? ' style="flex:1 1 0;min-width:0"' : '') + ' href="' + escapeAttr(u.url) + '" data-s="' + escapeAttr(tkNorm(u.title + " " + u.category + " " + tkMeta(u) + (u.byClaude ? " claude קלוד" : "") + (stu ? " " + stu.title + " תלמיד" : ""))) + '">' +
       '<span class="tk-ico" aria-hidden="true">' + (TEACHER_CATEGORY_ICONS[u.category] || u.icon || "🗂️") + '</span>' +
       '<span class="tk-txt"><span class="tk-title">' + escapeHtml(tkTitle(u)) + '</span>' +
       '<span class="tk-meta">' + escapeHtml(tkMeta(u)) + '</span></span>' +
-      (u.byClaude ? '<span class="tk-claude" title="הוכן והועלה על ידי Claude" style="flex:none;align-self:center;margin-inline-start:.4rem;padding:.1rem .5rem;border-radius:999px;background:#F3E8FF;color:#5B2A86;font-size:.75rem;font-weight:700;white-space:nowrap">🤖 Claude</span>' : '') +
+      (u.byClaude ? '<span class="tk-claude" title="הוכן והועלה על ידי Claude" style="flex:none;align-self:center;margin-inline-start:.3rem;width:26px;height:26px;display:inline-grid;place-items:center;border-radius:50%;background:#F3E8FF;font-size:.85rem" aria-label="הוכן על ידי Claude">🤖</span>' : '') +
       '<span class="tk-go" aria-hidden="true">‹</span>' +
-    '</a>' + (stu ? '<a class="tk-stu" href="' + escapeAttr(stu.url) + '" title="' + escapeAttr(stu.title) + '" style="flex:none;display:inline-flex;align-items:center;gap:4px;min-height:40px;padding:6px 12px;border-radius:10px;border:1px solid #C9D5EA;background:#fff;color:#123A78;font-weight:700;font-size:.88rem;text-decoration:none;white-space:nowrap">📝 גרסת תלמיד</a>' : '') + '</li>';
+    '</a>' + (stu ? '<a class="tk-stu" href="' + escapeAttr(stu.url) + '" title="' + escapeAttr(stu.title) + '" aria-label="גרסת תלמיד: ' + escapeAttr(stu.title) + '" style="flex:none;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:0;min-width:52px;min-height:44px;padding:4px 6px;border-radius:10px;border:1px solid #C9D5EA;background:#fff;color:#123A78;font-weight:700;font-size:.72rem;line-height:1.15;text-decoration:none"><span aria-hidden="true" style="font-size:1rem">📝</span>תלמיד</a>' : '') + '</li>';
   }
   /* בתוך כל מקצוע: יחידות לימוד / מבחנים וחזרות / דפי תרגול (רק כשיש יותר מסוג אחד) */
   var TK_SECS = [
@@ -586,13 +588,13 @@
     }
     var secs = TK_SECS.filter(function(x){ return by[x.id]; });
     if(secs.length < 2) return '<ul class="tk-list">' + list.map(tkItemHtml).join("") + '</ul>';
-    return secs.map(function(x){
+    return '<div class="tk-secs">' + secs.map(function(x){
       return '<div class="tk-sec">' +
         '<h4 class="tk-sec-h" style="margin:10px 12px 2px;padding:4px 6px;font-size:.9rem;font-weight:700;color:#4E5B72;border-bottom:1px dashed #DCE4F1">' + x.label +
           ' <span style="font-weight:400;color:#8A97AD">(' + by[x.id].length + ')</span></h4>' +
         '<ul class="tk-list">' + by[x.id].map(tkItemHtml).join("") + '</ul>' +
       '</div>';
-    }).join("");
+    }).join("") + '</div>';
   }
   function teacherKeysHtml(units){
     var byGroup = {};
@@ -602,9 +604,18 @@
     units = units.filter(function(u){ if(u.pair && keys[u.pair]){ TK_PAIRS[u.pair] = u; return false; } return true; });
     units.forEach(function(u){ var g = tkGroupOf(u); (byGroup[g] = byGroup[g] || []).push(u); });
     var groups = TK_GROUPS.filter(function(g){ return byGroup[g.id]; });
-    var chips = '<button type="button" class="tt-tab" data-tk-filter="all" aria-pressed="true">הכול<span class="tt-count">' + units.length + '</span></button>' +
+    /* מקצוע אחד בכל פעם (בחיפוש - בכל המקצועות). בתוך המקצוע: יחידות · מבחנים · תרגול זה לצד זה */
+    var chips = '<style>' +
+        '#tkGrid.is-one{columns:auto}' +
+        '#tkGrid.is-one .tk-group{break-inside:auto;margin-bottom:0}' +
+        '#tkGrid.is-one .tk-secs{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:4px 14px;align-items:start}' +
+        '#tkGrid.is-one .tk-sec{border-inline-start:1px solid #E3EAF5}' +
+        '#tkGrid.is-one .tk-sec:first-child{border-inline-start:0}' +
+        '#tkGrid.is-one .tk-sec-h{font-size:1rem !important;color:#123A78 !important}' +
+        '@media (max-width:700px){#tkGrid.is-one .tk-sec{border-inline-start:0}}' +
+      '</style>' +
       groups.map(function(g){
-        return '<button type="button" class="tt-tab" data-tk-filter="' + g.id + '" aria-pressed="false">' + g.label + '<span class="tt-count">' + byGroup[g.id].length + '</span></button>';
+        return '<button type="button" class="tt-tab" data-tk-filter="' + g.id + '" aria-pressed="false"><span aria-hidden="true">' + g.icon + '</span> ' + g.label + '<span class="tt-count">' + byGroup[g.id].length + '</span></button>';
       }).join("");
     return (
       '<div class="tk">' +
@@ -886,12 +897,16 @@
     var grid = document.getElementById("tkGrid");
     var empty = document.getElementById("tkEmpty");
     var chips = Array.prototype.slice.call(document.querySelectorAll("[data-tk-filter]"));
-    var group = "all";
+    var group = "";
+    try{ group = localStorage.getItem("tk-subj") || ""; }catch(e){}
+    if(!chips.some(function(c){ return c.getAttribute("data-tk-filter") === group; })) group = chips.length ? chips[0].getAttribute("data-tk-filter") : "all";
+    chips.forEach(function(x){ x.setAttribute("aria-pressed", x.getAttribute("data-tk-filter") === group ? "true" : "false"); });
     function apply(){
       var words = tkNorm(input.value).split(" ").filter(Boolean);
       var shown = 0;
+      grid.classList.toggle("is-one", !words.length);
       Array.prototype.forEach.call(grid.querySelectorAll(".tk-group"), function(sec){
-        var inGroup = group === "all" || sec.getAttribute("data-group") === group;
+        var inGroup = words.length ? true : (group === "all" || sec.getAttribute("data-group") === group);
         var n = 0;
         Array.prototype.forEach.call(sec.querySelectorAll(".tk-item"), function(a){
           var s = a.getAttribute("data-s");
@@ -910,11 +925,14 @@
     chips.forEach(function(c){
       c.addEventListener("click", function(){
         group = c.getAttribute("data-tk-filter");
+        try{ localStorage.setItem("tk-subj", group); }catch(e){}
+        if(input.value){ input.value = ""; }
         chips.forEach(function(x){ x.setAttribute("aria-pressed", x === c ? "true" : "false"); });
         apply();
       });
     });
     input.addEventListener("input", apply);
+    apply();
     input.addEventListener("keydown", function(e){
       if(e.key !== "Enter") return;
       var vis = Array.prototype.filter.call(grid.querySelectorAll(".tk-item"), function(a){ return !a.parentNode.hidden; });
