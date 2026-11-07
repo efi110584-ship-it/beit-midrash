@@ -256,6 +256,57 @@
     ".bmd-tool.is-on::after{content:'';position:absolute;top:6px;inset-inline-end:6px;width:9px;height:9px;border-radius:50%;background:#2BD38C;box-shadow:0 0 0 3px rgba(43,211,140,.3)}" +
     ".bmd-nav2{display:grid;grid-template-columns:1fr 1fr;gap:6px}.bmd-nav2 .bmd-btn{min-height:46px}" +
     "@media (max-width:600px){.bmd-p.is-pop,.bmd-p.is-tool{inset:auto 8px 136px 8px;top:auto;width:auto;max-height:70vh}.bmd-p.is-tool{top:8px}}" +
+    /* ===== 🛸 עיצוב "חללית" לחלון הכיתה ===== */
+    "@keyframes bmdTw{0%{background-position:0 0,0 0,0 0}100%{background-position:-120px 60px,80px -40px,-40px -90px}}" +
+    "@keyframes bmdPulse{0%{box-shadow:0 0 0 0 rgba(255,122,26,.75)}70%{box-shadow:0 0 0 12px rgba(255,122,26,0)}100%{box-shadow:0 0 0 0 rgba(255,122,26,0)}}" +
+    "@keyframes bmdRing{0%{transform:scale(1);opacity:.9}100%{transform:scale(1.45);opacity:0}}" +
+    "@keyframes bmdIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}" +
+    ".bmd-p.is-pop{color:#E8F0FF;border:1px solid rgba(120,200,255,.35);border-radius:22px;animation:bmdIn .28s ease-out;" +
+      "background:radial-gradient(1.5px 1.5px at 20px 30px,#fff,transparent),radial-gradient(1px 1px at 90px 120px,rgba(255,255,255,.8),transparent),radial-gradient(1.2px 1.2px at 160px 60px,rgba(180,220,255,.9),transparent)," +
+        "radial-gradient(ellipse at 15% 0%,rgba(76,110,255,.35),transparent 55%),radial-gradient(ellipse at 100% 100%,rgba(0,220,200,.18),transparent 50%),linear-gradient(160deg,#0A0F2E 0%,#101A45 55%,#0B1230 100%);" +
+      "background-size:200px 150px,220px 180px,240px 160px,100% 100%,100% 100%,100% 100%;" +
+      "box-shadow:0 0 0 1px rgba(80,170,255,.15),0 20px 60px rgba(4,8,30,.7),0 0 40px rgba(70,140,255,.25);animation:bmdIn .28s ease-out,bmdTw 60s linear infinite}" +
+    ".bmd-p.is-pop .bmd-ph{background:linear-gradient(90deg,rgba(70,120,255,.25),rgba(0,220,200,.12));border-bottom:1px solid rgba(120,200,255,.25)}" +
+    ".bmd-p.is-pop .bmd-ph h2{color:#fff;letter-spacing:.3px;text-shadow:0 0 12px rgba(120,190,255,.7)}" +
+    ".bmd-p.is-pop #bmdIco{font-size:22px;filter:drop-shadow(0 0 6px rgba(120,220,255,.9))}" +
+    ".bmd-p.is-pop .bmd-x{color:#CFE0FF}.bmd-p.is-pop .bmd-x:hover{background:rgba(255,255,255,.12)}" +
+    ".bmd-p.is-pop .bmd-pb{gap:14px}" +
+    ".bmd-p.is-pop .bmd-note{color:#A9B9DD}" +
+    ".bmd-p.is-pop .bmd-chip{background:rgba(255,255,255,.07) !important;color:#E8F0FF !important;border:1px solid rgba(140,200,255,.35) !important;box-shadow:inset 0 0 10px rgba(120,190,255,.12);font-weight:600}" +
+    ".bmd-p.is-pop .bmd-chip b{color:#fff}" +
+    ".bmd-hud{display:flex;align-items:center;gap:8px;font-size:.78rem;letter-spacing:1.5px;color:#7FD9FF;text-transform:uppercase;font-weight:700}" +
+    ".bmd-hud::before,.bmd-hud::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(127,217,255,.6),transparent)}" +
+    ".bmd-p.is-pop .bmd-avs{gap:12px 8px;padding:6px 2px}" +
+    ".bmd-p.is-pop .bmd-av{color:#DCE7FF}" +
+    ".bmd-p.is-pop .bmd-av-c{position:relative;width:46px;height:46px;border:0;color:#04201A;font-weight:800;" +
+      "background:radial-gradient(circle at 32% 28%,#E8FFF6 0%,#5BF0B8 30%,#0FAF7A 70%,#08624A 100%);box-shadow:0 0 14px rgba(60,240,170,.55),inset -4px -6px 10px rgba(0,0,0,.25)}" +
+    ".bmd-p.is-pop .bmd-av.is-out .bmd-av-c{color:#3A1600;background:radial-gradient(circle at 32% 28%,#FFF3E0 0%,#FFB067 30%,#F07A1A 70%,#9A4300 100%);box-shadow:0 0 14px rgba(255,140,40,.6),inset -4px -6px 10px rgba(0,0,0,.25)}" +
+    ".bmd-p.is-pop .bmd-av.is-gone .bmd-av-c{color:#2A3350;background:radial-gradient(circle at 32% 28%,#F2F5FF 0%,#9AA6C6 40%,#5A6688 100%);box-shadow:none;opacity:.55}" +
+    ".bmd-p.is-pop .bmd-av.is-kicked .bmd-av-c{color:#fff;background:radial-gradient(circle at 32% 28%,#FFD6D2 0%,#F0453A 45%,#8A1610 100%);box-shadow:0 0 12px rgba(240,70,60,.6)}" +
+    ".bmd-p.is-pop .bmd-av.is-help .bmd-av-c::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid #FF9D4D;animation:bmdRing 1.4s ease-out infinite}" +
+    ".bmd-p.is-pop .bmd-av.is-sel .bmd-av-c{box-shadow:0 0 0 3px #7FD9FF,0 0 22px rgba(127,217,255,.9)}" +
+    ".bmd-p.is-pop .bmd-av:hover .bmd-av-c{transform:translateY(-2px) scale(1.06);transition:transform .15s}" +
+    ".bmd-p.is-pop .bmd-av-b{background:#0A0F2E;color:#fff;border:1px solid rgba(140,200,255,.5);box-shadow:0 0 8px rgba(120,190,255,.5)}" +
+    ".bmd-p.is-pop .bmd-det{background:rgba(255,255,255,.95);color:#0E1B33;border:1px solid rgba(127,217,255,.7);box-shadow:0 0 24px rgba(127,217,255,.35)}" +
+    ".bmd-p.is-pop .bmd-det .bmd-x{color:#0E1B33}" +
+    ".bmd-p.is-pop .bmd-nav2 .bmd-btn{min-height:52px;border:0;color:#fff;font-size:1rem;letter-spacing:.2px;border-radius:14px;" +
+      "background:linear-gradient(135deg,#FF8A3D,#FF5E3A);box-shadow:0 6px 18px rgba(255,100,50,.45),inset 0 1px 0 rgba(255,255,255,.35)}" +
+    ".bmd-p.is-pop .bmd-nav2 .bmd-btn+.bmd-btn{background:linear-gradient(135deg,#5468FF,#7B3DFF);box-shadow:0 6px 18px rgba(100,90,255,.45),inset 0 1px 0 rgba(255,255,255,.35)}" +
+    ".bmd-p.is-pop .bmd-nav2 .bmd-btn:hover{filter:brightness(1.1);transform:translateY(-1px)}" +
+    ".bmd-p.is-pop .bmd-tool{background:rgba(255,255,255,.06);color:#DCE7FF;border:1px solid rgba(140,200,255,.3);backdrop-filter:blur(4px);transition:transform .15s,box-shadow .15s,background .15s}" +
+    ".bmd-p.is-pop .bmd-tool:hover{background:rgba(120,190,255,.16);box-shadow:0 0 16px rgba(120,190,255,.45);transform:translateY(-2px)}" +
+    ".bmd-p.is-pop .bmd-tool span:first-child{font-size:24px;filter:drop-shadow(0 0 6px rgba(160,220,255,.7))}" +
+    ".bmd-p.is-pop .bmd-btns .bmd-btn{background:rgba(255,255,255,.08);color:#E8F0FF;border-color:rgba(140,200,255,.35)}" +
+    ".bmd-p.is-pop .bmd-det .bmd-btn{background:#fff;color:#123A78;border-color:#DCE4F1}" +
+    ".bmd-p.is-pop .bmd-more summary{color:#7FD9FF}" +
+    ".bmd-p.is-pop ::-webkit-scrollbar{width:8px}.bmd-p.is-pop ::-webkit-scrollbar-thumb{background:rgba(127,217,255,.35);border-radius:8px}" +
+    ".bmd-p.is-tool .bmd-ph{background:linear-gradient(90deg,#0A0F2E,#1A2A6B);border-bottom:0}.bmd-p.is-tool .bmd-ph h2{color:#fff}.bmd-p.is-tool .bmd-ph .bmd-x{color:#CFE0FF}" +
+    /* כפתור השיגור */
+    ".bmd-launch{background:radial-gradient(circle at 30% 25%,#3D5BFF,#121A4A 70%) !important;border:1px solid rgba(127,217,255,.6) !important;box-shadow:0 0 0 3px rgba(84,104,255,.25),0 8px 24px rgba(10,15,46,.6),0 0 22px rgba(90,140,255,.55) !important}" +
+    ".bmd-launch .bmd-tog-n{text-shadow:0 0 10px rgba(160,220,255,.9)}" +
+    ".bmd-launch.is-alert{animation:bmdPulse 1.8s infinite}" +
+    ".bmd-launch[aria-expanded=true]{background:radial-gradient(circle at 30% 25%,#FF9B4D,#C2410C 75%) !important}" +
+    "@media (prefers-reduced-motion:reduce){.bmd-p.is-pop,.bmd-launch.is-alert,.bmd-p.is-pop .bmd-av.is-help .bmd-av-c::after{animation:none !important}}" +
     "@media print{.bmd,.bmd-p,.bmd-t,.bmd-cb,.bmd-cp{display:none !important}}";
   var st = document.createElement("style");
   st.textContent = css;
@@ -398,7 +449,7 @@
     panel.classList.toggle("is-tool", isTeacher && tool !== "live");
     panel.querySelector(".bmd-back").hidden = !(isTeacher && tool !== "live");
     var t = TOOLS.filter(function(x){ return x.id === tool; })[0];
-    icoEl.textContent = t.ico;
+    icoEl.textContent = isTeacher && tool === "live" ? "🛸" : t.ico;
     titleEl.textContent = t.title;
     panel.hidden = false;
     toast.hidden = true;
@@ -641,6 +692,7 @@
         (idleN ? chip('💤 <b>' + idleN + '</b>', '#F1F4F9', '#56637A') : '') +
       '</div>' +
       /* העיגולים */
+      '<div class="bmd-hud">צוות הספינה · ' + list.filter(function(x){ return x.status === "in" || x.status === "out"; }).length + ' מחוברים</div>' +
       (list.length ? '<div class="bmd-avs" role="list" aria-label="התלמידים בשיעור">' + list.map(function(s){
         var sid = s.sid || s.name || "", cu = chatU(s);
         var c = s.status === "kicked" ? "is-kicked" : s.status === "out" ? "is-out" : (s.status === "gone" || s.status === "bye") ? "is-gone" : "";
@@ -667,14 +719,16 @@
         (LM ? '<details><summary style="cursor:pointer;font-weight:700;color:#123A78">מה קרה אצלו בשיעור</summary>' + LM.timelineHtml(sel) + '</details>' : '') +
       '</div>' : '') +
       /* שליחת הכיתה לדף הזה */
+      '<div class="bmd-hud">ניווט</div>' +
       '<div class="bmd-nav2">' +
-        '<button type="button" class="bmd-btn" data-nav-here="' + esc(res.lesson.code) + '">📍 העבר לכאן</button>' +
+        '<button type="button" class="bmd-btn" data-nav-here="' + esc(res.lesson.code) + '">🚀 העבר לכאן</button>' +
         (locked ? '<button type="button" class="bmd-btn" data-nav-here="' + esc(res.lesson.code) + '" data-nav-free="' + esc(String(res.lesson.nav.url).split("#")[0]) + '">🔓 שחרור הנעילה</button>'
           : '<button type="button" class="bmd-btn" data-nav-here="' + esc(res.lesson.code) + '" data-nav-lock="1" title="התלמידים יעברו לכאן ולא יוכלו לעבור לדף או למשימה אחרת עד שתשחררו">🔒 העבר ונעל</button>') +
       '</div>' +
       (res.lesson.nav ? '<p class="bmd-note" style="font-size:.82rem;margin-top:-6px">' + (locked ? '🔒 נעולים על: ' : 'נשלחו ל: ') + '<b>' + esc(res.lesson.nav.label || res.lesson.nav.url) + '</b> · כבר שם: ' +
         list.filter(function(x){ return x.page === String(res.lesson.nav.url).split("#")[0] && x.status !== "bye"; }).length + ' מתוך ' +
         list.filter(function(x){ return x.status !== "bye"; }).length + '</p>' : '') +
+      '<div class="bmd-hud">משימות לכיתה</div>' +
       toolsRowHtml() +
       '<details class="bmd-more"><summary>⚙️ התראות והסבר</summary><div class="bmd-btns" id="bmdLiveSound" style="margin:8px 0"></div>' +
         '<p class="bmd-note">🟢 בדף · 🟠 יצא מהדף · ⚪ לא מחובר. ✋ = מבקש עזרה. 💬 = שאלה בצ\'אט (נפתחת בבלון מימין). 💤 = לא כתב 3 דקות. 📋 = הדביק טקסט.</p>' +
@@ -768,6 +822,7 @@
         if(tn) tn.textContent = res.lesson ? (res.students || []).filter(function(s){ return s.status === "in" || s.status === "out"; }).length : 0;
         var tc = dock.querySelector(".bmd-tog-cnt");
         if(tc){ tc.textContent = cnt.textContent; tc.hidden = cnt.hidden; tc.title = ""; }
+        if(togBtn) togBtn.classList.toggle("is-alert", !cnt.hidden);
         cnt.title = outN + " מחוץ לדף" + (hlpN ? " · " + hlpN + " מבקשים עזרה" : "") + (chN ? " · " + chN + " שאלות חדשות בצ'אט" : "");
       }
       if(livePanelShown()) renderLive(res);
