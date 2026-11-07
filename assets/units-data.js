@@ -1094,6 +1094,30 @@
     "url": "ivrit-verbs-exam.html?key=1"
   },
   {
+    "key": "ivrit-verbs-review-student",
+    "class": "teacher",
+    "subject": "מבחן",
+    "category": "מבחנים",
+    "icon": "📝",
+    "title": "חזרה למבחן - הפועל והגזרות (גרסת תלמיד)",
+    "desc": "הדף כמו שהתלמידים רואים אותו, בלי התשובות: חמש שאלות עם הסבר ובדיקה עצמית.",
+    "chapters": 5,
+    "chaptersLabel": "שאלות",
+    "url": "ivrit-verbs-review.html"
+  },
+  {
+    "key": "ivrit-verbs-exam-student",
+    "class": "teacher",
+    "subject": "מבחן",
+    "category": "מבחנים",
+    "icon": "📝",
+    "title": "מבחן - הפועל והגזרות (גרסת תלמיד)",
+    "desc": "המבחן כמו שהתלמידים רואים אותו, בלי התשובות: חמש שאלות, 20 נקודות לכל שאלה.",
+    "chapters": 5,
+    "chaptersLabel": "שאלות",
+    "url": "ivrit-verbs-exam.html"
+  },
+  {
     "key": "machshava-key",
     "class": "teacher",
     "subject": "מורה",
