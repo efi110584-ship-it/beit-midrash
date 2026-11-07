@@ -562,6 +562,38 @@
       '<span class="tk-go" aria-hidden="true">‹</span>' +
     '</a>' + (stu ? '<a class="tk-stu" href="' + escapeAttr(stu.url) + '" title="' + escapeAttr(stu.title) + '" style="flex:none;display:inline-flex;align-items:center;gap:4px;min-height:40px;padding:6px 12px;border-radius:10px;border:1px solid #C9D5EA;background:#fff;color:#123A78;font-weight:700;font-size:.88rem;text-decoration:none;white-space:nowrap">📝 גרסת תלמיד</a>' : '') + '</li>';
   }
+  /* בתוך כל מקצוע: יחידות לימוד / מבחנים וחזרות / דפי תרגול (רק כשיש יותר מסוג אחד) */
+  var TK_SECS = [
+    { id:"units", label:"📘 יחידות לימוד" },
+    { id:"exams", label:"📝 מבחנים וחזרות" },
+    { id:"practice", label:"🗂️ דפי תרגול ועבודות" }
+  ];
+  function tkSectionOf(u){
+    var t = tkTitle(u).replace(/^מחוון\s*[-–—]\s*/, "");
+    if(/(^|[\s\-–—])(מבחן|חזרה למבחן)/.test(t)) return "exams";
+    if(/תרגול|עבודות/.test(String(u.chaptersLabel || "")) || /עבודות|דפי תרגול/.test(t)) return "practice";
+    return "units";
+  }
+  function tkSectionsHtml(gid, list){
+    if(gid === "exam" || gid === "alumni" || gid === "other") return '<ul class="tk-list">' + list.map(tkItemHtml).join("") + '</ul>';
+    var by = {};
+    list.forEach(function(u){ var k = tkSectionOf(u); (by[k] = by[k] || []).push(u); });
+    /* עברית - לפי סדר ההוראה: הגזרות, משקלים, תצורת השם */
+    if(gid === "heb" && by.units){
+      var ORDER = ["בניינים", "שלמים", "מרובעים", "חפ", "פ\"ו", "ע\"ו", "ל\"א", "ל\"ה", "משקלים", "תצורת השם"];
+      var rank = function(u){ var t = tkTitle(u); for(var i = 0; i < ORDER.length; i++){ if(t.indexOf(ORDER[i]) !== -1) return i; } return 99; };
+      by.units = by.units.map(function(u, i){ return [u, i]; }).sort(function(a, b){ return (rank(a[0]) - rank(b[0])) || (a[1] - b[1]); }).map(function(x){ return x[0]; });
+    }
+    var secs = TK_SECS.filter(function(x){ return by[x.id]; });
+    if(secs.length < 2) return '<ul class="tk-list">' + list.map(tkItemHtml).join("") + '</ul>';
+    return secs.map(function(x){
+      return '<div class="tk-sec">' +
+        '<h4 class="tk-sec-h" style="margin:10px 12px 2px;padding:4px 6px;font-size:.9rem;font-weight:700;color:#4E5B72;border-bottom:1px dashed #DCE4F1">' + x.label +
+          ' <span style="font-weight:400;color:#8A97AD">(' + by[x.id].length + ')</span></h4>' +
+        '<ul class="tk-list">' + by[x.id].map(tkItemHtml).join("") + '</ul>' +
+      '</div>';
+    }).join("");
+  }
   function teacherKeysHtml(units){
     var byGroup = {};
     TK_PAIRS = {};
@@ -590,7 +622,7 @@
             return '<section class="tk-group tk-group--' + g.id + '" data-group="' + g.id + '" aria-labelledby="tkH-' + g.id + '">' +
               '<h3 class="tk-group-h" id="tkH-' + g.id + '"><span aria-hidden="true">' + g.icon + '</span> ' + g.label +
                 '<span class="tk-group-n">' + byGroup[g.id].length + '</span></h3>' +
-              '<ul class="tk-list">' + byGroup[g.id].map(tkItemHtml).join("") + '</ul>' +
+              tkSectionsHtml(g.id, byGroup[g.id]) +
             '</section>';
           }).join("") +
         '</div>' +
@@ -866,6 +898,9 @@
           var ok = inGroup && words.every(function(w){ return s.indexOf(w) !== -1; });
           a.parentNode.hidden = !ok;
           if(ok) n++;
+        });
+        Array.prototype.forEach.call(sec.querySelectorAll(".tk-sec"), function(ss){
+          ss.hidden = !ss.querySelector("li:not([hidden])");
         });
         sec.hidden = n === 0;
         shown += n;
