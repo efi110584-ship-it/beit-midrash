@@ -177,6 +177,7 @@ function doPost(e) {
       case 'attRoster':       return json_(attRoster_(data.cls));
       case 'attDay':          return json_(attDay_(data.date));
       case 'attSave':         return json_(attSave_(data));
+      case 'backup':          return json_(backup_());
       case 'boardList':       return json_({ ok: true, boards: qbBoardsList_().concat(QBOARD_TITLES), active: qbActives_()[liveRoom_(data.room)] || null });
     }
     return json_({ ok: false, error: 'פעולה לא מוכרת' });
@@ -1437,6 +1438,18 @@ function attSave_(d) {
     props.getKeys().forEach(function (k) { if (k.indexOf('ATT_') === 0 && k.slice(4) < old) props.deleteProperty(k); });
   } finally { lock.releaseLock(); }
   return { ok: true, saved: n };
+}
+
+// ---------- גיבוי: כל מה שנשמר רק כאן (נוכחות, רשימות כיתה - שמות בלבד, מבחנים, משימות, הודעה) ----------
+// האזור האישי הופך את זה לקובץ אקסל שנשמר אצל המורה. תעודות זהות לא נכללות (הן לא נשמרות בכלל).
+function backup_() {
+  var props = PropertiesService.getScriptProperties(), att = {};
+  props.getKeys().filter(function (k) { return k.indexOf('ATT_') === 0; }).sort().forEach(function (k) { att[k.slice(4)] = getJson_(k) || {}; });
+  var rosters = {};
+  MONITOR_CLASSES.forEach(function (c) { rosters[c] = attRoster_(c).names || []; });
+  var exams = getJson_('EXAMS');
+  return { ok: true, at: Date.now(), attendance: att, rosters: rosters, exams: Array.isArray(exams) ? exams : [],
+           assignments: assignAll_(), announcement: getJson_('ANNOUNCEMENT') };
 }
 
 // ---------- אזור אישי לתלמיד (my.html) ----------
