@@ -36,6 +36,7 @@ function testNormalizeFree(str){
   return (str || '')
     .replace(/[\u0591-\u05C7]/g, '')
     .replace(/["'\u05F3\u05F4()\-.,\s]/g, '')
+    .replace(/[ךםןףץ]/g, function(c){ return { 'ך':'כ', 'ם':'מ', 'ן':'נ', 'ף':'פ', 'ץ':'צ' }[c]; })
     .trim();
 }
 
