@@ -21,24 +21,34 @@
   function K(kind, subject, note){ return { kind:kind, subject:subject, note:note || "" }; }
   var PRAY = L("תפילה ופתיחת יום", "both");
   var HEB = L("עברית", "יא", "קבוצה משותפת עם יא2");
-  /* WEEK[יום][שעה] - יום 0 = ראשון */
+  /* WEEK[יום][שעה] - יום 0 = ראשון. המערכת הנוכחית - מיום ראשון 8.11.2026 */
   var WEEK = [
+    [PRAY, L('תושב"ע', "יב"), K("role", "תפקיד"), L('תושב"ע', "יא"), L('תנ"ך', "יב"), L('תנ"ך', "יא"), K("meet", "ישיבת הנהלה"), K("meet", "ישיבת הנהלה"), K("prep", "הכנה לבגרות")],
+    [PRAY, K("role", "תפקיד"), L("מכינה לחיים", "יא"), L('תנ"ך', "יא"), HEB, L('תנ"ך', "יב"), K("role", "תפקיד"), L('תנ"ך', "יב"), K("prep", "הכנה לבגרות")],
+    [PRAY, K("tutor", "פרטני"), K("role", "תפקיד"), K("tutor", 'פרטני מעו"ף'), HEB, HEB, L('תושב"ע', "יא"), L('תושב"ע', "יא"), K("prep", "הכנה לבגרות")],
+    [PRAY, L("מכינה לחיים", "יב"), L('תושב"ע', "יב"), L('תושב"ע', "יא"), L('תנ"ך', "יא"), K("meet", "קהילת הוראה דיפרנציאלית"), K("tutor", 'פרטני מעו"ף'), K("tutor", 'פרטני מעו"ף'), K("role", "תפקיד")],
+    [PRAY, L('תושב"ע', "יב"), K("prep", "הכנה לבגרות"), K("role", "שיחות אישיות"), K("role", "תפקיד"), K("role", "תפקיד"), K("meet", "ישיבת מחנכים תיכון"), K("meet", "ישיבת כיתה יב2"), K("prep", "הכנה לבגרות")]
+  ];
+  var WEEK_FROM = "2026-11-08";
+  /* המערכת הקודמת (עד 7.11.2026) - כדי שנוכחות שנשמרה לפני השינוי תוצג ליד השיעור הנכון */
+  var WEEK_OLD = [
     [PRAY, L('תושב"ע', "יא"), K("role", "תפקיד"), L('תושב"ע', "יב"), L('תושב"ע', "יב"), L('תנ"ך', "יא"), K("meet", "ישיבת הנהלה"), K("meet", "ישיבת הנהלה"), K("prep", "הכנה לבגרות")],
     [PRAY, K("role", "תפקיד"), L("מכינה לחיים", "יא"), L('תנ"ך', "יא"), HEB, L('תנ"ך', "יב"), K("role", "תפקיד"), K("role", "תפקיד"), K("prep", "הכנה לבגרות")],
     [PRAY, K("tutor", "פרטני"), K("role", "תפקיד"), K("tutor", 'פרטני מעו"ף'), HEB, HEB, L('תושב"ע', "יא"), L('תושב"ע', "יא"), K("prep", "הכנה לבגרות")],
     [PRAY, L("מכינה לחיים", "יב"), L('תושב"ע', "יב"), L('תושב"ע', "יא"), L('תנ"ך', "יא"), K("meet", "קהילת הוראה דיפרנציאלית"), K("tutor", 'פרטני מעו"ף'), K("tutor", 'פרטני מעו"ף'), K("prep", "הכנה לבגרות")],
     [PRAY, L('תנ"ך', "יב"), L('תנ"ך', "יב"), K("role", "שיחות אישיות"), K("meet", "ישיבת כיתה יב2"), K("role", "תפקיד"), K("meet", "ישיבת מחנכים תיכון"), K("role", "תפקיד"), K("prep", "הכנה לבגרות")]
   ];
+  function wk(date){ return String(date || "") >= WEEK_FROM ? WEEK : WEEK_OLD; }
   var CLS_NAME = { "יא":"י״א 4", "יב":"י״ב 2", "both":"י״א 4 + י״ב 2" };
 
 
   /* מערכות הכיתות (מסקולי, שבוע רגיל) - רק מקצועות, בלי שמות מורים. [שם, פירוט, 1 = שיעור שלך]; 0 = אין שיעור */
   var CLASSES = {
    "יב":[[["תפילה ופתיחת יום","",1],
-    ["חינוך גופני","",0],
+    ["תושב\"ע","",1],
     ["אנגלית","הקבצות C / E / G",0],
-    ["תושב\"ע","",1],
-    ["תושב\"ע","",1],
+    ["חינוך גופני","",0],
+    ["תנ\"ך","",1],
     ["פיזיקה","",0],
     ["פיזיקה","",0],
     ["פיזיקה","",0],0],
@@ -49,15 +59,15 @@
     ["מגמות","מדעי המחשב / תקשורת מעשי",0],
     ["תנ\"ך","",1],
     ["מחשבת ישראל","",0],
-    ["מחשבת ישראל","",0],0],
+    ["תנ\"ך","",1],0],
     [["תפילה ופתיחת יום","",1],
     ["פיזיקה","",0],
     ["אנגלית","הקבצות C / E / G",0],
     ["אנגלית","הקבצות C / E / G",0],
     ["מגמות","מוט\"ל / פיזיקה",0],
-    ["מגמות","מוט\"ל / פיזיקה",0],
-    ["ספרות","",0],
-    ["מחשבת ישראל","",0],0],
+    ["מחשבת ישראל","",0],
+    ["מחשבת ישראל","",0],
+    ["ספרות","",0],0],
     [["תפילה ופתיחת יום","",1],
     ["מכינה לחיים","",1],
     ["תושב\"ע","",1],
@@ -65,8 +75,8 @@
     ["מתמטיקה","הקבצות 3 / 4 / 5 יח״ל",0],
     ["מגמות","מדעי המחשב / תקשורת עיוני",0],0,0,0],
     [["תפילה ופתיחת יום","",1],
-    ["תנ\"ך","",1],
-    ["תנ\"ך","",1],
+    ["תושב\"ע","",1],
+    ["מגמות","מוט\"ל / פיזיקה",0],
     ["מגמות","מדעי המחשב / תקשורת עיוני",0],
     ["מגמות","מדעי המחשב / תקשורת עיוני",0],
     ["מתמטיקה","הקבצות 3 / 4 / 5 יח״ל",0],
@@ -143,6 +153,7 @@
   function shift(s, by){ var d = parse(s); do { d.setDate(d.getDate() + by); } while(d.getDay() > 4); return iso(d); }
   /* היום בשבוע הנוכחי (מראשון האחרון) */
   function dateOfWeekday(i){ var d = new Date(); d = new Date(d.getFullYear(), d.getMonth(), d.getDate()); d.setDate(d.getDate() - d.getDay() + i); return iso(d); }
+  function todayIso(){ return iso(new Date()); }
   function isToday(s){ return s === iso(new Date()); }
 
   function token(){ try{ return sessionStorage.getItem("bm-teacher-token") || ""; }catch(e){ return ""; } }
@@ -278,7 +289,7 @@
       '<button type="button" data-nav="1" aria-label="יום הבא">←</button>' +
       (isToday(st.date) ? '' : '<button type="button" data-nav="0">היום</button>') + '</div></div>';
     if(d > 4) return head + '<p class="sch-msg">ביום הזה אין לך שיעורים.</p>';
-    return head + '<ul class="sch-strip">' + WEEK[d].map(function(s, h){ return '<li>' + slotHtml(s, d, h, true) + '</li>'; }).join("") + '</ul>' +
+    return head + '<ul class="sch-strip">' + wk(st.date)[d].map(function(s, h){ return '<li>' + slotHtml(s, d, h, true) + '</li>'; }).join("") + '</ul>' +
       '<p class="sch-note">לוחצים על שיעור כדי לסמן נוכחות. כולם מסומנים "נוכח" - מסמנים רק חיסור, איחור או אירוע.</p>';
   }
 
@@ -289,7 +300,7 @@
     }).join("") + '</tr>';
     var rows = HOURS.map(function(h){
       return '<tr><td class="sch-hcol">' + h + '</td>' + DAYS.map(function(_, d){
-        var s = WEEK[d][h];
+        var s = wk(todayIso())[d][h];
         return '<td' + (d === t ? ' class="is-today"' : '') + '>' + (s ? slotHtml(s, d, h, false) : '') + '</td>';
       }).join("") + '</tr>';
     }).join("");
@@ -326,12 +337,12 @@
         '<p class="sch-note">לפי המערכת בסקולי (שבוע רגיל). ביום שישי אין לך שעות. לחיצה על שיעור בטבלה פותחת את הנוכחות שלו בשבוע הנוכחי.</p>';
     return '<h3>המערכת של ' + CLS_NAME[st.view] + '</h3>' + tabs + classGridHtml(st.view) +
       '<ul class="sch-legend" aria-label="מקרא"><li><i class="' + (st.view === "יב" ? "c-yb" : "c-ya") + '"></i>השיעורים שלך</li><li><i class="c-cls"></i>שיעור לכל הכיתה</li><li><i class="c-grp"></i>הקבצות ומגמות (כמה קבוצות במקביל)</li></ul>' +
-      '<p class="sch-note">לפי המערכת של הכיתה בסקולי (שבוע רגיל), בלי שמות המורים.</p>';
+      '<p class="sch-note">לפי המערכת של הכיתה בסקולי (שבוע רגיל), בלי שמות המורים.' + (st.view === "יא" ? ' <b>שימו לב: המערכת של י״א 4 עוד לא עודכנה לשינוי של 8.11.</b>' : ' עודכן ל-8.11.2026.') + '</p>';
   }
 
   function stats(){
     var n = { "יא":0, "יב":0, both:0 };
-    WEEK.forEach(function(day){ day.forEach(function(s){ if(s && s.kind === "lesson") n[s.cls]++; }); });
+    wk(todayIso()).forEach(function(day){ day.forEach(function(s){ if(s && s.kind === "lesson") n[s.cls]++; }); });
     return '<div class="sch-stats"><span>שיעורים בי״א 4: <b>' + n["יא"] + '</b></span><span>שיעורים בי״ב 2: <b>' + n["יב"] + '</b></span><span>תפילה ופתיחת יום: <b>' + n.both + '</b></span></div>';
   }
 
@@ -339,7 +350,7 @@
   function dayRows(){
     var d = wd(st.date), rows = [];
     if(d > 4) return rows;
-    WEEK[d].forEach(function(s, h){
+    wk(st.date)[d].forEach(function(s, h){
       if(s.kind !== "lesson") return;
       clsList(s).forEach(function(k){
         var e = st.day[h + "|" + k], a = [], l = [], ev = [];
@@ -425,7 +436,7 @@
   }
   function sheetHtml(){
     var o = st.open; if(!o) return "";
-    var s = WEEK[wd(st.date)][o.h];
+    var s = wk(st.date)[wd(st.date)][o.h];
     var body;
     var missing = o.cls.filter(function(k){ return st.rosters[k] === undefined; });
     if(missing.length) body = '<p class="sch-msg">טוען את רשימת הכיתה…</p>';
@@ -488,7 +499,7 @@
       .catch(function(e){ st.rosters[k] = []; });
   }
   function openLesson(h){
-    var s = WEEK[wd(st.date)][h];
+    var s = wk(st.date)[wd(st.date)][h];
     if(!s || s.kind !== "lesson") return;
     if(st.open && st.open.h === h) return;
     if(st.dirty && !confirm("יש נוכחות שלא נשמרה. לעבור בכל זאת?")) return;
@@ -526,7 +537,7 @@
 
   function save(){
     var o = st.open; if(!o || st.busy) return;
-    var s = WEEK[wd(st.date)][o.h];
+    var s = wk(st.date)[wd(st.date)][o.h];
     st.busy = true; render(); msg("שומר…");
     var date = st.date;
     Promise.all(o.cls.filter(function(k){ return st.kind === "x" || (st.rosters[k] || []).length; }).map(function(k){
