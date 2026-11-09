@@ -1,3 +1,14 @@
+/* מורה שנכנס לאזור האישי (בלשונית הזו) - המכשיר הוא של המורה:
+   מוחקים ממנו כניסות תלמיד שנשמרו (למשל אחרי בדיקה "כמו תלמיד"), כדי שמעבר לשיעור
+   לא ייכנס שוב בשם של תלמיד ולא ישלח עליו נוכחות. */
+window.BM_CLEAR_STUDENT = function(){
+  try{
+    ["bm-lesson-mode", "bm-lesson-key", "bm-lesson-names", "bm-lesson-name", "bm-lesson-lock", "bm-student"].forEach(function(k){ localStorage.removeItem(k); });
+  }catch(e){}
+};
+try{
+  if(sessionStorage.getItem("bm-teacher-token") || sessionStorage.getItem("teacherAreaUnlocked") === "1") window.BM_CLEAR_STUDENT();
+}catch(e){}
 /* ============================================================
    נעילת הדף של השיעור
    ============================================================

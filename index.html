@@ -2586,6 +2586,7 @@
           sessionStorage.setItem(TOKEN_KEY, pw);
           sessionStorage.setItem("teacherAreaUnlocked", "1"); /* דפי המחוונים בודקים את זה */
         }catch(err){}
+        if(window.BM_CLEAR_STUDENT) window.BM_CLEAR_STUDENT();   /* מכשיר של מורה - בלי כניסת תלמיד שנשמרה */
         closeLogin();
         if(loginDone) loginDone();
       } else {
@@ -3696,7 +3697,7 @@
 })();
 
 </script>
-<script src="assets/lesson-mode.js?v=8"></script>
+<script src="assets/lesson-mode.js?v=9"></script>
 <script src="assets/class-dock.js?v=13"></script>
 <script src="assets/my-work.js?v=2"></script>
 </body>
