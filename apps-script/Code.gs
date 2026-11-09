@@ -107,6 +107,7 @@ function doPost(e) {
     // צ'אט פרטי תלמיד-מורה בזמן שיעור עם בקרה (בלי סיסמה - רק עם קוד השיעור והמזהה הסודי של התלמיד)
     if (data.action === 'chatSend') return json_(chatSend_(data.code, data.sid, data.text, false));
     if (data.action === 'chatGet') return json_(chatGet_(data.code, data.sid));
+    if (data.action === 'chatRead') return json_(chatRead_(data.code, data.sid, data.at));
     // כניסה לשיעור עם תעודת זהות (כשיש רשימת כיתה) - בלי סיסמה, רק עם קוד השיעור
     if (data.action === 'lessonIdentify') return json_(lessonIdentify_(data.code, data.id));
 
@@ -142,6 +143,7 @@ function doPost(e) {
       case 'helpDone':        return json_(helpDone_(data.code, data.sid));
       case 'chatReply':       return json_(chatSend_(data.code, data.sid, data.text, true));
       case 'chatSeen':        return json_(chatSeen_(data.code, data.sid));
+      case 'chatBroadcast':   return json_(chatBroadcast_(data.code, data.text));
       case 'rosterSave':      return json_(rosterSave_(data.cls, data.text));
       case 'rosterInfo':      return json_(rosterInfo_());
       case 'rosterClear':     return json_(rosterClear_(data.cls));
@@ -1196,6 +1198,52 @@ function chatGet_(code, sid) {
   var th = sid ? chatAll_(l.code)[sid] : null;
   return { ok: true, m: th ? th.m : [] };
 }
+// התלמיד ראה את הודעות המורה (החלון פתוח לפניו): r = הזמן של הודעת המורה האחרונה שהוצגה לו.
+// אצל המורה: הודעה שנשלחה עד הזמן הזה מסומנת "✓✓ נקרא".
+function chatRead_(code, sid, at) {
+  var l = monitoredLesson_(code);
+  if (!l) return { ok: false, ended: true };
+  sid = String(sid || '').replace(/[^\w-]/g, '').slice(0, 40);
+  var t = Math.min(Number(at) || 0, Date.now());
+  if (!sid || !t) return { ok: false };
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(5000)) return { ok: false, busy: true };
+  try {
+    var all = chatAll_(l.code), th = all[sid];
+    if (th && t > (th.r || 0)) { th.r = t; CacheService.getScriptCache().put('chat_' + l.code, JSON.stringify(all), 21600); }
+    return { ok: true };
+  } finally {
+    lock.releaseLock();
+  }
+}
+// הודעה מהמורה לכל התלמידים שבשיעור עכשיו (לא למי שהוצא, ולא למורה שנכנס לבדיקה) - כל אחד מקבל אותה בצ'אט הפרטי שלו.
+function chatBroadcast_(code, text) {
+  var l = monitoredLesson_(code);
+  if (!l) return { ok: false, error: 'השיעור כבר לא פעיל' };
+  text = String(text == null ? '' : text).replace(/\s+/g, ' ').trim().slice(0, CHAT_MAX_LEN);
+  if (!text) return { ok: false, error: 'ההודעה ריקה' };
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(8000)) return { ok: false, busy: true, error: 'השרת עסוק. נסו שוב בעוד רגע.' };
+  try {
+    var cache = CacheService.getScriptCache(), pres = {};
+    try { pres = JSON.parse(cache.get('pres_' + l.code) || '{}'); } catch (e) { pres = {}; }
+    var all = chatAll_(l.code), now = Date.now(), n = 0;
+    Object.keys(pres).forEach(function (sid) {
+      var p = pres[sid];
+      if (!p || p.kicked || p.teacher || p.state === 'bye') return;
+      var th = all[sid] || { name: p.name || '', m: [], u: 0 };
+      th.name = p.name || th.name;
+      th.m.push({ f: 't', x: text, at: now, all: 1 });
+      if (th.m.length > CHAT_MAX_MSGS) th.m = th.m.slice(-CHAT_MAX_MSGS);
+      all[sid] = th; n++;
+    });
+    if (!n) return { ok: false, error: 'אין כרגע תלמידים בשיעור.' };
+    cache.put('chat_' + l.code, JSON.stringify(all), 21600);
+    return { ok: true, sent: n };
+  } finally {
+    lock.releaseLock();
+  }
+}
 function chatSeen_(code, sid) {
   var l = monitoredLesson_(code);
   if (!l) return { ok: false, error: 'השיעור כבר לא פעיל' };
@@ -1289,7 +1337,7 @@ function presenceList_(code) {
   });
   // הצ'אט הפרטי של כל תלמיד (רק המורה מקבל את כל השיחות)
   var chats = chatAll_(l.code);
-  out.forEach(function (x) { var th = chats[x.sid]; x.chat = th ? { m: th.m, u: th.u || 0 } : null; });
+  out.forEach(function (x) { var th = chats[x.sid]; x.chat = th ? { m: th.m, u: th.u || 0, r: th.r || 0 } : null; });
   // המורה (כניסה לבדיקה) מוחזר בנפרד, כדי שלא ייספר עם התלמידים ולא יקפיץ התראות
   var teachers = out.filter(function (x) { return x.teacher; });
   out = out.filter(function (x) { return !x.teacher; });

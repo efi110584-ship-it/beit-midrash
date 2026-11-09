@@ -434,7 +434,20 @@
     list.scrollTop = list.scrollHeight;
     var t = (m || []).filter(function(x){ return x.f === "t"; }).length;
     st.chatT = Math.max(st.chatT || 0, t); st.chatSeenT = st.chatT; save(); chatPaintBtn();
+    chatMarkRead(m);
   }
+  /* "נקרא" אצל המורה: כשהודעות המורה מוצגות בחלון הפתוח והדף מול התלמיד - מדווחים עד איזו הודעה ראה */
+  var chatReadAt = 0, chatLastM = null;
+  function chatMarkRead(m){
+    if(m) chatLastM = m;
+    if(!chatBox || document.visibilityState === "hidden") return;
+    var at = 0;
+    (chatLastM || []).forEach(function(x){ if(x.f === "t" && x.at > at) at = x.at; });
+    if(!at || at <= chatReadAt) return;
+    chatReadAt = at;
+    chatPost({ action:"chatRead", code:st.code, sid:st.sid, at:at }).catch(function(){ chatReadAt = 0; });
+  }
+  document.addEventListener("visibilitychange", function(){ if(document.visibilityState === "visible") chatMarkRead(); });
   function chatLoad(){
     chatPost({ action:"chatGet", code:st.code, sid:st.sid }).then(function(res){ if(res && res.ok) chatRender(res.m); }).catch(function(){});
   }
