@@ -3,7 +3,19 @@
    לא ייכנס שוב בשם של תלמיד ולא ישלח עליו נוכחות. */
 window.BM_CLEAR_STUDENT = function(){
   try{
+    /* השמות של התלמיד שנשמרו - כדי למחוק גם את השם שנשמר בשדה "שם" בכל דף */
+    var names = {};
+    try{ var me = JSON.parse(localStorage.getItem("bm-student") || "null"); if(me && me.name) names[me.name] = 1; }catch(e){}
+    try{ var lm = JSON.parse(localStorage.getItem("bm-lesson-mode") || "null"); if(lm && lm.name) names[lm.name] = 1; }catch(e){}
+    try{ var ln = JSON.parse(localStorage.getItem("bm-lesson-names") || "{}"); Object.keys(ln).forEach(function(c){ if(ln[c] && ln[c].name) names[ln[c].name] = 1; }); }catch(e){}
+    var n1 = localStorage.getItem("bm-lesson-name"); if(n1) names[n1] = 1;
     ["bm-lesson-mode", "bm-lesson-key", "bm-lesson-names", "bm-lesson-name", "bm-lesson-lock", "bm-student"].forEach(function(k){ localStorage.removeItem(k); });
+    var drop = [];
+    for(var i = 0; i < localStorage.length; i++){
+      var k = localStorage.key(i), v = localStorage.getItem(k);
+      if(/^bm-student:/.test(k) || (v && names[v.trim()])) drop.push(k);
+    }
+    drop.forEach(function(k){ localStorage.removeItem(k); });
   }catch(e){}
 };
 try{
