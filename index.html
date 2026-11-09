@@ -3267,7 +3267,11 @@
       var ld = rows.filter(function(r){ return r.linkDone; }).length;
       /* מי בפעילות עכשיו (אות מהדף של התלמיד פעם בדקה) */
       var hereIn = rows.filter(function(r){ return r.here === "i"; }), hereOut = rows.filter(function(r){ return r.here === "o"; });
-      var live = !a.page ? '' : '<div style="margin:8px 0 4px;padding:8px 12px;border-radius:10px;background:' + (hereIn.length || hereOut.length ? '#E7F5EE' : '#F2F5F9') + '">' +
+      /* שרת ישן (Code.gs לפני העדכון) לא מחזיר את השדה here בכלל - אז מציגים הודעה במקום "אף תלמיד" */
+      var oldServer = rows.length && !rows.some(function(r){ return Object.prototype.hasOwnProperty.call(r, "here"); });
+      if(a.page && oldServer) var live = '<div style="margin:8px 0 4px;padding:8px 12px;border-radius:10px;background:#FFF4E5;border:1px solid #F0B98A"><b>⚠️ כדי לראות מי בפעילות עכשיו, צריך לעדכן את Code.gs</b>' +
+        '<div class="tt-note" style="margin:2px 0 0">מדביקים ב-Apps Script את הקובץ החדש, ואז "פריסה" ← "ניהול פריסות" ← גרסה חדשה.</div></div>';
+      else var live = !a.page ? '' : '<div style="margin:8px 0 4px;padding:8px 12px;border-radius:10px;background:' + (hereIn.length || hereOut.length ? '#E7F5EE' : '#F2F5F9') + '">' +
         '<b>' + (hereIn.length || hereOut.length ? '🟢 עכשיו בפעילות: ' + (hereIn.length + hereOut.length) : 'אף תלמיד לא נמצא בפעילות כרגע') + '</b>' +
         (hereIn.length ? '<span style="margin-inline-start:8px">' + hereIn.map(function(r){ return escapeHtml(r.name); }).join(" · ") + '</span>' : '') +
         (hereOut.length ? '<div class="tt-note" style="margin:2px 0 0">🟡 הדף פתוח אצלם, אבל בלשונית אחרת: ' + hereOut.map(function(r){ return escapeHtml(r.name); }).join(" · ") + '</div>' : '') +
