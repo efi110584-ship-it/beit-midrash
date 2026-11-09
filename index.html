@@ -3265,7 +3265,14 @@
       var rows = res.rows || [], a = res.assign || {};
       var done = rows.filter(function(r){ return r.pct >= 100; }).length, sent = rows.filter(function(r){ return r.sent; }).length, noAcc = rows.filter(function(r){ return !r.account; }).length;
       var ld = rows.filter(function(r){ return r.linkDone; }).length;
-      return '<p class="tt-note" style="margin:8px 0 6px">' + (a.page ? '✓ השלימו את הדף: <b>' + done + '</b> · 📤 שלחו: <b>' + sent + '</b> · ' : '') +
+      /* מי בפעילות עכשיו (אות מהדף של התלמיד פעם בדקה) */
+      var hereIn = rows.filter(function(r){ return r.here === "i"; }), hereOut = rows.filter(function(r){ return r.here === "o"; });
+      var live = !a.page ? '' : '<div style="margin:8px 0 4px;padding:8px 12px;border-radius:10px;background:' + (hereIn.length || hereOut.length ? '#E7F5EE' : '#F2F5F9') + '">' +
+        '<b>' + (hereIn.length || hereOut.length ? '🟢 עכשיו בפעילות: ' + (hereIn.length + hereOut.length) : 'אף תלמיד לא נמצא בפעילות כרגע') + '</b>' +
+        (hereIn.length ? '<span style="margin-inline-start:8px">' + hereIn.map(function(r){ return escapeHtml(r.name); }).join(" · ") + '</span>' : '') +
+        (hereOut.length ? '<div class="tt-note" style="margin:2px 0 0">🟡 הדף פתוח אצלם, אבל בלשונית אחרת: ' + hereOut.map(function(r){ return escapeHtml(r.name); }).join(" · ") + '</div>' : '') +
+        '<div class="tt-note" style="margin:2px 0 0;font-size:.82rem">מתעדכן לבד כל 30 שניות · רק תלמידים שנכנסו לאזור האישי שלהם</div></div>';
+      return live + '<p class="tt-note" style="margin:8px 0 6px">' + (a.page ? '✓ השלימו את הדף: <b>' + done + '</b> · 📤 שלחו: <b>' + sent + '</b> · ' : '') +
         (a.link ? '🔗 סימנו "סיימתי": <b>' + ld + '</b> · ' : '') + 'מתוך ' + rows.length + (noAcc ? ' · ' + noAcc + ' עוד לא נכנסו לאזור האישי' : '') + '</p>' +
         '<ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px" aria-label="מצב המשימה לפי תלמיד">' +
         rows.map(function(r){
@@ -3276,7 +3283,8 @@
           var snt = r.sent ? '<span class="tt-pill tt-pill--checked">📤 נשלח ' + escapeHtml(r.sent) + '</span>' : '<span class="tt-pill tt-pill--missing">לא נשלח</span>';
           var lnk = !a.link ? '' : r.linkDone ? '<span class="tt-pill tt-pill--checked">🔗 סימן/ה שסיים/ה</span>' : '<span class="tt-pill tt-pill--missing">🔗 לא סימן/ה</span>';
           if(!a.page){ prog = r.account ? '' : '<span class="tt-pill tt-pill--missing">לא נכנס/ה לאזור האישי</span>'; snt = ''; }
-          return '<li style="display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;padding:6px 0;border-bottom:1px solid #E6ECF5"><span style="min-width:8rem;font-weight:600">' + escapeHtml(r.name) + '</span>' + prog + snt + lnk + '</li>';
+          var hr = r.here === "i" ? '<span class="tt-pill tt-pill--checked">🟢 בפעילות עכשיו</span>' : r.here === "o" ? '<span class="tt-pill tt-pill--pending">🟡 בלשונית אחרת</span>' : '';
+          return '<li style="display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;padding:6px 0;border-bottom:1px solid #E6ECF5"><span style="min-width:8rem;font-weight:600">' + escapeHtml(r.name) + '</span>' + hr + prog + snt + lnk + '</li>';
         }).join("") + '</ul>';
     }
     function render(list){
@@ -3301,14 +3309,22 @@
         render(res.list || []);
       }).catch(function(){ $("ttTaskListMsg").textContent = "אין חיבור לשרת כרגע."; });
     }
-    function loadStatus(id, li){
+    function loadStatus(id, li, quiet){
       var box = li.querySelector(".tt-task-st");
-      box.hidden = false; box.innerHTML = '<p class="tt-note">טוענים את המצב…</p>';
+      box.hidden = false; if(!quiet) box.innerHTML = '<p class="tt-note">טוענים את המצב…</p>';
       apiPost({ action:"assignStatus", password:teacherToken(), id:id }).then(function(res){
         if(handleAuthFailure(res)) return;
         box.innerHTML = statusHtml(res);
-      }).catch(function(){ box.innerHTML = '<p class="tt-msg">אין חיבור לשרת כרגע.</p>'; });
+      }).catch(function(){ if(!quiet) box.innerHTML = '<p class="tt-msg">אין חיבור לשרת כרגע.</p>'; });
     }
+    /* מצב משימה פתוח מתעדכן לבד כל 30 שניות (כדי לראות מי בפעילות עכשיו) */
+    setInterval(function(){
+      if($("ttPanel-tasks").hidden || document.visibilityState === "hidden") return;
+      Object.keys(open).forEach(function(id){
+        var li = document.querySelector('#ttTaskList li[data-task="' + (window.CSS && CSS.escape ? CSS.escape(id) : id) + '"]');
+        if(li) loadStatus(id, li, true);
+      });
+    }, 30000);
     $("ttTaskList").addEventListener("click", function(e){
       var sb = e.target.closest && e.target.closest("[data-task-status]");
       if(sb){
@@ -3649,7 +3665,7 @@
 
 </script>
 <script src="assets/lesson-mode.js?v=7"></script>
-<script src="assets/class-dock.js?v=11"></script>
+<script src="assets/class-dock.js?v=12"></script>
 <script src="assets/my-work.js?v=2"></script>
 </body>
 </html>

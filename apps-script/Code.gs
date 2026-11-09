@@ -124,6 +124,7 @@ function doPost(e) {
     if (data.action === 'studentWork') return json_(studentWork_(data.tok));
     if (data.action === 'studentProgress') return json_(studentProgress_(data));
     if (data.action === 'studentTaskDone') return json_(studentTaskDone_(data));
+    if (data.action === 'studentHere') return json_(studentHere_(data));
 
     // כל השאר - רק עם סיסמה
     if (!checkPassword_(data.password)) return json_({ ok: false, auth: false, error: 'סיסמה שגויה' });
@@ -1587,6 +1588,32 @@ function studentProgress_(d) {
   return { ok: true };
 }
 
+// "מי בפעילות עכשיו": תלמיד מחובר (אזור אישי) ששוהה בדף שולח אות קצר פעם בדקה.
+// נשמר רק בזיכרון זמני (CacheService) ל-APH_TTL שניות - לא במאפיינים ולא בדרייב.
+// state: i = הדף פתוח לפניו, o = הדף פתוח בלשונית אחרת, g = יצא מהדף.
+var APH_TTL = 180, APH_FRESH_MS = 150000;
+function studentHere_(d) {
+  var me = stuAuth_(d.tok);
+  if (!me) return { ok: false, login: true };
+  var page = String(d.page || '');
+  if (!/^[\w.-]+\.html$/.test(page) || page.length > 80) return { ok: false, error: 'דף לא תקין' };
+  var st = d.state === 'o' ? 'o' : d.state === 'g' ? 'g' : 'i';
+  CacheService.getScriptCache().put('aph_' + page + '_' + me.h, Date.now() + '|' + st, APH_TTL);
+  return { ok: true };
+}
+function aphFor_(page, hashes) {
+  if (!page || !hashes.length) return {};
+  var got = {};
+  try { got = CacheService.getScriptCache().getAll(hashes.map(function (h) { return 'aph_' + page + '_' + h; })); } catch (e) { got = {}; }
+  var out = {}, now = Date.now();
+  hashes.forEach(function (h) {
+    var v = got['aph_' + page + '_' + h]; if (!v) return;
+    var p = v.split('|'), t = Number(p[0]);
+    if (p[1] !== 'g' && now - t < APH_FRESH_MS) out[h] = { st: p[1], ago: Math.round((now - t) / 1000) };
+  });
+  return out;
+}
+
 // ---------- שיוך משימות (המורה משייך דף מהאתר לכיתה או לתלמידים, עם תאריך הגשה) ----------
 // ASSIGN = [{ id, cls, page, title, task, due, note, names: [] (ריק = כל הכיתה), at }]
 // task = שם המטלה כפי שהדף שולח אותו למורה ("יחידה · נושא") - כדי לזהות "נשלח" בלוח ההגשות.
@@ -1677,16 +1704,19 @@ function assignRows_(a, props, allSubs) {
   var subs = a.task ? allSubs.filter(function (x) {
     return x.id && x.status !== 'missing' && x.cls === a.cls && normTask_(x.task) === normTask_(a.task);
   }) : [];
-  var rows = Object.keys(roster).filter(function (h) {
+  var hs = Object.keys(roster).filter(function (h) {
     return !a.names || !a.names.length || a.names.some(function (n) { return cleanName_(n) === roster[h]; });
-  }).map(function (h) {
+  });
+  var here = aphFor_(a.page, hs);
+  var rows = hs.map(function (h) {
     var name = roster[h], prog = null, selfDone = 0;
     try { prog = (a.page && props['STUP_' + h]) ? (JSON.parse(props['STUP_' + h])[a.page] || null) : null; } catch (e) {}
     try { selfDone = props['STUT_' + h] ? (JSON.parse(props['STUT_' + h])[a.id] || 0) : 0; } catch (e) {}
     var sent = subs.filter(function (x) { return stuNameMatch_(x.student, name); })
       .sort(function (x, y) { return y.time - x.time; })[0];
     return { name: name, account: !!props['STU_' + h], pct: prog ? prog[0] : -1, ans: prog ? prog[1] : 0, fields: prog ? prog[2] : 0,
-             at: prog ? prog[3] : 0, sent: sent ? sent.date || '✓' : '', linkDone: !!selfDone };
+             at: prog ? prog[3] : 0, sent: sent ? sent.date || '✓' : '', linkDone: !!selfDone,
+             here: here[h] ? here[h].st : '', hereAgo: here[h] ? here[h].ago : -1 };
   }).sort(function (x, y) { return String(x.name).localeCompare(String(y.name), 'he'); });
   return rows;
 }

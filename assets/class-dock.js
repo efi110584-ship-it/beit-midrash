@@ -100,6 +100,20 @@
     document.addEventListener("visibilitychange", function(){ if(document.visibilityState === "hidden") send(true); });
     window.addEventListener("pagehide", function(){ send(true); });
     setTimeout(function(){ send(true); }, 2500);   /* כניסה לדף - גם דף שעוד לא התחילו (0%) נרשם כ"נפתח" */
+
+    /* "מי בפעילות עכשיו" (למורה, במצב המשימה): אות קצר פעם בדקה כל עוד הדף פתוח.
+       i = הדף לפני התלמיד, o = בלשונית אחרת, g = יצא מהדף. נשמר בשרת רק לכמה דקות. */
+    function here(st){
+      try{
+        fetch(API, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" }, keepalive:true,
+          body:JSON.stringify({ action:"studentHere", tok:me.tok, page:page, state:st }) }).catch(function(){});
+      }catch(e){}
+    }
+    function vis(){ return document.visibilityState === "hidden" ? "o" : "i"; }
+    setTimeout(function(){ here(vis()); }, 1500);
+    setInterval(function(){ here(vis()); }, 60000);
+    document.addEventListener("visibilitychange", function(){ here(vis()); });
+    window.addEventListener("pagehide", function(){ here("g"); });
   })();
 
   var BASE = (function(){
