@@ -837,6 +837,12 @@
           '</div>' +
           '<div class="tt-subj" id="ttSubj" role="group" aria-label="סינון לפי מקצוע"></div>' +
           '<div class="tt-status" id="ttStatus" role="group" aria-label="סינון לפי סטטוס"></div>' +
+          '<div class="tt-find" style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-block:4px 10px">' +
+            '<label for="ttFind" class="tt-label" style="font-weight:700">🔎 חיפוש עבודות של תלמיד/ה:</label>' +
+            '<input id="ttFind" class="tt-select" type="search" autocomplete="off" spellcheck="false" placeholder="הקלידו שם או חלק משם…" style="flex:1 1 14rem;max-width:22rem">' +
+            '<button type="button" class="tt-btn tt-btn--small" id="ttFindClear" hidden>✕ ניקוי</button>' +
+            '<span id="ttFindInfo" class="tt-label" aria-live="polite"></span>' +
+          '</div>' +
           '<div class="tt-filter">' +
             '<span class="tt-filter-item"><label for="ttUnit" class="tt-label">יחידה</label>' +
             '<select id="ttUnit" class="tt-select"></select></span>' +
@@ -1008,7 +1014,7 @@
     }
   }
 
-  var board = { rows:[], subj:"all", status:"all", unit:"all", topic:"all", sort:{ key:"date", dir:-1 }, group:true, collapsed:{} };
+  var board = { rows:[], q:"", subj:"all", status:"all", unit:"all", topic:"all", sort:{ key:"date", dir:-1 }, group:true, collapsed:{} };
   try{ board.group = localStorage.getItem("bm-board-group") !== "0"; }catch(e){}
   var SUBJ_CLASS = { 'תנ"ך':"tnk", 'תושב"ע':"tsb", "עברית":"heb", "היסטוריה":"hist" };
   var GRADER_URL = "https://claude.ai/artifact/LBkf1QEDC5gAgWmVHCMCmr";   /* דף הבדיקה עם Claude (פרטי למורה) */
@@ -1725,6 +1731,14 @@
     document.getElementById("ttUnit").addEventListener("change", function(e){
       board.unit = e.target.value; board.topic = "all"; renderBoard();
     });
+    (function(){
+      var fi = document.getElementById("ttFind"), fc = document.getElementById("ttFindClear"), ft = null;
+      fi.addEventListener("input", function(){
+        clearTimeout(ft);
+        ft = setTimeout(function(){ board.q = fi.value; fc.hidden = !fi.value; renderBoard(); }, 200);
+      });
+      fc.addEventListener("click", function(){ fi.value = ""; board.q = ""; fc.hidden = true; renderBoard(); fi.focus(); });
+    })();
     document.getElementById("ttTopic").addEventListener("change", function(e){
       var o = e.target.options[e.target.selectedIndex];
       if(o && o.getAttribute("data-unit")) board.unit = o.getAttribute("data-unit");
@@ -2163,6 +2177,7 @@
       renderBoard();
   }
 
+  function findKey(x){ return String(x || "").replace(/[\u0591-\u05C7"'׳״.,]/g, "").replace(/[-_־]/g, " ").replace(/\s+/g, " ").trim(); }
   function renderBoard(){
     var subjEl = document.getElementById("ttSubj");
     if(!subjEl) return;
@@ -2172,6 +2187,19 @@
     if(board.status === "hidden" && !hiddenRows.length) board.status = "all";
     var viewHidden = board.status === "hidden";
     var all = viewHidden ? hiddenRows : visibleRows;
+    /* חיפוש לפי שם התלמיד/ה: חלק מהשם, בלי תלות בניקוד, ברווחים או בגרשיים */
+    var q = findKey(board.q);
+    function byName(rows){ return q ? rows.filter(function(r){ return findKey(r.name).indexOf(q) !== -1; }) : rows; }
+    all = byName(all); visibleRows = byName(visibleRows); hiddenRows = byName(hiddenRows);
+    var fInfo = document.getElementById("ttFindInfo");
+    if(fInfo){
+      if(!q) fInfo.textContent = "";
+      else {
+        var who = {}; all.forEach(function(r){ who[r.name] = 1; });
+        var nWho = Object.keys(who).length;
+        fInfo.textContent = all.length ? ((all.length === 1 ? "נמצאה עבודה אחת" : "נמצאו " + all.length + " עבודות") + (nWho > 1 ? " של " + nWho + " תלמידים" : " של " + Object.keys(who)[0])) : "לא נמצאו עבודות לשם הזה.";
+      }
+    }
     function narrow(rows){
       return rows.filter(function(r){
         return (board.subj === "all" || r.subject === board.subj) && (board.unit === "all" || r.unit === board.unit) && (board.topic === "all" || r.topic === board.topic);
