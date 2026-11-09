@@ -40,6 +40,24 @@ function testNormalizeFree(str){
     .trim();
 }
 
+/* שורש עם חלופה באות אחת: "י/ו.ר.ד", "ע.נ.י/ה" - נכון אם אחת האפשרויות היא השורש.
+   בשורש נחי ל"י/ה מתקבל גם הכתיב בי' בסוף (ע.נ.י). */
+function testRootSlashOk(input, correctRaw){
+  if(input.dataset.id.indexOf('-shoresh') === -1) return false;
+  var want = [testNormalizeFree(correctRaw)];
+  if(/ה$/.test(want[0])) want.push(want[0].slice(0, -1) + 'י');
+  function variants(str){
+    var m = str.match(/([א-ת])\s*[\/\\]\s*([א-ת])/);
+    if(!m || !/^(יו|וי|הי|יה)$/.test(m[1] + m[2])) return [str];
+    var rest = str.slice(m.index + m[0].length), head = str.slice(0, m.index);
+    if(/ה/.test(m[1] + m[2]) && /[א-ת]/.test(rest)) return [str];   /* ה/י - רק באות האחרונה */
+    return variants(head + m[1] + rest).concat(variants(head + m[2] + rest));
+  }
+  return variants(String(input.value || '').replace(/[\u0591-\u05C7]/g, '')).some(function(v){
+    return want.indexOf(testNormalizeFree(v)) !== -1;
+  });
+}
+
 var TEST_GZARA_ALIASES = {
   'חסרי פ"נ': ['חסרי פ"נ', 'חפ"נ', 'חסר פ"נ', 'פ"נ'],
   'חסרי פי"צ': ['חסרי פי"צ', 'חפי"צ', 'חסר פי"צ', 'פי"צ'],
@@ -111,7 +129,7 @@ function testCheckOne(input){
   if(isGzaraField && TEST_GZARA_ALIASES_NORM[correctRaw]){
     isCorrect = TEST_GZARA_ALIASES_NORM[correctRaw].indexOf(studentNorm) !== -1;
   } else {
-    isCorrect = testNormalizeFree(correctRaw) === studentNorm;
+    isCorrect = testNormalizeFree(correctRaw) === studentNorm || testRootSlashOk(input, correctRaw);
   }
   input.classList.add(isCorrect ? 'is-correct' : 'is-wrong');
   cell.classList.add(isCorrect ? 'is-correct' : 'is-wrong');

@@ -504,6 +504,8 @@ function slashVariants(str){
   const m = str.match(/()([א-ת])\s*[\/\\]\s*([א-ת])/);
   if(!m || !/^(\u05D9\u05D5|\u05D5\u05D9|\u05D4\u05D9|\u05D9\u05D4)$/.test(m[2] + m[3])) return [str];
   const i = m.index + m[1].length, rest = str.slice(m.index + m[0].length);
+  /* ה/י - רק באות האחרונה (נחי ל"י/ה); י/ו - בכל מקום */
+  if(/ה/.test(m[2] + m[3]) && /[א-ת]/.test(rest)) return [str];
   return slashVariants(str.slice(0, i) + m[2] + rest).concat(slashVariants(str.slice(0, i) + m[3] + rest));
 }
 /* שורש: מה שחשוב הוא שהתלמיד הבין. "ע.נ.ה", "ענה", "עני/ה", "עני\\ה" וגם "עניה" - הכול נכון.
@@ -511,7 +513,7 @@ function slashVariants(str){
 function pairVariants(s){
   const out = [s];
   for(let i = 0; i < s.length - 1; i++){
-    if(/^(יה|הי|יו|וי)$/.test(s[i] + s[i + 1])) out.push(s.slice(0, i) + s[i] + s.slice(i + 2), s.slice(0, i) + s[i + 1] + s.slice(i + 2));
+    if(/^(יו|וי)$/.test(s[i] + s[i + 1]) || (i === s.length - 2 && /^(יה|הי)$/.test(s[i] + s[i + 1]))) out.push(s.slice(0, i) + s[i] + s.slice(i + 2), s.slice(0, i) + s[i + 1] + s.slice(i + 2));
   }
   return out;
 }
@@ -734,11 +736,11 @@ updateCheckReadiness();
   });
 })();
 </script>
-<script src="assets/gzara-bagrut.js?v=2"></script>
+<script src="assets/gzara-bagrut.js?v=4"></script>
 <script src="assets/unit-pages.js?v=3"></script>
 <script src="assets/personal-practice.js"></script>
 <script src="assets/lesson-mode.js?v=9"></script>
 <script src="assets/class-dock.js?v=13"></script>
-<script src="assets/answer-key.js"></script>
+<script src="assets/answer-key.js?v=2"></script>
 </body>
 </html>

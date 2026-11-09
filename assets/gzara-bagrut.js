@@ -16,6 +16,8 @@
     var m = str.match(/()([א-ת])\s*[\/\\]\s*([א-ת])/);
     if(!m || !/^(יו|וי|הי|יה)$/.test(m[2] + m[3])) return [str];
     var i = m.index + m[1].length, rest = str.slice(m.index + m[0].length);
+  /* ה/י - רק באות האחרונה (נחי ל"י/ה); י/ו - בכל מקום */
+  if(/ה/.test(m[2] + m[3]) && /[א-ת]/.test(rest)) return [str];
     return slashVariants(str.slice(0, i) + m[2] + rest).concat(slashVariants(str.slice(0, i) + m[3] + rest));
   }
   /* שורש: מה שחשוב הוא שהתלמיד הבין. "ע.נ.ה", "ענה", "עני/ה", "עני\\ה" וגם "עניה" - הכול נכון.
@@ -23,7 +25,7 @@
   function pairVariants(s){
     var out = [s];
     for(var i = 0; i < s.length - 1; i++){
-      if(/^(יה|הי|יו|וי)$/.test(s[i] + s[i + 1])) out.push(s.slice(0, i) + s[i] + s.slice(i + 2), s.slice(0, i) + s[i + 1] + s.slice(i + 2));
+      if(/^(יו|וי)$/.test(s[i] + s[i + 1]) || (i === s.length - 2 && /^(יה|הי)$/.test(s[i] + s[i + 1]))) out.push(s.slice(0, i) + s[i] + s.slice(i + 2), s.slice(0, i) + s[i + 1] + s.slice(i + 2));
     }
     return out;
   }
