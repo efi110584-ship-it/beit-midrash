@@ -894,6 +894,35 @@
     "url": "ptp-exam-answers.html"
   },
   {
+    "key": "bereshit-avraham-exam",
+    "byClaude": true,
+    "class": "teacher",
+    "grade": "יא",
+    "subject": "מבחן",
+    "category": "מבחנים",
+    "lessonExam": true,
+    "icon": "📝",
+    "title": "מבחן - פרקי אברהם (י\"א)",
+    "desc": "10 שאלות בגרות על פרקים י\"ב, ט\"ו, י\"ז, י\"ח, כ\"ב - בכל שאלה סעיפים א, ב, ג, ושאלה אחת בכל מסך. נפתח לתלמידים רק עם קוד מהמורה; אפשר להפעיל \"זה מבחן\" עם שעות.",
+    "chapters": 10,
+    "chaptersLabel": "שאלות",
+    "url": "bereshit-avraham-exam.html"
+  },
+  {
+    "key": "bereshit-avraham-exam-key",
+    "byClaude": true,
+    "class": "teacher",
+    "grade": "יא",
+    "subject": "מורה",
+    "category": "ספר בראשית",
+    "icon": "🗝️",
+    "title": "מחוון - מבחן: פרקי אברהם",
+    "desc": "כל 10 השאלות ברצף, עם התשובה מתחת לכל סעיף (מן התשובון של הבגרות ומן המחוון).",
+    "chapters": 10,
+    "chaptersLabel": "שאלות",
+    "url": "bereshit-avraham-exam.html?key=1"
+  },
+  {
     "key": "yonah-exam",
     "class": "teacher",
     "grade": "יא",
