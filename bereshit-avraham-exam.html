@@ -204,6 +204,16 @@
   var fields = Array.prototype.slice.call(document.querySelectorAll(".exq textarea.answer"));
   /* מחוון למורה (?key=1) והדפסה: כל השאלות ברצף */
   if(/[?&](key|view)=/.test(location.search)) document.documentElement.classList.add("ex-all");
+  /* מורה מחובר (לא במחוון): כפתור למחוון */
+  try{
+    if(!/[?&]key=/.test(location.search) && (sessionStorage.getItem("teacherAreaUnlocked") === "1" || sessionStorage.getItem("bm-teacher-token"))){
+      var kb = document.createElement("a");
+      kb.href = location.pathname + "?key=1"; kb.className = "exb primary"; kb.textContent = "🗝️ הצגת המחוון (התשובות)";
+      kb.style.cssText = "display:inline-flex;align-items:center;text-decoration:none;margin:0 auto 1rem";
+      var w = document.createElement("div"); w.style.textAlign = "center"; w.appendChild(kb);
+      document.getElementById("exNav").insertAdjacentElement("beforebegin", w);
+    }
+  }catch(e){}
   try{ var saved = JSON.parse(localStorage.getItem(KEY) || "{}"); fields.forEach(function(f){ if(saved[f.getAttribute("data-id")] && !f.value) f.value = saved[f.getAttribute("data-id")]; }); }catch(e){}
   var saveT = null, saveMsg = document.getElementById("exSave");
   function save(){
@@ -261,7 +271,7 @@
   window.addEventListener("afterprint", function(){ if(!/[?&](key|view)=/.test(location.search)) document.documentElement.classList.remove("ex-all"); });
 })();
 </script>
-<script src="assets/units-data.js?v=20261110-avex"></script>
+<script src="assets/units-data.js?v=20261110-avkey"></script>
 <script src="assets/bm-api.js"></script>
 <script src="assets/autoscore.js"></script>
 <script src="assets/direct-submit.js?v=3"></script>
