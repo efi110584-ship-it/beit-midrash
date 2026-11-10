@@ -242,28 +242,30 @@ try{
     });
   }
 
+  /* דף מבחן (<meta name="bm-exam-only">): נפתח רק למי שנכנס עם קוד לשיעור של הדף הזה - גם כשאין עכשיו קוד פעיל */
+  var examOnly = !!document.querySelector('meta[name="bm-exam-only"]') && !myCode;
   /* אם ידוע שהדף הזה נעול עכשיו - מסתירים מיד, עד שהשרת עונה */
   var waitTimer = null;
-  if(hint && hint.page === page && hint.until > Date.now() && !myCode){
+  if((hint && hint.page === page && hint.until > Date.now() && !myCode) || examOnly){
     whenBody(function(){
       if(cover) return;
       show('<div class="bm-lock-ico" aria-hidden="true">⏳</div><p class="bm-lock-wait">רגע, בודקים אם הדף פתוח…</p>');
     });
-    waitTimer = setTimeout(open, 8000);
+    waitTimer = setTimeout(examOnly ? function(){ whenBody(lockedView); } : open, 8000);
   }
 
   fetch(API + "?action=lessonLock&page=" + encodeURIComponent(page) + "&code=" + encodeURIComponent(myCode))
     .then(function(r){ return r.json(); })
     .then(function(res){
       clearTimeout(waitTimer);
-      if(!res || !res.ok || typeof res.locked !== "boolean"){ open(); return; }
+      if(!res || !res.ok || typeof res.locked !== "boolean"){ if(examOnly) whenBody(lockedView); else open(); return; }
       /* כמה קודים במקביל: זוכרים רק את הדף הזה (נעול או לא), בלי למחוק מידע על דפים אחרים */
       if(res.lessonPage) write(HINT_STORE, { page:res.lessonPage, until:res.until });
       else if(hint && hint.page === page) write(HINT_STORE, null);
-      if(res.locked) whenBody(lockedView);
+      if(res.locked || examOnly) whenBody(lockedView);
       else open();
     })
-    .catch(function(){ clearTimeout(waitTimer); open(); });
+    .catch(function(){ clearTimeout(waitTimer); if(examOnly) whenBody(lockedView); else open(); });
 })();
 
 /* ============================================================

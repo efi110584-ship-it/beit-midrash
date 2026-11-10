@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" data-css="theme">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="bm-exam-only" content="1">
+<title>מבחן — פרקי אברהם</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=45">
+<style>
+  .exw{max-width:880px;margin:0 auto;padding:0 16px 3rem}
+  .exw .student-bar{margin:1rem 0}
+  .ex-rules{background:#FBF7EE;border:1px solid #D8C9A3;border-radius:14px;padding:.9rem 1.2rem;margin:0 0 1rem;line-height:1.7}
+  .ex-rules ul{margin:.3rem 0 0;padding-inline-start:1.2rem}
+  .exn{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center;margin:0 0 1rem}
+  .exn-b{min-width:46px;min-height:46px;border-radius:12px;border:2px solid #C9B98F;background:#fff;color:#16324A;font:800 1.05rem "Heebo",sans-serif;cursor:pointer;position:relative}
+  .exn-b.is-done{background:#E6F2EC;border-color:#2F7D5B;color:#1F5A40}
+  .exn-b.is-part{background:#FFF4DE;border-color:#D79A2B}
+  .exn-b[aria-current="step"]{background:#16324A;border-color:#16324A;color:#fff}
+  .exn-b.exn-end{padding:0 1rem;font-size:.95rem}
+  .exn-b:focus-visible,.exb:focus-visible{outline:3px solid #1857C4;outline-offset:2px}
+  .exq{background:#fff;border:1px solid #E4DACB;border-radius:18px;box-shadow:0 2px 10px rgba(31,58,77,.08);padding:1.2rem 1.4rem 1.4rem}
+  .exq-head{border-bottom:2px solid #E9DFC9;padding-bottom:.6rem;margin-bottom:.4rem}
+  .exq-kicker{font:700 .85rem "Heebo";color:#8A5C21}
+  .exq-head h2{margin:.15rem 0 .2rem;font:800 1.55rem/1.3 "Heebo";color:#16324A}
+  .exq-src{margin:0;color:#5B6774;font-size:.9rem}
+  .exq-part{margin-top:1.2rem}
+  .exq-part-h{display:flex;align-items:center;gap:.5rem;margin:0 0 .5rem;font:800 1.15rem "Heebo";color:#16324A}
+  .exq-let{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;background:#8A5C21;color:#fff;font-size:1.05rem}
+  .exq-ctx{background:#FBF7EE;border:1px solid #E4D6B5;border-radius:12px;padding:.6rem .9rem;margin:.4rem 0;line-height:1.75}
+  .exq-verse{border-inline-start:3px solid #3F6E66;background:#F1F6F4;border-radius:10px;padding:.5rem .9rem;margin:.4rem 0;font:500 1.12rem/1.9 "Frank Ruhl Libre",serif}
+  .exq-verse b{color:#3F6E66;font:700 .85rem "Heebo"}
+  .exq-verse-h{font:500 .82rem "Heebo";color:#5B6774}
+  .exq-sub{margin:.7rem 0 0}
+  .exq-q{margin:0 0 .35rem;font-weight:700;line-height:1.7;color:#1F2A36}
+  .exq-n{color:#8A5C21}
+  .exq textarea.answer{width:100%;min-height:120px;resize:vertical;padding:.7rem .9rem;border:2px solid #C9D5EA;border-radius:12px;font:400 1.02rem/1.6 "Heebo",sans-serif;background:#FDFEFF}
+  .exq textarea.answer:focus-visible{outline:3px solid #FFB86B;outline-offset:1px;border-color:#16324A}
+  .exbar{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:space-between;align-items:center;margin:1rem 0}
+  .exb{min-height:48px;padding:.6rem 1.3rem;border-radius:12px;border:2px solid #16324A;background:#fff;color:#16324A;font:700 1rem "Heebo";cursor:pointer}
+  .exb.primary{background:#16324A;color:#fff}
+  .exb[disabled]{opacity:.4;cursor:default}
+  .ex-pos{font:600 .95rem "Heebo";color:#5B6774;font-variant-numeric:tabular-nums}
+  .ex-end{background:#fff;border:1px solid #E4DACB;border-radius:18px;padding:1.2rem 1.4rem}
+  .ex-end h2{margin:0 0 .5rem;font:800 1.4rem "Heebo";color:#16324A}
+  .ex-end ul{list-style:none;padding:0;margin:.5rem 0 1rem;display:grid;gap:.35rem}
+  .ex-end li{display:flex;justify-content:space-between;gap:1rem;padding:.45rem .8rem;border-radius:10px;background:#F6F8FB}
+  .ex-end li.miss{background:#FFF4DE}
+  .ex-end li button{border:0;background:none;color:#1857C4;font:700 .95rem "Heebo";cursor:pointer;text-decoration:underline}
+  .ex-save{text-align:center;color:#5B6774;font-size:.9rem;margin:.3rem 0 0}
+  html.ex-all .exq{display:block !important;margin-bottom:1.2rem}
+  html.ex-all .exn,html.ex-all .exbar{display:none}
+  @media print{
+    .exn,.exbar,.ex-end,.breadcrumbs,.bm-skip-link,.ex-save{display:none !important}
+    .exq{display:block !important;break-before:page;box-shadow:none;border:0;padding:0}
+    .exq:first-of-type{break-before:auto}
+    .exq textarea.answer{min-height:110px}
+  }
+</style>
+<script src="assets/a11y.js"></script>
+</head>
+<body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">הכיתה הדיגיטלית</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="bereshit-hub.html">ספר בראשית</a>
+  <span class="sep">›</span>
+  <span class="current">מבחן — פרקי אברהם</span>
+</nav>
+<header>
+  <div class="eyebrow">ספר בראשית · מבחן · שאלון 2381</div>
+  <h1>מבחן — פרקי אברהם</h1>
+  <p class="sub">10 שאלות מבחינות הבגרות על פרקים י"ב, ט"ו, י"ז, י"ח ו-כ"ב. בכל שאלה שלושה סעיפים: א, ב, ג. ענו על כל הסעיפים, ובסוף לחצו "שלחו למורה".</p>
+</header>
+<main id="main-content" class="exw">
+  <div class="student-bar">
+    <label>שם: <input type="text" id="studentName" data-bm-persist="bereshit-avraham-exam" placeholder="השם שלכם..."></label>
+    <label>כיתה: <input type="text" id="studentClass" data-bm-persist="bereshit-avraham-exam" placeholder='למשל: י"א 4' style="width:8rem;"></label>
+  </div>
+  <div class="ex-rules">
+    <b>לפני שמתחילים:</b>
+    <ul>
+      <li>כל שאלה נמצאת במסך משלה. עוברים בין השאלות בכפתורים "השאלה הבאה" ו"השאלה הקודמת", או במספרים שלמעלה.</li>
+      <li>ענו "על פי פירוש שלמדת" כשהשאלה מבקשת, וכתבו את שם הפרשן.</li>
+      <li>התשובות נשמרות לבד. אפשר לחזור לכל שאלה ולתקן עד השליחה.</li>
+    </ul>
+  </div>
+  <nav class="exn" id="exNav" aria-label="מעבר בין השאלות"><button type="button" class="exn-b" data-go="1" aria-label="שאלה 1: &quot;לך לך&quot; - הציווי וההבטחות"><span>1</span></button><button type="button" class="exn-b" data-go="2" aria-label="שאלה 2: ירידת אברהם למצרים"><span>2</span></button><button type="button" class="exn-b" data-go="3" aria-label="שאלה 3: &quot;אל תירא אברם&quot; - הבטחת הזרע"><span>3</span></button><button type="button" class="exn-b" data-go="4" aria-label="שאלה 4: ברית בין הבתרים"><span>4</span></button><button type="button" class="exn-b" data-go="5" aria-label="שאלה 5: מצוות ברית המילה"><span>5</span></button><button type="button" class="exn-b" data-go="6" aria-label="שאלה 6: שינוי השמות והבטחת יצחק"><span>6</span></button><button type="button" class="exn-b" data-go="7" aria-label="שאלה 7: הכנסת האורחים ובשורת הלידה"><span>7</span></button><button type="button" class="exn-b" data-go="8" aria-label="שאלה 8: תפילת אברהם על סדום"><span>8</span></button><button type="button" class="exn-b" data-go="9" aria-label="שאלה 9: הדרך אל העקדה"><span>9</span></button><button type="button" class="exn-b" data-go="10" aria-label="שאלה 10: בהר המוריה"><span>10</span></button><button type="button" class="exn-b exn-end" data-go="end">סיום ושליחה</button></nav>
+<section class="exq" id="q1" data-q="1" aria-labelledby="q1-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 1 מתוך 10 · פרק י"ב</span><h2 id="q1-h">"לך לך" - הציווי וההבטחות</h2><p class="exq-src">📅 מתוך: בגרות חורף תשפ״א (2021) מועד מאוחר · מאגר שאלות ותשובות מבגרויות (שאלון 2381)</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א</h3><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק י"ב, פסוקים א'–ב' · פרק י"ב, פסוק ז'</div><b>(א)</b> וַיֹּאמֶר ה' אֶל אַבְרָם לֶךְ לְךָ מֵאַרְצְךָ וּמִמּוֹלַדְתְּךָ וּמִבֵּית אָבִיךָ אֶל הָאָרֶץ אֲשֶׁר אַרְאֶךָּ <b>(ב)</b> וְאֶעֶשְׂךָ לְגוֹי גָּדוֹל וַאֲבָרֶכְךָ וַאֲגַדְּלָה שְׁמֶךָ וֶהְיֵה בְּרָכָה <b>(ז)</b> וַיֵּרָא ה' אֶל אַבְרָם וַיֹּאמֶר לְזַרְעֲךָ אֶתֵּן אֶת הָאָרֶץ הַזֹּאת וַיִּבֶן שָׁם מִזְבֵּחַ לַה' הַנִּרְאֶה אֵלָיו</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>על פי פסוקים א'-ז', ה' מבטיח לאברהם שתי הבטחות: הבטחה אחת לפני שאברהם עוזב את אור כשדים והבטחה נוספת לאחר שנכנס לארץ כנען. הסבר מה ה' מבטיח לאברהם בכל אחת מן ההבטחות האלה.</p>
+<textarea class="answer" data-id="q1א1" aria-label="שאלה 1 · סעיף א (1)" data-model="לפני שעוזב את אור כשדים: יצא ממנו עם גדול, פרסום, ברכה... 
+אחרי שנכנס לארץ: הצאצאים שלך יקבלו את הארץ." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>"ויקרא בשם ה'" (פסוק ח'). הסבר בלשונך מה עשה אברהם.</p>
+<textarea class="answer" data-id="q1א2" aria-label="שאלה 1 · סעיף א (2)" data-model="1. התפלל או 2. מפרסם את שם ה&#x27; בארץ" placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב</h3><div class="exq-ctx">עיין בשני הציוויים של ה' לאברהם: בפרק י"ב, פסוקים א'-ב' ובפרק כ"ב, פסוק ב'.</div><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק י"ב, פסוקים א'–ב' · פרק כ"ב, פסוק ב'</div><b>(א)</b> וַיֹּאמֶר ה' אֶל אַבְרָם לֶךְ לְךָ מֵאַרְצְךָ וּמִמּוֹלַדְתְּךָ וּמִבֵּית אָבִיךָ אֶל הָאָרֶץ אֲשֶׁר אַרְאֶךָּ <b>(ב)</b> וְאֶעֶשְׂךָ לְגוֹי גָּדוֹל וַאֲבָרֶכְךָ וַאֲגַדְּלָה שְׁמֶךָ וֶהְיֵה בְּרָכָה <b>(כ"ב, ב)</b> וַיֹּאמֶר קַח נָא אֶת בִּנְךָ אֶת יְחִידְךָ אֲשֶׁר אָהַבְתָּ אֶת יִצְחָק וְלֶךְ לְךָ אֶל אֶרֶץ הַמֹּרִיָּה וְהַעֲלֵהוּ שָׁם לְעֹלָה עַל אַחַד הֶהָרִים אֲשֶׁר אֹמַר אֵלֶיךָ</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>ציין שתי נקודות דמיון בין הציוויים של ה' לאברהם.</p>
+<textarea class="answer" data-id="q1ב1" aria-label="שאלה 1 · סעיף ב (1)" data-model="על התלמיד לציין שתי נקודות דמיון: הלשון &quot;לך לך&quot;, היעדר הגדרת יעד, פירוט הדרגתי — &quot;ארצך, מולדתך, בית אביך&quot;, וכן &quot;בנך, יחידך, אשר אהבת&quot;." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>רש"י (לפרק י"ב, פסוק א'): "'לך לך' — להנאתך ולטובתך".<br>רש"י מציין בהמשך דבריו שתי טובות שאברהם יזכה להן בזכות יציאתו מחרן. מה הן שתי הטובות האלה?</p>
+<textarea class="answer" data-id="q1ב2" aria-label="שאלה 1 · סעיף ב (2)" data-model="על התלמיד לציין שתי טובות: ייעשה לגוי גדול, שמו יתפרסם בעולם, ה&#x27; יברך אותו." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג</h3><div class="exq-ctx">עיין בדברי הרב משה צבי נריה שלפניך, וענה על השאלה שאחריהם.<br>"עיקר הניסיון ("לך לך") היה בשינוי הערכים הגמור בהשקפתו של אברהם אבינו. איש החסד הגדול, הלב שהיה מלא אהבה לכל הנברא בצלם. [...] "ואעשך לגוי גדול" [...] לנו נראה הדבר כהבטחה גדולה, כייעוד גדול ואילו "אב המון גויים" [אברהם] הדגיש בדברים אלו גם את השלילה, את הצמצום — לא אנושיות כללית אלא עם סגולה."<br>(הרב משה צבי נריה, נר למאור, עמודים 46-45).</div><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק י"ב, פסוקים א'–ב'</div><b>(א)</b> וַיֹּאמֶר ה' אֶל אַבְרָם לֶךְ לְךָ מֵאַרְצְךָ וּמִמּוֹלַדְתְּךָ וּמִבֵּית אָבִיךָ אֶל הָאָרֶץ אֲשֶׁר אַרְאֶךָּ <b>(ב)</b> וְאֶעֶשְׂךָ לְגוֹי גָּדוֹל וַאֲבָרֶכְךָ וַאֲגַדְּלָה שְׁמֶךָ וֶהְיֵה בְּרָכָה</div><div class="exq-sub"><p class="exq-q"><span class="exq-n"></span>על פי הרב נריה, הסבר את הקושי של אברהם בניסיון היציאה מחרן.</p>
+<textarea class="answer" data-id="q1ג1" aria-label="שאלה 1 · סעיף ג" data-model="אברהם רצה להשפיע על העולם כולו, ואילו ה&#x27; ציווה עליו להתמקד בעם ישראל." placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+<section class="exq" id="q2" data-q="2" aria-labelledby="q2-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 2 מתוך 10 · פרק י"ב</span><h2 id="q2-h">ירידת אברהם למצרים</h2><p class="exq-src">📅 מתוך: מאגר שאלות ותשובות מבגרויות (שאלון 2381)</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א</h3><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק י"ב, פסוק י'</div><b>(י)</b> וַיְהִי רָעָב בָּאָרֶץ וַיֵּרֶד אַבְרָם מִצְרַיְמָה לָגוּר שָׁם כִּי כָבֵד הָרָעָב בָּאָרֶץ</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>"ויהי רעב בארץ" (פסוק י').<br>הסבר מהו הניסיון המתואר בפסוק זה, על פי פירוש שלמדת.</p>
+<textarea class="answer" data-id="q2א1" aria-label="שאלה 2 · סעיף א (1)" data-model="הניסיון: האם אברהם יהרהר בהבטחת ה&#x27; שהבטיח לתת לו את הארץ ועכשיו גורם לו לצאת ממנה." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>עיין בפסוקים י'-כ'. "כל מה שאירע לאבות סימן לבנים". (רמב"ן)<br>כתוב בטבלה שלושה אירועים שאירעו לאברהם או לשרה ושלושה אירועים דומים שאירעו לבניהם, לפי פירוש רמב"ן.</p>
+<textarea class="answer" data-id="q2א2" aria-label="שאלה 2 · סעיף א (2)" data-model="מעשה אבות | סימן לבנים 
+אברהם ירד למצרים בגלל הרעב. | בני יעקב ירדו למצרים בגלל הרעב. 
+המצרים לקחו את שרה. | המצרים לקחו מעם ישראל את הנשים. 
+ה&#x27; נקם במצרים ושלח בהם נגעים גדולים. | הקב&quot;ה נקם במצרים והכה בהם עשר מכות. 
+אברהם יצא ממצרים עם מקנה, כסף וזהב. | הקב&quot;ה הוציא את עם ישראל ממצרים ברכוש רב: כסף, זהב, צאן, בקר. 
+פרעה ציווה לשלח את אברהם. | המצרים ציוו את ישראל לצאת מהר ממצרים בעקבות מכת בכורות." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב</h3><div class="exq-ctx">גם בפרק י"ב וגם בפרק כ' מסופר כי שרה נלקחה מאברהם והובאה אל מלך זר.<br>עיין בפרק י"ב, פסוקים י"ד-י"ח, ובפרק כ', פסוקים ב'-ז'.<br>רד"ק (פרק כ', פסוק ג'): " 'ויבֹא א-לקים אל אבימלך' — [...] אבל פרעה לא היה ראוי לחלום של נבואה [...] אלא נגעיו היו שלוחין מאת הא-ל".</div><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק י"ב, פסוקים ט"ו–י"ז · פרק כ', פסוק ג'</div><b>(טו)</b> וַיִּרְאוּ אֹתָהּ שָׂרֵי פַרְעֹה וַיְהַלְלוּ אֹתָהּ אֶל פַּרְעֹה וַתֻּקַּח הָאִשָּׁה בֵּית פַּרְעֹה <b>(טז)</b> וּלְאַבְרָם הֵיטִיב בַּעֲבוּרָהּ וַיְהִי לוֹ צֹאן וּבָקָר וַחֲמֹרִים וַעֲבָדִים וּשְׁפָחֹת וַאֲתֹנֹת וּגְמַלִּים <b>(יז)</b> וַיְנַגַּע ה' אֶת פַּרְעֹה נְגָעִים גְּדֹלִים וְאֶת בֵּיתוֹ עַל דְּבַר שָׂרַי אֵשֶׁת אַבְרָם <b>(כ', ג)</b> וַיָּבֹא אֱלֹהִים אֶל אֲבִימֶלֶךְ בַּחֲלוֹם הַלָּיְלָה וַיֹּאמֶר לוֹ הִנְּךָ מֵת עַל הָאִשָּׁה אֲשֶׁר לָקַחְתָּ וְהִוא בְּעֻלַת בָּעַל</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>מהי השאלה שרד"ק עונה עליה?</p>
+<textarea class="answer" data-id="q2ב1" aria-label="שאלה 2 · סעיף ב (1)" data-model="השאלה שרד&quot;ק עונה עליה: מדוע התגלה ה&#x27; אל אבימלך (בפרק כ&#x27;) ואמר לו ששרה היא אשת איש, ואילו אל פרעה לא התגלה אלא הכה אותו מיד בנגעים?" placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>מהי תשובת רד"ק על שאלה זו?</p>
+<textarea class="answer" data-id="q2ב2" aria-label="שאלה 2 · סעיף ב (2)" data-model="תשובת רד&quot;ק: פרעה, להבדיל מאבימלך, היה רשע, ולכן לא היה ראוי להתגלות של חלום נבואי, אלא לקה בנגעים כדי להבין את טעותו." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג</h3><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק י"א, פסוקים כ"ז–כ"ח · פרק י"ב, פסוק ה'</div><b>(כז)</b> וְאֵלֶּה תּוֹלְדֹת תֶּרַח תֶּרַח הוֹלִיד אֶת אַבְרָם אֶת נָחוֹר וְאֶת הָרָן וְהָרָן הוֹלִיד אֶת לוֹט <b>(כח)</b> וַיָּמָת הָרָן עַל פְּנֵי תֶּרַח אָבִיו בְּאֶרֶץ מוֹלַדְתּוֹ בְּאוּר כַּשְׂדִּים <b>(י"ב, ה)</b> וַיִּקַּח אַבְרָם אֶת שָׂרַי אִשְׁתּוֹ וְאֶת לוֹט בֶּן אָחִיו וְאֶת כָּל רְכוּשָׁם אֲשֶׁר רָכָשׁוּ וְאֶת הַנֶּפֶשׁ אֲשֶׁר עָשׂוּ בְחָרָן וַיֵּצְאוּ לָלֶכֶת אַרְצָה כְּנַעַן וַיָּבֹאוּ אַרְצָה כְּנָעַן</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>בפרק י"ב, פסוק ה' נאמר שאברהם לקח עִמו את לוט לכנען.<br>עיין בפרק י"א, פסוקים כ"ז-כ"ח והסבר מדוע לקח עִמו אברהם את לוֹט.</p>
+<textarea class="answer" data-id="q2ג1" aria-label="שאלה 2 · סעיף ג (1)" data-model="אברהם לקח איתו את לוט שהוא אחיינו היתום." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>עיין בפרק י"ג, פסוקים ה'-י"א.<br>על פי פסוקים אלה, כתוב מה הייתה הסיבה לפרֵדה של אברהם ולוט.</p>
+<textarea class="answer" data-id="q2ג2" aria-label="שאלה 2 · סעיף ג (2)" data-model="אברהם ולוט נפרדו כדי למנוע מריבה ביניהם ובין רועיהם או לא היה מקום מרעה מספיק." placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+<section class="exq" id="q3" data-q="3" aria-labelledby="q3-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 3 מתוך 10 · פרק ט"ו</span><h2 id="q3-h">"אל תירא אברם" - הבטחת הזרע</h2><p class="exq-src">📅 מתוך: בגרות קיץ תשע״ד (2014), שאלון 2112 · בגרות קיץ תשע״ח (2018), שאלון 2381 · בגרות קיץ תשפ"ד (שאלון 2381)</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א</h3><div class="exq-ctx">"אַחַר הַדְּבָרִים הָאֵלֶּה הָיָה דְבַר ה' אֶל אַבְרָם (...) לֵאמֹר אַל תִּירָא אַבְרָם אָנֹכִי מָגֵן לָךְ שְׂכָרְךָ הַרְבֵּה מְאֹד" (פסוק א').</div><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק ט"ו, פסוק א'</div><b>(א)</b> אַחַר הַדְּבָרִים הָאֵלֶּה הָיָה דְבַר ה' אֶל אַבְרָם בַּמַּחֲזֶה לֵאמֹר אַל תִּירָא אַבְרָם אָנֹכִי מָגֵן לָךְ שְׂכָרְךָ הַרְבֵּה מְאֹד</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>מהו האירוע שלאחריו דיבר ה' אל אברהם, ומה גרם לאברהם לחשוש? ענה על פי פירוש שלמדת.</p>
+<textarea class="answer" data-id="q3א1" aria-label="שאלה 3 · סעיף א (1)" data-model="לאחר מלחמת המלכים (בפרק י&quot;ד) חשש אברהם שאיבד את כל זכויותיו בשל הנסים שה&#x27; עשה לו במלחמה. או: – אברהם חשש שהוא צפוי להיענש מכיוון שהרג נפשות רבות במלחמה. (רש&quot;י)" placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>עיין בפסוקים ח'-י"ח.<br>מה היה המענה של ה' על דברי אברהם שבפסוק ח'?</p>
+<textarea class="answer" data-id="q3א2" aria-label="שאלה 3 · סעיף א (2)" data-model="המענה של ה&#x27; היה כריתת ברית (בין הבתרים) בין ה&#x27; לאברהם." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב</h3><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק ט"ו, פסוקים ד'–ה' · פרק ט"ו, פסוק ז'</div><b>(ד)</b> וְהִנֵּה דְבַר ה' אֵלָיו לֵאמֹר לֹא יִירָשְׁךָ זֶה כִּי אִם אֲשֶׁר יֵצֵא מִמֵּעֶיךָ הוּא יִירָשֶׁךָ <b>(ה)</b> וַיּוֹצֵא אֹתוֹ הַחוּצָה וַיֹּאמֶר הַבֶּט נָא הַשָּׁמַיְמָה וּסְפֹר הַכּוֹכָבִים אִם תּוּכַל לִסְפֹּר אֹתָם וַיֹּאמֶר לוֹ כֹּה יִהְיֶה זַרְעֶךָ <b>(ז)</b> וַיֹּאמֶר אֵלָיו אֲנִי ה' אֲשֶׁר הוֹצֵאתִיךָ מֵאוּר כַּשְׂדִּים לָתֶת לְךָ אֶת הָאָרֶץ הַזֹּאת לְרִשְׁתָּהּ</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>בפסוקים ד'-ז' מפורטות כמה הבטחות שהבטיח ה' לאברם.<br>כתוב בלשונך מה הבטיח ה' לאברם בפסוק ד', מה הבטיח לו ה' בפסוק ה' ומה הבטיח לו ה' בפסוק ז'.</p>
+<textarea class="answer" data-id="q3ב1" aria-label="שאלה 3 · סעיף ב (1)" data-model="פסוק ד&#x27; - בן / זרע 
+פסוק ה&#x27; - שיהיו לו צאצאים רבים, 
+פסוק ז&#x27; - הוא יירש את ארץ כנען." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>מה הייתה מטרת המעשה המתואר בפסוק ה'?</p>
+<textarea class="answer" data-id="q3ב2" aria-label="שאלה 3 · סעיף ב (2)" data-model="המטרה: להמחיש לאברהם את ההבטחה על ריבוי הזרע ולחזק אותה." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג</h3><div class="exq-ctx">"והאמן בה' ויחשבה לו צדקה" (פסוק ו').</div><div class="exq-ctx">עיינו בפסוקים א'-ו'.</div><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק ט"ו, פסוקים ד'–ו'</div><b>(ד)</b> וְהִנֵּה דְבַר ה' אֵלָיו לֵאמֹר לֹא יִירָשְׁךָ זֶה כִּי אִם אֲשֶׁר יֵצֵא מִמֵּעֶיךָ הוּא יִירָשֶׁךָ <b>(ה)</b> וַיּוֹצֵא אֹתוֹ הַחוּצָה וַיֹּאמֶר הַבֶּט נָא הַשָּׁמַיְמָה וּסְפֹר הַכּוֹכָבִים אִם תּוּכַל לִסְפֹּר אֹתָם וַיֹּאמֶר לוֹ כֹּה יִהְיֶה זַרְעֶךָ <b>(ו)</b> וְהֶאֱמִן בַּה' וַיַּחְשְׁבֶהָ לּוֹ צְדָקָה</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>על פי ההקשר בפסוקים ב'-ז', כתוב במה האמין אברם.</p>
+<textarea class="answer" data-id="q3ג1" aria-label="שאלה 3 · סעיף ג (1)" data-model="אברהם האמין שהבטחות ה&#x27; על הזרע יתקיימו. (לא לקבל כתשובה: אברהם האמין בה&#x27;)." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>על פי פירוש שלמדת, הסבר מהי משמעות המילה "צדקה" בפסוק זה, ולמי המילה "וַיַּחְשְׁבֶהָ" מתייחסת - מי חשב, ועל מי הוא חשב זאת?</p>
+<textarea class="answer" data-id="q3ג2" aria-label="שאלה 3 · סעיף ג (2)" data-model="לפי רש&quot;י, &quot;צדקה&quot; = זכות. &quot;ויחשבה&quot; מתייחס לקב&quot;ה: הקב&quot;ה חשב לאברם את האמונה לזכות - &quot;הקב&quot;ה חשבה לאברם לזכות ולצדקה על האמונה שהאמין בו&quot;." placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+<section class="exq" id="q4" data-q="4" aria-labelledby="q4-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 4 מתוך 10 · פרק ט"ו</span><h2 id="q4-h">ברית בין הבתרים</h2><p class="exq-src">📅 מתוך: בגרות חורף תשפ"ו (שאלון 2381) · בגרות קיץ תשע״ד (2014), שאלון 2112 · בגרות חורף תשע״ד (2014), שאלון 2102</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א</h3><div class="exq-ctx">עיינו בפסוקים ז'-ח'.</div><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק ט"ו, פסוק ח'</div><b>(ח)</b> וַיֹּאמַר אֲדֹנָי ה' בַּמָּה אֵדַע כִּי אִירָשֶׁנָּה</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>על פי רמב"ן, מהו החשש של אברהם שבא לידי ביטוי בשאלה "במה אדע כי אירשנה"?</p>
+<textarea class="answer" data-id="q4א1" aria-label="שאלה 4 · סעיף א (1)" data-model="חשש שהבטחת הארץ יכולה להתבטל אם הוא או זרעו יחטאו ויאבדו את הזכות או הכנענים שבארץ יחזרו בתשובה ואז היא תישאר בידם." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>על פי רמב"ן, מה ה' משיב על שאלתו של אברהם?</p>
+<textarea class="answer" data-id="q4א2" aria-label="שאלה 4 · סעיף א (2)" data-model="הברית מבטיחה שנתינת הארץ לאברהם ולזרעו לא תתבטל בשום אופן." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב</h3><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק ט"ו, פסוקים ט'–י"א · פרק ט"ו, פסוק י"ז</div><b>(ט)</b> וַיֹּאמֶר אֵלָיו קְחָה לִי עֶגְלָה מְשֻׁלֶּשֶׁת וְעֵז מְשֻׁלֶּשֶׁת וְאַיִל מְשֻׁלָּשׁ וְתֹר וְגוֹזָל <b>(י)</b> וַיִּקַּח לוֹ אֶת כָּל אֵלֶּה וַיְבַתֵּר אֹתָם בַּתָּוֶךְ וַיִּתֵּן אִישׁ בִּתְרוֹ לִקְרַאת רֵעֵהוּ וְאֶת הַצִפֹּר לֹא בָתָר <b>(יא)</b> וַיֵּרֶד הָעַיִט עַל הַפְּגָרִים וַיַּשֵּׁב אֹתָם אַבְרָם <b>(יז)</b> וַיְהִי הַשֶּׁמֶשׁ בָּאָה וַעֲלָטָה הָיָה וְהִנֵּה תַנּוּר עָשָׁן וְלַפִּיד אֵשׁ אֲשֶׁר עָבַר בֵּין הַגְּזָרִים הָאֵלֶּה</div><div class="exq-sub"><p class="exq-q"><span class="exq-n"></span>בחר שלושה מן הציטוטים שלפניך. הסבר מה הם מסמלים, על פי מדרש או פירוש שלמדת:<br>- "עֶגְלָה מְשֻׁלֶּשֶׁת וְעֵז מְשֻׁלֶּשֶׁת וְאַיִל מְשֻׁלָּשׁ" (פסוק ט')<br>- "וְאֶת הַצִּפֹּר לֹא בָתָר" (פסוק י').<br>- "וַיֵּרֶד הָעַיִט עַל הַפְּגָרִים" (פסוק י"א).<br>- "וְהִנֵּה תַנּוּר עָשָׁן וְלַפִּיד אֵשׁ" (פסוק י"ז).</p>
+<textarea class="answer" data-id="q4ב1" aria-label="שאלה 4 · סעיף ב" data-model="יש להסביר מה מסמלים שלושה מן הציטוטים: 
+— &quot;עגלה משולשת ועז משולשת ואיל משולש&quot; (פסוק ט&#x27;) — רמז שיקריבו בבית המקדש מבעלי החיים האלה עגלה משולשת עז משולשת או: רמז לאומות העולם שירדו ממעמדן. 
+— &quot;ואת הצפר לא בתר&quot; (פסוק י&#x27;) — רמז לישראל שיהיו קיימים לעולם. 
+— &quot;וירד העיט על הפגרים&quot; (פסוק י&quot;א) — רמז לדוד המלך שיילחם באומות העולם. 
+— &quot;והנה תנור עשן ולפיד אש&quot; (פסוק י&quot;ז) — רמז לנפילת המלכויות בגיהינום. או רמז לה&#x27; העובר בברית" placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג</h3><div class="exq-ctx">עיין בפסוקים י"ג-ט"ז.</div><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק ט"ו, פסוקים י"ג–ט"ז</div><b>(יג)</b> וַיֹּאמֶר לְאַבְרָם יָדֹעַ תֵּדַע כִּי גֵר יִהְיֶה זַרְעֲךָ בְּאֶרֶץ לֹא לָהֶם וַעֲבָדוּם וְעִנּוּ אֹתָם אַרְבַּע מֵאוֹת שָׁנָה <b>(יד)</b> וְגַם אֶת הַגּוֹי אֲשֶׁר יַעֲבֹדוּ דָּן אָנֹכִי וְאַחֲרֵי כֵן יֵצְאוּ בִּרְכֻשׁ גָּדוֹל <b>(טו)</b> וְאַתָּה תָּבוֹא אֶל אֲבֹתֶיךָ בְּשָׁלוֹם תִּקָּבֵר בְּשֵׂיבָה טוֹבָה <b>(טז)</b> וְדוֹר רְבִיעִי יָשׁוּבוּ הֵנָּה כִּי לֹא שָׁלֵם עֲוֺן הָאֱמֹרִי עַד הֵנָּה</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>כתוב בלשונך שתי בשורות שליליות ושתי בשורות חיוביות שה' בישר לאברהם בברית בין הבתרים.</p>
+<textarea class="answer" data-id="q4ג1" aria-label="שאלה 4 · סעיף ג (1)" data-model="בשורות שליליות (יש לציין שתיים): 
+זרעו יהיה גר / עבד בארץ אחרת ארבע מאות שנה, בניו יעבדו בפרך ויעונו. 
+בשורות חיוביות (יש לציין שתיים): 
+ה&#x27; יעניש את הגויים שיעבידו את בניו, בניו יצאו מהשעבוד ברכוש גדול, אברהם ימות בשיבה טובה ובשלום, דור רביעי לשעבוד יחזרו ויירשו את ארץ כנען." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>עיין בפסוק י"ד.<br>רמב"ן: "אף על פי שאני גזרתי על זרעך להיות גֵרים 'בארץ לא להם ועבדום וענו אותם', אף על פי כן אשפוט 'את הגוי אשר יעבֹדו' על אשר יעשו להם (...) והטעם כמו שאמר הכתוב: '(...) אֲנִי קָצַפְתִּי מְעָט וְהֵמָּה עָזְרוּ לְרָעָה' (זכריה א', ט"ו)".<br>מהו הקושי בפסוק שרמב"ן מיישב בפירושו, וכיצד הוא מיישב אותו.</p>
+<textarea class="answer" data-id="q4ג2" aria-label="שאלה 4 · סעיף ג (2)" data-model="הקושי: מדוע ה&#x27; יעניש את הגויים ששעבדו את ישראל ועינו אותם, הרי במעשים אלה מילאו את רצון ה&#x27;? 
+היישוב: הם עינו ושעבדו הרבה יותר ממה שה&#x27; התכוון, ולכן עליהם להיענש." placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+<section class="exq" id="q5" data-q="5" aria-labelledby="q5-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 5 מתוך 10 · פרק י"ז</span><h2 id="q5-h">מצוות ברית המילה</h2><p class="exq-src">📅 מתוך: בגרות חורף תשע״ו (2016), שאלון 2112, שאלה 3 (פרק י״ז)</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א</h3><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>"יִמּוֹל לָכֶם כָּל זָכָר לְדֹרֹתֵיכֶם יְלִיד בָּיִת וּמִקְנַת כֶּסֶף מִכֹּל בֶּן נֵכָר אֲשֶׁר לֹא מִזַּרְעֲךָ הוּא" (פסוק י"ב).<br>על פי פסוק זה, הסבר מי הם החייבים במצוות ברית המילה.</p>
+<textarea class="answer" data-id="q5א1" aria-label="שאלה 5 · סעיף א (1)" data-model="כל זכר יהודי צאצא למשפחת אברהם, וגם עבד נכרי שנמצא בבית של יהודי (או יליד בית או מקנת כסף)." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>עיין בפסוקים י"ב-י"ד.<br>ציין שתי הלכות נוספות הנוגעות למצוות ברית המילה (חוץ מן ההלכה שציינת בתת־סעיף 1)</p>
+<textarea class="answer" data-id="q5א2" aria-label="שאלה 5 · סעיף א (2)" data-model="מתבצעת בגיל שמונה ימים, וגם מי שלא נימול חייב כרת." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב</h3><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>"וַיָּמָל ... בְּעֶצֶם הַיּוֹם הַזֶּה" (פסוק כ"ג).<br>על פי פירוש שלמדת, הסבר מהי ההתנהגות החיובית של אברהם שעליה מלמדות המילים "בעצם היום הזה".</p>
+<textarea class="answer" data-id="q5ב1" aria-label="שאלה 5 · סעיף ב (1)" data-model="אפשר ללמוד על אברהם שהיה בעל אמונה חזקה ולא חשש מלעג הסביבה, או שהיה זריז למצוות." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>על פי רש"י, הסבר מדוע מל אברהם את בני ביתו בשעות היום ולא בלילה.</p>
+<textarea class="answer" data-id="q5ב2" aria-label="שאלה 5 · סעיף ב (2)" data-model="כדי שלא יוכלו אויביו ובני דורו לומר &quot;אילו ראינוהו לא הנחנוהו למול&quot;. אברהם מל ביום, בגלוי, ו&quot;לא נתיירא לא מן הגויים ולא מן הליצנים&quot;." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג</h3><div class="exq-sub"><p class="exq-q"><span class="exq-n"></span>עיין בשמות, פרק י"ב, פסוקים מ"ג-מ"ח – דיני קורבן הפסח.<br>"וְכָל עָרֵל לֹא יֹאכַל בּוֹ" (פסוק מ"ח): הסבר בלשונך דין זה.</p>
+<textarea class="answer" data-id="q5ג1" aria-label="שאלה 5 · סעיף ג" data-model="לערל - מי שלא נימול - אסור לאכול מקורבן הפסח." placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+<section class="exq" id="q6" data-q="6" aria-labelledby="q6-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 6 מתוך 10 · פרק י"ז</span><h2 id="q6-h">שינוי השמות והבטחת יצחק</h2><p class="exq-src">📅 מתוך: בגרות חורף תשע״ז (2017), שאלון 2381 · בגרות קיץ תשע״ט (2019)</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א</h3><div class="exq-ctx">עיין בפרק י"ז, פסוקים ט"ו-כ"א.</div><div class="exq-sub"><p class="exq-q"><span class="exq-n"></span>מה הוסיף ה' בהבטחתו לאברהם בפרק י"ז, פסוקים ט"ז-כ"א על הבטחתו לאברהם בפרק ט"ו, פסוק ד'?</p>
+<textarea class="answer" data-id="q6א1" aria-label="שאלה 6 · סעיף א" data-model="ה&#x27; הוסיף בהבטחתו שהבן שיירש את אברהם יהיה משרה. (עוד דברים שנוספו: הברית תהיה לעולם, גם מישמעאל יקום עם גדול, משרה יצאו &quot;מלכי עמים&quot;)" placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב</h3><div class="exq-ctx">רש"י (לפסוק ט"ו): " 'לא תקרא את שמה שרי' — דמשמע 'שרי' לי ולא לאחרים. 'כי שרה' סתם שמה, שתהא שרה על כול".</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>על פי רש"י, הסבר את המשמעות של שינוי השם מ"שרי" ל"שרה".</p>
+<textarea class="answer" data-id="q6ב1" aria-label="שאלה 6 · סעיף ב (1)" data-model="&quot;שָׂרַי&quot; (בכינוי שייכות) = &quot;שרי לי ולא לאחרים&quot; - שרה רק לאברהם ולביתו. &quot;שָׂרָה&quot; = &quot;שתהא שרה על כל&quot; - שררה על הכול. שינוי השם מבטא את הרחבת מעמדה: היא תהיה אם לעם גדול." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>בפירוש רש"י שלפניך, רש"י מסביר את המשמעות של שינוי השם מאברם לאברהם.<br>רש"י (לפרק י"ח, פסוק י"ז): "קראתי אותו אברהם, אב המון גויים, ואשמיד את הבנים [אנשי סדום], ולא אודיע לאב שהוא אוהבי?!".<br>על פי דברי רש"י בתת־סעיפים (1)-(2), מהו המכנה המשותף של השמות החדשים "שרה" ו"אברהם"?</p>
+<textarea class="answer" data-id="q6ב2" aria-label="שאלה 6 · סעיף ב (2)" data-model="שני השמות מלמדים ששרה ואברהם אחראים על עמים אחרים/לסביבה שלהם." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג</h3><div class="exq-ctx">בשני המקורות שלפניך באה לידי ביטוי מידה טובה של אברהם:<br>רש"י (לפרק י"ז, פסוק י"ח): "לו ישמעאל יחיה — איני כדאי [=ראוי] לקבל מתן שכר כזה".<br>"ויען אברהם ויאמר הנה נא הואלתי לדבר אל ה' ואנכי עפר ואפר" (פרק י"ח, פסוק כ"ז).</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>מהי המידה הטובה של אברהם שבאה לידי ביטוי בשני המקורות האלה?</p>
+<textarea class="answer" data-id="q6ג1" aria-label="שאלה 6 · סעיף ג (1)" data-model="מידה טובה שאפשר ללמוד על אברהם משני המקורות: ענווה / חוסר אגו / שפלות רוח." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>הסבר כיצד מידה טובה זו באה לידי ביטוי בכל אחד מן המקורות.</p>
+<textarea class="answer" data-id="q6ג2" aria-label="שאלה 6 · סעיף ג (2)" data-model="במקור הראשון המידה באה לידי ביטוי כאשר אברהם חושב שאינו ראוי לבן משרה. זה נראה בעיניו חסד גדול שהוא מקבל לפנים משורת הדין. במקור השני המידה באה לידי ביטוי כאשר אברהם אמנם העז לדבר בפני ה&#x27; ולדרוש ממנו להציל את סדום, אך הבהיר שהוא מודע למעמדו הנמוך כלפי ה&#x27; בהיותו אדם — עפר ואפר." placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+<section class="exq" id="q7" data-q="7" aria-labelledby="q7-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 7 מתוך 10 · פרק י"ח</span><h2 id="q7-h">הכנסת האורחים ובשורת הלידה</h2><p class="exq-src">📅 מתוך: בגרות קיץ תשע״ו (2016), שאלון 2381 · בגרות קיץ תשע״ז (2017), שאלון 2381</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א</h3><div class="exq-ctx">עיין בפסוקים א'-ח'.</div><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק י"ח, פסוקים ה'–ח'</div><b>(ה)</b> וְאֶקְחָה פַת לֶחֶם וְסַעֲדוּ לִבְּכֶם אַחַר תַּעֲבֹרוּ כִּי עַל כֵּן עֲבַרְתֶּם עַל עַבְדְּכֶם וַיֹּאמְרוּ כֵּן תַּעֲשֶׂה כַּאֲשֶׁר דִּבַּרְתָּ <b>(ו)</b> וַיְמַהֵר אַבְרָהָם הָאֹהֱלָה אֶל שָׂרָה וַיֹּאמֶר מַהֲרִי שְׁלֹשׁ סְאִים קֶמַח סֹלֶת לוּשִׁי וַעֲשִׂי עֻגוֹת <b>(ז)</b> וְאֶל הַבָּקָר רָץ אַבְרָהָם וַיִּקַּח בֶּן בָּקָר רַךְ וָטוֹב וַיִּתֵּן אֶל הַנַּעַר וַיְמַהֵר לַעֲשׂוֹת אֹתוֹ <b>(ח)</b> וַיִּקַּח חֶמְאָה וְחָלָב וּבֶן הַבָּקָר אֲשֶׁר עָשָׂה וַיִּתֵּן לִפְנֵיהֶם וְהוּא עֹמֵד עֲלֵיהֶם תַּחַת הָעֵץ וַיֹּאכֵלוּ</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>"אמר רבי אליעזר: מכאן שצדיקים אומרים מעט ועושים הרבה" (בבלי, בבא מציעא פז, ע"א).<br>לפי הפסוקים, הוכח את דברי רבי אליעזר.</p>
+<textarea class="answer" data-id="q7א1" aria-label="שאלה 7 · סעיף א (1)" data-model="אברהם אמר לאורחים שייתן להם רק מעט מים ופת לחם אך בפועל הכין לכבודם הרבה יותר מכך: עוגות, בקר, חמאה וחלב- הוא אמר מעט ועשה הרבה." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>ציין מידה נוספת של אברהם הנלמדת מתיאור הכנסת האורחים שלו. הוכח את דבריך מן הפסוקים.</p>
+<textarea class="answer" data-id="q7א2" aria-label="שאלה 7 · סעיף א (2)" data-model="מידה נוספת של אברהם הנלמדת מתיאור הכנסת האורחים שלו: זריזות- אפשר ללמוד מידה זו מריבוי הפעלים שקשורים לתנועה ולמהירות בפסוקים: &quot;וימהר&quot; (כתוב פעמיים), &quot;מהרי&quot;, &quot;רץ&quot;. לקבל גם: נדיבות או חסד- אברהם הציע שפע של אוכל יקר ומובחר לאנשים זרים שרק חלפו בדרכם ליד האוהל שלו." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב</h3><div class="exq-ctx">עיין בפסוקים י"ב-י"ג.<br>רש"י לפסוק י"ג: "ואני זקנתי — שִינה הכתוב מפני השלום".</div><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק י"ח, פסוק י"ג</div><b>(יג)</b> וַיֹּאמֶר ה' אֶל אַבְרָהָם לָמָּה זֶּה צָחֲקָה שָׂרָה לֵאמֹר הַאַף אֻמְנָם אֵלֵד וַאֲנִי זָקַנְתִּי</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>הסבר מהו השינוי בכתוב שרש"י מתייחס אליו.</p>
+<textarea class="answer" data-id="q7ב1" aria-label="שאלה 7 · סעיף ב (1)" data-model="השינוי: שרה אמרה על אברהם שהוא זקן וה&#x27; אמר לאברהם ששרה אמרה על עצמה שהיא זקנה." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>על פי רש"י, הסבר את הסיבה לשינוי וכתוב מהו הערך שאפשר ללמוד מן הסיבה לשינוי.</p>
+<textarea class="answer" data-id="q7ב2" aria-label="שאלה 7 · סעיף ב (2)" data-model="הסיבה לשינוי: ה&#x27; לא רוצה לסכסך בין אברהם לשרה / ה&#x27; לא רצה שאברהם ייעלב כי שרה אמרה עליו שהוא זקן. הערך שאפשר ללמוד: חשיבות השלום בין איש לאשתו ובין אדם לחברו. או: למען שלום בית בין איש לאשתו או בין אדם לחברו מותר לפעמים אפילו לסטות מן האמת." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג</h3><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק כ"א, פסוקים ה'–ו'</div><b>(ה)</b> וְאַבְרָהָם בֶּן מְאַת שָׁנָה בְּהִוָּלֶד לוֹ אֵת יִצְחָק בְּנוֹ <b>(ו)</b> וַתֹּאמֶר שָׂרָה צְחֹק עָשָׂה לִי אֱלֹהִים כָּל הַשֹּׁמֵעַ יִצְחַק לִי</div><div class="exq-sub"><p class="exq-q"><span class="exq-n"></span>"ואברהם בן מאת שנה בהולד לו את יצחק בנו. ותאמר שרה צחק עשה לי א-להים כל השמע יצחק לי" (פרק כ"א, פסוקים ה'-ו').<br>רמב"ן: "יצחק לי — למלאות פיו ברינה ושחוק בפלא הנעשה לי".<br>"העמק דבר": "יצחק לי — פירושו ממני. מסתפק [=מטיל ספק] אם כן הוא, שאני ילדתי לאברהם".<br>על פי כל אחד מן המפרשים, כתוב מה מבטא הצחוק שבפסוק זה.</p>
+<textarea class="answer" data-id="q7ג1" aria-label="שאלה 7 · סעיף ג" data-model="לפי רמב&quot;ן הצחוק בפסוק זה מבטא שמחה גדולה על הולדת יצחק, לפי &quot;העמק דבר&quot; הצחוק בפסוק זה מבטא חוסר אמון" placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+<section class="exq" id="q8" data-q="8" aria-labelledby="q8-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 8 מתוך 10 · פרק י"ח</span><h2 id="q8-h">תפילת אברהם על סדום</h2><p class="exq-src">📅 מתוך: בגרות חורף תשע״ט (2019) · בגרות חורף תשע״ח (2018), שאלון 2381 · בגרות חורף תשע״ח (2018), שאלון 2381</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א</h3><div class="exq-ctx">בפסוקים כ"ג-ל"ב מתוארות בקשותיו של אברהם מה' לא להשחית את סדום.</div><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק י"ח, פסוקים כ"ד–כ"ה</div><b>(כד)</b> אוּלַי יֵשׁ חֲמִשִּׁים צַדִּיקִם בְּתוֹךְ הָעִיר הַאַף תִּסְפֶּה וְלֹא תִשָּׂא לַמָּקוֹם לְמַעַן חֲמִשִּׁים הַצַּדִּיקִם אֲשֶׁר בְּקִרְבָּהּ <b>(כה)</b> חָלִלָה לְּךָ מֵעֲשֹׂת כַּדָּבָר הַזֶּה לְהָמִית צַדִּיק עִם רָשָׁע וְהָיָה כַצַּדִּיק כָּרָשָׁע חָלִלָה לָּךְ הֲשֹׁפֵט כָּל הָאָרֶץ לֹא יַעֲשֶׂה מִשְׁפָּט</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>מהו ההבדל בין הבקשה של אברהם בפסוק כ"ד ובין בקשתו בפסוק כ"ה?</p>
+<textarea class="answer" data-id="q8א1" aria-label="שאלה 8 · סעיף א (1)" data-model="בפסוק כ&quot;ד אברהם ביקש להציל את העיר כולה, ובפסוק כ&quot;ה ביקש להציל רק את הצדיקים. 
+לקבל גם: האם להציל בזכות מידת הרחמים (כ&quot;ד) או בזכות מידת הדין (כ&quot;ה)." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>מדוע הושחתה לבסוף סדום אף על פי שה' נענה לבקשותיו של אברהם?</p>
+<textarea class="answer" data-id="q8א2" aria-label="שאלה 8 · סעיף א (2)" data-model="לא היו מספיק צדיקים, אפילו לא עשרה, ולכן הושחתה סדום." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב</h3><div class="exq-ctx">עיין בפסוקים כ"ג-כ"ו.</div><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק י"ח, פסוקים כ"ג–כ"ו</div><b>(כג)</b> וַיִּגַּשׁ אַבְרָהָם וַיֹּאמַר הַאַף תִּסְפֶּה צַדִּיק עִם רָשָׁע <b>(כד)</b> אוּלַי יֵשׁ חֲמִשִּׁים צַדִּיקִם בְּתוֹךְ הָעִיר הַאַף תִּסְפֶּה וְלֹא תִשָּׂא לַמָּקוֹם לְמַעַן חֲמִשִּׁים הַצַּדִּיקִם אֲשֶׁר בְּקִרְבָּהּ <b>(כה)</b> חָלִלָה לְּךָ מֵעֲשֹׂת כַּדָּבָר הַזֶּה לְהָמִית צַדִּיק עִם רָשָׁע וְהָיָה כַצַּדִּיק כָּרָשָׁע חָלִלָה לָּךְ הֲשֹׁפֵט כָּל הָאָרֶץ לֹא יַעֲשֶׂה מִשְׁפָּט <b>(כו)</b> וַיֹּאמֶר ה' אִם אֶמְצָא בִסְדֹם חֲמִשִּׁים צַדִּיקִם בְּתוֹךְ הָעִיר וְנָשָׂאתִי לְכָל הַמָּקוֹם בַּעֲבוּרָם</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>— את מי ביקש אברהם להציל על פי מידת הדין? צטט מן הפסוקים מילים המוכיחות את דבריך.<br>— את מי ביקש אברהם להציל על פי מידת הרחמים? צטט מן הפסוקים מילים המוכיחות את דבריך.</p>
+<textarea class="answer" data-id="q8ב1" aria-label="שאלה 8 · סעיף ב (1)" data-model="על פי מידת הדין ביקש אברהם להציל את הצדיקים: &quot;האף תספה צדיק עם רשע?&quot; / &quot;והיה כצדיק כרשע?&quot; על פי מידת הרחמים ביקש אברהם להציל גם את הרשעים: &quot;האף תספה ולא תישא למקום למען חמישים הצדיקים?&quot;" placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>רד"ק (לפסוק כ"ז): " 'ואנֹכי עפר ואפר' - ואף על פי שאנוכי עפר ואפר לדבר כנגד כבודו וכנגד משפטו, לא באתי אלא ללמוד ולדעת משפטו איך הוא".<br>על פי רד"ק, מה אפשרה לאברהם הידיעה שה' מתכנן להחריב את סדום?</p>
+<textarea class="answer" data-id="q8ב2" aria-label="שאלה 8 · סעיף ב (2)" data-model="הידיעה אפשרה לאברהם ללמוד כיצד שופט ה&#x27; את העולם ומכריע מה יהיה גזר דינם של בני האדם." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג</h3><div class="exq-ctx">עיין בדברי הרב דסלר בנוגע לתפילת אברהם על סדום, וענה על השאלות שאחריהם.<br>"לכאורה צריך ביאור: הרי אם [אנשי סדום] יישארו בחיים, הלא יוסיפו לחטוא עוד יותר? ... אבל העניין הוא שתפילתו של אברהם אבינו עליו השלום נבעה מחסד טהור... בחסדו השלם שָׁאַף להנחיל להם חיים, ויהיה מצבם אפילו בבחינה גרועה מאוד, כי כל אשר יחובר לחיים יש תקווה".<br>(הרב אליהו דסלר, מכתב מאליהו, חלק ב', עמ' 181).</div><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק י"ח, פסוקים כ"ג–כ"ה</div><b>(כג)</b> וַיִּגַּשׁ אַבְרָהָם וַיֹּאמַר הַאַף תִּסְפֶּה צַדִּיק עִם רָשָׁע <b>(כד)</b> אוּלַי יֵשׁ חֲמִשִּׁים צַדִּיקִם בְּתוֹךְ הָעִיר הַאַף תִּסְפֶּה וְלֹא תִשָּׂא לַמָּקוֹם לְמַעַן חֲמִשִּׁים הַצַּדִּיקִם אֲשֶׁר בְּקִרְבָּהּ <b>(כה)</b> חָלִלָה לְּךָ מֵעֲשֹׂת כַּדָּבָר הַזֶּה לְהָמִית צַדִּיק עִם רָשָׁע וְהָיָה כַצַּדִּיק כָּרָשָׁע חָלִלָה לָּךְ הֲשֹׁפֵט כָּל הָאָרֶץ לֹא יַעֲשֶׂה מִשְׁפָּט</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>מהו הקושי של הרב דסלר בנוגע לתפילתו של אברהם?</p>
+<textarea class="answer" data-id="q8ג1" aria-label="שאלה 8 · סעיף ג (1)" data-model="הקושי: למה ביקש אברהם רחמים על אנשי סדום, והרי אם לא ייענשו הם יישארו בחיים וימשיכו לחטוא." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>על פי דברי הרב דסלר, מהו המסר שאפשר ללמוד מתפילתו של אברהם על אנשי סדום?</p>
+<textarea class="answer" data-id="q8ג2" aria-label="שאלה 8 · סעיף ג (2)" data-model="&quot;כל עוד הנר דולק אפשר לתקן&quot;, או שיש חשיבות לאהבת הבריות אפילו אם הם חוטאים." placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+<section class="exq" id="q9" data-q="9" aria-labelledby="q9-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 9 מתוך 10 · פרק כ"ב</span><h2 id="q9-h">הדרך אל העקדה</h2><p class="exq-src">📅 מתוך: בגרות חורף תשע״ח (2018), שאלון 2381 · בגרות חורף תשע״ז (2017), שאלון 2381 · בגרות חורף תשע״ז (2017), שאלון 2381</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א</h3><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק כ"ב, פסוק א'</div><b>(א)</b> וַיְהִי אַחַר הַדְּבָרִים הָאֵלֶּה וְהָאֱלֹהִים נִסָּה אֶת אַבְרָהָם וַיֹּאמֶר אֵלָיו אַבְרָהָם וַיֹּאמֶר הִנֵּנִי</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>"והא-להים נסה את אברהם" (פסוק א').<br>על פי פירוש שלמדת, לשם מה ניסה ה' את אברהם?</p>
+<textarea class="answer" data-id="q9א1" aria-label="שאלה 9 · סעיף א (1)" data-model="תשובות אפשריות לשאלת מטרת ניסיון העקדה: 
+— להוציא את אמונתו הגדולה של אברהם מן הכח אל הפועל: לתת לאברהם שכר מעשה טוב ולא רק שכר לב טוב. 
+— להוכיח לאחרים עד היכן יכולה להגיע האמונה בה&#x27; ויראת ה&#x27;. 
+— לחזק את המנוסה בעקבות העמידה בניסיון. 
+לקבל גם: להשתיק את השטן שקיטרג על עוצמת אמונתו של אברהם." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>עיין בפסוק ד'. על פי פירוש שלמדת, הסבר מדוע הזמן שנדרש לאברהם להגיע למקום העקדה הגביר את עוצמת הניסיון.</p>
+<textarea class="answer" data-id="q9א2" aria-label="שאלה 9 · סעיף א (2)" data-model="ההליכה לעקדה שלושה ימים, הביאה לכך שהעקדה נעשתה מתוך שיקול דעת והבנת האובדן והצער הכרוכים בקיומה, ולכן הגבירה את עוצמת הניסיון." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב</h3><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק כ"ב, פסוק ג'</div><b>(ג)</b> וַיַּשְׁכֵּם אַבְרָהָם בַּבֹּקֶר וַיַּחֲבֹשׁ אֶת חֲמֹרוֹ וַיִּקַּח אֶת שְׁנֵי נְעָרָיו אִתּוֹ וְאֵת יִצְחָק בְּנוֹ וַיְבַקַּע עֲצֵי עֹלָה וַיָּקָם וַיֵּלֶךְ אֶל הַמָּקוֹם אֲשֶׁר אָמַר לוֹ הָאֱלֹהִים</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>"ויחבש את חמרו" (פסוק ג').<br>(1) לפי פירוש שלמדת, הסבר מה אפשר ללמוד ממילים אלה על מעלתו של אברהם.</p>
+<textarea class="answer" data-id="q9ב1" aria-label="שאלה 9 · סעיף ב (1)" data-model="מעלה של אברהם שאפשר ללמוד ממילים אלה: חבש בעצמו את החמור ולא נתן לעבדיו לחבוש אותו כי מרוב אהבתו לה&#x27; הזדרז לצאת לקיום מצוותו — זריז למצוות ה&#x27;." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>"וילכו שניהם יחדו" (פסוק ח').<br>לפי פירוש שלמדת, מה אפשר ללמוד ממילים אלה על מעלתו של יצחק?</p>
+<textarea class="answer" data-id="q9ב2" aria-label="שאלה 9 · סעיף ב (2)" data-model="מעלה של יצחק שאפשר ללמוד ממילים אלה: למרות שהבין או חשד שהולך להיעקד, לא התנגד אלא הלך יחד עם אביו לעקדה — בלב שלם, מתוך קבלת הדין." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג</h3><div class="exq-ctx">"ויאמר יצחק אל אברהם אביו ויאמר אבי ויאמר הנני בני" (פסוק ז').<br>"כלי יקר": "ויאמר אבי — ולא אמר לו יצחק עדיין כלום, אלא קראֹו 'אבי' ושתק, לפי שהרגיש יצחק שרצון אביו להעלותו לעולה, וחשב, אם כן אינו מרחם עליי כרחם אב על בנים, ונהפך לי לאכזר... על כן קראֹו 'אבי', לנסותו אם [=לבדוק איך] יעננו... וכאשר ענה לו 'הנני בני' והורה לו [=לימד אותו] שעדיין כל געגועיו עליו...".</div><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק כ"ב, פסוק ז'</div><b>(ז)</b> וַיֹּאמֶר יִצְחָק אֶל אַבְרָהָם אָבִיו וַיֹּאמֶר אָבִי וַיֹּאמֶר הִנֶּנִּי בְנִי וַיֹּאמֶר הִנֵּה הָאֵשׁ וְהָעֵצִים וְאַיֵּה הַשֶּׂה לְעֹלָה</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>"ויאמר אבי" — על פי "כלי יקר", הסבר מהי מטרת הפנייה הזאת של יצחק אל אברהם.</p>
+<textarea class="answer" data-id="q9ג1" aria-label="שאלה 9 · סעיף ג (1)" data-model="מטרת הפניה של יצחק: לבדוק האם אברהם עדיין אוהב אותו כאב לבנו, למרות שהולך לעקוד אותו." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>על פי "כלי יקר", הסבר מה למד יצחק מן התגובה של אביו.</p>
+<textarea class="answer" data-id="q9ג2" aria-label="שאלה 9 · סעיף ג (2)" data-model="מן המענה של אביו לפנייתו — &quot;הנני בני&quot;, למד יצחק שאברהם עדיין אוהב אותו, עדיין רואה בו בן למרות צו העקדה." placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+<section class="exq" id="q10" data-q="10" aria-labelledby="q10-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 10 מתוך 10 · פרק כ"ב</span><h2 id="q10-h">בהר המוריה</h2><p class="exq-src">📅 מתוך: בגרות חורף תשע״ה (2015), שאלון 2112</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א</h3><div class="exq-ctx">עיין בפסוקים ז'-ח'.</div><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק כ"ב, פסוקים ז'–ח'</div><b>(ז)</b> וַיֹּאמֶר יִצְחָק אֶל אַבְרָהָם אָבִיו וַיֹּאמֶר אָבִי וַיֹּאמֶר הִנֶּנִּי בְנִי וַיֹּאמֶר הִנֵּה הָאֵשׁ וְהָעֵצִים וְאַיֵּה הַשֶּׂה לְעֹלָה <b>(ח)</b> וַיֹּאמֶר אַבְרָהָם אֱלֹהִים יִרְאֶה לּוֹ הַשֶּׂה לְעֹלָה בְּנִי וַיֵּלְכוּ שְׁנֵיהֶם יַחְדָּו</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>הסבר את השאלה של יצחק.</p>
+<textarea class="answer" data-id="q10א1" aria-label="שאלה 10 · סעיף א (1)" data-model="שאלת יצחק: יש לנו כל הדרוש להקרבת קרבנות אבל אין קרבן. היכן הקרבן?" placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>לפי פירוש שלמדת, הסבר את שתי האפשרויות לפרש את תשובת אברהם ליצחק.</p>
+<textarea class="answer" data-id="q10א2" aria-label="שאלה 10 · סעיף א (2)" data-model="אפשרות אחת: ה&#x27; ימצא לנו שה לעולה. אפשרות שנייה: אתה, בני, תהיה השה לעולה." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב</h3><div class="exq-ctx">"כִּי עַתָּה יָדַעְתִּי כִּי יְרֵא אֱ-לֹהִים אַתָּה" (פסוק י"ב).</div><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק כ"ב, פסוק י"ב</div><b>(יב)</b> וַיֹּאמֶר אַל תִּשְׁלַח יָדְךָ אֶל הַנַּעַר וְאַל תַּעַשׂ לוֹ מְאוּמָּה כִּי עַתָּה יָדַעְתִּי כִּי יְרֵא אֱלֹהִים אַתָּה וְלֹא חָשַׂכְתָּ אֶת בִּנְךָ אֶת יְחִידְךָ מִמֶּנִּי</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>מה הקושי שפסוק זה מעורר?</p>
+<textarea class="answer" data-id="q10ב1" aria-label="שאלה 10 · סעיף ב (1)" data-model="הקושי: וכי לפני ניסיון העקדה לא ידע ה&#x27; שאברהם ירא א-להים?" placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>ישב את הקושי, על פי פירוש שלמדת.</p>
+<textarea class="answer" data-id="q10ב2" aria-label="שאלה 10 · סעיף ב (2)" data-model="אפשר ליישב את הקושי על פי אחד הפירושים האלה: 
+רש&quot;י: מעתה יש לי מה להשיב לשטן ולאומות התמהים מה היא חיבתי אצלך, יש לי פתחון פה עכשיו כשרואים כי ירא אלוקים אתה: 
+רמב&quot;ן: כי עתה ידעתי — מתחילה הייתה יראתו בכוח, לא יצא לפועל במעשה הגדול הזה, ועתה נודעה במעשה, והיה זכותו שלם, ותהי משכורתו שלמה מעם ה&#x27; אלוקי ישראל. 
+רמב&quot;ם: מורה נבוכים ג&#x27;, כ&quot;ד: ... לפיכך אמר לו המלאך &#x27;כי עתה ידעתי כי ירא אלוהים אתה&#x27;, כלומר: שבמעשה זה אשר בו ייאמר עליך בהחלט ירא אלוהים, ידעו כל בני האדם גבול יראת ה&#x27; מה הוא." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג</h3><div class="exq-ctx">גירוש ישמעאל (פרק כ"א, פסוקים י"ב-י"ט) ועקדת יצחק היו ניסיונות של ה' לאברהם.</div><div class="exq-verse"><div class="exq-verse-h">📖 הפסוקים לשאלה: פרק כ"א, פסוק י"ב · פרק כ"א, פסוק י"ד · פרק כ"ב, פסוקים ב'–ג'</div><b>(יב)</b> וַיֹּאמֶר אֱלֹהִים אֶל אַבְרָהָם אַל יֵרַע בְּעֵינֶיךָ עַל הַנַּעַר וְעַל אֲמָתֶךָ כֹּל אֲשֶׁר תֹּאמַר אֵלֶיךָ שָׂרָה שְׁמַע בְּקֹלָהּ כִּי בְיִצְחָק יִקָּרֵא לְךָ זָרַע <b>(יד)</b> וַיַּשְׁכֵּם אַבְרָהָם בַּבֹּקֶר וַיִּקַּח לֶחֶם וְחֵמַת מַיִם וַיִּתֵּן אֶל הָגָר שָׂם עַל שִׁכְמָהּ וְאֶת הַיֶּלֶד וַיְשַׁלְּחֶהָ וַתֵּלֶךְ וַתֵּתַע בְּמִדְבַּר בְּאֵר שָׁבַע <b>(כ"ב, ב)</b> וַיֹּאמֶר קַח נָא אֶת בִּנְךָ אֶת יְחִידְךָ אֲשֶׁר אָהַבְתָּ אֶת יִצְחָק וְלֶךְ לְךָ אֶל אֶרֶץ הַמֹּרִיָּה וְהַעֲלֵהוּ שָׁם לְעֹלָה עַל אַחַד הֶהָרִים אֲשֶׁר אֹמַר אֵלֶיךָ <b>(כ"ב, ג)</b> וַיַּשְׁכֵּם אַבְרָהָם בַּבֹּקֶר וַיַּחֲבֹשׁ אֶת חֲמֹרוֹ וַיִּקַּח אֶת שְׁנֵי נְעָרָיו אִתּוֹ וְאֵת יִצְחָק בְּנוֹ וַיְבַקַּע עֲצֵי עֹלָה וַיָּקָם וַיֵּלֶךְ אֶל הַמָּקוֹם אֲשֶׁר אָמַר לוֹ הָאֱלֹהִים</div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(1) </span>ציין שתיים מנקודות הדמיון בין שני הניסיונות האלה.</p>
+<textarea class="answer" data-id="q10ג1" aria-label="שאלה 10 · סעיף ג (1)" data-model="יש לציין שתיים מנקודות הדמיון יכולים לכתוב בלשונם או לצטט. 
+גירוש ישמעאל | עקדת יצחק 
+ה&#x27; מצווה על אברהם לעשות פעולה המנוגדת לרגשותיו האנושיים /האבהיים. &quot;אל ירע בעיניך על הנער ועל אמתך&quot; (כ&quot;א, י&quot;ב) | &quot;קח נא את בנך, את יחידך, אשר אהבת&quot; (כ&quot;ב, ב&#x27;) 
+אברהם עושה את המעשה בזריזות מתוך היענות ומסירות שלמה. &quot;וישכם אברהם בבקר ויקח לחם וחמת מים ויתן אל הגר שם על שכמה ואת הילד וישלחה&quot; (כ&quot;א, י&quot;ד) | &quot;וישכם אברהם בבֹקר... ויקח את שני נעריו אתו ואת יצחק בנו, ויבקע עצי עלה ויקם וילך&quot; (כ&quot;ב, ג&#x27;) 
+ישועת ה&#x27; (באמצעות מלאך) כהרף עין. &quot;ויקרא מלאך... אל הגר מן השמים ויאמר לה: מה לך הגר, אל תיראי&quot; (כ&quot;א, י&quot;ז) | &quot;ויקרא אליו מלאך ה&#x27; מן השמים... ויאמר: אל תשלח ידך אל הנער&quot; (כ&quot;ב, י&quot;א-י&quot;ב)" placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-n">(2) </span>הסבר מדוע עקדת יצחק הייתה ניסיון קשה יותר.</p>
+<textarea class="answer" data-id="q10ג2" aria-label="שאלה 10 · סעיף ג (2)" data-model="עקדת יצחק הייתה ניסיון קשה יותר כי אברהם נצטווה לעקוד את יצחק בעצמו, ולכאורה לגרום למוות, ואילו גירוש ישמעאל היה רק פרידה מישמעאל ולא גרימת מותו באופן ישיר. (יתקבלו תשובות הגיוניות ומנומקות נוספות.)" placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+  <section class="ex-end" id="exEnd" hidden aria-labelledby="exEndH">
+    <h2 id="exEndH">סיום המבחן</h2>
+    <p>בדקו שעניתם על כל הסעיפים. אחרי השליחה למורה אי אפשר לשנות את התשובות.</p>
+    <ul id="exSummary"></ul>
+    <div class="bm-send-wrap">
+      <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="תנ&quot;ך - מבחן: פרקי אברהם" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+      <p class="bm-send-last" id="bmSendLast" hidden></p>
+      <div class="bm-send-panel" id="bmSendPanel" hidden></div>
+    </div>
+  </section>
+  <div class="exbar" id="exBar">
+    <button type="button" class="exb" id="exPrev">‹ השאלה הקודמת</button>
+    <span class="ex-pos" id="exPos" aria-live="polite"></span>
+    <button type="button" class="exb primary" id="exNext">השאלה הבאה ›</button>
+  </div>
+  <p class="ex-save" id="exSave" aria-live="polite"></p>
+</main>
+<footer class="site-footer">ספר בראשית · מבחן — פרקי אברהם</footer>
+<script>
+(function(){
+  "use strict";
+  var KEY = "bm-exam:bereshit-avraham-exam";
+  var qs = Array.prototype.slice.call(document.querySelectorAll(".exq"));
+  var end = document.getElementById("exEnd"), navBtns = Array.prototype.slice.call(document.querySelectorAll(".exn-b"));
+  var prev = document.getElementById("exPrev"), next = document.getElementById("exNext"), pos = document.getElementById("exPos");
+  var fields = Array.prototype.slice.call(document.querySelectorAll(".exq textarea.answer"));
+  /* מחוון למורה (?key=1) והדפסה: כל השאלות ברצף */
+  if(/[?&](key|view)=/.test(location.search)) document.documentElement.classList.add("ex-all");
+  try{ var saved = JSON.parse(localStorage.getItem(KEY) || "{}"); fields.forEach(function(f){ if(saved[f.getAttribute("data-id")] && !f.value) f.value = saved[f.getAttribute("data-id")]; }); }catch(e){}
+  var saveT = null, saveMsg = document.getElementById("exSave");
+  function save(){
+    var d = {}; fields.forEach(function(f){ if(f.value.trim()) d[f.getAttribute("data-id")] = f.value; });
+    try{ localStorage.setItem(KEY, JSON.stringify(d)); saveMsg.textContent = "✓ התשובות נשמרו במכשיר"; }catch(e){}
+    marks();
+  }
+  fields.forEach(function(f){ f.addEventListener("input", function(){ clearTimeout(saveT); saveT = setTimeout(save, 500); }); });
+  function stateOf(q){
+    var fs = q.querySelectorAll("textarea.answer"), n = 0;
+    Array.prototype.forEach.call(fs, function(f){ if(f.value.trim()) n++; });
+    return { n:n, t:fs.length };
+  }
+  function marks(){
+    qs.forEach(function(q, i){
+      var s = stateOf(q), b = navBtns[i];
+      b.classList.toggle("is-done", s.n === s.t);
+      b.classList.toggle("is-part", s.n > 0 && s.n < s.t);
+      b.setAttribute("aria-label", "שאלה " + (i + 1) + (s.n === s.t ? " - נענתה" : s.n ? " - נענו " + s.n + " מתוך " + s.t + " סעיפים" : " - עוד לא נענתה"));
+    });
+  }
+  var cur = 0;
+  function go(i, focus){
+    cur = i;
+    qs.forEach(function(q, k){ q.hidden = k !== i; });
+    end.hidden = i !== qs.length;
+    navBtns.forEach(function(b, k){ if(k === i) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current"); });
+    prev.disabled = i === 0;
+    next.hidden = i === qs.length;
+    next.textContent = i === qs.length - 1 ? "סיום ושליחה ›" : "השאלה הבאה ›";
+    pos.textContent = i < qs.length ? "שאלה " + (i + 1) + " מתוך " + qs.length : "סיום ושליחה";
+    if(i === qs.length) summary();
+    try{ sessionStorage.setItem(KEY + ":at", String(i)); }catch(e){}
+    if(focus !== false){ var h = i < qs.length ? qs[i].querySelector("h2") : document.getElementById("exEndH"); if(h){ h.tabIndex = -1; h.focus({ preventScroll:true }); } window.scrollTo({ top: document.getElementById("exNav").offsetTop - 70, behavior:"smooth" }); }
+  }
+  function summary(){
+    var ul = document.getElementById("exSummary"); ul.innerHTML = "";
+    qs.forEach(function(q, i){
+      var s = stateOf(q), li = document.createElement("li");
+      li.className = s.n < s.t ? "miss" : "";
+      var t = document.createElement("span"); t.textContent = "שאלה " + (i + 1) + " - " + q.querySelector("h2").textContent;
+      var r = document.createElement("span"); r.textContent = s.n + " / " + s.t + " סעיפים";
+      li.appendChild(t); li.appendChild(r);
+      if(s.n < s.t){ var b = document.createElement("button"); b.type = "button"; b.textContent = "להשלמה"; b.addEventListener("click", function(){ go(i); }); li.appendChild(b); }
+      ul.appendChild(li);
+    });
+  }
+  navBtns.forEach(function(b){ b.addEventListener("click", function(){ var g = b.getAttribute("data-go"); go(g === "end" ? qs.length : (+g - 1)); }); });
+  prev.addEventListener("click", function(){ if(cur > 0) go(cur - 1); });
+  next.addEventListener("click", function(){ if(cur < qs.length) go(cur + 1); });
+  var at = 0; try{ at = +sessionStorage.getItem(KEY + ":at") || 0; }catch(e){}
+  marks();
+  if(!document.documentElement.classList.contains("ex-all")) go(Math.min(at, qs.length), false);
+  window.addEventListener("beforeprint", function(){ document.documentElement.classList.add("ex-all"); });
+  window.addEventListener("afterprint", function(){ if(!/[?&](key|view)=/.test(location.search)) document.documentElement.classList.remove("ex-all"); });
+})();
+</script>
+<script src="assets/units-data.js?v=20261110-avex"></script>
+<script src="assets/bm-api.js"></script>
+<script src="assets/autoscore.js"></script>
+<script src="assets/direct-submit.js?v=3"></script>
+<script src="assets/send-to-teacher.js?v=6"></script>
+<script src="assets/lesson-mode.js?v=12"></script>
+<script src="assets/class-dock.js?v=13"></script>
+<script src="assets/answer-key.js?v=2"></script>
+</body>
+</html>
