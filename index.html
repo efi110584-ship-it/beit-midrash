@@ -318,7 +318,7 @@
 <script src="assets/flashcards-data.js"></script>
 <script src="assets/live-render.js"></script>
 <script src="assets/live-teacher.js"></script>
-<script src="assets/live-monitor.js?v=7"></script>
+<script src="assets/live-monitor.js?v=8"></script>
 <script>
 (function(){
   "use strict";
@@ -691,6 +691,12 @@
             '<select id="ttLessonTarget" class="tt-select">' + lessonTargetsHtml() + '</select>' +
             '<label for="ttLessonMonitor" class="tt-label">בקרת שיעור</label>' +
             '<select id="ttLessonMonitor" class="tt-select"><option value="">בלי בקרה</option><option value="יא">כיתה י״א</option><option value="יב">כיתה י״ב</option></select>' +
+            '<label class="tt-label" style="display:flex;gap:8px;align-items:center;cursor:pointer"><input type="checkbox" id="ttLessonExam"> 📝 מבחן עם שעת פתיחה ושעת סגירה (היום)</label>' +
+            '<div id="ttLessonExamTimes" style="display:none;flex-wrap:wrap;gap:8px 16px;align-items:end">' +
+              '<span><label for="ttExamFrom" class="tt-label">נפתח בשעה</label><input type="time" id="ttExamFrom" class="tt-select" style="width:auto"></span>' +
+              '<span><label for="ttExamTo" class="tt-label">נסגר ונשלח לבד בשעה</label><input type="time" id="ttExamTo" class="tt-select" style="width:auto"></span>' +
+              '<p class="tt-sub" style="flex-basis:100%;margin:0">במבחן: מסך מלא, כל יציאה מהמסך מסתירה את המבחן ומדווחת לכם, העתקה והדבקה חסומות, ובשעת הסגירה התשובות של מי שלא שלח נשלחות אליכם לבד. צריך לבחור כיתה ב"בקרת שיעור".</p>' +
+            '</div>' +
             '<button type="button" class="tt-btn" id="ttLessonMake">יצירת קוד עם האפשרויות האלה</button>' +
             '<div class="tt-lesson-out" id="ttLessonOut" role="status" aria-live="polite"></div></details>' +
             '<div class="tt-lesson-list" id="ttLessonList" hidden></div>' +
@@ -1079,20 +1085,43 @@
     document.addEventListener("bm-lesson-changed",function(){loadLessons();loadLive();});
     var target = document.getElementById("ttLessonTarget");
     var out = document.getElementById("ttLessonOut");
+    document.getElementById("ttLessonExam").addEventListener("change", function(){
+      var box = document.getElementById("ttLessonExamTimes");
+      box.style.display = this.checked ? "flex" : "none";
+      if(this.checked){
+        var t = document.getElementById("ttLessonTarget"), ex = Array.prototype.filter.call(t.options, function(o){ return /ivrit-verbs-exam\.html$/.test(o.value); })[0];
+        if(ex && !/exam/.test(t.value)) t.value = ex.value;
+      }
+    });
     document.getElementById("ttLessonMake").addEventListener("click", function(){
       var opt = target.options[target.selectedIndex];
       if(!opt) return;
-      out.innerHTML = '<p class="tt-msg">יוצרים קוד…</p>';
       var monitorCls = document.getElementById("ttLessonMonitor").value;
       var monitor = !!monitorCls;
+      var exam = null;
+      if(document.getElementById("ttLessonExam").checked){
+        var tf = document.getElementById("ttExamFrom").value, tt = document.getElementById("ttExamTo").value;
+        if(!monitor){ out.innerHTML = '<p class="tt-msg">למבחן עם שעות צריך לבחור כיתה ב"בקרת שיעור".</p>'; return; }
+        if(!tf || !tt){ out.innerHTML = '<p class="tt-msg">כתבו שעת פתיחה ושעת סגירה למבחן.</p>'; return; }
+        var at = function(v){ var d = new Date(), m = v.split(":"); d.setHours(+m[0], +m[1], 0, 0); return d.getTime(); };
+        exam = { s:at(tf), e:at(tt) };
+        if(exam.e <= exam.s){ out.innerHTML = '<p class="tt-msg">שעת הסגירה צריכה להיות אחרי שעת הפתיחה.</p>'; return; }
+        if(exam.e <= Date.now()){ out.innerHTML = '<p class="tt-msg">שעת הסגירה כבר עברה.</p>'; return; }
+      }
+      out.innerHTML = '<p class="tt-msg">יוצרים קוד…</p>';
       apiPost({ action:"createLesson", password:teacherToken(), url:opt.value, label:opt.getAttribute("data-label"),
-                monitor:monitor, cls:monitorCls }).then(function(res){
+                monitor:monitor, cls:monitorCls, exam:exam }).then(function(res){
         if(handleAuthFailure(res)) return;
+        if(res && res.ok && exam && !res.exam){
+          out.innerHTML = '<p class="tt-msg">⚠️ הקוד ' + escapeHtml(res.code) + ' נוצר, אבל <b>בלי שעות המבחן</b>: צריך קודם להדביק את הקוד החדש ב-Apps Script ולפרסם גרסה חדשה. אחר כך בטלו את הקוד הזה וצרו קוד חדש.</p>';
+          loadLessons(); return;
+        }
         if(res && res.ok){
           out.innerHTML =
             '<span class="tt-code" aria-label="הקוד: ' + escapeAttr(res.code.split("").join(" ")) + '">' + escapeHtml(res.code) + '</span>' +
             '<span class="tt-code-label">' + escapeHtml(res.label || opt.getAttribute("data-label")) + ' · בתוקף 12 שעות. אפשר כמה קודים במקביל - קוד חדש לא מבטל קודים אחרים.' +
-              (res.monitor ? '<br><b>בקרת שיעור פעילה (כיתה ' + (monitorCls === "יב" ? 'י"ב' : 'י"א') + ')</b> - הטבלה "שיעור חי" מופיעה למטה.' : '') + '</span>' +
+              (res.monitor ? '<br><b>בקרת שיעור פעילה (כיתה ' + (monitorCls === "יב" ? 'י"ב' : 'י"א') + ')</b> - הטבלה "שיעור חי" מופיעה למטה.' : '') +
+              (res.exam ? '<br><b>📝 מבחן: נפתח בשעה ' + fmtClock(res.exam.s) + ', נסגר ונשלח לבד בשעה ' + fmtClock(res.exam.e) + '.</b> התלמידים נכנסים עם הקוד כבר עכשיו ומחכים מול ספירה לאחור.' : '') + '</span>' +
             '<a class="tt-btn tt-btn--primary tt-btn--link tt-lesson-go" href="' + escapeAttr(res.url || opt.value) + '">מעבר לשיעור ›</a>' +
             '<span class="tt-code-label">הדף של השיעור ייפתח כאן. כלי המורה (לוח, הצבעה' + (res.monitor ? ', 👥 שיעור חי' : '') + ') נמצאים בסרגל הכחול בצד המסך.</span>' +
             '<span class="tt-code-label">קודים שנוצרו קודם ממשיכים לפעול - כולם מופיעים ברשימה למטה.</span>';
@@ -1913,7 +1942,7 @@
           return '<li class="tt-lesson-row">' +
             '<span class="tt-lesson-code" dir="ltr">' + escapeHtml(l.code) + '</span>' +
             '<span class="tt-lesson-info"><b>' + escapeHtml(l.label || l.url) + '</b>' +
-              '<small>עד ' + fmtClock(l.until) + (l.monitor ? ' · 👥 בקרת שיעור' : '') + '</small></span>' +
+              '<small>עד ' + fmtClock(l.until) + (l.monitor ? ' · 👥 בקרת שיעור' : '') + (l.exam ? ' · 📝 מבחן ' + fmtClock(l.exam.s) + '–' + fmtClock(l.exam.e) : '') + '</small></span>' +
             '<a class="tt-btn tt-btn--small tt-btn--link" href="' + escapeAttr(l.url) + '">מעבר לשיעור ›</a>' +
             '<button type="button" class="tt-btn tt-btn--small" data-clear-code="' + escapeAttr(l.code) + '">ביטול</button>' +
           '</li>';
@@ -1930,7 +1959,7 @@
     return Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0") + " דק׳";
   }
   function clsName(c){ return c === "יב" ? 'י"ב' : (c === "יא" ? 'י"א' : ""); }
-  function whyName(w){ return w === "blur" ? "חלון אחר" : (w === "split" ? "מסך מפוצל" : "יצא מהדף"); }
+  function whyName(w){ return w === "blur" ? "חלון אחר" : (w === "split" ? "מסך מפוצל" : (w === "fs" ? "יצא ממסך מלא" : "יצא מהדף")); }
   function loadReports(){
     var list = document.getElementById("ttRepList");
     if(!list) return;
@@ -2038,6 +2067,31 @@
       if(!threads.some(function(p){ return p.sid === el.getAttribute("data-chat-sid"); })) el.remove();
     });
   }
+  /* מבחן עם שעות: מצב השליחה (נשלחו / עוד לא) */
+  function examLine(res){
+    var ex = res.lesson && res.lesson.exam;
+    if(!ex) return "";
+    var studs = (res.students || []).filter(function(x){ return x.status !== "kicked"; });
+    var sent = studs.filter(function(x){ return x.examSent; });
+    var notYet = studs.filter(function(x){ return !x.examSent; }).map(function(x){ return x.name; });
+    var t = Date.now(), phase = t < ex.s ? "לפני הפתיחה" : (t < ex.e ? "המבחן פתוח" : "המבחן נסגר");
+    return '<span class="tt-live-now" style="display:block;margin-top:6px;padding:8px 10px;border-radius:10px;background:#FFF4E5;border:1px solid #F3C98B;color:#5A3410">' +
+      '<b>📝 מבחן ' + fmtClock(ex.s) + '–' + fmtClock(ex.e) + ' · ' + phase + '</b> · נשלחו: ' + sent.length + ' מתוך ' + studs.length +
+      (ex.auto ? ' (' + ex.auto + ' נשלחו לבד בסוף הזמן)' : '') +
+      (notYet.length ? '<br>עוד לא נשלח: ' + escapeHtml(notYet.slice(0, 12).join(", ")) + (notYet.length > 12 ? " ועוד " + (notYet.length - 12) : "") : '') +
+      (t >= ex.e && notYet.length ? ' <button type="button" class="tt-btn tt-btn--small" id="ttExamCollect">איסוף עכשיו</button>' : '') +
+      '</span>';
+  }
+  document.addEventListener("click", function(e){
+    var b = e.target && e.target.closest ? e.target.closest("#ttExamCollect") : null;
+    if(!b) return;
+    b.disabled = true; b.textContent = "אוספים…";
+    apiPost({ action:"examCollect", password:teacherToken(), code:getLiveCode() }).then(function(res){
+      if(handleAuthFailure(res)) return;
+      b.textContent = res && res.ok ? "✓ נשלחו " + (res.sent || 0) : ((res && res.error) || "לא הצליח");
+      setTimeout(loadLive, 1500);
+    }).catch(function(){ b.disabled = false; b.textContent = "איסוף עכשיו"; });
+  });
   function loadLive(){
     var card = document.getElementById("ttLive");
     if(!card) return;
@@ -2059,7 +2113,7 @@
           }).join("") + '</span>'
         : '';
       document.getElementById("ttLiveLesson").innerHTML = picker + '<span class="tt-live-now">' + escapeHtml("מוצג: קוד " + res.lesson.code + " · " + (res.lesson.label || res.lesson.url) + ' · כיתה ' + (res.lesson.cls === "יב" ? 'י"ב' : 'י"א')) +
-        (res.lesson.url ? ' · <a href="' + escapeAttr(res.lesson.url) + '">מעבר לשיעור ›</a>' : '') + '</span>';
+        (res.lesson.url ? ' · <a href="' + escapeAttr(res.lesson.url) + '">מעבר לשיעור ›</a>' : '') + '</span>' + examLine(res);
       if(window.BM_LIVEMON) window.BM_LIVEMON.watch(res);
       var LM = window.BM_LIVEMON;
       var nav = res.lesson.nav, navNow = document.getElementById("ttNavNow");
@@ -3647,7 +3701,8 @@
         localStorage.setItem("bm-lesson-name", name);
         localStorage.setItem("bm-lesson-mode", JSON.stringify({
           code:pending.code, name:name, sid:sid, until:until, tok:tok || "",
-          label:r.label || "", leaves:0
+          label:r.label || "", leaves:0,
+          exam:r.exam || null, url:r.url, cls:r.cls || "", skew:r.now ? r.now - Date.now() : 0   /* מבחן עם שעות (lesson-mode.js) */
         }));
       }catch(e){}
       location.href = r.url;
@@ -3697,7 +3752,7 @@
 })();
 
 </script>
-<script src="assets/lesson-mode.js?v=10"></script>
+<script src="assets/lesson-mode.js?v=11"></script>
 <script src="assets/class-dock.js?v=13"></script>
 <script src="assets/my-work.js?v=2"></script>
 </body>

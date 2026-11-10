@@ -50,6 +50,7 @@ var YA2_TSB = { cls: 'יא', sections: ['2'], subjects: ['תושב"ע'] };
 // ולא מופיעות בלוח ההגשות, ולא נשלח עליהן מייל למורה. מייל למורה האחרת (OTHER_TEACHER / YA2_TSB) ממשיך כרגיל.
 // בי"א צריך לכתוב גם את מספר הכיתה (למשל י"א 4) - בלי מספר ההגשה לא נקלטת.
 var SIDE_CLASSES = { cls: 'יא', sections: ['1', '2', '3'] };
+var EXAM_DEFAULT_SECTION = '4';     // מבחן עם שעות: תלמיד י"א שלא כתב מספר כיתה - הכיתה של המורה
 var SIDE_FOLDER_NAME = 'עבודות של כיתות אחרות (לא בלוח ההגשות)';
 var AWAY_GRACE_SEC = 5;            // יציאה קצרה מזה (מעבר בין דפים באתר, טעינה איטית) לא נספרת
 var BLUR_GRACE_SEC = 10;           // "חלון אחר" (הדף עדיין גלוי) נספר רק אם נמשך יותר מזה
@@ -104,6 +105,9 @@ function doPost(e) {
 
     // דיווח נוכחות מדף של תלמיד בזמן שיעור עם בקרה (בלי סיסמה - רק עם קוד השיעור)
     if (data.action === 'presence') return json_(presence_(data));
+    // מבחן עם שעות: טיוטה של התשובות (כל חצי דקה), שליחה בסוף הזמן, וסימון "נשלח" (בלי סיסמה - קוד + מזהה)
+    if (data.action === 'examDraft') return json_(examDraft_(data));
+    if (data.action === 'examSent') return json_(examSent_(data.code, data.sid));
     // צ'אט פרטי תלמיד-מורה בזמן שיעור עם בקרה (בלי סיסמה - רק עם קוד השיעור והמזהה הסודי של התלמיד)
     if (data.action === 'chatSend') return json_(chatSend_(data.code, data.sid, data.text, false));
     if (data.action === 'chatGet') return json_(chatGet_(data.code, data.sid));
@@ -137,7 +141,8 @@ function doPost(e) {
       case 'setAnnouncement': return json_(setAnnouncement_(data.text));
       case 'examSave':        return json_(examSave_(data));
       case 'examDelete':      return json_(examDelete_(data.id));
-      case 'createLesson':    return json_(createLesson_(data.url, data.label, data.monitor === true, data.cls));
+      case 'createLesson':    return json_(createLesson_(data.url, data.label, data.monitor === true, data.cls, data.exam));
+      case 'examCollect':     return json_(examCollect_(data.code, 20));
       case 'presenceList':    return json_(presenceList_(data.code));
       case 'kickStudent':     return json_(kickStudent_(data.code, data.sid, data.undo === true));
       case 'helpDone':        return json_(helpDone_(data.code, data.sid));
@@ -927,15 +932,27 @@ function lessonsList_() {
   var all = lessons_();
   return Object.keys(all).map(function (c) {
     var l = all[c];
-    return { code: l.code, url: l.url, label: l.label, monitor: !!l.monitor, cls: l.cls || '', created: l.created, until: lessonUntil_(l) };
+    return { code: l.code, url: l.url, label: l.label, monitor: !!l.monitor, cls: l.cls || '', created: l.created, until: lessonUntil_(l),
+             exam: l.exam || null };
   }).sort(function (a, b) { return b.created - a.created; });
 }
 
-function createLesson_(url, label, monitor, cls) {
+function createLesson_(url, label, monitor, cls, exam) {
   url = String(url || '').trim();
   if (!/^[\w.-]+\.html(#[\w-]+)?$/.test(url)) return { ok: false, error: 'כתובת עמוד לא תקינה' };
   cls = normClass_(cls);
   if (monitor && MONITOR_CLASSES.indexOf(cls) < 0) return { ok: false, error: 'בקרת שיעור אפשרית רק לכיתה י"א או י"ב' };
+  // מבחן עם שעות: פתיחה וסגירה (זמן מחשב, אלפיות שנייה). רק עם בקרה, ובתוך תוקף הקוד.
+  var ex = null;
+  if (exam) {
+    var es = Number(exam.s), ee = Number(exam.e), nowMs = Date.now();
+    if (!monitor) return { ok: false, error: 'מבחן עם שעות אפשרי רק עם בקרת שיעור - בחרו כיתה' };
+    if (!(es > 0 && ee > es)) return { ok: false, error: 'שעת הסיום צריכה להיות אחרי שעת ההתחלה' };
+    if (ee <= nowMs) return { ok: false, error: 'שעת הסיום כבר עברה' };
+    if (ee - es > 6 * 3600 * 1000) return { ok: false, error: 'מבחן יכול להימשך עד 6 שעות' };
+    if (ee > nowMs + (LESSON_HOURS - 1) * 3600 * 1000) return { ok: false, error: 'יוצרים את הקוד ביום המבחן - עד ' + (LESSON_HOURS - 1) + ' שעות לפני הסיום' };
+    ex = { s: es, e: ee };
+  }
   var lock = LockService.getScriptLock();
   lock.waitLock(10000);
   try {
@@ -944,9 +961,10 @@ function createLesson_(url, label, monitor, cls) {
     do { code = String(Math.floor(1000 + Math.random() * 9000)); } while (all[code]);
     var lesson = { code: code, url: url, label: clean_(label).slice(0, 120), created: Date.now(),
                    monitor: !!monitor, cls: monitor ? cls : '' };
+    if (ex) lesson.exam = ex;
     all[code] = lesson;
     saveLessons_(all);
-    return { ok: true, code: code, url: url, label: lesson.label, monitor: lesson.monitor, until: lessonUntil_(lesson) };
+    return { ok: true, code: code, url: url, label: lesson.label, monitor: lesson.monitor, until: lessonUntil_(lesson), exam: ex };
   } finally {
     lock.releaseLock();
   }
@@ -1015,7 +1033,7 @@ function findLesson_(code) {
   var l = lessons_()[String(code || '')];
   if (l) {
     return { ok: true, url: l.url, label: l.label, monitor: !!l.monitor, cls: l.cls || '', until: lessonUntil_(l),
-             idLogin: !!(l.monitor && rosterCount_(l.cls)) };
+             idLogin: !!(l.monitor && rosterCount_(l.cls)), exam: l.exam || null, now: Date.now() };
   }
   return { ok: false, error: 'הקוד לא נמצא' };
 }
@@ -1044,7 +1062,10 @@ function monitoredLesson_(code) {
   return (l && l.monitor) ? l : null;
 }
 
-function graceMs_(reason) { return (reason === 'blur' ? BLUR_GRACE_SEC : AWAY_GRACE_SEC) * 1000; }
+function graceMs_(reason, exam) {
+  if (exam) return 0;   // במבחן כל יציאה נספרת, גם קצרה
+  return (reason === 'blur' ? BLUR_GRACE_SEC : AWAY_GRACE_SEC) * 1000;
+}
 
 function presence_(d) {
   var l = monitoredLesson_(d.code);
@@ -1061,7 +1082,7 @@ function presence_(d) {
   if (!/^[\w.-]+\.html$/.test(page)) page = '';
   var state = d.state === 'out' ? 'out' : (d.state === 'bye' ? 'bye' : (d.state === 'paste' ? 'paste' : 'in'));
   // blur = חלון/אפליקציה אחרת כשהדף עדיין גלוי; split = מסך מפוצל (הדף נהיה צר/נמוך הרבה יותר מהמסך)
-  var reason = (d.reason === 'blur' || d.reason === 'split') ? d.reason : 'hidden';
+  var reason = (d.reason === 'blur' || d.reason === 'split' || d.reason === 'fs') ? d.reason : 'hidden';   // fs = יצא ממסך מלא (מבחן)
   var t = Number(d.t) || Date.now();
 
   var lock = LockService.getScriptLock();
@@ -1125,7 +1146,7 @@ function presence_(d) {
     } else if (state === 'in') {
       if (p.state === 'out') {
         var away = now - p.outSince;
-        if (away > graceMs_(p.outReason)) {
+        if (away > graceMs_(p.outReason, !!l.exam)) {
           p.leaves++;
           p.outTotal = (p.outTotal || 0) + Math.round(away / 1000);
           p.ev.push({ k: 'out', at: p.outSince, back: now, sec: Math.round(away / 1000), why: p.outReason || 'hidden' });
@@ -1151,8 +1172,134 @@ function presence_(d) {
   var act = actFor_(l.code, true);
   var th = chatAll_(l.code)[sid];
   return { ok: true, leaves: leaves, helpAck: helpAck, act: (act && act.open) ? { id: act.id, prompt: act.prompt } : null,
-           nav: l.nav ? { id: l.nav.id, url: l.nav.url, label: l.nav.label } : null,
+           nav: l.nav ? { id: l.nav.id, url: l.nav.url, label: l.nav.label } : null, exam: l.exam || null, now: Date.now(),
            chatT: th ? th.m.filter(function (x) { return x.f === 't'; }).length : 0 };   // כמה תשובות של המורה יש בצ'אט
+}
+
+// ---------- מבחן עם שעות ----------
+// התלמיד שולח כל חצי דקה טיוטה: בדיוק מה שהיה נשלח למורה בלחיצה על "שלחו למורה" (קובץ התשובות).
+// הטיוטה נשמרת בזיכרון זמני (CacheService, 6 שעות). בסוף הזמן התלמיד שולח טיוטה אחרונה (final) והיא נשמרת
+// כהגשה. מי שסגר את הדף - אחרי EXAM_COLLECT_AFTER_SEC שניות מהסיום, הטיוטה האחרונה שלו נשלחת לבד
+// (בכל רענון של "שיעור חי" אצל המורה, או בלחיצה על "איסוף"). מי שכבר שלח בעצמו - לא נשלח שוב.
+var EXAM_COLLECT_AFTER_SEC = 90;
+var EXAM_DRAFT_MAX = 95000;   // תווים - מגבלת הזיכרון הזמני היא 100KB לערך
+function examIndex_(code) {
+  try { return JSON.parse(CacheService.getScriptCache().get('exi_' + code) || '{}') || {}; } catch (e) { return {}; }
+}
+function examIndexPut_(code, ix) { CacheService.getScriptCache().put('exi_' + code, JSON.stringify(ix), 21600); }
+function examWho_(l, sid) {
+  var all = {};
+  try { all = JSON.parse(CacheService.getScriptCache().get('pres_' + l.code) || '{}') || {}; } catch (e) { all = {}; }
+  return all[sid] || null;
+}
+function examDraft_(d) {
+  var l = monitoredLesson_(d.code);
+  if (!l || !l.exam) return { ok: false, error: 'אין מבחן פעיל בקוד הזה' };
+  var sid = String(d.sid || '').replace(/[^\w-]/g, '').slice(0, 40);
+  var p = sid ? examWho_(l, sid) : null;
+  if (!p) return { ok: false, error: 'לא נמצאת בשיעור הזה' };
+  if (p.kicked) return { ok: false, kicked: true };
+  var now = Date.now();
+  if (now < l.exam.s - 60000) return { ok: false, error: 'המבחן עוד לא התחיל' };
+  var x = d.p || {};
+  var f = String(x.fileBase64 || '');
+  if (!f) return { ok: false, error: 'חסר קובץ' };
+  if (f.length > EXAM_DRAFT_MAX) return { ok: false, error: 'הטיוטה גדולה מדי' };
+  var draft = { n: p.name || clean_(x.studentName), c: clean_(x.studentClass), sec: clean_(x.section), a: clean_(x.assignment).slice(0, 200),
+                fn: clean_(x.fileName).slice(0, 200), m: x.fileMimeType === 'application/pdf' ? 'application/pdf' : 'text/html',
+                f: f, sc: x.autoScore || null, t: now, teacher: !!p.teacher };
+  var str = JSON.stringify(draft);
+  if (x.answers && str.length < EXAM_DRAFT_MAX) {
+    var withAns = JSON.stringify(x.answers);
+    if (str.length + withAns.length < EXAM_DRAFT_MAX) draft.ans = x.answers;
+  }
+  var cache = CacheService.getScriptCache();
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(8000)) return { ok: false, busy: true };
+  try {
+    var ix = examIndex_(l.code);
+    var r = ix[sid] || {};
+    if (r.sent && !d.final) return { ok: true, sent: r.sent };   // כבר נשלח - לא מעדכנים
+    cache.put('exd_' + l.code + '_' + sid, JSON.stringify(draft), 21600);
+    r.t = now; r.n = draft.n;
+    ix[sid] = r;
+    examIndexPut_(l.code, ix);
+  } finally {
+    lock.releaseLock();
+  }
+  if (d.final || now > l.exam.e) return examSubmitOne_(l, sid, 'auto');
+  return { ok: true };
+}
+// שמירת הטיוטה של תלמיד אחד כהגשה (פעם אחת בלבד)
+function examSubmitOne_(l, sid, how) {
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(8000)) return { ok: false, busy: true };
+  var draft;
+  try {
+    var ix = examIndex_(l.code), r = ix[sid];
+    if (!r) return { ok: false, error: 'אין טיוטה' };
+    if (r.sent) return { ok: true, sent: r.sent, already: true };
+    if (r.sending && Date.now() - r.sending < 120000) return { ok: true, sending: true };
+    try { draft = JSON.parse(CacheService.getScriptCache().get('exd_' + l.code + '_' + sid) || 'null'); } catch (e) { draft = null; }
+    if (!draft) return { ok: false, error: 'הטיוטה לא נמצאה' };
+    r.sending = Date.now();
+    ix[sid] = r;
+    examIndexPut_(l.code, ix);
+  } finally {
+    lock.releaseLock();
+  }
+  var res;
+  if (draft.teacher) res = { ok: true, test: true };   // כניסת מורה לבדיקה - לא נשמרת הגשה
+  else {
+    var cls = normClass_(draft.c) || l.cls;
+    res = saveSubmission_({
+      studentName: draft.n, studentClass: cls, section: draft.sec || (cls === 'יא' ? EXAM_DEFAULT_SECTION : ''),
+      assignment: draft.a, notes: how === 'auto' ? 'נשלח אוטומטית בסוף זמן המבחן' : '',
+      fileName: draft.fn, fileMimeType: draft.m, fileBase64: draft.f, autoScore: draft.sc, answers: draft.ans || null
+    });
+  }
+  var lock2 = LockService.getScriptLock();
+  lock2.waitLock(10000);
+  try {
+    var ix2 = examIndex_(l.code), r2 = ix2[sid] || {};
+    r2.sending = 0;
+    if (res && res.ok) r2.sent = how;
+    ix2[sid] = r2;
+    examIndexPut_(l.code, ix2);
+  } finally {
+    lock2.releaseLock();
+  }
+  return res && res.ok ? { ok: true, sent: how, test: !!res.test } : (res || { ok: false });
+}
+// התלמיד שלח בעצמו ("שלחו למורה") - כדי שהטיוטה לא תישלח שוב בסוף
+function examSent_(code, sid) {
+  var l = monitoredLesson_(code);
+  sid = String(sid || '').replace(/[^\w-]/g, '').slice(0, 40);
+  if (!l || !l.exam || !sid || !examWho_(l, sid)) return { ok: false };
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(8000)) return { ok: false, busy: true };
+  try {
+    var ix = examIndex_(l.code), r = ix[sid] || {};
+    r.sent = 'self'; r.t = Date.now();
+    ix[sid] = r;
+    examIndexPut_(l.code, ix);
+  } finally {
+    lock.releaseLock();
+  }
+  return { ok: true };
+}
+// אחרי הסיום: שליחת הטיוטות של מי שלא שלח (עד max תלמידים בכל קריאה)
+function examCollect_(code, max) {
+  var l = lessons_()[String(code || '')];
+  if (!l || !l.exam) return { ok: false, error: 'אין מבחן בקוד הזה' };
+  if (Date.now() < l.exam.e) return { ok: false, error: 'המבחן עדיין לא הסתיים' };
+  var ix = examIndex_(l.code);
+  var todo = Object.keys(ix).filter(function (k) { return !ix[k].sent && !(ix[k].sending && Date.now() - ix[k].sending < 120000); });
+  var done = 0;
+  todo.slice(0, max || 4).forEach(function (sid) {
+    try { var r = examSubmitOne_(l, sid, 'auto'); if (r && r.ok && r.sent) done++; } catch (e) {}
+  });
+  return { ok: true, sent: done, left: Math.max(0, todo.length - done) };
 }
 
 // ---------- צ'אט פרטי בזמן שיעור ----------
@@ -1323,7 +1470,7 @@ function presenceList_(code) {
     var status;
     if (p.kicked) status = 'kicked';
     else if (p.state === 'bye') status = 'bye';
-    else if (p.state === 'out') status = (now - p.outSince > graceMs_(p.outReason)) ? 'out' : 'in';
+    else if (p.state === 'out') status = (now - p.outSince > graceMs_(p.outReason, !!l.exam)) ? 'out' : 'in';
     else status = (now - p.last > GONE_AFTER_SEC * 1000) ? 'gone' : 'in';
     var outFor = p.state === 'out' ? Math.round((now - p.outSince) / 1000) : 0;
     return { sid: sid, name: p.name || '', page: p.page || '', status: status, leaves: p.leaves || 0,
@@ -1348,7 +1495,17 @@ function presenceList_(code) {
       if (!rc.get(tk)) { rc.put(tk, '1', LREP_EVERY_SEC); saveReportFor_(l, false); }
     } catch (e) {}
   }
-  return { ok: true, lesson: { code: l.code, label: l.label, url: l.url, cls: l.cls, nav: l.nav || null },
+  // מבחן עם שעות: אחרי הסיום - מי שלא שלח, הטיוטה האחרונה שלו נשלחת למורה (כמה תלמידים בכל רענון)
+  var exam = null;
+  if (l.exam) {
+    if (now > l.exam.e + EXAM_COLLECT_AFTER_SEC * 1000) { try { examCollect_(l.code, 4); } catch (e) {} }
+    var ix = examIndex_(l.code), sids = Object.keys(ix);
+    exam = { s: l.exam.s, e: l.exam.e, drafts: sids.length,
+             sent: sids.filter(function (k) { return ix[k].sent; }).length,
+             auto: sids.filter(function (k) { return ix[k].sent === 'auto'; }).length };
+    out.forEach(function (x) { var r = ix[x.sid]; x.examSent = r ? (r.sent || '') : ''; });
+  }
+  return { ok: true, lesson: { code: l.code, label: l.label, url: l.url, cls: l.cls, nav: l.nav || null, exam: exam },
            lessons: mon.map(function (x) { return { code: x.code, label: x.label, cls: x.cls }; }), students: out, teachers: teachers, now: now };
 }
 

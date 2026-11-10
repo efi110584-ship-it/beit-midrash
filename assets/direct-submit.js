@@ -424,8 +424,29 @@
     }catch(e){}
   }
 
+  /* מבחן עם שעות (lesson-mode.js): מה שהיה נשלח עכשיו, כקובץ HTML - נשמר בשרת כטיוטה,
+     ונשלח למורה בסוף הזמן גם אם התלמיד לא לחץ "שלחו למורה" */
+  function draftPayload(opts){
+    var items = (opts.items || []).filter(function(item){ return String(item.value || '').trim().length > 0; });
+    if(!items.length) items = [{ label: 'המבחן', value: '(לא נכתבו תשובות)' }];
+    var doc = { studentName: opts.studentName, studentClass: opts.studentClass, assignment: opts.assignment,
+                total: opts.total || 0, items: items, check: opts.check || null, auto: opts.check ? autoScore() : null };
+    return {
+      studentName: opts.studentName,
+      studentClass: classCode(opts.studentClass) || opts.studentClass || '',
+      section: opts.section || sectionCode(opts.studentClass),
+      assignment: opts.assignment,
+      answers: opts.answers || null,
+      autoScore: autoScore(),
+      fileName: safeName(opts.assignment + ' - ' + opts.studentName + '.html'),
+      fileMimeType: 'text/html',
+      fileBase64: utf8ToBase64(buildAnswersHtml(doc))
+    };
+  }
+
   window.BeitMidrashDirectSubmit = {
     send: sendDirectSubmission,
+    draft: draftPayload,
     classCode: classCode,
     sectionCode: sectionCode,
     /* לבדיקות ולתצוגה מקדימה: בונה את דף התשובות בלי לשלוח */

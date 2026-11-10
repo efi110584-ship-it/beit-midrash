@@ -379,6 +379,17 @@
   }
   document.addEventListener('bm-steps-change', applyStepsGate);
 
+  /* מצב מבחן (lesson-mode.js): התשובות שבדף כרגע, בפורמט של השליחה */
+  window.BM_SEND_API = {
+    data: function(){
+      var d = collect();
+      return { studentName: clean(nameEl ? nameEl.value : ''), studentClass: classEl ? classEl.value : '', section: sectionCode(),
+               assignment: assignmentNow(), items: d.items, total: d.total, check: d.check, answers: d.answers };
+    },
+    markSent: function(n){ try{ localStorage.setItem(sentKey(), JSON.stringify({ t: Date.now(), n: n || 0 })); }catch(e){} showLast(); },
+    close: function(){ if(!panel.hidden){ panel.hidden = true; panel.innerHTML = ''; btn.setAttribute('aria-expanded', 'false'); } }
+  };
+
   btn.addEventListener('click', start);
   /* הדף החליף נושא - סוגרים חלונית פתוחה ומעדכנים "נשלח לאחרונה" לנושא החדש */
   document.addEventListener('bm-send-scope-change', function(){

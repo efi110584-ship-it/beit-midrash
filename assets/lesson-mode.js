@@ -185,7 +185,8 @@ try{
         if((!lk || fromId) && window.BM_LESSON_LOCK) window.BM_LESSON_LOCK.set(code, name, sid, until, tok);
         try{
           localStorage.setItem("bm-lesson-name", name);
-          localStorage.setItem("bm-lesson-mode", JSON.stringify({ code:code, name:name, sid:sid, until:until, tok:tok || "", label:res.label || "", leaves:0 }));
+          localStorage.setItem("bm-lesson-mode", JSON.stringify({ code:code, name:name, sid:sid, until:until, tok:tok || "", label:res.label || "", leaves:0,
+            exam:res.exam || null, url:res.url, cls:res.cls || "", skew:res.now ? res.now - Date.now() : 0 }));
         }catch(e){}
       }
       if(res.url.split("#")[0] === page) location.reload();
@@ -317,6 +318,7 @@ try{
           if(res && res.kicked){ kickedOut(); return; }
           if(res && res.needId){ needId(); return; }
           if(res && res.busy){ if(again) again(); return; }
+          if(res && res.ok && res.now){ st.exam = res.exam || null; st.skew = res.now - Date.now(); save(); }
           if(res && res.ok) navCheck(res.nav);
           if(res && res.ok) helpCheck(res);
           if(res && res.ok) chatCheck(res);
@@ -602,6 +604,7 @@ try{
       '<button type="button" class="bm-lm-exit">יציאה</button>';
     bar.querySelector(".bm-lm-help").addEventListener("click", helpToggle);
     bar.querySelector(".bm-lm-exit").addEventListener("click", function(){
+      if(st.exam && Date.now() + (st.skew || 0) < st.exam.e + 600000){ toast("📝 אי אפשר לצאת ממצב שיעור באמצע מבחן."); return; }
       if(!confirm("לצאת ממצב שיעור? המורה יראה שיצאת.")) return;
       send("bye");
       end();
@@ -717,8 +720,9 @@ try{
     isOut = true;
     send("out", null, { reason:why });
   }
+  var extraOut = "";   /* יציאה ממסך מלא במבחן (exam) - חוזרים רק כשחוזרים למסך מלא */
   function comeBack(){
-    if(!isOut || splitNow || document.visibilityState !== "visible" || !document.hasFocus()) return;
+    if(!isOut || splitNow || extraOut || document.visibilityState !== "visible" || !document.hasFocus()) return;
     isOut = false;
     send("in", function(res){
       if(res.leaves > leaves){
@@ -860,8 +864,366 @@ try{
       if(document.visibilityState === "visible" && !isOut) send("in", function(res){ leaves = res.leaves; save(); });
     }, 15000);
     peekTimer = setInterval(peek, 4000);
+    /* למצב מבחן (בסוף הקובץ): דיווח על יציאה ממסך מלא, ומספר היציאות */
+    window.BM_LESSON_MODE = {
+      out: function(why){ extraOut = why || "fs"; isOut = false; goOut(extraOut); },
+      back: function(){ extraOut = ""; comeBack(); },
+      leaves: function(){ return leaves; },
+      st: function(){ return st; }
+    };
   }
 
   if(document.body) start();
   else document.addEventListener("DOMContentLoaded", start);
+})();
+
+/* ============================================================
+   מבחן עם שעות (המורה קבע פתיחה וסגירה לקוד השיעור)
+   - לפני הפתיחה: הדף מוסתר, עם ספירה לאחור.
+   - בזמן המבחן: מסך מלא. יציאה ממסך מלא, מעבר לחלון/לשונית אחרים או מסך מפוצל -
+     המבחן מוסתר מיד, היציאה נרשמת ומדווחת למורה, וחוזרים רק בלחיצה (שוב למסך מלא).
+     חסומים: העתקה, הדבקה, גרירה, תפריט לחיצה ימנית, הדפסה, קיצורי מקלדת של הדפדפן,
+     קישורים שיוצאים מהדף, יציאה ממצב שיעור.
+   - כל חצי דקה נשמרת בשרת טיוטה של התשובות.
+   - בשעת הסגירה: התשובות נשלחות למורה לבד, והדף ננעל. מי שסגר את הדף - הטיוטה האחרונה
+     שלו נשלחת מהשרת (apps-script/Code.gs - examCollect_).
+   - מי ששלח בעצמו ("שלחו למורה") - המבחן ננעל אצלו ולא נשלח שוב.
+   אתר אינטרנט לא יכול למנוע ממש מעבר לתוכנה אחרת במחשב - רק לזהות, להסתיר ולדווח.
+   ============================================================ */
+(function(){
+  "use strict";
+  var KEY = "bm-lesson-mode";
+  var st = null;
+  try{ st = JSON.parse(localStorage.getItem(KEY) || "null"); }catch(e){}
+  if(!st || !st.code || !st.sid || !(st.until > Date.now())) return;
+  try{ if(sessionStorage.getItem("bm-teacher-token") || sessionStorage.getItem("teacherAreaUnlocked") === "1") return; }catch(e){}
+  var API = window.BM_API_URL;
+  if(!API) return;
+  var page = location.pathname.split("/").pop() || "index.html";
+  var DONE_KEY = "bm-exam-done:" + st.code;
+  var ENTER_KEY = "bm-exam-in:" + st.code;
+  var skew = st.skew || 0, ex = st.exam || null, examPage = String(st.url || "").split("#")[0], lessonCls = st.cls || "";
+  function now(){ return Date.now() + skew; }
+  function readDone(){ try{ return localStorage.getItem(DONE_KEY) || ""; }catch(e){ return ""; } }
+  function esc(t){ return String(t == null ? "" : t).replace(/[&<>"']/g, function(c){ return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]; }); }
+  function hm(ms){ var d = new Date(ms - skew); return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0"); }
+  function left(ms){
+    ms = Math.max(0, ms); var s = Math.floor(ms / 1000), h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60;
+    return (h ? h + ":" + String(m).padStart(2, "0") : String(m)) + ":" + String(x).padStart(2, "0");
+  }
+  function inWindow(){ return ex && now() < ex.e + 10 * 60000; }
+  function onExamPage(){ return !!examPage && page === examPage; }
+
+  /* מסתירים מיד (לפני שהדף מצויר) - אם כבר ידוע שיש מבחן */
+  var css = document.createElement("style");
+  css.textContent =
+    "html.bm-ex-hide body>*:not(.bm-ex-ui){visibility:hidden !important}" +
+    "html.bm-ex-on body{padding-top:48px !important}" +
+    "html.bm-ex-on .bm-qnav,html.bm-ex-on .bm-lm-exit,html.bm-ex-on #printBtn{display:none !important}" +
+    "html.bm-ex-on body *:not(input):not(textarea):not(select){-webkit-user-select:none;user-select:none}" +
+    "@media print{html.bm-ex-on body,html.bm-ex-hide body{display:none !important}}" +
+    ".bm-ex-cover{position:fixed;inset:0;z-index:10003;display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto;" +
+      "background:#0B2A5B;color:#fff;text-align:center;direction:rtl;font:400 17px/1.6 Heebo,Rubik,Arial,sans-serif}" +
+    ".bm-ex-cover[hidden],.bm-ex-ui[hidden]{display:none !important}" +
+    ".bm-ex-cover.is-warn{background:#7A1414}.bm-ex-cover.is-ok{background:#14532D}" +
+    ".bm-ex-box{max-width:560px}" +
+    ".bm-ex-ico{font-size:48px;line-height:1}" +
+    ".bm-ex-cover h2{margin:12px 0 8px;font-size:1.6rem;line-height:1.3;color:#fff}" +
+    ".bm-ex-big{font-size:2.6rem;font-weight:800;letter-spacing:.04em;font-variant-numeric:tabular-nums;margin:6px 0 10px}" +
+    ".bm-ex-cover ul{text-align:right;margin:12px auto;padding-inline-start:22px;max-width:480px}" +
+    ".bm-ex-cover li{margin:4px 0}" +
+    ".bm-ex-cover button{margin-top:14px;min-height:52px;padding:10px 28px;border:0;border-radius:14px;background:#FF8A3D;color:#1B1200;font:inherit;font-weight:800;font-size:1.15rem;cursor:pointer}" +
+    ".bm-ex-cover button:focus-visible{outline:3px solid #fff;outline-offset:3px}" +
+    ".bm-ex-cover a{color:#FFD9B8;font-weight:700}" +
+    ".bm-ex-bar{position:fixed;top:0;inset-inline:0;z-index:10002;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;justify-content:center;" +
+      "min-height:48px;padding:6px 12px;background:#0B2A5B;color:#fff;direction:rtl;font:700 16px/1.4 Heebo,Rubik,Arial,sans-serif;box-shadow:0 2px 10px rgba(0,0,0,.25)}" +
+    ".bm-ex-bar b{font-variant-numeric:tabular-nums;font-size:1.15rem}" +
+    ".bm-ex-bar.is-low{background:#9A3412}.bm-ex-bar small{font-weight:400;opacity:.9}";
+  (document.head || document.documentElement).appendChild(css);
+  if(ex && inWindow() && (onExamPage() || !examPage) && readDone() === "" && now() < ex.s) document.documentElement.classList.add("bm-ex-hide");
+
+  var cover = null, bar = null, entered = false, sending = false, lastDraft = "", draftTimer = null, tickTimer = null, outs = 0;
+  function ui(cls){
+    if(!cover){
+      cover = document.createElement("div");
+      cover.className = "bm-ex-cover bm-ex-ui";
+      cover.setAttribute("role", "alertdialog");
+      cover.setAttribute("aria-modal", "true");
+      document.body.appendChild(cover);
+    }
+    cover.className = "bm-ex-cover bm-ex-ui" + (cls ? " " + cls : "");
+    cover.hidden = false;
+    document.documentElement.classList.add("bm-ex-hide");
+    return cover;
+  }
+  function hideCover(){ if(cover) cover.hidden = true; document.documentElement.classList.remove("bm-ex-hide"); }
+  function setCover(cls, html, key){
+    var c = ui(cls);
+    if(c.getAttribute("data-k") !== key){ c.innerHTML = '<div class="bm-ex-box">' + html + '</div>'; c.setAttribute("data-k", key); var b = c.querySelector("button"); if(b) b.focus(); }
+    return c;
+  }
+
+  /* ---------- מסך מלא ---------- */
+  var de = document.documentElement;
+  var fsOk = !!(de.requestFullscreen || de.webkitRequestFullscreen), goAt = 0;
+  function isFs(){ return !!(document.fullscreenElement || document.webkitFullscreenElement); }
+  function goFs(){
+    try{
+      goAt = Date.now();
+      var p = de.requestFullscreen ? de.requestFullscreen({ navigationUI: "hide" }) : (de.webkitRequestFullscreen && de.webkitRequestFullscreen());
+      /* הדפדפן לא מאפשר מסך מלא - לא נועלים את התלמיד בחוץ; שאר הבדיקות ממשיכות */
+      if(p && p.then) p.then(lockKeys).catch(function(){ fsOk = false; render(); });
+      else lockKeys();
+    }catch(e){}
+  }
+  /* בכרום ובאדג' במחשב: במסך מלא אפשר "לתפוס" גם Esc ו-Ctrl+W/T/N (יציאה ממסך מלא - רק בלחיצה ארוכה על Esc) */
+  function lockKeys(){ try{ if(navigator.keyboard && navigator.keyboard.lock) navigator.keyboard.lock().catch(function(){}); }catch(e){} }
+  function exitFs(){ try{ if(isFs()){ if(document.exitFullscreen) document.exitFullscreen(); else if(document.webkitExitFullscreen) document.webkitExitFullscreen(); } }catch(e){} }
+
+  function lm(){ return window.BM_LESSON_MODE; }
+  function away(){ return document.visibilityState !== "visible" || !document.hasFocus() || (fsOk && !isFs() && Date.now() - goAt > 1500); }
+  var fsReported = false;
+  function onFsChange(){
+    if(!entered || phase() !== "run") return;
+    if(fsOk && !isFs()){
+      if(!fsReported){ fsReported = true; outs++; if(lm()) lm().out("fs"); saveDraft(true); }
+    } else if(fsReported){ fsReported = false; if(lm()) lm().back(); }
+    render();
+  }
+  function onAway(){
+    if(!entered || phase() !== "run") return;
+    if(document.visibilityState !== "visible" || !document.hasFocus()){ if(!cover || cover.hidden) outs++; saveDraft(true); }
+    render();
+  }
+
+  /* ---------- שלבים ---------- */
+  function phase(){
+    if(!ex) return "none";
+    if(readDone()) return "done";
+    var t = now();
+    if(t < ex.s) return "wait";
+    if(t >= ex.e) return "over";
+    return "run";
+  }
+  function fields(){ return Array.prototype.slice.call(document.querySelectorAll(".answer, #studentName, #studentClass")); }
+  function lockFields(){ fields().forEach(function(f){ if(f.tagName === "SELECT") f.disabled = true; else f.readOnly = true; }); var b = document.getElementById("sendToTeacherBtn"); if(b) b.disabled = true; }
+  function prefill(){
+    var n = document.getElementById("studentName"), c = document.getElementById("studentClass");
+    if(n && st.name && n.value !== st.name){ n.value = st.name; n.dispatchEvent(new Event("input", { bubbles:true })); }
+    if(n && st.name){ n.readOnly = true; n.title = "השם נלקח מהכניסה לשיעור"; }
+    if(c && !String(c.value).trim() && lessonCls){ c.value = lessonCls === "יב" ? 'י"ב 2' : 'י"א 4'; c.dispatchEvent(new Event("input", { bubbles:true })); }
+  }
+
+  function render(){
+    var ph = phase();
+    if(!onExamPage()){
+      /* דף אחר באתר בזמן המבחן */
+      if(ph === "wait" || ph === "run"){
+        setCover("is-warn", '<div class="bm-ex-ico" aria-hidden="true">📝</div><h2>את/ה באמצע מבחן</h2>' +
+          '<p>בזמן המבחן אפשר להיות רק בדף המבחן. היציאה מהמבחן נרשמה אצל המורה.</p>' +
+          '<button type="button" data-ex="back">חזרה לדף המבחן</button>', "elsewhere");
+      } else hideCover();
+      return;
+    }
+    if(ph === "wait"){
+      var c = setCover("", '<div class="bm-ex-ico" aria-hidden="true">⏳</div><h2>' + esc(st.label || "המבחן") + '</h2>' +
+        '<p>המבחן ייפתח בשעה <b>' + hm(ex.s) + '</b> וייסגר בשעה <b>' + hm(ex.e) + '</b>.</p>' +
+        '<div class="bm-ex-big" data-ex="count"></div><p>הדף ייפתח לבד. אל תסגרו אותו.</p>', "wait");
+      c.querySelector('[data-ex="count"]').textContent = "עוד " + left(ex.s - now());
+      return;
+    }
+    if(ph === "run"){
+      prefill();
+      if(!entered){
+        setCover("", '<div class="bm-ex-ico" aria-hidden="true">📝</div><h2>המבחן פתוח</h2>' +
+          '<p>הזמן: עד השעה <b>' + hm(ex.e) + '</b>. בשעה הזו התשובות נשלחות למורה לבד.</p>' +
+          '<ul><li>המבחן נפתח במסך מלא.</li>' +
+          '<li><b>יציאה ממסך מלא, מעבר לחלון או ללשונית אחרים, או פיצול מסך</b> - המבחן מוסתר מיד, והיציאה נרשמת ומדווחת למורה.</li>' +
+          '<li>העתקה, הדבקה, הדפסה ולחיצה ימנית חסומות.</li>' +
+          '<li>התשובות נשמרות כל הזמן. מי שמסיים יכול ללחוץ "שלחו למורה" - <b>אחרי השליחה אי אפשר לחזור למבחן</b>.</li></ul>' +
+          '<button type="button" data-ex="go">התחלת המבחן</button>', "enter");
+        return;
+      }
+      if(away()){
+        setCover("is-warn", '<div class="bm-ex-ico" aria-hidden="true">⚠️</div><h2>יצאת ממסך המבחן</h2>' +
+          '<p>המבחן מוסתר. היציאה נרשמה ודווחה למורה.</p><p data-ex="outs"></p>' +
+          '<button type="button" data-ex="go">חזרה למבחן</button>', "away");
+        cover.querySelector('[data-ex="outs"]').textContent = "יציאות במבחן הזה: " + Math.max(outs, lm() ? lm().leaves() : 0);
+        return;
+      }
+      hideCover();
+      return;
+    }
+    if(ph === "over"){
+      lockFields();
+      if(!sending) finalSend();
+      return;
+    }
+    if(ph === "done"){
+      lockFields();
+      exitFs();
+      var how = readDone();
+      setCover("is-ok", '<div class="bm-ex-ico" aria-hidden="true">✅</div><h2>המבחן נשלח למורה</h2>' +
+        '<p>' + (how === "auto" ? "הזמן נגמר, והתשובות נשלחו לבד." : "שלחת את המבחן.") + ' אי אפשר לשנות את התשובות אחרי השליחה.</p><p>אפשר לסגור את הדף.</p>', "done");
+    }
+  }
+  function renderBar(){
+    var ph = phase();
+    if(!onExamPage() || ph !== "run" || !entered){ if(bar){ bar.remove(); bar = null; } document.documentElement.classList.remove("bm-ex-on"); return; }
+    document.documentElement.classList.add("bm-ex-on");
+    if(!bar){
+      bar = document.createElement("div");
+      bar.className = "bm-ex-bar bm-ex-ui";
+      bar.setAttribute("role", "timer");
+      bar.innerHTML = '<span>⏱ נותרו <b data-ex="left"></b></span><small data-ex="end"></small>';
+      document.body.appendChild(bar);
+    }
+    var ms = ex.e - now();
+    bar.querySelector('[data-ex="left"]').textContent = left(ms);
+    bar.querySelector('[data-ex="end"]').textContent = "המבחן נסגר ונשלח לבד בשעה " + hm(ex.e);
+    bar.classList.toggle("is-low", ms < 10 * 60000);
+  }
+
+  /* ---------- טיוטה ושליחה ---------- */
+  function payload(){
+    var S = window.BM_SEND_API, D = window.BeitMidrashDirectSubmit;
+    if(!S || !D || !D.draft) return null;
+    var d = S.data();
+    if(!d.studentName) d.studentName = st.name || "";
+    return D.draft(d);
+  }
+  function post(body, keep){
+    return fetch(API, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" }, body:JSON.stringify(body), keepalive:!!keep })
+      .then(function(r){ return r.json(); });
+  }
+  function saveDraft(keep){
+    if(!onExamPage() || phase() !== "run" || !entered) return;
+    var p = payload();
+    if(!p) return;
+    var sig = p.fileBase64.length + ":" + p.fileBase64.slice(-200) + ":" + JSON.stringify(p.answers || "").length;
+    if(sig === lastDraft) return;
+    lastDraft = sig;
+    post({ action:"examDraft", code:st.code, sid:st.sid, p:p }, keep && JSON.stringify(p).length < 60000).catch(function(){ lastDraft = ""; });
+  }
+  var tries = 0;
+  function finalSend(){
+    if(!onExamPage()) return;
+    /* מי שלא התחיל את המבחן במכשיר הזה ולא כתב כלום - אין מה לשלוח */
+    var S = window.BM_SEND_API, started = false;
+    try{ started = localStorage.getItem(ENTER_KEY) === "1"; }catch(e){}
+    var d = S ? S.data() : null;
+    if(!started && !(d && d.items.length)){
+      setCover("", '<div class="bm-ex-ico" aria-hidden="true">⏰</div><h2>המבחן הסתיים</h2><p>הזמן של המבחן נגמר.</p>', "closed");
+      return;
+    }
+    sending = true;
+    exitFs();
+    if(S) S.close();
+    setCover("", '<div class="bm-ex-ico" aria-hidden="true">⏰</div><h2>הזמן נגמר</h2><p data-ex="msg">שולחים את המבחן למורה… אל תסגרו את הדף.</p>', "sending");
+    var p = payload();
+    if(!p){ cover.querySelector('[data-ex="msg"]').textContent = "השליחה לא נטענה. קראו למורה - התשובות שמורות בשרת."; return; }
+    post({ action:"examDraft", code:st.code, sid:st.sid, p:p, final:true }).then(function(res){
+      if(res && res.ok && (res.sent || res.test || res.already)){
+        if(S) S.markSent(d ? d.items.length : 0);
+        try{ localStorage.setItem(DONE_KEY, res.sent === "self" ? "self" : "auto"); }catch(e){}
+        render();
+        return;
+      }
+      throw new Error((res && res.error) || "");
+    }).catch(function(err){
+      tries++;
+      var m = cover && cover.querySelector('[data-ex="msg"]');
+      if(m) m.textContent = tries < 12 ? "השליחה עוד לא הצליחה - מנסים שוב… אל תסגרו את הדף." : "השליחה לא הצליחה. קראו למורה. התשובות האחרונות שמורות בשרת והמורה יקבל אותן.";
+      if(tries < 12) setTimeout(function(){ sending = false; render(); }, 5000);
+    });
+  }
+  /* התלמיד שלח בעצמו ("שלחו למורה") - המבחן ננעל */
+  document.addEventListener("bm-sent", function(){
+    if(!onExamPage() || !ex || phase() === "done") return;
+    try{ localStorage.setItem(DONE_KEY, "self"); }catch(e){}
+    post({ action:"examSent", code:st.code, sid:st.sid }).catch(function(){});
+    setTimeout(render, 2500);   /* שהתלמיד יספיק לראות "נשלח" */
+  });
+
+  /* ---------- חסימות בזמן המבחן ---------- */
+  function strict(){ return onExamPage() && (phase() === "run" || phase() === "wait"); }
+  function block(e, msg){ if(!strict()) return; e.preventDefault(); e.stopPropagation(); if(msg) note(msg); }
+  var noteEl = null, noteT = null;
+  function note(t){
+    if(!noteEl){ noteEl = document.createElement("div"); noteEl.className = "bm-ex-ui"; noteEl.setAttribute("role", "status");
+      noteEl.style.cssText = "position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:10004;padding:10px 18px;border-radius:12px;background:#7A1414;color:#fff;font:700 16px/1.4 Heebo,Arial,sans-serif;direction:rtl;box-shadow:0 6px 18px rgba(0,0,0,.3)";
+      document.body.appendChild(noteEl); }
+    noteEl.textContent = t; noteEl.hidden = false;
+    clearTimeout(noteT); noteT = setTimeout(function(){ noteEl.hidden = true; }, 2500);
+  }
+  document.addEventListener("contextmenu", function(e){ block(e, "🔒 לחיצה ימנית חסומה במבחן"); }, true);
+  document.addEventListener("copy", function(e){ block(e, "🔒 העתקה חסומה במבחן"); }, true);
+  document.addEventListener("cut", function(e){ block(e, "🔒 גזירה חסומה במבחן"); }, true);
+  document.addEventListener("paste", function(e){ block(e, "🔒 הדבקה חסומה במבחן - הניסיון נרשם"); }, true);
+  document.addEventListener("drop", function(e){ block(e); }, true);
+  document.addEventListener("dragstart", function(e){ block(e); }, true);
+  document.addEventListener("selectstart", function(e){ var t = e.target; if(t && t.closest && t.closest("input, textarea")) return; block(e); }, true);
+  document.addEventListener("keydown", function(e){
+    if(!strict()) return;
+    var k = (e.key || "").toLowerCase(), mod = e.ctrlKey || e.metaKey;
+    if(k === "f12" || (mod && e.shiftKey && /^[ijck]$/.test(k)) || (mod && /^[cxvpsuofgnthrl]$/.test(k)) || (e.altKey && /^(arrowleft|arrowright|home)$/.test(k)) || k === "printscreen"){
+      e.preventDefault(); e.stopPropagation(); note("🔒 הקיצור הזה חסום במבחן");
+    }
+  }, true);
+  document.addEventListener("keyup", function(e){ if(strict() && (e.key || "").toLowerCase() === "printscreen"){ try{ navigator.clipboard.writeText(""); }catch(err){} } }, true);
+  document.addEventListener("click", function(e){
+    var b = e.target && e.target.closest ? e.target.closest("[data-ex]") : null;
+    if(b && b.getAttribute("data-ex") === "go"){
+      entered = true;
+      try{ localStorage.setItem(ENTER_KEY, "1"); }catch(err){}
+      if(fsOk) goFs();
+      fsReported = false;
+      if(lm()) lm().back();
+      setTimeout(function(){ render(); renderBar(); }, 250);
+      return;
+    }
+    if(b && b.getAttribute("data-ex") === "back"){ location.href = examPage; return; }
+    var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
+    if(a && strict()){
+      try{
+        var u = new URL(a.href, location.href);
+        if(u.pathname !== location.pathname || u.origin !== location.origin || (a.target && a.target !== "_self")){ e.preventDefault(); e.stopPropagation(); note("🔒 בזמן המבחן אי אפשר לצאת מהדף"); }
+      }catch(err){}
+    }
+  }, true);
+  window.addEventListener("beforeunload", function(e){ if(strict() && entered){ saveDraft(true); e.preventDefault(); e.returnValue = ""; } });
+  ["fullscreenchange", "webkitfullscreenchange"].forEach(function(n){ document.addEventListener(n, onFsChange); });
+  document.addEventListener("visibilitychange", onAway);
+  window.addEventListener("blur", function(){ setTimeout(onAway, 150); });
+  window.addEventListener("focus", function(){ setTimeout(render, 50); });
+
+  function startTimers(){
+    if(tickTimer) return;
+    if(onExamPage() && /[?&]key=/.test(location.search) && strict()){ location.replace(location.pathname); return; }
+    render(); renderBar();
+    tickTimer = setInterval(function(){
+      var ph = phase();
+      if(ph === "none" || (!inWindow() && ph !== "over")){ hideCover(); renderBar(); return; }
+      render(); renderBar();
+    }, 500);
+    draftTimer = setInterval(function(){ saveDraft(false); }, 30000);
+  }
+  function boot(){
+    /* זמן השרת ופרטי המבחן - גם למי שנכנס לשיעור לפני שהמבחן הוגדר בגרסה הזו */
+    fetch(API + "?action=lesson&code=" + encodeURIComponent(st.code)).then(function(r){ return r.json(); }).then(function(res){
+      if(!(res && res.ok)) return;
+      if(res.now) skew = res.now - Date.now();
+      ex = res.exam || null;
+      if(res.url) examPage = String(res.url).split("#")[0];
+      if(res.cls) lessonCls = res.cls;
+      if(!ex){ document.documentElement.classList.remove("bm-ex-hide"); return; }
+      if(inWindow() || phase() === "over") startTimers();
+    }).catch(function(){
+      /* אין חיבור - ממשיכים עם מה שנשמר בכניסה */
+      if(ex && (inWindow() || phase() === "over")) startTimers();
+      else document.documentElement.classList.remove("bm-ex-hide");
+    });
+  }
+  if(document.body) boot();
+  else document.addEventListener("DOMContentLoaded", boot);
 })();
