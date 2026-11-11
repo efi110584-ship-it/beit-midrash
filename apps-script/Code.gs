@@ -171,6 +171,7 @@ function doPost(e) {
       case 'setAuto':         return json_(setAuto_(data.fileId, data.correct, data.total));
       case 'acceptSuggested': return json_(acceptSuggested_(data.ids));
       case 'feedbackGet':     return json_(feedbackTeacher_(data.fileId));
+      case 'feedbackEdit':    return json_(feedbackEdit_(data.fileId, data.summary, data.items));
       case 'feedbackBatchPreview': return json_(feedbackBatchPreview_(data.ids));
       case 'approveFeedbackBatch': return json_(approveFeedbackBatch_(data.entries, data.confirmed === true));
       case 'setHidden':       return json_(setHidden_(data.fileId, data.hidden === true));
@@ -809,6 +810,31 @@ function feedbackTeacher_(id) {
   var fb = feedbackRead_(String(id || ''));
   if (!fb) return { ok: false, error: 'אין משוב לעבודה הזאת' };
   return { ok: true, feedback: fb, published: PropertiesService.getScriptProperties().getProperty('fbpub_' + id) === '1' };
+}
+// עריכת המשוב המפורט ע"י המורה: הסיכום, ההסבר לכל שאלה והסימון (✅/🟡/❌).
+// רק טקסטים וסימונים של שאלות שכבר קיימות במשוב - לא מוסיפים ולא מוחקים שאלות, והציון נשמר בנפרד (setGrade).
+function feedbackEdit_(id, summary, items) {
+  id = String(id || '');
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(5000)) return { ok: false, error: 'מתבצעת שמירה אחרת. נסו שוב' };
+  try {
+    var f = feedbackFile_(id), fb = feedbackRead_(id);
+    if (!f || !fb) return { ok: false, error: 'אין משוב לעבודה הזאת' };
+    if (summary != null) fb.summary = String(summary).replace(/\r/g, '').trim().slice(0, 1500);
+    if (Array.isArray(items)) {
+      var byId = {};
+      items.slice(0, 80).forEach(function (x) { if (x && typeof x.id === 'string') byId[x.id] = x; });
+      (fb.items || []).forEach(function (x) {
+        var e = x && byId[String(x.id || '')];
+        if (!e) return;
+        if (typeof e.text === 'string' && e.text.trim()) x.text = e.text.replace(/\r/g, '').trim().slice(0, 2000);
+        if (['full', 'partial', 'miss'].indexOf(e.s) !== -1) x.s = e.s;
+      });
+    }
+    fb.editedAt = Date.now();
+    f.setContent(JSON.stringify(fb));
+    return { ok: true, feedback: fb };
+  } finally { lock.releaseLock(); }
 }
 function feedbackPublic_(id) {
   id = String(id || '');

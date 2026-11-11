@@ -3044,6 +3044,55 @@
       ? (r.fb === "pub" ? "עדכון ושליחה לתלמיד" : "📨 שמירה ושליחה לתלמיד")
       : (r.grade !== "" ? "עדכון הציון" : "שמירת ציון");
   }
+  /* תצוגת המשוב המפורט + עריכה של ההערות ע"י המורה (פעולת השרת feedbackEdit) */
+  function fbTitle(x){ return x.n ? 'שאלה ' + x.n + (x.q ? ' · ' + x.q : '') : (x.q || 'שאלה'); }
+  function fbRender(r, fb){
+    if(viewer.list[viewer.i] !== r) return;
+    viewEl.viewFbBody.style.maxHeight = "";
+    viewEl.viewFbBody.innerHTML =
+      '<p style="margin:0 0 6px"><button type="button" class="tt-btn tt-btn--small" data-fb-edit>✏️ עריכת ההערות</button></p>' +
+      (fb.summary ? '<p class="view-fb-sum">' + escapeHtml(fb.summary) + '</p>' : '') +
+      '<ol class="view-fb-items">' + (fb.items || []).map(function(x){
+        /* מספר השאלה כמו בקובץ של התלמיד, ולידו שם השאלה (בשאלות בגרות - איזו בחינה) */
+        var warn = (x.copied === true ? ' ⚠ חשד להעתקה' : '') + (x.needsReview === true ? ' 🔎 לעיון' : '');
+        return '<li><b>' + (FB_ICON[x.s] || "🟡") + ' ' + escapeHtml(fbTitle(x)) + ':</b>' + (warn ? '<b>' + warn + '</b>' : '') + ' ' + escapeHtml(x.text || "") + '</li>';
+      }).join("") + '</ol>';
+    viewEl.viewFbBody.querySelector("[data-fb-edit]").addEventListener("click", function(){ fbEditor(r, fb); });
+  }
+  function fbEditor(r, fb){
+    var box = viewEl.viewFbBody, ta = 'style="width:100%;font:inherit;padding:6px 8px;border:1px solid #CFC5E8;border-radius:8px;resize:vertical"';
+    box.style.maxHeight = "none";
+    box.innerHTML =
+      '<p class="view-help" style="margin:0 0 6px">אפשר לשנות כל הערה ואת הסימון שלה. התלמיד יראה את מה שכתוב כאן אחרי השליחה.</p>' +
+      '<label style="display:block;font-weight:700;margin-bottom:2px" for="fbEdSum">הערה כללית לתלמיד</label>' +
+      '<textarea id="fbEdSum" rows="3" maxlength="1500" ' + ta + '>' + escapeHtml(fb.summary || "") + '</textarea>' +
+      (fb.items || []).map(function(x, k){
+        var opt = function(v, t){ return '<option value="' + v + '"' + (x.s === v ? ' selected' : '') + '>' + t + '</option>'; };
+        return '<div style="margin-top:10px"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:2px">' +
+          '<label style="font-weight:700" for="fbEdT' + k + '">' + escapeHtml(fbTitle(x)) + '</label>' +
+          '<select id="fbEdS' + k + '" aria-label="סימון ' + escapeAttr(fbTitle(x)) + '">' + opt("full","✅ נכון") + opt("partial","🟡 חלקי") + opt("miss","❌ חסר / שגוי") + '</select></div>' +
+          '<textarea id="fbEdT' + k + '" rows="2" maxlength="2000" ' + ta + '>' + escapeHtml(x.text || "") + '</textarea></div>';
+      }).join("") +
+      '<p style="display:flex;gap:8px;margin:10px 0 0;flex-wrap:wrap"><button type="button" class="tt-btn tt-btn--primary tt-btn--small" data-fb-save>💾 שמירת ההערות</button>' +
+      '<button type="button" class="tt-btn tt-btn--small" data-fb-cancel>ביטול</button> <span class="view-help" data-fb-msg role="status"></span></p>';
+    var msg = box.querySelector("[data-fb-msg]"), save = box.querySelector("[data-fb-save]");
+    box.querySelector("[data-fb-cancel]").addEventListener("click", function(){ fbRender(r, fb); });
+    save.addEventListener("click", function(){
+      var items = (fb.items || []).map(function(x, k){
+        return { id:String(x.id || ""), s:document.getElementById("fbEdS" + k).value, text:document.getElementById("fbEdT" + k).value };
+      });
+      if(items.some(function(x){ return !x.text.trim(); })){ msg.textContent = "יש הערה ריקה. כתבו משהו בכל שאלה."; return; }
+      save.disabled = true; msg.textContent = "שומרים…";
+      apiPost({ action:"feedbackEdit", password:teacherToken(), fileId:r.id, summary:document.getElementById("fbEdSum").value, items:items }).then(function(res){
+        if(handleAuthFailure(res)){ closeViewer(); return; }
+        if(res && res.ok && res.feedback){
+          fbRender(r, res.feedback);
+          viewEl.viewGradeMsg.textContent = r.fb === "pub" ? "✓ ההערות עודכנו. התלמיד יראה את הגרסה החדשה." : "✓ ההערות נשמרו. הן יישלחו לתלמיד כששומרים את הציון.";
+        } else { save.disabled = false; msg.textContent = (res && res.error) || "השמירה לא הצליחה. נסו שוב."; }
+      }).catch(function(){ save.disabled = false; msg.textContent = "אין חיבור לשרת כרגע. נסו שוב."; });
+    });
+    var first = document.getElementById("fbEdSum"); if(first) first.focus();
+  }
   function showFeedback(r){
     var box = viewEl.viewFb;
     if(!box) return;
@@ -3076,14 +3125,7 @@
         viewEl.viewGradeInput.value = String(fb.grade);
         viewEl.viewGradeMsg.textContent = "🤖 הציון המוצע מהמשוב: " + fb.grade + ". אפשר לשנות לפני השמירה.";
       }
-      viewEl.viewFbBody.innerHTML =
-        (fb.summary ? '<p class="view-fb-sum">' + escapeHtml(fb.summary) + '</p>' : '') +
-        '<ol class="view-fb-items">' + (fb.items || []).map(function(x){
-          /* מספר השאלה כמו בקובץ של התלמיד, ולידו שם השאלה (בשאלות בגרות - איזו בחינה) */
-          var title = x.n ? 'שאלה ' + x.n + (x.q ? ' · ' + x.q : '') : (x.q || 'שאלה');
-          var warn = (x.copied === true ? ' ⚠ חשד להעתקה' : '') + (x.needsReview === true ? ' 🔎 לעיון' : '');
-          return '<li><b>' + (FB_ICON[x.s] || "🟡") + ' ' + escapeHtml(title) + ':</b>' + (warn ? '<b>' + warn + '</b>' : '') + ' ' + escapeHtml(x.text || "") + '</li>';
-        }).join("") + '</ol>';
+      fbRender(r, fb);
     }).catch(function(){ viewEl.viewFbBody.innerHTML = '<p class="view-help">אין חיבור לשרת כרגע.</p>'; });
   }
 
