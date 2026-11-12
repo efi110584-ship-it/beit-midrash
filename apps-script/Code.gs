@@ -1264,7 +1264,7 @@ function examSubmitOne_(l, sid, how) {
   try {
     var ix = examIndex_(l.code), r = ix[sid];
     if (!r) return { ok: false, error: 'אין טיוטה' };
-    if (r.sent) return { ok: true, sent: r.sent, already: true };
+    if (r.sent) return { ok: true, sent: r.sent, already: true, fileId: r.fid || '' };
     if (r.sending && Date.now() - r.sending < 120000) return { ok: true, sending: true };
     try { draft = JSON.parse(CacheService.getScriptCache().get('exd_' + l.code + '_' + sid) || 'null'); } catch (e) { draft = null; }
     if (!draft) return { ok: false, error: 'הטיוטה לא נמצאה' };
@@ -1289,13 +1289,14 @@ function examSubmitOne_(l, sid, how) {
   try {
     var ix2 = examIndex_(l.code), r2 = ix2[sid] || {};
     r2.sending = 0;
-    if (res && res.ok) r2.sent = how;
+    if (res && res.ok) { r2.sent = how; if (res.fileId) r2.fid = String(res.fileId); }
     ix2[sid] = r2;
     examIndexPut_(l.code, ix2);
   } finally {
     lock2.releaseLock();
   }
-  return res && res.ok ? { ok: true, sent: how, test: !!res.test } : (res || { ok: false });
+  // fileId - כדי שהדף יזכור את ההגשה ויציג בה את המשוב ואת הבקשה לתיקון (assets/feedback.js)
+  return res && res.ok ? { ok: true, sent: how, test: !!res.test, fileId: res.fileId || '' } : (res || { ok: false });
 }
 // התלמיד שלח בעצמו ("שלחו למורה") - כדי שהטיוטה לא תישלח שוב בסוף
 function examSent_(code, sid) {

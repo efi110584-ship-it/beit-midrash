@@ -1127,6 +1127,14 @@ try{
     post({ action:"examDraft", code:st.code, sid:st.sid, p:p, final:true }).then(function(res){
       if(res && res.ok && (res.sent || res.test || res.already)){
         if(S) S.markSent(d ? d.items.length : 0);
+        /* זוכרים את ההגשה במכשיר - כדי שהמשוב והבקשה לתיקון יופיעו אחר כך בדף המבחן (assets/feedback.js) */
+        if(res.fileId && !res.test) try{
+          var subs = JSON.parse(localStorage.getItem("bm-my-subs") || "[]");
+          if(!subs.some(function(x){ return x && x.id === String(res.fileId); })){
+            subs.unshift({ id:String(res.fileId), page:page, a:(d && d.assignment) || "", n:"", t:Date.now() });
+            localStorage.setItem("bm-my-subs", JSON.stringify(subs.slice(0, 80)));
+          }
+        }catch(e){}
         try{ localStorage.setItem(DONE_KEY, res.sent === "self" ? "self" : "auto"); }catch(e){}
         render();
         return;

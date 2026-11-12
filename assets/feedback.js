@@ -65,6 +65,8 @@
       ".bm-fb-redo-actions button:focus-visible{outline:3px solid #123A78;outline-offset:2px}" +
       ".bm-fb-bad{display:inline-block;margin:.35rem .3rem .1rem;padding:.15rem .6rem;border-radius:999px;background:#FDECEA;color:#7A1C14;border:1px solid #E59A92;font-weight:700;font-size:.9rem}" +
       ".bm-fb-bad.is-fixed{background:#F4F7FC;color:#33415C;border-color:#B9C4D8}" +
+      ".bm-fb-go{display:inline-flex;align-items:center;min-height:48px;padding:.4rem 1.2rem;border-radius:12px;background:#E8650C;color:#fff;font-weight:700;font-size:1.08rem;text-decoration:none}" +
+      ".bm-fb-go:focus-visible{outline:3px solid #123A78;outline-offset:2px}" +
       ".bm-fb-redo-done{margin:0;padding:.6rem .9rem;border-radius:12px;background:#E9F6EF;color:#0B4F37;font-weight:700}" +
       "@media print{.bm-fb-top{box-shadow:none}.bm-fb-redo-actions{display:none}}";
     document.head.appendChild(st);
@@ -90,9 +92,14 @@
       localStorage.setItem("bm-redo", JSON.stringify(m));
     }catch(e){}
   }
-  function redoHtml(fb, inPage, local){
+  function redoHtml(fb, inPage, local, noLocal){
     if(fb.redoSent) return '<p class="bm-fb-redo-done">✓ שלחת תיקון. המורה יבדוק אותו ויחזיר משוב.</p>';
     if(!fb.redo) return "";
+    /* בדיקה אוטומטית, והתשובות לא שמורות במכשיר הזה (נשלחו ממחשב אחר) - אין מה לסמן */
+    if(inPage && noLocal) return '<div class="bm-fb-redo" role="note"><b>🔁 המורה ביקש לתקן ולשלוח שוב</b>' +
+      '<span>התשובות ששלחת לא שמורות במכשיר הזה. הכי טוב לפתוח את הדף במכשיר שממנו שלחת - שם יסומן ❌ ליד כל סעיף שצריך לתקן. ' +
+      'אפשר גם לענות כאן שוב על השאלות וללחוץ "שלחו למורה".</span>' +
+      '<span class="bm-fb-redo-actions"><button type="button" data-redo-go="send">📤 לשליחה מחדש</button></span></div>';
     return '<div class="bm-fb-redo" role="note"><b>🔁 המורה ביקש לתקן ולשלוח שוב</b>' +
       '<span>' + (inPage ? (local ? 'התשובות שלך שמורות בדף. הסעיפים שצריך לתקן מסומנים ❌ (התשובה לא נכונה, או שלא ענית). תקנו אותם, ואז לחצו "שלחו למורה".'
                                   : 'התשובות שלך שמורות בדף. תקנו את השאלות שמסומנות ❌ או 🟡 (ההסבר מופיע מתחת לכל אחת), ואז לחצו "שלחו למורה".')
@@ -198,7 +205,7 @@
           '<span>' + esc(fb.assignment || sub.a) + (sub.n ? ' · ' + esc(sub.n) : '') + (sub.t ? ' · נשלחה ב-' + fmtDate(sub.t) : '') + '</span></h2></div>' +
       (fb.summary ? '<p class="bm-fb-sum">' + esc(fb.summary) + '</p>' : '') +
       (fb.comment && fb.comment !== fb.summary ? '<p class="bm-fb-sum">' + esc(fb.comment) + '</p>' : '') +
-      redoHtml(fb, true, local) +
+      redoHtml(fb, true, local, !!fb.auto && !local) +
       fixListHtml(items, "bmFbIt") +
       (local ? '<p class="bm-fb-legend">ליד כל סעיף שצריך לתקן מופיע ❌. התשובות הנכונות לא מוצגות - נסו לבד.</p>'
              : fb.auto ? '<p class="bm-fb-legend">התשובות שלך שמורות בדף העבודה במכשיר שממנו שלחת. פתחו אותו שם כדי לראות מה לתקן.</p>'
@@ -276,7 +283,9 @@
           (fb.summary ? '<p class="bm-fb-sum">' + esc(fb.summary) + '</p>' : '') +
           (fb.comment && fb.comment !== fb.summary ? '<p class="bm-fb-sum">' + esc(fb.comment) + '</p>' : '') +
           redoHtml(fb, false) +
-          (/^[\w.-]+\.html$/.test(fb.page || "") ? '<p class="bm-fb-legend"><a href="' + esc(fb.page) + '">לדף העבודה ›</a> (התשובות שלך שמורות שם, במכשיר שממנו שלחת)</p>' : '') +
+          (/^[\w.-]+\.html$/.test(fb.page || "") ? (fb.redo && !fb.redoSent
+            ? '<p class="bm-fb-redo-actions"><a class="bm-fb-go" href="' + esc(fb.page) + '">✏️ לתיקון בדף ' + (/מבחן/.test(fb.assignment || "") ? 'המבחן' : 'העבודה') + ' ›</a></p>'
+            : '<p class="bm-fb-legend"><a href="' + esc(fb.page) + '">לדף העבודה ›</a> (התשובות שלך שמורות שם, במכשיר שממנו שלחת)</p>') : '') +
           fixListHtml(fb.items || [], "bmFbFull") +
           ((fb.items || []).some(function(x){ return !isOk(x); }) ? '<h2 class="bm-fb-h">איפה טעית ומה לתקן</h2>' : '') +
           '<ul class="bm-fb-list">' + (fb.items || []).map(function(x, i){ return isOk(x) ? '' : '<li>' + itemHtml(x, true, "bmFbFull" + i) + '</li>'; }).join("") + '</ul>' +
@@ -293,9 +302,53 @@
   var full = document.getElementById("bmFeedbackFull");
   if(full){ fullPage(full); return; }
 
-  var subs = [];
-  try{ subs = JSON.parse(localStorage.getItem("bm-my-subs") || "[]"); }catch(e){}
-  subs = subs.filter(function(x){ return x && x.page === page && x.id; }).slice(0, 6);
+  function localSubs(){
+    var subs = [];
+    try{ subs = JSON.parse(localStorage.getItem("bm-my-subs") || "[]"); }catch(e){}
+    return subs.filter(function(x){ return x && x.page === page && x.id; }).slice(0, 6);
+  }
+
+  /* ---------- תלמיד מחובר לאזור האישי (my.html) ----------
+     העבודות שלו נשמרות גם בשרת (action=studentWork). כך המשוב והבקשה לתיקון מופיעים בדף
+     גם כשהעבודה לא נשלחה מהמכשיר הזה - למשל מבחן שנשלח לבד בסוף הזמן, או נשלח ממחשב אחר. */
+  function taskKey(t){ return String(t || "").replace(/["'׳״:*?<>|\\\/]/g, " ").replace(/\s+/g, " ").trim(); }
+  function pageTasks(){
+    var out = {};
+    Array.prototype.forEach.call(document.querySelectorAll("[data-assignment]"), function(b){ var k = taskKey(b.getAttribute("data-assignment")); if(k) out[k] = 1; });
+    try{ if(window.BM_SEND_API){ var k = taskKey(window.BM_SEND_API.data().assignment); if(k) out[k] = 1; } }catch(e){}
+    return out;
+  }
+  function serverSubs(){
+    var me = null;
+    try{ me = JSON.parse(localStorage.getItem("bm-student") || "null"); }catch(e){}
+    if(!(me && me.tok) || !document.getElementById("sendToTeacherBtn")) return Promise.resolve();
+    var CK = "bm-stu-work", work = null;
+    try{ var c = JSON.parse(sessionStorage.getItem(CK) || "null"); if(c && c.tok === me.tok && Date.now() - c.t < 180000) work = c.work; }catch(e){}
+    var got = work ? Promise.resolve(work) : fetch(API, { method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" },
+        body:JSON.stringify({ action:"studentWork", tok:me.tok }) })
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        var w = res && res.ok ? (res.work || []) : [];
+        try{ sessionStorage.setItem(CK, JSON.stringify({ tok:me.tok, t:Date.now(), work:w })); }catch(e){}
+        return w;
+      });
+    return got.then(function(w){
+      var mine = pageTasks();
+      var add = (w || []).filter(function(x){ return x && x.id && x.pub && mine[taskKey(x.task)]; });
+      if(!add.length) return;
+      try{
+        var list = JSON.parse(localStorage.getItem("bm-my-subs") || "[]");
+        /* מהישנה לחדשה, כדי שהחדשה תהיה ראשונה ברשימה */
+        add.slice().reverse().forEach(function(x){
+          if(list.some(function(y){ return y && y.id === x.id; })) return;
+          list.unshift({ id:String(x.id), page:page, a:String(x.task || ""), n:"", t:x.time || Date.now() });
+        });
+        list.sort(function(a, b){ return (b && b.t || 0) - (a && a.t || 0); });
+        localStorage.setItem("bm-my-subs", JSON.stringify(list.slice(0, 80)));
+      }catch(e){}
+    }).catch(function(){});
+  }
+
   /* מהחדשה לישנה; מציגים את המשוב העדכני ביותר שהמורה כבר פרסם (ובנושאים נפרדים - לכל נושא) */
   var seen = {};
   /* הדף צריך להיות טעון עד הסוף: התשובות השמורות חזרו לשדות, והבדיקה (assets/autoscore.js) קיימת */
@@ -303,7 +356,7 @@
     function go(){ setTimeout(res, 50); }
     if(document.readyState === "complete") go(); else window.addEventListener("load", go);
   });
-  subs.reduce(function(p, sub){
+  serverSubs().then(function(){ return pageReady; }).then(function(){ localSubs().reduce(function(p, sub){
     return p.then(function(){
       var key = sub.n || sub.a || "*";   /* לכל מטלה (נושא) - המשוב העדכני שלה */
       if(seen[key]) return;
@@ -311,5 +364,5 @@
         if(res && res.ok && res.feedback){ seen[key] = true; return pageReady.then(function(){ inPage(sub, res.feedback); }); }
       }).catch(function(){});
     });
-  }, Promise.resolve());
+  }, Promise.resolve()); });
 })();
