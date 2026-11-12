@@ -1,3 +1,15 @@
+/* A correction is a separate teacher-authorized attempt, never a reset of the exam. */
+(function(){
+  "use strict";
+  var page = location.pathname.split("/").pop() || "index.html";
+  var id = new URLSearchParams(location.search).get("fb") || "";
+  var liveExam = false;
+  try{
+    var session = JSON.parse(localStorage.getItem("bm-lesson-mode") || "null");
+    liveExam = !!(session && session.until > Date.now() && session.exam &&
+      session.exam.e > Date.now() + (session.skew || 0));
+  }catch(e){}
+  function normalLesson(){
 /* מורה שנכנס לאזור האישי (בלשונית הזו) - המכשיר הוא של המורה:
    מוחקים ממנו כניסות תלמיד שנשמרו (למשל אחרי בדיקה "כמו תלמיד"), כדי שמעבר לשיעור
    לא ייכנס שוב בשם של תלמיד ולא ישלח עליו נוכחות. */
@@ -1236,4 +1248,25 @@ try{
   }
   if(document.body) boot();
   else document.addEventListener("DOMContentLoaded", boot);
+})();
+
+  }
+  if(liveExam || !/^[\w-]{10,}$/.test(id) || !window.BM_API_URL){ normalLesson(); return; }
+  var hold = document.createElement("style");
+  hold.textContent = "body{visibility:hidden!important}";
+  document.head.appendChild(hold);
+  var settled = false;
+  var timer = setTimeout(function(){ finish(false); }, 10000);
+  function finish(allowed){
+    if(settled) return;
+    settled = true; clearTimeout(timer);
+    if(!allowed) normalLesson();
+    hold.remove();
+  }
+  fetch(window.BM_API_URL + "?action=feedback&id=" + encodeURIComponent(id))
+    .then(function(r){ return r.json(); })
+    .then(function(r){
+      var f = r && r.ok && r.feedback;
+      finish(!!(f && f.redo && !f.redoSent && f.page === page));
+    }).catch(function(){ finish(false); });
 })();
