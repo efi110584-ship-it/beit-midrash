@@ -844,9 +844,15 @@ function feedbackPublic_(id) {
   var fb = feedbackRead_(id) || autoFeedback_(id, props);
   if (!fb) return { ok: true, feedback: null };
   var g = gradeMap_()[id];
+  var redo = props.getProperty('redo_' + id) === '1', redoSent = !!props.getProperty('redone_' + id);
+  // המורה ביקש תיקון: התשובות ששלח התלמיד חוזרות לדף - כדי שיוכל לתקן מכל מכשיר (גם אם המבחן נשלח לבד בסוף הזמן)
+  var ans = null;
+  if (redo && !redoSent) {
+    try { var a = answersGet_(id).answers; if (a && a.values) ans = { page: a.page, values: a.values }; } catch (e) {}
+  }
   return { ok: true, feedback: {
     student: fb.student || '', assignment: fb.assignment || '', page: fb.page || '', sent: fb.sent || '',
-    redo: props.getProperty('redo_' + id) === '1', redoSent: !!props.getProperty('redone_' + id),
+    redo: redo, redoSent: redoSent, answers: ans,
     grade: g && g.g !== '' ? g.g : (fb.grade == null ? '' : String(fb.grade)),
     comment: g ? g.c : '',
     summary: fb.summary || '',

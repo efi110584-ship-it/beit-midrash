@@ -249,7 +249,8 @@
       /* תלמיד מחובר לאזור האישי: העבודות שלו נמצאות גם בשרת - גם אם נשלחו ממכשיר אחר או אוטומטית בסוף מבחן */
       var me = JSON.parse(localStorage.getItem("bm-student") || "null");
       var loggedIn = !!(me && me.tok && document.getElementById("sendToTeacherBtn"));
-      if(!loggedIn && !list.some(function(x){ return x && x.page === page; })) return;
+      var fromLink = /[?&]fb=[\w-]{10,}/.test(location.search);   /* נפתח מהכפתור "לתיקון" בעמוד המשוב */
+      if(!loggedIn && !fromLink && !list.some(function(x){ return x && x.page === page; })) return;
     }catch(e){ return; }
     var script = document.createElement("script");
     script.src = SELF_SRC.replace(/a11y\.js(\?.*)?$/, "") + "feedback.js";

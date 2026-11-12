@@ -189,10 +189,34 @@
     return filled ? out : [];
   }
 
+  /* המורה ביקש תיקון: התשובות ששלח התלמיד (מהשרת) חוזרות לשדות הריקים בדף -
+     כך אפשר לתקן גם במכשיר אחר, או כשהמבחן נשלח לבד בסוף הזמן. שדה שכבר כתוב בו משהו - לא נוגעים. */
+  function restoreAnswers(a){
+    if(!a || !a.values || (a.page && a.page !== page)) return;
+    var groups = document.querySelectorAll(".mc-group");
+    Object.keys(a.values).forEach(function(k){
+      var v = String(a.values[k]);
+      var m = /^mc:(\d+)$/.exec(k);
+      if(m){
+        var g = groups[+m[1]], opts = g ? g.querySelectorAll('input[type="radio"]') : [];
+        if(!g || g.querySelector('input[type="radio"]:checked') || !opts[+v]) return;
+        opts[+v].checked = true;
+        opts[+v].dispatchEvent(new Event("change", { bubbles:true }));
+        return;
+      }
+      var f = document.querySelector('.answer[data-id="' + k.replace(/["\\]/g, "") + '"]');
+      if(!f || !/^(INPUT|SELECT|TEXTAREA)$/.test(f.tagName) || String(f.value || "").trim()) return;
+      f.value = v;
+      f.dispatchEvent(new Event("input", { bubbles:true }));
+      f.dispatchEvent(new Event("change", { bubbles:true }));
+    });
+  }
+
   /* ---------- בדף העבודה: ציון בראש הדף, הסבר מתחת לכל שאלה ---------- */
   function inPage(sub, fb){
     css();
     markSeen(sub.id);
+    if(fb.redo && !fb.redoSent) restoreAnswers(fb.answers);
     var items = fb.items || [];
     var local = false;
     if(!items.length && fb.auto){ items = localItems(); local = items.length > 0; }
@@ -282,9 +306,9 @@
               '<span>' + esc(fb.student) + (fb.assignment ? ' · ' + esc(fb.assignment) : '') + (fb.sent ? ' · ' + esc(fb.sent) : '') + '</span></h1></div>' +
           (fb.summary ? '<p class="bm-fb-sum">' + esc(fb.summary) + '</p>' : '') +
           (fb.comment && fb.comment !== fb.summary ? '<p class="bm-fb-sum">' + esc(fb.comment) + '</p>' : '') +
-          redoHtml(fb, false) +
+          (fb.redo && !fb.redoSent ? '' : redoHtml(fb, false)) +
           (/^[\w.-]+\.html$/.test(fb.page || "") ? (fb.redo && !fb.redoSent
-            ? '<p class="bm-fb-redo-actions"><a class="bm-fb-go" href="' + esc(fb.page) + '">✏️ לתיקון בדף ' + (/מבחן/.test(fb.assignment || "") ? 'המבחן' : 'העבודה') + ' ›</a></p>'
+            ? '<div class="bm-fb-redo" role="note"><b>🔁 המורה ביקש לתקן ולשלוח שוב</b><span>לחצו על הכפתור - דף המבחן ייפתח עם התשובות ששלחתם, וליד כל סעיף שצריך לתקן יופיע ❌. תקנו ולחצו "שלחו למורה".</span></div><p class="bm-fb-redo-actions"><a class="bm-fb-go" href="' + esc(fb.page) + '?fb=' + encodeURIComponent(id) + '">✏️ לתיקון בדף ' + (/מבחן/.test(fb.assignment || "") ? 'המבחן' : 'העבודה') + ' ›</a></p>'
             : '<p class="bm-fb-legend"><a href="' + esc(fb.page) + '">לדף העבודה ›</a> (התשובות שלך שמורות שם, במכשיר שממנו שלחת)</p>') : '') +
           fixListHtml(fb.items || [], "bmFbFull") +
           ((fb.items || []).some(function(x){ return !isOk(x); }) ? '<h2 class="bm-fb-h">איפה טעית ומה לתקן</h2>' : '') +
@@ -348,6 +372,18 @@
       }catch(e){}
     }).catch(function(){});
   }
+
+  /* הדף נפתח מהכפתור "לתיקון" בעמוד המשוב (?fb=<מזהה>) - זוכרים את העבודה במכשיר הזה */
+  (function(){
+    var id = (new URLSearchParams(location.search).get("fb") || "").replace(/[^\w-]/g, "");
+    if(!id) return;
+    try{
+      var list = JSON.parse(localStorage.getItem("bm-my-subs") || "[]");
+      list = list.filter(function(x){ return x && x.id !== id; });
+      list.unshift({ id:id, page:page, a:"", n:"", t:Date.now() });
+      localStorage.setItem("bm-my-subs", JSON.stringify(list.slice(0, 80)));
+    }catch(e){}
+  })();
 
   /* מהחדשה לישנה; מציגים את המשוב העדכני ביותר שהמורה כבר פרסם (ובנושאים נפרדים - לכל נושא) */
   var seen = {};
