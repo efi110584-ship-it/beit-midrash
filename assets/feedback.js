@@ -216,7 +216,14 @@
   function inPage(sub, fb){
     css();
     markSeen(sub.id);
-    if(fb.redo && !fb.redoSent) restoreAnswers(fb.answers);
+    if(fb.redo && !fb.redoSent){
+      restoreAnswers(fb.answers);
+      var studentName = document.getElementById("studentName");
+      if(studentName && !studentName.value && fb.student){
+        studentName.value = fb.student;
+        studentName.dispatchEvent(new Event("input", { bubbles:true }));
+      }
+    }
     var items = fb.items || [];
     var local = false;
     if(!items.length && fb.auto){ items = localItems(); local = items.length > 0; }
@@ -263,8 +270,8 @@
       box.innerHTML = isOk(x) ? '<span class="bm-fb bm-fb-ok" id="bmFbIt' + i + '">✅ נכון</span>' : itemHtml(x, false, "bmFbIt" + i);
       field.parentNode.insertBefore(box.firstChild, field.nextSibling);
     });
-    if(fb.redo && !fb.redoSent) redoStore(sub.a, sub.id);
-    else if(fb.redoSent) redoStore(sub.a, "");
+    if(fb.redo && !fb.redoSent) redoStore(fb.assignment || sub.a, sub.id);
+    else if(fb.redoSent) redoStore(fb.assignment || sub.a, "");
     Array.prototype.forEach.call(top.querySelectorAll("[data-redo-go]"), function(b){
       b.addEventListener("click", function(){
         if(b.getAttribute("data-redo-go") === "send"){ goTo(document.getElementById("sendToTeacherBtn")); return; }
