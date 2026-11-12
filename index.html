@@ -3142,6 +3142,7 @@
   function closeViewer(){
     viewEl.viewOverlay.hidden = true;
     viewEl.viewFrame.removeAttribute("src");
+    viewEl.viewFrame.removeAttribute("srcdoc");
     document.body.classList.remove("fc-open");
     renderBoard();
     var again = document.querySelector('[data-view="' + (viewer.list[viewer.i] || {}).id + '"]');
@@ -3155,7 +3156,25 @@
     viewEl.viewMeta.textContent = [r.subject, r.cls, r.date, (STATUS_INFO[r.status] || STATUS_INFO.pending).label].filter(Boolean).join(" · ");
     viewEl.viewNotes.hidden = !r.notes;
     viewEl.viewNotes.textContent = r.notes || "";
+    viewEl.viewFrame.removeAttribute("srcdoc");
+    viewEl.viewFrame.removeAttribute("sandbox");
     viewEl.viewFrame.src = "https://drive.google.com/file/d/" + encodeURIComponent(r.id) + "/preview";
+    apiPost({ action: "submissionPreview", password: teacherToken(), fileId: r.id }).then(function (res) {
+      if (viewEl.viewOverlay.hidden || viewer.list[viewer.i] !== r) return;
+      if (!res || !res.ok || typeof res.html !== "string") return;
+      var parsed = new DOMParser().parseFromString(res.html, "text/html");
+      parsed.querySelectorAll("script,iframe,object,embed,base,meta[http-equiv],link,form").forEach(function (node) { node.remove(); });
+      parsed.querySelectorAll("*").forEach(function (node) {
+        Array.from(node.attributes).forEach(function (attr) { if (/^on/i.test(attr.name)) node.removeAttribute(attr.name); });
+      });
+      var policy = parsed.createElement("meta");
+      policy.httpEquiv = "Content-Security-Policy";
+      policy.content = "default-src 'none'; style-src 'unsafe-inline'; img-src data:; font-src data:; form-action 'none'";
+      parsed.head.prepend(policy);
+      viewEl.viewFrame.setAttribute("sandbox", "");
+      viewEl.viewFrame.removeAttribute("src");
+      viewEl.viewFrame.srcdoc = "<!doctype html>" + parsed.documentElement.outerHTML;
+    }).catch(function () {});
     viewEl.viewOpenDrive.href = /^https:\/\//.test(r.url || "") ? r.url : ("https://drive.google.com/file/d/" + encodeURIComponent(r.id) + "/view");
     viewEl.viewPos.textContent = "עבודה " + (viewer.i + 1) + " מתוך " + viewer.list.length;
     if(!viewer.keepMsg) viewEl.viewGradeMsg.textContent = "";
