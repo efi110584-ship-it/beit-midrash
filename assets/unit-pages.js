@@ -49,14 +49,16 @@
     practice[0].parentNode.insertBefore(practiceNote, practice[0]);
   }
 
+  /* תוויות שהדף יכול לשנות (למשל ביחידת תצורת השם): <body data-up-explain="..." data-up-unit="..."> */
+  function BODY_ATTR(n){ return document.body.getAttribute(n) || ""; }
   function rows(cards){
     return cards.reduce(function(n, c){
       return n + arr(c.querySelectorAll("tbody tr")).filter(function(tr){ return tr.querySelector(".answer"); }).length;
     }, 0);
   }
   var PAGES = [
-    { id:"explain", n:1, ico:"📖", title:"הסבר הגזרה", sub:"מה מזהים ואיך פותרים", cards:lesson },
-    { id:"practice", n:2, ico:"✏️", title:"תרגול עצמי", sub:rows(practice) + " משפטים · בודקים לבד", cards:practice.length ? [practiceNote].concat(practice) : [] },
+    { id:"explain", n:1, ico:"📖", title:BODY_ATTR("data-up-explain") || "הסבר הגזרה", sub:BODY_ATTR("data-up-explain-sub") || "מה מזהים ואיך פותרים", cards:lesson },
+    { id:"practice", n:2, ico:"✏️", title:"תרגול עצמי", sub:rows(practice) + " " + (BODY_ATTR("data-up-unit") || "משפטים") + " · בודקים לבד", cards:practice.length ? [practiceNote].concat(practice) : [] },
     { id:"bagrut", n:3, ico:"🎓", title:"שאלות בסגנון בגרות", sub:bagrut.length + " שאלות · שולחים למורה", cards:[bagrutNote].concat(bagrut) }
   ].filter(function(p){ return p.cards.length; });
   PAGES.forEach(function(p, i){ p.n = i + 1; });
