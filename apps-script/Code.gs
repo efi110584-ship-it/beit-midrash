@@ -122,6 +122,9 @@ function doPost(e) {
     // פעילות חיה: תשובה של תלמיד (בלי סיסמה)
     if (data.action === 'actRespond') return json_(actRespond_(data));
 
+    // סקר בתוך דף לימוד: הצבעה אחת לכל תלמיד, בלי לראות תוצאות (בלי סיסמה)
+    if (data.action === 'pagePollVote') return json_(pagePollVote_(data));
+
     // אזור אישי לתלמיד (my.html): ת"ז + סיסמה שהתלמיד בוחר (בלי סיסמת המורה)
     if (data.action === 'studentCheck') return json_(studentCheck_(data.id));
     if (data.action === 'studentLogin') return json_(studentLogin_(data));
@@ -181,6 +184,8 @@ function doPost(e) {
       case 'actOpen':         return json_(actOpen_(data.open === true, data.room));
       case 'actClear':        return json_(actClear_(data.room));
       case 'actResults':      return json_(actTeacher_(data.room));
+      case 'pagePollResults': return json_(pagePollResults_(data.poll));
+      case 'pagePollReset':   return json_(pagePollReset_(data.poll));
       case 'boardOpen':       return json_(boardOpen_(data.title, data.page, data.room));
       case 'boardSet':        return json_(boardSet_(data.id, data.open === true, data.room));
       case 'attRoster':       return json_(attRoster_(data.cls));
@@ -2450,6 +2455,46 @@ function actClear_(room) {
   } finally {
     lock.releaseLock();
   }
+}
+
+// ---------- סקר בתוך דף לימוד ----------
+// כל סקר נשמר במאפיין אחד: PP_<מזהה הסקר> = { מזהה תלמיד: מספר האפשרות }.
+// תלמיד מצביע פעם אחת ואינו רואה את התוצאות; המורה רואה אותן (ומאפס) עם הסיסמה.
+function pagePollKey_(poll) {
+  var id = String(poll || '').replace(/[^\w-]/g, '').slice(0, 60);
+  return id ? 'PP_' + id : '';
+}
+function pagePollVote_(d) {
+  var key = pagePollKey_(d.poll);
+  var sid = String(d.sid || '').replace(/[^\w-]/g, '').slice(0, 40);
+  var v = Number(d.option);
+  if (!key || !sid) return { ok: false, error: 'חסר מזהה' };
+  if (!(v >= 0 && v < 6) || Math.floor(v) !== v) return { ok: false, error: 'בחרו תשובה.' };
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(8000)) return { ok: false, error: 'השרת עמוס. נסו שוב.' };
+  try {
+    var votes = getJson_(key) || {};
+    if (votes.hasOwnProperty(sid)) return { ok: true, already: true, mine: votes[sid] };
+    if (Object.keys(votes).length >= 300) return { ok: false, error: 'הסקר מלא.' };
+    votes[sid] = v;
+    PropertiesService.getScriptProperties().setProperty(key, JSON.stringify(votes));
+    return { ok: true, mine: v };
+  } finally {
+    lock.releaseLock();
+  }
+}
+function pagePollResults_(poll) {
+  var key = pagePollKey_(poll);
+  if (!key) return { ok: false, error: 'חסר מזהה' };
+  var votes = getJson_(key) || {}, counts = [0, 0, 0, 0, 0, 0], total = 0;
+  Object.keys(votes).forEach(function (s) { var v = votes[s]; if (v >= 0 && v < 6) { counts[v]++; total++; } });
+  return { ok: true, counts: counts, total: total };
+}
+function pagePollReset_(poll) {
+  var key = pagePollKey_(poll);
+  if (!key) return { ok: false, error: 'חסר מזהה' };
+  PropertiesService.getScriptProperties().deleteProperty(key);
+  return { ok: true };
 }
 
 // ---------- סיסמה ----------
