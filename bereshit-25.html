@@ -76,6 +76,25 @@
       </div>
     </section>
 
+    <!-- סקר: איך האמא תגיב? -->
+    <section class="card" data-stage="intro" style="grid-column: 1 / -1;">
+      <div class="card-head">
+        <span class="card-tag">סקר לפני הלימוד</span>
+        <h2 class="card-title">מה נראה לכם?</h2>
+      </div>
+      <div class="card-body">
+        <div class="page-poll" data-poll="bereshit-25-twins">
+          <div class="pp-label"><span aria-hidden="true">🗳️</span>הצביעו - כל אחד פעם אחת, בלי לראות מה הצביעו האחרים</div>
+          <p class="pp-q">אישה בהיריון הרגישה כאבים חזקים בבטן, ודאגה שיש בעיה עם התינוק. אחרי בדיקה אמר לה הרופא: יש לך שניים - אחד בריא ושלם, והשני הולך לצאת אהבל. <b>כיצד נראה לכם שהאמא תגיב אחרי ששמעה את הרופא?</b></p>
+          <div class="pp-opts" role="group" aria-label="אפשרויות הצבעה">
+            <button type="button" data-v="0">תהיה שמחה - העיקר שאחד בריא</button>
+            <button type="button" data-v="1">תהיה שמחה ועצובה - כי אחרי הכול אחד יצא אהבל</button>
+            <button type="button" data-v="2">תהיה עצובה מאוד</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- נושא 1 -->
     <div class="topic-col" data-stage="learn_together" data-keep-together="true">
     <div class="topic-banner" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
@@ -557,6 +576,7 @@ loadAnswers();
 <script src="assets/guide.js"></script>
 <script src="assets/units-data.js"></script>
 <script src="assets/bm-api.js"></script>
+<script src="assets/page-poll.js"></script>
 <script src="assets/direct-submit.js?v=3"></script>
 <script src="assets/send-to-teacher.js?v=6"></script>
 <script src="assets/lesson-mode.js?v=13"></script>
