@@ -84,6 +84,25 @@
       "#teacherTools .th-date b{display:block;font-size:1.05rem;color:#0B2A5B}#teacherTools .th-date span{font-size:.75rem;color:#56637A}" +
       "#teacherTools .th-side{margin-inline-start:auto;flex:none;font-size:.85rem;color:#56637A}" +
       "#teacherTools .th-empty{color:#56637A;margin:6px 0}" +
+      "#teacherTools .th-day{background:#fff;border:1px solid #DCE4F1;border-radius:16px;padding:12px 16px 14px;margin:4px 0 16px}" +
+      "#teacherTools .th-day-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 10px}" +
+      "#teacherTools .th-day-h h3{margin:0;font-family:'Rubik','Heebo',sans-serif;font-size:1.1rem;color:#0E1B33}" +
+      "#teacherTools .th-day-when{color:#56637A;font-size:.9rem}" +
+      "#teacherTools .th-seg{display:inline-flex;border:1px solid #DCE4F1;border-radius:999px;padding:2px;margin-inline-start:auto;background:#F4F7FD}" +
+      "#teacherTools .th-seg button{border:0;background:transparent;font:inherit;font-size:.88rem;font-weight:600;color:#56637A;padding:4px 12px;border-radius:999px;cursor:pointer}" +
+      "#teacherTools .th-seg button[aria-pressed=true]{background:#0B2A5B;color:#fff}" +
+      "#teacherTools .th-seg button:focus-visible,#teacherTools .th-week:focus-visible{outline:3px solid #FF7A1A;outline-offset:2px}" +
+      "#teacherTools .th-week{border:0;background:transparent;color:#1F5FBF;font:inherit;font-weight:700;font-size:.9rem;cursor:pointer;padding:4px}" +
+      "#teacherTools .th-hours{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:6px}" +
+      "#teacherTools .th-hr{border-radius:10px;padding:6px 7px;min-height:58px;font-size:.84rem;line-height:1.3;background:#F2F5F9;color:#56637A;min-width:0}" +
+      "#teacherTools .th-hr b{display:block;font-size:.72rem;opacity:.75;font-weight:700}" +
+      "#teacherTools .th-hr span{display:block;font-weight:600;overflow-wrap:anywhere}" +
+      "#teacherTools .th-hr small{display:block;font-size:.72rem;opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}" +
+      "#teacherTools .th-hr.is-free{background:transparent;border:1px dashed #DCE4F1;color:#9AA6B8}" +
+      "#teacherTools .th-hr.t-ya{background:#E4F3EF;color:#0F6B5F}#teacherTools .th-hr.t-yb{background:#EBEDFB;color:#3542A0}#teacherTools .th-hr.t-both{background:#FFF2D6;color:#8A5300}" +
+      "#teacherTools .th-hr.t-tutor{background:#FBEAF1;color:#9B2C5C}#teacherTools .th-hr.t-prep{background:#fff;border:1px dashed #C7D2E3}" +
+      "#teacherTools .th-hr.t-cls{background:#fff;border:1px solid #DCE4F1;color:#0E1B33}" +
+      "@media(max-width:900px){#teacherTools .th-hours{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:minmax(96px,1fr);overflow-x:auto;padding-bottom:4px}}" +
       "@media(max-width:1100px){#teacherTools .th-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}#teacherTools .th-two{grid-template-columns:1fr}}" +
       "@media(max-width:480px){#teacherTools .th-tiles{grid-template-columns:1fr}}";
     document.head.appendChild(st);
@@ -108,6 +127,71 @@
     b.setAttribute("aria-label", b.querySelector(".th-lbl").textContent.trim() + ": " + num + (meta ? ". " + meta : ""));
   }
 
+
+  /* ---------- "היום שלי": שורה אחת עם שעות היום (המערכת שלי / מערכת הכיתה) ---------- */
+  var DAYN = ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"];
+  var dayView = "me";
+  try{ dayView = localStorage.getItem("bm-th-dayview") || "me"; }catch(e){}
+  function schoolDay(){
+    /* אחרי 16:00, או בשישי/שבת - מציגים את יום הלימודים הבא */
+    var d = day0(new Date());
+    if(d.getDay() <= 4 && new Date().getHours() >= 16) d.setDate(d.getDate() + 1);
+    while(d.getDay() > 4) d.setDate(d.getDate() + 1);
+    var n = Math.round((d - day0(new Date())) / 86400000);
+    return { d:d, label:n === 0 ? "היום" : n === 1 ? "מחר" : "" };
+  }
+  function isoOf(d){ return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
+  function drawDay(box){
+    var S = window.BM_MY_SCHEDULE;
+    var sd = schoolDay(), wd = sd.d.getDay();
+    box.querySelector(".th-day-when").textContent = (sd.label ? sd.label + " · " : "") + "יום " + DAYN[wd] + " " + sd.d.getDate() + "." + (sd.d.getMonth() + 1);
+    Array.prototype.forEach.call(box.querySelectorAll(".th-seg button"), function(b){ b.setAttribute("aria-pressed", String(b.getAttribute("data-v") === dayView)); });
+    var cells = [];
+    for(var h = 0; h <= 8; h++){
+      var cls = "is-free", main = "", sub = "";
+      if(dayView === "me"){
+        var s = (S.weekFor(isoOf(sd.d))[wd] || [])[h];
+        if(s){
+          main = s.subject;
+          if(s.kind === "lesson"){ cls = "t-" + (s.cls === "both" ? "both" : s.cls === "יב" ? "yb" : "ya"); sub = S.clsName[s.cls]; }
+          else { cls = s.kind === "tutor" ? "t-tutor" : s.kind === "prep" ? "t-prep" : ""; }
+        }
+      }else{
+        var c = ((S.classes[dayView] || [])[wd] || [])[h];
+        if(c){ main = c[0]; sub = c[1]; cls = c[2] ? (dayView === "יב" ? "t-yb" : "t-ya") : "t-cls"; if(c[2]) sub = "השיעור שלך"; }
+      }
+      cells.push({ h:h, cls:cls, main:main, sub:sub });
+    }
+    /* בלי שעות ריקות בסוף היום */
+    while(cells.length && !cells[cells.length - 1].main) cells.pop();
+    var ul = box.querySelector(".th-hours");
+    ul.style.gridTemplateColumns = cells.length && window.matchMedia("(min-width:901px)").matches ? "repeat(" + cells.length + ",minmax(0,1fr))" : "";
+    ul.innerHTML = cells.length ? cells.map(function(x){
+      return '<li class="th-hr ' + x.cls + '"' + (x.sub ? ' title="' + esc(x.main + ' · ' + x.sub) + '"' : '') + '><b>שעה ' + x.h + '</b>' + (x.main ? '<span>' + esc(x.main) + '</span>' + (x.sub ? '<small>' + esc(x.sub) + '</small>' : '') : '<span>—</span>') + '</li>';
+    }).join("") : '<li class="th-empty">אין שיעורים ביום הזה.</li>';
+  }
+  function mountDay(){
+    if(!window.BM_MY_SCHEDULE || !window.BM_MY_SCHEDULE.classes) return null;
+    var S = window.BM_MY_SCHEDULE;
+    var box = document.createElement("section");
+    box.className = "th-day";
+    box.setAttribute("aria-labelledby", "thDayH");
+    box.innerHTML = '<div class="th-day-h"><h3 id="thDayH">🗓️ המערכת</h3><span class="th-day-when"></span>' +
+      '<span class="th-seg" role="group" aria-label="איזו מערכת להציג">' +
+      '<button type="button" data-v="me">שלי</button><button type="button" data-v="יא">' + esc(S.clsName["יא"]) + '</button><button type="button" data-v="יב">' + esc(S.clsName["יב"]) + '</button></span>' +
+      '<button type="button" class="th-week">כל השבוע ›</button></div><ol class="th-hours"></ol>';
+    box.querySelector(".th-seg").addEventListener("click", function(e){
+      var b = e.target.closest && e.target.closest("button[data-v]");
+      if(!b) return;
+      dayView = b.getAttribute("data-v");
+      try{ localStorage.setItem("bm-th-dayview", dayView); }catch(err){}
+      drawDay(box);
+    });
+    box.querySelector(".th-week").addEventListener("click", function(){ go("sched"); });
+    drawDay(box);
+    return box;
+  }
+
   var home, attnList, dueList, liveTimer = null, examsCache = [];
 
   function mount(){
@@ -129,6 +213,8 @@
     if(hero){ hero.classList.add("th-compact"); hero.parentNode.insertBefore(tiles, hero); }
     else if(sub) sub.insertAdjacentElement("afterend", tiles);
     else home.prepend(tiles);
+    var dayBox = mountDay();
+    if(dayBox) tiles.parentNode.insertBefore(dayBox, tiles);
 
     var two = document.createElement("div");
     two.className = "th-two";
