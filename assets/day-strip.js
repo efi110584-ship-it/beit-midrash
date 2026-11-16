@@ -84,12 +84,16 @@
     var S = window.BM_MY_SCHEDULE;
     if(!el || !S || !S.classes || !S.weekFor) return;
     css();
-    var view = "me";
-    try{ view = localStorage.getItem(KEY) || "me"; }catch(e){}
-    if(view !== "me" && !S.classes[view]) view = "me";
-    el.innerHTML = '<section class="ds" aria-labelledby="dsTitle"><div class="ds-h"><h2 id="dsTitle">🗓️ המערכת</h2><span class="ds-when"></span>' +
+    /* המערכת של המורה מוצגת רק במכשיר שבו המורה נכנס פעם לאזור האישי; התלמידים רואים רק את מערכות הכיתות */
+    var teacher = false;
+    try{ teacher = localStorage.getItem("bm-teacher-device") === "1" || !!sessionStorage.getItem("bm-teacher-token"); }catch(e){}
+    var view = "";
+    try{ view = localStorage.getItem(KEY) || ""; }catch(e){}
+    if(!(view === "me" && teacher) && !S.classes[view]) view = teacher ? "me" : "יא";
+    el.innerHTML = '<section class="ds" aria-labelledby="dsTitle"><div class="ds-h"><h2 id="dsTitle">🗓️ ' + (teacher ? "המערכת" : "מערכת הכיתה") + '</h2><span class="ds-when"></span>' +
       '<span class="ds-seg" role="group" aria-label="איזו מערכת להציג">' +
-      '<button type="button" data-v="me">הרב אפרים</button><button type="button" data-v="יא">' + esc(S.clsName["יא"]) + '</button><button type="button" data-v="יב">' + esc(S.clsName["יב"]) + '</button>' +
+      (teacher ? '<button type="button" data-v="me">שלי</button>' : '') +
+      '<button type="button" data-v="יא">' + esc(S.clsName["יא"]) + '</button><button type="button" data-v="יב">' + esc(S.clsName["יב"]) + '</button>' +
       '</span></div><ol class="ds-hours"></ol></section>';
     var box = el.firstChild;
     box.querySelector(".ds-seg").addEventListener("click", function(e){
