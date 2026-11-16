@@ -317,7 +317,7 @@
 <script src="assets/bm-api.js"></script>
 <script src="assets/units-data.js?v=20261110-avkey"></script>
 <script src="assets/exams-seed.js?v=6"></script>
-<script src="assets/day-strip.js?v=1"></script>
+<script src="assets/day-strip.js?v=2"></script>
 <script src="assets/flashcards-data.js"></script>
 <script src="assets/live-render.js"></script>
 <script src="assets/live-teacher.js"></script>
@@ -2643,6 +2643,8 @@
           sessionStorage.setItem(TOKEN_KEY, pw);
           sessionStorage.setItem("teacherAreaUnlocked", "1"); /* דפי המחוונים בודקים את זה */
         }catch(err){}
+        try{ localStorage.setItem("bm-teacher-device", "1"); }catch(err){}   /* המחשב של המורה: בדף הבית תוצג גם המערכת של המורה (assets/day-strip.js) */
+        if(window.BM_DAY_STRIP) window.BM_DAY_STRIP.mount(document.getElementById("dayStrip"));
         if(window.BM_CLEAR_STUDENT) window.BM_CLEAR_STUDENT();   /* מכשיר של מורה - בלי כניסת תלמיד שנשמרה */
         closeLogin();
         if(loginDone) loginDone();
