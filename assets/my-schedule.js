@@ -613,5 +613,5 @@
     render(); loadDay();
   }
 
-  window.BM_MY_SCHEDULE = { mount:mount, week:WEEK, days:DAYS, clsName:CLS_NAME };
+  window.BM_MY_SCHEDULE = { mount:mount, week:WEEK, days:DAYS, clsName:CLS_NAME, classes:CLASSES, weekFor:wk };
 })();
