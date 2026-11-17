@@ -157,7 +157,19 @@
       wireGatedContent();
     }
     gatedContent.hidden = false;
+    /* הגעה מכפתור "מחוון" בדף עבודה: קופצים לפרק (#chapter-...) */
+    var h = (location.hash || '').slice(1), t = h && document.getElementById(h);
+    var cb = h && document.querySelector('.chapter-btn[data-chapter="' + h.replace(/^chapter-/, '') + '"]');
+    if(cb) cb.click();   /* המחוון מציג פרק אחד בכל פעם - בוחרים את הפרק */
+    if(t){ if(t.tagName === 'DETAILS') t.open = true; setTimeout(function(){ (cb || t).scrollIntoView({ block:'start' }); }, 50); }
   }
+
+  /* מורה מחובר (אזור אישי או קוד שכבר הוקלד) - המחוון נפתח בלי לבקש קוד */
+  try{
+    if(sessionStorage.getItem('teacherAreaUnlocked') === '1' || sessionStorage.getItem('bm-teacher-token')){
+      setTimeout(function(){ unlockContent(); if(gateBtn){ gateBtn.textContent = '🔓 פתוח למורה'; gateBtn.disabled = true; } }, 0);
+    }
+  }catch(e){}
 
   function isTeacherUnlocked(){
     try{ return sessionStorage.getItem('teacherAreaUnlocked') === '1'; }
