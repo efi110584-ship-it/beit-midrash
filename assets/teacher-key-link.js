@@ -150,6 +150,7 @@
 "lo-taashok-schar-sachir.html": "leket-mitzvot-answers-hub.html#chapter-lo-taashok",
 "lo-tasur-review.html": "leket-mitzvot-answers-hub.html#chapter-lo-tasur",
 "lo-tasur-summary.html": "leket-mitzvot-answers-hub.html#chapter-lo-tasur",
+"ahavat-gerim-summary.html": "leket-mitzvot-answers-hub.html#chapter-ahavat-gerim",
 "lo-tasur.html": "leket-mitzvot-answers-hub.html#chapter-lo-tasur",
 "machshava.html": "?key=1&view=all",
 "melachim-b-21-questions.html": "neviim-answers-hub.html#chapter-mb21",
