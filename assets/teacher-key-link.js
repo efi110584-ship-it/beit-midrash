@@ -1,9 +1,12 @@
 /* ============================================================
-   כפתור "🗝️ מחוון" לדפי העבודה - רק למורה מחובר
-   ============================================================
-   מורה = נכנס לאזור האישי (bm-teacher-token) או פתח מחוון בקוד (teacherAreaUnlocked),
-   באותה בדיקה כמו assets/class-dock.js. תלמידים לא רואים את הכפתור.
-   הכפתור מוביל למחוון של הדף: לפרק המתאים בדף המחוונים, או לאותו דף עם ?key=1.
+   למורה בלבד, בדפי העבודה:
+   1. כפתור "🗝️ מחוון" - פותח בלשונית חדשה את המחוון של הדף
+      (לפרק המתאים בדף המחוונים, או לאותו דף עם ?key=1).
+   2. "👁 הצג תשובה" ליד כל שאלה, ו"👁 כל התשובות" - מציג את התשובה בתוך הדף עצמו,
+      מתוך התשובות שכבר יש בדף (data-answer / data-model / CORRECT_ANSWERS / תשובון בית חינוך ומשפחה).
+   מורה = נכנס לאזור האישי (bm-teacher-token) או פתח מחוון בקוד (teacherAreaUnlocked) - כמו class-dock.js.
+   תלמידים לא רואים כלום מזה. התשובות מוצגות בתיבה נפרדת ולא נכתבות לשדות התלמיד.
+   הכפתורים במרכז התחתון - לא מתנגשים בחלון הכיתה (שמאל) ובמעבר המהיר (ימין).
    ============================================================ */
 (function(){
   "use strict";
@@ -252,17 +255,113 @@
   var page = decodeURIComponent(location.pathname.split("/").pop() || "index.html");
   var target = MAP[page];
   if(!target) return;
-  var href = target.charAt(0) === "?" ? page + target + (location.hash || "") : target;
+  function arr(x){ return Array.prototype.slice.call(x); }
+  function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]; }); }
+
   var css = document.createElement("style");
-  css.textContent = ".bm-keylink{position:fixed;left:18px;bottom:112px;z-index:60;display:inline-flex;align-items:center;gap:8px;min-height:46px;padding:10px 18px;border-radius:999px;background:#1F4E46;color:#fff;font:700 1rem Rubik,Heebo,Arial,sans-serif;text-decoration:none;box-shadow:0 6px 18px rgba(0,0,0,.22);border:2px solid #fff}" +
-    ".bm-keylink:hover{background:#163A34}.bm-keylink:focus-visible{outline:3px solid #FF7A1A;outline-offset:2px}" +
-    "@media print{.bm-keylink{display:none}}";
+  css.textContent =
+    ".bm-tbar{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:9989;display:flex;gap:8px;padding:6px;border-radius:999px;background:rgba(255,255,255,.92);box-shadow:0 6px 20px rgba(0,0,0,.18);backdrop-filter:blur(4px)}" +
+    ".bm-tbar a,.bm-tbar button{display:inline-flex;align-items:center;gap:6px;min-height:42px;padding:8px 16px;border-radius:999px;border:0;background:#1F4E46;color:#fff;font:700 .98rem Rubik,Heebo,Arial,sans-serif;text-decoration:none;cursor:pointer;white-space:nowrap}" +
+    ".bm-tbar button{background:#A9752E}.bm-tbar button[aria-pressed=true]{background:#7A4A12}" +
+    ".bm-tbar a:focus-visible,.bm-tbar button:focus-visible,.tk-show:focus-visible{outline:3px solid #FF7A1A;outline-offset:2px}" +
+    ".tk-show{display:inline-flex;align-items:center;gap:5px;margin-inline-start:auto;padding:4px 12px;border:1.5px solid #A9752E;border-radius:999px;background:#FFF7EA;color:#7A4A12;font:600 .88rem Rubik,Heebo,Arial,sans-serif;cursor:pointer}" +
+    ".tk-show[aria-pressed=true]{background:#A9752E;color:#fff}" +
+    ".tk-ans{display:block;margin:6px 0 2px;padding:6px 10px;border-radius:8px;background:#EAF6EF;border:1px solid #9FD0B5;color:#14422A;font-size:.95rem;line-height:1.55;text-align:right}" +
+    ".tk-ans b{color:#0D6B47}.tk-ans ul{margin:.2rem 0 0;padding-inline-start:1.1rem}.tk-ans[hidden]{display:none}" +
+    "@media print{.bm-tbar,.tk-show,.tk-ans{display:none!important}}" +
+    "@media (max-width:560px){.bm-tbar a,.bm-tbar button{padding:8px 12px;font-size:.9rem}}";
   document.head.appendChild(css);
-  var a = document.createElement("a");
-  a.className = "bm-keylink";
-  a.href = href;
-  a.target = "_blank";   /* בלשונית חדשה - הדף של התלמידים נשאר פתוח */
-  a.title = "המחוון של הדף הזה (רק למורה)";
-  a.innerHTML = '<span aria-hidden="true">🗝️</span> מחוון';
-  document.body.appendChild(a);
+
+  /* ---- 1. הכפתורים בתחתית ---- */
+  var bar = document.createElement("div");
+  bar.className = "bm-tbar";
+  bar.setAttribute("role", "group");
+  bar.setAttribute("aria-label", "כלי מורה");
+  var href = target.charAt(0) === "?" ? page + target + (location.hash || "") : target;
+  bar.innerHTML = '<a href="' + esc(href) + '" target="_blank" title="המחוון של הדף הזה (נפתח בלשונית חדשה)"><span aria-hidden="true">🗝️</span> מחוון</a>';
+  document.body.appendChild(bar);
+
+  /* ---- 2. "הצג תשובה" בתוך הדף ---- */
+  var CA = null;
+  try{ CA = (typeof CORRECT_ANSWERS !== "undefined") ? CORRECT_ANSWERS : null; }catch(e){ CA = null; }
+  function answerOf(f){
+    var id = f.getAttribute("data-id");
+    var a = f.getAttribute("data-answer");
+    if(a){
+      var alts = a.split("|");
+      if(f.tagName === "SELECT"){
+        var labels = arr(f.options).filter(function(o){ return alts.indexOf(o.value) !== -1; }).map(function(o){ return o.textContent.trim(); });
+        return esc(labels.join(" / ") || a);
+      }
+      return "<b>" + esc(alts[0]) + "</b>" + (alts.length > 1 ? " <small>(מתקבל גם: " + esc(alts.slice(1).join(" / ")) + ")</small>" : "");
+    }
+    if(f.getAttribute("data-model")) return esc(f.getAttribute("data-model"));
+    if(CA && id && Object.prototype.hasOwnProperty.call(CA, id)) return "<b>" + esc(CA[id]) + "</b>";
+    /* מפתחות נוספים בדף: HARD20_CORRECT_ANSWERS, TEST_CORRECT_ANSWERS וכו' */
+    for(var k in window){ if(/CORRECT_ANSWERS$/.test(k)){ try{ var o = window[k]; if(o && typeof o === "object" && id && Object.prototype.hasOwnProperty.call(o, id)) return "<b>" + esc(o[id]) + "</b>"; }catch(e){} } }
+    var K = window.BHM_KEY;
+    if(K && id && K[id]){ var L = K[id]; return L.length > 1 ? "<ul>" + L.map(function(l){ return "<li>" + esc(l) + "</li>"; }).join("") + "</ul>" : esc(L[0]); }
+    return "";
+  }
+  var groups = [];
+  function build(){
+    var fields = arr(document.querySelectorAll("input.answer, input.ans, select.answer, select.ans, textarea.answer")).filter(function(f){
+      return f.type !== "radio" && f.type !== "checkbox" && !f.hasAttribute("data-bm-persist");
+    });
+    var found = 0;
+    fields.forEach(function(f){
+      if(f.__tk) return;
+      var html = answerOf(f);
+      if(!html) return;
+      f.__tk = 1; found++;
+      var box = document.createElement("span");
+      box.className = "tk-ans";
+      box.hidden = true;
+      box.innerHTML = "✓ " + html;
+      var after = f.nextElementSibling && /check-mark|answer-mark/.test(f.nextElementSibling.className) ? f.nextElementSibling : f;
+      after.parentNode.insertBefore(box, after.nextSibling);
+      var card = f.closest(".card, .bh-q, article, .gzb-card, section") || document.body;
+      var g = groups.filter(function(x){ return x.card === card; })[0];
+      if(!g){ g = { card:card, boxes:[] }; groups.push(g); }
+      g.boxes.push(box);
+    });
+    groups.forEach(function(g){
+      if(g.btn) return;
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "tk-show"; b.setAttribute("aria-pressed", "false");
+      b.innerHTML = '<span aria-hidden="true">👁</span> הצג תשובה';
+      b.addEventListener("click", function(){ setGroup(g, b.getAttribute("aria-pressed") !== "true"); });
+      g.btn = b;
+      var head = g.card.querySelector(".card-head, .bh-q-head, .bh-part-head, h2, h3");
+      if(head && g.card.contains(head)){ if(/card-head|bh-q-head|bh-part-head/.test(head.className)){ head.style.display = head.style.display || ""; head.appendChild(b); } else head.parentNode.insertBefore(b, head.nextSibling); }
+      else g.card.insertBefore(b, g.card.firstChild);
+    });
+    return found;
+  }
+  function setGroup(g, on){
+    g.boxes.forEach(function(x){ x.hidden = !on; });
+    g.btn.setAttribute("aria-pressed", String(on));
+    g.btn.innerHTML = '<span aria-hidden="true">👁</span> ' + (on ? "הסתר תשובה" : "הצג תשובה");
+  }
+  var allBtn = null;
+  function addAll(){
+    if(allBtn || !groups.length) return;
+    allBtn = document.createElement("button");
+    allBtn.type = "button"; allBtn.setAttribute("aria-pressed", "false");
+    allBtn.innerHTML = '<span aria-hidden="true">👁</span> כל התשובות';
+    allBtn.title = "הצגה או הסתרה של כל התשובות בדף";
+    allBtn.addEventListener("click", function(){
+      var on = allBtn.getAttribute("aria-pressed") !== "true";
+      groups.forEach(function(g){ setGroup(g, on); });
+      allBtn.setAttribute("aria-pressed", String(on));
+      allBtn.innerHTML = '<span aria-hidden="true">👁</span> ' + (on ? "הסתר הכול" : "כל התשובות");
+    });
+    bar.appendChild(allBtn);
+  }
+  function run(){ build(); addAll(); }
+  /* בית חינוך ומשפחה: התשובון נטען רק למורה */
+  if(page === "bayit-chinuch-mishpacha.html" && !window.BHM_KEY){
+    var s = document.createElement("script"); s.src = "assets/bayit-chinuch-mishpacha-key.js?v=2"; s.onload = run; document.head.appendChild(s);
+  }
+  if(document.readyState === "complete") run(); else window.addEventListener("load", run);
 })();
