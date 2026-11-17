@@ -949,6 +949,35 @@
     "url": "ptp-exam-answers.html"
   },
   {
+    "key": "leket-mitzvot-exam",
+    "byClaude": true,
+    "class": "teacher",
+    "grade": "יא",
+    "subject": "מבחן",
+    "category": "מבחנים",
+    "lessonExam": true,
+    "icon": "📝",
+    "title": "מבחן - לקט מצוות (י\"א)",
+    "desc": "10 שאלות בגרות כלשונן על אהבת הגרים, כיבוד הורים, ואהבת לרעך כמוך וקידוש השבת - בכל שאלה סעיפים א, ב, ג, ושאלה אחת בכל מסך. נפתח לתלמידים רק עם קוד מהמורה.",
+    "chapters": 10,
+    "chaptersLabel": "שאלות",
+    "url": "leket-mitzvot-exam.html"
+  },
+  {
+    "key": "leket-mitzvot-exam-key",
+    "byClaude": true,
+    "class": "teacher",
+    "grade": "יא",
+    "subject": "מורה",
+    "category": "לקט מצוות",
+    "icon": "🗝️",
+    "title": "מחוון - תשובות למבחן: לקט מצוות",
+    "desc": "כל 10 השאלות ברצף, עם התשובה מתחת לכל סעיף - כפי שהיא בתשובון של הבגרות.",
+    "chapters": 10,
+    "chaptersLabel": "שאלות",
+    "url": "leket-mitzvot-exam.html?key=1"
+  },
+  {
     "key": "bereshit-avraham-exam",
     "byClaude": true,
     "class": "teacher",

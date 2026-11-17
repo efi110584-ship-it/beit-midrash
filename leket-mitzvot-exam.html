@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" data-css="theme">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="bm-exam-only" content="1">
+<title>מבחן — לקט מצוות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css?v=45">
+<style>
+  .exw{max-width:880px;margin:0 auto;padding:0 16px 3rem}
+  .exw .student-bar{margin:1rem 0}
+  .ex-rules{background:#FBF7EE;border:1px solid #D8C9A3;border-radius:14px;padding:.9rem 1.2rem;margin:0 0 1rem;line-height:1.7}
+  .ex-rules ul{margin:.3rem 0 0;padding-inline-start:1.2rem}
+  .exn{display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center;margin:0 0 1rem}
+  .exn-b{min-width:46px;min-height:46px;border-radius:12px;border:2px solid #C9B98F;background:#fff;color:#16324A;font:800 1.05rem "Heebo",sans-serif;cursor:pointer;position:relative}
+  .exn-b.is-done{background:#E6F2EC;border-color:#2F7D5B;color:#1F5A40}
+  .exn-b.is-part{background:#FFF4DE;border-color:#D79A2B}
+  .exn-b[aria-current="step"]{background:#16324A;border-color:#16324A;color:#fff}
+  .exn-b.exn-end{padding:0 1rem;font-size:.95rem}
+  .exn-b:focus-visible,.exb:focus-visible{outline:3px solid #1857C4;outline-offset:2px}
+  .exq{background:#fff;border:1px solid #E4DACB;border-radius:18px;box-shadow:0 2px 10px rgba(31,58,77,.08);padding:1.2rem 1.4rem 1.4rem}
+  .exq-head{border-bottom:2px solid #E9DFC9;padding-bottom:.6rem;margin-bottom:.4rem}
+  .exq-kicker{font:700 .85rem "Heebo";color:#8A5C21}
+  .exq-head h2{margin:.15rem 0 .2rem;font:800 1.55rem/1.3 "Heebo";color:#16324A}
+  .exq-src{margin:0;color:#5B6774;font-size:.9rem}
+  .exq-part{margin-top:1.2rem}
+  .exq-part-h{display:flex;align-items:center;gap:.5rem;margin:0 0 .5rem;font:800 1.15rem "Heebo";color:#16324A}
+  .exq-let{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:10px;background:#8A5C21;color:#fff;font-size:1.05rem}
+  .exq-ctx{background:#FBF7EE;border:1px solid #E4D6B5;border-radius:12px;padding:.6rem .9rem;margin:.4rem 0;line-height:1.75}
+  .exq-verse{border-inline-start:3px solid #3F6E66;background:#F1F6F4;border-radius:10px;padding:.5rem .9rem;margin:.4rem 0;font:500 1.12rem/1.9 "Frank Ruhl Libre",serif}
+  .exq-verse b{color:#3F6E66;font:700 .85rem "Heebo"}
+  .exq-verse-h{font:500 .82rem "Heebo";color:#5B6774}
+  .exq-sub{margin:.7rem 0 0}
+  .exq-qlead{margin:.2rem 0 .3rem;line-height:1.75;color:#3A4654}
+  .exq-q{display:flex;gap:.45rem;align-items:flex-start;margin:.2rem 0 .45rem;padding:.55rem .85rem;border-radius:10px;background:#EAF1FB;border-inline-start:5px solid #16324A;font-weight:800;font-size:1.06rem;line-height:1.7;color:#0F2740}
+  .exq-mark{flex:none}
+  .exq-n{color:#8A5C21}
+  .exq textarea.answer{width:100%;min-height:120px;resize:vertical;padding:.7rem .9rem;border:2px solid #C9D5EA;border-radius:12px;font:400 1.02rem/1.6 "Heebo",sans-serif;background:#FDFEFF}
+  .exq textarea.answer:focus-visible{outline:3px solid #FFB86B;outline-offset:1px;border-color:#16324A}
+  .exbar{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:space-between;align-items:center;margin:1rem 0}
+  .exb{min-height:48px;padding:.6rem 1.3rem;border-radius:12px;border:2px solid #16324A;background:#fff;color:#16324A;font:700 1rem "Heebo";cursor:pointer}
+  .exb.primary{background:#16324A;color:#fff}
+  .exb[disabled]{opacity:.4;cursor:default}
+  .ex-pos{font:600 .95rem "Heebo";color:#5B6774;font-variant-numeric:tabular-nums}
+  .ex-end{background:#fff;border:1px solid #E4DACB;border-radius:18px;padding:1.2rem 1.4rem}
+  .ex-end h2{margin:0 0 .5rem;font:800 1.4rem "Heebo";color:#16324A}
+  .ex-end ul{list-style:none;padding:0;margin:.5rem 0 1rem;display:grid;gap:.35rem}
+  .ex-end li{display:flex;justify-content:space-between;gap:1rem;padding:.45rem .8rem;border-radius:10px;background:#F6F8FB}
+  .ex-end li.miss{background:#FFF4DE}
+  .ex-end li button{border:0;background:none;color:#1857C4;font:700 .95rem "Heebo";cursor:pointer;text-decoration:underline}
+  .exq-pts{font:600 .85rem "Heebo";color:#8A5C21}
+  .ex-count{text-align:center;font:700 1rem "Heebo";color:#16324A;margin:-.4rem 0 .8rem}
+  .ex-count.is-full{color:#1F5A40}
+  .ex-lock{margin:.6rem 0 0;padding:.6rem .9rem;border-radius:12px;background:#FFF4DE;border:1px solid #E8B85C;color:#5A3A0A;font-weight:600}
+  .exn-b.is-skip{opacity:.45;border-style:dashed}
+  .ex-save{text-align:center;color:#5B6774;font-size:.9rem;margin:.3rem 0 0}
+  html.ex-all .exq{display:block !important;margin-bottom:1.2rem}
+  html.ex-all .exn,html.ex-all .exbar{display:none}
+  @media print{
+    .exn,.exbar,.ex-end,.breadcrumbs,.bm-skip-link,.ex-save{display:none !important}
+    .exq{display:block !important;break-before:page;box-shadow:none;border:0;padding:0}
+    .exq:first-of-type{break-before:auto}
+    .exq textarea.answer{min-height:110px}
+  }
+  .exq-note{margin:.35rem 0 0;padding:.35rem .7rem;border-radius:8px;background:#FFF4DE;color:#7A4A12;font-weight:600;font-size:.95rem;display:inline-block}
+  .exq-ctx u{text-decoration-thickness:2px;text-underline-offset:4px}
+  .exq-list{margin:.3rem 0 .6rem;padding-inline-start:1.6rem;line-height:1.85}
+  .exq-tw{overflow-x:auto;margin:.4rem 0 0}
+  .exq-table{width:100%;min-width:520px;border-collapse:separate;border-spacing:0;border:1.5px solid #D8C9A3;border-radius:12px;overflow:hidden}
+  .exq-table th,.exq-table td{padding:.5rem .6rem;border-top:1px solid #EFE6D3;vertical-align:top;text-align:right}
+  .exq-table thead th{border-top:0;background:#FBF7EE;font:700 1rem "Heebo";color:#16324A}
+  .exq-table tbody th{width:32%;background:#FDFBF6;font-weight:600;line-height:1.6}
+  .exq-table td+td,.exq-table th+td,.exq-table th+th{border-inline-start:1px solid #EFE6D3}
+  .exq .exq-table textarea.answer{min-height:96px}
+</style>
+<script src="assets/a11y.js"></script>
+</head>
+<body>
+<a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
+<nav class="breadcrumbs" aria-label="נתיב ניווט">
+  <a href="index.html">הכיתה הדיגיטלית</a>
+  <span class="sep">›</span>
+  <a href="index.html#tab-ya">כיתה י"א</a>
+  <span class="sep">›</span>
+  <a href="leket-mitzvot-hub.html">לקט מצוות</a>
+  <span class="sep">›</span>
+  <span class="current">מבחן — לקט מצוות</span>
+</nav>
+<header>
+  <div class="eyebrow">לקט מצוות · מבחן</div>
+  <h1>מבחן — לקט מצוות</h1>
+  <p class="sub">10 שאלות מבחינות הבגרות על המצוות אהבת הגרים, כיבוד הורים, ואהבת לרעך כמוך וקידוש השבת. <b>ענו על כל 10 השאלות</b> (10 נקודות לכל שאלה, 100 נקודות בסך הכול). בסוף לחצו "שלחו למורה".</p>
+</header>
+<main id="main-content" class="exw">
+  <div class="student-bar">
+    <label>שם: <input type="text" id="studentName" data-bm-persist="leket-mitzvot-exam" placeholder="השם שלכם..."></label>
+    <label>כיתה: <input type="text" id="studentClass" data-bm-persist="leket-mitzvot-exam" placeholder='למשל: י"א 4' style="width:8rem;"></label>
+  </div>
+  <div class="ex-rules">
+    <b>לפני שמתחילים:</b>
+    <ul>
+      <li><b>ענו על כל 10 השאלות</b>, ובכל שאלה על כל הסעיפים (א, ב, ג).</li>
+      <li>כל שאלה נמצאת במסך משלה. עוברים בין השאלות בכפתורים "השאלה הבאה" ו"השאלה הקודמת", או במספרים שלמעלה.</li>
+      <li>כשהשאלה מבקשת "על פי בעל ספר החינוך" – ענו לפי מה שכתוב בספר החינוך.</li>
+      <li>התשובות נשמרות לבד. אפשר לחזור לכל שאלה ולתקן עד השליחה.</li>
+    </ul>
+  </div>
+  <p class="ex-count" id="exCount" aria-live="polite"></p>
+  <nav class="exn" id="exNav" aria-label="מעבר בין השאלות"><button type="button" class="exn-b" data-go="1" aria-label="שאלה 1: אהבת הגרים" title="אהבת הגרים"><span>1</span></button><button type="button" class="exn-b" data-go="2" aria-label="שאלה 2: אהבת הגרים" title="אהבת הגרים"><span>2</span></button><button type="button" class="exn-b" data-go="3" aria-label="שאלה 3: אהבת הגרים" title="אהבת הגרים"><span>3</span></button><button type="button" class="exn-b" data-go="4" aria-label="שאלה 4: כיבוד הורים" title="כיבוד הורים"><span>4</span></button><button type="button" class="exn-b" data-go="5" aria-label="שאלה 5: כיבוד הורים" title="כיבוד הורים"><span>5</span></button><button type="button" class="exn-b" data-go="6" aria-label="שאלה 6: כיבוד הורים" title="כיבוד הורים"><span>6</span></button><button type="button" class="exn-b" data-go="7" aria-label="שאלה 7: ואהבת לרעך כמוך (אהבת ישראל)" title="ואהבת לרעך כמוך (אהבת ישראל)"><span>7</span></button><button type="button" class="exn-b" data-go="8" aria-label="שאלה 8: ואהבת לרעך כמוך (אהבת ישראל)" title="ואהבת לרעך כמוך (אהבת ישראל)"><span>8</span></button><button type="button" class="exn-b" data-go="9" aria-label="שאלה 9: קידוש השבת" title="קידוש השבת"><span>9</span></button><button type="button" class="exn-b" data-go="10" aria-label="שאלה 10: קידוש השבת" title="קידוש השבת"><span>10</span></button><button type="button" class="exn-b exn-end" data-go="end">סיום</button></nav>
+<section class="exq" id="q1" data-q="1" aria-labelledby="q1-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 1 מתוך 10 · 10 נקודות</span><h2 id="q1-h">אהבת הגרים</h2><p class="exq-src">📅 בגרות · תשע״ט (2019) · שאלה 6 · &quot;אהבת הגרים&quot; — ספר החינוך, מצוה תל&quot;א</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א'</h3><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> כיצד יש לקיים את מצוות אהבת הגר? ציין דרך אחת</span></p><textarea class="answer" data-id="q1א1" aria-label="שאלה 1 (אהבת הגרים) · סעיף א&#x27;" data-model="להיזהר לא לצער אותו; לעשות לו טובות וחסדים. [הערה למעריך: די בדרך אחת]" placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב'</h3><div class="exq-ctx">בנוגע למצוות אהבת הגר שאל בעל ספר החינוך: "ואף על פי שיכללהו כמו כן הציווי בישראל, שנאמר עליו 'ואהבת לרעך' שהרי גר צדק בכלל 'רעך' הוא".</div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> הסבר את השאלה של בעל ספר החינוך, וכתוב את תשובתו על שאלה זו.</span></p><textarea class="answer" data-id="q1ב1" aria-label="שאלה 1 (אהבת הגרים) · סעיף ב&#x27;" data-model="השאלה — מדוע נצטווינו באופן מיוחד לאהוב את הגר, הרי אהבתו כלולה במצוות אהבת ישראל?
+התשובה — ה&#x27; הוסיף לנו מצווה מיוחדת לאהוב את הגר." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג'</h3><p class="exq-qlead">על פי בעל ספר החינוך, ממצוות אהבת הגר לומדים שיש לרחם גם על אדם שאינו גר.</p><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> מיהו אדם זה, ומה משותף לו ולגר?</span></p><textarea class="answer" data-id="q1ג1" aria-label="שאלה 1 (אהבת הגרים) · סעיף ג&#x27;" data-model="אדם שנמצא בעיר זרה. המשותף לו ולגר הוא שהם נמצאים בסביבה לא מוכרת ואין מי שיעזור להם." placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+<section class="exq" id="q2" data-q="2" aria-labelledby="q2-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 2 מתוך 10 · 10 נקודות</span><h2 id="q2-h">אהבת הגרים</h2><p class="exq-src">📅 בגרות · תשפ״ג (2023) · שאלה 6 · &quot;אהבת הגרים&quot; — ספר החינוך, מצוה תל&quot;א</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א'</h3><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> על פי בעל ספר החינוך, מהי הגדרת המצווה? בתשובתכם התייחסו הן למה שמוטל על האדם לעשות, הן למה שמוטל עליו להימנע מלעשות.</span></p><textarea class="answer" data-id="q2א1" aria-label="שאלה 2 (אהבת הגרים) · סעיף א&#x27;" data-model="לעשות לו טוב ולגמול לו חסד. להימנע: לא לצער אותו" placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב'</h3><div class="exq-ctx">בנוגע למצוות אהבת הגר שאל בעל ספר החינוך: "ואף על פי שיכללהו כמו כן הציווי בישראל, שנאמר עליו 'ואהבת לרעך כמוך' שהרי גר צדק בכלל 'רעך' הוא".</div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> הסבירו את השאלה של בעל ספר החינוך, וכתבו את תשובתו על שאלה זו.</span></p><textarea class="answer" data-id="q2ב1" aria-label="שאלה 2 (אהבת הגרים) · סעיף ב&#x27;" data-model="השאלה: הרי כבר יש מצוות אהבת ישראל שגר כלול בה, אז מדוע צריך מצווה נוספת?
+תשובה: הקב&quot;ה הוסיף מצווה מיוחדת לאהבת הגר. לקבל גם: הקב&quot;ה הוסיף מצווה מיוחדת לאהבת הגר בגלל אהבתו את הגר. לקבל גם: הקב&quot;ה הוסיף מצווה מיוחדת לאהבת הגר כי ראוי &quot;להתחסד ולגמול טובה לאשר הניח אומתו וכל משפחת בית אביו ואמו ויבא לחסות תחת כנפי אומה אחרת באהבתו אותה ובבחירתו באמת ושנאת השקר&quot;" placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג'</h3><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> בעל ספר החינוך לומד ממצוות אהבת גרים שיש לרחם על אנשים נוספים ולאהוב אותם. מי הם האנשים האלה?<br>הסבירו את המשותף בין אנשים אלה ובין הגר.</span></p><textarea class="answer" data-id="q2ג1" aria-label="שאלה 2 (אהבת הגרים) · סעיף ג&#x27;" data-model="מהגרים או אנשים שאינם במקומם, דומים לגרי צדק משום שהם בודדים במקום לא מוכר ואין להם חברה תומכת." placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+<section class="exq" id="q3" data-q="3" aria-labelledby="q3-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 3 מתוך 10 · 10 נקודות</span><h2 id="q3-h">אהבת הגרים</h2><p class="exq-src">📅 בגרות · תשפ״ה (2025) · שאלה 5 · &quot;אהבת הגרים&quot; — ספר החינוך, מצוה תל&quot;א</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א'</h3><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">1.</span> על פי מה שלמדתם, איזו עבירה חמורה יותר – לרמות יהודי מלידה או לרמות גר? נמקו את תשובתכם.</span></p><textarea class="answer" data-id="q3א1" aria-label="שאלה 3 (אהבת הגרים) · סעיף א&#x27; 1" data-model="לרמות גר זו עבירה חמורה יותר כי נוסף על איסור אונאה הנוגע לכל יהודי הוא עובר גם על איסור אונאת הגר ומבטל מצוות &quot;ואהבת לרעך כמוך&quot; ומצוות &quot;ואהבתם את הגר&quot;." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">2.</span> העתיקו למחברתכם את הטבלה שלפניכם, והשלימו אותה.</span></p><p class="exq-qlead">בטבלה שתי עמודות: &quot;המרמה גר&quot; ו&quot;המרמה יהודי מלידה&quot;.</p><div class="exq-tw"><table class="exq-table"><thead><tr><th scope="col"><span class="bm-sr-only">השורה</span></th><th scope="col">המרמה גר</th><th scope="col">המרמה יהודי מלידה</th></tr></thead><tbody><tr><th scope="row">שורה ראשונה בטבלה: על איזה איסור או אילו איסורים עבר?</th><td><textarea class="answer" data-id="q3אt11" aria-label="שאלה 3 · סעיף א&#x27; 2 · המרמה גר · שורה ראשונה בטבלה" data-model="עבר על איסור אונאה ועל איסור אונאת גר" rows="3" placeholder="כתבו כאן..."></textarea></td><td><textarea class="answer" data-id="q3אt12" aria-label="שאלה 3 · סעיף א&#x27; 2 · המרמה יהודי מלידה · שורה ראשונה בטבלה" data-model="עבר על איסור אונאה" rows="3" placeholder="כתבו כאן..."></textarea></td></tr><tr><th scope="row">שורה שנייה בטבלה: איזו מצוות עשה או אילו מצוות עשה ביטל?</th><td><textarea class="answer" data-id="q3אt21" aria-label="שאלה 3 · סעיף א&#x27; 2 · המרמה גר · שורה שנייה בטבלה" data-model="ביטל את מצוות &quot;ואהבת לרעך כמוך&quot; ואת מצוות &quot;ואהבתם את הגר&quot;" rows="3" placeholder="כתבו כאן..."></textarea></td><td><textarea class="answer" data-id="q3אt22" aria-label="שאלה 3 · סעיף א&#x27; 2 · המרמה יהודי מלידה · שורה שנייה בטבלה" data-model="ביטל את מצוות &quot;ואהבת לרעך כמוך&quot;" rows="3" placeholder="כתבו כאן..."></textarea></td></tr></tbody></table></div></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב'</h3><div class="exq-ctx">"גיורא – עד עשרה דרי לא תבזי ארמאה באנפה" (= גר – עד עשרה דורות לא תבזה גוי בפניו).</div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> הסבירו מדוע אסור לבזות גוי בפני גר.</span></p><textarea class="answer" data-id="q3ב1" aria-label="שאלה 3 (אהבת הגרים) · סעיף ב&#x27;" data-model="אסור לבזות גוי בפני גר כי זה מצער את הגר." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג'</h3><p class="exq-qlead">על פי בעל ספר החינוך, ממצוות אהבת הגר לומדים שיש לרחם גם על אדם שאינו גר.</p><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> מיהו אדם זה, ומה משותף לו ולגר?</span></p><textarea class="answer" data-id="q3ג1" aria-label="שאלה 3 (אהבת הגרים) · סעיף ג&#x27;" data-model="אדם שנמצא בעיר זרה. המשותף לו ולגר הוא שהם נמצאים בסביבה לא מוכרת ואין מי שיעזור להם." placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+<section class="exq" id="q4" data-q="4" aria-labelledby="q4-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 4 מתוך 10 · 10 נקודות</span><h2 id="q4-h">כיבוד הורים</h2><p class="exq-src">📅 בגרות · תשע״ט (2019) · שאלה 1 · &quot;כַּבֵּד אֶת אָבִיךָ וְאֶת אִמֶּךָ&quot; — ספר החינוך, מצוה ל&quot;ג</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א'</h3><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> כיצד מצוות כיבוד הורים מביאה להכרת הטוב כלפי הקב&quot;ה?</span></p><textarea class="answer" data-id="q4א1" aria-label="שאלה 4 (כיבוד הורים) · סעיף א&#x27;" data-model="על ידי כיבוד הוריו שהביאוהו לעולם ושעשו לו הרבה טובות, תיקבע בנפשו של המכבד מידת הכרת הטוב למי שעשה לו טובה, ומתוך כך יכיר טובה לקב&quot;ה שברא אותו ועשה לו הרבה טובות." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב'</h3><div class="exq-ctx">"כבוד זה מנכסי מי חייב לעשותו".</div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">1.</span> הסבר את השאלה ההלכתית שבציטוט זה.</span></p><textarea class="answer" data-id="q4ב1" aria-label="שאלה 4 (כיבוד הורים) · סעיף ב&#x27; 1" data-model="&quot;כבוד זה מנכסי מי חייב לעשותו&quot;: השאלה ההלכתית — מי חייב לממן את כיבוד האב, האב או הבן?" placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">2.</span> כתוב מהו הדין שנפסק בנוגע לשאלה זו. בתשובתך פרט שני מצבים.</span></p><textarea class="answer" data-id="q4ב2" aria-label="שאלה 4 (כיבוד הורים) · סעיף ב&#x27; 2" data-model="הדין — המימון הוא מנכסי האב, אם יש לו נכסים. אבל אם אין נכסים לאב, הבן צריך אפילו לחזר על הפתחים כדי להאכיל את אביו." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג'</h3><div class="exq-ctx">"ונוהגת בכל מקום ובכל זמן בזכרים, <u>ובנקבות כל זמן שאפשר להן</u>".</div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> הסבר את הדין המודגש בקו בציטוט שלפניך.</span></p><textarea class="answer" data-id="q4ג1" aria-label="שאלה 4 (כיבוד הורים) · סעיף ג&#x27;" data-model="נשים חייבות במצוות כיבוד הורים בזמן שהן יכולות, דהיינו כשהבעלים שלהן אינם מונעים מהן." placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+<section class="exq" id="q5" data-q="5" aria-labelledby="q5-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 5 מתוך 10 · 10 נקודות</span><h2 id="q5-h">כיבוד הורים</h2><p class="exq-src">📅 בגרות · תשפ״ג (2023) · שאלה 2 · &quot;כַּבֵּד אֶת אָבִיךָ וְאֶת אִמֶּךָ&quot; — ספר החינוך, מצוה ל&quot;ג</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א'</h3><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">1.</span> ציינו שתי דוגמאות מדברי חז&quot;ל לקיום מצוות כיבוד הורים.</span></p><textarea class="answer" data-id="q5א1" aria-label="שאלה 5 (כיבוד הורים) · סעיף א&#x27; 1" data-model="מאכיל, משקה, מלביש, מכסה, מכניס, מוציא. מספיק שתי דוגמות" placeholder="כתבו כאן את התשובה..."></textarea></div><p class="exq-qlead"><span class="exq-n">2.</span> בעל ספר החינוך כתב: "ואם יראנו עובר על דברי תורה באיזה לשון ימנעהו?".</p><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> הסבירו בלשונכם את המקרה המתואר ואת השאלה ששאל ספר החינוך על מקרה זה.</span></p><textarea class="answer" data-id="q5א2" aria-label="שאלה 5 (כיבוד הורים) · סעיף א&#x27;" data-model="רואה את אחד מהוריו חוטא. השאלה כיצד על הבן להגיב על כך, באיזה אופן הוא יכול להעיר להורה שאינו נוהג על פי דיני התורה." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב'</h3><div class="exq-ctx">"וכשיקבע זאת המידה בנפשו, יעלה ממנה להכיר טובת האל ברוך הוא... ויערוך במחשבתו כמה וכמה ראוי לו להיזהר בעבודתו ברוך הוא".</div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">1.</span> מהי המידה שבעל ספר החינוך מתייחס אליה?</span></p><textarea class="answer" data-id="q5ב1" aria-label="שאלה 5 (כיבוד הורים) · סעיף ב&#x27; 1" data-model="הכרת הטוב." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">2.</span> כיצד ההפנמה של מידה זו משפיעה על עבודת ה&#x27;?</span></p><textarea class="answer" data-id="q5ב2" aria-label="שאלה 5 (כיבוד הורים) · סעיף ב&#x27; 2" data-model="הכרת הטוב לה&#x27; תביא להקפדה יתירה בעבודתו." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג'</h3><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> לפניכם חמישה היגדים בנוגע לכיבוד אב ואם. רק שלושה מהם נכונים. כתבו במחברת את הספרות של שלושת ההיגדים הנכונים.</span></p><ol class="exq-list"><li>מימון הוצאות כיבוד ההורים הוא מנכסי ההורים, אם יש להם נכסים.</li><li>אם ההורים מצווים על ילדיהם לעבור על דברי תורה, אסור להם לשמוע בקולם.</li><li>אם לאדם אין נכסים לממן את ההוצאות לטובת ההורים, הוא פטור ממצוות כיבוד הורים.</li><li>אין חובה לכבד את ההורים לאחר פטירתם.</li><li>אם אדם אינו מכבד את הוריו, בית הדין יכול לכפות עליו לקיים מצווה זו.</li></ol><textarea class="answer" data-id="q5ג1" aria-label="שאלה 5 (כיבוד הורים) · סעיף ג&#x27;" data-model="1, 2, 5" placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+<section class="exq" id="q6" data-q="6" aria-labelledby="q6-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 6 מתוך 10 · 10 נקודות</span><h2 id="q6-h">כיבוד הורים</h2><p class="exq-src">📅 בגרות · תשפ״ד (2024) · שאלה 2 · &quot;כַּבֵּד אֶת אָבִיךָ וְאֶת אִמֶּךָ&quot; — ספר החינוך, מצוה ל&quot;ג</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א'</h3><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> הסבירו מהי ההשפעה של קיום מצוות כיבוד אב ואם על עבודת ה&#x27;.</span></p><textarea class="answer" data-id="q6א1" aria-label="שאלה 6 (כיבוד הורים) · סעיף א&#x27;" data-model="השפעה על עבודת ה&#x27;: בעקבות קיום מצוות כיבוד אב ואם יקנה האדם את מידת הכרת הטוב, וכאשר האדם קונה מידה זו יכיר את טובתו של הבורא, ויעריך במחשבתו כמה ראוי לו להיזהר בעבודת ה&#x27;." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב'</h3><div class="exq-ctx">כתב בעל ספר החינוך: "כבוד זה מנכסי מי חייב לעשותו".</div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">1.</span> הסבירו את השאלה ההלכתית שבציטוט זה.</span></p><textarea class="answer" data-id="q6ב1" aria-label="שאלה 6 (כיבוד הורים) · סעיף ב&#x27; 1" data-model="השאלה ההלכתית: מי מממן את כיבוד האב – האב או הבן?" placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">2.</span> כתבו מהו פסק ההלכה בשאלה זו. בתשובתכם פרטו שני מצבים.</span></p><textarea class="answer" data-id="q6ב2" aria-label="שאלה 6 (כיבוד הורים) · סעיף ב&#x27; 2" data-model="פסק ההלכה: המימון הוא מנכסי האב אם יש לאב נכסים. אבל אם אין לאב נכסים – הבן צריך אפילו לחזר על הפתחים כדי להאכיל את אביו." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג'</h3><p class="exq-qlead"><span class="exq-n">1.</span> כתב בעל ספר החינוך: "ונוהגת בכל מקום ובכל זמן בזכרים, ובנקבות כל זמן שאפשר להן".</p><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> על פי בעל ספר החינוך, באיזה מקרה אישה פטורה מקיום מצווה זו?</span></p><textarea class="answer" data-id="q6ג1" aria-label="שאלה 6 (כיבוד הורים) · סעיף ג&#x27;" data-model="כשהבעל שלה מונע ממנה לקיים אותה." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">2.</span> על פי בעל ספר החינוך, אדם העובר על מצווה זו – &quot;עונשו גדול מאוד&quot;. הסבירו מדוע.</span></p><textarea class="answer" data-id="q6ג2" aria-label="שאלה 6 (כיבוד הורים) · סעיף ג&#x27; 2" data-model="כי הוא נעשה כמתנכר לאביו שבשמיים." placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+<section class="exq" id="q7" data-q="7" aria-labelledby="q7-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 7 מתוך 10 · 10 נקודות</span><h2 id="q7-h">ואהבת לרעך כמוך (אהבת ישראל)</h2><p class="exq-src">📅 בגרות · תשפ״ג (2023) · שאלה 5 · &quot;וְאָהַבְתָּ לְרֵעֲךָ כָּמוֹךָ&quot; — ספר החינוך, מצוה רמ&quot;ג</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א'</h3><div class="exq-ctx">"'ואהבת לרעך כמוך'... אמר רבי עקיבא: זה כלל גדול בתורה".</div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">1.</span> על פי בעל ספר החינוך, הסבירו מדוע מצוות אהבת ישראל היא &quot;כלל גדול בתורה&quot;.</span></p><textarea class="answer" data-id="q7א1" aria-label="שאלה 7 (ואהבת לרעך כמוך (אהבת ישראל)) · סעיף א&#x27; 1" data-model="מצוות רבות תלויות בה." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">2.</span> בססו את ההסבר של בעל ספר החינוך באמצעות דוגמה אחת.</span></p><textarea class="answer" data-id="q7א2" aria-label="שאלה 7 (ואהבת לרעך כמוך (אהבת ישראל)) · סעיף א&#x27; 2" data-model="אדם לא יעבור על לא תגנוב, בגלל אהבת ישראל. דוגמאות נוספות בספר" placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב'</h3><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">1.</span> הסבירו את השורש של מצוות אהבת ישראל.</span></p><textarea class="answer" data-id="q7ב1" aria-label="שאלה 7 (ואהבת לרעך כמוך (אהבת ישראל)) · סעיף ב&#x27; 1" data-model="כי כמו שיעשה הוא בחבירו, כן יעשה חבירו בו, ובזה יהיה שלום בין הבריות." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">2.</span> אחת הדוגמאות לקיום של מצווה זו היא &quot;לא יתכבד בקלונו של חברו&quot;. הסבירו דוגמה זו.</span></p><textarea class="answer" data-id="q7ב2" aria-label="שאלה 7 (ואהבת לרעך כמוך (אהבת ישראל)) · סעיף ב&#x27; 2" data-model="שאדם לא יהנה או ירגיש מכובד מתוך השוואה לחבירו הבזוי והמושפל." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג'</h3><div class="exq-ctx">בדיני המצווה נאמר: "והעובר עליה... <u>ביטל עשה זה</u>, <u>מלבד החיוב שבו לפי העניין שהזיקו</u>".</div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> הסבירו בלשונכם את המילים המסומנות בקו.</span></p><textarea class="answer" data-id="q7ג1" aria-label="שאלה 7 (ואהבת לרעך כמוך (אהבת ישראל)) · סעיף ג&#x27;" data-model="ביטל העשה זה: לא קיים את מצוות העשה של אהבת ישראל.
+מלבד החיוב שבו לפי הענין שהזיקו: חובה עליו לפצות את חבירו בהתאם לפגיעה שפגע בו" placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+<section class="exq" id="q8" data-q="8" aria-labelledby="q8-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 8 מתוך 10 · 10 נקודות</span><h2 id="q8-h">ואהבת לרעך כמוך (אהבת ישראל)</h2><p class="exq-src">📅 בגרות · תשפ״ו (2026) · שאלה 3 · &quot;וְאָהַבְתָּ לְרֵעֲךָ כָּמוֹךָ&quot; — ספר החינוך, מצוה רמ&quot;ג</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א'</h3><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">1.</span> מהו שורש מצוות אהבת ישראל?</span></p><textarea class="answer" data-id="q8א1" aria-label="שאלה 8 (ואהבת לרעך כמוך (אהבת ישראל)) · סעיף א&#x27; 1" data-model="שורש המצווה: יחס של אהבה כלפי חברו יגרום ליחס דומה כלפיו מצד חברו &quot;ובזה יהיה שלום בין הבריות&quot;." placeholder="כתבו כאן את התשובה..."></textarea></div><p class="exq-qlead"><span class="exq-n">2.</span> בהגדרה של מצווה זו מביא בעל ספר החינוך את הדרכת חז"ל: "דעלך סני – לחברך לא תעבד" (= השנוא עליך – אל תעשה לחברך).</p><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> על פי בעל ספר החינוך, כתבו שתי דוגמאות ליישום של הדרכה זו.</span></p><textarea class="answer" data-id="q8א2" aria-label="שאלה 8 (ואהבת לרעך כמוך (אהבת ישראל)) · סעיף א&#x27;" data-model="דוגמאות: חמול על חברך כמו שאתה חומל על עצמך, חמול על ממונו כמו שאתה חומל על ממונך, אל תונה את חברך כמו שאינך רוצה שיונו אותך, אל תזיק לחברך כמו שאינך רוצה שיזיקו לך.
+הערה למעריכים: על התלמידים לכתוב שתי דוגמאות; לקבל דוגמאות מתאימות אחרות." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב'</h3><div class="exq-ctx">"... וכל שכן אם הזיק אותו את חברו בממון או ציערו בשום דבר לדעת – ביטל עשה זה".</div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> הסבירו כיצד ייתכן שאדם הזיק לחברו בממון ובכל זאת לא ביטל עשה זה. בתשובתכם ציינו מאיזו מילה בציטוט למדתם זאת.</span></p><textarea class="answer" data-id="q8ב1" aria-label="שאלה 8 (ואהבת לרעך כמוך (אהבת ישראל)) · סעיף ב&#x27;" data-model="אם הזיק את חברו לא בכוונה.
+מילה בציטוט: &quot;לדעת&quot;" placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג'</h3><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> האם נשים חייבות במצווה זו? נמקו את תשובתכם.</span></p><textarea class="answer" data-id="q8ג1" aria-label="שאלה 8 (ואהבת לרעך כמוך (אהבת ישראל)) · סעיף ג&#x27;" data-model="נשים חייבות במצווה זו כיוון שזו מצוות עשה שאין הזמן גרמה." placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+<section class="exq" id="q9" data-q="9" aria-labelledby="q9-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 9 מתוך 10 · 10 נקודות</span><h2 id="q9-h">קידוש השבת</h2><p class="exq-src">📅 בגרות · תשפ״ג (2023) · שאלה 1 · קידוש השבת בדברים — ספר החינוך, מצוה ל&quot;א</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א'</h3><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> מה הם שני הזמנים במהלך השבת שבהם מקיימים מצווה זו, ומהי המטרה של המצווה?</span></p><textarea class="answer" data-id="q9א1" aria-label="שאלה 9 (קידוש השבת) · סעיף א&#x27;" data-model="בכניסת השבת וביציאתה. לקבל גם: קידוש והבדלה.
+המטרה: לזכור את גדולת יום השבת ולקבוע בלב את האמונה בבריאת העולם על ידי ה&#x27;." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב'</h3><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">1.</span> מדוע קבעו חכמים שיש לקדש את השבת ביין?</span></p><textarea class="answer" data-id="q9ב1" aria-label="שאלה 9 (קידוש השבת) · סעיף ב&#x27; 1" data-model="כי היין מעורר את האדם ומשמח אותו." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">2.</span> מהי כמות היין הנדרשת לקידוש, ומדוע אין לקדש על פחות מכמות זו?</span></p><textarea class="answer" data-id="q9ב2" aria-label="שאלה 9 (קידוש השבת) · סעיף ב&#x27; 2" data-model="רביעית. פחות מכמות זו אינה משפיעה על האדם." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג'</h3><div class="exq-ctx">בספר החינוך כתוב שנשים חייבות במצווה זו "אף על פי שהיא מן המצוות שהזמן גרמא".</div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">1.</span> הסבירו את המושג &quot;מצוות עשה שהזמן גרמא&quot;.</span></p><textarea class="answer" data-id="q9ג1" aria-label="שאלה 9 (קידוש השבת) · סעיף ג&#x27; 1" data-model="מצווה שהחיוב שלה תלוי בזמן מסוים." placeholder="כתבו כאן את התשובה..."></textarea></div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">2.</span> מדוע מצוות קידוש יום השבת היא &quot;מצוות עשה שהזמן גרמא&quot;?</span></p><textarea class="answer" data-id="q9ג2" aria-label="שאלה 9 (קידוש השבת) · סעיף ג&#x27; 2" data-model="כי המצווה חלה רק בשבת או: בזמן מסוים בשבת." placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+<section class="exq" id="q10" data-q="10" aria-labelledby="q10-h">
+  <div class="exq-head"><span class="exq-kicker">שאלה 10 מתוך 10 · 10 נקודות</span><h2 id="q10-h">קידוש השבת</h2><p class="exq-src">📅 בגרות · תשפ״ו (2026) · שאלה 1 · קידוש השבת בדברים — ספר החינוך, מצוה ל&quot;א</p><p class="exq-note">שאלה משולבת עם המצווה &quot;שלא לשבור עצם מן הפסח&quot;</p></div>
+  <div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">א</span> סעיף א'</h3><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> על פי בעל ספר החינוך, הסבירו את הקשר בין המצווה &quot;שלא לשבור עצם מן הפסח&quot; ובין זכירת יציאת מצרים.</span></p><textarea class="answer" data-id="q10א1" aria-label="שאלה 10 (קידוש השבת) · סעיף א&#x27;" data-model="שבירת עצמות בעת האכילה היא מעשה המתאים לעניים רעבים ולא לבני מלכים. ביציאת מצרים עם ישראל התחיל להיות סגולת כל העמים, ממלכת כהנים וגוי קדוש, וכדי שמעלה זו תיקבע בנפשות ישראל ראוי להימנע בכל שנה ושנה, בעת שהייתה בה יציאת מצרים, משבירת עצמות בעת האכילה." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ב</span> סעיף ב'</h3><div class="exq-ctx">בנוגע למצווה "שלא לשבור עצם מן הפסח" הזהיר בעל ספר החינוך: "ואל יבטיחך יצרך לומר: אחרי היות ליבי שלם ותמים באמונת א-להים, מה הפסד יש כי אתענג לפעמים בתענוגי אנשים".</div><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">1.</span> הסבירו אזהרה זו של בעל ספר החינוך.</span></p><textarea class="answer" data-id="q10ב1" aria-label="שאלה 10 (קידוש השבת) · סעיף ב&#x27; 1" data-model="בעל ספר החינוך מזהיר ממצב שבו אדם מרגיש בטוח באמונתו ובעקבות כך מרשה לעצמו לעשות מעשים שאינם ראויים ולהתחבר עם אנשים שאינם ראויים מתוך הנחה שהתנהגות זו לא תשפיע עליו לרעה." placeholder="כתבו כאן את התשובה..."></textarea></div><p class="exq-qlead"><span class="exq-n">2.</span> אזהרה זו של בעל ספר החינוך מבוססת על גישתו החינוכית שלפיה "אחרי הפעולות נמשכים הלבבות".</p><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> הסבירו את הקשר בין אזהרה זו לגישתו החינוכית.</span></p><textarea class="answer" data-id="q10ב2" aria-label="שאלה 10 (קידוש השבת) · סעיף ב&#x27;" data-model="על פי גישתו החינוכית של בעל ספר החינוך, מעשיו של אדם משפיעים עליו, ולכן עשיית מעשים שאינם ראויים והתחברות עם אנשים שאינם ראויים תשפיע עליו לרעה בסופו של דבר, אף שכעת הוא מרגיש בטוח באמונתו." placeholder="כתבו כאן את התשובה..."></textarea></div></div><div class="exq-part"><h3 class="exq-part-h"><span class="exq-let">ג</span> סעיף ג'</h3><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n">1.</span> הסבירו כיצד הגישה החינוכית של בעל ספר החינוך שמוזכרת בתת־סעיף ב2 באה לידי ביטוי במצוות קידוש שבת בדברים.</span></p><textarea class="answer" data-id="q10ג1" aria-label="שאלה 10 (קידוש השבת) · סעיף ג&#x27; 1" data-model="כאשר אדם מקדש שבת בדברים, כלומר מזכיר בפיו את גדולת יום השבת ומעלתו, מעשה זה משפיע עליו שתיקבע בליבו אמונת חידוש העולם." placeholder="כתבו כאן את התשובה..."></textarea></div><p class="exq-qlead"><span class="exq-n">2.</span> בנוגע ל"מצוות קידוש שבת בדברים" כתב בעל ספר החינוך: "אמרו לנו חכמינו, שדברים אלו מצווים אנו לאומרן על היין".</p><div class="exq-sub"><p class="exq-q"><span class="exq-mark" aria-hidden="true">❓</span><span><span class="exq-n"></span> כיצד יש לקיים את המצווה הזאת על פי התורה, ומה הוסיפו חכמים על כך?</span></p><textarea class="answer" data-id="q10ג2" aria-label="שאלה 10 (קידוש השבת) · סעיף ג&#x27;" data-model="על פי התורה יש לקיים את המצווה באמצעות דיבור, אמירת דברי שבח וגדולה של יום השבת והבדלתו משאר הימים.
+חכמים הוסיפו שדברים אלה צריכים להיאמר על כוס יין." placeholder="כתבו כאן את התשובה..."></textarea></div></div>
+</section>
+  <section class="ex-end" id="exEnd" hidden aria-labelledby="exEndH">
+    <h2 id="exEndH">סיום המבחן</h2>
+    <p>צריך לענות על כל 10 השאלות, על כל הסעיפים שלהן. אחרי השליחה למורה אי אפשר לשנות את התשובות.</p>
+    <p id="exEndCount" style="font-weight:700"></p>
+    <ul id="exSummary"></ul>
+    <div class="bm-send-wrap">
+      <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="תושב&quot;ע - מבחן: לקט מצוות" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+      <p class="bm-send-last" id="bmSendLast" hidden></p>
+      <div class="bm-send-panel" id="bmSendPanel" hidden></div>
+    </div>
+  </section>
+  <div class="exbar" id="exBar">
+    <button type="button" class="exb" id="exPrev">‹ השאלה הקודמת</button>
+    <span class="ex-pos" id="exPos" aria-live="polite"></span>
+    <button type="button" class="exb primary" id="exNext">השאלה הבאה ›</button>
+  </div>
+  <p class="ex-save" id="exSave" aria-live="polite"></p>
+</main>
+<footer class="site-footer">לקט מצוות · מבחן</footer>
+<script>
+(function(){
+  "use strict";
+  var KEY = "bm-exam:leket-mitzvot-exam";
+  var qs = Array.prototype.slice.call(document.querySelectorAll(".exq"));
+  var end = document.getElementById("exEnd"), navBtns = Array.prototype.slice.call(document.querySelectorAll(".exn-b"));
+  var prev = document.getElementById("exPrev"), next = document.getElementById("exNext"), pos = document.getElementById("exPos");
+  var fields = Array.prototype.slice.call(document.querySelectorAll(".exq textarea.answer"));
+  /* מחוון למורה (?key=1) והדפסה: כל השאלות ברצף */
+  if(/[?&](key|view)=/.test(location.search)) document.documentElement.classList.add("ex-all");
+  /* מורה מחובר (לא במחוון): כפתור למחוון */
+  try{
+    if(!/[?&]key=/.test(location.search) && (sessionStorage.getItem("teacherAreaUnlocked") === "1" || sessionStorage.getItem("bm-teacher-token"))){
+      var kb = document.createElement("a");
+      kb.href = location.pathname + "?key=1"; kb.className = "exb primary"; kb.textContent = "🗝️ הצגת המחוון (התשובות)";
+      kb.style.cssText = "display:inline-flex;align-items:center;text-decoration:none;margin:0 auto 1rem";
+      var w = document.createElement("div"); w.style.textAlign = "center"; w.appendChild(kb);
+      document.getElementById("exNav").insertAdjacentElement("beforebegin", w);
+    }
+  }catch(e){}
+  try{ var saved = JSON.parse(localStorage.getItem(KEY) || "{}"); fields.forEach(function(f){ if(saved[f.getAttribute("data-id")] && !f.value) f.value = saved[f.getAttribute("data-id")]; }); }catch(e){}
+  var saveT = null, saveMsg = document.getElementById("exSave");
+  function save(){
+    var d = {}; fields.forEach(function(f){ if(f.value.trim()) d[f.getAttribute("data-id")] = f.value; });
+    try{ localStorage.setItem(KEY, JSON.stringify(d)); saveMsg.textContent = "✓ התשובות נשמרו במכשיר"; }catch(e){}
+    marks();
+  }
+  fields.forEach(function(f){ f.addEventListener("input", function(){ clearTimeout(saveT); saveT = setTimeout(save, 500); }); });
+  function stateOf(q){
+    var fs = q.querySelectorAll("textarea.answer"), n = 0;
+    Array.prototype.forEach.call(fs, function(f){ if(f.value.trim()) n++; });
+    return { n:n, t:fs.length };
+  }
+  var NEED = 10;
+  function startedQs(){ return qs.filter(function(q){ return stateOf(q).n > 0; }); }
+  function applyLimit(){
+    if(document.documentElement.classList.contains("ex-all")) return;
+    var started = startedQs(), full = started.length >= NEED;
+    qs.forEach(function(q){
+      var mine = stateOf(q).n > 0, lock = full && !mine;
+      q.querySelectorAll("textarea.answer").forEach(function(f){ f.readOnly = lock; });
+      var note = q.querySelector(".ex-lock");
+      if(lock && !note){ note = document.createElement("p"); note.className = "ex-lock"; note.setAttribute("role", "note");
+        note.textContent = "🔒 כבר התחלת לענות על " + NEED + " שאלות - זה מה שצריך. כדי לענות על השאלה הזו במקום אחרת, מחק קודם את כל התשובות באחת השאלות שענית עליהן.";
+        q.querySelector(".exq-head").appendChild(note); }
+      if(!lock && note) note.remove();
+    });
+    var c = document.getElementById("exCount");
+    c.textContent = full ? "✓ התחלת לענות על כל " + NEED + " השאלות - ודא/י שענית על כל הסעיפים שלהן" : "ענית עד עכשיו על " + started.length + " שאלות מתוך " + NEED;
+    c.classList.toggle("is-full", full);
+  }
+  function marks(){
+    qs.forEach(function(q, i){
+      var s = stateOf(q), b = navBtns[i];
+      b.classList.toggle("is-done", s.n === s.t);
+      b.classList.toggle("is-part", s.n > 0 && s.n < s.t);
+      b.setAttribute("aria-label", "שאלה " + (i + 1) + (s.n === s.t ? " - נענתה" : s.n ? " - נענו " + s.n + " מתוך " + s.t + " תשובות" : " - עוד לא נענתה"));
+    });
+    var full = startedQs().length >= NEED;
+    qs.forEach(function(q, i){ navBtns[i].classList.toggle("is-skip", full && stateOf(q).n === 0); });
+    applyLimit();
+  }
+  var cur = 0;
+  function go(i, focus){
+    cur = i;
+    qs.forEach(function(q, k){ q.hidden = k !== i; });
+    end.hidden = i !== qs.length;
+    navBtns.forEach(function(b, k){ if(k === i) b.setAttribute("aria-current", "step"); else b.removeAttribute("aria-current"); });
+    prev.disabled = i === 0;
+    next.hidden = i === qs.length;
+    next.textContent = i === qs.length - 1 ? "סיום ושליחה ›" : "השאלה הבאה ›";
+    pos.textContent = i < qs.length ? "שאלה " + (i + 1) + " מתוך " + qs.length : "סיום ושליחה";
+    if(i === qs.length) summary();
+    try{ sessionStorage.setItem(KEY + ":at", String(i)); }catch(e){}
+    if(focus !== false){ var h = i < qs.length ? qs[i].querySelector("h2") : document.getElementById("exEndH"); if(h){ h.tabIndex = -1; h.focus({ preventScroll:true }); } window.scrollTo({ top: document.getElementById("exNav").offsetTop - 70, behavior:"smooth" }); }
+  }
+  function summary(){
+    var ul = document.getElementById("exSummary"); ul.innerHTML = "";
+    var st = startedQs().length, ec = document.getElementById("exEndCount");
+    ec.textContent = st === NEED ? "✓ ענית על כל " + NEED + " השאלות." : (st < NEED ? "⚠️ ענית על " + st + " שאלות בלבד - צריך " + NEED + "." : "ענית על " + st + " שאלות.");
+    qs.forEach(function(q, i){
+      var s = stateOf(q), li = document.createElement("li");
+      var skipped = s.n === 0 && st >= NEED;
+      li.className = (s.n < s.t && !skipped) ? "miss" : "";
+      var t = document.createElement("span"); t.textContent = "שאלה " + (i + 1) + " - " + q.querySelector("h2").textContent;
+      var r = document.createElement("span"); r.textContent = skipped ? "לא נבחרה" : s.n + " / " + s.t + " תשובות";
+      li.appendChild(t); li.appendChild(r);
+      if(s.n < s.t && !skipped){ var b = document.createElement("button"); b.type = "button"; b.textContent = "להשלמה"; b.addEventListener("click", function(){ go(i); }); li.appendChild(b); }
+      ul.appendChild(li);
+    });
+  }
+  navBtns.forEach(function(b){ b.addEventListener("click", function(){ var g = b.getAttribute("data-go"); go(g === "end" ? qs.length : (+g - 1)); }); });
+  prev.addEventListener("click", function(){ if(cur > 0) go(cur - 1); });
+  next.addEventListener("click", function(){ if(cur < qs.length) go(cur + 1); });
+  var at = 0; try{ at = +sessionStorage.getItem(KEY + ":at") || 0; }catch(e){}
+  marks();
+  if(!document.documentElement.classList.contains("ex-all")) go(Math.min(at, qs.length), false);
+  window.addEventListener("beforeprint", function(){ document.documentElement.classList.add("ex-all"); });
+  window.addEventListener("afterprint", function(){ if(!/[?&](key|view)=/.test(location.search)) document.documentElement.classList.remove("ex-all"); });
+})();
+</script>
+<script src="assets/units-data.js?v=20261117-leket-exam"></script>
+<script src="assets/bm-api.js"></script>
+<script src="assets/autoscore.js"></script>
+<script src="assets/direct-submit.js?v=3"></script>
+<script src="assets/send-to-teacher.js?v=6"></script>
+<script src="assets/lesson-mode.js?v=13"></script>
+<script src="assets/class-dock.js?v=13"></script>
+<script src="assets/answer-key.js?v=2"></script>
+<script src="assets/teacher-key-link.js?v=2"></script>
+</body>
+</html>

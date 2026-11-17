@@ -71,6 +71,7 @@
 "bereshit-50-text.html": "bereshit-yosef-answers-hub.html#chapter-50",
 "bereshit-50.html": "bereshit-yosef-answers-hub.html#chapter-50",
 "bereshit-avraham-exam.html": "?key=1",
+"leket-mitzvot-exam.html": "?key=1",
 "ezra-1-2-questions.html": "ezra-nechemia-answers-hub.html#chapter-ezra1-2",
 "ezra-1-2-summary.html": "ezra-nechemia-answers-hub.html#chapter-ezra1-2",
 "ezra-1-2-text.html": "ezra-nechemia-answers-hub.html#chapter-ezra1-2",
