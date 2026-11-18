@@ -27,7 +27,7 @@
     var m = Math.floor(sec / 60), s = sec % 60;
     return m + ":" + pad(s) + " דק׳";
   }
-  function whyText(w){ return w === "blur" ? "חלון אחר" : (w === "split" ? "מסך מפוצל" : (w === "fs" ? "יצא ממסך מלא" : "יצא מהדף")); }
+  function whyText(w){ return w === "blur" ? "חלון אחר" : (w === "split" ? "מסך מפוצל / חלון קטן" : (w === "fs" ? "יצא ממסך מלא" : (w === "tab" ? "פתח את המבחן בחלון נוסף" : "יצא מהדף"))); }
   function pageName(p){
     if(!p) return "";
     if(p === "index.html") return "דף הבית";

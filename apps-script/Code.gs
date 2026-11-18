@@ -1119,7 +1119,7 @@ function presence_(d) {
   if (!/^[\w.-]+\.html$/.test(page)) page = '';
   var state = d.state === 'out' ? 'out' : (d.state === 'bye' ? 'bye' : (d.state === 'paste' ? 'paste' : 'in'));
   // blur = חלון/אפליקציה אחרת כשהדף עדיין גלוי; split = מסך מפוצל (הדף נהיה צר/נמוך הרבה יותר מהמסך)
-  var reason = (d.reason === 'blur' || d.reason === 'split' || d.reason === 'fs') ? d.reason : 'hidden';   // fs = יצא ממסך מלא (מבחן)
+  var reason = (d.reason === 'blur' || d.reason === 'split' || d.reason === 'fs' || d.reason === 'tab') ? d.reason : 'hidden';   // fs = יצא ממסך מלא (מבחן), tab = פתח את המבחן בחלון נוסף
   var t = Number(d.t) || Date.now();
 
   var lock = LockService.getScriptLock();
