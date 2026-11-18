@@ -24,8 +24,8 @@ var exLab=el('label');exLab.style.cssText='display:flex;gap:8px;align-items:cent
 var exTimes=el('div');exTimes.style.cssText='display:none;flex-wrap:wrap;gap:8px 18px;align-items:end';
 function exTime(id,txt){var w=el('span');w.style.cssText='display:flex;flex-direction:column;gap:2px';var l=el('label',txt);l.htmlFor=id;var i=el('input');i.type='time';i.id=id;i.className='tt-select';i.style.width='auto';w.append(l,i);exTimes.append(w);return i;}
 var exFrom=exTime('subjExamFrom','נפתח בשעה'),exTo=exTime('subjExamTo','נסגר ונשלח לבד בשעה');
-exTimes.append(el('p','במבחן: מסך מלא; כל יציאה מהמסך מסתירה את המבחן ומדווחת לכם; העתקה והדבקה חסומות; בשעת הסגירה התשובות של מי שלא שלח נשלחות אליכם לבד.'));
-exChk.addEventListener('change',function(){exTimes.style.display=exChk.checked?'flex':'none';});
+exTimes.append(el('p','במבחן: מסך מלא; כל יציאה מהמסך מסתירה את המבחן ומדווחת לכם; העתקה, הדבקה וטקסט מוכן חסומים; המבחן נפתח רק בחלון אחד; ביציאה החמישית המבחן נשלח לבד; בשעת הסגירה התשובות של מי שלא שלח נשלחות אליכם לבד.'));
+exChk.addEventListener('change',function(){exTimes.style.display=exChk.checked?'flex':'none';var s=typeof selection==='function'?selection():null;if(!exChk.checked&&s&&/מבחן/.test(s.page))status.textContent='⚠ בלי שעות מבחן אין מסך מלא, והתלמידים יכולים לצאת לחלון אחר ולחזור. מומלץ להשאיר מסומן.';});
 exWrap.append(exLab,exTimes);form.append(exWrap);form.append(start);
 form.append(el('p','לאחר פתיחת שיעור באתר: התלמידים מזינים קוד שיעור ות״ז, בהתאם לרשימת הכיתה השמורה.'));wrap.append(form);
 var heading=starter.querySelector('.tt-h');if(heading)heading.textContent='פתיחת שיעור לפי מקצוע';
@@ -44,7 +44,9 @@ function addTests(sel,topics){var G=[['🎓 מבחני בגרות',/בגרות/]
 function loadPages(){if(typeof result!=='undefined'&&result)result.hidden=true;page.replaceChildren();option(page,'','בחרו דף לימוד');var u=matchingUnits().filter(function(x){return x.key===unit.value;})[0];page.disabled=!u;if(u){if(u.url)option(page,u.url,u.title+' — עמוד היחידה');if(u.tests)addTests(page,u.topics);else addTopics(page,u.topics||[]);}update();}
 function selection(){var u=matchingUnits().filter(function(x){return x.key===unit.value;})[0];if(!u)return null;var pages=(u.url?[{title:u.title+' — עמוד היחידה',url:u.url}]:[]).concat(u.topics||[]);var p=pages.filter(function(x){return x.url===page.value;})[0];if(!p)return null;return {subject:subjects.filter(function(s){return s[0]===chosenSubject;})[0][1],cls:cls.options[cls.selectedIndex].textContent,unit:u.title,page:p.title,url:p.url};}
 function update(){var s=selection();start.disabled=!s||busy||uncertain;if(!busy)start.textContent='התחלת שיעור';summary.textContent=s?s.subject+' · '+s.cls+' · '+s.page:'';}
-cls.addEventListener('change',loadUnits);unit.addEventListener('change',loadPages);page.addEventListener('change',update);
+/* דף מבחן - מצב מבחן (מסך מלא, חסימות, שליחה לבד) מסומן מעצמו, עם שעות מעכשיו ולשעה וחצי */
+function examAuto(){var s=selection();var isEx=!!s&&(/(^|-)(exam|final-test)(-|\.)/.test(s.url)||/מבחן/.test(s.page))&&!/-answers\.html/.test(s.url);if(!isEx)return;exChk.checked=true;exTimes.style.display='flex';var hh=function(d){return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');};var a=new Date(Date.now()+2*60000);if(!exFrom.value)exFrom.value=hh(a);if(!exTo.value)exTo.value=hh(new Date(a.getTime()+90*60000));status.textContent='📝 זה דף מבחן - מצב מבחן מחמיר הופעל (מסך מלא, חסימות, שליחה לבד). בדקו את השעות.';}
+cls.addEventListener('change',loadUnits);unit.addEventListener('change',loadPages);page.addEventListener('change',update);page.addEventListener('change',examAuto);
 
 var result=el('section');result.className='subject-live-result';result.hidden=true;result.setAttribute('aria-label','קוד השיעור');form.append(result);
 var recovery=el('button','רענון הקודים הקיימים לפני ניסיון נוסף');recovery.type='button';recovery.hidden=true;recovery.className='tt-btn';form.append(recovery);

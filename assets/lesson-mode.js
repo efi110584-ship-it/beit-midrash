@@ -305,6 +305,8 @@ try{
   if(!API) return;
 
   var page = location.pathname.split("/").pop() || "index.html";
+  /* דף מבחן (לפי שם הקובץ) - בו הבקרה מחמירה גם בלי שעות מבחן */
+  var EXAM_PAGE = /(^|-)(exam|final-test)(-|\.)/.test(page) && !/-answers\.html$/.test(page);
   var leaves = st.leaves || 0;
   var timer = null;
   var bar = null;
@@ -830,6 +832,8 @@ try{
     if(!t || !(t.tagName === "TEXTAREA" || (t.tagName === "INPUT" && /^(text|search|)$/.test(t.type || "")) || t.isContentEditable)) return;
     var len = 0;
     try{ len = ((e.clipboardData || window.clipboardData).getData("text") || "").length; }catch(err){}
+    /* בדף מבחן - גם בשיעור רגיל בלי שעות - ההדבקה חסומה, והניסיון מדווח */
+    if(EXAM_PAGE){ e.preventDefault(); e.stopPropagation(); toast("🔒 הדבקה חסומה במבחן - הניסיון נרשם אצל המורה"); }
     send("paste", null, { len:len });
   }
   function onVisibility(){
@@ -868,6 +872,22 @@ try{
     window.addEventListener("blur", onBlur);
     window.addEventListener("focus", comeBack);
     document.addEventListener("paste", onPaste, true);
+    if(EXAM_PAGE){
+      /* דף מבחן: בלי העתקה, גזירה, גרירה ותפריט לחיצה ימנית - גם בשיעור בלי שעות מבחן */
+      ["copy", "cut", "drop", "dragstart", "contextmenu"].forEach(function(n){
+        document.addEventListener(n, function(e){ if(stopped) return; e.preventDefault(); e.stopPropagation(); }, true);
+      });
+      /* טקסט שנכנס בבת אחת בלי הקלדה (גרירה, הדבקה מהמקלדת של הטלפון, תוספים) - חסום ומדווח */
+      document.addEventListener("beforeinput", function(e){
+        if(stopped || e.defaultPrevented) return;
+        var t = e.inputType || "", d = e.data || "";
+        if(!d && e.dataTransfer){ try{ d = e.dataTransfer.getData("text") || ""; }catch(err){} }
+        if(/^insertFrom(Paste|Drop|Yank)/.test(t) || ((t === "insertText" || t === "insertReplacementText") && d.length > 25)){
+          e.preventDefault(); toast("🔒 אי אפשר להכניס טקסט מוכן במבחן - הניסיון נרשם אצל המורה");
+          send("paste", null, { len:d.length });
+        }
+      }, true);
+    }
     document.addEventListener("input", touch, true);
     document.addEventListener("bm-steps-change", touch);
     window.addEventListener("resize", onResize);
@@ -883,6 +903,7 @@ try{
       out: function(why){ extraOut = why || "fs"; isOut = false; goOut(extraOut); },
       back: function(){ extraOut = ""; comeBack(); },
       leaves: function(){ return leaves; },
+      paste: function(len){ send("paste", null, { len:len || 0 }); },
       st: function(){ return st; }
     };
   }
@@ -957,6 +978,24 @@ try{
   if(ex && inWindow() && (onExamPage() || !examPage) && readDone() === "" && now() < ex.s) document.documentElement.classList.add("bm-ex-hide");
 
   var cover = null, bar = null, entered = false, sending = false, lastDraft = "", draftTimer = null, tickTimer = null, outs = 0;
+  /* בקרה מחמירה:
+     - מספר היציאות נשמר במכשיר (רענון הדף לא מאפס אותו). ביציאה ה-MAX_OUTS המבחן נשלח לבד וננעל.
+     - חלון מוקטן במחשב (חצי מסך / חלון לצד צ'אט) = יציאה.
+     - המבחן פתוח רק בלשונית אחת במכשיר.
+     - טקסט שנכנס בבת אחת (הדבקה, גרירה, תוספים, השלמה אוטומטית ארוכה) נחסם ומדווח. */
+  var MAX_OUTS = 5, WARN_OUTS = 3;
+  var OUTS_KEY = "bm-exam-outs:" + st.code;
+  try{ outs = Number(localStorage.getItem(OUTS_KEY)) || 0; }catch(e){}
+  function addOut(why){
+    if(sending || forced) return;
+    outs++;
+    try{ localStorage.setItem(OUTS_KEY, String(outs)); }catch(e){}
+    if(outs >= MAX_OUTS && !sending && phase() === "run") setTimeout(function(){ forced = "exits"; finalSend(); }, 50);
+  }
+  var forced = "";
+  /* יציאה אחת נספרת פעם אחת, גם כשכמה אירועים קורים יחד (חלון אחר + יציאה ממסך מלא). מתאפס בלחיצה על "חזרה למבחן" */
+  var awayCounted = false;
+  function countAway(why){ if(awayCounted) return; awayCounted = true; addOut(why); }
   function ui(cls){
     if(!cover){
       cover = document.createElement("div");
@@ -995,18 +1034,47 @@ try{
   function exitFs(){ try{ if(isFs()){ if(document.exitFullscreen) document.exitFullscreen(); else if(document.webkitExitFullscreen) document.webkitExitFullscreen(); } }catch(e){} }
 
   function lm(){ return window.BM_LESSON_MODE; }
-  function away(){ return document.visibilityState !== "visible" || !document.hasFocus() || (fsOk && !isFs() && Date.now() - goAt > 1500); }
+  function touchDev(){ return (navigator.maxTouchPoints || 0) > 0 && !!window.matchMedia && window.matchMedia("(pointer: coarse)").matches; }
+  /* חלון מוקטן במחשב: החלון צר או נמוך הרבה יותר מהמסך (חצי מסך, חלון לצד חלון אחר) */
+  function smallWin(){
+    if(touchDev() || isFs()) return false;
+    var sw = screen.availWidth || screen.width, sh = screen.availHeight || screen.height;
+    if(!sw || !sh || !window.outerWidth) return false;
+    return window.outerWidth < sw * 0.9 || window.outerHeight < sh * 0.75;
+  }
+  function away(){ return dupTab || document.visibilityState !== "visible" || !document.hasFocus() || (fsOk && !isFs() && Date.now() - goAt > 1500) || (!fsOk && smallWin()); }
+  var smallReported = false;
+  function onWinResize(){
+    if(!entered || phase() !== "run" || fsOk) { render(); return; }
+    if(smallWin()){ if(!smallReported){ smallReported = true; countAway("split"); if(lm()) lm().out("split"); saveDraft(true); } }
+    else if(smallReported){ smallReported = false; if(lm()) lm().back(); }
+    render();
+  }
+  window.addEventListener("resize", function(){ setTimeout(onWinResize, 300); });
+
+  /* ---------- לשונית אחת בלבד ---------- */
+  var tabId = Math.random().toString(36).slice(2), dupTab = false, bc = null;
+  try{
+    bc = new BroadcastChannel("bm-exam-" + st.code);
+    bc.onmessage = function(m){
+      var d = m && m.data || {};
+      if(d.id === tabId) return;
+      if(d.t === "hello" && entered && !dupTab) bc.postMessage({ t:"here", id:tabId });
+      if(d.t === "here" && !dupTab && !entered){ dupTab = true; if(lm()) lm().out("tab"); render(); }
+    };
+    bc.postMessage({ t:"hello", id:tabId });
+  }catch(e){}
   var fsReported = false;
   function onFsChange(){
     if(!entered || phase() !== "run") return;
     if(fsOk && !isFs()){
-      if(!fsReported){ fsReported = true; outs++; if(lm()) lm().out("fs"); saveDraft(true); }
+      if(!fsReported){ fsReported = true; countAway("fs"); if(lm()) lm().out("fs"); saveDraft(true); }
     } else if(fsReported){ fsReported = false; if(lm()) lm().back(); }
     render();
   }
   function onAway(){
     if(!entered || phase() !== "run") return;
-    if(document.visibilityState !== "visible" || !document.hasFocus()){ if(!cover || cover.hidden) outs++; saveDraft(true); }
+    if(document.visibilityState !== "visible" || !document.hasFocus()){ countAway("away"); saveDraft(true); }
     render();
   }
 
@@ -1046,23 +1114,34 @@ try{
       c.querySelector('[data-ex="count"]').textContent = "עוד " + left(ex.s - now());
       return;
     }
+    if(ph === "run" && forced){ lockFields(); return; }   /* נשלח בגלל יציאות - המסך של השליחה נשאר */
     if(ph === "run"){
       prefill();
+      if(dupTab){
+        setCover("is-warn", '<div class="bm-ex-ico" aria-hidden="true">⛔</div><h2>המבחן כבר פתוח בחלון אחר</h2>' +
+          '<p>אפשר לפתוח את המבחן רק בחלון אחד. החלון הזה חסום, והניסיון דווח למורה.</p><p>סגרו את החלון הזה והמשיכו בחלון הראשון.</p>', "dup");
+        return;
+      }
       if(!entered){
         setCover("", '<div class="bm-ex-ico" aria-hidden="true">📝</div><h2>המבחן פתוח</h2>' +
           '<p>הזמן: עד השעה <b>' + hm(ex.e) + '</b>. בשעה הזו התשובות נשלחות למורה לבד.</p>' +
           '<ul><li>המבחן נפתח במסך מלא.</li>' +
           '<li><b>יציאה ממסך מלא, מעבר לחלון או ללשונית אחרים, או פיצול מסך</b> - המבחן מוסתר מיד, והיציאה נרשמת ומדווחת למורה.</li>' +
-          '<li>העתקה, הדבקה, הדפסה ולחיצה ימנית חסומות.</li>' +
+          '<li>העתקה, הדבקה, הדפסה ולחיצה ימנית חסומות. ניסיון להכניס טקסט מוכן נחסם ומדווח למורה.</li>' +
+          '<li>המבחן נפתח רק בחלון אחד. <b>ביציאה ה-' + MAX_OUTS + ' המבחן נשלח למורה לבד</b>, כמו שהוא באותו רגע.</li>' +
           '<li>התשובות נשמרות כל הזמן. מי שמסיים יכול ללחוץ "שלחו למורה" - <b>אחרי השליחה אי אפשר לחזור למבחן</b>.</li></ul>' +
           '<button type="button" data-ex="go">התחלת המבחן</button>', "enter");
         return;
       }
       if(away()){
-        setCover("is-warn", '<div class="bm-ex-ico" aria-hidden="true">⚠️</div><h2>יצאת ממסך המבחן</h2>' +
-          '<p>המבחן מוסתר. היציאה נרשמה ודווחה למורה.</p><p data-ex="outs"></p>' +
-          '<button type="button" data-ex="go">חזרה למבחן</button>', "away");
-        cover.querySelector('[data-ex="outs"]').textContent = "יציאות במבחן הזה: " + Math.max(outs, lm() ? lm().leaves() : 0);
+        var small = !fsOk && smallWin();
+        setCover("is-warn", '<div class="bm-ex-ico" aria-hidden="true">⚠️</div><h2>' + (small ? "חלון המבחן קטן מדי" : "יצאת ממסך המבחן") + '</h2>' +
+          '<p>' + (small ? "המבחן חייב לתפוס את כל המסך. הגדילו את החלון למסך מלא." : "המבחן מוסתר. היציאה נרשמה ודווחה למורה.") + '</p><p data-ex="outs"></p><p data-ex="warn" style="font-weight:800"></p>' +
+          '<button type="button" data-ex="go">חזרה למבחן</button>', small ? "small" : "away");
+        cover.querySelector('[data-ex="outs"]').textContent = "יציאות במבחן הזה: " + outs + " מתוך " + MAX_OUTS;
+        var leftOuts = MAX_OUTS - outs;
+        cover.querySelector('[data-ex="warn"]').textContent = leftOuts <= 0 ? "" :
+          (outs >= WARN_OUTS ? "⚠ עוד " + (leftOuts === 1 ? "יציאה אחת" : leftOuts + " יציאות") + " והמבחן יישלח למורה לבד, כמו שהוא עכשיו." : "ביציאה ה-" + MAX_OUTS + " המבחן נשלח למורה לבד.");
         return;
       }
       hideCover();
@@ -1078,7 +1157,7 @@ try{
       exitFs();
       var how = readDone();
       setCover("is-ok", '<div class="bm-ex-ico" aria-hidden="true">✅</div><h2>המבחן נשלח למורה</h2>' +
-        '<p>' + (how === "auto" ? "הזמן נגמר, והתשובות נשלחו לבד." : "שלחת את המבחן.") + ' אי אפשר לשנות את התשובות אחרי השליחה.</p><p>אפשר לסגור את הדף.</p>', "done");
+        '<p>' + (how === "auto" ? "הזמן נגמר, והתשובות נשלחו לבד." : how === "exits" ? "יצאת מהמבחן " + MAX_OUTS + " פעמים, ולכן המבחן נשלח לבד." : "שלחת את המבחן.") + ' אי אפשר לשנות את התשובות אחרי השליחה.</p><p>אפשר לסגור את הדף.</p>', "done");
     }
   }
   function renderBar(){
@@ -1133,7 +1212,9 @@ try{
     sending = true;
     exitFs();
     if(S) S.close();
-    setCover("", '<div class="bm-ex-ico" aria-hidden="true">⏰</div><h2>הזמן נגמר</h2><p data-ex="msg">שולחים את המבחן למורה… אל תסגרו את הדף.</p>', "sending");
+    setCover("", forced === "exits" ?
+      '<div class="bm-ex-ico" aria-hidden="true">⛔</div><h2>יצאת מהמבחן ' + MAX_OUTS + ' פעמים</h2><p data-ex="msg">המבחן נשלח למורה כמו שהוא עכשיו… אל תסגרו את הדף.</p>' :
+      '<div class="bm-ex-ico" aria-hidden="true">⏰</div><h2>הזמן נגמר</h2><p data-ex="msg">שולחים את המבחן למורה… אל תסגרו את הדף.</p>', "sending");
     var p = payload();
     if(!p){ cover.querySelector('[data-ex="msg"]').textContent = "השליחה לא נטענה. קראו למורה - התשובות שמורות בשרת."; return; }
     post({ action:"examDraft", code:st.code, sid:st.sid, p:p, final:true }).then(function(res){
@@ -1147,7 +1228,7 @@ try{
             localStorage.setItem("bm-my-subs", JSON.stringify(subs.slice(0, 80)));
           }
         }catch(e){}
-        try{ localStorage.setItem(DONE_KEY, res.sent === "self" ? "self" : "auto"); }catch(e){}
+        try{ localStorage.setItem(DONE_KEY, forced === "exits" ? "exits" : (res.sent === "self" ? "self" : "auto")); }catch(e){}
         render();
         return;
       }
@@ -1156,7 +1237,7 @@ try{
       tries++;
       var m = cover && cover.querySelector('[data-ex="msg"]');
       if(m) m.textContent = tries < 12 ? "השליחה עוד לא הצליחה - מנסים שוב… אל תסגרו את הדף." : "השליחה לא הצליחה. קראו למורה. התשובות האחרונות שמורות בשרת והמורה יקבל אותן.";
-      if(tries < 12) setTimeout(function(){ sending = false; render(); }, 5000);
+      if(tries < 12) setTimeout(function(){ sending = false; if(forced) finalSend(); else render(); }, 5000);
     });
   }
   /* התלמיד שלח בעצמו ("שלחו למורה") - המבחן ננעל */
@@ -1183,6 +1264,40 @@ try{
   document.addEventListener("cut", function(e){ block(e, "🔒 גזירה חסומה במבחן"); }, true);
   document.addEventListener("paste", function(e){ block(e, "🔒 הדבקה חסומה במבחן - הניסיון נרשם"); }, true);
   document.addEventListener("drop", function(e){ block(e); }, true);
+  /* טקסט שנכנס בבת אחת (הדבקה מהמקלדת של הטלפון, גרירה, תוסף, השלמה ארוכה) - חסום ומדווח */
+  document.addEventListener("beforeinput", function(e){
+    if(!strict() || e.defaultPrevented) return;
+    var t = e.inputType || "", d = e.data || "";
+    if(!d && e.dataTransfer){ try{ d = e.dataTransfer.getData("text") || ""; }catch(err){} }
+    if(/^insertFrom(Paste|Drop|Yank)/.test(t) || ((t === "insertText" || t === "insertReplacementText") && d.length > 25)){
+      e.preventDefault(); e.stopPropagation(); note("🔒 אי אפשר להכניס טקסט מוכן במבחן - הניסיון נרשם");
+      if(lm() && lm().paste) lm().paste(d.length);
+    }
+  }, true);
+  /* גיבוי לדפדפנים בלי beforeinput: קפיצה של יותר מ-40 תווים בבת אחת - מחזירים את מה שהיה */
+  var lastVal = new WeakMap();
+  document.addEventListener("focusin", function(e){ var f = e.target; if(f && (f.tagName === "TEXTAREA" || f.tagName === "INPUT")) lastVal.set(f, f.value); }, true);
+  document.addEventListener("input", function(e){
+    var f = e.target;
+    if(!f || !(f.tagName === "TEXTAREA" || f.tagName === "INPUT")) return;
+    var prev = lastVal.has(f) ? lastVal.get(f) : f.value;
+    if(strict() && entered && f.value.length - prev.length > 40){
+      var len = f.value.length - prev.length;
+      f.value = prev; note("🔒 אי אפשר להכניס טקסט מוכן במבחן - הניסיון נרשם");
+      if(lm() && lm().paste) lm().paste(len);
+      return;
+    }
+    lastVal.set(f, f.value);
+  }, true);
+  /* בלי השלמה אוטומטית, תיקון אוטומטי ותוספי כתיבה (Grammarly ודומיו) בתיבות התשובה */
+  function harden(){
+    fields().forEach(function(f){
+      if(f.tagName === "SELECT") return;
+      f.setAttribute("spellcheck", "false"); f.setAttribute("autocomplete", "off"); f.setAttribute("autocorrect", "off");
+      f.setAttribute("autocapitalize", "off"); f.setAttribute("data-gramm", "false"); f.setAttribute("data-gramm_editor", "false");
+      f.setAttribute("data-enable-grammarly", "false"); f.setAttribute("data-lt-active", "false");
+    });
+  }
   document.addEventListener("dragstart", function(e){ block(e); }, true);
   document.addEventListener("selectstart", function(e){ var t = e.target; if(t && t.closest && t.closest("input, textarea")) return; block(e); }, true);
   document.addEventListener("keydown", function(e){
@@ -1196,7 +1311,12 @@ try{
   document.addEventListener("click", function(e){
     var b = e.target && e.target.closest ? e.target.closest("[data-ex]") : null;
     if(b && b.getAttribute("data-ex") === "go"){
+      if(dupTab) return;
+      if(!fsOk && smallWin()){ note("הגדילו את החלון למסך מלא כדי לחזור למבחן"); return; }
       entered = true;
+      awayCounted = false;
+      if(bc) try{ bc.postMessage({ t:"hello", id:tabId }); }catch(err){}
+      harden();
       try{ localStorage.setItem(ENTER_KEY, "1"); }catch(err){}
       if(fsOk) goFs();
       fsReported = false;

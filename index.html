@@ -1962,7 +1962,7 @@
     return Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0") + " דק׳";
   }
   function clsName(c){ return c === "יב" ? 'י"ב' : (c === "יא" ? 'י"א' : ""); }
-  function whyName(w){ return w === "blur" ? "חלון אחר" : (w === "split" ? "מסך מפוצל" : (w === "fs" ? "יצא ממסך מלא" : "יצא מהדף")); }
+  function whyName(w){ return w === "blur" ? "חלון אחר" : (w === "split" ? "מסך מפוצל / חלון קטן" : (w === "fs" ? "יצא ממסך מלא" : (w === "tab" ? "פתח את המבחן בחלון נוסף" : "יצא מהדף"))); }
   function loadReports(){
     var list = document.getElementById("ttRepList");
     if(!list) return;
