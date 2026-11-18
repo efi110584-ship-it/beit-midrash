@@ -83,7 +83,8 @@
       busy=true;start.disabled=true;cls.disabled=true;cancel.disabled=true;render();note.textContent='יוצר קוד לשיעור…';
       // The home page starts in the existing live waiting room; other pages start here.
       var initial=canSendPage()?page:'live.html';
-      post({action:'createLesson',url:initial,label:initial==='live.html'?'ממתינים לתחילת השיעור':labelOfPage(),monitor:true,cls:cls.value})
+      var exNow=/(^|-)(exam|final-test)(-|\.)/.test(initial)&&!/-answers\.html$/.test(initial)?{s:Date.now(),e:Date.now()+2*3600*1000}:null;   /* דף מבחן - תמיד מצב מבחן מחמיר */
+      post({action:'createLesson',url:initial,label:initial==='live.html'?'ממתינים לתחילת השיעור':labelOfPage(),monitor:true,cls:cls.value,exam:exNow})
         .then(function(r){
           if(!/^[0-9]{4}$/.test(String(r.code)) || !Number.isFinite(Number(r.until)) || Number(r.until)<=Date.now())throw Error('לא התקבל קוד תקין. רעננו את רשימת השיעורים לפני ניסיון נוסף.');
           var lesson={code:String(r.code),cls:cls.value,until:Number(r.until),monitor:true,url:r.url,label:r.label};

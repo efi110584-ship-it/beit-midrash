@@ -974,10 +974,20 @@ function lessonsList_() {
   }).sort(function (a, b) { return b.created - a.created; });
 }
 
+// דף מבחן (לפי שם הקובץ) - תמיד במצב מבחן המחמיר: עם בקרה ועם שעות
+function isExamPage_(url) {
+  var f = String(url || '').split('#')[0];
+  return /(^|-)(exam|final-test)(-|\.)/.test(f) && !/-answers\.html$/.test(f);
+}
 function createLesson_(url, label, monitor, cls, exam) {
   url = String(url || '').trim();
   if (!/^[\w.-]+\.html(#[\w-]+)?$/.test(url)) return { ok: false, error: 'כתובת עמוד לא תקינה' };
   cls = normClass_(cls);
+  if (isExamPage_(url)) {
+    if (!monitor) return { ok: false, error: 'מבחן נפתח תמיד עם בקרה - בחרו כיתה (י"א או י"ב)' };
+    // לא נבחרו שעות - המבחן נפתח עכשיו ונסגר בעוד שעתיים (מצב מבחן מחמיר תמיד)
+    if (!exam) { var n0 = Date.now(); exam = { s: n0, e: n0 + 2 * 3600 * 1000 }; }
+  }
   if (monitor && MONITOR_CLASSES.indexOf(cls) < 0) return { ok: false, error: 'בקרת שיעור אפשרית רק לכיתה י"א או י"ב' };
   // מבחן עם שעות: פתיחה וסגירה (זמן מחשב, אלפיות שנייה). רק עם בקרה, ובתוך תוקף הקוד.
   var ex = null;
@@ -1035,6 +1045,8 @@ function lessonNav_(code, url, label) {
     var l = all[String(code || '')];
     if (!l) return { ok: false, error: 'הקוד כבר לא פעיל' };
     if (!l.monitor) return { ok: false, error: 'שליחה לדף עובדת רק בשיעור עם בקרה' };
+    if (url && isExamPage_(url) && !(l.exam && String(l.url || '').split('#')[0] === url.split('#')[0]))
+      return { ok: false, error: 'למבחן פותחים קוד מבחן נפרד (מצב מבחן מחמיר) - אי אפשר להעביר אליו כיתה משיעור רגיל' };
     l.nav = url ? { id: String(Date.now()), url: url, label: clean_(label).slice(0, 120), at: Date.now() } : null;
     saveLessons_(all);
     navCache_(code, l.nav);

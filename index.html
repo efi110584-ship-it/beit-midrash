@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="assets/site.css?v=46">
 
 <script src="assets/a11y.js"></script>
-<link rel="stylesheet" href="assets/teacher-dashboard.css?v=5"><script src="assets/teacher-dashboard-layout.js?v=5"></script><script src="assets/teacher-home.js?v=5"></script><script src="assets/my-schedule.js?v=8"></script><script src="assets/teacher-backup.js?v=1"></script></head>
+<link rel="stylesheet" href="assets/teacher-dashboard.css?v=5"><script src="assets/teacher-dashboard-layout.js?v=6"></script><script src="assets/teacher-home.js?v=5"></script><script src="assets/my-schedule.js?v=8"></script><script src="assets/teacher-backup.js?v=1"></script></head>
 <body>
 
 <div id="entryGate" class="entry-gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
@@ -321,7 +321,7 @@
 <script src="assets/flashcards-data.js"></script>
 <script src="assets/live-render.js"></script>
 <script src="assets/live-teacher.js"></script>
-<script src="assets/live-monitor.js?v=8"></script>
+<script src="assets/live-monitor.js?v=9"></script>
 <script>
 (function(){
   "use strict";
@@ -1096,7 +1096,20 @@
         if(ex && !/exam/.test(t.value)) t.value = ex.value;
       }
     });
+    /* דף מבחן - תמיד מצב מבחן מחמיר: מסומן מעצמו, עם שעות מעכשיו ולשעה וחצי */
+    function isExamUrl(u){ u = String(u || "").split("#")[0]; return /(^|-)(exam|final-test)(-|\.)/.test(u) && !/-answers\.html$/.test(u); }
+    function examAutoOld(){
+      if(!isExamUrl(target.value)) return;
+      var chk = document.getElementById("ttLessonExam"), f = document.getElementById("ttExamFrom"), to = document.getElementById("ttExamTo");
+      chk.checked = true; document.getElementById("ttLessonExamTimes").style.display = "flex";
+      var hh = function(d){ return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0"); };
+      var a = new Date(Date.now() + 2 * 60000);
+      if(!f.value) f.value = hh(a);
+      if(!to.value) to.value = hh(new Date(a.getTime() + 90 * 60000));
+    }
+    target.addEventListener("change", examAutoOld);
     document.getElementById("ttLessonMake").addEventListener("click", function(){
+      examAutoOld();
       var opt = target.options[target.selectedIndex];
       if(!opt) return;
       var monitorCls = document.getElementById("ttLessonMonitor").value;
@@ -1104,7 +1117,7 @@
       var exam = null;
       if(document.getElementById("ttLessonExam").checked){
         var tf = document.getElementById("ttExamFrom").value, tt = document.getElementById("ttExamTo").value;
-        if(!monitor){ out.innerHTML = '<p class="tt-msg">למבחן עם שעות צריך לבחור כיתה ב"בקרת שיעור".</p>'; return; }
+        if(!monitor){ out.innerHTML = '<p class="tt-msg">' + (isExamUrl(opt.value) ? 'מבחן נפתח תמיד במצב מחמיר עם בקרה - בחרו כיתה ב"בקרת שיעור".' : 'למבחן עם שעות צריך לבחור כיתה ב"בקרת שיעור".') + '</p>'; return; }
         if(!tf || !tt){ out.innerHTML = '<p class="tt-msg">כתבו שעת פתיחה ושעת סגירה למבחן.</p>'; return; }
         var at = function(v){ var d = new Date(), m = v.split(":"); d.setHours(+m[0], +m[1], 0, 0); return d.getTime(); };
         exam = { s:at(tf), e:at(tt) };
@@ -3818,8 +3831,8 @@
 })();
 
 </script>
-<script src="assets/lesson-mode.js?v=13"></script>
-<script src="assets/class-dock.js?v=13"></script>
+<script src="assets/lesson-mode.js?v=14"></script>
+<script src="assets/class-dock.js?v=14"></script>
 <script src="assets/my-work.js?v=2"></script>
 </body>
 </html>
