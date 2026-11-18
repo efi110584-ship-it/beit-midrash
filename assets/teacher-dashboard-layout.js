@@ -25,7 +25,7 @@ var exTimes=el('div');exTimes.style.cssText='display:none;flex-wrap:wrap;gap:8px
 function exTime(id,txt){var w=el('span');w.style.cssText='display:flex;flex-direction:column;gap:2px';var l=el('label',txt);l.htmlFor=id;var i=el('input');i.type='time';i.id=id;i.className='tt-select';i.style.width='auto';w.append(l,i);exTimes.append(w);return i;}
 var exFrom=exTime('subjExamFrom','נפתח בשעה'),exTo=exTime('subjExamTo','נסגר ונשלח לבד בשעה');
 exTimes.append(el('p','במבחן: מסך מלא; כל יציאה מהמסך מסתירה את המבחן ומדווחת לכם; אפס סובלנות: כל יציאה מהמסך, פתיחת חלון נוסף או ניסיון העתק/הדבק מוציאים את התלמיד מהמבחן מיד - המבחן נשלח אליכם כמו שהוא וננעל, ואתם מקבלים התראה בבקרה ובמייל; בשעת הסגירה התשובות של מי שלא שלח נשלחות אליכם לבד.'));
-exChk.addEventListener('change',function(){exTimes.style.display=exChk.checked?'flex':'none';var s=typeof selection==='function'?selection():null;if(!exChk.checked&&s&&/מבחן/.test(s.page))status.textContent='⚠ בלי שעות מבחן אין מסך מלא, והתלמידים יכולים לצאת לחלון אחר ולחזור. מומלץ להשאיר מסומן.';});
+exChk.addEventListener('change',function(){exTimes.style.display=exChk.checked?'flex':'none';var s=typeof selection==='function'?selection():null;if(!exChk.checked&&s&&(/(^|-)(exam|final-test)(-|\.)/.test(s.url)||/מבחן/.test(s.page))){exChk.checked=true;exTimes.style.display='flex';status.textContent='🔒 כל מבחן נפתח במצב המחמיר - אי אפשר לבטל.';}});
 exWrap.append(exLab,exTimes);form.append(exWrap);form.append(start);
 form.append(el('p','לאחר פתיחת שיעור באתר: התלמידים מזינים קוד שיעור ות״ז, בהתאם לרשימת הכיתה השמורה.'));wrap.append(form);
 var heading=starter.querySelector('.tt-h');if(heading)heading.textContent='פתיחת שיעור לפי מקצוע';
