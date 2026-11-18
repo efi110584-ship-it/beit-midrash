@@ -1117,7 +1117,7 @@ function presence_(d) {
   if (rosterCount_(l.cls) && !idOk && !isT) return { ok: false, needId: true };
   var page = String(d.page || '').slice(0, 80);
   if (!/^[\w.-]+\.html$/.test(page)) page = '';
-  var state = d.state === 'out' ? 'out' : (d.state === 'bye' ? 'bye' : (d.state === 'paste' ? 'paste' : 'in'));
+  var state = d.state === 'out' ? 'out' : (d.state === 'bye' ? 'bye' : (d.state === 'paste' ? 'paste' : (d.state === 'exout' ? 'exout' : 'in')));
   // blur = חלון/אפליקציה אחרת כשהדף עדיין גלוי; split = מסך מפוצל (הדף נהיה צר/נמוך הרבה יותר מהמסך)
   var reason = (d.reason === 'blur' || d.reason === 'split' || d.reason === 'fs' || d.reason === 'tab') ? d.reason : 'hidden';   // fs = יצא ממסך מלא (מבחן), tab = פתח את המבחן בחלון נוסף
   var t = Number(d.t) || Date.now();
@@ -1178,6 +1178,10 @@ function presence_(d) {
       // הדבקת טקסט בתיבת תשובה - לא משנה את המצב, רק נרשם
       p.pastes = (p.pastes || 0) + 1;
       p.ev.push({ k: 'paste', at: now, len: Math.max(0, Math.min(100000, Number(d.len) || 0)), page: page });
+    } else if (state === 'exout') {
+      // מבחן מחמיר: התלמיד הוצא מהמבחן אוטומטית (יציאה / חלון נוסף / העתק-הדבק) - המבחן נשלח וננעל
+      p.exouts = (p.exouts || 0) + 1;
+      p.ev.push({ k: 'exout', at: now, why: String(d.why || '').replace(/[^\w]/g, '').slice(0, 12) });
     } else if (state === 'out') {
       if (p.state !== 'out') { p.state = 'out'; p.outSince = now; p.outReason = reason; }
     } else if (state === 'in') {
@@ -1264,8 +1268,27 @@ function examDraft_(d) {
   } finally {
     lock.releaseLock();
   }
+  if (d.final && d.forced) examKickMail_(l, sid, p, String(d.forced));
   if (d.final || now > l.exam.e) return examSubmitOne_(l, sid, 'auto');
   return { ok: true };
+}
+// מבחן מחמיר: מייל למורה כשתלמיד הוצא מהמבחן אוטומטית (פעם אחת לכל תלמיד במבחן)
+var EXAM_KICK_WHY = { away: 'יצא מחלון המבחן (חלון או לשונית אחרים)', fs: 'יצא ממסך מלא', split: 'הקטין את החלון / פיצל מסך',
+                      tab: 'פתח את המבחן בחלון נוסף', copy: 'ניסה להעתיק', paste: 'ניסה להדביק', inject: 'ניסה להכניס טקסט מוכן' };
+function examKickMail_(l, sid, p, why) {
+  var cache = CacheService.getScriptCache(), k = 'exk_' + l.code + '_' + sid;
+  if (cache.get(k)) return;
+  cache.put(k, '1', 21600);
+  if (typeof NOTIFY_BY_EMAIL !== 'undefined' && !NOTIFY_BY_EMAIL) return;
+  try {
+    var w = EXAM_KICK_WHY[why] || 'יציאה מהמבחן';
+    MailApp.sendEmail({
+      to: Session.getEffectiveUser().getEmail(),
+      subject: '⛔ הוצא מהמבחן: ' + (p.name || '') + ' - ' + w,
+      body: 'תלמיד: ' + (p.name || '') + '\nסיבה: ' + w + '\nשעה: ' + Utilities.formatDate(new Date(), 'Asia/Jerusalem', 'HH:mm:ss') +
+            '\nמבחן: ' + (l.label || '') + ' (קוד ' + l.code + ')\n\nהמבחן נשלח אוטומטית כמו שהיה באותו רגע, וננעל אצל התלמיד.'
+    });
+  } catch (e) { /* המבחן נשלח גם אם המייל נכשל */ }
 }
 // שמירת הטיוטה של תלמיד אחד כהגשה (פעם אחת בלבד)
 function examSubmitOne_(l, sid, how) {
@@ -1514,7 +1537,7 @@ function presenceList_(code) {
     return { sid: sid, name: p.name || '', page: p.page || '', status: status, leaves: p.leaves || 0,
              outFor: outFor, outWhy: p.state === 'out' ? (p.outReason || 'hidden') : '',
              outSince: p.state === 'out' ? p.outSince : 0,
-             outTotal: (p.outTotal || 0) + (status === 'out' ? outFor : 0), pastes: p.pastes || 0, dups: p.dups || 0, kicked: !!p.kicked,
+             outTotal: (p.outTotal || 0) + (status === 'out' ? outFor : 0), pastes: p.pastes || 0, dups: p.dups || 0, kicked: !!p.kicked, exouts: p.exouts || 0,
              ev: p.ev || [], lastAgo: Math.round((now - (p.last || now)) / 1000), teacher: !!p.teacher,
              task: p.task || 0, tasks: p.tasks || 0, taskName: p.taskName || '', ans: p.ans || 0, fields: p.fields || 0,
              idle: p.actAt ? Math.max(0, Math.round((now - p.actAt) / 1000)) : -1,
