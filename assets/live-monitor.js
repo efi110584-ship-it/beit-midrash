@@ -27,6 +27,8 @@
     var m = Math.floor(sec / 60), s = sec % 60;
     return m + ":" + pad(s) + " דק׳";
   }
+  function exWhy(w){ return ({ away:"יצא מחלון המבחן", fs:"יצא ממסך מלא", split:"הקטין חלון / פיצל מסך", tab:"פתח את המבחן בחלון נוסף",
+    copy:"ניסה להעתיק", paste:"ניסה להדביק", inject:"ניסה להכניס טקסט מוכן" })[w] || "יציאה מהמבחן"; }
   function whyText(w){ return w === "blur" ? "חלון אחר" : (w === "split" ? "מסך מפוצל / חלון קטן" : (w === "fs" ? "יצא ממסך מלא" : (w === "tab" ? "פתח את המבחן בחלון נוסף" : "יצא מהדף"))); }
   function pageName(p){
     if(!p) return "";
@@ -147,12 +149,16 @@
     var code = res.lesson.code, before = prev[code], now = {};
     (res.students || []).forEach(function(s){
       var id = s.sid || s.name;
-      now[id] = { status:s.status, pastes:s.pastes || 0, dups:s.dups || 0, help:(s.help >= 0) };
+      now[id] = { status:s.status, pastes:s.pastes || 0, dups:s.dups || 0, exouts:s.exouts || 0, help:(s.help >= 0) };
       if(!before) return;
       var b = before[id];
       var name = s.name || "ללא שם";
       if(s.status === "out" && (!b || b.status !== "out"))
         toast("out", "🟠 " + name + " - " + whyText(s.outWhy), "יצא ב-" + clock(s.outSince || Date.now()) + " · יציאה מספר " + ((s.leaves || 0) + 1));
+      if(b && (s.exouts || 0) > (b.exouts || 0)){
+        var ko = (s.ev || []).filter(function(e){ return e.k === "exout"; }).pop();
+        toast("out", "⛔ " + name + " הוצא/ה מהמבחן", exWhy(ko && ko.why) + " · המבחן נשלח אליכם וננעל");
+      }
       if(b && (s.pastes || 0) > b.pastes){
         var last = (s.ev || []).filter(function(e){ return e.k === "paste"; }).pop();
         toast("paste", "📋 " + name + " הדביק/ה טקסט", (last && last.len ? last.len + " תווים · " : "") + (pageName(last && last.page || s.page) || ""));
@@ -181,6 +187,7 @@
       else if(e.k === "page") txt = "↪ עבר/ה לדף: " + pageName(e.page);
       else if(e.k === "bye") txt = "יצא/ה ממצב שיעור (לחץ/ה \"יציאה\")";
       else if(e.k === "kick"){ cls = "out"; txt = "🚫 המורה הוציא/ה מהשיעור"; }
+      else if(e.k === "exout"){ cls = "out"; txt = "⛔ הוצא/ה מהמבחן אוטומטית: " + exWhy(e.why) + " - המבחן נשלח וננעל"; }
       else if(e.k === "unkick") txt = "↩ המורה החזיר/ה לשיעור";
       else if(e.k === "help"){ cls = "help"; txt = "✋ ביקש/ה עזרה"; }
       else if(e.k === "helpOff") txt = "✋ ביטל/ה את בקשת העזרה";
