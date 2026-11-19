@@ -198,6 +198,7 @@ function doPost(e) {
       case 'attDay':          return json_(attDay_(data.date));
       case 'attSave':         return json_(attSave_(data));
       case 'backup':          return json_(backup_());
+      case 'weekSummary':     return json_(weekSummary_(data.days));
       case 'boardList':       return json_({ ok: true, boards: qbBoardsList_().concat(QBOARD_TITLES), active: qbActives_()[liveRoom_(data.room)] || null });
     }
     return json_({ ok: false, error: 'פעולה לא מוכרת' });
@@ -1735,6 +1736,50 @@ function backup_() {
   var exams = getJson_('EXAMS');
   return { ok: true, at: Date.now(), attendance: att, rosters: rosters, exams: Array.isArray(exams) ? exams : [],
            assignments: assignAll_(), announcement: getJson_('ANNOUNCEMENT') };
+}
+
+// ---------- סיכום שבועי (להעתקה לקלוד) ----------
+// כל מה שקרה באתר בימים האחרונים: הגשות וציונים, מה מחכה לבדיקה, שיעורים עם בקרה, נוכחות, משימות, מבחנים והודעה.
+// בלי תעודות זהות. האזור האישי הופך את זה לטקסט מסודר.
+function weekSummary_(days) {
+  days = Math.min(Math.max(Number(days) || 7, 1), 31);
+  var now = Date.now(), from = now - days * 864e5;
+  var fromIso = Utilities.formatDate(new Date(from), TZ, 'yyyy-MM-dd'), toIso = Utilities.formatDate(new Date(now), TZ, 'yyyy-MM-dd');
+  var props = PropertiesService.getScriptProperties().getProperties();
+  var subs = listSubmissions_(false).filter(function (x) { return x.id && x.status !== 'missing' && !x.hidden; });
+  var week = subs.filter(function (x) { return x.time >= from; }).map(function (x) {
+    return { student: x.student, cls: x.cls, task: x.task, subject: x.subject || '', date: x.date, time: x.time, status: x.status,
+             grade: x.grade, comment: x.comment || '', fbg: x.fbg || '', auto: x.auto ? x.auto.pct : '', redo: !!x.redo, isRedo: !!x.redoOf };
+  });
+  var pending = subs.filter(function (x) { return x.status === 'pending'; }).map(function (x) {
+    return { student: x.student, cls: x.cls, task: x.task, date: x.date, days: Math.floor((now - x.time) / 864e5), fbg: x.fbg || '' };
+  });
+  var lessons = (getJson_('LREP_INDEX') || []).filter(function (x) { return x.t >= from; }).map(function (x) {
+    var rep = null;
+    try { rep = JSON.parse(DriveApp.getFileById(x.f).getBlob().getDataAsString()); } catch (e) { rep = null; }
+    return { label: x.l, cls: x.k, created: x.t, url: rep ? rep.url || '' : '', count: x.n,
+             students: rep ? rep.students.map(function (st) {
+               return { name: st.name, leaves: st.leaves, outSec: st.outTotal, pastes: st.pastes, kicked: !!st.kicked };
+             }) : [] };
+  });
+  var att = {};
+  for (var d = 0; d < days; d++) {
+    var iso = Utilities.formatDate(new Date(now - d * 864e5), TZ, 'yyyy-MM-dd');
+    var day = getJson_('ATT_' + iso);
+    if (day) att[iso] = day;
+  }
+  var tasks = assignAll_().filter(function (a) { return a.due >= fromIso; }).map(function (a) {
+    var rows = assignRows_(a, props, subs);
+    var done = rows.filter(function (r) { return a.page ? r.pct >= 100 : r.linkDone; });
+    return { title: a.title, cls: a.cls, due: a.due, page: a.page || '', link: a.link || '', total: rows.length,
+             done: done.map(function (r) { return r.name; }),
+             notDone: rows.filter(function (r) { return done.indexOf(r) < 0; }).map(function (r) { return r.name + (a.page && r.pct > 0 ? ' (' + r.pct + '%)' : ''); }),
+             sent: rows.filter(function (r) { return r.sent; }).map(function (r) { return r.name; }) };
+  });
+  var exams = getJson_('EXAMS');
+  return { ok: true, from: fromIso, to: toIso, days: days, submissions: week, pending: pending, lessons: lessons,
+           attendance: att, assignments: tasks, exams: Array.isArray(exams) ? exams.filter(function (x) { return x.date >= fromIso; }) : [],
+           announcement: getJson_('ANNOUNCEMENT') };
 }
 
 // ---------- אזור אישי לתלמיד (my.html) ----------
