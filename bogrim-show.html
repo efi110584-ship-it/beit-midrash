@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>תוכנית הבוגרים - מצגת</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#14284B;--navy2:#1E3A66;--gold:#C9962E;--gold2:#F2D58C;--cream:#FBF7EE;--ink:#14213A;--mute:#5A6577;--line:#E3D8BF;--teal:#2F6F6A}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--navy);color:var(--ink);font-family:Heebo,Arial,sans-serif;overflow:hidden}
+.deck{position:fixed;inset:0;display:grid;place-items:center}
+.slide{position:absolute;width:min(100vw,177.78vh);height:min(56.25vw,100vh);background:var(--cream);overflow:hidden;opacity:0;visibility:hidden;transition:opacity .45s ease;display:flex;flex-direction:column;padding:4.2% 5.2% 5%}
+.slide.on{opacity:1;visibility:visible}
+@media (prefers-reduced-motion:reduce){.slide{transition:none}}
+.slide{font-size:min(1.9vw,3.4vh)}
+h1,h2{font-family:"Frank Ruhl Libre",serif;margin:0;line-height:1.15;color:var(--navy);text-wrap:balance}
+h2{font-size:2.5em;margin-bottom:.35em}
+.eyebrow{color:var(--gold);font-weight:800;letter-spacing:.06em;font-size:.82em;margin-bottom:.3em}
+.lead{font-size:1.18em;color:var(--mute);max-width:46em;margin:0 0 .8em}
+.cols{display:grid;grid-template-columns:1.05fr 1fr;gap:4%;flex:1;min-height:0}
+.cols>*{min-height:0}
+ul.pts{list-style:none;margin:0;padding:0;display:grid;gap:.55em;font-size:1.05em}
+ul.pts li{display:flex;gap:.55em;align-items:flex-start;line-height:1.4}
+ul.pts li::before{content:"";flex:0 0 .55em;height:.55em;margin-top:.45em;border-radius:50%;background:var(--gold)}
+ul.pts b{color:var(--navy)}
+.ph{border-radius:14px;overflow:hidden;background:repeating-linear-gradient(135deg,#EFE6D2 0 14px,#F6EFE0 14px 28px);border:2px dashed #D6C69F;display:grid;place-items:center;text-align:center;color:#8A7A57;font-size:.8em;padding:1em;position:relative;min-height:0}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph.grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:6px;padding:6px;background:#EFE6D2}
+.ph.grid .cell{border-radius:10px;background:repeating-linear-gradient(135deg,#E8DDC4 0 12px,#F2EAD8 12px 24px);display:grid;place-items:center;position:relative;overflow:hidden}
+.ph-cap{max-width:20em}
+.ph-cap b{display:block;color:#6B5A35;font-size:1.05em;margin-bottom:.2em}
+/* שער */
+.cover{background:linear-gradient(120deg,var(--navy) 0 58%,var(--navy2) 58% 100%);color:#fff;padding:0}
+.cover .in{display:grid;grid-template-columns:1.1fr 1fr;height:100%}
+.cover .txt{padding:9% 7% 7%;display:flex;flex-direction:column;justify-content:center}
+.cover h1{color:#fff;font-size:4.1em;font-weight:900}
+.cover .sub{font-family:"Frank Ruhl Libre",serif;color:var(--gold2);font-size:1.9em;margin:.35em 0 .8em;line-height:1.3}
+.cover .school{font-size:1.05em;opacity:.85;border-top:2px solid var(--gold);padding-top:.7em;margin-top:auto}
+.cover .ph{border-radius:0;border:0;height:100%}
+/* מספרים */
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2em;margin-top:.6em}
+.num{background:#fff;border:1px solid var(--line);border-radius:16px;padding:1em 1.1em;border-top:6px solid var(--gold)}
+.num b{display:block;font-family:"Frank Ruhl Libre",serif;font-size:3.2em;line-height:1;color:var(--navy);font-variant-numeric:tabular-nums}
+.num span{display:block;margin-top:.35em;color:var(--mute);line-height:1.35}
+.note{margin-top:auto;font-size:.7em;color:var(--mute)}
+/* ציר הדרך */
+.road{display:grid;grid-template-columns:repeat(7,1fr);gap:.6em;margin-top:.8em;flex:1;align-items:start;position:relative}
+.road::before{content:"";position:absolute;top:1.15em;right:4%;left:4%;height:4px;background:var(--gold2);border-radius:4px}
+.stop{position:relative;text-align:center}
+.stop i{display:grid;place-items:center;width:2.3em;height:2.3em;margin:0 auto .5em;border-radius:50%;background:var(--navy);color:#fff;font-style:normal;font-weight:800;position:relative;border:3px solid var(--gold2)}
+.stop b{display:block;color:var(--navy);font-size:.95em;line-height:1.25}
+.stop small{display:block;color:var(--mute);font-size:.72em;margin-top:.3em;line-height:1.35}
+/* חזון */
+.vision{font-family:"Frank Ruhl Libre",serif;font-size:2em;line-height:1.35;color:var(--navy);border-inline-start:8px solid var(--gold);padding-inline-start:.7em;margin:.2em 0 .8em;max-width:28em}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1em}
+.pillar{background:#fff;border:1px solid var(--line);border-radius:14px;padding:.9em 1em}
+.pillar b{display:block;color:var(--teal);font-size:1.1em;margin-bottom:.25em}
+.pillar span{color:var(--mute);line-height:1.4;font-size:.92em}
+/* יעדים */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:.9em}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:14px;padding:.8em 1em;display:flex;gap:.7em;align-items:center}
+.kpi b{font-family:"Frank Ruhl Libre",serif;font-size:2em;color:var(--teal);min-width:2.6em;text-align:center;font-variant-numeric:tabular-nums}
+.kpi span{line-height:1.3}
+/* סיום */
+.end{background:var(--navy);color:#fff;justify-content:center;align-items:center;text-align:center}
+.end h2{color:#fff;font-size:3.4em}
+.end p{font-family:"Frank Ruhl Libre",serif;color:var(--gold2);font-size:1.5em;max-width:30em;line-height:1.45;margin:.4em auto 1em}
+.end .sig{font-size:1em;opacity:.9}
+/* בקרה */
+.bar{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:8px;align-items:center;background:rgba(10,20,40,.72);color:#fff;border-radius:99px;padding:6px 10px;font-size:14px;z-index:5;transition:opacity .3s}
+.bar button{font:inherit;color:#fff;background:transparent;border:1px solid rgba(255,255,255,.4);border-radius:99px;padding:4px 12px;cursor:pointer;min-height:34px}
+.bar button:hover{background:rgba(255,255,255,.15)}
+.bar button:focus-visible{outline:3px solid var(--gold2)}
+.bar span{min-width:4.5em;text-align:center;font-variant-numeric:tabular-nums}
+body.idle .bar{opacity:0}
+.prog{position:fixed;top:0;right:0;height:4px;background:var(--gold);z-index:5;transition:width .3s}
+@media print{html,body{overflow:visible;height:auto;background:#fff}.deck{position:static;display:block}.slide{position:relative;opacity:1;visibility:visible;width:100%;height:auto;aspect-ratio:16/9;page-break-after:always;font-size:12pt}.bar,.prog{display:none}}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<main class="deck" id="deck">
+
+<section class="slide cover" aria-label="שער">
+ <div class="in">
+  <div class="txt">
+   <div class="eyebrow" style="color:var(--gold2)">תיכון יש"י · תוכנית הבוגרים</div>
+   <h1>הבית נשאר שלכם</h1>
+   <p class="sub">סיימתם את י"ב - אנחנו ממשיכים ללוות אתכם: בשירות, בלימודים, בעבודה ובבניית הבית</p>
+   <div class="school">הרב אפרים לוי · רכז הבוגרים</div>
+  </div>
+  <div class="ph" data-folder="general"><div class="ph-cap"><b>📷 תמונה מרכזית</b>תמונה קבוצתית של בוגרים - מתוך תיקיית התמונות בדרייב</div></div>
+ </div>
+</section>
+
+<section class="slide" aria-label="החזון">
+ <div class="eyebrow">החזון</div>
+ <h2>לכל בוגר ובוגרת יש בית</h2>
+ <p class="vision">קהילה חיה שמלווה את הבוגרים בצמתי החיים, מחזקת את זהותם הערכית - ומזמינה אותם לתת בחזרה לדור הבא.</p>
+ <div class="pillars">
+  <div class="pillar"><b>🧭 תמונת עתיד</b><span>כבר בתיכון: מכירים את האפשרויות שמחכות אחרי י"ב, במקום לפחד מהלא נודע.</span></div>
+  <div class="pillar"><b>🤝 "אתך לאורך כל הדרך"</b><span>רשת ביטחון רציפה: מהתיכון, דרך השירות, ועד הלימודים, העבודה והבית.</span></div>
+  <div class="pillar"><b>🌱 נותנים בחזרה</b><span>הבוגרים חוזרים לבית הספר - חונכים, מספרים, מלווים - והופכים להשראה לצעירים.</span></div>
+ </div>
+</section>
+
+<section class="slide" aria-label="במספרים">
+ <div class="eyebrow">התוכנית במספרים</div>
+ <h2>9 מחזורים. קהילה אחת.</h2>
+ <div class="nums">
+  <div class="num"><b>282</b><span>בוגרים ובוגרות<br>ב-9 מחזורים, תשע"ח-תשפ"ו</span></div>
+  <div class="num"><b>3 מתוך 4</b><span>משרתים, שירתו, במכינה או בדרך לגיוס - בצה"ל או בשירות הלאומי</span></div>
+  <div class="num"><b>31</b><span>לוחמים ולוחמות</span></div>
+  <div class="num"><b>22</b><span>בוגרים במכינות קדם-צבאיות</span></div>
+  <div class="num"><b>27</b><span>בוגרים רשומים בבית המדרש לבוגרים</span></div>
+  <div class="num"><b>2</b><span>אירועי שיא בשנה לכל המחזורים יחד</span></div>
+ </div>
+ <p class="note">הנתונים לפי מאגר הבוגרים, נכון לתשפ"ז. "3 מתוך 4" - מתוך הבוגרים שיש עליהם מידע על השירות.</p>
+</section>
+
+<section class="slide" aria-label="הדרך">
+ <div class="eyebrow">הדרך</div>
+ <h2>מהתיכון והלאה - בכל שלב</h2>
+ <div class="road">
+  <div class="stop"><i>1</i><b>עוד בתיכון</b><small>"מכינה לחיים", "אח בוגר" - י"ב חונכים את ז'-ח'</small></div>
+  <div class="stop"><i>2</i><b>סוף י"ב</b><small>מסיבת סיום וצידה לדרך, השלמת זכאות לבגרות</small></div>
+  <div class="stop"><i>3</i><b>השנה הראשונה</b><small>שיחה אישית כל רבעון, וליווי כשמשהו מסתבך</small></div>
+  <div class="stop"><i>4</i><b>שחרור</b><small>מלגות, פסיכומטרי, שיפור בגרויות, חזרה למסע כמלווים</small></div>
+  <div class="stop"><i>5</i><b>חוזרים לספר</b><small>"ניצוצות בוגרים" - מספרים לתלמידים על הדרך</small></div>
+  <div class="stop"><i>6</i><b>בונים בית</b><small>ליווי דיסקרטי בזוגיות, סדנת "תקשורת וזוגיות"</small></div>
+  <div class="stop"><i>7</i><b>קריירה</b><small>"בוגרים עוזרים לבוגרים": משרות ונטוורקינג</small></div>
+ </div>
+</section>
+
+<section class="slide" aria-label="שיעור חודשי">
+ <div class="eyebrow">עוגן רוחני</div>
+ <h2>שיעור חודשי ובית מדרש לבוגרים</h2>
+ <div class="cols">
+  <ul class="pts">
+   <li><span><b>בכל יום חמישי שלפני ראש חודש</b> - בבית הכנסת הגדול</span></li>
+   <li><span>לומדים בחבורה, עם רבנים ומרצים מתחלפים</span></li>
+   <li><span>ערבי שיא: <b>סליחות באלול</b> ו<b>פורים באדר</b></span></li>
+   <li><span>מסגרת קבועה שמחזיקה את הבוגרים - גם בצבא, גם כשהחיים עמוסים</span></li>
+  </ul>
+  <div class="ph grid" data-folder="1"><div class="cell"><div class="ph-cap"><b>📷</b>שיעור חודשי</div></div><div class="cell"><div class="ph-cap"><b>📷</b>בית מדרש</div></div><div class="cell"><div class="ph-cap"><b>📷</b>ערב סליחות</div></div><div class="cell"><div class="ph-cap"><b>📷</b>פורים</div></div></div>
+ </div>
+</section>
+
+<section class="slide" aria-label="אירועי בוגרים">
+ <div class="eyebrow">קהילה</div>
+ <h2>אירועי בוגרים - כל המחזורים יחד</h2>
+ <div class="cols">
+  <ul class="pts">
+   <li><span><b>כסלו:</b> מסיבת חנוכה</span></li>
+   <li><span><b>אייר:</b> על האש וגיבוש</span></li>
+   <li><span>ולאורך השנה: כנסים, ימי עיון ווובינרים</span></li>
+   <li><span>בוגרים ותיקים פוגשים בוגרים צעירים - ונוצרת רשת אחת</span></li>
+  </ul>
+  <div class="ph grid" data-folder="2"><div class="cell"><div class="ph-cap"><b>📷</b>חנוכה</div></div><div class="cell"><div class="ph-cap"><b>📷</b>על האש</div></div><div class="cell"><div class="ph-cap"><b>📷</b></div></div><div class="cell"><div class="ph-cap"><b>📷</b></div></div></div>
+ </div>
+</section>
+
+<section class="slide" aria-label="נותנים בחזרה">
+ <div class="eyebrow">אחריות חברתית</div>
+ <h2>מי שקיבל - נותן בחזרה</h2>
+ <div class="cols">
+  <ul class="pts">
+   <li><span><b>"ניצוצות בוגרים":</b> בוגרים חוזרים ומספרים לתלמידים - כבאי, מד"א, מאמן אגרוף, סיפור מהצבא, בוגרים שפתחו עסק</span></li>
+   <li><span><b>"אח בוגר":</b> תלמידי י"ב חונכים את תלמידי ז'-ח'</span></li>
+   <li><span><b>"מסע תקומה":</b> בוגרים מלווים ומנחים את תלמידי י"א-י"ב</span></li>
+   <li><span><b>"העברת המקל":</b> טקס שבו י"ב מעבירים את המקל לי"א</span></li>
+  </ul>
+  <div class="ph grid" data-folder="3,4"><div class="cell"><div class="ph-cap"><b>📷</b>ניצוצות בוגרים</div></div><div class="cell"><div class="ph-cap"><b>📷</b>אח בוגר</div></div><div class="cell"><div class="ph-cap"><b>📷</b>מסע תקומה</div></div><div class="cell"><div class="ph-cap"><b>📷</b>העברת המקל</div></div></div>
+ </div>
+</section>
+
+<section class="slide" aria-label="ליווי אישי">
+ <div class="eyebrow">רשת ביטחון</div>
+ <h2>ליווי אישי - אף בוגר לא לבד</h2>
+ <div class="cols">
+  <ul class="pts">
+   <li><span><b>מסיבת סיום</b> בסוף י"ב ו<b>טקס תעודות בגרות</b> שנה אחר כך</span></li>
+   <li><span><b>שיחה אישית לכל בוגר</b> בשנה הראשונה - בדצמבר, במרץ וביוני</span></li>
+   <li><span><b>מניעת נשירה:</b> מיפוי עם יועצת י"ב, וקשר עם הגורמים בצבא ובשירות כשצריך</span></li>
+   <li><span>ברכה והפתעה קטנה ביום ההולדת - והמחנך מי"ב ממשיך להיות בקשר</span></li>
+  </ul>
+  <div class="ph grid" data-folder="5,6"><div class="cell"><div class="ph-cap"><b>📷</b>מסיבת סיום</div></div><div class="cell"><div class="ph-cap"><b>📷</b>תעודות בגרות</div></div><div class="cell"><div class="ph-cap"><b>📷</b>גיוס</div></div><div class="cell"><div class="ph-cap"><b>📷</b>בוגר השבוע</div></div></div>
+ </div>
+</section>
+
+<section class="slide" aria-label="עתיד">
+ <div class="eyebrow">אחרי השחרור</div>
+ <h2>לימודים, קריירה ובניין הבית</h2>
+ <div class="pillars" style="grid-template-columns:repeat(2,1fr);gap:1.1em">
+  <div class="pillar"><b>🎓 לימודים</b><span>מידע וסיוע בהגשת מלגות, קורסי פסיכומטרי ושיפור בגרויות במחירי קבוצה, חיבור למרכז הצעירים. "לוקחים אחריות": שיפור בגרויות תמורת חונכות לחטיבה.</span></div>
+  <div class="pillar"><b>💼 קריירה</b><span>"בוגרים עוזרים לבוגרים": קבוצת "דרושים - בוגרים", כנס נטוורקינג עם מרכז הצעירים, ובוגרים בעלי עסקים שפותחים דלת לצעירים.</span></div>
+  <div class="pillar"><b>⭐ בוגר השבוע</b><span>בכל יום ראשון - סיפור של בוגר או בוגרת שעשו דרך: בעסק, בלימודים, בשירות או בהתנדבות.</span></div>
+  <div class="pillar"><b>💍 בניין הבית</b><span>לבוגרים מגיל 21: "כרטיס בוגר" דיסקרטי, חיבור לשדכניות שעובדות עם בית הספר, וסדנת "תקשורת וזוגיות".</span></div>
+ </div>
+</section>
+
+<section class="slide" aria-label="יעדים">
+ <div class="eyebrow">תוכנית העבודה · תשפ"ז</div>
+ <h2>היעדים שלנו השנה</h2>
+ <div class="kpis">
+  <div class="kpi"><b>100%</b><span>מבוגרי שנה א' מקבלים שיחה אישית בכל סבב</span></div>
+  <div class="kpi"><b>10</b><span>שיעורים חודשיים, 20-30 משתתפים</span></div>
+  <div class="kpi"><b>40+</b><span>משתתפים בממוצע בכל אירוע שיא</span></div>
+  <div class="kpi"><b>10%</b><span>שיפור בהתמדה במסגרות ההמשך</span></div>
+  <div class="kpi"><b>70%</b><span>מהבוגרים עם פרטים מעודכנים במאגר</span></div>
+  <div class="kpi"><b>200+</b><span>חברים בקבוצת "דרושים - בוגרים"</span></div>
+ </div>
+ <p class="note">ובדרך: הקמת מרכז בוגרים פיזי - מקום ללמוד, להיפגש ולחזור אליו.</p>
+</section>
+
+<section class="slide end" aria-label="סיום">
+ <h2>הדלת פתוחה</h2>
+ <p>"יום הסיום של י"ב הוא לא יום הפרידה שלנו. לכל אחד מכם צריך להיות מקום לחזור אליו."</p>
+ <div class="sig">הרב אפרים לוי · רכז הבוגרים · תיכון יש"י</div>
+</section>
+
+</main>
+<nav class="bar" aria-label="ניווט במצגת">
+ <button type="button" id="next" aria-label="שקופית הבאה">→ הבאה</button>
+ <span id="pos" aria-live="polite"></span>
+ <button type="button" id="prev" aria-label="שקופית קודמת">הקודמת ←</button>
+ <button type="button" id="fs" aria-label="מסך מלא">⛶ מסך מלא</button>
+</nav>
+<script>
+(function(){
+  var S=[].slice.call(document.querySelectorAll('.slide')), i=0;
+  try{ var h=parseInt(location.hash.slice(1),10); if(h>0&&h<=S.length) i=h-1; }catch(e){}
+  function go(n){ i=Math.max(0,Math.min(S.length-1,n)); S.forEach(function(s,k){ s.classList.toggle('on',k===i); s.setAttribute('aria-hidden',k===i?'false':'true'); });
+    document.getElementById('pos').textContent=(i+1)+' / '+S.length; document.getElementById('prog').style.width=((i+1)/S.length*100)+'%';
+    history.replaceState(null,'','#'+(i+1)); }
+  document.getElementById('next').onclick=function(){go(i+1)}; document.getElementById('prev').onclick=function(){go(i-1)};
+  document.getElementById('fs').onclick=function(){ if(document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen(); };
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowLeft'||e.key===' '||e.key==='PageDown'){ e.preventDefault(); go(i+1); }
+    else if(e.key==='ArrowRight'||e.key==='PageUp'){ e.preventDefault(); go(i-1); }
+    else if(e.key==='Home') go(0); else if(e.key==='End') go(S.length-1);
+  });
+  document.getElementById('deck').addEventListener('click',function(e){ if(e.target.closest('a,button')) return; go(e.clientX<innerWidth/2?i+1:i-1); });
+  var t; function wake(){ document.body.classList.remove('idle'); clearTimeout(t); t=setTimeout(function(){document.body.classList.add('idle')},2500); }
+  document.addEventListener('mousemove',wake); wake();
+  window.addEventListener('hashchange',function(){ var h=parseInt(location.hash.slice(1),10); if(h>0&&h<=S.length&&h-1!==i) go(h-1); });
+  go(i);
+})();
+</script>
+</body>
+</html>
