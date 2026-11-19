@@ -13,7 +13,8 @@
 
 
 <script src="assets/a11y.js"></script>
-<script src="assets/ivrit-completion.js"></script></head>
+<script src="assets/ivrit-completion.js"></script><script src="assets/code-check.js"></script>
+</head>
 <body>
 <a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
 
@@ -501,7 +502,6 @@ document.querySelectorAll('.hint-btn').forEach(btn => {
   });
 });
 
-const ANSWER_KEY_CODE = '5703531';
 const answerKeyBtn = document.getElementById('answerKeyBtn');
 if(answerKeyBtn){
   answerKeyBtn.addEventListener('click', () => {
@@ -513,12 +513,12 @@ if(answerKeyBtn){
     }
     const code = prompt('הקלידו את הקוד שקיבלתם מהמורה כדי לפתוח את מפתח התשובות:');
     if(code === null) return;
-    if(code.trim() === ANSWER_KEY_CODE){
+    BM_CODE_OK(code).then(function(__ok){ if(__ok){
       box.hidden = false;
       answerKeyBtn.textContent = '🙈 הסתר תשובות';
     } else {
       alert('קוד שגוי. נסו שוב, או שאלו את המורה.');
-    }
+    } });
   });
 }
 

@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="assets/site.css?v=45">
 
 <script src="assets/a11y.js"></script>
+<script src="assets/code-check.js"></script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
@@ -372,15 +373,14 @@
 <script>
 (function(){
   "use strict";
-  var CODE = "5703531";
   var gate = document.getElementById("gate"), plan = document.getElementById("plan");
   function ok(){ try{ return sessionStorage.getItem("teacherAreaUnlocked") === "1"; }catch(e){ return false; } }
   function open(){ plan.hidden = false; gate.hidden = true; }
   document.getElementById("gateBtn").addEventListener("click", function(){
     var c = prompt("קוד מורה:");
     if(c === null) return;
-    if(c.trim() === CODE){ try{ sessionStorage.setItem("teacherAreaUnlocked","1"); }catch(e){} open(); }
-    else alert("קוד שגוי.");
+    BM_CODE_OK(c).then(function(__ok){ if(__ok){ try{ sessionStorage.setItem("teacherAreaUnlocked","1"); }catch(e){} open(); }
+    else alert("קוד שגוי."); });
   });
   if(ok()) open();
   document.getElementById("printBtn").addEventListener("click", function(){ window.print(); });

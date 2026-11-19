@@ -42,7 +42,8 @@ td .model{font-size:.95rem}
 #keyGate button{padding:8px 16px;border:0;border-radius:10px;background:var(--teal);color:#fff;font:inherit;cursor:pointer}
 #keyContent[hidden]{display:none}
 @media print{body{background:#fff} .nav,.print,.howto,#keyGate,header .crumbs,.open{display:none!important} .part{border:0;padding:0;break-before:page} .part:first-of-type{break-before:auto} header{background:#fff;color:#000;padding:0}}
-</style></head><body>
+</style><script src="assets/code-check.js"></script>
+</head><body>
 <header><div class="wrap"><div class="crumbs"><a href="index.html#tab-teacher">האזור האישי</a> › <a href="ivrit-tzurat-hashem.html">תצורת השם</a></div>
 <h1>🗝️ מחוון — תצורת השם</h1><p>כל התשובות של עשרת החלקים במקום אחד: התרגול העצמי ושאלות הבגרות.</p></div></header>
 <div class="wrap">
@@ -97,10 +98,9 @@ td .model{font-size:.95rem}
 </section>
 </div></div>
 <script>(function(){
-var CODE="5703531";
 function ok(){try{return sessionStorage.getItem('teacherAreaUnlocked')==='1'||!!sessionStorage.getItem('bm-teacher-token');}catch(e){return false;}}
 function show(){document.getElementById('keyGate').hidden=true;document.getElementById('keyContent').hidden=false;}
 if(ok())show();
-document.getElementById('unlock').onclick=function(){var c=prompt('הקלידו את קוד המחוונים:');if(c===null)return;if(c.trim()===CODE){try{sessionStorage.setItem('teacherAreaUnlocked','1');}catch(e){}show();}else alert('קוד שגוי. נסו שוב.');};
+document.getElementById('unlock').onclick=function(){var c=prompt('הקלידו את קוד המחוונים:');if(c===null)return;BM_CODE_OK(c).then(function(__ok){ if(__ok){try{sessionStorage.setItem('teacherAreaUnlocked','1');}catch(e){}show();}else alert('קוד שגוי. נסו שוב.'); });};
 })();</script>
 </body></html>

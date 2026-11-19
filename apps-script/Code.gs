@@ -134,6 +134,12 @@ function doPost(e) {
     if (data.action === 'studentTaskDone') return json_(studentTaskDone_(data));
     if (data.action === 'studentHere') return json_(studentHere_(data));
 
+    // נתוני הבוגרים: נפתחים עם קוד המורה (AREA_CODE במאפייני הסקריפט) או עם סיסמת המורה
+    if (data.action === 'bogrimData') {
+      if (!checkAreaCode_(data.password) && !checkPassword_(data.password)) return json_({ ok: false, auth: false, error: 'קוד שגוי' });
+      return json_(bogrimData_());
+    }
+
     // כל השאר - רק עם סיסמה
     if (!checkPassword_(data.password)) return json_({ ok: false, auth: false, error: 'סיסמה שגויה' });
 
@@ -2533,6 +2539,26 @@ function pagePollReset_(poll) {
 }
 
 // ---------- סיסמה ----------
+// ---------- נתוני בוגרים (פרטי - רק עם סיסמת המורה) ----------
+// הרשימה יושבת בקובץ bogrim-data.json בדרייב (בתיקייה הראשית של ההגשות) ולא באתר.
+var BOGRIM_DATA_FILE_ID = '1QoC1FAdw4hWfiemlduUUj3rwGwMvniP0';
+// קוד המורה (אותו קוד של דפי המחוונים) - שמור רק במאפייני הסקריפט, לא בקוד
+function checkAreaCode_(code) {
+  var real = PropertiesService.getScriptProperties().getProperty('AREA_CODE');
+  return !!real && String(code || '').trim() === String(real).trim();
+}
+
+function bogrimData_() {
+  var f = null;
+  try { f = DriveApp.getFileById(BOGRIM_DATA_FILE_ID); } catch (e) {}
+  if (!f) {
+    var it = DriveApp.getFilesByName('bogrim-data.json');
+    if (it.hasNext()) f = it.next();
+  }
+  if (!f) return { ok: false, error: 'לא נמצא הקובץ bogrim-data.json בדרייב' };
+  return { ok: true, data: JSON.parse(f.getBlob().getDataAsString('UTF-8')) };
+}
+
 function checkPassword_(pw) {
   var cache = CacheService.getScriptCache();
   var fails = Number(cache.get('pwFails') || 0);

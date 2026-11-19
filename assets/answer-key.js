@@ -10,7 +10,9 @@
 (function(){
   "use strict";
   if(!/[?&]key(=|&|$)/.test(location.search)) return;
-  var ANSWERS_CODE = "5703531"; /* אותו קוד כמו בשאר דפי המחוונים */
+  if(!window.BM_CODE_OK){ var __cs = document.createElement("script");
+    __cs.src = (document.currentScript && document.currentScript.src || "assets/answer-key.js").replace(/answer-key\.js.*$/, "code-check.js");
+    document.head.appendChild(__cs); }
   var root = document.documentElement;
   root.classList.add("ak-mode");
 
@@ -53,12 +55,12 @@
     document.getElementById("akUnlock").addEventListener("click", function(){
       var code = prompt("הקלידו את קוד המחוונים:");
       if(code === null) return;
-      if(code.trim() === ANSWERS_CODE){
+      BM_CODE_OK(code).then(function(__ok){ if(__ok){
         try{ sessionStorage.setItem("teacherAreaUnlocked", "1"); }catch(e){}
         fill();
       } else {
         alert("קוד שגוי. נסו שוב.");
-      }
+      } });
     });
   }
 
