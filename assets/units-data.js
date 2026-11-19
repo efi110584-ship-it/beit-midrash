@@ -1579,6 +1579,18 @@
     "url": "bogrim-plan.html"
   },
   {
+    "key": "bogrim-show",
+    "class": "teacher",
+    "subject": "מורה",
+    "category": "בוגרים",
+    "icon": "🖼️",
+    "title": "מצגת תוכנית הבוגרים - לאורחים",
+    "desc": "מצגת במסך מלא להצגה למבקרים: חזון, מספרים, הדרך, פעילויות ותמונות. מעבר בין שקופיות בחצים או בלחיצה.",
+    "chapters": 12,
+    "chaptersLabel": "שקופיות",
+    "url": "bogrim-show.html"
+  },
+  {
     "key": "ivrit-focus-2027-teacher-answers",
     "class": "teacher",
     "grade": "יא",
