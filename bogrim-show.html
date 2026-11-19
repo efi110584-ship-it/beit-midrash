@@ -33,6 +33,8 @@ ul.pts b{color:var(--navy)}
 .ph.grid .cell{border-radius:10px;background:repeating-linear-gradient(135deg,#E8DDC4 0 12px,#F2EAD8 12px 24px);display:grid;place-items:center;position:relative;overflow:hidden}
 .ph-cap{max-width:20em}
 .ph.grid{place-items:stretch}
+.ph.grid.two{grid-template-rows:1fr}
+.ph.grid.four1{grid-template-columns:1.4fr 1fr;grid-template-rows:1fr 1fr 1fr}.ph.grid.four1 .cell:first-child{grid-row:1/4}
 .ph.grid.one{grid-template-columns:1fr;grid-template-rows:1fr}
 .ph.grid.three{grid-template-rows:1fr 1fr}.ph.grid.three .cell:first-child{grid-row:1/3}
 .ph.has{border-style:solid;border-color:var(--line)}
@@ -167,7 +169,7 @@ body.idle .bar{opacity:0}
    <li><span>ולאורך השנה: כנסים, ימי עיון ווובינרים</span></li>
    <li><span>בוגרים ותיקים פוגשים בוגרים צעירים - ונוצרת רשת אחת</span></li>
   </ul>
-  <div class="ph grid has"><div class="cell"><img src="bogrim-img/dinner.jpg" alt="" style="object-position:center"></div><div class="cell"><img src="bogrim-img/kotel.jpg" alt="" style="object-position:50% 85%"></div><div class="cell"><img src="bogrim-img/trip.jpg" alt="" style="object-position:center"></div><div class="cell"><img src="bogrim-img/et-laasot.jpg" alt="" style="object-position:50% 40%"></div></div>
+  <div class="ph grid has two"><div class="cell"><img src="bogrim-img/dinner.jpg" alt="" style="object-position:center"></div><div class="cell"><img src="bogrim-img/et-laasot.jpg" alt="" style="object-position:50% 40%"></div></div>
  </div>
 </section>
 
@@ -180,8 +182,9 @@ body.idle .bar{opacity:0}
    <li><span><b>"אח בוגר":</b> תלמידי י"ב חונכים את תלמידי ז'-ח'</span></li>
    <li><span><b>"מסע תקומה":</b> בוגרים מלווים ומנחים את תלמידי י"א-י"ב</span></li>
    <li><span><b>"העברת המקל":</b> טקס שבו י"ב מעבירים את המקל לי"א</span></li>
+   <li><span><b>תורמים לבית:</b> בוגרים תרמו לבית הספר - למשל מעמד ברכת המזון</span></li>
   </ul>
-  <div class="ph grid has one"><div class="cell"><img src="bogrim-img/nitzotzot.jpg" alt="" style="object-position:center"></div></div>
+  <div class="ph grid has four1"><div class="cell"><img src="bogrim-img/nitzotzot.jpg" alt="" style="object-position:center"></div><div class="cell"><img src="bogrim-img/kotel.jpg" alt="" style="object-position:20% 85%"></div><div class="cell"><img src="bogrim-img/trip.jpg" alt="" style="object-position:center"></div><div class="cell"><img src="bogrim-img/birkat-hamazon.jpg" alt="" style="object-position:50% 25%"></div></div>
  </div>
 </section>
 
