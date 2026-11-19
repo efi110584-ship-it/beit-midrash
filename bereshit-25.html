@@ -1,592 +1,253 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl" data-css="theme tpl-bereshit-25 steps guide lesson-tools">
+<html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ספר בראשית — דף עבודה אינטראקטיבי (פרק כ"ה, מכירת הבכורה)</title>
+<title>בראשית פרק כ&quot;ה - מכירת הבכורה · דף עבודה</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css?v=45">
-
-
-
-
 <script src="assets/a11y.js"></script>
+<style>
+:root{--ws-ink:#1F3A4D;--ws-mute:#5E6B76;--ws-line:#DDD3BF;--ws-paper:#FFFDF8;--ws-bg:#F4EFE4;--ws-gold:#A9752E;--ws-ok:#2E7D4F;--ws-okb:#E3F2E8;--ws-bad:#B23B2E;--ws-badb:#FBE6E3;
+ --t1:#3F6E66;--t1b:#E6F0EE;--t2:#A9752E;--t2b:#F6EEDF;--t3:#8A3B2E;--t3b:#F7E8E4;--tb:#2C4F7A;--tbb:#E5EDF7}
+body{background:var(--ws-bg);color:var(--ws-ink);font-family:Heebo,Arial,sans-serif}
+.ws-wrap{max-width:900px;margin:0 auto;padding:18px 16px 60px}
+.ws-hero{background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:14px;padding:16px 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.ws-hero h1{font-family:"Frank Ruhl Libre",serif;font-size:1.8rem;margin:0;color:var(--ws-ink)}
+.ws-hero .ws-sub{color:var(--ws-mute);margin:.2rem 0 0;font-size:.95rem}
+.ws-who{display:flex;gap:10px;flex-wrap:wrap}
+.ws-who label{font-weight:600;font-size:.95rem}
+.ws-who input{font:inherit;border:1px solid var(--ws-line);border-radius:8px;padding:6px 10px;width:11rem;background:#fff}
+.ws-map{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}
+.ws-map a{flex:1 1 180px;text-decoration:none;color:inherit;background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:10px;padding:8px 12px;font-weight:600}
+.ws-map a small{display:block;color:var(--ws-mute);font-weight:400}
+.ws-howto{font-size:.92rem;color:var(--ws-mute);margin:6px 2px 0}
+.ws-topic{background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:14px;margin-top:18px;overflow:hidden}
+.ws-th{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 16px;color:#fff}
+.ws-th h2{margin:0;font-family:"Frank Ruhl Libre",serif;font-size:1.45rem;color:#fff}
+.ws-tn{background:rgba(255,255,255,.22);border-radius:99px;padding:2px 10px;font-size:.85rem;font-weight:700}
+.ws-rng{margin-inline-start:auto;font-size:.9rem;opacity:.95}
+.ws-t1 .ws-th{background:var(--t1)} .ws-t2 .ws-th{background:var(--t2)} .ws-t3 .ws-th{background:var(--t3)} .ws-bag .ws-th{background:var(--tb)}
+.ws-topic > :not(.ws-th){margin-inline:16px}
+.ws-step{display:flex;align-items:center;gap:8px;font-size:1.05rem;margin:16px 16px 8px;color:var(--ws-ink)}
+.ws-step span{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ws-ink);color:#fff;font-size:.85rem}
+.ws-verses{display:grid;gap:6px}
+.ws-v{display:grid;grid-template-columns:34px 1fr;column-gap:8px;padding:6px 10px;border-radius:8px}
+.ws-t1 .ws-v{background:var(--t1b)} .ws-t2 .ws-v{background:var(--t2b)} .ws-t3 .ws-v{background:var(--t3b)}
+.ws-vn{grid-row:span 2;font-weight:700;color:var(--ws-gold);font-family:"Frank Ruhl Libre",serif;font-size:1.05rem;padding-top:2px}
+.ws-vt{margin:0;font-family:"Frank Ruhl Libre",serif;font-size:1.28rem;line-height:1.65}
+.ws-vp{margin:0;font-size:.92rem;color:var(--ws-mute)}
+.ws-act{border:2px dashed var(--ws-line);border-radius:12px;padding:10px 12px;margin-top:10px}
+.ws-act-h{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:700;margin-bottom:6px}
+.ws-help{margin:0 0 6px;font-size:.9rem;color:var(--ws-mute)}
+.ws-btn,.ws-sort-b button,.ws-seq-b button{font:inherit;border:1px solid var(--ws-ink);background:#fff;color:var(--ws-ink);border-radius:8px;padding:4px 12px;cursor:pointer;min-height:34px}
+.ws-btn:hover,.ws-sort-b button:hover,.ws-seq-b button:hover{background:var(--ws-ink);color:#fff}
+.ws-btn:focus-visible,.ws-sort-b button:focus-visible,.ws-seq-b button:focus-visible{outline:3px solid var(--ws-gold);outline-offset:2px}
+.ws-quiz{width:100%;border-collapse:collapse}
+.ws-quiz th{text-align:right;font-size:.85rem;color:var(--ws-mute);padding:4px 6px;border-bottom:1px solid var(--ws-line)}
+.ws-quiz td{padding:6px;border-bottom:1px solid var(--ws-line);vertical-align:top}
+.ws-q{width:52%;font-weight:500}
+.ws-src{color:var(--ws-mute);font-size:.82rem;font-weight:400}
+.ws-in{width:100%;font:inherit;border:1px solid var(--ws-line);border-radius:8px;padding:5px 8px;background:#fff}
+.ws-key[hidden]{display:none !important}
+.ws-key{display:block;margin-top:3px;font-size:.88rem;color:var(--ws-ok);font-weight:600}
+.ws-sort{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:6px}
+.ws-sort-i{display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--ws-line);border-radius:10px;padding:6px 8px;background:#fff}
+.ws-sort-t{font-family:"Frank Ruhl Libre",serif;font-size:1.08rem}
+.ws-sort-b{display:flex;gap:4px;flex-shrink:0}
+.ws-sort-i.ok{background:var(--ws-okb);border-color:var(--ws-ok)} .ws-sort-i.bad{background:var(--ws-badb);border-color:var(--ws-bad)}
+.ws-sort-i.ok button.on{background:var(--ws-ok);color:#fff;border-color:var(--ws-ok)} .ws-sort-i.bad button.on{background:var(--ws-bad);color:#fff;border-color:var(--ws-bad)}
+.ws-score{font-size:.9rem;color:var(--ws-ok)}
+.ws-seq{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.ws-seq-i{display:flex;align-items:center;gap:8px;border:1px solid var(--ws-line);border-radius:10px;padding:5px 8px;background:#fff}
+.ws-seq-n{display:inline-grid;place-items:center;min-width:28px;height:28px;border-radius:7px;background:var(--t3b);font-weight:700}
+.ws-seq-t{flex:1}
+.ws-seq-b{display:flex;gap:4px}
+.ws-seq-i.ok{background:var(--ws-okb);border-color:var(--ws-ok)} .ws-seq-i.bad{background:var(--ws-badb);border-color:var(--ws-bad)}
+.ws-seq-msg{margin:6px 0 0;font-weight:600;min-height:1.2em}
+.ws-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-bottom:16px}
+.ws-card{border:1px solid var(--ws-line);border-radius:12px;background:#fff;display:flex;flex-direction:column;overflow:hidden}
+.ws-card header{display:flex;justify-content:space-between;gap:6px;align-items:baseline;padding:7px 10px;background:var(--ws-bg);border-bottom:1px solid var(--ws-line)}
+.ws-card header b{font-family:"Frank Ruhl Libre",serif;font-size:1.15rem}
+.ws-card header span{font-size:.82rem;color:var(--ws-mute)}
+.ws-ctext{margin:8px 10px 0;font-family:"Frank Ruhl Libre",serif;font-size:1.02rem;line-height:1.6;border-inline-start:3px solid var(--ws-gold);padding-inline-start:8px}
+.ws-cq{margin:8px 10px 4px;font-weight:600}
+.ws-ta{display:block;width:calc(100% - 20px);margin:0 10px 10px;font:inherit;border:1px solid var(--ws-line);border-radius:8px;padding:6px 8px;resize:vertical;margin-top:auto}
+.ws-bqs{list-style:none;margin:12px 0 16px;padding:0;display:grid;gap:10px}
+.ws-bq{border:1px solid var(--ws-line);border-radius:10px;background:#fff;padding:8px 10px}
+.ws-bq-h{font-weight:700} .ws-bq-h span{font-weight:400;color:var(--ws-mute);font-size:.88rem}
+.ws-bq p{margin:3px 0 6px}
+.ws-bq .ws-ta{width:100%;margin:0}
 
+.ws-res{display:flex;gap:8px;flex-wrap:wrap;margin:6px 2px 0;font-size:.92rem}
+.ws-res a{color:var(--ws-ink);background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:99px;padding:3px 12px;text-decoration:none}
+.ws-chnav{display:flex;justify-content:space-between;gap:8px;margin-top:18px;flex-wrap:wrap}
+.ws-chnav a{color:var(--ws-ink);font-weight:600}
+.ws-note{background:transparent !important;border:1px dashed var(--ws-line)}
+.ws-note .ws-vp{font-style:italic}
+.ws-cwho{margin:8px 10px 0;font-weight:700;font-family:"Frank Ruhl Libre",serif}
+.ws-cwho + .ws-ctext{margin-top:2px}
+.ws-wide{grid-column:1 / -1}
+.ws-sort3 .ws-sort-i{flex-wrap:wrap}
+.ws-bq-y{font-weight:700;color:var(--tb);margin-top:6px}
+.ws-bq-intro{color:var(--ws-mute);font-size:.95rem}
+.ws-v.ws-kv{background:#FFF0C2 !important;box-shadow:inset -4px 0 0 #D49A1E}
+.ws-v.ws-kv .ws-vt{font-weight:700}
+.ws-star{display:block;font-size:.8rem;line-height:1}
+.ws-legend{margin:0 0 6px;font-size:.88rem;color:var(--ws-mute);display:flex;align-items:center;gap:6px}
+.ws-legend-sw{display:inline-block;width:18px;height:12px;border-radius:3px;background:#FFF0C2;box-shadow:inset -3px 0 0 #D49A1E}
+.ws-tools{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+@media (max-width:600px){.ws-q{width:auto}.ws-quiz,.ws-quiz tbody,.ws-quiz tr,.ws-quiz td{display:block;width:100%}.ws-quiz thead{display:none}.ws-quiz td{border:0;padding:3px 0}.ws-quiz tr{border-bottom:1px solid var(--ws-line);padding:6px 0}.ws-vt{font-size:1.18rem}}
+@media print{
+ @page{size:A4;margin:7mm 8mm}
+ body{background:#fff;font-size:10pt}
+ .ws-wrap{max-width:none;padding:0}
+ .ws-map,.ws-howto,.ws-tools,.bm-send-panel,.bm-save-info,.ws-btn,.ws-score,.ws-help,.ws-seq-b,.ws-seq-msg,.ws-key,nav,.bm-skip-link{display:none !important}
+ .ws-hero{border:0;padding:0 0 4px;border-bottom:2px solid var(--ws-ink);border-radius:0}
+ .ws-hero h1{font-size:15pt}
+ .ws-who input{border:0;border-bottom:1px solid #999;border-radius:0;width:8rem}
+ .ws-topic{break-before:page;border:0;border-radius:0;margin-top:0}
+ .ws-t1{break-before:auto;margin-top:6px}
+ .ws-th{padding:4px 10px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .ws-th h2{font-size:13pt}
+ .ws-topic > :not(.ws-th){margin-inline:0}
+ .ws-step{margin:4px 0 2px;font-size:10pt}
+ .ws-step span{width:18px;height:18px;font-size:8pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .ws-verses{display:block;column-count:2;column-gap:10px}
+ .ws-v{break-inside:avoid;margin-bottom:2px}
+ .ws-v{padding:2px 6px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .ws-vt{font-size:10.5pt;line-height:1.35}
+ .ws-vp{font-size:8pt;line-height:1.25}
+ .ws-act{padding:5px 8px;margin-top:5px;border-width:1px}
+ .ws-act-h{margin-bottom:2px;font-size:10pt}
+ .ws-quiz td{padding:2px 4px}
+ .ws-in{border:0;border-bottom:1px dotted #888;border-radius:0;padding:2px 0}
+ .ws-sort{grid-template-columns:repeat(3,1fr);gap:3px}
+ .ws-sort-i{padding:2px 6px}
+ .ws-sort-t{font-size:10pt}
+ .ws-sort-b button{min-height:0;padding:0 6px;font-size:8.5pt;border-radius:99px;background:#fff !important;color:var(--ws-ink) !important}
+ .ws-sort-i.ok,.ws-sort-i.bad{background:#fff;border-color:var(--ws-line)}
+ .ws-seq{display:grid;grid-template-columns:1fr 1fr;grid-auto-flow:column;grid-template-rows:repeat(4,auto);gap:2px 8px}
+ .ws-seq-i.ok,.ws-seq-i.bad{background:#fff;border-color:var(--ws-line)}
+ .ws-seq-i{padding:2px 6px}
+ .ws-seq-n{min-width:22px;height:20px;background:#fff;border:1px solid #888;color:transparent}
+ .ws-cards{grid-template-columns:1fr 1fr;gap:6px;margin-bottom:0}
+ .ws-card{break-inside:avoid}
+ .ws-card header{padding:3px 8px}
+ .ws-card header b{font-size:10.5pt}
+ .ws-ctext{font-size:8.5pt;line-height:1.3;margin:2px 8px 0}
+ .ws-cq{margin:4px 8px 2px;font-size:9.5pt}
+ .ws-ta{border:0;border-bottom:1px dotted #888;border-radius:0;height:2.3em !important;min-height:0;resize:none;margin-bottom:3px}
+ ::placeholder{color:transparent !important}
+ .ws-cards.c3{grid-template-columns:repeat(3,1fr)}
+ .ws-in{height:1.45em}
+ .ws-quiz td,.ws-quiz th{font-size:9.3pt;padding:1px 4px}
+ .ws-bq{break-inside:avoid;padding:5px 8px}
+ .ws-bq .ws-ta{height:2.6em !important}
+ .ws-bq{padding:3px 8px}
+ .ws-bq p{margin:1px 0 2px;font-size:9.5pt}
+ .ws-bqs{gap:5px;margin-top:6px}
+ .ws-res,.ws-chnav{display:none !important}
+ .ws-v.ws-kv,.ws-legend-sw{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .ws-legend{font-size:8pt;margin:0 0 2px}
+ .ws-star{font-size:7pt}
+ .ws-cwho{margin:3px 8px 0;font-size:9.5pt}
+ .ws-bq-y{margin-top:2px;font-size:10pt}
+ .ws-sort3{grid-template-columns:1fr 1fr}
+
+}
+</style>
 </head>
 <body>
 <a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
-
-<nav class="breadcrumbs" aria-label="נתיב ניווט">
-  <a href="index.html">הכיתה הדיגיטלית</a>
-  <span class="sep">›</span>
-  <a href="index.html#tab-ya">כיתה י"א</a>
-  <span class="sep">›</span>
-  <a href="index.html#tab-ya">ספר בראשית</a>
-  <span class="sep">›</span>
-  <span class="current">פרק כ"ה</span>
-</nav>
-
-<header>
-  <div class="eyebrow">ספר בראשית · חוברת תלמיד דיגיטלית · 3 יח"ל</div>
-  <div class="focus-tags" aria-label="מיקוד הבגרות: שאלון 2381, מיקוד תשפ&quot;ז, 3 יחידות לימוד"><span class="focus-tag">שאלון 2381</span><span class="focus-tag">מיקוד תשפ"ז</span><span class="focus-tag">3 יח"ל</span></div>
-  <h1>דף עבודה — פרק כ"ה, "מְכִירַת הַבְּכוֹרָה"</h1>
-  <p class="sub">בכל נושא: קודם קוראים את הפסוקים בקובייה העליונה, ואז עוברים על כל קוביית-שאלה שמסתעפת ממנה - קוראים את דברי הפרשן (אם יש), כותבים תשובה, ורק אז לוחצים "הצג תשובה" לבדיקה עצמית. הכול נשמר אוטומטית במכשיר שלכם.</p>
-  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
-
-  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
-    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
-      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
-    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
-      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
-  </svg>
+<main id="main-content" class="ws-wrap">
+<header class="ws-hero">
+ <div><h1>בראשית פרק כ&quot;ה · מכירת הבכורה</h1><p class="ws-sub">יעקב ועשיו · דף עבודה · שאלון 2381</p></div>
+ <div class="ws-who" id="printHeader">
+  <label>שם: <input type="text" id="studentName" data-bm-persist="ws-bereshit" autocomplete="off"></label>
+  <label>כיתה: <input type="text" id="studentClass" data-bm-persist="ws-bereshit" autocomplete="off" style="width:6rem"></label>
+ </div>
 </header>
-
-<div class="student-bar" id="printHeader">
-  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
-  <label>כיתה: <input type="text" id="studentClass" placeholder="למשל: י&quot;א 3" style="width:8rem;"></label>
-</div>
-<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
-
-<div class="progress-wrap">
-  <span class="progress-label" id="progressLabel">0 / 6 שאלות</span>
-  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
-</div>
-<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
-
-<details class="bm-resources"><summary>סרטונים, מצגות וחומרי עזר</summary><p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
-  <a class="chip-link" href="bereshit-25-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
-</p></details>
-
-<main id="main-content">
-  <div class="grid" id="grid" data-answer-kind="suggested">
-
-    <!-- תקציר הפרק -->
-    <section class="card" data-stage="intro" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">תקציר הפרק</span>
-        <h2 class="card-title">מה קורה בפרק כ"ה (פסוקים י"ט-ל"ד)?</h2>
-      </div>
-      <div class="card-body">
-        <div class="story-summary">
-          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
-          לאחר שנים ארוכות של עקרות, מתפלל יצחק בעד רבקה אשתו, ותהר בתאומים. עוד בהיותה בהיריון, הבנים מתרוצצים בקרבה עד שהיא הולכת לדרוש את ה', והוא מגלה לה שבבטנה שני גויים, ושהגדול (עשיו) יעבוד את הצעיר (יעקב). עשיו נולד ראשון, אדמוני ושעיר, ואחריו יעקב, ידו אוחזת בעקבו. הבנים גדלים והופכים לשני טיפוסים מנוגדים: עשיו - איש ציד ושדה, אהוב על יצחק; יעקב - איש תם יושב אוהלים, אהוב על רבקה. הפרק מסתיים בסיפור מכירת הבכורה: עשיו שב עייף מהשדה ומבקש מיעקב מן הנזיד האדום, ויעקב מנצל את הרגע ומבקש בתמורה את הבכורה - ועשיו, שאינו מעריך אותה, מוכר אותה בקלות ובז לה.
-        </div>
-      </div>
-    </section>
-
-    <!-- סקר: איך האמא תגיב? -->
-    <section class="card" data-stage="intro" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">סקר לפני הלימוד</span>
-        <h2 class="card-title">מה נראה לכם?</h2>
-      </div>
-      <div class="card-body">
-        <div class="page-poll" data-poll="bereshit-25-twins">
-          <div class="pp-label"><span aria-hidden="true">🗳️</span>הצביעו - כל אחד פעם אחת, בלי לראות מה הצביעו האחרים</div>
-          <p class="pp-q">אישה בהיריון הרגישה כאבים חזקים בבטן, ודאגה שיש בעיה עם התינוק. אחרי בדיקה אמר לה הרופא: יש לך שניים - אחד בריא ושלם, והשני הולך לצאת אהבל. <b>כיצד נראה לכם שהאמא תגיב אחרי ששמעה את הרופא?</b></p>
-          <div class="pp-opts" role="group" aria-label="אפשרויות הצבעה">
-            <button type="button" data-v="0">תהיה שמחה - העיקר שאחד בריא</button>
-            <button type="button" data-v="1">תהיה שמחה ועצובה - כי אחרי הכול אחד יצא אהבל</button>
-            <button type="button" data-v="2">תהיה עצובה מאוד</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- נושא 1 -->
-    <div class="topic-col" data-stage="learn_together" data-keep-together="true">
-    <div class="topic-banner" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
-      <span class="topic-icon" aria-hidden="true">👶</span>
-      <div>
-        <div class="topic-eyebrow">נושא 1 מתוך 3</div>
-        <div class="topic-title">התפילה, ההיריון והנבואה על שני הגויים</div>
-      </div>
-    </div>
-    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
-      <div class="qb-root">
-        <span class="qb-root-icon" aria-hidden="true">👶</span>
-        <div class="qb-root-label">פסוקים י"ט-כ"ו</div>
-        <div class="qb-root-pasuk">
-          <div class="pasuk-gloss">פתיחה: תולדות יצחק, ונישואיו לרבקה בגיל ארבעים</div>
-          <div class="pasuk-line"><b>יט:</b> וְאֵלֶּה תּוֹלְדֹת יִצְחָק בֶּן אַבְרָהָם, אַבְרָהָם הוֹלִיד אֶת יִצְחָק.</div>
-          <div class="pasuk-line"><b>כ:</b> וַיְהִי יִצְחָק בֶּן אַרְבָּעִים שָׁנָה בְּקַחְתּוֹ אֶת רִבְקָה בַּת בְּתוּאֵל הָאֲרַמִּי מִפַּדַּן אֲרָם, אֲחוֹת לָבָן הָאֲרַמִּי, לוֹ לְאִשָּׁה.</div>
-          <div class="pasuk-gloss">יצחק מתפלל בעד רבקה העקרה, וה' נענה לתפילתו</div>
-          <div class="pasuk-line"><b>כא:</b> וַיֶּעְתַּר יִצְחָק לַה' לְנֹכַח אִשְׁתּוֹ כִּי עֲקָרָה הִוא, וַיֵּעָתֶר לוֹ ה' וַתַּהַר רִבְקָה אִשְׁתּוֹ.</div>
-          <div class="pasuk-gloss">הבנים מתרוצצים בבטנה, והיא הולכת לדרוש את ה'</div>
-          <div class="pasuk-line"><b>כב:</b> וַיִּתְרֹצֲצוּ הַבָּנִים בְּקִרְבָּהּ, וַתֹּאמֶר: אִם כֵּן לָמָּה זֶּה אָנֹכִי? וַתֵּלֶךְ לִדְרֹשׁ אֶת ה'.</div>
-          <div class="pasuk-gloss">ה' עונה לה: שני גויים בבטנה, ורב (הגדול) יעבוד צעיר</div>
-          <div class="pasuk-line"><b>כג:</b> וַיֹּאמֶר ה' לָהּ: שְׁנֵי גֹיִים בְּבִטְנֵךְ, וּשְׁנֵי לְאֻמִּים מִמֵּעַיִךְ יִפָּרֵדוּ; וּלְאֹם מִלְאֹם יֶאֱמָץ, וְרַב יַעֲבֹד צָעִיר.</div>
-          <div class="pasuk-gloss">ימי ההיריון מתמלאים - ובבטנה באמת תאומים, כפי שנאמר לה</div>
-          <div class="pasuk-line"><b>כד:</b> וַיִּמְלְאוּ יָמֶיהָ לָלֶדֶת, וְהִנֵּה תוֹמִם בְּבִטְנָהּ.</div>
-          <div class="pasuk-gloss">עשיו נולד ראשון, אדמוני ושעיר; יעקב נולד אחריו, ידו אוחזת בעקבו</div>
-          <div class="pasuk-line"><b>כה:</b> וַיֵּצֵא הָרִאשׁוֹן אַדְמוֹנִי, כֻּלּוֹ כְּאַדֶּרֶת שֵׂעָר, וַיִּקְרְאוּ שְׁמוֹ עֵשָׂו.</div>
-          <div class="pasuk-line"><b>כו:</b> וְאַחֲרֵי כֵן יָצָא אָחִיו וְיָדוֹ אֹחֶזֶת בַּעֲקֵב עֵשָׂו, וַיִּקְרָא שְׁמוֹ יַעֲקֹב; וְיִצְחָק בֶּן שִׁשִּׁים שָׁנָה בְּלֶדֶת אֹתָם.</div>
-        </div>
-      </div>
-      <div class="qb-connector" aria-hidden="true"></div>
-      <div class="qb-branches">
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> הבנת דברי פרשן או מדרש</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">הבנים התרוצצו (נאבקו) בבטנה, ורבקה אמרה: אם כך - למה אני (בהריון)? והלכה לשאול את ה'</div><b>כב:</b> וַיִּתְרֹצֲצוּ הַבָּנִים בְּקִרְבָּהּ וַתֹּאמֶר: אִם כֵּן לָמָּה זֶּה אָנֹכִי? וַתֵּלֶךְ לִדְרֹשׁ אֶת ה'.<br><div class="pasuk-gloss">ה' אמר לה: שני עמים בבטנך, ושני לאומים ייפרדו ממך; לאום אחד יהיה חזק מן השני, והגדול יעבוד את הצעיר</div><b>כג:</b> וַיֹּאמֶר ה' לָהּ: שְׁנֵי גֹיִים בְּבִטְנֵךְ, וּשְׁנֵי לְאֻמִּים מִמֵּעַיִךְ יִפָּרֵדוּ; וּלְאֹם מִלְאֹם יֶאֱמָץ, וְרַב יַעֲבֹד צָעִיר.</div><div class="qb-meforesh">
-<span class="qb-src">רש"י (פסוק כ"ב) - "וַיִּתְרֹצֲצוּ"</span>
-            רבותינו דרשוהו: לשון ריצה, כשהייתה עוברת על פתחי תורה של שם ועבר יעקב רץ ומפרכס לצאת, עוברת על פתחי עבודה זרה עשו מפרכס לצאת.
-</div><div class="qb-meforesh">
-<span class="qb-src">רש"י (פסוק כ"ג) - "מִמֵּעַיִךְ יִפָּרֵדוּ"</span>
-            ממעיך יפרדו - מן המעים הם נפרדים, זה לרשעו וזה לתומו.
-</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">(1) על פי רש"י, מה פירוש "וַיִּתְרֹצֲצוּ" (פסוק כ"ב)?<br>(2) על פי רש"י, מה פירוש "וּשְׁנֵי לְאֻמִּים מִמֵּעַיִךְ יִפָּרֵדוּ" (פסוק כ"ג)?</span></div>
-<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> (1) לשון ריצה: כשעברה רבקה ליד "פתחי תורה של שם ועבר" - יעקב "רץ ומפרכס לצאת", וליד "פתחי עבודה זרה" - עשו. (2) "זה לרשעו וזה לתומו" - אופיים השונה של האחים ניכר כבר בבטן אמם.</div>
-</div></div></div>
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> הבנת הפשט - הסבר במילים שלכם</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">הבנים התרוצצו (נאבקו) בבטנה, ורבקה אמרה: אם כך - למה אני (בהריון)? והלכה לשאול את ה'</div><b>כב:</b> וַיִּתְרֹצֲצוּ הַבָּנִים בְּקִרְבָּהּ וַתֹּאמֶר: אִם כֵּן לָמָּה זֶּה אָנֹכִי? וַתֵּלֶךְ לִדְרֹשׁ אֶת ה'.<br><div class="pasuk-gloss">ה' אמר לה: שני עמים בבטנך, ושני לאומים ייפרדו ממך; לאום אחד יהיה חזק מן השני, והגדול יעבוד את הצעיר</div><b>כג:</b> וַיֹּאמֶר ה' לָהּ: שְׁנֵי גֹיִים בְּבִטְנֵךְ, וּשְׁנֵי לְאֻמִּים מִמֵּעַיִךְ יִפָּרֵדוּ; וּלְאֹם מִלְאֹם יֶאֱמָץ, וְרַב יַעֲבֹד צָעִיר.</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">עיינו בפסוק כ"ג.<br>(1) מה הבשורה שמקבלת רבקה כשהיא הולכת "לִדְרֹשׁ אֶת ה'"?<br>(2) הסבירו את החידוש שבמילים "וְרַב יַעֲבֹד צָעִיר".</span></div>
-<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> (1) בבטנה "שְׁנֵי גֹיִים" - שני עמים נפרדים, ו"לְאֹם מִלְאֹם יֶאֱמָץ" - אחד יתגבר על השני. (2) הגדול ישעבד לצעיר - בניגוד לסדר הרגיל, שבו הבכור הוא העיקר.</div>
-</div></div></div>
-
-      </div>
-    </div>
-    </div>
-
-    <!-- נושא 2 -->
-    <div class="topic-col" data-keep-together="true">
-    <div class="topic-banner" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
-      <span class="topic-icon" aria-hidden="true">🏹</span>
-      <div>
-        <div class="topic-eyebrow">נושא 2 מתוך 3</div>
-        <div class="topic-title">שני עולמות מנוגדים</div>
-      </div>
-    </div>
-    <div class="qb-topic" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
-      <div class="qb-root">
-        <span class="qb-root-icon" aria-hidden="true">🏹</span>
-        <div class="qb-root-label">פסוקים כ"ז-כ"ח</div>
-        <div class="qb-root-pasuk">
-          <div class="pasuk-gloss">הנערים גדלים לשני טיפוסים מנוגדים - עשיו איש שדה, יעקב איש תם יושב אוהלים</div>
-          <div class="pasuk-line"><b>כז:</b> וַיִּגְדְּלוּ הַנְּעָרִים, וַיְהִי עֵשָׂו אִישׁ יֹדֵעַ צַיִד אִישׁ שָׂדֶה, וְיַעֲקֹב אִישׁ תָּם יֹשֵׁב אֹהָלִים.</div>
-          <div class="pasuk-line"><b>כח:</b> וַיֶּאֱהַב יִצְחָק אֶת עֵשָׂו כִּי צַיִד בְּפִיו, וְרִבְקָה אֹהֶבֶת אֶת יַעֲקֹב.</div>
-        </div>
-      </div>
-      <div class="qb-connector" aria-hidden="true"></div>
-      <div class="qb-branches">
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> הבנת דברי פרשן או מדרש</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">הנערים גדלו: עשו היה צייד, איש של שדה; ויעקב היה איש תם (ישר), יושב באוהלים</div><b>כז:</b> וַיִּגְדְּלוּ הַנְּעָרִים, וַיְהִי עֵשָׂו אִישׁ יֹדֵעַ צַיִד אִישׁ שָׂדֶה, וְיַעֲקֹב אִישׁ תָּם יֹשֵׁב אֹהָלִים.</div><div class="qb-meforesh">
-<span class="qb-src">רש"י (פסוק כ"ז)</span>
-            יודע ציד - לצוד ולרמות את אביו בפיו, ושואלו: אבא, היאך מעשרין את המלח ואת התבן, כסבור אביו שהוא מדקדק במצות. איש שדה - כמשמעו, אדם בטל וצודה [וצד] בקשתו חיות ועופות. תם - אינו בקי בכל אלה, אלא כלבו כן פיו. מי שאינו חריף לרמות קרוי תם. ישב אהלים - אהלו של שם ואהלו של עבר.
-</div><div class="qb-meforesh">
-<span class="qb-src">רשב"ם (פסוק כ"ז)</span>
-            יושב אהלים - רועה צאן אביו, כמו שפירשתי אצל "יושב אהל ומקנה".
-</div><div class="qb-meforesh">
-<span class="qb-src">אבן עזרא (פסוק כ"ז)</span>
-            יודע ציד לעולם מלא מרמות, כי רוב החיות בדרך מרמה יתפשו, ויעקב הפך עשו כי הוא איש תם.
-</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">"וַיְהִי עֵשָׂו אִישׁ יֹדֵעַ צַיִד אִישׁ שָׂדֶה, וְיַעֲקֹב אִישׁ תָּם יֹשֵׁב אֹהָלִים" (פסוק כ"ז).<br>על פי פירוש שלמדתם (רש"י, רשב"ם או אבן עזרא), הסבירו כיצד מתואר כל אחד מן האחים.</span></div>
-<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי רש"י: עשו "יודע ציד" - "לצוד ולרמות את אביו בפיו", "איש שדה" - "אדם בטל וצודה בקשתו חיות ועופות"; יעקב "תם" - "כלבו כן פיו", "יושב אהלים" - באהלם של שם ועבר. או לפי אבן עזרא: "יודע ציד לעולם מלא מרמות", ויעקב הפכו - איש תם. או לפי רשב"ם: יעקב "יושב אהלים" - רועה צאן אביו.</div>
-</div></div></div>
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> הבנת דברי פרשן או מדרש</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">יצחק אהב את עשו, כי הביא לו ציד לאכול; ורבקה אוהבת את יעקב</div><b>כח:</b> וַיֶּאֱהַב יִצְחָק אֶת עֵשָׂו כִּי צַיִד בְּפִיו, וְרִבְקָה אֹהֶבֶת אֶת יַעֲקֹב.</div><div class="qb-meforesh">
-<span class="qb-src">רש"י (פסוק כ"ז) - "יֹדֵעַ צַיִד"</span>
-            יודע ציד - לצוד ולרמות את אביו בפיו, ושואלו: אבא, היאך מעשרין את המלח ואת התבן, כסבור אביו שהוא מדקדק במצות.
-</div><div class="qb-meforesh">
-<span class="qb-src">ספורנו (פסוק כ"ח)</span>
-            ויאהב יצחק את עשו - גם את עשו, אף על פי שידע בלי ספק שלא היה שלם כיעקב. ורבקה אוהבת את יעקב - לבדו, מפני שהכירה ברשעו של עשו.
-</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">מה בא פסוק כ"ח ללמדנו על ההבדל בין אהבת יצחק לאהבת רבקה? הסבירו לפי רש"י או לפי ספורנו.</span></div>
-<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי רש"י: עשו צד את אביו בפיו - שאל "היאך מעשרין את המלח ואת התבן", ויצחק חשב "שהוא מדקדק במצות", ולכן אהב אותו. לפי ספורנו: יצחק אהב "גם את עשו", אף שידע שאינו שלם כיעקב; ורבקה אהבה את יעקב "לבדו", "מפני שהכירה ברשעו של עשו".</div>
-</div></div></div>
-
-      </div>
-    </div>
-    </div>
-
-    <!-- נושא 3 -->
-    <div class="topic-col" data-keep-together="true">
-    <div class="topic-banner" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
-      <span class="topic-icon" aria-hidden="true">🍲</span>
-      <div>
-        <div class="topic-eyebrow">נושא 3 מתוך 3</div>
-        <div class="topic-title">מכירת הבכורה</div>
-      </div>
-    </div>
-    <div class="qb-topic" style="--acc:#7A4A73; --acc-soft:#EFE3EC;">
-      <div class="qb-root">
-        <span class="qb-root-icon" aria-hidden="true">🍲</span>
-        <div class="qb-root-label">פסוקים כ"ט-ל"ד</div>
-        <div class="qb-root-pasuk">
-          <div class="pasuk-gloss">עשיו שב עייף מן השדה, ומבקש מיעקב מן הנזיד האדום</div>
-          <div class="pasuk-line"><b>כט:</b> וַיָּזֶד יַעֲקֹב נָזִיד, וַיָּבֹא עֵשָׂו מִן הַשָּׂדֶה וְהוּא עָיֵף.</div>
-          <div class="pasuk-line"><b>ל:</b> וַיֹּאמֶר עֵשָׂו אֶל יַעֲקֹב: הַלְעִיטֵנִי נָא מִן הָאָדֹם הָאָדֹם הַזֶּה, כִּי עָיֵף אָנֹכִי; עַל כֵּן קָרָא שְׁמוֹ אֱדוֹם.</div>
-          <div class="pasuk-gloss">יעקב מבקש בתמורה את הבכורה, ועשיו - הרואה עצמו כהולך למות - מוכר אותה בלי היסוס</div>
-          <div class="pasuk-line"><b>לא:</b> וַיֹּאמֶר יַעֲקֹב: מִכְרָה כַיּוֹם אֶת בְּכֹרָתְךָ לִי.</div>
-          <div class="pasuk-line"><b>לב:</b> וַיֹּאמֶר עֵשָׂו: הִנֵּה אָנֹכִי הוֹלֵךְ לָמוּת, וְלָמָּה זֶּה לִי בְּכֹרָה?</div>
-          <div class="pasuk-line"><b>לג:</b> וַיֹּאמֶר יַעֲקֹב: הִשָּׁבְעָה לִּי כַּיּוֹם, וַיִּשָּׁבַע לוֹ, וַיִּמְכֹּר אֶת בְּכֹרָתוֹ לְיַעֲקֹב.</div>
-          <div class="pasuk-gloss">עשיו אוכל, שותה, קם והולך - ובכך מגלה את בוז ליבו לבכורה</div>
-          <div class="pasuk-line"><b>לד:</b> וְיַעֲקֹב נָתַן לְעֵשָׂו לֶחֶם וּנְזִיד עֲדָשִׁים, וַיֹּאכַל וַיֵּשְׁתְּ וַיָּקָם וַיֵּלַךְ, וַיִּבֶז עֵשָׂו אֶת הַבְּכֹרָה.</div>
-        </div>
-      </div>
-      <div class="qb-connector" aria-hidden="true"></div>
-      <div class="qb-branches">
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> הבנת דברי פרשן או מדרש</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">יעקב אמר: מכור לי עכשיו את הבכורה שלך</div><b>לא:</b> וַיֹּאמֶר יַעֲקֹב מִכְרָה כַיּוֹם אֶת בְּכֹרָתְךָ לִי:<br><div class="pasuk-gloss">עשו אמר: הנה אני הולך למות - ולמה לי בכורה?</div><b>לב:</b> וַיֹּאמֶר עֵשָׂו הִנֵּה אָנֹכִי הוֹלֵךְ לָמוּת וְלָמָּה זֶּה לִי בְּכֹרָה:<br><div class="pasuk-gloss">יעקב אמר: השבע לי עכשיו; עשו נשבע לו ומכר את הבכורה שלו ליעקב</div><b>לג:</b> וַיֹּאמֶר יַעֲקֹב הִשָּׁבְעָה לִּי כַּיּוֹם וַיִּשָּׁבַע לוֹ וַיִּמְכֹּר אֶת בְּכֹרָתוֹ לְיַעֲקֹב:</div><div class="qb-meforesh">
-<span class="qb-src">אבן עזרא (פסוק ל"ב)</span>
-            וטעם "הנה אנכי הולך למות", שבכל יום ויום הוא מסתכן בעצמו כאשר יצא לצוד שמא יהרגוהו החיות, ויתכן שימות קודם אביו.
-</div><div class="qb-meforesh">
-<span class="qb-src">רש"י (פסוק ל"ב)</span>
-            אמר עשו: מה טיבה של עבודה זו [עבודת הקרבנות שמוטלת על הבכורים]? אמר לו: כמה אזהרות ועונשין ומיתות תלוין בה, כאותה ששנינו: אלו הן שבמיתה - שתויי יין, ופרועי ראש. אמר: אני הולך למות על ידה, אם כן מה חפץ לי בה.
-</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">"הִנֵּה אָנֹכִי הוֹלֵךְ לָמוּת, וְלָמָּה זֶּה לִי בְּכֹרָה" (פסוק ל"ב).<br>על פי רש"י או על פי אבן עזרא, הסבירו מדוע מוותר עשו על הבכורה.</span></div>
-<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לפי רש"י: בעבודת הבכורים "כמה אזהרות ועונשין ומיתות תלוין בה", ועשו אמר: "אני הולך למות על ידה, אם כן מה חפץ לי בה". לפי אבן עזרא: עשו מסתכן כל יום בציד, "שמא יהרגוהו החיות", ו"יתכן שימות קודם אביו" - ולכן הבכורה לא תועיל לו.</div>
-</div></div></div>
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> איתור וציטוט מן הכתוב</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">יעקב בישל תבשיל, ועשו בא מן השדה והוא עייף</div><b>כט:</b> וַיָּזֶד יַעֲקֹב נָזִיד וַיָּבֹא עֵשָׂו מִן הַשָּׂדֶה וְהוּא עָיֵף:<br><div class="pasuk-gloss">עשו אמר ליעקב: תן לי לבלוע מן האדום האדום הזה, כי אני עייף; לכן קראו לו אדום</div><b>ל:</b> וַיֹּאמֶר עֵשָׂו אֶל יַעֲקֹב הַלְעִיטֵנִי נָא מִן הָאָדֹם הָאָדֹם הַזֶּה כִּי עָיֵף אָנֹכִי עַל כֵּן קָרָא שְׁמוֹ אֱדוֹם:<br><div class="pasuk-gloss">יעקב אמר: מכור לי עכשיו את הבכורה שלך</div><b>לא:</b> וַיֹּאמֶר יַעֲקֹב מִכְרָה כַיּוֹם אֶת בְּכֹרָתְךָ לִי:<br><div class="pasuk-gloss">עשו אמר: הנה אני הולך למות - ולמה לי בכורה?</div><b>לב:</b> וַיֹּאמֶר עֵשָׂו הִנֵּה אָנֹכִי הוֹלֵךְ לָמוּת וְלָמָּה זֶּה לִי בְּכֹרָה:<br><div class="pasuk-gloss">יעקב אמר: השבע לי עכשיו; עשו נשבע לו ומכר את הבכורה שלו ליעקב</div><b>לג:</b> וַיֹּאמֶר יַעֲקֹב הִשָּׁבְעָה לִּי כַּיּוֹם וַיִּשָּׁבַע לוֹ וַיִּמְכֹּר אֶת בְּכֹרָתוֹ לְיַעֲקֹב:<br><div class="pasuk-gloss">יעקב נתן לעשו לחם ותבשיל עדשים; עשו אכל, שתה, קם והלך - ועשו זלזל בבכורה</div><b>לד:</b> וְיַעֲקֹב נָתַן לְעֵשָׂו לֶחֶם וּנְזִיד עֲדָשִׁים, וַיֹּאכַל וַיֵּשְׁתְּ וַיָּקָם וַיֵּלַךְ, וַיִּבֶז עֵשָׂו אֶת הַבְּכֹרָה.</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">מהו מחיר מכירת הבכורה, כפי שעולה מן הכתובים?</span></div>
-<textarea aria-labelledby="a11y-lbl-6" class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> "לֶחֶם וּנְזִיד עֲדָשִׁים" - ארוחה אחת. עשו מכר את הבכורה בשבועה ("וַיִּשָּׁבַע לוֹ") תמורת אוכל לרגע אחד.</div>
-</div></div></div>
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> הסקת מסקנות מן הכתוב</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">יעקב נתן לעשו לחם ותבשיל עדשים; עשו אכל, שתה, קם והלך - ועשו זלזל בבכורה</div><b>לד:</b> וְיַעֲקֹב נָתַן לְעֵשָׂו לֶחֶם וּנְזִיד עֲדָשִׁים, וַיֹּאכַל וַיֵּשְׁתְּ וַיָּקָם וַיֵּלַךְ, וַיִּבֶז עֵשָׂו אֶת הַבְּכֹרָה.</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">"וַיֹּאכַל וַיֵּשְׁתְּ וַיָּקָם וַיֵּלַךְ וַיִּבֶז עֵשָׂו אֶת הַבְּכֹרָה" - מה ניתן ללמוד מרצף הפעלים הזה על יחסו של עשו לבכורה?</span></div>
-<textarea aria-labelledby="a11y-lbl-7" class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> חמישה פעלים ברצף, בלי מילה אחת של עשו: הוא אוכל, שותה, קם והולך - כאילו לא קרה דבר. הפועל האחרון מסכם: "וַיִּבֶז עֵשָׂו אֶת הַבְּכֹרָה" - הבכורה בזויה בעיניו.</div>
-</div></div></div>
-
-      </div>
-    </div>
-    </div>
-
-    <!-- שאלות בגרות (שלב ג׳): נושאים חוזרים מקובץ שאלות הבגרות של המורה -->
-
-    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">🎓 שאלות בגרות</span>
-        <h2 class="card-title">שאלות בגרות על פרק כ״ה</h2>
-      </div>
-      <div class="card-body">
-        <div class="exam-tag">📅 תשפ״ג (2023), חורף · שאלה 4</div>
-        <div class="pasuk-block mini">עיינו בפרק כ"ה, פסוקים י"ט–כ"ד.</div>
-        <div class="bg-row">
-          <div class="question-block">
-            <div class="pasuk-block mini bg-verses"><div class="pasuk-gloss">📖 הפסוקים לשאלה: פרק כ"ה, פסוק כ"ב</div><b>(כב)</b> וַיִּתְרֹצֲצוּ הַבָּנִים בְּקִרְבָּהּ וַתֹּאמֶר אִם כֵּן לָמָּה זֶּה אָנֹכִי וַתֵּלֶךְ לִדְרֹשׁ אֶת ה'</div>
-            <p class="q-cue">תזכורת: "וַיִּתְרֹצֲצוּ הַבָּנִים בְּקִרְבָּהּ... וַתֵּלֶךְ לִדְרֹשׁ אֶת ה'" (פסוק כ"ב)</p>
-            <div class="question-row"><span class="part-label">1</span><span class="q-text" id="bg-lbl-1">על פי פסוק כ"ב, מה הייתה התגובה של רבקה על התרוצצות הבנים בקרבה? ציינו שני פרטים בתגובתה.</span></div>
-            <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          </div>
-          <div class="question-block">
-            <div class="pasuk-block mini bg-verses"><div class="pasuk-gloss">📖 הפסוקים לשאלה: פרק כ"ה, פסוק כ"ג</div><b>(כג)</b> וַיֹּאמֶר ה' לָהּ שְׁנֵי גוֹיִם בְּבִטְנֵךְ וּשְׁנֵי לְאֻמִּים מִמֵּעַיִךְ יִפָּרֵדוּ וּלְאֹם מִלְאֹם יֶאֱמָץ וְרַב יַעֲבֹד צָעִיר</div>
-            <p class="q-cue">תזכורת: "שְׁנֵי גֹיִים בְּבִטְנֵךְ... וְרַב יַעֲבֹד צָעִיר" (פסוק כ"ג)</p>
-            <div class="question-row"><span class="part-label">2</span><span class="q-text" id="bg-lbl-2">על פי פירוש שלמדתם, מה נאמר לרבקה על הבנים שבקרבה?<br>(8 נקודות)</span></div>
-            <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          </div>
-        </div>
-
-        <div class="exam-tag">📅 תשע״ט (2019), קיץ</div>
-        <div class="pasuk-block mini">עיינו בפרק כ"ה, פסוקים כ"ט–ל"ד.</div>
-        <div class="bg-row">
-          <div class="question-block">
-            <div class="pasuk-block mini bg-verses"><div class="pasuk-gloss">📖 הפסוקים לשאלה: פרק כ"ה, פסוקים ל'–ל"ב</div><b>(ל)</b> וַיֹּאמֶר עֵשָׂו אֶל יַעֲקֹב הַלְעִיטֵנִי נָא מִן הָאָדֹם הָאָדֹם הַזֶּה כִּי עָיֵף אָנֹכִי עַל כֵּן קָרָא שְׁמוֹ אֱדוֹם <b>(לא)</b> וַיֹּאמֶר יַעֲקֹב מִכְרָה כַיּוֹם אֶת בְּכֹרָתְךָ לִי <b>(לב)</b> וַיֹּאמֶר עֵשָׂו הִנֵּה אָנֹכִי הוֹלֵךְ לָמוּת וְלָמָּה זֶּה לִי בְּכֹרָה</div>
-            <div class="question-row"><span class="part-label">3</span><span class="q-text" id="bg-lbl-3">כתבו בלשונכם את הנימוק של עשו להסכמתו למכור את הבכורה ליעקב.</span></div>
-            <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          </div>
-          <div class="question-block">
-            <div class="pasuk-block mini bg-verses"><div class="pasuk-gloss">📖 הפסוקים לשאלה: פרק כ"ה, פסוק ל"ד</div><b>(לד)</b> וְיַעֲקֹב נָתַן לְעֵשָׂו לֶחֶם וּנְזִיד עֲדָשִׁים וַיֹּאכַל וַיֵּשְׁתְּ וַיָּקָם וַיֵּלַךְ וַיִּבֶז עֵשָׂו אֶת הַבְּכֹרָה</div>
-            <div class="question-row"><span class="part-label">4</span><span class="q-text" id="bg-lbl-4">מהו היחס של עשו לבכורה? בססו את תשובתכם על הכתוב.</span></div>
-            <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          </div>
-        </div>
-
-        <div class="exam-tag">📅 תשע״ז (2017), חורף</div>
-        <div class="pasuk-block mini">"וַיִּגְדְּלוּ הַנְּעָרִים, וַיְהִי עֵשָׂו אִישׁ יֹדֵעַ צַיִד אִישׁ שָׂדֶה, וְיַעֲקֹב אִישׁ תָּם יֹשֵׁב אֹהָלִים" (פרק כ"ה, פסוק כ"ז).</div>
-        <div class="bg-row">
-          <div class="question-block">
-            <div class="pasuk-block mini bg-verses"><div class="pasuk-gloss">📖 הפסוקים לשאלה: פרק כ"ה, פסוק כ"ז</div><b>(כז)</b> וַיִּגְדְּלוּ הַנְּעָרִים וַיְהִי עֵשָׂו אִישׁ יֹדֵעַ צַיִד אִישׁ שָׂדֶה וְיַעֲקֹב אִישׁ תָּם יֹשֵׁב אֹהָלִים</div>
-            <div class="question-row"><span class="part-label">5</span><span class="q-text" id="bg-lbl-5">הסבירו מה היה עיסוקו של עשו ומה היה עיסוקו של יעקב.</span></div>
-            <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          </div>
-          <div class="question-block">
-            <details class="pasuk-block mini bg-verses"><summary class="pasuk-gloss" style="cursor:pointer">📖 הפסוקים לשאלה: פרק כ"ה, פסוק כ"ז (אותם פסוקים כמו בשאלה הקודמת) - לחצו לפתיחה</summary><b>(כז)</b> וַיִּגְדְּלוּ הַנְּעָרִים וַיְהִי עֵשָׂו אִישׁ יֹדֵעַ צַיִד אִישׁ שָׂדֶה וְיַעֲקֹב אִישׁ תָּם יֹשֵׁב אֹהָלִים</details>
-            <div class="question-row"><span class="part-label">6</span><span class="q-text" id="bg-lbl-6">על פי פירוש שלמדתם לפסוק זה, ציינו תכונת אופי של עשו ותכונת אופי של יעקב.</span></div>
-            <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          </div>
-        </div>
-
-        <div class="exam-tag">📅 תשע״ד (2014), חורף</div>
-        <div class="pasuk-block mini">עיינו בפרק כ"ה, פסוקים כ"ב–כ"ג.</div>
-        <div class="bg-row">
-          <div class="question-block">
-            <div class="pasuk-block mini bg-verses"><div class="pasuk-gloss">📖 הפסוקים לשאלה: פרק כ"ה, פסוק כ"ג</div><b>(כג)</b> וַיֹּאמֶר ה' לָהּ שְׁנֵי גוֹיִם בְּבִטְנֵךְ וּשְׁנֵי לְאֻמִּים מִמֵּעַיִךְ יִפָּרֵדוּ וּלְאֹם מִלְאֹם יֶאֱמָץ וְרַב יַעֲבֹד צָעִיר</div>
-            <div class="question-row"><span class="part-label">7</span><span class="q-text" id="bg-lbl-7">"וְרַב יַעֲבֹד צָעִיר" (פרק כ"ה, פסוק כ"ג).<br>הסבירו בלשונכם נבואה זו.</span></div>
-            <textarea class="answer" data-id="bg7" aria-labelledby="bg-lbl-7" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
-    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">✅ סיכום</span>
-        <h2 class="card-title">מה למדנו בפרק כ״ה</h2>
-      </div>
-      <div class="card-body">
-        <ul class="bm-learned">
-          <li><b>תפילה:</b> יצחק מתפלל "לְנֹכַח אִשְׁתּוֹ", ורבקה הרה לתאומים.</li>
-          <li><b>הנבואה:</b> "שְׁנֵי גֹיִים בְּבִטְנֵךְ... וְרַב יַעֲבֹד צָעִיר".</li>
-          <li><b>שני אחים:</b> עשיו "אִישׁ יֹדֵעַ צַיִד אִישׁ שָׂדֶה", ויעקב "אִישׁ תָּם יֹשֵׁב אֹהָלִים".</li>
-          <li><b>אהבת ההורים:</b> יצחק אוהב את עשיו, ורבקה אוהבת את יעקב.</li>
-          <li><b>מכירת הבכורה:</b> עשיו מוכר את הבכורה בעבור נזיד: "וַיִּבֶז עֵשָׂו אֶת הַבְּכֹרָה".</li>
-        </ul>
-        <div class="key-points">
-          <h3>📋 נקודות מרכזיות שחייבים לדעת - הפרשנים</h3>
-          <p class="kp-tip">בבגרות, כשכתוב "הסבירו לפי פרשן": כתבו מה הוא שואל, מה הוא עונה - וצטטו את מילות המפתח שלו.</p>
-          <div class="table-wrap">
-          <table class="kp-table">
-            <thead><tr><th scope="col">הפרשן</th><th scope="col">מה הוא שואל</th><th scope="col">מה הוא עונה</th><th scope="col">מילות מפתח לציטוט</th></tr></thead>
-            <tbody>
-            <tr>
-              <td class="kp-who" data-label="הפרשן">רש"י<span class="kp-ref">כ"ה, כ"ב-כ"ג</span></td>
-              <td data-label="מה הוא שואל">מה פירוש "וַיִּתְרֹצֲצוּ" ו"מִמֵּעַיִךְ יִפָּרֵדוּ"?</td>
-              <td data-label="מה הוא עונה">"ויתרוצצו" - לשון ריצה: ליד בית מדרש יעקב רץ לצאת, וליד עבודה זרה - עשו. כבר בבטן ניכר אופיים: אחד צדיק ואחד רשע.</td>
-              <td class="kp-key" data-label="מילות מפתח לציטוט">"זה לרשעו וזה לתומו"</td>
-            </tr>
-            <tr>
-              <td class="kp-who" data-label="הפרשן">רש"י<span class="kp-ref">כ"ה, כ"ז</span></td>
-              <td data-label="מה הוא שואל">מה פירוש "יֹדֵעַ צַיִד... אִישׁ תָּם יֹשֵׁב אֹהָלִים"?</td>
-              <td data-label="מה הוא עונה">עשו צד את אביו בפיו (רמאי), ואיש בטל שצד חיות. יעקב תם - "כלבו כן פיו", ויושב באוהלי שם ועבר (לומד תורה).</td>
-              <td class="kp-key" data-label="מילות מפתח לציטוט">"לצוד ולרמות את אביו בפיו" / "כלבו כן פיו"</td>
-            </tr>
-            <tr>
-              <td class="kp-who" data-label="הפרשן">אבן עזרא<span class="kp-ref">כ"ה, כ"ז</span></td>
-              <td data-label="מה הוא שואל">מה מלמד "יֹדֵעַ צַיִד" על אופי עשו?</td>
-              <td data-label="מה הוא עונה">הציד נעשה בדרך מרמה, ולכן הצייד מלא מרמות; ויעקב הוא ההפך - איש תם.</td>
-              <td class="kp-key" data-label="מילות מפתח לציטוט">"יודע ציד לעולם מלא מרמות"</td>
-            </tr>
-            <tr>
-              <td class="kp-who" data-label="הפרשן">רשב"ם<span class="kp-ref">כ"ה, כ"ז</span></td>
-              <td data-label="מה הוא שואל">מה פירוש "יֹשֵׁב אֹהָלִים"?</td>
-              <td data-label="מה הוא עונה">לפי הפשט: רועה את צאן אביו (ולא לומד תורה).</td>
-              <td class="kp-key" data-label="מילות מפתח לציטוט">"רועה צאן אביו"</td>
-            </tr>
-            <tr>
-              <td class="kp-who" data-label="הפרשן">רש"י / ספורנו<span class="kp-ref">כ"ה, כ"ח</span></td>
-              <td data-label="מה הוא שואל">מה ההבדל בין אהבת יצחק לאהבת רבקה?</td>
-              <td data-label="מה הוא עונה">רש"י: עשו רימה את יצחק בשאלות, ויצחק חשב שהוא מדקדק במצוות. ספורנו: יצחק אהב "גם" את עשו, אף שידע שאינו שלם; רבקה אהבה רק את יעקב, כי הכירה ברשעו של עשו.</td>
-              <td class="kp-key" data-label="מילות מפתח לציטוט">"כסבור אביו שהוא מדקדק במצות" / "מפני שהכירה ברשעו של עשו"</td>
-            </tr>
-            <tr>
-              <td class="kp-who" data-label="הפרשן">אבן עזרא / רש"י<span class="kp-ref">כ"ה, ל"ב</span></td>
-              <td data-label="מה הוא שואל">"הִנֵּה אָנֹכִי הוֹלֵךְ לָמוּת" - למה עשו מוותר על הבכורה?</td>
-              <td data-label="מה הוא עונה">אבן עזרא: עשו מסתכן בציד כל יום, ואולי ימות לפני אביו - אז אין לו תועלת בבכורה. רש"י: בעבודת הבכורות יש עונשי מוות, ועשו פחד מהם.</td>
-              <td class="kp-key" data-label="מילות מפתח לציטוט">"שמא יהרגוהו החיות" / "אני הולך למות על ידה, אם כן מה חפץ לי בה"</td>
-            </tr>
-            </tbody>
-          </table>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">🔁 תרגול נוסף</span>
-        <h2 class="card-title">אחרי הלמידה - חזרה ותרגול</h2>
-      </div>
-      <div class="card-body">
-        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר:</p>
-        <p class="bm-more-links">
-          <a class="chip-link" href="bereshit-25-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
-          <a class="chip-link" href="bereshit-25-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
-        </p>
-      </div>
-    </section>
-
-  </div>
-</main>
-
-<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
-  <a href="bereshit-22.html">← פרק כ"ב</a>
-  <a href="index.html#tab-ya">↺ חזרה ליחידה</a>
-  <a href="bereshit-27.html">פרק כ"ז →</a>
-</nav>
-<div class="toolbar">
-  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="בראשית פרק כ&quot;ה, מכירת הבכורה" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
-  <button class="btn" id="printBtn">🖨️ הדפסה</button>
-  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+<nav class="ws-map" aria-label="נושאי הפרק"><a href="#t1">🙏 נושא 1<small>התפילה, ההיריון והנבואה</small></a><a href="#t2">👶 נושא 2<small>הלידה - שני אחים שונים</small></a><a href="#t3">🍲 נושא 3<small>מכירת הבכורה</small></a><a href="#bagrut">🎓 בגרות<small>שאלות מבחינות קודמות</small></a></nav>
+<div class="ws-res"><a href="bereshit-25-summary.html">📚 סיכום הפרק</a><a href="bereshit-25-questions.html">📝 שאלות ותשובות לחזרה</a><a href="bereshit-25-text.html">📖 הפרק המלא</a></div>
+<p class="ws-howto">בכל נושא: <b>1</b> קוראים את הפסוקים, <b>2</b> עונים על שאלות הבנה ומשחקים, <b>3</b> לומדים ביחד עם המורה את הפרשנים. הכול נשמר לבד במכשיר.</p>
+<section class="ws-topic ws-t1" id="t1"><div class="ws-th"><span class="ws-tn">נושא 1</span><h2>🙏 התפילה, ההיריון והנבואה</h2><span class="ws-rng">פסוקים י&quot;ט-כ&quot;ג</span></div><h3 class="ws-step"><span>1</span> קוראים את הפסוקים</h3><p class="ws-legend"><span class="ws-legend-sw"></span>⭐ פסוק מרכזי - חשוב במיוחד להבנה ולבגרות</p><div class="ws-verses"><div class="ws-v"><span class="ws-vn">י"ט</span><p class="ws-vt">וְאֵלֶּה תּוֹלְדֹת יִצְחָק בֶּן אַבְרָהָם אַבְרָהָם הוֹלִיד אֶת יִצְחָק</p><p class="ws-vp">אלה קורות המשפחה של יצחק, הבן של אברהם.</p></div><div class="ws-v"><span class="ws-vn">כ'</span><p class="ws-vt">וַיְהִי יִצְחָק בֶּן אַרְבָּעִים שָׁנָה בְּקַחְתּוֹ אֶת רִבְקָה בַּת בְּתוּאֵל הָאֲרַמִּי מִפַּדַּן אֲרָם אֲחוֹת לָבָן הָאֲרַמִּי לוֹ לְאִשָּׁה</p><p class="ws-vp">יצחק היה בן 40 כשנשא לאישה את רבקה, הבת של בתואל מפדן ארם, האחות של לבן.</p></div><div class="ws-v"><span class="ws-vn">כ"א</span><p class="ws-vt">וַיֶּעְתַּר יִצְחָק לַה&#x27; לְנֹכַח אִשְׁתּוֹ כִּי עֲקָרָה הִוא וַיֵּעָתֶר לוֹ ה&#x27; וַתַּהַר רִבְקָה אִשְׁתּוֹ</p><p class="ws-vp">יצחק התפלל לה&#x27; בשביל רבקה, כי היא הייתה עקרה (לא יכלה ללדת). ה&#x27; נענה לתפילה, ורבקה נכנסה להיריון.</p></div><div class="ws-v ws-kv"><span class="ws-vn">כ"ב<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וַיִּתְרֹצֲצוּ הַבָּנִים בְּקִרְבָּהּ וַתֹּאמֶר אִם כֵּן לָמָּה זֶּה אָנֹכִי וַתֵּלֶךְ לִדְרֹשׁ אֶת ה&#x27;</p><p class="ws-vp">הבנים &quot;התרוצצו&quot; (נאבקו) בבטנה. רבקה אמרה: אם כך, למה אני בהיריון? והלכה לשאול את ה&#x27;.</p></div><div class="ws-v ws-kv"><span class="ws-vn">כ"ג<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וַיֹּאמֶר ה&#x27; לָהּ שְׁנֵי גוֹיִם בְּבִטְנֵךְ וּשְׁנֵי לְאֻמִּים מִמֵּעַיִךְ יִפָּרֵדוּ וּלְאֹם מִלְאֹם יֶאֱמָץ וְרַב יַעֲבֹד צָעִיר</p><p class="ws-vp">ה&#x27; אמר לה: שני עמים בבטנך, והם ייפרדו זה מזה. עם אחד יהיה חזק מהשני, והגדול יעבוד את הצעיר.</p></div></div><h3 class="ws-step"><span>2</span> מבינים מה קראנו</h3><div class="ws-act"><div class="ws-act-h"><span>📋 שאלות הבנה על הפסוקים</span><button type="button" class="ws-btn" data-check>בדיקה</button></div><table class="ws-quiz"><thead><tr><th>שאלה</th><th>תשובה קצרה</th></tr></thead><tbody><tr><td class="ws-q"><label for="f-k1">בן כמה היה יצחק כשנשא את רבקה?</label> <span class="ws-src">(פס&#x27; כ)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k1" data-id="k1" autocomplete="off"><span class="ws-key" hidden>✓ בן 40</span></td></tr><tr><td class="ws-q"><label for="f-k2">מה הייתה הבעיה של רבקה?</label> <span class="ws-src">(פס&#x27; כא)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k2" data-id="k2" autocomplete="off"><span class="ws-key" hidden>✓ היא הייתה עקרה (לא יכלה ללדת)</span></td></tr><tr><td class="ws-q"><label for="f-k3">מה עשה יצחק כדי לפתור את הבעיה?</label> <span class="ws-src">(פס&#x27; כא)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k3" data-id="k3" autocomplete="off"><span class="ws-key" hidden>✓ התפלל לה&#x27; (&quot;וַיֶּעְתַּר&quot;)</span></td></tr><tr><td class="ws-q"><label for="f-k4">מה הרגישה רבקה בהיריון?</label> <span class="ws-src">(פס&#x27; כב)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k4" data-id="k4" autocomplete="off"><span class="ws-key" hidden>✓ הבנים התרוצצו (נאבקו) בבטנה</span></td></tr><tr><td class="ws-q"><label for="f-k5">לאן הלכה רבקה?</label> <span class="ws-src">(פס&#x27; כב)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k5" data-id="k5" autocomplete="off"><span class="ws-key" hidden>✓ לדרוש (לשאול) את ה&#x27;</span></td></tr><tr><td class="ws-q"><label for="f-k6">מה אמר לה ה&#x27;? (פרט אחד)</label> <span class="ws-src">(פס&#x27; כג)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k6" data-id="k6" autocomplete="off"><span class="ws-key" hidden>✓ שני עמים בבטנה / עם אחד יהיה חזק מהשני / הגדול יעבוד את הצעיר</span></td></tr></tbody></table></div><h3 class="ws-step"><span>3</span> הפרשנים - לומדים ביחד</h3><div class="ws-cards c3"><article class="ws-card"><header><b>רש&quot;י</b><span>פסוק כ&quot;ב - &quot;וַיִּתְרֹצֲצוּ&quot;</span></header><blockquote class="ws-ctext">רבותינו דרשוהו: לשון ריצה, כשהייתה עוברת על פתחי תורה של שם ועבר יעקב רץ ומפרכס לצאת, עוברת על פתחי עבודה זרה עשו מפרכס לצאת.</blockquote><p class="ws-cq"><label for="f-c1">לפי רש&quot;י, מה פירוש &quot;וַיִּתְרֹצֲצוּ&quot;?</label></p><textarea class="answer ws-ta" id="f-c1" data-id="c1" rows="3" data-model="לשון ריצה: ליד &quot;פתחי תורה של שם ועבר&quot; יעקב &quot;רץ ומפרכס לצאת&quot;, וליד &quot;פתחי עבודה זרה&quot; - עשו." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>רש&quot;י</b><span>פסוק כ&quot;ג - &quot;מִמֵּעַיִךְ יִפָּרֵדוּ&quot;</span></header><blockquote class="ws-ctext">ממעיך יפרדו - מן המעים הם נפרדים, זה לרשעו וזה לתומו.</blockquote><p class="ws-cq"><label for="f-c2">מה מלמד רש&quot;י על האחים, כבר כשהם בבטן?</label></p><textarea class="answer ws-ta" id="f-c2" data-id="c2" rows="3" data-model="&quot;זה לרשעו וזה לתומו&quot; - האופי השונה של האחים ניכר כבר בבטן." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>עיון בפסוק</b><span>פסוק כ&quot;ג - &quot;וְרַב יַעֲבֹד צָעִיר&quot;</span></header><p class="ws-cq"><label for="f-c3">מה החידוש במילים &quot;וְרַב יַעֲבֹד צָעִיר&quot;? (רמז: מי בדרך כלל חשוב יותר - הגדול או הצעיר?)</label></p><textarea class="answer ws-ta" id="f-c3" data-id="c3" rows="3" data-model="הגדול ישועבד לצעיר - בניגוד לסדר הרגיל, שבו הבכור הוא העיקר." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article></div></section><section class="ws-topic ws-t2" id="t2"><div class="ws-th"><span class="ws-tn">נושא 2</span><h2>👶 הלידה - שני אחים שונים</h2><span class="ws-rng">פסוקים כ&quot;ד-כ&quot;ח</span></div><h3 class="ws-step"><span>1</span> קוראים את הפסוקים</h3><p class="ws-legend"><span class="ws-legend-sw"></span>⭐ פסוק מרכזי - חשוב במיוחד להבנה ולבגרות</p><div class="ws-verses"><div class="ws-v"><span class="ws-vn">כ"ד</span><p class="ws-vt">וַיִּמְלְאוּ יָמֶיהָ לָלֶדֶת וְהִנֵּה תוֹמִם בְּבִטְנָהּ</p><p class="ws-vp">כשהגיע זמן הלידה - היו בבטנה תאומים.</p></div><div class="ws-v"><span class="ws-vn">כ"ה</span><p class="ws-vt">וַיֵּצֵא הָרִאשׁוֹן אַדְמוֹנִי כֻּלּוֹ כְּאַדֶּרֶת שֵׂעָר וַיִּקְרְאוּ שְׁמוֹ עֵשָׂו</p><p class="ws-vp">הראשון יצא אדמוני, וכל גופו שעיר כמו מעיל של שיער. קראו לו עשו.</p></div><div class="ws-v"><span class="ws-vn">כ"ו</span><p class="ws-vt">וְאַחֲרֵי כֵן יָצָא אָחִיו וְיָדוֹ אֹחֶזֶת בַּעֲקֵב עֵשָׂו וַיִּקְרָא שְׁמוֹ יַעֲקֹב וְיִצְחָק בֶּן שִׁשִּׁים שָׁנָה בְּלֶדֶת אֹתָם</p><p class="ws-vp">אחריו יצא אחיו, והיד שלו אוחזת בעקב של עשו, ולכן קרא לו יעקב. יצחק היה בן 60 כשנולדו.</p></div><div class="ws-v ws-kv"><span class="ws-vn">כ"ז<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וַיִּגְדְּלוּ הַנְּעָרִים וַיְהִי עֵשָׂו אִישׁ יֹדֵעַ צַיִד אִישׁ שָׂדֶה וְיַעֲקֹב אִישׁ תָּם יֹשֵׁב אֹהָלִים</p><p class="ws-vp">הנערים גדלו: עשו היה צייד, איש של שדה; ויעקב היה איש תם (ישר), יושב באוהלים.</p></div><div class="ws-v ws-kv"><span class="ws-vn">כ"ח<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וַיֶּאֱהַב יִצְחָק אֶת עֵשָׂו כִּי צַיִד בְּפִיו וְרִבְקָה אֹהֶבֶת אֶת יַעֲקֹב</p><p class="ws-vp">יצחק אהב את עשו, כי עשו הביא לו ציד לאכול; ורבקה אוהבת את יעקב.</p></div></div><h3 class="ws-step"><span>2</span> מבינים מה קראנו</h3><div class="ws-act"><div class="ws-act-h"><span>📋 שאלות הבנה</span><button type="button" class="ws-btn" data-check>בדיקה</button></div><table class="ws-quiz"><thead><tr><th>שאלה</th><th>תשובה קצרה</th></tr></thead><tbody><tr><td class="ws-q"><label for="f-k7">מי נולד ראשון?</label> <span class="ws-src">(פס&#x27; כה)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k7" data-id="k7" autocomplete="off"><span class="ws-key" hidden>✓ עשו</span></td></tr><tr><td class="ws-q"><label for="f-k8">למה קראו ליעקב &quot;יעקב&quot;?</label> <span class="ws-src">(פס&#x27; כו)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k8" data-id="k8" autocomplete="off"><span class="ws-key" hidden>✓ כי ידו אחזה בעקב של עשו</span></td></tr><tr><td class="ws-q"><label for="f-k9">בן כמה היה יצחק כשנולדו התאומים?</label> <span class="ws-src">(פס&#x27; כו)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k9" data-id="k9" autocomplete="off"><span class="ws-key" hidden>✓ בן 60</span></td></tr><tr><td class="ws-q"><label for="f-k10">כמה שנים חיכו יצחק ורבקה לילדים?</label> <span class="ws-src">(פס&#x27; כ, כו)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k10" data-id="k10" autocomplete="off"><span class="ws-key" hidden>✓ 20 שנה (מגיל 40 עד 60)</span></td></tr><tr><td class="ws-q"><label for="f-k11">למה יצחק אהב את עשו?</label> <span class="ws-src">(פס&#x27; כח)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k11" data-id="k11" autocomplete="off"><span class="ws-key" hidden>✓ &quot;כִּי צַיִד בְּפִיו&quot; - עשו הביא לו ציד לאכול</span></td></tr></tbody></table></div><div class="ws-act"><div class="ws-act-h"><span>🧩 משחק: עשו או יעקב?</span><span class="ws-score" data-score></span></div><p class="ws-help">לכל תיאור - לחצו על האח המתאים. ירוק = נכון.</p><ul class="ws-sort"><li class="ws-sort-i" data-ans="e"><span class="ws-sort-t">נולד ראשון</span><span class="ws-sort-b"><button type="button" data-pick="e">עשו</button><button type="button" data-pick="y">יעקב</button></span></li><li class="ws-sort-i" data-ans="e"><span class="ws-sort-t">אַדְמוֹנִי כֻּלּוֹ כְּאַדֶּרֶת שֵׂעָר</span><span class="ws-sort-b"><button type="button" data-pick="e">עשו</button><button type="button" data-pick="y">יעקב</button></span></li><li class="ws-sort-i" data-ans="y"><span class="ws-sort-t">יָדוֹ אֹחֶזֶת בַּעֲקֵב אחיו</span><span class="ws-sort-b"><button type="button" data-pick="e">עשו</button><button type="button" data-pick="y">יעקב</button></span></li><li class="ws-sort-i" data-ans="e"><span class="ws-sort-t">אִישׁ יֹדֵעַ צַיִד</span><span class="ws-sort-b"><button type="button" data-pick="e">עשו</button><button type="button" data-pick="y">יעקב</button></span></li><li class="ws-sort-i" data-ans="e"><span class="ws-sort-t">אִישׁ שָׂדֶה</span><span class="ws-sort-b"><button type="button" data-pick="e">עשו</button><button type="button" data-pick="y">יעקב</button></span></li><li class="ws-sort-i" data-ans="y"><span class="ws-sort-t">אִישׁ תָּם</span><span class="ws-sort-b"><button type="button" data-pick="e">עשו</button><button type="button" data-pick="y">יעקב</button></span></li><li class="ws-sort-i" data-ans="y"><span class="ws-sort-t">יֹשֵׁב אֹהָלִים</span><span class="ws-sort-b"><button type="button" data-pick="e">עשו</button><button type="button" data-pick="y">יעקב</button></span></li><li class="ws-sort-i" data-ans="e"><span class="ws-sort-t">יצחק אוהב אותו</span><span class="ws-sort-b"><button type="button" data-pick="e">עשו</button><button type="button" data-pick="y">יעקב</button></span></li><li class="ws-sort-i" data-ans="y"><span class="ws-sort-t">רבקה אוהבת אותו</span><span class="ws-sort-b"><button type="button" data-pick="e">עשו</button><button type="button" data-pick="y">יעקב</button></span></li></ul></div><h3 class="ws-step"><span>3</span> הפרשנים - לומדים ביחד</h3><div class="ws-cards"><article class="ws-card"><header><b>רש&quot;י</b><span>פסוק כ&quot;ז</span></header><blockquote class="ws-ctext">יודע ציד - לצוד ולרמות את אביו בפיו, ושואלו: אבא, היאך מעשרין את המלח ואת התבן, כסבור אביו שהוא מדקדק במצות. איש שדה - כמשמעו, אדם בטל וצודה [וצד] בקשתו חיות ועופות. תם - אינו בקי בכל אלה, אלא כלבו כן פיו. מי שאינו חריף לרמות קרוי תם. ישב אהלים - אהלו של שם ואהלו של עבר.</blockquote><p class="ws-cq"><label for="f-c4">לפי רש&quot;י: מה פירוש &quot;יֹדֵעַ צַיִד&quot;, ומה פירוש &quot;אִישׁ תָּם&quot;?</label></p><textarea class="answer ws-ta" id="f-c4" data-id="c4" rows="3" data-model="עשו &quot;יודע ציד&quot; - &quot;לצוד ולרמות את אביו בפיו&quot;; יעקב &quot;תם&quot; - &quot;כלבו כן פיו&quot;, ויושב באוהלי שם ועבר." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>אבן עזרא</b><span>פסוק כ&quot;ז</span></header><blockquote class="ws-ctext">יודע ציד לעולם מלא מרמות, כי רוב החיות בדרך מרמה יתפשו, ויעקב הפך עשו כי הוא איש תם.</blockquote><p class="ws-cq"><label for="f-c5">לפי אבן עזרא, מה מלמד &quot;יֹדֵעַ צַיִד&quot; על האופי של עשו?</label></p><textarea class="answer ws-ta" id="f-c5" data-id="c5" rows="3" data-model="הציד נעשה בדרך מרמה, ולכן הצייד &quot;מלא מרמות&quot;; יעקב הוא ההפך - איש תם." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>רשב&quot;ם</b><span>פסוק כ&quot;ז</span></header><blockquote class="ws-ctext">יושב אהלים - רועה צאן אביו, כמו שפירשתי אצל &quot;יושב אהל ומקנה&quot;.</blockquote><p class="ws-cq"><label for="f-c6">לפי רשב&quot;ם, מה פירוש &quot;יֹשֵׁב אֹהָלִים&quot;? במה זה שונה מרש&quot;י?</label></p><textarea class="answer ws-ta" id="f-c6" data-id="c6" rows="3" data-model="לפי רשב&quot;ם יעקב &quot;רועה צאן אביו&quot; (פשט); לפי רש&quot;י הוא יושב באוהלי שם ועבר - לומד תורה." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>ספורנו</b><span>פסוק כ&quot;ח</span></header><blockquote class="ws-ctext">ויאהב יצחק את עשו - גם את עשו, אף על פי שידע בלי ספק שלא היה שלם כיעקב. ורבקה אוהבת את יעקב - לבדו, מפני שהכירה ברשעו של עשו.</blockquote><p class="ws-cq"><label for="f-c7">לפי ספורנו, מה ההבדל בין האהבה של יצחק לאהבה של רבקה?</label></p><textarea class="answer ws-ta" id="f-c7" data-id="c7" rows="3" data-model="יצחק אהב &quot;גם את עשו&quot;, אף שידע שאינו שלם כיעקב; רבקה אהבה את יעקב &quot;לבדו&quot;, &quot;מפני שהכירה ברשעו של עשו&quot;." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article></div></section><section class="ws-topic ws-t3" id="t3"><div class="ws-th"><span class="ws-tn">נושא 3</span><h2>🍲 מכירת הבכורה</h2><span class="ws-rng">פסוקים כ&quot;ט-ל&quot;ד</span></div><h3 class="ws-step"><span>1</span> קוראים את הפסוקים</h3><p class="ws-legend"><span class="ws-legend-sw"></span>⭐ פסוק מרכזי - חשוב במיוחד להבנה ולבגרות</p><div class="ws-verses"><div class="ws-v"><span class="ws-vn">כ"ט</span><p class="ws-vt">וַיָּזֶד יַעֲקֹב נָזִיד וַיָּבֹא עֵשָׂו מִן הַשָּׂדֶה וְהוּא עָיֵף</p><p class="ws-vp">יעקב בישל תבשיל, ועשו בא מן השדה והוא עייף.</p></div><div class="ws-v"><span class="ws-vn">ל'</span><p class="ws-vt">וַיֹּאמֶר עֵשָׂו אֶל יַעֲקֹב הַלְעִיטֵנִי נָא מִן הָאָדֹם הָאָדֹם הַזֶּה כִּי עָיֵף אָנֹכִי עַל כֵּן קָרָא שְׁמוֹ אֱדוֹם</p><p class="ws-vp">עשו אמר ליעקב: תן לי לבלוע מן האדום האדום הזה, כי אני עייף. לכן קראו לו אדום.</p></div><div class="ws-v"><span class="ws-vn">ל"א</span><p class="ws-vt">וַיֹּאמֶר יַעֲקֹב מִכְרָה כַיּוֹם אֶת בְּכֹרָתְךָ לִי</p><p class="ws-vp">יעקב אמר: מכור לי היום את הבכורה שלך.</p></div><div class="ws-v ws-kv"><span class="ws-vn">ל"ב<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וַיֹּאמֶר עֵשָׂו הִנֵּה אָנֹכִי הוֹלֵךְ לָמוּת וְלָמָּה זֶּה לִי בְּכֹרָה</p><p class="ws-vp">עשו אמר: הנה אני הולך למות - למה לי בכורה?</p></div><div class="ws-v"><span class="ws-vn">ל"ג</span><p class="ws-vt">וַיֹּאמֶר יַעֲקֹב הִשָּׁבְעָה לִּי כַּיּוֹם וַיִּשָּׁבַע לוֹ וַיִּמְכֹּר אֶת בְּכֹרָתוֹ לְיַעֲקֹב</p><p class="ws-vp">יעקב אמר: תישבע לי היום. עשו נשבע לו, ומכר את הבכורה שלו ליעקב.</p></div><div class="ws-v ws-kv"><span class="ws-vn">ל"ד<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וְיַעֲקֹב נָתַן לְעֵשָׂו לֶחֶם וּנְזִיד עֲדָשִׁים וַיֹּאכַל וַיֵּשְׁתְּ וַיָּקָם וַיֵּלַךְ וַיִּבֶז עֵשָׂו אֶת הַבְּכֹרָה</p><p class="ws-vp">יעקב נתן לעשו לחם ותבשיל עדשים. עשו אכל, שתה, קם והלך - ועשו זלזל בבכורה.</p></div></div><h3 class="ws-step"><span>2</span> מבינים מה קראנו</h3><div class="ws-act"><div class="ws-act-h"><span>🔢 משחק: סדרו את האירועים</span><button type="button" class="ws-btn" data-seqcheck>בדיקה</button></div><p class="ws-help">הזיזו בחצים עד שהאירועים מסודרים לפי הסדר בפסוקים.</p><ol class="ws-seq"><li class="ws-seq-i" data-pos="3"><span class="ws-seq-n"></span><span class="ws-seq-t">יעקב מבקש: &quot;מִכְרָה כַיּוֹם אֶת בְּכֹרָתְךָ לִי&quot;</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li><li class="ws-seq-i" data-pos="0"><span class="ws-seq-n"></span><span class="ws-seq-t">יעקב מבשל נזיד</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li><li class="ws-seq-i" data-pos="5"><span class="ws-seq-n"></span><span class="ws-seq-t">עשו נשבע ומוכר את הבכורה</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li><li class="ws-seq-i" data-pos="7"><span class="ws-seq-n"></span><span class="ws-seq-t">עשו אוכל, שותה, קם והולך</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li><li class="ws-seq-i" data-pos="1"><span class="ws-seq-n"></span><span class="ws-seq-t">עשו בא מן השדה, והוא עייף</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li><li class="ws-seq-i" data-pos="6"><span class="ws-seq-n"></span><span class="ws-seq-t">יעקב נותן לעשו לחם ונזיד עדשים</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li><li class="ws-seq-i" data-pos="2"><span class="ws-seq-n"></span><span class="ws-seq-t">עשו מבקש: &quot;הַלְעִיטֵנִי נָא מִן הָאָדֹם הָאָדֹם הַזֶּה&quot;</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li><li class="ws-seq-i" data-pos="4"><span class="ws-seq-n"></span><span class="ws-seq-t">עשו עונה: &quot;הִנֵּה אָנֹכִי הוֹלֵךְ לָמוּת&quot;</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li></ol><p class="ws-seq-msg" data-seqmsg role="status"></p></div><div class="ws-act"><div class="ws-act-h"><span>📋 שאלות הבנה</span><button type="button" class="ws-btn" data-check>בדיקה</button></div><table class="ws-quiz"><thead><tr><th>שאלה</th><th>תשובה קצרה</th></tr></thead><tbody><tr><td class="ws-q"><label for="f-k12">למה קראו לעשו &quot;אֱדוֹם&quot;?</label> <span class="ws-src">(פס&#x27; ל)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k12" data-id="k12" autocomplete="off"><span class="ws-key" hidden>✓ כי ביקש &quot;מִן הָאָדֹם הָאָדֹם הַזֶּה&quot;</span></td></tr><tr><td class="ws-q"><label for="f-k13">מה ביקש יעקב בתמורה לאוכל?</label> <span class="ws-src">(פס&#x27; לא)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k13" data-id="k13" autocomplete="off"><span class="ws-key" hidden>✓ את הבכורה</span></td></tr><tr><td class="ws-q"><label for="f-k14">מה עשה יעקב כדי שהמכירה תהיה בטוחה?</label> <span class="ws-src">(פס&#x27; לג)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k14" data-id="k14" autocomplete="off"><span class="ws-key" hidden>✓ ביקש מעשו להישבע (&quot;הִשָּׁבְעָה לִּי&quot;)</span></td></tr><tr><td class="ws-q"><label for="f-k15">מה קיבל עשו תמורת הבכורה?</label> <span class="ws-src">(פס&#x27; לד)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k15" data-id="k15" autocomplete="off"><span class="ws-key" hidden>✓ לחם ונזיד עדשים</span></td></tr></tbody></table></div><h3 class="ws-step"><span>3</span> הפרשנים - לומדים ביחד</h3><div class="ws-cards c3"><article class="ws-card"><header><b>אבן עזרא</b><span>פסוק ל&quot;ב - &quot;הִנֵּה אָנֹכִי הוֹלֵךְ לָמוּת&quot;</span></header><blockquote class="ws-ctext">וטעם &quot;הנה אנכי הולך למות&quot;, שבכל יום ויום הוא מסתכן בעצמו כאשר יצא לצוד שמא יהרגוהו החיות, ויתכן שימות קודם אביו.</blockquote><p class="ws-cq"><label for="f-c8">לפי אבן עזרא, למה עשו מוותר על הבכורה?</label></p><textarea class="answer ws-ta" id="f-c8" data-id="c8" rows="3" data-model="עשו מסתכן כל יום בציד, &quot;שמא יהרגוהו החיות&quot;, ו&quot;יתכן שימות קודם אביו&quot; - ולכן הבכורה לא תועיל לו." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>רש&quot;י</b><span>פסוק ל&quot;ב - &quot;הִנֵּה אָנֹכִי הוֹלֵךְ לָמוּת&quot;</span></header><blockquote class="ws-ctext">אמר עשו: מה טיבה של עבודה זו [עבודת הקרבנות שמוטלת על הבכורים]? אמר לו: כמה אזהרות ועונשין ומיתות תלוין בה, כאותה ששנינו: אלו הן שבמיתה - שתויי יין, ופרועי ראש. אמר: אני הולך למות על ידה, אם כן מה חפץ לי בה.</blockquote><p class="ws-cq"><label for="f-c9">לפי רש&quot;י, למה עשו מוותר על הבכורה?</label></p><textarea class="answer ws-ta" id="f-c9" data-id="c9" rows="3" data-model="בעבודת הבכורים &quot;כמה אזהרות ועונשין ומיתות תלוין בה&quot;, ועשו אמר: &quot;אני הולך למות על ידה, אם כן מה חפץ לי בה&quot;." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>עיון בפסוק</b><span>פסוק ל&quot;ד - &quot;וַיֹּאכַל וַיֵּשְׁתְּ וַיָּקָם וַיֵּלַךְ וַיִּבֶז&quot;</span></header><p class="ws-cq"><label for="f-c10">מה מלמד רצף הפעלים על היחס של עשו לבכורה?</label></p><textarea class="answer ws-ta" id="f-c10" data-id="c10" rows="3" data-model="חמישה פעלים ברצף, בלי מילה של עשו - כאילו לא קרה דבר. &quot;וַיִּבֶז עֵשָׂו אֶת הַבְּכֹרָה&quot; - הבכורה בזויה בעיניו." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article></div></section><section class="ws-topic ws-bag" id="bagrut"><div class="ws-th"><span class="ws-tn">לבגרות</span><h2>🎓 שאלות בגרות על פרק כ&quot;ה</h2><span class="ws-rng">שאלון 2381</span></div><ol class="ws-bqs"><li class="ws-bq-y">📅 תשפ&quot;ג (2023), חורף</li><li class="ws-bq-intro">עיינו בפרק כ&quot;ה, פסוקים י&quot;ט–כ&quot;ד.</li><li class="ws-bq"><div class="ws-bq-h">1.</div><p>על פי פסוק כ&quot;ב, מה הייתה התגובה של רבקה על התרוצצות הבנים בקרבה? ציינו שני פרטים בתגובתה.</p><textarea class="answer ws-ta" id="f-b1" data-id="b1" rows="3" aria-label="תשובה לשאלת בגרות 1"></textarea></li><li class="ws-bq"><div class="ws-bq-h">2.</div><p>&quot;שְׁנֵי גֹיִים בְּבִטְנֵךְ... וְרַב יַעֲבֹד צָעִיר&quot; (פסוק כ&quot;ג). על פי פירוש שלמדתם, מה נאמר לרבקה על הבנים שבקרבה? (8 נקודות)</p><textarea class="answer ws-ta" id="f-b2" data-id="b2" rows="3" aria-label="תשובה לשאלת בגרות 2"></textarea></li><li class="ws-bq-y">📅 תשע&quot;ט (2019), קיץ</li><li class="ws-bq-intro">עיינו בפרק כ&quot;ה, פסוקים כ&quot;ט–ל&quot;ד.</li><li class="ws-bq"><div class="ws-bq-h">3.</div><p>כתבו בלשונכם את הנימוק של עשו להסכמתו למכור את הבכורה ליעקב.</p><textarea class="answer ws-ta" id="f-b3" data-id="b3" rows="3" aria-label="תשובה לשאלת בגרות 3"></textarea></li><li class="ws-bq"><div class="ws-bq-h">4.</div><p>מהו היחס של עשו לבכורה? בססו את תשובתכם על הכתוב.</p><textarea class="answer ws-ta" id="f-b4" data-id="b4" rows="3" aria-label="תשובה לשאלת בגרות 4"></textarea></li><li class="ws-bq-y">📅 תשע&quot;ז (2017), חורף</li><li class="ws-bq-intro">&quot;וַיִּגְדְּלוּ הַנְּעָרִים, וַיְהִי עֵשָׂו אִישׁ יֹדֵעַ צַיִד אִישׁ שָׂדֶה, וְיַעֲקֹב אִישׁ תָּם יֹשֵׁב אֹהָלִים&quot; (פרק כ&quot;ה, פסוק כ&quot;ז).</li><li class="ws-bq"><div class="ws-bq-h">5.</div><p>הסבירו מה היה עיסוקו של עשו ומה היה עיסוקו של יעקב.</p><textarea class="answer ws-ta" id="f-b5" data-id="b5" rows="3" aria-label="תשובה לשאלת בגרות 5"></textarea></li><li class="ws-bq"><div class="ws-bq-h">6.</div><p>על פי פירוש שלמדתם לפסוק זה, ציינו תכונת אופי של עשו ותכונת אופי של יעקב.</p><textarea class="answer ws-ta" id="f-b6" data-id="b6" rows="3" aria-label="תשובה לשאלת בגרות 6"></textarea></li><li class="ws-bq-y">📅 תשע&quot;ד (2014), חורף</li><li class="ws-bq"><div class="ws-bq-h">7.</div><p>&quot;וְרַב יַעֲבֹד צָעִיר&quot; (פרק כ&quot;ה, פסוק כ&quot;ג). הסבירו בלשונכם נבואה זו.</p><textarea class="answer ws-ta" id="f-b7" data-id="b7" rows="3" aria-label="תשובה לשאלת בגרות 7"></textarea></li></ol></section>
+<div class="ws-tools toolbar">
+ <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="בראשית פרק כ&quot;ה, מכירת הבכורה" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+ <button class="btn" type="button" id="printBtn">🖨️ הדפסה</button>
+ <button class="btn danger" type="button" id="clearBtn">נקו את כל התשובות</button>
 </div>
 <div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
-<div class="bm-save-info" id="printHelp">
-  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
-  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
-  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
-  <p class="bm-send-last" id="bmSendLast" hidden></p>
-</div>
-
-<footer class="credit">ספר בראשית, פרק כ"ה · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
-
+<p class="bm-send-last" id="bmSendLast" hidden></p>
+<nav class="ws-chnav" aria-label="ניווט בין פרקים"><a href="bereshit-22.html">→ פרק כ&quot;ב</a><a href="index.html#tab-ya">↺ חזרה ליחידה</a><a href="bereshit-27.html">פרקים כ&quot;ז-כ&quot;ח ←</a></nav>
+</main>
 <script>
-const STORAGE_KEY = 'bereshit-ch25-answers';
-const NAME_KEY = 'bereshit-ch25-student';
-const textareas = Array.from(document.querySelectorAll('textarea.answer'));
-const progressFill = document.getElementById('progressFill');
-const progressTrack = document.getElementById('progressTrack');
-const progressLabel = document.getElementById('progressLabel');
-const saveNote = document.getElementById('saveNote');
-const nameInput = document.getElementById('studentName');
-const classInput = document.getElementById('studentClass');
-const printNameLine = document.getElementById('printNameLine');
-let saveTimer = null;
-let noteTimer = null;
-
-function updatePrintNameLine(){
-  const name = (nameInput.value || '').trim();
-  const cls = (classInput.value || '').trim();
-  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
-  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
-}
-
-function saveStudentInfo(){
-  try{
-    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
-  }catch(e){ /* אחסון חסום */ }
-  updatePrintNameLine();
-}
-
-function loadStudentInfo(){
-  try{
-    const raw = localStorage.getItem(NAME_KEY);
-    if(raw){
-      const data = JSON.parse(raw);
-      nameInput.value = data.name || '';
-      classInput.value = data.cls || '';
-    }
-  }catch(e){ /* אחסון חסום */ }
-  updatePrintNameLine();
-}
-
-function updateProgress(){
-  const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
-  progressFill.style.width = pct + '%';
-  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
-  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
-}
-
-function markFilled(t){
-  if(t.value.trim().length > 0) t.classList.add('filled');
-  else t.classList.remove('filled');
-}
-
-function flashSaved(){
-  saveNote.classList.add('show');
-  clearTimeout(noteTimer);
-  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
-}
-
-function saveAnswers(){
-  const data = {};
-  textareas.forEach(t => { data[t.dataset.id] = t.value; });
-  try{
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    flashSaved();
-  }catch(e){
-    console.error('שגיאת שמירה', e);
-  }
-}
-
-function loadAnswers(){
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw){
-      const data = JSON.parse(raw);
-      textareas.forEach(t => {
-        if(data[t.dataset.id]){
-          t.value = data[t.dataset.id];
-          markFilled(t);
-        }
+(function(){
+  var KEY='bm-ws:bereshit-25';
+  var data={}; try{data=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){}
+  function save(){ try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){} }
+  /* תשובות כתובות */
+  document.querySelectorAll('.answer[data-id]').forEach(function(f){
+    var id=f.getAttribute('data-id'); if(data[id]!=null) f.value=data[id];
+    f.addEventListener('input',function(){ data[id]=f.value; save(); });
+  });
+  /* בדיקת שאלות ההבנה: מציג תשובה מוצעת מתחת לכל שורה */
+  document.querySelectorAll('[data-check]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var keys=b.closest('.ws-act').querySelectorAll('.ws-key'), show=keys.length && keys[0].hidden;
+      keys.forEach(function(k){ k.hidden=!show; });
+      b.textContent=show?'הסתרת התשובות':'בדיקה';
+    });
+  });
+  /* עשו או יעקב */
+  document.querySelectorAll('.ws-sort').forEach(function(ul,si){
+    var items=ul.querySelectorAll('.ws-sort-i'), score=ul.closest('.ws-act').querySelector('[data-score]');
+    function paint(){
+      var ok=0,done=0;
+      items.forEach(function(li,i){
+        var p=data['sort'+si+'_'+i]; li.classList.remove('ok','bad');
+        li.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on',b.getAttribute('data-pick')===p); b.setAttribute('aria-pressed',b.getAttribute('data-pick')===p?'true':'false'); });
+        if(p){ done++; if(p===li.getAttribute('data-ans')){ok++;li.classList.add('ok');} else li.classList.add('bad'); }
       });
+      score.textContent=done?('✓ '+ok+' מתוך '+items.length+' נכונים'):'';
     }
-  }catch(e){
-    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
-  }
-  updateProgress();
-}
-
-textareas.forEach(t => {
-  t.addEventListener('input', () => {
-    markFilled(t);
-    updateProgress();
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(saveAnswers, 500);
+    items.forEach(function(li,i){
+      li.querySelectorAll('button').forEach(function(b){ b.addEventListener('click',function(){ data['sort'+si+'_'+i]=b.getAttribute('data-pick'); save(); paint(); }); });
+    });
+    paint();
   });
-});
-
-document.querySelectorAll('.hint-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const box = btn.nextElementSibling;
-    const showing = box.hidden;
-    box.hidden = !showing;
-    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  /* סידור אירועים */
+  document.querySelectorAll('.ws-seq').forEach(function(ol,qi){
+    var msg=ol.parentNode.querySelector('[data-seqmsg]');
+    var saved=data['seq'+qi];
+    if(Array.isArray(saved)) saved.forEach(function(p){ var li=ol.querySelector('[data-pos="'+p+'"]'); if(li) ol.appendChild(li); });
+    function num(){ ol.querySelectorAll('.ws-seq-i').forEach(function(li,i){ li.querySelector('.ws-seq-n').textContent=i+1; li.classList.remove('ok','bad'); }); msg.textContent=''; }
+    function store(){ data['seq'+qi]=Array.prototype.map.call(ol.children,function(li){return li.getAttribute('data-pos');}); save(); }
+    ol.addEventListener('click',function(e){
+      var b=e.target.closest('button'); if(!b) return; var li=b.closest('.ws-seq-i');
+      if(b.hasAttribute('data-up') && li.previousElementSibling) ol.insertBefore(li,li.previousElementSibling);
+      if(b.hasAttribute('data-down') && li.nextElementSibling) ol.insertBefore(li.nextElementSibling,li);
+      num(); store(); b.focus();
+    });
+    ol.parentNode.querySelector('[data-seqcheck]').addEventListener('click',function(){
+      var ok=0, all=ol.children.length;
+      Array.prototype.forEach.call(ol.children,function(li,i){ var good=String(i)===li.getAttribute('data-pos'); li.classList.toggle('ok',good); li.classList.toggle('bad',!good); if(good) ok++; });
+      msg.textContent= ok===all ? '🎉 כל הכבוד! הכול מסודר נכון.' : ok+' מתוך '+all+' במקום הנכון. האדומים צריכים לזוז.';
+    });
+    num();
   });
-});
-
-document.getElementById('clearBtn').addEventListener('click', () => {
-  if(!confirm('למחוק את כל התשובות בדף העבודה? אי אפשר לשחזר לאחר מכן.')) return;
-  textareas.forEach(t => { t.value = ''; markFilled(t); });
-  updateProgress();
-  saveAnswers();
-});
-
-document.getElementById('printBtn').addEventListener('click', () => {
-  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
-  window.print();
-});
-
-[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
-
-loadStudentInfo();
-loadAnswers();
+  document.getElementById('printBtn').addEventListener('click',function(){ window.print(); });
+  document.getElementById('clearBtn').addEventListener('click',function(){
+    if(!confirm('למחוק את כל התשובות בדף?')) return;
+    data={}; save(); location.reload();
+  });
+})();
 </script>
 <script src="assets/progress-tracker.js"></script>
-<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
-
-<script src="assets/guide/bereshit-25.js"></script>
-<script src="assets/steps.js?v=5"></script>
-<script src="assets/guide.js"></script>
 <script src="assets/units-data.js"></script>
 <script src="assets/bm-api.js"></script>
-<script src="assets/page-poll.js"></script>
 <script src="assets/direct-submit.js?v=3"></script>
 <script src="assets/send-to-teacher.js?v=6"></script>
 <script src="assets/lesson-mode.js?v=14"></script>

@@ -1,562 +1,255 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl" data-css="theme tpl-bereshit-25 steps guide lesson-tools">
+<html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ספר בראשית — דף עבודה אינטראקטיבי (פרק כ"ח, סולם יעקב)</title>
+<title>בראשית פרק כ&quot;ח - סולם יעקב · דף עבודה</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css?v=45">
-
-
-
-
 <script src="assets/a11y.js"></script>
+<style>
+:root{--ws-ink:#1F3A4D;--ws-mute:#5E6B76;--ws-line:#DDD3BF;--ws-paper:#FFFDF8;--ws-bg:#F4EFE4;--ws-gold:#A9752E;--ws-ok:#2E7D4F;--ws-okb:#E3F2E8;--ws-bad:#B23B2E;--ws-badb:#FBE6E3;
+ --t1:#3F6E66;--t1b:#E6F0EE;--t2:#A9752E;--t2b:#F6EEDF;--t3:#8A3B2E;--t3b:#F7E8E4;--tb:#2C4F7A;--tbb:#E5EDF7}
+body{background:var(--ws-bg);color:var(--ws-ink);font-family:Heebo,Arial,sans-serif}
+.ws-wrap{max-width:900px;margin:0 auto;padding:18px 16px 60px}
+.ws-hero{background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:14px;padding:16px 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.ws-hero h1{font-family:"Frank Ruhl Libre",serif;font-size:1.8rem;margin:0;color:var(--ws-ink)}
+.ws-hero .ws-sub{color:var(--ws-mute);margin:.2rem 0 0;font-size:.95rem}
+.ws-who{display:flex;gap:10px;flex-wrap:wrap}
+.ws-who label{font-weight:600;font-size:.95rem}
+.ws-who input{font:inherit;border:1px solid var(--ws-line);border-radius:8px;padding:6px 10px;width:11rem;background:#fff}
+.ws-map{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}
+.ws-map a{flex:1 1 180px;text-decoration:none;color:inherit;background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:10px;padding:8px 12px;font-weight:600}
+.ws-map a small{display:block;color:var(--ws-mute);font-weight:400}
+.ws-howto{font-size:.92rem;color:var(--ws-mute);margin:6px 2px 0}
+.ws-topic{background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:14px;margin-top:18px;overflow:hidden}
+.ws-th{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 16px;color:#fff}
+.ws-th h2{margin:0;font-family:"Frank Ruhl Libre",serif;font-size:1.45rem;color:#fff}
+.ws-tn{background:rgba(255,255,255,.22);border-radius:99px;padding:2px 10px;font-size:.85rem;font-weight:700}
+.ws-rng{margin-inline-start:auto;font-size:.9rem;opacity:.95}
+.ws-t1 .ws-th{background:var(--t1)} .ws-t2 .ws-th{background:var(--t2)} .ws-t3 .ws-th{background:var(--t3)} .ws-bag .ws-th{background:var(--tb)}
+.ws-topic > :not(.ws-th){margin-inline:16px}
+.ws-step{display:flex;align-items:center;gap:8px;font-size:1.05rem;margin:16px 16px 8px;color:var(--ws-ink)}
+.ws-step span{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ws-ink);color:#fff;font-size:.85rem}
+.ws-verses{display:grid;gap:6px}
+.ws-v{display:grid;grid-template-columns:34px 1fr;column-gap:8px;padding:6px 10px;border-radius:8px}
+.ws-t1 .ws-v{background:var(--t1b)} .ws-t2 .ws-v{background:var(--t2b)} .ws-t3 .ws-v{background:var(--t3b)}
+.ws-vn{grid-row:span 2;font-weight:700;color:var(--ws-gold);font-family:"Frank Ruhl Libre",serif;font-size:1.05rem;padding-top:2px}
+.ws-vt{margin:0;font-family:"Frank Ruhl Libre",serif;font-size:1.28rem;line-height:1.65}
+.ws-vp{margin:0;font-size:.92rem;color:var(--ws-mute)}
+.ws-act{border:2px dashed var(--ws-line);border-radius:12px;padding:10px 12px;margin-top:10px}
+.ws-act-h{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:700;margin-bottom:6px}
+.ws-help{margin:0 0 6px;font-size:.9rem;color:var(--ws-mute)}
+.ws-btn,.ws-sort-b button,.ws-seq-b button{font:inherit;border:1px solid var(--ws-ink);background:#fff;color:var(--ws-ink);border-radius:8px;padding:4px 12px;cursor:pointer;min-height:34px}
+.ws-btn:hover,.ws-sort-b button:hover,.ws-seq-b button:hover{background:var(--ws-ink);color:#fff}
+.ws-btn:focus-visible,.ws-sort-b button:focus-visible,.ws-seq-b button:focus-visible{outline:3px solid var(--ws-gold);outline-offset:2px}
+.ws-quiz{width:100%;border-collapse:collapse}
+.ws-quiz th{text-align:right;font-size:.85rem;color:var(--ws-mute);padding:4px 6px;border-bottom:1px solid var(--ws-line)}
+.ws-quiz td{padding:6px;border-bottom:1px solid var(--ws-line);vertical-align:top}
+.ws-q{width:52%;font-weight:500}
+.ws-src{color:var(--ws-mute);font-size:.82rem;font-weight:400}
+.ws-in{width:100%;font:inherit;border:1px solid var(--ws-line);border-radius:8px;padding:5px 8px;background:#fff}
+.ws-key[hidden]{display:none !important}
+.ws-key{display:block;margin-top:3px;font-size:.88rem;color:var(--ws-ok);font-weight:600}
+.ws-sort{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:6px}
+.ws-sort-i{display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--ws-line);border-radius:10px;padding:6px 8px;background:#fff}
+.ws-sort-t{font-family:"Frank Ruhl Libre",serif;font-size:1.08rem}
+.ws-sort-b{display:flex;gap:4px;flex-shrink:0}
+.ws-sort-i.ok{background:var(--ws-okb);border-color:var(--ws-ok)} .ws-sort-i.bad{background:var(--ws-badb);border-color:var(--ws-bad)}
+.ws-sort-i.ok button.on{background:var(--ws-ok);color:#fff;border-color:var(--ws-ok)} .ws-sort-i.bad button.on{background:var(--ws-bad);color:#fff;border-color:var(--ws-bad)}
+.ws-score{font-size:.9rem;color:var(--ws-ok)}
+.ws-seq{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.ws-seq-i{display:flex;align-items:center;gap:8px;border:1px solid var(--ws-line);border-radius:10px;padding:5px 8px;background:#fff}
+.ws-seq-n{display:inline-grid;place-items:center;min-width:28px;height:28px;border-radius:7px;background:var(--t3b);font-weight:700}
+.ws-seq-t{flex:1}
+.ws-seq-b{display:flex;gap:4px}
+.ws-seq-i.ok{background:var(--ws-okb);border-color:var(--ws-ok)} .ws-seq-i.bad{background:var(--ws-badb);border-color:var(--ws-bad)}
+.ws-seq-msg{margin:6px 0 0;font-weight:600;min-height:1.2em}
+.ws-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-bottom:16px}
+.ws-card{border:1px solid var(--ws-line);border-radius:12px;background:#fff;display:flex;flex-direction:column;overflow:hidden}
+.ws-card header{display:flex;justify-content:space-between;gap:6px;align-items:baseline;padding:7px 10px;background:var(--ws-bg);border-bottom:1px solid var(--ws-line)}
+.ws-card header b{font-family:"Frank Ruhl Libre",serif;font-size:1.15rem}
+.ws-card header span{font-size:.82rem;color:var(--ws-mute)}
+.ws-ctext{margin:8px 10px 0;font-family:"Frank Ruhl Libre",serif;font-size:1.02rem;line-height:1.6;border-inline-start:3px solid var(--ws-gold);padding-inline-start:8px}
+.ws-cq{margin:8px 10px 4px;font-weight:600}
+.ws-ta{display:block;width:calc(100% - 20px);margin:0 10px 10px;font:inherit;border:1px solid var(--ws-line);border-radius:8px;padding:6px 8px;resize:vertical;margin-top:auto}
+.ws-bqs{list-style:none;margin:12px 0 16px;padding:0;display:grid;gap:10px}
+.ws-bq{border:1px solid var(--ws-line);border-radius:10px;background:#fff;padding:8px 10px}
+.ws-bq-h{font-weight:700} .ws-bq-h span{font-weight:400;color:var(--ws-mute);font-size:.88rem}
+.ws-bq p{margin:3px 0 6px}
+.ws-bq .ws-ta{width:100%;margin:0}
 
+.ws-res{display:flex;gap:8px;flex-wrap:wrap;margin:6px 2px 0;font-size:.92rem}
+.ws-res a{color:var(--ws-ink);background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:99px;padding:3px 12px;text-decoration:none}
+.ws-chnav{display:flex;justify-content:space-between;gap:8px;margin-top:18px;flex-wrap:wrap}
+.ws-chnav a{color:var(--ws-ink);font-weight:600}
+.ws-note{background:transparent !important;border:1px dashed var(--ws-line)}
+.ws-note .ws-vp{font-style:italic}
+.ws-cwho{margin:8px 10px 0;font-weight:700;font-family:"Frank Ruhl Libre",serif}
+.ws-cwho + .ws-ctext{margin-top:2px}
+.ws-wide{grid-column:1 / -1}
+.ws-sort3 .ws-sort-i{flex-wrap:wrap}
+.ws-bq-y{font-weight:700;color:var(--tb);margin-top:6px}
+.ws-bq-intro{color:var(--ws-mute);font-size:.95rem}
+.ws-v.ws-kv{background:#FFF0C2 !important;box-shadow:inset -4px 0 0 #D49A1E}
+.ws-v.ws-kv .ws-vt{font-weight:700}
+.ws-star{display:block;font-size:.8rem;line-height:1}
+.ws-legend{margin:0 0 6px;font-size:.88rem;color:var(--ws-mute);display:flex;align-items:center;gap:6px}
+.ws-legend-sw{display:inline-block;width:18px;height:12px;border-radius:3px;background:#FFF0C2;box-shadow:inset -3px 0 0 #D49A1E}
+.ws-tools{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+@media (max-width:600px){.ws-q{width:auto}.ws-quiz,.ws-quiz tbody,.ws-quiz tr,.ws-quiz td{display:block;width:100%}.ws-quiz thead{display:none}.ws-quiz td{border:0;padding:3px 0}.ws-quiz tr{border-bottom:1px solid var(--ws-line);padding:6px 0}.ws-vt{font-size:1.18rem}}
+@media print{
+ @page{size:A4;margin:7mm 8mm}
+ body{background:#fff;font-size:10pt}
+ .ws-wrap{max-width:none;padding:0}
+ .ws-map,.ws-howto,.ws-tools,.bm-send-panel,.bm-save-info,.ws-btn,.ws-score,.ws-help,.ws-seq-b,.ws-seq-msg,.ws-key,nav,.bm-skip-link{display:none !important}
+ .ws-hero{border:0;padding:0 0 4px;border-bottom:2px solid var(--ws-ink);border-radius:0}
+ .ws-hero h1{font-size:15pt}
+ .ws-who input{border:0;border-bottom:1px solid #999;border-radius:0;width:8rem}
+ .ws-topic{break-before:page;border:0;border-radius:0;margin-top:0}
+ .ws-t1{break-before:auto;margin-top:6px}
+ .ws-th{padding:4px 10px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .ws-th h2{font-size:13pt}
+ .ws-topic > :not(.ws-th){margin-inline:0}
+ .ws-step{margin:4px 0 2px;font-size:10pt}
+ .ws-step span{width:18px;height:18px;font-size:8pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .ws-verses{display:block;column-count:2;column-gap:10px}
+ .ws-v{break-inside:avoid;margin-bottom:2px}
+ .ws-v{padding:2px 6px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .ws-vt{font-size:10.5pt;line-height:1.35}
+ .ws-vp{font-size:8pt;line-height:1.25}
+ .ws-act{padding:5px 8px;margin-top:5px;border-width:1px}
+ .ws-act-h{margin-bottom:2px;font-size:10pt}
+ .ws-quiz td{padding:2px 4px}
+ .ws-in{border:0;border-bottom:1px dotted #888;border-radius:0;padding:2px 0}
+ .ws-sort{grid-template-columns:repeat(3,1fr);gap:3px}
+ .ws-sort-i{padding:2px 6px}
+ .ws-sort-t{font-size:10pt}
+ .ws-sort-b button{min-height:0;padding:0 6px;font-size:8.5pt;border-radius:99px;background:#fff !important;color:var(--ws-ink) !important}
+ .ws-sort-i.ok,.ws-sort-i.bad{background:#fff;border-color:var(--ws-line)}
+ .ws-seq{display:grid;grid-template-columns:1fr 1fr;grid-auto-flow:column;grid-template-rows:repeat(4,auto);gap:2px 8px}
+ .ws-seq-i.ok,.ws-seq-i.bad{background:#fff;border-color:var(--ws-line)}
+ .ws-seq-i{padding:2px 6px}
+ .ws-seq-n{min-width:22px;height:20px;background:#fff;border:1px solid #888;color:transparent}
+ .ws-cards{grid-template-columns:1fr 1fr;gap:6px;margin-bottom:0}
+ .ws-card{break-inside:avoid}
+ .ws-card header{padding:3px 8px}
+ .ws-card header b{font-size:10.5pt}
+ .ws-ctext{font-size:8.5pt;line-height:1.3;margin:2px 8px 0}
+ .ws-cq{margin:4px 8px 2px;font-size:9.5pt}
+ .ws-ta{border:0;border-bottom:1px dotted #888;border-radius:0;height:2.3em !important;min-height:0;resize:none;margin-bottom:3px}
+ ::placeholder{color:transparent !important}
+ .ws-cards.c3{grid-template-columns:repeat(3,1fr)}
+ .ws-in{height:1.45em}
+ .ws-quiz td,.ws-quiz th{font-size:9.3pt;padding:1px 4px}
+ .ws-bq{break-inside:avoid;padding:5px 8px}
+ .ws-bq .ws-ta{height:2.6em !important}
+ .ws-bq{padding:3px 8px}
+ .ws-bq p{margin:1px 0 2px;font-size:9.5pt}
+ .ws-bqs{gap:5px;margin-top:6px}
+ .ws-res,.ws-chnav{display:none !important}
+ .ws-v.ws-kv,.ws-legend-sw{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .ws-legend{font-size:8pt;margin:0 0 2px}
+ .ws-star{font-size:7pt}
+ .ws-cwho{margin:3px 8px 0;font-size:9.5pt}
+ .ws-bq-y{margin-top:2px;font-size:10pt}
+ .ws-sort3{grid-template-columns:1fr 1fr}
+
+}
+</style>
 </head>
 <body>
 <a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
-
-<nav class="breadcrumbs" aria-label="נתיב ניווט">
-  <a href="index.html">הכיתה הדיגיטלית</a>
-  <span class="sep">›</span>
-  <a href="index.html#tab-ya">כיתה י"א</a>
-  <span class="sep">›</span>
-  <a href="index.html#tab-ya">ספר בראשית</a>
-  <span class="sep">›</span>
-  <span class="current">פרק כ"ח</span>
-</nav>
-
-<header>
-  <div class="eyebrow">ספר בראשית · חוברת תלמיד דיגיטלית · 3 יח"ל</div>
-  <div class="focus-tags" aria-label="מיקוד הבגרות: שאלון 2381, מיקוד תשפ&quot;ז, 3 יחידות לימוד"><span class="focus-tag">שאלון 2381</span><span class="focus-tag">מיקוד תשפ"ז</span><span class="focus-tag">3 יח"ל</span></div>
-  <h1>דף עבודה — פרק כ"ח, "סֻלַּם יַעֲקֹב וְיציאתו לְחָרָן"</h1>
-  <p class="sub">בכל נושא: קודם קוראים את הפסוקים בקובייה העליונה, ואז עוברים על כל קוביית-שאלה שמסתעפת ממנה - קוראים את דברי הפרשן (אם יש), כותבים תשובה, ורק אז לוחצים "הצג תשובה" לבדיקה עצמית. הכול נשמר אוטומטית במכשיר שלכם.</p>
-  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
-
-  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
-    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
-      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
-    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
-      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
-  </svg>
+<main id="main-content" class="ws-wrap">
+<header class="ws-hero">
+ <div><h1>בראשית פרק כ&quot;ח · סולם יעקב</h1><p class="ws-sub">יעקב ועשיו · דף עבודה · שאלון 2381</p></div>
+ <div class="ws-who" id="printHeader">
+  <label>שם: <input type="text" id="studentName" data-bm-persist="ws-bereshit" autocomplete="off"></label>
+  <label>כיתה: <input type="text" id="studentClass" data-bm-persist="ws-bereshit" autocomplete="off" style="width:6rem"></label>
+ </div>
 </header>
-
-<div class="student-bar" id="printHeader">
-  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
-  <label>כיתה: <input type="text" id="studentClass" placeholder="למשל: י&quot;א 3" style="width:8rem;"></label>
-</div>
-<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
-
-<div class="progress-wrap">
-  <span class="progress-label" id="progressLabel">0 / 6 שאלות</span>
-  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
-</div>
-<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
-
-<details class="bm-resources"><summary>סרטונים, מצגות וחומרי עזר</summary><p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
-  <a class="chip-link" href="bereshit-28-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
-  <a class="chip-link" href="bereshit-28-text.html"><span class="chip-icon" aria-hidden="true">🔍</span>קריאה אינטראקטיבית בפסוקים</a>
-  <a class="chip-link" href="bereshit-28-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
-</p></details>
-
-<main id="main-content">
-  <div class="grid" id="grid" data-answer-kind="suggested">
-
-    <!-- תקציר הפרק -->
-    <section class="card" data-stage="intro" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">תקציר הפרק</span>
-        <h2 class="card-title">מה קורה בפרק כ"ח, פסוקים י'-כ"ב (יציאת יעקב לחרן, סולם יעקב)?</h2>
-      </div>
-      <div class="card-body">
-        <div class="story-summary">
-          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
-          יעקב יוצא מבאר שבע לבדו, בורח מפני עשיו אחיו, בדרכו לחרן אל בית לבן אחי אמו. בדרך הוא לן במקום מסוים, לוקח מאבני המקום לשים תחת ראשו, ושוכב לישון. בחלומו הוא רואה סולם מוצב ארצה וראשו מגיע השמימה, ומלאכי אלוקים עולים ויורדים בו. ה' נצב עליו ומתגלה אליו, מבטיח לו את ארץ כנען, זרע רב כעפר הארץ, ושמירה בכל אשר ילך עד שובו בשלום. יעקב מתעורר נרעש, קורא למקום "בית אל", ונודר נדר: אם ה' יהיה עמו וישמרו בדרכו ויחזירו בשלום לבית אביו - יהיה ה' לו לאלוקים, והאבן שהציב למצבה תהיה בית אלוקים, ומכל אשר יתן לו יעשר עשר לה'.
-        </div>
-      </div>
-    </section>
-
-    <!-- נושא 1 -->
-    <div class="topic-col" data-stage="learn_together" data-keep-together="true">
-    <div class="topic-banner" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
-      <span class="topic-icon" aria-hidden="true">🪜</span>
-      <div>
-        <div class="topic-eyebrow">נושא 1 מתוך 4</div>
-        <div class="topic-title">חלום הסולם</div>
-      </div>
-    </div>
-    <div class="qb-topic" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
-      <div class="qb-root">
-        <span class="qb-root-icon" aria-hidden="true">🪜</span>
-        <div class="qb-root-label">פסוקים י'-י"ג</div>
-        <div class="qb-root-pasuk">
-          <div class="pasuk-gloss">יעקב יוצא מבאר שבע, לן בדרך וחולם: סולם מוצב ארצה, ומלאכי אלהים עולים ויורדים בו.</div>
-        </div>
-      </div>
-      <div class="qb-connector" aria-hidden="true"></div>
-      <div class="qb-branches">
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> הבנת דברי פרשן או מדרש</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">יעקב חלם: והנה סולם עומד על הארץ, וראשו מגיע לשמיים, והנה מלאכי אלוהים עולים ויורדים בו</div><b>יב:</b> וַיַּחֲלֹם וְהִנֵּה סֻלָּם מֻצָּב אַרְצָה וְרֹאשׁוֹ מַגִּיעַ הַשָּׁמָיְמָה וְהִנֵּה מַלְאֲכֵי אֱלֹהִים עֹלִים וְיֹרְדִים בּוֹ:<br><div class="pasuk-gloss">והנה ה' עומד עליו ואמר: אני ה', אלוהי אברהם אביך ואלוהי יצחק; את הארץ שאתה שוכב עליה - לך אתן אותה ולזרעך</div><b>יג:</b> וְהִנֵּה ה' נִצָּב עָלָיו וַיֹּאמַר אֲנִי ה' אֱלֹהֵי אַבְרָהָם אָבִיךָ וֵאלֹהֵי יִצְחָק הָאָרֶץ אֲשֶׁר אַתָּה שֹׁכֵב עָלֶיהָ לְךָ אֶתְּנֶנָּה וּלְזַרְעֶךָ:</div><div class="qb-meforesh">
-<span class="qb-src">רש"י (פסוקים י"ב-י"ג)</span>
-            עולים ויורדים - עולים תחלה ואחר כך יורדים, מלאכים שליווהו בארץ אין יוצאים חוצה לארץ ועלו לרקיע, וירדו מלאכי חוצה לארץ ללוותו:<br>ניצב עליו - לשמרו:
-</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">"וְהִנֵּה מַלְאֲכֵי אֱלֹהִים עֹלִים וְיֹרְדִים בּוֹ" (פסוק י"ב).<br>(1) מה הקושי בסדר המילים "עֹלִים וְיֹרְדִים"?<br>(2) כיצד מיישב רש"י קושי זה?</span></div>
-<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> (1) מלאכים יורדים מן השמים, ולכן היה מתאים לכתוב קודם "יורדים" ואחר כך "עולים". (2) "מלאכים שליווהו בארץ אין יוצאים חוצה לארץ ועלו לרקיע, וירדו מלאכי חוצה לארץ ללוותו" - ה' שומר על יעקב גם כשהוא יוצא מן הארץ.</div>
-</div></div></div>
-
-      </div>
-    </div>
-    </div>
-
-    <!-- נושא 2 -->
-    <div class="topic-col" data-keep-together="true">
-    <div class="topic-banner" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
-      <span class="topic-icon" aria-hidden="true">🌟</span>
-      <div>
-        <div class="topic-eyebrow">נושא 2 מתוך 4</div>
-        <div class="topic-title">דברי ה' ליעקב</div>
-      </div>
-    </div>
-    <div class="qb-topic" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
-      <div class="qb-root">
-        <span class="qb-root-icon" aria-hidden="true">🌟</span>
-        <div class="qb-root-label">פסוקים י"ג-ט"ו</div>
-        <div class="qb-root-pasuk">
-          <div class="pasuk-gloss">ה' מבטיח ליעקב את הארץ, זרע רב וברכה - ושמירה בדרך עד שישוב לארץ.</div>
-        </div>
-      </div>
-      <div class="qb-connector" aria-hidden="true"></div>
-      <div class="qb-branches">
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> הסקת מסקנות מן הכתוב</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">והנה ה' עומד עליו ואמר: אני ה', אלוהי אברהם אביך ואלוהי יצחק; את הארץ שאתה שוכב עליה - לך אתן אותה ולזרעך</div><b>יג:</b> וְהִנֵּה ה' נִצָּב עָלָיו וַיֹּאמַר אֲנִי ה' אֱלֹהֵי אַבְרָהָם אָבִיךָ וֵאלֹהֵי יִצְחָק הָאָרֶץ אֲשֶׁר אַתָּה שֹׁכֵב עָלֶיהָ לְךָ אֶתְּנֶנָּה וּלְזַרְעֶךָ:<br><div class="pasuk-gloss">זרעך יהיה רב כמו עפר הארץ, ותתפשט מערבה, מזרחה, צפונה ודרומה; ויתברכו בך כל משפחות האדמה, ובזרעך</div><b>יד:</b> וְהָיָה זַרְעֲךָ כַּעֲפַר הָאָרֶץ וּפָרַצְתָּ יָמָּה וָקֵדְמָה וְצָפֹנָה וָנֶגְבָּה וְנִבְרְכוּ בְךָ כָּל מִשְׁפְּחֹת הָאֲדָמָה וּבְזַרְעֶךָ:<br><div class="pasuk-gloss">והנה אני איתך, ואשמור עליך בכל מקום שתלך, ואחזיר אותך אל האדמה הזאת; כי לא אעזוב אותך עד שאעשה את מה שהבטחתי לך</div><b>טו:</b> וְהִנֵּה אָנֹכִי עִמָּךְ וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ וַהֲשִׁבֹתִיךָ אֶל הָאֲדָמָה הַזֹּאת כִּי לֹא אֶעֱזָבְךָ עַד אֲשֶׁר אִם עָשִׂיתִי אֵת אֲשֶׁר דִּבַּרְתִּי לָךְ:</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">עיינו בפסוקים י'-ט"ו.<br>הסבירו מדוע מתגלה ה' ליעקב דווקא כשהוא יוצא מארץ כנען. היעזרו בפסוק ט"ו.</span></div>
-<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> יעקב בורח מעשו, לבדו, אל דרך רחוקה. ה' מתגלה אליו לפני שהוא עוזב את הארץ כדי לחזק אותו ולהבטיח לו שמירה: "וְהִנֵּה אָנֹכִי עִמָּךְ וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ, וַהֲשִׁבֹתִיךָ אֶל הָאֲדָמָה הַזֹּאת".</div>
-</div></div></div>
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> השוואה בין פסוקים ומקורות</span></div><p class="q-cue">דברי ה' ליעקב (כח, יג-יד):</p><div class="pasuk-block mini"><div class="pasuk-gloss">והנה ה' עומד עליו ואמר: אני ה', אלוהי אברהם אביך ואלוהי יצחק; את הארץ שאתה שוכב עליה - לך אתן אותה ולזרעך</div><b>יג:</b> וְהִנֵּה ה' נִצָּב עָלָיו וַיֹּאמַר אֲנִי ה' אֱלֹהֵי אַבְרָהָם אָבִיךָ וֵאלֹהֵי יִצְחָק הָאָרֶץ אֲשֶׁר אַתָּה שֹׁכֵב עָלֶיהָ לְךָ אֶתְּנֶנָּה וּלְזַרְעֶךָ:<br><div class="pasuk-gloss">זרעך יהיה רב כמו עפר הארץ, ותתפשט מערבה, מזרחה, צפונה ודרומה; ויתברכו בך כל משפחות האדמה, ובזרעך</div><b>יד:</b> וְהָיָה זַרְעֲךָ כַּעֲפַר הָאָרֶץ וּפָרַצְתָּ יָמָּה וָקֵדְמָה וְצָפֹנָה וָנֶגְבָּה וְנִבְרְכוּ בְךָ כָּל מִשְׁפְּחֹת הָאֲדָמָה וּבְזַרְעֶךָ:</div><p class="q-cue">ה' לאברהם (יב, א-ג):</p><div class="pasuk-block mini"><div class="pasuk-gloss">ה' אמר לאברם: לך מארצך, ממקום הולדתך ומבית אביך, אל הארץ שאראה לך</div><b>י"ב, א:</b> וַיֹּאמֶר ה' אֶל אַבְרָם לֶךְ לְךָ מֵאַרְצְךָ וּמִמּוֹלַדְתְּךָ וּמִבֵּית אָבִיךָ אֶל הָאָרֶץ אֲשֶׁר אַרְאֶךָּ:<br><div class="pasuk-gloss">ואעשה אותך לעם גדול, אברך אותך ואגדל את שמך; ותהיה ברכה</div><b>י"ב, ב:</b> וְאֶעֶשְׂךָ לְגוֹי גָּדוֹל וַאֲבָרֶכְךָ וַאֲגַדְּלָה שְׁמֶךָ וֶהְיֵה בְּרָכָה:<br><div class="pasuk-gloss">אברך את מי שמברך אותך, ואת מי שמקלל אותך - אקלל; ויתברכו בך כל משפחות האדמה</div><b>י"ב, ג:</b> וַאֲבָרְכָה מְבָרְכֶיךָ וּמְקַלֶּלְךָ אָאֹר וְנִבְרְכוּ בְךָ כֹּל מִשְׁפְּחֹת הָאֲדָמָה:</div><p class="q-cue">ה' לאברהם (יג, יד-טז):</p><div class="pasuk-block mini"><div class="pasuk-gloss">ה' אמר אל אברם, אחרי שלוט נפרד ממנו: הרם את עיניך והבט מן המקום שאתה נמצא בו - צפונה, דרומה, מזרחה ומערבה</div><b>י"ג, יד:</b> וַה' אָמַר אֶל אַבְרָם אַחֲרֵי הִפָּרֶד לוֹט מֵעִמּוֹ שָׂא נָא עֵינֶיךָ וּרְאֵה מִן הַמָּקוֹם אֲשֶׁר אַתָּה שָׁם צָפֹנָה וָנֶגְבָּה וָקֵדְמָה וָיָמָּה:<br><div class="pasuk-gloss">כי את כל הארץ שאתה רואה - לך אתן אותה ולזרעך עד עולם</div><b>י"ג, טו:</b> כִּי אֶת כָּל הָאָרֶץ אֲשֶׁר אַתָּה רֹאֶה לְךָ אֶתְּנֶנָּה וּלְזַרְעֲךָ עַד עוֹלָם:<br><div class="pasuk-gloss">ואעשה את זרעך רב כמו עפר הארץ: אם יוכל אדם לספור את עפר הארץ - גם זרעך ייספר</div><b>י"ג, טז:</b> וְשַׂמְתִּי אֶת זַרְעֲךָ כַּעֲפַר הָאָרֶץ אֲשֶׁר אִם יוּכַל אִישׁ לִמְנוֹת אֶת עֲפַר הָאָרֶץ גַּם זַרְעֲךָ יִמָּנֶה:</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">השוו את דברי ה' ליעקב (כ"ח, י"ג-י"ד) להבטחות ה' לאברהם (י"ב, א'-ג'; י"ג, י"ד-ט"ז).<br>(1) הביאו שתי הבטחות משותפות.<br>(2) מה ניתן ללמוד מן ההשוואה על מעמדו של יעקב?</span></div>
-<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> (1) הארץ - "לְךָ אֶתְּנֶנָּה וּלְזַרְעֶךָ"; הזרע - "כַּעֲפַר הָאָרֶץ", "יָמָּה וָקֵדְמָה וְצָפֹנָה וָנֶגְבָּה"; וגם "וְנִבְרְכוּ בְךָ כָּל מִשְׁפְּחֹת הָאֲדָמָה". (2) ה' בוחר ביעקב כממשיכו של אברהם, ומאשר את "בִּרְכַּת אַבְרָהָם" שנתן לו יצחק.</div>
-</div></div></div>
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> הבנת דברי פרשן או מדרש</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">והנה ה' עומד עליו ואמר: אני ה', אלוהי אברהם אביך ואלוהי יצחק; את הארץ שאתה שוכב עליה - לך אתן אותה ולזרעך</div><b>יג:</b> וְהִנֵּה ה' נִצָּב עָלָיו וַיֹּאמַר אֲנִי ה' אֱלֹהֵי אַבְרָהָם אָבִיךָ וֵאלֹהֵי יִצְחָק הָאָרֶץ אֲשֶׁר אַתָּה שֹׁכֵב עָלֶיהָ לְךָ אֶתְּנֶנָּה וּלְזַרְעֶךָ:<br><div class="pasuk-gloss">זרעך יהיה רב כמו עפר הארץ, ותתפשט מערבה, מזרחה, צפונה ודרומה; ויתברכו בך כל משפחות האדמה, ובזרעך</div><b>יד:</b> וְהָיָה זַרְעֲךָ כַּעֲפַר הָאָרֶץ וּפָרַצְתָּ יָמָּה וָקֵדְמָה וְצָפֹנָה וָנֶגְבָּה וְנִבְרְכוּ בְךָ כָּל מִשְׁפְּחֹת הָאֲדָמָה וּבְזַרְעֶךָ:<br><div class="pasuk-gloss">והנה אני איתך, ואשמור עליך בכל מקום שתלך, ואחזיר אותך אל האדמה הזאת; כי לא אעזוב אותך עד שאעשה את מה שהבטחתי לך</div><b>טו:</b> וְהִנֵּה אָנֹכִי עִמָּךְ וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ וַהֲשִׁבֹתִיךָ אֶל הָאֲדָמָה הַזֹּאת כִּי לֹא אֶעֱזָבְךָ עַד אֲשֶׁר אִם עָשִׂיתִי אֵת אֲשֶׁר דִּבַּרְתִּי לָךְ:</div><div class="qb-meforesh">
-<span class="qb-src">רש"י (פסוק ט"ו)</span>
-            אנכי עמך - לפי שהיה ירא מעשו ומלבן:
-</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">"וְהִנֵּה אָנֹכִי עִמָּךְ וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ" (פסוק ט"ו).<br>(1) במה שונות ההבטחות בפסוק ט"ו מן ההבטחות בפסוקים י"ג-י"ד?<br>(2) על פי רש"י, מדוע אמר ה' ליעקב "אָנֹכִי עִמָּךְ"?</span></div>
-<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> (1) י"ג-י"ד - הבטחות לזרעו של יעקב לדורות (הארץ, ריבוי, ברכה). ט"ו - הבטחה ליעקב עצמו, עכשיו: שמירה בדרך והחזרה לארץ. (2) "לפי שהיה ירא מעשו ומלבן".</div>
-</div></div></div>
-
-      </div>
-    </div>
-    </div>
-
-    <!-- נושא 3 -->
-    <div class="topic-col" data-keep-together="true">
-    <div class="topic-banner" style="--acc:#5B3F8C; --acc-soft:#ECE5F5;">
-      <span class="topic-icon" aria-hidden="true">😮</span>
-      <div>
-        <div class="topic-eyebrow">נושא 3 מתוך 4</div>
-        <div class="topic-title">תגובת יעקב לחלום</div>
-      </div>
-    </div>
-    <div class="qb-topic" style="--acc:#5B3F8C; --acc-soft:#ECE5F5;">
-      <div class="qb-root">
-        <span class="qb-root-icon" aria-hidden="true">😮</span>
-        <div class="qb-root-label">פסוקים ט"ז-י"ט</div>
-        <div class="qb-root-pasuk">
-          <div class="pasuk-gloss">יעקב מתעורר וירא: "אָכֵן יֵשׁ ה' בַּמָּקוֹם הַזֶּה". הוא מציב את האבן למצבה וקורא למקום בית אל.</div>
-        </div>
-      </div>
-      <div class="qb-connector" aria-hidden="true"></div>
-      <div class="qb-branches">
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> הבנת דברי פרשן או מדרש</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">יעקב התעורר משנתו ואמר: אכן ה' נמצא במקום הזה, ואני לא ידעתי</div><b>טז:</b> וַיִּיקַץ יַעֲקֹב מִשְּׁנָתוֹ וַיֹּאמֶר אָכֵן יֵשׁ ה' בַּמָּקוֹם הַזֶּה וְאָנֹכִי לֹא יָדָעְתִּי:<br><div class="pasuk-gloss">יעקב פחד ואמר: כמה מעורר יראה המקום הזה! זה לא פחות מבית אלוהים, וזה שער השמיים</div><b>יז:</b> וַיִּירָא וַיֹּאמַר מַה נּוֹרָא הַמָּקוֹם הַזֶּה אֵין זֶה כִּי אִם בֵּית אֱלֹהִים וְזֶה שַׁעַר הַשָּׁמָיִם:</div><div class="qb-meforesh">
-<span class="qb-src">רש"י (פסוק ט"ז)</span>
-            ואנכי לא ידעתי - שאילו ידעתי לא ישנתי במקום קדוש כזה:
-</div><div class="qb-meforesh">
-<span class="qb-src">רד"צ הופמן (פסוק ט"ז)</span>
-            אכן – ביטוי שבא כאשר חשים בתופעה חדשה מפתיעה ובלתי צפויה; השווה שמות ב, יד.
-</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">"אָכֵן יֵשׁ ה' בַּמָּקוֹם הַזֶּה וְאָנֹכִי לֹא יָדָעְתִּי" (פסוק ט"ז).<br>(1) על פי רש"י, מה פירוש "וְאָנֹכִי לֹא יָדָעְתִּי"?<br>(2) על פי רד"צ הופמן, מה מבטאת המילה "אָכֵן"?</span></div>
-<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> (1) "שאילו ידעתי לא ישנתי במקום קדוש כזה". (2) "ביטוי שבא כאשר חשים בתופעה חדשה מפתיעה ובלתי צפויה" - יעקב מופתע לגלות שהמקום קדוש, "בֵּית אֱלֹהִים".</div>
-</div></div></div>
-
-      </div>
-    </div>
-    </div>
-
-    <!-- משחק התאמה: נדר יעקב מול הבטחות ה' (טבלת החוברת) -->
-    <section class="card" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">🧩 משחק התאמה</span>
-        <h2 class="card-title">נדר יעקב מול הבטחות ה'</h2>
-      </div>
-      <div class="card-body">
-        <p style="margin:0 0 .6rem;">הנדר שנודר יעקב בפסוקים כ'-כ"ב מתייחס ישירות להבטחות ה' בפסוק ט"ו.</p>
-        <div class="table-wrap">
-          <table data-match-game data-left-label="נדר יעקב (פסוקים כ'-כ&quot;א)" data-right-label="הבטחת ה' (פסוק ט&quot;ו)" data-intro="הקישו על חלק מנדר יעקב, ואחר כך על הבטחת ה' שהוא מקביל לה." style="width:100%; border-collapse:collapse; font-size:1rem; text-align:right;">
-            <thead>
-              <tr style="border-bottom:1.5px solid var(--paper-line); background:var(--acc-soft);">
-                <th style="padding:.5rem .6rem;">פסוק</th>
-                <th style="padding:.5rem .6rem;">נדר יעקב</th>
-                <th style="padding:.5rem .6rem;">הבטחת ה' (פסוק ט"ו)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">פסוק כ'</td><td style="padding:.5rem .6rem;">"אִם יִהְיֶה אֱלֹהִים עִמָּדִי"</td><td style="padding:.5rem .6rem;">"וְהִנֵּה אָנֹכִי עִמָּךְ"</td></tr>
-              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">פסוק כ'</td><td style="padding:.5rem .6rem;">"וּשְׁמָרַנִי בַּדֶּרֶךְ הַזֶּה אֲשֶׁר אָנֹכִי הוֹלֵךְ, וְנָתַן לִי לֶחֶם לֶאֱכֹל וּבֶגֶד לִלְבֹּשׁ"</td><td style="padding:.5rem .6rem;">"וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ"</td></tr>
-              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">פסוק כ"א</td><td style="padding:.5rem .6rem;">"וְשַׁבְתִּי בְשָׁלוֹם אֶל בֵּית אָבִי"</td><td style="padding:.5rem .6rem;">"וַהֲשִׁבֹתִיךָ אֶל הָאֲדָמָה הַזֹּאת"</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- נושא 4 -->
-    <div class="topic-col" data-keep-together="true">
-    <div class="topic-banner" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
-      <span class="topic-icon" aria-hidden="true">🙏</span>
-      <div>
-        <div class="topic-eyebrow">נושא 4 מתוך 4</div>
-        <div class="topic-title">נדר יעקב וקיומו</div>
-      </div>
-    </div>
-    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
-      <div class="qb-root">
-        <span class="qb-root-icon" aria-hidden="true">🙏</span>
-        <div class="qb-root-label">פסוקים כ'-כ"ב; פרק ל"ה</div>
-        <div class="qb-root-pasuk">
-          <div class="pasuk-gloss">יעקב נודר נדר: אם ה' יהיה עמו וישמור אותו - האבן תהיה בית אלהים והוא יעשר.</div>
-          <div class="pasuk-gloss">כשהוא שב לארץ, הוא עולה לבית אל ומקיים את נדרו.</div>
-        </div>
-      </div>
-      <div class="qb-connector" aria-hidden="true"></div>
-      <div class="qb-branches">
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> זיהוי קושי בפסוק (שאלת הפרשן)</span><span class="skill-tag"><b><span aria-hidden="true">📘 </span>מושג:</b> "שמא יגרום החטא"</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">והנה אני איתך, ואשמור עליך בכל מקום שתלך, ואחזיר אותך אל האדמה הזאת; כי לא אעזוב אותך עד שאעשה את מה שהבטחתי לך</div><b>טו:</b> וְהִנֵּה אָנֹכִי עִמָּךְ וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ וַהֲשִׁבֹתִיךָ אֶל הָאֲדָמָה הַזֹּאת כִּי לֹא אֶעֱזָבְךָ עַד אֲשֶׁר אִם עָשִׂיתִי אֵת אֲשֶׁר דִּבַּרְתִּי לָךְ:<br><div class="pasuk-gloss">יעקב נדר נדר ואמר: אם אלוהים יהיה איתי וישמור עליי בדרך הזאת שאני הולך בה, וייתן לי לחם לאכול ובגד ללבוש</div><b>כ:</b> וַיִּדַּר יַעֲקֹב נֶדֶר לֵאמֹר אִם יִהְיֶה אֱלֹהִים עִמָּדִי וּשְׁמָרַנִי בַּדֶּרֶךְ הַזֶּה אֲשֶׁר אָנֹכִי הוֹלֵךְ וְנָתַן לִי לֶחֶם לֶאֱכֹל וּבֶגֶד לִלְבֹּשׁ:<br><div class="pasuk-gloss">ואחזור בשלום אל בית אבי - וה' יהיה לי לאלוהים</div><b>כא:</b> וְשַׁבְתִּי בְשָׁלוֹם אֶל בֵּית אָבִי וְהָיָה ה' לִי לֵאלֹהִים:</div><div class="qb-meforesh">
-<span class="qb-src">רמב"ן (פסוק כ')</span>
-            וטעם התנאי, שלא יגרום החטא. אמרו בבראשית רבה (עו, ב): רב הונא בשם ר' אחא: 'הנה אנכי עמך', וכתיב 'אם יהיה אלוהים עמדי', אלא מכאן שאין הבטחה לצדיקים בעולם הזה:<br>ויתכן עוד על דרך הפשט שאין הספק בדבר, אבל בכל העתיד יאמר הכתוב כן, כמו עד אשר אם עשיתי, וכן 'ואם יהיה היובל לבני ישראל' (במדבר לו, ד), אם יבא העת שיהיה התנאי אז יתקיים המעשה, כלומר בבואו:
-</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">מדוע נודר יעקב "אִם", אחרי שה' כבר הבטיח לו? הסבירו לפי אחד משני ההסברים של רמב"ן.</span></div>
-<textarea aria-labelledby="a11y-lbl-6" class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הסבר א': "שלא יגרום החטא" - "אין הבטחה לצדיקים בעולם הזה"; גם צדיק אינו בטוח שלא יחטא. או הסבר ב' (פשט): "אין הספק בדבר" - "אם" נאמרת על העתיד, כמו "כאשר": כשיבוא הזמן - יקיים יעקב את נדרו.</div>
-</div></div></div>
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> איתור וציטוט מן הכתוב</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">יעקב נדר נדר ואמר: אם אלוהים יהיה איתי וישמור עליי בדרך הזאת שאני הולך בה, וייתן לי לחם לאכול ובגד ללבוש</div><b>כ:</b> וַיִּדַּר יַעֲקֹב נֶדֶר לֵאמֹר אִם יִהְיֶה אֱלֹהִים עִמָּדִי וּשְׁמָרַנִי בַּדֶּרֶךְ הַזֶּה אֲשֶׁר אָנֹכִי הוֹלֵךְ וְנָתַן לִי לֶחֶם לֶאֱכֹל וּבֶגֶד לִלְבֹּשׁ:<br><div class="pasuk-gloss">ואחזור בשלום אל בית אבי - וה' יהיה לי לאלוהים</div><b>כא:</b> וְשַׁבְתִּי בְשָׁלוֹם אֶל בֵּית אָבִי וְהָיָה ה' לִי לֵאלֹהִים:<br><div class="pasuk-gloss">והאבן הזאת, שהצבתי כמצבה, תהיה בית אלוהים; ומכל מה שתיתן לי - אפריש לך מעשר</div><b>כב:</b> וְהָאֶבֶן הַזֹּאת אֲשֶׁר שַׂמְתִּי מַצֵּבָה יִהְיֶה בֵּית אֱלֹהִים וְכֹל אֲשֶׁר תִּתֶּן לִי עַשֵּׂר אֲעַשְּׂרֶנּוּ לָךְ:</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">מה מתחייב יעקב לעשות, אם יתקיים התנאי שבנדר (פסוק כ"ב)?</span></div>
-<textarea aria-labelledby="a11y-lbl-7" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> האבן שהציב תהיה "בֵּית אֱלֹהִים", ומכל מה שה' ייתן לו - "עַשֵּׂר אֲעַשְּׂרֶנּוּ לָךְ": יפריש מעשר.</div>
-</div></div></div>
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> קישור למקור אחר בתנ"ך</span></div><div class="pasuk-block mini bg-verses"><div class="pasuk-gloss">📖 הפסוקים לשאלה: פרק ל"ה, פסוק ג'</div><b>(ג)</b> וְנָקוּמָה וְנַעֲלֶה בֵּית אֵל וְאֶעֱשֶׂה שָּׁם מִזְבֵּחַ לָאֵל הָעֹנֶה אֹתִי בְּיוֹם צָרָתִי וַיְהִי עִמָּדִי בַּדֶּרֶךְ אֲשֶׁר הָלָכְתִּי</div><p class="q-cue">בראשית ל"ה:</p><div class="pasuk-block mini"><div class="pasuk-gloss">אלוהים אמר ליעקב: קום, עלה לבית אל ושב שם, ובנה שם מזבח לאל שנראה אליך כשברחת מפני עשו אחיך</div><b>ל"ה, א:</b> וַיֹּאמֶר אֱלֹהִים אֶל יַעֲקֹב קוּם עֲלֵה בֵית אֵל וְשֶׁב שָׁם וַעֲשֵׂה שָׁם מִזְבֵּחַ לָאֵל הַנִּרְאֶה אֵלֶיךָ בְּבָרְחֲךָ מִפְּנֵי עֵשָׂו אָחִיךָ:<br><div class="pasuk-gloss">נקום ונעלה לבית אל, ואבנה שם מזבח לאל שענה לי ביום צרתי, והיה איתי בדרך שהלכתי</div><b>ל"ה, ג:</b> וְנָקוּמָה וְנַעֲלֶה בֵּית אֵל וְאֶעֱשֶׂה שָׁם מִזְבֵּחַ לָאֵל הָעֹנֶה אֹתִי בְּיוֹם צָרָתִי וַיְהִי עִמָּדִי בַּדֶּרֶךְ אֲשֶׁר הָלָכְתִּי:<br><div class="pasuk-gloss">יעקב בנה שם מזבח וקרא למקום 'אל בית אל', כי שם נגלה אליו האלוהים כשברח מפני אחיו</div><b>ל"ה, ז:</b> וַיִּבֶן שָׁם מִזְבֵּחַ וַיִּקְרָא לַמָּקוֹם אֵל בֵּית אֵל כִּי שָׁם נִגְלוּ אֵלָיו הָאֱלֹהִים בְּבָרְחוֹ מִפְּנֵי אָחִיו:<br><div class="pasuk-gloss">יעקב הציב מצבה במקום שה' דיבר איתו - מצבת אבן; ונסך עליה יין ויצק עליה שמן</div><b>ל"ה, יד:</b> וַיַּצֵּב יַעֲקֹב מַצֵּבָה בַּמָּקוֹם אֲשֶׁר דִּבֶּר אִתּוֹ מַצֶּבֶת אָבֶן וַיַּסֵּךְ עָלֶיהָ נֶסֶךְ וַיִּצֹק עָלֶיהָ שָׁמֶן:</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">כיצד מקיים יעקב את נדרו כשהוא חוזר לבית אל (פרק ל"ה)? מצאו בפסוק ג' מילים שמזכירות את הנדר.</span></div>
-<textarea aria-labelledby="a11y-lbl-8" class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> יעקב עולה לבית אל, בונה מזבח ומציב מצבה ויוצק עליה שמן (ז, יד) - כמו שנדר "וְהָאֶבֶן הַזֹּאת... יִהְיֶה בֵּית אֱלֹהִים". בפסוק ג': "וַיְהִי עִמָּדִי בַּדֶּרֶךְ אֲשֶׁר הָלָכְתִּי" - כמו בנדר: "אִם יִהְיֶה אֱלֹהִים עִמָּדִי וּשְׁמָרַנִי בַּדֶּרֶךְ הַזֶּה אֲשֶׁר אָנֹכִי הוֹלֵךְ".</div>
-</div></div></div>
-
-      </div>
-    </div>
-    </div>
-
-    <!-- שאלות בגרות (שלב ג׳): נושאים חוזרים מקובץ שאלות הבגרות של המורה -->
-
-    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">🎓 שאלות בגרות</span>
-        <h2 class="card-title">שאלות בגרות על פרק כ״ח</h2>
-      </div>
-      <div class="card-body">
-        <div class="exam-tag">📅 תשפ״ד (2024), קיץ · שאלה 3</div>
-        <div class="pasuk-block mini">עיינו בפסוקים י"ב–ט"ו.</div>
-        <div class="bg-row">
-          <div class="question-block">
-            <div class="pasuk-block mini bg-verses"><div class="pasuk-gloss">📖 הפסוקים לשאלה: פרק כ"ח, פסוק י"ג</div><b>(יג)</b> וְהִנֵּה ה' נִצָּב עָלָיו וַיֹּאמַר אֲנִי ה' אֱלֹהֵי אַבְרָהָם אָבִיךָ וֵאלֹהֵי יִצְחָק הָאָרֶץ אֲשֶׁר אַתָּה שֹׁכֵב עָלֶיהָ לְךָ אֶתְּנֶנָּה וּלְזַרְעֶךָ</div>
-            <p class="q-cue">תזכורת: "אֲנִי ה' אֱלֹהֵי אַבְרָהָם אָבִיךָ... הָאָרֶץ אֲשֶׁר אַתָּה שֹׁכֵב עָלֶיהָ לְךָ אֶתְּנֶנָּה וּלְזַרְעֶךָ" (פסוק י"ג)</p>
-            <div class="question-row"><span class="part-label">1</span><span class="q-text" id="bg-lbl-1">כתבו בלשונכם הבטחה אחת שהבטיח ה' ליעקב עצמו, והבטחה אחת שהבטיח ה' לזרעו של יעקב.</span></div>
-            <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          </div>
-          <div class="question-block">
-            <div class="pasuk-block mini bg-verses"><div class="pasuk-gloss">📖 הפסוקים לשאלה: פרק כ"ח, פסוקים י"ב–י"ג</div><b>(יב)</b> וַיַּחֲלֹם וְהִנֵּה סֻלָּם מֻצָּב אַרְצָה וְרֹאשׁוֹ מַגִּיעַ הַשָּׁמָיְמָה וְהִנֵּה מַלְאֲכֵי אֱלֹהִים עֹלִים וְיֹרְדִים בּוֹ <b>(יג)</b> וְהִנֵּה ה' נִצָּב עָלָיו וַיֹּאמַר אֲנִי ה' אֱלֹהֵי אַבְרָהָם אָבִיךָ וֵאלֹהֵי יִצְחָק הָאָרֶץ אֲשֶׁר אַתָּה שֹׁכֵב עָלֶיהָ לְךָ אֶתְּנֶנָּה וּלְזַרְעֶךָ</div>
-            <div class="question-row"><span class="part-label">2</span><span class="q-text" id="bg-lbl-2">"וַיַּחֲלֹם וְהִנֵּה סֻלָּם מֻצָּב אַרְצָה... וְהִנֵּה מַלְאֲכֵי אֱלֹהִים עֹלִים וְיֹרְדִים בּוֹ. וְהִנֵּה ה' נִצָּב עָלָיו" (פסוקים י"ב–י"ג).<br>על פי מה שלמדתם, מה רצה ה' ללמד את יעקב באמצעות מראה המלאכים העולים והיורדים בסולם?<br>(8 נקודות)</span></div>
-            <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          </div>
-          <div class="question-block">
-            <div class="pasuk-block mini bg-verses"><div class="pasuk-gloss">📖 הפסוקים לשאלה: פרק כ"ח, פסוק ט"ו · פרק כ"ח, פסוק כ'</div><b>(טו)</b> וְהִנֵּה אָנֹכִי עִמָּךְ וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ וַהֲשִׁבֹתִיךָ אֶל הָאֲדָמָה הַזֹּאת כִּי לֹא אֶעֱזָבְךָ עַד אֲשֶׁר אִם עָשִׂיתִי אֵת אֲשֶׁר דִּבַּרְתִּי לָךְ <b>(כ)</b> וַיִּדַּר יַעֲקֹב נֶדֶר לֵאמֹר אִם יִהְיֶה אֱלֹהִים עִמָּדִי וּשְׁמָרַנִי בַּדֶּרֶךְ הַזֶּה אֲשֶׁר אָנֹכִי הוֹלֵךְ וְנָתַן לִי לֶחֶם לֶאֱכֹל וּבֶגֶד לִלְבֹּשׁ</div>
-            <div class="question-row"><span class="part-label">3</span><span class="q-text" id="bg-lbl-3">עיינו בפסוקים שלפניכם.<br>הבטחת ה' ליעקב: "וְהִנֵּה אָנֹכִי עִמָּךְ וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ" (פסוק ט"ו).<br>דברי יעקב לאחר ההבטחה: "אִם יִהְיֶה אֱלֹהִים עִמָּדִי וּשְׁמָרַנִי בַּדֶּרֶךְ הַזֶּה אֲשֶׁר אָנֹכִי הוֹלֵךְ" (פסוק כ').<br>מהי השאלה המתעוררת מן ההשוואה בין שני הפסוקים?</span></div>
-            <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          </div>
-          <div class="question-block">
-            <details class="pasuk-block mini bg-verses"><summary class="pasuk-gloss" style="cursor:pointer">📖 הפסוקים לשאלה: פרק כ"ח, פסוק ט"ו · פרק כ"ח, פסוק כ' (אותם פסוקים כמו בשאלה הקודמת) - לחצו לפתיחה</summary><b>(טו)</b> וְהִנֵּה אָנֹכִי עִמָּךְ וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ וַהֲשִׁבֹתִיךָ אֶל הָאֲדָמָה הַזֹּאת כִּי לֹא אֶעֱזָבְךָ עַד אֲשֶׁר אִם עָשִׂיתִי אֵת אֲשֶׁר דִּבַּרְתִּי לָךְ <b>(כ)</b> וַיִּדַּר יַעֲקֹב נֶדֶר לֵאמֹר אִם יִהְיֶה אֱלֹהִים עִמָּדִי וּשְׁמָרַנִי בַּדֶּרֶךְ הַזֶּה אֲשֶׁר אָנֹכִי הוֹלֵךְ וְנָתַן לִי לֶחֶם לֶאֱכֹל וּבֶגֶד לִלְבֹּשׁ</details>
-            <p class="q-cue">תזכורת: ראו שוב את שתי ההבטחות שבשאלה הקודמת (פסוקים ט"ו, כ')</p>
-            <div class="question-row"><span class="part-label">4</span><span class="q-text" id="bg-lbl-4">על פי מה שלמדתם, מהי התשובה על השאלה המתעוררת מהשוואה זו?<br>(8 נקודות)</span></div>
-            <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
-    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">✅ סיכום</span>
-        <h2 class="card-title">מה למדנו בפרק כ״ח</h2>
-      </div>
-      <div class="card-body">
-        <ul class="bm-learned">
-          <li><b>הבריחה:</b> יעקב יוצא לבדו מבאר שבע לחרן, בורח מפני עשיו.</li>
-          <li><b>החלום:</b> סולם "מֻצָּב אַרְצָה וְרֹאשׁוֹ מַגִּיעַ הַשָּׁמָיְמָה", ומלאכים עולים ויורדים בו.</li>
-          <li><b>ההבטחה:</b> ה׳ מבטיח ליעקב את הארץ, זרע רב, ו"וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ".</li>
-          <li><b>ההתעוררות:</b> "אָכֵן יֵשׁ ה' בַּמָּקוֹם הַזֶּה וְאָנֹכִי לֹא יָדָעְתִּי". יעקב קורא למקום "בית אל".</li>
-          <li><b>הנדר:</b> אם ה׳ ישמור עליו - "וְהָיָה ה' לִי לֵאלֹהִים", והוא יעשר מכל מה שיקבל.</li>
-        </ul>
-        <div class="key-points">
-          <h3>📋 נקודות מרכזיות שחייבים לדעת - הפרשנים</h3>
-          <p class="kp-tip">בבגרות, כשכתוב "הסבירו לפי פרשן": כתבו מה הוא שואל, מה הוא עונה - וצטטו את מילות המפתח שלו.</p>
-          <div class="table-wrap">
-          <table class="kp-table">
-            <thead><tr><th scope="col">הפרשן</th><th scope="col">מה הוא שואל</th><th scope="col">מה הוא עונה</th><th scope="col">מילות מפתח לציטוט</th></tr></thead>
-            <tbody>
-            <tr>
-              <td class="kp-who" data-label="הפרשן">רש"י<span class="kp-ref">כ"ח, י"ב-י"ג</span></td>
-              <td data-label="מה הוא שואל">למה המלאכים "עֹלִים" קודם ורק אחר כך "יֹרְדִים"?</td>
-              <td data-label="מה הוא עונה">המלאכים שליוו את יעקב בארץ ישראל אינם יוצאים לחוץ לארץ - הם עולים, ויורדים מלאכי חוץ לארץ ללוות אותו. "נצב עליו" - לשמור עליו.</td>
-              <td class="kp-key" data-label="מילות מפתח לציטוט">"מלאכים שליווהו בארץ אין יוצאים חוצה לארץ" / "ניצב עליו - לשמרו"</td>
-            </tr>
-            <tr>
-              <td class="kp-who" data-label="הפרשן">רש"י<span class="kp-ref">כ"ח, ט"ו</span></td>
-              <td data-label="מה הוא שואל">למה אמר ה' ליעקב "אָנֹכִי עִמָּךְ"?</td>
-              <td data-label="מה הוא עונה">כי יעקב פחד מעשו ומלבן.</td>
-              <td class="kp-key" data-label="מילות מפתח לציטוט">"לפי שהיה ירא מעשו ומלבן"</td>
-            </tr>
-            <tr>
-              <td class="kp-who" data-label="הפרשן">רש"י / רד"צ הופמן<span class="kp-ref">כ"ח, ט"ז</span></td>
-              <td data-label="מה הוא שואל">מה פירוש "וְאָנֹכִי לֹא יָדָעְתִּי" ו"אָכֵן"?</td>
-              <td data-label="מה הוא עונה">רש"י: אילו ידע שהמקום קדוש - לא היה ישן בו. הופמן: "אכן" - ביטוי של הפתעה מדבר חדש ובלתי צפוי.</td>
-              <td class="kp-key" data-label="מילות מפתח לציטוט">"שאילו ידעתי לא ישנתי במקום קדוש כזה" / "ביטוי שבא כאשר חשים בתופעה חדשה מפתיעה ובלתי צפויה"</td>
-            </tr>
-            <tr>
-              <td class="kp-who" data-label="הפרשן">רמב"ן<span class="kp-ref">כ"ח, כ'</span></td>
-              <td data-label="מה הוא שואל">למה יעקב נודר "אִם יִהְיֶה אֱלֹהִים עִמָּדִי" - הרי ה' כבר הבטיח?</td>
-              <td data-label="מה הוא עונה">שני הסברים: 1. חשש שמא יגרום החטא - אין הבטחה לצדיקים בעולם הזה. 2. לפי הפשט אין כאן ספק: "אם" = כאשר יבוא הזמן.</td>
-              <td class="kp-key" data-label="מילות מפתח לציטוט">"וטעם התנאי, שלא יגרום החטא" / "שאין הבטחה לצדיקים בעולם הזה"</td>
-            </tr>
-            </tbody>
-          </table>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">🔁 תרגול נוסף</span>
-        <h2 class="card-title">אחרי הלמידה - חזרה ותרגול</h2>
-      </div>
-      <div class="card-body">
-        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר:</p>
-        <p class="bm-more-links">
-          <a class="chip-link" href="bereshit-28-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
-          <a class="chip-link" href="bereshit-28-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
-        </p>
-      </div>
-    </section>
-
-  </div>
-</main>
-
-<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
-  <a href="bereshit-27.html">← פרק כ"ז</a>
-  <a href="index.html#tab-ya">↺ חזרה ליחידה</a>
-  <a href="bereshit-32.html">פרקים ל"ב-ל"ג →</a>
-</nav>
-<div class="toolbar">
-  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="בראשית פרק כ&quot;ח, סולם יעקב" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
-  <button class="btn" id="printBtn">🖨️ הדפסה</button>
-  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+<nav class="ws-map" aria-label="נושאי הפרק"><a href="#t1">🪜 נושא 1<small>חלום הסולם</small></a><a href="#t2">🗣️ נושא 2<small>דברי ה&#x27; ליעקב</small></a><a href="#t3">🪨 נושא 3<small>יעקב מתעורר ונודר נדר</small></a><a href="#bagrut">🎓 בגרות<small>שאלות מבחינות קודמות</small></a></nav>
+<div class="ws-res"><a href="bereshit-28-summary.html">📚 סיכום הפרק</a><a href="bereshit-28-questions.html">📝 שאלות ותשובות לחזרה</a><a href="bereshit-28-text.html">📖 הפרק המלא</a></div>
+<p class="ws-howto">בכל נושא: <b>1</b> קוראים את הפסוקים, <b>2</b> עונים על שאלות הבנה ומשחקים, <b>3</b> לומדים ביחד עם המורה את הפרשנים. הכול נשמר לבד במכשיר.</p>
+<section class="ws-topic ws-t1" id="t1"><div class="ws-th"><span class="ws-tn">נושא 1</span><h2>🪜 חלום הסולם</h2><span class="ws-rng">פסוקים י&#x27;-י&quot;ב</span></div><h3 class="ws-step"><span>1</span> קוראים את הפסוקים</h3><p class="ws-legend"><span class="ws-legend-sw"></span>⭐ פסוק מרכזי - חשוב במיוחד להבנה ולבגרות</p><div class="ws-verses"><div class="ws-v"><span class="ws-vn">י'</span><p class="ws-vt">וַיֵּצֵא יַעֲקֹב מִבְּאֵר שָׁבַע וַיֵּלֶךְ חָרָנָה</p><p class="ws-vp">יעקב יצא מבאר שבע והלך לכיוון חרן.</p></div><div class="ws-v"><span class="ws-vn">י"א</span><p class="ws-vt">וַיִּפְגַּע בַּמָּקוֹם וַיָּלֶן שָׁם כִּי בָא הַשֶּׁמֶשׁ וַיִּקַּח מֵאַבְנֵי הַמָּקוֹם וַיָּשֶׂם מְרַאֲשֹׁתָיו וַיִּשְׁכַּב בַּמָּקוֹם הַהוּא</p><p class="ws-vp">הוא הגיע למקום ולן שם, כי השמש שקעה. הוא לקח מאבני המקום, שם אותן ליד הראש שלו ושכב לישון במקום ההוא.</p></div><div class="ws-v ws-kv"><span class="ws-vn">י"ב<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וַיַּחֲלֹם וְהִנֵּה סֻלָּם מֻצָּב אַרְצָה וְרֹאשׁוֹ מַגִּיעַ הַשָּׁמָיְמָה וְהִנֵּה מַלְאֲכֵי אֱלֹהִים עֹלִים וְיֹרְדִים בּוֹ</p><p class="ws-vp">יעקב חלם: והנה סולם עומד על הארץ, וראשו מגיע לשמיים, והנה מלאכי אלוהים עולים ויורדים בו</p></div></div><h3 class="ws-step"><span>2</span> מבינים מה קראנו</h3><div class="ws-act"><div class="ws-act-h"><span>📋 שאלות הבנה על הפסוקים</span><button type="button" class="ws-btn" data-check>בדיקה</button></div><table class="ws-quiz"><thead><tr><th>שאלה</th><th>תשובה קצרה</th></tr></thead><tbody><tr><td class="ws-q"><label for="f-k1">מאיפה יצא יעקב, ולאן הלך?</label> <span class="ws-src">(פס&#x27; י)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k1" data-id="k1" autocomplete="off"><span class="ws-key" hidden>✓ מבאר שבע - לחרן</span></td></tr><tr><td class="ws-q"><label for="f-k2">למה לן יעקב דווקא במקום הזה?</label> <span class="ws-src">(פס&#x27; יא)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k2" data-id="k2" autocomplete="off"><span class="ws-key" hidden>✓ כי השמש שקעה (&quot;כִּי בָא הַשֶּׁמֶשׁ&quot;)</span></td></tr><tr><td class="ws-q"><label for="f-k3">מה שם יעקב ליד הראש שלו?</label> <span class="ws-src">(פס&#x27; יא)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k3" data-id="k3" autocomplete="off"><span class="ws-key" hidden>✓ אבנים מאבני המקום</span></td></tr><tr><td class="ws-q"><label for="f-k4">מה ראה יעקב בחלום?</label> <span class="ws-src">(פס&#x27; יב)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k4" data-id="k4" autocomplete="off"><span class="ws-key" hidden>✓ סולם שעומד על הארץ, וראשו מגיע השמימה</span></td></tr><tr><td class="ws-q"><label for="f-k5">מי עלו וירדו בסולם?</label> <span class="ws-src">(פס&#x27; יב)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k5" data-id="k5" autocomplete="off"><span class="ws-key" hidden>✓ מלאכי אלוהים</span></td></tr></tbody></table></div><div class="ws-act"><div class="ws-act-h"><span>🧩 משחק: נכון או לא נכון?</span><span class="ws-score" data-score></span></div><p class="ws-help">קראו כל משפט, והחליטו אם הוא מתאים לפסוקים.</p><ul class="ws-sort"><li class="ws-sort-i" data-ans="f"><span class="ws-sort-t">יעקב יצא מחרן והלך לבאר שבע</span><span class="ws-sort-b"><button type="button" data-pick="t">נכון</button><button type="button" data-pick="f">לא נכון</button></span></li><li class="ws-sort-i" data-ans="t"><span class="ws-sort-t">יעקב לן במקום כי השמש שקעה</span><span class="ws-sort-b"><button type="button" data-pick="t">נכון</button><button type="button" data-pick="f">לא נכון</button></span></li><li class="ws-sort-i" data-ans="t"><span class="ws-sort-t">יעקב לקח אבנים מאבני המקום</span><span class="ws-sort-b"><button type="button" data-pick="t">נכון</button><button type="button" data-pick="f">לא נכון</button></span></li><li class="ws-sort-i" data-ans="f"><span class="ws-sort-t">הסולם עמד בשמיים וראשו הגיע לארץ</span><span class="ws-sort-b"><button type="button" data-pick="t">נכון</button><button type="button" data-pick="f">לא נכון</button></span></li><li class="ws-sort-i" data-ans="f"><span class="ws-sort-t">בחלום, המלאכים קודם יורדים ורק אחר כך עולים</span><span class="ws-sort-b"><button type="button" data-pick="t">נכון</button><button type="button" data-pick="f">לא נכון</button></span></li><li class="ws-sort-i" data-ans="t"><span class="ws-sort-t">המלאכים עולים ויורדים בסולם</span><span class="ws-sort-b"><button type="button" data-pick="t">נכון</button><button type="button" data-pick="f">לא נכון</button></span></li></ul></div><h3 class="ws-step"><span>3</span> הפרשנים - לומדים ביחד</h3><div class="ws-cards"><article class="ws-card ws-wide"><header><b>רש&quot;י</b><span>פסוקים י&quot;ב-י&quot;ג - &quot;עֹלִים וְיֹרְדִים&quot;</span></header><blockquote class="ws-ctext">עולים ויורדים - עולים תחלה ואחר כך יורדים, מלאכים שליווהו בארץ אין יוצאים חוצה לארץ ועלו לרקיע, וירדו מלאכי חוצה לארץ ללוותו: ניצב עליו - לשמרו:</blockquote><p class="ws-cq"><label for="f-c1">(1) מה הקושי בסדר המילים &quot;עֹלִים וְיֹרְדִים&quot;? (2) כיצד מיישב רש&quot;י את הקושי?</label></p><textarea class="answer ws-ta" id="f-c1" data-id="c1" rows="3" data-model="(1) מלאכים יורדים מן השמים, ולכן היה מתאים לכתוב קודם &quot;יורדים&quot;. (2) &quot;מלאכים שליווהו בארץ אין יוצאים חוצה לארץ ועלו לרקיע, וירדו מלאכי חוצה לארץ ללוותו&quot; - ה&#x27; שומר על יעקב גם מחוץ לארץ." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article></div></section><section class="ws-topic ws-t2" id="t2"><div class="ws-th"><span class="ws-tn">נושא 2</span><h2>🗣️ דברי ה&#x27; ליעקב</h2><span class="ws-rng">פסוקים י&quot;ג-ט&quot;ו</span></div><h3 class="ws-step"><span>1</span> קוראים את הפסוקים</h3><p class="ws-legend"><span class="ws-legend-sw"></span>⭐ פסוק מרכזי - חשוב במיוחד להבנה ולבגרות</p><div class="ws-verses"><div class="ws-v ws-kv"><span class="ws-vn">י"ג<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וְהִנֵּה ה&#x27; נִצָּב עָלָיו וַיֹּאמַר אֲנִי ה&#x27; אֱלֹהֵי אַבְרָהָם אָבִיךָ וֵאלֹהֵי יִצְחָק הָאָרֶץ אֲשֶׁר אַתָּה שֹׁכֵב עָלֶיהָ לְךָ אֶתְּנֶנָּה וּלְזַרְעֶךָ</p><p class="ws-vp">והנה ה&#x27; עומד עליו ואמר: אני ה&#x27;, אלוהי אברהם אביך ואלוהי יצחק; את הארץ שאתה שוכב עליה - לך אתן אותה ולזרעך</p></div><div class="ws-v"><span class="ws-vn">י"ד</span><p class="ws-vt">וְהָיָה זַרְעֲךָ כַּעֲפַר הָאָרֶץ וּפָרַצְתָּ יָמָּה וָקֵדְמָה וְצָפֹנָה וָנֶגְבָּה וְנִבְרֲכוּ בְךָ כָּל מִשְׁפְּחֹת הָאֲדָמָה וּבְזַרְעֶךָ</p><p class="ws-vp">זרעך יהיה רב כמו עפר הארץ, ותתפשט מערבה, מזרחה, צפונה ודרומה; ויתברכו בך כל משפחות האדמה, ובזרעך</p></div><div class="ws-v ws-kv"><span class="ws-vn">ט"ו<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וְהִנֵּה אָנֹכִי עִמָּךְ וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ וַהֲשִׁבֹתִיךָ אֶל הָאֲדָמָה הַזֹּאת כִּי לֹא אֶעֱזָבְךָ עַד אֲשֶׁר אִם עָשִׂיתִי אֵת אֲשֶׁר דִּבַּרְתִּי לָךְ</p><p class="ws-vp">והנה אני איתך, ואשמור עליך בכל מקום שתלך, ואחזיר אותך אל האדמה הזאת; כי לא אעזוב אותך עד שאעשה את מה שהבטחתי לך</p></div></div><h3 class="ws-step"><span>2</span> מבינים מה קראנו</h3><div class="ws-act"><div class="ws-act-h"><span>📋 שאלות הבנה על הפסוקים</span><button type="button" class="ws-btn" data-check>בדיקה</button></div><table class="ws-quiz"><thead><tr><th>שאלה</th><th>תשובה קצרה</th></tr></thead><tbody><tr><td class="ws-q"><label for="f-k6">איך ה&#x27; מציג את עצמו ליעקב?</label> <span class="ws-src">(פס&#x27; יג)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k6" data-id="k6" autocomplete="off"><span class="ws-key" hidden>✓ &quot;אֲנִי ה&#x27; אֱלֹהֵי אַבְרָהָם אָבִיךָ וֵאלֹהֵי יִצְחָק&quot;</span></td></tr><tr><td class="ws-q"><label for="f-k7">מה הבטיח ה&#x27; על הארץ שיעקב שוכב עליה?</label> <span class="ws-src">(פס&#x27; יג)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k7" data-id="k7" autocomplete="off"><span class="ws-key" hidden>✓ &quot;לְךָ אֶתְּנֶנָּה וּלְזַרְעֶךָ&quot;</span></td></tr><tr><td class="ws-q"><label for="f-k8">למה ה&#x27; משווה את הזרע של יעקב?</label> <span class="ws-src">(פס&#x27; יד)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k8" data-id="k8" autocomplete="off"><span class="ws-key" hidden>✓ לעפר הארץ</span></td></tr><tr><td class="ws-q"><label for="f-k9">מה הבטיח ה&#x27; ליעקב עצמו? (פרט אחד)</label> <span class="ws-src">(פס&#x27; טו)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k9" data-id="k9" autocomplete="off"><span class="ws-key" hidden>✓ להיות איתו / לשמור עליו בדרך / להחזיר אותו לארץ / לא לעזוב אותו</span></td></tr></tbody></table></div><div class="ws-act"><div class="ws-act-h"><span>🧩 משחק: למי ההבטחה?</span><span class="ws-score" data-score></span></div><p class="ws-help">לכל הבטחה - לחצו: ליעקב עצמו, או לזרע שלו לדורות.</p><ul class="ws-sort"><li class="ws-sort-i" data-ans="y"><span class="ws-sort-t">&quot;וְהִנֵּה אָנֹכִי עִמָּךְ&quot;</span><span class="ws-sort-b"><button type="button" data-pick="y">ליעקב עצמו</button><button type="button" data-pick="z">לזרע של יעקב</button></span></li><li class="ws-sort-i" data-ans="z"><span class="ws-sort-t">&quot;וְהָיָה זַרְעֲךָ כַּעֲפַר הָאָרֶץ&quot;</span><span class="ws-sort-b"><button type="button" data-pick="y">ליעקב עצמו</button><button type="button" data-pick="z">לזרע של יעקב</button></span></li><li class="ws-sort-i" data-ans="y"><span class="ws-sort-t">&quot;וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ&quot;</span><span class="ws-sort-b"><button type="button" data-pick="y">ליעקב עצמו</button><button type="button" data-pick="z">לזרע של יעקב</button></span></li><li class="ws-sort-i" data-ans="z"><span class="ws-sort-t">&quot;וּפָרַצְתָּ יָמָּה וָקֵדְמָה וְצָפֹנָה וָנֶגְבָּה&quot;</span><span class="ws-sort-b"><button type="button" data-pick="y">ליעקב עצמו</button><button type="button" data-pick="z">לזרע של יעקב</button></span></li><li class="ws-sort-i" data-ans="y"><span class="ws-sort-t">&quot;וַהֲשִׁבֹתִיךָ אֶל הָאֲדָמָה הַזֹּאת&quot;</span><span class="ws-sort-b"><button type="button" data-pick="y">ליעקב עצמו</button><button type="button" data-pick="z">לזרע של יעקב</button></span></li><li class="ws-sort-i" data-ans="z"><span class="ws-sort-t">&quot;הָאָרֶץ... לְךָ אֶתְּנֶנָּה וּלְזַרְעֶךָ&quot;</span><span class="ws-sort-b"><button type="button" data-pick="y">ליעקב עצמו</button><button type="button" data-pick="z">לזרע של יעקב</button></span></li><li class="ws-sort-i" data-ans="y"><span class="ws-sort-t">&quot;כִּי לֹא אֶעֱזָבְךָ&quot;</span><span class="ws-sort-b"><button type="button" data-pick="y">ליעקב עצמו</button><button type="button" data-pick="z">לזרע של יעקב</button></span></li></ul></div><h3 class="ws-step"><span>3</span> הפרשנים - לומדים ביחד</h3><div class="ws-cards"><article class="ws-card"><header><b>רש&quot;י</b><span>פסוק ט&quot;ו - &quot;אָנֹכִי עִמָּךְ&quot;</span></header><blockquote class="ws-ctext">אנכי עמך - לפי שהיה ירא מעשו ומלבן:</blockquote><p class="ws-cq"><label for="f-c2">לפי רש&quot;י, למה אמר ה&#x27; ליעקב &quot;אָנֹכִי עִמָּךְ&quot;? ולמה ה&#x27; מתגלה אליו דווקא כשהוא יוצא מהארץ?</label></p><textarea class="answer ws-ta" id="f-c2" data-id="c2" rows="3" data-model="&quot;לפי שהיה ירא מעשו ומלבן&quot;. יעקב בורח לבדו לדרך רחוקה, וה&#x27; מחזק אותו ומבטיח לו שמירה: &quot;וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ&quot;." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>עיון בפסוקים</b><span>כ&quot;ח, י&quot;ג-י&quot;ד מול ההבטחות לאברהם (י&quot;ב, א&#x27;-ג&#x27;; י&quot;ג, י&quot;ד-ט&quot;ז)</span></header><p class="ws-cq"><label for="f-c3">כתבו שתי הבטחות משותפות ליעקב ולאברהם. מה לומדים מכך על מעמדו של יעקב?</label></p><textarea class="answer ws-ta" id="f-c3" data-id="c3" rows="3" data-model="הארץ - &quot;לְךָ אֶתְּנֶנָּה וּלְזַרְעֶךָ&quot;; הזרע - &quot;כַּעֲפַר הָאָרֶץ&quot;; &quot;וְנִבְרְכוּ בְךָ כָּל מִשְׁפְּחֹת הָאֲדָמָה&quot;. ה&#x27; בוחר ביעקב כממשיך של אברהם." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article></div></section><section class="ws-topic ws-t3" id="t3"><div class="ws-th"><span class="ws-tn">נושא 3</span><h2>🪨 יעקב מתעורר ונודר נדר</h2><span class="ws-rng">פסוקים ט&quot;ז-כ&quot;ב</span></div><h3 class="ws-step"><span>1</span> קוראים את הפסוקים</h3><p class="ws-legend"><span class="ws-legend-sw"></span>⭐ פסוק מרכזי - חשוב במיוחד להבנה ולבגרות</p><div class="ws-verses"><div class="ws-v ws-kv"><span class="ws-vn">ט"ז<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וַיִּיקַץ יַעֲקֹב מִשְּׁנָתוֹ וַיֹּאמֶר אָכֵן יֵשׁ ה&#x27; בַּמָּקוֹם הַזֶּה וְאָנֹכִי לֹא יָדָעְתִּי</p><p class="ws-vp">יעקב התעורר משנתו ואמר: אכן ה&#x27; נמצא במקום הזה, ואני לא ידעתי</p></div><div class="ws-v"><span class="ws-vn">י"ז</span><p class="ws-vt">וַיִּירָא וַיֹּאמַר מַה נּוֹרָא הַמָּקוֹם הַזֶּה אֵין זֶה כִּי אִם בֵּית אֱלֹהִים וְזֶה שַׁעַר הַשָּׁמָיִם</p><p class="ws-vp">יעקב פחד ואמר: כמה מעורר יראה המקום הזה! זה לא פחות מבית אלוהים, וזה שער השמיים</p></div><div class="ws-v"><span class="ws-vn">י"ח</span><p class="ws-vt">וַיַּשְׁכֵּם יַעֲקֹב בַּבֹּקֶר וַיִּקַּח אֶת הָאֶבֶן אֲשֶׁר שָׂם מְרַאֲשֹׁתָיו וַיָּשֶׂם אֹתָהּ מַצֵּבָה וַיִּצֹק שֶׁמֶן עַל רֹאשָׁהּ</p><p class="ws-vp">יעקב קם מוקדם בבוקר, לקח את האבן ששם ליד הראש שלו, הציב אותה כמצבה ויצק שמן על ראשה.</p></div><div class="ws-v"><span class="ws-vn">י"ט</span><p class="ws-vt">וַיִּקְרָא אֶת שֵׁם הַמָּקוֹם הַהוּא בֵּית אֵל וְאוּלָם לוּז שֵׁם הָעִיר לָרִאשֹׁנָה</p><p class="ws-vp">הוא קרא לשם המקום ההוא בית אל; אבל לפני כן קראו לעיר לוּז.</p></div><div class="ws-v ws-kv"><span class="ws-vn">כ'<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וַיִּדַּר יַעֲקֹב נֶדֶר לֵאמֹר אִם יִהְיֶה אֱלֹהִים עִמָּדִי וּשְׁמָרַנִי בַּדֶּרֶךְ הַזֶּה אֲשֶׁר אָנֹכִי הוֹלֵךְ וְנָתַן לִי לֶחֶם לֶאֱכֹל וּבֶגֶד לִלְבֹּשׁ</p><p class="ws-vp">יעקב נדר נדר ואמר: אם אלוהים יהיה איתי וישמור עליי בדרך הזאת שאני הולך בה, וייתן לי לחם לאכול ובגד ללבוש</p></div><div class="ws-v"><span class="ws-vn">כ"א</span><p class="ws-vt">וְשַׁבְתִּי בְשָׁלוֹם אֶל בֵּית אָבִי וְהָיָה ה&#x27; לִי לֵאלֹהִים</p><p class="ws-vp">ואחזור בשלום אל בית אבי - וה&#x27; יהיה לי לאלוהים</p></div><div class="ws-v ws-kv"><span class="ws-vn">כ"ב<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וְהָאֶבֶן הַזֹּאת אֲשֶׁר שַׂמְתִּי מַצֵּבָה יִהְיֶה בֵּית אֱלֹהִים וְכֹל אֲשֶׁר תִּתֶּן לִי עַשֵּׂר אֲעַשְּׂרֶנּוּ לָךְ</p><p class="ws-vp">והאבן הזאת, שהצבתי כמצבה, תהיה בית אלוהים; ומכל מה שתיתן לי - אפריש לך מעשר</p></div></div><h3 class="ws-step"><span>2</span> מבינים מה קראנו</h3><div class="ws-act"><div class="ws-act-h"><span>📋 שאלות הבנה על הפסוקים</span><button type="button" class="ws-btn" data-check>בדיקה</button></div><table class="ws-quiz"><thead><tr><th>שאלה</th><th>תשובה קצרה</th></tr></thead><tbody><tr><td class="ws-q"><label for="f-k10">מה אמר יעקב כשהתעורר?</label> <span class="ws-src">(פס&#x27; טז)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k10" data-id="k10" autocomplete="off"><span class="ws-key" hidden>✓ &quot;אָכֵן יֵשׁ ה&#x27; בַּמָּקוֹם הַזֶּה וְאָנֹכִי לֹא יָדָעְתִּי&quot;</span></td></tr><tr><td class="ws-q"><label for="f-k11">איך כינה יעקב את המקום?</label> <span class="ws-src">(פס&#x27; יז)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k11" data-id="k11" autocomplete="off"><span class="ws-key" hidden>✓ &quot;בֵּית אֱלֹהִים&quot; ו&quot;שַׁעַר הַשָּׁמָיִם&quot;</span></td></tr><tr><td class="ws-q"><label for="f-k12">מה עשה יעקב עם האבן?</label> <span class="ws-src">(פס&#x27; יח)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k12" data-id="k12" autocomplete="off"><span class="ws-key" hidden>✓ שם אותה מצבה, ויצק שמן על ראשה</span></td></tr><tr><td class="ws-q"><label for="f-k13">מה היה השם של העיר לפני כן, ומה השם החדש?</label> <span class="ws-src">(פס&#x27; יט)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k13" data-id="k13" autocomplete="off"><span class="ws-key" hidden>✓ לוּז; יעקב קרא לה בית אל</span></td></tr></tbody></table></div><div class="ws-act"><div class="ws-act-h"><span>🧩 משחק: תנאי או התחייבות?</span><span class="ws-score" data-score></span></div><p class="ws-help">בנדר יש חלק שיעקב מבקש (תנאי), וחלק שיעקב מתחייב לעשות. לחצו על הסוג הנכון.</p><ul class="ws-sort"><li class="ws-sort-i" data-ans="c"><span class="ws-sort-t">&quot;אִם יִהְיֶה אֱלֹהִים עִמָּדִי&quot;</span><span class="ws-sort-b"><button type="button" data-pick="c">תנאי - מה יעקב מבקש</button><button type="button" data-pick="o">התחייבות - מה יעקב יעשה</button></span></li><li class="ws-sort-i" data-ans="c"><span class="ws-sort-t">&quot;וּשְׁמָרַנִי בַּדֶּרֶךְ הַזֶּה&quot;</span><span class="ws-sort-b"><button type="button" data-pick="c">תנאי - מה יעקב מבקש</button><button type="button" data-pick="o">התחייבות - מה יעקב יעשה</button></span></li><li class="ws-sort-i" data-ans="c"><span class="ws-sort-t">&quot;וְנָתַן לִי לֶחֶם לֶאֱכֹל וּבֶגֶד לִלְבֹּשׁ&quot;</span><span class="ws-sort-b"><button type="button" data-pick="c">תנאי - מה יעקב מבקש</button><button type="button" data-pick="o">התחייבות - מה יעקב יעשה</button></span></li><li class="ws-sort-i" data-ans="c"><span class="ws-sort-t">&quot;וְשַׁבְתִּי בְשָׁלוֹם אֶל בֵּית אָבִי&quot;</span><span class="ws-sort-b"><button type="button" data-pick="c">תנאי - מה יעקב מבקש</button><button type="button" data-pick="o">התחייבות - מה יעקב יעשה</button></span></li><li class="ws-sort-i" data-ans="o"><span class="ws-sort-t">&quot;וְהָאֶבֶן הַזֹּאת... יִהְיֶה בֵּית אֱלֹהִים&quot;</span><span class="ws-sort-b"><button type="button" data-pick="c">תנאי - מה יעקב מבקש</button><button type="button" data-pick="o">התחייבות - מה יעקב יעשה</button></span></li><li class="ws-sort-i" data-ans="o"><span class="ws-sort-t">&quot;עַשֵּׂר אֲעַשְּׂרֶנּוּ לָךְ&quot;</span><span class="ws-sort-b"><button type="button" data-pick="c">תנאי - מה יעקב מבקש</button><button type="button" data-pick="o">התחייבות - מה יעקב יעשה</button></span></li></ul></div><h3 class="ws-step"><span>3</span> הפרשנים - לומדים ביחד</h3><div class="ws-cards c3"><article class="ws-card"><header><b>רש&quot;י / רד&quot;צ הופמן</b><span>פסוק ט&quot;ז</span></header><p class="ws-cwho">רש&quot;י</p><blockquote class="ws-ctext">ואנכי לא ידעתי - שאילו ידעתי לא ישנתי במקום קדוש כזה:</blockquote><p class="ws-cwho">רד&quot;צ הופמן</p><blockquote class="ws-ctext">אכן – ביטוי שבא כאשר חשים בתופעה חדשה מפתיעה ובלתי צפויה; השווה שמות ב, יד.</blockquote><p class="ws-cq"><label for="f-c4">לפי רש&quot;י, מה פירוש &quot;וְאָנֹכִי לֹא יָדָעְתִּי&quot;? לפי רד&quot;צ הופמן, מה מבטאת המילה &quot;אָכֵן&quot;?</label></p><textarea class="answer ws-ta" id="f-c4" data-id="c4" rows="3" data-model="רש&quot;י: &quot;שאילו ידעתי לא ישנתי במקום קדוש כזה&quot;. רד&quot;צ הופמן: הפתעה - יעקב מגלה פתאום שהמקום קדוש." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>רמב&quot;ן</b><span>פסוק כ&#x27; - &quot;אִם יִהְיֶה אֱלֹהִים עִמָּדִי&quot;</span></header><blockquote class="ws-ctext">וטעם התנאי, שלא יגרום החטא. אמרו בבראשית רבה (עו, ב): רב הונא בשם ר&#x27; אחא: &#x27;הנה אנכי עמך&#x27;, וכתיב &#x27;אם יהיה אלוהים עמדי&#x27;, אלא מכאן שאין הבטחה לצדיקים בעולם הזה: ויתכן עוד על דרך הפשט שאין הספק בדבר, אבל בכל העתיד יאמר הכתוב כן, כמו עד אשר אם עשיתי, וכן &#x27;ואם יהיה היובל לבני ישראל&#x27; (במדבר לו, ד), אם יבא העת שיהיה התנאי אז יתקיים המעשה, כלומר בבואו:</blockquote><p class="ws-cq"><label for="f-c5">מדוע נודר יעקב &quot;אִם&quot;, אחרי שה&#x27; כבר הבטיח לו? הסבירו לפי אחד משני ההסברים של רמב&quot;ן.</label></p><textarea class="answer ws-ta" id="f-c5" data-id="c5" rows="3" data-model="הסבר א&#x27;: &quot;שלא יגרום החטא&quot; - &quot;אין הבטחה לצדיקים בעולם הזה&quot;. הסבר ב&#x27; (פשט): &quot;אם&quot; נאמרת על העתיד, כמו &quot;כאשר&quot; - כשיבוא הזמן יקיים יעקב את נדרו." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>עיון בפסוקים</b><span>פרק ל&quot;ה, ג&#x27; - קיום הנדר</span></header><blockquote class="ws-ctext">וְנָקוּמָה וְנַעֲלֶה בֵּית אֵל וְאֶעֱשֶׂה שָּׁם מִזְבֵּחַ לָאֵל הָעֹנֶה אֹתִי בְּיוֹם צָרָתִי וַיְהִי עִמָּדִי בַּדֶּרֶךְ אֲשֶׁר הָלָכְתִּי</blockquote><p class="ws-cq"><label for="f-c6">אילו מילים בפסוק מזכירות את הנדר של יעקב בפרק כ&quot;ח?</label></p><textarea class="answer ws-ta" id="f-c6" data-id="c6" rows="3" data-model="&quot;וַיְהִי עִמָּדִי בַּדֶּרֶךְ אֲשֶׁר הָלָכְתִּי&quot; - כמו בנדר: &quot;אִם יִהְיֶה אֱלֹהִים עִמָּדִי וּשְׁמָרַנִי בַּדֶּרֶךְ הַזֶּה אֲשֶׁר אָנֹכִי הוֹלֵךְ&quot;." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article></div></section><section class="ws-topic ws-bag" id="bagrut"><div class="ws-th"><span class="ws-tn">לבגרות</span><h2>🎓 שאלות בגרות על פרק כ&quot;ח</h2><span class="ws-rng">שאלון 2381</span></div><ol class="ws-bqs"><li class="ws-bq-y">📅 תשפ&quot;ד (2024), קיץ · שאלה 3</li><li class="ws-bq-intro">עיינו בפסוקים י&quot;ב–ט&quot;ו.</li><li class="ws-bq"><div class="ws-bq-h">1.</div><p>כתבו בלשונכם הבטחה אחת שהבטיח ה&#x27; ליעקב עצמו, והבטחה אחת שהבטיח ה&#x27; לזרעו של יעקב.</p><textarea class="answer ws-ta" id="f-b1" data-id="b1" rows="3" aria-label="תשובה לשאלת בגרות 1"></textarea></li><li class="ws-bq"><div class="ws-bq-h">2.</div><p>&quot;וַיַּחֲלֹם וְהִנֵּה סֻלָּם מֻצָּב אַרְצָה... וְהִנֵּה מַלְאֲכֵי אֱלֹהִים עֹלִים וְיֹרְדִים בּוֹ. וְהִנֵּה ה&#x27; נִצָּב עָלָיו&quot; (פסוקים י&quot;ב–י&quot;ג). על פי מה שלמדתם, מה רצה ה&#x27; ללמד את יעקב באמצעות מראה המלאכים העולים והיורדים בסולם? (8 נקודות)</p><textarea class="answer ws-ta" id="f-b2" data-id="b2" rows="3" aria-label="תשובה לשאלת בגרות 2"></textarea></li><li class="ws-bq"><div class="ws-bq-h">3.</div><p>הבטחת ה&#x27; ליעקב: &quot;וְהִנֵּה אָנֹכִי עִמָּךְ וּשְׁמַרְתִּיךָ בְּכֹל אֲשֶׁר תֵּלֵךְ&quot; (פסוק ט&quot;ו). דברי יעקב לאחר ההבטחה: &quot;אִם יִהְיֶה אֱלֹהִים עִמָּדִי וּשְׁמָרַנִי בַּדֶּרֶךְ הַזֶּה אֲשֶׁר אָנֹכִי הוֹלֵךְ&quot; (פסוק כ&#x27;). מהי השאלה המתעוררת מן ההשוואה בין שני הפסוקים?</p><textarea class="answer ws-ta" id="f-b3" data-id="b3" rows="3" aria-label="תשובה לשאלת בגרות 3"></textarea></li><li class="ws-bq"><div class="ws-bq-h">4.</div><p>על פי מה שלמדתם, מהי התשובה על השאלה המתעוררת מהשוואה זו? (8 נקודות)</p><textarea class="answer ws-ta" id="f-b4" data-id="b4" rows="3" aria-label="תשובה לשאלת בגרות 4"></textarea></li></ol></section>
+<div class="ws-tools toolbar">
+ <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="בראשית פרק כ&quot;ח, סולם יעקב" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+ <button class="btn" type="button" id="printBtn">🖨️ הדפסה</button>
+ <button class="btn danger" type="button" id="clearBtn">נקו את כל התשובות</button>
 </div>
 <div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
-<div class="bm-save-info" id="printHelp">
-  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
-  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
-  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
-  <p class="bm-send-last" id="bmSendLast" hidden></p>
-</div>
-
-<footer class="credit">ספר בראשית, פרק כ"ח · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
-
+<p class="bm-send-last" id="bmSendLast" hidden></p>
+<nav class="ws-chnav" aria-label="ניווט בין פרקים"><a href="bereshit-27.html">→ פרקים כ&quot;ז-כ&quot;ח</a><a href="index.html#tab-ya">↺ חזרה ליחידה</a><a href="bereshit-32.html">פרקים ל&quot;ב-ל&quot;ג ←</a></nav>
+</main>
 <script>
-const STORAGE_KEY = 'bereshit-ch28-answers';
-const NAME_KEY = 'bereshit-ch28-student';
-const textareas = Array.from(document.querySelectorAll('textarea.answer'));
-const progressFill = document.getElementById('progressFill');
-const progressTrack = document.getElementById('progressTrack');
-const progressLabel = document.getElementById('progressLabel');
-const saveNote = document.getElementById('saveNote');
-const nameInput = document.getElementById('studentName');
-const classInput = document.getElementById('studentClass');
-const printNameLine = document.getElementById('printNameLine');
-let saveTimer = null;
-let noteTimer = null;
-
-function updatePrintNameLine(){
-  const name = (nameInput.value || '').trim();
-  const cls = (classInput.value || '').trim();
-  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
-  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
-}
-
-function saveStudentInfo(){
-  try{
-    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
-  }catch(e){ /* אחסון חסום */ }
-  updatePrintNameLine();
-}
-
-function loadStudentInfo(){
-  try{
-    const raw = localStorage.getItem(NAME_KEY);
-    if(raw){
-      const data = JSON.parse(raw);
-      nameInput.value = data.name || '';
-      classInput.value = data.cls || '';
-    }
-  }catch(e){ /* אחסון חסום */ }
-  updatePrintNameLine();
-}
-
-function updateProgress(){
-  const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
-  progressFill.style.width = pct + '%';
-  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
-  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
-}
-
-function markFilled(t){
-  if(t.value.trim().length > 0) t.classList.add('filled');
-  else t.classList.remove('filled');
-}
-
-function flashSaved(){
-  saveNote.classList.add('show');
-  clearTimeout(noteTimer);
-  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
-}
-
-function saveAnswers(){
-  const data = {};
-  textareas.forEach(t => { data[t.dataset.id] = t.value; });
-  try{
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    flashSaved();
-  }catch(e){
-    console.error('שגיאת שמירה', e);
-  }
-}
-
-function loadAnswers(){
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw){
-      const data = JSON.parse(raw);
-      textareas.forEach(t => {
-        if(data[t.dataset.id]){
-          t.value = data[t.dataset.id];
-          markFilled(t);
-        }
+(function(){
+  var KEY='bm-ws:bereshit-28';
+  var data={}; try{data=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){}
+  function save(){ try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){} }
+  /* תשובות כתובות */
+  document.querySelectorAll('.answer[data-id]').forEach(function(f){
+    var id=f.getAttribute('data-id'); if(data[id]!=null) f.value=data[id];
+    f.addEventListener('input',function(){ data[id]=f.value; save(); });
+  });
+  /* בדיקת שאלות ההבנה: מציג תשובה מוצעת מתחת לכל שורה */
+  document.querySelectorAll('[data-check]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var keys=b.closest('.ws-act').querySelectorAll('.ws-key'), show=keys.length && keys[0].hidden;
+      keys.forEach(function(k){ k.hidden=!show; });
+      b.textContent=show?'הסתרת התשובות':'בדיקה';
+    });
+  });
+  /* עשו או יעקב */
+  document.querySelectorAll('.ws-sort').forEach(function(ul,si){
+    var items=ul.querySelectorAll('.ws-sort-i'), score=ul.closest('.ws-act').querySelector('[data-score]');
+    function paint(){
+      var ok=0,done=0;
+      items.forEach(function(li,i){
+        var p=data['sort'+si+'_'+i]; li.classList.remove('ok','bad');
+        li.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on',b.getAttribute('data-pick')===p); b.setAttribute('aria-pressed',b.getAttribute('data-pick')===p?'true':'false'); });
+        if(p){ done++; if(p===li.getAttribute('data-ans')){ok++;li.classList.add('ok');} else li.classList.add('bad'); }
       });
+      score.textContent=done?('✓ '+ok+' מתוך '+items.length+' נכונים'):'';
     }
-  }catch(e){
-    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
-  }
-  updateProgress();
-}
-
-textareas.forEach(t => {
-  t.addEventListener('input', () => {
-    markFilled(t);
-    updateProgress();
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(saveAnswers, 500);
+    items.forEach(function(li,i){
+      li.querySelectorAll('button').forEach(function(b){ b.addEventListener('click',function(){ data['sort'+si+'_'+i]=b.getAttribute('data-pick'); save(); paint(); }); });
+    });
+    paint();
   });
-});
-
-document.querySelectorAll('.hint-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const box = btn.nextElementSibling;
-    const showing = box.hidden;
-    box.hidden = !showing;
-    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  /* סידור אירועים */
+  document.querySelectorAll('.ws-seq').forEach(function(ol,qi){
+    var msg=ol.parentNode.querySelector('[data-seqmsg]');
+    var saved=data['seq'+qi];
+    if(Array.isArray(saved)) saved.forEach(function(p){ var li=ol.querySelector('[data-pos="'+p+'"]'); if(li) ol.appendChild(li); });
+    function num(){ ol.querySelectorAll('.ws-seq-i').forEach(function(li,i){ li.querySelector('.ws-seq-n').textContent=i+1; li.classList.remove('ok','bad'); }); msg.textContent=''; }
+    function store(){ data['seq'+qi]=Array.prototype.map.call(ol.children,function(li){return li.getAttribute('data-pos');}); save(); }
+    ol.addEventListener('click',function(e){
+      var b=e.target.closest('button'); if(!b) return; var li=b.closest('.ws-seq-i');
+      if(b.hasAttribute('data-up') && li.previousElementSibling) ol.insertBefore(li,li.previousElementSibling);
+      if(b.hasAttribute('data-down') && li.nextElementSibling) ol.insertBefore(li.nextElementSibling,li);
+      num(); store(); b.focus();
+    });
+    ol.parentNode.querySelector('[data-seqcheck]').addEventListener('click',function(){
+      var ok=0, all=ol.children.length;
+      Array.prototype.forEach.call(ol.children,function(li,i){ var good=String(i)===li.getAttribute('data-pos'); li.classList.toggle('ok',good); li.classList.toggle('bad',!good); if(good) ok++; });
+      msg.textContent= ok===all ? '🎉 כל הכבוד! הכול מסודר נכון.' : ok+' מתוך '+all+' במקום הנכון. האדומים צריכים לזוז.';
+    });
+    num();
   });
-});
-
-document.getElementById('clearBtn').addEventListener('click', () => {
-  if(!confirm('למחוק את כל התשובות בדף העבודה? אי אפשר לשחזר לאחר מכן.')) return;
-  textareas.forEach(t => { t.value = ''; markFilled(t); });
-  updateProgress();
-  saveAnswers();
-});
-
-document.getElementById('printBtn').addEventListener('click', () => {
-  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
-  window.print();
-});
-
-[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
-
-loadStudentInfo();
-loadAnswers();
+  document.getElementById('printBtn').addEventListener('click',function(){ window.print(); });
+  document.getElementById('clearBtn').addEventListener('click',function(){
+    if(!confirm('למחוק את כל התשובות בדף?')) return;
+    data={}; save(); location.reload();
+  });
+})();
 </script>
 <script src="assets/progress-tracker.js"></script>
-<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
-
-<script src="assets/guide/bereshit-28.js"></script>
-<script src="assets/steps.js?v=5"></script>
-<script src="assets/guide.js"></script>
 <script src="assets/units-data.js"></script>
 <script src="assets/bm-api.js"></script>
 <script src="assets/direct-submit.js?v=3"></script>
 <script src="assets/send-to-teacher.js?v=6"></script>
-<script src="assets/match-table.js?v=3"></script>
 <script src="assets/lesson-mode.js?v=14"></script>
 <script src="assets/class-dock.js?v=14"></script>
 <script src="assets/teacher-key-link.js?v=2"></script>

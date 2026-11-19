@@ -1,724 +1,255 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl" data-css="theme tpl-bereshit-25 steps guide lesson-tools">
+<html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ספר בראשית — דף עבודה אינטראקטיבי (פרקים כ"ז-כ"ח:ד, גניבת הברכות)</title>
+<title>בראשית פרקים כ&quot;ז-כ&quot;ח:ד - גניבת הברכות · דף עבודה</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css?v=45">
-
-
-
-
 <script src="assets/a11y.js"></script>
+<style>
+:root{--ws-ink:#1F3A4D;--ws-mute:#5E6B76;--ws-line:#DDD3BF;--ws-paper:#FFFDF8;--ws-bg:#F4EFE4;--ws-gold:#A9752E;--ws-ok:#2E7D4F;--ws-okb:#E3F2E8;--ws-bad:#B23B2E;--ws-badb:#FBE6E3;
+ --t1:#3F6E66;--t1b:#E6F0EE;--t2:#A9752E;--t2b:#F6EEDF;--t3:#8A3B2E;--t3b:#F7E8E4;--tb:#2C4F7A;--tbb:#E5EDF7}
+body{background:var(--ws-bg);color:var(--ws-ink);font-family:Heebo,Arial,sans-serif}
+.ws-wrap{max-width:900px;margin:0 auto;padding:18px 16px 60px}
+.ws-hero{background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:14px;padding:16px 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.ws-hero h1{font-family:"Frank Ruhl Libre",serif;font-size:1.8rem;margin:0;color:var(--ws-ink)}
+.ws-hero .ws-sub{color:var(--ws-mute);margin:.2rem 0 0;font-size:.95rem}
+.ws-who{display:flex;gap:10px;flex-wrap:wrap}
+.ws-who label{font-weight:600;font-size:.95rem}
+.ws-who input{font:inherit;border:1px solid var(--ws-line);border-radius:8px;padding:6px 10px;width:11rem;background:#fff}
+.ws-map{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}
+.ws-map a{flex:1 1 180px;text-decoration:none;color:inherit;background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:10px;padding:8px 12px;font-weight:600}
+.ws-map a small{display:block;color:var(--ws-mute);font-weight:400}
+.ws-howto{font-size:.92rem;color:var(--ws-mute);margin:6px 2px 0}
+.ws-topic{background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:14px;margin-top:18px;overflow:hidden}
+.ws-th{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 16px;color:#fff}
+.ws-th h2{margin:0;font-family:"Frank Ruhl Libre",serif;font-size:1.45rem;color:#fff}
+.ws-tn{background:rgba(255,255,255,.22);border-radius:99px;padding:2px 10px;font-size:.85rem;font-weight:700}
+.ws-rng{margin-inline-start:auto;font-size:.9rem;opacity:.95}
+.ws-t1 .ws-th{background:var(--t1)} .ws-t2 .ws-th{background:var(--t2)} .ws-t3 .ws-th{background:var(--t3)} .ws-bag .ws-th{background:var(--tb)}
+.ws-topic > :not(.ws-th){margin-inline:16px}
+.ws-step{display:flex;align-items:center;gap:8px;font-size:1.05rem;margin:16px 16px 8px;color:var(--ws-ink)}
+.ws-step span{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ws-ink);color:#fff;font-size:.85rem}
+.ws-verses{display:grid;gap:6px}
+.ws-v{display:grid;grid-template-columns:34px 1fr;column-gap:8px;padding:6px 10px;border-radius:8px}
+.ws-t1 .ws-v{background:var(--t1b)} .ws-t2 .ws-v{background:var(--t2b)} .ws-t3 .ws-v{background:var(--t3b)}
+.ws-vn{grid-row:span 2;font-weight:700;color:var(--ws-gold);font-family:"Frank Ruhl Libre",serif;font-size:1.05rem;padding-top:2px}
+.ws-vt{margin:0;font-family:"Frank Ruhl Libre",serif;font-size:1.28rem;line-height:1.65}
+.ws-vp{margin:0;font-size:.92rem;color:var(--ws-mute)}
+.ws-act{border:2px dashed var(--ws-line);border-radius:12px;padding:10px 12px;margin-top:10px}
+.ws-act-h{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:700;margin-bottom:6px}
+.ws-help{margin:0 0 6px;font-size:.9rem;color:var(--ws-mute)}
+.ws-btn,.ws-sort-b button,.ws-seq-b button{font:inherit;border:1px solid var(--ws-ink);background:#fff;color:var(--ws-ink);border-radius:8px;padding:4px 12px;cursor:pointer;min-height:34px}
+.ws-btn:hover,.ws-sort-b button:hover,.ws-seq-b button:hover{background:var(--ws-ink);color:#fff}
+.ws-btn:focus-visible,.ws-sort-b button:focus-visible,.ws-seq-b button:focus-visible{outline:3px solid var(--ws-gold);outline-offset:2px}
+.ws-quiz{width:100%;border-collapse:collapse}
+.ws-quiz th{text-align:right;font-size:.85rem;color:var(--ws-mute);padding:4px 6px;border-bottom:1px solid var(--ws-line)}
+.ws-quiz td{padding:6px;border-bottom:1px solid var(--ws-line);vertical-align:top}
+.ws-q{width:52%;font-weight:500}
+.ws-src{color:var(--ws-mute);font-size:.82rem;font-weight:400}
+.ws-in{width:100%;font:inherit;border:1px solid var(--ws-line);border-radius:8px;padding:5px 8px;background:#fff}
+.ws-key[hidden]{display:none !important}
+.ws-key{display:block;margin-top:3px;font-size:.88rem;color:var(--ws-ok);font-weight:600}
+.ws-sort{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:6px}
+.ws-sort-i{display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--ws-line);border-radius:10px;padding:6px 8px;background:#fff}
+.ws-sort-t{font-family:"Frank Ruhl Libre",serif;font-size:1.08rem}
+.ws-sort-b{display:flex;gap:4px;flex-shrink:0}
+.ws-sort-i.ok{background:var(--ws-okb);border-color:var(--ws-ok)} .ws-sort-i.bad{background:var(--ws-badb);border-color:var(--ws-bad)}
+.ws-sort-i.ok button.on{background:var(--ws-ok);color:#fff;border-color:var(--ws-ok)} .ws-sort-i.bad button.on{background:var(--ws-bad);color:#fff;border-color:var(--ws-bad)}
+.ws-score{font-size:.9rem;color:var(--ws-ok)}
+.ws-seq{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.ws-seq-i{display:flex;align-items:center;gap:8px;border:1px solid var(--ws-line);border-radius:10px;padding:5px 8px;background:#fff}
+.ws-seq-n{display:inline-grid;place-items:center;min-width:28px;height:28px;border-radius:7px;background:var(--t3b);font-weight:700}
+.ws-seq-t{flex:1}
+.ws-seq-b{display:flex;gap:4px}
+.ws-seq-i.ok{background:var(--ws-okb);border-color:var(--ws-ok)} .ws-seq-i.bad{background:var(--ws-badb);border-color:var(--ws-bad)}
+.ws-seq-msg{margin:6px 0 0;font-weight:600;min-height:1.2em}
+.ws-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-bottom:16px}
+.ws-card{border:1px solid var(--ws-line);border-radius:12px;background:#fff;display:flex;flex-direction:column;overflow:hidden}
+.ws-card header{display:flex;justify-content:space-between;gap:6px;align-items:baseline;padding:7px 10px;background:var(--ws-bg);border-bottom:1px solid var(--ws-line)}
+.ws-card header b{font-family:"Frank Ruhl Libre",serif;font-size:1.15rem}
+.ws-card header span{font-size:.82rem;color:var(--ws-mute)}
+.ws-ctext{margin:8px 10px 0;font-family:"Frank Ruhl Libre",serif;font-size:1.02rem;line-height:1.6;border-inline-start:3px solid var(--ws-gold);padding-inline-start:8px}
+.ws-cq{margin:8px 10px 4px;font-weight:600}
+.ws-ta{display:block;width:calc(100% - 20px);margin:0 10px 10px;font:inherit;border:1px solid var(--ws-line);border-radius:8px;padding:6px 8px;resize:vertical;margin-top:auto}
+.ws-bqs{list-style:none;margin:12px 0 16px;padding:0;display:grid;gap:10px}
+.ws-bq{border:1px solid var(--ws-line);border-radius:10px;background:#fff;padding:8px 10px}
+.ws-bq-h{font-weight:700} .ws-bq-h span{font-weight:400;color:var(--ws-mute);font-size:.88rem}
+.ws-bq p{margin:3px 0 6px}
+.ws-bq .ws-ta{width:100%;margin:0}
 
+.ws-res{display:flex;gap:8px;flex-wrap:wrap;margin:6px 2px 0;font-size:.92rem}
+.ws-res a{color:var(--ws-ink);background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:99px;padding:3px 12px;text-decoration:none}
+.ws-chnav{display:flex;justify-content:space-between;gap:8px;margin-top:18px;flex-wrap:wrap}
+.ws-chnav a{color:var(--ws-ink);font-weight:600}
+.ws-note{background:transparent !important;border:1px dashed var(--ws-line)}
+.ws-note .ws-vp{font-style:italic}
+.ws-cwho{margin:8px 10px 0;font-weight:700;font-family:"Frank Ruhl Libre",serif}
+.ws-cwho + .ws-ctext{margin-top:2px}
+.ws-wide{grid-column:1 / -1}
+.ws-sort3 .ws-sort-i{flex-wrap:wrap}
+.ws-bq-y{font-weight:700;color:var(--tb);margin-top:6px}
+.ws-bq-intro{color:var(--ws-mute);font-size:.95rem}
+.ws-v.ws-kv{background:#FFF0C2 !important;box-shadow:inset -4px 0 0 #D49A1E}
+.ws-v.ws-kv .ws-vt{font-weight:700}
+.ws-star{display:block;font-size:.8rem;line-height:1}
+.ws-legend{margin:0 0 6px;font-size:.88rem;color:var(--ws-mute);display:flex;align-items:center;gap:6px}
+.ws-legend-sw{display:inline-block;width:18px;height:12px;border-radius:3px;background:#FFF0C2;box-shadow:inset -3px 0 0 #D49A1E}
+.ws-tools{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+@media (max-width:600px){.ws-q{width:auto}.ws-quiz,.ws-quiz tbody,.ws-quiz tr,.ws-quiz td{display:block;width:100%}.ws-quiz thead{display:none}.ws-quiz td{border:0;padding:3px 0}.ws-quiz tr{border-bottom:1px solid var(--ws-line);padding:6px 0}.ws-vt{font-size:1.18rem}}
+@media print{
+ @page{size:A4;margin:7mm 8mm}
+ body{background:#fff;font-size:10pt}
+ .ws-wrap{max-width:none;padding:0}
+ .ws-map,.ws-howto,.ws-tools,.bm-send-panel,.bm-save-info,.ws-btn,.ws-score,.ws-help,.ws-seq-b,.ws-seq-msg,.ws-key,nav,.bm-skip-link{display:none !important}
+ .ws-hero{border:0;padding:0 0 4px;border-bottom:2px solid var(--ws-ink);border-radius:0}
+ .ws-hero h1{font-size:15pt}
+ .ws-who input{border:0;border-bottom:1px solid #999;border-radius:0;width:8rem}
+ .ws-topic{break-before:page;border:0;border-radius:0;margin-top:0}
+ .ws-t1{break-before:auto;margin-top:6px}
+ .ws-th{padding:4px 10px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .ws-th h2{font-size:13pt}
+ .ws-topic > :not(.ws-th){margin-inline:0}
+ .ws-step{margin:4px 0 2px;font-size:10pt}
+ .ws-step span{width:18px;height:18px;font-size:8pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .ws-verses{display:block;column-count:2;column-gap:10px}
+ .ws-v{break-inside:avoid;margin-bottom:2px}
+ .ws-v{padding:2px 6px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .ws-vt{font-size:10.5pt;line-height:1.35}
+ .ws-vp{font-size:8pt;line-height:1.25}
+ .ws-act{padding:5px 8px;margin-top:5px;border-width:1px}
+ .ws-act-h{margin-bottom:2px;font-size:10pt}
+ .ws-quiz td{padding:2px 4px}
+ .ws-in{border:0;border-bottom:1px dotted #888;border-radius:0;padding:2px 0}
+ .ws-sort{grid-template-columns:repeat(3,1fr);gap:3px}
+ .ws-sort-i{padding:2px 6px}
+ .ws-sort-t{font-size:10pt}
+ .ws-sort-b button{min-height:0;padding:0 6px;font-size:8.5pt;border-radius:99px;background:#fff !important;color:var(--ws-ink) !important}
+ .ws-sort-i.ok,.ws-sort-i.bad{background:#fff;border-color:var(--ws-line)}
+ .ws-seq{display:grid;grid-template-columns:1fr 1fr;grid-auto-flow:column;grid-template-rows:repeat(4,auto);gap:2px 8px}
+ .ws-seq-i.ok,.ws-seq-i.bad{background:#fff;border-color:var(--ws-line)}
+ .ws-seq-i{padding:2px 6px}
+ .ws-seq-n{min-width:22px;height:20px;background:#fff;border:1px solid #888;color:transparent}
+ .ws-cards{grid-template-columns:1fr 1fr;gap:6px;margin-bottom:0}
+ .ws-card{break-inside:avoid}
+ .ws-card header{padding:3px 8px}
+ .ws-card header b{font-size:10.5pt}
+ .ws-ctext{font-size:8.5pt;line-height:1.3;margin:2px 8px 0}
+ .ws-cq{margin:4px 8px 2px;font-size:9.5pt}
+ .ws-ta{border:0;border-bottom:1px dotted #888;border-radius:0;height:2.3em !important;min-height:0;resize:none;margin-bottom:3px}
+ ::placeholder{color:transparent !important}
+ .ws-cards.c3{grid-template-columns:repeat(3,1fr)}
+ .ws-in{height:1.45em}
+ .ws-quiz td,.ws-quiz th{font-size:9.3pt;padding:1px 4px}
+ .ws-bq{break-inside:avoid;padding:5px 8px}
+ .ws-bq .ws-ta{height:2.6em !important}
+ .ws-bq{padding:3px 8px}
+ .ws-bq p{margin:1px 0 2px;font-size:9.5pt}
+ .ws-bqs{gap:5px;margin-top:6px}
+ .ws-res,.ws-chnav{display:none !important}
+ .ws-v.ws-kv,.ws-legend-sw{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .ws-legend{font-size:8pt;margin:0 0 2px}
+ .ws-star{font-size:7pt}
+ .ws-cwho{margin:3px 8px 0;font-size:9.5pt}
+ .ws-bq-y{margin-top:2px;font-size:10pt}
+ .ws-sort3{grid-template-columns:1fr 1fr}
+
+}
+</style>
 </head>
 <body>
 <a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
-
-<nav class="breadcrumbs" aria-label="נתיב ניווט">
-  <a href="index.html">הכיתה הדיגיטלית</a>
-  <span class="sep">›</span>
-  <a href="index.html#tab-ya">כיתה י"א</a>
-  <span class="sep">›</span>
-  <a href="index.html#tab-ya">ספר בראשית</a>
-  <span class="sep">›</span>
-  <span class="current">פרקים כ"ז-כ"ח:ד</span>
-</nav>
-
-<header>
-  <div class="eyebrow">ספר בראשית · חוברת תלמיד דיגיטלית · 3 יח"ל</div>
-  <div class="focus-tags" aria-label="מיקוד הבגרות: שאלון 2381, מיקוד תשפ&quot;ז, 3 יחידות לימוד"><span class="focus-tag">שאלון 2381</span><span class="focus-tag">מיקוד תשפ"ז</span><span class="focus-tag">3 יח"ל</span></div>
-  <h1>דף עבודה — פרקים כ"ז-כ"ח:ד, "בָּא אָחִיךָ בְּמִרְמָה וַיִּקַּח בִּרְכָתֶךָ"</h1>
-  <p class="sub">בכל נושא: קודם קוראים את הפסוקים בקובייה העליונה, ואז עוברים על כל קוביית-שאלה שמסתעפת ממנה - קוראים את דברי הפרשן (אם יש), כותבים תשובה, ורק אז לוחצים "הצג תשובה" לבדיקה עצמית. הכול נשמר אוטומטית במכשיר שלכם.</p>
-  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
-
-  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
-    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
-      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
-    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
-      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
-  </svg>
+<main id="main-content" class="ws-wrap">
+<header class="ws-hero">
+ <div><h1>בראשית פרקים כ&quot;ז-כ&quot;ח:ד · גניבת הברכות</h1><p class="ws-sub">יעקב ועשיו · דף עבודה · שאלון 2381</p></div>
+ <div class="ws-who" id="printHeader">
+  <label>שם: <input type="text" id="studentName" data-bm-persist="ws-bereshit" autocomplete="off"></label>
+  <label>כיתה: <input type="text" id="studentClass" data-bm-persist="ws-bereshit" autocomplete="off" style="width:6rem"></label>
+ </div>
 </header>
-
-<div class="student-bar" id="printHeader">
-  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
-  <label>כיתה: <input type="text" id="studentClass" placeholder="למשל: י&quot;א 3" style="width:8rem;"></label>
-</div>
-<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
-
-<div class="progress-wrap">
-  <span class="progress-label" id="progressLabel">0 / 8 שאלות</span>
-  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
-</div>
-<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
-
-<details class="bm-resources"><summary>סרטונים, מצגות וחומרי עזר</summary><p style="text-align:center; margin:0 0 1.2rem; display:flex; gap:.6rem; justify-content:center; flex-wrap:wrap;">
-  <a class="chip-link" href="bereshit-27-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
-</p></details>
-
-<main id="main-content">
-  <div class="grid" id="grid" data-answer-kind="suggested">
-
-    <!-- תקציר הפרק -->
-    <section class="card" data-stage="intro" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">תקציר הפרק</span>
-        <h2 class="card-title">מה קורה בפרקים כ"ז-כ"ח:ד?</h2>
-      </div>
-      <div class="card-body">
-        <div class="story-summary">
-          <div class="story-label"><span aria-hidden="true">📖</span>הסיפור בקצרה</div>
-          יצחק הזקן, שעיניו כהו מראות, קורא לעשיו בנו הבכור ומבקש ממנו לצוד לו ציד ולהכין לו מטעמים - כדי שיברך אותו לפני מותו. רבקה, ששמעה את הדברים, פועלת מיד: היא מצווה על יעקב להביא לה שני גדיי עיזים, מכינה מהם מטעמים כטעם שאהב יצחק, ומלבישה את יעקב בבגדי עשיו ובעורות הגדיים על ידיו וצווארו - כדי שירגיש וירח כמו עשיו השעיר. יעקב נכנס אל אביו, מתחזה לעשיו, ולמרות חשדו של יצחק ("הקול קול יעקב והידיים ידי עשו") - הוא מברך אותו בברכת הבכורה: שפע, ממשל על אחיו והבטחה. מיד לאחר מכן מגיע עשיו האמיתי עם המטעמים - ואז מתגלה התרמית. יצחק חרד חרדה גדולה, ועשיו זועק זעקה גדולה ומרה ומבקש ברכה גם לעצמו - ומקבל ברכה שונה: לחיות על חרבו, לעבוד את אחיו, ובבוא היום לפרוק את עולו. עשיו שוטם את יעקב ומתכנן להורגו לאחר מות אביהם; רבקה, ששומעת על כך, שולחת את יעקב אל לבן אחיה בחרן - ויצחק, מרצונו החופשי הפעם, מברך את יעקב בברכת אברהם המפורשת ושולחו לשאת אישה מבנות משפחתה.
-        </div>
-      </div>
-    </section>
-
-    <!-- נושא 1 -->
-    <div class="topic-col" data-stage="learn_together" data-keep-together="true">
-    <div class="topic-banner" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
-      <span class="topic-icon" aria-hidden="true">🎯</span>
-      <div>
-        <div class="topic-eyebrow">נושא 1 מתוך 5</div>
-        <div class="topic-title">תכניתו של יצחק</div>
-      </div>
-    </div>
-    <div class="qb-topic" style="--acc:#1E2761; --acc-soft:#E3E5F3;">
-      <div class="qb-root">
-        <span class="qb-root-icon" aria-hidden="true">🎯</span>
-        <div class="qb-root-label">פסוקים א'-ד'</div>
-        <div class="qb-root-pasuk">
-          <div class="pasuk-gloss">יצחק הזקן קורא לעשיו בנו הגדול, ומבקש ממנו לצוד ציד ולהכין לו מטעמים - כדי שיברך אותו לפני מותו.</div>
-        </div>
-      </div>
-      <div class="qb-connector" aria-hidden="true"></div>
-      <div class="qb-branches">
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> הסקת מסקנות מן הכתוב</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">כשיצחק הזקין ועיניו נחלשו ולא ראה, הוא קרא לעשו בנו הגדול ואמר לו: בני; ועשו ענה: הנני</div><b>א:</b> וַיְהִי כִּי זָקֵן יִצְחָק וַתִּכְהֶיןָ עֵינָיו מֵרְאֹת וַיִּקְרָא אֶת עֵשָׂו בְּנוֹ הַגָּדֹל וַיֹּאמֶר אֵלָיו בְּנִי וַיֹּאמֶר אֵלָיו הִנֵּנִי:<br><div class="pasuk-gloss">יצחק אמר: הנה הזקנתי, ואיני יודע מתי אמות</div><b>ב:</b> וַיֹּאמֶר הִנֵּה נָא זָקַנְתִּי לֹא יָדַעְתִּי יוֹם מוֹתִי:<br><div class="pasuk-gloss">ועכשיו קח את כלי הציד שלך - את אשפת החצים ואת הקשת - צא לשדה וצוד לי ציד</div><b>ג:</b> וְעַתָּה שָׂא נָא כֵלֶיךָ תֶּלְיְךָ וְקַשְׁתֶּךָ וְצֵא הַשָּׂדֶה וְצוּדָה לִּי צָיִד:<br><div class="pasuk-gloss">הכן לי מאכלים טעימים כמו שאני אוהב, והבא לי ואוכל - כדי שאברך אותך לפני שאמות</div><b>ד:</b> וַעֲשֵׂה לִי מַטְעַמִּים כַּאֲשֶׁר אָהַבְתִּי וְהָבִיאָה לִּי וְאֹכֵלָה בַּעֲבוּר תְּבָרֶכְךָ נַפְשִׁי בְּטֶרֶם אָמוּת:</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-1">עיינו בפסוקים א'-ד'.<br>(1) מדוע מבקש יצחק לברך את עשו דווקא עכשיו?<br>(2) מה ניתן ללמוד מן הפסוקים על היחסים בין יצחק לעשו? הביאו שתי ראיות.</span></div>
-<textarea aria-labelledby="a11y-lbl-1" class="answer" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> (1) יצחק זקן ועיניו כהו, והוא חושש שיום מותו קרב: "לֹא יָדַעְתִּי יוֹם מוֹתִי". (2) היחסים טובים וקרובים: יצחק קורא לו "בְּנוֹ הַגָּדֹל", "בְּנִי"; ועשו יודע אילו מטעמים אוהב אביו: "כַּאֲשֶׁר אָהַבְתִּי".</div>
-</div></div></div>
-
-      </div>
-    </div>
-    </div>
-
-    <!-- נושא 2 -->
-    <div class="topic-col" data-keep-together="true">
-    <div class="topic-banner" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
-      <span class="topic-icon" aria-hidden="true">🐐</span>
-      <div>
-        <div class="topic-eyebrow">נושא 2 מתוך 5</div>
-        <div class="topic-title">תכניתה של רבקה</div>
-      </div>
-    </div>
-    <div class="qb-topic" style="--acc:#8A5C21; --acc-soft:#F3E7D2;">
-      <div class="qb-root">
-        <span class="qb-root-icon" aria-hidden="true">🐐</span>
-        <div class="qb-root-label">פסוקים ה'-י"ז</div>
-        <div class="qb-root-pasuk">
-          <div class="pasuk-gloss">רבקה שומעת, ומצווה על יעקב להביא שני גדיי עיזים.</div>
-          <div class="pasuk-gloss">יעקב חושש שאביו יגלה אותו; רבקה מכינה מטעמים ומלבישה את יעקב בבגדי עשיו ובעורות הגדיים.</div>
-        </div>
-      </div>
-      <div class="qb-connector" aria-hidden="true"></div>
-      <div class="qb-branches">
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> דיוק בלשון הכתוב</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">רבקה שמעה כשיצחק דיבר אל עשו בנו; ועשו הלך לשדה לצוד ציד ולהביא</div><b>ה:</b> וְרִבְקָה שֹׁמַעַת בְּדַבֵּר יִצְחָק אֶל עֵשָׂו בְּנוֹ וַיֵּלֶךְ עֵשָׂו הַשָּׂדֶה לָצוּד צַיִד לְהָבִיא:<br><div class="pasuk-gloss">רבקה אמרה ליעקב בנה: הנה שמעתי את אביך מדבר אל עשו אחיך ואומר:</div><b>ו:</b> וְרִבְקָה אָמְרָה אֶל יַעֲקֹב בְּנָהּ לֵאמֹר הִנֵּה שָׁמַעְתִּי אֶת אָבִיךָ מְדַבֵּר אֶל עֵשָׂו אָחִיךָ לֵאמֹר:<br><div class="pasuk-gloss">הבא לי ציד והכן לי מאכלים טעימים, ואוכל ואברך אותך לפני ה' לפני מותי</div><b>ז:</b> הָבִיאָה לִּי צַיִד וַעֲשֵׂה לִי מַטְעַמִּים וְאֹכֵלָה וַאֲבָרֶכְכָה לִפְנֵי ה' לִפְנֵי מוֹתִי:<br><div class="pasuk-gloss">ועכשיו, בני, שמע בקולי - למה שאני מצווה אותך</div><b>ח:</b> וְעַתָּה בְנִי שְׁמַע בְּקֹלִי לַאֲשֶׁר אֲנִי מְצַוָּה אֹתָךְ:<br><div class="pasuk-gloss">לך אל הצאן וקח לי משם שני גדיי עזים טובים, ואכין מהם מאכלים טעימים לאביך, כמו שהוא אוהב</div><b>ט:</b> לֶךְ נָא אֶל הַצֹּאן וְקַח לִי מִשָּׁם שְׁנֵי גְּדָיֵי עִזִּים טֹבִים וְאֶעֱשֶׂה אֹתָם מַטְעַמִּים לְאָבִיךָ כַּאֲשֶׁר אָהֵב:<br><div class="pasuk-gloss">ותביא לאביך והוא יאכל, כדי שיברך אותך לפני מותו</div><b>י:</b> וְהֵבֵאתָ לְאָבִיךָ וְאָכָל בַּעֲבֻר אֲשֶׁר יְבָרֶכְךָ לִפְנֵי מוֹתוֹ:</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-2">"וְרִבְקָה שֹׁמַעַת בְּדַבֵּר יִצְחָק אֶל עֵשָׂו בְּנוֹ" (ה'); "וְרִבְקָה אָמְרָה אֶל יַעֲקֹב בְּנָהּ" (ו').<br>(1) כיצד מכונה עשו בפסוק ה', וכיצד מכונה יעקב בפסוק ו'?<br>(2) מה מלמדים הכינויים על היחסים במשפחה?</span></div>
-<textarea aria-labelledby="a11y-lbl-2" class="answer" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> (1) עשו - "בְּנוֹ" (של יצחק); יעקב - "בְּנָהּ" (של רבקה). (2) כל הורה קשור לבן אחר, כפי שנאמר: "וַיֶּאֱהַב יִצְחָק אֶת עֵשָׂו... וְרִבְקָה אֹהֶבֶת אֶת יַעֲקֹב" (כ"ה, כ"ח). רבקה פונה מיד ליעקב ואינה משתפת את יצחק.</div>
-</div></div></div>
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> איתור וציטוט מן הכתוב</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">ועכשיו, בני, שמע בקולי - למה שאני מצווה אותך</div><b>ח:</b> וְעַתָּה בְנִי שְׁמַע בְּקֹלִי לַאֲשֶׁר אֲנִי מְצַוָּה אֹתָךְ:<br><div class="pasuk-gloss">לך אל הצאן וקח לי משם שני גדיי עזים טובים, ואכין מהם מאכלים טעימים לאביך, כמו שהוא אוהב</div><b>ט:</b> לֶךְ נָא אֶל הַצֹּאן וְקַח לִי מִשָּׁם שְׁנֵי גְּדָיֵי עִזִּים טֹבִים וְאֶעֱשֶׂה אֹתָם מַטְעַמִּים לְאָבִיךָ כַּאֲשֶׁר אָהֵב:<br><div class="pasuk-gloss">אמו אמרה לו: הקללה שלך תהיה עליי, בני; רק שמע בקולי ולך קח לי</div><b>יג:</b> וַתֹּאמֶר לוֹ אִמּוֹ עָלַי קִלְלָתְךָ בְּנִי אַךְ שְׁמַע בְּקֹלִי וְלֵךְ קַח לִי:</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-3">רבקה פונה ליעקב בשתי לשונות שונות. מהן? הביאו ציטוט לכל אחת.</span></div>
-<textarea aria-labelledby="a11y-lbl-3" class="answer" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> לשון ציווי וסמכות: "שְׁמַע בְּקֹלִי" (ח, יג). לשון בקשה: "לֶךְ נָא" (ט).</div>
-</div></div></div>
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> הבנת הפשט - הסבר במילים שלכם</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">יעקב אמר לרבקה אמו: הרי עשו אחי איש שעיר, ואני איש חלק</div><b>יא:</b> וַיֹּאמֶר יַעֲקֹב אֶל רִבְקָה אִמּוֹ הֵן עֵשָׂו אָחִי אִישׁ שָׂעִר וְאָנֹכִי אִישׁ חָלָק:<br><div class="pasuk-gloss">אולי אבי ימשש אותי, ואהיה בעיניו כמו רמאי - ואביא על עצמי קללה ולא ברכה</div><b>יב:</b> אוּלַי יְמֻשֵּׁנִי אָבִי וְהָיִיתִי בְעֵינָיו כִּמְתַעְתֵּעַ וְהֵבֵאתִי עָלַי קְלָלָה וְלֹא בְרָכָה:<br><div class="pasuk-gloss">אמו אמרה לו: הקללה שלך תהיה עליי, בני; רק שמע בקולי ולך קח לי</div><b>יג:</b> וַתֹּאמֶר לוֹ אִמּוֹ עָלַי קִלְלָתְךָ בְּנִי אַךְ שְׁמַע בְּקֹלִי וְלֵךְ קַח לִי:</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-4">ממה חושש יעקב, וכיצד משכנעת אותו רבקה על פי הפשט?</span></div>
-<textarea aria-labelledby="a11y-lbl-4" class="answer" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> יעקב חושש שאביו ימשש אותו, יגלה שהוא "אִישׁ חָלָק", יחשוב שהוא מרמה ("כִּמְתַעְתֵּעַ") ויקלל אותו. רבקה עונה: "עָלַי קִלְלָתְךָ בְּנִי" - היא לוקחת את הקללה על עצמה.</div>
-</div></div></div>
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> הבנת דברי פרשן או מדרש</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">יעקב הלך, לקח והביא לאמו; ואמו הכינה מאכלים טעימים כמו שאביו אוהב</div><b>יד:</b> וַיֵּלֶךְ וַיִּקַּח וַיָּבֵא לְאִמּוֹ וַתַּעַשׂ אִמּוֹ מַטְעַמִּים כַּאֲשֶׁר אָהֵב אָבִיו:<br><div class="pasuk-gloss">רבקה לקחה את הבגדים היפים של עשו בנה הגדול, שהיו אצלה בבית, והלבישה את יעקב בנה הקטן</div><b>טו:</b> וַתִּקַּח רִבְקָה אֶת בִּגְדֵי עֵשָׂו בְּנָהּ הַגָּדֹל הַחֲמֻדֹת אֲשֶׁר אִתָּהּ בַּבָּיִת וַתַּלְבֵּשׁ אֶת יַעֲקֹב בְּנָהּ הַקָּטָן:<br><div class="pasuk-gloss">ואת עורות גדיי העזים הלבישה על ידיו ועל החלק החלק של צווארו</div><b>טז:</b> וְאֵת עֹרֹת גְּדָיֵי הָעִזִּים הִלְבִּישָׁה עַל יָדָיו וְעַל חֶלְקַת צַוָּארָיו:<br><div class="pasuk-gloss">ונתנה את המאכלים הטעימים ואת הלחם שהכינה ביד יעקב בנה</div><b>יז:</b> וַתִּתֵּן אֶת הַמַּטְעַמִּים וְאֶת הַלֶּחֶם אֲשֶׁר עָשָׂתָה בְּיַד יַעֲקֹב בְּנָהּ:</div><div class="qb-meforesh">
-<span class="qb-src">בראשית רבה</span>
-            וילך ויקח ויבא לאמו - אנוס וכפוף ובוכה
-</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-5">(1) על פי בראשית רבה, כיצד הגיב יעקב לדברי רבקה?<br>(2) מה בלשון הפסוקים י"ד-י"ז יכול להיות בסיס לדברי המדרש?</span></div>
-<textarea aria-labelledby="a11y-lbl-5" class="answer" data-id="q12" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> (1) יעקב עשה את הדברים בעל כורחו ובצער ("אנוס"). (2) אצל יעקב יש רק שלושה פעלים קצרים - "וַיֵּלֶךְ וַיִּקַּח וַיָּבֵא" - בלי מילה; את כל השאר עושה רבקה: "וַתַּעַשׂ", "וַתִּקַּח", "וַתַּלְבֵּשׁ", "וַתִּתֵּן".</div>
-</div></div></div>
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> הבנת דברי פרשן או מדרש</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">הכן לי מאכלים טעימים כמו שאני אוהב, והבא לי ואוכל - כדי שאברך אותך לפני שאמות</div><b>ד:</b> וַעֲשֵׂה לִי מַטְעַמִּים כַּאֲשֶׁר אָהַבְתִּי וְהָבִיאָה לִּי וְאֹכֵלָה בַּעֲבוּר תְּבָרֶכְךָ נַפְשִׁי בְּטֶרֶם אָמוּת:<br><div class="pasuk-gloss">רבקה שמעה כשיצחק דיבר אל עשו בנו; ועשו הלך לשדה לצוד ציד ולהביא</div><b>ה:</b> וְרִבְקָה שֹׁמַעַת בְּדַבֵּר יִצְחָק אֶל עֵשָׂו בְּנוֹ וַיֵּלֶךְ עֵשָׂו הַשָּׂדֶה לָצוּד צַיִד לְהָבִיא:</div><div class="qb-meforesh">
-<span class="qb-src">רמב"ן</span>
-            (ד) היה בדעתו לברך אותו [את עשו] שיזכה הוא בברכת אברהם לנחול את הארץ, ולהיות הוא בעל הברית לאלוהים כי הוא הבכור:<br>(טו) ...כי המנהג במולידים להכיר את הבכור בברכה ובכבוד ובמתן.<br>(כא) ...כי לא היה עשו רשע בעיני אביו.<br>(טו) והיא, מדעתה צִדקת הקטן ורשעת הגדול תשתדל בכל הטורח הזה להעביר הברכה והכבוד מן הגדול אל הקטן.
-</div><div class="qb-meforesh">
-<span class="qb-src">רד"ק (ד-ה)</span>
-            (ד) ועשה לי מטעמים ... - לפיכך שאל יצחק מעשו בנו להביא ציד וייטב לבו בו ויברכנו, כי ידע כי צריך הוא לברכתו כי לא היה איש הגון וטוב. אבל יעקב לא היה צריך לברכה, כי ידע יצחק כי ברכת אברהם לו תהיה וברית קיום הזרע המיוחד לאברהם, ובניו ירשו את הארץ. ואברהם גם כן לא ברך את יצחק.<br>(ה) ורבקה שמעת בדבר יצחק - וראתה כי הלך עשו לעשות מצות אביו ואמרה ליעקב, כי קנאה בזה. והיא לא ידעה כי יעקב יהיה מבורך אפילו לא יברכנהו אביו.
-</div><div class="qb-meforesh">
-<span class="qb-src">הרש"ר הירש (בהקדמתו למעשה הברכות)</span>
-            שני בניו של יצחק ייצגו שני יסודות בביתו, עשיו את הכוח החומרי, יעקב את הכוח הרוחני. יודע היה יצחק כי האומה זקוקה לשני הכיוונים. אף הוא כנראה ידע את הנבואה, כי הרב בכוחו החומרי יעבוד לצעיר ולחלש ממנו: "וְרַב יַעֲבֹד צָעִיר". אך כסבור היה יצחק שעשיו ויעקב יקיימו את תעודת אברהם בכוחות משותפים, בלב אחים ומתוך השלמה הדדית. לפיכך הועיד לעשיו ברכה בעלת תוכן חומרי, וברכה רוחנית היתה שמורה עמו ליעקב...<br>אולם מבית לבן ידעה רבקה את הקללה שבפיצול זה, ידעה מניסיונה שהחומר יהיה לברכה וישועה רק בבית שרוח אברהם מפעמת בו, רק בידו של זה שרוחו של אברהם מדריכה אותו. היא היטיבה לראות: החומר שאין עמו רוח, היה בעיניה קללה, את הברכה ראתה רק בלתי מחולקת, יורדת על ראשו של אחד.
-</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-6">על פי פירוש שלמדתם (רמב"ן, רד"ק או הרש"ר הירש), הסבירו:<br>(1) איזו ברכה רצה יצחק לתת לעשו?<br>(2) מדוע התנגדה רבקה?</span></div>
-<textarea aria-labelledby="a11y-lbl-6" class="answer" data-id="q13" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> רמב"ן: (1) יצחק רצה לתת לעשו, הבכור, את ברכת אברהם (הארץ והברית). (2) רבקה ידעה מהנבואה ("וְרַב יַעֲבֹד צָעִיר") ומצדקת יעקב שהברכה מגיעה ליעקב. או רד"ק: (1) רק ברכת חיזוק, כי ידע שברכת אברהם תעבור ליעקב בכל מקרה. (2) רבקה לא ידעה זאת, וחששה שעשו יקבל את ברכת אברהם. או הרש"ר הירש: (1) יצחק רצה לחלק - לעשו ברכת החומר וליעקב ברכת הרוח. (2) רבקה חשבה שאין לפצל, ושתי הברכות צריכות להגיע ליעקב.</div>
-</div></div></div>
-
-      </div>
-    </div>
-    </div>
-
-    <!-- נושא 3 -->
-    <div class="topic-col" data-keep-together="true">
-    <div class="topic-banner" style="--acc:#5B3F8C; --acc-soft:#ECE5F5;">
-      <span class="topic-icon" aria-hidden="true">🤲</span>
-      <div>
-        <div class="topic-eyebrow">נושא 3 מתוך 5</div>
-        <div class="topic-title">המפגש בין יעקב ליצחק</div>
-      </div>
-    </div>
-    <div class="qb-topic" style="--acc:#5B3F8C; --acc-soft:#ECE5F5;">
-      <div class="qb-root">
-        <span class="qb-root-icon" aria-hidden="true">🤲</span>
-        <div class="qb-root-label">פסוקים י"ח-כ"ט</div>
-        <div class="qb-root-pasuk">
-          <div class="pasuk-gloss">יעקב נכנס אל אביו ואומר שהוא עשיו. יצחק חושד וממשש אותו, אך לא מכיר אותו - ומברך אותו.</div>
-        </div>
-      </div>
-      <div class="qb-connector" aria-hidden="true"></div>
-      <div class="qb-branches">
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> איתור וציטוט מן הכתוב</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">יעקב בא אל אביו ואמר: אבי; יצחק ענה: הנני; מי אתה, בני?</div><b>יח:</b> וַיָּבֹא אֶל אָבִיו וַיֹּאמֶר אָבִי וַיֹּאמֶר הִנֶּנִּי מִי אַתָּה בְּנִי:<br><div class="pasuk-gloss">יעקב אמר לאביו: אנכי עשו בכורך; עשיתי כמו שאמרת לי; קום נא, שב ואכול מן הציד שלי, כדי שתברך אותי</div><b>יט:</b> וַיֹּאמֶר יַעֲקֹב אֶל אָבִיו אָנֹכִי עֵשָׂו בְּכֹרֶךָ עָשִׂיתִי כַּאֲשֶׁר דִּבַּרְתָּ אֵלָי קוּם נָא שְׁבָה וְאָכְלָה מִצֵּידִי בַּעֲבוּר תְּבָרְכַנִּי נַפְשֶׁךָ:<br><div class="pasuk-gloss">יצחק אמר לבנו: איך מיהרת כל כך למצוא, בני? ויעקב אמר: כי ה' אלוהיך זימן (הביא) לפניי</div><b>כ:</b> וַיֹּאמֶר יִצְחָק אֶל בְּנוֹ מַה זֶּה מִהַרְתָּ לִמְצֹא בְּנִי וַיֹּאמֶר כִּי הִקְרָה ה' אֱלֹהֶיךָ לְפָנָי:<br><div class="pasuk-gloss">יצחק אמר ליעקב: גש נא ואמשש אותך, בני - האם אתה בני עשו או לא?</div><b>כא:</b> וַיֹּאמֶר יִצְחָק אֶל יַעֲקֹב גְּשָׁה נָּא וַאֲמֻשְׁךָ בְּנִי הַאַתָּה זֶה בְּנִי עֵשָׂו אִם לֹא:<br><div class="pasuk-gloss">יעקב ניגש אל יצחק אביו, ויצחק מישש אותו ואמר: הקול - קול יעקב, והידיים - ידי עשו</div><b>כב:</b> וַיִּגַּשׁ יַעֲקֹב אֶל יִצְחָק אָבִיו וַיְמֻשֵּׁהוּ וַיֹּאמֶר הַקֹּל קוֹל יַעֲקֹב וְהַיָּדַיִם יְדֵי עֵשָׂו:<br><div class="pasuk-gloss">יצחק לא זיהה אותו, כי ידיו היו שעירות כמו ידי עשו אחיו - ובירך אותו</div><b>כג:</b> וְלֹא הִכִּירוֹ כִּי הָיוּ יָדָיו כִּידֵי עֵשָׂו אָחִיו שְׂעִרֹת וַיְבָרְכֵהוּ:<br><div class="pasuk-gloss">יצחק אמר: האם אתה בני עשו? ויעקב אמר: אני</div><b>כד:</b> וַיֹּאמֶר אַתָּה זֶה בְּנִי עֵשָׂו וַיֹּאמֶר אָנִי:<br><div class="pasuk-gloss">יצחק אמר: הגש לי ואוכל מן הציד של בני, כדי שאברך אותך; יעקב הגיש לו והוא אכל, הביא לו יין והוא שתה</div><b>כה:</b> וַיֹּאמֶר הַגִּשָׁה לִּי וְאֹכְלָה מִצֵּיד בְּנִי לְמַעַן תְּבָרֶכְךָ נַפְשִׁי וַיַּגֶּשׁ לוֹ וַיֹּאכַל וַיָּבֵא לוֹ יַיִן וַיֵּשְׁתְּ:<br><div class="pasuk-gloss">יצחק אביו אמר לו: גש נא ונשק לי, בני</div><b>כו:</b> וַיֹּאמֶר אֵלָיו יִצְחָק אָבִיו גְּשָׁה נָּא וּשְׁקָה לִּי בְּנִי:<br><div class="pasuk-gloss">יעקב ניגש ונישק לו; יצחק הריח את ריח בגדיו, בירך אותו ואמר: ראה, ריח בני כמו ריח שדה שה' בירך</div><b>כז:</b> וַיִּגַּשׁ וַיִּשַּׁק לוֹ וַיָּרַח אֶת רֵיחַ בְּגָדָיו וַיְבָרְכֵהוּ וַיֹּאמֶר רְאֵה רֵיחַ בְּנִי כְּרֵיחַ שָׂדֶה אֲשֶׁר בֵּרֲכוֹ ה':</div><div class="qb-meforesh">
-<span class="qb-src">רש"י (פסוקים כ"א, כ"ב)</span>
-            (כא) אמר יצחק בלבו - אין דרך עשו להיות שם שמים שגור בפיו, וזה אמר "כי הקרה ה' אלוהיך" (פסוק כ).<br>(כב) קול יעקב - שמדבר בלשון תחנונים 'קום נא' (פסוק יט), אבל עשו בלשון קנטוריא דבר.
-</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-7">עיינו בפסוקים כ'-כ"ד.<br>(1) הביאו שתי ראיות לכך שיצחק חשד שמדובר ביעקב.<br>(2) על פי רש"י, מה עורר את חשדו של יצחק?</span></div>
-<textarea aria-labelledby="a11y-lbl-7" class="answer" data-id="q14" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> (1) "מַה זֶּה מִהַרְתָּ לִמְצֹא בְּנִי" (כ'); "הַקֹּל קוֹל יַעֲקֹב" (כ"ב); "אַתָּה זֶה בְּנִי עֵשָׂו" (כ"ד). (2) עשו לא נוהג להזכיר את שם ה', ויעקב אמר "כִּי הִקְרָה ה' אֱלֹהֶיךָ"; ויעקב מדבר "בלשון תחנונים" ("קוּם נָא") ולא "בלשון קנטוריא" כמו עשו.</div>
-</div></div></div>
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> הבנת דברי פרשן או מדרש</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">יעקב בא אל אביו ואמר: אבי; יצחק ענה: הנני; מי אתה, בני?</div><b>יח:</b> וַיָּבֹא אֶל אָבִיו וַיֹּאמֶר אָבִי וַיֹּאמֶר הִנֶּנִּי מִי אַתָּה בְּנִי:<br><div class="pasuk-gloss">יעקב אמר לאביו: אנכי עשו בכורך; עשיתי כמו שאמרת לי; קום נא, שב ואכול מן הציד שלי, כדי שתברך אותי</div><b>יט:</b> וַיֹּאמֶר יַעֲקֹב אֶל אָבִיו אָנֹכִי עֵשָׂו בְּכֹרֶךָ עָשִׂיתִי כַּאֲשֶׁר דִּבַּרְתָּ אֵלָי קוּם נָא שְׁבָה וְאָכְלָה מִצֵּידִי בַּעֲבוּר תְּבָרְכַנִּי נַפְשֶׁךָ:<br><div class="pasuk-gloss">יצחק אמר: האם אתה בני עשו? ויעקב אמר: אני</div><b>כד:</b> וַיֹּאמֶר אַתָּה זֶה בְּנִי עֵשָׂו וַיֹּאמֶר אָנִי:</div><div class="qb-meforesh">
-<span class="qb-src">רש"י</span>
-            אנכי עשו בכרך - אנכי המביא לך, ועשו הוא בכורך.<br>עשיתי - כמה דברים כאשר דברת אלי.<br>ויאמר אני - לא אמר אני עשו אלא אני.
-</div><div class="qb-meforesh">
-<span class="qb-src">חזקוני</span>
-            אנכי עשו בכרך - יש מפרשים שלפי צורך שעה אפשר לשנות הדיבור, כגון אברהם "אמרי לי אחי הוא"...
-</div><div class="qb-meforesh">
-<span class="qb-src">אור החיים</span>
-            אָנֹכִי עֵשָׂו בְּכֹרֶךָ, פירושו: להיות שקנה הבכורה מעשו, הנה הוא נעשה עשו לצד בחינת הבכורה, כי לא יקראו עשו בכורו. ואומרו עָשִׂיתִי כַּאֲשֶׁר דִּבַּרְתָּ אֵלָי, פירוש כי טעם שציווה לעשו, הוא כי הוא בנו הבכור, וכיון שנטל הבכורה, כאילו הדבר בא אלי.
-</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-8">"אָנֹכִי עֵשָׂו בְּכֹרֶךָ" (פסוק י"ט).<br>(1) מה הקושי בתשובת יעקב לאביו?<br>(2) כיצד מיישב קושי זה פרשן שלמדתם (רש"י, חזקוני או אור החיים)?</span></div>
-<textarea aria-labelledby="a11y-lbl-8" class="answer" data-id="q15" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> (1) לכאורה יעקב משקר לאביו. (2) רש"י: יש לפסק את המשפט - "אנכי" המביא לך, "ועשו הוא בכורך"; וב-כ"ד אמר רק "אני" ולא "אני עשו". או חזקוני: לפי צורך השעה מותר לשנות בדיבור, כמו אברהם ("אמרי לי אחי הוא"). או אור החיים: יעקב קנה את הבכורה, ולכן הוא עכשיו "עשו" מבחינת הבכורה.</div>
-</div></div></div>
-
-      </div>
-    </div>
-    </div>
-
-    <!-- נושא 4 -->
-    <div class="topic-col" data-keep-together="true">
-    <div class="topic-banner" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
-      <span class="topic-icon" aria-hidden="true">😢</span>
-      <div>
-        <div class="topic-eyebrow">נושא 4 מתוך 5</div>
-        <div class="topic-title">המפגש בין עשיו ליצחק</div>
-      </div>
-    </div>
-    <div class="qb-topic" style="--acc:#8B4A34; --acc-soft:#F1E2DA;">
-      <div class="qb-root">
-        <span class="qb-root-icon" aria-hidden="true">😢</span>
-        <div class="qb-root-label">פסוקים ל'-מ'</div>
-        <div class="qb-root-pasuk">
-          <div class="pasuk-gloss">עשיו מגיע עם המטעמים, ויצחק חרד חרדה גדולה.</div>
-          <div class="pasuk-gloss">עשיו צועק ובוכה, ומקבל ברכה אחרת.</div>
-        </div>
-      </div>
-      <div class="qb-connector" aria-hidden="true"></div>
-      <div class="qb-branches">
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> הבנת דברי פרשן או מדרש</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">יצחק נבהל בהלה גדולה מאוד, ואמר: מי, אם כן, הוא זה שצד ציד והביא לי, ואכלתי מכול לפני שבאת, ובירכתי אותו? גם ברוך יהיה!</div><b>לג:</b> וַיֶּחֱרַד יִצְחָק חֲרָדָה גְּדֹלָה עַד מְאֹד וַיֹּאמֶר מִי אֵפוֹא הוּא הַצָּד צַיִד וַיָּבֵא לִי וָאֹכַל מִכֹּל בְּטֶרֶם תָּבוֹא וָאֲבָרְכֵהוּ גַּם בָּרוּךְ יִהְיֶה:<br><div class="pasuk-gloss">כשעשו שמע את דברי אביו, צעק צעקה גדולה ומרה מאוד, ואמר לאביו: ברך גם אותי, אבי!</div><b>לד:</b> כִּשְׁמֹעַ עֵשָׂו אֶת דִּבְרֵי אָבִיו וַיִּצְעַק צְעָקָה גְּדֹלָה וּמָרָה עַד מְאֹד וַיֹּאמֶר לְאָבִיו בָּרְכֵנִי גַם אָנִי אָבִי:<br><div class="pasuk-gloss">יצחק אמר: אחיך בא בעורמה ולקח את הברכה שלך</div><b>לה:</b> וַיֹּאמֶר בָּא אָחִיךָ בְּמִרְמָה וַיִּקַּח בִּרְכָתֶךָ:</div><div class="qb-meforesh">
-<span class="qb-src">רד"ק (פסוק ל"ג)</span>
-            ויחרד - הראה חרדה גדולה בעצמו בפני עשו כדי שלא יחשוב עליו עשו כי בכוונה עשה יצחק מה שברך את יעקב והתל בו.<br>גם ברוך יהיה - אחר שאני בֵרכתיו עתה אני מקיים לו הברכה, כי ידעתי כי בני הוא.
-</div><div class="qb-meforesh">
-<span class="qb-src">רמב"ן</span>
-            וזהו טעם החרדה הגדולה אשר חרד, כי ידע שאבֵד בנו האהוב לו ברכתו לעולם. וזה טעם בא אחיך במרמה - כי אחר שאמר מי איפוא, נתן דעתו שהבא אליו היה יעקב, שאי אפשר שתחול הברכה [אלא] רק בזרעו.
-</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-9">יצחק מגיב באופן כפול - גם חרדה וגם קבלה ("גַּם בָּרוּךְ יִהְיֶה"). הסבירו את תגובתו לפי רד"ק או לפי רמב"ן.</span></div>
-<textarea aria-labelledby="a11y-lbl-9" class="answer" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> רד"ק: יצחק הראה חרדה בפני עשו, כדי שעשו לא יחשוב שבכוונה בירך את יעקב; "גם ברוך יהיה" - הוא מקיים את הברכה, "כי ידעתי כי בני הוא". או רמב"ן: יצחק חרד כי הבין שבנו האהוב איבד את ברכתו לעולם; הוא הבין שהבא היה יעקב, ושהברכה יכולה לחול רק בזרעו.</div>
-</div></div></div>
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> דיוק בלשון הכתוב</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">כשעשו שמע את דברי אביו, צעק צעקה גדולה ומרה מאוד, ואמר לאביו: ברך גם אותי, אבי!</div><b>לד:</b> כִּשְׁמֹעַ עֵשָׂו אֶת דִּבְרֵי אָבִיו וַיִּצְעַק צְעָקָה גְּדֹלָה וּמָרָה עַד מְאֹד וַיֹּאמֶר לְאָבִיו בָּרְכֵנִי גַם אָנִי אָבִי:<br><div class="pasuk-gloss">יצחק אמר: אחיך בא בעורמה ולקח את הברכה שלך</div><b>לה:</b> וַיֹּאמֶר בָּא אָחִיךָ בְּמִרְמָה וַיִּקַּח בִּרְכָתֶךָ:<br><div class="pasuk-gloss">עשו אמר: האם לא בגלל זה קראו לו יעקב? הוא רימה אותי כבר פעמיים - את הבכורה שלי לקח, והנה עכשיו לקח את הברכה שלי! ואמר: האם לא השארת לי ברכה?</div><b>לו:</b> וַיֹּאמֶר הֲכִי קָרָא שְׁמוֹ יַעֲקֹב וַיַּעְקְבֵנִי זֶה פַעֲמַיִם אֶת בְּכֹרָתִי לָקָח וְהִנֵּה עַתָּה לָקַח בִּרְכָתִי וַיֹּאמַר הֲלֹא אָצַלְתָּ לִּי בְּרָכָה:</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">10</span><span class="q-text" id="a11y-lbl-10">עשיו משחק על שם "יעקב" במילה "וַיַּעְקְבֵנִי". הסבירו את משחק המילים, וכתבו לאילו שני מעשים של יעקב הוא מתייחס.</span></div>
-<textarea aria-labelledby="a11y-lbl-10" class="answer" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> "וַיַּעְקְבֵנִי" - מהשורש עק"ב, כמו השם יעקב: רימה אותי. שני המעשים: "אֶת בְּכֹרָתִי לָקָח" (מכירת הבכורה, פרק כ"ה) "וְהִנֵּה עַתָּה לָקַח בִּרְכָתִי".</div>
-</div></div></div>
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> השוואה בין פסוקים ומקורות</span></div><p class="q-cue">הברכה שקיבל יעקב:</p><div class="pasuk-block mini"><div class="pasuk-gloss">ייתן לך האלוהים מטל השמיים ומן האדמה השמנה (הפורייה), ושפע של תבואה ויין</div><b>כח:</b> וְיִתֶּן לְךָ הָאֱלֹהִים מִטַּל הַשָּׁמַיִם וּמִשְׁמַנֵּי הָאָרֶץ וְרֹב דָּגָן וְתִירֹשׁ:<br><div class="pasuk-gloss">עמים יעבדו אותך ולאומים ישתחוו לך; היה אדון לאחיך, ובני אמך ישתחוו לך; מי שמקלל אותך - ארור, ומי שמברך אותך - ברוך</div><b>כט:</b> יַעַבְדוּךָ עַמִּים וְיִשְׁתַּחֲווּ לְךָ לְאֻמִּים הֱוֵה גְבִיר לְאַחֶיךָ וְיִשְׁתַּחֲווּ לְךָ בְּנֵי אִמֶּךָ אֹרְרֶיךָ אָרוּר וּמְבָרֲכֶיךָ בָּרוּךְ:</div><p class="q-cue">הברכה שקיבל עשו:</p><div class="pasuk-block mini"><div class="pasuk-gloss">יצחק אביו ענה ואמר לו: הנה מקום מושבך יהיה באדמה שמנה (פורייה), ומטל השמיים מלמעלה</div><b>לט:</b> וַיַּעַן יִצְחָק אָבִיו וַיֹּאמֶר אֵלָיו הִנֵּה מִשְׁמַנֵּי הָאָרֶץ יִהְיֶה מוֹשָׁבֶךָ וּמִטַּל הַשָּׁמַיִם מֵעָל:<br><div class="pasuk-gloss">על חרבך תחיה, ואת אחיך תעבוד; וכאשר תתמרד (כשאחיך יחטא) - תפרוק את העול שלו מעל צווארך</div><b>מ:</b> וְעַל חַרְבְּךָ תִחְיֶה וְאֶת אָחִיךָ תַּעֲבֹד וְהָיָה כַּאֲשֶׁר תָּרִיד וּפָרַקְתָּ עֻלּוֹ מֵעַל צַוָּארֶךָ:</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">11</span><span class="q-text" id="a11y-lbl-11">השוו בין הברכה שקיבל יעקב (כ"ח-כ"ט) לברכה שקיבל עשו (ל"ט-מ'): כתבו שני מרכיבים דומים ושני הבדלים.</span></div>
-<textarea aria-labelledby="a11y-lbl-11" class="answer" data-id="q16" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> דומים: 1. "מִטַּל הַשָּׁמַיִם". 2. "מִשְׁמַנֵּי הָאָרֶץ". הבדלים: 1. יעקב - "הֱוֵה גְבִיר לְאַחֶיךָ"; עשו - "וְאֶת אָחִיךָ תַּעֲבֹד". 2. בברכת יעקב - "וְיִתֶּן לְךָ הָאֱלֹהִים", "אֹרְרֶיךָ אָרוּר וּמְבָרֲכֶיךָ בָּרוּךְ"; בברכת עשו - "וְעַל חַרְבְּךָ תִחְיֶה".</div>
-</div></div></div>
-
-      </div>
-    </div>
-    </div>
-
-    <!-- משחק התאמה: הברכה שקיבל יעקב מול הברכה שקיבל עשו (טבלת החוברת) -->
-    <section class="card" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">🧩 משחק התאמה</span>
-        <h2 class="card-title">הברכה שקיבל יעקב מול הברכה שקיבל עשו</h2>
-      </div>
-      <div class="card-body">
-        <p style="margin:0 0 .6rem;">השוו בין הברכה שקיבל יעקב (פסוקים כ"ח-כ"ט) לברכה שקיבל עשו (פסוקים ל"ט-מ'): מצאו שני מרכיבים דומים ושני הבדלים. התאימו כל חלק בברכת יעקב לחלק המקביל לו בברכת עשו.</p>
-        <div class="table-wrap">
-          <table data-match-game data-left-label="ברכת יעקב" data-right-label="ברכת עשו" data-intro="הקישו על חלק מברכת יעקב, ואחר כך על החלק המקביל לו בברכת עשו." style="width:100%; border-collapse:collapse; font-size:1rem; text-align:right;">
-            <thead>
-              <tr style="border-bottom:1.5px solid var(--paper-line); background:var(--acc-soft);">
-                <th style="padding:.5rem .6rem;"></th>
-                <th style="padding:.5rem .6rem;">ברכת יעקב (כ"ח-כ"ט)</th>
-                <th style="padding:.5rem .6rem;">ברכת עשו (ל"ט-מ')</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">דומה</td><td style="padding:.5rem .6rem;">וְיִתֶּן לְךָ הָאֱלֹהִים מִטַּל הַשָּׁמַיִם וּמִשְׁמַנֵּי הָאָרֶץ</td><td style="padding:.5rem .6rem;">הִנֵּה מִשְׁמַנֵּי הָאָרֶץ יִהְיֶה מוֹשָׁבֶךָ וּמִטַּל הַשָּׁמַיִם מֵעָל</td></tr>
-              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">שונה</td><td style="padding:.5rem .6rem;">וְרֹב דָּגָן וְתִירֹשׁ</td><td style="padding:.5rem .6rem;">וְעַל חַרְבְּךָ תִחְיֶה</td></tr>
-              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">דומה (בהיפוך)</td><td style="padding:.5rem .6rem;">הֱוֵה גְבִיר לְאַחֶיךָ וְיִשְׁתַּחֲווּ לְךָ בְּנֵי אִמֶּךָ</td><td style="padding:.5rem .6rem;">וְאֶת אָחִיךָ תַּעֲבֹד</td></tr>
-              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">שונה</td><td style="padding:.5rem .6rem;">אֹרְרֶיךָ אָרוּר וּמְבָרֲכֶיךָ בָּרוּךְ</td><td style="padding:.5rem .6rem;">וְהָיָה כַּאֲשֶׁר תָּרִיד וּפָרַקְתָּ עֻלּוֹ מֵעַל צַוָּארֶךָ</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- נושא 5 -->
-    <div class="topic-col" data-keep-together="true">
-    <div class="topic-banner" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
-      <span class="topic-icon" aria-hidden="true">🎒</span>
-      <div>
-        <div class="topic-eyebrow">נושא 5 מתוך 5</div>
-        <div class="topic-title">שליחת יעקב לחרן וברכת אברהם</div>
-      </div>
-    </div>
-    <div class="qb-topic" style="--acc:#3F6E66; --acc-soft:#E4EEEA;">
-      <div class="qb-root">
-        <span class="qb-root-icon" aria-hidden="true">🎒</span>
-        <div class="qb-root-label">פרק כ"ז, פסוק מ"א - פרק כ"ח, פסוק ד'</div>
-        <div class="qb-root-pasuk">
-          <div class="pasuk-gloss">עשיו שוטם את יעקב ומתכנן להורגו; רבקה שולחת את יעקב אל לבן אחיה.</div>
-          <div class="pasuk-gloss">יצחק מברך את יעקב בברכת אברהם ושולח אותו לשאת אישה מבית בתואל.</div>
-        </div>
-      </div>
-      <div class="qb-connector" aria-hidden="true"></div>
-      <div class="qb-branches">
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> השוואה בין פסוקים ומקורות</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">עשו שנא את יעקב בגלל הברכה שבירך אותו אביו; ועשו אמר בליבו: יתקרבו ימי האבל על אבי - ואהרוג את יעקב אחי</div><b>מא:</b> וַיִּשְׂטֹם עֵשָׂו אֶת יַעֲקֹב עַל הַבְּרָכָה אֲשֶׁר בֵּרֲכוֹ אָבִיו וַיֹּאמֶר עֵשָׂו בְּלִבּוֹ יִקְרְבוּ יְמֵי אֵבֶל אָבִי וְאַהַרְגָה אֶת יַעֲקֹב אָחִי:<br><div class="pasuk-gloss">סיפרו לרבקה את דברי עשו בנה הגדול; היא שלחה וקראה ליעקב בנה הקטן ואמרה לו: הנה עשו אחיך מתנחם בכך שהוא מתכנן להרוג אותך</div><b>מב:</b> וַיֻּגַּד לְרִבְקָה אֶת דִּבְרֵי עֵשָׂו בְּנָהּ הַגָּדֹל וַתִּשְׁלַח וַתִּקְרָא לְיַעֲקֹב בְּנָהּ הַקָּטָן וַתֹּאמֶר אֵלָיו הִנֵּה עֵשָׂו אָחִיךָ מִתְנַחֵם לְךָ לְהָרְגֶךָ:<br><div class="pasuk-gloss">ועכשיו, בני, שמע בקולי: קום וברח אל לבן אחי, לחרן</div><b>מג:</b> וְעַתָּה בְנִי שְׁמַע בְּקֹלִי וְקוּם בְּרַח לְךָ אֶל לָבָן אָחִי חָרָנָה:<br><div class="pasuk-gloss">שב אצלו זמן קצר, עד שיחלוף הכעס של אחיך</div><b>מד:</b> וְיָשַׁבְתָּ עִמּוֹ יָמִים אֲחָדִים עַד אֲשֶׁר תָּשׁוּב חֲמַת אָחִיךָ:<br><div class="pasuk-gloss">עד שאחיך יפסיק לכעוס עליך וישכח את מה שעשית לו; אז אשלח ואקח אותך משם - למה שאאבד את שניכם ביום אחד?</div><b>מה:</b> עַד שׁוּב אַף אָחִיךָ מִמְּךָ וְשָׁכַח אֵת אֲשֶׁר עָשִׂיתָ לּוֹ וְשָׁלַחְתִּי וּלְקַחְתִּיךָ מִשָּׁם לָמָה אֶשְׁכַּל גַּם שְׁנֵיכֶם יוֹם אֶחָד:<br><div class="pasuk-gloss">רבקה אמרה ליצחק: מאסתי בחיי בגלל בנות חת; אם יעקב ייקח אישה מבנות חת כמו אלה, מבנות הארץ - למה לי חיים?</div><b>מו:</b> וַתֹּאמֶר רִבְקָה אֶל יִצְחָק קַצְתִּי בְחַיַּי מִפְּנֵי בְּנוֹת חֵת אִם לֹקֵחַ יַעֲקֹב אִשָּׁה מִבְּנוֹת חֵת כָּאֵלֶּה מִבְּנוֹת הָאָרֶץ לָמָּה לִּי חַיִּים:</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">12</span><span class="q-text" id="a11y-lbl-12">(1) מה הנימוק שנותנת רבקה ליעקב לבריחתו לחרן (פסוקים מ"ב-מ"ה)?<br>(2) מה הנימוק שהיא נותנת ליצחק (פסוק מ"ו)?</span></div>
-<textarea aria-labelledby="a11y-lbl-12" class="answer" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> (1) עשו מתכוון להרוג אותו: "הִנֵּה עֵשָׂו אָחִיךָ מִתְנַחֵם לְךָ לְהָרְגֶךָ" - ולכן עליו לברוח ללבן "יָמִים אֲחָדִים". (2) "קַצְתִּי בְחַיַּי מִפְּנֵי בְּנוֹת חֵת" - שיעקב לא יישא אישה מבנות הארץ.</div>
-</div></div></div>
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> איתור וציטוט מן הכתוב</span></div><div class="pasuk-block mini"><div class="pasuk-gloss">יצחק קרא ליעקב, בירך אותו, ציווה אותו ואמר לו: אל תיקח אישה מבנות כנען</div><b>א:</b> וַיִּקְרָא יִצְחָק אֶל יַעֲקֹב וַיְבָרֶךְ אֹתוֹ וַיְצַוֵּהוּ וַיֹּאמֶר לוֹ לֹא תִקַּח אִשָּׁה מִבְּנוֹת כְּנָעַן:<br><div class="pasuk-gloss">קום, לך לפדן ארם, לבית בתואל אבי אמך, וקח לך משם אישה מבנות לבן אחי אמך</div><b>ב:</b> קוּם לֵךְ פַּדֶּנָה אֲרָם בֵּיתָה בְתוּאֵל אֲבִי אִמֶּךָ וְקַח לְךָ מִשָּׁם אִשָּׁה מִבְּנוֹת לָבָן אֲחִי אִמֶּךָ:<br><div class="pasuk-gloss">ואל שדי יברך אותך, יעשה אותך פורה וירבה אותך, ותהיה לקהל של עמים</div><b>ג:</b> וְאֵל שַׁדַּי יְבָרֵךְ אֹתְךָ וְיַפְרְךָ וְיַרְבֶּךָ וְהָיִיתָ לִקְהַל עַמִּים:<br><div class="pasuk-gloss">וייתן לך את ברכת אברהם - לך ולזרעך איתך - שתירש את הארץ שאתה גר בה, שנתן אלוהים לאברהם</div><b>ד:</b> וְיִתֶּן לְךָ אֶת בִּרְכַּת אַבְרָהָם לְךָ וּלְזַרְעֲךָ אִתָּךְ לְרִשְׁתְּךָ אֶת אֶרֶץ מְגֻרֶיךָ אֲשֶׁר נָתַן אֱלֹהִים לְאַבְרָהָם:</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">13</span><span class="q-text" id="a11y-lbl-13">מה מצווה יצחק את יעקב (פסוקים א'-ב'), ומהם שני המרכיבים של "בִּרְכַּת אַבְרָהָם" (פסוקים ג'-ד')?</span></div>
-<textarea aria-labelledby="a11y-lbl-13" class="answer" data-id="q17" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> הציווי: לא לשאת אישה מבנות כנען אלא מבנות לבן - בת משפחה, כמו אברהם ויצחק. שני המרכיבים: 1. ברכת הזרע - "וְיַפְרְךָ וְיַרְבֶּךָ... לְךָ וּלְזַרְעֲךָ". 2. ברכת הארץ - "לְרִשְׁתְּךָ אֶת אֶרֶץ מְגֻרֶיךָ".</div>
-</div></div></div>
-
-        <div class="qb-card">
-
-
-<div class="qb-source"><div class="skill-tags"><span class="skill-tag"><b><span aria-hidden="true">🛠️ </span>מיומנות:</b> השוואה בין פסוקים ומקורות</span></div><p class="q-cue">הברכה שייעד יצחק לעשו (כז, כח-כט):</p><div class="pasuk-block mini"><div class="pasuk-gloss">ייתן לך האלוהים מטל השמיים ומן האדמה השמנה (הפורייה), ושפע של תבואה ויין</div><b>כח:</b> וְיִתֶּן לְךָ הָאֱלֹהִים מִטַּל הַשָּׁמַיִם וּמִשְׁמַנֵּי הָאָרֶץ וְרֹב דָּגָן וְתִירֹשׁ:<br><div class="pasuk-gloss">עמים יעבדו אותך ולאומים ישתחוו לך; היה אדון לאחיך, ובני אמך ישתחוו לך; מי שמקלל אותך - ארור, ומי שמברך אותך - ברוך</div><b>כט:</b> יַעַבְדוּךָ עַמִּים וְיִשְׁתַּחֲווּ לְךָ לְאֻמִּים הֱוֵה גְבִיר לְאַחֶיךָ וְיִשְׁתַּחֲווּ לְךָ בְּנֵי אִמֶּךָ אֹרְרֶיךָ אָרוּר וּמְבָרֲכֶיךָ בָּרוּךְ:</div><p class="q-cue">הברכה שקיבל יעקב לפני צאתו לחרן (כח, ג-ד):</p><div class="pasuk-block mini"><div class="pasuk-gloss">ואל שדי יברך אותך, יעשה אותך פורה וירבה אותך, ותהיה לקהל של עמים</div><b>ג:</b> וְאֵל שַׁדַּי יְבָרֵךְ אֹתְךָ וְיַפְרְךָ וְיַרְבֶּךָ וְהָיִיתָ לִקְהַל עַמִּים:<br><div class="pasuk-gloss">וייתן לך את ברכת אברהם - לך ולזרעך איתך - שתירש את הארץ שאתה גר בה, שנתן אלוהים לאברהם</div><b>ד:</b> וְיִתֶּן לְךָ אֶת בִּרְכַּת אַבְרָהָם לְךָ וּלְזַרְעֲךָ אִתָּךְ לְרִשְׁתְּךָ אֶת אֶרֶץ מְגֻרֶיךָ אֲשֶׁר נָתַן אֱלֹהִים לְאַבְרָהָם:</div></div><div class="qb-question"><div class="question-block">
-<div class="question-row"><span class="q-num">14</span><span class="q-text" id="a11y-lbl-14">השוו בין הברכה שייעד יצחק לעשו (כ"ז, כ"ח-כ"ט) לברכה שנתן ליעקב לפני צאתו לחרן (כ"ח, ג'-ד').<br>(1) מה יש בברכה השנייה שאין בראשונה?<br>(2) מה ניתן ללמוד מכך על כוונתו של יצחק?</span></div>
-<textarea aria-labelledby="a11y-lbl-14" class="answer" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
-<button class="hint-btn" type="button">🔎 הצג תשובה</button>
-<div class="hint-box" hidden=""><b>✓ תשובה מוצעת:</b> (1) בברכה השנייה נזכרת במפורש "בִּרְכַּת אַבְרָהָם" - הזרע והארץ; הברכה הראשונה עוסקת בטוב גשמי (טל, שמני הארץ, דגן ותירוש) ובשלטון. (2) את ברכת אברהם (הארץ והברית) ייעד יצחק ליעקב - הוא ממשיך בית אברהם.</div>
-</div></div></div>
-
-      </div>
-    </div>
-    </div>
-
-    <!-- משחק התאמה: הברכה שייעד יצחק לעשו מול הברכה שנתן ליעקב לפני צאתו לחרן (טבלת החוברת) -->
-    <section class="card" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">🧩 משחק התאמה</span>
-        <h2 class="card-title">הברכה שייעד יצחק לעשו מול ברכת יעקב בצאתו לחרן</h2>
-      </div>
-      <div class="card-body">
-        <p style="margin:0 0 .6rem;">השוו בין הברכה שייעד יצחק לעשו ובפועל זכה בה יעקב (כ"ז, כ"ח-כ"ט) לבין הברכה שקיבל יעקב לפני צאתו לחרן (כ"ח, ג'-ד'). התאימו כל נושא לשני החלקים המקבילים.</p>
-        <div class="table-wrap">
-          <table data-match-game data-left-label="הברכה שייעד לעשו" data-right-label="הברכה בצאתו לחרן" data-intro="הקישו על חלק מן הברכה הראשונה, ואחר כך על החלק המקביל לו בברכה השנייה." style="width:100%; border-collapse:collapse; font-size:1rem; text-align:right;">
-            <thead>
-              <tr style="border-bottom:1.5px solid var(--paper-line); background:var(--acc-soft);">
-                <th style="padding:.5rem .6rem;">הנושא</th>
-                <th style="padding:.5rem .6rem;">כ"ז, כ"ח-כ"ט</th>
-                <th style="padding:.5rem .6rem;">כ"ח, ג'-ד'</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">מי מברך</td><td style="padding:.5rem .6rem;">וְיִתֶּן לְךָ הָאֱלֹהִים</td><td style="padding:.5rem .6rem;">וְאֵל שַׁדַּי יְבָרֵךְ אֹתְךָ</td></tr>
-              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">שפע / פריון</td><td style="padding:.5rem .6rem;">מִטַּל הַשָּׁמַיִם וּמִשְׁמַנֵּי הָאָרֶץ וְרֹב דָּגָן וְתִירֹשׁ</td><td style="padding:.5rem .6rem;">וְיַפְרְךָ וְיַרְבֶּךָ</td></tr>
-              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">היחס לעמים</td><td style="padding:.5rem .6rem;">יַעַבְדוּךָ עַמִּים וְיִשְׁתַּחֲווּ לְךָ לְאֻמִּים</td><td style="padding:.5rem .6rem;">וְהָיִיתָ לִקְהַל עַמִּים</td></tr>
-              <tr style="border-bottom:1px solid var(--paper-line);"><td style="padding:.5rem .6rem; font-weight:700;">ברכת אברהם</td><td style="padding:.5rem .6rem;">אֹרְרֶיךָ אָרוּר וּמְבָרֲכֶיךָ בָּרוּךְ (רמז לברכת אברהם)</td><td style="padding:.5rem .6rem;">וְיִתֶּן לְךָ אֶת בִּרְכַּת אַבְרָהָם... לְרִשְׁתְּךָ אֶת אֶרֶץ מְגֻרֶיךָ</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- שאלות בגרות (שלב ג׳): נושאים חוזרים מקובץ שאלות הבגרות של המורה -->
-
-    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">🎓 שאלות בגרות</span>
-        <h2 class="card-title">שאלות בגרות על פרקים כ״ז–כ״ח:ד</h2>
-      </div>
-      <div class="card-body">
-        <div class="exam-tag">📅 תשפ״א (2021), קיץ · שאלה 4</div>
-        <div class="bg-row">
-          <div class="question-block">
-            <div class="pasuk-block mini bg-verses"><div class="pasuk-gloss">📖 הפסוקים לשאלה: פרק כ"ז, פסוקים ב'–ד'</div><b>(ב)</b> וַיֹּאמֶר הִנֵּה נָא זָקַנְתִּי לֹא יָדַעְתִּי יוֹם מוֹתִי <b>(ג)</b> וְעַתָּה שָׂא נָא כֵלֶיךָ תֶּלְיְךָ וְקַשְׁתֶּךָ וְצֵא הַשָּׂדֶה וְצוּדָה לִּי צָיִד <b>(ד)</b> וַעֲשֵׂה לִי מַטְעַמִּים כַּאֲשֶׁר אָהַבְתִּי וְהָבִיאָה לִּי וְאֹכֵלָה בַּעֲבוּר תְּבָרֶכְךָ נַפְשִׁי בְּטֶרֶם אָמוּת</div>
-            <p class="q-cue">תזכורת: "הִנֵּה נָא זָקַנְתִּי, לֹא יָדַעְתִּי יוֹם מוֹתִי... בַּעֲבוּר תְּבָרֶכְךָ נַפְשִׁי" (פסוקים ב'-ד')</p>
-            <div class="question-row"><span class="part-label">1</span><span class="q-text" id="bg-lbl-1">על פי מה שלמדת, מה הייתה הברכה שתכנן יצחק לברך בה את עשו, ומדוע הוא תכנן לברך אותו בברכה זו?</span></div>
-            <textarea class="answer" data-id="bg1" aria-labelledby="bg-lbl-1" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          </div>
-          <div class="question-block">
-            <div class="pasuk-block mini bg-verses"><div class="pasuk-gloss">📖 הפסוקים לשאלה: פרק כ"ז, פסוקים ח'–ט'</div><b>(ח)</b> וְעַתָּה בְנִי שְׁמַע בְּקֹלִי לַאֲשֶׁר אֲנִי מְצַוָּה אֹתָךְ <b>(ט)</b> לֶךְ נָא אֶל הַצֹּאן וְקַח לִי מִשָּׁם שְׁנֵי גְּדָיֵי עִזִּים טֹבִים וְאֶעֱשֶׂה אֹתָם מַטְעַמִּים לְאָבִיךָ כַּאֲשֶׁר אָהֵב</div>
-            <p class="q-cue">תזכורת: "וְעַתָּה בְנִי שְׁמַע בְּקֹלִי... לֶךְ נָא אֶל הַצֹּאן וְקַח לִי מִשָּׁם שְׁנֵי גְּדָיֵי עִזִּים" (פסוקים ח'-ט')</p>
-            <div class="question-row"><span class="part-label">2</span><span class="q-text" id="bg-lbl-2">על פי מה שלמדת, מדוע פעלה רבקה כדי לבטל את תוכניתו של יצחק?<br>(8 נקודות)</span></div>
-            <textarea class="answer" data-id="bg2" aria-labelledby="bg-lbl-2" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          </div>
-        </div>
-        <div class="exam-tag">📅 תשפ״ה (2025), קיץ · שאלה 4</div>
-        <div class="pasuk-block mini">עיינו בפסוקים י"ח–כ"ז.</div>
-        <div class="bg-row">
-          <div class="question-block">
-            <div class="pasuk-block mini bg-verses"><div class="pasuk-gloss">📖 הפסוקים לשאלה: פרק כ"ז, פסוק כ"ג</div><b>(כג)</b> וְלֹא הִכִּירוֹ כִּי הָיוּ יָדָיו כִּידֵי עֵשָׂו אָחִיו שְׂעִרֹת וַיְבָרְכֵהוּ</div>
-            <p class="q-cue">תזכורת: "וַיְמֻשֵּׁהוּ וַיֹּאמֶר: הַקֹּל קוֹל יַעֲקֹב וְהַיָּדַיִם יְדֵי עֵשָׂו" (פסוק כ"ג)</p>
-            <div class="question-row"><span class="part-label">3</span><span class="q-text" id="bg-lbl-3">על פי מה שלמדתם, מדוע חשד יצחק שיעקב הוא העומד לפניו?</span></div>
-            <textarea class="answer" data-id="bg3" aria-labelledby="bg-lbl-3" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          </div>
-          <div class="question-block">
-            <div class="pasuk-block mini bg-verses"><div class="pasuk-gloss">📖 הפסוקים לשאלה: פרק כ"ז, פסוק י"ט</div><b>(יט)</b> וַיֹּאמֶר יַעֲקֹב אֶל אָבִיו אָנֹכִי עֵשָׂו בְּכֹרֶךָ עָשִׂיתִי כַּאֲשֶׁר דִּבַּרְתָּ אֵלָי קוּם נָא שְׁבָה וְאָכְלָה מִצֵּידִי בַּעֲבוּר תְּבָרֲכַנִּי נַפְשֶׁךָ</div>
-            <p class="q-cue">תזכורת (רש"י, פסוק י"ט): "'אנכי' - אנוכי המביא לך, ועשו הוא בכורך"</p>
-            <div class="question-row"><span class="part-label">4</span><span class="q-text" id="bg-lbl-4">רש"י לפסוק י"ט: "'אנכי' - אנוכי המביא לך, ועשו הוא בכורך".<br>מהי השאלה המתעוררת על דברי יעקב לאביו שעליה רש"י עונה, ומהי תשובת רש"י לשאלה זו?<br>השאלה:<br>התשובה:<br>(8 נקודות)</span></div>
-            <textarea class="answer" data-id="bg4" aria-labelledby="bg-lbl-4" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          </div>
-        </div>
-        <div class="exam-tag">📅 תשפ״א (2021), קיץ · שאלה 4</div>
-        <div class="bg-row">
-          <div class="question-block">
-            <div class="pasuk-block mini bg-verses"><div class="pasuk-gloss">📖 הפסוקים לשאלה: פרק כ"ז, פסוקים כ"ח–כ"ט</div><b>(כח)</b> וְיִתֶּן לְךָ הָאֱלֹהִים מִטַּל הַשָּׁמַיִם וּמִשְׁמַנֵּי הָאָרֶץ וְרֹב דָּגָן וְתִירֹשׁ <b>(כט)</b> יַעַבְדוּךָ עַמִּים וְיִשְׁתַּחֲווּ לְךָ לְאֻמִּים הֱוֵה גְבִיר לְאַחֶיךָ וְיִשְׁתַּחֲוּוּ לְךָ בְּנֵי אִמֶּךָ אֹרְרֶיךָ אָרוּר וּמְבָרֲכֶיךָ בָּרוּךְ</div>
-            <p class="q-cue">תזכורת: "מִטַּל הַשָּׁמַיִם וּמִשְׁמַנֵּי הָאָרֶץ... אֹרְרֶיךָ אָרוּר וּמְבָרֲכֶיךָ בָּרוּךְ" (פסוקים כ"ח-כ"ט)</p>
-            <div class="question-row"><span class="part-label">5</span><span class="q-text" id="bg-lbl-5">עיין בפסוקים כ"ח-כ"ט.<br>על פי פסוקים אלה, ציין שתי ברכות מתחומים שונים שבהן יצחק מברך את יעקב.</span></div>
-            <textarea class="answer" data-id="bg5" aria-labelledby="bg-lbl-5" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          </div>
-          <div class="question-block">
-            <div class="pasuk-block mini bg-verses"><div class="pasuk-gloss">📖 הפסוקים לשאלה: פרק כ"ז, פסוקים כ"ח–כ"ט · פרק כ"ח, פסוקים ג'–ד'</div><b>(כח)</b> וְיִתֶּן לְךָ הָאֱלֹהִים מִטַּל הַשָּׁמַיִם וּמִשְׁמַנֵּי הָאָרֶץ וְרֹב דָּגָן וְתִירֹשׁ <b>(כט)</b> יַעַבְדוּךָ עַמִּים וְיִשְׁתַּחֲווּ לְךָ לְאֻמִּים הֱוֵה גְבִיר לְאַחֶיךָ וְיִשְׁתַּחֲוּוּ לְךָ בְּנֵי אִמֶּךָ אֹרְרֶיךָ אָרוּר וּמְבָרֲכֶיךָ בָּרוּךְ <b>(כ"ח, ג)</b> וְאֵל שַׁדַּי יְבָרֵךְ אֹתְךָ וְיַפְרְךָ וְיַרְבֶּךָ וְהָיִיתָ לִקְהַל עַמִּים <b>(כ"ח, ד)</b> וְיִתֶּן לְךָ אֶת בִּרְכַּת אַבְרָהָם לְךָ וּלְזַרְעֲךָ אִתָּךְ לְרִשְׁתְּךָ אֶת אֶרֶץ מְגֻרֶיךָ אֲשֶׁר נָתַן אֱלֹהִים לְאַבְרָהָם</div>
-            <p class="q-cue">תזכורת: "וְיִתֶּן לְךָ אֶת בִּרְכַּת אַבְרָהָם... לְרִשְׁתְּךָ אֶת אֶרֶץ מְגֻרֶיךָ" (פרק כ"ח, פסוקים ג'-ד')</p>
-            <div class="question-row"><span class="part-label">6</span><span class="q-text" id="bg-lbl-6">עיין בפרק כ"ח, פסוקים ג'-ד'.<br>מה יצחק מוסיף בברכה זו על הברכה שבירך את יעקב בפרק כ"ז, פסוקים כ"ח-כ"ט?<br>(8 נקודות)</span></div>
-            <textarea class="answer" data-id="bg6" aria-labelledby="bg-lbl-6" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- סיכום (שלב ג׳): מה למדנו, ותרגול נוסף - מוצגים במסך הסיכום -->
-    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">✅ סיכום</span>
-        <h2 class="card-title">מה למדנו בפרקים כ״ז-כ״ח</h2>
-      </div>
-      <div class="card-body">
-        <ul class="bm-learned">
-          <li><b>הבקשה של יצחק:</b> יצחק מבקש מעשיו מטעמים, "בַּעֲבוּר תְּבָרֶכְךָ נַפְשִׁי".</li>
-          <li><b>התחפושת:</b> רבקה מלבישה את יעקב בבגדי עשיו ובעורות הגדיים.</li>
-          <li><b>הברכה:</b> "הַקֹּל קוֹל יַעֲקֹב וְהַיָּדַיִם יְדֵי עֵשָׂו" - ויצחק מברך את יעקב.</li>
-          <li><b>עשיו:</b> זועק "צְעָקָה גְּדֹלָה וּמָרָה", ומקבל ברכה אחרת: "וְעַל חַרְבְּךָ תִחְיֶה".</li>
-          <li><b>הבריחה לחרן:</b> רבקה שולחת את יעקב אל לבן, ויצחק מברך אותו מרצונו ב"בִּרְכַּת אַבְרָהָם".</li>
-        </ul>
-        <div class="key-points">
-          <h3>📋 נקודות מרכזיות שחייבים לדעת - הפרשנים</h3>
-          <p class="kp-tip">בבגרות, כשכתוב "הסבירו לפי פרשן": כתבו מה הוא שואל, מה הוא עונה - וצטטו את מילות המפתח שלו.</p>
-          <div class="table-wrap">
-          <table class="kp-table">
-            <thead><tr><th scope="col">הפרשן</th><th scope="col">מה הוא שואל</th><th scope="col">מה הוא עונה</th><th scope="col">מילות מפתח לציטוט</th></tr></thead>
-            <tbody>
-            <tr>
-              <td class="kp-who" data-label="הפרשן">רמב"ן / רד"ק<span class="kp-ref">כ"ז, ד'-ה'</span></td>
-              <td data-label="מה הוא שואל">מה רצה יצחק לתת לעשו, ובמה חלקה עליו רבקה?</td>
-              <td data-label="מה הוא עונה">רמב"ן: יצחק רצה לתת לעשו, הבכור, את ברכת אברהם; רבקה ידעה שיעקב צדיק ושהברכה מגיעה לו. רד"ק: יצחק רצה לתת לעשו רק ברכת חיזוק, כי ידע שברכת אברהם ממילא של יעקב.</td>
-              <td class="kp-key" data-label="מילות מפתח לציטוט">"היה בדעתו לברך אותו... שיזכה הוא בברכת אברהם" / "אבל יעקב לא היה צריך לברכה"</td>
-            </tr>
-            <tr>
-              <td class="kp-who" data-label="הפרשן">הרש"ר הירש<span class="kp-ref">הקדמה לברכות</span></td>
-              <td data-label="מה הוא שואל">למה יצחק רצה לברך את עשו?</td>
-              <td data-label="מה הוא עונה">עשו מייצג את הכוח החומרי ויעקב את הכוח הרוחני, ויצחק חשב שהאומה זקוקה לשניהם.</td>
-              <td class="kp-key" data-label="מילות מפתח לציטוט">"יודע היה יצחק כי האומה זקוקה לשני הכיוונים"</td>
-            </tr>
-            <tr>
-              <td class="kp-who" data-label="הפרשן">בראשית רבה<span class="kp-ref">כ"ז, י"ד</span></td>
-              <td data-label="מה הוא שואל">איך יעקב מילא את דברי אמו?</td>
-              <td data-label="מה הוא עונה">בעל כורחו ובצער - אצלו רק שלושה פעלים קצרים, ואת כל השאר עושה רבקה.</td>
-              <td class="kp-key" data-label="מילות מפתח לציטוט">"אנוס וכפוף ובוכה"</td>
-            </tr>
-            <tr>
-              <td class="kp-who" data-label="הפרשן">רש"י<span class="kp-ref">כ"ז, כ'-כ"ב</span></td>
-              <td data-label="מה הוא שואל">למה יצחק חשד שמולו עומד יעקב?</td>
-              <td data-label="מה הוא עונה">עשו לא נוהג להזכיר את שם ה', ויעקב מדבר בלשון בקשה ולא בלשון גסה.</td>
-              <td class="kp-key" data-label="מילות מפתח לציטוט">"אין דרך עשו להיות שם שמים שגור בפיו" / "שמדבר בלשון תחנונים"</td>
-            </tr>
-            <tr>
-              <td class="kp-who" data-label="הפרשן">רש"י / חזקוני / אור החיים<span class="kp-ref">כ"ז, י"ט, כ"ד</span></td>
-              <td data-label="מה הוא שואל">"אָנֹכִי עֵשָׂו בְּכֹרֶךָ" - האם יעקב שיקר?</td>
-              <td data-label="מה הוא עונה">רש"י: יעקב חילק את המשפט - "אנכי" המביא, ועשו הוא בכורך; ולא אמר "אני עשו". חזקוני: לצורך השעה מותר לשנות. אור החיים: כיוון שקנה את הבכורה, הוא "עשו" מבחינת הבכורה.</td>
-              <td class="kp-key" data-label="מילות מפתח לציטוט">"אנכי המביא לך, ועשו הוא בכורך" / "לפי צורך שעה אפשר לשנות הדיבור"</td>
-            </tr>
-            <tr>
-              <td class="kp-who" data-label="הפרשן">רד"ק / רמב"ן<span class="kp-ref">כ"ז, ל"ג</span></td>
-              <td data-label="מה הוא שואל">למה יצחק חרד, ובכל זאת אמר "גַּם בָּרוּךְ יִהְיֶה"?</td>
-              <td data-label="מה הוא עונה">רד"ק: הראה חרדה מול עשו, שלא יחשוב שבירך את יעקב בכוונה; ומקיים את הברכה כי יעקב בנו. רמב"ן: חרד כי הבין שבנו האהוב איבד את הברכה לעולם.</td>
-              <td class="kp-key" data-label="מילות מפתח לציטוט">"כדי שלא יחשוב עליו עשו כי בכוונה עשה יצחק" / "כי ידע שאבד בנו האהוב לו ברכתו לעולם"</td>
-            </tr>
-            </tbody>
-          </table>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="card" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">🔁 תרגול נוסף</span>
-        <h2 class="card-title">אחרי הלמידה - חזרה ותרגול</h2>
-      </div>
-      <div class="card-body">
-        <p class="bm-more-intro">סיימתם ללמוד? אפשר לחזור על החומר:</p>
-        <p class="bm-more-links">
-          <a class="chip-link" href="bereshit-27-questions.html"><span class="chip-icon" aria-hidden="true">📝</span>שאלות ותשובות לחזרה</a>
-          <a class="chip-link" href="bereshit-27-summary.html"><span class="chip-icon" aria-hidden="true">📚</span>סיכום הפרק</a>
-        </p>
-      </div>
-    </section>
-
-  </div>
-</main>
-
-<nav class="chapter-nav" aria-label="ניווט בין פרקי הספר">
-  <a href="bereshit-25.html">← פרק כ"ה</a>
-  <a href="index.html#tab-ya">↺ חזרה ליחידה</a>
-  <a href="bereshit-28.html">פרק כ"ח →</a>
-</nav>
-<div class="toolbar">
-  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="בראשית פרקים כ&quot;ז-כ&quot;ח:ד, גניבת הברכות" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
-  <button class="btn" id="printBtn">🖨️ הדפסה</button>
-  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+<nav class="ws-map" aria-label="נושאי הפרק"><a href="#t1">🎯 נושא 1<small>תכניתו של יצחק ותכניתה של רבקה</small></a><a href="#t2">🎭 נושא 2<small>יעקב לפני יצחק, ועשו חוזר</small></a><a href="#t3">🏃 נושא 3<small>הבריחה לחרן וברכת אברהם</small></a><a href="#bagrut">🎓 בגרות<small>שאלות מבחינות קודמות</small></a></nav>
+<div class="ws-res"><a href="bereshit-27-summary.html">📚 סיכום הפרק</a><a href="bereshit-27-questions.html">📝 שאלות ותשובות לחזרה</a><a href="bereshit-27-text.html">📖 הפרק המלא</a></div>
+<p class="ws-howto">בכל נושא: <b>1</b> קוראים את הפסוקים, <b>2</b> עונים על שאלות הבנה ומשחקים, <b>3</b> לומדים ביחד עם המורה את הפרשנים. הכול נשמר לבד במכשיר.</p>
+<section class="ws-topic ws-t1" id="t1"><div class="ws-th"><span class="ws-tn">נושא 1</span><h2>🎯 תכניתו של יצחק ותכניתה של רבקה</h2><span class="ws-rng">פרק כ&quot;ז, פסוקים א&#x27;-י&quot;ז</span></div><h3 class="ws-step"><span>1</span> קוראים את הפסוקים</h3><p class="ws-legend"><span class="ws-legend-sw"></span>⭐ פסוק מרכזי - חשוב במיוחד להבנה ולבגרות</p><div class="ws-verses"><div class="ws-v"><span class="ws-vn">א'</span><p class="ws-vt">וַיְהִי כִּי זָקֵן יִצְחָק וַתִּכְהֶיןָ עֵינָיו מֵרְאֹת וַיִּקְרָא אֶת עֵשָׂו בְּנוֹ הַגָּדֹל וַיֹּאמֶר אֵלָיו בְּנִי וַיֹּאמֶר אֵלָיו הִנֵּנִי</p><p class="ws-vp">כשיצחק הזקין ועיניו נחלשו ולא ראה, הוא קרא לעשו בנו הגדול ואמר לו: בני; ועשו ענה: הנני</p></div><div class="ws-v"><span class="ws-vn">ב'</span><p class="ws-vt">וַיֹּאמֶר הִנֵּה נָא זָקַנְתִּי לֹא יָדַעְתִּי יוֹם מוֹתִי</p><p class="ws-vp">יצחק אמר: הנה הזקנתי, ואיני יודע מתי אמות</p></div><div class="ws-v"><span class="ws-vn">ג'</span><p class="ws-vt">וְעַתָּה שָׂא נָא כֵלֶיךָ תֶּלְיְךָ וְקַשְׁתֶּךָ וְצֵא הַשָּׂדֶה וְצוּדָה לִּי צָיִד</p><p class="ws-vp">ועכשיו קח את כלי הציד שלך - את אשפת החצים ואת הקשת - צא לשדה וצוד לי ציד</p></div><div class="ws-v ws-kv"><span class="ws-vn">ד'<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וַעֲשֵׂה לִי מַטְעַמִּים כַּאֲשֶׁר אָהַבְתִּי וְהָבִיאָה לִּי וְאֹכֵלָה בַּעֲבוּר תְּבָרֶכְךָ נַפְשִׁי בְּטֶרֶם אָמוּת</p><p class="ws-vp">הכן לי מאכלים טעימים כמו שאני אוהב, והבא לי ואוכל - כדי שאברך אותך לפני שאמות</p></div><div class="ws-v"><span class="ws-vn">ה'</span><p class="ws-vt">וְרִבְקָה שֹׁמַעַת בְּדַבֵּר יִצְחָק אֶל עֵשָׂו בְּנוֹ וַיֵּלֶךְ עֵשָׂו הַשָּׂדֶה לָצוּד צַיִד לְהָבִיא</p><p class="ws-vp">רבקה שמעה כשיצחק דיבר אל עשו בנו; ועשו הלך לשדה לצוד ציד ולהביא</p></div><div class="ws-v"><span class="ws-vn">ו'</span><p class="ws-vt">וְרִבְקָה אָמְרָה אֶל יַעֲקֹב בְּנָהּ לֵאמֹר הִנֵּה שָׁמַעְתִּי אֶת אָבִיךָ מְדַבֵּר אֶל עֵשָׂו אָחִיךָ לֵאמֹר</p><p class="ws-vp">רבקה אמרה ליעקב בנה: הנה שמעתי את אביך מדבר אל עשו אחיך ואומר:</p></div><div class="ws-v"><span class="ws-vn">ז'</span><p class="ws-vt">הָבִיאָה לִּי צַיִד וַעֲשֵׂה לִי מַטְעַמִּים וְאֹכֵלָה וַאֲבָרֶכְכָה לִפְנֵי ה&#x27; לִפְנֵי מוֹתִי</p><p class="ws-vp">הבא לי ציד והכן לי מאכלים טעימים, ואוכל ואברך אותך לפני ה&#x27; לפני מותי</p></div><div class="ws-v"><span class="ws-vn">ח'</span><p class="ws-vt">וְעַתָּה בְנִי שְׁמַע בְּקֹלִי לַאֲשֶׁר אֲנִי מְצַוָּה אֹתָךְ</p><p class="ws-vp">ועכשיו, בני, שמע בקולי - למה שאני מצווה אותך</p></div><div class="ws-v"><span class="ws-vn">ט'</span><p class="ws-vt">לֶךְ נָא אֶל הַצֹּאן וְקַח לִי מִשָּׁם שְׁנֵי גְּדָיֵי עִזִּים טֹבִים וְאֶעֱשֶׂה אֹתָם מַטְעַמִּים לְאָבִיךָ כַּאֲשֶׁר אָהֵב</p><p class="ws-vp">לך אל הצאן וקח לי משם שני גדיי עזים טובים, ואכין מהם מאכלים טעימים לאביך, כמו שהוא אוהב</p></div><div class="ws-v"><span class="ws-vn">י'</span><p class="ws-vt">וְהֵבֵאתָ לְאָבִיךָ וְאָכָל בַּעֲבֻר אֲשֶׁר יְבָרֶכְךָ לִפְנֵי מוֹתוֹ</p><p class="ws-vp">ותביא לאביך והוא יאכל, כדי שיברך אותך לפני מותו</p></div><div class="ws-v"><span class="ws-vn">י"א</span><p class="ws-vt">וַיֹּאמֶר יַעֲקֹב אֶל רִבְקָה אִמּוֹ הֵן עֵשָׂו אָחִי אִישׁ שָׂעִר וְאָנֹכִי אִישׁ חָלָק</p><p class="ws-vp">יעקב אמר לרבקה אמו: הרי עשו אחי איש שעיר, ואני איש חלק</p></div><div class="ws-v"><span class="ws-vn">י"ב</span><p class="ws-vt">אוּלַי יְמֻשֵּׁנִי אָבִי וְהָיִיתִי בְעֵינָיו כִּמְתַעְתֵּעַ וְהֵבֵאתִי עָלַי קְלָלָה וְלֹא בְרָכָה</p><p class="ws-vp">אולי אבי ימשש אותי, ואהיה בעיניו כמו רמאי - ואביא על עצמי קללה ולא ברכה</p></div><div class="ws-v ws-kv"><span class="ws-vn">י"ג<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וַתֹּאמֶר לוֹ אִמּוֹ עָלַי קִלְלָתְךָ בְּנִי אַךְ שְׁמַע בְּקֹלִי וְלֵךְ קַח לִי</p><p class="ws-vp">אמו אמרה לו: הקללה שלך תהיה עליי, בני; רק שמע בקולי ולך קח לי</p></div><div class="ws-v"><span class="ws-vn">י"ד</span><p class="ws-vt">וַיֵּלֶךְ וַיִּקַּח וַיָּבֵא לְאִמּוֹ וַתַּעַשׂ אִמּוֹ מַטְעַמִּים כַּאֲשֶׁר אָהֵב אָבִיו</p><p class="ws-vp">יעקב הלך, לקח והביא לאמו; ואמו הכינה מאכלים טעימים כמו שאביו אוהב</p></div><div class="ws-v"><span class="ws-vn">ט"ו</span><p class="ws-vt">וַתִּקַּח רִבְקָה אֶת בִּגְדֵי עֵשָׂו בְּנָהּ הַגָּדֹל הַחֲמֻדֹת אֲשֶׁר אִתָּהּ בַּבָּיִת וַתַּלְבֵּשׁ אֶת יַעֲקֹב בְּנָהּ הַקָּטָן</p><p class="ws-vp">רבקה לקחה את הבגדים היפים של עשו בנה הגדול, שהיו אצלה בבית, והלבישה את יעקב בנה הקטן</p></div><div class="ws-v"><span class="ws-vn">ט"ז</span><p class="ws-vt">וְאֵת עֹרֹת גְּדָיֵי הָעִזִּים הִלְבִּישָׁה עַל יָדָיו וְעַל חֶלְקַת צַוָּארָיו</p><p class="ws-vp">ואת עורות גדיי העזים הלבישה על ידיו ועל החלק החלק של צווארו</p></div><div class="ws-v"><span class="ws-vn">י"ז</span><p class="ws-vt">וַתִּתֵּן אֶת הַמַּטְעַמִּים וְאֶת הַלֶּחֶם אֲשֶׁר עָשָׂתָה בְּיַד יַעֲקֹב בְּנָהּ</p><p class="ws-vp">ונתנה את המאכלים הטעימים ואת הלחם שהכינה ביד יעקב בנה</p></div></div><h3 class="ws-step"><span>2</span> מבינים מה קראנו</h3><div class="ws-act"><div class="ws-act-h"><span>📋 שאלות הבנה על הפסוקים</span><button type="button" class="ws-btn" data-check>בדיקה</button></div><table class="ws-quiz"><thead><tr><th>שאלה</th><th>תשובה קצרה</th></tr></thead><tbody><tr><td class="ws-q"><label for="f-k1">למה רצה יצחק לברך את עשו דווקא עכשיו?</label> <span class="ws-src">(פס&#x27; א-ב)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k1" data-id="k1" autocomplete="off"><span class="ws-key" hidden>✓ הוא הזקין, עיניו כהו, ואינו יודע מתי ימות</span></td></tr><tr><td class="ws-q"><label for="f-k2">מה ביקש יצחק מעשו להביא לו?</label> <span class="ws-src">(פס&#x27; ג-ד)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k2" data-id="k2" autocomplete="off"><span class="ws-key" hidden>✓ ציד, ולהכין ממנו מטעמים (אוכל טעים)</span></td></tr><tr><td class="ws-q"><label for="f-k3">מי שמע את מה שיצחק אמר לעשו?</label> <span class="ws-src">(פס&#x27; ה)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k3" data-id="k3" autocomplete="off"><span class="ws-key" hidden>✓ רבקה</span></td></tr><tr><td class="ws-q"><label for="f-k4">מה ביקשה רבקה מיעקב להביא?</label> <span class="ws-src">(פס&#x27; ט)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k4" data-id="k4" autocomplete="off"><span class="ws-key" hidden>✓ שני גדיי עזים</span></td></tr><tr><td class="ws-q"><label for="f-k5">ממה פחד יעקב?</label> <span class="ws-src">(פס&#x27; יא-יב)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k5" data-id="k5" autocomplete="off"><span class="ws-key" hidden>✓ שאביו ימשש אותו, יגלה שהוא &quot;חלק&quot; ויקלל אותו</span></td></tr><tr><td class="ws-q"><label for="f-k6">מה ענתה לו רבקה?</label> <span class="ws-src">(פס&#x27; יג)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k6" data-id="k6" autocomplete="off"><span class="ws-key" hidden>✓ &quot;עָלַי קִלְלָתְךָ בְּנִי&quot; - הקללה תהיה עליה</span></td></tr><tr><td class="ws-q"><label for="f-k7">במה הלבישה רבקה את יעקב?</label> <span class="ws-src">(פס&#x27; טו-טז)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k7" data-id="k7" autocomplete="off"><span class="ws-key" hidden>✓ בבגדי עשו החמודות, ובעורות הגדיים על ידיו ועל צווארו</span></td></tr></tbody></table></div><div class="ws-act"><div class="ws-act-h"><span>🧩 משחק: מי אמר?</span><span class="ws-score" data-score></span></div><p class="ws-help">לכל משפט - לחצו על מי שאמר אותו.</p><ul class="ws-sort ws-sort3"><li class="ws-sort-i" data-ans="i"><span class="ws-sort-t">&quot;הִנֵּה נָא זָקַנְתִּי לֹא יָדַעְתִּי יוֹם מוֹתִי&quot;</span><span class="ws-sort-b"><button type="button" data-pick="i">יצחק</button><button type="button" data-pick="r">רבקה</button><button type="button" data-pick="y">יעקב</button><button type="button" data-pick="e">עשו</button></span></li><li class="ws-sort-i" data-ans="e"><span class="ws-sort-t">&quot;הִנֵּנִי&quot; (כשאביו קרא לו)</span><span class="ws-sort-b"><button type="button" data-pick="i">יצחק</button><button type="button" data-pick="r">רבקה</button><button type="button" data-pick="y">יעקב</button><button type="button" data-pick="e">עשו</button></span></li><li class="ws-sort-i" data-ans="i"><span class="ws-sort-t">&quot;וְצוּדָה לִּי צָיִד&quot;</span><span class="ws-sort-b"><button type="button" data-pick="i">יצחק</button><button type="button" data-pick="r">רבקה</button><button type="button" data-pick="y">יעקב</button><button type="button" data-pick="e">עשו</button></span></li><li class="ws-sort-i" data-ans="r"><span class="ws-sort-t">&quot;וְעַתָּה בְנִי שְׁמַע בְּקֹלִי&quot;</span><span class="ws-sort-b"><button type="button" data-pick="i">יצחק</button><button type="button" data-pick="r">רבקה</button><button type="button" data-pick="y">יעקב</button><button type="button" data-pick="e">עשו</button></span></li><li class="ws-sort-i" data-ans="y"><span class="ws-sort-t">&quot;הֵן עֵשָׂו אָחִי אִישׁ שָׂעִר וְאָנֹכִי אִישׁ חָלָק&quot;</span><span class="ws-sort-b"><button type="button" data-pick="i">יצחק</button><button type="button" data-pick="r">רבקה</button><button type="button" data-pick="y">יעקב</button><button type="button" data-pick="e">עשו</button></span></li><li class="ws-sort-i" data-ans="y"><span class="ws-sort-t">&quot;אוּלַי יְמֻשֵּׁנִי אָבִי&quot;</span><span class="ws-sort-b"><button type="button" data-pick="i">יצחק</button><button type="button" data-pick="r">רבקה</button><button type="button" data-pick="y">יעקב</button><button type="button" data-pick="e">עשו</button></span></li><li class="ws-sort-i" data-ans="r"><span class="ws-sort-t">&quot;עָלַי קִלְלָתְךָ בְּנִי&quot;</span><span class="ws-sort-b"><button type="button" data-pick="i">יצחק</button><button type="button" data-pick="r">רבקה</button><button type="button" data-pick="y">יעקב</button><button type="button" data-pick="e">עשו</button></span></li></ul></div><h3 class="ws-step"><span>3</span> הפרשנים - לומדים ביחד</h3><div class="ws-cards"><article class="ws-card"><header><b>עיון בפסוקים</b><span>פסוקים ה&#x27;-ו&#x27; - &quot;בְּנוֹ&quot; ו&quot;בְּנָהּ&quot;</span></header><p class="ws-cq"><label for="f-c1">כיצד מכונה עשו בפסוק ה&#x27;, וכיצד מכונה יעקב בפסוק ו&#x27;? מה זה מלמד על היחסים במשפחה?</label></p><textarea class="answer ws-ta" id="f-c1" data-id="c1" rows="3" data-model="עשו - &quot;בְּנוֹ&quot; (של יצחק); יעקב - &quot;בְּנָהּ&quot; (של רבקה). כל הורה קשור לבן אחר: &quot;וַיֶּאֱהַב יִצְחָק אֶת עֵשָׂו... וְרִבְקָה אֹהֶבֶת אֶת יַעֲקֹב&quot; (כ&quot;ה, כ&quot;ח)." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>בראשית רבה</b><span>פסוק י&quot;ד - &quot;וַיֵּלֶךְ וַיִּקַּח וַיָּבֵא&quot;</span></header><blockquote class="ws-ctext">וילך ויקח ויבא לאמו - אנוס וכפוף ובוכה</blockquote><p class="ws-cq"><label for="f-c2">לפי המדרש, איך הגיב יעקב לדברי רבקה? מה בלשון הפסוקים י&quot;ד-י&quot;ז מתאים לזה?</label></p><textarea class="answer ws-ta" id="f-c2" data-id="c2" rows="3" data-model="יעקב עשה זאת בעל כורחו ובצער (&quot;אנוס&quot;). אצל יעקב יש רק שלושה פעלים קצרים - &quot;וַיֵּלֶךְ וַיִּקַּח וַיָּבֵא&quot; - ואת כל השאר עושה רבקה: &quot;וַתַּעַשׂ&quot;, &quot;וַתִּקַּח&quot;, &quot;וַתַּלְבֵּשׁ&quot;, &quot;וַתִּתֵּן&quot;." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card ws-wide"><header><b>פירוש שלמדתם</b><span>רמב&quot;ן / רד&quot;ק / הרש&quot;ר הירש - פסוקים ד&#x27;-ה&#x27;</span></header><p class="ws-cwho">רמב&quot;ן</p><blockquote class="ws-ctext">(ד) היה בדעתו לברך אותו [את עשו] שיזכה הוא בברכת אברהם לנחול את הארץ, ולהיות הוא בעל הברית לאלוהים כי הוא הבכור: (טו) ...כי המנהג במולידים להכיר את הבכור בברכה ובכבוד ובמתן. (כא) ...כי לא היה עשו רשע בעיני אביו. (טו) והיא, מדעתה צִדקת הקטן ורשעת הגדול תשתדל בכל הטורח הזה להעביר הברכה והכבוד מן הגדול אל הקטן.</blockquote><p class="ws-cwho">רד&quot;ק</p><blockquote class="ws-ctext">(ד) ועשה לי מטעמים ... - לפיכך שאל יצחק מעשו בנו להביא ציד וייטב לבו בו ויברכנו, כי ידע כי צריך הוא לברכתו כי לא היה איש הגון וטוב. אבל יעקב לא היה צריך לברכה, כי ידע יצחק כי ברכת אברהם לו תהיה וברית קיום הזרע המיוחד לאברהם, ובניו ירשו את הארץ. ואברהם גם כן לא ברך את יצחק. (ה) ורבקה שמעת בדבר יצחק - וראתה כי הלך עשו לעשות מצות אביו ואמרה ליעקב, כי קנאה בזה. והיא לא ידעה כי יעקב יהיה מבורך אפילו לא יברכנהו אביו.</blockquote><p class="ws-cwho">הרש&quot;ר הירש</p><blockquote class="ws-ctext">שני בניו של יצחק ייצגו שני יסודות בביתו, עשיו את הכוח החומרי, יעקב את הכוח הרוחני. יודע היה יצחק כי האומה זקוקה לשני הכיוונים... לפיכך הועיד לעשיו ברכה בעלת תוכן חומרי, וברכה רוחנית היתה שמורה עמו ליעקב... אולם מבית לבן ידעה רבקה את הקללה שבפיצול זה... החומר שאין עמו רוח, היה בעיניה קללה, את הברכה ראתה רק בלתי מחולקת, יורדת על ראשו של אחד.</blockquote><p class="ws-cq"><label for="f-c3">על פי פירוש שלמדתם: (1) איזו ברכה רצה יצחק לתת לעשו? (2) מדוע התנגדה רבקה?</label></p><textarea class="answer ws-ta" id="f-c3" data-id="c3" rows="3" data-model="רמב&quot;ן: יצחק רצה לתת לעשו, הבכור, את ברכת אברהם; רבקה ידעה מצדקת יעקב ומהנבואה שהברכה מגיעה ליעקב. רד&quot;ק: רק ברכת חיזוק לעשו, כי ברכת אברהם ממילא של יעקב; רבקה לא ידעה זאת. הרש&quot;ר הירש: יצחק רצה לחלק - לעשו החומר וליעקב הרוח; רבקה חשבה שאין לפצל." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article></div></section><section class="ws-topic ws-t2" id="t2"><div class="ws-th"><span class="ws-tn">נושא 2</span><h2>🎭 יעקב לפני יצחק, ועשו חוזר</h2><span class="ws-rng">פרק כ&quot;ז, פסוקים י&quot;ח-מ&#x27;</span></div><h3 class="ws-step"><span>1</span> קוראים את הפסוקים</h3><p class="ws-legend"><span class="ws-legend-sw"></span>⭐ פסוק מרכזי - חשוב במיוחד להבנה ולבגרות</p><div class="ws-verses"><div class="ws-v"><span class="ws-vn">י"ח</span><p class="ws-vt">וַיָּבֹא אֶל אָבִיו וַיֹּאמֶר אָבִי וַיֹּאמֶר הִנֶּנִּי מִי אַתָּה בְּנִי</p><p class="ws-vp">יעקב בא אל אביו ואמר: אבי; יצחק ענה: הנני; מי אתה, בני?</p></div><div class="ws-v ws-kv"><span class="ws-vn">י"ט<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וַיֹּאמֶר יַעֲקֹב אֶל אָבִיו אָנֹכִי עֵשָׂו בְּכֹרֶךָ עָשִׂיתִי כַּאֲשֶׁר דִּבַּרְתָּ אֵלָי קוּם נָא שְׁבָה וְאָכְלָה מִצֵּידִי בַּעֲבוּר תְּבָרֲכַנִּי נַפְשֶׁךָ</p><p class="ws-vp">יעקב אמר לאביו: אנכי עשו בכורך; עשיתי כמו שאמרת לי; קום נא, שב ואכול מן הציד שלי, כדי שתברך אותי</p></div><div class="ws-v"><span class="ws-vn">כ'</span><p class="ws-vt">וַיֹּאמֶר יִצְחָק אֶל בְּנוֹ מַה זֶּה מִהַרְתָּ לִמְצֹא בְּנִי וַיֹּאמֶר כִּי הִקְרָה ה&#x27; אֱלֹהֶיךָ לְפָנָי</p><p class="ws-vp">יצחק אמר לבנו: איך מיהרת כל כך למצוא, בני? ויעקב אמר: כי ה&#x27; אלוהיך זימן (הביא) לפניי</p></div><div class="ws-v"><span class="ws-vn">כ"א</span><p class="ws-vt">וַיֹּאמֶר יִצְחָק אֶל יַעֲקֹב גְּשָׁה נָּא וַאֲמֻשְׁךָ בְּנִי הַאַתָּה זֶה בְּנִי עֵשָׂו אִם לֹא</p><p class="ws-vp">יצחק אמר ליעקב: גש נא ואמשש אותך, בני - האם אתה בני עשו או לא?</p></div><div class="ws-v ws-kv"><span class="ws-vn">כ"ב<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וַיִּגַּשׁ יַעֲקֹב אֶל יִצְחָק אָבִיו וַיְמֻשֵּׁהוּ וַיֹּאמֶר הַקֹּל קוֹל יַעֲקֹב וְהַיָּדַיִם יְדֵי עֵשָׂו</p><p class="ws-vp">יעקב ניגש אל יצחק אביו, ויצחק מישש אותו ואמר: הקול - קול יעקב, והידיים - ידי עשו</p></div><div class="ws-v"><span class="ws-vn">כ"ג</span><p class="ws-vt">וְלֹא הִכִּירוֹ כִּי הָיוּ יָדָיו כִּידֵי עֵשָׂו אָחִיו שְׂעִרֹת וַיְבָרְכֵהוּ</p><p class="ws-vp">יצחק לא זיהה אותו, כי ידיו היו שעירות כמו ידי עשו אחיו - ובירך אותו</p></div><div class="ws-v"><span class="ws-vn">כ"ד</span><p class="ws-vt">וַיֹּאמֶר אַתָּה זֶה בְּנִי עֵשָׂו וַיֹּאמֶר אָנִי</p><p class="ws-vp">יצחק אמר: האם אתה בני עשו? ויעקב אמר: אני</p></div><div class="ws-v"><span class="ws-vn">כ"ה</span><p class="ws-vt">וַיֹּאמֶר הַגִּשָׁה לִּי וְאֹכְלָה מִצֵּיד בְּנִי לְמַעַן תְּבָרֶכְךָ נַפְשִׁי וַיַּגֶּשׁ לוֹ וַיֹּאכַל וַיָּבֵא לוֹ יַיִן וַיֵּשְׁתְּ</p><p class="ws-vp">יצחק אמר: הגש לי ואוכל מן הציד של בני, כדי שאברך אותך; יעקב הגיש לו והוא אכל, הביא לו יין והוא שתה</p></div><div class="ws-v"><span class="ws-vn">כ"ו</span><p class="ws-vt">וַיֹּאמֶר אֵלָיו יִצְחָק אָבִיו גְּשָׁה נָּא וּשְׁקָה לִּי בְּנִי</p><p class="ws-vp">יצחק אביו אמר לו: גש נא ונשק לי, בני</p></div><div class="ws-v"><span class="ws-vn">כ"ז</span><p class="ws-vt">וַיִּגַּשׁ וַיִּשַּׁק לוֹ וַיָּרַח אֶת רֵיחַ בְּגָדָיו וַיְבָרֲכֵהוּ וַיֹּאמֶר רְאֵה רֵיחַ בְּנִי כְּרֵיחַ שָׂדֶה אֲשֶׁר בֵּרֲכוֹ ה&#x27;</p><p class="ws-vp">יעקב ניגש ונישק לו; יצחק הריח את ריח בגדיו, בירך אותו ואמר: ראה, ריח בני כמו ריח שדה שה&#x27; בירך</p></div><div class="ws-v"><span class="ws-vn">כ"ח</span><p class="ws-vt">וְיִתֶּן לְךָ הָאֱלֹהִים מִטַּל הַשָּׁמַיִם וּמִשְׁמַנֵּי הָאָרֶץ וְרֹב דָּגָן וְתִירֹשׁ</p><p class="ws-vp">ייתן לך האלוהים מטל השמיים ומן האדמה השמנה (הפורייה), ושפע של תבואה ויין</p></div><div class="ws-v ws-kv"><span class="ws-vn">כ"ט<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">יַעַבְדוּךָ עַמִּים וְיִשְׁתַּחֲווּ לְךָ לְאֻמִּים הֱוֵה גְבִיר לְאַחֶיךָ וְיִשְׁתַּחֲוּוּ לְךָ בְּנֵי אִמֶּךָ אֹרְרֶיךָ אָרוּר וּמְבָרֲכֶיךָ בָּרוּךְ</p><p class="ws-vp">עמים יעבדו אותך ולאומים ישתחוו לך; היה אדון לאחיך, ובני אמך ישתחוו לך; מי שמקלל אותך - ארור, ומי שמברך אותך - ברוך</p></div><div class="ws-v"><span class="ws-vn">ל'</span><p class="ws-vt">וַיְהִי כַּאֲשֶׁר כִּלָּה יִצְחָק לְבָרֵךְ אֶת יַעֲקֹב וַיְהִי אַךְ יָצֹא יָצָא יַעֲקֹב מֵאֵת פְּנֵי יִצְחָק אָבִיו וְעֵשָׂו אָחִיו בָּא מִצֵּידוֹ</p><p class="ws-vp">כשיצחק גמר לברך את יעקב, ויעקב רק יצא מלפני יצחק אביו - עשו אחיו בא מן הציד שלו.</p></div><div class="ws-v"><span class="ws-vn">ל"א</span><p class="ws-vt">וַיַּעַשׂ גַּם הוּא מַטְעַמִּים וַיָּבֵא לְאָבִיו וַיֹּאמֶר לְאָבִיו יָקֻם אָבִי וְיֹאכַל מִצֵּיד בְּנוֹ בַּעֲבוּר תְּבָרֲכַנִּי נַפְשֶׁךָ</p><p class="ws-vp">גם עשו הכין מאכלים טעימים והביא לאביו, ואמר לו: שאבי יקום ויאכל מן הציד של בנו, כדי שתברך אותי.</p></div><div class="ws-v"><span class="ws-vn">ל"ב</span><p class="ws-vt">וַיֹּאמֶר לוֹ יִצְחָק אָבִיו מִי אָתָּה וַיֹּאמֶר אֲנִי בִּנְךָ בְכֹרְךָ עֵשָׂו</p><p class="ws-vp">יצחק אביו אמר לו: מי אתה? ועשו אמר: אני בנך, הבכור שלך, עשו.</p></div><div class="ws-v ws-kv"><span class="ws-vn">ל"ג<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וַיֶּחֱרַד יִצְחָק חֲרָדָה גְּדֹלָה עַד מְאֹד וַיֹּאמֶר מִי אֵפוֹא הוּא הַצָּד צַיִד וַיָּבֵא לִי וָאֹכַל מִכֹּל בְּטֶרֶם תָּבוֹא וָאֲבָרֲכֵהוּ גַּם בָּרוּךְ יִהְיֶה</p><p class="ws-vp">יצחק נבהל בהלה גדולה מאוד, ואמר: מי, אם כן, הוא זה שצד ציד והביא לי, ואכלתי מכול לפני שבאת, ובירכתי אותו? גם ברוך יהיה!</p></div><div class="ws-v"><span class="ws-vn">ל"ד</span><p class="ws-vt">כִּשְׁמֹעַ עֵשָׂו אֶת דִּבְרֵי אָבִיו וַיִּצְעַק צְעָקָה גְּדֹלָה וּמָרָה עַד מְאֹד וַיֹּאמֶר לְאָבִיו בָּרֲכֵנִי גַם אָנִי אָבִי</p><p class="ws-vp">כשעשו שמע את דברי אביו, צעק צעקה גדולה ומרה מאוד, ואמר לאביו: ברך גם אותי, אבי!</p></div><div class="ws-v"><span class="ws-vn">ל"ה</span><p class="ws-vt">וַיֹּאמֶר בָּא אָחִיךָ בְּמִרְמָה וַיִּקַּח בִּרְכָתֶךָ</p><p class="ws-vp">יצחק אמר: אחיך בא בעורמה ולקח את הברכה שלך</p></div><div class="ws-v ws-kv"><span class="ws-vn">ל"ו<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וַיֹּאמֶר הֲכִי קָרָא שְׁמוֹ יַעֲקֹב וַיַּעְקְבֵנִי זֶה פַעֲמַיִם אֶת בְּכֹרָתִי לָקָח וְהִנֵּה עַתָּה לָקַח בִּרְכָתִי וַיֹּאמַר הֲלֹא אָצַלְתָּ לִּי בְּרָכָה</p><p class="ws-vp">עשו אמר: האם לא בגלל זה קראו לו יעקב? הוא רימה אותי כבר פעמיים - את הבכורה שלי לקח, והנה עכשיו לקח את הברכה שלי! ואמר: האם לא השארת לי ברכה?</p></div><div class="ws-v"><span class="ws-vn">ל"ז</span><p class="ws-vt">וַיַּעַן יִצְחָק וַיֹּאמֶר לְעֵשָׂו הֵן גְּבִיר שַׂמְתִּיו לָךְ וְאֶת כָּל אֶחָיו נָתַתִּי לוֹ לַעֲבָדִים וְדָגָן וְתִירֹשׁ סְמַכְתִּיו וּלְכָה אֵפוֹא מָה אֶעֱשֶׂה בְּנִי</p><p class="ws-vp">יצחק ענה לעשו: הנה עשיתי אותו אדון עליך, ואת כל אחיו נתתי לו לעבדים, ונתתי לו דגן ויין; ולך - מה אוכל לעשות, בני?</p></div><div class="ws-v"><span class="ws-vn">ל"ח</span><p class="ws-vt">וַיֹּאמֶר עֵשָׂו אֶל אָבִיו הַבְרָכָה אַחַת הִוא לְךָ אָבִי בָּרֲכֵנִי גַם אָנִי אָבִי וַיִּשָּׂא עֵשָׂו קֹלוֹ וַיֵּבְךְּ</p><p class="ws-vp">עשו אמר לאביו: האם יש לך רק ברכה אחת, אבי? ברך גם אותי, אבי! ועשו בכה בקול.</p></div><div class="ws-v"><span class="ws-vn">ל"ט</span><p class="ws-vt">וַיַּעַן יִצְחָק אָבִיו וַיֹּאמֶר אֵלָיו הִנֵּה מִשְׁמַנֵּי הָאָרֶץ יִהְיֶה מוֹשָׁבֶךָ וּמִטַּל הַשָּׁמַיִם מֵעָל</p><p class="ws-vp">יצחק אביו ענה ואמר לו: הנה מקום מושבך יהיה באדמה שמנה (פורייה), ומטל השמיים מלמעלה</p></div><div class="ws-v ws-kv"><span class="ws-vn">מ'<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וְעַל חַרְבְּךָ תִחְיֶה וְאֶת אָחִיךָ תַּעֲבֹד וְהָיָה כַּאֲשֶׁר תָּרִיד וּפָרַקְתָּ עֻלּוֹ מֵעַל צַוָּארֶךָ</p><p class="ws-vp">על חרבך תחיה, ואת אחיך תעבוד; וכאשר תתמרד (כשאחיך יחטא) - תפרוק את העול שלו מעל צווארך</p></div></div><h3 class="ws-step"><span>2</span> מבינים מה קראנו</h3><div class="ws-act"><div class="ws-act-h"><span>🔢 משחק: סדרו את האירועים</span><button type="button" class="ws-btn" data-seqcheck>בדיקה</button></div><p class="ws-help">הזיזו בחצים עד שהאירועים מסודרים לפי הסדר בפסוקים.</p><ol class="ws-seq"><li class="ws-seq-i" data-pos="2"><span class="ws-seq-n"></span><span class="ws-seq-t">יצחק ממשש את יעקב: &quot;הַקֹּל קוֹל יַעֲקֹב&quot;</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li><li class="ws-seq-i" data-pos="5"><span class="ws-seq-n"></span><span class="ws-seq-t">עשו חוזר מן הציד</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li><li class="ws-seq-i" data-pos="0"><span class="ws-seq-n"></span><span class="ws-seq-t">יעקב בא אל אביו ואומר: &quot;אָנֹכִי עֵשָׂו בְּכֹרֶךָ&quot;</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li><li class="ws-seq-i" data-pos="4"><span class="ws-seq-n"></span><span class="ws-seq-t">יצחק מנשק את יעקב ומברך אותו</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li><li class="ws-seq-i" data-pos="7"><span class="ws-seq-n"></span><span class="ws-seq-t">עשו צועק: &quot;בָּרְכֵנִי גַם אָנִי אָבִי&quot;</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li><li class="ws-seq-i" data-pos="1"><span class="ws-seq-n"></span><span class="ws-seq-t">יצחק שואל: &quot;מַה זֶּה מִהַרְתָּ לִמְצֹא בְּנִי&quot;</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li><li class="ws-seq-i" data-pos="6"><span class="ws-seq-n"></span><span class="ws-seq-t">יצחק חרד חרדה גדולה</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li><li class="ws-seq-i" data-pos="3"><span class="ws-seq-n"></span><span class="ws-seq-t">יצחק אוכל ושותה</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li></ol><p class="ws-seq-msg" data-seqmsg role="status"></p></div><div class="ws-act"><div class="ws-act-h"><span>📋 שאלות הבנה</span><button type="button" class="ws-btn" data-check>בדיקה</button></div><table class="ws-quiz"><thead><tr><th>שאלה</th><th>תשובה קצרה</th></tr></thead><tbody><tr><td class="ws-q"><label for="f-k8">מה ענה יעקב כשיצחק שאל &quot;מִי אַתָּה בְּנִי&quot;?</label> <span class="ws-src">(פס&#x27; יט)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k8" data-id="k8" autocomplete="off"><span class="ws-key" hidden>✓ &quot;אָנֹכִי עֵשָׂו בְּכֹרֶךָ&quot;</span></td></tr><tr><td class="ws-q"><label for="f-k9">מה עשה יצחק כדי לבדוק מי עומד לפניו?</label> <span class="ws-src">(פס&#x27; כא-כב)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k9" data-id="k9" autocomplete="off"><span class="ws-key" hidden>✓ מישש אותו</span></td></tr><tr><td class="ws-q"><label for="f-k10">למה יצחק לא זיהה את יעקב?</label> <span class="ws-src">(פס&#x27; כג)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k10" data-id="k10" autocomplete="off"><span class="ws-key" hidden>✓ כי ידיו היו שעירות כידי עשו</span></td></tr><tr><td class="ws-q"><label for="f-k11">איך הגיב עשו כששמע שיעקב קיבל את הברכה?</label> <span class="ws-src">(פס&#x27; לד)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k11" data-id="k11" autocomplete="off"><span class="ws-key" hidden>✓ צעק צעקה גדולה ומרה, וביקש: &quot;בָּרְכֵנִי גַם אָנִי&quot;</span></td></tr><tr><td class="ws-q"><label for="f-k12">על אילו שני דברים אמר עשו שיעקב &quot;עקב&quot; אותו?</label> <span class="ws-src">(פס&#x27; לו)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k12" data-id="k12" autocomplete="off"><span class="ws-key" hidden>✓ הבכורה והברכה</span></td></tr></tbody></table></div><h3 class="ws-step"><span>3</span> הפרשנים - לומדים ביחד</h3><div class="ws-cards"><article class="ws-card"><header><b>רש&quot;י</b><span>פסוקים כ&quot;א-כ&quot;ב - החשד של יצחק</span></header><blockquote class="ws-ctext">(כא) אמר יצחק בלבו - אין דרך עשו להיות שם שמים שגור בפיו, וזה אמר &quot;כי הקרה ה&#x27; אלוהיך&quot; (פסוק כ). (כב) קול יעקב - שמדבר בלשון תחנונים &#x27;קום נא&#x27; (פסוק יט), אבל עשו בלשון קנטוריא דבר.</blockquote><p class="ws-cq"><label for="f-c4">לפי רש&quot;י, מה בדברי יעקב עורר את החשד של יצחק?</label></p><textarea class="answer ws-ta" id="f-c4" data-id="c4" rows="3" data-model="יעקב הזכיר את שם ה&#x27; (&quot;כִּי הִקְרָה ה&#x27; אֱלֹהֶיךָ&quot;), ועשו לא נוהג כך; ויעקב דיבר &quot;בלשון תחנונים&quot; (&quot;קוּם נָא&quot;), ועשו - &quot;בלשון קנטוריא&quot;." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>פירוש שלמדתם</b><span>פסוק י&quot;ט - &quot;אָנֹכִי עֵשָׂו בְּכֹרֶךָ&quot;</span></header><p class="ws-cwho">רש&quot;י</p><blockquote class="ws-ctext">אנכי עשו בכרך - אנכי המביא לך, ועשו הוא בכורך. ויאמר אני - לא אמר אני עשו אלא אני.</blockquote><p class="ws-cwho">חזקוני</p><blockquote class="ws-ctext">אנכי עשו בכרך - יש מפרשים שלפי צורך שעה אפשר לשנות הדיבור, כגון אברהם &quot;אמרי לי אחי הוא&quot;...</blockquote><p class="ws-cwho">אור החיים</p><blockquote class="ws-ctext">אָנֹכִי עֵשָׂו בְּכֹרֶךָ, פירושו: להיות שקנה הבכורה מעשו, הנה הוא נעשה עשו לצד בחינת הבכורה.</blockquote><p class="ws-cq"><label for="f-c5">מה הקושי בתשובת יעקב לאביו, וכיצד מיישב אותו פרשן שלמדתם?</label></p><textarea class="answer ws-ta" id="f-c5" data-id="c5" rows="3" data-model="הקושי: לכאורה יעקב משקר. רש&quot;י: &quot;אנכי&quot; המביא לך, &quot;ועשו הוא בכורך&quot;; ובפסוק כ&quot;ד אמר רק &quot;אני&quot;. חזקוני: לפי צורך השעה מותר לשנות בדיבור. אור החיים: יעקב קנה את הבכורה, ולכן הוא &quot;עשו&quot; מבחינת הבכורה." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>רד&quot;ק / רמב&quot;ן</b><span>פסוק ל&quot;ג - &quot;וַיֶּחֱרַד יִצְחָק&quot;</span></header><p class="ws-cwho">רד&quot;ק</p><blockquote class="ws-ctext">ויחרד - הראה חרדה גדולה בעצמו בפני עשו כדי שלא יחשוב עליו עשו כי בכוונה עשה יצחק מה שברך את יעקב והתל בו. גם ברוך יהיה - אחר שאני בֵרכתיו עתה אני מקיים לו הברכה, כי ידעתי כי בני הוא.</blockquote><p class="ws-cwho">רמב&quot;ן</p><blockquote class="ws-ctext">וזהו טעם החרדה הגדולה אשר חרד, כי ידע שאבֵד בנו האהוב לו ברכתו לעולם. וזה טעם בא אחיך במרמה - כי אחר שאמר מי איפוא, נתן דעתו שהבא אליו היה יעקב, שאי אפשר שתחול הברכה [אלא] רק בזרעו.</blockquote><p class="ws-cq"><label for="f-c6">יצחק מגיב גם בחרדה וגם בקבלה (&quot;גַּם בָּרוּךְ יִהְיֶה&quot;). הסבירו לפי רד&quot;ק או לפי רמב&quot;ן.</label></p><textarea class="answer ws-ta" id="f-c6" data-id="c6" rows="3" data-model="רד&quot;ק: החרדה הייתה בפני עשו, כדי שלא יחשוב שבכוונה בירך את יעקב; &quot;גם ברוך יהיה&quot; - הוא מקיים את הברכה. רמב&quot;ן: יצחק חרד כי בנו האהוב איבד את ברכתו לעולם, והבין שהברכה יכולה לחול רק בזרע יעקב." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>עיון בפסוקים</b><span>ברכת יעקב (כ&quot;ח-כ&quot;ט) מול ברכת עשו (ל&quot;ט-מ&#x27;)</span></header><p class="ws-cq"><label for="f-c7">כתבו מרכיב אחד דומה ושני הבדלים בין שתי הברכות.</label></p><textarea class="answer ws-ta" id="f-c7" data-id="c7" rows="3" data-model="דומה: &quot;מִטַּל הַשָּׁמַיִם&quot;, &quot;מִשְׁמַנֵּי הָאָרֶץ&quot;. הבדלים: יעקב - &quot;הֱוֵה גְבִיר לְאַחֶיךָ&quot;, עשו - &quot;וְאֶת אָחִיךָ תַּעֲבֹד&quot;; ביעקב &quot;וְיִתֶּן לְךָ הָאֱלֹהִים&quot; ו&quot;אֹרְרֶיךָ אָרוּר&quot;, בעשו &quot;וְעַל חַרְבְּךָ תִחְיֶה&quot;." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article></div></section><section class="ws-topic ws-t3" id="t3"><div class="ws-th"><span class="ws-tn">נושא 3</span><h2>🏃 הבריחה לחרן וברכת אברהם</h2><span class="ws-rng">כ&quot;ז, מ&quot;א - כ&quot;ח, ד&#x27;</span></div><h3 class="ws-step"><span>1</span> קוראים את הפסוקים</h3><p class="ws-legend"><span class="ws-legend-sw"></span>⭐ פסוק מרכזי - חשוב במיוחד להבנה ולבגרות</p><div class="ws-verses"><div class="ws-v ws-kv"><span class="ws-vn">כ"ז, מ"א<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וַיִּשְׂטֹם עֵשָׂו אֶת יַעֲקֹב עַל הַבְּרָכָה אֲשֶׁר בֵּרֲכוֹ אָבִיו וַיֹּאמֶר עֵשָׂו בְּלִבּוֹ יִקְרְבוּ יְמֵי אֵבֶל אָבִי וְאַהַרְגָה אֶת יַעֲקֹב אָחִי</p><p class="ws-vp">עשו שנא את יעקב בגלל הברכה שבירך אותו אביו; ועשו אמר בליבו: יתקרבו ימי האבל על אבי - ואהרוג את יעקב אחי</p></div><div class="ws-v"><span class="ws-vn">כ"ז, מ"ב</span><p class="ws-vt">וַיֻּגַּד לְרִבְקָה אֶת דִּבְרֵי עֵשָׂו בְּנָהּ הַגָּדֹל וַתִּשְׁלַח וַתִּקְרָא לְיַעֲקֹב בְּנָהּ הַקָּטָן וַתֹּאמֶר אֵלָיו הִנֵּה עֵשָׂו אָחִיךָ מִתְנַחֵם לְךָ לְהָרְגֶךָ</p><p class="ws-vp">סיפרו לרבקה את דברי עשו בנה הגדול; היא שלחה וקראה ליעקב בנה הקטן ואמרה לו: הנה עשו אחיך מתנחם בכך שהוא מתכנן להרוג אותך</p></div><div class="ws-v"><span class="ws-vn">כ"ז, מ"ג</span><p class="ws-vt">וְעַתָּה בְנִי שְׁמַע בְּקֹלִי וְקוּם בְּרַח לְךָ אֶל לָבָן אָחִי חָרָנָה</p><p class="ws-vp">ועכשיו, בני, שמע בקולי: קום וברח אל לבן אחי, לחרן</p></div><div class="ws-v"><span class="ws-vn">כ"ז, מ"ד</span><p class="ws-vt">וְיָשַׁבְתָּ עִמּוֹ יָמִים אֲחָדִים עַד אֲשֶׁר תָּשׁוּב חֲמַת אָחִיךָ</p><p class="ws-vp">שב אצלו זמן קצר, עד שיחלוף הכעס של אחיך</p></div><div class="ws-v"><span class="ws-vn">כ"ז, מ"ה</span><p class="ws-vt">עַד שׁוּב אַף אָחִיךָ מִמְּךָ וְשָׁכַח אֵת אֲשֶׁר עָשִׂיתָ לּוֹ וְשָׁלַחְתִּי וּלְקַחְתִּיךָ מִשָּׁם לָמָה אֶשְׁכַּל גַּם שְׁנֵיכֶם יוֹם אֶחָד</p><p class="ws-vp">עד שאחיך יפסיק לכעוס עליך וישכח את מה שעשית לו; אז אשלח ואקח אותך משם - למה שאאבד את שניכם ביום אחד?</p></div><div class="ws-v ws-kv"><span class="ws-vn">כ"ז, מ"ו<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וַתֹּאמֶר רִבְקָה אֶל יִצְחָק קַצְתִּי בְחַיַּי מִפְּנֵי בְּנוֹת חֵת אִם לֹקֵחַ יַעֲקֹב אִשָּׁה מִבְּנוֹת חֵת כָּאֵלֶּה מִבְּנוֹת הָאָרֶץ לָמָּה לִּי חַיִּים</p><p class="ws-vp">רבקה אמרה ליצחק: מאסתי בחיי בגלל בנות חת; אם יעקב ייקח אישה מבנות חת כמו אלה, מבנות הארץ - למה לי חיים?</p></div><div class="ws-v"><span class="ws-vn">כ"ח, א'</span><p class="ws-vt">וַיִּקְרָא יִצְחָק אֶל יַעֲקֹב וַיְבָרֶךְ אֹתוֹ וַיְצַוֵּהוּ וַיֹּאמֶר לוֹ לֹא תִקַּח אִשָּׁה מִבְּנוֹת כְּנָעַן</p><p class="ws-vp">יצחק קרא ליעקב, בירך אותו, ציווה אותו ואמר לו: אל תיקח אישה מבנות כנען</p></div><div class="ws-v"><span class="ws-vn">כ"ח, ב'</span><p class="ws-vt">קוּם לֵךְ פַּדֶּנָה אֲרָם בֵּיתָה בְתוּאֵל אֲבִי אִמֶּךָ וְקַח לְךָ מִשָּׁם אִשָּׁה מִבְּנוֹת לָבָן אֲחִי אִמֶּךָ</p><p class="ws-vp">קום, לך לפדן ארם, לבית בתואל אבי אמך, וקח לך משם אישה מבנות לבן אחי אמך</p></div><div class="ws-v"><span class="ws-vn">כ"ח, ג'</span><p class="ws-vt">וְאֵל שַׁדַּי יְבָרֵךְ אֹתְךָ וְיַפְרְךָ וְיַרְבֶּךָ וְהָיִיתָ לִקְהַל עַמִּים</p><p class="ws-vp">ואל שדי יברך אותך, יעשה אותך פורה וירבה אותך, ותהיה לקהל של עמים</p></div><div class="ws-v ws-kv"><span class="ws-vn">כ"ח, ד'<span class="ws-star" title="פסוק מרכזי">⭐</span></span><p class="ws-vt">וְיִתֶּן לְךָ אֶת בִּרְכַּת אַבְרָהָם לְךָ וּלְזַרְעֲךָ אִתָּךְ לְרִשְׁתְּךָ אֶת אֶרֶץ מְגֻרֶיךָ אֲשֶׁר נָתַן אֱלֹהִים לְאַבְרָהָם</p><p class="ws-vp">וייתן לך את ברכת אברהם - לך ולזרעך איתך - שתירש את הארץ שאתה גר בה, שנתן אלוהים לאברהם</p></div></div><h3 class="ws-step"><span>2</span> מבינים מה קראנו</h3><div class="ws-act"><div class="ws-act-h"><span>📋 שאלות הבנה על הפסוקים</span><button type="button" class="ws-btn" data-check>בדיקה</button></div><table class="ws-quiz"><thead><tr><th>שאלה</th><th>תשובה קצרה</th></tr></thead><tbody><tr><td class="ws-q"><label for="f-k13">למה עשו שנא את יעקב?</label> <span class="ws-src">(כ&quot;ז, מא)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k13" data-id="k13" autocomplete="off"><span class="ws-key" hidden>✓ בגלל הברכה שבירך אותו אביו</span></td></tr><tr><td class="ws-q"><label for="f-k14">מה תכנן עשו לעשות?</label> <span class="ws-src">(כ&quot;ז, מא)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k14" data-id="k14" autocomplete="off"><span class="ws-key" hidden>✓ להרוג את יעקב, אחרי ימי האבל על אביו</span></td></tr><tr><td class="ws-q"><label for="f-k15">לאן שלחה רבקה את יעקב?</label> <span class="ws-src">(כ&quot;ז, מג)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k15" data-id="k15" autocomplete="off"><span class="ws-key" hidden>✓ ללבן אחיה, לחרן</span></td></tr><tr><td class="ws-q"><label for="f-k16">איזו סיבה נתנה רבקה ליצחק?</label> <span class="ws-src">(כ&quot;ז, מו)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k16" data-id="k16" autocomplete="off"><span class="ws-key" hidden>✓ &quot;קַצְתִּי בְחַיַּי מִפְּנֵי בְּנוֹת חֵת&quot; - שיעקב לא יישא אישה מבנות הארץ</span></td></tr><tr><td class="ws-q"><label for="f-k17">מה ציווה יצחק את יעקב?</label> <span class="ws-src">(כ&quot;ח, א-ב)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k17" data-id="k17" autocomplete="off"><span class="ws-key" hidden>✓ לא לשאת אישה מבנות כנען, ללכת לפדן ארם ולשאת אישה מבנות לבן</span></td></tr></tbody></table></div><div class="ws-act"><div class="ws-act-h"><span>🧩 משחק: של מי הברכה?</span><span class="ws-score" data-score></span></div><p class="ws-help">לכל חלק מברכה - לחצו מאיפה הוא לקוח.</p><ul class="ws-sort ws-sort3"><li class="ws-sort-i" data-ans="y"><span class="ws-sort-t">&quot;וְרֹב דָּגָן וְתִירֹשׁ&quot;</span><span class="ws-sort-b"><button type="button" data-pick="y">ברכת יעקב (כ&quot;ז)</button><button type="button" data-pick="e">ברכת עשו (כ&quot;ז)</button><button type="button" data-pick="a">ברכת אברהם (כ&quot;ח)</button></span></li><li class="ws-sort-i" data-ans="y"><span class="ws-sort-t">&quot;הֱוֵה גְבִיר לְאַחֶיךָ&quot;</span><span class="ws-sort-b"><button type="button" data-pick="y">ברכת יעקב (כ&quot;ז)</button><button type="button" data-pick="e">ברכת עשו (כ&quot;ז)</button><button type="button" data-pick="a">ברכת אברהם (כ&quot;ח)</button></span></li><li class="ws-sort-i" data-ans="y"><span class="ws-sort-t">&quot;אֹרְרֶיךָ אָרוּר וּמְבָרֲכֶיךָ בָּרוּךְ&quot;</span><span class="ws-sort-b"><button type="button" data-pick="y">ברכת יעקב (כ&quot;ז)</button><button type="button" data-pick="e">ברכת עשו (כ&quot;ז)</button><button type="button" data-pick="a">ברכת אברהם (כ&quot;ח)</button></span></li><li class="ws-sort-i" data-ans="e"><span class="ws-sort-t">&quot;וְעַל חַרְבְּךָ תִחְיֶה&quot;</span><span class="ws-sort-b"><button type="button" data-pick="y">ברכת יעקב (כ&quot;ז)</button><button type="button" data-pick="e">ברכת עשו (כ&quot;ז)</button><button type="button" data-pick="a">ברכת אברהם (כ&quot;ח)</button></span></li><li class="ws-sort-i" data-ans="e"><span class="ws-sort-t">&quot;וְאֶת אָחִיךָ תַּעֲבֹד&quot;</span><span class="ws-sort-b"><button type="button" data-pick="y">ברכת יעקב (כ&quot;ז)</button><button type="button" data-pick="e">ברכת עשו (כ&quot;ז)</button><button type="button" data-pick="a">ברכת אברהם (כ&quot;ח)</button></span></li><li class="ws-sort-i" data-ans="e"><span class="ws-sort-t">&quot;וּפָרַקְתָּ עֻלּוֹ מֵעַל צַוָּארֶךָ&quot;</span><span class="ws-sort-b"><button type="button" data-pick="y">ברכת יעקב (כ&quot;ז)</button><button type="button" data-pick="e">ברכת עשו (כ&quot;ז)</button><button type="button" data-pick="a">ברכת אברהם (כ&quot;ח)</button></span></li><li class="ws-sort-i" data-ans="a"><span class="ws-sort-t">&quot;וְיַפְרְךָ וְיַרְבֶּךָ&quot;</span><span class="ws-sort-b"><button type="button" data-pick="y">ברכת יעקב (כ&quot;ז)</button><button type="button" data-pick="e">ברכת עשו (כ&quot;ז)</button><button type="button" data-pick="a">ברכת אברהם (כ&quot;ח)</button></span></li><li class="ws-sort-i" data-ans="a"><span class="ws-sort-t">&quot;לְרִשְׁתְּךָ אֶת אֶרֶץ מְגֻרֶיךָ&quot;</span><span class="ws-sort-b"><button type="button" data-pick="y">ברכת יעקב (כ&quot;ז)</button><button type="button" data-pick="e">ברכת עשו (כ&quot;ז)</button><button type="button" data-pick="a">ברכת אברהם (כ&quot;ח)</button></span></li><li class="ws-sort-i" data-ans="a"><span class="ws-sort-t">&quot;וְהָיִיתָ לִקְהַל עַמִּים&quot;</span><span class="ws-sort-b"><button type="button" data-pick="y">ברכת יעקב (כ&quot;ז)</button><button type="button" data-pick="e">ברכת עשו (כ&quot;ז)</button><button type="button" data-pick="a">ברכת אברהם (כ&quot;ח)</button></span></li></ul></div><h3 class="ws-step"><span>3</span> הפרשנים - לומדים ביחד</h3><div class="ws-cards c3"><article class="ws-card"><header><b>עיון בפסוקים</b><span>כ&quot;ז, מ&quot;ב-מ&quot;ו - שני נימוקים</span></header><p class="ws-cq"><label for="f-c8">איזה נימוק נותנת רבקה ליעקב לבריחה לחרן (מ&quot;ב-מ&quot;ה), ואיזה נימוק היא נותנת ליצחק (מ&quot;ו)?</label></p><textarea class="answer ws-ta" id="f-c8" data-id="c8" rows="3" data-model="ליעקב: עשו מתכוון להרוג אותו - &quot;הִנֵּה עֵשָׂו אָחִיךָ מִתְנַחֵם לְךָ לְהָרְגֶךָ&quot;. ליצחק: &quot;קַצְתִּי בְחַיַּי מִפְּנֵי בְּנוֹת חֵת&quot; - שיעקב לא יישא אישה מבנות הארץ." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>עיון בפסוקים</b><span>כ&quot;ח, ג&#x27;-ד&#x27; - &quot;בִּרְכַּת אַבְרָהָם&quot;</span></header><p class="ws-cq"><label for="f-c9">מהם שני המרכיבים של &quot;בִּרְכַּת אַבְרָהָם&quot;?</label></p><textarea class="answer ws-ta" id="f-c9" data-id="c9" rows="3" data-model="1. ברכת הזרע - &quot;וְיַפְרְךָ וְיַרְבֶּךָ... לְךָ וּלְזַרְעֲךָ&quot;. 2. ברכת הארץ - &quot;לְרִשְׁתְּךָ אֶת אֶרֶץ מְגֻרֶיךָ&quot;." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>עיון בפסוקים</b><span>כ&quot;ז, כ&quot;ח-כ&quot;ט מול כ&quot;ח, ג&#x27;-ד&#x27;</span></header><p class="ws-cq"><label for="f-c10">מה יש בברכה השנייה שאין בראשונה? מה ניתן ללמוד מכך על כוונתו של יצחק?</label></p><textarea class="answer ws-ta" id="f-c10" data-id="c10" rows="3" data-model="בברכה השנייה נזכרת &quot;בִּרְכַּת אַבְרָהָם&quot; - הזרע והארץ; הראשונה עוסקת בשפע גשמי ובשלטון. את ברכת אברהם ייעד יצחק ליעקב - ממשיך בית אברהם." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article></div></section><section class="ws-topic ws-bag" id="bagrut"><div class="ws-th"><span class="ws-tn">לבגרות</span><h2>🎓 שאלות בגרות על פרקים כ&quot;ז-כ&quot;ח:ד</h2><span class="ws-rng">שאלון 2381</span></div><ol class="ws-bqs"><li class="ws-bq-y">📅 תשפ&quot;א (2021), קיץ · שאלה 4</li><li class="ws-bq"><div class="ws-bq-h">1.</div><p>על פי מה שלמדת, מה הייתה הברכה שתכנן יצחק לברך בה את עשו, ומדוע הוא תכנן לברך אותו בברכה זו?</p><textarea class="answer ws-ta" id="f-b1" data-id="b1" rows="3" aria-label="תשובה לשאלת בגרות 1"></textarea></li><li class="ws-bq"><div class="ws-bq-h">2.</div><p>על פי מה שלמדת, מדוע פעלה רבקה כדי לבטל את תוכניתו של יצחק? (8 נקודות)</p><textarea class="answer ws-ta" id="f-b2" data-id="b2" rows="3" aria-label="תשובה לשאלת בגרות 2"></textarea></li><li class="ws-bq-y">📅 תשפ&quot;ה (2025), קיץ · שאלה 4</li><li class="ws-bq-intro">עיינו בפסוקים י&quot;ח–כ&quot;ז.</li><li class="ws-bq"><div class="ws-bq-h">3.</div><p>על פי מה שלמדתם, מדוע חשד יצחק שיעקב הוא העומד לפניו?</p><textarea class="answer ws-ta" id="f-b3" data-id="b3" rows="3" aria-label="תשובה לשאלת בגרות 3"></textarea></li><li class="ws-bq"><div class="ws-bq-h">4.</div><p>רש&quot;י לפסוק י&quot;ט: &quot;&#x27;אנכי&#x27; - אנוכי המביא לך, ועשו הוא בכורך&quot;. מהי השאלה המתעוררת על דברי יעקב לאביו שעליה רש&quot;י עונה, ומהי תשובת רש&quot;י לשאלה זו? (8 נקודות)</p><textarea class="answer ws-ta" id="f-b4" data-id="b4" rows="3" aria-label="תשובה לשאלת בגרות 4"></textarea></li><li class="ws-bq-y">📅 תשפ&quot;א (2021), קיץ · שאלה 4</li><li class="ws-bq"><div class="ws-bq-h">5.</div><p>עיין בפסוקים כ&quot;ח-כ&quot;ט. על פי פסוקים אלה, ציין שתי ברכות מתחומים שונים שבהן יצחק מברך את יעקב.</p><textarea class="answer ws-ta" id="f-b5" data-id="b5" rows="3" aria-label="תשובה לשאלת בגרות 5"></textarea></li><li class="ws-bq"><div class="ws-bq-h">6.</div><p>עיין בפרק כ&quot;ח, פסוקים ג&#x27;-ד&#x27;. מה יצחק מוסיף בברכה זו על הברכה שבירך את יעקב בפרק כ&quot;ז, פסוקים כ&quot;ח-כ&quot;ט? (8 נקודות)</p><textarea class="answer ws-ta" id="f-b6" data-id="b6" rows="3" aria-label="תשובה לשאלת בגרות 6"></textarea></li><li class="ws-bq-y">📅 תשע&quot;ד (2014), חורף</li><li class="ws-bq-intro">עיינו בפרק כ&quot;ה, פסוקים כ&quot;ב-כ&quot;ג, ובפרק כ&quot;ז, פסוקים א&#x27;-י&#x27;.</li><li class="ws-bq"><div class="ws-bq-h">7.</div><p>&quot;וְרַב יַעֲבֹד צָעִיר&quot; (פרק כ&quot;ה, פסוק כ&quot;ג). כיצד נבואה זו יכולה לשמש הסבר להתנהגות של רבקה בפרק כ&quot;ז?</p><textarea class="answer ws-ta" id="f-b7" data-id="b7" rows="3" aria-label="תשובה לשאלת בגרות 7"></textarea></li><li class="ws-bq-y">📅 תשע&quot;ה (2015), קיץ</li><li class="ws-bq"><div class="ws-bq-h">8.</div><p>מדוע רצתה רבקה שיצחק יברך את יעקב? בססו את דבריכם על פרק כ&quot;ה, פסוקים כ&quot;ב-כ&quot;ג.</p><textarea class="answer ws-ta" id="f-b8" data-id="b8" rows="3" aria-label="תשובה לשאלת בגרות 8"></textarea></li></ol></section>
+<div class="ws-tools toolbar">
+ <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="בראשית פרקים כ&quot;ז-כ&quot;ח:ד, גניבת הברכות" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+ <button class="btn" type="button" id="printBtn">🖨️ הדפסה</button>
+ <button class="btn danger" type="button" id="clearBtn">נקו את כל התשובות</button>
 </div>
 <div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
-<div class="bm-save-info" id="printHelp">
-  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
-  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
-  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
-  <p class="bm-send-last" id="bmSendLast" hidden></p>
-</div>
-
-<footer class="credit">ספר בראשית, פרקים כ"ז-כ"ח:ד · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
-
+<p class="bm-send-last" id="bmSendLast" hidden></p>
+<nav class="ws-chnav" aria-label="ניווט בין פרקים"><a href="bereshit-25.html">→ פרק כ&quot;ה</a><a href="index.html#tab-ya">↺ חזרה ליחידה</a><a href="bereshit-28.html">פרק כ&quot;ח ←</a></nav>
+</main>
 <script>
-const STORAGE_KEY = 'bereshit-ch27-answers';
-const NAME_KEY = 'bereshit-ch27-student';
-const textareas = Array.from(document.querySelectorAll('textarea.answer'));
-const progressFill = document.getElementById('progressFill');
-const progressTrack = document.getElementById('progressTrack');
-const progressLabel = document.getElementById('progressLabel');
-const saveNote = document.getElementById('saveNote');
-const nameInput = document.getElementById('studentName');
-const classInput = document.getElementById('studentClass');
-const printNameLine = document.getElementById('printNameLine');
-let saveTimer = null;
-let noteTimer = null;
-
-function updatePrintNameLine(){
-  const name = (nameInput.value || '').trim();
-  const cls = (classInput.value || '').trim();
-  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
-  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
-}
-
-function saveStudentInfo(){
-  try{
-    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
-  }catch(e){ /* אחסון חסום */ }
-  updatePrintNameLine();
-}
-
-function loadStudentInfo(){
-  try{
-    const raw = localStorage.getItem(NAME_KEY);
-    if(raw){
-      const data = JSON.parse(raw);
-      nameInput.value = data.name || '';
-      classInput.value = data.cls || '';
-    }
-  }catch(e){ /* אחסון חסום */ }
-  updatePrintNameLine();
-}
-
-function updateProgress(){
-  const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
-  progressFill.style.width = pct + '%';
-  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
-  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
-}
-
-function markFilled(t){
-  if(t.value.trim().length > 0) t.classList.add('filled');
-  else t.classList.remove('filled');
-}
-
-function flashSaved(){
-  saveNote.classList.add('show');
-  clearTimeout(noteTimer);
-  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
-}
-
-function saveAnswers(){
-  const data = {};
-  textareas.forEach(t => { data[t.dataset.id] = t.value; });
-  try{
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    flashSaved();
-  }catch(e){
-    console.error('שגיאת שמירה', e);
-  }
-}
-
-function loadAnswers(){
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw){
-      const data = JSON.parse(raw);
-      textareas.forEach(t => {
-        if(data[t.dataset.id]){
-          t.value = data[t.dataset.id];
-          markFilled(t);
-        }
+(function(){
+  var KEY='bm-ws:bereshit-27';
+  var data={}; try{data=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){}
+  function save(){ try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){} }
+  /* תשובות כתובות */
+  document.querySelectorAll('.answer[data-id]').forEach(function(f){
+    var id=f.getAttribute('data-id'); if(data[id]!=null) f.value=data[id];
+    f.addEventListener('input',function(){ data[id]=f.value; save(); });
+  });
+  /* בדיקת שאלות ההבנה: מציג תשובה מוצעת מתחת לכל שורה */
+  document.querySelectorAll('[data-check]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var keys=b.closest('.ws-act').querySelectorAll('.ws-key'), show=keys.length && keys[0].hidden;
+      keys.forEach(function(k){ k.hidden=!show; });
+      b.textContent=show?'הסתרת התשובות':'בדיקה';
+    });
+  });
+  /* עשו או יעקב */
+  document.querySelectorAll('.ws-sort').forEach(function(ul,si){
+    var items=ul.querySelectorAll('.ws-sort-i'), score=ul.closest('.ws-act').querySelector('[data-score]');
+    function paint(){
+      var ok=0,done=0;
+      items.forEach(function(li,i){
+        var p=data['sort'+si+'_'+i]; li.classList.remove('ok','bad');
+        li.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on',b.getAttribute('data-pick')===p); b.setAttribute('aria-pressed',b.getAttribute('data-pick')===p?'true':'false'); });
+        if(p){ done++; if(p===li.getAttribute('data-ans')){ok++;li.classList.add('ok');} else li.classList.add('bad'); }
       });
+      score.textContent=done?('✓ '+ok+' מתוך '+items.length+' נכונים'):'';
     }
-  }catch(e){
-    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
-  }
-  updateProgress();
-}
-
-textareas.forEach(t => {
-  t.addEventListener('input', () => {
-    markFilled(t);
-    updateProgress();
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(saveAnswers, 500);
+    items.forEach(function(li,i){
+      li.querySelectorAll('button').forEach(function(b){ b.addEventListener('click',function(){ data['sort'+si+'_'+i]=b.getAttribute('data-pick'); save(); paint(); }); });
+    });
+    paint();
   });
-});
-
-document.querySelectorAll('.hint-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const box = btn.nextElementSibling;
-    const showing = box.hidden;
-    box.hidden = !showing;
-    btn.textContent = showing ? '🙈 הסתר תשובה' : '🔎 הצג תשובה';
+  /* סידור אירועים */
+  document.querySelectorAll('.ws-seq').forEach(function(ol,qi){
+    var msg=ol.parentNode.querySelector('[data-seqmsg]');
+    var saved=data['seq'+qi];
+    if(Array.isArray(saved)) saved.forEach(function(p){ var li=ol.querySelector('[data-pos="'+p+'"]'); if(li) ol.appendChild(li); });
+    function num(){ ol.querySelectorAll('.ws-seq-i').forEach(function(li,i){ li.querySelector('.ws-seq-n').textContent=i+1; li.classList.remove('ok','bad'); }); msg.textContent=''; }
+    function store(){ data['seq'+qi]=Array.prototype.map.call(ol.children,function(li){return li.getAttribute('data-pos');}); save(); }
+    ol.addEventListener('click',function(e){
+      var b=e.target.closest('button'); if(!b) return; var li=b.closest('.ws-seq-i');
+      if(b.hasAttribute('data-up') && li.previousElementSibling) ol.insertBefore(li,li.previousElementSibling);
+      if(b.hasAttribute('data-down') && li.nextElementSibling) ol.insertBefore(li.nextElementSibling,li);
+      num(); store(); b.focus();
+    });
+    ol.parentNode.querySelector('[data-seqcheck]').addEventListener('click',function(){
+      var ok=0, all=ol.children.length;
+      Array.prototype.forEach.call(ol.children,function(li,i){ var good=String(i)===li.getAttribute('data-pos'); li.classList.toggle('ok',good); li.classList.toggle('bad',!good); if(good) ok++; });
+      msg.textContent= ok===all ? '🎉 כל הכבוד! הכול מסודר נכון.' : ok+' מתוך '+all+' במקום הנכון. האדומים צריכים לזוז.';
+    });
+    num();
   });
-});
-
-document.getElementById('clearBtn').addEventListener('click', () => {
-  if(!confirm('למחוק את כל התשובות בדף העבודה? אי אפשר לשחזר לאחר מכן.')) return;
-  textareas.forEach(t => { t.value = ''; markFilled(t); });
-  updateProgress();
-  saveAnswers();
-});
-
-document.getElementById('printBtn').addEventListener('click', () => {
-  if(!nameInput.value.trim()){ nameInput.focus(); alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.'); return; }
-  window.print();
-});
-
-[nameInput, classInput].forEach(inp => { inp.addEventListener('input', saveStudentInfo); });
-
-loadStudentInfo();
-loadAnswers();
+  document.getElementById('printBtn').addEventListener('click',function(){ window.print(); });
+  document.getElementById('clearBtn').addEventListener('click',function(){
+    if(!confirm('למחוק את כל התשובות בדף?')) return;
+    data={}; save(); location.reload();
+  });
+})();
 </script>
 <script src="assets/progress-tracker.js"></script>
-<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
-
-<script src="assets/guide/bereshit-27.js"></script>
-<script src="assets/steps.js?v=5"></script>
-<script src="assets/guide.js"></script>
 <script src="assets/units-data.js"></script>
 <script src="assets/bm-api.js"></script>
 <script src="assets/direct-submit.js?v=3"></script>
 <script src="assets/send-to-teacher.js?v=6"></script>
-<script src="assets/match-table.js?v=3"></script>
 <script src="assets/lesson-mode.js?v=14"></script>
 <script src="assets/class-dock.js?v=14"></script>
 <script src="assets/teacher-key-link.js?v=2"></script>
