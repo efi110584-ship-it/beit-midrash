@@ -21,7 +21,7 @@ h1,h2{font-family:"Frank Ruhl Libre",serif;margin:0;line-height:1.15;color:var(-
 h2{font-size:2.5em;margin-bottom:.35em}
 .eyebrow{color:var(--gold);font-weight:800;letter-spacing:.06em;font-size:.82em;margin-bottom:.3em}
 .lead{font-size:1.18em;color:var(--mute);max-width:46em;margin:0 0 .8em}
-.cols{display:grid;grid-template-columns:1.05fr 1fr;gap:4%;flex:1;min-height:0}
+.cols{display:grid;grid-template-columns:.78fr 1.22fr;gap:4%;flex:1;min-height:0}
 .cols>*{min-height:0}
 ul.pts{list-style:none;margin:0;padding:0;display:grid;gap:.55em;font-size:1.05em}
 ul.pts li{display:flex;gap:.55em;align-items:flex-start;line-height:1.4}
@@ -90,6 +90,11 @@ ul.pts b{color:var(--navy)}
 body.idle .bar{opacity:0}
 .prog{position:fixed;top:0;right:0;height:4px;background:var(--gold);z-index:5;transition:width .3s}
 @media print{html,body{overflow:visible;height:auto;background:#fff}.deck{position:static;display:block}.slide{position:relative;opacity:1;visibility:visible;width:100%;height:auto;aspect-ratio:16/9;page-break-after:always;font-size:12pt}.bar,.prog{display:none}}
+.lb{position:fixed;inset:0;background:rgba(8,14,28,.94);display:none;align-items:center;justify-content:center;z-index:20;cursor:zoom-out;padding:2vh 2vw}
+.lb.on{display:flex}
+.lb img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.lb .x{position:absolute;top:12px;left:16px;color:#fff;font-size:15px;opacity:.8}
+.ph img,.strip img{cursor:zoom-in}
 </style>
 </head>
 <body>
@@ -182,11 +187,23 @@ body.idle .bar{opacity:0}
   <ul class="pts">
    <li><span><b>"ניצוצות בוגרים":</b> בוגרים חוזרים ומספרים לתלמידים - כבאי, מד"א, מאמן אגרוף, סיפור מהצבא, בוגרים שפתחו עסק</span></li>
    <li><span><b>"אח בוגר":</b> תלמידי י"ב חונכים את תלמידי ז'-ח'</span></li>
-   <li><span><b>"מסע תקומה":</b> בוגרים מלווים ומנחים את תלמידי י"א-י"ב</span></li>
    <li><span><b>"העברת המקל":</b> טקס שבו י"ב מעבירים את המקל לי"א</span></li>
-   <li><span><b>תורמים לבית:</b> בוגרים תרמו לבית הספר - למשל מעמד ברכת המזון</span></li>
   </ul>
-  <div class="ph grid has four1"><div class="cell"><img src="bogrim-img/nitzotzot.jpg" alt="" style="object-position:center"></div><div class="cell"><img src="bogrim-img/kotel.jpg" alt="" style="object-position:20% 85%"></div><div class="cell"><img src="bogrim-img/trip.jpg" alt="" style="object-position:center"></div><div class="cell"><img src="bogrim-img/birkat-hamazon.jpg" alt="" style="object-position:50% 25%"></div></div>
+  <div class="ph grid has one"><div class="cell"><img src="bogrim-img/nitzotzot.jpg" alt="" style="object-position:center"></div></div>
+ </div>
+</section>
+
+<section class="slide" aria-label="מלווים ותורמים">
+ <div class="eyebrow">ערבות הדדית</div>
+ <h2>בוגרים מלווים ותורמים</h2>
+ <div class="cols">
+  <ul class="pts">
+   <li><span><b>"מסע תקומה":</b> בוגרים מלווים ומנחים את תלמידי י"א-י"ב</span></li>
+   <li><span><b>פתיחת שנת תשפ"ז:</b> הבוגרים יזמו ותרמו לכל תלמיד בי"א 4 סידור "נעם הלב" אישי עם חריטה, חוברת ללימוד ספר יונה ומשהו מתוק</span></li>
+   <li><span><b>ולכיתה:</b> מעמד ברכת המזון מהודר, שילווה את התלמידים כל השנה</span></li>
+   <li><span>דור שממשיך לתת - גם אחרי שסיים</span></li>
+  </ul>
+  <div class="ph grid has"><div class="cell"><img src="bogrim-img/kotel.jpg" alt="" style="object-position:20% 85%"></div><div class="cell"><img src="bogrim-img/trip.jpg" alt="" style="object-position:center"></div><div class="cell"><img src="bogrim-img/yonah-gift.jpg" alt="" style="object-position:50% 60%"></div><div class="cell"><img src="bogrim-img/birkat-hamazon.jpg" alt="" style="object-position:50% 25%"></div></div>
  </div>
 </section>
 
@@ -215,8 +232,8 @@ body.idle .bar{opacity:0}
 <section class="slide" aria-label="עתיד">
  <div class="eyebrow">אחרי השחרור</div>
  <h2>לימודים, קריירה ובניין הבית</h2>
- <div class="cols" style="grid-template-columns:1.25fr 1fr">
- <div class="pillars" style="grid-template-columns:repeat(2,1fr);gap:.8em;font-size:.88em;align-content:start">
+ <div class="cols" style="grid-template-columns:1.15fr 1fr">
+ <div class="pillars" style="grid-template-columns:repeat(2,1fr);gap:.7em;font-size:.82em;align-content:start">
   <div class="pillar"><b>🎓 לימודים</b><span>מידע וסיוע בהגשת מלגות, קורסי פסיכומטרי ושיפור בגרויות במחירי קבוצה, חיבור למרכז הצעירים. "לוקחים אחריות": שיפור בגרויות תמורת חונכות לחטיבה.</span></div>
   <div class="pillar"><b>💼 קריירה</b><span>"בוגרים עוזרים לבוגרים": קבוצת "דרושים - בוגרים", כנס נטוורקינג עם מרכז הצעירים, ובוגרים בעלי עסקים שפותחים דלת לצעירים.</span></div>
   <div class="pillar"><b>⭐ בוגר השבוע</b><span>בכל יום ראשון - סיפור של בוגר או בוגרת שעשו דרך: בעסק, בלימודים, בשירות או בהתנדבות.</span></div>
@@ -247,6 +264,7 @@ body.idle .bar{opacity:0}
 </section>
 
 </main>
+<div class="lb" id="lb" role="dialog" aria-label="תמונה בגדול"><span class="x">לחיצה או Esc לסגירה</span><img id="lbImg" alt=""></div>
 <nav class="bar" aria-label="ניווט במצגת">
  <button type="button" id="next" aria-label="שקופית הבאה">→ הבאה</button>
  <span id="pos" aria-live="polite"></span>
@@ -262,6 +280,16 @@ body.idle .bar{opacity:0}
     history.replaceState(null,'','#'+(i+1)); }
   document.getElementById('next').onclick=function(){go(i+1)}; document.getElementById('prev').onclick=function(){go(i-1)};
   document.getElementById('fs').onclick=function(){ if(document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen(); };
+  var lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg');
+  function lbClose(){ lb.classList.remove('on'); lbImg.removeAttribute('src'); }
+  document.getElementById('deck').addEventListener('click',function(e){
+    var im=e.target.closest('.ph img,.strip img'); if(!im) return;
+    e.stopImmediatePropagation(); lbImg.src=im.src; lb.classList.add('on');
+  },true);
+  lb.addEventListener('click',lbClose);
+  document.addEventListener('keydown',function(e){
+    if(lb.classList.contains('on')){ e.preventDefault(); e.stopImmediatePropagation(); lbClose(); }
+  },true);
   document.addEventListener('keydown',function(e){
     if(e.key==='ArrowLeft'||e.key===' '||e.key==='PageDown'){ e.preventDefault(); go(i+1); }
     else if(e.key==='ArrowRight'||e.key==='PageUp'){ e.preventDefault(); go(i-1); }
