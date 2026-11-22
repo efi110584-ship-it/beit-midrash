@@ -81,6 +81,7 @@ function doGet(e) {
     if (p.action === 'announcement') return json_({ ok: true, announcement: getJson_('ANNOUNCEMENT') });
     if (p.action === 'exams') return json_({ ok: true, exams: examsUpcoming_() });
     if (p.action === 'lesson') return json_(findLesson_(p.code));
+    if (p.action === 'examReopenCheck') return json_(examReopenCheck_(p.code, p.sid));
     if (p.action === 'lessonLock') return json_(lessonLock_(p.page, p.code));
     if (p.action === 'navPeek') return json_(navPeek_(p.code));
     if (p.action === 'batchReviewStatus') return json_({ok:true,batchReview:1,maxBatch:30,approval:'teacher_only'});
@@ -152,6 +153,7 @@ function doPost(e) {
       case 'examDelete':      return json_(examDelete_(data.id));
       case 'createLesson':    return json_(createLesson_(data.url, data.label, data.monitor === true, data.cls, data.exam));
       case 'examCollect':     return json_(examCollect_(data.code, 20));
+      case 'examReopen':      return json_(examReopen_(data.code, data.sid));
       case 'presenceList':    return json_(presenceList_(data.code));
       case 'kickStudent':     return json_(kickStudent_(data.code, data.sid, data.undo === true));
       case 'helpDone':        return json_(helpDone_(data.code, data.sid));
@@ -1368,6 +1370,36 @@ function examSent_(code, sid) {
   }
   return { ok: true };
 }
+// המורה מחזיר תלמיד למבחן (אחרי שהוצא אוטומטית או שלח בטעות). רק בזמן שהמבחן פתוח.
+// מה שכבר נשלח נשאר אצל המורה כהגשה ("ניסיון ראשון"). הדף של התלמיד בודק כל כמה שניות (examReopenCheck) ונפתח מחדש.
+function examReopen_(code, sid) {
+  var l = lessons_()[String(code || '')];
+  if (!l || !l.exam) return { ok: false, error: 'אין מבחן בקוד הזה' };
+  if (Date.now() >= l.exam.e) return { ok: false, error: 'זמן המבחן כבר נגמר, ולכן אי אפשר להחזיר אליו.' };
+  sid = String(sid || '').replace(/[^\w-]/g, '').slice(0, 40);
+  if (!sid || !examWho_(l, sid)) return { ok: false, error: 'התלמיד לא נמצא במבחן הזה' };
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(8000)) return { ok: false, error: 'השרת עמוס - נסו שוב בעוד רגע' };
+  var ts = Date.now();
+  try {
+    var ix = examIndex_(l.code), r = ix[sid] || {};
+    if (r.sent) r.prev = (r.prev || []).concat([{ sent: r.sent, fid: r.fid || '', at: ts }]).slice(-5);
+    r.sent = ''; r.fid = ''; r.sending = 0; r.reopen = ts;
+    ix[sid] = r;
+    examIndexPut_(l.code, ix);
+  } finally {
+    lock.releaseLock();
+  }
+  CacheService.getScriptCache().remove('exk_' + l.code + '_' + sid);   // אם יוצא שוב - המורה יקבל שוב מייל
+  return { ok: true, reopen: ts };
+}
+function examReopenCheck_(code, sid) {
+  var l = monitoredLesson_(code);
+  sid = String(sid || '').replace(/[^\w-]/g, '').slice(0, 40);
+  if (!l || !l.exam || !sid) return { ok: true, reopen: 0 };
+  var r = examIndex_(l.code)[sid];
+  return { ok: true, reopen: (r && r.reopen) || 0, open: Date.now() < l.exam.e };
+}
 // אחרי הסיום: שליחת הטיוטות של מי שלא שלח (עד max תלמידים בכל קריאה)
 function examCollect_(code, max) {
   var l = lessons_()[String(code || '')];
@@ -1583,7 +1615,7 @@ function presenceList_(code) {
     exam = { s: l.exam.s, e: l.exam.e, drafts: sids.length,
              sent: sids.filter(function (k) { return ix[k].sent; }).length,
              auto: sids.filter(function (k) { return ix[k].sent === 'auto'; }).length };
-    out.forEach(function (x) { var r = ix[x.sid]; x.examSent = r ? (r.sent || '') : ''; });
+    out.forEach(function (x) { var r = ix[x.sid]; x.examSent = r ? (r.sent || '') : ''; x.examReopen = r ? (r.reopen || 0) : 0; });
   }
   return { ok: true, lesson: { code: l.code, label: l.label, url: l.url, cls: l.cls, nav: l.nav || null, exam: exam },
            lessons: mon.map(function (x) { return { code: x.code, label: x.label, cls: x.cls }; }), students: out, teachers: teachers, now: now };

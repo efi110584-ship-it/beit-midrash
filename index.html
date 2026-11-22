@@ -2097,8 +2097,25 @@
       (ex.auto ? ' (' + ex.auto + ' נשלחו לבד בסוף הזמן)' : '') +
       (notYet.length ? '<br>עוד לא נשלח: ' + escapeHtml(notYet.slice(0, 12).join(", ")) + (notYet.length > 12 ? " ועוד " + (notYet.length - 12) : "") : '') +
       (t >= ex.e && notYet.length ? ' <button type="button" class="tt-btn tt-btn--small" id="ttExamCollect">איסוף עכשיו</button>' : '') +
+      (t < ex.e && sent.length ? '<br>החזרה למבחן (מי שהוצא או שלח בטעות): ' + sent.map(function(x){
+        return '<button type="button" class="tt-btn tt-btn--small" data-ex-reopen="' + escapeAttr(x.sid) + '" data-name="' + escapeAttr(x.name || "") + '" style="margin:3px 0 0 4px">↩️ ' +
+          (x.exouts ? '⛔ ' : '') + escapeHtml(x.name || "ללא שם") + '</button>';
+      }).join("") : '') +
       '</span>';
   }
+  document.addEventListener("click", function(e){
+    var rb = e.target && e.target.closest ? e.target.closest("[data-ex-reopen]") : null;
+    if(!rb) return;
+    var nm = rb.getAttribute("data-name") || "התלמיד";
+    if(!confirm("להחזיר את " + nm + " למבחן?\nהמבחן ייפתח אצלו/ה שוב תוך כמה שניות, עם אותה שעת סיום. מה שכבר נשלח נשאר אצלך.")) return;
+    rb.disabled = true; rb.textContent = "מחזירים…";
+    apiPost({ action:"examReopen", password:teacherToken(), code:getLiveCode(), sid:rb.getAttribute("data-ex-reopen") }).then(function(res){
+      if(handleAuthFailure(res)) return;
+      if(!res || !res.ok){ rb.disabled = false; rb.textContent = "↩️ " + nm; alert((res && res.error) || "הפעולה לא הצליחה. נסו שוב."); return; }
+      rb.textContent = "✓ " + nm + " הוחזר/ה";
+      setTimeout(loadLive, 1500);
+    }).catch(function(){ rb.disabled = false; rb.textContent = "↩️ " + nm; alert("אין חיבור לשרת כרגע. נסו שוב."); });
+  });
   document.addEventListener("click", function(e){
     var b = e.target && e.target.closest ? e.target.closest("#ttExamCollect") : null;
     if(!b) return;
@@ -3832,7 +3849,7 @@
 })();
 
 </script>
-<script src="assets/lesson-mode.js?v=14"></script>
+<script src="assets/lesson-mode.js?v=15"></script>
 <script src="assets/class-dock.js?v=14"></script>
 <script src="assets/my-work.js?v=2"></script>
 </body>

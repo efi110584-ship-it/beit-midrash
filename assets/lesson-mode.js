@@ -1142,7 +1142,7 @@ try{
         return;
       }
       if(!entered){
-        setCover("", '<div class="bm-ex-ico" aria-hidden="true">📝</div><h2>המבחן פתוח</h2>' +
+        setCover("", '<div class="bm-ex-ico" aria-hidden="true">📝</div><h2>' + (reopened ? "המורה החזיר/ה אותך למבחן" : "המבחן פתוח") + '</h2>' +
           '<p>הזמן: עד השעה <b>' + hm(ex.e) + '</b>. בשעה הזו התשובות נשלחות למורה לבד.</p>' +
           '<ul><li>המבחן נפתח במסך מלא.</li>' +
           '<li><b>יציאה ממסך מלא, מעבר לחלון או ללשונית אחרים, או פיצול מסך</b> - המבחן מוסתר מיד, והיציאה נרשמת ומדווחת למורה.</li>' +
@@ -1215,6 +1215,31 @@ try{
     post({ action:"examDraft", code:st.code, sid:st.sid, p:p }, keep && JSON.stringify(p).length < 60000).catch(function(){ lastDraft = ""; });
   }
   var tries = 0;
+  /* ---------- המורה החזיר את התלמיד למבחן (examReopen) ----------
+     כשהמבחן נעול אצל התלמיד (הוצא / שלח), הדף שואל את השרת כל כמה שניות אם המורה החזיר אותו.
+     אם כן - מנקים את הנעילה במכשיר, פותחים את השדות, ומציגים שוב את מסך הכניסה למבחן. */
+  var REOPEN_KEY = "bm-exam-reopen:" + st.code, reopened = false, reopenBusy = false;
+  function seenReopen(){ try{ return Number(localStorage.getItem(REOPEN_KEY)) || 0; }catch(e){ return 0; } }
+  function lockedNow(){ return onExamPage() && ex && now() < ex.e && (phase() === "done" || !!forced); }
+  function checkReopen(){
+    if(reopenBusy || !lockedNow()) return;
+    reopenBusy = true;
+    fetch(API + "?action=examReopenCheck&code=" + encodeURIComponent(st.code) + "&sid=" + encodeURIComponent(st.sid))
+      .then(function(r){ return r.json(); })
+      .then(function(res){ if(res && res.ok && res.reopen > seenReopen() && res.open !== false) doReopen(res.reopen); })
+      .catch(function(){})
+      .then(function(){ reopenBusy = false; });
+  }
+  function doReopen(ts){
+    try{ localStorage.setItem(REOPEN_KEY, String(ts)); localStorage.removeItem(DONE_KEY); localStorage.removeItem(KICK_KEY); }catch(e){}
+    forced = ""; outs = 0; awayCounted = false; sending = false; tries = 0; entered = false; lastDraft = ""; reopened = true;
+    fields().forEach(function(f){
+      if(f.tagName === "SELECT") f.disabled = false;
+      else if(!(f.id === "studentName" && st.name)) f.readOnly = false;
+    });
+    var b = document.getElementById("sendToTeacherBtn"); if(b) b.disabled = false;
+    render(); renderBar();
+  }
   function finalSend(){
     if(!onExamPage()) return;
     /* מי שלא התחיל את המבחן במכשיר הזה ולא כתב כלום - אין מה לשלוח */
@@ -1376,6 +1401,8 @@ try{
       render(); renderBar();
     }, 500);
     draftTimer = setInterval(function(){ saveDraft(false); }, 30000);
+    setInterval(checkReopen, 10000);
+    setTimeout(checkReopen, 1500);
   }
   function boot(){
     /* זמן השרת ופרטי המבחן - גם למי שנכנס לשיעור לפני שהמבחן הוגדר בגרסה הזו */
