@@ -1601,6 +1601,19 @@
     "url": "bogrim-show.html"
   },
   {
+    "key": "review-tables-12",
+    "class": "teacher",
+    "grade": "יב",
+    "subject": "מורה",
+    "category": "חומרים לשיעור",
+    "icon": "🗒️",
+    "title": "טבלאות חזרה - מלכים, ירמיהו ונחמיה",
+    "desc": "טבלת המלכים (מנשה עד גדליהו), טבלת פרקי ירמיהו וטבלת פרקי נחמיה: מה קורה, נקודות עיקריות, מפרשים ושאלות בגרות עם תשובה קצרה. להדפסה לרוחב.",
+    "chapters": 3,
+    "chaptersLabel": "ספרים",
+    "url": "review-tables-12.html"
+  },
+  {
     "key": "ivrit-focus-2027-teacher-answers",
     "class": "teacher",
     "grade": "יא",

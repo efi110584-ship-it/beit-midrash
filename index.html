@@ -315,7 +315,7 @@
 </div><!-- /site-content -->
 
 <script src="assets/bm-api.js"></script>
-<script src="assets/units-data.js?v=20261110-avkey"></script>
+<script src="assets/units-data.js?v=20261122-tables"></script>
 <script src="assets/exams-seed.js?v=6"></script>
 <script src="assets/day-strip.js?v=2"></script>
 <script src="assets/flashcards-data.js"></script>
@@ -525,6 +525,7 @@
     { id:"mach", label:"מחשבת ישראל", icon:"💡" },
     { id:"hist", label:"היסטוריה", icon:"🏛️" },
     { id:"exam", label:"מבחנים", icon:"📝" },
+    { id:"lessonmat", label:"חומרים לשיעור", icon:"🗒️" },
     { id:"alumni", label:"בוגרים", icon:"🎓" },
     { id:"other", label:"כללי", icon:"🗂️" }
   ];
@@ -532,6 +533,7 @@
     var cat = u.category || "";
     if(cat === "מבחנים") return "exam";
     if(cat === "בוגרים") return "alumni";
+    if(cat === "חומרים לשיעור") return "lessonmat";
     if(/^עברית/.test(cat)) return "heb";
     if(cat === "היסטוריה") return "hist";
     if(cat === "מחשבת ישראל") return "mach";
@@ -580,7 +582,7 @@
     return "units";
   }
   function tkSectionsHtml(gid, list){
-    if(gid === "exam" || gid === "alumni" || gid === "other") return '<ul class="tk-list">' + list.map(tkItemHtml).join("") + '</ul>';
+    if(gid === "exam" || gid === "alumni" || gid === "lessonmat" || gid === "other") return '<ul class="tk-list">' + list.map(tkItemHtml).join("") + '</ul>';
     var by = {};
     list.forEach(function(u){ var k = tkSectionOf(u); (by[k] = by[k] || []).push(u); });
     /* עברית - לפי סדר ההוראה: הגזרות, משקלים, תצורת השם */
