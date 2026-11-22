@@ -1,657 +1,257 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl" data-css="theme steps guide lesson-tools">
+<html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ספר החינוך — דף עבודה אינטראקטיבי (תלמוד תורה, מצוה תי"ט)</title>
+<title>מצוות תלמוד תורה - ספר החינוך, מצוה תי&quot;ט · דף עבודה</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;900&family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css?v=45">
-
-
-
 <script src="assets/a11y.js"></script>
+<style>
+:root{--ws-ink:#1F3A4D;--ws-mute:#5E6B76;--ws-line:#DDD3BF;--ws-paper:#FFFDF8;--ws-bg:#F4EFE4;--ws-gold:#A9752E;--ws-ok:#2E7D4F;--ws-okb:#E3F2E8;--ws-bad:#B23B2E;--ws-badb:#FBE6E3;
+ --t1:#3F6E66;--t1b:#E6F0EE;--t2:#A9752E;--t2b:#F6EEDF;--t3:#8A3B2E;--t3b:#F7E8E4;--tb:#2C4F7A;--tbb:#E5EDF7}
+body{background:var(--ws-bg);color:var(--ws-ink);font-family:Heebo,Arial,sans-serif}
+.ws-wrap{max-width:900px;margin:0 auto;padding:18px 16px 60px}
+.ws-hero{background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:14px;padding:16px 18px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.ws-hero h1{font-family:"Frank Ruhl Libre",serif;font-size:1.8rem;margin:0;color:var(--ws-ink)}
+.ws-hero .ws-sub{color:var(--ws-mute);margin:.2rem 0 0;font-size:.95rem}
+.ws-who{display:flex;gap:10px;flex-wrap:wrap}
+.ws-who label{font-weight:600;font-size:.95rem}
+.ws-who input{font:inherit;border:1px solid var(--ws-line);border-radius:8px;padding:6px 10px;width:11rem;background:#fff}
+.ws-map{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}
+.ws-map a{flex:1 1 180px;text-decoration:none;color:inherit;background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:10px;padding:8px 12px;font-weight:600}
+.ws-map a small{display:block;color:var(--ws-mute);font-weight:400}
+.ws-howto{font-size:.92rem;color:var(--ws-mute);margin:6px 2px 0}
+.ws-topic{background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:14px;margin-top:18px;overflow:hidden}
+.ws-th{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 16px;color:#fff}
+.ws-th h2{margin:0;font-family:"Frank Ruhl Libre",serif;font-size:1.45rem;color:#fff}
+.ws-tn{background:rgba(255,255,255,.22);border-radius:99px;padding:2px 10px;font-size:.85rem;font-weight:700}
+.ws-rng{margin-inline-start:auto;font-size:.9rem;opacity:.95}
+.ws-t1 .ws-th{background:var(--t1)} .ws-t2 .ws-th{background:var(--t2)} .ws-t3 .ws-th{background:var(--t3)} .ws-bag .ws-th{background:var(--tb)}
+.ws-topic > :not(.ws-th){margin-inline:16px}
+.ws-step{display:flex;align-items:center;gap:8px;font-size:1.05rem;margin:16px 16px 8px;color:var(--ws-ink)}
+.ws-step span{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ws-ink);color:#fff;font-size:.85rem}
+.ws-verses{display:grid;gap:6px}
+.ws-v{display:grid;grid-template-columns:34px 1fr;column-gap:8px;padding:6px 10px;border-radius:8px}
+.ws-t1 .ws-v{background:var(--t1b)} .ws-t2 .ws-v{background:var(--t2b)} .ws-t3 .ws-v{background:var(--t3b)}
+.ws-vn{grid-row:span 2;font-weight:700;color:var(--ws-gold);font-family:"Frank Ruhl Libre",serif;font-size:1.05rem;padding-top:2px}
+.ws-vt{margin:0;font-family:"Frank Ruhl Libre",serif;font-size:1.28rem;line-height:1.65}
+.ws-vp{margin:0;font-size:.92rem;color:var(--ws-mute)}
+.ws-act{border:2px dashed var(--ws-line);border-radius:12px;padding:10px 12px;margin-top:10px}
+.ws-act-h{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:700;margin-bottom:6px}
+.ws-help{margin:0 0 6px;font-size:.9rem;color:var(--ws-mute)}
+.ws-btn,.ws-sort-b button,.ws-seq-b button{font:inherit;border:1px solid var(--ws-ink);background:#fff;color:var(--ws-ink);border-radius:8px;padding:4px 12px;cursor:pointer;min-height:34px}
+.ws-btn:hover,.ws-sort-b button:hover,.ws-seq-b button:hover{background:var(--ws-ink);color:#fff}
+.ws-btn:focus-visible,.ws-sort-b button:focus-visible,.ws-seq-b button:focus-visible{outline:3px solid var(--ws-gold);outline-offset:2px}
+.ws-quiz{width:100%;border-collapse:collapse}
+.ws-quiz th{text-align:right;font-size:.85rem;color:var(--ws-mute);padding:4px 6px;border-bottom:1px solid var(--ws-line)}
+.ws-quiz td{padding:6px;border-bottom:1px solid var(--ws-line);vertical-align:top}
+.ws-q{width:52%;font-weight:500}
+.ws-src{color:var(--ws-mute);font-size:.82rem;font-weight:400}
+.ws-in{width:100%;font:inherit;border:1px solid var(--ws-line);border-radius:8px;padding:5px 8px;background:#fff}
+.ws-key[hidden]{display:none !important}
+.ws-key{display:block;margin-top:3px;font-size:.88rem;color:var(--ws-ok);font-weight:600}
+.ws-sort{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:6px}
+.ws-sort-i{display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--ws-line);border-radius:10px;padding:6px 8px;background:#fff}
+.ws-sort-t{font-family:"Frank Ruhl Libre",serif;font-size:1.08rem}
+.ws-sort-b{display:flex;gap:4px;flex-shrink:0}
+.ws-sort-i.ok{background:var(--ws-okb);border-color:var(--ws-ok)} .ws-sort-i.bad{background:var(--ws-badb);border-color:var(--ws-bad)}
+.ws-sort-i.ok button.on{background:var(--ws-ok);color:#fff;border-color:var(--ws-ok)} .ws-sort-i.bad button.on{background:var(--ws-bad);color:#fff;border-color:var(--ws-bad)}
+.ws-score{font-size:.9rem;color:var(--ws-ok)}
+.ws-seq{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.ws-seq-i{display:flex;align-items:center;gap:8px;border:1px solid var(--ws-line);border-radius:10px;padding:5px 8px;background:#fff}
+.ws-seq-n{display:inline-grid;place-items:center;min-width:28px;height:28px;border-radius:7px;background:var(--t3b);font-weight:700}
+.ws-seq-t{flex:1}
+.ws-seq-b{display:flex;gap:4px}
+.ws-seq-i.ok{background:var(--ws-okb);border-color:var(--ws-ok)} .ws-seq-i.bad{background:var(--ws-badb);border-color:var(--ws-bad)}
+.ws-seq-msg{margin:6px 0 0;font-weight:600;min-height:1.2em}
+.ws-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-bottom:16px}
+.ws-card{border:1px solid var(--ws-line);border-radius:12px;background:#fff;display:flex;flex-direction:column;overflow:hidden}
+.ws-card header{display:flex;justify-content:space-between;gap:6px;align-items:baseline;padding:7px 10px;background:var(--ws-bg);border-bottom:1px solid var(--ws-line)}
+.ws-card header b{font-family:"Frank Ruhl Libre",serif;font-size:1.15rem}
+.ws-card header span{font-size:.82rem;color:var(--ws-mute)}
+.ws-ctext{margin:8px 10px 0;font-family:"Frank Ruhl Libre",serif;font-size:1.02rem;line-height:1.6;border-inline-start:3px solid var(--ws-gold);padding-inline-start:8px}
+.ws-cq{margin:8px 10px 4px;font-weight:600}
+.ws-ta{display:block;width:calc(100% - 20px);margin:0 10px 10px;font:inherit;border:1px solid var(--ws-line);border-radius:8px;padding:6px 8px;resize:vertical;margin-top:auto}
+.ws-bqs{list-style:none;margin:12px 0 16px;padding:0;display:grid;gap:10px}
+.ws-bq{border:1px solid var(--ws-line);border-radius:10px;background:#fff;padding:8px 10px}
+.ws-bq-h{font-weight:700} .ws-bq-h span{font-weight:400;color:var(--ws-mute);font-size:.88rem}
+.ws-bq p{margin:3px 0 6px}
+.ws-bq .ws-ta{width:100%;margin:0}
 
+.ws-res{display:flex;gap:8px;flex-wrap:wrap;margin:6px 2px 0;font-size:.92rem}
+.ws-res a{color:var(--ws-ink);background:var(--ws-paper);border:1px solid var(--ws-line);border-radius:99px;padding:3px 12px;text-decoration:none}
+.ws-chnav{display:flex;justify-content:space-between;gap:8px;margin-top:18px;flex-wrap:wrap}
+.ws-chnav a{color:var(--ws-ink);font-weight:600}
+.ws-note{background:transparent !important;border:1px dashed var(--ws-line)}
+.ws-note .ws-vp{font-style:italic}
+.ws-cwho{margin:8px 10px 0;font-weight:700;font-family:"Frank Ruhl Libre",serif}
+.ws-cwho + .ws-ctext{margin-top:2px}
+.ws-wide{grid-column:1 / -1}
+.ws-sort3 .ws-sort-i{flex-wrap:wrap}
+.ws-bq-y{font-weight:700;color:var(--tb);margin-top:6px}
+.ws-bq-intro{color:var(--ws-mute);font-size:.95rem}
+.ws-v.ws-kv{background:#FFF0C2 !important;box-shadow:inset -4px 0 0 #D49A1E}
+.ws-v.ws-kv .ws-vt{font-weight:700}
+.ws-star{display:block;font-size:.8rem;line-height:1}
+.ws-legend{margin:0 0 6px;font-size:.88rem;color:var(--ws-mute);display:flex;align-items:center;gap:6px}
+.ws-legend-sw{display:inline-block;width:18px;height:12px;border-radius:3px;background:#FFF0C2;box-shadow:inset -3px 0 0 #D49A1E}
+.ws-tools{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:18px}
+@media (max-width:600px){.ws-q{width:auto}.ws-quiz,.ws-quiz tbody,.ws-quiz tr,.ws-quiz td{display:block;width:100%}.ws-quiz thead{display:none}.ws-quiz td{border:0;padding:3px 0}.ws-quiz tr{border-bottom:1px solid var(--ws-line);padding:6px 0}.ws-vt{font-size:1.18rem}}
+@media print{
+ @page{size:A4;margin:7mm 8mm}
+ body{background:#fff;font-size:10pt}
+ .ws-wrap{max-width:none;padding:0}
+ .ws-map,.ws-howto,.ws-tools,.bm-send-panel,.bm-save-info,.ws-btn,.ws-score,.ws-help,.ws-seq-b,.ws-seq-msg,.ws-key,nav,.bm-skip-link{display:none !important}
+ .ws-hero{border:0;padding:0 0 4px;border-bottom:2px solid var(--ws-ink);border-radius:0}
+ .ws-hero h1{font-size:15pt}
+ .ws-who input{border:0;border-bottom:1px solid #999;border-radius:0;width:8rem}
+ .ws-topic{break-before:page;border:0;border-radius:0;margin-top:0}
+ .ws-t1{break-before:auto;margin-top:6px}
+ .ws-th{padding:4px 10px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .ws-th h2{font-size:13pt}
+ .ws-topic > :not(.ws-th){margin-inline:0}
+ .ws-step{margin:4px 0 2px;font-size:10pt}
+ .ws-step span{width:18px;height:18px;font-size:8pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .ws-verses{display:block;column-count:2;column-gap:10px}
+ .ws-v{break-inside:avoid;margin-bottom:2px}
+ .ws-v{padding:2px 6px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .ws-vt{font-size:10.5pt;line-height:1.35}
+ .ws-vp{font-size:8pt;line-height:1.25}
+ .ws-act{padding:5px 8px;margin-top:5px;border-width:1px}
+ .ws-act-h{margin-bottom:2px;font-size:10pt}
+ .ws-quiz td{padding:2px 4px}
+ .ws-in{border:0;border-bottom:1px dotted #888;border-radius:0;padding:2px 0}
+ .ws-sort{grid-template-columns:repeat(3,1fr);gap:3px}
+ .ws-sort-i{padding:2px 6px}
+ .ws-sort-t{font-size:10pt}
+ .ws-sort-b button{min-height:0;padding:0 6px;font-size:8.5pt;border-radius:99px;background:#fff !important;color:var(--ws-ink) !important}
+ .ws-sort-i.ok,.ws-sort-i.bad{background:#fff;border-color:var(--ws-line)}
+ .ws-seq{display:grid;grid-template-columns:1fr 1fr;grid-auto-flow:column;grid-template-rows:repeat(4,auto);gap:2px 8px}
+ .ws-seq-i.ok,.ws-seq-i.bad{background:#fff;border-color:var(--ws-line)}
+ .ws-seq-i{padding:2px 6px}
+ .ws-seq-n{min-width:22px;height:20px;background:#fff;border:1px solid #888;color:transparent}
+ .ws-cards{grid-template-columns:1fr 1fr;gap:6px;margin-bottom:0}
+ .ws-card{break-inside:avoid}
+ .ws-card header{padding:3px 8px}
+ .ws-card header b{font-size:10.5pt}
+ .ws-ctext{font-size:8.5pt;line-height:1.3;margin:2px 8px 0}
+ .ws-cq{margin:4px 8px 2px;font-size:9.5pt}
+ .ws-ta{border:0;border-bottom:1px dotted #888;border-radius:0;height:2.3em !important;min-height:0;resize:none;margin-bottom:3px}
+ ::placeholder{color:transparent !important}
+ .ws-cards.c3{grid-template-columns:repeat(3,1fr)}
+ .ws-in{height:1.45em}
+ .ws-quiz td,.ws-quiz th{font-size:9.3pt;padding:1px 4px}
+ .ws-bq{break-inside:avoid;padding:5px 8px}
+ .ws-bq .ws-ta{height:2.6em !important}
+ .ws-bq{padding:3px 8px}
+ .ws-bq p{margin:1px 0 2px;font-size:9.5pt}
+ .ws-bqs{gap:5px;margin-top:6px}
+ .ws-res,.ws-chnav{display:none !important}
+ .ws-v.ws-kv,.ws-legend-sw{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .ws-legend{font-size:8pt;margin:0 0 2px}
+ .ws-star{font-size:7pt}
+ .ws-cwho{margin:3px 8px 0;font-size:9.5pt}
+ .ws-bq-y{margin-top:2px;font-size:10pt}
+ .ws-sort3{grid-template-columns:1fr 1fr}
+
+}
+.ws-from{color:var(--ws-gold);font-size:.85em;white-space:nowrap}.ws-v .ws-vt{font-size:1.18rem}.ws-example{margin:0 0 14px;border:1px solid var(--ws-line);border-radius:12px;padding:10px 14px;background:#fff}.ws-example summary{cursor:pointer;font-weight:700;color:var(--ws-navy,#14284B)}.ws-example ol{margin:8px 0;padding-inline-start:22px}.ws-ex-ans{background:#FFF8E6;border-radius:8px;padding:8px 10px;margin:6px 0 0}@media print{.ws-example{display:none}}</style>
 </head>
 <body>
 <a class="bm-skip-link" href="#main-content">דלג לתוכן הראשי</a>
-
-<nav class="breadcrumbs" aria-label="נתיב ניווט">
-  <a href="index.html">הכיתה הדיגיטלית</a>
-  <span class="sep">›</span>
-  <a href="index.html#tab-ya">כיתה י"א</a>
-  <span class="sep">›</span>
-  <a href="index.html#tab-ya">לקט מצוות</a>
-  <span class="sep">›</span>
-  <span class="current">"תלמוד תורה" (מצוה תי"ט)</span>
-</nav>
-
-
-<header>
-  <div class="eyebrow">לקט מצוות · תושב"ע · חוברת תלמיד דיגיטלית</div>
-  <h1>מצוות תלמוד תורה — ספר החינוך, מצוה תי"ט</h1>
-  <p class="sub">השאלות מסודרות כאן לפי סדר הופעתן בלקט. קראו את המקורות וכתבו את תשובותיכם ישירות בתיבות — הכול נשמר אוטומטית במכשיר שלכם.</p>
-  <p class="print-only" id="printNameLine" style="font-size:1rem;font-weight:600;margin-top:.4rem;"></p>
-
-  <svg class="wave" viewBox="0 0 1200 34" preserveAspectRatio="none">
-    <path d="M0 20 Q 50 4, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20 T 900 20 T 1000 20 T 1100 20 T 1200 20"
-      fill="none" stroke="#A9752E" stroke-width="2" opacity="0.55"/>
-    <path d="M0 27 Q 50 11, 100 27 T 200 27 T 300 27 T 400 27 T 500 27 T 600 27 T 700 27 T 800 27 T 900 27 T 1000 27 T 1100 27 T 1200 27"
-      fill="none" stroke="#3F6E66" stroke-width="2" opacity="0.45"/>
-  </svg>
+<main id="main-content" class="ws-wrap">
+<header class="ws-hero">
+ <div><h1>מצוות תלמוד תורה · ספר החינוך, מצוה תי&quot;ט</h1><p class="ws-sub">לקט מצוות · דף עבודה · שאלון 2381</p></div>
+ <div class="ws-who" id="printHeader">
+  <label>שם: <input type="text" id="studentName" data-bm-persist="ws-bereshit" autocomplete="off"></label>
+  <label>כיתה: <input type="text" id="studentClass" data-bm-persist="ws-bereshit" autocomplete="off" style="width:6rem"></label>
+ </div>
 </header>
-
-<div class="student-bar" id="printHeader">
-  <label>שם: <input type="text" id="studentName" placeholder="השם שלכם..."></label>
-  <label>כיתה: <input type="text" id="studentClass" placeholder="למשל: י&quot;א 3" style="width:8rem;"></label>
-</div>
-<p class="privacy-note"><span class="icon" aria-hidden="true">💾</span>התשובות נשמרות אוטומטית במכשיר ובדפדפן הנוכחיים. מעבר למכשיר אחר או ניקוי נתוני הדפדפן עלולים להסיר אותן.</p>
-
-<div class="progress-wrap">
-  <span class="progress-label" id="progressLabel">0 / 18 שאלות</span>
-  <div class="progress-track" id="progressTrack" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="התקדמות בדף העבודה"><div class="progress-fill" id="progressFill"></div></div>
-</div>
-<div class="save-note" id="saveNote" aria-live="polite">✓ נשמר</div>
-
-<main id="main-content">
-  <section class="bm-lesson-start" data-lesson-kind="chinuch" aria-labelledby="lesson-goal">
-    <h2 id="lesson-goal">מה נלמד היום?</h2>
-    <p><strong>המטרה:</strong> נסביר את המצווה, את שורש המצווה ואת אחת מהלכותיה, ונבחין בין המקור להסבר שלנו.</p>
-    <p>מתחילים בהסבר ובדוגמה. אחר כך פותרים מקבץ קצר. אפשר להיעזר במילון ובטיוטה, ולעצור לחזרה לפני שממשיכים.</p>
-    <button type="button" class="btn primary" data-lesson-start>מתחילים את הלמידה</button>
-    <div class="bm-lesson-tools"></div>
-  </section>
-  <div class="grid" id="grid" data-answer-kind="suggested">
-    <!-- הסבר קצר (שלב ג׳) -->
-    <section class="card" data-stage="explain" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">📖 בקצרה</span>
-        <h2 class="card-title">תלמוד תורה בקצרה - הסבר פשוט</h2>
-      </div>
-      <div class="card-body">
-        <div class="story-summary">
-          <div class="story-label"><span aria-hidden="true">📜</span>מה המצווה?</div>
-          ללמוד תורה וללמד אותה - כדי לדעת איך עושים את המצוות, וממה צריך להישמר.
-        </div>
-        <div class="story-summary">
-          <div class="story-label"><span aria-hidden="true">👨‍👦</span>את מי מלמדים?</div>
-          "ושננתם לבניך" - האב מלמד את בנו, וגם את התלמידים ("בניך - אלו תלמידיך"). צריך לדעת את התורה היטב, כדי לענות מיד, בלי לגמגם.
-        </div>
-        <div class="story-summary">
-          <div class="story-label"><span aria-hidden="true">🤔</span>למה יש מצווה כזאת?</div>
-          בלימוד האדם מכיר את דרכי ה׳. בלי לימוד הוא לא יודע ולא מבין.
-        </div>
-        <div class="story-summary">
-          <div class="story-label"><span aria-hidden="true">👶</span>מתי מתחילים?</div>
-          כשהילד מתחיל לדבר. לא מכבידים על ילד קטן - ורק כשהוא מתחזק ומבין יותר, מלמדים אותו ברצינות.
-        </div>
-        <div class="story-summary">
-          <div class="story-label"><span aria-hidden="true">⏳</span>עד מתי, ומי?</div>
-          עד יום המוות. כל אחד חייב - עני ועשיר, בריא וחולה. ולא אומרים "כשיהיה לי זמן פנוי, אלמד".
-        </div>
-        <div class="story-summary">
-          <div class="story-label"><span aria-hidden="true">📅</span>על מי?</div>
-          בכל מקום ובכל זמן, על גברים - "בניכם" ולא בנותיכם.
-        </div>
-      </div>
-    </section>
-
-    <!-- דוגמה פתורה (שלב ג׳): שאלת בגרות אמיתית מהדף ותשובת המחוון -->
-    <section class="card" data-stage="example" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">✏️ דוגמה פתורה</span>
-        <h2 class="card-title">איך עונים על שאלת בגרות? - דוגמה צעד אחר צעד</h2>
-      </div>
-      <div class="card-body">
-        <div class="bm-example-q"><span class="bm-example-label">בגרות · תשפ״ב (2022) · שאלה 5 · סעיף ב</span> 1. על פי חז"ל, אדם חייב לחלק את זמן הלימוד שלו "לשלושה חלקים". מה הם שלושת החלקים? 2. על פי חז"ל, לא יאמר אדם "לכשאפנה אשנה" – הסבירו מדוע.</div>
-        <ol class="bm-example-steps">
-          <li><b>מפרקים את השאלה.</b> יש שני חלקים: (1) שלושת החלקים של זמן הלימוד. (2) למה לא אומרים "לכשאפנה אשנה".</li>
-          <li><b>מבינים מילים קשות.</b> "לכשאפנה אשנה" = כשיהיה לי זמן פנוי, אלמד.</li>
-          <li><b>מחפשים בדף.</b> בכרטיס "חלוקת זמן הלימוד": <span class="bm-quote">שליש בעסק תורה שבכתב, ושליש בעסק תורה שבעל פה</span>... ובכרטיס "לכשאפנה אשנה": <span class="bm-quote">שמא לא יפנה לעולם</span>.</li>
-          <li><b>כותבים לפי החלקים.</b> 1. שלושה חלקים. 2. ההסבר.</li>
-        </ol>
-        <div class="bm-answer-card" data-kind="suggested">
-          <div class="bm-answer-head" data-kind="suggested"><span class="bm-answer-badge">💡 תשובה לדוגמה</span><span class="bm-answer-sub">תשובה אפשרית - לא מהמחוון</span></div>
-          <p>1. שליש מהזמן - תורה שבכתב. שליש - תורה שבעל פה (משניות וברייתות). שליש - להבין את הדברים מהשורש. 2. כי אולי אף פעם לא יהיה לו זמן פנוי - "כי לא ידע האדם מה ילד יום". לכן צריך ללמוד עכשיו.</p>
-        </div>
-        <div class="hint-box" data-answer-kind="official"><b>✓ דגם התשובה:</b><p>1. שלושת החלקים הם: תורה שבכתב, תורה שבעל פה, להבין העניינים מן השורש.</p><p>2. שמא לא ייפנה לעולם.</p></div>
-        <p class="bm-example-why">✓ שתי התשובות עונות על שני החלקים. התשובה האפשרית מסבירה גם כל חלק של הזמן במילים פשוטות.</p>
-      </div>
-    </section>
-
-    <section class="card" data-stage="guided" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">מבנה ספר החינוך - חימום</span>
-        <h2 class="card-title">לפני שמתחילים: מבנה ספר החינוך</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">ספר החינוך מחולק למצוות על-פי סדר הפרשות בתורה, ובנוי מתרי"ג מצוות. כל מצווה בספר בנויה ממבנה קבוע של ארבעה סעיפים. כך נראים ארבעת הסעיפים במצווה שנלמד היום:</div>
-        <div class="fill-table">
-          <div class="fill-row"><span class="fill-label">הגדרת המצווה</span><span class="fill-text">ללמוד תורה וללמד אותה: "ושננתם לבניך" - "בניך" הם גם התלמידים.</span></div>
-          <div class="fill-row"><span class="fill-label">שורש המצווה</span><span class="fill-text">רק בלימוד אדם יודע מה ה' רוצה ממנו; מי שלא לומד "נחשב כבהמה".</span></div>
-          <div class="fill-row"><span class="fill-label">דיני המצווה</span><span class="fill-text">מתחילים ללמד ילד כשהוא מתחיל לדבר, ולא מעמיסים על ילד קטן. חובה ללמוד כל החיים - עני ועשיר. מחלקים את זמן הלימוד לשלושה חלקים. כל קהילה חייבת לדאוג למורים. ולא דוחים: "לא יאמר לכשאפנה אשנה" [=לא יגיד "כשיהיה לי זמן - אלמד"].</span></div>
-          <div class="fill-row"><span class="fill-label">למעשה</span><span class="fill-text">בכל מקום ובכל זמן. גברים חייבים; נשים פטורות - "בניכם, ולא בנותיכם".</span></div>
-        </div>
-      </div>
-    </section>
-    <section class="card">
-      <div class="card-head">
-        <span class="card-tag">הגדרת המצווה</span>
-        <h2 class="card-title">הגדרת המצווה</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">מצות עשה ללמוד חכמת התורה וללמדה, כלומר כיצד נעשה המצוות, ונשמר ממה שמנענו האל ממנו, ולדעת גם כן משפטי התורה על כיוון האמת.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="q-num">1</span><span class="q-text" id="a11y-lbl-5">מהי המצווה, ומהן שתי המטרות שלשמן יש ללמוד תורה על פי ההגדרה?</span></div>
-          <textarea class="answer" aria-labelledby="a11y-lbl-5" data-id="q1" placeholder="כתבו כאן את התשובה..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> מצוות עשה ללמוד וללמד את חכמת התורה - כדי לדעת כיצד לקיים את המצוות ולהישמר מן האסור, וכן כדי לדעת את משפטי התורה על אמיתתם.</div>
-        </div>
-      </div>
-    </section>
-    <section class="card">
-      <div class="card-head">
-        <span class="card-tag">הגדרת המצווה (המשך)</span>
-        <h2 class="card-title">הגדרת המצווה (המשך)</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">ועל כל זה נאמר "ושננתם לבניך" (דברים ו, ז), ואמרו רבותינו זכרונם לברכה: בניך — אלו תלמידיך, וכן אתה מוצא שהתלמידים קרויים בנים, שנאמר "ויצאו בני הנביאים" (מלכים ב ב, ג). ושם נאמר "ושננתם" — שיהיו מסודרים בתוך פיך, כשאדם שואלך דבר אל תהא מגמגם לו, אלא תהא אומר לו מיד.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="q-num">2</span><span class="q-text" id="a11y-lbl-6">מדוע התלמידים נקראים "בנים", ומה המשמעות ההלכתית של המילה "ושננתם"?</span></div>
-          <textarea class="answer" aria-labelledby="a11y-lbl-6" data-id="q2" placeholder="כתבו כאן את התשובה..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> התלמידים נקראים "בנים" משום שגם הם, כמו ילדים, נבנים ומתעצבים על ידי מוריהם (כפי שמצינו "בני הנביאים"). "ושננתם" מלמד שהדברים צריכים להיות שגורים וסדורים בפי הלומד, כך שכשישאלוהו דבר - ישיב מיד ולא יגמגם.</div>
-        </div>
-      </div>
-    </section>
-    <section class="card">
-      <div class="card-head">
-        <span class="card-tag">שורש המצווה</span>
-        <h2 class="card-title">שורש המצווה</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">שרש מצוה זו ידוע: כי בלימוד ידע האדם דרכי השם יתברך, וזולתו לא ידע ולא יבין, ונחשב כבהמה.</div><p class="src-note" style="font-size:.88rem;line-height:1.6;color:var(--ink-soft);margin:.45rem 0 0;"><b>עוד בספר החינוך:</b> "המצוה הזאת היא אם לכולן" [=לימוד התורה הוא הבסיס לקיום כל המצוות, כי בלי לימוד אי אפשר לדעת איך לקיים אותן].</p>
-        <div class="question-block">
-          <div class="question-row"><span class="q-num">3</span><span class="q-text" id="a11y-lbl-7">מהו שורש המצווה, ומה קורה, לפי הקטע, למי שאינו לומד?</span></div>
-          <textarea class="answer" aria-labelledby="a11y-lbl-7" data-id="q3" placeholder="כתבו כאן את התשובה..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> שורש המצווה: רק על ידי הלימוד יודע האדם את דרכי ה'; מי שאינו לומד אינו יודע ואינו מבין, ונחשב כבהמה.</div>
-        </div>
-      </div>
-    </section>
-    <section class="card">
-      <div class="card-head">
-        <span class="card-tag">דיני המצווה - גיל תחילת הלימוד</span>
-        <h2 class="card-title">דיני המצווה - גיל תחילת הלימוד</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">מדיני המצוה: מה שאמרו זכרונם לברכה (סוכה מב.): מאימתי מתחיל האב ללמד את בנו תורה? משיתחיל לדבר — מלמדו "תורה צוה לנו משה" (דברים לג, ד) ופסוק ראשון מקריאת שמע, שהוא "שמע ישראל", ואחר כך מלמדו מעט מעט מפסוקי התורה עד שיהא בן שש או בן שבע, שמוליכו אצל מלמדי תינוקות.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="q-num">4</span><span class="q-text" id="a11y-lbl-8">מאימתי מתחיל האב ללמד את בנו תורה, ומה סדר הלימוד עד גיל שש-שבע?</span></div>
-          <textarea class="answer" aria-labelledby="a11y-lbl-8" data-id="q4" placeholder="כתבו כאן את התשובה..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> מיד כשהילד מתחיל לדבר מלמדים אותו את הפסוק "תורה ציווה לנו משה" ואת הפסוק הראשון של קריאת שמע, ולאחר מכן מעט מעט מפסוקי התורה, עד שבגיל שש-שבע שולחים אותו למלמדי תינוקות.</div>
-        </div>
-      </div>
-    </section>
-    <section class="card">
-      <div class="card-head">
-        <span class="card-tag">דיני המצווה - גיל תחילת הלימוד (המשך)</span>
-        <h2 class="card-title">דיני המצווה - גיל תחילת הלימוד (המשך)</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">וראוי לכל בן דעת, שיתן לבו שלא להכביד על הילד בלימוד בעודנו רך האברים ורך הלבב, עד שיגדל ויתחזק כח לבו ותקף אבריו... ואולם, אחר התחזק כוחו ויאורו עיניו להבין לקול מוריו, אז ראוי וכשר הדבר ומחייב להביא צווארו בעולה של תורה.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="q-num">5</span><span class="q-text" id="a11y-lbl-9">מדוע אין להכביד על ילד קטן בלימוד, ומה משתנה כאשר הוא מתחזק ומתבגר?</span></div>
-          <textarea class="answer" aria-labelledby="a11y-lbl-9" data-id="q5" placeholder="כתבו כאן את התשובה..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> משום שגופו ולבו של הילד עדיין רכים וחלשים, ואין להעמיס עליו יותר משיכול לשאת. כשיתחזק ויוכל להבין את מוריו כראוי - חייבים "להביא צווארו בעולה של תורה" ולהעמיק בלימוד.</div>
-        </div>
-      </div>
-    </section>
-    <section class="card">
-      <div class="card-head">
-        <span class="card-tag">דיני המצווה - עד היכן ומי חייב ללמד</span>
-        <h2 class="card-title">דיני המצווה - עד היכן ומי חייב ללמד</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">וכן מענין המצוה, מה שאמרו זכרונם לברכה (קידושין ל.): עד היכן חייב אדם ללמד את בנו תורה? אמר רב יהודה אמר שמואל: כגון זבולון בן דן — אדם שהיה בדורם ששמו כן, שלמדו אבי אביו מקרא, משנה, תלמוד, הלכות, ואגדות.</div><p class="src-note" style="font-size:.88rem;line-height:1.6;color:var(--ink-soft);margin:.45rem 0 0;"><b>השלמה (בניסוח שלנו):</b> החיוב מן הדין הוא ללמד את בנו מקרא בלבד. מי שמוסיף ומלמד גם משנה, תלמוד, הלכות ואגדות - כמו אבי אביו של זבולון בן דן - תבוא עליו ברכה. החיוב ללמד מוטל על האב ועל הסבא (אבי האב).</p>
-        <div class="question-block">
-          <div class="question-row"><span class="q-num">6</span><span class="q-text" id="a11y-lbl-10">עד היכן חייב אדם ללמד את בנו תורה על פי חובת המצווה הבסיסית, ובמה נבדל ממנו זבולון בן דן?</span></div>
-          <textarea class="answer" aria-labelledby="a11y-lbl-10" data-id="q6" placeholder="כתבו כאן את התשובה..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> החובה הבסיסית היא ללמד את בנו מקרא. זבולון בן דן נבדל בכך שאבי אביו הרחיק לכת מעבר לחובה הבסיסית ולימדו גם משנה, תלמוד, הלכות ואגדות.</div>
-        </div>
-      </div>
-    </section>
-    <section class="card">
-      <div class="card-head">
-        <span class="card-tag">דיני המצווה - עד היכן ומי חייב ללמד (המשך)</span>
-        <h2 class="card-title">דיני המצווה - עד היכן ומי חייב ללמד (המשך)</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">ומי שלא למדו אותו אבותיו שהם חייבין בזה, כגון אביו ואבי אביו, חייב ללמד עצמו כשיהיה גדול ויכיר בדבר. ואם היו האב והבן צריכין ללמוד, ואין בידו של אב שיוכלו שניהם ללמוד תמיד — הוא קודם לבנו; ואם בנו נבון ממנו ותלמודו מתקיים בידו יותר ממנו — בנו קודמו.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="q-num">7</span><span class="q-text" id="a11y-lbl-11">מה דינו של מי שלא לימדוהו אבותיו? ובמה קודם אב לבנו בלימוד כאשר אין ביכולתם ללמוד שניהם יחד?</span></div>
-          <textarea class="answer" aria-labelledby="a11y-lbl-11" data-id="q7" placeholder="כתבו כאן את התשובה..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> מי שלא לימדוהו אבותיו חייב ללמד את עצמו כשיגדל ויכיר. כשאין ביכולתם ללמוד שניהם - האב קודם לבנו, אלא אם הבן פיקח יותר ותלמודו מתקיים בידו יותר - אז הבן קודם.</div>
-        </div>
-      </div>
-    </section>
-    <section class="card">
-      <div class="card-head">
-        <span class="card-tag">דיני המצווה - עד מתי ומי חייב ללמוד</span>
-        <h2 class="card-title">דיני המצווה - עד מתי ומי חייב ללמוד</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">ועד אימתי חייב כל אדם ללמד תורה? עד יום מותו, שנאמר "ופן יסורו מלבבך כל ימי חייך" (דברים ד, ט). ועוד הפליגו חכמים בדבר, ואמרו (שבת פג:) שאפילו בשעת מיתה חייב אדם ללמד תורה.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="q-num">8</span><span class="q-text" id="a11y-lbl-12">עד מתי חייב אדם ללמוד תורה, ומה החידוש בעניין זה לגבי שעת המיתה?</span></div>
-          <textarea class="answer" aria-labelledby="a11y-lbl-12" data-id="q8" placeholder="כתבו כאן את התשובה..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> חייב ללמוד עד יום מותו ("וּפֶן יָסוּרוּ מִלְּבָבְךָ כֹּל יְמֵי חַיֶּיךָ"). החידוש: אפילו בשעת המיתה ממש עדיין חייב אדם ללמוד תורה.</div>
-        </div>
-      </div>
-    </section>
-    <section class="card">
-      <div class="card-head">
-        <span class="card-tag">דיני המצווה - עד מתי ומי חייב ללמוד (המשך)</span>
-        <h2 class="card-title">דיני המצווה - עד מתי ומי חייב ללמוד (המשך)</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">וכל אחד מישראל חייב בתלמוד תורה (יומא לה:), בין עני בין עשיר, בין בריא בין בעל ייסורין. וכבר אמרו זכרונם לברכה (עירובין נד.), שבעסק התורה יתרפאו כל האברים. ואפילו עני המחזר על הפתחים, ואפילו בעל אשה ובנים — הכל חייבים לקבע עתים לתורה ביום ובלילה.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="q-num">9</span><span class="q-text" id="a11y-lbl-13">על מי חלה חובת תלמוד תורה, ומה אומרים חז"ל על הקשר בין עיסוק בתורה לרפואת הגוף?</span></div>
-          <textarea class="answer" aria-labelledby="a11y-lbl-13" data-id="q9" placeholder="כתבו כאן את התשובה..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> חלה על כל יהודי - עני או עשיר, בריא או סובל ייסורים. חז"ל אמרו שדווקא בעיסוק בתורה מתרפאים כל האברים.</div>
-        </div>
-      </div>
-    </section>
-    <section class="card">
-      <div class="card-head">
-        <span class="card-tag">דיני המצווה - ביטול תורה</span>
-        <h2 class="card-title">דיני המצווה - ביטול תורה</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">ותחילת דינו של אדם אחר המוות, הוא על שנתבטל מן הלמוד, וכמו שדרשו זכרונם לברכה מדכתיב: "פוטר מים ראשית מדון" (משלי יז, יד) — מי שפוטר עצמו מן המים (התורה), ראשית קטטה הוא לנפשו אחר שימות.</div><p class="src-note" style="font-size:.88rem;line-height:1.6;color:var(--ink-soft);margin:.45rem 0 0;"><b>עוד בספר החינוך:</b> "ונמשלו דברי תורה למים". <b>המשל:</b> המים אינם נשארים בהרים, אלא יורדים ומצטברים במקום נמוך. <b>הנמשל:</b> התורה מתקיימת באדם עניו ושפל רוח, ולא בגבה לב. (ההסבר לפי מחוון הבגרות)</p>
-        <div class="question-block">
-          <div class="question-row"><span class="q-num">10</span><span class="q-text" id="a11y-lbl-14">על מה נשאל אדם תחילה בדינו שלאחר המוות, וכיצד מוסבר הדימוי בין תורה למים?</span></div>
-          <textarea class="answer" aria-labelledby="a11y-lbl-14" data-id="q10" placeholder="כתבו כאן את התשובה..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> תחילת דינו של אדם אחר מותו הוא על ביטול תורה - נלמד מהפסוק "פּוֹטֵר מַיִם רֵאשִׁית מָדוֹן": מי שפוטר עצמו מהתורה (המשולה למים המחיים) גורם לעצמו קטטה חמורה לאחר מותו.</div>
-        </div>
-      </div>
-    </section>
-    <section class="card">
-      <div class="card-head">
-        <span class="card-tag">דיני המצווה - חלוקת זמן הלימוד</span>
-        <h2 class="card-title">דיני המצווה - חלוקת זמן הלימוד</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">וכן מה שאמרו זכרונם לברכה (קידושין ל.), שחייב אדם לחלק זמנו לשלשה חלקים: שליש בעסק תורה שבכתב, ושליש בעסק תורה שבעל פה — כלומר להיות בקי בגרסת המשניות והבריתות, ושליש להבין העניינים משורש.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="q-num">11</span><span class="q-text" id="a11y-lbl-15">לאילו שלושה חלקים יש לחלק את זמן הלימוד, לפי הקטע?</span></div>
-          <textarea class="answer" aria-labelledby="a11y-lbl-15" data-id="q11" placeholder="כתבו כאן את התשובה..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> שליש בתורה שבכתב, שליש בתורה שבעל פה (בקיאות במשניות ובברייתות), ושליש בהבנת העניינים לעומקם.</div>
-        </div>
-      </div>
-    </section>
-    <section class="card">
-      <div class="card-head">
-        <span class="card-tag">דיני המצווה - חובת הציבור להושיב מלמדים</span>
-        <h2 class="card-title">דיני המצווה - חובת הציבור להושיב מלמדים</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">וכן מה שאמרו (בבא בתרא כא:), שחייב הצבור שבכל מקום ומקום להושיב מלמדי תינוקות, ועיר שאין בה תינוקות של בית רבן תחרב, ועשרים וחמשה תינוקות מושיבין אצל מלמד אחד.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="q-num">12</span><span class="q-text" id="a11y-lbl-16">מה חייב הציבור לעשות בכל מקום, ומה הדין לגבי עיר שאין בה מלמדי תינוקות?</span></div>
-          <textarea class="answer" aria-labelledby="a11y-lbl-16" data-id="q12" placeholder="כתבו כאן את התשובה..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> הציבור בכל מקום חייב להושיב מלמדי תינוקות, כאשר עשרים וחמישה תינוקות מושבים אצל מלמד אחד; עיר שאין בה מלמדי תינוקות דינה "תחרב".</div>
-        </div>
-      </div>
-    </section>
-    <section class="card">
-      <div class="card-head">
-        <span class="card-tag">"לכשאפנה אשנה"</span>
-        <h2 class="card-title">"לכשאפנה אשנה"</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">ומה שאמרו (אבות פ"ב מ"ד), שלא יאמר אדם: "לכשאפנה אשנה" שמא לא יפנה לעולם, כי לא ידע האדם מה ילד יום... וכל שעושה כן וחפץ בברכה, מן השמים מסייעין אותו ומקילין מעליו טרדות העולם המבהילות.</div>
-        <div class="question-block">
-          <div class="question-row"><span class="q-num">13</span><span class="q-text" id="a11y-lbl-17">מדוע אין לומר "לכשאפנה אשנה" (כשיהיה לי פנאי אלמד), ומה קורה למי שדוחק עצמו ללמוד בכל זאת?</span></div>
-          <textarea class="answer" aria-labelledby="a11y-lbl-17" data-id="q13" placeholder="כתבו כאן את התשובה..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> אין לומר זאת משום שאדם אינו יודע מה ילד יום - ייתכן שלא יגיע לו פנאי לעולם. מי שדוחק את עצמו וקובע עתים ללמוד למרות הטרדות - מסייעים לו מן השמים ומקילים עליו את טרדות העולם.</div>
-        </div>
-      </div>
-    </section>
-    <section class="card" data-stage="open">
-      <div class="card-head">
-        <span class="card-tag">ונוהגת</span>
-        <h2 class="card-title">ונוהגת</h2>
-      </div>
-      <div class="card-body">
-        <div class="pasuk-block">ונוהגת מצוה זו בכל מקום ובכל זמן, בזכרים אבל לא בנקבות, שנאמר "בניכם" (דברים יא, יט) - ולא בנותיכם.</div><p class="src-note" style="font-size:.88rem;line-height:1.6;color:var(--ink-soft);margin:.45rem 0 0;"><b>השלמה (בניסוח שלנו):</b> לכן גם אישה אינה חייבת ללמד את בנה תורה - כי מי שאינו חייב ללמוד, אינו חייב ללמד.</p>
-        <div class="question-block">
-          <div class="question-row"><span class="q-num">14</span><span class="q-text" id="a11y-lbl-18">על מי ובאילו תנאים (מקום וזמן) חלה מצוות תלמוד תורה במובנה זה?</span></div>
-          <textarea class="answer" aria-labelledby="a11y-lbl-18" data-id="q14" placeholder="כתבו כאן את התשובה..."></textarea>
-          <button class="hint-btn" type="button">🔎 הצג תשובה</button>
-          <div class="hint-box" hidden><b>✓ תשובה:</b> חלה בכל מקום ובכל זמן, על זכרים בלבד, שנאמר "בניכם" ולא "בנותיכם".</div>
-        </div>
-      </div>
-    </section>
-    <section class="card" data-stage="bagrut" data-answer-kind="official" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">שאלות בגרות אמיתיות</span>
-        <h2 class="card-title">שאלות ותשובות ממבחני הבגרות (תשע"ט – תשפ"ה)</h2>
-      </div>
-      <div class="card-body">
-        <p style="font-size:1rem; color:var(--ink-soft); margin:0;">השאלות להלן נלקחו כלשונן משאלוני הבגרות שהועברו בפועל על מצווה זו, מסודרות לפי שנה. לכל סעיף יש תיבת תשובה משלו - כתבו את התשובה במילים שלכם.</p>
-            <div class="bagrut-block">
-              <div class="src"><span aria-hidden="true">📝</span>בגרות · תשע״ט (2019) · שאלה 5</div>
-              <div class="bagrut-part">
-                <div class="bagrut-part-label">סעיף א'</div>
-                <p>1. על פי בעל ספר החינוך, כיצד על המלמד להתייחס לתלמיד בן שש שנמצא בתחילת דרכו בלימוד התורה?</p>
-                <p>2. על פי בעל ספר החינוך, כיצד על המלמד להתייחס לתלמיד זמן מה לאחר שהתחיל התלמיד ללמוד, ומדוע היחס לתלמיד משתנה בזמן זה?</p>
-                <textarea class="answer" data-id="bg1" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-              </div>
-              <div class="bagrut-part">
-                <div class="bagrut-part-label">סעיף ב'</div>
-                <p>1. "ואל תאמר לכשאפנה אשנה..." (אבות, פרק ב', משנה ד').</p>
-                <p>על פי בעל ספר החינוך, הסבר מהו החשש העולה ממשנה זו בנוגע לקיום מצוות תלמוד תורה.</p>
-                <p>2. מהי ההדרכה של בעל ספר החינוך בנוגע לחשש זה?</p>
-                <textarea class="answer" data-id="bg2" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-              </div>
-            </div>
-            <div class="bagrut-block">
-              <div class="src"><span aria-hidden="true">📝</span>בגרות · תש״ף (2020) · שאלה 6</div>
-              <p>א. 1. "ושננתם לבניך" (דברים, ו', ז').</p>
-              <p>לפי דרשת חז"ל, מי הם "בניך", ומהו פירוש המילה "ושננתם"?</p>
-              <p>2. מדוע אישה אינה חייבת ללמד את בנה תורה?</p>
-              <p>ב. בעל ספר החינוך כתב: "ונמשלו דברי תורה למים".</p>
-              <p>הסבר את המשל ואת הנמשל.</p>
-              <textarea class="answer" data-id="bg3" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-            </div>
-            <div class="bagrut-block">
-              <div class="src"><span aria-hidden="true">📝</span>בגרות · תשפ״ב (2022) · שאלה 5</div>
-              <div class="bagrut-part">
-                <div class="bagrut-part-label">סעיף א'</div>
-                <p>בספר החינוך מובאת שאלת הגמרא: "עד היכן חייב אדם ללמד את בנו תורה?".</p>
-                <p>הסבירו בלשונכם את תשובת הגמרא על שאלה זו. בתשובתכם פרטו מהו תוכן הלימוד ועל מי מוטל החיוב ללמד.</p>
-                <textarea class="answer" data-id="bg4" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-              </div>
-              <div class="bagrut-part">
-                <div class="bagrut-part-label">סעיף ב'</div>
-                <p>1. על פי חז"ל, אדם חייב לחלק את זמן הלימוד שלו "לשלושה חלקים". מה הם שלושת החלקים?</p>
-                <p>2. על פי חז"ל, לא יאמר אדם "לכשאפנה אשנה" – הסבירו מדוע.</p>
-                <textarea class="answer" data-id="bg5" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-              </div>
-              <div class="bagrut-part">
-                <div class="bagrut-part-label">סעיף ג'</div>
-                <p>בעל ספר החינוך כתב: "המצווה הזאת היא <u>אם לכולן</u>" – הסבירו את הכוונה במילים המודגשות בקו.</p>
-                <textarea class="answer" data-id="bg6" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-              </div>
-            </div>
-            <div class="bagrut-block">
-              <div class="src"><span aria-hidden="true">📝</span>בגרות · תשפ״ה (2025) · שאלה 4</div>
-              <p>א. "ושננתם לבניך" (דברים ו', ז').</p>
-              <p>על פי דרשת חז"ל, מהו פירוש המילה "ושננתם", ומי הם "בניך"?</p>
-              <p>ב. 1. על פי בעל ספר החינוך, ממתי האב צריך להתחיל ללמד את בנו תורה?</p>
-              <p>2. על פי בעל ספר החינוך, כיצד על המלמד להתייחס לתלמיד בן שש שנמצא בתחילת דרכו בלימוד התורה?</p>
-              <p>3. באיזה שלב המלמד צריך לשנות את היחס כלפי תלמידו, וכיצד ינהג כלפיו בשלב זה?</p>
-              <p>ג. מה יעשה אדם שאבותיו לא לימדו אותו תורה?</p>
-              <textarea class="answer" data-id="bg7" aria-label="כתבו כאן את התשובה שלכם" placeholder="כתבו כאן את התשובה שלכם..."></textarea>
-            </div>
-      </div>
-    </section>
-
-    <!-- סיכום (שלב ג׳): מה למדנו - מוצג במסך הסיכום -->
-    <section class="card" data-stage="summary" style="grid-column: 1 / -1;">
-      <div class="card-head">
-        <span class="card-tag">✅ סיכום</span>
-        <h2 class="card-title">מה למדנו על תלמוד תורה</h2>
-      </div>
-      <div class="card-body">
-        <ul class="bm-learned">
-          <li><b>המצווה:</b> ללמוד תורה וללמד אותה - "ושננתם לבניך". "בניך" - "אלו תלמידיך".</li>
-          <li><b>השורש:</b> "בלימוד ידע האדם דרכי השם". בלי לימוד - "נחשב כבהמה".</li>
-          <li><b>ילדים:</b> מתחילים "משיתחיל לדבר", ולא מכבידים על ילד קטן.</li>
-          <li><b>כולם ותמיד:</b> עני ועשיר, בריא וחולה - "עד יום מותו".</li>
-          <li><b>הזמן:</b> שליש תורה שבכתב, שליש תורה שבעל פה, שליש להבין מן השורש. ולא אומרים "לכשאפנה אשנה".</li>
-          <li><b>על מי?</b> בכל מקום ובכל זמן, בזכרים - "ולא בנותיכם".</li>
-        </ul>
-      </div>
-    </section>
-  </div>
-</main>
-
-<div class="toolbar">
-  <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="תלמוד תורה" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
-  <button class="btn" id="printBtn">🖨️ הדפסה</button>
-  <button class="btn danger" id="clearBtn">נקו את כל התשובות</button>
+<nav class="ws-map" aria-label="נושאי הדף"><a href="#t1">📜 נושא 1<small>מהי המצווה, ולמה?</small></a><a href="#t2">👶 נושא 2<small>מלמדים את הילדים</small></a><a href="#t3">⏳ נושא 3<small>לומדים כל החיים</small></a><a href="#bagrut">🎓 בגרות<small>שאלות מבחינות קודמות</small></a></nav>
+<div class="ws-res"><a href="leket-mitzvot-hub.html">📚 לקט מצוות - כל המצוות</a></div>
+<p class="ws-howto">בכל נושא: <b>1</b> קוראים את המקור מספר החינוך (ומתחת - הסבר פשוט), <b>2</b> עונים על שאלות הבנה ומשחקים, <b>3</b> מעמיקים ביחד עם המורה. בסוף - שאלות בגרות. הכול נשמר לבד במכשיר.</p>
+<section class="ws-topic ws-t1" id="t1"><div class="ws-th"><span class="ws-tn">נושא 1</span><h2>📜 מהי המצווה, ולמה היא חשובה?</h2><span class="ws-rng">הגדרת המצווה ושורש המצווה</span></div><h3 class="ws-step"><span>1</span> קוראים את המקור</h3><p class="ws-legend"><span class="ws-legend-sw"></span>⭐ קטע מרכזי - חשוב במיוחד להבנה ולבגרות</p><div class="ws-verses"><div class="ws-v ws-kv"><span class="ws-vn">א<span class="ws-star" title="קטע מרכזי">⭐</span></span><p class="ws-vt">מצות עשה ללמוד חכמת התורה וללמדה, כלומר כיצד נעשה המצוות, ונשמר ממה שמנענו האל ממנו, ולדעת גם כן משפטי התורה על כיוון האמת.</p><p class="ws-vp"><b>בפשטות:</b> מצווה ללמוד תורה וגם ללמד אותה: כדי לדעת איך מקיימים את המצוות, ממה צריך להישמר, ולהכיר את דיני התורה כמו שהם באמת. <span class="ws-from">(הגדרת המצווה)</span></p></div><div class="ws-v ws-kv"><span class="ws-vn">ב<span class="ws-star" title="קטע מרכזי">⭐</span></span><p class="ws-vt">ועל כל זה נאמר &quot;ושננתם לבניך&quot; (דברים ו, ז), ואמרו רבותינו זכרונם לברכה: בניך — אלו תלמידיך, וכן אתה מוצא שהתלמידים קרויים בנים, שנאמר &quot;ויצאו בני הנביאים&quot; (מלכים ב ב, ג). ושם נאמר &quot;ושננתם&quot; — שיהיו מסודרים בתוך פיך, כשאדם שואלך דבר אל תהא מגמגם לו, אלא תהא אומר לו מיד.</p><p class="ws-vp"><b>בפשטות:</b> &quot;בניך&quot; הם גם התלמידים - כמו &quot;בני הנביאים&quot;, שהם התלמידים של הנביאים. &quot;ושננתם&quot; = הדברים צריכים להיות מסודרים בפה, כך שכששואלים אותך - עונים מיד, בלי לגמגם. <span class="ws-from">(הגדרת המצווה (המשך))</span></p></div><div class="ws-v ws-kv"><span class="ws-vn">ג<span class="ws-star" title="קטע מרכזי">⭐</span></span><p class="ws-vt">שרש מצוה זו ידוע: כי בלימוד ידע האדם דרכי השם יתברך, וזולתו לא ידע ולא יבין, ונחשב כבהמה.</p><p class="ws-vp"><b>בפשטות:</b> רק בלימוד אדם מכיר את הדרכים של ה&#x27;. בלי לימוד הוא לא יודע ולא מבין - ונחשב כמו בהמה. <span class="ws-from">(שורש המצווה)</span></p></div><div class="ws-v"><span class="ws-vn">ד</span><p class="ws-vt">&quot;המצוה הזאת היא אם לכולן&quot;</p><p class="ws-vp"><b>בפשטות:</b> לימוד התורה הוא הבסיס לקיום כל המצוות - כי בלי לימוד אי אפשר לדעת איך לקיים אותן. <span class="ws-from">(עוד בספר החינוך)</span></p></div></div><h3 class="ws-step"><span>2</span> מבינים מה קראנו</h3><div class="ws-act"><div class="ws-act-h"><span>📋 שאלות הבנה על המקור</span><button type="button" class="ws-btn" data-check>בדיקה</button></div><table class="ws-quiz"><thead><tr><th>שאלה</th><th>תשובה קצרה</th></tr></thead><tbody><tr><td class="ws-q"><label for="f-k1">מה שתי המטרות של לימוד התורה לפי ההגדרה?</label> <span class="ws-src">(א)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k1" data-id="k1" autocomplete="off"><span class="ws-key" hidden>✓ לדעת איך לקיים את המצוות ולהישמר מהאסור; ולדעת את משפטי התורה על אמיתתם</span></td></tr><tr><td class="ws-q"><label for="f-k2">מי הם &quot;בניך&quot; לפי חז&quot;ל?</label> <span class="ws-src">(ב)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k2" data-id="k2" autocomplete="off"><span class="ws-key" hidden>✓ התלמידים (&quot;בניך - אלו תלמידיך&quot;)</span></td></tr><tr><td class="ws-q"><label for="f-k3">מאיזה פסוק רואים שתלמידים נקראים &quot;בנים&quot;?</label> <span class="ws-src">(ב)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k3" data-id="k3" autocomplete="off"><span class="ws-key" hidden>✓ &quot;ויצאו בני הנביאים&quot;</span></td></tr><tr><td class="ws-q"><label for="f-k4">מה פירוש המילה &quot;ושננתם&quot;?</label> <span class="ws-src">(ב)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k4" data-id="k4" autocomplete="off"><span class="ws-key" hidden>✓ שהדברים יהיו מסודרים בפה - לענות מיד, בלי לגמגם</span></td></tr><tr><td class="ws-q"><label for="f-k5">מה קורה למי שלא לומד, לפי שורש המצווה?</label> <span class="ws-src">(ג)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k5" data-id="k5" autocomplete="off"><span class="ws-key" hidden>✓ לא יודע ולא מבין, ו&quot;נחשב כבהמה&quot;</span></td></tr></tbody></table></div><div class="ws-act"><div class="ws-act-h"><span>🧩 משחק: מאיזה חלק בספר החינוך?</span><span class="ws-score" data-score></span></div><p class="ws-help">בכל מצווה בספר החינוך יש הגדרה, שורש ודינים. לכל משפט - לחצו לאיזה חלק הוא שייך.</p><ul class="ws-sort ws-sort3"><li class="ws-sort-i" data-ans="h"><span class="ws-sort-t">ללמוד תורה וללמד אותה</span><span class="ws-sort-b"><button type="button" data-pick="h">הגדרה</button><button type="button" data-pick="s">שורש</button><button type="button" data-pick="d">דינים</button></span></li><li class="ws-sort-i" data-ans="s"><span class="ws-sort-t">&quot;בלימוד ידע האדם דרכי השם&quot;</span><span class="ws-sort-b"><button type="button" data-pick="h">הגדרה</button><button type="button" data-pick="s">שורש</button><button type="button" data-pick="d">דינים</button></span></li><li class="ws-sort-i" data-ans="d"><span class="ws-sort-t">מתחילים ללמד ילד כשהוא מתחיל לדבר</span><span class="ws-sort-b"><button type="button" data-pick="h">הגדרה</button><button type="button" data-pick="s">שורש</button><button type="button" data-pick="d">דינים</button></span></li><li class="ws-sort-i" data-ans="h"><span class="ws-sort-t">&quot;בניך - אלו תלמידיך&quot;</span><span class="ws-sort-b"><button type="button" data-pick="h">הגדרה</button><button type="button" data-pick="s">שורש</button><button type="button" data-pick="d">דינים</button></span></li><li class="ws-sort-i" data-ans="s"><span class="ws-sort-t">מי שלא לומד &quot;נחשב כבהמה&quot;</span><span class="ws-sort-b"><button type="button" data-pick="h">הגדרה</button><button type="button" data-pick="s">שורש</button><button type="button" data-pick="d">דינים</button></span></li><li class="ws-sort-i" data-ans="d"><span class="ws-sort-t">חייב ללמוד עד יום מותו</span><span class="ws-sort-b"><button type="button" data-pick="h">הגדרה</button><button type="button" data-pick="s">שורש</button><button type="button" data-pick="d">דינים</button></span></li><li class="ws-sort-i" data-ans="d"><span class="ws-sort-t">מחלקים את זמן הלימוד לשלושה חלקים</span><span class="ws-sort-b"><button type="button" data-pick="h">הגדרה</button><button type="button" data-pick="s">שורש</button><button type="button" data-pick="d">דינים</button></span></li></ul></div><h3 class="ws-step"><span>3</span> מעמיקים - חושבים ביחד</h3><div class="ws-cards"><article class="ws-card"><header><b>&quot;ושננתם לבניך&quot;</b><span>בגרות תש&quot;ף ותשפ&quot;ה</span></header><p class="ws-cq"><label for="f-c1">(1) לפי דרשת חז&quot;ל, מי הם &quot;בניך&quot;? (2) מהו פירוש המילה &quot;ושננתם&quot;?</label></p><textarea class="answer ws-ta" id="f-c1" data-id="c1" rows="3" data-model="(1) &quot;בניך - אלו תלמידיך&quot;: התלמידים נקראים בנים, כמו &quot;ויצאו בני הנביאים&quot;. (2) &quot;שיהיו מסודרים בתוך פיך&quot; - כששואלים, עונים מיד ולא מגמגמים." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>&quot;אם לכולן&quot;</b><span>בגרות תשפ&quot;ב</span></header><blockquote class="ws-ctext">המצוה הזאת היא אם לכולן</blockquote><p class="ws-cq"><label for="f-c2">הסבירו: למה מצוות תלמוד תורה היא &quot;אם&quot; (=הבסיס) לכל המצוות?</label></p><textarea class="answer ws-ta" id="f-c2" data-id="c2" rows="3" data-model="לימוד התורה הוא הבסיס לקיום כל המצוות, כי בלי לימוד אי אפשר לדעת איך לקיים אותן (&quot;בלימוד ידע האדם דרכי השם&quot;)." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article></div></section><section class="ws-topic ws-t2" id="t2"><div class="ws-th"><span class="ws-tn">נושא 2</span><h2>👶 מלמדים את הילדים</h2><span class="ws-rng">דיני המצווה: מתי, איך וכמה</span></div><h3 class="ws-step"><span>1</span> קוראים את המקור</h3><p class="ws-legend"><span class="ws-legend-sw"></span>⭐ קטע מרכזי - חשוב במיוחד להבנה ולבגרות</p><div class="ws-verses"><div class="ws-v ws-kv"><span class="ws-vn">א<span class="ws-star" title="קטע מרכזי">⭐</span></span><p class="ws-vt">מאימתי מתחיל האב ללמד את בנו תורה? משיתחיל לדבר — מלמדו &quot;תורה צוה לנו משה&quot; (דברים לג, ד) ופסוק ראשון מקריאת שמע, שהוא &quot;שמע ישראל&quot;, ואחר כך מלמדו מעט מעט מפסוקי התורה עד שיהא בן שש או בן שבע, שמוליכו אצל מלמדי תינוקות.</p><p class="ws-vp"><b>בפשטות:</b> כשהילד מתחיל לדבר - האב מלמד אותו &quot;תורה צוה לנו משה&quot; ו&quot;שמע ישראל&quot;. אחר כך עוד פסוקים, מעט מעט. בגיל שש או שבע - מביא אותו למלמד. <span class="ws-from">(סוכה מב.)</span></p></div><div class="ws-v ws-kv"><span class="ws-vn">ב<span class="ws-star" title="קטע מרכזי">⭐</span></span><p class="ws-vt">וראוי לכל בן דעת, שיתן לבו שלא להכביד על הילד בלימוד בעודנו רך האברים ורך הלבב, עד שיגדל ויתחזק כח לבו ותקף אבריו... ואולם, אחר התחזק כוחו ויאורו עיניו להבין לקול מוריו, אז ראוי וכשר הדבר ומחייב להביא צווארו בעולה של תורה.</p><p class="ws-vp"><b>בפשטות:</b> לא מעמיסים על ילד קטן, כי הגוף והלב שלו עוד רכים. כשהוא מתחזק ומבין את המורים - צריך ללמוד איתו ברצינות (&quot;עולה של תורה&quot;). <span class="ws-from">(ספר החינוך)</span></p></div><div class="ws-v"><span class="ws-vn">ג</span><p class="ws-vt">עד היכן חייב אדם ללמד את בנו תורה? אמר רב יהודה אמר שמואל: כגון זבולון בן דן — אדם שהיה בדורם ששמו כן, שלמדו אבי אביו מקרא, משנה, תלמוד, הלכות, ואגדות.</p><p class="ws-vp"><b>בפשטות:</b> החיוב מן הדין הוא ללמד את הבן מקרא. מי שמלמד גם משנה, תלמוד, הלכות ואגדות - כמו הסבא של זבולון בן דן - תבוא עליו ברכה. החיוב על האב ועל הסבא (אבי האב). <span class="ws-from">(קידושין ל.)</span></p></div><div class="ws-v"><span class="ws-vn">ד</span><p class="ws-vt">ומי שלא למדו אותו אבותיו שהם חייבין בזה, כגון אביו ואבי אביו, חייב ללמד עצמו כשיהיה גדול ויכיר בדבר. ואם היו האב והבן צריכין ללמוד, ואין בידו של אב שיוכלו שניהם ללמוד תמיד — הוא קודם לבנו; ואם בנו נבון ממנו ותלמודו מתקיים בידו יותר ממנו — בנו קודמו.</p><p class="ws-vp"><b>בפשטות:</b> מי שאבא וסבא לא לימדו אותו - חייב ללמד את עצמו כשיגדל. אם אין אפשרות ששניהם ילמדו: האב קודם. אבל אם הבן חכם יותר וזוכר יותר - הבן קודם. <span class="ws-from">(ספר החינוך)</span></p></div><div class="ws-v"><span class="ws-vn">ה</span><p class="ws-vt">שחייב הצבור שבכל מקום ומקום להושיב מלמדי תינוקות, ועיר שאין בה תינוקות של בית רבן תחרב, ועשרים וחמשה תינוקות מושיבין אצל מלמד אחד.</p><p class="ws-vp"><b>בפשטות:</b> כל קהילה חייבת לדאוג למורים לילדים. עיר בלי ילדים שלומדים תורה - תיחרב. 25 ילדים אצל מורה אחד. <span class="ws-from">(בבא בתרא כא:)</span></p></div></div><h3 class="ws-step"><span>2</span> מבינים מה קראנו</h3><div class="ws-act"><div class="ws-act-h"><span>📋 שאלות הבנה על המקור</span><button type="button" class="ws-btn" data-check>בדיקה</button></div><table class="ws-quiz"><thead><tr><th>שאלה</th><th>תשובה קצרה</th></tr></thead><tbody><tr><td class="ws-q"><label for="f-k6">מתי מתחיל האב ללמד את בנו תורה?</label> <span class="ws-src">(א)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k6" data-id="k6" autocomplete="off"><span class="ws-key" hidden>✓ &quot;משיתחיל לדבר&quot;</span></td></tr><tr><td class="ws-q"><label for="f-k7">אילו שני פסוקים מלמדים את הילד קודם?</label> <span class="ws-src">(א)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k7" data-id="k7" autocomplete="off"><span class="ws-key" hidden>✓ &quot;תורה צוה לנו משה&quot; ו&quot;שמע ישראל&quot;</span></td></tr><tr><td class="ws-q"><label for="f-k8">באיזה גיל מביאים את הילד למלמד תינוקות?</label> <span class="ws-src">(א)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k8" data-id="k8" autocomplete="off"><span class="ws-key" hidden>✓ בגיל שש או שבע</span></td></tr><tr><td class="ws-q"><label for="f-k9">למה לא מכבידים על ילד קטן?</label> <span class="ws-src">(ב)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k9" data-id="k9" autocomplete="off"><span class="ws-key" hidden>✓ כי הוא עוד &quot;רך האברים ורך הלבב&quot;</span></td></tr><tr><td class="ws-q"><label for="f-k10">מה חייב לעשות מי שאבותיו לא לימדו אותו?</label> <span class="ws-src">(ד)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k10" data-id="k10" autocomplete="off"><span class="ws-key" hidden>✓ ללמד את עצמו כשיגדל</span></td></tr><tr><td class="ws-q"><label for="f-k11">כמה ילדים יושבים אצל מלמד אחד?</label> <span class="ws-src">(ה)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k11" data-id="k11" autocomplete="off"><span class="ws-key" hidden>✓ עשרים וחמישה</span></td></tr></tbody></table></div><div class="ws-act"><div class="ws-act-h"><span>🔢 משחק: הדרך של ילד בלימוד</span><button type="button" class="ws-btn" data-seqcheck>בדיקה</button></div><p class="ws-help">הזיזו בחצים עד שהאירועים מסודרים לפי הסדר בספר החינוך.</p><ol class="ws-seq"><li class="ws-seq-i" data-pos="c"><span class="ws-seq-n"></span><span class="ws-seq-t">בגיל שש-שבע: הולך למלמד תינוקות</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li><li class="ws-seq-i" data-pos="a"><span class="ws-seq-n"></span><span class="ws-seq-t">מתחיל לדבר: לומד &quot;תורה צוה לנו משה&quot; ו&quot;שמע ישראל&quot;</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li><li class="ws-seq-i" data-pos="d"><span class="ws-seq-n"></span><span class="ws-seq-t">מתחזק ומבין: לומד ברצינות - &quot;עולה של תורה&quot;</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li><li class="ws-seq-i" data-pos="b"><span class="ws-seq-n"></span><span class="ws-seq-t">לומד מעט מעט מפסוקי התורה</span><span class="ws-seq-b"><button type="button" data-up aria-label="למעלה">▲</button><button type="button" data-down aria-label="למטה">▼</button></span></li></ol><p class="ws-seq-msg" data-seqmsg role="status"></p></div><h3 class="ws-step"><span>3</span> מעמיקים - חושבים ביחד</h3><div class="ws-cards c3"><article class="ws-card"><header><b>לא להכביד על ילד קטן</b><span>בגרות תשע&quot;ט ותשפ&quot;ה</span></header><p class="ws-cq"><label for="f-c3">(1) איך צריך המלמד להתייחס לתלמיד בן שש, בתחילת הדרך? (2) מתי היחס משתנה, ואיך ינהג אז?</label></p><textarea class="answer ws-ta" id="f-c3" data-id="c3" rows="3" data-model="(1) לא להכביד עליו, כי הוא &quot;רך האברים ורך הלבב&quot;. (2) כשהוא מתחזק ו&quot;יאורו עיניו להבין לקול מוריו&quot; - צריך &quot;להביא צווארו בעולה של תורה&quot;, כלומר ללמוד איתו ברצינות." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>עד היכן מלמדים?</b><span>בגרות תשפ&quot;ב</span></header><p class="ws-cq"><label for="f-c4">הסבירו בלשונכם: עד היכן חייב אדם ללמד את בנו תורה? פרטו מה לומדים ועל מי החיוב.</label></p><textarea class="answer ws-ta" id="f-c4" data-id="c4" rows="3" data-model="החיוב הבסיסי הוא ללמד את הבן מקרא. מי שמוסיף - משנה, תלמוד, הלכות ואגדות - כמו אבי אביו של זבולון בן דן. החיוב על האב ועל אבי האב." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>אב ובן - מי קודם?</b><span>ספר החינוך</span></header><p class="ws-cq"><label for="f-c5">אב ובן צריכים ללמוד, ויש כסף או זמן רק לאחד. מי קודם? ומתי זה מתהפך?</label></p><textarea class="answer ws-ta" id="f-c5" data-id="c5" rows="3" data-model="האב קודם לבנו. אבל אם הבן &quot;נבון ממנו ותלמודו מתקיים בידו יותר&quot; - הבן קודם." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article></div></section><section class="ws-topic ws-t3" id="t3"><div class="ws-th"><span class="ws-tn">נושא 3</span><h2>⏳ לומדים כל החיים</h2><span class="ws-rng">דיני המצווה: כולם, תמיד, ובכל מקום</span></div><h3 class="ws-step"><span>1</span> קוראים את המקור</h3><p class="ws-legend"><span class="ws-legend-sw"></span>⭐ קטע מרכזי - חשוב במיוחד להבנה ולבגרות</p><div class="ws-verses"><div class="ws-v ws-kv"><span class="ws-vn">א<span class="ws-star" title="קטע מרכזי">⭐</span></span><p class="ws-vt">ועד אימתי חייב כל אדם ללמד תורה? עד יום מותו, שנאמר &quot;ופן יסורו מלבבך כל ימי חייך&quot; (דברים ד, ט). ועוד הפליגו חכמים בדבר, ואמרו (שבת פג:) שאפילו בשעת מיתה חייב אדם ללמד תורה.</p><p class="ws-vp"><b>בפשטות:</b> חייבים ללמוד עד יום המוות - &quot;כל ימי חייך&quot;. ואפילו ברגע המוות עדיין חייבים. <span class="ws-from">(ספר החינוך)</span></p></div><div class="ws-v ws-kv"><span class="ws-vn">ב<span class="ws-star" title="קטע מרכזי">⭐</span></span><p class="ws-vt">וכל אחד מישראל חייב בתלמוד תורה (יומא לה:), בין עני בין עשיר, בין בריא בין בעל ייסורין. וכבר אמרו זכרונם לברכה (עירובין נד.), שבעסק התורה יתרפאו כל האברים. ואפילו עני המחזר על הפתחים, ואפילו בעל אשה ובנים — הכל חייבים לקבע עתים לתורה ביום ובלילה.</p><p class="ws-vp"><b>בפשטות:</b> כולם חייבים: עני ועשיר, בריא וחולה, גם מי שיש לו משפחה. כל אחד קובע זמנים קבועים ללימוד. והלימוד גם מרפא את הגוף. <span class="ws-from">(ספר החינוך)</span></p></div><div class="ws-v ws-kv"><span class="ws-vn">ג<span class="ws-star" title="קטע מרכזי">⭐</span></span><p class="ws-vt">שחייב אדם לחלק זמנו לשלשה חלקים: שליש בעסק תורה שבכתב, ושליש בעסק תורה שבעל פה — כלומר להיות בקי בגרסת המשניות והבריתות, ושליש להבין העניינים משורש.</p><p class="ws-vp"><b>בפשטות:</b> זמן הלימוד מתחלק לשלושה: שליש תורה שבכתב, שליש תורה שבעל פה (משניות וברייתות), ושליש להבין את הדברים לעומק. <span class="ws-from">(קידושין ל.)</span></p></div><div class="ws-v ws-kv"><span class="ws-vn">ד<span class="ws-star" title="קטע מרכזי">⭐</span></span><p class="ws-vt">שלא יאמר אדם: &quot;לכשאפנה אשנה&quot; שמא לא יפנה לעולם, כי לא ידע האדם מה ילד יום... וכל שעושה כן וחפץ בברכה, מן השמים מסייעין אותו ומקילין מעליו טרדות העולם המבהילות.</p><p class="ws-vp"><b>בפשטות:</b> לא אומרים &quot;כשיהיה לי זמן פנוי - אלמד&quot;, כי אולי אף פעם לא יהיה זמן. מי שלומד בכל זאת - מן השמים עוזרים לו ומקלים עליו את הטרדות. <span class="ws-from">(אבות פ&quot;ב מ&quot;ד)</span></p></div><div class="ws-v"><span class="ws-vn">ה</span><p class="ws-vt">ותחילת דינו של אדם אחר המוות, הוא על שנתבטל מן הלמוד, וכמו שדרשו זכרונם לברכה מדכתיב: &quot;פוטר מים ראשית מדון&quot; (משלי יז, יד) — מי שפוטר עצמו מן המים (התורה), ראשית קטטה הוא לנפשו אחר שימות.</p><p class="ws-vp"><b>בפשטות:</b> אחרי המוות, השאלה הראשונה היא על ביטול תורה. &quot;מים&quot; = תורה. ועוד בספר החינוך: &quot;ונמשלו דברי תורה למים&quot; - מים יורדים למקום נמוך, והתורה נשארת אצל אדם עניו ולא אצל גאוותן. <span class="ws-from">(ספר החינוך)</span></p></div><div class="ws-v"><span class="ws-vn">ו</span><p class="ws-vt">ונוהגת מצוה זו בכל מקום ובכל זמן, בזכרים אבל לא בנקבות, שנאמר &quot;בניכם&quot; (דברים יא, יט) - ולא בנותיכם.</p><p class="ws-vp"><b>בפשטות:</b> המצווה בכל מקום ובכל זמן, על גברים: &quot;בניכם&quot; ולא בנותיכם. לכן גם אישה לא חייבת ללמד את בנה - מי שלא חייב ללמוד, לא חייב ללמד. <span class="ws-from">(ונוהגת)</span></p></div></div><h3 class="ws-step"><span>2</span> מבינים מה קראנו</h3><div class="ws-act"><div class="ws-act-h"><span>📋 שאלות הבנה על המקור</span><button type="button" class="ws-btn" data-check>בדיקה</button></div><table class="ws-quiz"><thead><tr><th>שאלה</th><th>תשובה קצרה</th></tr></thead><tbody><tr><td class="ws-q"><label for="f-k12">עד מתי חייב אדם ללמוד תורה?</label> <span class="ws-src">(א)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k12" data-id="k12" autocomplete="off"><span class="ws-key" hidden>✓ עד יום מותו (&quot;כל ימי חייך&quot;)</span></td></tr><tr><td class="ws-q"><label for="f-k13">מי חייב בתלמוד תורה? כתבו שתי דוגמאות</label> <span class="ws-src">(ב)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k13" data-id="k13" autocomplete="off"><span class="ws-key" hidden>✓ כל אחד: עני ועשיר, בריא ובעל ייסורים, גם עני המחזר על הפתחים</span></td></tr><tr><td class="ws-q"><label for="f-k14">לאילו שלושה חלקים מחלקים את זמן הלימוד?</label> <span class="ws-src">(ג)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k14" data-id="k14" autocomplete="off"><span class="ws-key" hidden>✓ תורה שבכתב, תורה שבעל פה, להבין העניינים משורש</span></td></tr><tr><td class="ws-q"><label for="f-k15">למה לא אומרים &quot;לכשאפנה אשנה&quot;?</label> <span class="ws-src">(ד)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k15" data-id="k15" autocomplete="off"><span class="ws-key" hidden>✓ &quot;שמא לא יפנה לעולם&quot; - אולי אף פעם לא יהיה זמן</span></td></tr><tr><td class="ws-q"><label for="f-k16">על מה נשאל אדם ראשון אחרי מותו?</label> <span class="ws-src">(ה)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k16" data-id="k16" autocomplete="off"><span class="ws-key" hidden>✓ על ביטול תורה</span></td></tr><tr><td class="ws-q"><label for="f-k17">על מי חלה המצווה?</label> <span class="ws-src">(ו)</span></td><td class="ws-a"><input class="answer ws-in" type="text" id="f-k17" data-id="k17" autocomplete="off"><span class="ws-key" hidden>✓ על גברים, בכל מקום ובכל זמן (&quot;בניכם - ולא בנותיכם&quot;)</span></td></tr></tbody></table></div><div class="ws-act"><div class="ws-act-h"><span>🧩 משחק: חייב או לא חייב?</span><span class="ws-score" data-score></span></div><p class="ws-help">לפי ספר החינוך - לכל אדם, לחצו: חייב ללמוד תורה, או לא חייב.</p><ul class="ws-sort"><li class="ws-sort-i" data-ans="y"><span class="ws-sort-t">עני שמחזר על הפתחים</span><span class="ws-sort-b"><button type="button" data-pick="y">חייב</button><button type="button" data-pick="n">לא חייב</button></span></li><li class="ws-sort-i" data-ans="y"><span class="ws-sort-t">אדם חולה, &quot;בעל ייסורין&quot;</span><span class="ws-sort-b"><button type="button" data-pick="y">חייב</button><button type="button" data-pick="n">לא חייב</button></span></li><li class="ws-sort-i" data-ans="y"><span class="ws-sort-t">אדם עסוק עם אשה ובנים</span><span class="ws-sort-b"><button type="button" data-pick="y">חייב</button><button type="button" data-pick="n">לא חייב</button></span></li><li class="ws-sort-i" data-ans="y"><span class="ws-sort-t">אדם זקן מאוד, לפני מותו</span><span class="ws-sort-b"><button type="button" data-pick="y">חייב</button><button type="button" data-pick="n">לא חייב</button></span></li><li class="ws-sort-i" data-ans="n"><span class="ws-sort-t">אישה (לפי ספר החינוך)</span><span class="ws-sort-b"><button type="button" data-pick="y">חייב</button><button type="button" data-pick="n">לא חייב</button></span></li><li class="ws-sort-i" data-ans="y"><span class="ws-sort-t">מבוגר שאבותיו לא לימדו אותו</span><span class="ws-sort-b"><button type="button" data-pick="y">חייב</button><button type="button" data-pick="n">לא חייב</button></span></li></ul></div><h3 class="ws-step"><span>3</span> מעמיקים - חושבים ביחד</h3><div class="ws-cards c3"><article class="ws-card"><header><b>&quot;לכשאפנה אשנה&quot;</b><span>בגרות תשע&quot;ט ותשפ&quot;ב</span></header><p class="ws-cq"><label for="f-c6">(1) מהו החשש במשפט &quot;לכשאפנה אשנה&quot;? (2) מה ההדרכה של ספר החינוך בנוגע לחשש הזה?</label></p><textarea class="answer ws-ta" id="f-c6" data-id="c6" rows="3" data-model="(1) &quot;שמא לא יפנה לעולם, כי לא ידע האדם מה ילד יום&quot; - אולי אף פעם לא יהיה לו זמן פנוי. (2) ללמוד עכשיו, למרות הטרדות; מי שעושה כן - &quot;מן השמים מסייעין אותו ומקילין מעליו טרדות העולם&quot;." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>&quot;ונמשלו דברי תורה למים&quot;</b><span>בגרות תש&quot;ף</span></header><p class="ws-cq"><label for="f-c7">הסבירו את המשל ואת הנמשל.</label></p><textarea class="answer ws-ta" id="f-c7" data-id="c7" rows="3" data-model="המשל: המים אינם נשארים בהרים, אלא יורדים ומצטברים במקום נמוך. הנמשל: התורה מתקיימת באדם עניו ושפל רוח, ולא בגבה לב." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article><article class="ws-card"><header><b>&quot;בניכם - ולא בנותיכם&quot;</b><span>בגרות תש&quot;ף</span></header><p class="ws-cq"><label for="f-c8">מדוע אישה אינה חייבת ללמד את בנה תורה?</label></p><textarea class="answer ws-ta" id="f-c8" data-id="c8" rows="3" data-model="כי המצווה נוהגת בזכרים ולא בנקבות (&quot;בניכם - ולא בנותיכם&quot;). מי שאינו חייב ללמוד - אינו חייב ללמד." placeholder="התשובה שלי (כותבים ביחד בכיתה)"></textarea></article></div></section><section class="ws-topic ws-bag" id="bagrut"><div class="ws-th"><span class="ws-tn">לבגרות</span><h2>🎓 שאלות בגרות על תלמוד תורה</h2><span class="ws-rng">שאלון 2381 · תשע&quot;ט-תשפ&quot;ה</span></div><details class="ws-example"><summary>✏️ איך עונים על שאלת בגרות? דוגמה פתורה (תשפ"ב, שאלה 5 ב')</summary><p><b>השאלה:</b> 1. על פי חז"ל, אדם חייב לחלק את זמן הלימוד שלו "לשלושה חלקים". מה הם שלושת החלקים? 2. על פי חז"ל, לא יאמר אדם "לכשאפנה אשנה" – הסבירו מדוע.</p><ol><li><b>מפרקים את השאלה.</b> יש שני חלקים: (1) שלושת החלקים של זמן הלימוד. (2) למה לא אומרים "לכשאפנה אשנה".</li><li><b>מבינים מילים קשות.</b> "לכשאפנה אשנה" = כשיהיה לי זמן פנוי, אלמד.</li><li><b>מחפשים במקור.</b> בנושא 3, קטע ג': שליש תורה שבכתב, שליש תורה שבעל פה... ובקטע ד': "שמא לא יפנה לעולם".</li><li><b>כותבים לפי החלקים.</b> 1. שלושה חלקים. 2. ההסבר.</li></ol><p class="ws-ex-ans"><b>💡 תשובה אפשרית:</b> 1. שליש מהזמן - תורה שבכתב. שליש - תורה שבעל פה (משניות וברייתות). שליש - להבין את הדברים מהשורש. 2. כי אולי אף פעם לא יהיה לו זמן פנוי - "כי לא ידע האדם מה ילד יום". לכן צריך ללמוד עכשיו.</p></details><ol class="ws-bqs"><li class="ws-bq-y">📅 תשע&quot;ט (2019) · שאלה 5</li><li class="ws-bq"><div class="ws-bq-h">1.</div><p>א. 1. על פי בעל ספר החינוך, כיצד על המלמד להתייחס לתלמיד בן שש שנמצא בתחילת דרכו בלימוד התורה? 2. על פי בעל ספר החינוך, כיצד על המלמד להתייחס לתלמיד זמן מה לאחר שהתחיל התלמיד ללמוד, ומדוע היחס לתלמיד משתנה בזמן זה?</p><textarea class="answer ws-ta" id="f-b1" data-id="b1" rows="3" aria-label="תשובה לשאלת בגרות 1"></textarea></li><li class="ws-bq"><div class="ws-bq-h">2.</div><p>ב. 1. &quot;ואל תאמר לכשאפנה אשנה...&quot; (אבות, פרק ב&#x27;, משנה ד&#x27;). על פי בעל ספר החינוך, הסבר מהו החשש העולה ממשנה זו בנוגע לקיום מצוות תלמוד תורה. 2. מהי ההדרכה של בעל ספר החינוך בנוגע לחשש זה?</p><textarea class="answer ws-ta" id="f-b2" data-id="b2" rows="3" aria-label="תשובה לשאלת בגרות 2"></textarea></li><li class="ws-bq-y">📅 תש&quot;ף (2020) · שאלה 6</li><li class="ws-bq"><div class="ws-bq-h">3.</div><p>א. 1. &quot;ושננתם לבניך&quot; (דברים, ו&#x27;, ז&#x27;). לפי דרשת חז&quot;ל, מי הם &quot;בניך&quot;, ומהו פירוש המילה &quot;ושננתם&quot;? 2. מדוע אישה אינה חייבת ללמד את בנה תורה?</p><textarea class="answer ws-ta" id="f-b3" data-id="b3" rows="3" aria-label="תשובה לשאלת בגרות 3"></textarea></li><li class="ws-bq"><div class="ws-bq-h">4.</div><p>ב. בעל ספר החינוך כתב: &quot;ונמשלו דברי תורה למים&quot;. הסבר את המשל ואת הנמשל.</p><textarea class="answer ws-ta" id="f-b4" data-id="b4" rows="3" aria-label="תשובה לשאלת בגרות 4"></textarea></li><li class="ws-bq-y">📅 תשפ&quot;ב (2022) · שאלה 5</li><li class="ws-bq"><div class="ws-bq-h">5.</div><p>א. בספר החינוך מובאת שאלת הגמרא: &quot;עד היכן חייב אדם ללמד את בנו תורה?&quot;. הסבירו בלשונכם את תשובת הגמרא על שאלה זו. בתשובתכם פרטו מהו תוכן הלימוד ועל מי מוטל החיוב ללמד.</p><textarea class="answer ws-ta" id="f-b5" data-id="b5" rows="3" aria-label="תשובה לשאלת בגרות 5"></textarea></li><li class="ws-bq"><div class="ws-bq-h">6.</div><p>ב. 1. על פי חז&quot;ל, אדם חייב לחלק את זמן הלימוד שלו &quot;לשלושה חלקים&quot;. מה הם שלושת החלקים? 2. על פי חז&quot;ל, לא יאמר אדם &quot;לכשאפנה אשנה&quot; – הסבירו מדוע.</p><textarea class="answer ws-ta" id="f-b6" data-id="b6" rows="3" aria-label="תשובה לשאלת בגרות 6"></textarea></li><li class="ws-bq"><div class="ws-bq-h">7.</div><p>ג. בעל ספר החינוך כתב: &quot;המצווה הזאת היא אם לכולן&quot; – הסבירו את הכוונה במילים המודגשות בקו.</p><textarea class="answer ws-ta" id="f-b7" data-id="b7" rows="3" aria-label="תשובה לשאלת בגרות 7"></textarea></li><li class="ws-bq-y">📅 תשפ&quot;ה (2025) · שאלה 4</li><li class="ws-bq"><div class="ws-bq-h">8.</div><p>א. &quot;ושננתם לבניך&quot; (דברים ו&#x27;, ז&#x27;). על פי דרשת חז&quot;ל, מהו פירוש המילה &quot;ושננתם&quot;, ומי הם &quot;בניך&quot;?</p><textarea class="answer ws-ta" id="f-b8" data-id="b8" rows="3" aria-label="תשובה לשאלת בגרות 8"></textarea></li><li class="ws-bq"><div class="ws-bq-h">9.</div><p>ב. 1. על פי בעל ספר החינוך, ממתי האב צריך להתחיל ללמד את בנו תורה? 2. על פי בעל ספר החינוך, כיצד על המלמד להתייחס לתלמיד בן שש שנמצא בתחילת דרכו בלימוד התורה? 3. באיזה שלב המלמד צריך לשנות את היחס כלפי תלמידו, וכיצד ינהג כלפיו בשלב זה?</p><textarea class="answer ws-ta" id="f-b9" data-id="b9" rows="3" aria-label="תשובה לשאלת בגרות 9"></textarea></li><li class="ws-bq"><div class="ws-bq-h">10.</div><p>ג. מה יעשה אדם שאבותיו לא לימדו אותו תורה?</p><textarea class="answer ws-ta" id="f-b10" data-id="b10" rows="3" aria-label="תשובה לשאלת בגרות 10"></textarea></li></ol></section>
+<div class="ws-tools toolbar">
+ <button class="btn primary bm-send-btn" type="button" id="sendToTeacherBtn" data-assignment="תלמוד תורה" aria-controls="bmSendPanel" aria-expanded="false">📤 שלחו למורה</button>
+ <button class="btn" type="button" id="printBtn">🖨️ הדפסה</button>
+ <button class="btn danger" type="button" id="clearBtn">נקו את כל התשובות</button>
 </div>
 <div class="bm-send-panel" id="bmSendPanel" role="region" aria-label="שליחה למורה" hidden></div>
-<div class="bm-save-info" id="printHelp">
-  <p><span aria-hidden="true">💾</span> <b>מה נשמר?</b> כל מה שכותבים בדף נשמר לבד, בדפדפן במחשב הזה. אפשר לסגור את הדף ולחזור אחר כך.</p>
-  <p><span aria-hidden="true">📤</span> <b>מה נשלח?</b> "שלחו למורה" שולח למורה את השם, הכיתה והתשובות שכתבתם בדף הזה - ושום דבר אחר.</p>
-  <p><span aria-hidden="true">🖨️</span> <b>הדפסה</b> - רק אם רוצים את הדף גם על נייר.</p>
-  <p class="bm-send-last" id="bmSendLast" hidden></p>
-</div>
-
-<footer class="credit">לקט מצוות · "תלמוד תורה" · התשובות נשמרות אוטומטית בדפדפן שלכם</footer>
-
-<script>
-const STORAGE_KEY = 'mitzvot-talmud-torah-answers';
-const NAME_KEY = 'mitzvot-talmud-torah-student';
-const textareas = Array.from(document.querySelectorAll('.answer'));
-const progressFill = document.getElementById('progressFill');
-const progressTrack = document.getElementById('progressTrack');
-const progressLabel = document.getElementById('progressLabel');
-const saveNote = document.getElementById('saveNote');
-const nameInput = document.getElementById('studentName');
-const classInput = document.getElementById('studentClass');
-const printNameLine = document.getElementById('printNameLine');
-let saveTimer = null;
-let noteTimer = null;
-
-function updatePrintNameLine(){
-  const name = (nameInput.value || '').trim();
-  const cls = (classInput.value || '').trim();
-  if(!name && !cls){ printNameLine.textContent = 'שם: __________________    כיתה: ________'; return; }
-  printNameLine.textContent = 'שם: ' + (name || '____________') + '    כיתה: ' + (cls || '______');
-}
-
-function saveStudentInfo(){
-  try{
-    localStorage.setItem(NAME_KEY, JSON.stringify({ name: nameInput.value, cls: classInput.value }));
-  }catch(e){ /* אחסון חסום */ }
-  updatePrintNameLine();
-}
-
-function loadStudentInfo(){
-  try{
-    const raw = localStorage.getItem(NAME_KEY);
-    if(raw){
-      const data = JSON.parse(raw);
-      nameInput.value = data.name || '';
-      classInput.value = data.cls || '';
-    }
-  }catch(e){ /* אחסון חסום */ }
-  updatePrintNameLine();
-}
-
-function updateProgress(){
-  const filled = textareas.filter(t => t.value.trim().length > 0).length;
-  const pct = textareas.length ? Math.round(filled / textareas.length * 100) : 0;
-  progressFill.style.width = pct + '%';
-  if(progressTrack) progressTrack.setAttribute('aria-valuenow', String(pct));
-  progressLabel.textContent = filled + ' / ' + textareas.length + ' שאלות';
-}
-
-function markFilled(t){
-  if(t.value.trim().length > 0) t.classList.add('filled');
-  else t.classList.remove('filled');
-}
-
-function flashSaved(){
-  saveNote.classList.add('show');
-  clearTimeout(noteTimer);
-  noteTimer = setTimeout(() => saveNote.classList.remove('show'), 1200);
-}
-
-function saveAnswers(){
-  const data = {};
-  textareas.forEach(t => { data[t.dataset.id] = t.value; });
-  try{
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    flashSaved();
-  }catch(e){
-    console.error('שגיאת שמירה', e);
-  }
-}
-
-function loadAnswers(){
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw){
-      const data = JSON.parse(raw);
-      textareas.forEach(t => {
-        if(data[t.dataset.id]){
-          t.value = data[t.dataset.id];
-          markFilled(t);
-        }
-      });
-    }
-  }catch(e){
-    // אין תשובות שמורות עדיין, או שהדפדפן חוסם אחסון מקומי
-  }
-  updateProgress();
-}
-
-textareas.forEach(t => {
-  t.addEventListener('input', () => {
-    markFilled(t);
-    updateProgress();
-    clearTimeout(saveTimer);
-    saveTimer = setTimeout(saveAnswers, 500);
-  });
-});
-
-document.getElementById('clearBtn').addEventListener('click', () => {
-  if(!confirm('למחוק את כל התשובות שכתבתם? אי אפשר לשחזר לאחר מכן.')) return;
-  textareas.forEach(t => { t.value = ''; markFilled(t); });
-  updateProgress();
-  saveAnswers();
-});
-
-document.getElementById('printBtn').addEventListener('click', () => {
-  if(!nameInput.value.trim()){
-    nameInput.focus();
-    alert('לפני ההגשה, כתבו למעלה את שמכם כדי שאדע ממי הקובץ.');
-    return;
-  }
-  window.print();
-});
-
-[nameInput, classInput].forEach(inp => {
-  inp.addEventListener('input', saveStudentInfo);
-});
-
-let originalHeights = [];
-window.addEventListener('beforeprint', () => {
-  originalHeights = textareas.map(t => t.style.height);
-  textareas.forEach(t => { if(t.tagName === 'TEXTAREA'){ t.style.height = 'auto'; t.style.height = (t.scrollHeight + 4) + 'px'; } });
-});
-window.addEventListener('afterprint', () => {
-  textareas.forEach((t, i) => { t.style.height = originalHeights[i] || ''; });
-});
-
-loadStudentInfo();
-loadAnswers();
-</script>
-
-<button id="toTopBtn" class="to-top-btn" aria-label="חזרה לראש העמוד" title="חזרה לראש העמוד" type="button">&#8593;</button>
+<p class="bm-send-last" id="bmSendLast" hidden></p>
+<nav class="ws-chnav" aria-label="ניווט"><span></span><a href="leket-mitzvot-hub.html">↺ חזרה ללקט מצוות</a><span></span></nav>
+</main>
 <script>
 (function(){
-  var btn = document.getElementById('toTopBtn');
-  if(!btn) return;
-  window.addEventListener('scroll', function(){
-    btn.classList.toggle('show', window.scrollY > 400);
-  }, { passive:true });
-  btn.addEventListener('click', function(){
-    window.scrollTo({ top:0, behavior: 'smooth' });
+  var KEY='bm-ws:talmud-torah';
+  var data={}; try{data=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){}
+  function save(){ try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){} }
+  /* תשובות כתובות */
+  document.querySelectorAll('.answer[data-id]').forEach(function(f){
+    var id=f.getAttribute('data-id'); if(data[id]!=null) f.value=data[id];
+    f.addEventListener('input',function(){ data[id]=f.value; save(); });
+  });
+  /* בדיקת שאלות ההבנה: מציג תשובה מוצעת מתחת לכל שורה */
+  document.querySelectorAll('[data-check]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var keys=b.closest('.ws-act').querySelectorAll('.ws-key'), show=keys.length && keys[0].hidden;
+      keys.forEach(function(k){ k.hidden=!show; });
+      b.textContent=show?'הסתרת התשובות':'בדיקה';
+    });
+  });
+  /* עשו או יעקב */
+  document.querySelectorAll('.ws-sort').forEach(function(ul,si){
+    var items=ul.querySelectorAll('.ws-sort-i'), score=ul.closest('.ws-act').querySelector('[data-score]');
+    function paint(){
+      var ok=0,done=0;
+      items.forEach(function(li,i){
+        var p=data['sort'+si+'_'+i]; li.classList.remove('ok','bad');
+        li.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on',b.getAttribute('data-pick')===p); b.setAttribute('aria-pressed',b.getAttribute('data-pick')===p?'true':'false'); });
+        if(p){ done++; if(p===li.getAttribute('data-ans')){ok++;li.classList.add('ok');} else li.classList.add('bad'); }
+      });
+      score.textContent=done?('✓ '+ok+' מתוך '+items.length+' נכונים'):'';
+    }
+    items.forEach(function(li,i){
+      li.querySelectorAll('button').forEach(function(b){ b.addEventListener('click',function(){ data['sort'+si+'_'+i]=b.getAttribute('data-pick'); save(); paint(); }); });
+    });
+    paint();
+  });
+  /* סידור אירועים */
+  document.querySelectorAll('.ws-seq').forEach(function(ol,qi){
+    var msg=ol.parentNode.querySelector('[data-seqmsg]');
+    var saved=data['seq'+qi];
+    if(Array.isArray(saved)) saved.forEach(function(p){ var li=ol.querySelector('[data-pos="'+p+'"]'); if(li) ol.appendChild(li); });
+    function num(){ ol.querySelectorAll('.ws-seq-i').forEach(function(li,i){ li.querySelector('.ws-seq-n').textContent=i+1; li.classList.remove('ok','bad'); }); msg.textContent=''; }
+    function store(){ data['seq'+qi]=Array.prototype.map.call(ol.children,function(li){return li.getAttribute('data-pos');}); save(); }
+    ol.addEventListener('click',function(e){
+      var b=e.target.closest('button'); if(!b) return; var li=b.closest('.ws-seq-i');
+      if(b.hasAttribute('data-up') && li.previousElementSibling) ol.insertBefore(li,li.previousElementSibling);
+      if(b.hasAttribute('data-down') && li.nextElementSibling) ol.insertBefore(li.nextElementSibling,li);
+      num(); store(); b.focus();
+    });
+    ol.parentNode.querySelector('[data-seqcheck]').addEventListener('click',function(){
+      var ok=0, all=ol.children.length;
+      Array.prototype.forEach.call(ol.children,function(li,i){ var good=String(i)===li.getAttribute('data-pos'); li.classList.toggle('ok',good); li.classList.toggle('bad',!good); if(good) ok++; });
+      msg.textContent= ok===all ? '🎉 כל הכבוד! הכול מסודר נכון.' : ok+' מתוך '+all+' במקום הנכון. האדומים צריכים לזוז.';
+    });
+    num();
+  });
+  document.getElementById('printBtn').addEventListener('click',function(){ window.print(); });
+  document.getElementById('clearBtn').addEventListener('click',function(){
+    if(!confirm('למחוק את כל התשובות בדף?')) return;
+    data={}; save(); location.reload();
   });
 })();
 </script>
 <script src="assets/progress-tracker.js"></script>
-<script>
-(function(){
-  var submitLink = document.getElementById('submitLink');
-  if(!submitLink) return;
-  var nameEl = document.getElementById('studentName');
-  var classEl = document.getElementById('studentClass');
-  function updateSubmitLink(){
-    var params = new URLSearchParams();
-    params.set('assignment', 'תלמוד תורה');
-    if(nameEl && nameEl.value.trim()) params.set('name', nameEl.value.trim());
-    if(classEl && classEl.value.trim()) params.set('cls', classEl.value.trim());
-    submitLink.href = 'submit.html?' + params.toString();
-  }
-  [nameEl, classEl].forEach(function(el){ if(el) el.addEventListener('input', updateSubmitLink); });
-  updateSubmitLink();
-})();
-</script>
 <script src="assets/units-data.js"></script>
 <script src="assets/bm-api.js"></script>
 <script src="assets/direct-submit.js?v=3"></script>
 <script src="assets/send-to-teacher.js?v=6"></script>
-<script>
-(function(){
-  var btn = document.getElementById('directSubmitBtn');
-  if(!btn) return;
-  btn.addEventListener('click', function(){
-    if(!nameInput.value.trim()){
-      nameInput.focus();
-      alert('לפני ההגשה, כתבו למעלה את שמכם.');
-      return;
-    }
-    if(!confirm('לשלוח את התשובות שמילאתם ישירות למורה עכשיו? לא ניתן לבטל את השליחה.')) return;
-    var originalText = btn.textContent;
-    btn.disabled = true;
-    btn.textContent = 'שולח...';
-    window.BeitMidrashDirectSubmit.send({
-      studentName: nameInput.value.trim(),
-      studentClass: classInput.value.trim(),
-      assignment: 'תלמוד תורה',
-      fields: textareas
-    }).then(function(data){
-      if(data && data.ok){
-        alert('ההגשה נשלחה בהצלחה למורה!');
-      } else {
-        throw new Error((data && data.error) || 'שגיאה לא ידועה');
-      }
-    }).catch(function(err){
-      alert('משהו השתבש בשליחה: ' + err.message + '\nאפשר לנסות שוב, או להשתמש בכפתור "הגשת מטלה" הרגיל.');
-    }).finally(function(){
-      btn.disabled = false;
-      btn.textContent = originalText;
-    });
-  });
-})();
-</script>
-<script src="assets/bagrut-hints.js"></script>
-<script src="assets/guide/talmud-torah.js"></script>
-<script src="assets/steps.js?v=5"></script>
-<script src="assets/guide.js"></script>
-<script src="assets/learning-supports.js"></script>
-<script src="assets/lesson-tools.js"></script>
 <script src="assets/lesson-mode.js?v=15"></script>
 <script src="assets/class-dock.js?v=14"></script>
-<script src="assets/teacher-key-link.js?v=2"></script>
+<script src="assets/teacher-key-link.js?v=3"></script>
 </body>
 </html>

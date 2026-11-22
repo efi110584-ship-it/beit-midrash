@@ -197,7 +197,7 @@
 "ptp-ribit.html": "ptp-answers-hub.html#chapter-ribit",
 "ptp-shmitat-ksafim.html": "ptp-answers-hub.html#chapter-shmita",
 "ptp-tzedaka-halvaa.html": "ptp-answers-hub.html#chapter-tzedaka",
-"talmud-torah.html": "leket-mitzvot-answers-hub.html#chapter-talmud-torah",
+"talmud-torah.html": "talmud-torah-answers.html",
 "tefila.html": "leket-mitzvot-answers-hub.html#chapter-tefila",
 "tochacha.html": "leket-mitzvot-answers-hub.html#chapter-tochacha",
 "yechezkel-36-37-questions.html": "neviim-answers-hub.html#chapter-yech36-37",
