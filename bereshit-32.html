@@ -100,6 +100,14 @@ body{background:var(--ws-bg);color:var(--ws-ink);font-family:Heebo,Arial,sans-se
 .ws-legend-sw{display:inline-block;width:18px;height:12px;border-radius:3px;background:#FFF0C2;box-shadow:inset -3px 0 0 #D49A1E}
 .ws-tools{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:18px}
 @media (max-width:600px){.ws-q{width:auto}.ws-quiz,.ws-quiz tbody,.ws-quiz tr,.ws-quiz td{display:block;width:100%}.ws-quiz thead{display:none}.ws-quiz td{border:0;padding:3px 0}.ws-quiz tr{border-bottom:1px solid var(--ws-line);padding:6px 0}.ws-vt{font-size:1.18rem}}
+.ws-map a.on{background:var(--ws-ink);color:#fff;border-color:var(--ws-ink)}.ws-map a.on small{color:#E8EEF3}
+.ws-topic[hidden]{display:none}
+.ws-pager{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:18px 16px 16px;padding-top:12px;border-top:1px solid var(--ws-line)}
+.ws-pager button{font:inherit;font-weight:700;font-size:1.02rem;border:2px solid var(--ws-ink);background:#fff;color:var(--ws-ink);border-radius:12px;padding:8px 16px;cursor:pointer}
+.ws-pager button.next{background:var(--ws-ink);color:#fff}
+.ws-pager button:focus-visible{outline:3px solid #F0B44C;outline-offset:2px}
+.ws-pg{color:var(--ws-mute);font-weight:600}
+@media print{.ws-topic[hidden]{display:block !important}.ws-pager{display:none}.ws-topic + .ws-topic{break-before:page}}
 @media print{
  @page{size:A4;margin:7mm 8mm}
  body{background:#fff;font-size:10pt}
@@ -239,6 +247,34 @@ body{background:var(--ws-bg);color:var(--ws-ink);font-family:Heebo,Arial,sans-se
     num();
   });
   document.getElementById('printBtn').addEventListener('click',function(){ window.print(); });
+  /* חלוקה לעמודים: כל נושא בעמוד משלו, והעמוד האחרון - שאלות הבגרות. הכרטיסים למעלה הם הלשוניות */
+  (function(){
+    var pages=[].slice.call(document.querySelectorAll('main .ws-topic'));
+    if(pages.length<2) return;
+    var tabs=[].slice.call(document.querySelectorAll('.ws-map a')), KP=KEY+':page';
+    function idx(id){ for(var i=0;i<pages.length;i++) if(pages[i].id===id) return i; return -1; }
+    pages.forEach(function(p,i){
+      var nav=document.createElement('div'); nav.className='ws-pager';
+      nav.innerHTML=(i>0?'<button type="button" data-go="'+(i-1)+'">→ לעמוד הקודם</button>':'<span></span>')+
+        '<span class="ws-pg">עמוד '+(i+1)+' מתוך '+pages.length+'</span>'+
+        (i<pages.length-1?'<button type="button" class="next" data-go="'+(i+1)+'">לעמוד הבא ←</button>':'<span></span>');
+      p.appendChild(nav);
+    });
+    function show(i,scroll){
+      i=Math.max(0,Math.min(pages.length-1,i||0));
+      pages.forEach(function(p,k){ p.hidden=(k!==i); });
+      tabs.forEach(function(t,k){ t.classList.toggle('on',k===i); if(k===i) t.setAttribute('aria-current','page'); else t.removeAttribute('aria-current'); });
+      try{ localStorage.setItem(KP,String(i)); }catch(e){}
+      if(scroll){ var top=document.querySelector('.ws-map')||pages[i]; top.scrollIntoView({behavior:'smooth',block:'start'}); }
+    }
+    function go(i){ show(i,true); try{ history.replaceState(null,'','#'+pages[Math.max(0,Math.min(pages.length-1,i))].id); }catch(e){} }
+    tabs.forEach(function(t,k){ t.addEventListener('click',function(e){ e.preventDefault(); go(k); }); });
+    document.addEventListener('click',function(e){ var b=e.target.closest && e.target.closest('[data-go]'); if(b) go(+b.getAttribute('data-go')); });
+    window.addEventListener('hashchange',function(){ var i=idx(location.hash.slice(1)); if(i>=0) show(i,false); });
+    var start=idx(location.hash.slice(1));
+    if(start<0){ try{ start=+(localStorage.getItem(KP)||0); }catch(e){ start=0; } }
+    show(start,false);
+  })();
   document.getElementById('clearBtn').addEventListener('click',function(){
     if(!confirm('למחוק את כל התשובות בדף?')) return;
     data={}; save(); location.reload();
@@ -252,6 +288,6 @@ body{background:var(--ws-bg);color:var(--ws-ink);font-family:Heebo,Arial,sans-se
 <script src="assets/send-to-teacher.js?v=6"></script>
 <script src="assets/lesson-mode.js?v=15"></script>
 <script src="assets/class-dock.js?v=14"></script>
-<script src="assets/teacher-key-link.js?v=2"></script>
+<script src="assets/teacher-key-link.js?v=3"></script>
 </body>
 </html>
