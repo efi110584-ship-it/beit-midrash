@@ -233,6 +233,9 @@
         : isIdle(s) ? "💤 " + Math.floor(s.idle / 60) + " דק׳ בלי כתיבה"
         : done ? "✓ סיים/ה את כל התשובות"
         : s.fields > 0 ? "✍️ " + (s.ans || 0) + "/" + s.fields + " תשובות" : "🟢 בדף";
+      /* מבחן: מי שהמבחן שלו כבר נשלח (הוצא אוטומטית / שלח בעצמו) - כפתור "החזרה למבחן" גלוי בכרטיס, כל עוד המבחן פתוח */
+      var exOpen = !!(s.examSent && window.BM_LIVE_EXAM_END && Date.now() < window.BM_LIVE_EXAM_END);
+      if(s.examSent && s.status !== "kicked") st = (s.exouts ? "⛔ הוצא/ה מהמבחן" : "📤 המבחן נשלח") + " · " + st;
       var pct = s.fields > 0 ? Math.round(Math.min(1, (s.ans || 0) / s.fields) * 100) : (s.tasks > 0 && s.task ? Math.round(s.task / s.tasks * 100) : 0);
       var tk = s.tasks > 0 ? (s.task ? "משימה " + s.task + "/" + s.tasks + (s.taskName ? " · " + s.taskName : "") : "כל השאלות") : (pageName(s.page) || "-");
       var other = navPage && s.page && s.page !== navPage && s.status !== "gone" && s.status !== "bye" ? '<span class="bm-lc-pg">📍 בדף אחר: ' + esc(pageName(s.page)) + '</span>' : "";
@@ -241,6 +244,7 @@
         '<span class="bm-lc-tk" title="' + esc(tk) + '">' + esc(tk) + '</span>' +
         '<span class="bm-lc-bar" aria-hidden="true"><i style="width:' + pct + '%"></i></span>' +
         '<span class="bm-lc-st">' + esc(st) + '</span>' + other + '</div>' +
+        (exOpen ? '<div class="bm-lc-acts"><button type="button" class="' + btnClass + '" data-ex-reopen="' + esc(s.sid) + '" data-name="' + esc(s.name || "") + '">↩️ החזרה למבחן</button></div>' : '') +
         (isOpen ? '<div class="bm-lc-acts">' +
           (s.help >= 0 ? '<button type="button" class="' + btnClass + '" data-help-done="' + esc(s.sid) + '">✓ טיפלתי בבקשה</button>' : '') +
           '<button type="button" class="' + btnClass + '" data-kick="' + esc(s.sid) + '"' + (s.kicked ? ' data-undo="1"' : '') + ' data-name="' + esc(s.name || "") + '">' + (s.kicked ? "↩ החזרה לשיעור" : "🚫 הוצאה מהשיעור") + '</button></div>' +
