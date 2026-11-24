@@ -132,6 +132,7 @@
 "ivrit-shem-3.html": "ivrit-shem-answers.html#part-3",
 "ivrit-shem-4.html": "ivrit-shem-answers.html#part-4",
 "ivrit-shem-5.html": "ivrit-shem-answers.html#part-5",
+"ivrit-shem-sikum-1-5.html": "?key=1",
 "ivrit-shem-6.html": "ivrit-shem-answers.html#part-6",
 "ivrit-shem-7.html": "ivrit-shem-answers.html#part-7",
 "ivrit-shem-8.html": "ivrit-shem-answers.html#part-8",
