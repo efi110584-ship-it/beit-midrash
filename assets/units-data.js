@@ -805,6 +805,13 @@
     "url": "neviim-hub.html",
     "topics": [
       {
+        "title": "מבחן — מלכים, ירמיהו ונחמיה (10 שאלות בגרות)",
+        "url": "mlachim-yirmiyahu-nechemia-exam.html",
+        "k": "מבחן מלכים ירמיהו נחמיה מנשה יאשיהו חורבן חנניה רחל חומה שאלות בגרות כיתה יב",
+        "extra": true,
+        "teacherOnly": true
+      },
+      {
         "title": "חזרה למבחן — מלכים, ירמיהו ונחמיה (תקציר + שאלות בגרות)",
         "url": "review-mlachim-yirmiyahu-nechemia.html",
         "k": "חזרה מבחן סיכום תקציר שאלות בגרות מלכים ירמיהו נחמיה כיתה יב"
@@ -993,6 +1000,35 @@
     "chapters": 10,
     "chaptersLabel": "שאלות",
     "url": "leket-mitzvot-exam.html?key=1"
+  },
+  {
+    "key": "mlachim-yirmiyahu-nechemia-exam",
+    "byClaude": true,
+    "class": "teacher",
+    "grade": "יב",
+    "subject": "מבחן",
+    "category": "מבחנים",
+    "lessonExam": true,
+    "icon": "📝",
+    "title": "מבחן - מלכים, ירמיהו ונחמיה (י\"ב)",
+    "desc": "10 שאלות על מלכים ב' כ\"א-כ\"ה, ירמיהו א', ז', כ\"ו, כ\"ח, ל\"א ונחמיה א'-ה', י\"ג - בכל שאלה סעיפים א, ב, ג מבחינות הבגרות (שאלון 2371), עם הפסוקים בכל סעיף. 10 נקודות לשאלה. שאלה אחת בכל מסך. נפתח לתלמידים רק עם קוד מהמורה; אפשר להפעיל \"זה מבחן\" עם שעות.",
+    "chapters": 10,
+    "chaptersLabel": "שאלות",
+    "url": "mlachim-yirmiyahu-nechemia-exam.html"
+  },
+  {
+    "key": "mlachim-yirmiyahu-nechemia-exam-key",
+    "byClaude": true,
+    "class": "teacher",
+    "grade": "יב",
+    "subject": "מורה",
+    "category": "פרקי נביאים",
+    "icon": "🗝️",
+    "title": "מחוון - תשובות למבחן: מלכים, ירמיהו ונחמיה",
+    "desc": "כל 10 השאלות ברצף, עם התשובה מתחת לכל סעיף - מן התשובון של הבגרות ומן המחוונים באתר.",
+    "chapters": 10,
+    "chaptersLabel": "שאלות",
+    "url": "mlachim-yirmiyahu-nechemia-exam.html?key=1"
   },
   {
     "key": "bereshit-avraham-exam",
