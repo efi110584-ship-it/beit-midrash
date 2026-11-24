@@ -234,8 +234,11 @@
         : done ? "✓ סיים/ה את כל התשובות"
         : s.fields > 0 ? "✍️ " + (s.ans || 0) + "/" + s.fields + " תשובות" : "🟢 בדף";
       /* מבחן: מי שהמבחן שלו כבר נשלח (הוצא אוטומטית / שלח בעצמו) - כפתור "החזרה למבחן" גלוי בכרטיס, כל עוד המבחן פתוח */
-      var exOpen = !!(s.examSent && window.BM_LIVE_EXAM_END && Date.now() < window.BM_LIVE_EXAM_END);
+      /* גם מי שהוצא אוטומטית (⛔) והשליחה שלו עוד לא הגיעה (מחשב נסגר / אינטרנט נפל) - אפשר להחזיר */
+      var exOut = !!(s.exouts && !s.examSent && !s.examReopen);
+      var exOpen = !!((s.examSent || exOut) && window.BM_LIVE_EXAM_END && Date.now() < window.BM_LIVE_EXAM_END);
       if(s.examSent && s.status !== "kicked") st = (s.exouts ? "⛔ הוצא/ה מהמבחן" : "📤 המבחן נשלח") + " · " + st;
+      else if(exOut && s.status !== "kicked") st = "⛔ הוצא/ה מהמבחן (המבחן עוד לא הגיע) · " + st;
       var pct = s.fields > 0 ? Math.round(Math.min(1, (s.ans || 0) / s.fields) * 100) : (s.tasks > 0 && s.task ? Math.round(s.task / s.tasks * 100) : 0);
       var tk = s.tasks > 0 ? (s.task ? "משימה " + s.task + "/" + s.tasks + (s.taskName ? " · " + s.taskName : "") : "כל השאלות") : (pageName(s.page) || "-");
       var other = navPage && s.page && s.page !== navPage && s.status !== "gone" && s.status !== "bye" ? '<span class="bm-lc-pg">📍 בדף אחר: ' + esc(pageName(s.page)) + '</span>' : "";
