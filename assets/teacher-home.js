@@ -175,7 +175,10 @@
     var code = ""; try{ code = sessionStorage.getItem("bm-live-code") || ""; }catch(e){}
     post({ action:"presenceList", code:code }).then(function(res){
       if(!res || !res.ok){ setTile("thLive", "-", "אין חיבור כרגע", "", "live"); return; }
-      if(!res.lesson){ setTile("thLive", "0", "אין שיעור פעיל · לחצו כדי לפתוח שיעור", "", "live"); return; }
+      var lt = document.getElementById("thLive");
+      /* בלי שיעור פעיל - לא מציגים את הריבוע: הכפתור "השיעור שלך" כבר פותח שיעור */
+      if(!res.lesson){ if(lt) lt.hidden = true; return; }
+      if(lt) lt.hidden = false;
       var st = res.students || [];
       var inN = st.filter(function(s){ return s.status === "in" || s.status === "out"; }).length;
       var help = st.filter(function(s){ return s.help >= 0; }).length, out = st.filter(function(s){ return s.status === "out"; }).length;

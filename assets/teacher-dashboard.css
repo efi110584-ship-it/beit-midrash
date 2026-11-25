@@ -98,8 +98,9 @@
 #teacherTools .tt-panel{scroll-margin-top:20px}
 .bm-lc-acts small{display:block;line-height:1.5}
 @media(max-width:700px){
- #teacherTools .tt-nav{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible!important;gap:6px}
- #teacherTools .tt-nav-tab{width:100%;min-width:0;white-space:normal;min-height:48px}
+ /* טלפון: התפריט בשורה אחת שגוללים הצידה - כדי שהתוכן יתחיל מיד, ולא אחרי מסך שלם של כפתורים */
+ #teacherTools .tt-nav{display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important;gap:6px;padding:8px!important;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+ #teacherTools .tt-nav-tab{flex:0 0 auto!important;width:auto!important;min-width:0;white-space:nowrap!important;min-height:44px;scroll-snap-align:start}
  #ttPanel-tasks .tt-card{min-width:0;width:100%;box-sizing:border-box}
  #ttPanel-tasks .tt-select{width:100%;max-width:100%;box-sizing:border-box}
 }
@@ -114,4 +115,20 @@
  #teacherTools .th-item>span:nth-child(2){flex:1;min-width:0;overflow-wrap:anywhere}
  #teacherTools .th-act{min-height:44px}
  #teacherTools .th-tile{padding:14px}
+}
+
+/* ===== נראות האזור האישי: פחות דברים שתופסים מקום ===== */
+/* פס "המערכת" כבר מופיע בלשונית "המערכת שלי" - באזור האישי לא מציגים אותו פעמיים */
+body.is-teacher-view #dayStrip{display:none!important}
+/* "מעבר מהיר" לא נחוץ באזור האישי (יש תפריט), ובטלפון הוא הסתיר את הריבועים */
+body.is-teacher-view .bm-qnav{display:none!important}
+/* ריבועי "היום שלי": מתאימים את עצמם למספר הריבועים (בלי שיעור פעיל - שלושה) */
+body #teacherTools .th-tiles{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+body #teacherTools .th-tile[hidden]{display:none}
+@media(max-width:700px){
+ body #teacherTools .th-tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ body #teacherTools .th-tile{padding:12px;gap:4px}
+ body #teacherTools .th-num{font-size:1.7rem}
+ body #teacherTools .th-meta{font-size:.8rem;line-height:1.4}
+ body #teacherTools .th-tile .th-lbl{padding-inline-end:16px}   /* שהחץ › לא ייגע בכותרת */
 }
