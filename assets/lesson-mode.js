@@ -1024,6 +1024,10 @@ try{
   /* ---------- מסך מלא ---------- */
   var de = document.documentElement;
   var fsOk = !!(de.requestFullscreen || de.webkitRequestFullscreen), goAt = 0;
+  /* 3 שניות אחרי "התחלת המבחן" / "חזרה למבחן": המעבר למסך מלא ב-Windows (למשל מחשבי HP) מאבד פוקוס לרגע -
+     לא מוציאים בגלל זה. אם אחרי 3 השניות התלמיד באמת בחוץ - הבדיקה הרגילה (כל חצי שנייה) מוציאה אותו */
+  var enterAt = 0, GRACE = 3000;
+  function inGrace(){ return Date.now() - enterAt < GRACE; }
   function isFs(){ return !!(document.fullscreenElement || document.webkitFullscreenElement); }
   function goFs(){
     try{
@@ -1053,10 +1057,10 @@ try{
     var orig = window[fn]; if(typeof orig !== "function") return;
     window[fn] = function(){ dlgUntil = Date.now() + 600000; try{ return orig.apply(window, arguments); } finally{ dlgUntil = Date.now() + 1500; } };
   });
-  function away(){ if(Date.now() < dlgUntil) return false; return dupTab || document.visibilityState !== "visible" || !document.hasFocus() || (fsOk && !isFs() && Date.now() - goAt > 1500) || (!fsOk && smallWin()); }
+  function away(){ if(Date.now() < dlgUntil) return false; if(inGrace() && !dupTab) return false; return dupTab || document.visibilityState !== "visible" || !document.hasFocus() || (fsOk && !isFs() && Date.now() - goAt > 1500) || (!fsOk && smallWin()); }
   var smallReported = false;
   function onWinResize(){
-    if(!entered || phase() !== "run" || fsOk) { render(); return; }
+    if(!entered || phase() !== "run" || fsOk || inGrace()) { render(); return; }
     if(smallWin()){ if(!smallReported){ smallReported = true; countAway("split"); if(lm()) lm().out("split"); saveDraft(true); } }
     else if(smallReported){ smallReported = false; if(lm()) lm().back(); }
     render();
@@ -1077,7 +1081,7 @@ try{
   }catch(e){}
   var fsReported = false;
   function onFsChange(){
-    if(!entered || phase() !== "run") return;
+    if(!entered || phase() !== "run" || inGrace()) return;
     if(fsOk && !isFs()){
       if(!fsReported){ fsReported = true; countAway("fs"); if(lm()) lm().out("fs"); saveDraft(true); }
     } else if(fsReported){ fsReported = false; if(lm()) lm().back(); }
@@ -1085,7 +1089,7 @@ try{
   }
   function onAway(){
     if(!entered || phase() !== "run") return;
-    if(Date.now() < dlgUntil) return;
+    if(Date.now() < dlgUntil || inGrace()) return;
     if(document.visibilityState !== "visible" || !document.hasFocus()){ countAway("away"); saveDraft(true); }
     render();
   }
@@ -1366,6 +1370,7 @@ try{
       if(dupTab) return;
       if(!fsOk && smallWin()){ note("הגדילו את החלון למסך מלא כדי לחזור למבחן"); return; }
       entered = true;
+      enterAt = Date.now();
       awayCounted = false;
       if(bc) try{ bc.postMessage({ t:"hello", id:tabId }); }catch(err){}
       harden();
