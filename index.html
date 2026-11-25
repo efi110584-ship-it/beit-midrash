@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="assets/site.css?v=46">
 
 <script src="assets/a11y.js"></script>
-<link rel="stylesheet" href="assets/teacher-dashboard.css?v=5"><script src="assets/teacher-dashboard-layout.js?v=6"></script><script src="assets/teacher-home.js?v=5"></script><script src="assets/my-schedule.js?v=8"></script><script src="assets/teacher-backup.js?v=1"></script><script src="assets/teacher-week.js?v=1"></script></head>
+<link rel="stylesheet" href="assets/teacher-dashboard.css?v=6"><script src="assets/teacher-dashboard-layout.js?v=7"></script><script src="assets/teacher-home.js?v=6"></script><script src="assets/my-schedule.js?v=8"></script><script src="assets/teacher-backup.js?v=1"></script><script src="assets/teacher-week.js?v=1"></script></head>
 <body>
 
 <div id="entryGate" class="entry-gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
@@ -236,7 +236,7 @@
           <summary id="viewFbSummary">🤖 יש משוב מפורט לעבודה הזאת</summary>
           <div class="view-fb-body" id="viewFbBody"><p class="view-help">טוען…</p></div>
         </details>
-        <label class="view-fb-send"><input type="checkbox" id="viewFbSend" checked> לשלוח לתלמיד את המשוב המפורט (ציון והסבר לכל שאלה) כשאני שומר את הציון</label>
+        <input type="checkbox" id="viewFbSend" hidden><p id="viewSaveHelp" class="view-help"></p>
         <label class="view-fb-send"><input type="checkbox" id="viewFbRedo"> 🔁 לבקש מהתלמיד לתקן ולשלוח שוב</label>
         <p class="view-fb-link" id="viewFbLinkRow" hidden>✓ המשוב פורסם לתלמיד. הוא יראה אותו בדף העבודה, או בקישור:
           <button type="button" class="tt-btn tt-btn--small" id="viewFbCopy">📋 העתקת קישור לתלמיד</button></p>
@@ -250,7 +250,7 @@
           <label for="viewCommentInput" class="tt-label">הערה</label>
           <input id="viewCommentInput" class="view-comment-input" type="text" maxlength="300" placeholder="לא חובה" autocomplete="off">
         </span>
-        <button type="submit" class="tt-btn tt-btn--primary" id="viewGradeSave">שמירת ציון</button>
+        <button type="submit" class="tt-btn" id="viewGradeSave">שמירת ציון</button><button type="submit" class="tt-btn tt-btn--primary" id="viewGradePublish" hidden>שמירה ושליחה לתלמיד</button>
         <p class="view-grade-msg" id="viewGradeMsg" role="status" aria-live="polite"></p>
       </form>
       <details class="view-more">
@@ -321,7 +321,7 @@
 <script src="assets/flashcards-data.js"></script>
 <script src="assets/live-render.js"></script>
 <script src="assets/live-teacher.js"></script>
-<script src="assets/live-monitor.js?v=12"></script>
+<script src="assets/live-monitor.js?v=13"></script>
 <script>
 (function(){
   "use strict";
@@ -631,6 +631,7 @@
             '<svg class="tk-search-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15.5 15.5 20 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>' +
           '</div>' +
           '<div class="tk-filter tk-grades" role="group" aria-label="כיתה" style="margin-bottom:4px">' +
+            '<button type="button" class="tt-tab" data-tk-grade="all" aria-pressed="false" style="font-weight:800">כל הכיתות</button>' +
             '<button type="button" class="tt-tab" data-tk-grade="יא" aria-pressed="false" style="font-weight:800">כיתה י"א</button>' +
             '<button type="button" class="tt-tab" data-tk-grade="יב" aria-pressed="false" style="font-weight:800">כיתה י"ב</button>' +
           '</div>' +
@@ -864,6 +865,7 @@
               '<button type="button" class="tt-tab" data-group-view="0">📄 רשימה אחת</button>' +
             '</span>' +
           '</div>' +
+          '<p id="ttBoardUpdated" class="tt-note" role="status">טרם התקבל עדכון מהשרת</p>' +
           '<p class="tt-msg" id="ttBoardMsg" role="status" aria-live="polite">טוען הגשות…</p>' +
           '<section id="ttClassRep" class="tt-classrep" aria-label="איפה הכיתה טעתה" hidden></section>' +
           '<section id="ttBatch" aria-label="אישור משוב מרוכז" hidden style="padding:12px;border:1px solid #ccd5e4;border-radius:12px;margin:12px 0"><button type="button" class="tt-btn" id="ttBatchInspect">סיכום ואישור משוב מרוכז</button><p id="ttBatchStatus" role="status" aria-live="polite">הסיכום יתייחס לעבודות המוצגות בסינון הנוכחי.</p><div id="ttBatchResults"></div></section>' +
@@ -906,7 +908,8 @@
     if(!document.getElementById("ttPanel-" + start)) start = "home";
     show(start);
     tabsEl.forEach(function(t, i){
-      t.addEventListener("click", function(){ show(t.getAttribute("data-panel")); });
+      t.addEventListener("click", function(){ show(t.getAttribute("data-panel"));
+        if(t.getAttribute("data-panel") !== "alumni") document.getElementById("ttPanel-" + t.getAttribute("data-panel")).scrollIntoView({block:"start",behavior:"instant"}); });
       t.addEventListener("keydown", function(e){
         var n = null;
         if(e.key === "ArrowUp") n = (i - 1 + tabsEl.length) % tabsEl.length;
@@ -926,15 +929,15 @@
     var grid = document.getElementById("tkGrid");
     var empty = document.getElementById("tkEmpty");
     var chips = Array.prototype.slice.call(document.querySelectorAll("[data-tk-filter]"));
-    var group = "", grade = "יא";
-    try{ group = localStorage.getItem("tk-subj") || ""; grade = localStorage.getItem("tk-grade") || "יא"; }catch(e){}
+    var group = "", grade = "all";
+    try{ group = localStorage.getItem("tk-subj") || ""; grade = localStorage.getItem("tk-grade") || "all"; }catch(e){}
     var gradeBtns = Array.prototype.slice.call(document.querySelectorAll("[data-tk-grade]"));
     /* כמה פריטים יש בכל מקצוע בכיתה שנבחרה - מקצוע בלי פריטים בכיתה הזאת לא מוצג */
     function gradeCounts(){
       var c = {};
       Array.prototype.forEach.call(grid.querySelectorAll(".tk-group"), function(sec){
         c[sec.getAttribute("data-group")] = Array.prototype.filter.call(sec.querySelectorAll(".tk-item"), function(a){
-          var g = a.parentNode.getAttribute("data-grade"); return !g || g === grade;
+          var g = a.parentNode.getAttribute("data-grade"); return grade === "all" || !g || g === grade;
         }).length;
       });
       return c;
@@ -971,7 +974,7 @@
         var n = 0;
         Array.prototype.forEach.call(sec.querySelectorAll(".tk-item"), function(a){
           var s = a.getAttribute("data-s"), g = a.parentNode.getAttribute("data-grade");
-          var ok = inGroup && (!g || g === grade) && words.every(function(w){ return s.indexOf(w) !== -1; });
+          var ok = inGroup && (grade === "all" || !g || g === grade) && words.every(function(w){ return s.indexOf(w) !== -1; });
           a.parentNode.hidden = !ok;
           if(ok) n++;
         });
@@ -2240,7 +2243,7 @@
     if(!board.rows.length){
       try{
         var c = JSON.parse(sessionStorage.getItem(BOARD_CACHE) || "null");
-        if(c && c.submissions){ applyList(c); shown = true; }
+        if(c && c.submissions){ applyList(c); shown = true; document.getElementById("ttBoardUpdated").textContent="מוצג עותק מהדפדפן; ממתינים לעדכון מהשרת"; }
       }catch(e){}
     }
     msg.textContent = fresh ? "בודקים מחדש את כל התיקיות ב-Drive… (זה לוקח קצת זמן)" : (shown || board.rows.length ? "מעדכנים…" : "טוען הגשות…");
@@ -2249,6 +2252,7 @@
       if(!res || !res.ok){ msg.textContent = (res && res.error) || "טעינת ההגשות לא הצליחה."; return; }
       try{ sessionStorage.setItem(BOARD_CACHE, JSON.stringify({ submissions:res.submissions || [] })); }catch(e){}
       applyList(res);
+      document.getElementById("ttBoardUpdated").textContent="ההגשות התקבלו מהשרת בשעה " + new Date().toLocaleTimeString("he-IL",{hour:"2-digit",minute:"2-digit"}) + (fresh ? " · בוצע רענון מלא" : " · לרענון משוב חדש לחצו רענון");
       msg.textContent = "";
     }).catch(function(){ netError(msg); });
   }
@@ -2271,6 +2275,13 @@
   }
 
   function findKey(x){ return String(x || "").replace(/[\u0591-\u05C7"'׳״.,]/g, "").replace(/[-_־]/g, " ").replace(/\s+/g, " ").trim(); }
+  window.BM_OPEN_PENDING_WORK = function(){
+    board.taskContext=null;board.q="";board.subj=board.unit=board.topic="all";board.status="pending";
+    var context=document.getElementById("ttTaskContext");if(context)context.hidden=true;
+    var find=document.getElementById("ttFind");if(find)find.value="";
+    var clear=document.getElementById("ttFindClear");if(clear)clear.hidden=true;
+    renderBoard();
+  };
   function renderBoard(){
     var subjEl = document.getElementById("ttSubj");
     if(!subjEl) return;
@@ -2283,7 +2294,8 @@
     /* חיפוש לפי שם התלמיד/ה: חלק מהשם, בלי תלות בניקוד, ברווחים או בגרשיים */
     var q = findKey(board.q);
     function byName(rows){ return q ? rows.filter(function(r){ return findKey(r.name).indexOf(q) !== -1; }) : rows; }
-    all = byName(all); visibleRows = byName(visibleRows); hiddenRows = byName(hiddenRows);
+    function taskMatch(r){return !board.taskContext || (findKey(r.task) === findKey(board.taskContext.task) && findKey(r.cls) === findKey(board.taskContext.cls));}
+    all = byName(all).filter(taskMatch); visibleRows = byName(visibleRows).filter(taskMatch); hiddenRows = byName(hiddenRows).filter(taskMatch);
     var fInfo = document.getElementById("ttFindInfo");
     if(fInfo){
       if(!q) fInfo.textContent = "";
@@ -2472,6 +2484,9 @@
         : escapeHtml(label));
       var notes = r.notes ? '<span class="tt-notes">' + escapeHtml(r.notes) + '</span>' : '';
       if(r.redoOf) notes = '<span class="tt-redo-tag">🔁 הגשה מתוקנת' + (r.redoOf.g !== "" ? ' · ציון קודם: ' + escapeHtml(r.redoOf.g) : '') + '</span>' + notes;
+      if(r.redoOf && board.rows.some(function(x){return x.id === r.redoOf.of;})) notes += '<button type="button" class="tt-btn tt-btn--small" data-view="' + escapeAttr(r.redoOf.of) + '">העבודה המקורית</button>';
+      var corrections=board.rows.filter(function(x){return x.redoOf && x.redoOf.of === r.id;});
+      corrections.forEach(function(x,i){notes += '<button type="button" class="tt-btn tt-btn--small" data-view="' + escapeAttr(x.id) + '">צפייה בתיקון' + (corrections.length>1 ? ' ' + (i+1) : '') + '</button>';});
       var canSend = r.fb === "draft" && r.id && !r.hidden && (r.grade !== "" || r.fbg !== "");
       var redoBtn = '<button type="button" class="tt-btn tt-btn--small tt-redo" data-redo="' + escapeAttr(r.id) + '" aria-label="החזרה לתיקון ל' + escapeAttr(r.name) + '">🔁 לתיקון</button>';
       var redoState = r.redo ? '<span class="tt-redo-state">' + (r.redone ? '✓ התלמיד שלח תיקון' : '🔁 הוחזר לתיקון') + '</span>' : '';
@@ -3070,7 +3085,7 @@
   var viewer = { list:[], i:-1, opener:null };
   var viewEl = {};
   ["viewOverlay","viewDialog","viewTitle","viewMeta","viewNotes","viewFrame","viewOpenDrive","viewPrev","viewNext","viewPos","viewCheck","viewClose",
-   "viewGrade","viewGradeInput","viewCommentInput","viewGradeSave","viewGradeMsg",
+   "viewGrade","viewGradeInput","viewCommentInput","viewGradeSave","viewGradePublish","viewSaveHelp","viewGradeMsg",
    "viewFb","viewFbSummary","viewFbBody","viewFbSend","viewFbRedo","viewFbLinkRow","viewFbCopy","viewFbReview","viewClaudeRow","viewClaudeLink"]
     .forEach(function(id){ viewEl[id] = document.getElementById(id); });
 
@@ -3081,9 +3096,11 @@
   var FB_ICON = { full:"✅", partial:"🟡", miss:"❌" };
   function feedbackLink(id){ return location.href.replace(/[^\/]*([?#].*)?$/, "") + "feedback.html?id=" + encodeURIComponent(id); }
   function saveLabel(r){
-    viewEl.viewGradeSave.textContent = r.fb && viewEl.viewFbSend.checked
-      ? (r.fb === "pub" ? "עדכון ושליחה לתלמיד" : "📨 שמירה ושליחה לתלמיד")
-      : (r.grade !== "" ? "עדכון הציון" : "שמירת ציון");
+    viewEl.viewGradeSave.textContent = r.fb === "draft" ? "שמירת טיוטה" : "שמירת ציון";
+    viewEl.viewGradePublish.hidden = !r.fb;
+    viewEl.viewGradePublish.disabled = false;
+    viewEl.viewGradePublish.textContent = viewEl.viewFbRedo.checked ? "שמירה ושליחה לתיקון" : "שמירה ושליחה לתלמיד";
+    viewEl.viewSaveHelp.textContent = r.fb === "pub" ? "המשוב כבר נשלח. שמירת שינוי בציון או בהערה מעדכנת מידע שכבר זמין לתלמיד; היא אינה מחזירה אותו לטיוטה." : "שמירת טיוטה אינה שולחת את המשוב המפורט. כדי לחשוף אותו או לבקש תיקון, לחצו על כפתור השליחה.";
   }
   /* תצוגת המשוב המפורט + עריכה של ההערות ע"י המורה (פעולת השרת feedbackEdit) */
   function fbTitle(x){ return x.n ? 'שאלה ' + x.n + (x.q ? ' · ' + x.q : '') : (x.q || 'שאלה'); }
@@ -3139,7 +3156,7 @@
     if(!box) return;
     box.hidden = !r.fb;
     if(!r.fb) return;
-    viewEl.viewFbSend.checked = true;
+    viewEl.viewFbSend.checked = false;
     if(viewEl.viewFbRedo) viewEl.viewFbRedo.checked = !!r.redo;
     viewEl.viewFbLinkRow.hidden = r.fb !== "pub";
     viewEl.viewFbSummary.textContent = r.fb === "pub" ? "📨 משוב מפורט - כבר נשלח לתלמיד (לחצו לצפייה)" : "🤖 יש משוב מפורט לעבודה הזאת - לחצו לצפייה לפני השליחה";
@@ -3172,6 +3189,7 @@
 
   function openViewer(id, opener){
     viewer.list = viewableRows();
+    if(!viewer.list.some(function(r){return r.id===id;})){var related=board.rows.filter(function(r){return r.id===id;})[0];if(related)viewer.list=[related];}
     viewer.i = viewer.list.map(function(r){ return r.id; }).indexOf(id);
     if(viewer.i === -1) return;
     viewer.opener = opener || document.activeElement;
@@ -3227,7 +3245,7 @@
     if(r.grade === "" && r.auto && !viewEl.viewGradeMsg.textContent)
       viewEl.viewGradeMsg.textContent = "🤖 הציון מולא מהבדיקה האוטומטית (" + r.auto.c + " נכונות מתוך " + r.auto.t + "). אפשר לשנות לפני השמירה.";
     viewEl.viewCommentInput.value = r.comment || "";
-    viewEl.viewGradeSave.disabled = false;
+    viewEl.viewGradeSave.disabled = false; viewEl.viewGradePublish.disabled = false;
     viewEl.viewCheck.disabled = false;
     viewEl.viewCheck.textContent = "סימון כנבדק בלי ציון";
     showFeedback(r);
@@ -3279,15 +3297,19 @@
       e.preventDefault();
       var r = viewer.list[viewer.i];
       if(!r) return;
+      var publishing = !!(e.submitter && e.submitter.id === "viewGradePublish");
+      if(viewEl.viewGradeSave.disabled) return;
       var g = viewEl.viewGradeInput.value.trim();
+      if(publishing && (!r.fb || g === "")){viewEl.viewGradeMsg.textContent="לפני שליחה יש להזין ציון ולטעון משוב.";return;}
       var c = viewEl.viewCommentInput.value.trim();
       if(g !== "" && (+g > 100)){ viewEl.viewGradeMsg.textContent = "הציון צריך להיות בין 0 ל-100."; viewEl.viewGradeInput.focus(); return; }
       if(g === "" && c === "" && r.grade === "" && !r.comment){ viewEl.viewGradeMsg.textContent = "כתבו ציון או הערה."; viewEl.viewGradeInput.focus(); return; }
-      viewEl.viewGradeSave.disabled = true;
+      viewEl.viewGradeSave.disabled = true; viewEl.viewGradePublish.disabled = true;
       viewEl.viewGradeMsg.textContent = "שומרים…";
       var body = { action:"setGrade", password:teacherToken(), fileId:r.id, grade:g, comment:c };
-      if(r.fb) body.publishFb = viewEl.viewFbSend.checked && g !== "";
-      if(r.fb && viewEl.viewFbRedo && (body.publishFb || r.fb === "pub")) body.redo = viewEl.viewFbRedo.checked;
+      if(r.fb && publishing) body.publishFb = true;
+      else if(r.fb === "draft") body.publishFb = false;
+      if(r.fb && publishing && viewEl.viewFbRedo) body.redo = viewEl.viewFbRedo.checked;
       apiPost(body).then(function(res){
         if(handleAuthFailure(res)){ closeViewer(); return; }
         if(res && res.ok){
@@ -3307,15 +3329,15 @@
           showViewed();
           if(!viewEl.viewOverlay.hidden) viewEl.viewGradeInput.focus();
         } else {
-          viewEl.viewGradeSave.disabled = false;
+          viewEl.viewGradeSave.disabled = false; viewEl.viewGradePublish.disabled = false;
           viewEl.viewGradeMsg.textContent = (res && res.error) || "השמירה לא הצליחה.";
         }
       }).catch(function(){
-        viewEl.viewGradeSave.disabled = false;
+        viewEl.viewGradeSave.disabled = false; viewEl.viewGradePublish.disabled = false;
         viewEl.viewGradeMsg.textContent = "אין חיבור לשרת כרגע. נסו שוב.";
       });
     });
-    if(viewEl.viewFbSend) viewEl.viewFbSend.addEventListener("change", function(){
+    if(viewEl.viewFbRedo) viewEl.viewFbRedo.addEventListener("change", function(){
       var r = viewer.list[viewer.i]; if(r) saveLabel(r);
     });
     if(viewEl.viewFbCopy) viewEl.viewFbCopy.addEventListener("click", function(){
@@ -3341,12 +3363,12 @@
     var now = new Date(), today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     var n = Math.round((d - today) / 86400000);
     return { days:n, weekday:"יום " + WEEKDAYS[d.getDay()], short:d.getDate() + "." + (d.getMonth() + 1),
-             rel:n <= 0 ? "היום" : n === 1 ? "מחר" : "בעוד " + n + " ימים" };
+             rel:n < 0 ? "עבר לפני " + Math.abs(n) + " ימים" : n === 0 ? "היום" : n === 1 ? "מחר" : "בעוד " + n + " ימים" };
   }
   function examItemHtml(x, showCls, actions){
     var w = examWhen(x);
     var c = (EXAM_SUBJ.filter(function(p){ return p[0] === x.subject; })[0] || [])[1];
-    return '<li class="exam-item' + (w.days <= 2 ? ' is-soon' : '') + '">' +
+    return '<li class="exam-item' + (w.days >= 0 && w.days <= 2 ? ' is-soon' : '') + '">' +
       '<span class="exam-date"><b>' + w.short + '</b><span>' + w.weekday + '</span></span>' +
       '<span class="exam-main">' +
         ((x.subject || showCls) ? '<span class="exam-top">' +
@@ -3393,7 +3415,23 @@
   function initTeacherTasks(){
     function $(id){ return document.getElementById(id); }
     if(!$("ttTaskForm")) return;
-    var T = window.BM_TASKS, open = {};
+    var T = window.BM_TASKS, open = {}, tasksById = {};
+    // Keep the existing form, fields and handlers; only change their presentation.
+    var form = $("ttTaskForm"), active = $("ttTaskList").closest(".tt-card");
+    var fold = document.createElement("details"), summary = document.createElement("summary");
+    fold.className = "tt-task-create"; summary.textContent = "+ משימה חדשה";
+    form.parentNode.insertBefore(fold, form); fold.appendChild(summary); fold.appendChild(form);
+    active.parentNode.insertBefore(active, fold);
+    var options = document.createElement("details"), optionsTitle = document.createElement("summary");
+    options.className = "tt-task-options"; optionsTitle.textContent = "אפשרויות נוספות: שם, קישור, הערה ותלמידים מסוימים";
+    options.appendChild(optionsTitle); form.insertBefore(options, form.querySelector(".tt-btns"));
+    ["ttTaskTitle", "ttTaskLink", "ttTaskNote"].forEach(function(id){
+      var field=$(id), label=field.previousElementSibling; options.appendChild(label); options.appendChild(field);
+      if(id === "ttTaskLink") options.appendChild($("ttTaskLinkNote"));
+    });
+    options.appendChild(form.querySelector(".tt-task-who"));
+    $("ttTaskUnit").addEventListener("change",function(){if(linkOnly())options.open=true;});
+    summary.addEventListener("click",function(){if(!fold.open)setTimeout(function(){$("ttTaskCls").focus();},0);});
     function fmtD(iso){ var p = String(iso).split("-"); return +p[2] + "." + +p[1]; }
     function units(){ return (window.BM_UNITS || []).filter(function(u){ return u.class === $("ttTaskCls").value && (u.topics || []).some(function(t){ return t.url; }); }); }
     function fillUnits(){
@@ -3479,11 +3517,13 @@
     function render(list){
       var ul = $("ttTaskList");
       $("ttTaskListMsg").textContent = list.length ? "" : "אין כרגע משימות פעילות.";
+      tasksById = {}; list.forEach(function(a){tasksById[a.id]=a;});
       ul.innerHTML = list.map(function(a){
         return '<li class="tt-rep" data-task="' + escapeAttr(a.id) + '"><div style="display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;padding:10px 14px">' +
           '<b style="flex:1;min-width:12rem">' + escapeHtml(a.title) + '</b>' +
           '<span class="tt-date">כיתה ' + (a.cls === "יב" ? 'י"ב' : 'י"א') + ' · עד ' + fmtD(a.due) + ' · ' + (a.names && a.names.length ? a.names.length + ' תלמידים' : 'כל הכיתה') + (a.link ? ' · 🔗 ' + escapeHtml(a.linkLabel || "קישור") : '') + '</span>' +
-          '<button type="button" class="tt-btn tt-btn--small" data-task-status="' + escapeAttr(a.id) + '" aria-expanded="' + (open[a.id] ? 'true' : 'false') + '">📊 מצב</button>' +
+          '<button type="button" class="tt-btn tt-btn--small" data-task-status="' + escapeAttr(a.id) + '" aria-expanded="' + (open[a.id] ? 'true' : 'false') + '">מי הגיש ומי חסר</button>' +
+          (a.page ? '<button type="button" class="tt-btn tt-btn--small" data-task-work="' + escapeAttr(a.id) + '">בדיקת עבודות הדף</button>' : '') +
           '<button type="button" class="tt-btn tt-btn--small" data-task-del="' + escapeAttr(a.id) + '">מחיקה</button></div>' +
           (a.note ? '<p class="tt-note" style="margin:0 14px 8px">הערה: ' + escapeHtml(a.note) + '</p>' : '') +
           '<div class="tt-task-st" style="padding:0 14px 10px" ' + (open[a.id] ? '' : 'hidden') + '></div></li>';
@@ -3515,6 +3555,24 @@
       });
     }, 30000);
     $("ttTaskList").addEventListener("click", function(e){
+      var wb=e.target.closest && e.target.closest("[data-task-work]");
+      if(wb){
+        var a=tasksById[wb.getAttribute("data-task-work")], found=a && T && T.findByPage(a.page);
+        var task=a && (a.task || (found && T.assignmentFor(found.unit,found.topic)));
+        if(!task){$("ttTaskListMsg").textContent="לא ניתן לזהות בוודאות את דף העבודה. אפשר למצוא אותו בחיפוש בלוח ההגשות.";return;}
+        board.taskContext={task:task,cls:a.cls,title:a.title};
+        board.subj=board.unit=board.topic=board.status="all";board.q="";
+        $("ttFind").value="";$("ttFindClear").hidden=true;
+        var context=$("ttTaskContext");
+        if(!context){context=document.createElement("section");context.id="ttTaskContext";context.className="tt-card";$("ttPanel-board").prepend(context);}
+        context.replaceChildren();
+        var label=document.createElement("p");label.textContent="עבודות הדף: " + a.title + " · כיתה " + a.cls + ". מוצגות כל ההגשות המזוהות של הדף בכיתה, גם ממועדים קודמים. הגשות ישנות ללא זיהוי מתאים עשויות לא להופיע.";
+        var clear=document.createElement("button");clear.type="button";clear.className="tt-btn";clear.textContent="הצגת כל העבודות";
+        clear.onclick=function(){board.taskContext=null;context.hidden=true;renderBoard();};
+        var back=document.createElement("button");back.type="button";back.className="tt-btn";back.textContent="חזרה למשימות";back.onclick=function(){$("ttTab-tasks").click();};
+        context.append(label,clear,back);context.hidden=false;
+        $("ttTab-board").click();renderBoard();return;
+      }
       var sb = e.target.closest && e.target.closest("[data-task-status]");
       if(sb){
         var id = sb.getAttribute("data-task-status"), li = sb.closest("li");
@@ -3854,8 +3912,9 @@
 })();
 
 </script>
-<script src="assets/lesson-mode.js?v=18"></script>
+<script src="assets/lesson-mode.js?v=19"></script>
 <script src="assets/class-dock.js?v=14"></script>
 <script src="assets/my-work.js?v=2"></script>
 </body>
 </html>
+
