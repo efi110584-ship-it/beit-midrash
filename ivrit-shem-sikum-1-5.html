@@ -64,13 +64,17 @@ var t=null;function save(){var d={};fs.forEach(function(f){if(f.value&&f.value.t
 fs.forEach(function(f){f.addEventListener(f.tagName==="SELECT"?"change":"input",function(){clearTimeout(t);t=setTimeout(save,400);});});
 var FIN={"ך":"כ","ם":"מ","ן":"נ","ף":"פ","ץ":"צ"};
 function root(s){return String(s||"").replace(/[\u0591-\u05C7]/g,"").replace(/[^\u05D0-\u05EA]/g,"").replace(/[ךםןףץ]/g,function(c){return FIN[c];});}
+function okOf(f){var alts=f.getAttribute("data-answer").split("|");
+ if(f.hasAttribute("data-root")){var v=root(f.value);return !!v&&alts.some(function(a){return root(a)===v;});}
+ return alts.indexOf(f.value)>=0;}
 (window.BM_SCORERS=window.BM_SCORERS||[]).push(function(){
  if(/[?&]key(=|&|$)/.test(location.search))return {total:0,correct:0};
  var g=fs.filter(function(f){return f.hasAttribute("data-answer");}),ok=0;
- g.forEach(function(f){var alts=f.getAttribute("data-answer").split("|");
-  if(f.hasAttribute("data-root")){var v=root(f.value);if(v&&alts.some(function(a){return root(a)===v;}))ok++;}
-  else if(alts.indexOf(f.value)>=0)ok++;});
+ g.forEach(function(f){if(okOf(f))ok++;});
  return {total:g.length,correct:ok};});
+/* ✓ / ✗ ליד כל תשובה בקובץ שמגיע למורה (assets/autoscore.js) */
+(window.BM_FIELD_CHECKERS=window.BM_FIELD_CHECKERS||[]).push(function(f){
+ if(fs.indexOf(f)<0||!f.hasAttribute("data-answer"))return null;return okOf(f);});
 })();</script>
 <script src="assets/units-data.js?v=20261124-shemsikum"></script>
 <script src="assets/bm-api.js"></script>
