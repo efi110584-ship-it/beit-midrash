@@ -987,8 +987,21 @@ try{
   var WHY = { away:"יצאת מחלון המבחן (חלון או לשונית אחרים)", fs:"יצאת ממסך מלא", split:"חלון המבחן הוקטן / מסך מפוצל",
               tab:"המבחן נפתח בחלון נוסף", copy:"ניסיון העתקה", paste:"ניסיון הדבקה", inject:"ניסיון להכניס טקסט מוכן" };
   var forced = "", KICK_KEY = "bm-exam-kick:" + st.code;
+  /* פרטים טכניים על ההוצאה (שורה קטנה במסך "המבחן נשלח") - כדי לברר הוצאות שקורות בלי שהתלמיד יצא באמת */
+  var DIAG_KEY = "bm-exam-diag:" + st.code, diag = [];
+  function dlog(k){ diag.push(k + "@" + (enterAt ? ((Date.now() - enterAt) / 1000).toFixed(1) : "-")); if(diag.length > 12) diag.shift(); }
+  document.addEventListener("visibilitychange", function(){ dlog("vis-" + document.visibilityState.charAt(0)); }, true);
+  window.addEventListener("blur", function(){ dlog("blur"); }, true);
+  window.addEventListener("focus", function(){ dlog("focus"); }, true);
+  ["fullscreenchange", "webkitfullscreenchange"].forEach(function(n){ document.addEventListener(n, function(){ dlog("fs" + (isFs() ? 1 : 0)); }, true); });
   function kickOut(why){
     if(forced || sending || !entered || phase() !== "run") return;
+    try{
+      localStorage.setItem(DIAG_KEY, "v16b · " + why + " · t=" + (enterAt ? ((Date.now() - enterAt) / 1000).toFixed(1) : "-") +
+        " · vis=" + document.visibilityState.charAt(0) + " foc=" + (document.hasFocus() ? 1 : 0) + " fs=" + (isFs() ? 1 : 0) + "/" + (fsOk ? 1 : 0) +
+        " · " + (window.outerWidth || 0) + "x" + (window.outerHeight || 0) + "/" + (screen.availWidth || 0) + "x" + (screen.availHeight || 0) +
+        " · " + diag.join(" "));
+    }catch(e){}
     forced = why;
     outs = 1;
     try{ localStorage.setItem(KICK_KEY, why + "|" + Date.now()); }catch(e){}
@@ -1175,9 +1188,10 @@ try{
     if(ph === "done"){
       lockFields();
       exitFs();
-      var how = readDone();
+      var how = readDone(), dg = ""; try{ dg = localStorage.getItem(DIAG_KEY) || ""; }catch(e){}
       setCover("is-ok", '<div class="bm-ex-ico" aria-hidden="true">✅</div><h2>המבחן נשלח למורה</h2>' +
-        '<p>' + (how === "auto" ? "הזמן נגמר, והתשובות נשלחו לבד." : how.indexOf("x:") === 0 ? "הוצאת מהמבחן (" + (WHY[how.slice(2)] || "יציאה") + "), והמבחן נשלח למורה כמו שהיה." : "שלחת את המבחן.") + ' אי אפשר לשנות את התשובות אחרי השליחה.</p><p>אפשר לסגור את הדף.</p>', "done");
+        '<p>' + (how === "auto" ? "הזמן נגמר, והתשובות נשלחו לבד." : how.indexOf("x:") === 0 ? "הוצאת מהמבחן (" + (WHY[how.slice(2)] || "יציאה") + "), והמבחן נשלח למורה כמו שהיה." : "שלחת את המבחן.") + ' אי אפשר לשנות את התשובות אחרי השליחה.</p><p>אפשר לסגור את הדף.</p>' +
+        (how.indexOf("x:") === 0 && dg ? '<p dir="ltr" style="margin-top:18px;font-size:12px;line-height:1.4;opacity:.8;word-break:break-all">' + esc(dg) + '</p>' : ''), "done");
     }
   }
   function renderBar(){
@@ -1235,7 +1249,8 @@ try{
       .then(function(){ reopenBusy = false; });
   }
   function doReopen(ts){
-    try{ localStorage.setItem(REOPEN_KEY, String(ts)); localStorage.removeItem(DONE_KEY); localStorage.removeItem(KICK_KEY); }catch(e){}
+    try{ localStorage.setItem(REOPEN_KEY, String(ts)); localStorage.removeItem(DONE_KEY); localStorage.removeItem(KICK_KEY); localStorage.removeItem(DIAG_KEY); }catch(e){}
+    diag = [];
     forced = ""; outs = 0; awayCounted = false; sending = false; tries = 0; entered = false; lastDraft = ""; reopened = true;
     fields().forEach(function(f){
       if(f.tagName === "SELECT") f.disabled = false;
