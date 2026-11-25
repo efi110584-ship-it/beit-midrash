@@ -178,6 +178,7 @@ function doPost(e) {
       case 'lessonReport':    return json_(lessonReportGet_(data.id));
       case 'saveLessonReport': return json_(saveLessonReport_(data.code));
       case 'setGrade':        return json_(setGrade_(data.fileId, data.grade, data.comment, data.publishFb, data.redo));
+      case 'returnOrdinaryWork': return json_(setGrade_(data.fileId, data.grade, data.comment, true, true));
       case 'answers':         return json_(answersGet_(data.fileId));
       case 'setAuto':         return json_(setAuto_(data.fileId, data.correct, data.total));
       case 'acceptSuggested': return json_(acceptSuggested_(data.ids));
@@ -733,6 +734,12 @@ function setGradeUnlocked_(fileId, grade, comment, publishFb, redo) {
   if (g !== '' && !/^\d{1,3}$/.test(g)) return { ok: false, error: 'הציון צריך להיות מספר בין 0 ל-100' };
   if (g !== '' && Number(g) > 100) return { ok: false, error: 'הציון צריך להיות מספר בין 0 ל-100' };
   var props = PropertiesService.getScriptProperties();
+  // Validate ordinary corrections before changing any grade or publication state.
+  if (redo === true && !props.getProperty('auto_' + fileId) && !feedbackRead_(fileId)) {
+    var savedAnswers = answersGet_(fileId).answers;
+    if (!savedAnswers || !savedAnswers.page) return { ok: false, error: 'בהגשה הישנה הזאת לא נשמר קישור לדף העבודה. אי אפשר לפתוח אותה לתיקון אוטומטי.' };
+    if (!c) return { ok: false, error: 'כתבו לתלמיד מה עליו לתקן.' };
+  }
   if (g === '' && c === '') {
     props.deleteProperty('grade_' + fileId);       // מחיקת ציון
   } else {
@@ -855,7 +862,7 @@ function feedbackPublic_(id) {
   if (!/^[\w-]{10,}$/.test(id)) return { ok: false, error: 'קישור לא תקין' };
   if (PropertiesService.getScriptProperties().getProperty('fbpub_' + id) !== '1') return { ok: true, feedback: null };
   var props = PropertiesService.getScriptProperties();
-  var fb = feedbackRead_(id) || autoFeedback_(id, props);
+  var fb = feedbackRead_(id) || autoFeedback_(id, props) || ordinaryFeedback_(id, props);
   if (!fb) return { ok: true, feedback: null };
   var g = gradeMap_()[id];
   var redo = props.getProperty('redo_' + id) === '1', redoSent = !!props.getProperty('redone_' + id);
@@ -870,7 +877,7 @@ function feedbackPublic_(id) {
     grade: g && g.g !== '' ? g.g : (fb.grade == null ? '' : String(fb.grade)),
     comment: g ? g.c : '',
     summary: fb.summary || '',
-    auto: !!fb.auto,
+    auto: !!fb.auto, ordinary: !!fb.ordinary,
     items: (fb.items || []).slice(0, 60).map(function (x) {
       return { id: String(x.id || ''), n: x.n, q: String(x.q || ''), s: String(x.s || ''), text: String(x.text || '') };
     })
@@ -880,6 +887,13 @@ function feedbackPublic_(id) {
 // עבודה שנבדקה אוטומטית (auto_<מזהה>, למשל יחידות הגזרות בעברית) ואין לה משוב מפורט:
 // התלמיד מקבל את הציון, ההערה ובקשת התיקון, ובדף העבודה עצמו מסומנים לו ❌ הסעיפים השגויים
 // (assets/feedback.js בודק לפי התשובות השמורות בדף - בלי לחשוף את התשובות הנכונות).
+function ordinaryFeedback_(id, props) {
+  if (props.getProperty('redo_' + id) !== '1') return null;
+  var a = answersGet_(id).answers;
+  if (!a || !a.page) return null;
+  return { student: a.student || '', assignment: a.task || '', page: a.page,
+    sent: '', summary: '', items: [], ordinary: true };
+}
 function autoFeedback_(id, props) {
   if (!props.getProperty('auto_' + id)) return null;
   var task = '';
@@ -2802,3 +2816,4 @@ function batchReviewSelfTest() {
   console.log('Batch review self-test: 5 pure checks passed; no submissions read or changed.');
   return {ok:true,checks:5};
 }
+

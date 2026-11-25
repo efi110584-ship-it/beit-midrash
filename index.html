@@ -844,7 +844,7 @@
               '<button type="button" class="tt-btn" id="ttRegrade" title="בודק שוב את העבודות המוצגות, לפי הבדיקה העדכנית של הדף">🔄 בדיקה מחדש</button>' +
               '<button type="button" class="tt-btn" id="ttClassReport" title="לכל סעיף: כמה תלמידים טעו, ומה התשובה השגויה הנפוצה">📊 איפה הכיתה טעתה</button>' +
               '<button type="button" class="tt-btn" id="ttHeatmap" title="טבלה של כל התלמידים מול כל היחידות: ירוק, צהוב, אדום">🌡️ מפת הכיתה</button>' +
-              '<button type="button" class="tt-btn" id="ttBoardRefresh">רענון</button>' +
+              '<button type="button" class="tt-btn" id="ttBoardRefresh">רענון הגשות ומשוב</button>' +
             '</span>' +
           '</div>' +
           '<div class="tt-subj" id="ttSubj" role="group" aria-label="סינון לפי מקצוע"></div>' +
@@ -1852,19 +1852,30 @@
         var rg = rr.grade !== "" ? rr.grade : rr.fbg !== "" ? rr.fbg : (rr.auto ? String(rr.auto.pct) : "");
         /* עבודה שנבדקה אוטומטית (בלי משוב מפורט): התלמיד רואה בדף את הסעיפים השגויים מסומנים ❌ (assets/feedback.js) */
         var autoOnly = !rr.fb && !!rr.auto;
-        if(!confirm("להחזיר ל" + rr.name + " לתיקון?\nהתלמיד יראה את הציון " + rg + (autoOnly ? ", ובדף העבודה יסומנו לו ❌ הסעיפים שצריך לתקן (בלי התשובות הנכונות)" : " ואת המשוב") + ", עם בקשה לתקן ולשלוח שוב.")) return;
+        var ordinary = !rr.fb && !rr.auto;
+        var correctionComment = rr.comment || "";
+        if(ordinary){
+          correctionComment = prompt("מה התלמיד צריך לתקן? (עד 300 תווים)", correctionComment);
+          if(correctionComment === null) return;
+          correctionComment = correctionComment.trim();
+          if(!correctionComment || correctionComment.length > 300){ alert("כתבו הערה באורך 1–300 תווים."); return; }
+        }
+        if(ordinary && !confirm("להחזיר את העבודה לתיקון עם ההערה הזאת?\n" + correctionComment)) return;
+        if(!ordinary && !confirm("להחזיר ל" + rr.name + " לתיקון?\nהתלמיד יראה את הציון " + rg + (autoOnly ? ", ובדף העבודה יסומנו לו ❌ הסעיפים שצריך לתקן (בלי התשובות הנכונות)" : " ואת המשוב") + ", עם בקשה לתקן ולשלוח שוב.")) return;
         rd.disabled = true; rd.textContent = "שולח…";
-        apiPost({ action:"setGrade", password:teacherToken(), fileId:rid, grade:String(rg), comment:rr.comment || "", publishFb:true, redo:true }).then(function(res){
+        apiPost({ action:ordinary ? "returnOrdinaryWork" : "setGrade", password:teacherToken(), fileId:rid, grade:String(rg), comment:correctionComment, publishFb:true, redo:true }).then(function(res){
           if(handleAuthFailure(res)) return;
           if(res && res.ok){
             rr.grade = res.grade; rr.comment = res.comment || ""; if(res.grade !== "") rr.status = "checked";
-            if(!autoOnly) rr.fb = res.fbPublished ? "pub" : "draft";
+            if(!autoOnly && !ordinary) rr.fb = res.fbPublished ? "pub" : "draft";
             rr.redo = res.redo === true;
             renderBoard();
             document.getElementById("ttBoardMsg").textContent = res.redo === true
-              ? "🔁 הוחזר ל" + rr.name + " לתיקון: הוא רואה את הציון " + res.grade + (autoOnly ? ", את הסעיפים שצריך לתקן" : ", את המשוב") + " ובקשה לתקן ולשלוח שוב."
+              ? (ordinary
+                ? "🔁 הוחזר ל" + rr.name + " לתיקון: הוא רואה את ההערה שלך" + (res.grade !== "" ? " ואת הציון " + res.grade : "") + ", ודף העבודה נפתח לו עם התשובות ששלח."
+                : "🔁 הוחזר ל" + rr.name + " לתיקון: הוא רואה " + (res.grade !== "" ? "את הציון " + res.grade + ", " : "") + (autoOnly ? "את הסעיפים שצריך לתקן" : "את המשוב") + " ובקשה לתקן ולשלוח שוב.")
               : "הציון והמשוב נשלחו, אבל הבקשה לתיקון לא נשמרה: צריך לעדכן את הסקריפט של Google לגרסה החדשה.";
-          } else { rd.disabled = false; rd.textContent = "🔁 לתיקון"; alert((res && res.error) || "השליחה לא הצליחה."); }
+          } else { rd.disabled = false; rd.textContent = "🔁 לתיקון"; alert(ordinary && res && /פעולה לא מוכרת/.test(res.error || "") ? "החזרת עבודה רגילה לתיקון דורשת עדכון של מערכת ההגשות. הבקשה לא נשלחה." : ((res && res.error) || "השליחה לא הצליחה.")); }
         }).catch(function(){ rd.disabled = false; rd.textContent = "🔁 לתיקון"; alert("אין חיבור לשרת כרגע. נסו שוב."); });
         return;
       }
@@ -2238,7 +2249,11 @@
   var BOARD_CACHE = "bm-board-cache";
   function loadBoard(fresh){
     var msg = document.getElementById("ttBoardMsg");
-    if(!msg) return;
+    if(!msg || board.loading) return;
+    board.loading = true;
+    var refresh = document.getElementById("ttBoardRefresh");
+    if(refresh){ refresh.disabled = true; refresh.textContent = "מעדכנים…"; }
+    msg.setAttribute("role", "status");
     var shown = false;
     if(!board.rows.length){
       try{
@@ -2254,7 +2269,10 @@
       applyList(res);
       document.getElementById("ttBoardUpdated").textContent="ההגשות התקבלו מהשרת בשעה " + new Date().toLocaleTimeString("he-IL",{hour:"2-digit",minute:"2-digit"}) + (fresh ? " · בוצע רענון מלא" : " · לרענון משוב חדש לחצו רענון");
       msg.textContent = "";
-    }).catch(function(){ netError(msg); });
+    }).catch(function(){ netError(msg); }).finally(function(){
+      board.loading = false;
+      if(refresh){ refresh.disabled = false; refresh.textContent = "רענון הגשות ומשוב"; }
+    });
   }
   function applyList(res){
       var classify = (window.BM_TASKS && window.BM_TASKS.classify) || function(t){ return { unit:"אחר", topic:t }; };
@@ -2490,6 +2508,10 @@
       var canSend = r.fb === "draft" && r.id && !r.hidden && (r.grade !== "" || r.fbg !== "");
       var redoBtn = '<button type="button" class="tt-btn tt-btn--small tt-redo" data-redo="' + escapeAttr(r.id) + '" aria-label="החזרה לתיקון ל' + escapeAttr(r.name) + '">🔁 לתיקון</button>';
       var redoState = r.redo ? '<span class="tt-redo-state">' + (r.redone ? '✓ התלמיד שלח תיקון' : '🔁 הוחזר לתיקון') + '</span>' : '';
+      var redoHelp = !r.hidden && r.id && !r.auto && r.fb !== "pub" && !canSend
+        ? '<div class="tt-note">' + (r.fb === "draft"
+          ? 'כדי להחזיר לתיקון יש לשמור קודם ציון למשוב.'
+          : 'החזרה לתיקון אינה זמינה לעבודה זו: נדרש משוב מפורט או בדיקה אוטומטית. אפשר לפתוח את העבודה ולשמור ציון והערה.') + '</div>' : '';
       return '<tr>' +
         '<td>' + escapeHtml(r.name) + '</td>' +
         '<td>' + (board.group ? '' : '<span class="tt-subj-tag tt-subj-tag--' + (SUBJ_CLASS[r.subject] || "tnk") + '">' + escapeHtml(r.subject) + '</span> ') + task + notes + '</td>' +
@@ -2501,7 +2523,7 @@
             ? '<button type="button" class="tt-btn tt-btn--small tt-send" data-send="' + escapeAttr(r.id) + '" aria-label="שליחת הציון והמשוב ל' + escapeAttr(r.name) + '">📨 שליחה</button>' + redoBtn
             : (r.fb === "pub" ? '<span class="tt-sent">✓ נשלח</span>' + (r.redo ? redoState : (r.id && !r.hidden ? redoBtn : ''))
               /* בדיקה אוטומטית בלי משוב מפורט (עברית): אפשר להחזיר לתיקון - התלמיד רואה בדף אילו סעיפים שגויים */
-              : (!r.fb && r.auto && r.id && !r.hidden ? (r.redo ? redoState : redoBtn) : ''))) +
+              : (!r.fb && r.id && !r.hidden ? (r.redo ? redoState : redoBtn) : ''))) + (r.fb ? redoHelp : '') +
         '</td>' +
         '<td class="tt-grade"' + (r.comment ? ' title="' + escapeAttr(r.comment) + '"' : '') + '>' +
           (r.grade !== "" ? '<b>' + escapeHtml(r.grade) + '</b>' + (r.auto ? ' <span class="tt-auto tt-auto--small" title="בדיקה אוטומטית: ' + r.auto.c + ' נכונות מתוך ' + r.auto.t + '">🤖 ' + r.auto.pct + '</span>' : '')

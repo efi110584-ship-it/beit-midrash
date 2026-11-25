@@ -95,6 +95,7 @@
   function redoHtml(fb, inPage, local, noLocal){
     if(fb.redoSent) return '<p class="bm-fb-redo-done">✓ שלחת תיקון. המורה יבדוק אותו ויחזיר משוב.</p>';
     if(!fb.redo) return "";
+    if(fb.ordinary) return '<div class="bm-fb-redo" role="note"><b>🔁 המורה ביקש לתקן ולשלוח שוב</b><span>קראו את הערת המורה שמעל, תקנו את התשובות בדף ולחצו "שלחו למורה". בעבודה זו אין סימון אוטומטי של תשובות נכונות ושגויות.</span>' + (inPage ? '<span class="bm-fb-redo-actions"><button type="button" data-redo-go="send">📤 לשליחה מחדש</button></span>' : '') + '</div>';
     /* בדיקה אוטומטית, והתשובות לא שמורות במכשיר הזה (נשלחו ממחשב אחר) - אין מה לסמן */
     if(inPage && noLocal) return '<div class="bm-fb-redo" role="note"><b>🔁 המורה ביקש לתקן ולשלוח שוב</b>' +
       '<span>התשובות ששלחת לא שמורות במכשיר הזה. הכי טוב לפתוח את הדף במכשיר שממנו שלחת - שם יסומן ❌ ליד כל סעיף שצריך לתקן. ' +
@@ -239,6 +240,7 @@
       redoHtml(fb, true, local, !!fb.auto && !local) +
       fixListHtml(items, "bmFbIt") +
       (local ? '<p class="bm-fb-legend">ליד כל סעיף שצריך לתקן מופיע ❌. התשובות הנכונות לא מוצגות - נסו לבד.</p>'
+             : fb.ordinary ? ''   /* עבודה רגילה: ההסבר כבר בהודעת התיקון, ואין סימוני נכון/שגוי */
              : fb.auto ? '<p class="bm-fb-legend">התשובות שלך שמורות בדף העבודה במכשיר שממנו שלחת. פתחו אותו שם כדי לראות מה לתקן.</p>'
              : '<p class="bm-fb-legend">ליד כל שאלה שצריך לתקן מופיע הסבר. ' +
         '<a href="feedback.html?id=' + encodeURIComponent(sub.id) + '">לכל המשוב בעמוד אחד ›</a></p>');
@@ -315,7 +317,7 @@
           (fb.comment && fb.comment !== fb.summary ? '<p class="bm-fb-sum">' + esc(fb.comment) + '</p>' : '') +
           (fb.redo && !fb.redoSent ? '' : redoHtml(fb, false)) +
           (/^[\w.-]+\.html$/.test(fb.page || "") ? (fb.redo && !fb.redoSent
-            ? '<div class="bm-fb-redo" role="note"><b>🔁 המורה ביקש לתקן ולשלוח שוב</b><span>לחצו על הכפתור - דף המבחן ייפתח עם התשובות ששלחתם, וליד כל סעיף שצריך לתקן יופיע ❌. תקנו ולחצו "שלחו למורה".</span></div><p class="bm-fb-redo-actions"><a class="bm-fb-go" href="' + esc(fb.page) + '?fb=' + encodeURIComponent(id) + '">✏️ לתיקון בדף ' + (/מבחן/.test(fb.assignment || "") ? 'המבחן' : 'העבודה') + ' ›</a></p>'
+            ? (fb.ordinary ? redoHtml(fb, false) : '<div class="bm-fb-redo" role="note"><b>🔁 המורה ביקש לתקן ולשלוח שוב</b><span>לחצו על הכפתור - דף המבחן ייפתח עם התשובות ששלחתם, וליד כל סעיף שצריך לתקן יופיע ❌. תקנו ולחצו "שלחו למורה".</span></div>') + '<p class="bm-fb-redo-actions"><a class="bm-fb-go" href="' + esc(fb.page) + '?fb=' + encodeURIComponent(id) + '">✏️ לתיקון בדף ' + (/מבחן/.test(fb.assignment || "") ? 'המבחן' : 'העבודה') + ' ›</a></p>'
             : '<p class="bm-fb-legend"><a href="' + esc(fb.page) + '">לדף העבודה ›</a> (התשובות שלך שמורות שם, במכשיר שממנו שלחת)</p>') : '') +
           fixListHtml(fb.items || [], "bmFbFull") +
           ((fb.items || []).some(function(x){ return !isOk(x); }) ? '<h2 class="bm-fb-h">איפה טעית ומה לתקן</h2>' : '') +
@@ -409,3 +411,4 @@
     });
   }, Promise.resolve()); });
 })();
+
