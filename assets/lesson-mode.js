@@ -979,38 +979,27 @@ try{
   if(ex && inWindow() && (onExamPage() || !examPage) && readDone() === "" && now() < ex.s) document.documentElement.classList.add("bm-ex-hide");
 
   var cover = null, bar = null, entered = false, sending = false, lastDraft = "", draftTimer = null, tickTimer = null, outs = 0;
-  /* בקרה מחמירה - אפס סובלנות: כל ניסיון אחד מהבאים מוציא מהמבחן באותו רגע.
-     המבחן נשלח למורה כמו שהוא, ננעל, והמורה מקבל התראה (בבקרה החיה ובמייל):
-     - יציאה מהמסך: חלון או לשונית אחרים, יציאה ממסך מלא, חלון מוקטן / חצי מסך
-     - פתיחת המבחן בחלון נוסף (החלון החדש נחסם, והמבחן בחלון הראשון נשלח)
-     - העתקה, גזירה, הדבקה (גם בקיצורי מקלדת), גרירה, וטקסט מוכן שנכנס בבת אחת */
+  /* בקרה בשליטת המורה: שום דבר לא מוציא את התלמיד מהמבחן לבד.
+     - יציאה מהמסך (חלון או לשונית אחרים, יציאה ממסך מלא, חלון מוקטן / חצי מסך): המבחן מוסתר עד שהתלמיד
+       לוחץ "חזרה למבחן", והיציאה נרשמת ומופיעה אצל המורה בזמן אמת (מספר יציאות וזמן בחוץ).
+     - פתיחת המבחן בחלון נוסף: החלון החדש חסום ומדווח; המבחן בחלון הראשון ממשיך.
+     - העתקה, גזירה, הדבקה, גרירה וטקסט מוכן: חסומים, והניסיון מדווח למורה (📋).
+     המורה מחליט אם להוציא תלמיד (🚫 בשיעור החי). */
   var WHY = { away:"יצאת מחלון המבחן (חלון או לשונית אחרים)", fs:"יצאת ממסך מלא", split:"חלון המבחן הוקטן / מסך מפוצל",
               tab:"המבחן נפתח בחלון נוסף", copy:"ניסיון העתקה", paste:"ניסיון הדבקה", inject:"ניסיון להכניס טקסט מוכן" };
   var forced = "", KICK_KEY = "bm-exam-kick:" + st.code;
-  /* פרטים טכניים על ההוצאה (שורה קטנה במסך "המבחן נשלח") - כדי לברר הוצאות שקורות בלי שהתלמיד יצא באמת */
-  var DIAG_KEY = "bm-exam-diag:" + st.code, diag = [];
-  function dlog(k){ diag.push(k + "@" + (enterAt ? ((Date.now() - enterAt) / 1000).toFixed(1) : "-")); if(diag.length > 12) diag.shift(); }
-  document.addEventListener("visibilitychange", function(){ dlog("vis-" + document.visibilityState.charAt(0)); }, true);
-  window.addEventListener("blur", function(){ dlog("blur"); }, true);
-  window.addEventListener("focus", function(){ dlog("focus"); }, true);
-  ["fullscreenchange", "webkitfullscreenchange"].forEach(function(n){ document.addEventListener(n, function(){ dlog("fs" + (isFs() ? 1 : 0)); }, true); });
-  function kickOut(why){
-    if(forced || sending || !entered || phase() !== "run") return;
-    try{
-      localStorage.setItem(DIAG_KEY, "v16b · " + why + " · t=" + (enterAt ? ((Date.now() - enterAt) / 1000).toFixed(1) : "-") +
-        " · vis=" + document.visibilityState.charAt(0) + " foc=" + (document.hasFocus() ? 1 : 0) + " fs=" + (isFs() ? 1 : 0) + "/" + (fsOk ? 1 : 0) +
-        " · " + (window.outerWidth || 0) + "x" + (window.outerHeight || 0) + "/" + (screen.availWidth || 0) + "x" + (screen.availHeight || 0) +
-        " · " + diag.join(" "));
-    }catch(e){}
-    forced = why;
-    outs = 1;
-    try{ localStorage.setItem(KICK_KEY, why + "|" + Date.now()); }catch(e){}
-    if(lm() && lm().exout) lm().exout(why);
-    lockFields();
-    if(lm() && (why === "copy" || why === "paste" || why === "inject")) lm().out("hidden");
-    setTimeout(finalSend, 30);
+  try{ localStorage.removeItem(KICK_KEY); localStorage.removeItem("bm-exam-diag:" + st.code); }catch(e){}   /* שאריות מהגרסה שהוציאה אוטומטית */
+  var lastCopyRep = 0;
+  function flagOut(why){
+    if(sending || !entered || phase() !== "run") return;
+    if(why === "copy" || why === "paste" || why === "inject"){
+      /* דיווח אחד לכל ניסיון (קיצור מקלדת + אירוע ההדבקה עצמו = ניסיון אחד) */
+      if(Date.now() - lastCopyRep > 1500 && lm() && lm().paste){ lastCopyRep = Date.now(); lm().paste(0); }
+      return;
+    }
+    saveDraft(true);
   }
-  function addOut(why){ kickOut(why); }
+  function addOut(why){ flagOut(why); }
   /* יציאה אחת נספרת פעם אחת, גם כשכמה אירועים קורים יחד (חלון אחר + יציאה ממסך מלא). מתאפס בלחיצה על "חזרה למבחן" */
   var awayCounted = false;
   function countAway(why){ if(awayCounted) return; awayCounted = true; addOut(why); }
@@ -1087,7 +1076,7 @@ try{
     bc.onmessage = function(m){
       var d = m && m.data || {};
       if(d.id === tabId) return;
-      if(d.t === "hello" && entered && !dupTab){ bc.postMessage({ t:"here", id:tabId }); kickOut("tab"); }
+      if(d.t === "hello" && entered && !dupTab){ bc.postMessage({ t:"here", id:tabId }); }
       if(d.t === "here" && !dupTab && !entered){ dupTab = true; if(lm()) lm().out("tab"); render(); }
     };
     bc.postMessage({ t:"hello", id:tabId });
@@ -1143,13 +1132,6 @@ try{
       c.querySelector('[data-ex="count"]').textContent = "עוד " + left(ex.s - now());
       return;
     }
-    /* הוצא מהמבחן ורענן / פתח שוב את הדף לפני שהשליחה הסתיימה - שולחים שוב (לא מחלון חסום, ולא מיד - החלון שהוציא שולח בעצמו) */
-    if(ph === "run" && !forced && !dupTab){
-      var kk = ""; try{ kk = localStorage.getItem(KICK_KEY) || ""; }catch(e){}
-      if(kk){ var kp = kk.split("|"); lockFields();
-        if(Date.now() - (Number(kp[1]) || 0) > 5000){ forced = kp[0]; if(!sending) setTimeout(finalSend, 30); }
-        else setCover("is-warn", '<div class="bm-ex-ico" aria-hidden="true">⛔</div><h2>הוצאת מהמבחן</h2><p>המבחן נשלח למורה.</p>', "kicked");
-        return; } }
     if(ph === "run" && forced){ lockFields(); return; }   /* נשלח בגלל יציאות - המסך של השליחה נשאר */
     if(ph === "run"){
       prefill();
@@ -1163,12 +1145,12 @@ try{
           '<p>הזמן: עד השעה <b>' + hm(ex.e) + '</b>. בשעה הזו התשובות נשלחות למורה לבד.</p>' +
           '<ul><li>המבחן נפתח במסך מלא.</li>' +
           '<li><b>יציאה ממסך מלא, מעבר לחלון או ללשונית אחרים, או פיצול מסך</b> - המבחן מוסתר מיד, והיציאה נרשמת ומדווחת למורה.</li>' +
-          '<li><b>⛔ אפס סובלנות: כל יציאה מהמסך, פתיחה של חלון נוסף, או ניסיון להעתיק או להדביק - מוציאים מהמבחן מיד.</b> המבחן נשלח למורה כמו שהוא באותו רגע, ננעל, והמורה מקבל הודעה.</li>' +
+          '<li>העתקה והדבקה חסומות, וכל ניסיון מדווח למורה. המבחן נפתח רק בחלון אחד.</li>' +
           '<li>התשובות נשמרות כל הזמן. מי שמסיים יכול ללחוץ "שלחו למורה" - <b>אחרי השליחה אי אפשר לחזור למבחן</b>.</li></ul>' +
           '<button type="button" data-ex="go">התחלת המבחן</button>', "enter");
         return;
       }
-      if(away() && !forced){ kickOut(dupTab ? "tab" : (!fsOk && smallWin()) ? "split" : (fsOk && !isFs()) ? "fs" : "away"); return; }
+      if(away() && !dupTab) countAway((!fsOk && smallWin()) ? "split" : (fsOk && !isFs()) ? "fs" : "away");
       if(away()){
         var small = !fsOk && smallWin();
         setCover("is-warn", '<div class="bm-ex-ico" aria-hidden="true">⚠️</div><h2>' + (small ? "חלון המבחן קטן מדי" : "יצאת ממסך המבחן") + '</h2>' +
@@ -1188,10 +1170,9 @@ try{
     if(ph === "done"){
       lockFields();
       exitFs();
-      var how = readDone(), dg = ""; try{ dg = localStorage.getItem(DIAG_KEY) || ""; }catch(e){}
+      var how = readDone();
       setCover("is-ok", '<div class="bm-ex-ico" aria-hidden="true">✅</div><h2>המבחן נשלח למורה</h2>' +
-        '<p>' + (how === "auto" ? "הזמן נגמר, והתשובות נשלחו לבד." : how.indexOf("x:") === 0 ? "הוצאת מהמבחן (" + (WHY[how.slice(2)] || "יציאה") + "), והמבחן נשלח למורה כמו שהיה." : "שלחת את המבחן.") + ' אי אפשר לשנות את התשובות אחרי השליחה.</p><p>אפשר לסגור את הדף.</p>' +
-        (how.indexOf("x:") === 0 && dg ? '<p dir="ltr" style="margin-top:18px;font-size:12px;line-height:1.4;opacity:.8;word-break:break-all">' + esc(dg) + '</p>' : ''), "done");
+        '<p>' + (how === "auto" ? "הזמן נגמר, והתשובות נשלחו לבד." : how.indexOf("x:") === 0 ? "הוצאת מהמבחן (" + (WHY[how.slice(2)] || "יציאה") + "), והמבחן נשלח למורה כמו שהיה." : "שלחת את המבחן.") + ' אי אפשר לשנות את התשובות אחרי השליחה.</p><p>אפשר לסגור את הדף.</p>', "done");
     }
   }
   function renderBar(){
@@ -1249,8 +1230,7 @@ try{
       .then(function(){ reopenBusy = false; });
   }
   function doReopen(ts){
-    try{ localStorage.setItem(REOPEN_KEY, String(ts)); localStorage.removeItem(DONE_KEY); localStorage.removeItem(KICK_KEY); localStorage.removeItem(DIAG_KEY); }catch(e){}
-    diag = [];
+    try{ localStorage.setItem(REOPEN_KEY, String(ts)); localStorage.removeItem(DONE_KEY); localStorage.removeItem(KICK_KEY); }catch(e){}
     forced = ""; outs = 0; awayCounted = false; sending = false; tries = 0; entered = false; lastDraft = ""; reopened = true;
     fields().forEach(function(f){
       if(f.tagName === "SELECT") f.disabled = false;
@@ -1320,10 +1300,10 @@ try{
     clearTimeout(noteT); noteT = setTimeout(function(){ noteEl.hidden = true; }, 2500);
   }
   document.addEventListener("contextmenu", function(e){ block(e, "🔒 לחיצה ימנית חסומה במבחן"); }, true);
-  document.addEventListener("copy", function(e){ block(e, "🔒 העתקה חסומה במבחן"); kickOut("copy"); }, true);
-  document.addEventListener("cut", function(e){ block(e, "🔒 גזירה חסומה במבחן"); kickOut("copy"); }, true);
-  document.addEventListener("paste", function(e){ block(e, "🔒 הדבקה חסומה במבחן - הניסיון נרשם"); kickOut("paste"); }, true);
-  document.addEventListener("drop", function(e){ block(e); kickOut("inject"); }, true);
+  document.addEventListener("copy", function(e){ block(e, "🔒 העתקה חסומה במבחן"); flagOut("copy"); }, true);
+  document.addEventListener("cut", function(e){ block(e, "🔒 גזירה חסומה במבחן"); flagOut("copy"); }, true);
+  document.addEventListener("paste", function(e){ block(e, "🔒 הדבקה חסומה במבחן - הניסיון נרשם"); flagOut("paste"); }, true);
+  document.addEventListener("drop", function(e){ block(e); flagOut("inject"); }, true);
   /* טקסט שנכנס בבת אחת (הדבקה מהמקלדת של הטלפון, גרירה, תוסף, השלמה ארוכה) - חסום ומדווח */
   document.addEventListener("beforeinput", function(e){
     if(!strict() || e.defaultPrevented) return;
@@ -1331,8 +1311,7 @@ try{
     if(!d && e.dataTransfer){ try{ d = e.dataTransfer.getData("text") || ""; }catch(err){} }
     if(/^insertFrom(Paste|Drop|Yank)/.test(t) || ((t === "insertText" || t === "insertReplacementText") && d.length > 25)){
       e.preventDefault(); e.stopPropagation(); note("🔒 אי אפשר להכניס טקסט מוכן במבחן - הניסיון נרשם");
-      if(lm() && lm().paste) lm().paste(d.length);
-      kickOut(/Paste|Yank/.test(t) ? "paste" : "inject");
+      flagOut(/Paste|Yank/.test(t) ? "paste" : "inject");
     }
   }, true);
   /* גיבוי לדפדפנים בלי beforeinput: קפיצה של יותר מ-40 תווים בבת אחת - מחזירים את מה שהיה */
@@ -1345,8 +1324,7 @@ try{
     if(strict() && entered && f.value.length - prev.length > 40){
       var len = f.value.length - prev.length;
       f.value = prev; note("🔒 אי אפשר להכניס טקסט מוכן במבחן - הניסיון נרשם");
-      if(lm() && lm().paste) lm().paste(len);
-      kickOut("inject");
+      flagOut("inject");
       return;
     }
     lastVal.set(f, f.value);
@@ -1368,12 +1346,11 @@ try{
     /* קיצורי העתק/הדבק/גזור (גם במקלדת בעברית - לפי המקש עצמו) = ניסיון העתקה/הדבקה */
     if(mod && !e.altKey && /^Key[CVX]$/.test(e.code || "")){
       e.preventDefault(); e.stopPropagation(); note("🔒 העתק/הדבק חסום במבחן");
-      if(e.code === "KeyV" && lm() && lm().paste) lm().paste(0);
-      kickOut(e.code === "KeyV" ? "paste" : "copy");
+      flagOut(e.code === "KeyV" ? "paste" : "copy");
       return;
     }
-    if(e.shiftKey && (e.code === "Insert" || e.key === "Insert")){ e.preventDefault(); kickOut("paste"); return; }
-    if(mod && (e.code === "Insert" || e.key === "Insert")){ e.preventDefault(); kickOut("copy"); return; }
+    if(e.shiftKey && (e.code === "Insert" || e.key === "Insert")){ e.preventDefault(); flagOut("paste"); return; }
+    if(mod && (e.code === "Insert" || e.key === "Insert")){ e.preventDefault(); flagOut("copy"); return; }
     if(k === "f12" || (mod && e.shiftKey && /^[ijck]$/.test(k)) || (mod && /^[cxvpsuofgnthrl]$/.test(k)) || (e.altKey && /^(arrowleft|arrowright|home)$/.test(k)) || k === "printscreen"){
       e.preventDefault(); e.stopPropagation(); note("🔒 הקיצור הזה חסום במבחן");
     }

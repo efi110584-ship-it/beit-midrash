@@ -239,6 +239,8 @@
       var exOpen = !!((s.examSent || exOut) && window.BM_LIVE_EXAM_END && Date.now() < window.BM_LIVE_EXAM_END);
       if(s.examSent && s.status !== "kicked") st = (s.exouts ? "⛔ הוצא/ה מהמבחן" : "📤 המבחן נשלח") + " · " + st;
       else if(exOut && s.status !== "kicked") st = "⛔ הוצא/ה מהמבחן (המבחן עוד לא הגיע) · " + st;
+      /* במבחן: כמה פעמים יצא מהמסך וניסה להעתיק/להדביק - גלוי בכרטיס גם בלי לפתוח אותו (המורה מחליט אם להוציא) */
+      if(window.BM_LIVE_EXAM_END && s.status !== "kicked" && (s.leaves || s.pastes)) st += (s.leaves ? " · 🚪 " + s.leaves + " יציאות" : "") + (s.pastes ? " · 📋 " + s.pastes : "");
       var pct = s.fields > 0 ? Math.round(Math.min(1, (s.ans || 0) / s.fields) * 100) : (s.tasks > 0 && s.task ? Math.round(s.task / s.tasks * 100) : 0);
       var tk = s.tasks > 0 ? (s.task ? "משימה " + s.task + "/" + s.tasks + (s.taskName ? " · " + s.taskName : "") : "כל השאלות") : (pageName(s.page) || "-");
       var other = navPage && s.page && s.page !== navPage && s.status !== "gone" && s.status !== "bye" ? '<span class="bm-lc-pg">📍 בדף אחר: ' + esc(pageName(s.page)) + '</span>' : "";
@@ -251,7 +253,7 @@
         (isOpen ? '<div class="bm-lc-acts">' +
           (s.help >= 0 ? '<button type="button" class="' + btnClass + '" data-help-done="' + esc(s.sid) + '">✓ טיפלתי בבקשה</button>' : '') +
           '<button type="button" class="' + btnClass + '" data-kick="' + esc(s.sid) + '"' + (s.kicked ? ' data-undo="1"' : '') + ' data-name="' + esc(s.name || "") + '">' + (s.kicked ? "↩ החזרה לשיעור" : "🚫 הוצאה מהשיעור") + '</button></div>' +
-          '<div style="font-size:.85rem;color:#56637A">' + (s.leaves || 0) + ' יציאות' + (s.outTotal ? ' · ' + dur(s.outTotal) + ' בחוץ' : '') + (s.pastes ? ' · 📋 ' + s.pastes + ' הדבקות' : '') + '</div>' +
+          '<div style="font-size:.85rem;color:#56637A">' + (s.leaves || 0) + ' יציאות' + (s.outTotal ? ' · ' + dur(s.outTotal) + ' בחוץ' : '') + (s.pastes ? ' · 📋 ' + s.pastes + ' ניסיונות העתקה/הדבקה' : '') + '</div>' +
           timelineHtml(s) : '') +
         '</div>';
     }).join("") + '</div>';
