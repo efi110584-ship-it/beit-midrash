@@ -87,3 +87,31 @@
 .subject-launcher{padding:6px 0 16px}.subject-launcher>h3{font-size:1.15rem;color:#0B2A5B;margin:8px 0 14px}.subject-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-bottom:22px}.subject-tabs button{font:inherit;min-height:50px;padding:10px 8px;border:1px solid #C6D2E6;border-radius:10px;background:#F5F8FD;color:#0B2A5B;cursor:pointer}.subject-tabs button[aria-selected=true]{background:#0B2A5B;color:#fff;border-color:#0B2A5B;box-shadow:0 4px 12px #0B2A5B18}.subject-picks{display:grid;grid-template-columns:1fr 1.4fr 1.8fr;gap:14px}.subject-picks label{display:block;font-weight:600;margin-bottom:6px;color:#0B2A5B}.subject-picks select{box-sizing:border-box;min-width:0;width:100%;font:inherit;min-height:48px;padding:9px;border:1px solid #C6D2E6;border-radius:8px;background:white;color:#0E1B33}.subject-picks select:disabled{background:#DCE4F1;color:#777}.subject-status{font-size:.88rem;color:#56637A;min-height:25px;line-height:1.7}.subject-summary{font-weight:600;color:#0B2A5B;line-height:1.7}.subject-start{min-width:200px;font-size:1.05rem!important;padding:12px 26px!important}.subject-launcher button:disabled{opacity:.5;cursor:default}.subject-launcher :focus-visible{outline:3px solid #FF7A1A;outline-offset:3px}.subject-form>p:last-child{font-size:.85rem;color:#56637A;line-height:1.8}.subject-demo-dialog{background:#FFFFFF;color:#0B2A5B;border:1px solid #C6D2E6;border-radius:16px;max-width:520px;padding:24px;line-height:1.8}.subject-demo-dialog::backdrop{background:#0B2A5B88}.subject-demo-dialog button{font:inherit;min-height:44px;background:#DCE4F1;border:1px solid #C6D2E6;border-radius:8px;padding:8px 16px}@media(max-width:850px){.subject-picks{grid-template-columns:1fr}.subject-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(prefers-reduced-motion:reduce){.subject-tabs button{transition:none}}
 
 .subject-live-result{background:#F5F8FD;border:1px solid #C6D2E6;border-radius:12px;padding:20px;margin-top:22px}.subject-real-code{display:block;font-size:3rem;letter-spacing:.14em;direction:ltr;text-align:center;color:#0B2A5B;margin:12px 0}.subject-live-result[hidden]{display:none!important}.subject-launcher button[hidden]{display:none!important}
+
+/* Teacher UX round 1: existing controls, compact task creation. */
+#ttPanel-tasks .tt-row{display:flex;flex-direction:column;gap:16px}
+#ttPanel-tasks .tt-task-create,#ttPanel-tasks .tt-task-options{border:1px solid #cbd5e1;border-radius:12px;padding:12px;background:#fff}
+#ttPanel-tasks summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center;gap:8px}
+#ttPanel-tasks summary::before{content:'＋'}
+#ttPanel-tasks details[open]>summary::before{content:'−'}
+#ttPanel-tasks .tt-task-options{margin-block:12px}
+#teacherTools .tt-panel{scroll-margin-top:20px}
+.bm-lc-acts small{display:block;line-height:1.5}
+@media(max-width:700px){
+ #teacherTools .tt-nav{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible!important;gap:6px}
+ #teacherTools .tt-nav-tab{width:100%;min-width:0;white-space:normal;min-height:48px}
+ #ttPanel-tasks .tt-card{min-width:0;width:100%;box-sizing:border-box}
+ #ttPanel-tasks .tt-select{width:100%;max-width:100%;box-sizing:border-box}
+}
+
+#teacherTools #thMore{margin-block:16px}
+#teacherTools #thMore>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:700;gap:8px}
+#teacherTools #thMore>summary::before{content:'＋'}
+#teacherTools #thMore[open]>summary::before{content:'−'}
+#teacherTools #thMore .td-quick{margin-top:16px}
+@media(max-width:700px){
+ #teacherTools .th-item{flex-wrap:wrap;gap:8px}
+ #teacherTools .th-item>span:nth-child(2){flex:1;min-width:0;overflow-wrap:anywhere}
+ #teacherTools .th-act{min-height:44px}
+ #teacherTools .th-tile{padding:14px}
+}

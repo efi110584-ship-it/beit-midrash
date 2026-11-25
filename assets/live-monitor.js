@@ -237,6 +237,7 @@
       /* גם מי שהוצא אוטומטית (⛔) והשליחה שלו עוד לא הגיעה (מחשב נסגר / אינטרנט נפל) - אפשר להחזיר */
       var exOut = !!(s.exouts && !s.examSent && !s.examReopen);
       var exOpen = !!((s.examSent || exOut) && window.BM_LIVE_EXAM_END && Date.now() < window.BM_LIVE_EXAM_END);
+      var reopenReason = !window.BM_LIVE_EXAM_END ? "" : Date.now() >= window.BM_LIVE_EXAM_END ? "שעת הסיום עברה" : "המבחן טרם נשלח; אין צורך לפתוח אותו מחדש";
       if(s.examSent && s.status !== "kicked") st = (s.exouts ? "⛔ הוצא/ה מהמבחן" : "📤 המבחן נשלח") + " · " + st;
       else if(exOut && s.status !== "kicked") st = "⛔ הוצא/ה מהמבחן (המבחן עוד לא הגיע) · " + st;
       /* במבחן: כמה פעמים יצא מהמסך וניסה להעתיק/להדביק - גלוי בכרטיס גם בלי לפתוח אותו (המורה מחליט אם להוציא) */
@@ -249,7 +250,7 @@
         '<span class="bm-lc-tk" title="' + esc(tk) + '">' + esc(tk) + '</span>' +
         '<span class="bm-lc-bar" aria-hidden="true"><i style="width:' + pct + '%"></i></span>' +
         '<span class="bm-lc-st">' + esc(st) + '</span>' + other + '</div>' +
-        (exOpen ? '<div class="bm-lc-acts"><button type="button" class="' + btnClass + '" data-ex-reopen="' + esc(s.sid) + '" data-name="' + esc(s.name || "") + '">↩️ החזרה למבחן</button></div>' : '') +
+        (exOpen ? '<div class="bm-lc-acts"><button type="button" class="' + btnClass + '" data-ex-reopen="' + esc(s.sid) + '" data-name="' + esc(s.name || "") + '">↩️ החזרה למבחן</button></div>' : reopenReason ? '<div class="bm-lc-acts"><button type="button" class="' + btnClass + '" disabled>↩️ החזרה למבחן</button><small>' + esc(reopenReason) + '</small></div>' : '') +
         (isOpen ? '<div class="bm-lc-acts">' +
           (s.help >= 0 ? '<button type="button" class="' + btnClass + '" data-help-done="' + esc(s.sid) + '">✓ טיפלתי בבקשה</button>' : '') +
           '<button type="button" class="' + btnClass + '" data-kick="' + esc(s.sid) + '"' + (s.kicked ? ' data-undo="1"' : '') + ' data-name="' + esc(s.name || "") + '">' + (s.kicked ? "↩ החזרה לשיעור" : "🚫 הוצאה מהשיעור") + '</button></div>' +
@@ -284,3 +285,4 @@
   window.BM_LIVEMON = { watch:watch, timelineHtml:timelineHtml, soundButton:soundButton, dur:dur, clock:clock, whyText:whyText, esc:esc,
                         workHtml:workHtml, helpBadge:helpBadge, isIdle:isIdle, injectStyle:injectStyle, cardsHtml:cardsHtml, pageName:pageName };
 })();
+

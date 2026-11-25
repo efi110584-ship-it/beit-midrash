@@ -94,7 +94,7 @@
     b.type = "button"; b.className = "th-tile"; b.id = id;
     b.innerHTML = '<span class="th-go" aria-hidden="true">›</span><span class="th-lbl">' + icon + ' ' + esc(label) + '</span>' +
       '<span class="th-num">…</span><span class="th-extra"></span><span class="th-meta"></span>';
-    b.addEventListener("click", function(){ go(panel); });
+    b.addEventListener("click", function(){ go(panel); if(id === "thSubs" && window.BM_OPEN_PENDING_WORK) window.BM_OPEN_PENDING_WORK(); });
     return b;
   }
   function setTile(id, num, meta, extra, cls){
@@ -146,6 +146,14 @@
       if(b) go(b.getAttribute("data-go"), b.getAttribute("data-focus"));
     });
 
+    // Preserve secondary controls and their event handlers, but fold them away.
+    var more=document.createElement("details"), moreTitle=document.createElement("summary");
+    more.id="thMore";more.className="th-box";moreTitle.textContent="עוד: חומרי הוראה, הודעות, רעיונות וגיבויים";more.appendChild(moreTitle);
+    [".td-quick",".td-lower","#bkCard","#wkCard"].forEach(function(selector){var node=home.querySelector(selector);if(node)more.appendChild(node);});
+    home.appendChild(more);
+    if(hero){home.insertBefore(hero,tiles);var h=hero.querySelector("h3");if(h)h.textContent="השיעור שלך";}
+    var title=home.querySelector(".td-title");if(title)title.textContent="היום שלי";
+    var homeLabel=document.querySelector("#ttTab-home .tt-nav-label");if(homeLabel)homeLabel.textContent="היום שלי";
     var tab = document.getElementById("ttTab-home");
     if(tab) tab.addEventListener("click", function(){ setTimeout(refresh, 0); });
     refresh();
@@ -185,7 +193,7 @@
     setTile("thExams", String(weekExams.length), nx ? (nx.title + " · יום " + WD[parse(nx.date).getDay()] + " " + short(nx.date)) : "אין מבחנים בשבוע הקרוב");
 
     if(!sum || !sum.ok){
-      var why = sum && sum.auth === false ? "צריך להיכנס שוב לאזור המורה" : "הנתונים יופיעו אחרי עדכון הסקריפט של Google";
+      var why = sum && sum.auth === false ? "צריך להיכנס שוב לאזור המורה" : "לא התקבלו נתוני הסיכום. אפשר לפתוח את המשימות או העבודות ולנסות לרענן; ייתכן שיש בעיית חיבור או שנדרש עדכון";
       setTile("thSubs", "-", why); setTile("thTasks", "-", why);
       attnList.innerHTML = '<li class="th-empty">' + esc(why) + '.</li>';
       drawDue([], exams);
@@ -233,3 +241,4 @@
 
   window.BM_TEACHER_HOME = { mount:mount, refresh:refresh };
 })();
+
