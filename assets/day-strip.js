@@ -66,7 +66,7 @@
           else cls = s.kind === "tutor" ? "t-tutor" : s.kind === "prep" ? "t-prep" : "";
         }
       }else{
-        var c = ((S.classes[view] || [])[wd] || [])[h];
+        var c = S.classFor ? S.classFor(view, isoOf(sd.d), h) : ((S.classes[view] || [])[wd] || [])[h];   /* כולל שינויים שהמורה הכניס באתר */
         if(c){ main = c[0]; sub = c[1]; cls = c[2] ? (view === "יב" ? "t-yb" : "t-ya") : "t-cls"; }
       }
       cells.push({ h:h, cls:cls, main:main, sub:sub });
@@ -104,6 +104,9 @@
       draw(box, view);
     });
     draw(box, view);
+    /* שינויים במערכת הכיתה שהמורה הכניס באתר - נטענים מהשרת, והפס מתעדכן */
+    document.addEventListener("bm-cls-edits", function(){ draw(box, view); });
+    if(S.loadClassEdits) S.loadClassEdits();
   }
 
   window.BM_DAY_STRIP = { mount:mount };

@@ -76,6 +76,45 @@
     memo[key] = g;
     return g;
   }
+
+  /* ---------- שינויים במערכת של הכיתות (מוצגים גם לתלמידים בפס בדף הבית) ----------
+     classSchedEdits (קריאה פתוחה) / classSchedSave (רק למורה). לכל כיתה perm / once כמו למעלה;
+     cell = { name, detail, mine } או null - אין שיעור בשעה הזו. */
+  var CLS_EDITS_KEY = "bm-cls-edits";
+  function emptyCls(){ return { "יא":{ perm:[], once:[] }, "יב":{ perm:[], once:[] } }; }
+  var clsEdits = emptyCls(), clsLoading = null;
+  try{ var cce = JSON.parse(localStorage.getItem(CLS_EDITS_KEY) || "null"); if(cce && cce["יא"] && cce["יב"]) clsEdits = cce; }catch(e){}
+  function setClsEdits(e){
+    var out = emptyCls();
+    ["יא", "יב"].forEach(function(k){ if(e && e[k]){ out[k].perm = e[k].perm || []; out[k].once = e[k].once || []; } });
+    clsEdits = out;
+    try{ localStorage.setItem(CLS_EDITS_KEY, JSON.stringify(clsEdits)); }catch(x){}
+  }
+  function clsEditAt(k, date, h){
+    var E = clsEdits[k]; if(!E) return null;
+    var d = wd(date), i, best = null;
+    for(i = E.once.length - 1; i >= 0; i--) if(E.once[i].date === date && E.once[i].h === h) return { type:"once", e:E.once[i] };
+    E.perm.forEach(function(e){ if(e.d === d && e.h === h && e.from <= date && (!best || e.from >= best.from)) best = e; });
+    return best ? { type:"perm", e:best } : null;
+  }
+  /* [שם, פירוט, 1 = שיעור שלך] או 0 - כמו ב-CLASSES */
+  function classCell(k, date, h){
+    var d = wd(date); if(d > 5 || !CLASSES[k]) return 0;
+    var ed = clsEditAt(k, date, h);
+    if(ed) return ed.e.cell ? [ed.e.cell.name, ed.e.cell.detail || "", ed.e.cell.mine ? 1 : 0] : 0;
+    return (CLASSES[k][d] || [])[h] || 0;
+  }
+  function loadClassEdits(){
+    if(clsLoading) return clsLoading;
+    if(!window.BM_API_URL) return Promise.resolve();
+    clsLoading = fetch(window.BM_API_URL + "?action=classSchedEdits").then(function(r){ return r.json(); }).then(function(r){
+      if(!(r && r.ok && r.edits)) return;
+      var before = JSON.stringify(clsEdits);
+      setClsEdits(r.edits);
+      if(JSON.stringify(clsEdits) !== before) try{ document.dispatchEvent(new Event("bm-cls-edits")); }catch(x){}
+    }).catch(function(){});
+    return clsLoading;
+  }
   var CLS_NAME = { "יא":"י״א 4", "יב":"י״ב 2", "both":"י״א 4 + י״ב 2" };
 
 
@@ -174,7 +213,7 @@
   var EVN = { c:"מחמאה", b:"הערת התנהגות", n:"ללא מחשב נייד", h:"ללא שיעורי בית" };
   var CHECK = [["p", "פיזי"], ["o", "מקוון"], ["v", "קולי"], ["x", "לא התקיים"]];
   var CHECKN = { p:"פיזי", o:"מקוון", v:"קולי", x:"לא התקיים" };
-  var st = { date:"", day:{}, dayLoaded:"", rosters:{}, open:null, marks:{}, events:{}, kind:"p", dirty:false, busy:false, view:"me", edit:false, edH:null };
+  var st = { date:"", day:{}, dayLoaded:"", rosters:{}, open:null, marks:{}, events:{}, kind:"p", dirty:false, busy:false, view:"me", edit:false, edH:null, cedit:false, ced:null };
   var root = null;
 
   function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]; }); }
@@ -350,16 +389,24 @@
 
   /* מערכת של כיתה שלמה (מסקולי) */
   function classGridHtml(k){
-    var t = new Date().getDay(), days = (CLASSES[k][5] || []).some(Boolean) ? DAYS.concat(["שישי"]) : DAYS;
+    var t = new Date().getDay();
+    var fri = HOURS.some(function(h){ return !!classCell(k, dateOfWeekday(5), h); });
+    var days = fri || st.cedit ? DAYS.concat(["שישי"]) : DAYS;
     var head = '<tr><th class="sch-hcol" scope="col">שעה</th>' + days.map(function(d, i){
       return '<th scope="col"' + (i === t ? ' class="is-today" aria-current="date"' : '') + '>' + d + (i === t ? ' · היום' : '') + '</th>';
     }).join("") + '</tr>';
     var rows = HOURS.map(function(h){
       return '<tr><td class="sch-hcol">' + h + '</td>' + days.map(function(_, d){
-        var c = (CLASSES[k][d] || [])[h];
-        if(!c) return '<td' + (d === t ? ' class="is-today"' : '') + '></td>';
+        var c = classCell(k, dateOfWeekday(d), h), ed = clsEditAt(k, dateOfWeekday(d), h);
+        var tdc = (d === t ? 'is-today' : '') + (ed ? ' is-ed' : ''), td = '<td' + (tdc ? ' class="' + tdc.trim() + '"' : '') + '>';
+        var sel = st.ced && st.ced.d === d && st.ced.h === h;
+        if(st.cedit){
+          var inner = c ? '<strong>' + esc(c[0]) + '</strong>' + (c[1] ? '<small>' + esc(c[1]) + '</small>' : '') : '<strong>—</strong>';
+          return td + '<button type="button" class="sch-slot ' + (c ? (c[2] ? (k === "יב" ? "c-yb" : "c-ya") : (c[1] ? "c-grp" : "c-cls")) : 'k-free') + (sel ? ' is-open' : '') + '" data-ced="' + d + '|' + h + '" aria-label="שינוי: יום ' + (DAYN[d] || "שישי") + ', שעה ' + h + '">' + inner + '</button></td>';
+        }
+        if(!c) return td + (ed ? '<div class="sch-slot k-free"><strong>אין שיעור</strong></div>' : '') + '</td>';
         var cl = c[2] ? (k === "יב" ? "c-yb" : "c-ya") : (c[1] ? "c-grp" : "c-cls");
-        return '<td' + (d === t ? ' class="is-today"' : '') + '><div class="sch-slot ' + cl + (c[2] ? ' is-mine' : '') + '"><strong>' + esc(c[0]) + '</strong>' +
+        return td + '<div class="sch-slot ' + cl + (c[2] ? ' is-mine' : '') + '"><strong>' + esc(c[0]) + '</strong>' +
           (c[1] ? '<small>' + esc(c[1]) + '</small>' : '') + (c[2] ? '<span class="sch-mine">★ השיעור שלך</span>' : '') + '</div></td>';
       }).join("") + '</tr>';
     }).join("");
@@ -376,9 +423,12 @@
           '<li><i class="k-tutor"></i>פרטני</li><li><i class="k-role"></i>תפקיד / ישיבה</li><li><i class="k-prep"></i>הכנה לבגרות</li>' +
         '</ul>' +
         '<p class="sch-note">לפי המערכת בסקולי (שבוע רגיל), כולל השינויים שהכנסת באתר (מסומנים במסגרת מקווקוות). ביום שישי אין לך שעות. לחיצה על שיעור בטבלה פותחת את הנוכחות שלו בשבוע הנוכחי.</p>' + editsListHtml();
-    return '<h3>המערכת של ' + CLS_NAME[st.view] + '</h3>' + tabs + classGridHtml(st.view) +
+    return '<h3>המערכת של ' + CLS_NAME[st.view] + '</h3>' + tabs +
+      '<p class="sch-ced-bar"><button type="button" class="sch-ed-toggle" data-ced-toggle="1" aria-pressed="' + !!st.cedit + '">' + (st.cedit ? '✓ סיום שינויים' : '✏️ שינוי במערכת הכיתה') + '</button>' +
+        (st.cedit ? ' <span class="sch-note">לוחצים על שעה בטבלה. השינוי יוצג גם לתלמידים, בפס "מערכת הכיתה" בדף הבית. בסקולי לא משתנה כלום.</span>' : '') + '</p>' +
+      classGridHtml(st.view) + (st.cedit ? classFormHtml(st.view) + '<p class="sch-msg" id="schCedMsg" role="status" aria-live="polite"></p>' : '') +
       '<ul class="sch-legend" aria-label="מקרא"><li><i class="' + (st.view === "יב" ? "c-yb" : "c-ya") + '"></i>השיעורים שלך</li><li><i class="c-cls"></i>שיעור לכל הכיתה</li><li><i class="c-grp"></i>הקבצות ומגמות (כמה קבוצות במקביל)</li></ul>' +
-      '<p class="sch-note">לפי המערכת של הכיתה בסקולי (שבוע רגיל), בלי שמות המורים.' + ' עודכן ל-8.11.2026.' + '</p>';
+      '<p class="sch-note">לפי המערכת של הכיתה בסקולי (שבוע רגיל), בלי שמות המורים. עודכן ל-8.11.2026, כולל השינויים שהכנסת באתר (במסגרת מקווקוות). מוצג השבוע הנוכחי.</p>' + classListHtml(st.view);
   }
 
   function stats(){
@@ -626,12 +676,94 @@
       ".sch-edbtns{display:flex;flex-wrap:wrap;gap:8px}" +
       ".sch-edbtns button,.sch-edlist button{font:inherit;min-height:44px;padding:8px 16px;border-radius:10px;border:1.5px solid #0B2A5B;background:#fff;color:#0B2A5B;font-weight:700;cursor:pointer}" +
       ".sch-edbtns button.is-main{background:#0B2A5B;color:#fff}" +
+      ".sch-ced-bar{margin:6px 0 10px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}" +
+      ".sch-ced-bar .sch-ed-toggle{font:inherit;min-height:44px;padding:8px 16px;border-radius:10px;border:1.5px solid #0B2A5B;background:#fff;color:#0B2A5B;cursor:pointer}" +
+      ".sch-grid button.sch-slot{cursor:pointer;width:100%;font:inherit;text-align:inherit}" +
+      ".sch-ced-mine{display:flex!important;align-items:center;gap:8px}" +
       ".sch-edlist{margin-top:14px}.sch-edlist summary{cursor:pointer;font-weight:700;color:#0B2A5B;min-height:44px;display:flex;align-items:center}" +
       ".sch-edlist ul{list-style:none;padding:0;margin:8px 0;display:grid;gap:6px}" +
       ".sch-edlist li{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;border:1px solid #DCE4F1;border-radius:10px;background:#fff}" +
       ".sch-edlist li span{min-width:0;overflow-wrap:anywhere}" +
       ".sch-edit .sch-slot:focus-visible,.sch-edform :focus-visible,.sch-edlist button:focus-visible{outline:3px solid #FF7A1A;outline-offset:2px}";
     document.head.appendChild(el);
+  }
+
+  /* ---------- שינוי במערכת של כיתה ---------- */
+  var CLS_SUBJ = ['תנ"ך', 'תושב"ע', "עברית", "אנגלית", "מתמטיקה", "היסטוריה", "אזרחות", "ספרות", "מחשבת ישראל", "חינוך גופני", "חינוך", "פיזיקה", "מגמות", "תפילה ופתיחת יום", "מכינה לחיים", "טיול / פעילות"];
+  function nextDateOf(d){ var x = new Date(); x = new Date(x.getFullYear(), x.getMonth(), x.getDate()); x.setDate(x.getDate() + ((d - x.getDay() + 7) % 7)); return iso(x); }
+  function classFormHtml(k){
+    var c0 = st.ced; if(!c0) return "";
+    var date = nextDateOf(c0.d), c = classCell(k, date, c0.h), ed = clsEditAt(k, date, c0.h);
+    return '<form class="sch-edform" id="schCedForm" onsubmit="return false" aria-label="שינוי במערכת הכיתה">' +
+      '<h4>' + esc(CLS_NAME[k]) + ' · יום ' + (DAYN[c0.d] || "שישי") + ' · שעה ' + c0.h + '</h4>' +
+      '<label>מה יש בשעה הזו?<select id="schCedKind"><option value="lesson"' + (c ? ' selected' : '') + '>שיעור</option><option value="none"' + (c ? '' : ' selected') + '>אין שיעור (חלון / ביטול)</option></select></label>' +
+      '<label data-ced-f="1"' + (c ? '' : ' hidden') + '>מקצוע<input id="schCedName" list="schCedList" maxlength="40" value="' + esc(c ? c[0] : '') + '"></label>' +
+      '<datalist id="schCedList">' + CLS_SUBJ.map(function(x){ return '<option value="' + esc(x) + '">'; }).join("") + '</datalist>' +
+      '<label data-ced-f="1"' + (c ? '' : ' hidden') + '>פירוט (לא חובה, למשל הקבצות)<input id="schCedDetail" maxlength="60" value="' + esc(c ? c[1] : '') + '"></label>' +
+      '<label class="sch-ced-mine" data-ced-f="1"' + (c ? '' : ' hidden') + '><input type="checkbox" id="schCedMine"' + (c && c[2] ? ' checked' : '') + '> ★ זה שיעור שלי</label>' +
+      '<label>מאיזה תאריך?<input type="date" id="schCedDate" value="' + date + '"></label>' +
+      '<fieldset><legend>לכמה זמן?</legend>' +
+        '<label><input type="radio" name="schCedScope" value="once"' + (ed && ed.type === "perm" ? '' : ' checked') + '> רק בתאריך הזה</label>' +
+        '<label><input type="radio" name="schCedScope" value="perm"' + (ed && ed.type === "perm" ? ' checked' : '') + '> קבוע - מהתאריך הזה והלאה, בכל שבוע</label>' +
+      '</fieldset>' +
+      '<div class="sch-edbtns"><button type="button" class="is-main" data-ced-act="save">שמירה</button><button type="button" data-ced-act="cancel">ביטול</button>' +
+        (ed ? '<button type="button" data-ced-act="reset">↺ החזרה למה שהיה</button>' : '') + '</div></form>';
+  }
+  function classListHtml(k){
+    var E = clsEdits[k] || { perm:[], once:[] }, n = E.perm.length + E.once.length; if(!n) return "";
+    var txt = function(c){ return c ? c.name + (c.detail ? " (" + c.detail + ")" : "") + (c.mine ? " ★" : "") : "אין שיעור"; };
+    var all = E.perm.map(function(e, i){ return { k:"perm:" + i, sort:e.from, t:"מ-" + short(e.from) + ", כל יום " + (DAYN[e.d] || "שישי") + " · שעה " + e.h + ": " + txt(e.cell) + " - קבוע" }; })
+      .concat(E.once.map(function(e, i){ return { k:"once:" + i, sort:e.date, t:nice(e.date) + " · שעה " + e.h + ": " + txt(e.cell) + " - רק ביום הזה" }; }))
+      .sort(function(a, b){ return a.sort < b.sort ? 1 : -1; });
+    return '<details class="sch-edlist"><summary>✎ שינויים במערכת ' + esc(CLS_NAME[k]) + ' (' + n + ')</summary><ul>' + all.map(function(x){
+      return '<li><span>' + esc(x.t) + '</span><button type="button" data-ced-del="' + x.k + '" aria-label="מחיקת השינוי: ' + esc(x.t) + '">🗑️ מחיקה</button></li>';
+    }).join("") + '</ul></details>';
+  }
+  function cedMsg(text, kind){ var m = document.getElementById("schCedMsg"); if(m){ m.textContent = text; m.className = "sch-msg" + (kind ? " is-" + kind : ""); } else if(kind === "err") alert(text); }
+  function saveClassEdits(next, done){
+    if(st.busy) return;
+    st.busy = true; cedMsg("שומר…");
+    post({ action:"classSchedSave", edits:next }).then(function(r){
+      st.busy = false; setClsEdits(r.edits || next); st.ced = null; render(); cedMsg(done || "✓ נשמר.", "ok");
+      try{ document.dispatchEvent(new Event("bm-cls-edits")); }catch(x){}
+    }).catch(function(e){
+      st.busy = false;
+      cedMsg(/פעולה לא מוכרת/.test(e.message) ? "השינוי לא נשמר: צריך לעדכן את Code.gs ב-Apps Script לגרסה עם שינויי מערכת הכיתות." : "השינוי לא נשמר: " + e.message, "err");
+    });
+  }
+  function cloneCls(){ return JSON.parse(JSON.stringify(clsEdits)); }
+  function cedSave(){
+    var k = st.view, h = st.ced.h, date = edVal("schCedDate");
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(date) || wd(date) === 6){ cedMsg("בחרו תאריך של יום לימודים (ראשון עד שישי).", "err"); return; }
+    var cell = null;
+    if(edVal("schCedKind") === "lesson"){
+      var name = edVal("schCedName");
+      if(!name){ cedMsg("כתבו את שם המקצוע.", "err"); var f = document.getElementById("schCedName"); if(f) f.focus(); return; }
+      var mine = document.getElementById("schCedMine");
+      cell = { name:name, detail:edVal("schCedDetail"), mine:!!(mine && mine.checked) };
+    }
+    var scope = (root.querySelector('input[name="schCedScope"]:checked') || {}).value || "once", d = wd(date);
+    var next = cloneCls(), E = next[k];
+    E.once = E.once.filter(function(e){ return !(e.date === date && e.h === h); });
+    if(scope === "perm"){ E.perm = E.perm.filter(function(e){ return !(e.d === d && e.h === h && e.from === date); }); E.perm.push({ from:date, d:d, h:h, cell:cell }); }
+    else E.once.push({ date:date, h:h, cell:cell });
+    saveClassEdits(next, scope === "perm" ? "✓ נשמר: מ-" + short(date) + " והלאה, בכל יום " + (DAYN[d] || "שישי") + "." : "✓ נשמר ל" + nice(date) + ".");
+  }
+  function cedReset(){
+    var k = st.view, date = nextDateOf(st.ced.d), ed = clsEditAt(k, date, st.ced.h); if(!ed) return;
+    if(ed.type === "perm" && !confirm("זה שינוי קבוע מ-" + short(ed.e.from) + ". למחוק אותו לכל השבועות?")) return;
+    var next = cloneCls();
+    next[k].perm = clsEdits[k].perm.filter(function(e){ return e !== ed.e; });
+    next[k].once = clsEdits[k].once.filter(function(e){ return e !== ed.e; });
+    saveClassEdits(next, "✓ השעה חזרה למה שהיה.");
+  }
+  function cedDelete(key){
+    var k = st.view, p = key.split(":"), item = (p[0] === "perm" ? clsEdits[k].perm : clsEdits[k].once)[+p[1]];
+    if(!item || !confirm("למחוק את השינוי הזה? הוא יוסר גם מהפס שהתלמידים רואים.")) return;
+    var next = cloneCls();
+    next[k].perm = clsEdits[k].perm.filter(function(e){ return e !== item; });
+    next[k].once = clsEdits[k].once.filter(function(e){ return e !== item; });
+    saveClassEdits(next, "✓ השינוי נמחק.");
   }
 
   function render(focusSel){
@@ -720,7 +852,7 @@
     root.addEventListener("toggle", function(e){ if(e.target.id === "schSum") st.sumOpen = e.target.open; }, true);
     root.addEventListener("click", function(e){
       var b = e.target.closest("button"); if(!b || !root.contains(b)) return;
-      if(b.hasAttribute("data-view")){ st.view = b.getAttribute("data-view"); render('[data-view="' + st.view + '"]'); return; }
+      if(b.hasAttribute("data-view")){ st.view = b.getAttribute("data-view"); st.cedit = false; st.ced = null; render('[data-view="' + st.view + '"]'); return; }
       if(b.hasAttribute("data-ed-toggle")){
         if(!st.edit && st.dirty && !confirm("יש נוכחות שלא נשמרה. לעבור לשינוי המערכת בכל זאת?")) return;
         st.edit = !st.edit; st.edH = null; st.open = null; st.dirty = false; render(".sch-ed-toggle"); return;
@@ -732,6 +864,18 @@
         return;
       }
       if(b.hasAttribute("data-ed-del")){ edDelete(b.getAttribute("data-ed-del")); return; }
+      if(b.hasAttribute("data-ced-toggle")){ st.cedit = !st.cedit; st.ced = null; render(".sch-ced-bar .sch-ed-toggle"); return; }
+      if(b.hasAttribute("data-ced")){
+        var cp = b.getAttribute("data-ced").split("|"), cd = +cp[0], chh = +cp[1];
+        st.ced = st.ced && st.ced.d === cd && st.ced.h === chh ? null : { d:cd, h:chh };
+        render(st.ced ? "#schCedKind" : '[data-ced="' + cd + "|" + chh + '"]'); return;
+      }
+      if(b.hasAttribute("data-ced-act")){
+        var ca = b.getAttribute("data-ced-act");
+        if(ca === "save") cedSave(); else if(ca === "reset") cedReset(); else { var cb2 = st.ced; st.ced = null; render(cb2 ? '[data-ced="' + cb2.d + "|" + cb2.h + '"]' : null); }
+        return;
+      }
+      if(b.hasAttribute("data-ced-del")){ cedDelete(b.getAttribute("data-ced-del")); return; }
       if(b.hasAttribute("data-e")){
         var ek = b.getAttribute("data-k"), en = b.getAttribute("data-n"), code = b.getAttribute("data-e");
         var arr = st.events[ek][en] || (st.events[ek][en] = []), at = arr.indexOf(code);
@@ -766,6 +910,10 @@
     root.addEventListener("change", function(e){
       var t = e.target;
       if(t.id === "schDate" && /^\d{4}-\d{2}-\d{2}$/.test(t.value)){ setDate(t.value); return; }
+      if(t.id === "schCedKind"){
+        Array.prototype.forEach.call(root.querySelectorAll("[data-ced-f]"), function(x){ x.hidden = t.value !== "lesson"; });
+        return;
+      }
       if(t.id === "schEdKind"){
         var fk = t.value, form = document.getElementById("schEdForm");
         if(form){
@@ -796,7 +944,8 @@
     root = el; css(); edCss(); bind();
     st.date = iso(new Date());
     render(); loadDay(); loadEdits();
+    loadClassEdits().then(function(){ if(st.view !== "me") render(); });
   }
 
-  window.BM_MY_SCHEDULE = { mount:mount, week:WEEK, days:DAYS, clsName:CLS_NAME, classes:CLASSES, weekFor:wk };
+  window.BM_MY_SCHEDULE = { mount:mount, week:WEEK, days:DAYS, clsName:CLS_NAME, classes:CLASSES, weekFor:wk, classFor:classCell, loadClassEdits:loadClassEdits };
 })();

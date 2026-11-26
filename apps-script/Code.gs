@@ -82,6 +82,7 @@ function doGet(e) {
     if (p.action === 'exams') return json_({ ok: true, exams: examsUpcoming_() });
     if (p.action === 'lesson') return json_(findLesson_(p.code));
     if (p.action === 'examReopenCheck') return json_(examReopenCheck_(p.code, p.sid));
+    if (p.action === 'classSchedEdits') return json_(classSchedGet_());
     if (p.action === 'lessonLock') return json_(lessonLock_(p.page, p.code));
     if (p.action === 'navPeek') return json_(navPeek_(p.code));
     if (p.action === 'batchReviewStatus') return json_({ok:true,batchReview:1,maxBatch:30,approval:'teacher_only'});
@@ -202,6 +203,7 @@ function doPost(e) {
       case 'attSave':         return json_(attSave_(data));
       case 'schedEditsGet':   return json_(schedEditsGet_());
       case 'schedEditsSave':  return json_(schedEditsSave_(data.edits));
+      case 'classSchedSave':  return json_(classSchedSave_(data.edits));
       case 'backup':          return json_(backup_());
       case 'weekSummary':     return json_(weekSummary_(data.days));
       case 'boardList':       return json_({ ok: true, boards: qbBoardsList_().concat(QBOARD_TITLES), active: qbActives_()[liveRoom_(data.room)] || null });
@@ -2713,6 +2715,49 @@ function schedEditsSave_(edits) {
   if (str.length > 8500) return { ok: false, error: 'יש יותר מדי שינויים שמורים. מחקו שינויים ישנים ונסו שוב.' };
   PropertiesService.getScriptProperties().setProperty('SCHED_EDITS', str);
   return { ok: true, edits: { perm: perm, once: once } };
+}
+
+// ---------- שינויים במערכת של הכיתות (י"א / י"ב) ----------
+// מוצגים לכולם (גם לתלמידים) בפס "מערכת הכיתה" בדף הבית - לכן הקריאה פתוחה (classSchedEdits) והשמירה רק למורה.
+// לכל כיתה: perm - שינוי קבוע מתאריך (from, יום d 0-5, שעה h); once - לתאריך אחד. cell = { name, detail, mine } או null (אין שיעור).
+var SCHED_CLASSES_ = ['יא', 'יב'];
+function classSchedCell_(c) {
+  if (c === null) return null;
+  if (!c || typeof c !== 'object') return undefined;
+  var out = { name: clean_(c.name).slice(0, 40), detail: clean_(c.detail).slice(0, 60), mine: c.mine === true };
+  return out.name ? out : undefined;
+}
+function classSchedGet_() {
+  var e = {};
+  try { e = JSON.parse(PropertiesService.getScriptProperties().getProperty('SCHED_CLS_EDITS') || '{}') || {}; } catch (x) { e = {}; }
+  var out = {};
+  SCHED_CLASSES_.forEach(function (k) { out[k] = { perm: (e[k] && e[k].perm) || [], once: (e[k] && e[k].once) || [] }; });
+  return { ok: true, edits: out };
+}
+function classSchedSave_(edits) {
+  edits = edits || {};
+  var D = /^\d{4}-\d{2}-\d{2}$/, out = {};
+  var old = new Date(Date.now() - 120 * 86400000);
+  var cut = old.getFullYear() + '-' + ('0' + (old.getMonth() + 1)).slice(-2) + '-' + ('0' + old.getDate()).slice(-2);
+  var hourOk = function (h) { return typeof h === 'number' && h % 1 === 0 && h >= 0 && h <= 8; };
+  SCHED_CLASSES_.forEach(function (k) {
+    var src = edits[k] || {}, perm = [], once = [];
+    (Array.isArray(src.perm) ? src.perm : []).slice(0, 150).forEach(function (x) {
+      if (!x || !D.test(String(x.from)) || !hourOk(x.h) || !(typeof x.d === 'number' && x.d % 1 === 0 && x.d >= 0 && x.d <= 5)) return;
+      var c = classSchedCell_(x.cell);
+      if (c !== undefined) perm.push({ from: String(x.from), d: x.d, h: x.h, cell: c });
+    });
+    (Array.isArray(src.once) ? src.once : []).slice(0, 150).forEach(function (x) {
+      if (!x || !D.test(String(x.date)) || String(x.date) < cut || !hourOk(x.h)) return;
+      var c = classSchedCell_(x.cell);
+      if (c !== undefined) once.push({ date: String(x.date), h: x.h, cell: c });
+    });
+    out[k] = { perm: perm, once: once };
+  });
+  var str = JSON.stringify(out);
+  if (str.length > 8500) return { ok: false, error: 'יש יותר מדי שינויים שמורים. מחקו שינויים ישנים ונסו שוב.' };
+  PropertiesService.getScriptProperties().setProperty('SCHED_CLS_EDITS', str);
+  return { ok: true, edits: out };
 }
 
 function clean_(s) { return String(s || '').replace(/\s+/g, ' ').trim(); }
