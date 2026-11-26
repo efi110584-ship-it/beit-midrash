@@ -200,6 +200,8 @@ function doPost(e) {
       case 'attRoster':       return json_(attRoster_(data.cls));
       case 'attDay':          return json_(attDay_(data.date));
       case 'attSave':         return json_(attSave_(data));
+      case 'schedEditsGet':   return json_(schedEditsGet_());
+      case 'schedEditsSave':  return json_(schedEditsSave_(data.edits));
       case 'backup':          return json_(backup_());
       case 'weekSummary':     return json_(weekSummary_(data.days));
       case 'boardList':       return json_({ ok: true, boards: qbBoardsList_().concat(QBOARD_TITLES), active: qbActives_()[liveRoom_(data.room)] || null });
@@ -2670,6 +2672,49 @@ function getJson_(key) {
   try { return v ? JSON.parse(v) : null; } catch (e) { return null; }
 }
 function msg_(err) { return String((err && err.message) || err); }
+// ---------- שינויים במערכת של המורה ("המערכת שלי", assets/my-schedule.js) ----------
+// המערכת הבסיסית כתובה בקוד האתר. כאן נשמרים רק השינויים שהמורה הכניס באתר:
+// perm - שינוי קבוע מתאריך (from) ליום בשבוע d ושעה h; once - שינוי לתאריך אחד (date) ושעה h.
+// cell = null - השעה פנויה / בוטלה. רק מקצועות וכיתות - בלי שום מידע על תלמידים.
+var SCHED_KINDS_ = { lesson: 1, tutor: 1, role: 1, meet: 1, prep: 1 };
+function schedCell_(c) {
+  if (c === null) return null;
+  if (!c || typeof c !== 'object' || !SCHED_KINDS_[c.kind]) return undefined;
+  var out = { kind: c.kind, subject: clean_(c.subject).slice(0, 40), note: clean_(c.note).slice(0, 60) };
+  if (!out.subject) return undefined;
+  if (c.kind === 'lesson') {
+    if (['יא', 'יב', 'both'].indexOf(c.cls) < 0) return undefined;
+    out.cls = c.cls;
+  }
+  return out;
+}
+function schedEditsGet_() {
+  var e = {};
+  try { e = JSON.parse(PropertiesService.getScriptProperties().getProperty('SCHED_EDITS') || '{}') || {}; } catch (x) { e = {}; }
+  return { ok: true, edits: { perm: e.perm || [], once: e.once || [] } };
+}
+function schedEditsSave_(edits) {
+  edits = edits || {};
+  var D = /^\d{4}-\d{2}-\d{2}$/, perm = [], once = [];
+  var old = new Date(Date.now() - 120 * 86400000);
+  var cut = old.getFullYear() + '-' + ('0' + (old.getMonth() + 1)).slice(-2) + '-' + ('0' + old.getDate()).slice(-2);
+  var hourOk = function (h) { return typeof h === 'number' && h % 1 === 0 && h >= 0 && h <= 8; };
+  (Array.isArray(edits.perm) ? edits.perm : []).slice(0, 200).forEach(function (x) {
+    if (!x || !D.test(String(x.from)) || !hourOk(x.h) || !(typeof x.d === 'number' && x.d % 1 === 0 && x.d >= 0 && x.d <= 4)) return;
+    var c = schedCell_(x.cell);
+    if (c !== undefined) perm.push({ from: String(x.from), d: x.d, h: x.h, cell: c });
+  });
+  (Array.isArray(edits.once) ? edits.once : []).slice(0, 300).forEach(function (x) {
+    if (!x || !D.test(String(x.date)) || String(x.date) < cut || !hourOk(x.h)) return;   // שינויים ישנים מאוד - נמחקים
+    var c = schedCell_(x.cell);
+    if (c !== undefined) once.push({ date: String(x.date), h: x.h, cell: c });
+  });
+  var str = JSON.stringify({ perm: perm, once: once });
+  if (str.length > 8500) return { ok: false, error: 'יש יותר מדי שינויים שמורים. מחקו שינויים ישנים ונסו שוב.' };
+  PropertiesService.getScriptProperties().setProperty('SCHED_EDITS', str);
+  return { ok: true, edits: { perm: perm, once: once } };
+}
+
 function clean_(s) { return String(s || '').replace(/\s+/g, ' ').trim(); }
 function safe_(s) { return String(s).replace(/[\\\/:*?"<>|]/g, ' ').replace(/\s+/g, ' ').trim(); }
 function normName_(s) { return clean_(s).replace(/["'׳״]/g, ''); }

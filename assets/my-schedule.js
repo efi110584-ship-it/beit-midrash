@@ -38,7 +38,42 @@
     [PRAY, L("מכינה לחיים", "יב"), L('תושב"ע', "יב"), L('תושב"ע', "יא"), L('תנ"ך', "יא"), K("meet", "קהילת הוראה דיפרנציאלית"), K("tutor", 'פרטני מעו"ף'), K("tutor", 'פרטני מעו"ף'), K("prep", "הכנה לבגרות")],
     [PRAY, L('תנ"ך', "יב"), L('תנ"ך', "יב"), K("role", "שיחות אישיות"), K("meet", "ישיבת כיתה יב2"), K("role", "תפקיד"), K("meet", "ישיבת מחנכים תיכון"), K("role", "תפקיד"), K("prep", "הכנה לבגרות")]
   ];
-  function wk(date){ return String(date || "") >= WEEK_FROM ? WEEK : WEEK_OLD; }
+  /* ---------- שינויים שהמורה מכניס באתר (נשמרים בשרת - schedEditsGet / schedEditsSave) ----------
+     perm: { from, d, h, cell } - שינוי קבוע מתאריך from, ביום d בשבוע, בשעה h
+     once: { date, h, cell }    - שינוי לתאריך אחד
+     cell = null - השעה פנויה / בוטלה. שינוי ליום אחד גובר על שינוי קבוע, ושינוי קבוע גובר על המערכת שבקוד.
+     עותק נשמר במכשיר, כדי שגם פס "המערכת" בדף הבית (assets/day-strip.js) יציג את השינויים. */
+  var EDITS_KEY = "bm-sched-edits", edits = { perm:[], once:[] }, editsVer = 0, memo = {};
+  try{ var ce = JSON.parse(localStorage.getItem(EDITS_KEY) || "null"); if(ce && Array.isArray(ce.perm) && Array.isArray(ce.once)) edits = ce; }catch(e){}
+  function setEdits(e){
+    edits = { perm:(e && e.perm) || [], once:(e && e.once) || [] }; editsVer++; memo = {};
+    try{ localStorage.setItem(EDITS_KEY, JSON.stringify(edits)); }catch(x){}
+  }
+  function baseCell(date, d, h){ return ((String(date) >= WEEK_FROM ? WEEK : WEEK_OLD)[d] || [])[h] || null; }
+  /* איזה שינוי קובע את השעה הזו בתאריך הזה (או null - המערכת הרגילה) */
+  function editAt(date, h){
+    var d = wd(date), i, best = null;
+    for(i = edits.once.length - 1; i >= 0; i--) if(edits.once[i].date === date && edits.once[i].h === h) return { type:"once", e:edits.once[i] };
+    edits.perm.forEach(function(e){ if(e.d === d && e.h === h && e.from <= date && (!best || e.from >= best.from)) best = e; });
+    return best ? { type:"perm", e:best } : null;
+  }
+  function cellFor(date, h){
+    var d = wd(date); if(d > 4) return null;
+    var ed = editAt(date, h);
+    return ed ? (ed.e.cell || null) : baseCell(date, d, h);
+  }
+  /* המערכת של השבוע שבו נמצא התאריך: [יום 0-4][שעה 0-8] - כל יום לפי התאריך שלו */
+  function wk(date){
+    var sun = parse(date || iso(new Date())); sun.setDate(sun.getDate() - sun.getDay());
+    var key = iso(sun) + "|" + editsVer;
+    if(memo[key]) return memo[key];
+    var g = [0, 1, 2, 3, 4].map(function(d){
+      var dd = new Date(sun.getFullYear(), sun.getMonth(), sun.getDate() + d), ds = iso(dd);
+      return HOURS.map(function(h){ return cellFor(ds, h); });
+    });
+    memo[key] = g;
+    return g;
+  }
   var CLS_NAME = { "יא":"י״א 4", "יב":"י״ב 2", "both":"י״א 4 + י״ב 2" };
 
 
@@ -137,7 +172,7 @@
   var EVN = { c:"מחמאה", b:"הערת התנהגות", n:"ללא מחשב נייד", h:"ללא שיעורי בית" };
   var CHECK = [["p", "פיזי"], ["o", "מקוון"], ["v", "קולי"], ["x", "לא התקיים"]];
   var CHECKN = { p:"פיזי", o:"מקוון", v:"קולי", x:"לא התקיים" };
-  var st = { date:"", day:{}, dayLoaded:"", rosters:{}, open:null, marks:{}, events:{}, kind:"p", dirty:false, busy:false, view:"me" };
+  var st = { date:"", day:{}, dayLoaded:"", rosters:{}, open:null, marks:{}, events:{}, kind:"p", dirty:false, busy:false, view:"me", edit:false, edH:null };
   var root = null;
 
   function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]; }); }
@@ -288,9 +323,11 @@
       '<div class="sch-daynav"><button type="button" data-nav="-1" aria-label="יום קודם">→</button>' +
       '<input type="date" id="schDate" value="' + st.date + '" aria-label="בחירת תאריך">' +
       '<button type="button" data-nav="1" aria-label="יום הבא">←</button>' +
-      (isToday(st.date) ? '' : '<button type="button" data-nav="0">היום</button>') + '</div></div>';
+      (isToday(st.date) ? '' : '<button type="button" data-nav="0">היום</button>') +
+      (d <= 4 ? '<button type="button" class="sch-ed-toggle" data-ed-toggle="1" aria-pressed="' + !!st.edit + '">' + (st.edit ? '✓ סיום שינויים' : '✏️ שינוי במערכת') + '</button>' : '') + '</div></div>';
     if(d > 4) return head + '<p class="sch-msg">ביום הזה אין לך שיעורים.</p>';
-    return head + '<ul class="sch-strip">' + wk(st.date)[d].map(function(s, h){ return '<li>' + slotHtml(s, d, h, true) + '</li>'; }).join("") + '</ul>' +
+    if(st.edit) return head + editDayHtml();
+    return head + '<ul class="sch-strip">' + wk(st.date)[d].map(function(s, h){ return s ? '<li>' + slotHtml(s, d, h, true) + '</li>' : ''; }).join("") + '</ul>' +
       '<p class="sch-note">לוחצים על שיעור כדי לסמן נוכחות. כולם מסומנים "נוכח" - מסמנים רק חיסור, איחור או אירוע.</p>';
   }
 
@@ -301,8 +338,9 @@
     }).join("") + '</tr>';
     var rows = HOURS.map(function(h){
       return '<tr><td class="sch-hcol">' + h + '</td>' + DAYS.map(function(_, d){
-        var s = wk(todayIso())[d][h];
-        return '<td' + (d === t ? ' class="is-today"' : '') + '>' + (s ? slotHtml(s, d, h, false) : '') + '</td>';
+        var s = wk(todayIso())[d][h], ed = editAt(dateOfWeekday(d), h);
+        var cls = (d === t ? 'is-today' : '') + (ed ? ' is-ed' : '');
+        return '<td' + (cls ? ' class="' + cls.trim() + '"' : '') + (ed ? ' title="שונה באתר"' : '') + '>' + (s ? slotHtml(s, d, h, false) : (ed ? '<div class="sch-slot k-free"><strong>בוטל / פנוי</strong></div>' : '')) + '</td>';
       }).join("") + '</tr>';
     }).join("");
     return '<div class="sch-wrap"><table class="sch-grid" aria-label="המערכת השבועית"><thead>' + head + '</thead><tbody>' + rows + '</tbody></table></div>';
@@ -335,7 +373,7 @@
           '<li><i class="c-ya"></i>שיעור בי״א 4</li><li><i class="c-yb"></i>שיעור בי״ב 2</li><li><i class="c-both"></i>שתי הכיתות יחד</li>' +
           '<li><i class="k-tutor"></i>פרטני</li><li><i class="k-role"></i>תפקיד / ישיבה</li><li><i class="k-prep"></i>הכנה לבגרות</li>' +
         '</ul>' +
-        '<p class="sch-note">לפי המערכת בסקולי (שבוע רגיל). ביום שישי אין לך שעות. לחיצה על שיעור בטבלה פותחת את הנוכחות שלו בשבוע הנוכחי.</p>';
+        '<p class="sch-note">לפי המערכת בסקולי (שבוע רגיל), כולל השינויים שהכנסת באתר (מסומנים במסגרת מקווקוות). ביום שישי אין לך שעות. לחיצה על שיעור בטבלה פותחת את הנוכחות שלו בשבוע הנוכחי.</p>' + editsListHtml();
     return '<h3>המערכת של ' + CLS_NAME[st.view] + '</h3>' + tabs + classGridHtml(st.view) +
       '<ul class="sch-legend" aria-label="מקרא"><li><i class="' + (st.view === "יב" ? "c-yb" : "c-ya") + '"></i>השיעורים שלך</li><li><i class="c-cls"></i>שיעור לכל הכיתה</li><li><i class="c-grp"></i>הקבצות ומגמות (כמה קבוצות במקביל)</li></ul>' +
       '<p class="sch-note">לפי המערכת של הכיתה בסקולי (שבוע רגיל), בלי שמות המורים.' + ' עודכן ל-8.11.2026.' + '</p>';
@@ -352,7 +390,7 @@
     var d = wd(st.date), rows = [];
     if(d > 4) return rows;
     wk(st.date)[d].forEach(function(s, h){
-      if(s.kind !== "lesson") return;
+      if(!s || s.kind !== "lesson") return;
       clsList(s).forEach(function(k){
         var e = st.day[h + "|" + k], a = [], l = [], ev = [];
         var abc = function(x, y){ return x.localeCompare(y, "he"); };
@@ -471,6 +509,129 @@
       '<button type="button" class="sch-btn sch-x" data-act="close">סגירה</button></div>' + body + '</section>';
   }
 
+  /* ---------- מצב "שינוי במערכת" ---------- */
+  var ED_KINDS = [["lesson", "שיעור בכיתה"], ["tutor", "פרטני"], ["role", "תפקיד / שיחות אישיות"], ["meet", "ישיבה"], ["prep", "הכנה לבגרות"], ["free", "שעה פנויה / בוטל"]];
+  var ED_SUBJ = ['תנ"ך', 'תושב"ע', "עברית", "מחשבת ישראל", "היסטוריה", "מכינה לחיים", "תפילה ופתיחת יום", "פרטני", "תפקיד", "שיחות אישיות", "ישיבת צוות", "ישיבת הנהלה", "הכנה לבגרות"];
+  var ED_DEF = { tutor:"פרטני", role:"תפקיד", meet:"ישיבה", prep:"הכנה לבגרות" };
+  var DAYN = ["ראשון", "שני", "שלישי", "רביעי", "חמישי"];
+  function short(ds){ var x = parse(ds); return x.getDate() + "." + (x.getMonth() + 1); }
+  function editDayHtml(){
+    var date = st.date;
+    return '<p class="sch-note">בוחרים שעה ומשנים אותה. השינוי נשמר באתר בלבד - בסקולי לא משתנה כלום.</p>' +
+      '<ul class="sch-strip sch-edit">' + HOURS.map(function(h){
+        var s = cellFor(date, h), ed = editAt(date, h);
+        return '<li><button type="button" class="sch-slot ' + (s ? tone(s) : 'k-free') + (st.edH === h ? ' is-open' : '') + (ed ? ' is-ed' : '') + '" data-ed-h="' + h + '" aria-label="שינוי שעה ' + h + '">' +
+          '<span class="sch-h">שעה ' + h + '</span><strong>' + (s ? esc(s.subject) : 'שעה פנויה') + '</strong>' + (s && chip(s) ? '<small>' + esc(chip(s)) + '</small>' : '') +
+          (ed ? '<span class="sch-badge">✎ ' + (ed.type === "once" ? 'רק ביום הזה' : 'קבוע מ-' + short(ed.e.from)) + '</span>' : '') + '</button></li>';
+      }).join("") + '</ul>' + editFormHtml() + '<p class="sch-msg" id="schEdMsg" role="status" aria-live="polite"></p>';
+  }
+  function editFormHtml(){
+    var h = st.edH; if(h === null || h === undefined) return "";
+    var date = st.date, s = cellFor(date, h), ed = editAt(date, h), kind = s ? s.kind : "free";
+    var opt = function(list, cur){ return list.map(function(x){ return '<option value="' + x[0] + '"' + (x[0] === cur ? ' selected' : '') + '>' + x[1] + '</option>'; }).join(""); };
+    return '<form class="sch-edform" id="schEdForm" onsubmit="return false" aria-label="שינוי שעה ' + h + '">' +
+      '<h4>שעה ' + h + ' · ' + nice(date) + '</h4>' +
+      '<label>מה יש בשעה הזו?<select id="schEdKind">' + opt(ED_KINDS, kind) + '</select></label>' +
+      '<label data-ed-f="subj"' + (kind === "free" ? ' hidden' : '') + '>מקצוע / שם<input id="schEdSubj" list="schEdList" maxlength="40" value="' + esc(s ? s.subject : '') + '"></label>' +
+      '<datalist id="schEdList">' + ED_SUBJ.map(function(x){ return '<option value="' + esc(x) + '">'; }).join("") + '</datalist>' +
+      '<label data-ed-f="cls"' + (kind === "lesson" ? '' : ' hidden') + '>כיתה<select id="schEdCls">' + opt([["יא", CLS_NAME["יא"]], ["יב", CLS_NAME["יב"]], ["both", "שתי הכיתות יחד"]], s && s.cls ? s.cls : "יא") + '</select></label>' +
+      '<label data-ed-f="note"' + (kind === "free" ? ' hidden' : '') + '>הערה (לא חובה)<input id="schEdNote" maxlength="60" value="' + esc(s && s.note ? s.note : '') + '"></label>' +
+      '<fieldset><legend>לכמה זמן?</legend>' +
+        '<label><input type="radio" name="schEdScope" value="once"' + (ed && ed.type === "perm" ? '' : ' checked') + '> רק ב' + nice(date) + ' (ביטול, החלפה, טיול)</label>' +
+        '<label><input type="radio" name="schEdScope" value="perm"' + (ed && ed.type === "perm" ? ' checked' : '') + '> קבוע - מ-' + short(date) + ' והלאה, בכל יום ' + DAYN[wd(date)] + '</label>' +
+      '</fieldset>' +
+      '<div class="sch-edbtns"><button type="button" class="is-main" data-ed-act="save">שמירה</button><button type="button" data-ed-act="cancel">ביטול</button>' +
+        (ed ? '<button type="button" data-ed-act="reset">↺ החזרה למה שהיה</button>' : '') + '</div></form>';
+  }
+  function editsListHtml(){
+    var n = edits.perm.length + edits.once.length; if(!n) return "";
+    var cellTxt = function(c){ return c ? c.subject + (c.kind === "lesson" ? " (" + CLS_NAME[c.cls] + ")" : "") : "שעה פנויה / בוטל"; };
+    var once = edits.once.map(function(e, i){ return { k:"once:" + i, sort:e.date, t:nice(e.date) + " · שעה " + e.h + ": " + cellTxt(e.cell) + " - רק ביום הזה" }; });
+    var perm = edits.perm.map(function(e, i){ return { k:"perm:" + i, sort:e.from, t:"מ-" + short(e.from) + ", כל יום " + DAYN[e.d] + " · שעה " + e.h + ": " + cellTxt(e.cell) + " - קבוע" }; });
+    var all = perm.concat(once).sort(function(a, b){ return a.sort < b.sort ? 1 : -1; });
+    return '<details class="sch-edlist"><summary>✎ שינויים שהכנסתי באתר (' + n + ')</summary><ul>' + all.map(function(x){
+      return '<li><span>' + esc(x.t) + '</span><button type="button" data-ed-del="' + x.k + '" aria-label="מחיקת השינוי: ' + esc(x.t) + '">🗑️ מחיקה</button></li>';
+    }).join("") + '</ul></details>';
+  }
+  function edMsg(text, kind){ var m = document.getElementById("schEdMsg") || document.getElementById("schMsg"); if(m){ m.textContent = text; m.className = "sch-msg" + (kind ? " is-" + kind : ""); } }
+  function saveEdits(next, done){
+    if(st.busy) return;
+    st.busy = true; edMsg("שומר…");
+    post({ action:"schedEditsSave", edits:next }).then(function(r){
+      st.busy = false; setEdits(r.edits || next); st.edH = null; render(); edMsg(done || "✓ נשמר.", "ok");
+    }).catch(function(e){
+      st.busy = false;
+      edMsg(/פעולה לא מוכרת/.test(e.message) ? "השינוי לא נשמר: צריך לעדכן את Code.gs ב-Apps Script לגרסה עם שינויי המערכת." : "השינוי לא נשמר: " + e.message, "err");
+    });
+  }
+  function edVal(id){ var x = document.getElementById(id); return x ? String(x.value || "").trim() : ""; }
+  function edSave(){
+    var h = st.edH, date = st.date, kind = edVal("schEdKind"), cell = null;
+    if(kind !== "free"){
+      var subj = edVal("schEdSubj");
+      if(!subj){ edMsg("כתבו מקצוע או שם לשעה הזו.", "err"); var f = document.getElementById("schEdSubj"); if(f) f.focus(); return; }
+      cell = { kind:kind, subject:subj, note:edVal("schEdNote") };
+      if(kind === "lesson") cell.cls = edVal("schEdCls") || "יא";
+    }
+    var scope = (root.querySelector('input[name="schEdScope"]:checked') || {}).value || "once", d = wd(date);
+    var next = { perm:edits.perm.slice(), once:edits.once.filter(function(e){ return !(e.date === date && e.h === h); }) };
+    if(scope === "perm"){
+      next.perm = next.perm.filter(function(e){ return !(e.d === d && e.h === h && e.from === date); });
+      next.perm.push({ from:date, d:d, h:h, cell:cell });
+    } else next.once.push({ date:date, h:h, cell:cell });
+    saveEdits(next, scope === "perm" ? "✓ נשמר: מ-" + short(date) + " והלאה, בכל יום " + DAYN[d] + "." : "✓ נשמר ל" + nice(date) + ".");
+  }
+  function edReset(){
+    var h = st.edH, date = st.date, ed = editAt(date, h); if(!ed) return;
+    var next = { perm:edits.perm.slice(), once:edits.once.slice() };
+    if(ed.type === "once") next.once = next.once.filter(function(e){ return e !== ed.e; });
+    else {
+      if(ed.e.from !== date && !confirm("זה שינוי קבוע מ-" + short(ed.e.from) + ". למחוק אותו לכל השבועות?")) return;
+      next.perm = next.perm.filter(function(e){ return e !== ed.e; });
+    }
+    saveEdits(next, "✓ השעה חזרה למה שהיה.");
+  }
+  function edDelete(key){
+    var p = key.split(":"), list = p[0] === "perm" ? edits.perm : edits.once, item = list[+p[1]];
+    if(!item || !confirm("למחוק את השינוי הזה?")) return;
+    var next = { perm:edits.perm.filter(function(e){ return e !== item; }), once:edits.once.filter(function(e){ return e !== item; }) };
+    saveEdits(next, "✓ השינוי נמחק.");
+  }
+  function loadEdits(){
+    post({ action:"schedEditsGet" }).then(function(r){
+      var before = JSON.stringify(edits);
+      setEdits(r.edits);
+      if(JSON.stringify(edits) !== before && root) render();
+    }).catch(function(){ /* שרת ישן או אין חיבור - ממשיכים עם מה שנשמר במכשיר */ });
+  }
+  function edCss(){
+    if(document.getElementById("bmSchedEdCss")) return;
+    var el = document.createElement("style"); el.id = "bmSchedEdCss";
+    el.textContent =
+      ".sch-ed-toggle{margin-inline-start:6px;font-weight:700}" +
+      ".sch-ed-toggle[aria-pressed=true]{background:#0B2A5B!important;color:#fff!important;border-color:#0B2A5B!important}" +
+      ".sch-edit .sch-slot{cursor:pointer;width:100%;text-align:inherit;font:inherit}" +
+      ".sch-slot.k-free{background:#fff;border:1.5px dashed #AEBBD3;color:#56637A}" +
+      ".sch-slot.is-ed,td.is-ed .sch-slot{outline:2px dashed #E8650C;outline-offset:-3px}" +
+      ".sch-edform{margin:14px 0;padding:16px;border:2px solid #0B2A5B;border-radius:14px;background:#F5F8FD;display:grid;gap:10px;max-width:520px}" +
+      ".sch-edform h4{margin:0;color:#0B2A5B;font-size:1.05rem}" +
+      ".sch-edform label{display:grid;gap:4px;font-weight:600;color:#0B2A5B}" +
+      ".sch-edform label[hidden]{display:none}" +
+      ".sch-edform select,.sch-edform input:not([type=radio]){font:inherit;min-height:44px;padding:8px 10px;border:1px solid #C6D2E6;border-radius:8px;background:#fff;color:#0E1B33;box-sizing:border-box;width:100%}" +
+      ".sch-edform fieldset{border:1px solid #C6D2E6;border-radius:10px;padding:8px 12px;margin:0;display:grid;gap:6px}" +
+      ".sch-edform fieldset label{display:flex;align-items:center;gap:8px;font-weight:500}" +
+      ".sch-edform legend{font-weight:700;color:#0B2A5B;padding:0 4px}" +
+      ".sch-edbtns{display:flex;flex-wrap:wrap;gap:8px}" +
+      ".sch-edbtns button,.sch-edlist button{font:inherit;min-height:44px;padding:8px 16px;border-radius:10px;border:1.5px solid #0B2A5B;background:#fff;color:#0B2A5B;font-weight:700;cursor:pointer}" +
+      ".sch-edbtns button.is-main{background:#0B2A5B;color:#fff}" +
+      ".sch-edlist{margin-top:14px}.sch-edlist summary{cursor:pointer;font-weight:700;color:#0B2A5B;min-height:44px;display:flex;align-items:center}" +
+      ".sch-edlist ul{list-style:none;padding:0;margin:8px 0;display:grid;gap:6px}" +
+      ".sch-edlist li{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;border:1px solid #DCE4F1;border-radius:10px;background:#fff}" +
+      ".sch-edlist li span{min-width:0;overflow-wrap:anywhere}" +
+      ".sch-edit .sch-slot:focus-visible,.sch-edform :focus-visible,.sch-edlist button:focus-visible{outline:3px solid #FF7A1A;outline-offset:2px}";
+    document.head.appendChild(el);
+  }
+
   function render(focusSel){
     root.innerHTML =
       '<div class="sch">' +
@@ -558,6 +719,17 @@
     root.addEventListener("click", function(e){
       var b = e.target.closest("button"); if(!b || !root.contains(b)) return;
       if(b.hasAttribute("data-view")){ st.view = b.getAttribute("data-view"); render('[data-view="' + st.view + '"]'); return; }
+      if(b.hasAttribute("data-ed-toggle")){
+        if(!st.edit && st.dirty && !confirm("יש נוכחות שלא נשמרה. לעבור לשינוי המערכת בכל זאת?")) return;
+        st.edit = !st.edit; st.edH = null; st.open = null; st.dirty = false; render(".sch-ed-toggle"); return;
+      }
+      if(b.hasAttribute("data-ed-h")){ var eh = +b.getAttribute("data-ed-h"); st.edH = st.edH === eh ? null : eh; render(st.edH === null ? '[data-ed-h="' + eh + '"]' : "#schEdKind"); return; }
+      if(b.hasAttribute("data-ed-act")){
+        var ea = b.getAttribute("data-ed-act");
+        if(ea === "save") edSave(); else if(ea === "reset") edReset(); else { var back = st.edH; st.edH = null; render('[data-ed-h="' + back + '"]'); }
+        return;
+      }
+      if(b.hasAttribute("data-ed-del")){ edDelete(b.getAttribute("data-ed-del")); return; }
       if(b.hasAttribute("data-e")){
         var ek = b.getAttribute("data-k"), en = b.getAttribute("data-n"), code = b.getAttribute("data-e");
         var arr = st.events[ek][en] || (st.events[ek][en] = []), at = arr.indexOf(code);
@@ -592,6 +764,17 @@
     root.addEventListener("change", function(e){
       var t = e.target;
       if(t.id === "schDate" && /^\d{4}-\d{2}-\d{2}$/.test(t.value)){ setDate(t.value); return; }
+      if(t.id === "schEdKind"){
+        var fk = t.value, form = document.getElementById("schEdForm");
+        if(form){
+          form.querySelector('[data-ed-f="subj"]').hidden = fk === "free";
+          form.querySelector('[data-ed-f="note"]').hidden = fk === "free";
+          form.querySelector('[data-ed-f="cls"]').hidden = fk !== "lesson";
+          var sj = document.getElementById("schEdSubj");
+          if(sj && ED_DEF[fk] && (!sj.value || /^(פרטני|תפקיד|ישיבה|הכנה לבגרות)$/.test(sj.value))) sj.value = ED_DEF[fk];
+        }
+        return;
+      }
       if(t.name === "schKind"){ st.kind = t.value; st.dirty = true; render('input[name="schKind"]:checked'); msg("יש שינויים שלא נשמרו."); return; }
       if(t.type === "radio" && t.hasAttribute("data-k")){
         var k = t.getAttribute("data-k"), n = t.getAttribute("data-n");
@@ -608,9 +791,9 @@
   function mount(el){
     if(!el || el.dataset.schMounted) return;
     el.dataset.schMounted = "1";
-    root = el; css(); bind();
+    root = el; css(); edCss(); bind();
     st.date = iso(new Date());
-    render(); loadDay();
+    render(); loadDay(); loadEdits();
   }
 
   window.BM_MY_SCHEDULE = { mount:mount, week:WEEK, days:DAYS, clsName:CLS_NAME, classes:CLASSES, weekFor:wk };
