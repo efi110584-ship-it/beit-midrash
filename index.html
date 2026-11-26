@@ -1104,12 +1104,14 @@
         if(ex && !/exam/.test(t.value)) t.value = ex.value;
       }
     });
-    /* דף מבחן - תמיד מצב מבחן מחמיר: מסומן מעצמו, עם שעות מעכשיו ולשעה וחצי */
+    /* דף מבחן: "מבחן" מסומן מעצמו כשבוחרים את הדף, עם שעות מעכשיו ולשעה וחצי.
+       אפשר להוריד את הסימון - ואז הדף נפתח כשיעור רגיל (תרגול / חזרה), בלי שעות, נעילה ובקרה. */
     function isExamUrl(u){ u = String(u || "").split("#")[0]; return /(^|-)(exam|final-test)(-|\.)/.test(u) && !/-answers\.html$/.test(u); }
-    function examAutoOld(){
+    function examAutoOld(e){
       if(!isExamUrl(target.value)) return;
       var chk = document.getElementById("ttLessonExam"), f = document.getElementById("ttExamFrom"), to = document.getElementById("ttExamTo");
-      chk.checked = true; document.getElementById("ttLessonExamTimes").style.display = "flex";
+      if(e && e.type === "change"){ chk.checked = true; document.getElementById("ttLessonExamTimes").style.display = "flex"; }
+      if(!chk.checked) return;
       var hh = function(d){ return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0"); };
       var a = new Date(Date.now() + 2 * 60000);
       if(!f.value) f.value = hh(a);
@@ -1123,9 +1125,11 @@
       var monitorCls = document.getElementById("ttLessonMonitor").value;
       var monitor = !!monitorCls;
       var exam = null;
+      var practice = isExamUrl(opt.value) && !document.getElementById("ttLessonExam").checked;
+      if(practice && !confirm("לפתוח את המבחן כשיעור רגיל?\nבלי שעת סגירה, בלי מסך מלא ובלי שליחה אוטומטית - התלמידים פשוט עובדים על הדף.\n(כדי לפתוח כמבחן - סמנו \"📝 מבחן\".)")) return;
       if(document.getElementById("ttLessonExam").checked){
         var tf = document.getElementById("ttExamFrom").value, tt = document.getElementById("ttExamTo").value;
-        if(!monitor){ out.innerHTML = '<p class="tt-msg">' + (isExamUrl(opt.value) ? 'מבחן נפתח תמיד במצב מחמיר עם בקרה - בחרו כיתה ב"בקרת שיעור".' : 'למבחן עם שעות צריך לבחור כיתה ב"בקרת שיעור".') + '</p>'; return; }
+        if(!monitor){ out.innerHTML = '<p class="tt-msg">' + (isExamUrl(opt.value) ? 'מבחן עם שעות צריך בקרה - בחרו כיתה ב"בקרת שיעור". כדי לפתוח את הדף כשיעור רגיל (בלי שעות ובלי בקרה) - הורידו את הסימון "📝 מבחן".' : 'למבחן עם שעות צריך לבחור כיתה ב"בקרת שיעור".') + '</p>'; return; }
         if(!tf || !tt){ out.innerHTML = '<p class="tt-msg">כתבו שעת פתיחה ושעת סגירה למבחן.</p>'; return; }
         var at = function(v){ var d = new Date(), m = v.split(":"); d.setHours(+m[0], +m[1], 0, 0); return d.getTime(); };
         exam = { s:at(tf), e:at(tt) };
@@ -1134,8 +1138,11 @@
       }
       out.innerHTML = '<p class="tt-msg">יוצרים קוד…</p>';
       apiPost({ action:"createLesson", password:teacherToken(), url:opt.value, label:opt.getAttribute("data-label"),
-                monitor:monitor, cls:monitorCls, exam:exam }).then(function(res){
+                monitor:monitor, cls:monitorCls, exam:exam, practice:practice }).then(function(res){
         if(handleAuthFailure(res)) return;
+        if(practice && res && !res.ok && /תמיד עם בקרה/.test(res.error || "")){
+          out.innerHTML = '<p class="tt-msg">כדי לפתוח מבחן כשיעור רגיל צריך קודם לעדכן את Code.gs ב-Apps Script (הגרסה החדשה) ולפרסם גרסה חדשה.</p>'; return;
+        }
         if(res && res.ok && exam && !res.exam){
           out.innerHTML = '<p class="tt-msg">⚠️ הקוד ' + escapeHtml(res.code) + ' נוצר, אבל <b>בלי שעות המבחן</b>: צריך קודם להדביק את הקוד החדש ב-Apps Script ולפרסם גרסה חדשה. אחר כך בטלו את הקוד הזה וצרו קוד חדש.</p>';
           loadLessons(); return;

@@ -152,7 +152,7 @@ function doPost(e) {
       case 'setAnnouncement': return json_(setAnnouncement_(data.text));
       case 'examSave':        return json_(examSave_(data));
       case 'examDelete':      return json_(examDelete_(data.id));
-      case 'createLesson':    return json_(createLesson_(data.url, data.label, data.monitor === true, data.cls, data.exam));
+      case 'createLesson':    return json_(createLesson_(data.url, data.label, data.monitor === true, data.cls, data.exam, data.practice === true));
       case 'examCollect':     return json_(examCollect_(data.code, 20));
       case 'examReopen':      return json_(examReopen_(data.code, data.sid));
       case 'presenceList':    return json_(presenceList_(data.code));
@@ -1006,11 +1006,13 @@ function isExamPage_(url) {
   var f = String(url || '').split('#')[0];
   return /(^|-)(exam|final-test)(-|\.)/.test(f) && !/-answers\.html$/.test(f);
 }
-function createLesson_(url, label, monitor, cls, exam) {
+function createLesson_(url, label, monitor, cls, exam, practice) {
   url = String(url || '').trim();
   if (!/^[\w.-]+\.html(#[\w-]+)?$/.test(url)) return { ok: false, error: 'כתובת עמוד לא תקינה' };
   cls = normClass_(cls);
-  if (isExamPage_(url)) {
+  // practice - המורה ביקש במפורש לפתוח דף מבחן כשיעור רגיל (תרגול / חזרה): בלי שעות, בלי נעילה ובלי חובת בקרה
+  if (isExamPage_(url) && practice === true) exam = null;
+  if (isExamPage_(url) && practice !== true) {
     if (!monitor) return { ok: false, error: 'מבחן נפתח תמיד עם בקרה - בחרו כיתה (י"א או י"ב)' };
     // לא נבחרו שעות - המבחן נפתח עכשיו ונסגר בעוד שעתיים (מצב מבחן מחמיר תמיד)
     if (!exam) { var n0 = Date.now(); exam = { s: n0, e: n0 + 2 * 3600 * 1000 }; }
