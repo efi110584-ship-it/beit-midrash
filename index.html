@@ -1030,7 +1030,9 @@
   }
 
   var board = { rows:[], q:"", subj:"all", status:"all", unit:"all", topic:"all", sort:{ key:"date", dir:-1 }, group:true, collapsed:{} };
-  try{ board.group = localStorage.getItem("bm-board-group") !== "0"; }catch(e){}
+  /* ברירת המחדל: "רשימה אחת" - העבודה האחרונה שנשלחה תמיד ראשונה. "לפי נושא" נשאר כאפשרות (ונזכר במכשיר) */
+  board.group = false;
+  try{ board.group = localStorage.getItem("bm-board-group-v2") === "1"; }catch(e){}
   var SUBJ_CLASS = { 'תנ"ך':"tnk", 'תושב"ע':"tsb", "עברית":"heb", "היסטוריה":"hist" };
   var GRADER_URL = "https://claude.ai/artifact/LBkf1QEDC5gAgWmVHCMCmr";   /* דף הבדיקה עם Claude (פרטי למורה) */
   var STATUS_INFO = {
@@ -1816,7 +1818,7 @@
     Array.prototype.forEach.call(document.querySelectorAll("[data-group-view]"), function(b){
       b.addEventListener("click", function(){
         board.group = b.getAttribute("data-group-view") === "1";
-        try{ localStorage.setItem("bm-board-group", board.group ? "1" : "0"); }catch(e){}
+        try{ localStorage.setItem("bm-board-group-v2", board.group ? "1" : "0"); }catch(e){}
         renderBoard();
       });
     });
@@ -2407,7 +2409,7 @@
     }
     function cmp(a, b){
       var k = board.sort.key, d = board.sort.dir, x, y;
-      if(k === "date"){ x = dateKey(a); y = dateKey(b); }
+      if(k === "date"){ if(a.time && b.time){ x = a.time; y = b.time; } else { x = dateKey(a); y = dateKey(b); } }
       else if(k === "grade"){ x = gradeKey(a); y = gradeKey(b); }
       else if(k === "fbg"){ x = a.fbg !== "" ? Number(a.fbg) : -1; y = b.fbg !== "" ? Number(b.fbg) : -1; }
       else if(k === "status"){ x = STATUS_ORDER[a.status] || 0; y = STATUS_ORDER[b.status] || 0; }
@@ -2418,10 +2420,13 @@
     }
     function groupKey(r){ return r.unit + "||" + (r.topic || r.task); }
     if(board.group){
+      /* "לפי נושא": הנושא שבו נשלחה העבודה האחרונה - ראשון. בתוך כל נושא - לפי המיון שנבחר (ברירת מחדל: החדשה ראשונה) */
+      var latest = {};
+      shown.forEach(function(r){ var g = groupKey(r); if(!latest[g] || (r.time || 0) > latest[g]) latest[g] = r.time || 0; });
       shown.sort(function(a, b){
-        return (orderOf(unitOrder, a.unit) - orderOf(unitOrder, b.unit)) || a.unit.localeCompare(b.unit, "he") ||
-          (orderOf(topicOrderOf(a.unit), a.topic) - orderOf(topicOrderOf(b.unit), b.topic)) || String(a.topic || a.task).localeCompare(String(b.topic || b.task), "he") ||
-          cmp(a, b);
+        var ga = groupKey(a), gb = groupKey(b);
+        if(ga !== gb) return (latest[gb] - latest[ga]) || ga.localeCompare(gb, "he");
+        return cmp(a, b);
       });
     } else {
       shown.sort(cmp);
