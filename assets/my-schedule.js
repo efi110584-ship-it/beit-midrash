@@ -209,11 +209,12 @@
 
   /* כמו בדיווח הנוכחות בסקולי */
   var MARK = { a:"חיסור", p:"נוכח", l:"איחור" };
+  var STICON = { a:"✗", p:"✓", l:"⏱" }, NEXT = { p:"a", a:"l", l:"p" };
   var EV = [["c", "⭐ מחמאה"], ["b", "הערת התנהגות"], ["n", "ללא מחשב נייד"], ["h", "ללא שיעורי בית"]];
   var EVN = { c:"מחמאה", b:"הערת התנהגות", n:"ללא מחשב נייד", h:"ללא שיעורי בית" };
   var CHECK = [["p", "פיזי"], ["o", "מקוון"], ["v", "קולי"], ["x", "לא התקיים"]];
   var CHECKN = { p:"פיזי", o:"מקוון", v:"קולי", x:"לא התקיים" };
-  var st = { date:"", day:{}, dayLoaded:"", rosters:{}, open:null, marks:{}, events:{}, kind:"p", dirty:false, busy:false, view:"me", edit:false, edH:null, cedit:false, ced:null };
+  var st = { date:"", day:{}, dayLoaded:"", rosters:{}, open:null, marks:{}, events:{}, kind:"p", dirty:false, busy:false, view:"me", edit:false, edH:null, cedit:false, ced:null, evOpen:{} };
   var root = null;
 
   function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]; }); }
@@ -250,7 +251,7 @@
       ".sch h3{font-family:'Rubik','Heebo',sans-serif;margin:0 0 10px;font-size:1.2rem}" +
       ".sch-today{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin:0 0 18px}" +
       ".sch-today-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 12px}.sch-today-h h3{margin:0}" +
-      ".sch-daynav{display:flex;align-items:center;gap:6px;margin-inline-start:auto}" +
+      ".sch-daynav{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-inline-start:auto;max-width:100%}" +
       ".sch-daynav button,.sch-btn{font:inherit;border:1px solid var(--line);background:#fff;border-radius:10px;padding:7px 12px;cursor:pointer;color:var(--ink)}" +
       ".sch-daynav button:hover,.sch-btn:hover{border-color:#B8C7E0}" +
       ".sch-daynav input{font:inherit;border:1px solid var(--line);border-radius:10px;padding:6px 8px}" +
@@ -274,7 +275,7 @@
       ".sch-count span{border-radius:999px;padding:4px 12px;font-weight:700;font-variant-numeric:tabular-nums}" +
       ".sch-count .n-p{background:#E7F5EE;color:var(--ok)}.sch-count .n-l{background:#FFF1DC;color:var(--late)}.sch-count .n-a{background:#FDECEA;color:var(--abs)}" +
       ".sch-cls-h{font-family:'Rubik','Heebo',sans-serif;font-size:1.02rem;margin:14px 0 6px}" +
-      ".sch-names{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:0 22px}" +
+      ".sch-names{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:0 22px}" +
       ".sch-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #EEF2F8}" +
       ".sch-row .sch-nm{flex:1;min-width:0;font-weight:600}" +
       ".sch-row .sch-pc{font-size:.8rem;color:var(--ok);font-weight:700;margin-inline-start:4px}" +
@@ -319,7 +320,15 @@
       ".sch-steps{margin:12px 0 0;padding-inline-start:20px;color:var(--ink);font-size:.92rem;line-height:1.6}" +
       ".sch-kind{display:flex;flex-wrap:wrap;align-items:center;gap:6px 14px;margin:0 0 12px;font-size:.92rem}.sch-kind b{color:var(--mute);font-weight:600}" +
       ".sch-kind label{display:inline-flex;align-items:center;gap:5px;cursor:pointer}" +
-      ".sch-row{flex-wrap:wrap}.sch-evs{display:flex;flex-wrap:wrap;gap:4px;flex-basis:100%;padding:2px 0 2px}" +
+      ".sch-row{flex-wrap:wrap;padding:3px 0}.sch-evs{display:flex;flex-wrap:wrap;gap:4px;flex-basis:100%;padding:4px 0 6px}.sch-evs[hidden]{display:none}" +
+      ".sch-tap{flex:1;min-width:0;display:flex;align-items:center;gap:8px;font:inherit;text-align:start;background:none;border:0;padding:8px 6px;border-radius:10px;cursor:pointer;color:var(--ink)}" +
+      ".sch-tap:hover{background:#F4F7FD}.sch-tap:focus-visible,.sch-more:focus-visible{outline:3px solid #FF7A1A;outline-offset:1px}" +
+      ".sch-st{flex:none;border-radius:999px;padding:3px 11px;font-size:.86rem;font-weight:700;min-width:76px;text-align:center;background:#E7F5EE;color:var(--ok)}" +
+      ".sch-row.is-a .sch-st{background:#FAD7D3;color:var(--abs)}.sch-row.is-l .sch-st{background:#FFE7C2;color:var(--late)}" +
+      ".sch-row.is-a{background:#FFF7F6}.sch-row.is-l{background:#FFFAF2}" +
+      ".sch-more{flex:none;font:inherit;font-weight:700;border:1px solid var(--line);background:#fff;color:var(--mute);border-radius:10px;padding:5px 10px;cursor:pointer;min-width:40px}" +
+      ".sch-more.has-ev{background:#EEF3FB;border-color:#7F95BE;color:#0B2A5B}.sch-more[aria-expanded=true]{border-color:#0B2A5B}" +
+      ".sch-hint{margin:0 0 8px}" +
       ".sch-ev{font:inherit;font-size:.78rem;border:1px solid var(--line);background:#fff;color:var(--mute);border-radius:999px;padding:3px 9px;cursor:pointer}" +
       ".sch-ev[aria-pressed=true]{background:#EEF3FB;border-color:#7F95BE;color:#0B2A5B;font-weight:700}" +
       ".sch-ev[data-e=c][aria-pressed=true]{background:#E4F3EF;border-color:#7CC3AE;color:var(--ya)}" +
@@ -537,18 +546,19 @@
       }).join("") + '</div>';
       if(st.kind === "x") body = kind + '<p class="sch-msg">השיעור יסומן "לא התקיים" - בלי נוכחות.</p>';
       else body = kind + '<div class="sch-count" aria-live="polite">' + countHtml() + '</div>' +
-        '<div class="sch-tools"><button type="button" class="sch-btn" data-act="site">💻 חיסור לכל מי שלא נכנס לשיעור באתר</button><button type="button" class="sch-btn" data-act="all">כולם נוכחים, בלי אירועים</button></div>' +
+        '<p class="sch-note sch-hint">נגיעה בשם מחליפה: נוכח ← חיסור ← איחור. ⋯ = מחמאה / הערה / בלי מחשב / בלי ש"ב.</p><div class="sch-tools"><button type="button" class="sch-btn" data-act="site">💻 חיסור לכל מי שלא נכנס לשיעור באתר</button><button type="button" class="sch-btn" data-act="all">כולם נוכחים, בלי אירועים</button></div>' +
         o.cls.map(function(k){
           var names = st.rosters[k] || [];
           var list = !names.length ? '<p class="sch-msg is-err">אין רשימה שמורה לכיתה ' + CLS_NAME[k] + '. מעלים אותה ב"ניהול שיעור" ← "ניהול רשימות הכיתה".</p>' :
             '<ul class="sch-names">' + names.map(function(n, i){
-              var v = st.marks[k][n] || "p", id = "sch-" + k + "-" + i;
-              return '<li class="sch-row is-' + v + '"><span class="sch-nm" id="' + id + '">' + esc(n) + (o.site && o.site[nk(n)] ? '<span class="sch-pc" title="נכנס לשיעור באתר">💻</span>' : '') + '</span>' +
-                '<span class="sch-seg" role="radiogroup" aria-labelledby="' + id + '">' + ["a", "p", "l"].map(function(m){
-                  return '<label><input type="radio" name="' + id + '" value="' + m + '" data-k="' + k + '" data-n="' + esc(n) + '"' + (v === m ? ' checked' : '') + '><span>' + MARK[m] + '</span></label>';
-                }).join("") + '</span>' +
-                '<span class="sch-evs">' + EV.map(function(x){
-                  var on = (st.events[k][n] || []).indexOf(x[0]) >= 0;
+              var v = st.marks[k][n] || "p", key = k + "|" + n, evs = st.events[k][n] || [], open = !!st.evOpen[key];
+              return '<li class="sch-row is-' + v + '">' +
+                '<button type="button" class="sch-tap" data-tap data-k="' + k + '" data-n="' + esc(n) + '" aria-label="' + esc(n) + ': ' + MARK[v] + '. לחיצה מחליפה מצב">' +
+                  '<span class="sch-nm">' + esc(n) + (o.site && o.site[nk(n)] ? '<span class="sch-pc" title="נכנס לשיעור באתר">💻</span>' : '') + '</span>' +
+                  '<span class="sch-st">' + STICON[v] + ' ' + MARK[v] + '</span></button>' +
+                '<button type="button" class="sch-more' + (evs.length ? ' has-ev' : '') + '" data-more data-k="' + k + '" data-n="' + esc(n) + '" aria-expanded="' + open + '" aria-label="אירועים: ' + esc(n) + '">' + (evs.length ? evs.length + ' ' : '') + '⋯</button>' +
+                '<span class="sch-evs"' + (open ? '' : ' hidden') + '>' + EV.map(function(x){
+                  var on = evs.indexOf(x[0]) >= 0;
                   return '<button type="button" class="sch-ev" data-e="' + x[0] + '" data-k="' + k + '" data-n="' + esc(n) + '" aria-pressed="' + on + '">' + x[1] + '</button>';
                 }).join("") + '</span></li>';
             }).join("") + '</ul>';
@@ -806,7 +816,7 @@
       events[k] = {}; Object.keys((e && e.e) || {}).forEach(function(n){ events[k][n] = e.e[n].slice(); });
       if(e && e.k) kind = e.k;
     });
-    st.open = { h:h, cls:cls, site:null }; st.marks = marks; st.events = events; st.kind = kind; st.dirty = false;
+    st.open = { h:h, cls:cls, site:null }; st.marks = marks; st.events = events; st.kind = kind; st.dirty = false; st.evOpen = {};
     render();
     Promise.all(cls.map(loadRoster)).then(function(){ if(st.open && st.open.h === h){ render(); var sh = document.getElementById("schSheet"); if(sh) sh.scrollIntoView({ block:"start", behavior:"smooth" }); } });
   }
@@ -876,11 +886,31 @@
         return;
       }
       if(b.hasAttribute("data-ced-del")){ cedDelete(b.getAttribute("data-ced-del")); return; }
+      if(b.hasAttribute("data-tap")){
+        var tk = b.getAttribute("data-k"), tn = b.getAttribute("data-n"), nv = NEXT[st.marks[tk][tn] || "p"];
+        if(nv === "p") delete st.marks[tk][tn]; else st.marks[tk][tn] = nv;
+        st.dirty = true;
+        b.closest(".sch-row").className = "sch-row is-" + nv;
+        b.querySelector(".sch-st").textContent = STICON[nv] + " " + MARK[nv];
+        b.setAttribute("aria-label", tn + ": " + MARK[nv] + ". לחיצה מחליפה מצב");
+        var tc = root.querySelector(".sch-count"); if(tc) tc.innerHTML = countHtml();
+        msg("יש שינויים שלא נשמרו.");
+        return;
+      }
+      if(b.hasAttribute("data-more")){
+        var mkey = b.getAttribute("data-k") + "|" + b.getAttribute("data-n"), mo = !st.evOpen[mkey];
+        if(mo) st.evOpen[mkey] = 1; else delete st.evOpen[mkey];
+        b.setAttribute("aria-expanded", String(mo));
+        var pane = b.parentNode.querySelector(".sch-evs"); if(pane) pane.hidden = !mo;
+        return;
+      }
       if(b.hasAttribute("data-e")){
         var ek = b.getAttribute("data-k"), en = b.getAttribute("data-n"), code = b.getAttribute("data-e");
         var arr = st.events[ek][en] || (st.events[ek][en] = []), at = arr.indexOf(code);
         if(at >= 0) arr.splice(at, 1); else arr.push(code);
         b.setAttribute("aria-pressed", String(at < 0));
+        var mb = b.closest(".sch-row").querySelector(".sch-more");
+        if(mb){ mb.classList.toggle("has-ev", arr.length > 0); mb.textContent = (arr.length ? arr.length + " " : "") + "⋯"; }
         st.dirty = true;
         var cb = root.querySelector(".sch-count"); if(cb) cb.innerHTML = countHtml();
         msg("יש שינויים שלא נשמרו.");
